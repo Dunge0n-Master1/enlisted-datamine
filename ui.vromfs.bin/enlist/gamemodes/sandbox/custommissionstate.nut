@@ -27,7 +27,13 @@ let noModInfo = freeze({ NoModeInfo = null })
 let requestedFiles = Watched({})
 let modDownloadShowProgress = Watched(false)
 let modDownloadMessage = Watched("")
-let reUrlPath = regexp2(@"^https?:\/\/enlisted-sandbox\.gaijin\.net\/post\/\w{16}\/manifest\/.*\/$")
+
+let availDomains = "({0})".subst("|".join([
+  "enlisted-sandbox.gaijin.net"
+  "enlisted-sandbox.gaijin.ops"
+  "sandbox.enlisted.net"
+].map(@(u) u.replace(".", @"\."))))
+let reUrlPath = regexp2(@"^https?:\/\/{0}\/post\/\w{16}\/manifest\/.*\/$".subst(availDomains))
 
 const FILE_REQUESTED = 0
 const FILE_ERROR = 1

@@ -134,6 +134,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   decal__height:r=0.7
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -194,6 +195,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   decal__height:r=0.7
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -223,6 +225,7 @@ entity{
   decal__thickness:r=0.4
   decal__height:r=2.5
   sphere_zone__radius:r=25.0
+  capzone__iconOffsetY:r=1.0
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -238,7 +241,7 @@ entity{
   groupName:t="sector_5"
   capzone__capTime:r=70.0
   capzone__capTeam:i=-1
-  transform:m=[[-7.19019, 0.0, -27.3946] [0.0, 14.8743, 0.0] [27.3946, 0.0, -7.19019] [-113.693, 32.4271, -119.145]]
+  transform:m=[[-7.19019, 0.0, -27.3946] [0.0, 14.8743, 0.0] [27.3946, 0.0, -7.19019] [-113.693, 32.2849, -119.145]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=5
@@ -251,12 +254,12 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=7
   decal__thickness:r=0.4
-  decal__height:r=0.5
+  decal__height:r=0.6
 }
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[-9.40508, 0.0, 12.8541] [0.0, 3.70389, 0.0] [-22.5484, 0.0, -16.5752] [-288.944, 7.47009, -328.18]]
+  transform:m=[[-9.40508, 0.0, 12.8541] [0.0, 3.70389, 0.0] [-22.5484, 0.0, -16.5752] [-288.944, 7.29544, -328.18]]
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
@@ -317,7 +320,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[-0.196833, 0.0, 0.980437] [0.0, 1.0, 0.0] [-0.980437, 0.0, -0.196833] [-351.884, 4.78824, -485.481]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-351.884, 4.78824, -485.481]]
   team:i=2
   respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
@@ -385,6 +388,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=9
   decal__height:r=1.5
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -433,7 +437,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.748874, 0.0, 0.662711] [0.0, 1.0, 0.0] [-0.662711, 0.0, 0.748874] [-336.316, 5.12363, -315.862]]
+  transform:m=[[0.00520156, 0.0, 0.999985] [0.0, 1.0, 0.0] [-0.999985, 0.0, 0.00520156] [-336.316, 5.12363, -315.862]]
   respawnBaseGroup:i=1
   groupName:t="sector_3_b"
   active:b=no
@@ -479,7 +483,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[24.5536, 0.0, 3.08197] [0.0, 3.71804, 0.0] [-2.3617, 0.0, 18.8572] [-211.06, 22.4466, -75.2027]]
+  transform:m=[[24.5536, 0.0, 3.08197] [0.0, 3.71804, 0.0] [-2.3617, 0.0, 18.8572] [-211.06, 22.3847, -75.2027]]
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5_b"
@@ -605,6 +609,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=11
   decal__thickness:r=0.4
   decal__height:r=0.5
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{
@@ -2954,7 +2959,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[-0.196833, 0.0, 0.980437] [0.0, 1.0, 0.0] [-0.980437, 0.0, -0.196833] [-351.884, 4.78824, -485.481]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-351.884, 4.78824, -485.481]]
   team:i=2
   groupName:t="sector_2_b"
 }
@@ -3237,7 +3242,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.196833, 0.0, 0.980437] [0.0, 1.0, 0.0] [-0.980437, 0.0, -0.196833] [-351.884, 4.78824, -485.481]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-351.884, 4.78824, -485.481]]
   resupply_zone__team:i=2
   groupName:t="sector_2_b"
   active:b=no

@@ -1,15 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid
-} = require("state.nut")
-let {
-  manage_squad_soldiers, dismiss_reserve_soldier, update_profile,
-  lastRequests, swap_soldiers_equipment
-} = require("%enlist/meta/clientApi.nut")
+let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid } = require("state.nut")
+let { manage_squad_soldiers, dismiss_reserve_soldier, update_profile,
+  lastRequests, swap_soldiers_equipment } = require("%enlist/meta/clientApi.nut")
 let { allReserveSoldiers } = require("reserve.nut")
-let {
-  READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP, invalidEquipSoldiers
+let { READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP, invalidEquipSoldiers
 } = require("readySoldiers.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let squadsParams = require("squadsParams.nut")
@@ -236,7 +231,7 @@ let function isTransferAvailable(soldier, isFromReserve = false) {
 }
 
 let function sendSoldierActionToBQ(eventType, soldier, squadGuid = "") {
-  let { guid="", level="", sClass="" } = soldier //soldier can be null https://youtrack.gaijin.team/issue/38-29451
+  let { guid, level, sClass } = soldier
   sendBigQueryUIEvent("soldier_management", null, {
     eventType
     squadGuid
@@ -247,7 +242,7 @@ let function sendSoldierActionToBQ(eventType, soldier, squadGuid = "") {
   })
 }
 
-local function changeSoldierOrderByIdx(idxFrom, idxTo) {
+let function changeSoldierOrderByIdx(idxFrom, idxTo) {
   let watchFrom = idxFrom < maxSoldiersInBattle.value ? squadSoldiers : reserveSoldiers
   if (idxFrom >= maxSoldiersInBattle.value)
     idxFrom -= maxSoldiersInBattle.value
@@ -255,7 +250,7 @@ local function changeSoldierOrderByIdx(idxFrom, idxTo) {
   if (idxTo >= maxSoldiersInBattle.value)
     idxTo -= maxSoldiersInBattle.value
   if (watchFrom == watchTo) {
-    sendSoldierActionToBQ("change_order", squadSoldiers.value[idxFrom], soldiersSquadGuid.value)
+    sendSoldierActionToBQ("change_order", watchFrom.value[idxFrom], soldiersSquadGuid.value)
     watchFrom(moveIndex(watchFrom.value, idxFrom, idxTo))
     return
   }

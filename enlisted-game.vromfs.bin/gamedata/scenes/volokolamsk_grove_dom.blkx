@@ -347,6 +347,7 @@ entity{
   decal__height:r=1.5
   decal__thickness:r=0.4
   capzone__acivateRespawnGroup:i=3
+  capzone__iconOffsetY:r=3.0
 }
 
 entity{
@@ -369,6 +370,7 @@ entity{
   decal__height:r=1.0
   decal__thickness:r=0.4
   capzone__acivateRespawnGroup:i=5
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{

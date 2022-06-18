@@ -646,6 +646,7 @@ entity{
   ui_order:i=0
   decal__height:r=2.0
   sphere_zone__radius:r=20.0
+  capzone__iconOffsetY:r=3.7
 }
 
 entity{
@@ -665,6 +666,7 @@ entity{
   sphere_zone__radius:r=20.0
   ui_order:i=2
   decal__height:r=1.0
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{

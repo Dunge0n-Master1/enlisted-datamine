@@ -14,10 +14,16 @@ require GeomNodeTree
 require GamePhys
 
 
-[es(on_appear)]
-def prevpos_created_es(evt : Event;
-                       launch_desc : LaunchDesc;
-                       var projectile__prevPos : float3&)
+[es(on_appear, no_order)]
+def projectile_init_created_es(evt : Event;
+                               eid : EntityId;
+                               launch_desc : LaunchDesc;
+                               var projectile__prevPos : float3&)
+  if int(launch_desc.gunPropsId) < 0
+    logerr("Removed bad projectile entity {eid} created not by gun of template {getEntityTemplateName(eid)}")
+    destroyEntity(eid)
+    return
+
   projectile__prevPos = launch_desc.tm[3]
 
 

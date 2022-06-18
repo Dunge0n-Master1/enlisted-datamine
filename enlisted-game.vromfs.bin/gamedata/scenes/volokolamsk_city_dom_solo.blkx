@@ -307,12 +307,12 @@ entity{
 
 entity{
   _template:t="domination_box_capzone+capzone_projdecal"
-  transform:m=[[-10.6932, 0.0, -24.9572] [0.0, 6.44193, 0.0] [22.4254, 0.0, -9.59181] [-1385.62, 4.99074, 683.379]]
+  transform:m=[[-10.48, 0.0, -25.6328] [0.0, 7.62857, 0.0] [22.5765, 0.0, -9.23046] [-1385.64, 4.18219, 683.49]]
   ui_order:i=1
   capzone__title:t="A"
   capzone__caption:t="capzone/artillery_emplacement"
   decal__thickness:r=0.3
-  decal__height:r=1.5
+  decal__height:r=2.5
 }
 
 entity{

@@ -2857,7 +2857,7 @@ entity{
   groupName:t="sector_2_b"
   capzone__capTime:r=60.0
   capzone__capTeam:i=-1
-  transform:m=[[27.9542, 0.0, 2.46435] [0.0, 6.73632, 0.0] [-2.65393, 0.0, 30.1047] [-135.49, 20.3987, 1067.55]]
+  transform:m=[[27.9542, 0.0, 2.46435] [0.0, 7.5496, 0.0] [-2.65393, 0.0, 30.1047] [-135.49, 19.6567, 1067.55]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -2867,7 +2867,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
-  decal__height:r=1.1
+  decal__height:r=2.5
   decal__thickness:r=0.4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
@@ -2978,7 +2978,7 @@ entity{
   groupName:t="sector_5_a"
   capzone__capTime:r=60.0
   capzone__capTeam:i=-1
-  transform:m=[[12.8347, 0.0, -20.2721] [0.0, 3.57988, 0.0] [35.9069, 0.0, 22.7335] [122.229, 13.2876, 965.325]]
+  transform:m=[[12.8347, 0.0, -20.2721] [0.0, 4.24949, 0.0] [35.9069, 0.0, 22.7335] [122.229, 13.1765, 965.325]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -2988,7 +2988,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
-  decal__height:r=2.0
+  decal__height:r=2.7
   decal__thickness:r=0.4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=10
@@ -3002,7 +3002,7 @@ entity{
   groupName:t="sector_5_b"
   capzone__capTime:r=60.0
   capzone__capTeam:i=-1
-  transform:m=[[17.812, 0.0, -25.3983] [0.0, 5.51616, 0.0] [27.1258, 0.0, 19.0235] [149.2, 14.6506, 937.374]]
+  transform:m=[[17.812, 0.0, -25.3983] [0.0, 7.28739, 0.0] [27.1258, 0.0, 19.0235] [149.2, 14.7232, 937.374]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -3012,7 +3012,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
-  decal__height:r=1.2
+  decal__height:r=2.8
   decal__thickness:r=0.4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=11

@@ -169,6 +169,7 @@ entity{
   sphere_zone__radius:r=12.3
   decal__thickness:r=0.4
   decal__height:r=0.1
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{

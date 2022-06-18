@@ -36,6 +36,9 @@ def has_frt_ri_in_radius(pos : float3; radius : float; trace_height : float)
 
 def can_terraform_at_pos(terraform : TerraformComponent; pos : float3; radius : float; trace_handle : TraceMeshFaces?)
   let posXZ = pos.xz
+  if !is_valid_heightmap_pos(posXZ)
+    return false
+
   let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, posXZ)
   let posWithOrigHeight = float3(pos.x, origHeight, pos.z)
 
@@ -46,7 +49,7 @@ def can_terraform_at_pos(terraform : TerraformComponent; pos : float3; radius : 
     return false
 
   var isTerraformingBlocked = false
-  find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], BBox3(posWithOrigHeight, radius * 2.0), GridEntCheck POS) <| $(eid : EntityId)
+  find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], BBox3(posWithOrigHeight, radius), GridEntCheck BOUNDING) <| $(eid : EntityId)
     isTerraformingBlocked ||= has(eid, "blockTerraform")
     return isTerraformingBlocked
 

@@ -306,7 +306,6 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
         data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
     }
 
-  equipment = equipment.filter(@(v) v != "" && v != null)
 
   foreach (eInfo in eInfos) {
     if (eInfo?.slotTemplates != null)
@@ -316,11 +315,11 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
           gametemplate
           itemtemplate = gametemplate
         }
-        let data = appendEquipment(equipment, itemsInfo)
-        if (!data)
-          break
+        appendEquipment(equipment, itemsInfo)
       }
   }
+
+  equipment = equipment.filter(@(v) v != "" && v != null)
 
   if (equipment?.hair && (equipment?.head || equipment?.skined_helmet))
     equipment.hair <- null

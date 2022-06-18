@@ -114,16 +114,16 @@ entity{
 
 entity{
   _template:t="domination_box_capzone+capzone_projdecal"
-  transform:m=[[20.5928, 0.0, 0.502505] [0.0, 9.62467, 0.0] [-0.566292, 0.0, 24.0005] [715.555, 6.08262, 643.335]]
+  transform:m=[[20.5928, 0.0, 0.502505] [0.0, 11.6237, 0.0] [-0.566292, 0.0, 24.0005] [715.555, 5.52056, 643.335]]
   capzone__title:t="A"
   capzone__caption:t="capzone/headquarters"
   decal__thickness:r=0.2
-  decal__height:r=0.5
+  decal__height:r=3.0
   capzone__acivateRespawnGroup:i=3
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_poly_capzone+capzone_projdecal"
   transform:m=[[30.5507, 0.0, 15.5196] [0.0, 7.7087, 0.0] [-6.38321, 0.0, 11.8583] [686.975, 7.55474, 536.193]]
   capzone__title:t="B"
   capzone__caption:t="capzone/сathedral"
@@ -131,16 +131,20 @@ entity{
   decal__id:i=1
   decal__height:r=0.1
   capzone__acivateRespawnGroup:i=4
+  capzone__areaId:t="caparea_b"
+  capzone__iconOffsetY:r=1.8
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_poly_capzone+capzone_projdecal"
   transform:m=[[-15.4371, 0.0, -5.53117] [0.0, 6.90298, 0.0] [9.73246, 0.0, -27.4458] [803.127, 6.83844, 526.584]]
   capzone__title:t="C"
   capzone__caption:t="capzone/barn"
   decal__thickness:r=0.2
   decal__height:r=0.5
   capzone__acivateRespawnGroup:i=5
+  capzone__areaId:t="caparea_c"
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{
@@ -742,4 +746,212 @@ entity{
   _template:t="respawnChooser+respMotorcycle"
   transform:m=[[-0.5551, 0.0, 0.831785] [0.0, 1.0, 0.0] [-0.831785, 0.0, -0.5551] [734.73, 7.15534, 373.518]]
   team:i=2
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [790.154, 3.20642, 537.579]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_c"
+  capzone_area_polygon_point__id:t="point1"
+  capzone_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [800.418, 3.20642, 509.723]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_c"
+  capzone_area_polygon_point__id:t="point2"
+  capzone_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [816.113, 3.20642, 515.32]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_c"
+  capzone_area_polygon_point__id:t="point3"
+  capzone_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [812.509, 3.20642, 525.481]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_c"
+  capzone_area_polygon_point__id:t="point4"
+  capzone_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [806.848, 3.20642, 523.368]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_c"
+  capzone_area_polygon_point__id:t="point5"
+  capzone_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [800.324, 10.2912, 541.245]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_c"
+  capzone_area_polygon_point__id:t="point6"
+  capzone_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [700.344, 3.21662, 548.252]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point1"
+  capzone_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [692.006, 3.21662, 543.902]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point2"
+  capzone_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [692.501, 3.21662, 542.983]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point3"
+  capzone_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [682.956, 3.21662, 537.918]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point4"
+  capzone_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [681.129, 3.21662, 541.528]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point5"
+  capzone_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [667.635, 3.21662, 534.686]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point6"
+  capzone_area_polygon_point__nextId:t="point7"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [669.581, 3.21662, 531.181]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point7"
+  capzone_area_polygon_point__nextId:t="point8"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [668.393, 3.21662, 530.154]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point8"
+  capzone_area_polygon_point__nextId:t="point9"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [667.402, 3.21662, 528.557]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point9"
+  capzone_area_polygon_point__nextId:t="point10"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [667.289, 3.21662, 526.794]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point10"
+  capzone_area_polygon_point__nextId:t="point11"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [668.016, 3.21662, 525.269]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point11"
+  capzone_area_polygon_point__nextId:t="point12"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [669.52, 3.21662, 524.321]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point12"
+  capzone_area_polygon_point__nextId:t="point13"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [671.244, 3.21662, 524.088]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point13"
+  capzone_area_polygon_point__nextId:t="point14"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [672.751, 3.21662, 524.754]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point14"
+  capzone_area_polygon_point__nextId:t="point15"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [674.763, 3.21662, 521.236]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point15"
+  capzone_area_polygon_point__nextId:t="point16"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [687.971, 3.21662, 528.035]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point16"
+  capzone_area_polygon_point__nextId:t="point17"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [686.192, 3.21662, 531.557]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point17"
+  capzone_area_polygon_point__nextId:t="point18"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [695.766, 3.21662, 536.756]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point18"
+  capzone_area_polygon_point__nextId:t="point19"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [696.254, 3.21662, 535.685]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point19"
+  capzone_area_polygon_point__nextId:t="point20"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [704.725, 11.3959, 539.936]]
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_b"
+  capzone_area_polygon_point__id:t="point20"
+  capzone_area_polygon_point__nextId:t="point1"
 }

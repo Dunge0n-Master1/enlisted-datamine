@@ -1888,7 +1888,7 @@ entity{
   groupName:t="sector_1"
   capzone__capTime:r=75.0
   capzone__capTeam:i=-1
-  transform:m=[[24.2766, 0.0, -4.97098] [0.0, 6.8964, 0.0] [5.59042, 0.0, 27.3016] [740.251, 9.64643, 1784.64]]
+  transform:m=[[24.2766, 0.0, -4.97098] [0.0, 7.44775, 0.0] [5.59042, 0.0, 27.3016] [740.251, 9.11286, 1784.64]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -1899,7 +1899,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   decal__thickness:r=0.4
-  decal__height:r=2.1
+  decal__height:r=2.7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
 

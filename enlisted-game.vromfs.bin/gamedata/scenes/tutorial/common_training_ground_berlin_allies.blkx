@@ -403,7 +403,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_pzkpfw_IV_ausf_J"
+  _template:t="germ_pzkpfw_vi_ausf_b_tiger_iip_berlin"
   transform:m=[[0.0155626, -0.0542665, 0.998405] [-0.00402485, 0.998515, 0.0543352] [-0.999871, -0.00486402, 0.015321] [-417.24, 11.4761, 470.389]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -438,7 +438,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_pzkpfw_VI_ausf_E_tiger"
+  _template:t="germ_pzkpfw_vi_ausf_b_tiger_iip_berlin"
   transform:m=[[0.0165223, -0.0218885, 0.999624] [-0.0344608, 0.999154, 0.0224478] [-0.999269, -0.0348188, 0.015754] [-354.086, 12.1062, 389.551]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -473,7 +473,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_panzerjager_IV_L_70_A"
+  _template:t="germ_pzkpfw_vi_ausf_b_tiger_iip_berlin"
   transform:m=[[0.0443401, 0.000861034, 0.999016] [-0.01804, 0.999837, -6.10607e-05] [-0.998854, -0.0180195, 0.0443484] [-46.1048, 16.487, 449.174]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -508,7 +508,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_pzkpfw_V_ausf_g_panther"
+  _template:t="germ_pzkpfw_vi_ausf_b_tiger_iip_berlin"
   transform:m=[[-0.0249915, 0.00208329, -0.999685] [-0.0183311, 0.999829, 0.00254185] [0.99952, 0.0183888, -0.024949] [110.973, 19.0956, 482.882]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2

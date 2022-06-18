@@ -313,6 +313,7 @@ entity{
   capzone__caption:t="capzone/artillery_emplacement"
   decal__height:r=0.5
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=2.5
 }
 
 entity{
@@ -323,6 +324,7 @@ entity{
   capzone__caption:t="capzone/pier"
   decal__height:r=0.3
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{
@@ -333,6 +335,7 @@ entity{
   capzone__caption:t="capzone/courtyard"
   decal__height:r=0.6
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=2.5
 }
 
 entity{

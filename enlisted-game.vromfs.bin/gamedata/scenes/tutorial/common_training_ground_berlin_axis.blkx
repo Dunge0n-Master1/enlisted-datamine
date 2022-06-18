@@ -361,7 +361,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_t_34_85_d_5t"
+  _template:t="ussr_is_2_1943_berlin"
   transform:m=[[-0.135712, 0.0771619, -0.987739] [0.000437219, 0.996967, 0.0778228] [0.990748, 0.0101296, -0.135334] [-334.245, 11.9156, 485.01]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -396,7 +396,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_su_85m"
+  _template:t="ussr_is_2_1943_berlin"
   transform:m=[[-0.37295, -0.00696086, 0.927825] [-0.0143298, 0.999896, 0.00174155] [-0.927741, -0.012646, -0.373011] [-253.781, 13.2761, 402.412]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -431,7 +431,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_su_85m"
+  _template:t="ussr_is_2_1943_berlin"
   transform:m=[[-0.999827, -0.018242, -0.00373846] [-0.0182348, 0.999832, -0.00194163] [0.00377325, -0.00187313, -0.999991] [129.162, 19.4085, 405.286]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -466,7 +466,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_t_34_85_zis_53"
+  _template:t="ussr_is_2_1943_berlin"
   transform:m=[[-0.614203, 0.0753425, -0.785543] [0.00507749, 0.995789, 0.0915374] [0.789132, 0.0522339, -0.611999] [18.929, 17.3006, 473.268]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2

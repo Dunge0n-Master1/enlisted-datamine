@@ -134,6 +134,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   decal__height:r=2.0
   decal__thickness:r=0.4
+  capzone__iconOffsetY:r=1.0
 
   "capzone__activateChoice:object"{
     2_1:r=1.0
@@ -269,6 +270,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   decal__thickness:r=0.4
   decal__height:r=1.0
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     3_1:r=1.0
@@ -394,6 +396,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   decal__thickness:r=0.4
   decal__height:r=1.0
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     3_1:r=1.0
@@ -516,6 +519,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=6
   decal__thickness:r=0.4
   decal__height:r=1.5
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     5_1:r=1.0
@@ -643,6 +647,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
   decal__thickness:r=0.4
   decal__height:r=1.0
+  capzone__iconOffsetY:r=1.0
 
   "capzone__activateChoice:object"{
     6_1:r=1.0
@@ -761,6 +766,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=8
   decal__thickness:r=0.4
   decal__height:r=0.8
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     6_1:r=1.0
@@ -871,7 +877,7 @@ entity{
   groupName:t="6_1"
   capzone__capTime:r=30.0
   capzone__capTeam:i=-1
-  transform:m=[[-0.259902, 0.0, -16.3321] [0.0, 3.68083, 0.0] [25.5044, 0.0, -0.0574053] [253.388, 6.6411, 143.079]]
+  transform:m=[[-0.259902, 0.0, -16.3321] [0.0, 3.68083, 0.0] [25.5044, 0.0, -0.0574053] [253.388, 6.41014, 143.079]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=5

@@ -161,6 +161,9 @@ base_vehicle{
 
   "vehicle:tag"{
   }
+
+  "blockTerraform:tag"{
+  }
 }
 
 base_vehicle_seats{

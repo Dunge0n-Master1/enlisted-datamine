@@ -841,7 +841,7 @@ entity{
   capzone__capTime:r=20.0
   capzone__capTeam:i=1
   capzone__progress:r=1.0
-  transform:m=[[10.6687, 0.0289588, 22.0746] [0.121759, 4.56403, -0.227028] [-25.4895, 0.0339223, 11.7006] [-104.209, 9.90272, 404.656]]
+  transform:m=[[10.6687, 0.0313095, 22.0746] [0.121759, 4.93451, -0.227028] [-25.4895, 0.0366759, 11.7006] [-104.209, 9.69579, 404.656]]
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=1
@@ -850,7 +850,7 @@ entity{
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__checkAllZonesInGroup:b=yes
   decal__thickness:r=0.4
-  decal__height:r=0.7
+  decal__height:r=2.5
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
@@ -917,6 +917,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=1
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
+  capzone__iconOffsetY:r=1.5
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -948,6 +949,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=1
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
+  capzone__iconOffsetY:r=2.5
 }
 
 entity{
@@ -975,6 +977,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=1
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=7
+  capzone__iconOffsetY:r=2.5
 }
 
 entity{

@@ -84,7 +84,8 @@ let optXboxGraphicsPreset = optionCtor({
       {blkPath = "graphics/skiesQuality", val = (platform.is_xboxone_s ? "low" : (v == "HighFPS" ? "medium" : "high"))},
       {blkPath = "video/antiAliasingMode", val = (platform.is_xboxone_X || platform.is_xbox_scarlett ? 3 : 2)}, //3 = TSR 2 = TAA
       {blkPath = "video/temporalUpsamplingRatio", val = (platform.is_xboxone_X || platform.is_xbox_scarlett ? 80.0 : 100.0)},
-      {blkPath = "graphics/ssss", val = ((v == "HighQuality" && platform.is_xboxone_X) || platform.is_xbox_scarlett)}
+      {blkPath = "graphics/ssss", val = ((v == "HighQuality" && platform.is_xboxone_X) || platform.is_xbox_scarlett)},
+      {blkPath = "graphics/cloudsQuality", val = (platform.is_xbox_scarlett ? (v == "HighQuality" && platform.is_xbox_anaconda ? "volumetric" : "highres") : "default")}
     ]
   }
 })
