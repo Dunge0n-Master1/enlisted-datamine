@@ -1,0 +1,1096 @@
+import:t="pzkpfw_IV_ausf_H_cannon.blk"
+import:t="geschutz_wagen_artillerie_turret.blk"
+
+train_sound_speed{
+
+  _group{
+    _tags:t="sound"
+    train_sound_speed__pos:p2=0.0, 0.0
+    train_sound_speed__speedSummarySq:r=0.0
+    train_sound_speed__speedSamples:i=0
+    train_sound_speed__prevNextSampleAt:p2=0.0, 0.0
+    train_sound_speed__speedAccel:p4=0.0, 0.0, 0.0, 0.0
+    train_sound_speed__inited:b=no
+    train_sound_speed__enabled:b=no
+    train_sound_speed__speed:r=0.0
+    train_sound_speed__accel:r=0.0
+  }
+}
+
+train_sound{
+  _extends:t="train_sound_speed"
+
+  _group{
+    _tags:t="sound"
+    train_sound__range:r=0.0
+    train_sound__path:t="enemy/vehicle/train/tracks"
+
+    "train_sound__event:SoundEvent"{
+    }
+  }
+}
+
+train_escort_narrator{
+  train_escort_narrator__teamOffensePresence:i=-1
+  train_escort_narrator__teamDefensePresence:i=-1
+  _replicated:t="train_escort_narrator__teamOffensePresence"
+  _replicated:t="train_escort_narrator__teamDefensePresence"
+  _tracked:t="train_escort_narrator__teamOffensePresence"
+  _tracked:t="train_escort_narrator__teamDefensePresence"
+
+  _group{
+    _tags:t="sound"
+    train_escort_narrator__prevTeamOffensePresence:i=-1
+    train_escort_narrator__prevTeamDefensePresence:i=-1
+  }
+}
+
+train_destination_point{
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "trainDestination:tag"{
+  }
+}
+
+destroy_buildings_collision{
+  _tags:t="server"
+  destroy_buildings_collision__updateInterval:r=0.3
+  destroy_buildings_collision__nextUpdateTime:r=0.0
+}
+
+train_progress_ui{
+  _replicated:t="train_progress__nextCapzoneEid"
+  _tracked:t="train_progress__nextCapzoneEid"
+
+  "train_progress__nextCapzoneEid:eid"{
+  }
+
+  _group{
+    _tags:t="ui"
+    train_progress__updateInterval:r=1.0
+    train_progress__nextUpdate:r=0.0
+  }
+}
+
+base_train{
+  _extends:t="replicating"
+  _extends:t="base_net_phys"
+  _extends:t="animchar"
+  _extends:t="simple_damage_model"
+  _extends:t="destroy_buildings_collision"
+  animchar_render__enabled:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  net__physId:i=-1
+  train__groundHeight:r=0.38
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+  material:t="steel"
+  damage_model__isExtendTraceModeAllowed:b=no
+  pair_collision__tag:t="collidableToPhysObj"
+  havePairCollision:b=no
+  collisionGridTraceable:b=yes
+  hitmarks_victim__showUserHits:b=no
+
+  grid_obj{
+  }
+
+  "vehicle:tag"{
+  }
+
+  collres{
+  }
+
+  phys_obj_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  "phys__kinematicBody:tag"{
+  }
+
+  "humanAdditionalCollisionChecks:tag"{
+  }
+
+  "undestroyableBuilding:tag"{
+  }
+
+  "explosionCover:tag"{
+  }
+}
+
+train_abstroffwagen{
+  _extends:t="base_train"
+  animchar__res:t="abstroffwagen_char"
+  collres__res:t="abstroffwagen_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen.blk"
+}
+
+train_abstroffwagen_b{
+  _extends:t="base_train"
+  animchar__res:t="abstroffwagen_b_char"
+  collres__res:t="abstroffwagen_b_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen_b.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen_b.blk"
+}
+
+train_artillerie_flak_wagen{
+  _extends:t="base_train"
+  vehicleName:t="artillerie_flak_wagen"
+  animchar__res:t="artillerie_flak_wagen_char"
+  collres__res:t="artillerie_flak_wagen_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
+}
+
+train_geschutz_wagen{
+  _extends:t="base_train"
+  animchar__res:t="geschutz_wagen_char"
+  collres__res:t="geschutz_wagen_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_geschutz_wagen.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_geschutz_wagen.blk"
+}
+
+train_kommando_infanterie_wagen{
+  _extends:t="base_train"
+  animchar__res:t="kommando_infanterie_wagen_char"
+  collres__res:t="kommando_infanterie_wagen_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
+}
+
+train_panzerjagerwagen{
+  _extends:t="base_train"
+  animchar__res:t="panzerjagerwagen_char"
+  collres__res:t="panzerjagerwagen_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerjagerwagen.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerjagerwagen.blk"
+}
+
+train_panzertragerwagen{
+  _extends:t="base_train"
+  animchar__res:t="panzertragerwagen_char"
+  collres__res:t="panzertragerwagen_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzertragerwagen.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzertragerwagen.blk"
+}
+
+train_panzerzug_bp_44_lokomotiv{
+  _extends:t="base_train"
+  animchar__res:t="panzerzug_bp_44_lokomotiv_char"
+  collres__res:t="panzerzug_bp_44_lokomotiv_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
+
+  "attach_decorators__templates:array"{
+
+    "templates:object"{
+      relativeTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      template:t="train_smoke_effect"
+      nodeName:t="emtr_exhaust_01"
+    }
+  }
+}
+
+train_panzerzug_bp_44_lokomotiv_b{
+  _extends:t="base_train"
+  animchar__res:t="panzerzug_bp_44_lokomotiv_b_char"
+  collres__res:t="panzerzug_bp_44_lokomotiv_b_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
+}
+
+primary_cart{
+  net__upToCtrlTick:i=-1
+  train__netTicksOffset:i=0
+  train__teamOffense:i=-1
+  train__teamDefense:i=-1
+  train__currentVelocity:r=0.0
+  train__maxVelocity:r=1.6
+  train__minVelocity:r=0.0
+  train__offenseTeamAdvantageWeight:i=1
+  train__defenseTeamAdvantageWeight:i=1
+  train__accelerationOffense:r=10.0
+  train__accelerationDefense:r=10.0
+  train__enableRestVelocity:b=no
+  train__offenseCount:i=0
+  train__defenseCount:i=0
+  train__expectedVelocity:r=0.0
+  train__changeVelocityCheckAtTime:r=0.0
+  train__changeVelocityInterval:r=2.0
+  train__changeVelocityPacked:ip3=0, 0, 0
+  _replicated:t="train__changeVelocityPacked"
+
+  "train__primaryCart:tag"{
+  }
+
+  "user_point__canBeMarkedByAnyTeam:tag"{
+  }
+
+  "user_point__attachWithOffset:tag"{
+  }
+
+  "phys__broadcastAAS:tag"{
+  }
+}
+
+secondary_cart{
+  train__offset:r=0.0
+  train__teamOffense:i=-1
+  train__teamDefense:i=-1
+
+  "phys__disableSnapshots:tag"{
+  }
+
+  "train__primaryCartEid:eid"{
+  }
+
+  "user_point__canBeMarkedByAnyTeam:tag"{
+  }
+
+  "user_point__attachWithOffset:tag"{
+  }
+}
+
+base_wagen{
+  _extends:t="moveable_obstacle"
+
+  "train__wheels:list<t>"{
+    node:t="wheel_l_01"
+    node:t="wheel_l_02"
+    node:t="wheel_r_01"
+    node:t="wheel_r_02"
+  }
+
+  "train__wheelNodeIds:list<i>"{
+  }
+
+  "train__wheelRotations:list<r>"{
+  }
+
+  "train:tag"{
+  }
+}
+
+train_obstacle{
+  train_obstacle__is_inited:b=no
+  train_obstacle__size:p3=0.0, 0.0, 0.0
+  train_obstacle__offsetFromTrain:p3=0.0, 0.0, 0.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "train_obstacle:tag"{
+  }
+
+  "train_obstacle__trainEid:eid"{
+  }
+
+  "train_obstacle__handles:list<i>"{
+  }
+}
+
+berlin_train_carts{
+  _extends:t="train_sound"
+  _extends:t="train_escort_narrator"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  train__teamOffense:i=-1
+  train__teamDefense:i=-1
+  train__offenseTeamAdvantageWeight:i=1
+  train__defenseTeamAdvantageWeight:i=1
+  train__primaryCartTemplate:t="primary_cart"
+  train__secondaryCartTemplate:t="secondary_cart"
+
+  "train__cartEids:list<eid>"{
+  }
+
+  "train__cartOffsets:list<r>"{
+  }
+
+  "train__carts:array"{
+    _tags:t="server"
+
+    "cart:object"{
+      template:t="moving_car_abstroffwagen_b+requires_trans_render"
+      offset:r=0.0
+    }
+
+    "cart:object"{
+      template:t="moving_car_geschutz_wagen+requires_trans_render"
+      offset:r=14.0
+    }
+
+    "cart:object"{
+      template:t="moving_car_kommando_infanterie_wagen+requires_trans_render"
+      offset:r=15.1
+    }
+
+    "cart:object"{
+      template:t="moving_car_artillerie_flak_wagen+requires_trans_render"
+      offset:r=15.1
+    }
+
+    "cart:object"{
+      template:t="moving_car_panzerzug_bp_44_lokomotiv_b+requires_trans_render"
+      offset:r=14.2
+
+      "capzone:object"{
+        template:t="domination_box_train_capzone+building_restricted_zone"
+        scale:p3=118.0, 8.0, 4.4
+
+        "components:object"{
+          capzone__offsetFromTrain:p3=7.0, 4.0, 0.0
+          capzone__capPenalty:r=0.0
+          ui_order:i=0
+        }
+      }
+    }
+
+    "cart:object"{
+      template:t="moving_car_panzerzug_bp_44_lokomotiv+requires_trans_render"
+      offset:r=14.7
+    }
+
+    "cart:object"{
+      template:t="moving_car_panzerjagerwagen"
+      offset:r=16.63
+    }
+
+    "cart:object"{
+      template:t="moving_car_abstroffwagen+train_progress_ui"
+      offset:r=14.23
+
+      "train_obstacle:object"{
+        template:t="train_obstacle"
+
+        "components:object"{
+          train_obstacle__size:p3=120.0, 4.5, 4.5
+          train_obstacle__offsetFromTrain:p3=50.0, 0.0, 0.0
+        }
+      }
+    }
+  }
+}
+
+moving_car_abstroffwagen{
+  _extends:t="train_abstroffwagen"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[10.7, 0.0, 0.0] [0.0, 3.2, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 2.1, 0.0]]
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=0.0, 1.6, -1.5
+      item:p3=0.0, 1.6, 1.5
+      item:p3=5.5, 1.6, 0.0
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=0.0, 0.0, -3.5
+      item:p3=0.0, 0.0, 3.5
+      item:p3=8.0, 0.0, 0.0
+    }
+
+    "ai_train__nav_points:list<p3>"{
+      item:p3=5.0, 1.6, -1.0
+      item:p3=5.0, 1.6, 1.0
+      item:p3=-5.0, 1.6, 1.0
+      item:p3=-5.0, 1.6, -1.0
+    }
+
+    "ai_train__held_nav_points:array"{
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+    }
+  }
+}
+
+moving_car_abstroffwagen_b{
+  _extends:t="train_abstroffwagen_b"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[10.7, 0.0, 0.0] [0.0, 3.2, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 2.1, 0.0]]
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=-4.0, 1.6, -1.5
+      item:p3=-4.0, 1.6, 1.5
+      item:p3=-5.5, 1.6, 0.0
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=-4.0, 0.0, -3.5
+      item:p3=-4.0, 0.0, 3.5
+      item:p3=-8.0, 0.0, 0.0
+    }
+
+    "ai_train__nav_points:list<p3>"{
+      item:p3=-5.0, 1.6, -1.0
+      item:p3=-5.0, 1.6, 1.0
+    }
+
+    "ai_train__held_nav_points:array"{
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+      }
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+      }
+    }
+  }
+}
+
+train_attachment_enter_limits{
+  enter_vehicle__moveThreshold:r=-1.0
+  enter_vehicle__moveRelativeThreshold:r=2.0
+
+  "enter_vehicle__vehicleMoveThreshold:r"{
+    _tags:t="server"
+    value:r=-1.0
+  }
+}
+
+train_attachment{
+  _extends:t="train_attachment_enter_limits"
+  train_attachment__node:t=""
+  train_attachment__localTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  train_attachment__attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "train_attachment__parentEid:eid"{
+  }
+}
+
+train_flak_ammo{
+
+  "gun__shellsAmmo:array"{
+    ammo:i=500
+  }
+}
+
+flak_wagen_flak38_gun_ul{
+  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_ul"
+  _extends:t="train_flak_ammo"
+}
+
+flak_wagen_flak38_gun_ur{
+  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_ur"
+  _extends:t="train_flak_ammo"
+}
+
+flak_wagen_flak38_gun_dl{
+  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_dl"
+  _extends:t="train_flak_ammo"
+}
+
+flak_wagen_flak38_gun_dr{
+  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_dr"
+  _extends:t="train_flak_ammo"
+}
+
+moving_car_artillerie_flak_wagen_flak38_cannon{
+  _extends:t="cannon_germ_20mm_flak38_flakvierling_green_camo"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/cannons/train_germ_20mm_flak38_flakvierling.blk"
+  buildingRadius:r=1.5
+  buildingCost:r=8.0
+  fortification_repair__costPercent:r=0.5
+  building_menu__text:t="building_tool/aaa_cannon_flak38_flakvierling"
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      gun:t="flak_wagen_flak38_gun_ul"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="main_turrets"
+      gun:t="flak_wagen_flak38_gun_ur"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="main_turrets"
+      gun:t="flak_wagen_flak38_gun_dl"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      gun:t="flak_wagen_flak38_gun_dr"
+      salt:i=1
+    }
+  }
+
+  "phys__kinematicBody:tag"{
+  }
+
+  "animchar__updatableOnSleepPhys:tag"{
+  }
+
+  "capturer__allowCaptureOnVehicle:tag"{
+  }
+
+  "undestroyableBuilding:tag"{
+  }
+
+  "buildByPlayer:eid"{
+  }
+}
+
+wagen_artillerie_turret{
+  _extends:t="geschutz_wagen_artillerie_turret"
+  vehicle_seats__autoDetectRestrictToTeam:b=no
+
+  "phys__kinematicBody:tag"{
+  }
+
+  "animchar__updatableOnSleepPhys:tag"{
+  }
+
+  "train_attachment__restrictToTrainOffenseTeam:tag"{
+  }
+}
+
+moving_car_artillerie_flak_wagen{
+  _extends:t="train_artillerie_flak_wagen"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[12.56, 0.0, 0.0] [0.0, 2.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 1.35, 0.0]]
+
+  "train__attachments:array"{
+
+    "aa_cannon:object"{
+      template:t="moving_car_artillerie_flak_wagen_flak38_cannon"
+
+      "components:object"{
+        train_attachment__node:t="bone_flak38_aa"
+        train_attachment__attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.5, 0.0]]
+      }
+    }
+
+    "artillerie_turret:object"{
+      template:t="wagen_artillerie_turret"
+
+      "components:object"{
+        train_attachment__node:t="bone_turret"
+        train_attachment__attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      }
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="bone_turret"
+    part:t="bone_gun_barrel"
+    part:t="gun_mask"
+  }
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=-0.75, 1.6, -1.5
+      item:p3=-0.75, 1.6, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=-0.75, 0.0, -3.5
+      item:p3=-0.75, 0.0, 3.5
+    }
+
+    "ai_train__nav_points:list<p3>"{
+      item:p3=1.5, 1.6, -1.0
+      item:p3=1.5, 1.6, 1.0
+      item:p3=-5.0, 1.6, -1.0
+      item:p3=-5.0, 1.6, 1.0
+    }
+
+    "ai_train__danger_points:list<p3>"{
+      item:p3=-0.75, 1.6, -1.5
+      item:p3=-0.75, 1.6, 1.5
+    }
+
+    "ai_train__held_nav_points:array"{
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+    }
+  }
+}
+
+moving_car_geschutz_wagen{
+  _extends:t="train_geschutz_wagen"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[12.56, 0.0, 0.0] [0.0, 2.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 1.35, 0.0]]
+
+  "disableDMParts:list<t>"{
+    part:t="bone_turret"
+    part:t="bone_gun_barrel"
+    part:t="gun_mask"
+  }
+
+  "train__attachments:array"{
+
+    "artillerie_turret:object"{
+      template:t="wagen_artillerie_turret"
+
+      "components:object"{
+        train_attachment__node:t="bone_turret"
+        train_attachment__attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      }
+    }
+  }
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__roofHeight:r=3.0
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=-2.25, 1.6, -1.5
+      item:p3=-2.25, 1.6, 1.5
+      item:p3=2.25, 1.6, -1.5
+      item:p3=2.25, 1.6, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=-2.25, 0.0, -3.5
+      item:p3=-2.25, 0.0, 3.5
+      item:p3=2.25, 0.0, -3.5
+      item:p3=2.25, 0.0, 3.5
+    }
+
+    "ai_train__nav_points:list<p3>"{
+      item:p3=5.0, 1.6, -1.0
+      item:p3=5.0, 1.6, 1.0
+    }
+
+    "ai_train__danger_points:list<p3>"{
+      item:p3=-2.25, 1.6, -1.5
+      item:p3=-2.25, 1.6, 1.5
+      item:p3=2.25, 1.6, -1.5
+      item:p3=2.25, 1.6, 1.5
+    }
+
+    "ai_train__roof_nav_points:list<p3>"{
+      item:p3=4.5, 4.35, 0.0
+    }
+
+    "ai_train__held_nav_points:array"{
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+      }
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+      }
+    }
+
+    "ai_train__held_roof_nav_points:list<b>"{
+      item:b=no
+    }
+  }
+}
+
+moving_car_kommando_infanterie_wagen{
+  _extends:t="train_kommando_infanterie_wagen"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[12.56, 0.0, 0.0] [0.0, 2.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 1.35, 0.0]]
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__roofHeight:r=3.0
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=-2.25, 1.6, -1.5
+      item:p3=-2.25, 1.6, 1.5
+      item:p3=2.25, 1.6, -1.5
+      item:p3=2.25, 1.6, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=-2.25, 0.0, -3.5
+      item:p3=-2.25, 0.0, 3.5
+      item:p3=2.25, 0.0, -3.5
+      item:p3=2.25, 0.0, 3.5
+    }
+
+    "ai_train__nav_points:list<p3>"{
+      item:p3=5.0, 1.6, -1.0
+      item:p3=5.0, 1.6, 1.0
+      item:p3=-5.0, 1.6, -1.0
+      item:p3=-5.0, 1.6, 1.0
+    }
+
+    "ai_train__danger_points:list<p3>"{
+      item:p3=-2.25, 1.6, -1.5
+      item:p3=-2.25, 1.6, 1.5
+      item:p3=2.25, 1.6, -1.5
+      item:p3=2.25, 1.6, 1.5
+    }
+
+    "ai_train__roof_nav_points:list<p3>"{
+      item:p3=4.5, 4.35, 0.0
+      item:p3=-4.5, 4.35, 0.0
+    }
+
+    "ai_train__held_nav_points:array"{
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+    }
+
+    "ai_train__held_roof_nav_points:list<b>"{
+      item:b=no
+      item:b=no
+    }
+  }
+}
+
+moving_car_panzerjagerwagen_pzkpfw_IV_ausf_H_turret{
+  _extends:t="pzkpfw_IV_ausf_H_turret"
+  vehicle_seats__autoDetectRestrictToTeam:b=no
+
+  "phys__kinematicBody:tag"{
+  }
+
+  "animchar__updatableOnSleepPhys:tag"{
+  }
+
+  "train_attachment__restrictToTrainOffenseTeam:tag"{
+  }
+}
+
+moving_car_panzerjagerwagen{
+  _extends:t="train_panzerjagerwagen"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[12.56, 0.0, 0.0] [0.0, 2.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 1.35, 0.0]]
+
+  "disableDMParts:list<t>"{
+    part:t="bone_turret"
+    part:t="bone_gun"
+    part:t="bone_gun_barrel"
+    part:t="bone_mg_gun_twin"
+    part:t="gun_barrel"
+    part:t="ex_decor_04"
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_r_01"
+    part:t="ex_armor_turret_01"
+    part:t="hatch_01"
+    part:t="hatch_02"
+    part:t="hatch_03"
+    part:t="hatch_04"
+    part:t="hatch_05"
+    part:t="turret_02_side"
+    part:t="turret_back"
+    part:t="turret_bottom"
+    part:t="turret_commander"
+    part:t="turret_front"
+    part:t="turret_side"
+    part:t="turret_top"
+    part:t="gun_barrel_01"
+    part:t="gun_barrel_02"
+    part:t="gun_barrel_armor"
+    part:t="gun_barrel"
+    part:t="gun_mask_01"
+    part:t="gun_mask_02"
+    part:t="gun_mask"
+    part:t="mg_twin_armor"
+  }
+
+  "train__attachments:array"{
+
+    "aa_cannon:object"{
+      template:t="moving_car_panzerjagerwagen_pzkpfw_IV_ausf_H_turret"
+
+      "components:object"{
+        train_attachment__node:t="root"
+        train_attachment__attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.65, 0.0]]
+      }
+    }
+  }
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=4.0, 1.6, -1.5
+      item:p3=4.0, 1.6, 1.5
+      item:p3=-4.0, 1.6, -1.5
+      item:p3=-4.0, 1.6, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=4.0, 0.0, -3.5
+      item:p3=4.0, 0.0, 3.5
+      item:p3=-4.0, 0.0, -3.5
+      item:p3=-4.0, 0.0, 3.5
+    }
+
+    "ai_train__nav_points:list<p3>"{
+      item:p3=5.0, 1.6, -1.0
+      item:p3=5.0, 1.6, 1.0
+      item:p3=-5.0, 1.6, 1.0
+      item:p3=-5.0, 1.6, -1.0
+    }
+
+    "ai_train__held_nav_points:array"{
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+
+      "item:list<b>"{
+        item:b=no
+        item:b=no
+        item:b=no
+        item:b=no
+      }
+    }
+  }
+}
+
+moving_car_panzertragerwagen{
+  _extends:t="train_panzertragerwagen"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[12.56, 0.0, 0.0] [0.0, 2.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, 1.35, 0.0]]
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=0.0, 5.0, -1.5
+      item:p3=0.0, 5.0, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=0.0, 0.0, -3.5
+      item:p3=0.0, 0.0, 3.5
+    }
+  }
+}
+
+moving_car_panzerzug_bp_44_lokomotiv{
+  _extends:t="train_panzerzug_bp_44_lokomotiv"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[23.43, 0.0, 0.0] [0.0, 4.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1.715, 2.35, 0.0]]
+
+  "train__wheels:list<t>"{
+    node:t="wheel_l_01"
+    node:t="wheel_l_02"
+    node:t="wheel_l_03"
+    node:t="wheel_l_04"
+    node:t="wheel_l_05"
+    node:t="wheel_l_06"
+    node:t="wheel_r_01"
+    node:t="wheel_r_02"
+    node:t="wheel_r_03"
+    node:t="wheel_r_04"
+    node:t="wheel_r_05"
+    node:t="wheel_r_06"
+  }
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=0.0, 6.0, -1.5
+      item:p3=0.0, 6.0, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=0.0, 0.0, -3.5
+      item:p3=0.0, 0.0, 3.5
+    }
+  }
+}
+
+moving_car_panzerzug_bp_44_lokomotiv_b{
+  _extends:t="train_panzerzug_bp_44_lokomotiv_b"
+  _extends:t="base_wagen"
+  train__teamOffense:i=2
+  train__teamDefense:i=1
+  zoneScaleTransform:m=[[23.43, 0.0, 0.0] [0.0, 4.7, 0.0] [0.0, 0.0, 3.34] [0.0, 0.0, 0.0]]
+  zoneTranslateTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1.715, 2.35, 0.0]]
+
+  "train__wheels:list<t>"{
+    node:t="wheel_l_01"
+    node:t="wheel_l_02"
+    node:t="wheel_l_03"
+    node:t="wheel_l_04"
+    node:t="wheel_r_01"
+    node:t="wheel_r_02"
+    node:t="wheel_r_03"
+    node:t="wheel_r_04"
+  }
+
+  "is_occluder:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    train_cart__minHeight:r=1.25
+    train_cart__maxHeight:r=8.0
+    train_cart__offsetXZ:r=0.5
+
+    "ai_train__enter_points:list<p3>"{
+      item:p3=0.0, 5.0, -1.5
+      item:p3=0.0, 5.0, 1.5
+    }
+
+    "ai_train__exit_points:list<p3>"{
+      item:p3=0.0, 0.0, -3.5
+      item:p3=0.0, 0.0, 3.5
+    }
+  }
+}
+
+train_smoke_effect{
+  effect__scale:r=1.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1.0, 1.0, 1.0]]
+
+  effect{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="train_smoke"
+  }
+}

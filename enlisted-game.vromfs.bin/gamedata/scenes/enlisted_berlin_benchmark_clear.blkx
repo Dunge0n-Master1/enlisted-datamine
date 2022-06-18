@@ -1,0 +1,153 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/battle_of_berlin.blk"
+  level__timeRange:p2=5.0, 19.2
+  level__day:i=9
+  level__month:i=6
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=16.5
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    puddle_hardness:r=12.0
+    puddle_flat_noise_normal_effect:r=0.015
+    puddle_flat_normal_hardness:r=25.0
+    layered_fog_density:r=0.002
+    land_selfillum_worldscale:r=1.0
+    river1:c=64, 64, 29, 0
+    river0:c=49, 47, 41, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=-0.2
+    leaves_ss_profile:p4=1.0, 1.0, 1.0, 0.0
+    autodetect_land_selfillum_color:p4=0.176, 0.051, 0.0, 0.094
+    paint_details_tex:t="berlin_wall_color_tex_palette*"
+    layered_fog_height:r=20.0
+    puddle_increase:r=0.0
+    land_selfillum_strength:r=50.0
+    water_color_noise_size:r=71.0
+    puddle_flat_noise_height_reduce:r=0.09
+    water_depth_hardness:r=0.41
+    river_density:r=10.0
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.3
+  water__level:r=-1.0
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=1.3
+  wind__dir:r=190.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_berlin/gamedata/berlin_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.9
+  anim_track_on:b=yes
+}
+
+entity{
+  _template:t="ui_disabled"
+}
+
+entity{
+  _template:t="benchmark"
+  benchmark_name:t="berlin"
+
+  "camera_tracks:array"{
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=398.092, 5.56411, -517.677
+      from_dir:p3=-0.916095, 0.015239, -0.400672
+      to_pos:p3=369.847, 5.61944, -525.738
+      to_dir:p3=-0.004469, -0.022056, -0.999747
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=336.345, 5.26521, -566.45
+      from_dir:p3=0.791796, -0.060981, -0.607734
+      to_pos:p3=353.092, 4.9022, -559.117
+      to_dir:p3=-0.467604, -0.003253, -0.883932
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=395.659, 10.4707, -400.083
+      from_dir:p3=-0.661192, -0.02067, 0.749932
+      to_pos:p3=407.879, 8.95275, -377.2
+      to_dir:p3=-0.999808, -0.010687, 0.016422
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=351.13, 7.59743, -632.927
+      from_dir:p3=-0.983162, 0.004282, -0.182684
+      to_pos:p3=322.761, 7.65268, -637.673
+      to_dir:p3=-0.983202, -0.004657, -0.182459
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=395.148, 5.68163, -516.233
+      from_dir:p3=-0.976033, 0.00046, 0.217623
+      to_pos:p3=365.577, 5.54982, -535.547
+      to_dir:p3=0.39922, 0.016356, 0.916709
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=297.894, 4.88039, -476.436
+      from_dir:p3=0.795523, -0.000284, -0.605924
+      to_pos:p3=345.043, 5.0556, -515.395
+      to_dir:p3=0.940653, 0.015795, 0.339001
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=482.031, 105.074, -237.229
+      from_dir:p3=-0.590505, -0.350738, 0.726833
+      to_pos:p3=511.967, 16.24, -242.917
+      to_dir:p3=-0.622609, -0.05668, 0.780478
+    }
+  }
+}

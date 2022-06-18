@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d42f34;
+      }
+
+      .cls-2 {
+        fill: #151515;
+      }
+    </style>
+  </defs>
+  <g id="Layer_3" data-name="Layer 3">
+    <g>
+      <g>
+        <polygon class="cls-1" points="6.107 135.497 75 16.172 143.893 135.497 6.107 135.497"/>
+        <path class="cls-2" d="M146.78261,137.16566H3.21739L75,12.83434ZM8.99772,133.82848H141.00228L75,19.50871Z"/>
+      </g>
+      <polygon class="cls-2" points="40.93 77.494 75 134.304 109.07 77.494 40.93 77.494"/>
+    </g>
+  </g>
+</svg>

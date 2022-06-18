@@ -1,0 +1,35 @@
+enlisted_human_hooray_input{
+  human_input__Hooray:i=0
+}
+
+enlisted_human_building_input{
+  human_input__nextBuildingType:i=0
+  human_input__buildingAction:i=0
+}
+
+enlisted_human_artillery_input{
+  human_input__artilleryStrike:i=0
+}
+
+enlisted_human_dig_input{
+  human_input__dig:i=0
+}
+
+enlisted_bomb_site_input{
+  human_input__interactBombSite:i=0
+
+  "human_use_object__currentInteractBombSite:eid"{
+  }
+}
+
+enlisted_fortification_mirror_preview_input{
+  human_input__fortificationMirrorPreview:i=0
+}
+
+enlisted_human_squad_input{
+
+  "human_input__squadNext:i"{
+    value:i=0
+    _hide:b=yes
+  }
+}

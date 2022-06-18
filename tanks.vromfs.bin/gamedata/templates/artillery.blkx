@@ -1,0 +1,101 @@
+auto_shoot{
+  _tracked:t="auto_shoot__canShoot"
+  auto_shoot__targetPos:p3=0.0, 0.0, 0.0
+  auto_shoot__firstShotTime:r=0.0
+  auto_shoot__canShoot:b=no
+  auto_shoot__shouldShoot:b=no
+  auto_shoot__gunDir:p3=1.0, 0.0, 0.0
+  auto_shoot__gunPos:p3=0.0, 0.0, 0.0
+  auto_shoot__shotCount:i=0
+
+  "autoShoot:tag"{
+  }
+
+  "transform:m"{
+  }
+
+  "auto_shoot__applyGravityOffset:tag"{
+  }
+}
+
+artillery{
+  _extends:t="replicating"
+  artillery_zone__radius:r=24.0
+  artillery__dispersion:r=12.0
+  artillery__adjustmentDispersion:r=24.0
+  artillery__shotsDone:i=0
+  artillery__shotsCount:i=16
+  artillery__adjustmentsShotsCount:i=3
+  artillery__timeToFirstShot:r=10.0
+  artillery__nextShotTime:r=-1.0
+  artillery__timeBetweenAdjustmentsShots:r=5.0
+  artillery__timeBetweenShots:r=0.3
+  artillery__gunTempl:t="artillery_gun"
+  artillery__autoShootTempl:t="auto_shoot"
+  artillery__adjustmentGunTempl:t="adjustment_artillery_gun"
+  artillery__sourcePos:p3=0.0, 0.0, 0.0
+  artillery__targetPos:p3=0.0, 0.0, 0.0
+
+  "artillery__callerEid:eid"{
+  }
+
+  "artillery__offender:eid"{
+  }
+}
+
+artillery_gun{
+  _extends:t="tankgun_76mm_l11"
+  gun__ammo:i=111
+  gun__maxAmmo:i=111
+  killLogName:t=""
+  item__name:t="Artillery"
+  gun__blk:t="content/tanks/gamedata/weapons/artillery.blk"
+  gun__locName:t="Artillery"
+  gun__shotFreq:r=0.1
+
+  "gun__shellsAmmo:array"{
+    ammo:i=111
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/weapons/shells/ussr/76mm_artillery_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+
+  "gun__offender:eid"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    enemy:t="enemy/weapon/cannon/artillery"
+  }
+
+  "allowFriendlyFire:tag"{
+  }
+
+  "artillery__callerEid:eid"{
+  }
+}
+
+adjustment_artillery_gun{
+  _extends:t="artillery_gun"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/weapons/shells/ussr/76mm_artillery_adjustment_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}

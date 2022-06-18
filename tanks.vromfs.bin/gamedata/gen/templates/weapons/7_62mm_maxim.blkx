@@ -1,0 +1,102 @@
+base_7_62mm_maxim{
+  item__name:t="guns/7_62mm_maxim"
+  gun__blk:t="gamedata/gen/weapons/7_62mm_maxim.blk"
+  gun__shotFreq:r=10.0
+  gun__reloadTime:r=60.0
+  gun__maxAmmo:i=500
+  gun__locName:t="7_62mm_maxim"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_defaultset_bullet_1.blk"
+        type:t="he_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_defaultset_bullet_2.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_defaultset_bullet_3.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_defaultset_bullet_4.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_defaultset_bullet_5.blk"
+        type:t="t_ball"
+      }
+    }
+
+    "7_62mm_DT_universal:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_universal_bullet_1.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_universal_bullet_2.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_universal_bullet_3.blk"
+        type:t="t_ball"
+      }
+    }
+
+    "7_62mm_DT_API:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_api_bullet_1.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_api_bullet_2.blk"
+        type:t="ap_i_t_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_api_bullet_3.blk"
+        type:t="ap_i_t_ball"
+      }
+    }
+
+    "7_62mm_DT_APIT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_62mm_maxim_7_62mm_dt_apit.blk"
+        type:t="ap_i_t_ball"
+      }
+    }
+  }
+}
+
+tankgun_7_62mm_maxim{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_7_62mm_maxim"
+  _extends:t="gunsound_7_62mm_maxim"
+  turret__triggerGroup:i=0
+}

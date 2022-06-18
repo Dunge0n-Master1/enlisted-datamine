@@ -1,0 +1,17 @@
+include %scripts/game/base_project.das_project
+
+let
+  mountPointPrefixes <- {{
+    "enlisted" => "%scripts";
+    "enlisted_pkg_dev" => "%enlisted_pkg_dev";
+    "common_shooter" => "%scripts/common_shooter";
+    "danetlibs" => "%danetlibs";
+    "sound_utils" => "%danetlibs/sound/sound_utils";
+    "sound_utils_net" => "%danetlibs/sound/sound_utils_net";
+    "common_sounds" => "%danetlibs/sound/common_sounds";
+    "environment_sounds" => "%danetlibs/sound/environment_sounds";
+    "human_sounds" => "%danetlibs/sound/human_sounds";
+    "vehicle_sounds" => "%danetlibs/sound/vehicle_sounds";
+    "vehicle_sounds_net" => "%danetlibs/sound/vehicle_sounds_net";
+    "weapon_sounds" => "%danetlibs/sound/weapon_sounds"
+  }}

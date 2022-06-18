@@ -1,0 +1,44 @@
+base_152mm_m10t{
+  item__name:t="guns/152mm_m10t"
+  gun__blk:t="gamedata/gen/weapons/152mm_m10t.blk"
+  gun__shotFreq:r=0.03
+  gun__locName:t="152mm_m10t"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/152mm_m10t_defaultset.blk"
+        name:t="152mm_g_530"
+        type:t="ac_shell_tank"
+      }
+    }
+
+    "152mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/152mm_m10t_152mm_ussr_he.blk"
+        name:t="152mm_of_530"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "152mm_ussr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/152mm_m10t_152mm_ussr_apcbc.blk"
+        name:t="152mm_pb_35"
+        type:t="apcbc_tank"
+      }
+    }
+  }
+}
+
+tankgun_152mm_m10t{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_152mm_m10t"
+  _extends:t="gunsound_152mm_m10t"
+  turret__triggerGroup:i=0
+}

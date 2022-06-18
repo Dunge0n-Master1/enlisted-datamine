@@ -1,0 +1,5 @@
+bullets:i=300
+
+visual{
+  template:t="browning_m1918_magazine+item_in_world"
+}

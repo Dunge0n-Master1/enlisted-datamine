@@ -1,0 +1,184 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.734423, 0.0, 0.678692] [0.0, 1.0, 0.0] [-0.678692, 0.0, -0.734423] [61.3778, 8.52597, 209.363]]
+}
+
+entity{
+  _template:t="stalingrad_level"
+  level__blk:t="content/enlisted/levels/battle_of_stalingrad.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="minimap_battle_of_stalingrad"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+
+  "post_fx:object"{
+  }
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    puddle_hardness:r=15.0
+    puddle_flat_noise_normal_effect:r=0.015
+    puddle_flat_normal_hardness:r=25.0
+    layered_fog_density:r=0.003
+    puddle_flat_hmap_reduce:r=-0.2
+    leaves_ss_profile:p4=1.1, 0.99, 0.99, 0.0
+    paint_details_tex:t="stalingrad_city_wall_color_tex_palette*"
+    puddle_increase:r=0.03
+    puddle_flat_noise_height_reduce:r=0.09
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+}
+
+entity{
+  _template:t="sound_effect_generator"
+  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+}
+
+entity{
+  _template:t="session_timer"
+  session_timer__time_left:r=1200.0
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="team_ussr+team_narrator_domination"
+  team__id:i=1
+  team__score:r=1700.0
+  team__scoreCap:r=1700.0
+  score_bleed__domBleed:r=5.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=2.0
+  team__eachSquadMaxSpawns:i=10
+  team__spawnBotArmy:t="moscow_allies"
+}
+
+entity{
+  _template:t="team_germany_winter+team_narrator_domination"
+  team__id:i=2
+  team__score:r=1700.0
+  team__scoreCap:r=1700.0
+  score_bleed__domBleed:r=5.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=2.0
+  team__eachSquadMaxSpawns:i=10
+  team__spawnBotArmy:t="moscow_axis"
+}
+
+entity{
+  _template:t="briefing_domination"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="respTeam1"
+  active:b=yes
+  transform:m=[[0.227064, 0.0, -0.97388] [0.0, 1.0, 0.0] [0.97388, 0.0, 0.227064] [-44.6367, 6.31179, 300.649]]
+}
+
+entity{
+  _template:t="respTeam2"
+  active:b=yes
+  transform:m=[[0.875535, 0.0, 0.483156] [0.0, 1.0, 0.0] [-0.483156, 0.0, 0.875535] [106.653, 6.85318, 281.927]]
+}
+
+entity{
+  _template:t="domination_box_capzone+capzone_projdecal"
+  transform:m=[[16.1833, 0.0, -2.15183] [0.0, 1.0, 0.0] [0.972095, 0.0, 7.31085] [31.4917, 7.22142, 291.071]]
+  capzone__title:t="A"
+  capzone__caption:t="capzone/railway_station"
+  decal__thickness:r=0.2
+  decal__height:r=2.0
+}
+
+entity{
+  _template:t="domination_box_capzone+capzone_projdecal"
+  transform:m=[[11.8665, 0.0, -1.59052] [0.0, 1.0, 0.0] [0.803588, 0.0, 5.99538] [-58.9688, 5.61992, 162.449]]
+  capzone__title:t="B"
+  capzone__caption:t="capzone/utility_house"
+  decal__thickness:r=0.2
+  decal__id:i=1
+  decal__height:r=0.3
+}
+
+entity{
+  _template:t="domination_box_capzone+capzone_projdecal"
+  transform:m=[[5.84098, 0.0, -0.772541] [0.0, 1.0, 0.0] [0.733346, 0.0, 5.54464] [41.8724, 7.80332, 153.897]]
+  capzone__title:t="C"
+  capzone__caption:t="capzone/repnikova_house"
+  decal__thickness:r=0.2
+  decal__height:r=0.3
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[24.7209, 0.0, 233.19] [0.0, 85.5262, 0.0] [-231.301, 0.0, 28.349] [8.89086, 15.3102, 224.483]]
+  battle_area__team:i=2
+  battle_area__timeToDamage:r=5.0
+  battle_area__damage:r=3.0
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[231.806, 0.0, -35.425] [0.0, 85.5262, 0.0] [38.9617, 0.0, 229.751] [20.8623, 15.3102, 206.42]]
+  battle_area__team:i=1
+  battle_area__timeToDamage:r=5.0
+  battle_area__damage:r=3.0
+}
+
+entity{
+  _template:t="respTeam2"
+  transform:m=[[0.868951, 0.0, 0.4949] [0.0, 1.0, 0.0] [-0.4949, 0.0, 0.868951] [123.935, 6.36364, 260.766]]
+}
+
+entity{
+  _template:t="respTeam1"
+  transform:m=[[0.963162, 0.0, -0.268923] [0.0, 1.0, 0.0] [0.268923, 0.0, 0.963162] [-35.0775, 6.91984, 270.994]]
+}

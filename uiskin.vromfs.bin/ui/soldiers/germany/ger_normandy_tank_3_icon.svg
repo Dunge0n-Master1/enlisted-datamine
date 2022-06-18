@@ -1,0 +1,11 @@
+<svg id="ger_normandy_tank_3_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffc741;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M114.148,30.925l-12.914,13.1h5.97V65.066H81.944v-49.2h5.97L75,2.763l-12.914,13.1h5.97v49.2H42.8V44.025h5.97l-12.914-13.1-12.914,13.1h5.97V77.8h0.066v1.157H68.056V146.9H81.944V78.954h39.07V77.8h0.078V44.025h5.97Z"/>
+</svg>

@@ -1,0 +1,139 @@
+he51b_2w{
+  _extends:t="he51b_2w_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/he51b_2w"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.982, 0.886, -0.043
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_he51b_2w_7_92mm_mg17_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_he51b_2w_7_92mm_mg17_02"
+    }
+  }
+}
+
+base_he51b_2w_7_92mm_mg17{
+  item__name:t="guns/gunmg17"
+  gun__blk:t="content/enlisted/gamedata/weapons/he51b_2w/7_92mm_mg17.blk"
+  gun__shotFreq:r=16.66
+  gun__locName:t="gunmg17"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=500
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=500
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
+        name:t="v"
+        type:t="ap_t_ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk"
+        name:t="s"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk"
+        name:t="s"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
+        name:t="v"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
+        name:t="v"
+        type:t="he_ball"
+      }
+    }
+  }
+}
+
+planegun_he51b_2w_7_92mm_mg17_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_he51b_2w_7_92mm_mg17"
+  _extends:t="gunsound_7_92mm_mg17_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=500
+}
+
+planegun_he51b_2w_7_92mm_mg17_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_he51b_2w_7_92mm_mg17"
+  _extends:t="gunsound_7_92mm_mg17_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=500
+}

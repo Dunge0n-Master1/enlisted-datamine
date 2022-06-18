@@ -1,0 +1,61 @@
+birds_sound{
+
+  _group{
+    _tags:t="sound"
+    birds_sound__var:r=0.0
+    birds_sound__noiseTime:r=-10.0
+    birds_sound__timeRange:p2=9.5, 10.0
+  }
+}
+
+shore_sound{
+  _extends:t="birds_sound"
+  _extends:t="sound_bank_preset_state"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    shore_sound__path:t="ambient/positioned/beach"
+    shore_sound__minMaxRainDensity:p2=1.0, 15.0
+    shore_sound__rainStrength:r=0.1
+
+    "shore_sound__event:SoundEvent"{
+    }
+
+    "shore_sound__offsets:list<p2>"{
+    }
+  }
+}
+
+river_sound{
+  _extends:t="sound_bank_preset_state"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    river_sound__path:t="ambient/positioned/river_mid"
+    river_sound__wasStarted:b=no
+    river_sound__pos:p2=0.0, 0.0
+    river_sound__radius:r=0.0
+    river_sound__pointId:i=-1
+
+    "river_sound__event:SoundEvent"{
+    }
+
+    "river_sound__points:list<p3>"{
+    }
+  }
+}
+
+ambient_sound_regionquery{
+
+  _group{
+    _tags:t="sound"
+    ambient_sound_regionquery__curNextTime:p2=0.0, 0.0
+    ambient_sound_regionquery__values:p2=0.0, 0.0
+    ambient_sound_regionquery__result:r=0.0
+    ambient_sound_regionquery__updateInterval:r=3.0
+  }
+}

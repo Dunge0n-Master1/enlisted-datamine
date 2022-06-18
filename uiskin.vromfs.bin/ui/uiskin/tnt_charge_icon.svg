@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="tnt_charge_icon" class="cls-1" d="M35.908,28.33A9.277,9.277,0,0,0,28,21.307v3.669H23V17.986h5v1.987a10.585,10.585,0,0,1,9.215,7.963ZM23,9.99h5v6.038H23V9.99Zm-1,6.038H7V10H6v6.028H1.013V9.99H22v6.038ZM6,24.976H1.013V17.986H6v6.991Zm16,0H7V17.986H22v6.991Z"/>
+</svg>

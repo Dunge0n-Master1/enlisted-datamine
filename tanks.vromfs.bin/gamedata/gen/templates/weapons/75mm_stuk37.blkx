@@ -1,0 +1,62 @@
+base_75mm_stuk37{
+  item__name:t="guns/75mm_stuk37"
+  gun__blk:t="gamedata/gen/weapons/75mm_stuk37.blk"
+  gun__shotFreq:r=0.3
+  gun__locName:t="75mm_stuk37"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk37_defaultset.blk"
+        name:t="75mm_pzgr_rot"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "75mm_ger_kwk40_37_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk37_75mm_ger_kwk40_37_he.blk"
+        name:t="75mm_sprgr_34"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "75mm_ger_kwk37_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk37_75mm_ger_kwk37_heat.blk"
+        name:t="75mm_grhl_38_b"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_ger_kwk37_Hl_C_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk37_75mm_ger_kwk37_hl_c_heat.blk"
+        name:t="75mm_grhl_38_c"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_ger_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk37_75mm_ger_smoke.blk"
+        name:t="75mm_k_gr_rot_nb"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_75mm_stuk37{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_75mm_stuk37"
+  _extends:t="gunsound_75mm_stuk37"
+  turret__triggerGroup:i=0
+}

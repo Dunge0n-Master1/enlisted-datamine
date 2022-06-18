@@ -1,0 +1,30 @@
+<svg id="Group_1_copy_14" data-name="Group 1 copy 14" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e8e8e8;
+      }
+
+      .cls-2 {
+        fill: #81c96a;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #38743e;
+      }
+
+      .cls-4 {
+        fill: #5aa243;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="11" y="1" width="79" height="98"/>
+  <path class="cls-2" d="M50.613,24.1L77.178,50.539,50.613,76.975,24.047,50.539Z"/>
+  <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" class="cls-2" d="M50.613,14.987L86.338,50.539,50.613,86.09,14.887,50.539Zm0,3.646L82.674,50.539l-32.061,31.9-32.061-31.9Z"/>
+  <path id="Polygon_1" data-name="Polygon 1" class="cls-3" d="M69.4,77.962L50.44,64.82,31.392,77.833l6.641-22.093L19.77,41.647l23.063-.511,7.761-21.724,7.613,21.777,23.059,0.668L62.909,55.825Z"/>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-4" d="M13,97V3H88V97H13ZM73.381,6H27.619L16,17.563V82.437L27.619,94H73.381L85,82.437V17.563Z"/>
+</svg>

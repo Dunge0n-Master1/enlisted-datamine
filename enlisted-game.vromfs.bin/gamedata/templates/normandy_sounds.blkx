@@ -1,0 +1,12 @@
+rendinst_damage_sound_decor_bell_fallen{
+  _extends:t="replicating"
+  rendinst_damage_sound__projectile:t="impact/church_bell_fallen"
+  ri_extra__destroyed:b=no
+
+  ri_extra{
+  }
+
+  "ri_extra__handle:u64"{
+    value:i64=-1
+  }
+}

@@ -1,0 +1,51 @@
+base_hitpoints{
+  _replicated:t="hitpoints__lastHitNodeId"
+  hitpoints__lastOffenderTime:r=-1.0
+  hitpoints__timeFromLastDamage:r=-1.0
+  hitpoints__hpRecoverySpd:r=0.0
+  hitpoints__hpThreshold:r=0.0
+  hitpoints__stoppingPower:r=0.0
+  hitpoints__shellDmgMult:r=0.08
+  hitpoints__lastHitNodeId:i=-1
+  hitpoints__killDownedByMeleeHit:b=yes
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    isAlive:b=yes
+    isDowned:b=no
+    hitpoints__hp:r=0.0
+    hitpoints__maxHp:r=0.0
+    hitpoints__downedEndTime:r=-1.0
+    hitpoints__revivingCount:i=0
+    hitpoints__canSelfReviveByPerk:b=no
+  }
+
+  _group{
+    _tags:t="server"
+    death_desc__damageType:i=-1
+    death_desc__gunPropsId:i=-1
+    death_desc__shellId:i=-1
+    death_desc__collNodeId:i=-1
+    death_desc__victimTeam:i=-1
+    death_desc__offenderTeam:i=-1
+
+    "hitpoints:tag"{
+    }
+
+    "death_desc__builtGunEid:eid"{
+    }
+  }
+
+  "lastCriticalOffender:eid"{
+  }
+
+  "hitpoints__lastOffender:eid"{
+  }
+
+  "hitpoints__lastOffenderPlayer:eid"{
+  }
+
+  "hitpoints__lastVictimPlayer:eid"{
+  }
+}

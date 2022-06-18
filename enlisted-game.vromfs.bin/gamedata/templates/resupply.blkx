@@ -1,0 +1,44 @@
+resupply_zone{
+  active:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ui_order:i=-1
+  sphere_zone__radius:r=10.0
+  zone__icon:t="!ui/skin#bullets.svg"
+  zone__caption:t=""
+  _extends:t="replicating"
+  _tracked:t="ui_order"
+  _tracked:t="active"
+  _tracked:t="transform"
+  _tracked:t="sphere_zone__radius"
+  _tracked:t="resupply_zone__team"
+  _replicated:t="active"
+  _replicated:t="resupply_zone__team"
+  resupply_zone__resupplyTime:r=0.0
+  resupply_zone__resupplyFuel:b=no
+  resupply_zone__duration:r=3.0
+  resupply_zone__cooldown:r=30.0
+  resupply_zone__team:i=-1
+  resupply_zone__nextUpdateAtTime:r=-1.0
+  resupply_zone__updateInterval:r=1.25
+
+  "resupplyZone:tag"{
+  }
+}
+
+resupply_in_air_zone{
+  _extends:t="resupply_zone"
+  sphere_zone__radius:r=1000.0
+  resupply_zone__resupplyFuel:b=yes
+
+  "planeResupply:tag"{
+  }
+}
+
+resupply_for_ground_vehicle_zone{
+  _extends:t="resupply_zone"
+  sphere_zone__radius:r=10.0
+  groupName:t=""
+
+  "groundVehicleResupply:tag"{
+  }
+}

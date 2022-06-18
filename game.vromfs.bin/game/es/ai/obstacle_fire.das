@@ -1,0 +1,22 @@
+require ecs
+require game.es.events
+require pathfinder
+require DagorRandom
+require DagorMath
+
+[es(tag=server, on_appear, on_event=EventLevelLoaded)]
+def obstacle_fire_created_es(evt : Event;
+                             var obstacle__handle : int&;
+                             transform : float3x4;
+                             sphere_zone__radius : float;
+                             fire_source__scale : float = 0.0f;
+                             obstacle__padding : float = 0.0f)
+  if obstacle__handle != 0
+    return
+  var radius = sphere_zone__radius
+  if fire_source__scale > 0.0f
+    radius = fire_source__scale
+  let ext = float3(radius + obstacle__padding, radius, radius + obstacle__padding)
+  var tm : float3x4
+  rotyTM(rnd_float(0.0f, PI * 2.0f), tm)
+  obstacle__handle = tilecache_obstacle_add(transform * tm, BBox3(-ext, ext));

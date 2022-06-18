@@ -1,0 +1,79 @@
+mass:r=0.753
+caliber:r=0.037
+normalizationPreset:t="ap"
+ricochetPreset:t="ap"
+speed:r=556.0
+secondaryShattersPreset:t="ap"
+maxDistance:r=2000.0
+stabilityThreshold:r=0.05
+stabilityCaliberToArmorThreshold:r=5.0
+onHitChanceMultFire:r=3.0
+stabilityReductionAfterRicochet:r=0.5
+stabilityReductionAfterPenetration:r=0.15
+nearHitPower:p2=1.0, 200.0
+bulletType:t="ap_t"
+midHitPower:p2=0.6, 500.0
+slopeEffectPreset:t="ap"
+farHitPower:p2=0.3, 1500.0
+fresnel:p3=0.23, 0.1, 2.0
+endHitPower:p2=0.01, 2000.0
+relativeVelArmorShift:p2=200.0, 1000.0
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_39_58mm_metal_ap"
+groundCollisionEffect:t="hit_39_58mm_dirt_ap"
+ricochetEffect:t="hit_39_58mm_metal_ap"
+waterCollisionEffect:t="hit_39_58mm_water"
+explosionPatchRadius:r=0.7
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.05
+  mod2:p2=20.0, 0.1
+  mod3:p2=30.0, 0.2
+  mod3:p2=45.0, 0.3
+}
+
+damage{
+
+  kinetic{
+    damageType:t="generic"
+    demarrePenetrationK:r=0.9
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+  }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="37mmRed"
+  trail:t="black"
+}
+
+hitFx{
+
+  steel{
+    fx:t="hit_39_58mm_metal_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_39_58mm_wood_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_39_58mm_metal_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_39_58mm_stone_ap"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+tracer{
+  headColor:c=255, 15, 15, 255
+  smokeColor:c=80, 80, 80, 186
+}

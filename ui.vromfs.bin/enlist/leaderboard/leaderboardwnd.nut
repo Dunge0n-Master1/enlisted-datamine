@@ -1,0 +1,264 @@
+from "%enlSqGlob/ui_library.nut" import *
+
+let { doesLocTextExist } = require("dagor.localize")
+let { h0_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { withTooltip } = require("%ui/style/cursors.nut")
+let {
+  defTxtColor, blurBgColor, bigPadding, defInsideBgColor,
+  rowBg
+} = require("%enlSqGlob/ui/viewConst.nut")
+let { UserNameColor } = require("%ui/style/colors.nut")
+let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {
+  refreshLbData, curLbRequestData, curLbData, curLbSelfRow, curLbErrName,
+  isLbWndOpened, lbCategoriesByGroup, LB_PAGE_ROWS, bestBattlesByMode, isRefreshLbEnabled
+} = require("lbState.nut")
+let { selLbMode } = require("%enlist/gameModes/eventModesState.nut")
+let { RANK, NAME } = require("lbCategory.nut")
+let exclamation = require("%enlist/components/exclamation.nut")
+let spinner = require("%ui/components/spinner.nut")
+let closeBtn = require("%ui/components/closeBtn.nut")
+let { mkHeaderFlag, casualFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
+let lbBestBattlesWnd = require("lbBestBattlesWnd.nut")
+let { Bordered } = require("%ui/components/textButton.nut")
+
+
+
+const WND_UID = "leaderboard"
+let rowHeight = hdpx(28)
+let contentHeaderHeight = rowHeight * 1.5
+let fullHeight = (LB_PAGE_ROWS + 2) * rowHeight + 2 * bigPadding + contentHeaderHeight//header, ..., self data
+let firstPlaceColor = 0xFFFFFFFF
+let top3Color = Color(255, 245, 180)
+let localGap = bigPadding * 2
+let wreathSize = hdpx(24)
+let headerImgHeight = hdpx(150)
+let iconHeaderSize = hdpx(30).tointeger()
+
+
+let styleByCategory = {
+  [RANK] = { halign = ALIGN_LEFT },
+  [NAME] = { halign = ALIGN_LEFT, size = [hdpx(220), SIZE_TO_CONTENT] },
+}
+
+let close = @() isLbWndOpened(false)
+let refreshLbOnChange = @(_) refreshLbData()
+
+let mkLbCell = @(category, rowData, override) {
+  size = [flex(category.relWidth), SIZE_TO_CONTENT]
+  rendObj = ROBJ_TEXT
+  color = defTxtColor
+  halign = ALIGN_CENTER
+  text = category.getText(rowData)
+}.__update(
+  sub_txt,
+  styleByCategory?[category] ?? {},
+  override)
+
+let function mkLbRankCell(category, rowData, override) {
+  let { idx = -1 } = rowData
+
+  return {
+    size = [flex(category.relWidth), SIZE_TO_CONTENT]
+    valign = ALIGN_CENTER
+    children = {
+      size = [wreathSize, SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      children = [ idx >= 0 && idx < 3
+        ? {
+            rendObj = ROBJ_IMAGE
+            size = [wreathSize, wreathSize]
+            image = Picture("ui/uiskin/scanner_range.png")
+          }
+        : null
+        {
+            rendObj = ROBJ_TEXT
+            color = defTxtColor
+            text = category.getText(rowData)
+        }.__update(sub_txt)
+      ]
+    }
+  }.__update(override, styleByCategory)
+}
+
+let renderByCategory = {
+  [RANK] = mkLbRankCell
+}
+
+let function mkLbRow(rowData, categories) {
+  let { self = false, idx = -1 } = rowData
+  let color = self ? UserNameColor
+    : idx == 0 ? firstPlaceColor
+    : idx == 1 || idx == 2 ? top3Color
+    : null
+
+  let override = color != null ? { color } : {}
+  return {
+    rendObj = ROBJ_SOLID
+    size = [flex(), rowHeight]
+    flow = FLOW_HORIZONTAL
+    padding = localGap
+    color = rowBg(0, idx)
+    valign = ALIGN_CENTER
+    children = categories.map(@(c) (renderByCategory?[c] ?? mkLbCell)(c, rowData, override))
+  }
+}
+
+let dotsRow = {
+  size = [flex(), rowHeight]
+  rendObj = ROBJ_TEXT
+  color = defTxtColor
+  text = "..."
+}
+
+let lbHeaderFlag = {
+  vplace = ALIGN_CENTER
+  children = mkHeaderFlag(
+    {
+      padding = [localGap, bigPadding * 3]
+      rendObj = ROBJ_TEXT
+      text = loc("Leaderboard")
+    }.__update(h0_txt),
+    {
+      offset = hdpx(15)
+    }.__update(casualFlagStyle)
+  )
+}
+
+let lbHeaderImg = {
+  size = [flex(), headerImgHeight]
+  rendObj = ROBJ_IMAGE
+  image = Picture("ui/stalingrad_login_screen.jpg")
+  keepAspect = KEEP_ASPECT_FILL
+}
+
+let lbWindowHeader = {
+  size = [flex(), SIZE_TO_CONTENT]
+  children = [
+    lbHeaderImg
+    lbHeaderFlag
+    closeBtn({ onClick = close }).__update({ margin = bigPadding })
+    function() {
+      let res = { watch = [selLbMode, bestBattlesByMode] }
+      let battles = bestBattlesByMode.value?[selLbMode.value] ?? []
+      return battles.len() == 0 ? res
+        : res.__update({
+            hplace = ALIGN_RIGHT
+            vplace = ALIGN_BOTTOM
+            children = Bordered(loc("lb/bestBattles"),
+              @() lbBestBattlesWnd(selLbMode.value))
+          })
+    }
+  ]
+}
+
+let getColumnDescription = function (locNameId) {
+  let locId = $"{locNameId}/desc"
+  return doesLocTextExist(locId) ? loc(locId) : ""
+}
+
+let mkHeaderName = @(category) {
+    size = [flex(category.relWidth), SIZE_TO_CONTENT]
+    halign = ALIGN_CENTER
+    behavior = Behaviors.Button
+    xmbNode = XmbNode()
+    children = category?.icon == null
+      ? {
+          rendObj = ROBJ_TEXT
+          text = loc(category.locId)
+          color = defTxtColor
+        }.__update(tiny_txt)
+      : withTooltip({
+            rendObj = ROBJ_IMAGE
+            color = defTxtColor
+            image = Picture($"{category.icon}:{iconHeaderSize}:{iconHeaderSize}:K")
+          },
+          @() "\n\n".join([loc(category.locId), getColumnDescription(category.locId)], true)
+        )
+  }.__update(styleByCategory?[category] ?? {})
+
+let lbHeaderRow = @(categories) {
+  rendObj = ROBJ_SOLID
+  size = [flex(), contentHeaderHeight]
+  xmbNode = XmbContainer({
+    isViewport = true
+  })
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_CENTER
+  padding = localGap
+  color = Color(0,0,0)
+  children = categories.map(mkHeaderName)
+}
+
+let function lbContent() {
+  let lbCategories = lbCategoriesByGroup.value.full
+  local children = null
+  local valign = ALIGN_CENTER
+  if (curLbData.value == null)
+    children = spinner
+  else if (curLbData.value.len() == 0)
+    children = exclamation(
+      loc(curLbErrName.value != null ? $"error/{curLbErrName.value}" : "leaderboard/noLbData"))
+  else {
+    children = curLbData.value.map(@(rowData) mkLbRow(rowData, lbCategories))
+    if (curLbSelfRow.value && curLbData.value.findvalue(@(r) r?.self ?? false) == null) {
+      let selfRow = mkLbRow(curLbSelfRow.value, lbCategories)
+      let { idx = -1 } = curLbSelfRow.value
+      if (idx > 0 && idx < (curLbData.value[0]?.idx ?? -1)) {
+        children.insert(0, selfRow)
+        children.insert(1, dotsRow)
+      }
+      else if (idx > (curLbData.value.top()?.idx ?? -1) + 1) {
+        children.append(dotsRow)
+        children.append(selfRow)
+      }
+    }
+    children.insert(0, lbHeaderRow(lbCategories))
+    valign = ALIGN_TOP
+  }
+
+  return {
+    watch = [lbCategoriesByGroup, curLbData, curLbSelfRow, curLbErrName]
+    size = [flex(), fullHeight]
+    rendObj = ROBJ_SOLID
+    color = Color(10,10,10,10)
+    halign = ALIGN_CENTER
+    valign
+    flow = FLOW_VERTICAL
+    children
+  }
+}
+
+let lbWindow = {
+  size = [hdpx(1300), SIZE_TO_CONTENT]
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  color = blurBgColor
+  flow = FLOW_VERTICAL
+  function onAttach() {
+    refreshLbData()
+    curLbRequestData.subscribe(refreshLbOnChange)
+  }
+  onDetach = @() curLbRequestData.unsubscribe(refreshLbOnChange)
+  children = [
+    lbWindowHeader
+    lbContent
+  ]
+}
+
+let open = @() addModalWindow({
+  key = WND_UID
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  fillColor = defInsideBgColor
+  size = flex()
+  onAttach = @() isRefreshLbEnabled(true)
+  onDetach = @() isRefreshLbEnabled(false)
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  onClick = @() null
+  children = lbWindow
+})
+
+if (isLbWndOpened.value)
+  open()
+isLbWndOpened.subscribe(@(v) v ? open() : removeModalWindow(WND_UID))

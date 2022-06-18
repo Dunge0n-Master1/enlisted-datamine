@@ -1,0 +1,30 @@
+shapesAtlas:t="decal_growth_liquid_atlas_tex_n"
+atlasSize:p2=4.0, 8.0
+puddleVariantsCount:i=4
+splashVariantsCount:i=4
+freshColor:p4=0.157, 0.012, 0.0, 1.0
+driedColor:p4=0.086, 0.024, 0.02, 0.96
+splashAppearTime:r=1.0
+sprayAppearTime:r=1.0
+leakAppearTime:r=5.0
+footprintAppearTime:r=0.1
+splashEffectName:t="blood_splash"
+splashEffectScale:r=0.7
+footprintSizeRange:p2=0.25, 0.25
+footprintEmitterDryingTime:r=10.0
+projectiveSplashAppearTime:r=0.25
+projectiveSplashShapesAtlas:t="decal_growth_liquid_projection_splash_tex_n*"
+biome_without_dry:t="snow"
+
+footprints{
+  variantsCount:i=4
+  variantsCount:i=4
+}
+
+groupDists{
+  puddle:r=0.25
+  splash:r=0.01
+  spray:r=0.01
+  leak:r=0.1
+  footprint:r=0.01
+}

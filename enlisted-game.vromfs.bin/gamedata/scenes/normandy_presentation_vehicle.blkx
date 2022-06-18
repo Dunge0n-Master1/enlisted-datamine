@@ -1,0 +1,246 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/normandy_presentation.blk"
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [-6.82679, 9.62623, 173.363]]
+  active:b=no
+  groupName:t="3_1"
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.998255, 0.0, -0.0590479] [0.0, 1.0, 0.0] [0.0590479, 0.0, 0.998255] [16.9639, 21.2285, -0.265232]]
+  groupName:t="3_1"
+  active:b=no
+  team:i=2
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.0013086, 0.0, 0.999999] [0.0, 1.0, 0.0] [-0.999999, 0.0, -0.0013086] [28.921, 21.2285, 10.3129]]
+  groupName:t="3_1"
+  active:b=no
+  team:i=2
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [27.6719, 9.62623, 179.434]]
+  active:b=no
+  groupName:t="3_1"
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.0013086, 0.0, 0.999999] [0.0, 1.0, 0.0] [-0.999999, 0.0, -0.0013086] [28.921, 21.2285, 10.3129]]
+  groupName:t="3_2"
+  active:b=no
+  team:i=2
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.998255, 0.0, -0.0590479] [0.0, 1.0, 0.0] [0.0590479, 0.0, 0.998255] [16.9639, 21.2285, -0.265232]]
+  groupName:t="3_2"
+  active:b=no
+  team:i=2
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [27.6719, 9.62623, 179.434]]
+  active:b=no
+  groupName:t="3_2"
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [-6.82679, 9.62623, 173.363]]
+  active:b=no
+  groupName:t="3_2"
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.871472, 0.0, 0.490444] [0.0, 1.0, 0.0] [-0.490444, 0.0, 0.871472] [16.8043, 69.6608, -221.144]]
+  groupName:t="6_1"
+  active:b=no
+  team:i=2
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.871472, 0.0, 0.490444] [0.0, 1.0, 0.0] [-0.490444, 0.0, 0.871472] [16.8043, 69.6608, -221.144]]
+  groupName:t="6_2"
+  active:b=no
+  team:i=2
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.762615, 0.0, -0.646852] [0.0, 1.0, 0.0] [0.646852, 0.0, 0.762615] [27.6959, 49.4625, -96.2062]]
+  active:b=no
+  groupName:t="6_1"
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.762615, 0.0, -0.646852] [0.0, 1.0, 0.0] [0.646852, 0.0, 0.762615] [27.6959, 49.4625, -96.2062]]
+  active:b=no
+  groupName:t="6_2"
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.197313, 0.0, -0.980341] [0.0, 1.0, 0.0] [0.980341, 0.0, -0.197313] [146.117, 8.69014, 269.381]]
+  groupName:t="1_3"
+  active:b=yes
+  team:i=1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.495627, 0.0, 0.868536] [0.0, 1.0, 0.0] [-0.868536, 0.0, -0.495627] [36.6805, 11.763, 142.665]]
+  active:b=yes
+  team:i=2
+  groupName:t="1_3"
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.306898, 0.0, 0.951742] [0.0, 1.0, 0.0] [-0.951742, 0.0, 0.306898] [-18.708, 13.7186, 142.665]]
+  active:b=yes
+  team:i=2
+  groupName:t="1_3"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [-6.82679, 9.62623, 173.363]]
+  team:i=1
+  groupName:t="3_1"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.998255, 0.0, -0.0590479] [0.0, 1.0, 0.0] [0.0590479, 0.0, 0.998255] [16.9639, 21.2285, -0.265232]]
+  team:i=2
+  groupName:t="3_1"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.0013086, 0.0, 0.999999] [0.0, 1.0, 0.0] [-0.999999, 0.0, -0.0013086] [28.921, 21.2285, 10.3129]]
+  team:i=2
+  groupName:t="3_1"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [27.6719, 9.62623, 179.434]]
+  team:i=1
+  groupName:t="3_1"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.0013086, 0.0, 0.999999] [0.0, 1.0, 0.0] [-0.999999, 0.0, -0.0013086] [28.921, 21.2285, 10.3129]]
+  team:i=2
+  groupName:t="3_2"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.998255, 0.0, -0.0590479] [0.0, 1.0, 0.0] [0.0590479, 0.0, 0.998255] [16.9639, 21.2285, -0.265232]]
+  team:i=2
+  groupName:t="3_2"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [27.6719, 9.62623, 179.434]]
+  team:i=1
+  groupName:t="3_2"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.00076927, 0.0, -0.999999] [0.0, 1.0, 0.0] [0.999999, 0.0, -0.00076927] [-6.82679, 9.62623, 173.363]]
+  team:i=1
+  groupName:t="3_2"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.871472, 0.0, 0.490444] [0.0, 1.0, 0.0] [-0.490444, 0.0, 0.871472] [16.8043, 69.6608, -221.144]]
+  team:i=2
+  groupName:t="6_1"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.871472, 0.0, 0.490444] [0.0, 1.0, 0.0] [-0.490444, 0.0, 0.871472] [16.8043, 69.6608, -221.144]]
+  team:i=2
+  groupName:t="6_2"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.762615, 0.0, -0.646852] [0.0, 1.0, 0.0] [0.646852, 0.0, 0.762615] [27.6959, 49.4625, -96.2062]]
+  team:i=1
+  groupName:t="6_1"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.762615, 0.0, -0.646852] [0.0, 1.0, 0.0] [0.646852, 0.0, 0.762615] [27.6959, 49.4625, -96.2062]]
+  team:i=1
+  groupName:t="6_2"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  active:b=yes
+  transform:m=[[-0.197313, 0.0, -0.980341] [0.0, 1.0, 0.0] [0.980341, 0.0, -0.197313] [146.117, 8.69014, 269.381]]
+  team:i=1
+  groupName:t="1_3"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  active:b=yes
+  transform:m=[[-0.495627, 0.0, 0.868536] [0.0, 1.0, 0.0] [-0.868536, 0.0, -0.495627] [36.6805, 11.763, 142.665]]
+  team:i=2
+  groupName:t="1_3"
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  active:b=yes
+  transform:m=[[0.306898, 0.0, 0.951742] [0.0, 1.0, 0.0] [-0.951742, 0.0, 0.306898] [-18.708, 13.7186, 142.665]]
+  team:i=2
+  groupName:t="1_3"
+}

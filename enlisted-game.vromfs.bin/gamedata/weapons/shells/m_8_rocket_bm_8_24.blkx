@@ -1,0 +1,414 @@
+normalizationPreset:t="heat"
+ricochetPreset:t="he"
+secondaryShattersPreset:t="ap_rocket"
+stabilityThreshold:r=0.5
+stabilityCaliberToArmorThreshold:r=5.0
+stabilityReductionAfterRicochet:r=0.3
+stabilityReductionAfterPenetration:r=0.15
+bulletType:t="rocket_tank"
+slopeEffectPreset:t="ap"
+fresnel:p3=0.23, 0.1, 2.0
+explodeOnRendinst:b=yes
+useEffectiveArmorThicknessForShatter:b=yes
+shellAnimation:t="video/shells_animations/rocket_he.ivf"
+bulletName:t="82mm_m_8"
+caliber:r=0.082
+mass:r=7.92
+massEnd:r=6.74
+explosiveType:t="tnt"
+explosiveMass:r=0.6
+maxDeltaAngle:r=2.5
+dragCx:r=0.007
+length:r=0.714
+distFromCmToStab:r=0.01
+CxK:r=1.0
+WdK:p3=0.1, 0.1, 0.1
+force:r=3300.0
+timeFire:r=0.7
+thrustDeviation:r=0.003
+selfDestructionFx:t="explosion_air_selfexplosion_big"
+explosionEffect:t="hit_106_132mm_metal_he"
+groundCollisionEffect:t="hit_106_132mm_dirt_he"
+ricochetEffect:t="hit_106_132mm_metal_ap"
+maxDistance:r=5515.0
+waterCollisionEffect:t="hit_106_132mm_water_he"
+minDistance:r=30.0
+explosionPatchRadius:r=3.5
+visualShattersWaterOffset:r=1.2
+spawnExplosionWreckage:b=no
+visualShattersGroundOffset:r=1.2
+spawnExplosionFx:b=no
+fireEffect:t="rocket_fire_light_multiple"
+smokeEffect:t=""
+explosionOffset:r=0.05
+hitPowerMult:r=40.0
+distanceFuse:b=no
+explodeTreshold:r=0.1
+fuseDelayDist:r=0.0
+rendinstDamageRadius:r=4.0
+statType:t="hydra"
+advancedMissiles:b=no
+useStartSpeed:b=yes
+startSpeed:r=0.0
+endSpeed:r=315.0
+price:r=3000.0
+entityTemplate:t="rbs_82_rocket_projectile"
+entityPhysTemplate:t=""
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.5
+  mod2:p2=15.0, 0.7
+  mod3:p2=30.0, 0.99
+}
+
+pressureDamage{
+  damageType:t="pressure"
+}
+
+collisions{
+
+  default{
+    fx:t="hit_106_132mm_dirt_he"
+  }
+
+  horLandMesh{
+    fx:t="hit_106_132mm_dirt_he"
+  }
+
+  soil{
+    fx:t="hit_106_132mm_dirt_he"
+  }
+
+  dirt{
+    fx:t="hit_106_132mm_dirt_he"
+  }
+
+  road{
+    fx:t="hit_106_132mm_dirt_he"
+  }
+
+  roadSoil{
+    fx:t="hit_106_132mm_dirt_he"
+  }
+
+  bricks_red{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  sand{
+    fx:t="hit_106_132mm_sand_he"
+  }
+
+  duneSand{
+    fx:t="hit_106_132mm_sand_he"
+  }
+
+  roadSand{
+    fx:t="hit_106_132mm_sand_he"
+  }
+
+  quickSand{
+    fx:t="hit_106_132mm_sand_he"
+  }
+
+  snow{
+    fx:t="hit_106_132mm_snow_he"
+  }
+
+  ice{
+    fx:t="hit_106_132mm_snow_he"
+  }
+
+  roadSnow{
+    fx:t="hit_106_132mm_snow_he"
+  }
+
+  snowLower{
+    fx:t="hit_106_132mm_snow_he"
+  }
+
+  glass{
+    fx:t="hit_106_132mm_metal_he"
+  }
+
+  wood{
+    fx:t="hit_106_132mm_wood_he"
+  }
+
+  steel{
+    fx:t="hit_106_132mm_metal_he"
+  }
+
+  metal{
+    fx:t="hit_106_132mm_metal_he"
+  }
+
+  buildings{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  verLandMesh{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  concrete{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  rocks{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  rocksSlippery{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  fabric{
+    fx:t="hit_106_132mm_stone_he"
+  }
+
+  stone_snow{
+    fx:t="hit_106_132mm_snow_he"
+  }
+}
+
+shatterCollisions{
+  groundCollisionEffect:t="hit_12_18mm_dirt_ap"
+  waterCollisionEffect:t="hit_8_11mm_water"
+
+  default{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  horLandMesh{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  soil{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  dirt{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  road{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  bricks_red{
+    fx:t="hit_12_18mm_red_brick_ap"
+  }
+
+  roadSoil{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  sand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  duneSand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  roadSand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  quickSand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  snow{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  ice{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  roadSnow{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  snowLower{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  glass{
+    fx:t="hit_12_18mm_metal_ap"
+  }
+
+  wood{
+    fx:t="hit_12_18mm_wood_ap"
+  }
+
+  steel{
+    fx:t="hit_12_18mm_metal_ap"
+  }
+
+  metal{
+    fx:t="hit_12_18mm_metal_ap"
+  }
+
+  buildings{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  verLandMesh{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  concrete{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  rocks{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  rocksSlippery{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  fabric{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  stone_snow{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+}
+
+DamageParts{
+
+  body{
+    hp:r=5.0
+    armorClass:t="tank_structural_steel"
+    armorThickness:r=1.0
+  }
+}
+
+DamageEffects{
+
+  part{
+    name:t="body"
+
+    onHit{
+      expl:r=1.0
+    }
+
+    onKill{
+      destruction:r=1.0
+    }
+  }
+}
+
+damage{
+
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.5
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.4
+      damageScale:r=1.0
+      angles:p2=0.0, 30.0
+      countPortion:r=0.1
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=31.0, 74.0
+      countPortion:r=0.2
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.8
+      damageScale:r=1.5
+      angles:p2=75.0, 100.0
+      countPortion:r=0.05
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=101.0, 180.0
+      countPortion:r=0.15
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=181.0, 259.0
+      countPortion:r=0.15
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.8
+      damageScale:r=1.5
+      angles:p2=260.0, 285.0
+      countPortion:r=0.05
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=286.0, 329.0
+      countPortion:r=0.2
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.4
+      damageScale:r=1.0
+      angles:p2=330.0, 359.0
+      countPortion:r=0.1
+    }
+  }
+}
+
+shatterDamage{
+  breachConeAngle:r=45.0
+}
+
+hitpower{
+  HitPower0m:p2=1.0, 500.0
+  HitPower5000m:p2=0.5, 5000.0
+  HitPower7000m:p2=0.1, 7000.0
+}
+
+hitFx{
+  fxScale:p2=1.0, 1.0
+  defaultFx:t="hit_59_80mm_dirt_he"
+  jetFx:t="hit_59_80mm_dirt_he"
+
+  steel{
+    fx:t="hit_59_80mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_59_80mm_wood_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_59_80mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_59_80mm_stone_he"
+    fxScale:p2=1.0, 1.0
+  }
+}

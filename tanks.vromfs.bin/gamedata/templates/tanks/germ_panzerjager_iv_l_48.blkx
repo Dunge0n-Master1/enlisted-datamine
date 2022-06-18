@@ -1,0 +1,335 @@
+germ_panzerjager_IV_L_48{
+  _extends:t="germ_panzerjager_IV_L_48_common"
+}
+
+germ_panzerjager_IV_L_48_common{
+  _extends:t="base_panzerjager_iv_l_48"
+  _extends:t="vehicle_effects_tracked"
+  gunnerFpsCamMaxAngle:p2=8.0, 5.0
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="germ_panzerjager_IV_L_48_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="germ_panzerjager_IV_L_48_gunner_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      name:t="commander"
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=yes
+      hatchRotationAxis:p3=1.7, 0.0, 0.0
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.230837, -0.738376, 0.171481]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+      cockpitTemplate:t="germ_panzerjager_IV_L_48_commander_cockpit"
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/loader"
+      attachNode:t="loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="bone_camera_driver"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_body_l_01"
+    part:t="ex_armor_body_l_02"
+    part:t="ex_armor_body_l_03"
+    part:t="ex_armor_body_r_01"
+    part:t="track_l_01"
+    part:t="track_r_01"
+  }
+}
+
+germ_panzerjager_IV_L_48_commander_cockpit{
+  _extends:t="base_commander_cockpit_no_slits"
+  animchar__res:t="t_26_1940_commander_char"
+  cockpit__offset:p3=-0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-1.9, 0.9, -0.004
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.15
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}
+
+germ_panzerjager_IV_L_48_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_sfl_zf_1a.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__minZoom:r=-0.4
+  cockpit__offset:p3=-1.32982, 0.479557, 0.728512
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-1.74148, 0.160683, 0.142087
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.1
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun_barrel"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}
+
+germ_panzerjager_IV_L_48_driver_cockpit{
+  _extends:t="base_driver_cockpit_no_slits"
+  animchar__res:t="pzkpfw_iii_e_driver_char"
+  cockpit__offset:p3=-0.330518, -0.183788, -0.0599079
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="track_l"
+    node:t="track_r"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.07
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=no
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}
+
+germ_panzerjager_IV_L_48_berlin_premium{
+  _extends:t="germ_panzerjager_IV_L_48_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_dunkelgelb*":t="ger_camo_hinterhalt_daimler*"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="ex_decor_l_01"
+    part:t="ex_decor_l_06"
+    part:t="ex_decor_r_01"
+    part:t="ex_decor_r_09"
+    part:t="track_l_01"
+    part:t="track_r_01"
+  }
+
+  "attach_decorators__templates:array"{
+
+    "templates:object"{
+      relativeTm:m=[[-0.148486, -0.799137, 0.582992] [0.989667, -0.119351, 0.0884129] [-0.00108148, 0.589871, 0.807663] [0.520752, 1.56312, 1.21672]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.253139, -0.261285, 0.931923] [0.766827, -0.536899, -0.357087] [0.593896, 0.805286, 0.0634836] [1.42224, 1.7276, 0.887233]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.999994, 0.00499774, 0.00180696] [0.00494198, -0.749637, -0.662394] [-0.00195471, 0.662453, -0.74924] [0.649063, 1.61144, -1.17081]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0864287, -0.0685808, 0.994309] [0.703079, -0.712861, 0.0120037] [0.7073, 0.699633, 0.1095] [1.92703, 1.21166, 0.874212]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.069362, -0.753949, 0.653654] [0.993989, 0.110457, 0.0219347] [-0.0887371, 0.648137, 0.756553] [0.0680847, 1.60246, 1.24179]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.197735, -0.862219, -0.467426] [-0.965896, -0.253833, 0.0594172] [-0.169813, 0.439672, -0.882153] [-0.347519, 1.49681, -1.22795]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.752678, -0.647438, 0.128364] [0.56674, 0.534305, -0.628842] [0.338045, 0.545341, 0.767144] [1.63702, 1.6555, 0.621573]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[1.0, 0.00100284, 0.00212487] [0.000941302, 0.657919, -0.75344] [-0.00215462, 0.753608, 0.657728] [1.13361, 1.62457, 1.22604]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[1.0, 0.00559681, 0.000649339] [0.00557796, -0.967374, -0.257994] [-0.000817541, 0.258689, -0.966304] [0.603958, 1.27834, -1.36893]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.766945, -0.641891, -0.0262645] [-0.335211, -0.364856, -0.868994] [0.548072, 0.675196, -0.494673] [1.858, 1.36767, -1.08885]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[1.00001, 0.000105719, 0.00072766] [8.48791e-05, 0.967002, -0.256772] [-0.000730443, 0.256796, 0.966571] [1.00406, 1.29643, 1.39049]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0956017, 0.756083, -0.647747] [-0.990583, -0.00433156, 0.141075] [0.103833, 0.654914, 0.748759] [-0.350037, 1.54129, 1.24834]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.650479, 0.76008, -0.0068604] [-0.0468316, -0.0310713, 0.998994] [0.758569, 0.649713, 0.0557452] [1.79601, 1.43736, 1.15025]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0484485, 0.791115, 0.610657] [0.991515, 0.115661, -0.0711207] [-0.126899, 0.601886, -0.788887] [0.106293, 1.56996, -1.21039]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.00475085, 0.77077, 0.638024] [1.00002, -0.00449169, 0.01286] [0.0127684, 0.63834, -0.770066] [1.12271, 1.63247, -1.25014]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0407261, 0.0571844, 0.998171] [0.704226, 0.70741, -0.0692371] [-0.709463, 0.705255, -0.0114355] [-0.756134, 1.69432, -0.657547]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0133904, -0.501274, -0.00013524] [0.501274, 0.0133878, -0.00017011] [0.000173641, -0.00013046, 0.501073] [-0.830658, 0.968771, -1.44232]]
+      template:t="wooden_plank_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.00802068, -0.501389, -0.000135034] [0.501389, 0.00801979, -0.000173069] [0.000175238, -0.000132118, 0.501123] [1.57137, 0.988924, 1.44617]]
+      template:t="wooden_plank_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0182722, -0.501093, -0.000135337] [0.501087, 0.0182722, -0.000167338] [0.000172169, -0.000129027, 0.501177] [1.65573, 1.05926, -1.47778]]
+      template:t="wooden_plank_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.00606261, -0.501428, -0.00018161] [0.501274, 0.0060582, 0.00982153] [-0.00981148, -0.000300038, 0.500932] [-0.750351, 1.07113, 1.45056]]
+      template:t="wooden_plank_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.999203, 0.0216646, 0.0396165] [0.0398102, -0.00840097, -0.999295] [-0.0213139, 0.999987, -0.00925708] [-1.52946, 1.73531, -0.610818]]
+      template:t="tank_decor_box_01_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[1.0, 0.000422046, 0.00144907] [0.000379883, 0.858997, -0.512339] [-0.00146148, 0.512714, 0.85888] [-1.32858, 1.54703, 1.37384]]
+      template:t="tank_decor_box_01_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0207532, -0.0127591, 0.999728] [-0.313744, -0.94994, -0.00560863] [0.949459, -0.313453, -0.0236991] [-2.29207, 1.49034, 0.0509888]]
+      template:t="us_jerrycan_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0271144, -0.88238, -0.470258] [0.99816, -0.0524667, 0.0408436] [-0.0606672, -0.468212, 0.881684] [-0.986649, 1.56343, -1.37089]]
+      template:t="us_jerrycan_decor"
+      nodeName:t="root"
+    }
+  }
+}

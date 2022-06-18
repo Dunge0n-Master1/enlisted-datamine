@@ -1,0 +1,51 @@
+enlisted_burning_affect{
+  _extends:t="replicated_game_effect"
+
+  "burning_affect:tag"{
+  }
+
+  "locked_use_object__lockStationaryGunUse:tag"{
+  }
+
+  "locked_inventory__lockPickup:tag"{
+  }
+
+  "locked_use_object__lockVehicleEnter:tag"{
+  }
+}
+
+bomb_site_animation_base{
+  _extends:t="replicated_game_effect"
+  _extends:t="game_effect_sound"
+  game_effect__forceAnimUpperNonCrawlState:t="upper_satchel"
+  game_effect__forceAnimUpperNonCrawlStateId:i=-1
+  game_effect__forceAnimUpperCrawlState:t="satchel_plant_crawl"
+  game_effect__forceAnimUpperCrawlStateId:i=-1
+
+  "game_effect__hiddenWeapon:tag"{
+  }
+}
+
+bomb_site_plant_animation{
+  _extends:t="bomb_site_animation_base"
+  game_effect__forceAnimUpperNonCrawlState:t="upper_satchel"
+  game_effect__forceAnimUpperCrawlState:t="satchel_plant_crawl"
+  game_effect_sound__hero:t="env_effects/bomb_site/activate_action"
+  game_effect_sound__enemy:t="env_effects/bomb_site/activate_action"
+}
+
+bomb_site_reset_animation{
+  _extends:t="bomb_site_animation_base"
+  game_effect__forceAnimUpperNonCrawlState:t="upper_satchel"
+  game_effect__forceAnimUpperCrawlState:t="satchel_plant_crawl"
+  game_effect_sound__hero:t="env_effects/bomb_site/deactivate_action"
+  game_effect_sound__enemy:t="env_effects/bomb_site/deactivate_action"
+}
+
+bomb_site_defuse_animation{
+  _extends:t="bomb_site_animation_base"
+  game_effect__forceAnimUpperNonCrawlState:t="upper_satchel"
+  game_effect__forceAnimUpperCrawlState:t="satchel_plant_crawl"
+  game_effect_sound__hero:t="env_effects/bomb_site/deactivate_action"
+  game_effect_sound__enemy:t="env_effects/bomb_site/deactivate_action"
+}

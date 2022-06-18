@@ -1,0 +1,380 @@
+attachable_wear_dummy_male_head_01_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_head_01_char"
+  collres__res:t="dummy_male_head_01_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_head_01.blk"
+  item__name:t="Head"
+  item__iconYaw:r=-90.0
+  item__iconPitch:r=90.0
+  item__iconRoll:r=0.0
+  item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.0
+}
+
+attachable_wear_dummy_male_head_01_item_in_world{
+  _extends:t="attachable_wear_dummy_male_head_01_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_head_01{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_head_01_char"
+  collres__res:t="dummy_male_head_01_collision"
+  animchar_hider__camThreshold:r=0.4
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_head"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_male_left_leg_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_left_leg_char"
+  collres__res:t="dummy_male_left_leg_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_left_leg.blk"
+  item__name:t="Left"
+}
+
+attachable_wear_dummy_male_left_leg_item_in_world{
+  _extends:t="attachable_wear_dummy_male_left_leg_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_left_leg{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_left_leg_char"
+  collres__res:t="dummy_male_left_leg_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_left_leg"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_male_right_leg_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_right_leg_char"
+  collres__res:t="dummy_male_right_leg_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_right_leg.blk"
+  item__name:t="Right"
+}
+
+attachable_wear_dummy_male_right_leg_item_in_world{
+  _extends:t="attachable_wear_dummy_male_right_leg_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_right_leg{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_right_leg_char"
+  collres__res:t="dummy_male_right_leg_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_right_leg"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_male_right_arm_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_right_arm_char"
+  collres__res:t="dummy_male_right_arm_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_right_arm.blk"
+  item__name:t="Right arm"
+}
+
+attachable_wear_dummy_male_right_arm_item_in_world{
+  _extends:t="attachable_wear_dummy_male_right_arm_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_right_arm{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_right_arm_char"
+  collres__res:t="dummy_male_right_arm_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_right_arm"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_male_left_arm_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_left_arm_char"
+  collres__res:t="dummy_male_left_arm_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_left_arm.blk"
+  item__name:t="Left arm"
+}
+
+attachable_wear_dummy_male_left_arm_item_in_world{
+  _extends:t="attachable_wear_dummy_male_left_arm_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_left_arm{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_left_arm_char"
+  collres__res:t="dummy_male_left_arm_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_left_arm"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_male_pelvis_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_pelvis_char"
+  collres__res:t="dummy_male_pelvis_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_pelvis.blk"
+  item__name:t="Pelvis"
+  item__iconYaw:r=-90.0
+  item__iconPitch:r=0.0
+  item__iconRoll:r=90.0
+  item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.0
+}
+
+attachable_wear_dummy_male_pelvis_item_in_world{
+  _extends:t="attachable_wear_dummy_male_pelvis_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_pelvis{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_pelvis_char"
+  collres__res:t="dummy_male_pelvis_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_pelvis"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_male_spine_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_male_spine_char"
+  collres__res:t="dummy_male_spine_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/male_spine.blk"
+  item__name:t="Torso"
+  item__iconYaw:r=-90.0
+  item__iconPitch:r=0.0
+  item__iconRoll:r=90.0
+  item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.0
+}
+
+attachable_wear_dummy_male_spine_item_in_world{
+  _extends:t="attachable_wear_dummy_male_spine_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_male_spine{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_male_spine_char"
+  collres__res:t="dummy_male_spine_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_spine"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_head_01_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_head_01_char"
+  collres__res:t="dummy_female_head_01_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_head_01.blk"
+  item__name:t="Head"
+}
+
+attachable_wear_dummy_female_head_01_item_in_world{
+  _extends:t="attachable_wear_dummy_female_head_01_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_head_01{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_head_01_char"
+  collres__res:t="dummy_female_head_01_collision"
+  animchar_hider__camThreshold:r=0.4
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_head"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_left_leg_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_left_leg_char"
+  collres__res:t="dummy_female_left_leg_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_left_leg.blk"
+  item__name:t="Left leg"
+}
+
+attachable_wear_dummy_female_left_leg_item_in_world{
+  _extends:t="attachable_wear_dummy_female_left_leg_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_left_leg{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_left_leg_char"
+  collres__res:t="dummy_female_left_leg_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_left_leg"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_right_leg_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_right_leg_char"
+  collres__res:t="dummy_female_right_leg_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_right_leg.blk"
+  item__name:t="Right leg"
+}
+
+attachable_wear_dummy_female_right_leg_item_in_world{
+  _extends:t="attachable_wear_dummy_female_right_leg_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_right_leg{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_right_leg_char"
+  collres__res:t="dummy_female_right_leg_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_right_leg"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_right_arm_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_right_arm_char"
+  collres__res:t="dummy_female_right_arm_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_right_arm.blk"
+  item__name:t="Right arm"
+}
+
+attachable_wear_dummy_female_right_arm_item_in_world{
+  _extends:t="attachable_wear_dummy_female_right_arm_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_right_arm{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_right_arm_char"
+  collres__res:t="dummy_female_right_arm_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_right_arm"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_left_arm_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_left_arm_char"
+  collres__res:t="dummy_female_left_arm_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_left_arm.blk"
+  item__name:t="Left arm"
+}
+
+attachable_wear_dummy_female_left_arm_item_in_world{
+  _extends:t="attachable_wear_dummy_female_left_arm_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_left_arm{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_left_arm_char"
+  collres__res:t="dummy_female_left_arm_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_left_arm"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_pelvis_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_pelvis_char"
+  collres__res:t="dummy_female_pelvis_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_pelvis.blk"
+  item__name:t="Pelvis"
+}
+
+attachable_wear_dummy_female_pelvis_item_in_world{
+  _extends:t="attachable_wear_dummy_female_pelvis_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_pelvis{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_pelvis_char"
+  collres__res:t="dummy_female_pelvis_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_pelvis"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}
+
+attachable_wear_dummy_female_spine_item{
+  _extends:t="item_armor"
+  animchar__res:t="dummy_female_spine_char"
+  collres__res:t="dummy_female_spine_collision"
+  item__proto:t="content/enlisted/gamedata/items/dummy_body_parts/female_spine.blk"
+  item__name:t="Torso"
+}
+
+attachable_wear_dummy_female_spine_item_in_world{
+  _extends:t="attachable_wear_dummy_female_spine_item"
+  _extends:t="item_in_world"
+}
+
+attachable_wear_dummy_female_spine{
+  _extends:t="attachable_wear"
+  animchar__res:t="dummy_female_spine_char"
+  collres__res:t="dummy_female_spine_collision"
+
+  "base_vis_item__hideFromNode:array"{
+    node:t="dummy_spine"
+  }
+
+  "base_vis_item__hideNodesInEntity:eid"{
+  }
+}

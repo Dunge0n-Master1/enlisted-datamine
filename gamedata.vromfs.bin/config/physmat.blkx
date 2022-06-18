@@ -1,0 +1,2617 @@
+PhysMats{
+
+  __DefaultParams{
+    iak:r=1.0
+    damage_k:r=1.0
+  }
+
+  default{
+    bf_class:t="default"
+    color:c=255, 162, 0, 100
+    damage_k:r=0.3
+    deformable_width:r=0.05
+    resistanceK:r=0.0006
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=6.0
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="default"
+
+      melee{
+        fx:t="default_melee_hit"
+      }
+
+      knife{
+        fx:t="default_knife_hit"
+      }
+
+      hands{
+        fx:t="default_hands_hit"
+      }
+
+      axe{
+        fx:t="default_axe_hit"
+      }
+
+      shovel{
+        fx:t="default_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  horLandMesh{
+    bf_class:t="horLandMesh"
+    color:c=255, 162, 0, 100
+    iak:r=0.2
+    damage_k:r=0.3
+    deformable_width:r=0.15
+    resistanceK:r=0.0006
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=6.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  verLandMesh{
+    color:c=255, 162, 0, 100
+    damage_k:r=0.3
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  waterPuddle{
+    color:c=0, 0, 255, 10
+    sound_step_material:t="water"
+    sound_material:t="water"
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  water3d{
+    color:c=255, 162, 0, 100
+    sound_step_material:t="water"
+    sound_material:t="water"
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="water_splash"
+        jet:t="water_splash"
+        scaleRange:p2=0.1, 0.12
+      }
+
+      100mm_shell{
+        smoke:t="100mm_ap_hit_water"
+        jet:t="100mm_ap_hit_water"
+        scaleRange:p2=0.5, 1.5
+      }
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  water{
+    color:c=0, 0, 255, 200
+    sound_step_material:t="water"
+    sound_material:t="water"
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  concrete{
+    bf_class:t="concrete"
+    color:c=255, 255, 0, 200
+    damage_k:r=0.3
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+      collDesc:t="collConcrete"
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="concrete_splash"
+        jet:t="ground_splash_direct"
+        scaleRange:p2=0.5, 0.7
+      }
+
+      100mm_shell{
+        smoke:t="100mm_ap_hit_stone"
+        jet:t="100mm_ap_hit_stone"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="concrete"
+
+      melee{
+        fx:t="concrete_melee_hit"
+      }
+
+      knife{
+        fx:t="concrete_knife_hit"
+      }
+
+      hands{
+        fx:t="concrete_hands_hit"
+      }
+
+      axe{
+        fx:t="concrete_axe_hit"
+      }
+
+      shovel{
+        fx:t="concrete_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.95
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+    }
+  }
+
+  stone{
+    bf_class:t="stone"
+    color:c=255, 255, 0, 200
+    damage_k:r=0.3
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+
+    shellHitFx{
+
+      100mm_shell{
+        smoke:t="100mm_ap_hit_stone"
+        jet:t="100mm_ap_hit_stone"
+      }
+
+      bullet{
+        smoke:t="concrete_splash"
+        jet:t="concrete_splash"
+      }
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.6
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+      armorThickness:r=20.0
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="concrete"
+
+      melee{
+        fx:t="concrete_melee_hit"
+      }
+
+      knife{
+        fx:t="concrete_knife_hit"
+      }
+
+      hands{
+        fx:t="concrete_hands_hit"
+      }
+
+      axe{
+        fx:t="concrete_axe_hit"
+      }
+
+      shovel{
+        fx:t="concrete_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+  }
+
+  buildings{
+    color:c=255, 255, 0, 200
+    damage_k:r=0.3
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="concrete_splash"
+        jet:t="concrete_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="concrete"
+
+      melee{
+        fx:t="concrete_melee_hit"
+      }
+
+      knife{
+        fx:t="concrete_knife_hit"
+      }
+
+      hands{
+        fx:t="concrete_hands_hit"
+      }
+
+      axe{
+        fx:t="concrete_axe_hit"
+      }
+
+      shovel{
+        fx:t="concrete_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+  }
+
+  wood{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="wood_splash"
+        jet:t="wood_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="wood"
+
+      melee{
+        fx:t="wood_melee_hit"
+      }
+
+      knife{
+        fx:t="wood_knife_hit"
+      }
+
+      hands{
+        fx:t="wood_hands_hit"
+      }
+
+      axe{
+        fx:t="wood_axe_hit"
+      }
+
+      shovel{
+        fx:t="wood_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=0.3
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  wood_railway{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="wood_splash"
+        jet:t="wood_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="wood"
+
+      melee{
+        fx:t="wood_melee_hit"
+      }
+
+      knife{
+        fx:t="wood_knife_hit"
+      }
+
+      hands{
+        fx:t="wood_hands_hit"
+      }
+
+      axe{
+        fx:t="wood_axe_hit"
+      }
+
+      shovel{
+        fx:t="wood_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=0.3
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  window_wood{
+    bf_class:t="window"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    physDestructible{
+      climbingThrough:b=yes
+      impulseSpeed:r=2.5
+    }
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="wood_splash"
+        jet:t="wood_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="wood"
+
+      melee{
+        fx:t="wood_melee_hit"
+      }
+
+      knife{
+        fx:t="wood_knife_hit"
+      }
+
+      hands{
+        fx:t="wood_hands_hit"
+      }
+
+      axe{
+        fx:t="wood_axe_hit"
+      }
+
+      shovel{
+        fx:t="wood_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=0.3
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  glass{
+    bf_class:t="glass"
+    damage_k:r=0.3
+
+    vehicleSound{
+      concrete:r=0.5
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.1
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+      armorThickness:r=0.01
+    }
+  }
+
+  steel{
+    bf_class:t="steel"
+    color:c=0, 0, 255, 200
+    sound_step_material:t="steel"
+    sound_material:t="metal"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collMetal"
+    }
+
+    shellHitFx{
+
+      100mm_shell{
+        smoke:t="bullet_hit_armor"
+        jet:t="bullet_hit_armor"
+      }
+
+      bullet{
+        smoke:t="metal_splash"
+        jet:t="metal_splash"
+      }
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.3
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.1
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="metal"
+
+      melee{
+        fx:t="metal_melee_hit"
+      }
+
+      knife{
+        fx:t="metal_knife_hit"
+      }
+
+      hands{
+        fx:t="metal_hands_hit"
+      }
+
+      axe{
+        fx:t="metal_axe_hit"
+      }
+
+      shovel{
+        fx:t="metal_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    billboardDecal{
+      type:t="metal_bullet_hole"
+      scale:r=4.0
+    }
+  }
+
+  metal{
+    bf_class:t="steel"
+    color:c=0, 0, 255, 200
+    sound_step_material:t="steel"
+    sound_material:t="metal"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collMetal"
+    }
+
+    shellHitFx{
+
+      100mm_shell{
+        smoke:t="bullet_hit_armor"
+        jet:t="bullet_hit_armor"
+      }
+
+      bullet{
+        smoke:t="metal_splash"
+        jet:t="metal_splash"
+      }
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.3
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.1
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="metal"
+
+      melee{
+        fx:t="metal_melee_hit"
+      }
+
+      knife{
+        fx:t="metal_knife_hit"
+      }
+
+      hands{
+        fx:t="metal_hands_hit"
+      }
+
+      axe{
+        fx:t="metal_axe_hit"
+      }
+
+      shovel{
+        fx:t="metal_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    billboardDecal{
+      type:t="metal_bullet_hole"
+      scale:r=4.0
+    }
+  }
+
+  train{
+    bf_class:t="steel"
+    color:c=0, 0, 255, 200
+    sound_step_material:t="steel"
+    sound_material:t="metal"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collMetal"
+    }
+
+    shellHitFx{
+
+      100mm_shell{
+        smoke:t="bullet_hit_armor"
+        jet:t="bullet_hit_armor"
+      }
+
+      bullet{
+        smoke:t="metal_splash"
+        jet:t="metal_splash"
+      }
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.3
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.1
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="metal"
+
+      melee{
+        fx:t="metal_melee_hit"
+      }
+
+      knife{
+        fx:t="metal_knife_hit"
+      }
+
+      hands{
+        fx:t="metal_hands_hit"
+      }
+
+      axe{
+        fx:t="metal_axe_hit"
+      }
+
+      shovel{
+        fx:t="metal_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    billboardDecal{
+      type:t="metal_bullet_hole"
+      scale:r=4.0
+    }
+  }
+
+  flesh{
+    bf_class:t="flesh"
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="flesh_splash"
+        jet:t="flesh_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t=""
+
+      melee{
+        fx:t="flesh_melee_hit"
+      }
+
+      knife{
+        fx:t="flesh_knife_hit"
+      }
+
+      hands{
+        fx:t="flesh_hands_hit"
+      }
+
+      axe{
+        fx:t="flesh_axe_hit"
+      }
+
+      shovel{
+        fx:t="flesh_knife_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    billboardDecal{
+      type:t="blood_decal"
+      scale:r=1.0
+    }
+
+    vehicleSound{
+      minMaxScrape:p2=0.0, 0.0
+    }
+  }
+
+  cactus{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.05
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="wood_splash"
+        jet:t="wood_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="cactus"
+
+      melee{
+        fx:t="cactus_default_hit"
+      }
+
+      knife{
+        fx:t="cactus_knife_hit"
+      }
+
+      hands{
+        fx:t="cactus_default_hit"
+      }
+
+      axe{
+        fx:t="cactus_axe_hit"
+      }
+
+      shovel{
+        fx:t="cactus_axe_hit"
+      }
+
+      default{
+        fx:t="cactus_default_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=0.3
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  soil{
+    bf_class:t="soil"
+    deformable_width:r=0.2
+    resistanceK:r=0.0008
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=1.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  hard_soil{
+    bf_class:t="soil"
+    deformable_width:r=0.2
+    resistanceK:r=0.0008
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=1.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  leaves{
+    bf_class:t="leaves"
+    deformable_width:r=0.1
+    resistanceK:r=0.0008
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=1.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  mud{
+    bf_class:t="dirt"
+    deformable_width:r=0.2
+    resistanceK:r=0.0008
+    sound_step_material:t="mud"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=1.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  dirt{
+    bf_class:t="dirt"
+    deformable_width:r=0.3
+    resistanceK:r=0.001
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=1.4
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  roadSoil{
+    bf_class:t="roadSoil"
+    deformable_width:r=0.05
+    resistanceK:r=0.0002
+    sound_step_material:t="concrete"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=0.3
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  roadmud{
+    bf_class:t="roadmud"
+    deformable_width:r=0.05
+    resistanceK:r=0.0008
+    sound_step_material:t="mud"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=1.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  sand{
+    bf_class:t="sand"
+    deformable_width:r=0.2
+    sound_step_material:t="sand"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_sand_back"
+      front:t="track_sand_front"
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  moon_sand{
+    bf_class:t="moon_sand"
+    deformable_width:r=0.2
+    sound_step_material:t="sand"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="moon_sand_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_sand_back"
+      front:t="track_sand_front"
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  quarrySand{
+    bf_class:t="quarrySand"
+    deformable_width:r=0.05
+    resistanceK:r=0.0002
+    sound_step_material:t="sand"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_sand_back"
+      front:t="track_sand_front"
+      spawnRateMult:r=0.7
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  sand_slope{
+    bf_class:t="sand_slope"
+    deformable_width:r=0.05
+    resistanceK:r=0.0002
+    sound_step_material:t="sand"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_sand_back"
+      front:t="track_sand_front"
+      spawnRateMult:r=0.7
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  roadSand{
+    bf_class:t="roadSand"
+    deformable_width:r=0.1
+    resistanceK:r=0.0002
+    sound_step_material:t="sand"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="soil_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_sand_back"
+      front:t="track_sand_front"
+      spawnRateMult:r=0.7
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  quickSand{
+    bf_class:t="sand"
+    deformable_width:r=0.6
+    sound_step_material:t="concrete"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    trackDirtFx{
+      back:t="track_sand_back"
+      front:t="track_sand_front"
+      spawnRateMult:r=0.5
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  snow{
+    bf_class:t="snow"
+    deformable_width:r=0.3
+    sound_step_material:t="snow"
+    sound_material:t="dirt"
+
+    trackDirtFx{
+      back:t="track_snow_back"
+      front:t="track_snow_front"
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+  }
+
+  ice{
+    bf_class:t="ice"
+    sound_step_material:t="ice"
+    sound_material:t="dirt"
+
+    billboardDecal{
+      type:t="metal_bullet_hole"
+      scale:r=4.0
+    }
+
+    trackDirtFx{
+      back:t="track_snow_back"
+      front:t="track_snow_front"
+      spawnRateMult:r=0.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+  }
+
+  snowLower{
+    bf_class:t="snow"
+    deformable_width:r=0.2
+    sound_step_material:t="snow"
+    sound_material:t="dirt"
+
+    trackDirtFx{
+      back:t="track_snow_back"
+      front:t="track_snow_front"
+      spawnRateMult:r=0.5
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+  }
+
+  roadSnow{
+    bf_class:t="roadSnow"
+    deformable_width:r=0.05
+    sound_step_material:t="snow"
+    sound_material:t="dirt"
+
+    trackDirtFx{
+      back:t="track_snow_back"
+      front:t="track_snow_front"
+      spawnRateMult:r=0.2
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_water_splashes"
+      rotor:t="aircraft_propellers_water_splashes"
+    }
+  }
+
+  lava{
+    bf_class:t="lava"
+    color:c=255, 162, 0, 100
+    damage_k:r=0.3
+    deformable_width:r=0.05
+    resistanceK:r=0.0006
+    sound_step_material:t="grass"
+    sound_material:t="dirt"
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=6.0
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="default"
+
+      melee{
+        fx:t="default_melee_hit"
+      }
+
+      knife{
+        fx:t="default_knife_hit"
+      }
+
+      hands{
+        fx:t="default_hands_hit"
+      }
+
+      axe{
+        fx:t="default_axe_hit"
+      }
+
+      shovel{
+        fx:t="default_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+  }
+
+  rocks{
+    bf_class:t="rocks"
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="concrete_splash"
+        jet:t="ground_splash_direct"
+        scaleRange:p2=0.5, 0.7
+      }
+
+      100mm_shell{
+        smoke:t="100mm_ap_hit_stone"
+        jet:t="100mm_ap_hit_stone"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="concrete"
+
+      melee{
+        fx:t="concrete_melee_hit"
+      }
+
+      knife{
+        fx:t="concrete_knife_hit"
+      }
+
+      hands{
+        fx:t="concrete_hands_hit"
+      }
+
+      axe{
+        fx:t="concrete_axe_hit"
+      }
+
+      shovel{
+        fx:t="concrete_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.3
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+    }
+  }
+
+  rocksSlippery{
+    bf_class:t="rocksSlippery"
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="concrete_splash"
+        jet:t="concrete_splash"
+      }
+    }
+  }
+
+  gravel{
+    bf_class:t="gravel"
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="concrete_splash"
+        jet:t="ground_splash_direct"
+        scaleRange:p2=0.5, 0.7
+      }
+
+      100mm_shell{
+        smoke:t="100mm_ap_hit_stone"
+        jet:t="100mm_ap_hit_stone"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="concrete"
+
+      melee{
+        fx:t="concrete_melee_hit"
+      }
+
+      knife{
+        fx:t="concrete_knife_hit"
+      }
+
+      hands{
+        fx:t="concrete_hands_hit"
+      }
+
+      axe{
+        fx:t="concrete_axe_hit"
+      }
+
+      shovel{
+        fx:t="concrete_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.0
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+      bulletBrokenThreshold:r=150.0
+    }
+  }
+
+  rubber{
+    bf_class:t="rubber"
+    sound_step_material:t="concrete"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+  }
+
+  ceramic{
+    bf_class:t="ceramic"
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="default_billboard_decal"
+      scale:r=4.0
+    }
+  }
+
+  fabric{
+    bf_class:t="fabric"
+    sound_step_material:t="fabric"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=5.0
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="default"
+
+      melee{
+        fx:t="default_melee_hit"
+      }
+
+      knife{
+        fx:t="default_knife_hit"
+      }
+
+      hands{
+        fx:t="default_hands_hit"
+      }
+
+      axe{
+        fx:t="default_axe_hit"
+      }
+
+      shovel{
+        fx:t="default_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    damageModel{
+      armorThickness:r=0.01
+    }
+  }
+
+  hay{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="highgrass"
+    sound_material:t="dirt"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=1.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=2.8
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.7
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="wood_splash"
+        jet:t="wood_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="wood"
+
+      melee{
+        fx:t="wood_melee_hit"
+      }
+
+      knife{
+        fx:t="wood_knife_hit"
+      }
+
+      hands{
+        fx:t="wood_hands_hit"
+      }
+
+      axe{
+        fx:t="wood_axe_hit"
+      }
+
+      shovel{
+        fx:t="wood_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    trackDirtFx{
+      back:t="track_dirt_back"
+      front:t="track_dirt_front"
+      spawnRateMult:r=0.3
+    }
+
+    planeWheelFx{
+      dust:t="aircraft_wheels_ground_dust"
+      friction:t="aircraft_wheels_ground_friction"
+    }
+
+    propellerFx{
+      propeller:t="aircraft_propellers_ground_dust"
+      rotor:t="aircraft_propellers_ground_dust"
+    }
+  }
+
+  paper{
+    bf_class:t="paper"
+    sound_step_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=3.0
+    }
+  }
+
+  plastic{
+    bf_class:t="plastic"
+    sound_step_material:t="concrete"
+
+    vehicleSound{
+      concrete:r=1.0
+    }
+  }
+
+  bushes{
+    bf_class:t="bushes"
+    sound_step_material:t="highgrass"
+
+    softCollision{
+      physViscosity:r=2.5
+    }
+  }
+
+  barbwire{
+    bf_class:t="barbwire"
+    sound_step_material:t="barbwire"
+
+    softCollision{
+      physViscosity:r=2.5
+    }
+  }
+
+  walkRay{
+    bf_class:t="walkRay"
+  }
+
+  climbAiRay{
+    bf_class:t="climbAiRay"
+  }
+
+  tankTrack{
+    bf_class:t="tankTrack"
+  }
+
+  wheel{
+    bf_class:t="wheel"
+  }
+
+  cameraRay{
+    bf_class:t="cameraRay"
+  }
+
+  bulletRay{
+    bf_class:t="bulletRay"
+  }
+
+  grenadeRay{
+    bf_class:t="grenadeRay"
+  }
+
+  aimRay{
+    bf_class:t="aimRay"
+  }
+
+  spraySpawnerRay{
+    bf_class:t="spraySpawnerRay"
+  }
+
+  walker{
+    bf_class:t="walker"
+
+    softCollision{
+      collisionForce:r=0.8
+    }
+  }
+
+  walkerBot{
+    bf_class:t="walkerBot"
+
+    softCollision{
+      collisionForce:r=0.8
+    }
+  }
+
+  softWoodDoor{
+    bf_class:t="softWoodDoor"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+    }
+
+    softCollision{
+      collisionForce:r=0.3
+    }
+
+    damageModel{
+      armorThickness:r=0.1
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=1.0
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="wood_splash"
+        jet:t="wood_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="wood"
+
+      melee{
+        fx:t="wood_melee_hit"
+      }
+
+      knife{
+        fx:t="wood_knife_hit"
+      }
+
+      hands{
+        fx:t="wood_hands_hit"
+      }
+
+      axe{
+        fx:t="wood_axe_hit"
+      }
+
+      shovel{
+        fx:t="wood_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+  }
+
+  softSteelDoor{
+    bf_class:t="softSteelDoor"
+    damage_k:r=0.3
+    sound_step_material:t="steel"
+    sound_material:t="metal"
+
+    vehicleSound{
+      concrete:r=0.5
+    }
+
+    softCollision{
+      collisionForce:r=0.3
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.3
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+      armorThickness:r=40.0
+    }
+
+    shellHitFx{
+
+      bullet{
+        smoke:t="metal_splash"
+        jet:t="metal_splash"
+      }
+    }
+
+    meleeHitFx{
+      hitSfxMaterial:t="metal"
+
+      melee{
+        fx:t="metal_melee_hit"
+      }
+
+      knife{
+        fx:t="metal_knife_hit"
+      }
+
+      hands{
+        fx:t="metal_hands_hit"
+      }
+
+      axe{
+        fx:t="metal_axe_hit"
+      }
+
+      shovel{
+        fx:t="metal_axe_hit"
+      }
+
+      default{
+        fx:t="default_melee_hit"
+      }
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    billboardDecal{
+      type:t="metal_bullet_hole"
+      scale:r=4.0
+    }
+  }
+
+  small_debris{
+    bf_class:t="small_debris"
+    sound_step_material:t="concrete"
+  }
+
+  small_decor{
+    bf_class:t="small_decor"
+    sound_step_material:t="concrete"
+  }
+
+  bullet_transparent{
+    bf_class:t="bullet_transparent"
+    sound_step_material:t="concrete"
+  }
+
+  gunRay{
+    bf_class:t="gunRay"
+  }
+
+  build_ray{
+    bf_class:t="build_ray"
+  }
+
+  bombCraterCast{
+    bf_class:t="bombCraterCast"
+  }
+}
+
+InteractPropsList{
+
+  walkRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+
+    walkerBot{
+      en:b=no
+    }
+
+    glass{
+      en:b=no
+    }
+
+    window{
+      en:b=no
+    }
+
+    walker{
+      en:b=no
+    }
+  }
+
+  build_ray{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+  }
+
+  climbAiRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+
+    walker{
+      en:b=no
+    }
+
+    walkerBot{
+      en:b=no
+    }
+  }
+
+  gunRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+
+    walker{
+      en:b=no
+    }
+
+    walkerBot{
+      en:b=no
+    }
+  }
+
+  walker{
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+  }
+
+  walkerBot{
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+  }
+
+  bulletRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    bullet_transparent{
+      en:b=no
+    }
+  }
+
+  grenadeRay{
+
+    bushes{
+      en:b=no
+    }
+  }
+
+  aimRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    bullet_transparent{
+      en:b=no
+    }
+
+    glass{
+      en:b=no
+    }
+
+    window{
+      en:b=no
+    }
+  }
+
+  cameraRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+  }
+
+  tankTrack{
+
+    default{
+      fk:r=1.0
+      rollingFrictionK:r=0.045
+    }
+
+    horLandMesh{
+      fk:r=1.0
+      rollingFrictionK:r=0.1
+    }
+
+    concrete{
+      fk:r=0.8
+      rollingFrictionK:r=0.05
+    }
+
+    stone{
+      fk:r=0.8
+      rollingFrictionK:r=0.05
+    }
+
+    steel{
+      fk:r=0.8
+      rollingFrictionK:r=0.05
+    }
+
+    soil{
+      fk:r=1.0
+      rollingFrictionK:r=0.12
+    }
+
+    leaves{
+      fk:r=1.0
+      rollingFrictionK:r=0.12
+    }
+
+    dirt{
+      fk:r=0.8
+      rollingFrictionK:r=0.13
+    }
+
+    roadSoil{
+      fk:r=1.0
+      rollingFrictionK:r=0.06
+    }
+
+    roadmud{
+      fk:r=0.9
+      rollingFrictionK:r=0.08
+    }
+
+    sand{
+      fk:r=0.8
+      rollingFrictionK:r=0.08
+    }
+
+    moon_sand{
+      fk:r=0.9
+      rollingFrictionK:r=0.06
+    }
+
+    sand_slope{
+      fk:r=0.8
+      rollingFrictionK:r=0.08
+    }
+
+    quarrySand{
+      fk:r=0.8
+      rollingFrictionK:r=0.08
+    }
+
+    roadSand{
+      fk:r=0.3
+      rollingFrictionK:r=0.001
+    }
+
+    snow{
+      fk:r=0.8
+      rollingFrictionK:r=0.09
+    }
+
+    ice{
+      fk:r=0.3
+      rollingFrictionK:r=0.2
+    }
+
+    roadSnow{
+      fk:r=0.7
+      rollingFrictionK:r=0.1
+    }
+
+    rocks{
+      fk:r=0.75
+      rollingFrictionK:r=0.05
+    }
+
+    rocksSlippery{
+      fk:r=0.7
+      rollingFrictionK:r=0.07
+    }
+
+    gravel{
+      fk:r=0.75
+      rollingFrictionK:r=0.05
+    }
+
+    fabric{
+      fk:r=0.8
+      rollingFrictionK:r=0.09
+    }
+
+    glass{
+      fk:r=0.6
+      rollingFrictionK:r=0.02
+    }
+
+    wood{
+      fk:r=0.8
+      rollingFrictionK:r=0.0166
+    }
+
+    bushes{
+      en:b=no
+    }
+  }
+
+  wheel{
+
+    default{
+      fk:r=1.0
+      rollingFrictionK:r=0.03
+    }
+
+    horLandMesh{
+      fk:r=1.0
+      rollingFrictionK:r=0.03
+    }
+
+    concrete{
+      fk:r=0.9
+      rollingFrictionK:r=0.015
+    }
+
+    stone{
+      fk:r=0.9
+      rollingFrictionK:r=0.015
+    }
+
+    wood{
+      fk:r=0.9
+      rollingFrictionK:r=0.02
+    }
+
+    steel{
+      fk:r=0.9
+      rollingFrictionK:r=0.015
+    }
+
+    soil{
+      fk:r=1.0
+      rollingFrictionK:r=0.1
+    }
+
+    leaves{
+      fk:r=1.0
+      rollingFrictionK:r=0.12
+    }
+
+    dirt{
+      fk:r=0.8
+      rollingFrictionK:r=0.4
+    }
+
+    roadSoil{
+      fk:r=1.0
+      rollingFrictionK:r=0.05
+    }
+
+    roadmud{
+      fk:r=0.9
+      rollingFrictionK:r=0.1
+    }
+
+    sand{
+      fk:r=0.8
+      rollingFrictionK:r=0.12
+    }
+
+    moon_sand{
+      fk:r=0.9
+      rollingFrictionK:r=0.01
+    }
+
+    sand_slope{
+      fk:r=0.8
+      rollingFrictionK:r=0.12
+    }
+
+    quarrySand{
+      fk:r=0.8
+      rollingFrictionK:r=0.12
+    }
+
+    roadSand{
+      fk:r=1.0
+      rollingFrictionK:r=0.04
+    }
+
+    snow{
+      fk:r=0.8
+      rollingFrictionK:r=0.15
+    }
+
+    ice{
+      fk:r=0.3
+      rollingFrictionK:r=0.25
+    }
+
+    roadSnow{
+      fk:r=0.7
+      rollingFrictionK:r=0.06
+    }
+
+    rocks{
+      fk:r=0.7
+      rollingFrictionK:r=0.07
+    }
+
+    rocksSlippery{
+      fk:r=0.6
+      rollingFrictionK:r=0.09
+    }
+
+    gravel{
+      fk:r=0.75
+      rollingFrictionK:r=0.05
+    }
+
+    fabric{
+      fk:r=0.8
+      rollingFrictionK:r=0.09
+    }
+
+    glass{
+      fk:r=0.6
+      rollingFrictionK:r=0.02
+    }
+
+    bushes{
+      en:b=no
+    }
+  }
+
+  spraySpawnerRay{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+
+    walker{
+      en:b=no
+    }
+
+    walkerBot{
+      en:b=no
+    }
+  }
+
+  bombCraterCast{
+
+    bushes{
+      en:b=no
+    }
+
+    barbwire{
+      en:b=no
+    }
+
+    small_debris{
+      en:b=no
+    }
+
+    small_decor{
+      en:b=no
+    }
+  }
+}

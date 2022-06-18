@@ -1,0 +1,105 @@
+squad_sight_avoid{
+
+  "squad_sight_avoid:tag"{
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="server"
+    squad_sight_avoid__forwardDist:r=10.0
+    squad_sight_avoid__downDist:r=2.0
+    squad_sight_avoid__sideDist:r=3.0
+    squad_sight_avoid__weight:p2=3.0, 2.0
+    squad_sight_avoid__lastUpdateTime:r=-1.0
+    squad_sight_avoid__updateDelta:r=0.3
+  }
+}
+
+bot_leader_nav{
+
+  "bot_leader_nav:tag"{
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="server"
+    bot_leader_nav__areaId:i=0
+    bot_leader_nav__areaPosThreshold:r=1.5
+    bot_leader_nav__areaAngCosThreshold:r=0.98
+    bot_leader_nav__ignoreChance:i=6
+    bot_leader_nav__radiusMin:p2=8.0, 1.0
+    bot_leader_nav__radiusMax:p2=25.0, 1.0
+    bot_leader_nav__radius:p2=0.0, 0.0
+    bot_leader_nav__posOffsetMax:r=3.0
+    bot_leader_nav__posOffset:r=0.0
+    bot_leader_nav__weight:p2=2.0, 1.0
+    bot_leader_nav__lastUpdateTime:r=-1.0
+    bot_leader_nav__updateDelta:r=3.0
+  }
+}
+
+turret_avoid_nav{
+
+  "turret_avoid_nav:tag"{
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="server"
+    turret_avoid_nav__areaId:i=0
+    turret_avoid_nav__areaPosThreshold:r=1.5
+    turret_avoid_nav__areaAngCosThreshold:r=0.98
+    turret_avoid_nav__forwardDist:p2=-10.0, 80.0
+    turret_avoid_nav__sideDist:p2=10.0, 6.0
+    turret_avoid_nav__weight:p2=10.0, 7.0
+    turret_avoid_nav__lastUpdateTime:r=-1.0
+    turret_avoid_nav__updateDelta:r=0.5
+  }
+}
+
+ai_vehicle_driver{
+  _tags:t="server"
+  _tracked:t="ai_vehicle_driver__destinationReached"
+  ai_vehicle_driver__destination:p3=0.0, 0.0, 0.0
+  ai_vehicle_driver__maxThrottle:r=1.0
+  ai_vehicle_driver__destinationReachedThreshold:r=1.0
+  ai_vehicle_driver__steeringSmoothness:r=3.0
+  ai_vehicle_driver__steeringDeadZone:r=0.523
+  ai_vehicle_driver__destinationReached:b=yes
+
+  "ai_vehicle_driver:tag"{
+  }
+}
+
+ai_vehicle_convoy_vehicle{
+  _tags:t="server"
+  ai_vehicle_convoy_vehicle__currentReachedPointId:i=1
+
+  "ai_vehicle_convoy_vehicle__convoyEid:eid"{
+  }
+}
+
+ai_vehicle_convoy{
+  _tags:t="server"
+  ai_vehicle_convoy__vehicleTemplate:t="willys_mb"
+  ai_vehicle_convoy__vehiclesCount:i=10
+  ai_vehicle_convoy__vehicleLength:r=6.0
+  ai_vehicle_convoy__minMaxVehicleDistance:p2=4.0, 10.0
+  ai_vehicle_convoy__leadVehicleMaxThrottle:r=0.4
+  ai_vehicle_convoy__validateDistancesUpdateInterval:r=0.1
+  ai_vehicle_convoy__nextValidateDistanceUpdateAt:r=0.0
+  ai_vehicle_convoy__finalPointId:i=1
+  ai_vehicle_convoy__reachedPointId:i=1
+
+  "ai_vehicle_convoy__pathPoints:array"{
+  }
+
+  "ai_vehicle_convoy__navmeshPathPoints:list<p3>"{
+  }
+
+  "ai_vehicle_convoy__finalPointsByCapzoneGroup:object"{
+  }
+
+  "ai_vehicle_convoy__vehicles:list<eid>"{
+  }
+}

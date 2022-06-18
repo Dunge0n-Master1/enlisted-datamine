@@ -1,0 +1,126 @@
+ShipPhys{
+
+  mass{
+    Empty:r=31500.0
+    momentOfInertia:p3=9.0, 27.0, 15.0
+    CenterOfGravity:p3=-1.8, -0.5, 0.0
+  }
+
+  settings{
+    speedLossOnManeuver:r=0.15
+  }
+
+  engines{
+    maxSpeed:r=21.1
+    maxReverseSpeed:r=7.0
+
+    speedToTime{
+      row:p2=5.0, 2.5
+      row:p2=10.0, 4.5
+      row:p2=21.1, 8.5
+    }
+
+    reverseSpeedToTime{
+      row:p2=2.0, 1.3
+      row:p2=4.0, 2.3
+      row:p2=7.0, 5.0
+    }
+
+    engine{
+      pos:p3=-11.0, -1.0, 1.0
+      outputParam:t="propeller_rotate_01:CRS"
+      engineDmPart:t="engine_01_dm"
+      transmissionDmPart:t="transmission_01_dm"
+      propeller:t="propeller_01"
+    }
+
+    engine{
+      pos:p3=-11.1, -1.0, 0.0
+      outputParam:t="propeller_rotate_02:CRS"
+      engineDmPart:t="engine_02_dm"
+      transmissionDmPart:t="transmission_02_dm"
+      propeller:t="propeller_02"
+    }
+
+    engine{
+      pos:p3=-11.0, -1.0, -1.0
+      outputParam:t="propeller_rotate_03:CRS"
+      engineDmPart:t="engine_03_dm"
+      transmissionDmPart:t="transmission_03_dm"
+      propeller:t="propeller_03"
+    }
+  }
+
+  collisionProps{
+    cls_body_01:t="convex_hull"
+    cls_body_02:t="convex_hull"
+    cls_tt_01:t="convex_hull"
+    cls_tt_02:t="convex_hull"
+    cls_tt_03:t="convex_hull"
+    cls_tt_04:t="convex_hull"
+    cls_turret_01:t="convex_hull"
+    cls_turret_02:t="convex_hull"
+  }
+
+  hydrodynamics{
+    bodyArea:r=0.0
+
+    rudder{
+      pos:p3=-11.5, -0.5, 1.0
+      area:r=0.5
+      deflection:r=38.0
+      dmPart:t="steering_gear_01_dm"
+    }
+
+    rudder{
+      pos:p3=-11.5, -0.5, 0.0
+      area:r=0.5
+      deflection:r=38.0
+      dmPart:t="steering_gear_01_dm"
+    }
+
+    rudder{
+      pos:p3=-11.5, -0.5, -1.0
+      area:r=0.5
+      deflection:r=38.0
+      dmPart:t="steering_gear_01_dm"
+    }
+
+    hydrofoils{
+
+      hydrofoil{
+        euler:p3=-1.1, 90.0, 18.0
+        pos:p3=5.9, -0.9, -0.9
+        size:p2=1.3, 2.65
+        maxV:r=55.0
+
+        polar{
+          Cl0:r=0.066
+          CdMin:r=0.0016
+          lineClCoeff:r=0.046
+          ClCritHigh:r=0.7
+          ClCritLow:r=-0.62
+          alphaCritHigh:r=5.0
+          alphaCritLow:r=-4.0
+        }
+      }
+
+      hydrofoil{
+        euler:p3=1.1, -90.0, 18.0
+        pos:p3=5.9, -0.9, 0.9
+        size:p2=1.3, 2.65
+        maxV:r=55.0
+
+        polar{
+          Cl0:r=0.066
+          CdMin:r=0.0016
+          lineClCoeff:r=0.046
+          ClCritHigh:r=0.7
+          ClCritLow:r=-0.62
+          alphaCritHigh:r=5.0
+          alphaCritLow:r=-4.0
+        }
+      }
+    }
+  }
+}

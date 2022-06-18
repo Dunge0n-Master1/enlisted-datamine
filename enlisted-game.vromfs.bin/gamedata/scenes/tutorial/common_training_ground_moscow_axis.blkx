@@ -1,0 +1,504 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"
+}
+
+entity{
+  _template:t="team_ussr+team_resptime_balance+team_narrator_invasion_defence"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=2
+  team__spawnBotArmy:t="moscow_allies"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+  team__locked:b=yes
+  team__capacity:i=0
+}
+
+entity{
+  _template:t="team_germany_winter+team_captime_balance+team_narrator_invasion_attack"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=1
+  team__haveScores:b=no
+  team__spawnBotArmy:t="moscow_axis"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+}
+
+entity{
+  _template:t="m24_grenade_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.955051, 0.0664788, 0.288891] [-0.290673, 0.0186989, 0.956639] [0.0581945, -0.997613, 0.0371822] [-533.497, 9.38521, 149.065]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m24_grenade_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.990563, 0.0579095, 0.124209] [-0.125922, 0.0268872, 0.991676] [0.054088, -0.99796, 0.0339263] [-533.59, 9.38343, 149.022]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m24_grenade_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.857278, 0.0855025, 0.5077] [-0.510953, 0.0201689, 0.859372] [0.0632393, -0.996134, 0.0609788] [-533.348, 9.38474, 149.048]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser_98k_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.934637, -0.338444, -0.109129] [0.150287, 0.0978123, 0.98379] [-0.322285, -0.935889, 0.142283] [-533.903, 8.8881, 150.057]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="gewehr_41_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0325999, 0.00593908, 0.999449] [-0.876785, 0.479852, -0.0314505] [-0.479775, -0.87733, -0.0104367] [-533.976, 8.9117, 149.691]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.101789, 0.994717, -0.0132177] [0.994718, 0.101594, -0.0146256] [-0.0132059, -0.014637, -0.999806] [-533.135, 9.38801, 151.854]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp_35_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0883405, -0.996068, 0.00650372] [-0.978303, 0.0879893, 0.187561] [-0.187396, 0.0102061, -0.982232] [-533.412, 9.38626, 151.837]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0545125, -0.998385, 0.0159164] [-0.003065, -0.015774, -0.99987] [0.998509, -0.0545541, -0.00219976] [-533.122, 9.37802, 149.111]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p38_walther_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0054015, -0.997332, 0.0727677] [0.970907, 0.02265, 0.238384] [-0.239396, 0.0693632, 0.968441] [-533.157, 9.38456, 149.455]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0582416, 0.107926, 0.99245] [-0.887561, 0.44949, -0.100966] [-0.456995, -0.886742, 0.0696127] [-533.959, 9.07085, 151.55]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.143705, 0.0904576, 0.985476] [-0.851712, 0.495767, -0.169707] [-0.503919, -0.863732, 0.00579982] [-533.895, 9.11436, 151.954]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+visibility_traceable_item+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0711018, 0.00710182, -0.997443] [-0.0458742, 0.998892, 0.0103815] [0.996414, 0.0464949, -0.070697] [-533.565, 9.36555, 151.455]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.215866, -0.0195576, 0.976226] [-0.973561, 0.0721576, 0.216723] [-0.0746806, -0.997202, -0.00346399] [-533.495, 9.40903, 152.118]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.973719, 0.162622, -0.159442] [-0.154446, 0.986023, 0.0624826] [0.167375, -0.0362157, 0.985228] [-533.175, 9.36196, 149.205]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp_35_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.062677, 0.0042344, -0.998024] [0.06598, -0.997784, -0.00837724] [-0.995851, -0.0663751, 0.062259] [-533.271, 9.38689, 151.74]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.992094, -0.0345886, -0.120618] [-0.120146, 0.0154234, -0.992636] [0.0361941, 0.999282, 0.0111463] [-533.187, 9.38081, 152.031]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="gewehr_41_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.034575, 0.998619, 0.0395317] [-0.200417, 0.0318247, -0.979192] [-0.979101, -0.0417787, 0.199041] [-533.313, 9.37044, 149.563]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0551998, -0.997858, 0.035086] [-0.997444, -0.0567041, -0.0434557] [0.0453516, -0.0325974, -0.998439] [-533.371, 9.36876, 150.054]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.108722, -0.992641, 0.0533083] [-0.984353, -0.114983, -0.133511] [0.138658, -0.0379586, -0.989613] [-533.216, 9.37132, 150.005]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.117995, -0.992773, -0.0218366] [-0.992225, -0.116997, -0.0424042] [0.0395424, 0.0266706, -0.998862] [-533.308, 9.37436, 149.928]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+visibility_traceable_item+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0711018, 0.00710182, -0.997443] [-0.0458742, 0.998892, 0.0103815] [0.996414, 0.0464949, -0.070697] [-533.565, 9.36555, 151.455]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.215866, -0.0195576, 0.976226] [-0.973561, 0.0721576, 0.216723] [-0.0746806, -0.997202, -0.00346399] [-533.495, 9.40903, 152.118]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.973719, 0.162622, -0.159442] [-0.154446, 0.986023, 0.0624826] [0.167375, -0.0362157, 0.985228] [-533.175, 9.36196, 149.205]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp_35_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.062677, 0.0042344, -0.998024] [0.06598, -0.997784, -0.00837724] [-0.995851, -0.0663751, 0.062259] [-533.271, 9.38689, 151.74]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.992094, -0.0345886, -0.120618] [-0.120146, 0.0154234, -0.992636] [0.0361941, 0.999282, 0.0111463] [-533.187, 9.38081, 152.031]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="gewehr_41_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.034575, 0.998619, 0.0395317] [-0.200417, 0.0318247, -0.979192] [-0.979101, -0.0417787, 0.199041] [-533.313, 9.37044, 149.563]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="gewehr_41_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.034575, 0.998619, 0.0395317] [-0.200417, 0.0318247, -0.979192] [-0.979101, -0.0417787, 0.199041] [-533.313, 9.37044, 149.563]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0551998, -0.997858, 0.035086] [-0.997444, -0.0567041, -0.0434557] [0.0453516, -0.0325974, -0.998439] [-533.371, 9.36876, 150.054]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.108722, -0.992641, 0.0533083] [-0.984353, -0.114983, -0.133511] [0.138658, -0.0379586, -0.989613] [-533.216, 9.37132, 150.005]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.117995, -0.992773, -0.0218366] [-0.992225, -0.116997, -0.0424042] [0.0395424, 0.0266706, -0.998862] [-533.308, 9.37436, 149.928]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+visibility_traceable_item+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0711018, 0.00710182, -0.997443] [-0.0458742, 0.998892, 0.0103815] [0.996414, 0.0464949, -0.070697] [-533.565, 9.36555, 151.455]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.215866, -0.0195576, 0.976226] [-0.973561, 0.0721576, 0.216723] [-0.0746806, -0.997202, -0.00346399] [-533.495, 9.40903, 152.118]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.973719, 0.162622, -0.159442] [-0.154446, 0.986023, 0.0624826] [0.167375, -0.0362157, 0.985228] [-533.175, 9.36196, 149.205]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp_35_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.062677, 0.0042344, -0.998024] [0.06598, -0.997784, -0.00837724] [-0.995851, -0.0663751, 0.062259] [-533.271, 9.38689, 151.74]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.992094, -0.0345886, -0.120618] [-0.120146, 0.0154234, -0.992636] [0.0361941, 0.999282, 0.0111463] [-533.187, 9.38081, 152.031]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="gewehr_41_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.034575, 0.998619, 0.0395317] [-0.200417, 0.0318247, -0.979192] [-0.979101, -0.0417787, 0.199041] [-533.313, 9.37044, 149.563]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0551998, -0.997858, 0.035086] [-0.997444, -0.0567041, -0.0434557] [0.0453516, -0.0325974, -0.998439] [-533.371, 9.36876, 150.054]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.108722, -0.992641, 0.0533083] [-0.984353, -0.114983, -0.133511] [0.138658, -0.0379586, -0.989613] [-533.216, 9.37132, 150.005]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mauser98k_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.117995, -0.992773, -0.0218366] [-0.992225, -0.116997, -0.0424042] [0.0395424, 0.0266706, -0.998862] [-533.308, 9.37436, 149.928]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-534.719, 9.33534, 147.629]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.132376, 0.0, -0.9912] [0.0, 1.0, 0.0] [0.9912, 0.0, 0.132376] [-534.323, 8.74444, 135.094]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.865467, 0.0, -0.500967] [0.0, 1.0, 0.0] [0.500967, 0.0, 0.865467] [-523.659, 10.1247, 375.179]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-523.193, 10.2259, 402.607]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-529.568, 10.0852, 482.533]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="ussr_t_60_1941"
+  transform:m=[[0.0162838, 0.0166938, 0.999728] [-0.0112142, 0.999801, -0.0165124] [-0.999804, -0.0109422, 0.0164678] [-379.135, 11.5918, 443.781]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_26_1940"
+  transform:m=[[-0.0524183, 0.00362538, 0.998619] [-0.00730979, 0.999965, -0.00401397] [-0.998599, -0.0075101, -0.05239] [-375.367, 11.6087, 361.663]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_bt_7_1937"
+  transform:m=[[-0.373004, -0.00734167, 0.927801] [-0.0152114, 0.999883, 0.00179662] [-0.927705, -0.013443, -0.373072] [-301.614, 12.5027, 362.542]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28"
+  transform:m=[[0.0155626, -0.0542665, 0.998405] [-0.00402485, 0.998515, 0.0543352] [-0.999871, -0.00486402, 0.015321] [-417.24, 11.4761, 470.389]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_ba_11"
+  transform:m=[[-0.135712, 0.0771619, -0.987739] [0.000437219, 0.996967, 0.0778228] [0.990748, 0.0101296, -0.135334] [-334.245, 11.9156, 485.01]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28e"
+  transform:m=[[-0.401622, 0.0667782, -0.913368] [0.0609055, 0.997078, 0.0461173] [0.913778, -0.0371073, -0.404515] [-313.717, 12.1779, 473.594]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_60_1941"
+  transform:m=[[-0.319913, 0.00253492, -0.947444] [-0.0185749, 0.999788, 0.00894696] [0.947265, 0.0204609, -0.319798] [-242.893, 13.4029, 493.782]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_26_1940"
+  transform:m=[[0.0167386, -0.0037412, 0.999853] [-0.0169165, 0.999849, 0.00402439] [-0.999717, -0.0169814, 0.0166727] [-214.747, 13.851, 364.746]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_bt_7_1937"
+  transform:m=[[0.0165223, -0.0218885, 0.999624] [-0.0344608, 0.999154, 0.0224478] [-0.999269, -0.0348188, 0.015754] [-354.086, 12.1062, 389.551]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28"
+  transform:m=[[-0.37295, -0.00696086, 0.927825] [-0.0143298, 0.999896, 0.00174155] [-0.927741, -0.012646, -0.373011] [-253.781, 13.2761, 402.412]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_ba_11"
+  transform:m=[[-0.639008, -0.0100583, -0.769134] [-0.0147815, 0.99989, -0.000795282] [0.769058, 0.0108608, -0.639087] [-152.075, 14.7523, 409.966]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28e"
+  transform:m=[[-0.999058, -0.0228849, 0.0368584] [-0.0228285, 0.999737, 0.00195064] [-0.0368934, 0.00110739, -0.999319] [-297.25, 12.602, 452.437]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_50"
+  transform:m=[[0.0166489, 0.00732002, 0.999835] [-0.0207697, 0.99976, -0.00697363] [-0.999646, -0.0206502, 0.0167969] [-37.1877, 16.6643, 359.883]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28e"
+  transform:m=[[0.0443401, 0.000861034, 0.999016] [-0.01804, 0.999837, -6.10607e-05] [-0.998854, -0.0180195, 0.0443484] [-46.1048, 16.487, 449.174]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_50"
+  transform:m=[[-0.999827, -0.018242, -0.00373846] [-0.0182348, 0.999832, -0.00194163] [0.00377325, -0.00187313, -0.999991] [129.162, 19.4085, 405.286]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_60_1941"
+  transform:m=[[-0.00791463, 0.0378436, -0.999252] [0.0519603, 0.997949, 0.0373827] [0.998618, -0.0516256, -0.00986476] [149.887, 19.9955, 387.298]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_26_1940"
+  transform:m=[[-0.697272, -0.0276097, 0.716275] [-0.0246816, 0.99959, 0.0145037] [-0.716382, -0.00756582, -0.697667] [203.299, 20.6049, 426.943]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_bt_7_1937"
+  transform:m=[[-0.0218535, -0.0213144, -0.999534] [-0.166426, 0.985901, -0.0173849] [0.985812, 0.165969, -0.0250927] [270.98, 21.6646, 463.495]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28"
+  transform:m=[[-0.0249915, 0.00208329, -0.999685] [-0.0183311, 0.999829, 0.00254185] [0.99952, 0.0183888, -0.024949] [110.973, 19.0956, 482.882]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_60_1941"
+  transform:m=[[-0.614203, 0.0753425, -0.785543] [0.00507749, 0.995789, 0.0915374] [0.789132, 0.0522339, -0.611999] [18.929, 17.3006, 473.268]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28e"
+  transform:m=[[-0.0573807, -0.0124628, 0.998275] [-0.0128779, 0.999848, 0.0117422] [-0.998269, -0.0121819, -0.0575325] [-441.889, 10.9723, 362.895]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_ba_11"
+  transform:m=[[-0.999319, -0.0318455, 0.0186314] [-0.0311773, 0.998897, 0.035117] [-0.0197291, 0.0345122, -0.99921] [-498.743, 10.3768, 465.372]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_t_28e"
+  transform:m=[[-0.70913, -0.0602084, 0.702502] [-0.0521956, 0.998096, 0.0328545] [-0.703143, -0.0133694, -0.710923] [-353.994, 11.8006, 416.384]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="ussr_ba_11"
+  transform:m=[[0.796929, -0.0214397, 0.603693] [0.0125493, 0.999742, 0.0189388] [-0.603943, -0.00751697, 0.796992] [-253.74, 13.0843, 391.273]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[-0.451933, 0.0270005, 0.891643] [0.0270005, 0.999498, -0.0165812] [-0.891643, 0.0165812, -0.452435] [-543.52, 9.74066, 171.357]]
+}

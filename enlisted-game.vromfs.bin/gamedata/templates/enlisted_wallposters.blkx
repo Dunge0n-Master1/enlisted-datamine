@@ -1,0 +1,292 @@
+wallposter_preview{
+  _extends:t="semi_transparent_render"
+  _singleton:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  previewDistance:r=1.5
+  previewRotation:p3=0.0, 0.0, 0.0
+  defColor:p3=0.3, 0.3, 0.3
+  okColor:p3=0.0, 0.4, 0.0
+  forbiddenColor:p3=0.5, 0.0, 0.0
+  semi_transparent__resIdx:i=-1
+  ri_preview__name:t="wall_poster_german_a"
+  instantiateTemplate:t="wallposter_german_a"
+  wallposter_menu__text:t="wallposter/german_a"
+  wallposter_menu__image:t="building_wall"
+
+  "use_texture:tag"{
+  }
+
+  riSemiTransRender{
+    _tags:t="render"
+  }
+
+  "wallposter_preview:tag"{
+  }
+}
+
+wallposter{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  wallposter__layer:i=0
+}
+
+wallposter_german_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="wall_poster_german_a"
+  instantiateTemplate:t="wallposter_german_a"
+  wallposter_menu__text:t="wallposter/german_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+wallposter_german_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="wall_poster_german_a"
+}
+
+wallposter_german_b_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="wall_poster_german_b"
+  instantiateTemplate:t="wallposter_german_b"
+  wallposter_menu__text:t="wallposter/german_b"
+  wallposter_menu__image:t="building_wall"
+}
+
+wallposter_german_b{
+  _extends:t="wallposter"
+  ri_extra__name:t="wall_poster_german_b"
+}
+
+wallposter_german_c_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="wall_poster_german_c"
+  instantiateTemplate:t="wallposter_german_c"
+  wallposter_menu__text:t="wallposter/german_c"
+  wallposter_menu__image:t="building_wall"
+}
+
+wallposter_german_c{
+  _extends:t="wallposter"
+  ri_extra__name:t="wall_poster_german_c"
+}
+
+wallposter_german_d_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="wall_poster_german_d"
+  instantiateTemplate:t="wallposter_german_d"
+  wallposter_menu__text:t="wallposter/german_d"
+  wallposter_menu__image:t="building_wall"
+}
+
+wallposter_german_d{
+  _extends:t="wallposter"
+  ri_extra__name:t="wall_poster_german_d"
+}
+
+wallposter_german_e_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="wall_poster_german_e"
+  instantiateTemplate:t="wallposter_german_e"
+  wallposter_menu__text:t="wallposter/german_e"
+  wallposter_menu__image:t="building_wall"
+}
+
+wallposter_german_e{
+  _extends:t="wallposter"
+  ri_extra__name:t="wall_poster_german_e"
+}
+
+agit_poster_german_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_german_a"
+  instantiateTemplate:t="agit_poster_german_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/german_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_german_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_german_a"
+}
+
+agit_poster_ussr_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_ussr_a"
+  instantiateTemplate:t="agit_poster_ussr_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/ussr_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_ussr_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_ussr_a"
+}
+
+agit_poster_veteran_ussr_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_veteran_ussr_a"
+  instantiateTemplate:t="agit_poster_veteran_ussr_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/ussr_veteran_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_veteran_ussr_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_veteran_ussr_a"
+}
+
+agit_poster_normandy_axis_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_normandy_axis_a"
+  instantiateTemplate:t="agit_poster_normandy_axis_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/normandy_axis_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_normandy_axis_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_normandy_axis_a"
+}
+
+agit_poster_veteran_axis_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_veteran_axis_a"
+  instantiateTemplate:t="agit_poster_veteran_axis_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/veteran_axis_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_veteran_axis_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_veteran_axis_a"
+}
+
+agit_poster_normandy_usa_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_normandy_usa_a"
+  instantiateTemplate:t="agit_poster_normandy_usa_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/normandy_usa_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_normandy_usa_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_normandy_usa_a"
+}
+
+agit_poster_veteran_usa_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_veteran_usa_a"
+  instantiateTemplate:t="agit_poster_veteran_usa_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/veteran_usa_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_veteran_usa_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_veteran_usa_a"
+}
+
+wallposter_battlepass_season_2_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_battlepass_a"
+  instantiateTemplate:t="agit_poster_battlepass_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/battlepass_season_2"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_battlepass_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_battlepass_a"
+}
+
+wallposter_battlepass_season_4_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_battlepass_b"
+  instantiateTemplate:t="agit_poster_battlepass_b"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/battlepass_season_4"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_battlepass_b{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_battlepass_b"
+}
+
+wallposter_battlepass_season_5_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_battlepass_c"
+  instantiateTemplate:t="agit_poster_battlepass_c"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/battlepass_season_5"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_battlepass_c{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_battlepass_c"
+}
+
+agit_poster_ny_ussr_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_ny_ussr_a"
+  instantiateTemplate:t="agit_poster_ny_ussr_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/ny_ussr_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_ny_ussr_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_ny_ussr_a"
+}
+
+agit_poster_ny_usa_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_ny_usa_a"
+  instantiateTemplate:t="agit_poster_ny_usa_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/ny_usa_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_ny_usa_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_ny_usa_a"
+}
+
+agit_poster_ny_axis_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_ny_axis_a"
+  instantiateTemplate:t="agit_poster_ny_axis_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/ny_axis_a"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_ny_axis_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_ny_axis_a"
+}
+
+agit_poster_china_a_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_a"
+  instantiateTemplate:t="agit_poster_china_a"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_a_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_a{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_a"
+}

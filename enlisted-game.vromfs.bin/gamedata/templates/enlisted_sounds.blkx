@@ -1,0 +1,74 @@
+sound_effect_soviet_loudspeaker_a{
+  _extends:t="destroyable_sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/propaganda_de"
+  }
+
+  _group{
+    sound_control__range:r=500.0
+    _tags:t="sound"
+  }
+}
+
+sound_effect_soviet_loudspeaker_b{
+  _extends:t="destroyable_sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/propaganda_ru"
+  }
+
+  _group{
+    sound_control__range:r=500.0
+    _tags:t="sound"
+  }
+}
+
+blizzard_sound{
+  _extends:t="sound_effect_2d"
+
+  _group{
+    _tags:t="sound"
+    sound_effect_2d__path:t="ambient/blizzard_enl"
+  }
+}
+
+narrator_sound{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  "narrator_history:object"{
+  }
+
+  "narrator_sound_event:SoundEvent"{
+    _tags:t="sound"
+  }
+}
+
+enlisted_net_sounds{
+  _extends:t="scene_net_sounds"
+
+  "net_sound__descs:shared:object"{
+
+    "mineActivate:object"{
+      path:t="impact/mine_activate"
+      range:r=50.0
+    }
+
+    "aircraftArtillerySiren:object"{
+      path:t="env_effects/air_siren"
+      range:r=1000.0
+    }
+
+    "fortificationBuildingDestroy:object"{
+      path:t="env_effects/building/destroy"
+      range:r=100.0
+    }
+  }
+}

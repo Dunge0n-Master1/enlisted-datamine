@@ -1,0 +1,4217 @@
+rifle_ww2_fireready_deviation{
+  _override:b=yes
+  gun__deviationInFireReady:r=4.0
+}
+
+mp_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=4.5
+}
+
+ar_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=4.5
+}
+
+stg_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=4.5
+}
+
+rifle_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=3.8
+}
+
+carbine_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=3.0
+}
+
+semiauto_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=4.3
+}
+
+ptr_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=12.0
+  gun__adsSpeedMult:r=0.25
+
+  "gun__canPierceHPEntity:tag"{
+  }
+}
+
+mg_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=9.0
+  gun__crawlRecoilMult:r=0.7
+  gun__adsSpeedMult:r=0.3
+}
+
+launchers_ww2_preset{
+  _override:b=yes
+  gun__inertialMass:r=12.0
+  gun__adsSpeedMult:r=0.25
+}
+
+ironsights_open_rifle{
+  _override:b=yes
+  gun__magnification:r=2.0
+}
+
+ironsights_open_semiauto{
+  _override:b=yes
+  gun__magnification:r=2.0
+}
+
+ironsights_open_launchers{
+  _override:b=yes
+  gun__magnification:r=2.0
+}
+
+ironsights_open_at_rifle{
+  _override:b=yes
+  gun__magnification:r=2.0
+}
+
+ironsights_open_stationary_machinegun{
+  _override:b=yes
+  gun__magnification:r=1.0
+}
+
+mortar_gun_base{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=2.0
+}
+
+browning_auto_5{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+ithaca_37{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+  gun__chokeSpread:r=1.55
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+ithaca_37_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.8
+  gun__recoilControlMult:r=1.0
+  gun__recoilAmount:r=0.15
+}
+
+winchester_model_1912{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+  gun__chokeSpread:r=1.55
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+winchester_model_1912_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.8
+  gun__recoilControlMult:r=1.0
+  gun__recoilAmount:r=0.15
+}
+
+winchester_model_1912_trench{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+  gun__chokeSpread:r=1.55
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+winchester_model_1912_trench_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.8
+  gun__recoilControlMult:r=1.0
+  gun__recoilAmount:r=0.15
+}
+
+m30_luftwaffe_drilling{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+  gun__chokeSpread:r=1.45
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+m30_luftwaffe_drilling_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.8
+  gun__recoilControlMult:r=1.0
+  gun__recoilAmount:r=0.14
+}
+
+toz_b{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+  gun__chokeSpread:r=1.45
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+toz_b_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.8
+  gun__recoilControlMult:r=1.0
+  gun__recoilAmount:r=0.14
+}
+
+m1941_johnson{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.29
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_semiauto.blk"
+  }
+}
+
+m1941_johnson_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+}
+
+walther_pp{
+  _override:b=yes
+  gun__zeroingDistance:r=50.0
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.65x17_browning_pistol.blk"
+  }
+}
+
+walther_pp_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.08
+}
+
+walther_pp_engraved{
+  _override:b=yes
+  gun__zeroingDistance:r=50.0
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.65x17_browning_pistol.blk"
+  }
+}
+
+walther_ppk{
+  _override:b=yes
+  gun__zeroingDistance:r=50.0
+  gun_spread__maxDeltaAngle:r=1.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.65x17_browning_pistol.blk"
+  }
+}
+
+astra_300{
+  _override:b=yes
+  gun__zeroingDistance:r=50.0
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x17_380_acp_pistol.blk"
+  }
+}
+
+astra_300_gold{
+  _override:b=yes
+  gun__zeroingDistance:r=50.0
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x17_380_acp_pistol.blk"
+  }
+}
+
+dreyse_m1907{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=1.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.65x17_dreyse_pistol.blk"
+  }
+}
+
+nagant_m1895{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.7
+  single_reload__prepareTime:r=1.2
+  single_reload__loopTime:r=0.8
+  single_reload__postTime:r=1.2
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x38_nagant_pistol.blk"
+  }
+
+  "gun__canZoomInBoltAction:tag"{
+  }
+}
+
+colt_new_service_m1909{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.7
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_pistol.blk"
+  }
+}
+
+sw_m1917{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.7
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_pistol.blk"
+  }
+}
+
+mauser_c96{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.63x25_mauser_pistol.blk"
+  }
+}
+
+mauser_c96_m712{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.63x25_mauser_pistol.blk"
+  }
+}
+
+m1911_colt{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_pistol.blk"
+  }
+}
+
+browning_hp{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_pistol.blk"
+  }
+}
+
+ppt_27{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.85
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x38_nagant_carbine.blk"
+  }
+}
+
+ppd_1929{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.74
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppd_1929_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.026
+  gun__recoilDirAmount:r=0.65
+  gun__crawlRecoilMult:r=0.6
+  gun__visualRecoilMult:r=1.6
+}
+
+ppd_3438{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+  gun__reloadTime:r=4.0
+  gun__altReloadTime:r=3.6
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppd_3438_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.024
+  gun__recoilDirAmount:r=0.63
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+ppd_3438_box{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+  gun__reloadTime:r=2.6
+  gun__altReloadTime:r=2.1
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppd_3438_box_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.025
+  gun__recoilDirAmount:r=0.6
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+ppk_41{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.9
+  gun__reloadTime:r=2.4
+  gun__crawlRecoilMult:r=0.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppk_42{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.75
+  gun__crawlRecoilMult:r=0.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+pdm_42{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+  gun__crawlRecoilMult:r=0.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppd_40{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.8
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.4
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppd_40_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.0235
+  gun__recoilDirAmount:r=0.65
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+ppd_40_dv{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.8
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.4
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppd_40_dv_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      svt_40_bayonet:t="svt_40_bayonet"
+    }
+  }
+}
+
+pp_dolganov{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.83
+  gun__reloadTime:r=3.9
+  gun__altReloadTime:r=3.5
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppsh_41{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.4
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+ppsh_41_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.02
+  gun__recoilDirAmount:r=0.7
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+ppsh_41_german{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.86
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+ppsh_41_box_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+suomi_kp_31{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.78
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+suomi_kp_31_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.0235
+  gun__recoilDirAmount:r=0.68
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+suomi_kp_31_sjr{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.75
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+suomi_kp_31_sjr_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.021
+  gun__recoilDirAmount:r=0.73
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+suomi_kp_26{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+pps_42{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.87
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+pps_42_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+pps_43{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+}
+
+pps_43_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+tt_33{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.92
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_pistol.blk"
+  }
+}
+
+tk_26{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=1.1
+  gun__zeroingDistance:r=25.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/6.35x15_browning_pistol.blk"
+  }
+}
+
+arisaka_type_38_carbine{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/6.5x50_arisaka_carbine_short.blk"
+  }
+}
+
+arisaka_type_38_carbine_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      type_30_bayonet:t="type_30_bayonet"
+    }
+  }
+}
+
+arisaka_type_38{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.12
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/6.5x50_arisaka_carbine.blk"
+  }
+}
+
+avs_36{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun__reloadTime:r=2.7
+  gun__shotFreq:r=10.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto.blk"
+  }
+}
+
+avs_36_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.105
+  gun__recoilDirAmount:r=0.74
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      avs_36_bayonet:t="avs_36_bayonet"
+    }
+  }
+}
+
+svt_40{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.26
+  gun__reloadTime:r=2.5
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/svt_40.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/svt_40.blk"
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto.blk"
+  }
+}
+
+svt_40_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.105
+  gun__recoilDirAmount:r=0.78
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      svt_40_bayonet:t="svt_40_bayonet"
+    }
+  }
+}
+
+avt_40{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.26
+  gun__reloadTime:r=2.5
+  gun__shotFreq:r=10.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto.blk"
+  }
+}
+
+avt_40_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.105
+  gun__recoilDirAmount:r=0.78
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      svt_40_bayonet:t="svt_40_bayonet"
+    }
+  }
+}
+
+svt_38{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun__reloadTime:r=2.6
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/svt_38.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/svt_38.blk"
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto.blk"
+  }
+}
+
+svt_38_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.1
+  gun__recoilDirAmount:r=0.72
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      svt_40_bayonet:t="svt_40_bayonet"
+    }
+  }
+}
+
+akt_40{
+  _override:b=yes
+  gun__reloadTime:r=2.4
+  gun_deviation__movementDevInc:p2=0.0, 11.0
+  gun_spread__maxDeltaAngle:r=0.32
+  gun__shotFreq:r=10.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto_short.blk"
+  }
+}
+
+akt_40_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.14
+  gun__recoilDirAmount:r=0.65
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      svt_40_bayonet:t="svt_40_bayonet"
+    }
+  }
+}
+
+skt_40{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun_deviation__movementDevInc:p2=0.0, 11.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto_short.blk"
+  }
+}
+
+sks_44{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.29
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_semiauto_short.blk"
+  }
+}
+
+fedorov_avtomat{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.35
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/6.5x50_arisaka_semiauto.blk"
+  }
+}
+
+fedorov_avtomat_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.075
+  gun__recoilDirAmount:r=0.76
+  gun__visualRecoilMult:r=1.3
+  gun__recoilControlMult:r=0.45
+}
+
+mosin_m38{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.16
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.05
+  gun__reloadTime:r=3.3
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_carbine_short.blk"
+  }
+}
+
+mosin_m38_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      mosin_m1930_bayonet:t="mosin_m1930_bayonet"
+    }
+  }
+}
+
+mosin_m44{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.08
+  gun__reloadTime:r=2.9
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/mosin_m1930_bayonet.blk"
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_carbine_short.blk"
+  }
+}
+
+mosin_m44l{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.12
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.02
+  gun__reloadTime:r=3.2
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/mosin_m1930_bayonet.blk"
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r.blk"
+  }
+}
+
+mosin_m28{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.11
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r.blk"
+  }
+}
+
+mosin_m28_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      mosin_m28_bayonet:t="mosin_m28_bayonet"
+    }
+  }
+}
+
+mosin_m91{
+  _override:b=yes
+  gun__statName:t="sniper"
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.0
+  gun_spread__maxDeltaAngle:r=0.01
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_ap.blk"
+  }
+}
+
+mosin_m91_gun{
+  _override:b=yes
+  _extends:t="reload_single_bullet"
+
+  "gun_mods__slots:object"{
+
+    "scope:object"{
+      scope_pu_m1891_1930:t="scope_pu_m1891_1930"
+      scope_pe_mosin_4x:t="scope_pe_mosin_4x"
+    }
+
+    "bayonet:object"{
+      mosin_m1930_bayonet:t="mosin_m1930_bayonet"
+    }
+  }
+}
+
+mosin_m91_30{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.13
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r.blk"
+  }
+}
+
+mosin_m91_30_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      mosin_m1930_bayonet:t="mosin_m1930_bayonet"
+    }
+  }
+}
+
+mosin_m1907{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.17
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=0.85
+  gun__reloadTime:r=3.4
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_carbine_short.blk"
+  }
+}
+
+mas_36_with_bayonet{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.15
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/mosin_m1930_bayonet.blk"
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.5x54_mas.blk"
+  }
+}
+
+lebel_1886_m93{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.13
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/8x50_r.blk"
+  }
+}
+
+lebel_1886_m93_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      lebel_bayonet:t="lebel_bayonet"
+    }
+  }
+}
+
+berthier_1892_m16{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.16
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/8x50_r_carbine.blk"
+  }
+}
+
+vg_2{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.19
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+mosin_dragoon{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=0.95
+  gun__reloadTime:r=3.2
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r.blk"
+  }
+}
+
+mosin_infantry{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.12
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=0.85
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_rifle_long.blk"
+  }
+}
+
+mosin_infantry_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      mosin_m1930_bayonet:t="mosin_m1930_bayonet"
+    }
+  }
+}
+
+berdan_no_2{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.22
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/10.75x58_r.blk"
+  }
+}
+
+winchester_1895{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.13
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r.blk"
+  }
+
+  "gun__canZoomInBoltAction:tag"{
+  }
+}
+
+mosin_1928_grenade_launcher{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_spread__maxDeltaAngle:r=0.14
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r.blk"
+  }
+}
+
+mp40{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+  gun__reloadTime:r=2.3
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp40_gun{
+  _override:b=yes
+  gun__recoilDirAmount:r=0.74
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+mp_40_1{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp_40_1_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+erma_emp_44{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.75
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+erma_emp_44_gun{
+  _override:b=yes
+  gun__recoilDirAmount:r=0.68
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+schmeisser_mk36_iii{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.7
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_carbine.blk"
+  }
+}
+
+mp_38{
+  _override:b=yes
+  gun__reloadTime:r=2.5
+  gun__shotFreq:r=8.2
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp_38_gun{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.77
+  gun__recoilDirAmount:r=0.73
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+mp41{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+  gun__shotFreq:r=8.6
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp41_gun{
+  _override:b=yes
+  gun__recoilDirAmount:r=0.76
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+mp_3008{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.95
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp_3008_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+vollmer_vpf_1926{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.78
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+erma_emp{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.76
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+erma_emp_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+mp_18{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.86
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp_18_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+beretta_m38{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.72
+  gun__reloadTime:r=2.4
+  gun__altReloadTime:r=1.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+beretta_m38_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.026
+  gun__recoilDirAmount:r=0.78
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+beretta_m38_40_round{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.76
+  gun__reloadTime:r=2.9
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+beretta_m38_40_round_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.025
+  gun__recoilDirAmount:r=0.79
+  gun__crawlRecoilMult:r=0.9
+  gun__visualRecoilMult:r=1.6
+}
+
+beretta_m1918{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.89
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+beretta_m1918_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+mp_28{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp_28_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+lanchester_32{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+lanchester_32_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+lanchester_50_round{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp34o{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.78
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp34o_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+zk_383{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.75
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+zk_383_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+mp_35{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.8
+  gun__reloadTime:r=3.2
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+mp_35_gun{
+  _override:b=yes
+  gun__recoilDir:r=0.3
+  gun__recoilDirAmount:r=0.76
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+mp_35_long_barrel{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.76
+  gun__reloadTime:r=3.2
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg_long_barrel.blk"
+  }
+}
+
+mp_35_long_barrel_gun{
+  _override:b=yes
+  gun__recoilDir:r=0.27
+  gun__recoilDirAmount:r=0.8
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+fnab_43{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.88
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+fnab_43_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+vstg_1_5{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+mp43_1{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.7
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+mp43_1_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.033
+  gun__crawlRecoilMult:r=0.85
+  gun__visualRecoilMult:r=1.6
+}
+
+mkb_42_h{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.75
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+mkb_42_h_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.03
+  gun__crawlRecoilMult:r=0.85
+  gun__visualRecoilMult:r=1.6
+}
+
+mkb_42_h_with_scope{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+mkb_42_h_with_scope_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.036
+  gun__crawlRecoilMult:r=0.85
+  gun__visualRecoilMult:r=1.6
+}
+
+vollmer_m35{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.65
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.35x35_geco.blk"
+  }
+}
+
+vollmer_m35_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+stg_44{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.66
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+stg_44_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+stg_44_rail{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.27
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+stg_44_rail_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.85
+  gun__visualRecoilMult:r=1.6
+}
+
+stg_45_m{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.72
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz.blk"
+  }
+}
+
+stg_45_m_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+p38_walther{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.88
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_pistol.blk"
+  }
+}
+
+p08_luger{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.86
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_pistol.blk"
+  }
+}
+
+sten_mk2{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.95
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_pistol.blk"
+  }
+}
+
+sten_mk2_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+rm_38_gun{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="mine_o822_mp_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/mine_o822_mp.blk"
+  }
+}
+
+mortar_rm_40_gun{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="mine_o822_mp_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/mine_o822_mp.blk"
+  }
+}
+
+m2_mortar_gun{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="m49a2_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/m49a2.blk"
+  }
+}
+
+two_inch_mortar_gun{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="two_inch_he_shell_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/two_inch_he_shell.blk"
+  }
+}
+
+granatwerfer_36_gun{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="wrg_36_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/wrg_36.blk"
+  }
+}
+
+granatwerfer_42_gun{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="8cm_wgr_39_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/8cm_wgr_39.blk"
+  }
+}
+
+flamethrower_base{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="flamethrower_fuel_tank"
+  }
+
+  _group{
+    _tags:t="server"
+    friendly_fire_gamemode__friendlyDamageMult:r=1.0
+  }
+}
+
+gewehr_41{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/gewehr_41.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/gewehr_41.blk"
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+gewehr_41_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.11
+  gun__recoilDirAmount:r=0.7
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+gewehr_41_mauser{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.27
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+gewehr_41_mauser_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.1
+  gun__recoilDirAmount:r=0.74
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+gewehr_43{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.26
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+gewehr_43_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.11
+  gun__recoilDirAmount:r=0.76
+}
+
+gewehr_43_kurz{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.42
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x33_kurz_rifle.blk"
+  }
+}
+
+gerat_03{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+zh_29{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.3
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+zh_29_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+}
+
+wz_38m{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.3
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+fg_42{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.45
+  gun_deviation__movementDevInc:p2=0.0, 23.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+fg_42_model_2{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.42
+  gun_deviation__movementDevInc:p2=0.0, 23.0
+  gun__statName:t="sniper"
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_semiauto.blk"
+  }
+}
+
+mauser_98k{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.1
+  gun_spread__maxDeltaAngle:r=0.13
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+mauser_98k_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+vz_24{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_spread__maxDeltaAngle:r=0.13
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser.blk"
+  }
+}
+
+vz_24_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+g40k{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.16
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine_short.blk"
+  }
+}
+
+mauser_98k_trench{
+  _override:b=yes
+  gun__shotFreq:r=1.1
+  gun_spread__maxDeltaAngle:r=0.13
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+mauser_98k_trench_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+kar98k_with_schiessbecher_grenade_launcher{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.1
+  gun_spread__maxDeltaAngle:r=0.13
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+kar98k_with_gg_p_40_grenade_launcher{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.1
+  gun_spread__maxDeltaAngle:r=0.13
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+kar98k_kriegsmodell{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun__shotFreq:r=0.9
+  gun_spread__maxDeltaAngle:r=0.18
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+gewehr_33_40{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.16
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine_short.blk"
+  }
+}
+
+gewehr_33_40_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+gewehr_88{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.2
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser.blk"
+  }
+}
+
+kar98k_with_scope_mount_gun{
+  _override:b=yes
+  gun__shotFreq:r=1.1
+  gun_spread__maxDeltaAngle:r=0.01
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine_ap.blk"
+  }
+}
+
+mauser_gewehr_98_with_scope_mount{
+  _override:b=yes
+  gun__statName:t="sniper"
+  gun__shotFreq:r=0.9
+  gun_spread__maxDeltaAngle:r=0.01
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_ap.blk"
+  }
+}
+
+pre_war_kar98k{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.12
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine.blk"
+  }
+}
+
+pre_war_kar98k_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+pre_war_kar98k_with_scope_mount_gun{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.01
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_carbine_ap.blk"
+  }
+
+  "gun_mods__slots:object"{
+
+    "scope:object"{
+      scope_zf39:t="scope_zf39"
+    }
+
+    "bayonet:object"{
+      sg_8498_III_bayonet:t="sg_8498_III_bayonet"
+    }
+  }
+}
+
+m1_garand{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/m1_garand.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/m1_garand.blk"
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_semiauto.blk"
+  }
+}
+
+m1_garand_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.11
+  gun__recoilDirAmount:r=0.72
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      m1_bayonet:t="m1_bayonet"
+      m1905_bayonet:t="m1905_bayonet"
+    }
+  }
+}
+
+m1_garand_grenade_launcher_m7{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.28
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_semiauto.blk"
+  }
+}
+
+m1_garand_grenade_launcher_m7_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=0.7
+  gun__recoilAmount:r=0.11
+  gun__recoilDirAmount:r=0.72
+}
+
+pedersen_rifle{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.26
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/276_pedersen_semiauto.blk"
+  }
+}
+
+m1_bazooka{
+  _override:b=yes
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/m1_bazooka.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/m1_bazooka.blk"
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="m6a1_bazooka_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/m6a1_bazooka.blk"
+  }
+}
+
+piat{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="piat_shell_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/piat_shell.blk"
+  }
+}
+
+panzerschreck{
+  _override:b=yes
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/panzerschreck.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/panzerschreck.blk"
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="rpzb_gr_4992_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/rpzb_gr_4992.blk"
+  }
+}
+
+sturmpistole{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="panzerwurfkorper_42_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerwurfkorper_42.blk"
+  }
+}
+
+sturmpistole_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.4
+  gun__visualRecoilMult:r=0.7
+}
+
+panzerfaust_100{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="panzerfaust_100_shell_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_100_shell.blk"
+  }
+}
+
+panzerfaust_60{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="panzerfaust_60_shell_item"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_60_shell.blk"
+  }
+}
+
+m6a1_bazooka_phys{
+  _override:b=yes
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/weapons/shells/m6a1_bazooka.blk"
+}
+
+rpzb_gr_4322_phys{
+  _override:b=yes
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/weapons/shells/rpzb_gr_4322.blk"
+}
+
+panzerfaust_100_shell_phys{
+  _override:b=yes
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_100_shell.blk"
+}
+
+gross_panzergranate_46_phys{
+  _override:b=yes
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/weapons_enlisted/shells/gross_panzergranate_46.blk"
+}
+
+m1_carbine{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/m1_carbine.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/m1_carbine.blk"
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_carbine.blk"
+  }
+}
+
+m1_carbine_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.068
+  gun__recoilDirAmount:r=0.76
+  gun__visualRecoilMult:r=1.1
+  gun__recoilControlMult:r=0.6
+}
+
+m1_carbine_grenade_launcher{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_carbine.blk"
+  }
+}
+
+m1_carbine_grenade_launcher_gun{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__recoilAmount:r=0.068
+  gun__recoilDirAmount:r=0.76
+  gun__visualRecoilMult:r=1.1
+  gun__recoilControlMult:r=0.6
+}
+
+m1a1_carbine{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_carbine.blk"
+  }
+}
+
+m1a1_carbine_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.072
+  gun__recoilDirAmount:r=0.72
+  gun__visualRecoilMult:r=1.1
+  gun__recoilControlMult:r=0.6
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      m4_bayonet:t="m4_bayonet"
+    }
+  }
+}
+
+m1a2_carbine{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_carbine.blk"
+  }
+}
+
+m1a2_carbine_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.072
+  gun__recoilDirAmount:r=0.72
+  gun__visualRecoilMult:r=0.8
+  gun__recoilControlMult:r=0.6
+}
+
+m2_carbine{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_carbine.blk"
+  }
+}
+
+m2_carbine_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.066
+  gun__recoilDirAmount:r=0.76
+  gun__visualRecoilMult:r=0.35
+  gun__recoilControlMult:r=0.45
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      m4_bayonet:t="m4_bayonet"
+    }
+  }
+}
+
+m2a1_carbine{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_carbine.blk"
+  }
+}
+
+m2a1_carbine_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.07
+  gun__recoilDirAmount:r=0.72
+  gun__visualRecoilMult:r=0.35
+  gun__recoilControlMult:r=0.45
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      m4_bayonet:t="m4_bayonet"
+    }
+  }
+}
+
+m1903_springfield{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_spread__maxDeltaAngle:r=0.14
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield.blk"
+  }
+}
+
+m1903_springfield_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      m1_bayonet:t="m1_bayonet"
+      m1905_bayonet:t="m1905_bayonet"
+    }
+  }
+}
+
+m1903_springfield_air_service{
+  _override:b=yes
+  gun__shotFreq:r=1.0
+  gun_spread__maxDeltaAngle:r=0.14
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield.blk"
+  }
+}
+
+m1903_springfield_pedersen_device{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.65x20_longue_smg.blk"
+  }
+}
+
+m3_submachine_gun{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.88
+  gun__shotFreq:r=6.3
+  gun__reloadTime:r=2.6
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m3_submachine_gun_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.028
+  gun__recoilDirAmount:r=0.58
+  gun__visualRecoilMult:r=1.6
+}
+
+m3a1_grease_gun{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.86
+  gun__shotFreq:r=6.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m3a1_grease_gun_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.028
+  gun__recoilDirAmount:r=0.58
+  gun__visualRecoilMult:r=1.6
+}
+
+m3a1_field_repair{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.93
+  gun__shotFreq:r=6.8
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m3a1_field_repair_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+hyde_model_35{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.7
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m2_hyde{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.85
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m2_hyde_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.027
+  gun__visualRecoilMult:r=1.6
+}
+
+ud_m42{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.88
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+ud_m42_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+m1_thompson{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.88
+  gun__shotFreq:r=13.333
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m1_thompson_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.036
+  gun__recoilDirAmount:r=0.72
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+m1a1_thompson{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.86
+  gun__shotFreq:r=10.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m1a1_thompson_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.038
+  gun__recoilDirAmount:r=0.72
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+thompson_m1928a1_box_mag{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+thompson_m1928a1_box_mag_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+thompson_m1928a1_50_drum{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+thompson_m1928a1_50_drum_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+thompson_bsa_1929{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.64
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m50_reising{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.86
+  gun__shotFreq:r=8.33
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+m50_reising_gun{
+  _override:b=yes
+  gun__crawlRecoilMult:r=0.8
+  gun__visualRecoilMult:r=1.6
+}
+
+danuvia_43m{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.84
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x25_mauser_export_smg.blk"
+  }
+}
+
+danuvia_43m_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+danuvia_39{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.82
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x25_mauser_export_smg.blk"
+  }
+}
+
+danuvia_39_gun{
+  _override:b=yes
+  gun__visualRecoilMult:r=1.6
+}
+
+m1903a1_springfield{
+  _override:b=yes
+  _extends:t="reload_single_bullet"
+  gun__statName:t="sniper"
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_ap.blk"
+  }
+}
+
+m1903a3_springfield{
+  _override:b=yes
+  gun__statName:t="sniper"
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_ap.blk"
+  }
+}
+
+m1903a4_springfield{
+  _override:b=yes
+  gun__statName:t="sniper"
+  single_reload__loopTime:r=0.6
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.1
+  gun_spread__maxDeltaAngle:r=0.01
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_ap.blk"
+  }
+}
+
+lee_enfield_no4_mk1{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.2
+  gun_spread__maxDeltaAngle:r=0.12
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7.blk"
+  }
+
+  "gun__canZoomInBoltAction:tag"{
+  }
+}
+
+lee_enfield_no4_mk1_with_scope{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_ap.blk"
+  }
+}
+
+m1917_enfield{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=5
+  gun__shotFreq:r=1.05
+  gun_spread__maxDeltaAngle:r=0.11
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield.blk"
+  }
+}
+
+ross_rifle{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.2
+  gun_spread__maxDeltaAngle:r=0.12
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7.blk"
+  }
+
+  "gun__canZoomInBoltAction:tag"{
+  }
+}
+
+mannlicher_m1895{
+  _override:b=yes
+  reload__singleReloadMaxAmmo:i=4
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun__shotFreq:r=1.3
+  gun_spread__maxDeltaAngle:r=0.16
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/8x56_r_steyr_carbine.blk"
+  }
+
+  "gun__canZoomInBoltAction:tag"{
+  }
+}
+
+ptrd_41{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=20.0, 50.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/14.5x114_bs41.blk"
+  }
+}
+
+ptrd_41_gun{
+  _override:b=yes
+
+  "xrayActivator:tag"{
+  }
+}
+
+ptrs_41{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=20.0, 50.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+  gun__shotFreq:r=1.25
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/14.5x114_bs41.blk"
+  }
+}
+
+ptrs_41_gun{
+  _override:b=yes
+
+  "xrayActivator:tag"{
+  }
+}
+
+pzb_39{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=20.0, 50.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x94_smkh_patronen.blk"
+  }
+}
+
+pzb_39_gun{
+  _override:b=yes
+
+  "xrayActivator:tag"{
+  }
+}
+
+pzb_39_with_two_magazines{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=20.0, 50.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+  gun__reloadTime:r=3.6
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x94_smkh_patronen.blk"
+  }
+}
+
+pzb_39_with_two_magazines_gun{
+  _override:b=yes
+
+  "xrayActivator:tag"{
+  }
+}
+
+pzb_38{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=20.0, 50.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x94_smkh_patronen.blk"
+  }
+}
+
+pzb_38_gun{
+  _override:b=yes
+
+  "xrayActivator:tag"{
+  }
+}
+
+grb_39{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=20.0, 50.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/shells/gross_panzergranate_46.blk"
+  }
+}
+
+ptr_sholokhov{
+  _override:b=yes
+
+  "xrayActivator:tag"{
+  }
+}
+
+browning_m1918{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.46
+  gun_deviation__movementDevInc:p2=11.0, 20.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+browning_m1918a1{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.44
+  gun_deviation__movementDevInc:p2=12.0, 20.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+browning_m1918a2{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.42
+  gun_deviation__movementDevInc:p2=13.0, 20.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+browning_wz_1928{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.4
+  gun_deviation__movementDevInc:p2=12.0, 20.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+colt_monitor{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.52
+  gun_deviation__movementDevInc:p2=10.0, 15.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+m1941_johnson_mg{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.44
+  gun_deviation__movementDevInc:p2=12.0, 25.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+lahti_saloranta_m26{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=13.0, 20.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+mg_34{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.65
+  gun_deviation__movementDevInc:p2=15.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+mg_34_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.034
+  gun__recoilDirAmount:r=0.45
+}
+
+mg_42_handheld{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.68
+  gun_deviation__movementDevInc:p2=15.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+mg_34_with_patronentrommel{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.65
+  gun_deviation__movementDevInc:p2=15.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+mg_42_handheld_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.031
+  gun__recoilDirAmount:r=0.48
+}
+
+mg_13{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.52
+  gun_deviation__movementDevInc:p2=17.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+mg_13_saddle_drum{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.52
+  gun_deviation__movementDevInc:p2=18.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+mg_15{
+  _override:b=yes
+  gun_deviation__movementDevInc:p2=17.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+mg_30{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.57
+  gun_deviation__movementDevInc:p2=14.0, 45.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/8x56_r_tracer.blk"
+  }
+}
+
+zb_26{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.43
+  gun_deviation__movementDevInc:p2=12.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+bren_mk2{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.43
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_tracer.blk"
+  }
+}
+
+bren_mk3_gun{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.43
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_tracer.blk"
+  }
+}
+
+chauchat{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.62
+  gun_deviation__movementDevInc:p2=13.0, 35.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/8x50_r_tracer.blk"
+  }
+}
+
+chatellerault_m_24_29{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.43
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.5x54_mas_tracer.blk"
+  }
+}
+
+browning_m1919a6{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.4
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+an_m2_stinger{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.4
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+dp_27{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.58
+  gun_deviation__movementDevInc:p2=12.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+dp_27_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.058
+  gun__recoilDirAmount:r=0.7
+}
+
+dpm{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=11.0, 30.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+dt_29{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.56
+  gun_deviation__movementDevInc:p2=15.0, 35.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+dt_29_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.052
+  gun__recoilDirAmount:r=0.63
+}
+
+madsen{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.55
+  gun_deviation__movementDevInc:p2=14.0, 35.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+breda_mod_30{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.51
+  gun_deviation__movementDevInc:p2=14.0, 35.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/6.5x52_carcano_tracer.blk"
+  }
+}
+
+lewis_lmg{
+  _override:b=yes
+  gun_spread__maxDeltaAngle:r=0.6
+  gun_deviation__movementDevInc:p2=14.0, 35.0
+  gun_deviation__movementRange:p2=0.1, 4.0
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+stationary_mg42_without_shell_ejection{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+stationary_mg_34_without_shell_ejection{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.92x57_mauser_tracer.blk"
+  }
+}
+
+stationary_browning_m1919a4_without_shell_ejection{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/30_06_springfield_tracer.blk"
+  }
+}
+
+stationary_maxim_without_shell_ejection{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x54_r_tracer.blk"
+  }
+}
+
+sg_8498_III_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/sg_8498_iii_bayonet.blk"
+}
+
+svt_40_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/svt_40_bayonet.blk"
+}
+
+avs_36_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/avs_36_bayonet.blk"
+}
+
+mosin_m1930_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/mosin_m1930_bayonet.blk"
+}
+
+type_30_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/type_30_bayonet.blk"
+}
+
+lebel_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/lebel_bayonet.blk"
+}
+
+no4_mk2_bayonet{
+  _override:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/no4_mk2_bayonet.blk"
+}
+
+scope_pu_m1891_1930{
+  _override:b=yes
+  gunmod__zoomFactor:r=7.0
+  gunmod__camShiftMin:r=0.16
+  gunmod__camShiftMax:r=0.16
+}
+
+scope_pe_mosin_4x{
+  _override:b=yes
+  gunmod__zoomFactor:r=7.0
+  gunmod__camShiftMin:r=0.24
+  gunmod__camShiftMax:r=0.24
+}
+
+scope_m84{
+  _override:b=yes
+  gunmod__zoomFactor:r=7.0
+  gunmod__camShiftMin:r=0.16
+  gunmod__camShiftMax:r=0.16
+}
+
+scope_zf39{
+  _override:b=yes
+  gunmod__zoomFactor:r=8.0
+  gunmod__camShiftMin:r=0.28
+  gunmod__camShiftMax:r=0.28
+}
+
+fortification_builder_info{
+
+  "buildByPlayer:eid"{
+  }
+
+  "buildByEngineerEid:eid"{
+  }
+
+  _group{
+    _tags:t="server"
+    builder_info__guid:t=""
+    builder_info__team:i=-1
+
+    "builder_info__squadEid:eid"{
+    }
+  }
+}
+
+fortification_ai_target{
+  agent_dangers__tag:t=""
+  ai_target__riExtraOffset:p3=0.0, 0.0, 0.0
+
+  ai_target{
+    _tags:t="server"
+  }
+}
+
+base_fortification_build{
+  _extends:t="shred_outside_battle_area"
+  _extends:t="fortification_builder_info"
+  _extends:t="fortification_ai_target"
+  buildingCost:r=0.0
+  maxCostReturnedOnDestructionMul:r=0.5
+  costReturnedOnDestructionMul:r=0.5
+  buildTypeId:i=0
+  buildingRadius:r=0.0
+  buildingCostructedAtTime:r=0.0
+  buildingSoundTag:t="fortification"
+  actionTimerColor:p3=255.0, 0.0, 0.0
+  _replicated:t="building_destroy__timeToDestroy"
+  building_destroy__maxTimeToDestroy:r=5.0
+  building_destroy__timeToDestroy:r=0.0
+  building_destroy__lastDamageAtTime:r=-1.0
+  building_destroy__timeToResetDestructionTimer:r=5.0
+  building_destroy__distanceVerifyThreshold:r=1.5
+  building_destroy__disassembleSound:t="env_effects/building/destroy_action"
+
+  "build_attach__riexHandle:u64"{
+    value:i64=-1
+    _tags:t="server"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="server"
+    obstacle__initialStillTimeout:r=0.0
+    building__destructionAwardStat:t=""
+
+    "building__breakOffender:eid"{
+    }
+  }
+
+  "building_destroy__operator:eid"{
+  }
+}
+
+network_fortification_preview{
+  _extends:t="replicating"
+  _extends:t="semi_transparent_render"
+  _extends:t="shred_outside_battle_area"
+  _extends:t="fortification_builder_info"
+  _extends:t="fortification_ai_target"
+  previewTeam:i=-1
+  buildingCost:r=0.0
+  maxCostReturnedOnDestructionMul:r=1.0
+  costReturnedOnDestructionMul:r=1.0
+  selectedPlacingColor:p3=0.2, 0.2, 0.2
+  enemyPlacingColor:p3=0.2, 0.0, 0.2
+  previewColor:p3=0.1, 0.1, 0.1
+  visibleDistance:r=10.0
+  actionTimerColor:p3=0.0, 255.0, 0.0
+  _replicated:t="building_builder__timeToBuild"
+  buildingRadius:r=0.0
+  buildTypeId:i=0
+  buildingCostructedAtTime:r=0.0
+  destroyByInactiveShredderAtTime:r=-1.0
+  destroyInactiveTimeOut:r=20.0
+  building_builder__maxTimeToBuild:r=30.0
+  building_builder__timeToBuild:r=0.0
+  building_builder__distanceVerifyThreshold:r=1.5
+
+  "onlyForEngineer:tag"{
+  }
+
+  "builder_server_preview:tag"{
+  }
+}
+
+disable_item_drop{
+
+  "disableItemDrop:tag"{
+  }
+}
+
+building_tool{
+  _extends:t="melee_weapon"
+  _extends:t="disable_item_drop"
+  builder__shootPressed:b=no
+  nextTryToSetObjectInTime:r=-1.0
+  autoTryBuildingObjectInterval:r=3.0
+  engineerBuildingSpeedMul:r=2.0
+  gun__reloadable:b=no
+  animchar__res:t="hammer_char"
+  item__iconYaw:r=145.0
+  item__name:t="items/building_tool"
+  meleeSoundType:t="buildingTool"
+  _tracked:t="previewEid"
+
+  "item__weapSlots:array"{
+    slot:t="secondary"
+  }
+
+  "buildingTool:tag"{
+  }
+
+  "itemInWeaponSlot:tag"{
+  }
+
+  "previewEid:eid"{
+  }
+}
+
+building_tool_gun{
+  _extends:t="building_tool"
+  _extends:t="replicating"
+  _tracked:t="gun__owner"
+  _replicated:t="gun__owner"
+  _replicated:t="currentPreviewId"
+  buildingInterval:r=0.0
+  nextBuildingAtTime:r=0.0
+  additionalBuildingTemplate:t="network_fortification_preview"
+  currentPreviewId:i=0
+  fortification__rayMatId:i=-1
+  fortification__rayMatName:t="engineerRay"
+  minBuildingRadius:r=1.5
+  animchar__res:t="hammer_char"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  item__template:t="building_tools_item"
+  animchar_render__enabled:b=yes
+  item__proto:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  item__id:i=0
+  item__weapTemplate:t="building_tool_gun"
+  item__iconRoll:r=43.0
+  item__iconYaw:r=90.0
+  item__iconPitch:r=83.0
+  item__name:t="items/hammer"
+  item__weapType:t="building_tool"
+  item__weight:r=0.5
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  gun__locName:t="Hammer"
+  gun__statName:t="melee"
+  gun__reloadable:b=no
+  weap__sprintLerpFactor:r=1.0
+  melee_weapon__attackAt:r=0.4
+  melee_weapon__attackTime:r=1.0
+
+  "gun__owner:eid"{
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_ussr_towed_at_53k_preview"
+    template:t="cannon_germ_towed_at_pak38_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ger_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+ussr_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="ussr_building_tool_gun"
+  item__template:t="ussr_building_tools_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_maxim_no_shield_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_ussr_towed_at_53k_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ussr_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+usa_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="usa_building_tool_gun"
+  item__template:t="usa_building_tools_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_browning_m1919a4_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
+    template:t="cannon_us_towed_at_m1_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="usa_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+uk_building_tool_gun{
+  _extends:t="usa_building_tool_gun"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_browning_m1919a4_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
+    template:t="cannon_uk_towed_at_6pdr_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="usa_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+}
+
+ger_normandy_building_tool_gun{
+  _extends:t="ger_building_tool_gun"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_34_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
+    template:t="cannon_germ_towed_at_pak38_no_camo_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ger_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+}
+
+ger_tunisian_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="ger_building_tool_gun"
+  item__template:t="ger_building_tools_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_34_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_desert_preview"
+    template:t="cannon_germ_towed_at_pak38_desert_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ger_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+ger_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="ger_building_tool_gun"
+  item__template:t="ger_building_tools_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_34_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_germ_towed_at_pak38_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ger_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+ger_berlin_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="ger_building_tool_gun"
+  item__template:t="ger_building_tools_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_34_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_germ_towed_at_pak40_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ger_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+ussr_berlin_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="ussr_building_tool_gun"
+  item__template:t="ussr_building_tools_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_maxim_no_shield_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_ussr_towed_at_pak40_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="ussr_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=2
+    limit:i=1
+    limit:i=6
+    limit:i=1
+    limit:i=10
+    limit:i=3
+  }
+}
+
+modern_event_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="modern_event_building_tool_gun"
+  item__template:t="modern_event_building_tool_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_2_preview"
+    template:t="usa_rallypoint_preview"
+    template:t="barbedwire_engineer_a_preview"
+    template:t="ammunition_box_a_preview"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=10
+    limit:i=1
+    limit:i=6
+    limit:i=3
+  }
+}
+
+developer_building_tool_gun{
+  _extends:t="building_tool_gun"
+  item__weapTemplate:t="developer_building_tool_gun"
+  item__template:t="modern_event_building_tool_item"
+
+  "previewTemplate:list<t>"{
+    template:t="sandbags_wall_mg_preview_dev"
+    template:t="sandbags_wall_mg_34_preview_dev"
+    template:t="sandbags_wall_maxim_no_shield_preview_dev"
+    template:t="sandbags_wall_browning_m1919a4_preview_dev"
+  }
+
+  "buildingLimits:list<i>"{
+    limit:i=2
+    limit:i=2
+    limit:i=2
+    limit:i=2
+  }
+}
+
+building_tools_item{
+  _extends:t="item_melee"
+  _extends:t="building_tool_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ussr_building_tools_item{
+  _extends:t="item_melee"
+  _extends:t="ussr_building_tool_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+usa_building_tools_item{
+  _extends:t="item_melee"
+  _extends:t="usa_building_tool_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ger_building_tools_item{
+  _extends:t="item_melee"
+  _extends:t="ger_building_tool_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+modern_event_building_tool_item{
+  _extends:t="item_melee"
+  _extends:t="modern_event_building_tool_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ussr_building_tool_award_gun{
+  _extends:t="ussr_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="ussr_building_tool_award_gun"
+  item__template:t="ussr_building_tool_award_item"
+}
+
+ussr_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="ussr_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+usa_building_tool_award_gun{
+  _extends:t="usa_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="usa_building_tool_award_gun"
+  item__template:t="usa_building_tool_award_item"
+}
+
+usa_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="usa_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ger_normandy_building_tool_award_gun{
+  _extends:t="ger_normandy_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="ger_normandy_building_tool_award_gun"
+  item__template:t="ger_normandy_building_tool_award_item"
+}
+
+ger_normandy_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="ger_normandy_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ger_tunisian_building_tool_award_gun{
+  _extends:t="ger_tunisian_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="ger_tunisian_building_tool_award_gun"
+  item__template:t="ger_tunisian_building_tool_award_item"
+}
+
+ger_tunisian_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="ger_tunisian_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ger_building_tool_award_gun{
+  _extends:t="ger_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="ger_building_tool_award_gun"
+  item__template:t="ger_building_tool_award_item"
+}
+
+ger_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="ger_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ger_berlin_building_tool_award_gun{
+  _extends:t="ger_berlin_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="ger_berlin_building_tool_award_gun"
+  item__template:t="ger_berlin_building_tool_award_item"
+}
+
+ger_berlin_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="ger_berlin_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+ussr_berlin_building_tool_award_gun{
+  _extends:t="ussr_berlin_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="ussr_berlin_building_tool_award_gun"
+  item__template:t="ussr_berlin_building_tool_award_item"
+}
+
+ussr_berlin_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="ussr_berlin_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
+artillery_radio_base{
+  _extends:t="device_animation_state"
+  _extends:t="ecs_no_debug"
+  _extends:t="slot_attachable"
+  _extends:t="disable_item_drop"
+  slot_attach__slotName:t="body_armor_back"
+  radio__unequippedSlotName:t="body_armor_back"
+  radio__equippedSlotName:t="weapon"
+  radio__unequippedSlotId:i=-1
+  radio__equippedSlotId:i=-1
+  isVisibleOnPhoto:b=no
+  item__weapType:t="radio"
+  item__weight:r=3.0
+  item__id:i=0
+  device_animation__postTime:r=1.0
+
+  "item__equipToSlots:array"{
+    slot:t="radio"
+  }
+
+  "radio_use:tag"{
+  }
+}
+
+feldfu_b_radio{
+  _extends:t="artillery_radio_base"
+  gun__locName:t="Feldfu.b radio communication station"
+  animchar__res:t="feldfu_b_radio_char"
+  item__iconYaw:r=130.0
+  item__iconScale:r=2.4
+  item__iconOffset:p2=0.0, 0.6
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+  item__template:t="feldfu_b_radio_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+  item__weapTemplate:t="feldfu_b_radio_gun"
+  item__name:t="items/feldfu_b_radio_communication_station"
+}
+
+feldfu_b_radio_gun{
+  weap__sprintLerpFactor:r=0.0
+  _extends:t="feldfu_b_radio"
+  _extends:t="animchar"
+  _extends:t="disable_update"
+  _extends:t="replicating"
+  gun__propsId:i=-1
+  _replicated:t="gun__propsId"
+  _replicated:t="gun__owner"
+  _replicated:t="gun__holsterGen"
+  _replicated:t="gun__animVarsGen"
+  _replicated:t="slot_attach__visible"
+  _replicated:t="human_gun_attached"
+  _replicated:t="gun__visible"
+  _tracked:t="gun__owner"
+  _tracked:t="gun__visible"
+  gun__prevHolsterGen:i=0
+  gun__holsterGen:i=0
+  animchar__updatable:b=no
+  slot_attach__visible:b=no
+  gun__visible:b=yes
+  animchar_render__enabled:b=no
+  human_gun_attached:b=no
+  gun__animVarsGen:i=0
+  gun_anim__reloadProgress:r=-1.0
+  gun_anim__singleReloadProgress:r=-1.0
+  gun_anim__singleReloadState:i=0
+  gun_attach__slot:t="weapon"
+  gun_attach__mainSlotId:i=-1
+  gun_attach__alternativeSlot:t="weapon"
+  gun_attach__altSlotId:i=-1
+
+  "gun__owner:eid"{
+  }
+
+  "animchar__actOnDemand:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  gun_anim{
+    _tags:t="render"
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "gun_attach__holsterSlots:array"{
+    holsterSlots:t="slot_weapon_1"
+    holsterSlots:t="body_armor_back"
+  }
+
+  "gun_attach__holsterSlotsIds:list<i>"{
+  }
+}
+
+ussr_p13_radio{
+  _extends:t="artillery_radio_base"
+  gun__locName:t="ussr p13 radio communication station"
+  animchar__res:t="ussr_p13_radio_char"
+  item__iconYaw:r=145.0
+  item__iconScale:r=2.0
+  item__iconOffset:p2=0.0, 0.47
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+  item__template:t="ussr_p13_radio_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+  item__weapTemplate:t="ussr_p13_radio_gun"
+  item__name:t="items/ussr_p13_radio_communication_station"
+}
+
+ussr_p13_radio_gun{
+  weap__sprintLerpFactor:r=0.0
+  _extends:t="ussr_p13_radio"
+  _extends:t="animchar"
+  _extends:t="disable_update"
+  _extends:t="replicating"
+  gun__propsId:i=-1
+  _replicated:t="gun__propsId"
+  _replicated:t="gun__owner"
+  _replicated:t="gun__holsterGen"
+  _replicated:t="gun__animVarsGen"
+  _replicated:t="slot_attach__visible"
+  _replicated:t="human_gun_attached"
+  _replicated:t="gun__visible"
+  _tracked:t="gun__owner"
+  _tracked:t="gun__visible"
+  gun__prevHolsterGen:i=0
+  gun__holsterGen:i=0
+  animchar__updatable:b=no
+  slot_attach__visible:b=no
+  gun__visible:b=yes
+  animchar_render__enabled:b=no
+  human_gun_attached:b=no
+  gun__animVarsGen:i=0
+  gun_anim__reloadProgress:r=-1.0
+  gun_anim__singleReloadProgress:r=-1.0
+  gun_anim__singleReloadState:i=0
+  gun_attach__slot:t="weapon"
+  gun_attach__mainSlotId:i=-1
+  gun_attach__alternativeSlot:t="weapon"
+  gun_attach__altSlotId:i=-1
+
+  "gun__owner:eid"{
+  }
+
+  "animchar__actOnDemand:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  gun_anim{
+    _tags:t="render"
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "gun_attach__holsterSlots:array"{
+    holsterSlots:t="slot_weapon_1"
+    holsterSlots:t="body_armor_back"
+  }
+
+  "gun_attach__holsterSlotsIds:list<i>"{
+  }
+}
+
+scr_300{
+  _extends:t="artillery_radio_base"
+  gun__locName:t="SCR-300 radio communication station"
+  animchar__res:t="scr_300_char"
+  item__iconYaw:r=145.0
+  item__iconScale:r=2.7
+  item__iconOffset:p2=0.0, 0.66
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+  item__template:t="scr_300_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+  item__weapTemplate:t="scr_300_gun"
+  item__name:t="items/scr_300_communication_station"
+}
+
+scr_300_gun{
+  weap__sprintLerpFactor:r=0.0
+  _extends:t="scr_300"
+  _extends:t="animchar"
+  _extends:t="disable_update"
+  _extends:t="replicating"
+  gun__propsId:i=-1
+  _replicated:t="gun__propsId"
+  _replicated:t="gun__owner"
+  _replicated:t="gun__holsterGen"
+  _replicated:t="gun__animVarsGen"
+  _replicated:t="slot_attach__visible"
+  _replicated:t="human_gun_attached"
+  _replicated:t="gun__visible"
+  _tracked:t="gun__owner"
+  _tracked:t="gun__visible"
+  gun__prevHolsterGen:i=0
+  gun__holsterGen:i=0
+  animchar__updatable:b=no
+  slot_attach__visible:b=no
+  gun__visible:b=yes
+  animchar_render__enabled:b=no
+  human_gun_attached:b=no
+  gun__animVarsGen:i=0
+  gun_anim__reloadProgress:r=-1.0
+  gun_anim__singleReloadProgress:r=-1.0
+  gun_anim__singleReloadState:i=0
+  gun_attach__slot:t="weapon"
+  gun_attach__mainSlotId:i=-1
+  gun_attach__alternativeSlot:t="weapon"
+  gun_attach__altSlotId:i=-1
+
+  "gun__owner:eid"{
+  }
+
+  "animchar__actOnDemand:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  gun_anim{
+    _tags:t="render"
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "gun_attach__holsterSlots:array"{
+    holsterSlots:t="slot_weapon_1"
+    holsterSlots:t="body_armor_back"
+  }
+
+  "gun_attach__holsterSlotsIds:list<i>"{
+  }
+}
+
+ita_rf1_radio{
+  _extends:t="artillery_radio_base"
+  gun__locName:t="SCR-300 radio communication station"
+  animchar__res:t="ita_rf1_radio_char"
+  item__iconYaw:r=145.0
+  item__iconScale:r=2.7
+  item__iconOffset:p2=0.0, 0.66
+  item__template:t="ita_rf1_radio_gun_item"
+  item__weapTemplate:t="ita_rf1_radio_gun"
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/ita_rf1_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/ita_rf1_radio.blk"
+  item__name:t="items/scr_300_communication_station"
+}
+
+ita_rf1_radio_gun{
+  weap__sprintLerpFactor:r=0.0
+  _extends:t="ita_rf1_radio"
+  _extends:t="animchar"
+  _extends:t="disable_update"
+  _extends:t="replicating"
+  gun__propsId:i=-1
+  _replicated:t="gun__propsId"
+  _replicated:t="gun__owner"
+  _replicated:t="gun__holsterGen"
+  _replicated:t="gun__animVarsGen"
+  _replicated:t="slot_attach__visible"
+  _replicated:t="human_gun_attached"
+  _replicated:t="gun__visible"
+  _tracked:t="gun__owner"
+  _tracked:t="gun__visible"
+  gun__prevHolsterGen:i=0
+  gun__holsterGen:i=0
+  animchar__updatable:b=no
+  slot_attach__visible:b=no
+  gun__visible:b=yes
+  animchar_render__enabled:b=no
+  human_gun_attached:b=no
+  gun__animVarsGen:i=0
+  gun_anim__reloadProgress:r=-1.0
+  gun_anim__singleReloadProgress:r=-1.0
+  gun_anim__singleReloadState:i=0
+  gun_attach__slot:t="weapon"
+  gun_attach__mainSlotId:i=-1
+  gun_attach__alternativeSlot:t="weapon"
+  gun_attach__altSlotId:i=-1
+
+  "gun__owner:eid"{
+  }
+
+  "animchar__actOnDemand:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  gun_anim{
+    _tags:t="render"
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "gun_attach__holsterSlots:array"{
+    holsterSlots:t="slot_weapon_1"
+    holsterSlots:t="body_armor_back"
+  }
+
+  "gun_attach__holsterSlotsIds:list<i>"{
+  }
+}
+
+ita_rf1_radio_gun_item{
+  _extends:t="item_gun"
+  _extends:t="ita_rf1_radio"
+  collres__res:t="ita_rf1_radio_collision"
+}
+
+feldfu_b_radio_gun_item{
+  _extends:t="item_gun"
+  _extends:t="feldfu_b_radio"
+  item__template:t="feldfu_b_radio_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+  collres__res:t="feldfu_b_radio_collision"
+}
+
+ussr_p13_radio_gun_item{
+  _extends:t="item_gun"
+  _extends:t="ussr_p13_radio"
+  item__template:t="ussr_p13_radio_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+  collres__res:t="ussr_p13_radio_collision"
+}
+
+scr_300_gun_item{
+  _extends:t="item_gun"
+  _extends:t="scr_300"
+  item__template:t="scr_300_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+  collres__res:t="scr_300_collision"
+}
+
+mosin_dragoon_gun{
+  _override:b=yes
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      mosin_m1930_bayonet:t="mosin_m1930_bayonet"
+    }
+  }
+}
+
+shovel{
+  _extends:t="melee_weap_slots"
+  _extends:t="base_dig_tool"
+  animchar__res:t="ger_entrenchment_tool_char"
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+  item__template:t="shovel_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+  item__locDetails:t="Dmg: 1hp"
+  item__id:i=0
+  item__weapTemplate:t="shovel_weapon"
+  item__name:t="items/shovel"
+  item__weapType:t="melee"
+  item__weight:r=0.7
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+  gun__statName:t="melee"
+  gun__reloadable:b=no
+  melee_weapon__attackTime:r=1.2
+  weap__sprintLerpFactor:r=1.0
+}
+
+shovel_weapon{
+  _extends:t="melee_weapon"
+  _extends:t="shovel"
+  meleeSoundType:t="shovel"
+  actionSfxSound:t="impact/shovel"
+}
+
+usa_shovel{
+  _extends:t="shovel"
+  animchar__res:t="usa_m1943_shovel_char"
+  item__weapTemplate:t="usa_shovel_weapon"
+  item__template:t="usa_shovel_item"
+}
+
+usa_shovel_weapon{
+  _extends:t="shovel_weapon"
+  _extends:t="usa_shovel"
+}
+
+uk_shovel{
+  _extends:t="shovel"
+  animchar__res:t="uk_army_spade_char"
+  item__weapTemplate:t="uk_shovel_weapon"
+  item__template:t="uk_shovel_item"
+}
+
+uk_shovel_weapon{
+  _extends:t="shovel_weapon"
+  _extends:t="uk_shovel"
+}
+
+ussr_shovel{
+  _extends:t="shovel"
+  animchar__res:t="ussr_m41_shovel_char"
+  item__weapTemplate:t="ussr_shovel_weapon"
+  item__template:t="ussr_shovel_item"
+}
+
+ussr_shovel_weapon{
+  _extends:t="shovel_weapon"
+  _extends:t="ussr_shovel"
+}
+
+akm_47{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x39.blk"
+  }
+}
+
+ak_103{
+  _override:b=yes
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="akm_47_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x39.blk"
+  }
+}
+
+fn_scar{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/5.56x45_nato.blk"
+  }
+}
+
+m4{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/5.56x45_nato.blk"
+  }
+}
+
+steyr_aug_a1{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/5.56x45_nato.blk"
+  }
+}
+
+spas_12{
+  _override:b=yes
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/12gauge_shell.blk"
+  }
+}
+
+spas_12_gun{
+  _override:b=yes
+  gun__recoilAmount:r=0.2
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.15
+}
+
+hk_mp5n{
+  _override:b=yes
+  gun__recoilAmount:r=0.016
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+}
+
+hk_mp5n_gun{
+  _override:b=yes
+  gun__recoilDirAmount:r=0.8
+  gun__visualRecoilMult:r=0.8
+}
+
+hk_ump_45{
+  _override:b=yes
+  gun__recoilAmount:r=0.018
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+}
+
+hk_ump_45_gun{
+  _override:b=yes
+  gun__recoilDirAmount:r=0.75
+  gun__visualRecoilMult:r=0.8
+}

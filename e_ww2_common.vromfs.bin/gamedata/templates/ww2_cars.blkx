@@ -1,0 +1,841 @@
+civil_vehicle_templ{
+  _extends:t="vehicle"
+  _extends:t="vehicle_effects_4x4"
+  zones_visitor__triggerTag:t="vehicleTriggerable"
+  _replicated:t="killer"
+  _replicated:t="dm_state"
+  _replicated:t="fire_damage_state"
+  _replicated:t="fire_damage__isBurn"
+  _replicated:t="isExploded"
+  lastStatPos:p3=0.0, 0.0, 0.0
+  collision_damage__threshold:r=5.0
+  collision_damage__velDeltaMult:r=10.0
+  collision_damage__velDeltaPower:r=2.0
+  isExploded:b=no
+  triggerDamageEffects:b=yes
+  vehicle_seat_damage__minVelocity:r=5.0
+  vehicle_seat_damage__velocityMult:r=0.5
+  vehicle_seat_damage__maxDmgPercent:r=0.3
+  _tracked:t="isExploded"
+  fire_damage__isBurn:b=no
+  fire_damage__totalTime:r=0.0
+  fire_damage__update_burn_interval:r=1.0
+  fire_damage__innerRadiusMult:r=2.0
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  "vehicleDisplayMarkerOverHead:tag"{
+    tags:t="ui"
+  }
+
+  "killer:eid"{
+  }
+
+  "dm_state:list<u16>"{
+  }
+
+  "notConsiderPassengersDM:tag"{
+  }
+
+  fire_damage{
+  }
+
+  fire_damage_state{
+  }
+
+  fire_protection{
+  }
+
+  engine_fire_fx_states{
+    _tags:t="render"
+  }
+
+  engine_fire_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_driver"
+  }
+
+  "fire_attach_excludes__nodeIds:list<i>"{
+  }
+
+  "fire_attach_excludes__nodeNames:list<t>"{
+    name:t="wheel_r_01"
+    name:t="wheel_r_02"
+    name:t="wheel_l_01"
+    name:t="wheel_l_02"
+    name:t="wheel_l_drive"
+    name:t="wheel_r_drive"
+  }
+
+  "dm_phys_parts__enginePartIds:list<i>"{
+  }
+
+  "dm_phys_parts__transmissionPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__tracksPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__engine:array"{
+    engine:t="engine"
+  }
+
+  "dm_phys_parts__transmission:array"{
+    transmission:t="transmission"
+  }
+
+  "engine_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+        dmParts:t="engine"
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base"
+          emitter:t="emtr_fire_engine"
+        }
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base"
+          emitter:t="emtr_fire_engine_01"
+        }
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base"
+          emitter:t="emtr_fire_engine_02"
+        }
+      }
+    }
+  }
+}
+
+vehicle_anim_steering_deflection{
+
+  _group{
+    vehicle_anim__steeringDeflection:t="steering_deflection"
+    vehicle_anim__steeringDeflectionId:i=0
+    vehicle_anim__steeringDeflectionValue:r=0.0
+    vehicle_anim__steeringDeflectionViscosity:r=0.1
+    vehicle_anim__steeringDeflectionLimit:p2=-10.0, 10.0
+    _tags:t="render"
+  }
+}
+
+vehicle_anim_speedometer{
+
+  _group{
+    _tags:t="render"
+    vehicle_anim__speedometerVarName:t="speed"
+    vehicle_anim__speedometerVarId:i=-1
+    vehicle_anim__speedometerMinMax:p2=0.0, 10.0
+  }
+}
+
+vehicle_seat_fire_ready{
+  _extends:t="vehicle_seat_default"
+  seat_anim__fireReadyUpper:t="fireready_passenger"
+  seat_anim__fireReadyLower:t="fireready_passenger"
+}
+
+base_civil_fire_ready_vehicle{
+  _extends:t="civil_vehicle_templ"
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_fire_ready"
+    driver:t="vehicle_seat_driver"
+  }
+}
+
+opel_olympia{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="car_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_D5"
+  _extends:t="simple_damage_model"
+  vehicleType:t="civil_car"
+  vehicleName:t="opel_olympia_38"
+  animchar__res:t="pv_opel_olympia_char"
+  collres__res:t="pv_opel_olympia_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/opel_olympia_ol38.blk:VehiclePhys"
+  vehicle_seats__enumVarName:t="opel_olympia_ol38"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/opel_olympia_ol38.blk"
+  car_painting__chance:r=0.9
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_ocean_shimmer"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_perfect_blue"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_apple_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_pearl_white"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+gaz_67{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_A5"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="gaz_67"
+  animchar__res:t="pv_gaz_67_char"
+  collres__res:t="pv_gaz_67_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/gaz_67.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/gaz_67.blk"
+  vehicle_seats__enumVarName:t="gaz_67"
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine"
+      enemy:t="enemy/vehicle/car/gaz_67/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_start"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_stop"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/gaz_67/tracks"
+    enemy:t="enemy/vehicle/car/gaz_67/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+  }
+}
+
+vw_kubelwagen{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_C5"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="vw_kubelwagen"
+  animchar__res:t="pv_kubelwagen_char"
+  collres__res:t="pv_kubelwagen_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/vw_kubelwagen.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/vw_kubelwagen.blk"
+  vehicle_seats__enumVarName:t="vw_kubelwagen"
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_start"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_stop"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/vw_kubelwagen/tracks"
+    enemy:t="enemy/vehicle/car/vw_kubelwagen/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_caramel_luster"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_canyon_copper"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="cls_body_01"
+  }
+}
+
+opel_blitz_kfz_305{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="truck_ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="opel_blitz_kfz_305"
+  animchar__res:t="pv_opel_blitz_kfz_305_char"
+  collres__res:t="pv_opel_blitz_kfz_305_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/opel_blitz_kfz_305.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/opel_blitz_kfz_305.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_kfz_305"
+  push_object__energyScale:r=350.0
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+    part:t="cls_body_08"
+  }
+}
+
+opel_blitz_omnibus{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_F4"
+  _extends:t="simple_damage_model"
+  vehicleType:t="bus"
+  vehicleName:t="opel_blitz_omnibus"
+  animchar__res:t="pv_opel_blitz_omnibus_char"
+  collres__res:t="pv_opel_blitz_omnibus_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/opel_blitz_omnibus.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/opel_blitz_omnibus.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_omnibus"
+  push_object__energyScale:r=350.0
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_omnibus/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_omnibus/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_omnibus/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_omnibus/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_omnibus/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_omnibus/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_omnibus/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_omnibus/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_0"
+    part:t="cls_body_01"
+  }
+}
+
+willys_mb{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_B5"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="willys_mb"
+  animchar__res:t="pv_willys_mb_char"
+  collres__res:t="pv_willys_mb_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/willys_mb.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/willys_mb.blk"
+  vehicle_seats__enumVarName:t="willys_mb"
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_start"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_stop"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/vw_kubelwagen/tracks"
+    enemy:t="enemy/vehicle/car/vw_kubelwagen/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+ford_gpa{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="simple_damage_model"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_B5"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="ford_gpa"
+  animchar__res:t="pv_ford_gpa_char"
+  collres__res:t="pv_ford_gpa_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/ford_gpa.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/ford_gpa.blk"
+  vehicle_seats__enumVarName:t="ford_gpa"
+  camera__offset:p3=0.0, -1.0, -3.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_start"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_stop"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/vw_kubelwagen/tracks"
+    enemy:t="enemy/vehicle/car/vw_kubelwagen/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+gaz_m1{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_G4"
+  _extends:t="simple_damage_model"
+  vehicleType:t="civil_car"
+  vehicleName:t="gaz_m1"
+  animchar__res:t="pv_gaz_m1_char"
+  collres__res:t="pv_gaz_m1_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/gaz_m1.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/gaz_m1.blk"
+  vehicle_seats__enumVarName:t="gaz_m1"
+  camera__offset:p3=0.0, -1.0, -3.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine"
+      enemy:t="enemy/vehicle/car/gaz_67/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_start"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_stop"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/gaz_67/tracks"
+    enemy:t="enemy/vehicle/car/gaz_67/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_ocean_shimmer"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_perfect_blue"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_apple_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_pearl_white"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_black"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+vw_beetle{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="car_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E5"
+  _extends:t="simple_damage_model"
+  vehicleType:t="civil_car"
+  vehicleName:t="vw_beetle"
+  animchar__res:t="pv_vw_beetle_char"
+  collres__res:t="pv_vw_beetle_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/vw_beetle.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/vw_beetle.blk"
+  vehicle_seats__enumVarName:t="vw_beetle"
+  car_painting__chance:r=0.9
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_ocean_shimmer"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_perfect_blue"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_apple_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_pearl_white"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_caramel_luster"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_white_aluminum"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}

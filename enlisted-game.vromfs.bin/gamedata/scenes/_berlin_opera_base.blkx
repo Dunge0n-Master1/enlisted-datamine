@@ -1,0 +1,8 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_level.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_gpu_objects.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_biom_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_background_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_projectors.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_tracers.blk"
+}

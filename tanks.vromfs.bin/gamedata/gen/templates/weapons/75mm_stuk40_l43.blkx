@@ -1,0 +1,70 @@
+base_75mm_stuk40_l43{
+  item__name:t="guns/75mm_stuk40_l43"
+  gun__blk:t="gamedata/gen/weapons/75mm_stuk40_l43.blk"
+  gun__shotFreq:r=0.17
+  gun__locName:t="75mm_stuk40_l43"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk40_l43_defaultset.blk"
+        name:t="75mm_pzgr_39"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "75mm_ger_kwk40_37_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk40_l43_75mm_ger_kwk40_37_he.blk"
+        name:t="75mm_sprgr_34"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "75mm_ger_kwk40_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk40_l43_75mm_ger_kwk40_heat.blk"
+        name:t="75mm_grhl_38_b"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_ger_kwk40_APBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk40_l43_75mm_ger_kwk40_apbc.blk"
+        name:t="75mm_pzgr_40w"
+        type:t="apcr_tank"
+      }
+    }
+
+    "75mm_ger_kwk40_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk40_l43_75mm_ger_kwk40_apcr.blk"
+        name:t="75mm_pzgr_40"
+        type:t="apcr_tank"
+      }
+    }
+
+    "75mm_ger_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_stuk40_l43_75mm_ger_smoke.blk"
+        name:t="75mm_k_gr_rot_nb"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_75mm_stuk40_l43{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_75mm_stuk40_l43"
+  turret__triggerGroup:i=0
+}

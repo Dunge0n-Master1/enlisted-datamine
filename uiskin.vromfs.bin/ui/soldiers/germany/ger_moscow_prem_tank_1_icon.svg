@@ -1,0 +1,11 @@
+<svg id="ger_moscow_prem_tank_1_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffb924;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M132.935,67v66H147V67H132.935Zm-28.983,66h14.006V67H103.952v66Zm-28.984,0H89.031V67H74.968v66ZM45.927,56.293L13.218,18,2,27.655,39.038,70.636V133H53.1V70.636L90.137,27.655,78.921,18Z"/>
+</svg>

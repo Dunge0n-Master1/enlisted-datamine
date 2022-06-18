@@ -1,0 +1,228 @@
+base_zis_30{
+  _extends:t="base_tank"
+  _extends:t="zis_30_ammo_stowages"
+  killLogName:t="ussr_zis_30"
+  animchar__res:t="zis_30_char"
+  collres__res:t="zis_30_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/zis_30.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="zis_30_dmg_char"
+  xray_resource__modelName:t="zis_30"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=1.784
+  damage_model__blk:t="gamedata/gen/units/tanks/zis_30.blk"
+  item__name:t="items/ussr_zis_30"
+  skin__template:t="zis_30_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_60mm"
+    fx:t="muzzle_ground_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_body_v"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+      aimActiveParamName:t="aim_02_active"
+      paramYawSpeed:t="turret_02_yaw_speed"
+      paramYawSpeedMul:t="turret_02_yaw_mul"
+      paramYawAccel:t="turret_02_yaw_accel"
+      paramMinYawAngle:t="turret_02_min_yaw_angle"
+      paramMaxYawAngle:t="turret_02_max_yaw_angle"
+      paramMinPitchAngle:t="turret_02_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_02_max_pitch_angle"
+      paramPitchSpeed:t="gun_02_pitch_speed"
+      paramPitchSpeedMul:t="gun_02_pitch_mul"
+      paramPitchAccel:t="gun_02_pitch_accel"
+      wishYawParamName:t="gun_02_aim:targetYaw"
+      wishPitchParamName:t="gun_02_aim:targetPitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="zis_30_turret_01_57mm_zis2+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="zis_30_turret_02_7_62mm_dt"
+      barrelDm:t="gun_barrel_01"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+zis_30_turret_01_57mm_zis2{
+  _extends:t="tankgun_57mm_zis2"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=7.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-30.0, 30.0, -4.0, 22.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-17.0, -10.0, -4.0, 15.0
+    lim2:p4=-10.0, 10.0, -4.0, 15.0
+    lim3:p4=10.0, 30.0, -4.0, 15.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=4
+    ammo:i=4
+    ammo:i=4
+    ammo:i=4
+    ammo:i=4
+  }
+}
+
+zis_30_turret_02_7_62mm_dt{
+  _extends:t="tankgun_7_62mm_dt"
+  gun__shootNodeName:t="bone_mg_body_v"
+  turret__yawSpeed:r=5.5
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_mg_body_h"
+  turret__limit:p4=-10.0, 10.0, -10.0, 10.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=378
+    ammo:i=378
+  }
+}
+
+zis_30_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="zis_30_ammo_stowage"
+  }
+}
+
+zis_30_ammo_stowage{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="zis_30_ammo_cluster"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+zis_30_ammo_cluster{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_l_01"
+    part:t="ammo_body_r_01"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=10
+    count:i=10
+  }
+}
+
+zis_30_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="zis_30_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="zis_30_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="zis_30_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="zis_30_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="zis_30_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="zis_30_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
+  }
+}

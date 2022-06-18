@@ -1,0 +1,11 @@
+entity{
+  _template:t="terraform"
+}
+
+entity{
+  _template:t="bomb_crater_config"
+}
+
+entity{
+  _template:t="grass_erasers"
+}

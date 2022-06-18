@@ -1,0 +1,101 @@
+sound_override_time_speed{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    sound_override_time_speed:r=1.0
+  }
+}
+
+distant_delayable_sounds{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+
+    "distantDelayableSounds:tag"{
+    }
+  }
+}
+
+sound_debug_draw_enable{
+
+  "soundDebugDrawEnable:tag"{
+    _tags:t="sound"
+  }
+}
+
+sound_bank_preset_state{
+  _tracked:t="sound_bank_preset_state__isValid"
+
+  _group{
+    _tags:t="sound"
+    sound_bank_preset_state__isValid:b=no
+    sound_bank_preset_state__name:t="master"
+  }
+}
+
+watched_sound{
+  _tracked:t="is_watched_sound"
+
+  _group{
+    _tags:t="sound"
+    is_watched_sound:b=no
+  }
+}
+
+watched_by_player_sound{
+  _extends:t="watched_sound"
+
+  "watchedByPlayerSound:tag"{
+  }
+}
+
+sound_control{
+  _extends:t="sound_bank_preset_state"
+  _tracked:t="sound_control__enabled"
+
+  _group{
+    _tags:t="sound"
+    sound_control__range:r=22.0
+    sound_control__inRange:b=no
+    sound_control__enabled:b=no
+    sound_control__active:b=yes
+  }
+}
+
+sound_event_group{
+
+  sound_event_group{
+    _tags:t="sound"
+  }
+}
+
+sound_paths{
+
+  "sound_paths:shared:object"{
+    _tags:t="sound"
+  }
+}
+
+sound_irqs{
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+  }
+}
+
+sound_tags{
+
+  "sound_tags:object"{
+    _tags:t="sound"
+  }
+}
+
+sound_player_components{
+  _extends:t="sound_paths"
+  _extends:t="sound_irqs"
+  _extends:t="sound_tags"
+}

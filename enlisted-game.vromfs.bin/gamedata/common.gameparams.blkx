@@ -1,0 +1,124 @@
+rendinstExtraMaxCnt:i=131072
+rendinstPreloadDistance:r = 2500
+rendinstMaxLod0Dist:r = 1200
+nodeBasedShadersFolder:t="enlisted"
+disableShadowImpostorForAllLod:b=yes
+
+physmatBlk:t="config/physmat.blk"
+
+include "#config/character_micro_details.blk"
+commonScenes{
+  scene:t="content/common/gamedata/scenes/loose_grid_scene.blk"
+  scene:t="content/common/gamedata/scenes/common_rumble.blk"
+  scene:t="content/common/gamedata/scenes/common_vehicle_seats_order.blk"
+  scene:t="content/enlisted/gamedata/scenes/common_mean_pos_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/common_xray_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/common_perf_stat_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/level_ri_obstacles.blk"
+
+  scene:t="content/common/gamedata/scenes/psn_matches.blk"
+
+  scene:t="content/common/gamedata/scenes/crosshair.blk"
+  scene:t="content/common/gamedata/scenes/level_is_loading.blk"
+  scene:t="content/common/gamedata/scenes/minimap.blk"
+  scene:t="content/common/gamedata/scenes/multiplayer_ui.blk"
+  scene:t="content/common/gamedata/scenes/still_obstacles.blk"
+  scene:t="content/common/gamedata/scenes/animchars_shadows_culling.blk"
+  scene:t="content/enlisted/gamedata/scenes/matching_info.blk"
+  scene:t="content/enlisted/gamedata/scenes/common_settings_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/terraform.blk"
+  scene:t="content/common/gamedata/scenes/ssss_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/_cutting_planes_mgr_scene.blk"
+  scene:t="content/common/gamedata/scenes/server_no_players_timer.blk"
+  scene:t="content/enlisted/gamedata/scenes/army_language.blk"
+  scene:t="content/enlisted/gamedata/scenes/mission_time.blk"
+  scene:t="content/common/gamedata/scenes/_outdoor_factor_tracer.blk"
+  scene:t="content/common/gamedata/scenes/debug_scene.blk"
+}
+
+bulletHoles
+{
+  diff0:t= decal_bullethole_metal_a_tex_d*
+  norm0:t= decal_bullethole_metal_a_tex_n*
+  diff1:t= decal_bullethole_soil_a_tex_d*
+  norm1:t= decal_bullethole_soil_a_tex_n*
+  diff2:t= decal_bullethole_stone_a_tex_d*
+  norm2:t= decal_bullethole_stone_a_tex_n*
+  diff3:t= decal_bullethole_wood_a_tex_d*
+  norm3:t= decal_bullethole_wood_a_tex_n*
+}
+
+landClasses
+{
+  maxIndexedLC:i = -1 //-1 for unlimited
+}
+
+riDestr {
+  hitPointsToDestrImpulseMult:r = 100.0;
+  destrImpulseHitPointsMult:r = 0.01;
+  treeDestr{
+    include "#content/common/gamedata/common_tree_destr.blk"
+  }
+}
+
+riExtraGrids{
+  gridCount:i=2
+  grid1cell:i=8
+  grid2cell:i=64
+}
+
+riExtraTiledScenes{//to be replaced with auto detection
+  scnCount:i=3
+  scn1.tileSize:r=64
+  scn1.maxDist:r=251
+  scn2.tileSize:r=128
+  scn2.maxDist:r=1001
+  scn3.tileSize:r=1024
+  scn3.maxDist:r=1000000
+}
+
+rendinstOpt
+{
+  minLodForMode0:i=3; maxLodForMode0:i=15 // aircraft
+}
+
+unitedVdata.dynModel.def { // hint for initial minimum allocated buffer size, in KB (for IB and VBs)
+  IB:i=49152
+  VB1:i=65536
+  VB2:i=65536
+  VB3:i=32768
+  VB4:i=0
+}
+"@clone-last:unitedVdata.dynModel" {}
+
+unitedVdata.rendInst.def { // hint for initial minimum allocated buffer size, in KB (for IB and VBs)
+  IB:i=44160
+  VB1:i=65536
+  VB2:i=65536
+  VB3:i=65535
+}
+
+haze
+{
+  offsetScale:r = 0.0135
+  distortionScale:r = 0.1
+  noiseScale:r = 0.135
+  offsetTexWidth:i = 512
+  offsetTexHeight:i = 512
+}
+
+navQueryFilterWeights {
+  jumpWeight:r = 10
+  jumpDownWeight:r = 2
+  jumpDownThreshold:r = 0.4
+}
+bloodDecals {}
+capzoneDecals {}
+
+terraform {
+  enabled:b = yes
+  cellsPerMeter:i=8
+  minLevel:r = -1.5
+  maxLevel:r = 1.1
+  maxPrimHeight:r = 0.7
+}

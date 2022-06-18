@@ -1,0 +1,169 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.238094, -0.000636627, 0.971241] [-0.22585, 0.972623, -0.0547284] [-0.944618, -0.232386, -0.23172] [57.7483, 101.734, -289.515]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
+  level__weather:t="content/common/gamedata/weather/weather_clear.blk"
+  level__timeRange:p2=5.0, 18.0
+
+  "level__timeVec:array"{
+    level_timeVec:r=6.5
+  }
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_overcast.blk":r=1.0
+  }
+}
+
+entity{
+  _template:t="minimap_normandy_beach_fortified"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=2.0
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    paint_details_tex:t="normandy_wall_color_tex_palette*"
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="team_usa+team_narrator_domination"
+  team__id:i=1
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
+  score_bleed__domBleed:r=1.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=0.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__eachSquadMaxSpawns:i=50
+  team__spawnBotArmy:t="normandy_allies"
+}
+
+entity{
+  _template:t="team_germany+team_narrator_domination"
+  team__id:i=2
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
+  score_bleed__domBleed:r=1.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=0.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__eachSquadMaxSpawns:i=50
+  team__spawnBotArmy:t="normandy_axis"
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 0.999998, 0.00182071] [0.0, -0.00182071, 0.999998] [-129.671, 68.3553, -296.459]]
+  sphere_zone__radius:r=6.0
+  capzone__title:t="A"
+  ui_order:i=0
+  decal__height:r=0.3
+  decal__thickness:r=0.3
+  decal__id:i=0
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.254236, 0.0142996, 0.967036] [-0.0850835, 0.996345, 0.00763559] [0.963393, 0.0842201, -0.254523] [-134.477, 69.366, -307.746]]
+  respawnBaseGroup:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.286173, 0.0808248, 0.954762] [0.00338116, 0.996345, -0.0853585] [0.958173, -0.0276555, -0.284854] [-140.307, 71.1511, -334.895]]
+  respawnBaseGroup:i=2
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[0.0280141, 0.0854253, -0.995951] [-0.00240193, 0.996345, 0.0853917] [-0.999605, 0.0, -0.0281171] [-130.679, 69.1531, -285.026]]
+  respawnBaseGroup:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[-0.0528149, 0.0854253, -0.994944] [0.00452825, 0.996345, 0.0853053] [-0.998594, 0.0, 0.0530084] [-133.017, 68.7002, -258.527]]
+  respawnBaseGroup:i=2
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[-269.404, 0.0, 11.3328] [0.0, 50.9745, 0.0] [-21.1077, 0.0, -540.778] [-212.701, 58.9614, -298.263]]
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=1.0
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  moveCameraToHeight:r=60.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-161.579, 136.743, -411.767]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  moveCameraToHeight:r=60.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-139.709, 129.39, -182.663]]
+}

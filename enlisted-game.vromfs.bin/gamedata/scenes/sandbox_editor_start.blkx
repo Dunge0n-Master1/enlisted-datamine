@@ -1,0 +1,10 @@
+skipInGamesList:b=yes
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+}
+
+entity{
+  _template:t="world_renderer"
+}

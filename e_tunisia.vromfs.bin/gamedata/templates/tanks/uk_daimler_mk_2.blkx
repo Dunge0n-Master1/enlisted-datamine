@@ -1,0 +1,187 @@
+uk_daimler_mk_2{
+  _extends:t="uk_daimler_mk_2_common"
+}
+
+uk_daimler_mk_2_common{
+  _extends:t="base_daimler_mk_2"
+  _extends:t="vehicle_steering_assist"
+  _extends:t="tank_with_wheels_vehicle_tracks_sound"
+  item__iconOffset:p2=0.0, 0.2
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="uk_daimler_mk_2_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="uk_daimler_mk_2_gunner_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      name:t="commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=yes
+      hatchRotationAxis:p3=1.5, 0.0, 0.0
+      locName:t="vehicle_seats/commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.0, 0.8]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+      cameraNodeName:t="bone_turret"
+      cockpitTemplate:t="uk_daimler_mk_2_commander_cockpit"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+  }
+
+  "dm_phys_parts__enginePartIds:list<i>"{
+  }
+
+  "dm_phys_parts__transmissionPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__tracksPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__engine:array"{
+    engine:t="engine"
+  }
+
+  "dm_phys_parts__transmission:array"{
+    transmission:t="transmission"
+  }
+
+  "dm_phys_parts__tracks:array"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_drive"
+  }
+}
+
+uk_daimler_mk_2_driver_cockpit{
+  _extends:t="base_driver_cockpit"
+  animchar__res:t="kv_1_driver_char"
+  cockpit__offset:p3=-0.2, -0.04, -0.0
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_01"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.1
+  }
+}
+
+uk_daimler_mk_2_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__minZoom:r=-0.27
+  cockpit__offset:p3=-0.4, -0.05, 0.2
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_camera_gunner"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.18
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}
+
+uk_daimler_mk_2_commander_cockpit{
+  _extends:t="base_commander_cockpit_no_slits"
+  animchar__res:t="t_26_1940_commander_char"
+  cockpit__offset:p3=-0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=-0.5, 0.7, -0.3
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+    node:t="bone_gun"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.16
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}
+
+uk_daimler_mk_2_td_premium{
+  _extends:t="uk_daimler_mk_2_common"
+
+  "animchar__objTexSet:object"{
+
+    "daimler_mk_2_body_c*:object"{
+      "daimler_mk_2_skin_body_c*":t="camo_skin_tex"
+    }
+
+    "daimler_mk_2_gun_c*:object"{
+      "daimler_mk_2_skin_gun_c*":t="camo_skin_tex"
+    }
+
+    "daimler_mk_2_turret_c*:object"{
+      "daimler_mk_2_skin_turret_c*":t="camo_skin_tex"
+    }
+  }
+}

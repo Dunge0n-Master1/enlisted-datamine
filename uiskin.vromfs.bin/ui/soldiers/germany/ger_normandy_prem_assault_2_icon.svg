@@ -1,0 +1,11 @@
+<svg id="_353_infantry_division" data-name="353_infantry_division" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #b73939;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M149.167,26.093l-3,14H108.7l-2.243,6h37.714l-5,14H101.22l-2.243,6h38.19l-6.5,14H93.744L75,130.24h0L56.256,80.094H19.334l-6.5-14H51.023l-2.243-6H10.834l-5-14H43.547l-2.243-6H3.833l-3-14H68v0.024l0.187-.024L75,45.073h0l6.814-18.981L82,26.117V26.093h67.167Z"/>
+</svg>

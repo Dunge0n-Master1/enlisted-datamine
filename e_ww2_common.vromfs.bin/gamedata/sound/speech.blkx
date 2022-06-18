@@ -1,0 +1,9 @@
+lookup{
+
+  frustum{
+    znear:r=0.01
+    zfar:r=100.0
+    fovx:r=90.0
+    fovy:r=90.0
+  }
+}

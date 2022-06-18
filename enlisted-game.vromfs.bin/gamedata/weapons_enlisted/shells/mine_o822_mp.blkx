@@ -1,0 +1,45 @@
+mass:r=0.85
+caliber:r=0.05
+bullets:i=1
+bullets:i=1
+speed:r=50.0
+speedDispersion:r=0.0
+momentOfInertia:p3=0.04, 0.008, 0.04
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+explosiveType:t="tnt"
+explosiveMass:r=0.09
+entityTemplate:t="mine_o822_mp_phys"
+reloadTime:r=3.6
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.0, 0.0, 0.015
+}
+
+splashDamage{
+  radius:p2=1.0, 14.0
+  penetration:p2=15.0, 2.0
+  damage:r=9.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=1.8, 1.9
+  effectTemplName:t="mine_explosion_effect_medium+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/mine"
+}
+
+visual{
+  template:t="mine_o822_mp_item+item_in_world"
+}

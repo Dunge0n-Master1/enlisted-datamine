@@ -1,0 +1,407 @@
+bomb_expl_100kg{
+  fx:t="explosion_100_kg_cmps_fx"
+  farPlane:r=5000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=3
+  sfxPath:t="sounds/effects"
+  sfxPathStudio:t="aircraft/explosions"
+  sfxEvent:t="bomb_explosion_small"
+  soundEnableDistance:r=5000.0
+}
+
+bomb_expl_50kg{
+  fx:t="explosion_50_kg_cmps_fx"
+  farPlane:r=5000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=3
+  sfxPath:t="sounds/effects"
+  sfxPathStudio:t="aircraft/explosions"
+  sfxEvent:t="bomb_explosion_small"
+  soundEnableDistance:r=5000.0
+}
+
+bomb_expl_200kg{
+  fx:t="explosion_200_kg_cmps_fx"
+  farPlane:r=6000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=3
+  sfxPath:t="sounds/effects"
+  sfxPathStudio:t="aircraft/explosions"
+  sfxEvent:t="bomb_explosion_mid"
+  soundEnableDistance:r=5000.0
+}
+
+bomb_expl_500kg{
+  fx:t="explosion_500_kg_cmps_fx"
+  farPlane:r=8000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=2
+  sfxPath:t="sounds/effects"
+  sfxPathStudio:t="aircraft/explosions"
+  sfxEvent:t="bomb_explosion_mid"
+  soundEnableDistance:r=5000.0
+}
+
+aircraft_wheels_ground_dust{
+  fx:t="aircraft_wheels_dust_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=1.0
+  numInstances:i=100
+  numReserved:i=5
+}
+
+aircraft_wheels_ground_friction{
+  fx:t="aircraft_wheels_friction_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=2.0
+  numInstances:i=20
+  numReserved:i=5
+}
+
+aircraft_wheels_water_splashes{
+  fx:t="water_oceanwave_splash_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=1.0
+  numInstances:i=20
+  numReserved:i=5
+}
+
+aircraft_propellers_ground_dust{
+  fx:t="aircraft_ground_dust_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=5.0
+  numInstances:i=20
+  numReserved:i=5
+}
+
+aircraft_propellers_water_splashes{
+  fx:t="water_oceanwave_splash_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=1.0
+  numInstances:i=20
+  numReserved:i=5
+}
+
+rotor_snow_dust{
+  fx:t="rotor_snow_composite_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=1.0
+  numInstances:i=8
+  numReserved:i=1
+}
+
+rotor_sand_dust{
+  fx:t="rotor_sand_composite_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=1.0
+  numInstances:i=8
+  numReserved:i=1
+}
+
+rotor_water_foam{
+  fx:t="rotor_foam_fx"
+  softnessDepth:r=1.0
+  numInstances:i=7
+  numReserved:i=1
+}
+
+motor_exhaust{
+  fx:t="motor_exhaust_fx"
+  lifeTime:r=3.0
+  isTrail:b=yes
+  onePointNumber:i=8
+  numInstances:i=20
+  numReserved:i=8
+}
+
+motor_100throttle{
+  fx:t="motor_100throttle_fx"
+  lifeTime:r=3.0
+  isTrail:b=yes
+  onePointNumber:i=8
+  numInstances:i=20
+  numReserved:i=8
+}
+
+motor_wep{
+  fx:t="motor_wep_fx"
+  lifeTime:r=3.0
+  isTrail:b=yes
+  onePointNumber:i=8
+  numInstances:i=20
+  numReserved:i=8
+}
+
+motor_exhaust_wep{
+  fx:t="motor_exhaust_wep_fx"
+  lifeTime:r=2.0
+  isTrail:b=yes
+  onePointNumber:i=8
+  numInstances:i=8
+  numReserved:i=0
+}
+
+trail_oil{
+  fx:t="water_air_oil_leak_cmps_fx"
+  lifeTime:r=10.0
+  alphaHeightRange:p2=50.0, 300.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=2.0
+  playerFadeDistScale:r=1.5
+  sortDistanceOffset:r=20.0
+  onMoving:b=yes
+  numInstances:i=70
+  numReserved:i=20
+}
+
+trail_water{
+  fx:t="water_air_leak_cmps_fx"
+  lifeTime:r=40.0
+  alphaHeightRange:p2=50.0, 300.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=3.0
+  playerFadeDistScale:r=1.0
+  onMoving:b=yes
+  sortDistanceOffset:r=5.0
+  numInstances:i=70
+  numReserved:i=20
+}
+
+trail_fuel{
+  fx:t="water_air_fuel_leak_cmps_fx"
+  alphaHeightRange:p2=50.0, 300.0
+  isTrail:b=yes
+  sortDistanceOffset:r=15.0
+  nonPlayerFadeDistScale:r=3.0
+  playerFadeDistScale:r=1.5
+  onMoving:b=yes
+  numInstances:i=70
+  numReserved:i=20
+}
+
+contrail{
+  fx:t="trail_contrail_fx"
+  lifeTime:r=18.0
+  alphaHeightRange:p2=50.0, 300.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=3.0
+  playerFadeDistScale:r=1.5
+  sortDistanceOffset:r=20.0
+  minScale:r=1.0
+  maxScale:r=1.0
+  numInstances:i=50
+  numReserved:i=5
+}
+
+major_engine_smoke{
+  fx:t="smoke_major_engine_cmps_fx"
+  alphaHeightRange:p2=-20.0, 100.0
+  lifeTime:r=10.0
+  isTrail:b=yes
+  sortDistanceOffset:r=20.0
+  nonPlayerFadeDistScale:r=2.0
+  playerFadeDistScale:r=0.4
+  numInstances:i=70
+  numReserved:i=20
+}
+
+minor_engine_smoke{
+  fx:t="smoke_minor_engine_cmps_fx"
+  lifeTime:r=5.0
+  alphaHeightRange:p2=-20.0, 50.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=2.0
+  playerFadeDistScale:r=0.4
+  sortDistanceOffset:r=10.0
+  numInstances:i=70
+  numReserved:i=20
+}
+
+major_fuel_smoke{
+  fx:t="smoke_minor_engine_cmps_fx"
+  lifeTime:r=15.0
+  alphaHeightRange:p2=0.0, 300.0
+  isTrail:b=yes
+  sortDistanceOffset:r=2.5
+  nonPlayerFadeDistScale:r=3.0
+  playerFadeDistScale:r=0.4
+  numInstances:i=70
+  numReserved:i=20
+}
+
+major_engine_fire{
+  fx:t="explosion_midair_engine_cmps_fx"
+  lifeTime:r=10.0
+  alphaHeightRange:p2=-20.0, 300.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=3.0
+  playerFadeDistScale:r=0.4
+  sortDistanceOffset:r=25.0
+  numInstances:i=70
+  numReserved:i=20
+  soundEnableDistance:r=200.0
+}
+
+major_fuel_fire{
+  fx:t="explosion_midair_fuel_cmps_fx"
+  lifeTime:r=10.0
+  isTrail:b=yes
+  sortDistanceOffset:r=7.5
+  nonPlayerFadeDistScale:r=6.0
+  playerFadeDistScale:r=0.4
+  numInstances:i=70
+  numReserved:i=20
+}
+
+wrecked_smoke{
+  fx:t="smoke_minor_engine_cmps_fx"
+  lifeTime:r=18.0
+  alphaHeightRange:p2=50.0, 300.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=3.0
+  playerFadeDistScale:r=1.5
+  sortDistanceOffset:r=20.0
+  onMoving:b=yes
+  minScale:r=1.0
+  maxScale:r=1.0
+  numInstances:i=70
+  numReserved:i=20
+}
+
+cut_tail_smoke{
+  fx:t="gm_fire_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=0.5
+  sortDistanceOffset:r=0.0
+  numInstances:i=10
+  numReserved:i=2
+}
+
+explosion_plane{
+  fx:t="explosion_midair_fuel_massive_cmps_fx"
+  lifeTime:r=10.0
+  groundSpotTexName:t="ground_spot"
+  groundSpotRadius:r=8.0
+  groundSpotAtTime:r=0.0
+  numInstances:i=20
+  numReserved:i=3
+}
+
+land_explosion_plane{
+  fx:t="explosion_air_crash_cmps_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=8.0
+  sortDistanceOffset:r=0.0
+  nonPlayerFadeDistScale:r=2.0
+  playerFadeDistScale:r=1.0
+  groundSpotTexName:t="ground_spot"
+  groundSpotRadius:r=8.0
+  groundSpotAtTime:r=0.0
+  numInstances:i=70
+  numReserved:i=20
+}
+
+water_explosion_plane{
+  fx:t="bigsplashexplosion_fx"
+  lifeTime:r=10.0
+  softnessDepth:r=8.0
+  numInstances:i=20
+  numReserved:i=5
+}
+
+land_crash_fire{
+  fx:t="fire_big_crash_cmps_fx"
+  lifeTime:r=180.0
+  softnessDepth:r=5.0
+  minScale:r=1.0
+  maxScale:r=1.2
+  sortDistanceOffset:r=1.0
+  nonPlayerFadeDistScale:r=1.5
+  playerFadeDistScale:r=1.0
+  numInstances:i=70
+  numReserved:i=20
+  farPlane:r=10000.0
+}
+
+land_crash_smoke{
+  fx:t="smoke_big_crash_cmps_fx"
+  lifeTime:r=180.0
+  softnessDepth:r=5.0
+  minScale:r=1.0
+  maxScale:r=1.2
+  sortDistanceOffset:r=1.0
+  nonPlayerFadeDistScale:r=1.5
+  playerFadeDistScale:r=1.0
+  numInstances:i=70
+  numReserved:i=20
+  farPlane:r=10000.0
+}
+
+generic_weapon_hit_ground{
+  fx:t="37_50_he_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="^cal=25;mat=0$impact/shell"
+}
+
+fab_100_hit_ground{
+  fx:t="37_50_he_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="^cal=75;mat=0$impact/bomb"
+}
+
+shell_hit_ground{
+  fx:t="37_50_he_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="^cal=25;mat=0$impact/shell"
+}
+
+shell_40_hit_ground{
+  fx:t="37_50_he_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="^cal=40;mat=0$impact/shell"
+}
+
+shell_100_hit_ground{
+  fx:t="37_50_he_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="^cal=150;mat=0$impact/shell"
+}

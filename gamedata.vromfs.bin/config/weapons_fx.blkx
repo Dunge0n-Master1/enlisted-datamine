@@ -1,0 +1,382 @@
+75mm_ap_hit_ground{
+  fx:t="50_75_ap_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="^cal=75;mat=0$impact/shell"
+}
+
+75mm_ap_hit_stone{
+  fx:t="50_75_ap_hit_stone_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="^cal=75;mat=1$impact/shell"
+}
+
+100mm_ap_hit_ground{
+  fx:t="75_122_ap_hit_ground_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="^cal=100;mat=0$impact/shell"
+}
+
+100mm_ap_hit_stone{
+  fx:t="75_122_ap_hit_stone_composite"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="^cal=100;mat=1$impact/shell"
+}
+
+100mm_ap_hit_water{
+  fx:t="hit_water_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="^cal=100;mat=2$impact/shell"
+}
+
+bullet_hit_armor{
+  fx:t="pv_hit_penetration_composite_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=80
+  group:t="highres"
+  sfx:t="^cal=100;mat=4$impact/shell"
+}
+
+ground_expl{
+  fx:t="grenade_exp_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.2
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.9
+  maxScale:r=1.1
+  group:t="highres"
+  sfx:t="impact/grenade"
+}
+
+grenade_flash_expl{
+  fx:t="grenade_exp_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.2
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.9
+  maxScale:r=1.1
+  group:t="highres"
+  sfx:t="impact/grenade_flash"
+}
+
+mine_expl{
+  fx:t="grenade_exp_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.2
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.9
+  maxScale:r=1.1
+  group:t="highres"
+  sfx:t="impact/mine"
+}
+
+flare_flame{
+  fx:t="flare_flame_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+signal_flare_flame{
+  fx:t="signal_flare_composite_fx"
+  softnessDepth:r=0.5
+  sortDistanceOffset:r=0.0
+  numInstances:i=10
+  numReserved:i=1
+  onePointNumber:i=3
+  sfx:t="env_effects/fire/grenade_torch"
+}
+
+sparks_armor_hit_small{
+  fx:t="sparks_armor_hit_a_fx"
+  lifeTime:r=1.0
+  numInstances:i=100
+  numReserved:i=3
+  onePointNumber:i=10
+  softnessDepth:r=0.3
+  group:t="highres"
+}
+
+sparks_armor_hit_medium{
+  fx:t="sparks_armor_hit_b_fx"
+  lifeTime:r=1.0
+  numInstances:i=100
+  numReserved:i=3
+  onePointNumber:i=10
+  softnessDepth:r=0.3
+  group:t="highres"
+}
+
+sparks_armor_hit_big{
+  fx:t="sparks_armor_hit_c_fx"
+  lifeTime:r=1.0
+  numInstances:i=100
+  numReserved:i=3
+  onePointNumber:i=10
+  softnessDepth:r=0.3
+  group:t="highres"
+}
+
+smoke_grenade{
+  fx:t="smoke_grenade_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  tag:t="fom"
+  tag:t="volmedia"
+  group:t="highres"
+  sfx:t="env_effects/fire/grenade_smoke"
+}
+
+smoke_rocket_exhaust{
+  fx:t="smoke_rocket_exhaust_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+smoke_rocket_trail{
+  fx:t="smoke_rocket_trail_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  isTrail:b=yes
+}
+
+molotov_fire{
+  fx:t="molotov_flame_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="lowres"
+  onePointNumber:i=1
+  onePointRadius:r=0.25
+  sfx:t="env_effects/fire/fire_molotov"
+}
+
+flamethrower_fire{
+  fx:t="molotov_flame_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=300
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="lowres"
+  onePointNumber:i=1
+  onePointRadius:r=0.25
+  sfx:t="env_effects/fire/fire_molotov"
+}
+
+flamethrower_flame_stream{
+  fx:t="flamethrower_flame_stream_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="lowres"
+  onePointNumber:i=1
+  onePointRadius:r=0.25
+  collisionBounceDecay:r=0.0
+  collisionBounceFactor:r=1.0
+}
+
+rocket_smoke{
+  fx:t="rocket_smoke_fx"
+  lifeTime:r=100.0
+  isTrail:b=yes
+  nonPlayerFadeDistScale:r=5.0
+  playerFadeDistScale:r=2.0
+  alphaHeightRange:p2=30.0, 200.0
+  numInstances:i=120
+  numReserved:i=5
+  onePointNumber:i=4
+  sortDistanceOffset:r=1.0
+}
+
+rocket_expl{
+  fx:t="rocket_expl_fx"
+  lifeTime:r=30.0
+  groundSpotTexName:t="ground_spot"
+  groundSpotRadius:r=6.0
+  groundSpotAtTime:r=1.0
+  numInstances:i=30
+  numReserved:i=1
+  softnessDepth:r=5.0
+  onePointNumber:i=4
+}
+
+rocket_fire{
+  fx:t="fires_rocket_tail_light_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+rocket_fire_light{
+  fx:t="fires_rocket_tail_light_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+rocket_fire_dark{
+  fx:t="fires_rocket_tail_dark_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+rocket_fire_light_multiple{
+  fx:t="fires_rocket_tail_light_multiple_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=8
+}
+
+rocket_fire_dark_multiple{
+  fx:t="fires_rocket_tail_dark_multiple_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=8
+}
+
+rocket_fire_light_huge{
+  fx:t="fires_rocket_tail_huge_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+rocket_fire_bigfire{
+  fx:t="fires_rocket_tail_light_bigfire_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+rocket_fire_short{
+  fx:t="fires_rocket_tail_short_light_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+rocket_fire_short_doubleside{
+  fx:t="fires_rocket_tail_short_doubleside_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+haze{
+  fx:t="trail_haze_fx"
+  lifeTime:r=0.0
+  isTrail:b=yes
+  numInstances:i=12
+  numReserved:i=5
+  onePointNumber:i=4
+}
+
+haze_missile{
+  fx:t="haze_missile_cmps_fx"
+  lifeTime:r=2.0
+  numInstances:i=70
+  numReserved:i=20
+}
+
+explosion_midair_tiny{
+  fx:t="explosion_midair_tiny_cmps_fx"
+  farPlane:r=5000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+explosion_midair_small{
+  fx:t="explosion_midair_small_cmps_fx"
+  farPlane:r=5000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+}
+
+explosion_midair_medium{
+  fx:t="explosion_midair_medium_cmps_fx"
+  farPlane:r=6000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=2
+}
+
+misc_simple_smoke_grenade{
+  fx:t="misc_simple_smoke_grenade_cmps_fx"
+  farPlane:r=6000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=2
+}
+
+misc_simple_fireworks{
+  fx:t="firework_cmps_fx"
+  farPlane:r=6000.0
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=2
+}

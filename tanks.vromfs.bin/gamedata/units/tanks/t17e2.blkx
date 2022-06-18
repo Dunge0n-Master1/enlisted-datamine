@@ -1,0 +1,87 @@
+VehiclePhys{
+  skipUpdateOnSleep:b=yes
+
+  Mass{
+    Empty:r=11796.0
+    Fuel:r=250.0
+    TakeOff:r=12046.0
+    momentOfInertia:p3=2.0, 2.0, 4.0
+    CenterOfGravity:p3=-0.1, 0.4, 0.0
+    CenterOfGravityClampY:p2=0.0, 0.5
+    AdvancedMass:b=yes
+    trackMass:r=40.0
+    engineInertialMass:r=400.0
+  }
+
+  tracks{
+    animationMultiplier:r=0.5
+    height:r=0.0
+    width:r=0.4
+    trackPhysMat:t="wheel"
+  }
+
+  collisionProps{
+    cls_turret_01:t="convex_hull"
+    cls_body_01:t="convex_hull"
+    collisionMaterial:t="walkRay"
+  }
+
+  engine{
+    horsePowers:r=194.0
+    maxRPM:r=3000.0
+    minRPM:r=900.0
+    rpmTau:r=1.9
+  }
+
+  mechanics{
+    maxBrakeForce:r=48184.0
+    driveGearRadius:r=0.6
+    mainGearRatio:r=7.35
+    sideGearRatio:r=1.05
+    tracked:b=no
+
+    gearRatios{
+      ratio:r=-6.0
+      ratio:r=-8.0
+      ratio:r=0.0
+      ratio:r=8.0
+      ratio:r=6.0
+      ratio:r=5.0
+      ratio:r=4.0
+      ratio:r=3.5
+      ratio:r=3.0
+      ratio:r=2.75
+      ratio:r=2.4
+      ratio:r=1.75
+      ratio:r=1.0
+    }
+  }
+
+  suspension{
+    suspensionOffsets:p3=-0.15, -0.12, 0.1
+    defaultGearRadius:r=0.6
+    defaultDampeningForce:p2=36138.0, 36138.0
+    hasSuspensionOnDriveGear:b=yes
+    dampeningRelaxationRatio:r=0.4
+    dampeningCompressionRatio:r=0.15
+    recalcWtms:b=yes
+
+    steeringDeflection{
+      wheel_l_01:r=20.0
+      wheel_r_01:r=20.0
+      steeringTau:r=1.0
+    }
+
+    wheelsWidth{
+      wheel_l_01:r=0.4
+      wheel_l_drive:r=0.4
+      wheel_r_01:r=0.4
+      wheel_r_drive:r=0.4
+    }
+
+    driven{
+      wheel_l_01:b=yes
+      wheel_r_01:b=yes
+    }
+  }
+}

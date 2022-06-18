@@ -1,0 +1,95 @@
+import:t="tanks/us_m4a2_sherman_1944.blk"
+import:t="tanks/us_m4a1_76w_sherman.blk"
+import:t="tanks/us_m4a3e2_sherman_jumbo.blk"
+import:t="tanks/us_m4a3e2_76w_sherman_jumbo.blk"
+import:t="tanks/uk_sherman_ic_firefly.blk"
+import:t="tanks/us_m5a1_stuart_late.blk"
+import:t="tanks/us_m8_scott.blk"
+import:t="tanks/us_m10_wolverine.blk"
+import:t="tanks/us_m24_chaffee.blk"
+import:t="tanks/us_m4a2_76w_sherman.blk"
+import:t="tanks/us_m3_lee.blk"
+import:t="tanks/us_m4_calliope.blk"
+
+us_halftrack_m3_75mm_gmc{
+  _extends:t="base_tank"
+  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  animchar__res:t="halftrack_m3_t48_char"
+  collres__res:t="halftrack_m3_t48_collision"
+  vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/halftrack_m3_t48.blk:VehiclePhys"
+  dmg_animchar__res:t="halftrack_m3_t48_dmg_char"
+  damage_model__blk:t="content/tanks/gamedata/units/tanks/halftrack_m3_t48.blk"
+  animchar_fast_phys__res:t="halftrack_m3_t48_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="tankgun_m1_76mm"
+      salt:i=1
+      emitterNode:t="bone_gun"
+      speedYaw:r=24.0
+      speedPitch:r=4.0
+      aimActiveParamName:t="aim_active"
+      wishYawParamName:t="gun_aim:targetYaw"
+      wishPitchParamName:t="gun_aim:targetPitch"
+      curYawParamName:t="turret_yaw"
+      curPitchParamName:t="gun_pitch"
+      gunRecoilParamName:t="gun_recoil"
+      gunRecoilDuration:r=0.5
+
+      "gunFlash:object"{
+        node:t="emtr_gun_flame"
+        fx:t="muzzle_flash"
+        fxId:i=-1
+        scale:r=0.7
+        nodeId:i=-1
+        time:r=0.2
+        multTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      }
+    }
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      turretName:t="turret_01"
+      attachNode:t="Bip01 Pelvis_2"
+      attachTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [-0.5, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      cameraNodeName:t="bone_camera_gunner"
+    }
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="Bip01 Pelvis_1"
+      attachTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      cameraNodeName:t="bone_camera_driver"
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/passenger"
+      attachNode:t="Bip01 Pelvis_3"
+      attachTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/passenger"
+      attachNode:t="Bip01 Pelvis_5"
+      attachTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+    }
+  }
+}

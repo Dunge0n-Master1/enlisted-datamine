@@ -1,0 +1,11 @@
+healing{
+  healAmount:r=3.0
+}
+
+useProps{
+  time:r=2.0
+}
+
+visual{
+  template:t="bandage_kit_item+item_in_world"
+}

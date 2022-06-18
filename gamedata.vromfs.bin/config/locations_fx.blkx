@@ -1,0 +1,804 @@
+bonfire_small{
+  fx:t="bonfire_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_small"
+}
+
+bonfire{
+  fx:t="bonfire_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+antigravity_sphere_25_m{
+  fx:t="antigravity_sphere_25_m_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=300
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+}
+
+antigravity_sphere_50_m{
+  fx:t="antigravity_sphere_50_m_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=300
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+}
+
+antigravity_zone_50_m{
+  fx:t="antigravity_zone_50_m_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=300
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+}
+
+fire_medium{
+  fx:t="fire_medium_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+fire_big{
+  fx:t="fire_big_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+fire_big_background{
+  fx:t="fire_big_background_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+menu_bonfire_small{
+  fx:t="menu_bonfire_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+}
+
+menu_fire_big{
+  fx:t="menu_fire_big_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+}
+
+fire_ground_5m{
+  fx:t="fire_ground_5m_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/dirt_fire_crackle"
+}
+
+fire_ground_10m{
+  fx:t="fire_ground_10m_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/dirt_fire_crackle"
+}
+
+dv_fire_big_composite_fx{
+  fx:t="dv_fire_big_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+dv_fire_small_composite_fx{
+  fx:t="dv_fire_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+character_flame_fx{
+  fx:t="character_flame_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  onePointRadius:r=0.1
+  tag:t="fom"
+}
+
+dv_smoke_small_composite_fx{
+  fx:t="dv_smoke_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/dirt_fire_crackle"
+}
+
+dv_smoke_micro_composite_fx{
+  fx:t="dv_smoke_micro_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/dirt_fire_crackle"
+}
+
+fire_column_3m_sparkles{
+  fx:t="fire_column_3m_sparkles_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=50
+  numReserved:i=10
+  group:t="highres"
+}
+
+ground_sparkles_2m{
+  fx:t="ground_sparkles_2m_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="env_effects/fire/dirt_fire_crackle"
+}
+
+ground_sparkles_menu{
+  fx:t="ground_sparkles_menu_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  group:t="highres"
+  tag:t="fom"
+}
+
+ground_sparkles_10m{
+  fx:t="ground_sparkles_10m_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=10
+  group:t="highres"
+  sfx:t="env_effects/fire/dirt_fire_crackle"
+}
+
+ground_ashes_10m{
+  fx:t="ground_ashes_10m_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=10
+  group:t="highres"
+}
+
+ground_leaves_10m{
+  fx:t="ground_leaves_10m_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=10
+  group:t="highres"
+}
+
+ground_leaves_2m{
+  fx:t="ground_leaves_2m_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=10
+  group:t="highres"
+}
+
+ground_papers_10m{
+  fx:t="ground_papers_10m_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=500
+  numReserved:i=10
+  group:t="highres"
+}
+
+fire_column_3m{
+  fx:t="fire_column_3m_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_mid"
+}
+
+glass_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/glass"
+}
+
+plate_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/ceramic"
+}
+
+clay_small_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/ceramic"
+}
+
+clay_mid_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/ceramic"
+}
+
+concrete_small_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/concrete_mid"
+}
+
+concrete_mid_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/concrete_mid"
+}
+
+concrete_big_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/concrete_big"
+}
+
+ceramic_small_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/ceramic"
+}
+
+ceramic_mid_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/ceramic"
+}
+
+wood_small_destr{
+  fx:t="ad_wood_medium_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/wood_small"
+}
+
+wood_mid_destr{
+  fx:t="ad_wood_medium_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/wood_mid"
+}
+
+paper_mid_destr{
+  fx:t="ad_crumbled_paper_splash_medium_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=0.6
+  group:t="highres"
+}
+
+metal_small_destr{
+  fx:t="hit_metal_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/metal_small"
+}
+
+metal_mid_destr{
+  fx:t="hit_metal_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/metal_mid"
+}
+
+ad_haystack_medium{
+  fx:t="ad_haystack_medium_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/haystack_medium"
+}
+
+bollard_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/bollard"
+}
+
+building_small_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/building_fall_small"
+}
+
+building_mid_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/building_fall_mid"
+}
+
+building_big_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/building_fall_big"
+}
+
+soil_digging_dirt{
+  fx:t="soil_digging_dirt_composite_fx"
+  lifeTime:r=0.0
+  numInstances:i=50
+  numReserved:i=5
+  minScale:r=0.75
+  maxScale:r=1.25
+  group:t="highres"
+}
+
+generic_dmg{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+}
+
+window_destr{
+  fx:t="ad_wood_medium_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/window"
+}
+
+door_wood_destr{
+  fx:t="ad_wood_medium_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/wooden_door"
+}
+
+sandbag_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/sandbag"
+}
+
+cactus_destr{
+  fx:t="soil_ejection_omni_hit_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/cactus"
+}
+
+dust_sparks_slow{
+  fx:t="dust_sparks_slow_fx"
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=520
+  numReserved:i=10
+  group:t="highres"
+}
+
+volcano_smoke{
+  fx:t="location_volcano_composite_fx"
+  numInstances:i=10
+  numReserved:i=0
+  softnessDepth:r=0.8
+  group:t="highres"
+  farPlane:r=10000.0
+}
+
+background_flash_5s_fx{
+  fx:t="background_flash_5s_flare_fx"
+  numInstances:i=10
+  numReserved:i=0
+  softnessDepth:r=0.01
+  group:t="highres"
+  farPlane:r=10000.0
+}
+
+background_flash_8s_fx{
+  fx:t="background_flash_8s_flare_fx"
+  numInstances:i=50
+  numReserved:i=0
+  softnessDepth:r=0.01
+  group:t="highres"
+  farPlane:r=10000.0
+}
+
+background_flash_11s_fx{
+  fx:t="background_flash_11s_flare_fx"
+  numInstances:i=15
+  numReserved:i=0
+  softnessDepth:r=0.01
+  group:t="highres"
+  farPlane:r=10000.0
+}
+
+car_exhaust{
+  fx:t="pv_exhaust_composite_fx"
+  numInstances:i=50
+  numReserved:i=8
+  group:t="highres"
+}
+
+chimney_exhaust{
+  fx:t="chimney_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  onePointNumber:i=1
+}
+
+chimney_fire{
+  fx:t="pv_fire_small_composite_fx"
+  numInstances:i=30
+  numReserved:i=3
+  sfx:t="env_effects/fire/fire_small"
+}
+
+small_smoke{
+  fx:t="cigar_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=1.7
+  maxScale:r=2.0
+  group:t="highres"
+  onePointNumber:i=0
+  tag:t="fom"
+}
+
+barrage_balloon_explosion{
+  fx:t="explosion_barrage_balloons_cmps_fx"
+  numInstances:i=50
+  numReserved:i=8
+  lightColor:p4=10.0, 2.0, 2.0, 100.0
+  sfx:t="impact/barrage_baloon"
+}
+
+land_haze{
+  fx:t="hot_air_haze_a_ground_fx"
+  lifeTime:r=0.0
+  numInstances:i=50
+  numReserved:i=8
+  group:t="highres"
+}
+
+land_dust_storm{
+  fx:t="location_sand_wind_ground_fx"
+  lifeTime:r=0.0
+  numInstances:i=700
+  numReserved:i=30
+  group:t="highres"
+  tag:t="fom"
+}
+
+train_smoke{
+  fx:t="location_train_smoke_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=0.9
+  maxScale:r=1.0
+  onePointNumber:i=1
+}
+
+firework{
+  fx:t="firework_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=0.9
+  maxScale:r=1.0
+  onePointNumber:i=1
+}
+
+event_foolmoon_lights{
+  fx:t="event_foolmoon_lights_cmps_fx"
+  numInstances:i=1000
+  numReserved:i=10
+}

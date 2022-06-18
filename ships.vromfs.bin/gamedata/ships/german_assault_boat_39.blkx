@@ -1,0 +1,147 @@
+ShipPhys{
+
+  mass{
+    Empty:r=2300.0
+    momentOfInertia:p3=0.5, 2.0, 2.0
+    CenterOfGravity:p3=-0.3, -0.2, 0.0
+    doesPayloadAffectCOG:b=yes
+  }
+
+  engines{
+    maxSpeed:r=17.0
+    maxReverseSpeed:r=4.0
+    reverseMult:r=1.0
+
+    speedToThrust{
+      row:p2=-1e+18, 0.5
+      row:p2=0.0, 0.5
+      row:p2=5.0, 0.7
+      row:p2=10.0, 1.2
+      row:p2=15.0, 1.3
+      row:p2=20.0, 0.5
+      row:p2=1e+18, 0.1
+    }
+
+    reverseSpeedToThrust{
+      row:p2=-1e+18, 0.02
+      row:p2=-6.0, 0.02
+      row:p2=-4.0, 0.1
+      row:p2=-2.0, 0.24
+      row:p2=0.0, 0.15
+      row:p2=1e+18, 0.2
+    }
+
+    engine{
+      pos:p3=-3.0, -0.5, 0.0
+      outputParam:t="propeller_rotate:CRS"
+      deflectionParam:t="motor_deflection"
+      deflectionParamMult:r=0.5
+      engineDmPart:t="engine"
+      propeller:t="propeller_01"
+      maxDeflection:r=80.0
+      maxThrust:r=2000.0
+    }
+  }
+
+  collisionProps{
+    cls_body_01:t="convex_hull"
+    collisionMaterial:t="walkRay"
+  }
+
+  hydrodynamics{
+    bodyArea:r=0.0
+
+    ignoreNodes{
+      engine:b=yes
+    }
+
+    hydrofoils{
+
+      hydrofoil{
+        euler:p3=0.0, 0.0, 10.0
+        pos:p3=1.0, -0.5, 0.0
+        size:p2=3.0, 0.05
+        maxV:r=20.0
+
+        polar{
+          Cl0:r=0.066
+          CdMin:r=0.0016
+          lineClCoeff:r=0.046
+          ClCritHigh:r=0.7
+          ClCritLow:r=-0.62
+          alphaCritHigh:r=5.0
+          alphaCritLow:r=-4.0
+        }
+      }
+    }
+
+    rudder{
+      pos:p3=-3.0, -0.2, 0.0
+      area:r=0.2
+      deflection:r=80.0
+    }
+  }
+}
+
+DamageParts{
+  formatVersion:i=2
+  armorClass:t="RHA_tank"
+  hp:r=300.0
+
+  body{
+    createSecondaryShatters:b=no
+    armorThickness:r=0.1
+  }
+
+  engine{
+    hp:r=30.0
+    createSecondaryShatters:b=no
+    armorThickness:r=0.3
+    armorThrough:r=10.0
+    fireProtectionHp:r=100.0
+    movement:b=yes
+    fire:b=yes
+  }
+}
+
+DamageEffects{
+
+  part{
+    name:t="engine"
+
+    onKill{
+      fire:r=1.0
+      fHitCritical:b=yes
+    }
+  }
+
+  part{
+    name:t="body"
+
+    onHit{
+      damageType:t="cumulative"
+      fire:r=0.15
+      damage:r=75.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      fire:r=0.1
+      damage:r=30.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.05
+      damage:r=70.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="fire"
+      fire:r=0.02
+    }
+  }
+}

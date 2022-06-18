@@ -1,0 +1,46 @@
+nodes{
+
+  "Bip01 L Hand"{
+    position_weight:r=1.559
+    velocity_weight:r=1.065
+  }
+
+  "Bip01 R Hand"{
+    position_weight:r=1.559
+    velocity_weight:r=0.941
+  }
+
+  "Bip01 L Foot"{
+    position_weight:r=1.559
+    velocity_weight:r=0.91
+  }
+
+  "Bip01 R Foot"{
+    position_weight:r=1.497
+    velocity_weight:r=0.941
+  }
+}
+
+trajectory{
+
+  point{
+    time:r=0.1
+    velocity_weight:r=7.639
+    rotation_weight:r=4.213
+    position_weight:r=7.948
+  }
+
+  point{
+    time:r=0.25
+    velocity_weight:r=4.676
+    rotation_weight:r=2.577
+    position_weight:r=7.145
+  }
+
+  point{
+    time:r=0.5
+    velocity_weight:r=2.886
+    rotation_weight:r=1.219
+    position_weight:r=6.219
+  }
+}

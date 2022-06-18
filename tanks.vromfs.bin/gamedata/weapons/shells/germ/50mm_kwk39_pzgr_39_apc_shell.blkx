@@ -1,0 +1,40 @@
+bulletCount:i=40
+mass:r=2.05
+explosiveType:t="np_10"
+explosiveMass:r=0.017
+caliber:r=0.05
+speed:r=835.0
+Cx:r=0.54
+maxDistance:r=7000.0
+bulletType:t="apc_tank"
+bulletName:t="50mm_pzgr_39"
+relativeVelHitShift:p2=300.0, 1000.0
+fuseDelayDist:r=1.2
+explodeTreshold:r=9.0
+relativeVelArmorShift:p2=200.0, 1000.0
+ricochetEffect:t="cannon_ricochet"
+waterCollisionEffect:t="120-203_water_splash"
+waterFxScale:p2=0.7, 0.8
+explosionPatchRadius:r=1.8
+
+hitpower{
+  HitPower0m:p2=0.85, 500.0
+  HitPower10000m:p2=0.8, 10000.0
+}
+
+damage{
+
+  kinetic{
+    demarrePenetrationK:r=0.9
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+  }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="30mmWhite"
+  trail:t="black"
+}

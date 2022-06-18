@@ -1,0 +1,44 @@
+base_37mm_m6{
+  item__name:t="guns/37mm_m6"
+  gun__blk:t="content/tanks/gamedata/gen/weapons/37mm_m6.blk"
+  gun__shotFreq:r=0.35
+  gun__locName:t="37mm_m6"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_m6_defaultset.blk"
+        name:t="37mm_m74b1"
+        type:t="ap_tank"
+      }
+    }
+
+    "37mm_usa_m3_APC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_m6_37mm_usa_m3_apc.blk"
+        name:t="37mm_m51b1b2"
+        type:t="apcbc_solid_medium_caliber_tank"
+      }
+    }
+
+    "37mm_usa_m3_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_m6_37mm_usa_m3_he.blk"
+        name:t="37mm_m63"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+tankgun_37mm_m6{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_37mm_m6"
+  _extends:t="gunsound_37mm_m6"
+  turret__triggerGroup:i=0
+}

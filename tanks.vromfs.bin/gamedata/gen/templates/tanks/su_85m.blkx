@@ -1,0 +1,183 @@
+base_su_85m{
+  _extends:t="base_tank"
+  _extends:t="su_85m_ammo_stowages"
+  killLogName:t="ussr_su_85m"
+  animchar__res:t="su_85m_char"
+  collres__res:t="su_85m_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/su_85m.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="su_85m_dmg_char"
+  xray_resource__modelName:t="su_85m"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=1.792
+  damage_model__blk:t="gamedata/gen/units/tanks/su_85m.blk"
+  item__name:t="items/ussr_su_85m"
+  skin__template:t="su_85m_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_80mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="su_85m_turret_01_85mm_d5s+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+su_85m_turret_01_85mm_d5s{
+  _extends:t="tankgun_85mm_d5s"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=8.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-8.0, 8.0, -3.0, 20.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=12
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+  }
+}
+
+su_85m_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="su_85m_primary_ammo_stowage"
+  }
+}
+
+su_85m_primary_ammo_stowage{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="su_85m_primary_shells_ammo_cluster"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+su_85m_primary_shells_ammo_cluster{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_02"
+    part:t="ammo_body_04"
+    part:t="ammo_body_01"
+    part:t="ammo_body_03"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=12
+    count:i=12
+    count:i=24
+    count:i=12
+  }
+}
+
+su_85m_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="su_85m_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_85m_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_85m_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_85m_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_85m_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_85m_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
+  }
+}

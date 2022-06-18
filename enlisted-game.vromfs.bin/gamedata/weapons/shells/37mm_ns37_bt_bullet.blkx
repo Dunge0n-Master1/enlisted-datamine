@@ -1,0 +1,86 @@
+mass:r=0.76
+caliber:r=0.037
+speed:r=880.0
+maxDistance:r=4000.0
+normalizationPreset:t="ap"
+ricochetPreset:t="ap"
+recoilMultiplier:r=0.35
+stabilityThreshold:r=0.05
+relativeVelHitShift:p2=300.0, 1000.0
+stabilityReductionAfterRicochet:r=0.5
+stabilityReductionAfterPenetration:r=0.15
+bulletType:t="ap_t"
+slopeEffectPreset:t="ap"
+fresnel:p3=0.23, 0.1, 2.0
+shellAnimation:t="video/shells_animations/ap.ivf"
+relativeVelArmorShift:p2=200.0, 1000.0
+armorFragmentsDamage:b=yes
+armorFragmentsDamageRadius:r=1.5
+armorFragmentsDamageAngle:r=20.0
+armorFragmentsArmorPower:r=3.0
+armorFragmentsHit:r=5.0
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_39_58mm_metal_ap"
+groundCollisionEffect:t="hit_39_58mm_dirt_ap"
+ricochetEffect:t="hit_39_58mm_metal_ap"
+waterCollisionEffect:t="hit_39_58mm_water"
+explosionPatchRadius:r=0.7
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.05
+  mod2:p2=20.0, 0.1
+  mod3:p2=30.0, 0.2
+  mod3:p2=45.0, 0.3
+}
+
+hitpower{
+  HitPower0m:p2=1.0, 0.0
+  HitPower1000m:p2=0.9, 0.0
+  HitPower10000m:p2=0.8, 10000.0
+}
+
+damage{
+
+  kinetic{
+    damageType:t="generic"
+    demarrePenetrationK:r=0.9
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+  }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="50mmLightRed"
+  trail:t="black"
+}
+
+hitFx{
+
+  steel{
+    fx:t="hit_39_58mm_metal_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_39_58mm_wood_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_39_58mm_metal_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_39_58mm_stone_ap"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+tracer{
+  headColor:c=255, 247, 212, 200
+  smokeColor:c=80, 80, 80, 186
+}

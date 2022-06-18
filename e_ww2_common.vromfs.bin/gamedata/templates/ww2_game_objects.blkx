@@ -1,0 +1,89 @@
+base_gameobj{
+  _extends:t="phys_sleepable"
+  _extends:t="replicating"
+  _extends:t="animchar"
+  material:t="steel"
+  needsBlood:b=no
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  net__physId:i=-1
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+  pair_collision__tag:t="collidableToPhysObj"
+
+  grid_obj{
+  }
+
+  phys_vars{
+  }
+
+  collres{
+  }
+
+  phys_obj_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  "invulnerable:tag"{
+  }
+}
+
+bm_13n_gameobj{
+  _extends:t="phys_sleepable"
+  _extends:t="base_gameobj"
+  animchar__res:t="bm_13n_char"
+  collres__res:t="bm_13n_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/bm_13n.blk"
+  pair_collision__tag:t="collidableToPhysObj"
+
+  phys_obj_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+}
+
+gaz_aa_4m_no_weapon_gameobj{
+  _extends:t="base_gameobj"
+  animchar__res:t="gaz_aa_4m_no_weapon_char"
+  collres__res:t="gaz_aa_4m_no_weapon_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/gaz_aa_4m.blk"
+}
+
+pv_tractor_fordson_putilovets_gameobj{
+  _extends:t="base_gameobj"
+  animchar__res:t="pv_tractor_fordson_putilovets_char"
+  collres__res:t="pv_tractor_fordson_putilovets_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/tractor_fordson_putilovets.blk"
+}
+
+t_26_1940_gameobj{
+  _extends:t="base_gameobj"
+  animchar__res:t="t_26_1940_char"
+  collres__res:t="t_26_1940_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/t_26_1940.blk"
+}
+
+poluglisser_pg_117_gameobj{
+  _extends:t="base_gameobj"
+  animchar__res:t="poluglisser_pg_117_char"
+  collres__res:t="poluglisser_pg_117_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/poluglisser_pg_117.blk"
+}

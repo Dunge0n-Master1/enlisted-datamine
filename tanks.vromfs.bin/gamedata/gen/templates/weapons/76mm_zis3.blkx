@@ -1,0 +1,88 @@
+base_76mm_zis3{
+  item__name:t="guns/76mm_zis3"
+  gun__blk:t="gamedata/gen/weapons/76mm_zis3.blk"
+  gun__shotFreq:r=0.145
+  gun__locName:t="76mm_zis3"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_defaultset.blk"
+        name:t="76mm_br_350a"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "76mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "76mm_ussr_Shrapnel:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_shrapnel.blk"
+        name:t="76mm_sh_354t"
+        type:t="shrapnel_tank"
+      }
+    }
+
+    "76mm_ussr_AP_1942:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_ap_1942.blk"
+        name:t="76mm_br_350sp"
+        type:t="apbc_tank"
+      }
+    }
+
+    "76mm_ussr_APCR_1943:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_apcr_1943.blk"
+        name:t="76mm_br_354p"
+        type:t="apcr_tank"
+      }
+    }
+
+    "76mm_ussr_HEAT_1944:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_heat_1944.blk"
+        name:t="76mm_bp_350a"
+        type:t="heat_tank"
+      }
+    }
+
+    "76mm_ussr_AP_1941:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_ap_1941.blk"
+        name:t="76mm_br_350b"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "76mm_ussr_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_zis3_76mm_ussr_smoke.blk"
+        name:t="76mm_d350a"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_zis3{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_76mm_zis3"
+  turret__triggerGroup:i=0
+}

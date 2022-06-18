@@ -1,0 +1,53 @@
+base_75mm_m2_howitzer{
+  item__name:t="guns/75mm_m2_howitzer"
+  gun__blk:t="gamedata/gen/weapons/75mm_m2_howitzer.blk"
+  gun__shotFreq:r=0.3
+  gun__locName:t="75mm_m2_howitzer"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_defaultset.blk"
+        name:t="75mm_m66"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_usa_M66_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_75mm_usa_m66_heat.blk"
+        name:t="75mm_m66"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_us_M89_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_75mm_us_m89_smoke.blk"
+        name:t="75mm_m64"
+        type:t="smoke_tank"
+      }
+    }
+
+    "75mm_usa_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_75mm_usa_he.blk"
+        name:t="75mm_m48"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+tankgun_75mm_m2_howitzer{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_75mm_m2_howitzer"
+  _extends:t="gunsound_75mm_m2_howitzer"
+  turret__triggerGroup:i=0
+}

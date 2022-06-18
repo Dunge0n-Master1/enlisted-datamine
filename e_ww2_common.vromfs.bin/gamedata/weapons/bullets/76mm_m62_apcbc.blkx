@@ -1,0 +1,176 @@
+mass:r=6.79
+explosiveType:t="exp_d"
+explosiveMass:r=0.065
+caliber:r=0.075
+Cx:r=0.5
+speed:r=618.0
+maxDistance:r=10000.0
+bulletType:t="apds_fs_tungsten_small_core_tank"
+bulletName:t="125mm_3bm15"
+onHitChanceMultExplFuel:r=0.1
+relativeVelHitShift:p2=300.0, 1000.0
+relativeVelHitShift:p2=300.0, 1000.0
+relativeVelArmorShift:p2=200.0, 1000.0
+groundCollisionEffect:t="big_ground_splash"
+groundFxScale:p2=0.8, 1.0
+ricochetEffect:t="cannon_ricochet"
+waterCollisionEffect:t="120-203_water_splash"
+waterFxScale:p2=0.8, 1.0
+explosionPatchRadius:r=1.5
+stabilityThreshold:r=0.0
+stabilityCaliberToArmorThreshold:r=10.0
+stabilityReductionAfterRicochet:r=0.15
+stabilityReductionAfterPenetration:r=0.05
+normalizationPreset:t="apcr"
+ricochetPreset:t="apds_fs"
+slopeEffectPreset:t="apds_fs_tungsten_small_core_tank"
+modelName:t="tank_bullet_apdsfs"
+fresnel:p3=0.23, 0.1, 2.0
+secondaryShattersPreset:t="apds_fs"
+hitPowerMult:r=40.0
+
+hitpower{
+  HitPower0m:p2=0.85, 500.0
+  HitPower10000m:p2=0.8, 10000.0
+}
+
+armorpower{
+  ArmorPower0m:p2=90.0, 10.0
+  ArmorPower100m:p2=88.0, 100.0
+  ArmorPower250m:p2=85.0, 250.0
+  ArmorPower500m:p2=81.0, 500.0
+  ArmorPower750m:p2=77.0, 750.0
+  ArmorPower1000m:p2=73.0, 1000.0
+  ArmorPower1250m:p2=69.0, 1250.0
+  ArmorPower1500m:p2=65.0, 1500.0
+  ArmorPower1750m:p2=62.0, 1750.0
+  ArmorPower2000m:p2=59.0, 2000.0
+  ArmorPower2500m:p2=53.0, 2500.0
+  ArmorPower3000m:p2=47.0, 3000.0
+  ArmorPower10000m:p2=0.0, 10000.0
+}
+
+hitFx{
+  fxScale:p2=0.2, 0.4
+  defaultFx:t="100mm_ap_hit_ground"
+  jetFx:t="100mm_ap_hit_ground"
+  preset:t="100mm_shell"
+}
+
+tracer{
+  luminosity:r=10.0
+  burnTime:r=10.0
+  smokeTime:r=0.01
+}
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.25
+  mod2:p2=20.0, 0.3
+  mod3:p2=30.0, 0.45
+  mod3:p2=45.0, 0.5
+  mod4:p2=50.0, 0.7
+}
+
+damage{
+
+  kinetic{
+    onHitChanceMultExplFuel:r=0.1
+    correctionPenetrationByRelativeVelocity:p2=200.0, 1000.0
+    correctionDamageByRelativeVelocity:p2=300.0, 1000.0
+    damageType:t="generic"
+
+    energyToDamage{
+      p0:p2=3000.0, 5.0
+      p1:p2=15000.0, 10.0
+      p2:p2=30000.0, 15.0
+      p3:p2=60000.0, 25.0
+      p4:p2=80000.0, 40.0
+      p5:p2=110000.0, 60.0
+      p6:p2=300000.0, 70.0
+      p7:p2=400000.0, 75.0
+      p8:p2=500000.0, 80.0
+      p9:p2=650000.0, 110.0
+      p10:p2=1100000.0, 150.0
+      p11:p2=1300000.0, 200.0
+      p12:p2=1800000.0, 230.0
+      p13:p2=2200000.0, 240.0
+      p14:p2=3000000.0, 300.0
+      p15:p2=4000000.0, 320.0
+      p16:p2=5000000.0, 350.0
+      p17:p2=8000000.0, 370.0
+      p18:p2=12000000.0, 900.0
+    }
+
+    penetrationTable{
+      p:p2=10.0, 440.0
+      p:p2=100.0, 430.0
+      p:p2=500.0, 420.0
+      p:p2=1000.0, 410.0
+      p:p2=2000.0, 400.0
+      p:p2=3000.0, 375.0
+      p:p2=4000.0, 340.0
+      p:p2=10000.0, 50.0
+      p:p2=20000.0, 0.0
+    }
+
+    damageTable{
+      p:p2=1000.0, 1.0
+      p:p2=10000.0, 0.8
+      p:p2=10010.0, 0.0
+    }
+  }
+
+  secondaryShatter{
+    residualArmorPenetrationToShatterCountMult:p4=30.0, 150.0, 0.9, 1.0
+    residualArmorPenetrationToShatterPenetrationMult:p4=20.0, 150.0, 0.85, 1.0
+    residualArmorPenetrationToShatterDamageMult:p4=20.0, 150.0, 0.85, 1.0
+    caliberToArmorToShatterCountMult:p4=0.5, 1.0, 0.9, 1.0
+    damageType:t="secondaryShatter"
+
+    section0{
+      angles:p2=0.0, 2.5
+
+      shatter{
+        distance:r=5.0
+        size:r=0.03
+        count:i=15
+        penetration:p2=17.0, 10.0
+        damage:p2=30.0, 25.0
+        onHitChanceMultFire:r=3.2
+      }
+    }
+
+    section1{
+      angles:p2=0.0, 10.0
+
+      shatter{
+        distance:r=3.5
+        size:r=0.015
+        count:i=40
+        penetration:p2=10.0, 8.0
+        damage:p2=20.0, 15.0
+        onHitChanceMultFire:r=1.0
+      }
+    }
+
+    section2{
+      angles:p2=0.0, 50.0
+
+      shatter{
+        size:r=0.01
+        distance:r=1.5
+        count:i=50
+        penetration:p2=4.0, 3.0
+        damage:p2=14.0, 12.0
+        onHitChanceMultFire:r=1.0
+      }
+    }
+  }
+}
+
+splashDamage{
+  radius:p2=1.0, 10.0
+  penetration:p2=2.0, 2.0
+  damage:r=75.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}

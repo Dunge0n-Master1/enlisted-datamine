@@ -1,0 +1,215 @@
+la_5fn{
+  _extends:t="la_5fn_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/la_5fn"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.57, 0.92, 0.0
+      cockpitTemplate:t="la_5fn_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_la_5fn_fab_50_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_la_5fn_fab_50_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_la_5fn_20mm_shvaks_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_la_5fn_20mm_shvaks_02"
+    }
+  }
+}
+
+base_la_5fn_fab_50_launcher{
+  item__name:t="guns/su_fab50"
+  gun__blk:t="gamedata/weapons/la_5fn/fab_50_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="su_fab50"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/fab_50.blk"
+        name:t="fab_50"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+base_la_5fn_20mm_shvaks{
+  item__name:t="guns/cannonshvaks"
+  gun__blk:t="gamedata/weapons/la_5fn/20mm_shvaks.blk"
+  gun__shotFreq:r=13.3333
+  gun__locName:t="cannonshvaks"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=170
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=170
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20mm_shvak_ozt_bullet.blk"
+        name:t="ozt"
+        type:t="frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20mm_shvak_bz_bullet.blk"
+        name:t="bz"
+        type:t="ap_i"
+      }
+    }
+  }
+}
+
+planegun_la_5fn_fab_50_launcher_01{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_la_5fn_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb1"
+  slot_attach__slotName:t="bomb1"
+  gun__maxAmmo:i=1
+}
+
+planegun_la_5fn_fab_50_launcher_02{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_la_5fn_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb2"
+  slot_attach__slotName:t="bomb2"
+  gun__maxAmmo:i=1
+}
+
+planegun_la_5fn_20mm_shvaks_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_la_5fn_20mm_shvaks"
+  _extends:t="gunsound_20mm_shvaks_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=170
+}
+
+planegun_la_5fn_20mm_shvaks_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_la_5fn_20mm_shvaks"
+  _extends:t="gunsound_20mm_shvaks_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=170
+}
+
+la_5fn_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="la_5fn_cockpit_char"
+  plane_anim__blk:t="gamedata/units/la_5fn.blk"
+  plane_sight__blk:t="gamedata/units/la_5fn.blk"
+}

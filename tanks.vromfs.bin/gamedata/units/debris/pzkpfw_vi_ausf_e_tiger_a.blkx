@@ -1,0 +1,23 @@
+mass:r=57000.0
+momentOfInertia:p3=5.0, 6.0, 8.0
+centerOfMass:p3=0.05, 0.5, 0.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+addToWorld:b=yes
+skipUpdateOnSleep:b=yes
+
+solver{
+  linearSlop:r=0.2
+  erp:r=0.5
+}
+
+collisionResource{
+
+  props{
+    cls_body_01:t="convex_hull"
+    cls_turret_01:t="convex_hull"
+    cls_track_l:t="convex_hull"
+    cls_track_r:t="convex_hull"
+    cls_gun:t="convex_hull"
+  }
+}

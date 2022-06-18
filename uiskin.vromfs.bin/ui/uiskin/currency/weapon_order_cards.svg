@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="46" viewBox="0 0 70 46">
+  <defs>
+    <linearGradient id="linear-gradient" x1="51.41" y1="47.01" x2="51.41" y2="9.37" gradientTransform="translate(79.12 -27.75) rotate(90)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a66e37"/>
+      <stop offset="0.27" stop-color="#c08c3a"/>
+      <stop offset="0.58" stop-color="#fcd381"/>
+      <stop offset="1" stop-color="#fcffc2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="37.69" y1="28.93" x2="64.49" y2="28.93" gradientTransform="matrix(0.98, 0.21, -0.21, 0.98, 6.5, -14.61)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e19100"/>
+      <stop offset="1" stop-color="#fcd077"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="37.69" y1="28.93" x2="64.49" y2="28.93" xlink:href="#linear-gradient-2"/>
+    <linearGradient id="linear-gradient-4" x1="51.41" y1="45.84" x2="51.41" y2="8.46" gradientTransform="matrix(0.98, 0.21, -0.21, 0.98, 6.5, -14.61)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9f6700"/>
+      <stop offset="1" stop-color="#fcd88e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-5" x1="35" y1="38.47" x2="35" y2="2.06" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#626262"/>
+      <stop offset="1" stop-color="#dadada"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-6" x1="25" y1="19.86" x2="45.08" y2="19.86" xlink:href="#linear-gradient-5"/>
+    <linearGradient id="linear-gradient-7" x1="21.54" y1="19.86" x2="48.54" y2="19.86" xlink:href="#linear-gradient-5"/>
+    <linearGradient id="linear-gradient-8" x1="35" y1="-248.13" x2="35" y2="-215.18" gradientTransform="matrix(1, 0, 0, -1, 0, -212)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5e5e5e"/>
+      <stop offset="1" stop-color="#aaabab"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-9" x1="19.55" y1="-213.99" x2="19.55" y2="-248.24" gradientTransform="matrix(1, 0, 0, -1, -0.47, -207.46)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f4be8d"/>
+      <stop offset="1" stop-color="#956b4e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-10" x1="29.63" y1="19.32" x2="9.55" y2="19.32" gradientTransform="matrix(0.98, -0.21, 0.21, 0.98, -4.02, 9.02)" xlink:href="#linear-gradient-9"/>
+    <linearGradient id="linear-gradient-11" x1="33.09" y1="19.32" x2="6.09" y2="19.32" gradientTransform="matrix(0.98, -0.21, 0.21, 0.98, -4.02, 9.02)" xlink:href="#linear-gradient-9"/>
+    <linearGradient id="linear-gradient-12" x1="19.55" y1="37.17" x2="19.55" y2="1.06" gradientTransform="matrix(0.98, -0.21, 0.21, 0.98, -4.02, 9.02)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8a5a3a"/>
+      <stop offset="1" stop-color="#da9e70"/>
+    </linearGradient>
+  </defs>
+  <g style="isolation: isolate">
+    <g id="Layer_1" data-name="Layer 1">
+      <g>
+        <g>
+          <g>
+            <rect x="32.11" y="8.73" width="37.64" height="29.85" transform="translate(17.2 68.55) rotate(-78)" fill="url(#linear-gradient)"/>
+            <g>
+              <path d="M53,14.46l7.7,12L48.72,34.32,41,22.3Z" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+              <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" d="M53.67,11,64,27.2,48,37.74,37.63,21.58Zm-.29,1.37,9.31,14.51-14.4,9.47L39,21.87Z" fill-rule="evenodd" fill="url(#linear-gradient-3)"/>
+            </g>
+            <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" d="M33.31,38.36,40.82,3.05,68.54,8.94,61,44.26ZM62.9,8.92,46,5.33,40.76,8.76,35.58,33.13,39,38.39,55.87,42l5.22-3.43,5.18-24.37Z" fill-rule="evenodd" fill="url(#linear-gradient-4)"/>
+          </g>
+          <path d="M57.75,30.87l.85.48,2,4a.73.73,0,0,1-.31,1h0l-2.09,1a.69.69,0,0,1-.93-.33l0-.12L55.4,30l-.53.38c-.62,0-1-1.17-1-1.17l-.93-2.06.06-.94L51,23.19l-3,2-.32.87L46,27.59s-.86.87-1.43.64l-.33-.56-4.45,5.48a.69.69,0,0,1-1,.11l-.09-.09L37.23,31.4a.71.71,0,0,1,.08-1l0,0,3.46-2.8,1-.1a1.07,1.07,0,0,0,.69-.35l.88-1-.26-.43L50,21.63l.43.17.18-.1-8-11.23.83-.61.38.54.55-.41.76,1.08-.54.4,6.9,9.7,10.26-6.05-.33-.59,1.13-.67.34.59.57-.34.5.9L52.05,22l.12.17.46,0,4.65,6.52-.41.29.4,1.26A1,1,0,0,0,57.75,30.87Z" fill="#8c4f00" fill-rule="evenodd"/>
+        </g>
+        <polygon points="49.92 4.19 51.78 39.51 39.08 40.37 35.04 39.51 49.92 4.19" fill-rule="evenodd" opacity="0.5" style="mix-blend-mode: multiply"/>
+        <g>
+          <g>
+            <rect x="20.07" y="0.83" width="29.85" height="37.64" fill="url(#linear-gradient-5)"/>
+            <g>
+              <path d="M35,9.71l10,10.15L35,30,25,19.86Z" fill-rule="evenodd" fill="url(#linear-gradient-6)"/>
+              <path id="Rectangle_4_copy-2" data-name="Rectangle 4 copy" d="M35,6.21l13.5,13.65L35,33.52,21.54,19.86Zm0,1.4L47.16,19.86,35,32.11,22.93,19.86Z" fill-rule="evenodd" fill="url(#linear-gradient-7)"/>
+            </g>
+            <path id="Rectangle_2_copy-2" data-name="Rectangle 2 copy" d="M20.83,37.71V1.6H49.17V37.71Zm22.82-35H26.35L22,7.2V32.11l4.39,4.44h17.3L48,32.11V7.2Z" fill-rule="evenodd" fill="url(#linear-gradient-8)"/>
+          </g>
+          <path d="M43.18,25.29l.92.3,2.81,3.46a.73.73,0,0,1-.1,1l0,0L45,31.5a.69.69,0,0,1-1-.13l-.07-.11L40.71,25l-.45.48c-.6.11-1.26-.93-1.26-.93L37.65,22.7l-.13-.92L35,19.18l-2.52,2.6-.13.92L31,24.52s-.66,1-1.26.93L29.29,25l-3.2,6.29a.69.69,0,0,1-.94.31L25,31.5l-1.83-1.42a.73.73,0,0,1-.13-1v0l2.81-3.46.92-.3a1.06,1.06,0,0,0,.6-.48l.66-1.15-.34-.37,5.9-5.41.45.08.15-.15L24.09,8.49l.68-.77.49.45.44-.51,1,.9-.45.5L35,17.12l8.77-8.06-.45-.5,1-.9.45.51.48-.45.68.78L35.76,17.81l.15.15.45-.08,5.91,5.41-.34.37.65,1.15A1.06,1.06,0,0,0,43.18,25.29Z" fill="#575760" fill-rule="evenodd"/>
+        </g>
+        <polygon points="29.76 2.14 41.06 39.63 38.2 40.18 35.04 39.51 29.76 2.14" fill-rule="evenodd" opacity="0.5" style="mix-blend-mode: multiply"/>
+        <g>
+          <g>
+            <rect x="4.15" y="4.83" width="29.85" height="37.64" transform="translate(-4.5 4.48) rotate(-12)" fill="url(#linear-gradient-9)"/>
+            <g>
+              <path d="M17.05,13.91,29,21.76l-7.71,12L9.34,25.93Z" fill-rule="evenodd" fill="url(#linear-gradient-10)"/>
+              <path id="Rectangle_4_copy-3" data-name="Rectangle 4 copy" d="M16.32,10.49,32.36,21,22,37.2,6,26.65Zm.29,1.37L31,21.33l-9.3,14.5L7.31,26.37Z" fill-rule="evenodd" fill="url(#linear-gradient-11)"/>
+            </g>
+            <path id="Rectangle_2_copy-3" data-name="Rectangle 2 copy" d="M9,44.26,1.46,8.94,29.18,3.05l7.51,35.31ZM24,5.33,7.1,8.92,3.73,14.18,8.91,38.55,14.13,42,31,38.39l3.38-5.26L29.24,8.76Z" fill-rule="evenodd" fill="url(#linear-gradient-12)"/>
+          </g>
+          <path d="M28.25,27.47l1,.1,3.46,2.8a.73.73,0,0,1,.12,1l0,0-1.49,1.77a.69.69,0,0,1-1,.07.24.24,0,0,1-.08-.09l-4.45-5.48-.33.56c-.57.24-1.43-.64-1.43-.64l-1.7-1.51L22,25.21l-3-2-1.93,3.06.06.94-.93,2.06s-.43,1.15-1,1.17L14.6,30l-1.83,6.82a.69.69,0,0,1-.86.49l-.11,0-2.09-1a.74.74,0,0,1-.34-1v0l2-4,.85-.48a1,1,0,0,0,.48-.6l.4-1.26-.41-.29,4.65-6.52.46,0L18,22,6.08,15l.5-.9.58.34.33-.59,1.13.67-.33.59,10.26,6.05,6.9-9.7-.54-.4L25.68,10l.54.41.38-.54.83.61-8,11.23.19.1.42-.17,6.9,4.07-.26.43.88,1A1.07,1.07,0,0,0,28.25,27.47Z" fill="#653d20" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

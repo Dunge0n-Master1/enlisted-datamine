@@ -1,0 +1,428 @@
+base_m4a3e2_76w_sherman_jumbo{
+  _extends:t="base_tank"
+  _extends:t="m4a3e2_76w_sherman_jumbo_ammo_stowages"
+  killLogName:t="us_m4a3e2_76w_sherman_jumbo"
+  animchar__res:t="m4a3e2_76w_sherman_jumbo_char"
+  collres__res:t="m4a3e2_76w_sherman_jumbo_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/m4a3e2_76w_sherman_jumbo.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="m4a3e2_76w_sherman_jumbo_dmg_char"
+  xray_resource__modelName:t="m4a3e2_76w_sherman_jumbo"
+  cockpit__zoomOutFov:r=6.6912
+  cockpit__zoomInFov:r=7.7525
+  cockpit__sightName:t="sight_model/telescope_m71d"
+  cockpit__sightFov:r=10.0
+  drowningHeight:r=2.376
+  damage_model__blk:t="gamedata/gen/units/tanks/m4a3e2_76w_sherman_jumbo.blk"
+  item__name:t="items/us_m4a3e2_76w_sherman_jumbo"
+  skin__template:t="m4a3e2_76w_sherman_jumbo_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+    node:t="emtr_mg_aa_flame_01"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_80mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_15mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_gun_twin"
+    node:t="bone_mg_aa_v_01"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+      aimActiveParamName:t="aim_03_active"
+      paramYawSpeed:t="turret_03_yaw_speed"
+      paramYawSpeedMul:t="turret_03_yaw_mul"
+      paramYawAccel:t="turret_03_yaw_accel"
+      paramMinYawAngle:t="turret_03_min_yaw_angle"
+      paramMaxYawAngle:t="turret_03_max_yaw_angle"
+      paramMinPitchAngle:t="turret_03_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_03_max_pitch_angle"
+      paramPitchSpeed:t="gun_03_pitch_speed"
+      paramPitchSpeedMul:t="gun_03_pitch_mul"
+      paramPitchAccel:t="gun_03_pitch_accel"
+      wishYawParamName:t="gun_03_aim:targetYaw"
+      wishPitchParamName:t="gun_03_aim:targetPitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="m4a3e2_76w_sherman_jumbo_turret_01_76mm_m1_no_mb+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="m4a3e2_76w_sherman_jumbo_turret_02_7_62mm_m1919a4"
+      barrelDm:t="gun_barrel_01"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      gun:t="m4a3e2_76w_sherman_jumbo_turret_03_12_7mm_m2_hb"
+      barrelDm:t="gun_barrel_02"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_turret_01_76mm_m1_no_mb{
+  _extends:t="tankgun_76mm_m1_no_mb"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=24.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-180.0, 180.0, -10.0, 25.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-180.0, -160.0, -7.0, 25.0
+    lim2:p4=-160.0, 160.0, -10.0, 25.0
+    lim3:p4=160.0, 180.0, -7.0, 25.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=15
+    ammo:i=14
+    ammo:i=14
+    ammo:i=14
+    ammo:i=14
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_turret_02_7_62mm_m1919a4{
+  _extends:t="tankgun_7_62mm_m1919a4"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=3000
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_turret_03_12_7mm_m2_hb{
+  _extends:t="tankgun_12_7mm_m2_hb"
+  gun__shootNodeName:t="bone_mg_aa_v_01"
+  turret__yawSpeed:r=90.0
+  turret__pitchSpeed:r=90.0
+  turret__aimNodeName:t="bone_mg_aa_h_01"
+  turret__limit:p4=-60.0, 60.0, -10.0, 30.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=120
+    ammo:i=120
+    ammo:i=120
+    ammo:i=120
+    ammo:i=120
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="m4a3e2_76w_sherman_jumbo_ammo_stowage_1"
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="m4a3e2_76w_sherman_jumbo_ammo_cluster_1_1"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret_01"
+    part:t="ammo_turret_02"
+    part:t="ammo_turret_03"
+    part:t="ammo_turret_04"
+    part:t="ammo_turret_05"
+    part:t="ammo_turret_06"
+    part:t="ammo_turret_07"
+    part:t="ammo_turret_08"
+    part:t="ammo_turret_09"
+    part:t="ammo_turret_10"
+    part:t="ammo_turret_11"
+    part:t="ammo_turret_12"
+    part:t="ammo_turret_13"
+    part:t="ammo_turret_14"
+    part:t="ammo_turret_15"
+    part:t="ammo_turret_16"
+    part:t="ammo_turret_17"
+    part:t="ammo_turret_18"
+    part:t="ammo_turret_19"
+    part:t="ammo_turret_20"
+    part:t="ammo_turret_21"
+    part:t="ammo_turret_22"
+    part:t="ammo_turret_23"
+    part:t="ammo_turret_24"
+    part:t="ammo_turret_25"
+    part:t="ammo_turret_26"
+    part:t="ammo_turret_27"
+    part:t="ammo_turret_28"
+    part:t="ammo_turret_29"
+    part:t="ammo_turret_30"
+    part:t="ammo_turret_31"
+    part:t="ammo_turret_32"
+    part:t="ammo_turret_33"
+    part:t="ammo_turret_34"
+    part:t="ammo_turret_35"
+    part:t="ammo_turret_36"
+    part:t="ammo_turret_37"
+    part:t="ammo_turret_38"
+    part:t="ammo_turret_39"
+    part:t="ammo_turret_40"
+    part:t="ammo_turret_41"
+    part:t="ammo_body_01"
+    part:t="ammo_body_02"
+    part:t="ammo_body_03"
+    part:t="ammo_body_04"
+    part:t="ammo_body_05"
+    part:t="ammo_body_06"
+    part:t="ammo_body_07"
+    part:t="ammo_body_08"
+    part:t="ammo_body_09"
+    part:t="ammo_body_10"
+    part:t="ammo_body_11"
+    part:t="ammo_body_12"
+    part:t="ammo_body_13"
+    part:t="ammo_body_14"
+    part:t="ammo_body_15"
+    part:t="ammo_body_16"
+    part:t="ammo_body_17"
+    part:t="ammo_body_18"
+    part:t="ammo_body_19"
+    part:t="ammo_body_20"
+    part:t="ammo_body_21"
+    part:t="ammo_body_22"
+    part:t="ammo_body_23"
+    part:t="ammo_body_24"
+    part:t="ammo_body_25"
+    part:t="ammo_body_26"
+    part:t="ammo_body_27"
+    part:t="ammo_body_28"
+    part:t="ammo_body_29"
+    part:t="ammo_body_30"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+  }
+}
+
+m4a3e2_76w_sherman_jumbo_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_dark_green_dark_earth"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_dark_green_dark_earth*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_desert_pink_dark_khaki"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_dark_khaki*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_desert_pink_lines"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_desert_pink_olive"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_desert_pink_olive_drab"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_olive_drab*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_desert_pink_olive_drab_dark_earth"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_olive_drab_dark_earth*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_olive_drab"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_olive_drab*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_winter_olive"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_winter_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_olive_drab_olive"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_olive_drab_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="m4a3e2_76w_sherman_jumbo_us_camo_winter_grid"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_winter_grid*"
+      }
+    }
+  }
+}

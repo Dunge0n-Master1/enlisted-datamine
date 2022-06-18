@@ -1,0 +1,60 @@
+mass:r=0.9
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.05
+speed:r=42.0
+physMat:t="bulletRay"
+useFutureContacts:b=yes
+logCCD:b=no
+logCCD:b=no
+bullets:i=1
+entityTemplate:t="neiman_mine_phys"
+entityPhysTemplate:t="neiman_mine_phys"
+explosiveType:t="tnt"
+explosiveMass:r=0.09
+
+visual{
+  template:t="neiman_mine_item+item_in_world"
+}
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.02, 0.0, 0.03
+}
+
+detonation{
+  onHit:b=yes
+}
+
+splashDamage{
+  radius:p2=1.0, 14.0
+  penetration:p2=15.0, 2.0
+  damage:r=21.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=0.8, 0.9
+  effectTemplName:t="explosion_effect_small+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade"
+}
+
+damage{
+
+  explosive{
+    strengthEquivalent:r=1.0
+    brisanceEquivalent:r=1.0
+  }
+}
+
+solver{
+  energyConservation:r=0.85
+}

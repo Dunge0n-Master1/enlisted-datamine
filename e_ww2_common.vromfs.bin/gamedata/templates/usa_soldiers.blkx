@@ -1,0 +1,238 @@
+import:t="usa_weapon_presets.blk"
+import:t="base_soldier.blk"
+
+american_human_voice{
+
+  _group{
+    _tags:t="sound"
+    human_sound__playerVoice:t="vo/player/enlisted/soldier/en"
+
+    "human_sound__npcVoices:list<t>"{
+      voice:t="vo/enemy/enlisted/soldier01/en"
+      voice:t="vo/enemy/enlisted/soldier02/en"
+      voice:t="vo/enemy/enlisted/soldier03/en"
+    }
+  }
+}
+
+usa_summer_1{
+  animchar__res:t="us_summer_1_char"
+  collres__res:t="us_summer_1_collision"
+  animchar_fast_phys__res:t="us_summer_1_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_summer_2{
+  animchar__res:t="us_summer_2_char"
+  collres__res:t="us_summer_2_collision"
+  animchar_fast_phys__res:t="us_summer_2_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_summer_3{
+  animchar__res:t="us_summer_3_char"
+  collres__res:t="us_summer_3_collision"
+  animchar_fast_phys__res:t="us_summer_3_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_summer_4{
+  animchar__res:t="us_summer_4_char"
+  collres__res:t="us_summer_4_collision"
+  animchar_fast_phys__res:t="us_summer_4_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_summer_5{
+  animchar__res:t="us_summer_5_char"
+  collres__res:t="us_summer_5_collision"
+  animchar_fast_phys__res:t="us_summer_5_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_winter_1{
+  animchar__res:t="us_winter_1_char"
+  collres__res:t="us_winter_1_collision"
+  animchar_fast_phys__res:t="us_winter_1_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_winter_2{
+  animchar__res:t="us_winter_2_char"
+  collres__res:t="us_winter_2_collision"
+  animchar_fast_phys__res:t="us_winter_2_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_winter_3{
+  animchar__res:t="us_winter_3_char"
+  collres__res:t="us_winter_3_collision"
+  animchar_fast_phys__res:t="us_winter_3_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_winter_4{
+  animchar__res:t="us_winter_4_char"
+  collres__res:t="us_winter_4_collision"
+  animchar_fast_phys__res:t="us_winter_4_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_winter_5{
+  animchar__res:t="us_winter_5_char"
+  collres__res:t="us_winter_5_collision"
+  animchar_fast_phys__res:t="us_winter_5_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_br{
+  animchar__res:t="us_br_char"
+  collres__res:t="us_br_collision"
+  animchar_fast_phys__res:t="us_br_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+usa_soldier_speechless{
+  engineer__isMenuOpen:b=no
+  _tracked:t="engineer__isMenuOpen"
+  _extends:t="shooter_human"
+  _extends:t="human_breath"
+  _extends:t="human_sound"
+  _extends:t="human_sound_paths"
+  _extends:t="human_net_sound"
+  _extends:t="squad_member_ai"
+  _extends:t="enlisted_human_marker"
+  _extends:t="base_human_actions"
+  beh_tree__blackboard__enemyRadius:r=90.0
+  human_net_phys__blk:t="content/e_ww2_common/gamedata/units/walkers/usa_soldier.blk"
+}
+
+usa_soldier{
+  _extends:t="usa_soldier_speechless"
+  _extends:t="human_speech"
+  _extends:t="human_hooray_speech"
+  _extends:t="human_hide_slots_in_scope"
+}
+
+usa_br_soldier{
+  _extends:t="usa_soldier"
+  _extends:t="usa_br"
+}
+
+usa_summer_soldier_1{
+  _extends:t="usa_soldier"
+  _extends:t="usa_summer_1"
+}
+
+usa_summer_soldier_2{
+  _extends:t="usa_soldier"
+  _extends:t="usa_summer_2"
+}
+
+usa_summer_soldier_3{
+  _extends:t="usa_soldier"
+  _extends:t="usa_summer_3"
+}
+
+usa_summer_soldier_4{
+  _extends:t="usa_soldier"
+  _extends:t="usa_summer_4"
+}
+
+usa_summer_soldier_5{
+  _extends:t="usa_soldier"
+  _extends:t="usa_summer_5"
+}
+
+usa_winter_soldier_1{
+  _extends:t="usa_soldier"
+  _extends:t="usa_winter_1"
+}
+
+usa_winter_soldier_2{
+  _extends:t="usa_soldier"
+  _extends:t="usa_winter_2"
+}
+
+usa_winter_soldier_3{
+  _extends:t="usa_soldier"
+  _extends:t="usa_winter_3"
+}
+
+usa_winter_soldier_4{
+  _extends:t="usa_soldier"
+  _extends:t="usa_winter_4"
+}
+
+usa_winter_soldier_5{
+  _extends:t="usa_soldier"
+  _extends:t="usa_winter_5"
+}
+
+usa_npc_summer_soldier_1{
+  _extends:t="usa_summer_soldier_1"
+  beh_tree__enabled:b=yes
+}
+
+usa_npc_summer_soldier_2{
+  _extends:t="usa_summer_soldier_2"
+  beh_tree__enabled:b=yes
+}
+
+usa_npc_summer_soldier_3{
+  _extends:t="usa_summer_soldier_3"
+  beh_tree__enabled:b=yes
+}
+
+usa_npc_summer_soldier_4{
+  _extends:t="usa_summer_soldier_4"
+  beh_tree__enabled:b=yes
+}
+
+usa_npc_summer_soldier_5{
+  _extends:t="usa_summer_soldier_5"
+  beh_tree__enabled:b=yes
+}
+
+usa_base_soldier{
+  _extends:t="usa_soldier"
+  _extends:t="enlisted_base_soldier"
+}
+
+ai_aircraft_crew_usa_soldier{
+  _extends:t="usa_base_soldier"
+  _extends:t="ai_aircraft_crew_soldier_base"
+}

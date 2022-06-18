@@ -1,0 +1,108 @@
+entity{
+  _template:t="projectors_manager"
+  projectors_manager__atmosphereDensity:r=1.0
+  projectors_manager__atmosphereMoveDir:p3=1.0, 0.0, 0.0
+  projectors_manager__atmosphereMoveSpeed:r=0.0
+  projectors_manager__noiseScale:r=30.0
+  projectors_manager__noiseStrength:r=1.0
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=2.5
+  projector__sourceWidth:r=1.0
+  projector__xAngleAmplitude:r=17.0
+  projector__period:r=16.0
+  transform:m=[[0.993579, -0.112724, 0.0096616] [0.113137, 0.98995, -0.0848528] [4.16465e-07, 0.085401, 0.996347] [608.5, 5.44677, -1069.0]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=3.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=24.0
+  projector__period:r=14.0
+  transform:m=[[0.986453, 0.163682, -0.0109121] [-0.164045, 0.984268, -0.0656179] [-3.76747e-08, 0.066519, 0.997785] [901.874, 4.35867, -75.5519]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=6.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=27.0
+  projector__period:r=22.0
+  transform:m=[[0.987471, 0.157601, 0.00788022] [-0.157798, 0.986239, 0.049312] [-1.50167e-07, -0.0499377, 0.998752] [696.0, 4.24725, -992.0]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=6.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=17.0
+  projector__period:r=18.0
+  transform:m=[[0.989228, -0.145985, -0.0108311] [0.146386, 0.986516, 0.0731931] [-4.23149e-08, -0.0739902, 0.997259] [1266.4, 3.808, -405.7]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=5.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=27.0
+  projector__period:r=28.0
+  transform:m=[[0.990793, -0.135226, 0.006607] [0.135387, 0.989612, -0.0483524] [1.25399e-07, 0.0488017, 0.998809] [-115.1, 5.47998, -1233.9]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=2.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=27.0
+  projector__period:r=18.0
+  transform:m=[[0.983821, 0.177945, -0.0207603] [-0.179152, 0.977194, -0.114006] [4.28705e-08, 0.115881, 0.993263] [724.3, 2.0141, 1047.0]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=5.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=18.0
+  projector__period:r=14.0
+  transform:m=[[0.990771, -0.134661, 0.0154529] [0.135545, 0.984311, -0.112954] [3.96059e-08, 0.114006, 0.99348] [44.0491, 2.31177, 833.972]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=6.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=27.0
+  projector__period:r=20.0
+  transform:m=[[0.991501, 0.129907, -0.00707854] [-0.1301, 0.990032, -0.0539441] [2.45455e-07, 0.0544066, 0.998519] [539.8, 3.13173, 555.1]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=5.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=18.0
+  projector__period:r=14.0
+  transform:m=[[0.990771, -0.134661, 0.0154529] [0.135545, 0.984311, -0.112954] [3.96059e-08, 0.114006, 0.99348] [-851.28, 6.30873, 2404.12]]
+}
+
+entity{
+  _template:t="projector"
+  projector__color:p3=0.12, 0.12, 0.12
+  projector__angle:r=5.0
+  projector__sourceWidth:r=1.0
+  projector__zAngleAmplitude:r=27.0
+  projector__period:r=28.0
+  transform:m=[[0.990771, -0.134661, 0.0154529] [0.135545, 0.984311, -0.112954] [3.96892e-08, 0.114006, 0.99348] [-2096.4, 2.31177, 686.95]]
+}

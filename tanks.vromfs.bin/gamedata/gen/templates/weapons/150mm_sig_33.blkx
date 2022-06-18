@@ -1,0 +1,35 @@
+base_150mm_sig_33{
+  item__name:t="guns/150mm_sig_33"
+  gun__blk:t="gamedata/gen/weapons/150mm_sig_33.blk"
+  gun__shotFreq:r=0.075
+  gun__locName:t="150mm_sig_33"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/150mm_sig_33_defaultset.blk"
+        name:t="150mm_jgr_38"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "150mm_ger_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/150mm_sig_33_150mm_ger_heat.blk"
+        name:t="150mm_jgr_39"
+        type:t="heat_tank"
+      }
+    }
+  }
+}
+
+tankgun_150mm_sig_33{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_150mm_sig_33"
+  _extends:t="gunsound_150mm_sig_33"
+  turret__triggerGroup:i=0
+}

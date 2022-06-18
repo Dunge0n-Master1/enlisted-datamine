@@ -1,0 +1,543 @@
+tutorial_engineer_begin{
+  tutor_stage__next:t="tutorial_engineer_start"
+
+  "tutor_stage__begin:tag"{
+  }
+}
+
+tutorial_engineer_start{
+  tutor_stage__next:t="tutorial_engineer_intro"
+
+  "tutor_stage__onHeroRespawn:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_intro{
+  tutor_stage__next:t="tutorial_engineer_about_engineers"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_initial"
+  tutor_action__buildingToolAvailable:b=no
+  tutor_stage__time:r=5.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_action__unlockBuilding:list<t>"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_about_engineers{
+  tutor_stage__next:t="tutorial_engineer_switch_to_hammer"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_why_engineering"
+  tutor_stage__time:r=10.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_action__unlockBuilding:list<t>"{
+    bulding:t="sandbags_wall_2_preview"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_switch_to_hammer{
+  tutor_stage__next:t="tutorial_engineer_open_construction_menu"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_switch_to_hammer"
+  tutor_condition__weaponChange:t="building_tool"
+
+  "tutor_stage__hintKeys:array"{
+
+    "key:array"{
+      key:t="Human.Weapon2"
+      key:t="Human.WeaponNextMain"
+    }
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_open_construction_menu{
+  tutor_stage__next:t="tutorial_engineer_select_sandbags"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_open_menu"
+  tutor_action__buildingToolAvailable:b=yes
+
+  "tutor_stage__hintKeys:array"{
+    key:t="HUD.BuildingToolMenu"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+
+  "tutor_condition__engineerOpenMenu:tag"{
+  }
+}
+
+tutorial_engineer_select_sandbags{
+  tutor_stage__next:t="tutorial_engineer_rotate_sandbags"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_select_fortification"
+  tutor_stage__time:r=6.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_rotate_sandbags{
+  tutor_stage__next:t="tutorial_engineer_build_sandbags"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_rotate_fortification"
+  tutor_stage__time:r=7.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Reload"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_sandbags{
+  tutor_stage__next:t="tutorial_engineer_hold_button_sandbags_hint"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_fortification"
+  tutor_stage__activateZoneId:t="build_respawner_zone_1"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_stage__forticationStartBuild:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_hold_button_sandbags_hint{
+  tutor_stage__next:t="tutorial_engineer_destroy_sandbags"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_fortification_hold_button"
+  tutor_stage__buildFortication:t="building_tool/sandbags"
+  tutor_stage__buildForticationAtZone:t="build_respawner_zone_1"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_destroy_sandbags{
+  tutor_stage__next:t="tutorial_engineer_open_construction_menu_respawner"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_destroy_sandbags"
+  tutor_stage__destroyFortication:t="building_tool/sandbags"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.BuildingAction"
+  }
+
+  "tutor_stage__forticationStartBuild:tag"{
+  }
+
+  "tutor_action__unlockBuilding:list<t>"{
+    bulding:t="rallypoint_preview"
+  }
+}
+
+tutorial_engineer_open_construction_menu_respawner{
+  tutor_stage__next:t="tutorial_engineer_select_respawner"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_open_menu_respawner"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="HUD.BuildingToolMenu"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+
+  "tutor_condition__engineerOpenMenu:tag"{
+  }
+}
+
+tutorial_engineer_select_respawner{
+  tutor_stage__next:t="tutorial_engineer_build_respawner"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_select_respawner"
+  tutor_stage__time:r=6.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_respawner{
+  tutor_stage__next:t="tutorial_engineer_hold_button_hint"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_respawner"
+  tutor_stage__activateZoneId:t="build_respawner_zone_1"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_stage__forticationStartBuild:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_hold_button_hint{
+  tutor_stage__next:t="tutorial_engineer_order_squad"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_hold_button"
+  tutor_stage__time:r=4.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_order_squad{
+  tutor_stage__next:t="tutorial_engineer_order_squad_wait"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_use_bots"
+  tutor_stage__time:r=4.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.ContextCommand"
+  }
+}
+
+tutorial_engineer_order_squad_wait{
+  tutor_stage__next:t="tutorial_engineer_build_respawner_2_move"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_use_bots_wait"
+  tutor_stage__buildFortication:t="building_tool/rallypoint"
+  tutor_stage__buildForticationAtZone:t="build_respawner_zone_1"
+}
+
+tutorial_engineer_build_respawner_2_move{
+  tutor_stage__next:t="tutorial_engineer_build_respawner_2_waypoint"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_respawner_2_move"
+  tutor_stage__deactivateZoneId:t="build_respawner_zone_1"
+  tutor_stage__time:r=6.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_respawner_2_waypoint{
+  tutor_stage__next:t="tutorial_engineer_build_respawner_2"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_respawner_2_waypoint"
+  tutor_stage__activateZoneId:t="build_respawner_zone_2"
+  tutor_stage__playerZoneEnter:t="build_respawner_zone_2"
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_respawner_2{
+  tutor_stage__next:t="tutorial_engineer_about_limit_1"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_respawner_2_start"
+  tutor_stage__deactivateZoneId:t="build_respawner_zone_1"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="HUD.BuildingToolMenu"
+  }
+
+  "tutor_condition__engineerOpenMenu:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_about_limit_1{
+  tutor_stage__next:t="tutorial_engineer_about_limit_2"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_about_limit"
+  tutor_stage__time:r=6.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_about_limit_2{
+  tutor_stage__next:t="tutorial_engineer_about_points"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_about_limit_2"
+  tutor_stage__time:r=6.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_about_points{
+  tutor_stage__next:t="tutorial_engineer_build_respawner_2_start"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_about_points"
+  tutor_stage__activateZoneId:t="build_respawner_zone_2"
+  tutor_stage__time:r=10.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_respawner_2_start{
+  tutor_stage__next:t="tutorial_engineer_about_points_return"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_respawner_2"
+
+  "tutor_stage__forticationStartBuild:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_about_points_return{
+  tutor_stage__next:t="tutorial_engineer_target_practice_start"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_about_limit_2"
+  tutor_stage__buildFortication:t="building_tool/rallypoint"
+  tutor_stage__buildForticationAtZone:t="build_respawner_zone_2"
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_engineer_out_of_resources"
+    key:t="tutorial_engineer_resupply_resources"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_target_practice_start{
+  tutor_stage__next:t="tutorial_engineer_shooting_range_waypoint"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_target_practice_start"
+  tutor_stage__deactivateZoneId:t="build_respawner_zone_2"
+  tutor_stage__time:r=7.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_shooting_range_waypoint{
+  tutor_stage__next:t="tutorial_engineer_ammo_box_hint"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_go_to_shooting_range"
+  tutor_stage__playerZoneEnter:t="shooting_range_waypoint"
+  tutor_stage__activateZoneId:t="shooting_range_waypoint"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Move"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_ammo_box_hint{
+  tutor_stage__next:t="tutorial_engineer_switch_to_another_engineer"
+  tutor_stage__displayHint:t="tutorial_engineer_build_ammo_box_hint"
+  tutor_stage__deactivateZoneId:t="shooting_range_waypoint"
+  tutor_stage__time:r=10.0
+  tutor_stage__timer:r=0.0
+  tutor_action__setEngineerResources:r=0.5
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_switch_to_another_engineer{
+  tutor_stage__next:t="tutorial_engineer_build_ammo_box"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_switch_to_next_member"
+
+  "tutor_stage__hintKeys:array"{
+
+    "key:array"{
+      key:t="Human.SquadNext"
+      key:t="HUD.SquadSoldiersMenu"
+    }
+  }
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_lock_squad_member_change"
+    key:t="tutorial_destroy_player_ammo"
+  }
+
+  "tutor_condition__changeSoldier:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_ammo_box{
+  tutor_stage__next:t="tutorial_engineer_switch_to_primary_weapon"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_build_the_box"
+  tutor_stage__buildFortication:t="building_tool/ammunition_box"
+  tutor_stage__activateZoneId:t="ammo_box_zone"
+  tutor_stage__buildForticationAtZone:t="ammo_box_zone"
+
+  "tutor_action__createEntity:list<t>"{
+    key:t="tutorial_engineer_out_of_resources"
+    key:t="tutorial_engineer_resupply_resources"
+  }
+
+  "tutor_action__unlockBuilding:list<t>"{
+    bulding:t="ammunition_box_a_preview"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_switch_to_primary_weapon{
+  tutor_stage__next:t="tutorial_engineer_get_ammo_from_the_box"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_switch_to_primary_weapon"
+  tutor_stage__deactivateZoneId:t="ammo_box_zone"
+  tutor_stage__time:r=5.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+
+    "key:array"{
+      key:t="Human.Weapon1"
+      key:t="Human.WeaponNextMain"
+    }
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_get_ammo_from_the_box{
+  tutor_stage__next:t="tutorial_engineer_destroy_target_normal"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_get_the_ammo"
+  tutor_stage__deactivateZoneId:t="ammo_box_zone"
+  tutor_stage__time:r=5.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Inventory.Pickup"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_destroy_target_normal{
+  tutor_stage__next:t="tutorial_engineer_build_machine_gun"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_destroy_target_normal"
+  tutor_stage__activateZoneId:t="target"
+  tutor_stage__hitTarget:t="target"
+  tutor_stage__hitTargetByWeapon:t=""
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_build_machine_gun{
+  tutor_stage__next:t="tutorial_engineer_destroy_target_mgun"
+  tutor_stage__displayHint:t="tutorial_engineer_build_mg42_hint"
+  tutor_stage__activateZoneId:t="shooting_range_waypoint"
+  tutor_stage__deactivateZoneId:t="target"
+  tutor_stage__buildFortication:t="building_tool/sandbags_with_mg42"
+  tutor_stage__buildForticationAtZone:t="shooting_range_waypoint"
+
+  "tutor_action__unlockBuilding:list<t>"{
+    bulding:t="sandbags_wall_mg_preview"
+    bulding:t="sandbags_wall_maxim_no_shield_preview"
+    bulding:t="sandbags_wall_browning_m1919a4_preview"
+    bulding:t="sandbags_wall_mg_34_preview"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_destroy_target_mgun{
+  tutor_stage__next:t="tutorial_engineer_finish"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_destroy_target_mgun"
+  tutor_stage__deactivateZoneId:t="shooting_range_waypoint"
+  tutor_stage__activateZoneId:t="target"
+  tutor_stage__hitTarget:t="target"
+  tutor_stage__hitTargetByWeapon:t="machine_gun"
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_engineer_resupply_hint_disable"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_finish{
+  tutor_stage__next:t=""
+  tutor_stage__displayHint:t="hint_tutorial_engineer_finish"
+  tutor_stage__deactivateZoneId:t="target"
+
+  "tutor_stage__complete:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_out_of_resources{
+  tutor_condition__lteEngineerResource:r=2.5
+  tutor_stage__next:t="tutorial_engineer_resupply_resources"
+  tutor_stage__deactivateZoneId:t="resource_ressupply"
+  tutor_stage__displayHint:t=""
+  tutor_stage__hintGroup:t="sub_tutorial_hint"
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_engineer_resupply_resources{
+  tutor_condition__gteEngineerResource:r=7.0
+  tutor_stage__next:t="tutorial_engineer_out_of_resources"
+  tutor_stage__activateZoneId:t="resource_ressupply"
+  tutor_stage__displayHint:t="hint_tutorial_engineer_no_construction_points_left"
+  tutor_stage__hintGroup:t="sub_tutorial_hint"
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_lock_squad_member_change{
+  _singleton:b=yes
+
+  "tutorial__lockSquadMemberChange:tag"{
+  }
+}
+
+tutorial_engineer_resupply_hint_disable{
+  _singleton:b=yes
+
+  "tutorial_engineer__resupplyHintDisable:tag"{
+  }
+}
+
+tutorial_destroy_player_ammo{
+  _singleton:b=yes
+
+  "tutor_action__destroyPlayerAmmo:tag"{
+  }
+}

@@ -1,0 +1,20 @@
+<svg id="_243_infantry_division" data-name="243_infantry_division" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #151515;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M146,75A71,71,0,1,1,75,4,71,71,0,0,1,146,75Z"/>
+  <path class="cls-2" d="M75,147.5A72.5,72.5,0,1,1,147.5,75,72.583,72.583,0,0,1,75,147.5Zm0-142A69.5,69.5,0,1,0,144.5,75,69.578,69.578,0,0,0,75,5.5Z"/>
+  <path class="cls-2" d="M101,30V70H94V50H86V70H64V50H56V70H49V30H33v90H49V80h7v20h8V80H86v20h8V80h7v40h16V30H101Z"/>
+</svg>

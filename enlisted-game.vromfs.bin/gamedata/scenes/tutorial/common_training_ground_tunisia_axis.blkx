@@ -1,0 +1,434 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"
+}
+
+entity{
+  _template:t="team_tunisia_allies+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=2
+  team__spawnBotArmy:t="tunisia_allies"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+  team__locked:b=yes
+  team__capacity:i=0
+}
+
+entity{
+  _template:t="team_tunisia_axis+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=1
+  team__haveScores:b=no
+  team__spawnBotArmy:t="tunisia_axis"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+}
+
+entity{
+  _template:t="m24_grenade_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.562459, -0.738162, 0.372494] [0.602874, 0.0578251, -0.795739] [0.565845, 0.67214, 0.477544] [-533.223, 9.38806, 149.196]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m41_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.0519787, -0.0278883, 0.998257] [-0.97343, 0.221814, 0.0568829] [-0.223013, -0.97469, -0.0156189] [-533.829, 8.8867, 149.958]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m38_magazine+item_in_world+disable_update"
+  transform:m=[[0.086452, 0.996202, 0.0103094] [-0.0263381, 0.0126303, -0.999572] [-0.995908, 0.0861436, 0.0273299] [-533.519, 9.37502, 149.867]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.0783348, 0.994887, -0.0637326] [0.767155, 0.100983, 0.633464] [0.636661, 0.00072963, -0.771143] [-533.316, 9.38979, 151.965]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="armaguerra_mod_39_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.0718539, -0.996214, 0.0489142] [0.809838, 0.0868989, 0.580183] [-0.582236, -0.00207708, 0.813016] [-533.581, 9.3814, 151.857]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.0159332, -0.999164, 0.0376167] [0.726681, 0.037413, 0.685956] [-0.68679, 0.0164053, 0.72667] [-533.54, 9.37704, 149.442]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="beretta_m38_42_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.0925419, -0.995704, 0.00220174] [0.958805, 0.0897084, 0.269527] [-0.268567, -0.0228326, 0.962989] [-533.282, 9.3828, 149.752]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.289212, -0.368701, -0.883409] [0.955658, 0.0577403, 0.288767] [-0.0554592, -0.927752, 0.369051] [-534.139, 8.92539, 149.359]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.880198, -0.102917, 0.463311] [0.157851, 0.981858, -0.0960394] [-0.446645, 0.150491, 0.881963] [-533.117, 9.36765, 152.364]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_34_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.834036, -0.5363, 0.129472] [-0.0708647, 0.157675, 0.985987] [-0.549354, -0.828939, 0.10521] [-534.011, 8.92395, 151.732]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="beretta_m1934_gun_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.009972, -0.998437, -0.0549549] [0.0400703, -0.0553119, 0.997665] [-0.999146, 0.00774763, 0.0405586] [-533.607, 9.37379, 149.739]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="beretta_m1934_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.971346, 0.0142179, -0.237231] [-0.00352376, 0.998961, 0.0454442] [0.237632, -0.0433058, 0.970388] [-533.677, 9.36485, 149.706]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m38_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.0014097, -0.999479, -0.032207] [0.0727213, -0.0320202, 0.996839] [-0.99735, -0.0037472, 0.0726381] [-533.516, 9.3702, 149.959]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m38_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.0199617, -0.999605, -0.0197413] [0.230301, -0.0238122, 0.972828] [-0.972913, 0.0148741, 0.230685] [-533.406, 9.37051, 149.83]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m38_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.056782, -0.997432, 0.043633] [0.011446, 0.04305, 0.999007] [-0.99832, 0.0572255, 0.00897173] [-533.605, 9.36763, 150.022]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.989729, -0.135096, 0.0466829] [-0.0495958, -0.018271, 0.998603] [-0.134054, -0.990663, -0.0247831] [-533.208, 9.42023, 152.241]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m38_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.060446, 0.998129, -0.00902098] [0.997249, -0.0607763, -0.042462] [-0.0429312, -0.00642914, -0.999057] [-533.457, 9.36792, 151.815]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.0488008, -0.996342, 0.0701058] [-0.920145, 0.0175433, -0.391184] [0.388524, -0.0835981, -0.917638] [-533.494, 9.38029, 152.013]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mg_42_handheld_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.486707, -0.035039, -0.872859] [-0.100657, 0.990291, -0.095879] [0.867745, 0.134525, 0.478454] [-533.085, 9.36897, 152.204]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.753564, -0.216146, -0.62082] [-0.166808, 0.976362, -0.137457] [0.635857, -2.5232e-05, -0.771806] [-533.241, 9.36353, 149.374]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="carcano_m38_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.00393932, 0.993784, -0.111236] [-0.999965, 0.00475116, 0.00703524] [0.00752051, 0.111205, 0.993768] [-533.391, 9.37131, 151.783]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mp40_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.0623601, -0.996264, 0.0596907] [-0.822306, 0.0173928, -0.56878] [0.565619, -0.0845537, -0.820321] [-533.561, 9.37773, 152.084]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m24_grenade_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.51003, -0.741334, 0.436221] [0.693194, 0.0539926, -0.718726] [0.509263, 0.66896, 0.541427] [-533.379, 9.3844, 149.21]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m24_grenade_item+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.546238, -0.739228, 0.393906] [0.633259, 0.056637, -0.771866] [0.548275, 0.671069, 0.499061] [-533.447, 9.38686, 149.161]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="p08_luger_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.863485, -0.182104, -0.470348] [-0.175866, 0.982727, -0.0576178] [0.472717, 0.0329659, -0.880597] [-533.315, 9.36271, 149.363]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.362748, -0.0721069, 0.929092] [0.0384625, -0.997311, -0.0623842] [0.931092, 0.0131046, 0.364548] [-533.652, 9.4027, 149.186]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="pzb_39_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.0698543, -0.0377542, 0.996842] [0.0151442, -0.999128, -0.0389019] [0.997441, 0.017813, -0.0692208] [-533.592, 9.41301, 149.01]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="beretta_m38_40_round_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.0353821, -0.999066, -0.0247528] [0.94265, -0.0251367, -0.332839] [0.331905, -0.0351089, 0.942659] [-533.436, 9.37737, 149.695]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="beretta_m38_40_round_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[-0.00443355, -0.999987, -0.00192723] [0.883806, -0.00301595, -0.467844] [0.467832, -0.00377715, 0.883809] [-533.486, 9.37266, 149.587]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="beretta_m38_40_round_magazine+item_in_world+ui_visible+disable_update"
+  transform:m=[[0.00823362, -0.999961, -0.00273452] [0.887681, 0.00856891, -0.460379] [0.460384, 0.00136356, 0.887718] [-533.47, 9.37167, 149.639]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-534.719, 9.33534, 147.629]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.132376, 0.0, -0.9912] [0.0, 1.0, 0.0] [0.9912, 0.0, 0.132376] [-534.323, 8.74444, 135.094]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.865467, 0.0, -0.500967] [0.0, 1.0, 0.0] [0.500967, 0.0, 0.865467] [-523.659, 10.1247, 375.179]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-523.193, 10.2259, 402.607]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-529.568, 10.0852, 482.533]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="m24_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="uk_a13_mk_2_1938"
+  transform:m=[[0.0152595, 0.0819493, 0.99652] [-0.00727948, 0.996618, -0.0818459] [-0.999857, -0.00600521, 0.0158045] [-453.214, 10.7332, 438.196]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_daimler_mk_2"
+  transform:m=[[0.0163532, 0.00338808, 0.99986] [-0.0109885, 0.999934, -0.00320861] [-0.999806, -0.0109345, 0.0163894] [-379.135, 11.5668, 443.781]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_mk_1_grant"
+  transform:m=[[-0.0525011, 0.0236834, 0.99834] [-0.00960396, 0.999661, -0.0242197] [-0.998575, -0.0108596, -0.0522558] [-375.367, 11.6308, 361.663]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_crusader_mk_3"
+  transform:m=[[-0.372921, -0.0103154, 0.927806] [-0.0169379, 0.999847, 0.0043084] [-0.927709, -0.0141083, -0.373039] [-301.614, 12.5448, 362.542]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_daimler_mk_2"
+  transform:m=[[0.0155048, -0.0652393, 0.997749] [-0.0173932, 0.9977, 0.0655064] [-0.999728, -0.0183697, 0.0143344] [-417.24, 11.5056, 470.391]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_mk_1_grant"
+  transform:m=[[-0.135871, 0.018459, -0.990555] [-0.0100349, 0.99975, 0.0200068] [0.990676, 0.0126585, -0.135652] [-334.243, 12.057, 485.018]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_a13_mk_2_1938"
+  transform:m=[[-0.401703, 0.060849, -0.913746] [0.0579981, 0.997477, 0.0409277] [0.913932, -0.0365548, -0.404219] [-313.717, 12.183, 473.594]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_crusader_mk_3"
+  transform:m=[[-0.319882, -0.00400207, -0.947449] [-0.0178738, 0.999839, 0.00181128] [0.947289, 0.0175139, -0.319902] [-242.893, 13.4003, 493.782]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_mk_1_grant"
+  transform:m=[[0.0165869, 0.022639, 0.999606] [-0.0223139, 0.999503, -0.0222664] [-0.999613, -0.0219358, 0.0170838] [-214.747, 13.8534, 364.746]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_a13_mk_2_1938"
+  transform:m=[[0.0166007, -0.0206086, 0.99965] [-0.042499, 0.998869, 0.0212983] [-0.998959, -0.0428377, 0.0157061] [-354.086, 12.0962, 389.551]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_daimler_mk_2"
+  transform:m=[[-0.372998, -0.00385719, 0.927824] [-0.0178431, 0.999836, -0.00301661] [-0.927661, -0.0176805, -0.373006] [-253.781, 13.2404, 402.412]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_crusader_mk_3"
+  transform:m=[[-0.63905, 0.0129824, -0.769056] [0.0015926, 0.999878, 0.0155555] [0.769164, 0.00871593, -0.638992] [-152.076, 14.8027, 409.964]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_a13_mk_2_1938"
+  transform:m=[[-0.999086, -0.02166, 0.0368392] [-0.0216104, 0.999765, 0.00174448] [-0.0368683, 0.000946772, -0.99932] [-297.25, 12.6103, 452.437]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_daimler_mk_2"
+  transform:m=[[0.0167358, 0.00306719, 0.999855] [-0.0200994, 0.999794, -0.00273058] [-0.999658, -0.0200508, 0.016794] [-37.1876, 16.6326, 359.883]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_mk_1_grant"
+  transform:m=[[0.0442362, 0.0209422, 0.998802] [-0.0209415, 0.99958, -0.020031] [-0.998802, -0.0200303, 0.0446562] [-46.1049, 16.5182, 449.174]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_crusader_mk_3"
+  transform:m=[[-0.99976, -0.0215929, -0.00370569] [-0.0215905, 0.999767, -0.000682423] [0.00371956, -0.000602251, -0.999993] [129.162, 19.4155, 405.286]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_daimler_mk_2"
+  transform:m=[[-0.00763215, 0.0334454, -0.999411] [0.0585239, 0.997742, 0.0329426] [0.998257, -0.0582381, -0.00957227] [149.887, 19.995, 387.298]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_mk_1_grant"
+  transform:m=[[-0.697489, -0.0102761, 0.716522] [-0.00964877, 0.999941, 0.00494826] [-0.71653, -0.00346219, -0.697547] [203.298, 20.6322, 426.944]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_a13_mk_2_1938"
+  transform:m=[[-0.0209969, -0.0312548, -0.999291] [-0.169437, 0.985164, -0.0272528] [0.985317, 0.168745, -0.0259812] [270.982, 21.6743, 463.495]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_crusader_mk_3"
+  transform:m=[[-0.0250292, 0.00342514, -0.999681] [-0.018276, 0.999825, 0.00388321] [0.99952, 0.0183674, -0.0249622] [110.973, 19.0813, 482.882]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_mk_1_grant"
+  transform:m=[[-0.612562, 0.0700008, -0.787316] [0.0121668, 0.996788, 0.0791588] [0.790329, 0.0389106, -0.611446] [18.9217, 17.3747, 473.31]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_a13_mk_2_1938"
+  transform:m=[[-0.0573938, -0.00683101, 0.998328] [-0.0130741, 0.999896, 0.00609011] [-0.998266, -0.0127027, -0.0574772] [-441.889, 10.9759, 362.895]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_daimler_mk_2"
+  transform:m=[[-0.999871, 0.00352449, 0.0156466] [0.00203319, 0.995539, -0.0943238] [-0.0159092, -0.0942798, -0.995419] [-498.749, 10.4792, 465.381]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_sherman_ii_tunis"
+  transform:m=[[-0.70913, -0.0602084, 0.702502] [-0.0521956, 0.998096, 0.0328545] [-0.703143, -0.0133694, -0.710923] [-353.994, 11.8006, 416.384]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="uk_sherman_ii_tunis"
+  transform:m=[[0.796929, -0.0214397, 0.603693] [0.0125493, 0.999742, 0.0189388] [-0.603943, -0.00751697, 0.796992] [-253.74, 13.0843, 391.273]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}

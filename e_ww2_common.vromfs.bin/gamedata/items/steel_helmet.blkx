@@ -1,0 +1,27 @@
+mass:r=2.0
+momentOfInertia:p3=0.2, 0.2, 0.2
+
+collisionResource{
+
+  props{
+    collisionBox:t="box"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.1, 0.0, 0.09
+}
+
+visual{
+  template:t="steel_helm_item+item_in_world"
+}
+
+armor{
+  thickness:r=3.0
+  slot:t="head"
+  protects:t="Bip01 Head"
+}
+
+equipable{
+  slot:t="head"
+}

@@ -1,0 +1,548 @@
+carcano_m38_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m38_gun"
+  collres__res:t="carcano_m38_collision"
+}
+
+carcano_m38_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="carcano_m38_ammo_char"
+  item__template:t="carcano_m38_magazine"
+  item__proto:t="carcano_m38_magazine"
+  item__locDetails:t="6.5x52 Carcano"
+  ammo_holder__templateName:t="carcano_m38_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/carcano_m38_magazine"
+  collres__res:t="carcano_m38_ammo_collision"
+}
+
+carcano_m38_7_35_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m38_7_35"
+  collres__res:t="carcano_m38_7_35_collision"
+}
+
+carcano_m38_7_35_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="carcano_m38_7_35_ammo_char"
+  item__template:t="carcano_m38_7_35_magazine"
+  item__proto:t="carcano_m38_7_35_magazine"
+  item__locDetails:t="7.35x51 Carcano"
+  ammo_holder__templateName:t="carcano_m38_7_35_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/carcano_m38_7_35_magazine"
+  collres__res:t="carcano_m38_7_35_ammo_collision"
+}
+
+carcano_m38_7_35_with_scope_mount_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m38_7_35_with_scope_mount"
+  collres__res:t="carcano_m38_7_35_collision"
+}
+
+scope_carcano_m38_item{
+  _extends:t="item_scope"
+  animchar__res:t="scope_zf_41_char"
+  collres__res:t="scope_zf_41_collision"
+  item__template:t="scope_carcano_m38_item"
+  item__proto:t="content/e_tunisia/gamedata/items/scope_carcano_m38.blk"
+  item__locDetails:t=""
+  item__weight:r=0.6
+  item__volume:r=0.5
+  item__name:t="items/scope_carcano_m38"
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_carcano_m38"
+  item__iconYaw:r=80.0
+
+  "gunAttachable:tag"{
+  }
+}
+
+scope_carcano_m91_item{
+  _extends:t="item_scope"
+  animchar__res:t="scope_carcano_m91_char"
+  collres__res:t="scope_carcano_m91_collision"
+  item__template:t="scope_carcano_m91_item"
+  item__proto:t="content/e_tunisia/gamedata/items/scope_carcano_m91.blk"
+  item__locDetails:t=""
+  item__weight:r=0.6
+  item__volume:r=0.5
+  item__name:t="items/scope_carcano_m91"
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_carcano_m91"
+  item__iconYaw:r=80.0
+
+  "gunAttachable:tag"{
+  }
+}
+
+carcano_m41_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m41"
+  collres__res:t="carcano_m41_collision"
+}
+
+carcano_m91_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m91"
+  collres__res:t="carcano_m91_collision"
+}
+
+carcano_m91_with_scope_mount_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_m91_with_scope_mount"
+  collres__res:t="carcano_m91_collision"
+}
+
+carcano_moschetto_91_gun_item{
+  _extends:t="item_gun"
+  _extends:t="carcano_moschetto_91"
+  collres__res:t="carcano_moschetto_91_collision"
+}
+
+carcano_m91_bayonet_item{
+  _extends:t="item_scope"
+  animchar__res:t="carcano_m91_bayonet_char"
+  collres__res:t="carcano_m91_bayonet_collision"
+  item__template:t="carcano_m91_bayonet_item"
+  item__proto:t="content/e_tunisia/gamedata/items/carcano_m91_bayonet.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/carcano_m91_bayonet"
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="carcano_m91_bayonet"
+
+  "gunAttachable:tag"{
+  }
+
+  "gunAttachable__isBayonet:tag"{
+  }
+}
+
+carcano_m38_bayonet_item{
+  _extends:t="item_scope"
+  animchar__res:t="carcano_m38_bayonet_char"
+  collres__res:t="carcano_m38_bayonet_collision"
+  item__template:t="carcano_m38_bayonet_item"
+  item__proto:t="content/e_tunisia/gamedata/items/carcano_m38_bayonet.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/carcano_m38_bayonet"
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="carcano_m38_bayonet"
+
+  "gunAttachable:tag"{
+  }
+
+  "gunAttachable__isBayonet:tag"{
+  }
+}
+
+smle_mk3_gun_item{
+  _extends:t="item_gun"
+  _extends:t="smle_mk3"
+  collres__res:t="smle_mk_3_collision"
+}
+
+smle_mk3_bayonet_item{
+  _extends:t="item_scope"
+  animchar__res:t="smle_mk3_bayonet_char"
+  collres__res:t="smle_mk3_bayonet_collision"
+  item__template:t="smle_mk3_bayonet_item"
+  item__proto:t="content/e_tunisia/gamedata/items/smle_mk3_bayonet.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/smle_mk3_bayonet"
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="smle_mk3_bayonet"
+
+  "gunAttachable:tag"{
+  }
+
+  "gunAttachable__isBayonet:tag"{
+  }
+}
+
+armaguerra_mod_39_gun_item{
+  _extends:t="item_gun"
+  _extends:t="armaguerra_mod_39"
+  collres__res:t="armaguerra_mod_39_collision"
+}
+
+beretta_m31_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m31"
+  collres__res:t="beretta_m31_collision"
+}
+
+pavesi_m42_gun_item{
+  _extends:t="item_gun"
+  _extends:t="pavesi_m42"
+  collres__res:t="pavesi_prototype_1942_collision"
+}
+
+pavesi_m42_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="carcano_m38_7_35_ammo_char"
+  item__template:t="pavesi_m42_magazine"
+  item__proto:t="pavesi_m42_magazine"
+  item__locDetails:t="8x59 Breda"
+  ammo_holder__templateName:t="pavesi_m42_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/pavesi_m42_magazine"
+  collres__res:t="carcano_m38_7_35_ammo_collision"
+}
+
+pavesi_prototype_svt_copy_gun_item{
+  _extends:t="item_gun"
+  _extends:t="pavesi_prototype_svt_copy"
+  collres__res:t="pavesi_prototype_svt_copy_collision"
+}
+
+pavesi_prototype_svt_copy_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="carcano_m38_7_35_ammo_char"
+  item__template:t="pavesi_prototype_svt_copy_magazine"
+  item__proto:t="pavesi_prototype_svt_copy_magazine"
+  item__locDetails:t="8x59 Breda"
+  ammo_holder__templateName:t="pavesi_prototype_svt_copy_magazine"
+  ammo_holder__ammoCount:i=10
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/pavesi_prototype_svt_copy_magazine"
+  collres__res:t="carcano_m38_7_35_ammo_collision"
+}
+
+beretta_m1918_30_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m1918_30"
+  collres__res:t="beretta_m1918_30_collision"
+}
+
+sw_light_rifle_mk_1_gun_item{
+  _extends:t="item_gun"
+  _extends:t="sw_light_rifle_mk_1"
+  collres__res:t="sw_1940_mk_1_collision"
+}
+
+sw_light_rifle_mk_2_gun_item{
+  _extends:t="item_gun"
+  _extends:t="sw_light_rifle_mk_2"
+  collres__res:t="sw_1940_mk_2_collision"
+}
+
+sw_light_rifle_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mp_28_20_round_ammo_char"
+  item__template:t="sw_light_rifle_magazine"
+  item__proto:t="sw_light_rifle_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="sw_light_rifle_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.8
+  item__volume:r=0.5
+  item__name:t="items/sw_light_rifle_magazine"
+  collres__res:t="mp_28_20_round_ammo_collision"
+}
+
+turner_automatic_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="turner_automatic_rifle"
+  collres__res:t="turner_semiauto_smle_conversion_collision"
+}
+
+beretta_m38_42_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m38_42"
+  collres__res:t="beretta_m38_42_collision"
+}
+
+beretta_m1_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m1"
+  collres__res:t="beretta_m1_collision"
+}
+
+ovp_1918_gun_item{
+  _extends:t="item_gun"
+  _extends:t="ovp_1918"
+  collres__res:t="ovp_1918_collision"
+}
+
+ovp_1918_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mp_28_20_round_ammo_char"
+  item__template:t="ovp_1918_magazine"
+  item__proto:t="ovp_1918_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="ovp_1918_magazine"
+  ammo_holder__ammoCount:i=25
+  item__weight:r=1.0
+  item__volume:r=0.5
+  item__name:t="items/ovp_1918_magazine"
+  collres__res:t="mp_28_20_round_ammo_collision"
+}
+
+tz_45_gun_item{
+  _extends:t="item_gun"
+  _extends:t="tz_45"
+  collres__res:t="tz_45_collision"
+}
+
+thompson_m1921_28_box_gun_item{
+  _extends:t="item_gun"
+  _extends:t="thompson_m1921_28_box"
+  collres__res:t="thompson_m1921_28_box_collision"
+}
+
+sten_mk3_gun_item{
+  _extends:t="item_gun"
+  _extends:t="sten_mk3"
+  collres__res:t="sten_mk3_collision"
+}
+
+owen_mk1_42_gun_item{
+  _extends:t="item_gun"
+  _extends:t="owen_mk1_42"
+  collres__res:t="owen_mk1_42_collision"
+}
+
+beretta_m1923_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m1923"
+  collres__res:t="beretta_m1923_collision"
+}
+
+beretta_m1923_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="walther_pp_ammo_char"
+  item__template:t="beretta_m1923_magazine"
+  item__proto:t="beretta_m1923_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="beretta_m1923_magazine"
+  ammo_holder__ammoCount:i=7
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/beretta_m1923_magazine"
+  collres__res:t="walther_pp_ammo_collision"
+}
+
+beretta_m1934_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m1934"
+  collres__res:t="beretta_m1934_collision"
+}
+
+beretta_m1934_gold_gun_item{
+  _extends:t="item_gun"
+  _extends:t="beretta_m1934_gold"
+  collres__res:t="beretta_m1934_collision"
+}
+
+beretta_m1934_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="walther_pp_ammo_char"
+  item__template:t="beretta_m1934_magazine"
+  item__proto:t="beretta_m1934_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="beretta_m1934_magazine"
+  ammo_holder__ammoCount:i=7
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/beretta_m1934_magazine"
+  collres__res:t="walther_pp_ammo_collision"
+}
+
+webley_mk6_gun_item{
+  _extends:t="item_gun"
+  _extends:t="webley_mk6"
+  collres__res:t="webley_mk6_collision"
+}
+
+webley_mk6_nickel_gun_item{
+  _extends:t="item_gun"
+  _extends:t="webley_mk6_nickel"
+  collres__res:t="webley_mk6_collision"
+}
+
+webley_mk6_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="colt_walker_ammo_char"
+  item__template:t="webley_mk6_magazine"
+  item__proto:t="webley_mk6_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="webley_mk6_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/webley_mk6_magazine"
+  collres__res:t="colt_walker_ammo_collision"
+}
+
+enfield_no2_mk1_gun_item{
+  _extends:t="item_gun"
+  _extends:t="enfield_no2_mk1"
+  collres__res:t="enfield_no2_collision"
+}
+
+enfield_no2_mk1_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="colt_walker_ammo_char"
+  item__template:t="enfield_no2_mk1_magazine"
+  item__proto:t="enfield_no2_mk1_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="enfield_no2_mk1_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/enfield_no2_mk1_magazine"
+  collres__res:t="colt_walker_ammo_collision"
+}
+
+bren_mk1_gun_item{
+  _extends:t="item_gun"
+  _extends:t="bren_mk1"
+  collres__res:t="bren_lmg_mk_1_collision"
+}
+
+besal_lmg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="besal_lmg"
+  collres__res:t="besal_lmg_collision"
+}
+
+charlton_automatic_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="charlton_automatic_rifle"
+  collres__res:t="charlton_automatic_rifle_collision"
+}
+
+charlton_automatic_rifle_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="bren_lmg_mk_2_ammo_char"
+  item__template:t="charlton_automatic_rifle_magazine"
+  item__proto:t="charlton_automatic_rifle_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="charlton_automatic_rifle_magazine"
+  ammo_holder__ammoCount:i=30
+  item__weight:r=1.6
+  item__volume:r=1.3
+  item__name:t="items/charlton_automatic_rifle_magazine"
+  collres__res:t="bren_lmg_mk_2_ammo_collision"
+}
+
+solothurn_s_18_100_gun_item{
+  _extends:t="item_gun"
+  _extends:t="solothurn_s_18_100"
+  collres__res:t="ptrs_41_collision"
+}
+
+solothurn_s_18_100_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="ptrs_41_ammo_char"
+  item__template:t="solothurn_s_18_100_magazine"
+  item__proto:t="solothurn_s_18_100_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="solothurn_s_18_100_magazine"
+  ammo_holder__ammoCount:i=10
+  item__weight:r=4.0
+  item__volume:r=0.8
+  item__name:t="items/solothurn_s_18_100_magazine"
+  collres__res:t="ptrs_41_ammo_collision"
+}
+
+atr_boys_gun_item{
+  _extends:t="item_gun"
+  _extends:t="atr_boys"
+  collres__res:t="atr_boys_collision"
+}
+
+atr_boys_magazine{
+  _extends:t="item_bullets"
+  animchar__res:t="wz_35_ammo_char"
+  item__template:t="atr_boys_magazine"
+  item__proto:t="atr_boys_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="atr_boys_magazine"
+  ammo_holder__ammoCount:i=5
+  item__weight:r=1.2
+  item__volume:r=0.6
+  item__name:t="items/atr_boys_magazine"
+  collres__res:t="wz_35_ammo_collision"
+}
+
+vickers_berthier_gun_item{
+  _extends:t="item_gun"
+  _extends:t="vickers_berthier"
+  collres__res:t="mg_vickers_berthier_collision"
+}
+
+vickers_berthier_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="bren_lmg_mk_2_ammo_char"
+  item__template:t="vickers_berthier_magazine"
+  item__proto:t="vickers_berthier_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="vickers_berthier_magazine"
+  ammo_holder__ammoCount:i=30
+  item__weight:r=1.6
+  item__volume:r=1.3
+  item__name:t="items/vickers_berthier_magazine"
+  collres__res:t="bren_lmg_mk_2_ammo_collision"
+}
+
+smle_mk3_grenade_launcher_gun_item{
+  _extends:t="item_gun"
+  _extends:t="smle_mk3_grenade_launcher"
+  collres__res:t="smle_mk3_grenade_launcher_collision"
+}
+
+smle_2_5_inch_grenade_launcher_cup_item{
+  _extends:t="item_scope"
+  animchar__res:t="smle_2_5_inch_grenade_launcher_cup_char"
+  collres__res:t="smle_2_5_inch_grenade_launcher_cup_collision"
+  item__template:t="smle_2_5_inch_grenade_launcher_cup_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/smle_2_5_inch_grenade_launcher_cup.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/smle_2_5_inch_grenade_launcher_cup"
+  item__iconYaw:r=175.0
+  gunAttachable__slotName:t="grenade_launcher"
+  gunAttachable__gunSlotName:t="grenade_launcher"
+  gunAttachable__slotTag:t="smle_2_5_inch_grenade_launcher_cup"
+
+  "gunAttachable:tag"{
+  }
+}
+
+smle_2_5_inch_rifle_grenade_item{
+  _extends:t="item_grenade"
+  _extends:t="smle_2_5_inch_rifle_grenade_shell"
+  item__template:t="smle_2_5_inch_rifle_grenade_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/grenades/smle_2_5_inch_rifle_grenade.blk"
+  item__locDetails:t=""
+  item__shell:t="content/e_tunisia/gamedata/weapons/grenades/smle_2_5_inch_rifle_grenade.blk"
+  item__ammoPropsId:i=-1
+  item__weight:r=3.3
+  item__volume:r=0.6
+  item__name:t="items/smle_2_5_inch_rifle_grenade"
+  item__grenadeType:t="shell"
+  ammo_holder__id:i=-1
+  ammo_holder__templateName:t="smle_2_5_inch_rifle_grenade_item"
+  ammo_holder__ammoCount:i=1
+}

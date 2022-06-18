@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="coin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+<circle style="fill-rule:evenodd;clip-rule:evenodd;fill:#1D1D1D;" cx="50" cy="50" r="42.9"/>
+<linearGradient id="Ellipse_1_copy_3_1_" gradientUnits="userSpaceOnUse" x1="77.161" y1="1079" x2="22.839" y2="981" gradientTransform="matrix(1 0 0 1 0 -980)">
+	<stop  offset="0" style="stop-color:#C68B37"/>
+	<stop  offset="0.154" style="stop-color:#C68B37"/>
+	<stop  offset="0.3" style="stop-color:#926D32"/>
+	<stop  offset="0.478" style="stop-color:#D09D40"/>
+	<stop  offset="0.861" style="stop-color:#F3F294"/>
+	<stop  offset="1" style="stop-color:#FDFCC2"/>
+</linearGradient>
+<path id="Ellipse_1_copy_3" style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#Ellipse_1_copy_3_1_);" d="M50,1
+	c27.1,0,49,21.9,49,49S77.1,99,50,99S1,77.1,1,50S22.9,1,50,1z M50,11.2c21.4,0,38.8,17.4,38.8,38.8S71.4,88.8,50,88.8
+	S11.2,71.4,11.2,50S28.6,11.2,50,11.2L50,11.2z M50,16.7c18.4,0,33.3,14.9,33.3,33.3S68.4,83.3,50,83.3S16.7,68.4,16.7,50
+	S31.6,16.7,50,16.7L50,16.7z M62,47H45V36h20v-8H35v47h30v-8H45V55h17V47z"/>
+</svg>

@@ -1,0 +1,61 @@
+base_7_92mm_mg42{
+  item__name:t="guns/7_92mm_mg42"
+  gun__blk:t="gamedata/gen/weapons/7_92mm_mg42.blk"
+  gun__shotFreq:r=20.0
+  gun__reloadTime:r=8.0
+  gun__maxAmmo:i=150
+  gun__locName:t="7_92mm_mg42"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_92mm_mg42_defaultset_bullet_1.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_92mm_mg42_defaultset_bullet_2.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_92mm_mg42_defaultset_bullet_3.blk"
+        type:t="ap_t_ball"
+      }
+    }
+
+    "7_92mm_MG34_ap:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_92mm_mg42_7_92mm_mg34_ap_bullet_1.blk"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/7_92mm_mg42_7_92mm_mg34_ap_bullet_2.blk"
+        type:t="ap_i_ball"
+      }
+    }
+  }
+}
+
+tankgun_7_92mm_mg42{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_machinegun"
+  _extends:t="base_7_92mm_mg42"
+  _extends:t="gunsound_7_92mm_mg42"
+  turret__triggerGroup:i=2
+}

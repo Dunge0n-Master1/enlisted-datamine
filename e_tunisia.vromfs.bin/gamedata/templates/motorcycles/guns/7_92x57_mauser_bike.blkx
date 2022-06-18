@@ -1,0 +1,68 @@
+mass:r=0.0104
+cartridgeMass:r=0.0238
+caliber:r=0.0079
+speed:r=750.0
+maxDistance:r=2000.0
+bulletType:t="ball"
+hitPowerMult:r=12.0
+effectiveDistance:r=500.0
+relativeVelHitShift:p2=300.0, 1000.0
+relativeVelArmorShift:p2=200.0, 1000.0
+
+hitpower{
+  HitPower10m:p2=1.0, 10.0
+  HitPower100m:p2=0.85, 100.0
+  HitPower200m:p2=0.75, 300.0
+  HitPower400m:p2=0.6, 400.0
+  HitPower600m:p2=0.3, 600.0
+  HitPower1000m:p2=0.1, 1000.0
+  HitPower1500m:p2=0.01, 1500.0
+}
+
+armorpower{
+  ArmorPower0m:p2=1.0, 300.0
+  ArmorPower1500m:p2=0.1, 1500.0
+}
+
+hitFx{
+  fxScale:p2=0.5, 0.5
+  defaultFx:t="hit_8_11mm_dirt_ap"
+  jetFx:t="hit_8_11mm_dirt_ap"
+
+  steel{
+    fx:t="hit_8_11mm_metal_ap"
+    fxScale:p2=0.5, 0.5
+  }
+
+  wood{
+    fx:t="hit_8_11mm_wood_ap"
+    fxScale:p2=0.5, 0.5
+  }
+
+  glass{
+    fx:t="hit_8_11mm_metal_ap"
+    fxScale:p2=0.5, 0.5
+  }
+
+  stone{
+    fx:t="hit_8_11mm_stone_ap"
+    fxScale:p2=0.5, 0.5
+  }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="7mmRed"
+  trail:t="smallTrail"
+}
+
+tracer{
+  smokeColor:c=255, 230, 179, 204
+  luminosity:r=10.0
+  headColor:c=255, 170, 85, 255
+  smokeRadius:r=0.01
+  ignitionTime:r=0.005
+  burnTime:r=1.1
+  smokeTime:r=0.01
+}

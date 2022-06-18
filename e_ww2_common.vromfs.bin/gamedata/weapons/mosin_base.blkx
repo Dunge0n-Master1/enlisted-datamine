@@ -1,0 +1,56 @@
+maxDeltaAngle:r=0.07
+shotFreq:r=0.8
+shotFreqRndK:r=0.1
+recoilAmount:r=0.1
+recoilDirAmount:r=0.6
+recoilDir:r=0.0
+stat_name:t="rifle"
+selWeaponVar:t="mosin_m38"
+automaticReload:b=no
+
+ownerAnimVars{
+  reye_offset_fwd0:r=-0.1
+  gun_offset_along:r=0.0
+  gun_offset_across:r=0.02
+  gun_offset_up:r=0.0
+}
+
+gunOffset{
+  offset:p3=0.2, 0.05, 0.15
+  crouchOffset:p3=0.2, -0.07, 0.25
+  gunLen:r=0.4
+}
+
+shells{
+  shell:t="content/e_ww2_common/gamedata/weapons/bullets/7.62x54_r.blk"
+}
+
+firingModes{
+
+  bolt_action{
+    modeType:t="manual"
+  }
+}
+
+shotDeviation{
+  onShotDeviationChange:r=0.0
+  omegaRange:p2=30.0, 90.0
+  omegaDevInc:p2=0.1, 0.5
+  extraDeviationTau:r=0.15
+  maxDeviation:r=15.0
+  movementRange:p2=3.0, 5.0
+  movementDevInc:p2=0.0, 6.0
+}
+
+gunFlash{
+
+  gunFx_main{
+    fx:t="muzzle_flash"
+    scale:r=0.04
+  }
+
+  gunFx_add_bolt{
+    fx:t="side_muzzle_flash"
+    scale:r=0.01
+  }
+}

@@ -1,0 +1,234 @@
+base_sturmpanzer_ii{
+  _extends:t="base_tank"
+  _extends:t="sturmpanzer_ii_ammo_stowages"
+  killLogName:t="germ_sturmpanzer_ii"
+  animchar__res:t="sturmpanzer_II_char"
+  collres__res:t="sturmpanzer_II_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/sturmpanzer_ii.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="sturmpanzer_II_dmg_char"
+  xray_resource__modelName:t="sturmpanzer_II"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=1.616
+  damage_model__blk:t="gamedata/gen/units/tanks/sturmpanzer_ii.blk"
+  item__name:t="items/germ_sturmpanzer_ii"
+  skin__template:t="sturmpanzer_ii_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_150mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="sturmpanzer_ii_turret_01_150mm_sig_33+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+sturmpanzer_ii_turret_01_150mm_sig_33{
+  _extends:t="tankgun_150mm_sig_33"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=6.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-1.5, 6.5, -4.0, 40.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-1.5, 6.5, -4.0, 40.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=9
+    ammo:i=9
+  }
+}
+
+sturmpanzer_ii_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="sturmpanzer_ii_ammo_stowage_1"
+  }
+}
+
+sturmpanzer_ii_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="sturmpanzer_ii_ammo_cluster_1_1"
+    cluster:t="sturmpanzer_ii_ammo_cluster_1_2"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+sturmpanzer_ii_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret_01"
+    part:t="ammo_turret_02"
+    part:t="ammo_turret_03"
+    part:t="ammo_turret_04"
+    part:t="ammo_turret_05"
+    part:t="ammo_turret_06"
+    part:t="ammo_turret_07"
+    part:t="ammo_turret_08"
+    part:t="ammo_turret_09"
+    part:t="ammo_turret_10"
+    part:t="ammo_turret_11"
+    part:t="ammo_turret_12"
+    part:t="ammo_turret_13"
+    part:t="ammo_turret_14"
+    part:t="ammo_turret_15"
+    part:t="ammo_turret_16"
+    part:t="ammo_turret_17"
+    part:t="ammo_turret_18"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+  }
+}
+
+sturmpanzer_ii_ammo_cluster_1_2{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=no
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_01"
+    part:t="ammo_body_02"
+    part:t="ammo_body_03"
+    part:t="ammo_body_04"
+    part:t="ammo_body_05"
+    part:t="ammo_body_06"
+    part:t="ammo_body_07"
+    part:t="ammo_body_08"
+    part:t="ammo_body_09"
+    part:t="ammo_body_10"
+    part:t="ammo_body_11"
+    part:t="ammo_body_12"
+    part:t="ammo_body_13"
+    part:t="ammo_body_14"
+    part:t="ammo_body_15"
+    part:t="ammo_body_16"
+    part:t="ammo_body_17"
+    part:t="ammo_body_18"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+  }
+}
+
+sturmpanzer_ii_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="sturmpanzer_ii_winter"
+
+      "objTexReplace:object"{
+        "ger_camo_grey*":t="ger_camo_winter_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="sturmpanzer_ii_ger_camo_dunkelgelb_africa"
+
+      "objTexReplace:object"{
+        "ger_camo_grey*":t="ger_camo_dunkelgelb_africa*"
+      }
+    }
+
+    "skin:object"{
+      id:t="sturmpanzer_ii_ger_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ger_camo_grey*":t="ger_camo_winter_lines*"
+      }
+    }
+  }
+}

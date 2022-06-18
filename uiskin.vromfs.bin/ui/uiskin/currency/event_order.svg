@@ -1,0 +1,43 @@
+<svg id="Group_1_copy_21" data-name="Group 1 copy 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        opacity: 0.9;
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-4 {
+        fill: #234ac2;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="11.5" y1="29" x2="11.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5a81ea"/>
+      <stop offset="1" stop-color="#90cff9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="21.938" y1="14.656" x2="1.125" y2="14.656" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aed6fc"/>
+      <stop offset="1" stop-color="#86c0f6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="11.5" y1="28.406" x2="11.5" y2="0.594" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#639eef"/>
+      <stop offset="1" stop-color="#cff1fb"/>
+    </linearGradient>
+  </defs>
+  <image id="Background" width="23" height="29" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAdCAYAAABBsffGAAAAK0lEQVRIie3MQREAAAjDsIJ/z0PFHtw1AjJJQsm2YszNzc3Nzc3NzV/nwAEueQQ2inmINQAAAABJRU5ErkJggg=="/>
+  <rect class="cls-1" width="23" height="29"/>
+  <path class="cls-2" d="M11.533,4.139l10.4,10.52-10.4,10.52-10.4-10.52Zm0,1.079,9.334,9.441L11.533,24.1,2.2,14.659Zm0,1.618,7.734,7.823-7.734,7.823L3.8,14.659Z"/>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-3" d="M0.582,28.408V0.592H22.418V28.408H0.582ZM18.161,1.48H4.839L1.456,4.9V24.1L4.839,27.52H18.161L21.544,24.1V4.9Z"/>
+  <path class="cls-4" d="M11.354,6.087a4.5,4.5,0,0,1,4.51,4.584,4.51,4.51,0,1,1-9.019,0,4.5,4.5,0,0,1,4.51-4.584m0-1.833a6.327,6.327,0,0,0-6.313,6.417,6.314,6.314,0,1,0,12.627,0A6.327,6.327,0,0,0,11.354,4.253ZM6.394,15.988a8.138,8.138,0,0,0,1.8,1.283V24.7l-1.8.642V15.988Zm7.215,1.65v6.784l-2.255-.733L9.1,24.422V17.638A7.566,7.566,0,0,0,13.609,17.638Zm2.706-1.65v9.351l-1.8-.642V17.271A8.138,8.138,0,0,0,16.315,15.988ZM11.354,7L12.076,9.02,13.97,8.1l-0.9,1.925,1.984,0.733-1.984.733,0.9,1.925L12.076,12.5l-0.722,2.017L10.633,12.5l-1.894.917,0.9-1.925-1.984-.733,1.984-.733L8.739,8.1,10.633,9.02Z"/>
+</svg>

@@ -1,0 +1,228 @@
+module fortifications_build_common shared
+require game.utils.team
+require GridCollision
+require EnlistedWeapon
+require DagorSystem
+require DagorMath
+require Grid
+require RendInst
+require CollRes
+require Dacoll
+require math.base
+require ecs
+require zones
+
+def change_building_limits(playerEid, buildTypeId, count)
+  ecs::query(playerEid) <| $ [es] (var availableBuildings : IntList)
+    availableBuildings[buildTypeId] += count
+
+def get_engineer_building_speed_mul(human_weap__gunEids : ecs::EidList const)
+  var buildingSpeedMul = 1.0
+  for weapEid in human_weap__gunEids
+    if has(weapEid, "engineerBuildingSpeedMul")
+      buildingSpeedMul = get_float(weapEid, "engineerBuildingSpeedMul") ?? 1.0
+      break
+  return buildingSpeedMul
+
+def get_building_collres(base_collres, riextra_name)
+  if base_collres != null
+    return base_collres
+  if riextra_name != null
+    let resName = string(deref(riextra_name))
+    let resIndex = get_rigen_extra_res_idx(resName)
+    return get_rigen_extra_coll_res(resIndex)
+  return null
+
+def is_conflict_with_server_preview(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+  var objectFound = false
+  find_query() <| $ [es(REQUIRE=builder_server_preview)] (eid : EntityId;
+                                                          transform : float3x4;
+                                                          buildingBoxMin : float3;
+                                                          buildingBoxMax : float3;
+                                                          previewCollres : CollisionResource?;
+                                                          ri_preview__name : das_string?)
+    if eid == exclude_eid
+      return false
+    let serverPreviewCollres = get_building_collres(previewCollres, ri_preview__name)
+    objectFound = check_bbox3_intersection(box, tm, BBox3(buildingBoxMin, buildingBoxMax), transform)
+    if objectFound && serverPreviewCollres != null && base_collres != null
+      var intersectPoint : float3
+      objectFound = test_collres_intersection(*base_collres, tm, *serverPreviewCollres, transform, intersectPoint, intersectPoint)
+    return objectFound
+  return objectFound
+
+def is_conflict_with_other_buildings(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+  var objectFound = false
+  find_query() <| $ [es(REQUIRE=buildTypeId)] (eid : EntityId;
+                                               transform : float3x4;
+                                               ri_extra__bboxMin : float3;
+                                               ri_extra__bboxMax : float3;
+                                               previewCollres : CollisionResource?;
+                                               ri_extra__name : das_string?)
+    if eid == exclude_eid
+      return false
+    objectFound = check_bbox3_intersection(box, tm, BBox3(ri_extra__bboxMin, ri_extra__bboxMax), transform)
+    let buildingCollres = get_building_collres(previewCollres, ri_extra__name)
+    if objectFound && buildingCollres != null && base_collres != null
+      var intersectPoint : float3
+      objectFound = test_collres_intersection(*base_collres, tm, *buildingCollres, transform, intersectPoint, intersectPoint)
+    return objectFound
+  return objectFound
+
+def is_conflict_with_objects_in_grid(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+  var objectFound = false
+  let buildingWorldBox = BBox3(tm[3], length(box.width))
+  find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], buildingWorldBox, GridEntCheck BOUNDING) <| $(foundEid : EntityId)
+    if foundEid == exclude_eid
+      return false
+    ecs::query(foundEid) <| $ [es] (collres : CollisionResource&;
+                                    transform : float3x4;
+                                    isAlive = false)
+      if has(foundEid, "human") && !isAlive
+        return
+      let colBox = collres.vFullBBox
+      let colBoxMin = colBox.bmin.xyz
+      let colBoxMax = colBox.bmax.xyz
+      let colBbox3 = BBox3(colBoxMin, colBoxMax)
+      objectFound = check_bbox3_intersection(box, tm, colBbox3, transform)
+      if objectFound && base_collres != null
+        var intersectPoint : float3
+        objectFound = test_collres_intersection(collres, transform, *base_collres, tm, intersectPoint, intersectPoint)
+    return objectFound
+  return objectFound
+
+def is_conflict_with_water(pos; height_limit : float)
+  if height_limit < 0.f
+    return false
+
+  var waterLevel = 0.f;
+  if traceht_water(pos, waterLevel)
+    if waterLevel - pos.y > height_limit
+      return true
+
+  return false
+
+def is_conflict_with_world(tm; collobj : CollisionObject; collobj_offset : float; base_collres : CollisionResource? = null)
+  if base_collres == null
+    return false
+  var tmCopy = tm
+  tmCopy[3] = tmCopy[3] + normalize(tmCopy[1]) * collobj_offset
+  return test_collision_world(collobj, tmCopy, (*base_collres).boundingSphere.r)
+
+def is_conflict_objects_in_building_box(tm, box; collobj : CollisionObject; collobj_offset : float; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+  let isConflict = (is_conflict_with_server_preview(tm, box, exclude_eid, base_collres) ||
+                    is_conflict_with_other_buildings(tm, box, exclude_eid, base_collres) ||
+                    is_conflict_with_objects_in_grid(tm, box, exclude_eid, base_collres) ||
+                    is_conflict_with_world(tm, collobj, collobj_offset, base_collres))
+  return isConflict
+
+def is_human_respawn_selector_in_radius_for_team(pos; radius; for_team)
+  if radius < 0.0
+    return false
+  let radiusSq = square(radius)
+  var isRespawnSelectorFound = false
+  isRespawnSelectorFound =  find_query() <| $ [es(REQUIRE=(respawnIconType, autoRespawnSelector))] (respawn_icon__position : float3;
+                                                                                                    respawnIconType : string;
+                                                                                                    team : int;
+                                                                                                    respawn_icon__active : bool)
+    return respawnIconType == "human" && respawn_icon__active && team == for_team && length_sq(respawn_icon__position - pos) < radiusSq
+  return isRespawnSelectorFound
+
+def is_distance_to_capture_points_valid(pos; min_distance)
+  if min_distance < 0.0
+    return true
+  return !find_query() <| $ [es(REQUIRE=capzone)] (transform : float3x4;
+                                                   active : bool;
+                                                   capzone__approximateRadius = -1.0;
+                                                   sphere_zone__radius = 0.0)
+    if !active
+      return false
+    let distanceSq = length_sq(transform[3] - pos)
+    if capzone__approximateRadius >= 0.f
+      return distanceSq < square(min_distance + capzone__approximateRadius)
+    if sphere_zone__radius > 0.0
+      let zoneToPoint = pos - transform[3]
+      if length_sq(zoneToPoint) < square(min_distance)
+        return true
+      // move the build point closer to the zone by min_distance, check that position against a scaled sphere zone
+      // we can't just add min_distance to sphere_zone_radius as this way min_distance will be affected by zone's scale
+      let reducedZoneToPoint = zoneToPoint - normalize(zoneToPoint) * min_distance
+      let scaledDistanceSq = length_sq(rotate(inverse(transform), reducedZoneToPoint))
+      return scaledDistanceSq < square(sphere_zone__radius)
+    let halfDiag = length(transform[0] + transform[2]) * 0.5
+    return distanceSq < square(min_distance + halfDiag)
+
+def is_in_building_restricted_zone(pos : float3)
+  return find_query() <| $ [es(REQUIRE=buildingRestrictedZone)] (eid : EntityId)
+    return is_point_in_capzone(pos, eid, 1.)
+
+def get_player_eid_interacting_building(building_eid, exclude_eid = INVALID_ENTITY_ID)
+  var player_eid = INVALID_ENTITY_ID
+  find_query() <| $ [es] (eid : EntityId; building_action__target : EntityId)
+    if eid == exclude_eid
+      return false
+    if building_action__target == building_eid
+      player_eid = eid
+    return !!player_eid
+  return player_eid
+
+def is_not_attachable_gun(gun_eid : EntityId; transform : float3x4;
+                          check_points_down : Point3List; check_points : Array)
+  for pt in check_points_down
+    var checkPt = transform * pt
+    let dir = float3(0.0, -1.0, 0.0)
+    var norm : float3
+    var t = 10.0
+    traceray_normalized(checkPt, dir, t, norm)
+    checkPt += dir * t
+    if gun_needs_detach(gun_eid, checkPt)
+      return true
+  for pt in check_points
+    let obj = get_ecs_object(pt)
+    if obj == null
+      continue
+    let from = transform * (*obj |> get_Point3("from") ?? float3())
+    let to = transform * (*obj |> get_Point3("to") ?? float3())
+    var norm : float3
+    var t = length(from - to)
+    if traceray_normalized(from, to - from, t, norm)
+      return true
+  return false
+
+def is_not_attachable_gun(building_eid : EntityId)
+  var res = false
+  query(building_eid) <| $ [es] (transform : float3x4;
+                                 gun_attachable_check__pointsFromTo : Array;
+                                 gun_attachable_check__pointsDown : Point3List)
+    res ||= is_not_attachable_gun(building_eid, transform,
+                                  gun_attachable_check__pointsDown, gun_attachable_check__pointsFromTo)
+  find_query() <| $ [es] (eid : EntityId;
+                          transform : float3x4;
+                          gun_attachable_check__pointsFromTo : Array;
+                          gun_attachable_check__pointsDown : Point3List;
+                          dependsOnBuildingEid : EntityId)
+    if dependsOnBuildingEid == building_eid
+      res ||= is_not_attachable_gun(eid, transform,
+                                    gun_attachable_check__pointsDown, gun_attachable_check__pointsFromTo)
+      return true
+    return false
+  return res
+
+def is_required_space_above_object_free(pos : float3; check_height : float; eps = 0.1)
+  if check_height == 0.f
+    return true
+  var traceStart = pos
+  traceStart.y += check_height + eps
+  var height = check_height
+  var norm : float3
+  return !tracedown_normalized(traceStart, height, norm, ETF_DEFAULT)
+
+def is_player_can_destroy_building(player_eid, player_team, building_eid)
+  var canDestroy = true
+  query(building_eid) <| $ [es(REQUIRE=undestroyableyByTeammates)] (buildByPlayer : EntityId)
+    if buildByPlayer == player_eid
+      return
+    query(buildByPlayer) <| $ [es] (team : int)
+      if is_teams_friendly(team, player_team)
+        canDestroy = false
+  return canDestroy

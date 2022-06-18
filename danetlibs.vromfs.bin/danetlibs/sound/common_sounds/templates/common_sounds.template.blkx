@@ -1,0 +1,107 @@
+sound_effect{
+  _extends:t="sound_control"
+
+  _group{
+    _tags:t="sound"
+    sound_control__range:r=0.0
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t=""
+    sound_effect__localOffset:p3=0.0, 0.0, 0.0
+    sound_effect__abandonOnReset:b=no
+
+    "sound_effect__event:SoundEvent"{
+    }
+  }
+}
+
+moveable_sound_effect_tag{
+
+  "movableSoundEffect:tag"{
+    _tags:t="sound"
+  }
+}
+
+watchable_sound_effect_tag{
+
+  "watchableSoundEffect:tag"{
+    _tags:t="sound"
+  }
+}
+
+sound_effect_2d{
+  _extends:t="sound_bank_preset_state"
+  _extends:t="replicating"
+
+  _group{
+    _tags:t="sound"
+    sound_effect_2d__path:t=""
+
+    "sound_effect_2d__event:SoundEvent"{
+    }
+  }
+}
+
+on_appear_sound{
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t=""
+  }
+}
+
+on_disappear_sound{
+
+  _group{
+    _tags:t="sound"
+    on_disappear_sound__path:t=""
+  }
+}
+
+occluded_sound{
+
+  _group{
+    _tags:t="sound"
+    occluded_sound__radius:r=0.2
+    occluded_sound__occlusionToVolume:p4=0.3, 1.0, 1.0, 0.35
+    occluded_sound__enabled:b=no
+    occluded_sound__nearFarAttenuation:p2=30.0, 50.0
+    occluded_sound__volume:r=1.0
+    occluded_sound__volumeSumSamplesTime:p4=0.0, 0.0, 0.0, 0.0
+  }
+}
+
+sound_occlusion{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    sound_occlusion__targetId:i=0
+  }
+}
+
+sound_physmat{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+
+    "sound_physmat__PMIDToSMID:list<r>"{
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_physmat__defSoundMatId:r=0.0
+
+    "sound_physmat__soundMaterials:list<t>"{
+    }
+
+    "sound_physmat__physmatToSoundmat:object"{
+    }
+  }
+}

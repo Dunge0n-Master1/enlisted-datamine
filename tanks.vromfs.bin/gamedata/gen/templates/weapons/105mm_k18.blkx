@@ -1,0 +1,43 @@
+base_105mm_k18{
+  item__name:t="guns/105mm_k18"
+  gun__blk:t="gamedata/gen/weapons/105mm_k18.blk"
+  gun__shotFreq:r=0.1
+  gun__locName:t="105mm_k18"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/105mm_k18_defaultset.blk"
+        name:t="105mm_pzrg"
+        type:t="aphe_tank"
+      }
+    }
+
+    "105mm_germany_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/105mm_k18_105mm_germany_he.blk"
+        name:t="105mm_gr19"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "105mm_germany_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/105mm_k18_105mm_germany_apcbc.blk"
+        name:t="105mm_pzrg_rot"
+        type:t="apcbc_tank"
+      }
+    }
+  }
+}
+
+tankgun_105mm_k18{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_105mm_k18"
+  turret__triggerGroup:i=0
+}

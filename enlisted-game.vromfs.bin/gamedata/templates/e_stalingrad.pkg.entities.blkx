@@ -1,0 +1,24 @@
+import:t="#content/e_stalingrad/gamedata/templates/stalingrad_guns.blk"
+import:t="#content/e_stalingrad/gamedata/templates/stalingrad_items.blk"
+
+minimap_battle_of_stalingrad{
+  _extends:t="minimap"
+  mapTex:t="battle_of_stalingrad_2x2_minimap*"
+  farMapTex:t="battle_of_stalingrad_16x16_minimap*"
+  left_top:p2=-512.0, 576.0
+  right_bottom:p2=512.0, -448.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}
+
+minimap_stalingrad_tractor_plant{
+  _extends:t="minimap"
+  mapTex:t="stalingrad_tractor_plant_2x2_minimap*"
+  farMapTex:t="stalingrad_tractor_plant_16x16_far_minimap*"
+  left_top:p2=-1024.0, 1024.0
+  right_bottom:p2=1024.0, -1024.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}

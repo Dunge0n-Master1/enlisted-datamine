@@ -1,0 +1,58 @@
+<svg id="m_b" data-name="m b" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1, .cls-3, .cls-4 {
+        fill: #e0e0e0;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #2b2b2c;
+      }
+
+      .cls-4 {
+        stroke: #2b2b2c;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 6px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M28.988,58.008V89.242c0,19.332,14.655,33.775,34.248,33.775h1.517C84.346,123.017,99,108.574,99,89.242V58.008c0-19.332-14.655-35.025-34.248-35.025H63.236c-19.593,0-34.248,15.693-34.248,35.025h0Z"/>
+  <path class="cls-2" d="M34.005,88.98v-13H93.995v13c0,15.348-12.12,29.027-27.512,29.027H61.517c-15.392,0-27.512-13.679-27.512-29.027h0ZM72.009,70H55.991V28.521A30.95,30.95,0,0,1,61.517,28h4.966a30.951,30.951,0,0,1,5.526.52V70Z"/>
+  <path class="cls-2" d="M55.991,69.972H34.005V57.02c0-13.645,8.825-25.935,21.986-28.505V69.972Z"/>
+  <path class="cls-2" d="M71.992,69.972V28.514c13.162,2.571,22,14.86,22,28.505V69.972h-22Z"/>
+  <rect id="Rounded_Rectangle_3" data-name="Rounded Rectangle 3" class="cls-3" x="58" y="35" width="12" height="28" rx="3.5" ry="3.5"/>
+  <path id="up" class="cls-4" d="M82,29H46L64,8Z"/>
+</svg>

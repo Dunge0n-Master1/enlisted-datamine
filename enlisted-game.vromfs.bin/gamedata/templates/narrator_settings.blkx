@@ -1,0 +1,8 @@
+narrator_settings{
+  _extends:t="replicating"
+  _singleton:b=yes
+  _tags:t="gameClient"
+  _tracked:t="narrator_settings__nativeLang"
+  narrator_settings__nativeLang:b=no
+  narrator_settings__banksPresetStartsWith:t="narrator_loc_"
+}

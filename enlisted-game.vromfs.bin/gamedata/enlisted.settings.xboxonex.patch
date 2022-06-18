@@ -1,0 +1,68 @@
+"@override:__allowedConfigOverrides"{
+  "@override:graphics"{
+    "@override:__exclude_allow"{
+      staticShadowsResolution:i=4096
+      resolutionScaleUpsamplingQuality:i=0
+      heightmapDimBits:i=4
+      shadowsQuality:t="low"
+      texquality:t="medium"
+      taa_mip_bias:r=-0.25
+      taaQuality:i=2
+      anisotropy:i=2
+      aoQuality:t="medium"
+      groundDeformations:t="off"
+      effectsShadows:b=no
+      dropletsOnScreen:b=no
+      scopeImageQuality:i=0
+      shouldRenderHeroCockpit:b=true
+      skiesQuality:t="medium"
+      ssss:b=false
+      lodsShiftDistMul:r=1.3
+    }
+  }
+
+  xboxOne_submission_circuit:t=""
+  xboxOne_circuit:t=""
+
+  embeddedUpdater { yupTag { __allow_all_params:b=yes; } }
+}
+
+"@override:video"{
+  "@delete:vsync":b=no
+  vsync:b=yes
+  enableHdr:b=yes
+}
+
+"@override:dx12"{
+  onlyPreallocatedHeaps:b=no
+  preallocHeap { sizeMB:i=1024; }
+  preallocHeap { sizeMB:i=32;   cpuCached:b=yes; }
+  preallocHeap { sizeMB:i=4;    gpuExec:b=yes; }
+}
+
+"@override:texStreaming"{
+  forceMemQuotaKB:i=5120000  // 5000M
+  alwaysRelease:b=yes
+}
+
+"@override:graphics"{
+  staticShadowsResolution:i=4096
+  resolutionScaleUpsamplingQuality:i=0
+  heightmapDimBits:i=4
+  shadowsQuality:t="low"
+  texquality:t="medium"
+  taa_mip_bias:r=-0.25
+  taaQuality:i=2
+  anisotropy:i=2
+  aoQuality:t="medium"
+  groundDeformations:t="off"
+  effectsShadows:b=no
+  dropletsOnScreen:b=no
+  scopeImageQuality:i=0
+  shouldRenderHeroCockpit:b=true
+  skiesQuality:t="medium"
+  ssss:b=false
+  lodsShiftDistMul:r=1.3
+}
+
+authGameId:t=el

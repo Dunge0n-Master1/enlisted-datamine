@@ -1,0 +1,42 @@
+<svg id="Group_1_copy_8" data-name="Group 1 copy 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #cba35a;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #e9b63c;
+      }
+
+      .cls-4 {
+        fill: #713f24;
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="76.554" y1="99" x2="24.446" y2="1" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7d476"/>
+      <stop offset="1" stop-color="#ffffc2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="77.635" y1="97" x2="23.365" y2="3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c0882f"/>
+      <stop offset="1" stop-color="#fcd077"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-1" x="11" y="1" width="79" height="98"/>
+  <path class="cls-2" d="M50.613,24.1L77.178,50.539,50.613,76.975,24.047,50.539Z"/>
+  <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" class="cls-3" d="M50.613,14.987L86.338,50.539,50.613,86.09,14.887,50.539Zm0,3.646L82.674,50.539,50.613,82.444l-32.061-31.9Z"/>
+  <path class="cls-4" d="M73.7,19.729l-0.961,1.01,0.178,0.169a1.921,1.921,0,0,1,.074,2.716L63.035,34.1l-0.029,1.047-2.5,2.751a3.574,3.574,0,0,0-.433,4.216l2.016,3.438a4.3,4.3,0,0,1-.56,5.111l-7.479,8a3.144,3.144,0,0,0-.392,3.769l7.85,13.049a4.137,4.137,0,0,1-.538,4.984q-0.095.1-.2,0.195L51.8,88.9a2.81,2.81,0,0,1-2.114.732l-0.724-.055a2.835,2.835,0,0,1-2.3-1.52c-2.1-4.044-8.1-15.528-9.111-16.8C36.325,69.7,35.6,70.16,35.6,70.16l-1.113.468a2.652,2.652,0,0,1-2.942-.6c-6.092-6.378-4.35-11.963-4.35-11.963l2.517-2.647L66.144,17.109a1.917,1.917,0,0,1,2.686-.081L69.8,16.013a1.537,1.537,0,0,1,2.173-.05l1.674,1.592A1.537,1.537,0,0,1,73.7,19.729ZM48.892,37.689a0.7,0.7,0,0,0-.988.023L41.467,44.48a0.7,0.7,0,0,0,1.015.965l6.437-6.768A0.7,0.7,0,0,0,48.892,37.689ZM58.336,43.3a2.455,2.455,0,0,0-3.113.022l-2.834,2.98s-0.707,3.08.73,5.023a3.549,3.549,0,0,0,3.837,1.148l2.88-3.129C61.3,46.991,60.05,44.549,58.336,43.3Z"/>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-5" d="M13,97V3H88V97H13ZM73.381,6H27.619L16,17.563V82.437L27.619,94H73.381L85,82.437V17.563Z"/>
+</svg>

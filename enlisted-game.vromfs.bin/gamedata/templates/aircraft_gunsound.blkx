@@ -1,0 +1,634 @@
+gunsound_aircraft_base_machinegun_gun_sounds{
+  _extends:t="machinegun_gun_overheat_sound"
+  _extends:t="machinegun_gun_reload_sounds"
+}
+
+gunsound_aircraft_start_loop_with_zero_oneshots{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=0
+  }
+}
+
+gunsound_7_62mm_dt_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_62mm_dt"
+  }
+}
+
+gunsound_7_62mm_shkas_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_62mm_shkas"
+  }
+}
+
+gunsound_20mm_shvak_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_shvak"
+  }
+}
+
+gunsound_7_92mm_mg17_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_92mm_mg17"
+  }
+}
+
+gunsound_7_92mm_mg17_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_92mm_mg17"
+  }
+}
+
+gunsound_7_92mm_mg15_turret_aircraft{
+  _extends:t="gunsound_aircraft_base_machinegun_gun_sounds"
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_92mm_mg17"
+  }
+}
+
+gunsound_20mm_mgffm_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_mgffm"
+  }
+}
+
+gunsound_base_bomb_launcher_aircraft{
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    hero:t="aircraft/effects/bomb"
+  }
+}
+
+gunsound_base_rocket_launcher_aircraft{
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    hero:t="aircraft/effects/rocket"
+  }
+}
+
+gunsound_7_62mm_browning30_usaaf_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_62mm_browning30"
+  }
+}
+
+gunsound_7_7mm_browning303_raf_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_62mm_browning30"
+  }
+}
+
+gunsound_7_7mm_vikkerse_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_62mm_browning30"
+  }
+}
+
+gunsound_7_92mm_mg15_aircraft{
+  _extends:t="gunsound_7_92mm_mg15_turret_aircraft"
+}
+
+gunsound_7_92mm_mg81_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/7_92mm_mg17"
+  }
+}
+
+gunsound_12_7mm_ub_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_ub"
+  }
+}
+
+gunsound_12_7mm_ubs_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_ub"
+  }
+}
+
+gunsound_12_7mm_browning50_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
+gunsound_12_7mm_browning50_early_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
+gunsound_12_7mm_browning50_raf_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
+gunsound_12_7mm_browning50_usaaf_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
+gunsound_12_7mm_browning50_m2_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
+gunsound_12_7mm_browning50_m2_late_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
+gunsound_12_7mm_bredasafat127_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/13mm_mg131"
+  }
+}
+
+gunsound_13mm_mg131_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/13mm_mg131"
+  }
+}
+
+gunsound_20mm_shvaks_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_shvak"
+  }
+}
+
+gunsound_23mm_vya_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_shvak"
+  }
+}
+
+gunsound_20mm_an_m2_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_an_m2"
+  }
+}
+
+gunsound_20mm_hispanomkii_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_hispanomkii"
+  }
+}
+
+gunsound_20mm_mg15120_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_mg15120"
+  }
+}
+
+gunsound_20mm_mg15120_underwing_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_mg15120"
+  }
+}
+
+gunsound_37mm_ns37_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/37mm_ns37"
+  }
+}
+
+gunsound_37mm_m10_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/37mm_ns37"
+  }
+}
+
+gunsound_40mm_vickers_s_underwing_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/37mm_ns37"
+  }
+}
+
+gunsound_57mm_molinsclassm_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/57mm_molinsclassm"
+  }
+}
+
+gunsound_30mm_mk103_underwing_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/30mm_mk108"
+  }
+}
+
+gunsound_30mm_mk108_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/30mm_mk108"
+  }
+}
+
+gunsound_30mm_mk108_underwing_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/30mm_mk108"
+  }
+}
+
+gunsound_37mm_bk37_underwing_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/30mm_mk108"
+  }
+}
+
+gunsound_50mm_bk5_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/30mm_mk108"
+  }
+}
+
+gunsound_m_8bazooka_launcher_aircraft{
+  _extends:t="gunsound_base_rocket_launcher_aircraft"
+}
+
+gunsound_br_20_launcher_aircraft{
+  _extends:t="gunsound_base_rocket_launcher_aircraft"
+}
+
+gunsound_rbs_82_launcher_aircraft{
+  _extends:t="gunsound_base_rocket_launcher_aircraft"
+}
+
+gunsound_rbs_132_launcher_aircraft{
+  _extends:t="gunsound_base_rocket_launcher_aircraft"
+}
+
+gunsound_sc_50_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_sc_100_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_sc_250_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_sc_250_87_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_sc_500_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_fab_50_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_fab_100_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_fab_100x_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_fab_250_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_fab_250x_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_100lb_anm_30_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_500lb_anm_64a_1_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_1000lb_anm_65a_1_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_rp_3_launcher_aircraft{
+  _extends:t="gunsound_base_rocket_launcher_aircraft"
+}
+
+gunsound_50kg_t_vert_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_500lbs_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_hvar_launcher_aircraft{
+  _extends:t="gunsound_base_rocket_launcher_aircraft"
+}
+
+gunsound_200kg_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
+gunsound_7_7mm_bredasafat77_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_92mm_mg17"
+  }
+}
+
+gunsound_12_7mm_bredasafat127_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/13mm_mg131"
+  }
+}
+
+gunsound_7_7mm_lewis_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_62mm_browning30"
+  }
+}
+
+gunsound_7_62mm_shkas_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_62mm_shkas"
+  }
+}
+
+gunsound_12_7mm_browning50_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/12_7mm_browning50"
+  }
+}
+
+gunsound_7_62mm_browning30_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_62mm_browning30"
+  }
+}
+
+gunsound_12_7mm_ub_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/12_7mm_ub"
+  }
+}
+
+gunsound_20mm_mgff_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/20mm_mgffm"
+  }
+}
+
+gunsound_13mm_mg131_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/13mm_mg131"
+  }
+}
+
+gunsound_7_92mm_mg81_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_92mm_mg17"
+  }
+}
+
+gunsound_7_7mm_browning303_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_62mm_browning30"
+  }
+}
+
+gunsound_7_7mm_vikkersk_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_62mm_browning30"
+  }
+}
+
+gunsound_15mm_mg15115_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/13mm_mg131"
+  }
+}
+
+gunsound_7_92mm_fnbrowning_romania_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_62mm_browning30"
+  }
+}
+
+gunsound_7_5mm_mac39_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_92mm_mg17"
+  }
+}
+
+gunsound_7_5mm_mac39_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/7_92mm_mg17"
+  }
+}

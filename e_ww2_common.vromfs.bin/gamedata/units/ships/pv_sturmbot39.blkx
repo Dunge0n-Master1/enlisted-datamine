@@ -1,0 +1,46 @@
+ShipPhys{
+
+  mass{
+    Empty:r=350.0
+    Fuel:r=0.0
+    TakeOff:r=350.0
+    momentOfInertia:p3=2.0, 1.0, 1.0
+    CenterOfGravity:p3=0.0, -0.2, 0.0
+  }
+
+  engines{
+
+    engine{
+      pos:p3=-5.0, -0.2, 0.0
+      maxThrust:r=10000.0
+      zeroThrustSpd:r=1.0
+    }
+  }
+
+  settings{
+    velMult:r=3.0
+  }
+
+  collisionProps{
+    cls_01:t="convex_hull"
+    cls_02:t="convex_hull"
+  }
+
+  hydrodynamics{
+    keelArea:r=0.0
+    bodyArea:r=0.0
+    keelArm:p3=-2.0, -0.2, 0.0
+    bodyArm:p3=-0.5, -0.1, 0.0
+    frontAng:r=0.4
+
+    rudder{
+      pos:p3=-4.0, -1.0, 0.0
+      area:r=1.0
+      deflection:r=45.0
+      outputParam:t="rudder"
+    }
+
+    ignoreNodes{
+    }
+  }
+}

@@ -1,0 +1,36 @@
+rangefinderProgressBarColor1:c=0, 255, 0, 64
+rangefinderProgressBarColor2:c=255, 255, 255, 64
+rangefinderTextScale:r=1.0
+rangefinderVerticalOffset:r=10.0
+rangefinderHorizontalOffset:r=25.0
+fontSizeMult:r=1.0
+lineSizeMult:r=1.7
+distancePos:p2=0.008, 0.0
+drawCentralLineVert:b=no
+drawCentralLineHorz:b=no
+crosshairDistHorSizeMain:p2=0.03, 0.02
+crosshairDistHorSizeAdditional:p2=0.017, 0.017
+distanceCorrectionPos:p2=-0.03, -0.05
+drawDistanceCorrection:b=yes
+drawAdditionalLines:b=no
+
+crosshair_hor_ranges{
+}
+
+crosshair_distances{
+}
+
+drawLines{
+
+  line{
+    line:p4=0.0, 180.0, 0.0, -180.0
+    move:b=yes
+    thousandth:b=yes
+  }
+
+  line{
+    line:p4=180.0, 0.0, -180.0, 0.0
+    move:b=yes
+    thousandth:b=yes
+  }
+}

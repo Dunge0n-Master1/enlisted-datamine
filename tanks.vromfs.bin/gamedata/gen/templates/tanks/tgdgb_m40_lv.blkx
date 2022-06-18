@@ -1,0 +1,199 @@
+base_tgdgb_m40_lv{
+  _extends:t="base_tank"
+  _extends:t="tgdgb_m40_lv_ammo_stowages"
+  killLogName:t="sw_tgdgb_m40_lv"
+  animchar__res:t="tgdgb_m40_lv_char"
+  collres__res:t="tgdgb_m40_lv_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/tgdgb_m40_lv.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="tgdgb_m40_lv_dmg_char"
+  xray_resource__modelName:t="tgdgb_m40_lv"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=1.936
+  damage_model__blk:t="gamedata/gen/units/tanks/tgdgb_m40_lv.blk"
+  item__name:t="items/sw_tgdgb_m40_lv"
+  skin__template:t="tgdgb_m40_lv_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_40mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="tgdgb_m40_lv_turret_01_40mm_lva_kan_m36+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+tgdgb_m40_lv_turret_01_40mm_lva_kan_m36{
+  _extends:t="tankgun_40mm_lva_kan_m36"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=21.0
+  turret__pitchSpeed:r=24.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-180.0, 180.0, -6.0, 85.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-180.0, -158.0, -5.0, 85.0
+    lim2:p4=-158.0, -37.0, -6.0, 85.0
+    lim3:p4=-37.0, 37.0, 0.0, 85.0
+    lim4:p4=37.0, 158.0, -6.0, 85.0
+    lim5:p4=158.0, 180.0, -5.0, 85.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=48
+    ammo:i=48
+    ammo:i=48
+  }
+}
+
+tgdgb_m40_lv_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="tgdgb_m40_lv_ammo_stowage_1"
+  }
+}
+
+tgdgb_m40_lv_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="tgdgb_m40_lv_ammo_cluster_1_1"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+tgdgb_m40_lv_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret_01"
+    part:t="ammo_turret_02"
+    part:t="ammo_turret_03"
+    part:t="ammo_turret_04"
+    part:t="ammo_turret_05"
+    part:t="ammo_turret_06"
+    part:t="ammo_turret_07"
+    part:t="ammo_turret_08"
+    part:t="ammo_turret_09"
+    part:t="ammo_turret_10"
+    part:t="ammo_turret_11"
+    part:t="ammo_turret_12"
+    part:t="ammo_turret_13"
+    part:t="ammo_turret_14"
+    part:t="ammo_turret_15"
+    part:t="ammo_turret_16"
+    part:t="ammo_turret_17"
+    part:t="ammo_turret_18"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+    count:i=8
+  }
+}
+
+tgdgb_m40_lv_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="tgdgb_m40_lv_se_camo_desert_three_color"
+
+      "objTexReplace:object"{
+        "se_camo_green*":t="se_camo_desert_three_color*"
+      }
+    }
+
+    "skin:object"{
+      id:t="tgdgb_m40_lv_se_camo_four_color"
+
+      "objTexReplace:object"{
+        "se_camo_green*":t="se_camo_four_color*"
+      }
+    }
+
+    "skin:object"{
+      id:t="tgdgb_m40_lv_ger_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "se_camo_green*":t="ger_camo_winter_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="tgdgb_m40_lv_sw_camo_winter_green_white"
+
+      "objTexReplace:object"{
+        "se_camo_green*":t="ger_camo_winter_grey*"
+      }
+    }
+  }
+}

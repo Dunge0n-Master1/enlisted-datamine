@@ -1,0 +1,68 @@
+mass:r=0.6
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.04
+speed:r=18.5
+speedPitch:r=5.0
+maxDistance:r=6.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+frictionGround:r=2.0
+noSleepAtTheSlopeCos:r=0.766
+logCCD:b=no
+entityTemplate:t="uk_mills_grenade"
+entityPhysTemplate:t="uk_mills_grenade_phys"
+explosiveType:t="tnt"
+explosiveMass:r=0.057
+
+visual{
+  template:t="uk_mills_grenade_item+item_in_world"
+}
+
+collisionResource{
+
+  props{
+    volumeBox:t="box"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.02, 0.0, 0.03
+}
+
+detonation{
+  onHit:b=no
+  timer:r=5.0
+}
+
+splashDamage{
+  radius:p2=1.0, 10.0
+  penetration:p2=15.0, 2.0
+  damage:r=75.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=0.8, 0.9
+  effectTemplName:t="explosion_effect_small+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade"
+  shattersWizPath:t="impact/wiz_fragment"
+  shattersHitPath:t="impact/fragment"
+  shattersSampleRangeAroundListener:r=20.0
+  shattersMinMaxRayLenMul:p2=0.5, 4.0
+  shattersMinMaxCount:ip2=0, 4
+}
+
+damage{
+
+  explosive{
+    strengthEquivalent:r=1.0
+    brisanceEquivalent:r=1.0
+  }
+}
+
+solver{
+  energyConservation:r=0.85
+}

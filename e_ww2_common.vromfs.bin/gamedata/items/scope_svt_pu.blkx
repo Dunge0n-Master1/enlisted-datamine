@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="scope"
+  slotTag:t="scope_svt_pu"
+  gunSlotName:t="scope"
+  template:t="scope_svt_pu"
+}
+
+visual{
+  template:t="scope_svt_pu_item+item_in_world"
+}

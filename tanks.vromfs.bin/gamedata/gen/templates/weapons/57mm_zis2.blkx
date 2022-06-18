@@ -1,0 +1,62 @@
+base_57mm_zis2{
+  item__name:t="guns/57mm_zis2"
+  gun__blk:t="gamedata/gen/weapons/57mm_zis2.blk"
+  gun__shotFreq:r=0.2
+  gun__locName:t="57mm_zis2"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_zis2_defaultset.blk"
+        name:t="57mm_br_271"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "57mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_zis2_57mm_ussr_he.blk"
+        name:t="57mm_o_271"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "57mm_ussr_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_zis2_57mm_ussr_ap.blk"
+        name:t="57mm_br_271k"
+        type:t="aphe_tank"
+      }
+    }
+
+    "57mm_ussr_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_zis2_57mm_ussr_apcr.blk"
+        name:t="57mm_br_271p"
+        type:t="apcr_tank"
+      }
+    }
+
+    "57mm_ussr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_zis2_57mm_ussr_apcbc.blk"
+        name:t="57mm_br_271m"
+        type:t="apcbc_tank"
+      }
+    }
+  }
+}
+
+tankgun_57mm_zis2{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_57mm_zis2"
+  _extends:t="gunsound_57mm_zis2"
+  turret__triggerGroup:i=0
+}

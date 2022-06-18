@@ -1,0 +1,28 @@
+physMat:t="walkRay"
+useFutureContacts:b=yes
+addToWorld:b=yes
+skipUpdateOnSleep:b=yes
+useMovementDamping:b=no
+mass:r=5000.0
+momentOfInertia:p3=1.0, 1.0, 1.0
+centerOfMass:p3=0.05, 0.5, 0.0
+
+solver{
+  linearSlop:r=0.2
+  erp:r=0.5
+}
+
+collisionResource{
+
+  props{
+    cls_body_01:t="convex_hull"
+    cls_body_02:t="convex_hull"
+    cls_turret:t="convex_hull"
+    wheel_r_01:t="convex_hull"
+    wheel_r_02:t="convex_hull"
+    wheel_r_drive:t="convex_hull"
+    wheel_l_01:t="convex_hull"
+    wheel_l_02:t="convex_hull"
+    wheel_l_drive:t="convex_hull"
+  }
+}

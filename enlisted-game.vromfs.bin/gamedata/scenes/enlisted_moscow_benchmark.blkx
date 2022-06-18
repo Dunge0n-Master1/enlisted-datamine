@@ -1,0 +1,768 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_winter.blk"
+  level__timeRange:p2=5.0, 19.2
+  level__day:i=9
+  level__month:i=6
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=16.5
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=0.03
+    paint_details_tex:t="volokolamsk_building_colors_tex_palette*"
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[0.738196, 0.00182584, 0.674584] [-0.0700283, 0.994801, 0.0739394] [-0.670942, -0.101822, 0.734486] [-1359.87, 3.5238, 600.151]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1359.94, 6.17826, 600.464]]
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.998286, -0.01332, -0.0569833] [-0.0119896, 0.999649, -0.0236251] [0.0572792, -0.0229015, -0.998095] [-1354.3, 3.48848, 603.601]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.998286, -0.01332, -0.0569833] [-0.0119896, 0.999649, -0.0236251] [0.0572792, -0.0229015, -0.998095] [-1349.24, 3.48848, 606.314]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.93345, -0.01332, -0.35846] [-0.00422069, 0.999649, -0.026155] [0.358684, -0.0229015, -0.933178] [-1349.31, 3.48848, 615.73]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.93345, -0.01332, -0.35846] [-0.00422069, 0.999649, -0.026155] [0.358684, -0.0229015, -0.933178] [-1341.89, 3.48848, 625.734]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.93345, -0.01332, -0.35846] [-0.00422069, 0.999649, -0.026155] [0.358684, -0.0229015, -0.933178] [-1352.84, 3.48848, 620.668]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.93345, -0.01332, -0.35846] [-0.00422069, 0.999649, -0.026155] [0.358684, -0.0229015, -0.933178] [-1365.98, 3.48848, 617.372]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.866569, -0.01332, 0.498879] [-0.0229678, 0.999649, -0.0132053] [-0.498526, -0.0229015, -0.866571] [-1369.29, 3.26899, 600.918]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.866569, -0.01332, 0.498879] [-0.0229678, 0.999649, -0.0132053] [-0.498526, -0.0229015, -0.866571] [-1387.94, 3.017, 609.955]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.866569, -0.01332, 0.498879] [-0.0229678, 0.999649, -0.0132053] [-0.498526, -0.0229015, -0.866571] [-1390.82, 2.85363, 620.849]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1398.27, 2.38602, 630.712]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1412.83, 1.92511, 626.121]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1404.9, 2.58638, 597.908]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1412.06, 2.58638, 589.472]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1408.2, 2.58638, 589.641]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1359.62, 4.6883, 569.233]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1363.84, 3.89306, 574.863]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1372.91, 3.89306, 568.567]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1370.02, 4.46217, 550.565]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1376.1, 4.46217, 546.955]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1386.01, 4.9686, 518.197]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1341.39, 5.84055, 540.82]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1337.61, 6.03144, 534.938]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1327.93, 6.03144, 550.977]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1320.82, 6.03144, 554.799]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1341.43, 6.03144, 558.858]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1323.52, 6.03144, 555.849]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1307.84, 5.1878, 581.103]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1305.71, 5.1878, 577.515]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1301.87, 5.1878, 588.848]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1289.36, 5.37459, 583.943]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1280.46, 5.58353, 575.826]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1275.12, 5.58353, 583.046]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1262.62, 6.14232, 567.6]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1264.26, 5.7081, 580.797]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1235.32, 6.04214, 564.666]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1229.11, 5.87764, 557.492]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1277.55, 5.23952, 608.496]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1273.43, 5.23952, 607.652]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1276.47, 5.23952, 611.706]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1325.13, 3.84112, 681.322]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1318.97, 3.84112, 683.924]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1314.27, 4.09346, 678.832]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1329.12, 3.45114, 662.259]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1339.38, 3.45114, 651.406]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1336.06, 3.45114, 639.263]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1360.46, 3.45114, 659.153]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1364.42, 3.45114, 663.496]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1361.98, 3.21414, 688.859]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1390.83, 2.18974, 712.12]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1394.45, 2.18974, 708.747]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1395.89, 2.18974, 712.506]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1394.76, 2.18974, 654.088]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1391.74, 2.24862, 649.743]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1379.88, 3.12649, 648.961]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1380.19, 3.12649, 654.33]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1373.17, 3.12649, 667.294]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1412.52, 3.41214, 567.696]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1404.44, 3.65631, 543.253]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1385.73, 4.30241, 601.155]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="customizable_benchmark_animchar+human_weap"
+  transform:m=[[-0.989279, -0.01332, -0.145428] [-0.00984382, 0.999649, -0.0245967] [0.145706, -0.0229015, -0.989062] [-1391.0, 4.30241, 604.545]]
+
+  "human_weap__weapTemplates:object"{
+    primary:t="gewehr_43_gun"
+  }
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[0.140402, 0.0, 0.990095] [0.0, 1.0, 0.0] [-0.990095, 0.0, 0.140402] [-1269.22, 8.55954, 572.712]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.570441, 0.139328, 0.809435] [-0.0273402, 0.981739, -0.188255] [-0.820884, -0.129518, -0.556215] [-1269.04, 6.09935, 572.772]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[0.140402, -0.0873437, 0.986234] [0.0, 0.996101, 0.0882175] [-0.990095, -0.012386, 0.139855] [-1378.07, 7.23679, 537.547]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.566179, -0.0346945, 0.823552] [-0.0748751, 0.997148, -0.00946765] [-0.820875, -0.0670239, -0.567162] [-1377.77, 4.59967, 537.35]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[-0.868322, -0.0873437, 0.488249] [-0.0822214, 0.996101, 0.0319681] [-0.489138, -0.012386, -0.872118] [-1411.99, 4.69089, 630.738]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.972747, -0.0346953, -0.229258] [-0.0183098, 0.997148, -0.0732165] [0.231145, -0.0670235, -0.970608] [-1411.7, 2.05377, 630.941]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[-0.91288, -0.0873437, -0.398774] [-0.0750569, 0.996101, -0.0463551] [0.401268, -0.012386, -0.915877] [-1329.02, 6.03736, 655.544]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.435917, -0.0215728, -0.899728] [0.105079, 0.991655, -0.0746876] [0.893831, -0.1271, -0.430013] [-1329.0, 3.41559, 655.961]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[-0.932825, -0.0873437, 0.349583] [-0.0861458, 0.996101, 0.0190058] [-0.34988, -0.012386, -0.936713] [-1244.56, 7.47354, 651.314]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.928153, -0.0315179, -0.370862] [-0.018841, 0.999109, -0.0377566] [0.371722, -0.0280564, -0.92792] [-1244.28, 4.87046, 651.55]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[0.899578, -0.0873437, 0.427938] [0.0735266, 0.996101, 0.048746] [-0.430528, -0.012386, 0.902493] [-1301.48, 9.84462, 538.955]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[0.375587, -0.0619509, 0.924714] [-0.0458946, 0.995296, 0.0853203] [-0.92565, -0.0744846, 0.370977] [-1301.48, 7.3105, 538.585]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[-0.810228, -0.0873437, -0.57957] [-0.0638006, 0.996101, -0.0609246] [0.582632, -0.012386, -0.812642] [-1359.41, 5.77242, 683.171]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.207984, -0.0325257, -0.977591] [0.0511646, 0.997717, -0.0440807] [0.976793, -0.0591862, -0.205845] [-1359.47, 3.15186, 683.525]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[0.738196, 0.00182584, 0.674584] [-0.0700283, 0.994801, 0.0739394] [-0.670942, -0.101822, 0.734486] [-1409.39, 3.5238, 573.621]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1409.45, 6.17826, 573.934]]
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.9
+  anim_track_on:b=yes
+}
+
+entity{
+  _template:t="ui_disabled"
+}
+
+entity{
+  _template:t="benchmark"
+  benchmark_name:t="moscow"
+
+  "camera_tracks:array"{
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1420.35, 6.55075, 627.897
+      from_dir:p3=0.985186, -0.057687, -0.161496
+      to_pos:p3=-1353.6, 7.08025, 613.18
+      to_dir:p3=0.273902, 0.028567, -0.961333
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1285.96, 10.4605, 565.025
+      from_dir:p3=-0.550787, -0.092254, 0.829531
+      to_pos:p3=-1264.71, 9.84965, 584.282
+      to_dir:p3=-0.989288, -0.037955, 0.140957
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1380.69, 9.02201, 533.973
+      from_dir:p3=0.250999, -0.008316, 0.967952
+      to_pos:p3=-1344.01, 8.212, 635.955
+      to_dir:p3=0.333994, -0.008939, 0.942533
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1389.75, 6.18862, 598.302
+      from_dir:p3=0.735447, -0.018405, 0.677332
+      to_pos:p3=-1372.35, 6.09681, 590.831
+      to_dir:p3=-0.09939, -0.024191, 0.994754
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1452.91, 7.5504, 562.397
+      from_dir:p3=-0.733808, -0.100123, -0.671939
+      to_pos:p3=-1434.39, 9.63001, 499.899
+      to_dir:p3=-0.997384, -0.057972, -0.043187
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1303.44, 8.13814, 585.63
+      from_dir:p3=-0.98142, -0.039708, 0.187719
+      to_pos:p3=-1385.89, 6.95965, 619.077
+      to_dir:p3=0.858696, 0.011946, -0.512347
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1330.98, 86.6618, 606.081
+      from_dir:p3=0.872845, -0.078746, -0.481602
+      to_pos:p3=-1359.14, 10.8167, 610.513
+      to_dir:p3=0.917201, -0.004335, -0.398401
+    }
+  }
+}

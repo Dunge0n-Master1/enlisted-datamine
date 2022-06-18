@@ -1,0 +1,254 @@
+bulletCount:i=40
+mass:r=0.55
+explosiveType:t="hta"
+explosiveMass:r=0.09
+caliber:r=0.037
+speed:r=914.0
+maxDistance:r=9000.0
+normalizationPreset:t="default"
+bulletType:t="frag_i_t"
+bulletName:t="37mm_mgr_18"
+fuseDelayDist:r=0.0
+explodeTreshold:r=0.1
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_28_38mm_metal_he"
+groundCollisionEffect:t="hit_28_38mm_dirt_he"
+ricochetEffect:t="hit_28_38mm_metal_ap"
+waterCollisionEffect:t="hit_28_38mm_water"
+explosionPatchRadius:r=1.0
+secondaryShattersPreset:t="ap"
+
+hitpower{
+  HitPower0m:p2=1.0, 500.0
+  HitPower5000m:p2=0.5, 5000.0
+  HitPower7000m:p2=0.1, 7000.0
+}
+
+damage{
+
+  kinetic{
+    damageType:t="generic"
+    damage:r=2.0
+
+    energyToDamage{
+      p0:p2=3000.0, 5.0
+      p1:p2=15000.0, 10.0
+      p2:p2=30000.0, 15.0
+      p3:p2=60000.0, 25.0
+      p4:p2=80000.0, 40.0
+      p5:p2=110000.0, 60.0
+      p6:p2=300000.0, 70.0
+      p7:p2=400000.0, 75.0
+      p8:p2=500000.0, 80.0
+      p9:p2=650000.0, 110.0
+      p10:p2=1100000.0, 150.0
+      p11:p2=1300000.0, 200.0
+      p12:p2=1800000.0, 230.0
+      p13:p2=2200000.0, 240.0
+      p14:p2=3000000.0, 300.0
+      p15:p2=4000000.0, 320.0
+      p16:p2=5000000.0, 350.0
+      p17:p2=8000000.0, 370.0
+      p18:p2=12000000.0, 900.0
+    }
+  }
+
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.125
+    damageType:t="shatter"
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=0.0, 90.0
+      countPortion:r=0.4
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=91.0, 180.0
+      countPortion:r=0.1
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=181.0, 269.0
+      countPortion:r=0.1
+    }
+
+    segment{
+      radiusScale:r=1.0
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=270.0, 359.0
+      countPortion:r=0.4
+    }
+  }
+
+  secondaryShatter{
+    residualArmorPenetrationToShatterCountMult:p4=20.0, 100.0, 0.5, 1.0
+    residualArmorPenetrationToShatterPenetrationMult:p4=20.0, 100.0, 0.5, 1.0
+    residualArmorPenetrationToShatterDamageMult:p4=20.0, 100.0, 0.4, 1.0
+    caliberToArmorToShatterCountMult:p4=0.5, 1.0, 0.5, 1.0
+    damageType:t="secondaryShatter"
+
+    section0{
+      angles:p2=0.0, 10.0
+
+      shatter{
+        distance:r=5.0
+        size:r=0.05
+        count:i=8
+        penetration:p2=11.0, 8.0
+        damage:p2=20.0, 15.0
+        onHitChanceMultFire:r=1.3
+      }
+    }
+
+    section1{
+      angles:p2=0.0, 25.0
+
+      shatter{
+        distance:r=2.5
+        size:r=0.025
+        count:i=20
+        penetration:p2=7.0, 5.0
+        damage:p2=15.0, 12.0
+        onHitChanceMultFire:r=1.0
+      }
+    }
+
+    section2{
+      angles:p2=0.0, 40.0
+
+      shatter{
+        size:r=0.01
+        distance:r=1.5
+        count:i=40
+        penetration:p2=4.0, 3.0
+        damage:p2=8.0, 6.0
+        onHitChanceMultFire:r=1.0
+      }
+    }
+  }
+
+  explosive{
+    type:t="hta"
+    mass:r=0.09
+    fuseDelayDist:r=0.0
+    fuseArmorTreshold:r=0.1
+    strengthEquivalent:r=1.2
+    brisanceEquivalent:r=1.28
+  }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="50mmBrightRed"
+  trail:t="black"
+}
+
+ballistics{
+
+  ricochet{
+
+    table{
+
+      t1{
+        caliberToArmor:r=1.0
+        ricochetProbability0deg:p2=0.0, 1.0
+        ricochetProbability25deg:p2=25.0, 1.0
+        ricochetProbability30deg:p2=30.0, 0.6
+        ricochetProbability40deg:p2=40.0, 0.35
+        ricochetProbability41deg:p2=41.0, 0.005
+        ricochetProbability43deg:p2=43.0, 0.0
+        ricochetProbability90deg:p2=90.0, 0.0
+      }
+
+      t2{
+        caliberToArmor:r=1.5
+        ricochetProbability0deg:p2=0.0, 0.6
+        ricochetProbability25deg:p2=25.0, 0.6
+        ricochetProbability30deg:p2=30.0, 0.36
+        ricochetProbability40deg:p2=40.0, 0.21
+        ricochetProbability41deg:p2=41.0, 0.003
+        ricochetProbability43deg:p2=43.0, 0.0
+        ricochetProbability90deg:p2=90.0, 0.0
+      }
+
+      t3{
+        caliberToArmor:r=2.0
+        ricochetProbability0deg:p2=0.0, 0.5
+        ricochetProbability25deg:p2=25.0, 0.5
+        ricochetProbability30deg:p2=30.0, 0.3
+        ricochetProbability40deg:p2=40.0, 0.175
+        ricochetProbability41deg:p2=41.0, 0.0025
+        ricochetProbability43deg:p2=43.0, 0.0
+        ricochetProbability90deg:p2=90.0, 0.0
+      }
+
+      t4{
+        caliberToArmor:r=3.0
+        ricochetProbability0deg:p2=0.0, 0.3
+        ricochetProbability25deg:p2=25.0, 0.3
+        ricochetProbability30deg:p2=30.0, 0.18
+        ricochetProbability40deg:p2=40.0, 0.105
+        ricochetProbability41deg:p2=41.0, 0.0015
+        ricochetProbability43deg:p2=43.0, 0.0
+        ricochetProbability90deg:p2=90.0, 0.0
+      }
+    }
+  }
+
+  stability{
+    stabilityThreshold:r=0.05
+    stabilityCaliberToArmorThreshold:r=5.0
+    stabilityReductionAfterRicochet:r=0.5
+    stabilityReductionAfterPenetration:r=0.15
+
+    stabilityRicochetModifier{
+      mod1:p2=0.0, 0.05
+      mod2:p2=20.0, 0.1
+      mod3:p2=30.0, 0.2
+      mod3:p2=45.0, 0.3
+    }
+  }
+}
+
+hitFx{
+  fxScale:p2=1.0, 1.0
+  defaultFx:t="hit_28_38mm_dirt_he"
+  jetFx:t="hit_28_38mm_dirt_he"
+
+  steel{
+    fx:t="hit_28_38mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_28_38mm_wood_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_28_38mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_28_38mm_stone_he"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+tracer{
+  headColor:c=255, 71, 54, 180
+  smokeColor:c=80, 80, 80, 186
+}

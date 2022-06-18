@@ -1,0 +1,1286 @@
+defaultCircuit:t="venus"
+
+venus{
+  appPerm_1133:i=28
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=32
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopUrlSteam:t="https://store.steampowered.com/app/997120"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopGuidUrlSteam:t="http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}"
+  steamBindUrl:t="https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}"
+
+  contentUpdater{
+    tag:t="production"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-venus-am-uk-01.enlisted.net:7853"
+    server:t="mgate-venus-am-uk-02.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-proxy-01.gaijin.net/json"
+      url:t="https://contact-proxy-02.gaijin.net/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-proxy.gaijin.net/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-proxy-01.gaijin.net/char"
+      url:t="https://userstat-proxy-02.gaijin.net/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-production-01.gaijin.net/char"
+      url:t="https://cloud-production-02.gaijin.net/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos.crsed.net"
+    enabled:b=yes
+  }
+}
+
+mars{
+  appPerm_1137:i=28
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  disableVromsAutoUpdate:b=no
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  psnFriendsUrl:t="https://auth.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    tag:t="xone_production"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-mars-01.enlisted.net:7853"
+    server:t="mgate-mars-02.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-proxy-01.gaijin.net/json"
+      url:t="https://contact-proxy-02.gaijin.net/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-proxy.gaijin.net/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-proxy-01.gaijin.net/char"
+      url:t="https://userstat-proxy-02.gaijin.net/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-production-01.gaijin.net/char"
+      url:t="https://cloud-production-02.gaijin.net/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos.crsed.net"
+    enabled:b=yes
+  }
+}
+
+phobos{
+  appPerm_1137:i=61
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  disableVromsAutoUpdate:b=no
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    tag:t="xone_submission"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-phobos-01.enlisted.net:7853"
+    server:t="mgate-phobos-02.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=yes
+  }
+}
+
+titan{
+  appPerm_1138:i=61
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  trustClientStreamingMode:b=yes
+  disableVromsAutoUpdate:b=no
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    tag:t="ps4_submission"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-titan-01.enlisted.net:7853"
+    server:t="mgate-titan-02.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=yes
+  }
+}
+
+sun{
+  appPerm_1133:i=62
+  appPerm_1131:i=26
+  environment:t="test"
+  chanceOfFatalOnLogerrOnExit:i=0
+  trustClientStreamingMode:b=yes
+  disableVromsAutoUpdate:b=no
+  alwaysReloadScriptsOnUpdate:b=yes
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-lw-nl-02.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+  }
+
+  char{
+
+    servers{
+      url:t="https://common-char-nightly-im-ru-27.gaijin.net:4443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://common-char-nightly-im-ru-27.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://common-char-nightly-im-ru-27.gaijin.net:5443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://common-char-nightly-im-ru-27.gaijin.net:6443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=no
+  }
+}
+
+enceladus{
+  disableVisualLog:b=yes
+  disableVromsAutoUpdate:b=no
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  trustClientStreamingMode:b=yes
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    tag:t="ps5_submission"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-enceladus-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-enceladus.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-enceladus.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-enceladus.gaijin.net:443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-enceladus.gaijin.net:443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=no
+  }
+}
+
+naiad{
+  disableVromsAutoUpdate:b=no
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  trustClientStreamingMode:b=yes
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    tag:t="nswitch_submission"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="match-naiad-sv-lx-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-enceladus.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-enceladus.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-enceladus.gaijin.net:443/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=no
+  }
+}
+
+jupiter{
+  appPerm_1131:i=47
+  appPerm_1132:i=47
+  appPerm_1178:i=47
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    tag:t="production"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-jupiter-sv-nl-01.enlisted.net:7853"
+    server:t="mgate-jupiter-lw-nl-01.enlisted.net:7853"
+    server:t="mgate-jupiter-am-uk-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-proxy-01.gaijin.net/json"
+      url:t="https://contact-proxy-02.gaijin.net/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-proxy.gaijin.net/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-proxy-01.gaijin.net/char"
+      url:t="https://userstat-proxy-02.gaijin.net/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-production-01.gaijin.net/json-rpc"
+      url:t="https://profile-production-02.gaijin.net/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-production-01.gaijin.net/char"
+      url:t="https://cloud-production-02.gaijin.net/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+yueliang{
+  environment:t="test"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t="http://market-test.gaijin.ops/marketPlaceExp/"
+  shopUrl:t="http://act.kongzhong.com/af/cjshow/"
+  shopCategoryUrl:t="http://act.kongzhong.com/af/cjshow/"
+  shopGuidUrl:t="http://act.kongzhong.com/af/cjshow/"
+
+  matching{
+    server:t="match-yueliang-gj-msk-01.gaijin.ops:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="http://charlike-kj-test-01.gaijin.ops:7443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="http://charlike-kj-test-01.gaijin.ops:10443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="http://charlike-kj-test-01.gaijin.ops:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="http://charlike-kj-test-01.gaijin.ops:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="http://charlike-kj-test-01.gaijin.ops:11443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="localhost"
+  }
+}
+
+taiyang{
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  shopUrl:t="http://act.kongzhong.com/af/cjshow/"
+  shopGuidUrl:t="http://act.kongzhong.com/af/cjshow/"
+  shopCategoryUrl:t="http://act.kongzhong.com/af/cjshow/"
+
+  matching{
+    server:t="match-taiyang.gaijin.asia:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="http://charlike.gaijin.asia:7443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="http://charlike.gaijin.asia:10443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="http://charlike.gaijin.asia:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="http://charlike.gaijin.asia:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="http://charlike.gaijin.asia:11443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="enlisted-beanstalkd"
+  }
+}
+
+jinxing{
+  environment:t="test"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  eventUrl:t="https://cj.zhanhuo.com/acts-test"
+  storeUrl:t="https://cj.zhanhuo.com/eshop-test"
+  shopUrl:t="https://cj.zhanhuo.com/eshop-test"
+  shopGuidUrl:t="https://cj.zhanhuo.com/eshop-test"
+  shopCategoryUrl:t="https://cj.zhanhuo.com/eshop-test"
+  webLoginUrl:t="https://act.zhanhuo.com/cj/login-test/"
+
+  matching{
+    server:t="allinone-jinxing.zhanhuo.com:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="https://allinone-jinxing.zhanhuo.com:7443/json"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://allinone-jinxing.zhanhuo.com:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://allinone-jinxing.zhanhuo.com:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://allinone-jinxing.zhanhuo.com:7443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+mingwangxing{
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  eventUrl:t="https://cj.zhanhuo.com/acts-test"
+  storeUrl:t="https://cj.zhanhuo.com/eshop-test"
+  shopUrl:t="https://cj.zhanhuo.com/eshop-test"
+  shopGuidUrl:t="https://cj.zhanhuo.com/eshop-test"
+  shopCategoryUrl:t="https://cj.zhanhuo.com/eshop-test"
+  webLoginUrl:t="https://act.zhanhuo.com/cj/login-test/"
+
+  matching{
+    server:t="allinone-mingwangxing.zhanhuo.com:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="https://allinone-mingwangxing.zhanhuo.com:7443/json"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://allinone-mingwangxing.zhanhuo.com:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://allinone-mingwangxing.zhanhuo.com:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://allinone-mingwangxing.zhanhuo.com:7443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+muxing{
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t=""
+  eventUrl:t="https://cj.zhanhuo.com/acts"
+  storeUrl:t="https://cj.zhanhuo.com/eshop"
+  shopUrl:t="https://cj.zhanhuo.com/eshop"
+  shopGuidUrl:t="https://cj.zhanhuo.com/eshop"
+  shopCategoryUrl:t="https://cj.zhanhuo.com/eshop"
+  webLoginUrl:t="https://act.zhanhuo.com/cj/login/"
+
+  matching{
+    server:t="match-muxing.zhanhuo.com:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/json"
+      url:t="https://charlike-muxing-02.zhanhuo.com:7443/json"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:9443/char"
+      url:t="https://charlike-muxing-02.zhanhuo.com:9443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-muxing-01.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-02.zhanhuo.com:8443/json-rpc"
+      url:t="https://profile-muxing-03.zhanhuo.com:8443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://charlike-muxing-01.zhanhuo.com:7443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+ganymede{
+  appPerm_1131:i=46
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  disableVromsAutoUpdate:b=no
+  alwaysReloadDataOnUpdate:b=yes
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    shouldPatchVromsWithRemoteVersion:b=yes
+    disableFastVersionCheck:b=yes
+  }
+
+  matching{
+    server:t="match-ganymede-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-staging-sv-lx-136.gaijin.net:10443/json-rpc"
+      url:t="https://profile-staging-sv-lx-137.gaijin.net:10443/json-rpc"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+oberon{
+  appPerm_1132:i=46
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+
+  contentUpdater{
+    tag:t="xbox_submission"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="match-oberon-lw-nl-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-staging-sv-lx-136.gaijin.net:10443/json-rpc"
+      url:t="https://profile-staging-sv-lx-137.gaijin.net:10443/json-rpc"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
+venita{
+  appPerm_1133:i=61
+  environment:t="test"
+  chanceOfFatalOnLogerrOnExit:i=32
+  alwaysReloadDataOnUpdate:b=yes
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopUrlSteam:t="https://store.steampowered.com/app/892580"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopGuidUrlSteam:t="http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}"
+  steamBindUrl:t="https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}"
+
+  matching{
+    server:t="mgate-venita-sv-nl-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=yes
+  }
+}
+
+neptune{
+  environment:t="production"
+  chanceOfFatalOnLogerrOnExit:i=32
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopUrlSteam:t="https://store.steampowered.com/app/997120"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopGuidUrlSteam:t="http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}"
+  steamBindUrl:t="https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}"
+
+  contentUpdater{
+    tag:t="nswitch_production"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-neptune-01.enlisted.net:7853"
+    server:t="mgate-neptune-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-proxy-01.gaijin.net/json"
+      url:t="https://contact-proxy-02.gaijin.net/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-proxy.gaijin.net/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-proxy-01.gaijin.net/char"
+      url:t="https://userstat-proxy-02.gaijin.net/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-production-01.gaijin.net/char"
+      url:t="https://cloud-production-02.gaijin.net/char"
+    }
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos.crsed.net/ps4_off"
+  }
+}
+
+andromeda{
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=32
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopUrlSteam:t="https://store.steampowered.com/app/892580"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopGuidUrlSteam:t="http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}"
+  steamBindUrl:t="https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}"
+
+  contentUpdater{
+    tag:t="android_test"
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="match-andromeda-am-uk-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+  }
+}
+
+nereide{
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=32
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopUrlSteam:t="https://store.steampowered.com/app/892580"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopGuidUrlSteam:t="http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}"
+  steamBindUrl:t="https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}"
+
+  contentUpdater{
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="mgate-nereide-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+    project:t="cr"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contact-staging-sv-lx-136.gaijin.net:443/json"
+      url:t="https://contact-staging-sv-lx-137.gaijin.net:443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-staging-sv-lx-134.gaijin.net:443/char"
+      url:t="https://inventory-staging-sv-lx-135.gaijin.net:443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-staging-sv-lx-132.gaijin.net:443/char"
+      url:t="https://userstat-staging-sv-lx-133.gaijin.net:443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-staging-01.gaijin.net:12443/char"
+      url:t="https://cloud-staging-02.gaijin.net:12443/char"
+    }
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+  }
+}
+
+moon{
+  appPerm_1133:i=62
+  appPerm_1137:i=62
+  appPerm_1138:i=62
+  appPerm_1131:i=26
+  appPerm_1132:i=26
+  appPerm_1178:i=26
+  environment:t="test"
+  chanceOfFatalOnLogerrOnExit:i=1
+  alwaysReloadDataOnUpdate:b=yes
+  marketplaceURL:t="http://market-test.gaijin.ops/marketPlaceExp/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopUrlSteam:t="https://store.steampowered.com/app/997120"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  shopGuidUrlSteam:t="http://store.gaijin.net/steam.php?guid={guid}&app_id={appId}&steam_id={steamId}"
+  steamBindUrl:t="https://login.gaijin.net/steam?token={token}&lang={langAbbreviation}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    enabled:b=no
+  }
+
+  matching{
+    server:t="match-moon-gj-msk-01.gaijin.ops:7853"
+  }
+
+  char{
+
+    servers{
+      url:t="http://moon-contact.gaijin.ops:7443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="http://inventory-test-gj-msk-01.gaijin.ops:8080/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="http://test-char-01.gaijin.lan:13080/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="http://moon-profile.gaijin.ops:10443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="http://inventory-test-gj-msk-01.gaijin.ops:18443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=yes
+  }
+}

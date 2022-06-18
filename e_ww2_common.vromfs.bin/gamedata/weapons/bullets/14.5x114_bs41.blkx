@@ -1,0 +1,52 @@
+mass:r=0.064
+cartridgeMass:r=0.2
+caliber:r=0.0145
+speed:r=1020.0
+maxDistance:r=3000.0
+bulletType:t="ap"
+hitPowerMult:r=200.0
+effectiveDistance:r=400.0
+relativeVelHitShift:p2=300.0, 1000.0
+relativeVelArmorShift:p2=200.0, 1000.0
+
+hitpower{
+  HitPower10m:p2=1.0, 10.0
+  HitPower100m:p2=0.9, 100.0
+  HitPower200m:p2=0.8, 300.0
+  HitPower400m:p2=0.7, 400.0
+  HitPower600m:p2=0.3, 600.0
+  HitPower1000m:p2=0.1, 1000.0
+  HitPower1500m:p2=0.01, 1500.0
+}
+
+armorpower{
+  ArmorPower0m:p2=45.0, 5.0
+  ArmorPower100m:p2=40.0, 100.0
+  ArmorPower500m:p2=20.0, 500.0
+  ArmorPower1000m:p2=10.0, 1000.0
+  ArmorPower1500m:p2=5.0, 1500.0
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="7mmRed"
+  trail:t="smallTrail"
+}
+
+hitFx{
+  fxScale:p2=2.0, 2.2
+  defaultFx:t="ground_splash"
+  jetFx:t="ground_splash_direct"
+  preset:t="bullet"
+}
+
+tracer{
+  ignitionTime:r=0.002
+  smokeColor:c=255, 230, 179, 204
+  smokeTime:r=2.5
+  smokeRadius:r=0.01
+  headColor:c=255, 170, 85, 255
+  luminosity:r=1.0
+  burnTime:r=1.1
+}

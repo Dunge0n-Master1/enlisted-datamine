@@ -1,0 +1,3348 @@
+rangefinderProgressBarColor1:c=0, 255, 0, 64
+rangefinderProgressBarColor2:c=255, 255, 255, 64
+rangefinderTextScale:r=1.0
+rangefinderVerticalOffset:r=0.0
+rangefinderHorizontalOffset:r=0.0
+fontSizeMult:r=1.0
+lineSizeMult:r=2.0
+distancePos:p2=0.008, 0.0
+drawCentralLineVert:b=no
+drawCentralLineHorz:b=no
+crosshairDistHorSizeMain:p2=0.03, 0.02
+crosshairDistHorSizeAdditional:p2=0.017, 0.017
+distanceCorrectionPos:p2=-0.03, -0.05
+drawDistanceCorrection:b=yes
+drawAdditionalLines:b=no
+
+drawLines{
+
+  line{
+    line:p4=-0.2611, 131.4706, -0.2611, 16.0452
+    radialMoveSpeed:r=73.7584
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.2565, 65.4471, -0.2565
+    radialMoveSpeed:r=40.1629
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.1432, -62.8598, -0.1432
+    radialMoveSpeed:r=39.703
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.264, -15.2308, -0.264, -131.6032
+    radialMoveSpeed:r=73.4175
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, 0.0918, -62.8598, 0.0918
+    radialMoveSpeed:r=39.7028
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.3742, 65.4471, -0.3742
+    radialMoveSpeed:r=40.1638
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.0402, -15.2308, -0.0402, -131.6032
+    radialMoveSpeed:r=73.417
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.491, -15.2308, -0.491, -131.6032
+    radialMoveSpeed:r=73.4186
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=0.0007, 131.4706, 0.0007, 16.0452
+    radialMoveSpeed:r=73.7579
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.5133, 131.4706, -0.5133, 16.0452
+    radialMoveSpeed:r=73.7597
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, 0.0614, 65.4471, 0.0614
+    radialMoveSpeed:r=40.1621
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5409, -0.7392, -16.5409, 0.5213
+    radialMoveSpeed:r=16.5413
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=0.3924, -15.2308, -0.0402, -15.2308
+    radialMoveSpeed:r=15.2318
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.264, -15.2308, -0.3236, -15.2308
+    radialMoveSpeed:r=15.2336
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.0402, -15.2308, -0.1023, -15.2308
+    radialMoveSpeed:r=15.2309
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.491, -15.2308, -0.9087, -15.2308
+    radialMoveSpeed:r=15.2468
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.7392, 14.877, -0.3742
+    radialMoveSpeed:r=14.8875
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.2565, 14.877, -0.1992
+    radialMoveSpeed:r=14.8788
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.3742, 14.877, -0.3096
+    radialMoveSpeed:r=14.881
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, 0.0614, 14.877, 0.5213
+    radialMoveSpeed:r=14.8799
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=0.0007, 16.0452, 0.3924, 16.0452
+    radialMoveSpeed:r=16.0464
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2611, 16.0452, -0.2049, 16.0452
+    radialMoveSpeed:r=16.0469
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2611, 16.0452, -0.3375, 16.0452
+    radialMoveSpeed:r=16.048
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.5133, 16.0452, -0.9768, 16.0452
+    radialMoveSpeed:r=16.0625
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -11.6412, 0.911, -11.6412
+    radialMoveSpeed:r=11.647
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -11.6412, -0.174, -9.4267
+    radialMoveSpeed:r=10.5354
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -8.3195, -0.174, -7.2123
+    radialMoveSpeed:r=7.7678
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-1.259, -11.6412, -0.174, -11.6412
+    radialMoveSpeed:r=11.6632
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -4.9977, -0.174, -3.8905
+    radialMoveSpeed:r=4.4475
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=11.4515, -1.2353, 11.4515, -0.1502
+    radialMoveSpeed:r=11.4724
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=4.808, -0.1502, 3.7008, -0.1502
+    radialMoveSpeed:r=4.2571
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=11.4515, -0.1502, 11.4515, 0.9348
+    radialMoveSpeed:r=11.4582
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=11.4515, -0.1502, 9.237, -0.1502
+    radialMoveSpeed:r=10.3454
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=8.1298, -0.1502, 7.0225, -0.1502
+    radialMoveSpeed:r=7.5777
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-11.8873, -0.1446, -11.8873, -1.2296
+    radialMoveSpeed:r=11.9072
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-8.5656, -0.1446, -7.4584, -0.1446
+    radialMoveSpeed:r=8.0133
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-11.8873, -0.1446, -9.6728, -0.1446
+    radialMoveSpeed:r=10.7811
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-5.2439, -0.1446, -4.1366, -0.1446
+    radialMoveSpeed:r=4.6925
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-11.8873, 0.9404, -11.8873, -0.1446
+    radialMoveSpeed:r=11.894
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=0.8221, 11.6188, -0.2629, 11.6188
+    radialMoveSpeed:r=11.6222
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 11.6188, -1.3479, 11.6188
+    radialMoveSpeed:r=11.6467
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 8.2971, -0.2629, 7.1899
+    radialMoveSpeed:r=7.7479
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 11.6188, -0.2629, 9.4043
+    radialMoveSpeed:r=10.5148
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 4.9753, -0.2629, 3.8681
+    radialMoveSpeed:r=4.4295
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=0.2762, -0.1432, -0.264, -0.1432
+    radialMoveSpeed:r=0.1433
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.264, -0.1432, -0.2674, -0.1432
+    radialMoveSpeed:r=0.3018
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2674, 0.3833, -0.2674, -0.1432
+    radialMoveSpeed:r=0.2931
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2674, -0.1432, -0.8691, -0.1432
+    radialMoveSpeed:r=0.586
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2674, -0.1432, -0.2674, -0.6294
+    radialMoveSpeed:r=0.4698
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.1432, -130.4651, -0.1432
+    radialMoveSpeed:r=100.762
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, 0.0918, -130.4651, 0.0918
+    radialMoveSpeed:r=100.7619
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.3594, -130.4651, -0.3594
+    radialMoveSpeed:r=100.7625
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.1432, -71.0587, -0.0817
+    radialMoveSpeed:r=71.0588
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.3594, -71.0587, -0.303
+    radialMoveSpeed:r=71.0595
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.3594, -62.8598, -0.3022
+    radialMoveSpeed:r=62.8607
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.2565, 65.4471, -0.1992
+    radialMoveSpeed:r=65.4475
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.3742, 65.4471, -0.3096
+    radialMoveSpeed:r=65.448
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.3742, 136.8727, -0.3742
+    radialMoveSpeed:r=105.2952
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, 0.0614, 136.8727, 0.0614
+    radialMoveSpeed:r=105.2945
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.1432, 136.8727, -0.1432
+    radialMoveSpeed:r=105.2946
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.1432, 73.7163, -0.1133
+    radialMoveSpeed:r=73.7164
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.3742, 73.7163, -0.3379
+    radialMoveSpeed:r=73.7172
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.884, -1.0856, -67.5883, -1.0831
+    radialMoveSpeed:r=67.7448
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.6367, 0.6501, -66.4898, 0.5268
+    radialMoveSpeed:r=66.5659
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3187, 0.2521, -66.3869, 0.3943
+    radialMoveSpeed:r=66.3535
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.9826, 0.8391, -66.7817, 0.7475
+    radialMoveSpeed:r=66.8869
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.3115, 0.9433, -66.9826, 0.8391
+    radialMoveSpeed:r=67.153
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.7817, 0.7475, -66.6367, 0.6501
+    radialMoveSpeed:r=66.7129
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.3946, -1.0644, -67.0754, -1.0049
+    radialMoveSpeed:r=67.243
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3869, 0.3943, -66.4898, 0.5268
+    radialMoveSpeed:r=66.4399
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.227, -0.0968, -66.2501, 0.0307
+    radialMoveSpeed:r=66.2386
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4839, -2.1353, -66.4839, -2.015
+    radialMoveSpeed:r=66.5163
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.227, -0.3026, -66.227, -0.0968
+    radialMoveSpeed:r=66.2273
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.714, 1.0177, -67.8944, 1.0177
+    radialMoveSpeed:r=67.8118
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.5883, -1.0831, -67.3946, -1.0644
+    radialMoveSpeed:r=67.5
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.884, -2.1353, -67.884, -1.0856
+    radialMoveSpeed:r=67.9031
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4839, -2.1353, -67.884, -2.1353
+    radialMoveSpeed:r=67.2179
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.2501, 0.0307, -66.3187, 0.2521
+    radialMoveSpeed:r=66.2846
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3967, -0.6938, -66.2749, -0.5179
+    radialMoveSpeed:r=66.3386
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.3115, 0.9433, -67.4601, 0.9805
+    radialMoveSpeed:r=67.3927
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.2749, -0.5179, -66.227, -0.3026
+    radialMoveSpeed:r=66.2522
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.712, -0.8811, -66.4858, -0.7656
+    radialMoveSpeed:r=66.604
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.0754, -1.0049, -66.712, -0.8811
+    radialMoveSpeed:r=66.9004
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4839, -2.2353, -66.4839, -2.1353
+    radialMoveSpeed:r=66.5198
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4858, -0.7656, -66.3967, -0.6938
+    radialMoveSpeed:r=66.4453
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.714, 1.0177, -67.4601, 0.9805
+    radialMoveSpeed:r=67.5944
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 2.9224, -70.0596, 4.5291
+    radialMoveSpeed:r=69.8926
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 6.115, -69.5269, 6.1219
+    radialMoveSpeed:r=69.7956
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 2.9224, -69.5269, 6.115
+    radialMoveSpeed:r=69.6736
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.9027, 6.115, -69.5269, 6.115
+    radialMoveSpeed:r=69.9825
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 6.115, -69.1559, 6.115
+    radialMoveSpeed:r=69.6105
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.223, 3.7203, -66.3558, 3.4211
+    radialMoveSpeed:r=66.3855
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.5415, 3.1785, -66.7673, 3.0091
+    radialMoveSpeed:r=66.7262
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-68.1081, 5.0659, -68.037, 5.4015
+    radialMoveSpeed:r=68.2734
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-68.1133, 4.1005, -68.1081, 5.0659
+    radialMoveSpeed:r=68.2647
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-68.037, 5.4015, -67.9041, 5.7007
+    radialMoveSpeed:r=68.1969
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.9041, 5.7007, -67.7185, 5.9433
+    radialMoveSpeed:r=68.0608
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.7185, 5.9433, -67.4927, 6.1127
+    radialMoveSpeed:r=67.8738
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.4927, 6.1127, -67.2421, 6.1973
+    radialMoveSpeed:r=67.648
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.2421, 6.1973, -66.9839, 6.1914
+    radialMoveSpeed:r=67.3983
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.9839, 6.1914, -66.7356, 6.0954
+    radialMoveSpeed:r=67.1414
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.7356, 6.0954, -66.5142, 5.9159
+    radialMoveSpeed:r=66.895
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.5142, 5.9159, -66.3347, 5.665
+    radialMoveSpeed:r=66.6763
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3347, 5.665, -66.2093, 5.3598
+    radialMoveSpeed:r=66.5009
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.2093, 5.3598, -66.1467, 5.0212
+    radialMoveSpeed:r=66.3813
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.1519, 4.0558, -66.1467, 5.0212
+    radialMoveSpeed:r=66.3048
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.1519, 4.0558, -66.223, 3.7203
+    radialMoveSpeed:r=66.3015
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3558, 3.4211, -66.5415, 3.1785
+    radialMoveSpeed:r=66.5306
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.7673, 3.0091, -67.0178, 2.9245
+    radialMoveSpeed:r=66.9583
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.0178, 2.9245, -67.2761, 2.9304
+    radialMoveSpeed:r=67.2107
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.2761, 2.9304, -67.5244, 3.0264
+    radialMoveSpeed:r=67.466
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.5244, 3.0264, -67.7458, 3.2059
+    radialMoveSpeed:r=67.7068
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.7458, 3.2059, -67.9253, 3.4568
+    radialMoveSpeed:r=67.9173
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.9253, 3.4568, -68.0506, 3.762
+    radialMoveSpeed:r=68.0837
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-68.0506, 3.762, -68.1133, 4.1005
+    radialMoveSpeed:r=68.1954
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 7.9625, -69.5269, 11.1551
+    radialMoveSpeed:r=70.1809
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.9027, 11.1551, -69.5269, 11.1551
+    radialMoveSpeed:r=70.6016
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 11.1551, -69.5269, 11.1621
+    radialMoveSpeed:r=70.4166
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 7.9625, -70.0596, 9.5692
+    radialMoveSpeed:r=70.3416
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.5269, 11.1551, -69.1559, 11.1551
+    radialMoveSpeed:r=70.233
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.3115, 11.0726, -67.4601, 11.1098
+    radialMoveSpeed:r=68.2924
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4839, 7.894, -66.4839, 7.994
+    radialMoveSpeed:r=66.9569
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.0754, 9.1244, -66.712, 9.2481
+    radialMoveSpeed:r=67.5215
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.2749, 9.6114, -66.227, 9.8267
+    radialMoveSpeed:r=66.96
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.714, 11.147, -67.4601, 11.1098
+    radialMoveSpeed:r=68.4971
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4858, 9.3637, -66.3967, 9.4355
+    radialMoveSpeed:r=67.1028
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.712, 9.2481, -66.4858, 9.3637
+    radialMoveSpeed:r=67.2459
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.6367, 10.7794, -66.4898, 10.6561
+    radialMoveSpeed:r=67.4206
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3187, 10.3814, -66.3869, 10.5236
+    radialMoveSpeed:r=67.171
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.9826, 10.9683, -66.7817, 10.8768
+    radialMoveSpeed:r=67.7682
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.7817, 10.8768, -66.6367, 10.7794
+    radialMoveSpeed:r=67.5823
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.3946, 9.0649, -67.0754, 9.1244
+    radialMoveSpeed:r=67.8473
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.227, 10.0325, -66.2501, 10.1599
+    radialMoveSpeed:r=67.0036
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4839, 7.994, -66.4839, 8.1143
+    radialMoveSpeed:r=66.97
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3869, 10.5236, -66.4898, 10.6561
+    radialMoveSpeed:r=67.277
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.227, 9.8267, -66.227, 10.0325
+    radialMoveSpeed:r=66.9672
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.714, 11.147, -67.8944, 11.147
+    radialMoveSpeed:r=68.7144
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.3115, 11.0726, -66.9826, 10.9683
+    radialMoveSpeed:r=68.0454
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.5883, 9.0462, -67.3946, 9.0649
+    radialMoveSpeed:r=68.0963
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.884, 7.994, -67.884, 9.0437
+    radialMoveSpeed:r=68.4164
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.4839, 7.994, -67.884, 7.994
+    radialMoveSpeed:r=67.6579
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.2501, 10.1599, -66.3187, 10.3814
+    radialMoveSpeed:r=67.0754
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.3967, 9.4355, -66.2749, 9.6114
+    radialMoveSpeed:r=67.0159
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.884, 9.0437, -67.5883, 9.0462
+    radialMoveSpeed:r=68.3374
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.1255, 1.2182, 70.2488, 1.2182
+    radialMoveSpeed:r=70.1977
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2488, 0.2709, 70.5231, 0.2709
+    radialMoveSpeed:r=70.3864
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2488, 0.2709, 70.2488, -1.9441
+    radialMoveSpeed:r=70.2537
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2488, -1.9441, 68.8556, 0.2709
+    radialMoveSpeed:r=69.5572
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.8556, 0.2709, 70.2488, 0.2709
+    radialMoveSpeed:r=69.5527
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2488, 1.2263, 70.2488, 1.2182
+    radialMoveSpeed:r=70.2594
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2488, 1.2182, 70.4218, 1.2182
+    radialMoveSpeed:r=70.3458
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2488, 1.2182, 70.2488, 0.2709
+    radialMoveSpeed:r=70.2527
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.5062, 3.1176, 70.4086, 3.2688
+    radialMoveSpeed:r=70.5297
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.8306, 3.5043, 69.7596, 3.5008
+    radialMoveSpeed:r=69.8829
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.8271, 2.1357, 70.0068, 2.1446
+    radialMoveSpeed:r=69.9497
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.5883, 3.4456, 69.4371, 3.3481
+    radialMoveSpeed:r=69.5956
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.6067, 5.1546, 70.4091, 5.3191
+    radialMoveSpeed:r=70.7021
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.1152, 3.4717, 69.9393, 3.5096
+    radialMoveSpeed:r=70.1142
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.8306, 3.5043, 69.8442, 3.5019
+    radialMoveSpeed:r=69.9252
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.1962, 2.8788, 69.2051, 2.699
+    radialMoveSpeed:r=69.2568
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.9393, 3.5096, 69.9159, 3.5085
+    radialMoveSpeed:r=70.0156
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.4911, 2.2558, 69.6512, 2.1736
+    radialMoveSpeed:r=69.6064
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.5322, 2.5907, 70.5702, 2.7666
+    radialMoveSpeed:r=70.602
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.7596, 3.5008, 69.5883, 3.4456
+    radialMoveSpeed:r=69.7604
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.0113, 4.0278, 69.1597, 3.8178
+    radialMoveSpeed:r=69.1968
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.5702, 2.7666, 70.5613, 2.9463
+    radialMoveSpeed:r=70.6235
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.2148, 5.2097, 69.0503, 5.0121
+    radialMoveSpeed:r=69.3212
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.1597, 3.8178, 69.3573, 3.6533
+    radialMoveSpeed:r=69.3592
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.2602, 2.5278, 69.3578, 2.3766
+    radialMoveSpeed:r=69.3524
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.8442, 3.5019, 69.9159, 3.5085
+    radialMoveSpeed:r=69.9679
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.844, 4.7033, 70.7551, 4.9445
+    radialMoveSpeed:r=70.9637
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.3163, 3.2147, 69.2341, 3.0546
+    radialMoveSpeed:r=69.3461
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.6661, 5.447, 69.4248, 5.358
+    radialMoveSpeed:r=69.755
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.1756, 5.4268, 69.9222, 5.4704
+    radialMoveSpeed:r=70.2605
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.4248, 5.358, 69.2148, 5.2097
+    radialMoveSpeed:r=69.5209
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.3416, 3.6143, 70.5516, 3.7626
+    radialMoveSpeed:r=70.5431
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.3573, 3.6533, 69.5908, 3.5456
+    radialMoveSpeed:r=69.5672
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.8238, 4.1938, 70.8674, 4.4472
+    radialMoveSpeed:r=70.9772
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.4501, 2.4306, 70.5322, 2.5907
+    radialMoveSpeed:r=70.5359
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.4091, 5.3191, 70.1756, 5.4268
+    radialMoveSpeed:r=70.4974
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.6512, 2.1736, 69.8271, 2.1357
+    radialMoveSpeed:r=69.7724
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.0068, 2.1446, 70.1781, 2.1997
+    radialMoveSpeed:r=70.1261
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.9224, 4.2691, 69.0113, 4.0278
+    radialMoveSpeed:r=69.0915
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.7161, 3.9603, 70.8238, 4.1938
+    radialMoveSpeed:r=70.8873
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.7551, 4.9445, 70.6067, 5.1546
+    radialMoveSpeed:r=70.861
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.9159, 3.5085, 69.8306, 3.5043
+    radialMoveSpeed:r=69.9612
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.5516, 3.7626, 70.7161, 3.9603
+    radialMoveSpeed:r=70.7393
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.3578, 2.3766, 69.4911, 2.2558
+    radialMoveSpeed:r=69.4631
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.2753, 3.3896, 70.1152, 3.4717
+    radialMoveSpeed:r=70.279
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.4371, 3.3481, 69.3163, 3.2147
+    radialMoveSpeed:r=69.4543
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.8674, 4.4472, 70.844, 4.7033
+    radialMoveSpeed:r=71.0033
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.0503, 5.0121, 68.9426, 4.7786
+    radialMoveSpeed:r=69.1699
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.9222, 5.4704, 69.6661, 5.447
+    radialMoveSpeed:r=70.0073
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.4086, 3.2688, 70.2753, 3.3896
+    radialMoveSpeed:r=70.4207
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.9426, 4.7786, 68.899, 4.5252
+    radialMoveSpeed:r=69.0776
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.9159, 3.5085, 70.1003, 3.5254
+    radialMoveSpeed:r=70.0964
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.899, 4.5252, 68.9224, 4.2691
+    radialMoveSpeed:r=69.0508
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.2051, 2.699, 69.2602, 2.5278
+    radialMoveSpeed:r=69.282
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.5613, 2.9463, 70.5062, 3.1176
+    radialMoveSpeed:r=70.5989
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.3293, 2.2972, 70.4501, 2.4306
+    radialMoveSpeed:r=70.4294
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.2341, 3.0546, 69.1962, 2.8788
+    radialMoveSpeed:r=69.2787
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.5908, 3.5456, 69.8306, 3.5043
+    radialMoveSpeed:r=69.7998
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.1781, 2.1997, 70.3293, 2.2972
+    radialMoveSpeed:r=70.2897
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.1003, 3.5254, 70.3416, 3.6143
+    radialMoveSpeed:r=70.3116
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.3216, 10.892, 68.3216, 10.899
+    radialMoveSpeed:r=69.1849
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.273, 10.8772, 73.273, 10.6568
+    radialMoveSpeed:r=74.0598
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.273, 10.9705, 73.273, 10.8772
+    radialMoveSpeed:r=74.0828
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.9528, 8.6447, 72.9528, 8.4657
+    radialMoveSpeed:r=73.4527
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.728, 7.9057, 72.8403, 8.0358
+    radialMoveSpeed:r=73.2193
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.9401, 8.785, 72.9103, 8.9184
+    radialMoveSpeed:r=73.4605
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.728, 7.9057, 72.6376, 7.823
+    radialMoveSpeed:r=73.107
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=67.9458, 10.892, 68.3216, 10.892
+    radialMoveSpeed:r=68.9988
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=71.2533, 10.8772, 72.5505, 9.5306
+    radialMoveSpeed:r=72.6223
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.2641, 10.8772, 71.2533, 10.8772
+    radialMoveSpeed:r=73.0728
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.848, 9.0672, 72.7543, 9.2508
+    radialMoveSpeed:r=73.375
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.1156, 7.7025, 72.3357, 7.7178
+    radialMoveSpeed:r=72.636
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=71.511, 7.7025, 71.511, 7.83
+    radialMoveSpeed:r=71.9315
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.8403, 8.0358, 72.9068, 8.1631
+    radialMoveSpeed:r=73.3223
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.3216, 10.892, 68.6926, 10.892
+    radialMoveSpeed:r=69.3675
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.9103, 8.9184, 72.848, 9.0672
+    radialMoveSpeed:r=73.4319
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.3216, 7.6994, 68.3216, 10.892
+    radialMoveSpeed:r=68.9511
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.9382, 8.292, 72.9528, 8.4657
+    radialMoveSpeed:r=73.4251
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.9528, 8.6447, 72.9401, 8.785
+    radialMoveSpeed:r=73.4652
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.3216, 7.6994, 67.7889, 9.3062
+    radialMoveSpeed:r=68.5844
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.9068, 8.1631, 72.9382, 8.292
+    radialMoveSpeed:r=73.3852
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.7543, 9.2508, 72.5505, 9.5306
+    radialMoveSpeed:r=73.2568
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.3357, 7.7178, 72.5277, 7.7547
+    radialMoveSpeed:r=72.8437
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.1156, 7.7025, 71.511, 7.7025
+    radialMoveSpeed:r=72.2252
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.5277, 7.7547, 72.6376, 7.823
+    radialMoveSpeed:r=72.9993
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=71.511, 7.5811, 71.511, 7.7025
+    radialMoveSpeed:r=71.9182
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.2641, 10.8772, 73.273, 10.8772
+    radialMoveSpeed:r=74.0715
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-72.3169, 29.551, -72.3169, 33.7196
+    radialMoveSpeed:r=78.9337
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-72.3169, 33.7196, -70.0731, 33.7196
+    radialMoveSpeed:r=78.7765
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-70.0731, 33.7196, -70.0731, 32.1518
+    radialMoveSpeed:r=77.4274
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-70.0731, 32.1518, -71.2289, 32.1518
+    radialMoveSpeed:r=77.6228
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.2289, 32.1518, -71.2289, 32.7451
+    radialMoveSpeed:r=78.2717
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-72.3169, 29.551, -70.0952, 29.551
+    radialMoveSpeed:r=77.0945
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-70.0952, 29.551, -70.0952, 30.7371
+    radialMoveSpeed:r=76.302
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.0531, 33.7196, -69.0531, 29.551
+    radialMoveSpeed:r=75.9547
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-67.6046, 33.7196, -66.7169, 33.7196
+    radialMoveSpeed:r=75.1504
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-66.7169, 33.7196, -66.7169, 29.551
+    radialMoveSpeed:r=73.8372
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-69.0531, 33.7196, -67.6046, 33.7196
+    radialMoveSpeed:r=76.1961
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-65.631, 33.7196, -65.631, 29.551
+    radialMoveSpeed:r=72.8575
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-65.631, 29.551, -63.0314, 33.7196
+    radialMoveSpeed:r=71.6889
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-63.0314, 33.7196, -63.0314, 29.551
+    radialMoveSpeed:r=70.5248
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.109, 33.7196, 68.109, 29.5177
+    radialMoveSpeed:r=75.0904
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=68.109, 29.5177, 69.4418, 32.4524
+    radialMoveSpeed:r=75.4329
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=70.7687, 29.5177, 70.7687, 33.7196
+    radialMoveSpeed:r=77.511
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=69.4418, 32.4524, 70.7687, 29.5177
+    radialMoveSpeed:r=76.6474
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.2136, 33.7196, 74.4575, 33.7196
+    radialMoveSpeed:r=80.7163
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=74.4575, 33.7196, 74.4575, 32.1518
+    radialMoveSpeed:r=81.4167
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.3016, 32.1518, 73.3016, 32.7451
+    radialMoveSpeed:r=80.1625
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.2136, 29.551, 74.3845, 29.551
+    radialMoveSpeed:r=79.0317
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=72.2136, 29.551, 72.2136, 33.7196
+    radialMoveSpeed:r=78.8391
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=74.4575, 32.1518, 73.3016, 32.1518
+    radialMoveSpeed:r=80.5725
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=74.3845, 29.551, 74.3845, 30.7371
+    radialMoveSpeed:r=80.2603
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-7.4584, -0.1446, -6.3511, -0.1446
+    radialMoveSpeed:r=6.9063
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-7.4584, -0.1446, -7.4584, -1.2296
+    radialMoveSpeed:r=7.49
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-7.4584, -0.1446, -7.4584, 0.9404
+    radialMoveSpeed:r=7.469
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=7.0225, -0.1502, 5.9153, -0.1502
+    radialMoveSpeed:r=6.4707
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=7.0225, -0.1502, 7.0225, -1.2353
+    radialMoveSpeed:r=7.0566
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=7.0225, -0.1502, 7.0225, 0.9348
+    radialMoveSpeed:r=7.0335
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -7.2123, -0.174, -6.105
+    radialMoveSpeed:r=6.6609
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-1.259, -7.2123, -0.174, -7.2123
+    radialMoveSpeed:r=7.2478
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -7.2123, 0.911, -7.2123
+    radialMoveSpeed:r=7.2217
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 7.1899, -0.2629, 6.0826
+    radialMoveSpeed:r=6.6414
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-1.3479, 7.1899, -0.2629, 7.1899
+    radialMoveSpeed:r=7.2348
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 7.1899, 0.8221, 7.1899
+    radialMoveSpeed:r=7.1953
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 3.8681, -0.2629, 2.7609
+    radialMoveSpeed:r=3.3249
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-1.3274, 3.8681, -0.2629, 3.8681
+    radialMoveSpeed:r=3.949
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2629, 3.8681, 0.8426, 3.8681
+    radialMoveSpeed:r=3.879
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -3.8905, -0.174, -2.7833
+    radialMoveSpeed:r=3.3414
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-1.2795, -3.8905, -0.174, -3.8905
+    radialMoveSpeed:r=3.9578
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.174, -3.8905, 0.8905, -3.8905
+    radialMoveSpeed:r=3.907
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-4.1366, -0.1446, -3.0294, -0.1446
+    radialMoveSpeed:r=3.5859
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-4.1366, -1.2309, -4.1366, -0.1446
+    radialMoveSpeed:r=4.1934
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-4.1366, -0.1446, -4.1366, 0.9391
+    radialMoveSpeed:r=4.1557
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=3.7008, -0.1502, 2.5936, -0.1502
+    radialMoveSpeed:r=3.1508
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=3.7008, -1.234, 3.7008, -0.1502
+    radialMoveSpeed:r=3.765
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=3.7008, -0.1502, 3.7008, 0.9361
+    radialMoveSpeed:r=3.7216
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.3594, -62.8598, -0.3594
+    radialMoveSpeed:r=39.7043
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.0214, -62.8598, -0.0214
+    radialMoveSpeed:r=39.7027
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.0214, -62.8598, 0.0373
+    radialMoveSpeed:r=62.8598
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.1432, -62.8598, -0.0851
+    radialMoveSpeed:r=62.8599
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.2471, -62.8598, -0.2471
+    radialMoveSpeed:r=39.7035
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.2471, -62.8598, -0.1985
+    radialMoveSpeed:r=62.8602
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.247, -130.4651, -0.247
+    radialMoveSpeed:r=100.7622
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.247, -71.0587, -0.2012
+    radialMoveSpeed:r=71.0591
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.016, -130.4651, -0.016
+    radialMoveSpeed:r=100.7619
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.016, -71.0587, 0.0409
+    radialMoveSpeed:r=71.0587
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.0403, 65.4471, -0.0403
+    radialMoveSpeed:r=40.1621
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.0403, 14.877, 0.0149
+    radialMoveSpeed:r=14.8771
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.0403, 65.4471, 0.0149
+    radialMoveSpeed:r=65.4471
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.1561, -15.2308, -0.1561, -131.6032
+    radialMoveSpeed:r=73.4171
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.1561, -15.2308, -0.2208, -15.2308
+    radialMoveSpeed:r=15.2319
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3767, -15.2308, -0.3767, -131.6032
+    radialMoveSpeed:r=73.4179
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3767, -15.2308, -0.4393, -15.2308
+    radialMoveSpeed:r=15.2362
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3946, 131.4706, -0.3946, 16.0452
+    radialMoveSpeed:r=73.759
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3946, 16.0452, -0.4566, 16.0452
+    radialMoveSpeed:r=16.0509
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.1435, 131.4706, -0.1435, 16.0452
+    radialMoveSpeed:r=73.7581
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.1435, 16.0452, -0.0783, 16.0452
+    radialMoveSpeed:r=16.0456
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.1421, 65.4471, -0.1421
+    radialMoveSpeed:r=40.1623
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.1421, 14.877, -0.091
+    radialMoveSpeed:r=14.8775
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.1421, 65.4471, -0.091
+    radialMoveSpeed:r=65.4472
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.1992, 65.4471, -0.1992
+    radialMoveSpeed:r=40.1625
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.1992, 14.877, -0.1421
+    radialMoveSpeed:r=14.878
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.1992, 65.4471, -0.1421
+    radialMoveSpeed:r=65.4473
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.3096, 65.4471, -0.3096
+    radialMoveSpeed:r=40.1632
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.3096, 14.877, -0.2565
+    radialMoveSpeed:r=14.8797
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.3096, 65.4471, -0.2565
+    radialMoveSpeed:r=65.4477
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.091, 65.4471, -0.091
+    radialMoveSpeed:r=40.1622
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, -0.091, 14.877, -0.0403
+    radialMoveSpeed:r=14.8772
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, -0.091, 65.4471, -0.0403
+    radialMoveSpeed:r=65.4471
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, 0.0149, 65.4471, 0.0149
+    radialMoveSpeed:r=40.1621
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=14.877, 0.0149, 14.877, 0.0614
+    radialMoveSpeed:r=14.8771
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=65.4471, 0.0149, 65.4471, 0.0614
+    radialMoveSpeed:r=65.4471
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.4393, -15.2308, -0.4393, -131.6032
+    radialMoveSpeed:r=73.4183
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.4393, -15.2308, -0.491, -15.2308
+    radialMoveSpeed:r=15.2379
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3236, -15.2308, -0.3236, -131.6032
+    radialMoveSpeed:r=73.4177
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3236, -15.2308, -0.3767, -15.2308
+    radialMoveSpeed:r=15.2348
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2208, -15.2308, -0.2208, -131.6032
+    radialMoveSpeed:r=73.4173
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2208, -15.2308, -0.264, -15.2308
+    radialMoveSpeed:r=15.2327
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.1023, -15.2308, -0.1023, -131.6032
+    radialMoveSpeed:r=73.4171
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.1023, -15.2308, -0.1561, -15.2308
+    radialMoveSpeed:r=15.2313
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.2345, 136.8727, -0.2345
+    radialMoveSpeed:r=105.2948
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.2345, 73.7163, -0.2088
+    radialMoveSpeed:r=73.7167
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.0411, 136.8727, -0.0411
+    radialMoveSpeed:r=105.2945
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.0411, 73.7163, -0.0152
+    radialMoveSpeed:r=73.7163
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, 0.0161, 136.8727, 0.0161
+    radialMoveSpeed:r=105.2945
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, 0.0161, 73.7163, 0.0614
+    radialMoveSpeed:r=73.7163
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.0855, 136.8727, -0.0855
+    radialMoveSpeed:r=105.2945
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.0855, 73.7163, -0.0411
+    radialMoveSpeed:r=73.7164
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.1836, 136.8727, -0.1836
+    radialMoveSpeed:r=105.2947
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.1836, 73.7163, -0.1432
+    radialMoveSpeed:r=73.7165
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.303, 136.8727, -0.303
+    radialMoveSpeed:r=105.295
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.303, 73.7163, -0.2686
+    radialMoveSpeed:r=73.7169
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.4566, 131.4706, -0.4566, 16.0452
+    radialMoveSpeed:r=73.7593
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.4566, 16.0452, -0.5133, 16.0452
+    radialMoveSpeed:r=16.0525
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3375, 131.4706, -0.3375, 16.0452
+    radialMoveSpeed:r=73.7587
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.3375, 16.0452, -0.3946, 16.0452
+    radialMoveSpeed:r=16.0494
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2049, 131.4706, -0.2049, 16.0452
+    radialMoveSpeed:r=73.7582
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.2049, 16.0452, -0.1435, 16.0452
+    radialMoveSpeed:r=16.0462
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.0783, 131.4706, -0.0783, 16.0452
+    radialMoveSpeed:r=73.758
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-0.0783, 16.0452, 0.0007, 16.0452
+    radialMoveSpeed:r=16.0453
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.3022, -62.8598, -0.3022
+    radialMoveSpeed:r=39.7039
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.3022, -62.8598, -0.2471
+    radialMoveSpeed:r=62.8604
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.1985, -62.8598, -0.1985
+    radialMoveSpeed:r=39.7032
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.1985, -62.8598, -0.1432
+    radialMoveSpeed:r=62.86
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, -0.0851, -62.8598, -0.0851
+    radialMoveSpeed:r=39.7028
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, -0.0851, -62.8598, -0.0214
+    radialMoveSpeed:r=62.8598
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-16.5456, 0.0373, -62.8598, 0.0373
+    radialMoveSpeed:r=39.7027
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-62.8598, 0.0373, -62.8598, 0.0918
+    radialMoveSpeed:r=62.8598
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.303, -130.4651, -0.303
+    radialMoveSpeed:r=100.7624
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.303, -71.0587, -0.247
+    radialMoveSpeed:r=71.0592
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.2012, -130.4651, -0.2012
+    radialMoveSpeed:r=100.7621
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.2012, -71.0587, -0.1432
+    radialMoveSpeed:r=71.0589
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.0817, -130.4651, -0.0817
+    radialMoveSpeed:r=100.7619
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, -0.0817, -71.0587, -0.016
+    radialMoveSpeed:r=71.0587
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, 0.0409, -130.4651, 0.0409
+    radialMoveSpeed:r=100.7619
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=-71.0587, 0.0409, -71.0587, 0.0918
+    radialMoveSpeed:r=71.0587
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.3379, 136.8727, -0.3379
+    radialMoveSpeed:r=105.2951
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.3379, 73.7163, -0.303
+    radialMoveSpeed:r=73.717
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.2686, 136.8727, -0.2686
+    radialMoveSpeed:r=105.2949
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.2686, 73.7163, -0.2345
+    radialMoveSpeed:r=73.7168
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.1133, 136.8727, -0.1133
+    radialMoveSpeed:r=105.2946
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.1133, 73.7163, -0.0855
+    radialMoveSpeed:r=73.7164
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.2088, 136.8727, -0.2088
+    radialMoveSpeed:r=105.2947
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.2088, 73.7163, -0.1836
+    radialMoveSpeed:r=73.7166
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.0152, 136.8727, -0.0152
+    radialMoveSpeed:r=105.2945
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+
+  line{
+    line:p4=73.7163, -0.0152, 73.7163, 0.0161
+    radialMoveSpeed:r=73.7163
+    thousandth:b=yes
+    move:b=no
+    moveRadial:b=no
+    radialCenter:p2=0.0, 0.0
+  }
+}

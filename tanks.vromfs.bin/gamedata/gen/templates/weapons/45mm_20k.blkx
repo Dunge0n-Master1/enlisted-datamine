@@ -1,0 +1,53 @@
+base_45mm_20k{
+  item__name:t="guns/45mm_20k"
+  gun__blk:t="gamedata/gen/weapons/45mm_20k.blk"
+  gun__shotFreq:r=0.34
+  gun__locName:t="45mm_20k"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/45mm_20k_defaultset.blk"
+        name:t="45mm_br_243"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "45mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/45mm_20k_45mm_ussr_he.blk"
+        name:t="45mm_o_243"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "45mm_ussr_AP_1942:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/45mm_20k_45mm_ussr_ap_1942.blk"
+        name:t="45mm_br_243sp"
+        type:t="ap_tank"
+      }
+    }
+
+    "45mm_ussr_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/45mm_20k_45mm_ussr_apcr.blk"
+        name:t="45mm_br_243p"
+        type:t="apcr_tank"
+      }
+    }
+  }
+}
+
+tankgun_45mm_20k{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_45mm_20k"
+  _extends:t="gunsound_45mm_20k"
+  turret__triggerGroup:i=0
+}

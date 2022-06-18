@@ -1,0 +1,273 @@
+bomb_site_shell_activator{
+  on_create__spawnActivatedShellBlk:t="content/enlisted/gamedata/weapons_enlisted/bomb_site_charge.blk"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+bomb_site_charge{
+  _extends:t="projectile_with_shell"
+  animchar__res:t="tnt_explosive_char"
+  shell__expl_node:t="weaponRoot"
+  item__name:t="items/bomb_site_charge"
+
+  "animchar_no_update:tag"{
+  }
+}
+
+bomb_site_base{
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _replicated:t="bomb_site__operator"
+  _replicated:t="bomb_site__plantedTimeEnd"
+  _replicated:t="bomb_site__resetTimeEnd"
+  _replicated:t="bomb_site__defusedTimeEnd"
+  _replicated:t="bomb_site__explosionTimeEnd"
+  _replicated:t="bomb_site__maxDist"
+  _replicated:t="bomb_site__plantProgressPausedAt"
+  _replicated:t="bomb_site__defuseProgressPausedAt"
+  _replicated:t="bomb_site__explosionTimerPausedAtTime"
+  _replicated:t="bomb_site__isDefusing"
+  _replicated:t="bomb_site__isPlantingOrReseting"
+  _replicated:t="bomb_site__isBombPlanted"
+  _tracked:t="bomb_site__operator"
+  _tracked:t="bomb_site__planterEid"
+  _tracked:t="bomb_site__plantedTimeEnd"
+  _tracked:t="bomb_site__resetTimeEnd"
+  _tracked:t="bomb_site__defusedTimeEnd"
+  _tracked:t="bomb_site__explosionTimeEnd"
+  _tracked:t="bomb_site__plantProgressPausedAt"
+  _tracked:t="bomb_site__defuseProgressPausedAt"
+  _tracked:t="bomb_site__explosionTimerPausedAtTime"
+  _tracked:t="bomb_site__isBombPlanted"
+  _tracked:t="bomb_site__plantProgress"
+  _tracked:t="bomb_site__isPlantingOrReseting"
+  _tracked:t="bomb_site__isDefusing"
+  _tracked:t="bomb_site__isBombTicking"
+  _tracked:t="bomb_site__defuseProgress"
+  _tracked:t="bomb_site__timeToExplosionLeft"
+  _tracked:t="transform"
+  bomb_site__timeToPlant:r=20.0
+  bomb_site__timeToResetPlant:r=10.0
+  bomb_site__timeToDefuse:r=10.0
+  bomb_site__timeToExplosion:r=60.0
+  bomb_site__maxDist:r=3.0
+  bomb_site__plantingTeam:i=-1
+  bomb_site__canResetProgressByInteraction:b=no
+  bomb_site__resetPlantProgressOnDefuse:b=yes
+  bomb_site__stopTimerWhenDefusing:b=yes
+  bomb_site__usePromptPlant:t="hud/action_bomb_site_plant"
+  bomb_site__usePromptDefuse:t="hud/action_bomb_site_defuse"
+  bomb_site__shellActivatorTemplate:t="bomb_site_shell_activator"
+  bomb_site__shellOffset:p3=0.0, 1.0, 0.0
+  bomb_site__plantAnimationTemplate:t="bomb_site_plant_animation"
+  bomb_site__resetAnimationTemplate:t="bomb_site_reset_animation"
+  bomb_site__defuseAnimationTemplate:t="bomb_site_defuse_animation"
+  bomb_site__isBombPlanted:b=no
+  bomb_site__isPlantingOrReseting:b=no
+  bomb_site__isDefusing:b=no
+  bomb_site__plantedTimeEnd:r=-1.0
+  bomb_site__resetTimeEnd:r=-1.0
+  bomb_site__defusedTimeEnd:r=-1.0
+  bomb_site__explosionTimeEnd:r=-1.0
+  bomb_site__plantProgressPausedAt:r=0.0
+  bomb_site__defuseProgressPausedAt:r=0.0
+  bomb_site__explosionTimerPausedAtTime:r=0.0
+
+  _group{
+    _tags:t="server"
+    bomb_site_participants__startProgress:r=0.0
+
+    "bomb_site_participants__currentPlanterEid:eid"{
+    }
+
+    "bomb_site_participants__data:object"{
+    }
+  }
+
+  _group{
+    _tags:t="server"
+    bomb_site__plantProgress:r=0.0
+    bomb_site__defuseProgress:r=0.0
+    bomb_site__plantProgressDeltaPerSec:r=0.0
+    bomb_site__defuseProgressDeltaPerSec:r=0.0
+    bomb_site__timeToExplosionLeft:r=-1.0
+    bomb_site__isBombTicking:b=no
+    bomb_site__animationAction:i=0
+
+    "bomb_site__plantParticipants:object"{
+    }
+
+    "bomb_site__planterEid:eid"{
+    }
+
+    "bomb_site__animationOperator:eid"{
+    }
+
+    "bomb_site__animationEntity:eid"{
+    }
+  }
+
+  "item__customUsePrompt:t"{
+    _tag:t="ui"
+    value:t=""
+  }
+
+  "bomb_site__operator:eid"{
+  }
+}
+
+bomb_site_boxes_animchar{
+  _extends:t="animchar"
+  animchar__res:t="ammunition_supply_a_char"
+  collres__res:t="ammunition_supply_a_dynmodel_collision"
+
+  collres{
+  }
+}
+
+bomb_site_tick_sound{
+
+  _group{
+    _tags:t="sound"
+    bomb_site_tick_sound__path:t="env_effects/explosive_installed"
+
+    "bomb_site_tick_sound__event:SoundEvent"{
+    }
+  }
+}
+
+bomb_site_sound_effect{
+  _extends:t="sound_effect"
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/bomb_site_idle"
+  }
+}
+
+bomb_site_fuel_warehouse_ri{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="fuel_warehouse_a"
+}
+
+bomb_site_radar_hardware_animchar_01{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_01"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_02{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_02"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_03{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_03"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_04{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_04"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_05{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_05"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_01_without_antenna{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_01_without_antenna"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_02_without_antenna{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_02_without_antenna"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_03_without_antenna{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_03_without_antenna"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_04_without_antenna{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_04_without_antenna"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_radar_hardware_animchar_05_without_antenna{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="radar_hardware_05_without_antenna"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site_safe_animchar{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="safe_target_a"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+bomb_site{
+  _extends:t="bomb_site_base"
+  _extends:t="bomb_site_tick_sound"
+  _extends:t="bomb_site_sound_effect"
+  active:b=yes
+  _replicated:t="active"
+  _tracked:t="active"
+
+  "bomb_site__capzoneEid:eid"{
+  }
+}

@@ -1,0 +1,5 @@
+enlisted_mission_time{
+  firstPlayerConnectionTime:r=-1.0
+  firstPlayerSpawnTime:r=-1.0
+  _singleton:b=yes
+}

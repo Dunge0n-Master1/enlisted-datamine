@@ -1,0 +1,24 @@
+it_human_voice{
+
+  _group{
+    _tags:t="sound"
+    human_sound__playerVoice:t="vo/player/enlisted/soldier/it"
+
+    "human_sound__npcVoices:list<t>"{
+      voice:t="vo/enemy/enlisted/soldier01/it"
+      voice:t="vo/enemy/enlisted/soldier02/it"
+      voice:t="vo/enemy/enlisted/soldier03/it"
+    }
+  }
+}
+
+it_base_soldier{
+  _extends:t="ger_soldier"
+  _extends:t="enlisted_base_soldier"
+  _extends:t="it_human_voice"
+}
+
+ai_aircraft_crew_it_soldier{
+  _extends:t="it_base_soldier"
+  _extends:t="ai_aircraft_crew_soldier_base"
+}

@@ -1,0 +1,80 @@
+base_85mm_d5s{
+  item__name:t="guns/85mm_d5s"
+  gun__blk:t="gamedata/gen/weapons/85mm_d5s.blk"
+  gun__shotFreq:r=0.135
+  gun__locName:t="85mm_d5s"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_defaultset.blk"
+        name:t="85mm_br_365k"
+        type:t="aphe_tank"
+      }
+    }
+
+    "85mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_85mm_ussr_he.blk"
+        name:t="85mm_o_365k"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "85mm_ussr_APHE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_85mm_ussr_aphe.blk"
+        name:t="85mm_br_365a"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "85mm_ussr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_85mm_ussr_apcbc.blk"
+        name:t="85mm_br_367"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "85mm_ussr_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_85mm_ussr_apcr.blk"
+        name:t="85mm_br_365p"
+        type:t="apcr_tank"
+      }
+    }
+
+    "85mm_ussr_HVAP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_85mm_ussr_hvap.blk"
+        name:t="85mm_br_367p"
+        type:t="apcr_tank"
+      }
+    }
+
+    "85mm_ussr_HEAT_FS:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/85mm_d5s_85mm_ussr_heat_fs.blk"
+        name:t="85mm_3bk2"
+        type:t="heat_fs_tank"
+      }
+    }
+  }
+}
+
+tankgun_85mm_d5s{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_85mm_d5s"
+  _extends:t="gunsound_85mm_d5s"
+  turret__triggerGroup:i=0
+}

@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="bayonet"
+  slotTag:t="mosin_m1930_bayonet"
+  gunSlotName:t="bayonet"
+  template:t="mosin_m1930_bayonet"
+}
+
+visual{
+  template:t="mosin_m1930_bayonet_item+item_in_world"
+}

@@ -1,0 +1,37 @@
+"@override:__allowedConfigOverrides"{
+  xboxScarlett_submission_circuit:t=""
+  xboxScarlett_circuit:t=""
+
+  embeddedUpdater { yupTag { __allow_all_params:b=yes; } }
+}
+
+"@override:video"{
+  "@delete:vsync":b=no
+  vsync:b=yes
+  enableHdr:b=yes
+}
+
+"@override:dx12"{
+  onlyPreallocatedHeaps:b=no
+  preallocHeap { sizeMB:i=1024; }
+  preallocHeap { sizeMB:i=32;   cpuCached:b=yes; }
+  preallocHeap { sizeMB:i=4;    gpuExec:b=yes; }
+}
+
+"@override:texStreaming"{
+  forceMemQuotaKB:i=4096000  // 4000M
+  alwaysRelease:b=yes
+}
+
+"@override:graphics"{
+  staticShadowsResolution:i=8192
+  resolutionScaleUpsamplingQuality:i=0
+  cloudsQuality:t="volumetric"
+}
+
+"@override:network"{
+  publicConfigsConnTimeoutSec:i=1
+  publicConfigsTimeoutSec:i=3
+}
+
+authGameId:t=el

@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="scope"
+  slotTag:t="scope_carcano_m91"
+  gunSlotName:t="scope"
+  template:t="scope_carcano_m91"
+}
+
+visual{
+  template:t="scope_carcano_m91_item+item_in_world"
+}

@@ -1,0 +1,32 @@
+mass:r=0.6
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.04
+speed:r=18.5
+speedPitch:r=5.0
+maxDistance:r=6.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+noSleepAtTheSlopeCos:r=0.766
+entityTemplate:t="srcm_mod_35fl_grenade"
+entityPhysTemplate:t="srcm_mod_35fl_grenade_phys"
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.02, 0.0, 0.03
+}
+
+visual{
+  template:t="srcm_mod_35fl_grenade_item+item_in_world"
+}
+
+detonation{
+  onHit:b=no
+  timer:r=32.0
+}

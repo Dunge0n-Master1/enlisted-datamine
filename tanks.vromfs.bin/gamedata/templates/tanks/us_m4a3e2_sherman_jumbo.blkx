@@ -1,0 +1,327 @@
+us_m4a3e2_sherman_jumbo{
+  _extends:t="us_m4a3e2_sherman_jumbo_common"
+
+  "disableDMParts:list<t>"{
+    part:t="ex_decor_14"
+    part:t="ex_decor_12"
+    part:t="ex_decor_13"
+    part:t="ex_decor_11"
+    part:t="ex_decor_07"
+    part:t="ex_decor_04"
+    part:t="ex_decor_05"
+    part:t="ex_decor_06"
+    part:t="ex_decor_09"
+    part:t="ex_decor_08"
+    part:t="ex_decor_10"
+  }
+}
+
+us_m4a3e2_sherman_jumbo_common{
+  _extends:t="base_m4a3e2_sherman_jumbo"
+  _extends:t="vehicle_effects_tracked"
+  item__iconOffset:p2=0.0, 0.2
+
+  "bullet_holes__ignoreCollisionNodes:array"{
+    _tags:t="render"
+  }
+
+  "bullet_holes__movingCollisionNodes:array"{
+    _tags:t="render"
+    movingCollisionNodes:t="cls_turret_01"
+    movingCollisionNodes:t="turret_front"
+    movingCollisionNodes:t="turret_side"
+    movingCollisionNodes:t="gun_mask"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="us_m4a3e2_sherman_jumbo_gunner_cockpit"
+
+      "turretNames:array"{
+        turretNames:t="turret_01"
+        turretNames:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="base_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="commander"
+      locName:t="vehicle_seats/commander"
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=yes
+      hatchRotationAxis:p3=1.8, 0.0, 0.0
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, -0.5, 0.0]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+      cameraNodeName:t="bone_turret"
+      cockpitTemplate:t="us_m4a3e2_sherman_jumbo_commander_cockpit"
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
+      }
+
+      "hatchTurretNames:array"{
+        turret:t="turret_03"
+      }
+    }
+
+    "seats:object"{
+      attachNode:t="loader"
+      locName:t="vehicle_seats/loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="bone_camera_driver"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+
+    "seats:object"{
+      attachNode:t="machine_gunner"
+      locName:t="vehicle_seats/radioman"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="machine_gunner"
+      cameraNodeName:t="bone_camera_driver"
+    }
+  }
+}
+
+us_m4a3e2_sherman_jumbo_commander_cockpit{
+  _extends:t="base_commander_cockpit_no_slits"
+  animchar__res:t="t_26_1940_commander_char"
+  cockpit__offset:p3=-0.0, 0.9, -0.46
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=0.0, 0.0, 0.0
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.15
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+}
+
+us_m4a3e2_sherman_jumbo_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m71g.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="ba_11_gunner_char"
+  cockpit__offset:p3=-0.65, -0.065, 0.233
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.11
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__cockpit__attachNodeNames:list<t>"{
+    node:t="bone_camera_gunner"
+  }
+
+  "cockpit__cockpit__attachNodeIndices:list<i>"{
+  }
+}
+
+us_m4a3e2_sherman_jumbo_rhino_premium{
+  _extends:t="us_m4a3e2_sherman_jumbo_common"
+  collision_damage__forwardDamageToHumanMult:r=100.0
+
+  "animchar__objTexReplace:object"{
+    "us_camo_olive*":t="us_camo_olive_drab_olive*"
+  }
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=3
+      fill:b=yes
+    }
+  }
+
+  "attach_decorators__templates:array"{
+
+    "templates:object"{
+      relativeTm:m=[[1.0, -2.02416e-07, 3.36513e-11] [7.23048e-11, 5.05825e-08, -1.0] [2.02244e-07, 1.0, 0.0] [3.21803, 0.709705, 0.000416913]]
+      template:t="sherman_hedgerow_02_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.701456, -0.712597, -0.0216981] [-0.0254397, 0.0053668, -0.999722] [0.711138, 0.70029, -0.0144091] [1.95673, 1.48633, 0.826846]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0497968, -0.056768, 0.998055] [0.773402, -0.633938, 0.00250365] [0.630996, 0.76984, 0.0753801] [2.50058, 1.25868, -0.076699]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0400551, 0.0772924, 0.996929] [0.633434, -0.769813, 0.0850943] [0.772122, 0.633851, -0.0179373] [2.09358, 1.31207, 0.0147308]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0764339, 0.0268497, 0.997406] [0.934111, -0.348581, 0.0809136] [0.348808, 0.935972, 0.00181963] [1.60535, 1.80949, 0.936333]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.805907, -0.592627, -0.00185838] [-0.0217436, -0.0263753, -0.99962] [0.59028, 0.80432, -0.034223] [2.45419, 1.35357, -0.535035]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.155165, -0.138394, -0.978799] [-0.924926, 0.328709, -0.193109] [0.34756, 0.933339, -0.0770377] [2.4245, 1.16704, 0.546689]]
+      template:t="sandbag_single_b_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.0859536, -0.00815215, -0.994304] [-0.643332, 0.762391, 0.0494658] [0.757728, 0.643616, -0.0665695] [2.79021, 0.976037, -0.346789]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.124341, 0.0577507, 0.991106] [0.68286, -0.71937, 0.127604] [0.71887, 0.691821, 0.0500784] [2.48416, 1.18657, -0.551642]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.737969, 0.670002, -0.0736855] [-0.122475, -0.0167784, 0.911453] [0.661851, 0.74107, 0.0885816] [1.7836, 1.67001, -0.745536]]
+      template:t="sandbag_single_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.834402, -0.550102, -0.00196244] [-0.0203784, -0.02738, -0.999489] [0.54696, 0.833509, -0.0341276] [1.79472, 1.65879, 0.450962]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0352609, 0.0160524, 1.00039] [0.858501, -0.513652, -0.0220454] [0.512422, 0.857186, -0.0316813] [2.48, 1.15265, 0.0450687]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0232335, 0.00097428, -1.00034] [-0.737094, 0.675736, -0.0164251] [0.674375, 0.736557, 0.0162501] [2.17191, 1.34385, -0.598252]]
+      template:t="sandbag_single_d_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.706786, -0.70716, -0.00152482] [0.0266759, 0.0292859, -0.889432] [0.707182, 0.706408, 0.0350856] [1.79025, 1.6182, -0.413489]]
+      template:t="sandbag_single_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.00464288, 0.00381828, 1.15046] [0.00178117, 1.15045, -0.00381064] [-1.15031, 0.00176651, -0.00464006] [0.135574, 1.52251, 1.41759]]
+      template:t="log_a_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.00439813, 0.00253509, 0.811224] [-0.0222291, 0.811242, -0.00267687] [-1.17184, -0.0385383, -0.00255291] [-0.0732422, 1.28477, 1.38657]]
+      template:t="log_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.224951, -0.28372, -0.00109207] [-0.0010667, -0.000548756, 0.362158] [-0.283864, 0.224885, -0.000494894] [2.73216, 1.11759, 0.0910893]]
+      template:t="wooden_plank_c_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.263327, -0.964805, 0.000856065] [0.965381, 0.263393, 0.000652188] [-0.000855406, 0.000654602, 0.999961] [-0.67659, 1.46536, -1.48223]]
+      template:t="us_jerrycan_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.0428182, -0.998718, 0.000886788] [0.99885, 0.0428361, 0.000847413] [-0.000884696, 0.000849742, 1.0] [-0.188766, 1.55225, -1.49093]]
+      template:t="us_jerrycan_decor"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.277033, -0.960343, 0.000690751] [-0.96076, 0.276824, -0.00245649] [0.00216835, -0.00134415, -0.999973] [-1.18185, 1.43432, -1.33959]]
+      template:t="us_jerrycan_decor"
+      nodeName:t="root"
+    }
+  }
+}

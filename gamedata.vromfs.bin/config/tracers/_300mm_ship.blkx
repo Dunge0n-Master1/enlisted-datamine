@@ -1,0 +1,7 @@
+halfSize:r=20.0
+distScaleStart:r=1000.0
+distScaleEnd:r=15000.0
+distScale:r=0.22
+radius:r=0.19
+hdrK:r=2.4
+minPixelSize:r=3.3

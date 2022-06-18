@@ -1,0 +1,73 @@
+mass:r=0.405
+caliber:r=0.037
+damageMass:r=0.231
+ballisticCaliber:r=0.037
+damageCaliber:r=0.0161
+speed:r=1150.0
+Cx:r=0.3219
+maxDistance:r=7000.0
+normalizationPreset:t="apcr"
+ricochetPreset:t="apcr"
+secondaryShattersPreset:t="apcr"
+stabilityThreshold:r=0.05
+relativeVelArmorShift:p2=200.0, 1000.0
+stabilityCaliberToArmorThreshold:r=5.0
+stabilityReductionAfterPenetration:r=0.15
+bulletType:t="apcr_t"
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+slopeEffectPreset:t="apcr"
+explosionEffect:t="hit_39_58mm_metal_ap"
+fresnel:p3=0.23, 0.1, 2.0
+groundCollisionEffect:t="hit_39_58mm_dirt_ap"
+shellAnimation:t="video/shells_animations/apcr.ivf"
+ricochetEffect:t="hit_39_58mm_metal_ap"
+relativeVelHitShift:p2=300.0, 1000.0
+explosionPatchRadius:r=0.7
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.05
+  mod2:p2=20.0, 0.1
+  mod3:p2=30.0, 0.2
+  mod3:p2=45.0, 0.3
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="37mmRed"
+  trail:t="black"
+}
+
+hitpower{
+  HitPower0m:p2=1.0, 0.0
+  HitPower1000m:p2=0.9, 0.0
+  HitPower10000m:p2=0.8, 10000.0
+}
+
+hitFx{
+
+  steel{
+    fx:t="hit_39_58mm_metal_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_39_58mm_wood_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_39_58mm_metal_ap"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_39_58mm_stone_ap"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+tracer{
+  headColor:c=255, 15, 15, 255
+  smokeColor:c=80, 80, 80, 186
+}

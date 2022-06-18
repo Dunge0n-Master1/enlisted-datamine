@@ -1,0 +1,594 @@
+il_2_1941{
+  _extends:t="il_2_1941_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/il_2_1941"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.93, 0.963, 0.0
+      cockpitTemplate:t="il_2_1941_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+        turret:t="turret_08"
+        turret:t="turret_09"
+        turret:t="turret_10"
+        turret:t="turret_11"
+        turret:t="turret_12"
+        turret:t="turret_13"
+        turret:t="turret_14"
+        turret:t="turret_15"
+        turret:t="turret_16"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bomb3"
+    node:t="bomb4"
+    node:t="bomb5"
+    node:t="bomb6"
+    node:t="rocket1"
+    node:t="rocket8"
+    node:t="rocket2"
+    node:t="rocket7"
+    node:t="rocket3"
+    node:t="rocket6"
+    node:t="rocket4"
+    node:t="rocket5"
+    node:t="flare1"
+    node:t="flare4"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_06_yaw"
+      curPitchParamName:t="weapon_06_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_07_yaw"
+      curPitchParamName:t="weapon_07_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_08_yaw"
+      curPitchParamName:t="weapon_08_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_09_yaw"
+      curPitchParamName:t="weapon_09_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_10_yaw"
+      curPitchParamName:t="weapon_10_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_11_yaw"
+      curPitchParamName:t="weapon_11_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_12_yaw"
+      curPitchParamName:t="weapon_12_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_13_yaw"
+      curPitchParamName:t="weapon_13_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_14_yaw"
+      curPitchParamName:t="weapon_14_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_15_yaw"
+      curPitchParamName:t="weapon_15_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_16_yaw"
+      curPitchParamName:t="weapon_16_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_il_2_1941_fab_50_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_il_2_1941_fab_50_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_il_2_1941_fab_50_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_il_2_1941_fab_50_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_08"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_09"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_05"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_10"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_06"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_11"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_07"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_12"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_08"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_13"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_il_2_1941_7_62mm_shkas_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_14"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_il_2_1941_7_62mm_shkas_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_15"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_il_2_1941_20mm_shvak_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_16"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_il_2_1941_20mm_shvak_02"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_rocket3"
+    part:t="pylon_rocket4"
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+  }
+}
+
+base_il_2_1941_fab_50_launcher{
+  item__name:t="guns/su_fab50"
+  gun__blk:t="gamedata/weapons/il_2_1941/fab_50_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="su_fab50"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/fab_50.blk"
+        name:t="fab_50"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+base_il_2_1941_20mm_shvak{
+  item__name:t="guns/cannonshvak"
+  gun__blk:t="gamedata/weapons/il_2_1941/20mm_shvak.blk"
+  gun__shotFreq:r=13.3333
+  gun__locName:t="cannonshvak"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=210
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=210
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20mm_shvak_ozt_bullet.blk"
+        name:t="ozt"
+        type:t="frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20mm_shvak_bz_bullet.blk"
+        name:t="bz"
+        type:t="ap_i"
+      }
+    }
+  }
+}
+
+base_il_2_1941_7_62mm_shkas{
+  item__name:t="guns/gunshkas"
+  gun__blk:t="gamedata/weapons/il_2_1941/7_62mm_shkas.blk"
+  gun__shotFreq:r=30.0
+  gun__locName:t="gunshkas"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=750
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=750
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_t46_bullet.blk"
+        name:t="t46"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_l_bullet.blk"
+        name:t="l"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_l_bullet.blk"
+        name:t="l"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_b32_bullet.blk"
+        name:t="b32"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_pz_bullet.blk"
+        name:t="pz"
+        type:t="he_ball"
+      }
+    }
+  }
+}
+
+base_il_2_1941_rbs_82_launcher{
+  item__name:t="guns/su_rbs82"
+  gun__blk:t="gamedata/weapons/il_2_1941/rbs_82_launcher.blk"
+  gun__shotFreq:r=1000.25
+  gun__locName:t="su_rbs82"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/rbs_82.blk"
+        name:t="rbs_82"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+planegun_il_2_1941_fab_50_launcher_01{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb3"
+  slot_attach__slotName:t="bomb3"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_fab_50_launcher_02{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb4"
+  slot_attach__slotName:t="bomb4"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_fab_50_launcher_03{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb5"
+  slot_attach__slotName:t="bomb5"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_fab_50_launcher_04{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb6"
+  slot_attach__slotName:t="bomb6"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_01{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket1"
+  slot_attach__slotName:t="rocket1"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_02{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket8"
+  slot_attach__slotName:t="rocket8"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_03{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket2"
+  slot_attach__slotName:t="rocket2"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_04{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket7"
+  slot_attach__slotName:t="rocket7"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_05{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket3"
+  slot_attach__slotName:t="rocket3"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_06{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket6"
+  slot_attach__slotName:t="rocket6"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_07{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket4"
+  slot_attach__slotName:t="rocket4"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_rbs_82_launcher_08{
+  _extends:t="rbs_82_launcher"
+  _extends:t="base_il_2_1941_rbs_82_launcher"
+  _extends:t="gunsound_rbs_82_launcher_aircraft"
+  gun__shootNodeName:t="rocket5"
+  slot_attach__slotName:t="rocket5"
+  gun__maxAmmo:i=1
+}
+
+planegun_il_2_1941_7_62mm_shkas_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_il_2_1941_7_62mm_shkas"
+  _extends:t="gunsound_7_62mm_shkas_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=750
+}
+
+planegun_il_2_1941_7_62mm_shkas_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_il_2_1941_7_62mm_shkas"
+  _extends:t="gunsound_7_62mm_shkas_aircraft"
+  gun__shootNodeName:t="flare4"
+  gun__maxAmmo:i=750
+}
+
+planegun_il_2_1941_20mm_shvak_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_il_2_1941_20mm_shvak"
+  _extends:t="gunsound_20mm_shvak_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=210
+}
+
+planegun_il_2_1941_20mm_shvak_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_il_2_1941_20mm_shvak"
+  _extends:t="gunsound_20mm_shvak_aircraft"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=210
+}
+
+il_2_1941_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="il_2_1941_cockpit_char"
+  plane_anim__blk:t="gamedata/units/il_2_1941.blk"
+  plane_sight__blk:t="gamedata/units/il_2_1941.blk"
+}

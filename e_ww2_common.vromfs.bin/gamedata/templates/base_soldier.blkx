@@ -1,0 +1,1362 @@
+enlisted_human_marker{
+  _extends:t="hud_human_marker"
+  _tracked:t="isMarkerMapUnitVisible"
+  _tracked:t="marker__blink"
+  _replicated:t="marker__blink"
+  marker__blink:b=no
+  marker__blinkTime:r=5.0
+  marker__blinkTimer:r=-1.0
+
+  "isMarkerMapUnitVisible:b"{
+    _tags:t="ui"
+    value:b=yes
+  }
+}
+
+human_hooray_speech{
+  human_hooray_speech__morale:r=0.0
+  human_hooray_speech__threshold:r=13.0
+  human_hooray_speech__decay:r=0.1
+  human_hooray_speech__sensitivity:r=1.0
+  human_hooray_speech__restore:r=0.01
+  human_hooray_speech__radius:r=50.0
+  human_hooray_speech__lookup:r=0.0
+  human_hooray_speech__delay:r=-1.0
+  human_hooray_speech__delayMinMax:p2=1.0, 3.0
+  human_hooray_speech__timer:r=60.0
+  human_hooray_speech__chance:i=40
+  human_hooray_speech__lastRequestTime:r=-1.0
+}
+
+human_icon{
+
+  _group{
+    _tags:t="render"
+    human_icon__width:i=60
+    human_icon__height:i=90
+    human_icon__widthLarge:i=110
+    human_icon__heightLarge:i=164
+    human_icon__offset:p2=0.0, -0.7
+    human_icon__scale:r=5.0
+    human_icon__zenith:r=1.0
+    human_icon__azimuth:r=-50.0
+    human_icon__brightness:r=2.0
+  }
+}
+
+soldier_army_info{
+  soldier__sClass:t=""
+  soldier__sKind:t=""
+  soldier__sClassRare:i=0
+  soldier__id:i=-1
+}
+
+enlisted_human_cannon_resupply{
+  _replicated:t="fortification_repair__active"
+  _replicated:t="fortification_repair__timer"
+  _tracked:t="fortification_repair__active"
+  _tracked:t="fortification_repair__timer"
+  fortification_repair__active:b=no
+  fortification_repair__timer:r=0.0
+  fortification_repair__time:r=5.0
+
+  "fortification_repair__canRepair:b"{
+    _tags:t="server"
+    value:b=no
+  }
+
+  "fortification_repair__repairCost:r"{
+    _tags:t="server"
+    value:r=0.0
+  }
+
+  "fortification_repair__target:eid"{
+    _tags:t="server"
+  }
+}
+
+_componentFilters{
+  fortification_repair__active:t="filter_possessed_and_spectated"
+  fortification_repair__timer:t="filter_possessed_and_spectated"
+}
+
+moving_platform_visitor{
+  isInMovingPlatform:b=no
+  movingPlatformOffset:p3=0.0, 0.0, 0.0
+  inMovingPlatformPos:p3=0.0, 0.0, 0.0
+
+  "movingPlatformEid:eid"{
+  }
+}
+
+base_soldier{
+  _extends:t="human_backstab"
+  _extends:t="human_icon"
+  _extends:t="equipment_char_flags"
+  _extends:t="device_anim"
+  _extends:t="locked_looting_soldier_base"
+  _extends:t="locked_use_objects_soldier_base"
+  _extends:t="human_enter_exit_vehicle_timer"
+  _extends:t="soldier_army_info"
+  _extends:t="aircraft_crew_replicated_components"
+  _extends:t="moving_platform_visitor"
+  human_anim__isNodesDisabled:b=no
+  weaponPreset:t=""
+  name:t=""
+  surname:t=""
+  callname:t=""
+  guid:t=""
+  _replicated:t="human_equipment__slots"
+  _replicated:t="beh_tree__enabled"
+  _replicated:t="flask__affectEid"
+  _tracked:t="human_equipment__slots"
+  _tracked:t="hasFlask"
+  animchar__res:t="soldier_base_model_char"
+  collres__res:t="soldier_base_model_collision"
+  human_weight_influence__minWeight:r=0.0
+  human_weight_influence__maxWeightJumpMult:r=1.0
+  human_weight_influence__maxWeightSpeedMult:r=1.0
+  human_weight_influence__maxweight:r=35.0
+  human_weight_influence__staminaDrainMult:r=2.5
+  hero_tracer__shellId:i=-1
+  hero_tracer__shellName:t="content/enlisted/gamedata/weapons_enlisted/bullets/tracer_shell.blk"
+  hitpoints__hpThreshold:r=3.0
+  hitpoints__maxHp:r=10.0
+  hitpoints__deathHpThreshold:r=-10.0
+  hitpoints__downedKillChanceBase:r=0.2
+  hitpoints__downedKillChanceMult:r=0.5
+  hitpoints__downedHpPerSecond:r=0.5
+  hitpoints__downedKillWhenBurning:b=yes
+  hitpoints__canSelfReviveByHealing:b=yes
+  hitpoints__canBeRevivedByTeammates:b=no
+  hitpoints__alwaysAllowRevive:b=no
+  hitpoints__shatterDmgArmor:r=0.01
+  hitpoints__shellSplashDmgMult:r=1.0
+  walker_agent__minShootAngle:r=5.0
+  walker_agent__aiMinShootAngle:r=5.0
+  walker_agent__maxShootDistToTarget:r=10.0
+  walker_agent__aiMaxShootDistToTarget:r=1.0
+  walker_agent__predictMult:r=0.5
+  walker_agent__aiPredictMult:r=1.0
+  walker_agent__aimSpeed:r=600.0
+  walker_agent__minMaxAimSpeed:p2=400.0, 1000.0
+  walker_agent__distToTargetRandomX:p2=0.4, 0.8
+  walker_agent__distToTargetRandomY:p2=0.1, 0.2
+  walker_agent__minMaxDist:p2=5.0, 25.0
+  walker_agent__aimViscosity:r=0.1
+  walker_agent__shotsToMaxAccuracy:i=5
+  walker_agent__timeToMaxAccuracy:r=3.0
+  walker_agent__aiShotsToMaxAccuracy:i=1
+  walker_agent__aiTimeToMaxAccuracy:r=1.0
+  agent_dangers__hasTraceableDangers:b=no
+  agent_dangers__hasTraceableDangerThreshold:r=0.1
+  agent_dangers__checkTimes:p2=0.2, 0.5
+  ragdoll__use_ccd:b=yes
+  ragdoll__deactivationFactor:r=0.16
+  human_broken_bones__tearOffImpulse:r=7.5
+  human_broken_bones__tearOffImpulseUp:r=1.0
+  canRemoveWhilePossessed:b=no
+  beh_tree__enabled:b=no
+  maxLootableAmmoCount:i=1
+  camName:t="soldier_cam_perlin"
+  collision_damage__pushThreshold:r=1.0
+  trajectory__wide_start:r=0.03
+  trajectory__wide_end:r=0.03
+  trajectory__center:c=100, 0, 0, 70
+  zones_visitor__lastTriggerTag:t=""
+  appearance__rndSeed:i=0
+  human_coll_damage__minDmgSpd:r=10.0
+  human_coll_damage__minFallDmgVal:r=3.0
+  animchar_fast_phys__res:t="soldier_base_model_fastphys"
+
+  "flask__affectEid:eid"{
+  }
+
+  "entity_mods:object"{
+    _tags:t="server"
+  }
+
+  _group{
+    _replicate:b=yes
+    entity_mods__speedMult:r=1.0
+    entity_mods__staminaDrain:r=1.0
+    entity_mods__sprintStaminaDrain:r=1.0
+    entity_mods__sprintSpeedMult:r=1.0
+    entity_mods__reloadMult:r=1.0
+    entity_mods__recoilMult:r=1.0
+    entity_mods__jumpMult:r=1.0
+    entity_mods__shotDeviationMult:r=1.0
+    entity_mods__meleeDamageMult:r=1.0
+    entity_mods__staminaBoostMult:r=1.0
+    entity_mods__restoreStaminaMult:r=1.0
+    entity_mods__jamChanceMult:r=1.0
+    entity_mods__accelerationMult:r=1.0
+    entity_mods__boltActionMult:r=1.0
+    entity_mods__healAmountMult:r=1.0
+    entity_mods__healAmountTargetMult:r=1.0
+    entity_mods__medicMedpacksMult:r=1.0
+    entity_mods__medicMedboxPacksMult:r=1.0
+    entity_mods__fasterChangeWeaponMult:r=1.0
+    entity_mods__lessFallDmgMult:r=1.0
+    entity_mods__breathAimMult:r=1.0
+    entity_mods__climbingSpeedMult:r=1.0
+    entity_mods__weightRunSpeedMult:r=1.0
+    entity_mods__horizontalRecoilOffsMult:r=1.0
+    entity_mods__verticalRecoilOffsMult:r=1.0
+    entity_mods__fasterChangePoseMult:r=1.0
+    entity_mods__longerHoldBreathMult:r=1.0
+    entity_mods__oftenHoldBreathMult:r=1.0
+    entity_mods__crawlCrouchSpeedMult:r=1.0
+    entity_mods__rotationShotSpreadDecrMult:r=1.0
+    entity_mods__maxHpMult:r=1.0
+    entity_mods__hpToRegen:r=1.0
+    entity_mods__moreStabilityWhenHitMult:r=0.0
+    entity_mods__lessStoppingPower:r=0.0
+    entity_mods__hpChange:r=0.0
+    entity_mods__aimingAfterFireMult:r=1.0
+    entity_mods__weaponTurningSpeedMult:r=1.0
+    entity_mods__fireDamageMult:r=1.0
+    entity_mods__vehicleChangeSeatTimeMult:r=1.0
+    entity_mods__vehicleExtinguishTimeMult:r=1.0
+    entity_mods__vehicleRepairUsagesPerKit:i=1
+    entity_mods__vehicleRepairTimeMult:r=1.0
+    entity_mods__vehicleRepairRecoveryRatioAdd:r=0.0
+    entity_mods__vehicleReloadMult:r=1.0
+    entity_mods__canChangeShellDuringVehicleGunReload:b=no
+    entity_mods__turretPitchMultWhenAimingYaw:r=0.0
+    entity_mods__aircraftDetectAndIdentifyRangeMult:r=1.0
+    entity_mods__aircraftPeripheryAngleMult:r=1.0
+    entity_mods__negativeGToleranceMult:r=1.0
+    entity_mods__positiveGToleranceMult:r=1.0
+    entity_mods__aircraftCrewMaxStaminaMult:r=1.0
+    entity_mods__aircraftCrewRestoreStaminaMult:r=1.0
+    entity_mods__pilotLostControlsSensetivityAddMult:r=0.0
+    entity_mods__pilotHeadStabilisationMult:r=1.0
+    entity_mods__shakePowerMult:r=1.0
+    entity_mods__timeToBuildMul:r=1.0
+    entity_mods__medkitUseTimeMult:r=1.0
+    entity_mods__medkitUseTimeTargetMult:r=1.0
+    entity_mods__aimSpeedMult:r=1.0
+    entity_mods__grenadeThrowDistMult:r=1.0
+  }
+
+  _group{
+    _tags:t="server"
+    entity_mods__concussionDurationMult:r=1.0
+    entity_mods__concussionShakeMult:r=1.0
+  }
+
+  _group{
+    _tags:t="gameClient"
+    human_anim__dynamicRagdollClipoutTimeout:r=0.4
+    human_anim__dynamicRagdollClipoutOffset:p3=0.0, 0.5, 0.0
+  }
+
+  _group{
+    projectile_impulse__cinematicArtistrySpeedMult:r=0.25
+    projectile_impulse__cinematicArtistryMultDead:r=0.0
+    projectile_impulse__maxVelocity:r=10.0
+    projectile_impulse__maxOmega:r=4.0
+    _tags:t="gameClient"
+  }
+
+  _group{
+    _hide:b=yes
+
+    "human_anim__disableHubsIds:list<i>"{
+    }
+
+    "human_anim__disableNodesIds:list<i>"{
+    }
+  }
+
+  _group{
+    _tags:t="gameClient"
+    hasFlask:b=no
+    ui__flaskUseTipMinStamina:r=40.0
+  }
+
+  "human_equipment__itemRemap:object"{
+  }
+
+  "human_equipment__initialEquip:object"{
+  }
+
+  "human_equipment__initialEquipComponents:object"{
+  }
+
+  "human_equipment__slots:object"{
+
+    "head:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "body:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "tacticalVest:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "hair:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "face:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "tunic:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "gloves:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "pants:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "helmet_deco:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "flask_r:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "pot:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "gasmask:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "skined_helmet:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "bag_l:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "belt_1:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "belt_2:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "front_belt_l:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "front_belt_r:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "rear_belt_l:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "roll:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "shovel:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "ammo_case:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "backpack:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "parachute_canopy:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "radio:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "bag:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "left_arm_vis:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "right_arm_vis:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "left_leg_vis:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "right_leg_vis:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "pelvis_vis:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "spine_vis:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "chest:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "upper_r_hand_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "lower_r_hand_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "upper_l_hand_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "lower_l_hand_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "upper_r_leg_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "lower_r_leg_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "upper_l_leg_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "lower_l_leg_gibs:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  collres{
+  }
+
+  capsule_approximation{
+  }
+
+  "animchar_node_collapser__nodes:object"{
+    _tags:t="render"
+  }
+
+  "agentDangerAreas:object"{
+    _tags:t="server"
+  }
+
+  "droppedGunKeepsMods:tag"{
+  }
+
+  "itemsAround:array"{
+    _tags:t="ui"
+  }
+
+  "human_anim__disableNodes:object"{
+
+    "hubs:array"{
+      hubs:t="arms_aim:arms"
+      hubs:t="arms_aim_r:arms"
+      hubs:t="arms_hold:arms"
+      hubs:t="arms_hold_no_fingers:arms"
+      hubs:t="arms_hold_link_constraint:arms"
+      hubs:t="apply walk_dir+IK"
+      hubs:t="apply walk_dir rotate+IK"
+      hubs:t="apply body_dir rotate+IK"
+      hubs:t="root"
+    }
+
+    "nodes:array"{
+      nodes:t="arms_aim_ik_forearm_l"
+      nodes:t="arms_aim_ik_forearm_r"
+      nodes:t="arms_aim_ik_l"
+      nodes:t="arms_aim_ik_r"
+      nodes:t="arms_aim_set_effectors_l"
+      nodes:t="arms_aim_set_effectors_r"
+      nodes:t="arms_aim_set_lhand_effector"
+      nodes:t="arms_hold_ik_hands_l"
+      nodes:t="arms_hold_ik_hands_r"
+      nodes:t="build_chain_to_l_hand"
+      nodes:t="build_chain_to_r_hand"
+      nodes:t="feet_ctrl"
+      nodes:t="full_body_ik"
+      nodes:t="get_eff_from_attachment_for_l_hand"
+      nodes:t="get_eff_from_attachment_for_r_hand"
+      nodes:t="l.twist"
+      nodes:t="r.twist"
+      nodes:t="hands_attach"
+      nodes:t="fifo3_breath"
+      nodes:t="fifo3_additive_body_movements"
+      nodes:t="fifo3_additive_spine_extra"
+      nodes:t="fifo3_additive_spine_movements"
+      nodes:t="fifo3_reye"
+      nodes:t="fifo3_spines"
+      nodes:t="fifo3_neck"
+    }
+  }
+
+  "camNames:array"{
+    camNames:t="soldier_cam_perlin"
+  }
+
+  "xrayActivator:tag"{
+  }
+
+  "appearance__prevRndSeed:i"{
+    _tags:t="dev"
+    value:i=0
+  }
+
+  "turretHitAlwaysIneffective:tag"{
+    _tags:t="gameClient"
+  }
+}
+
+barbwire_damage{
+  _tags:t="server"
+  barbwire_damage__matName:t="barbwire"
+  barbwire_damage__matId:i=-1
+  barbwire_damage__damagePerSecond:r=1.0
+}
+
+aircraft_identification{
+  _tracked:t="aircraft_identification__detectDistance"
+  _tracked:t="aircraft_identification__peripheryDistMult"
+
+  _group{
+    _replicate:b=yes
+    aircraft_identification__detectDistance:r=1500.0
+    aircraft_identification__identifyDistance:r=1000.0
+    aircraft_identification__peripheryDistMult:r=0.5
+    aircraft_identification__focusHalfAngleDeg:r=15.0
+    aircraft_identification__peripheryHalfAngleDeg:r=60.0
+  }
+
+  "aircraft_identification__checkInterval:r"{
+    _tags:t="gameClient"
+    value:r=0.3
+  }
+
+  "aircraft_identification__nextCheckAtTime:r"{
+    _tags:t="gameClient"
+    value:r=-1.0
+  }
+}
+
+ai_gunner{
+
+  "aiGunner:tag"{
+  }
+}
+
+driver_skills{
+  driver_skills__brakingTauMult:r=1.0
+  driver_skills__gearChangeTimeMult:r=1.0
+  driver_skills__drivingSpeedThresholdMult:r=1.0
+}
+
+engineer_barbwire_award{
+  _tags:t="server"
+  engineer_barbwire_award__nextUpdateTime:r=0.0
+  engineer_barbwire_award__updateInterval:r=3.0
+  engineer_barbwire_award__maxActivations:i=3
+  engineer_barbwire_award__activationCount:i=0
+}
+
+friendly_fire_penalty{
+
+  _group{
+    _tags:t="server"
+    friendly_fire__penaltyCooldown:r=5.0
+
+    "friendly_fire__lastPenaltyTime:object"{
+    }
+  }
+}
+
+squad_member_ui{
+  tags:t="ui"
+
+  "squad_member_ui__grenadeTypes:list<t>"{
+  }
+
+  "squad_member_ui__mineTypes:list<t>"{
+  }
+}
+
+dead_enlisted_base_soldier{
+  _extends:t="dead_entity"
+  _extends:t="base_burning"
+  _extends:t="animchar_turn_dir"
+  _extends:t="base_hitpoints"
+  _extends:t="human_grid_obj"
+  _extends:t="base_dm_parts"
+  _extends:t="simple_damage_model"
+  _extends:t="human_broken_bones"
+  _extends:t="soldier_army_info"
+  _extends:t="squad_member_ui"
+  _extends:t="human_cam"
+  _extends:t="replicating"
+  team:i=-1
+  name:t=""
+  surname:t=""
+  callname:t=""
+  guid:t=""
+  isInVehicle:b=no
+  _replicated:t="isInVehicle"
+  _replicated:t="human_anim__vehicleSelected"
+  _replicated:t="itemContainer"
+  _replicated:t="human_weap__currentGunEid"
+  _replicated:t="human_weap__currentGunModEids"
+  _replicated:t="human_weap__gunEids"
+  _replicated:t="human_weap__gunMods"
+  _replicated:t="human_weap__weapTemplates"
+  _replicated:t="human_equipment__slots"
+  _replicated:t="possessedByPlr"
+  _replicated:t="isInVehicleHidden"
+  _replicated:t="human__visible"
+  _replicated:t="human_inventory__capacity"
+  _replicated:t="human_inventory__currentVolume"
+  _replicated:t="human_inventory__currentWeight"
+  _replicated:t="killer"
+  vehicle__localSeatTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  vehicle__globalSeatTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="isInVehicle"
+  _tracked:t="human_anim__vehicleSelected"
+  _tracked:t="itemContainer"
+  _tracked:t="human__canPickupItems"
+  _tracked:t="human_weap__currentGunEid"
+  _tracked:t="human_weap__currentGunModEids"
+  _tracked:t="human_weap__gunEids"
+  _tracked:t="human_weap__gunMods"
+  _tracked:t="human_equipment__slots"
+  _tracked:t="possessedByPlr"
+  _tracked:t="human__visible"
+  _tracked:t="human_inventory__capacity"
+  _tracked:t="human_inventory__currentVolume"
+  _tracked:t="human_inventory__currentWeight"
+  _tracked:t="human_inventory__selectedItem"
+  phys__physTypeStr:t=""
+  maxLootableAmmoCount:i=1
+  human__canPickupItems:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  slot_attach__calcAnim:b=yes
+  human_anim__ragdollEnabled:b=no
+  animchar__res:t="usaSoldier_char"
+  animchar_render__enabled:b=yes
+  isInVehicleHidden:b=no
+  human__visible:b=yes
+  human_inventory__dropLootOffset:p3=0.1, 0.6, 0.0
+  isAlive:b=no
+  disable_collision:b=no
+  bodyCleanupTime:r=60.0
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/humans/human.blk"
+  human_anim__isNodesDisabled:b=no
+  ragdoll__use_ccd:b=yes
+  ragdoll__active:b=no
+  ragdoll__deactivationFactor:r=0.16
+  human_inventory__capacity:r=4.0
+  human_inventory__lookNodeName:t="reye"
+  human_inventory__lookNodeId:i=-1
+  human_inventory__dropsLoot:b=no
+  human_inventory__currentVolume:r=0.0
+  human_inventory__currentWeight:r=0.0
+  human_net_phys__velocity:p3=0.0, 0.0, 0.0
+  collres__res:t="usaSoldier_collision"
+  human_broken_bones__tearOffImpulse:r=7.5
+  human_broken_bones__tearOffImpulseUp:r=1.0
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    squad_member__memberIdx:i=0
+    squad_member__kills:i=0
+
+    "squad_member__squad:eid"{
+    }
+
+    "squad_member__playerEid:eid"{
+    }
+  }
+
+  _group{
+    _tags:t="gameClient"
+    human_anim__dynamicRagdollClipoutTimeout:r=0.4
+    human_anim__dynamicRagdollClipoutOffset:p3=0.0, 0.5, 0.0
+  }
+
+  _group{
+    projectile_impulse__cinematicArtistrySpeedMult:r=0.25
+    projectile_impulse__cinematicArtistryMultDead:r=0.0
+    projectile_impulse__maxVelocity:r=10.0
+    projectile_impulse__maxOmega:r=4.0
+    _tags:t="gameClient"
+  }
+
+  _group{
+    _tags:t="render"
+    death_cam__followTime:r=2.3
+    death_cam__startedAt:r=-1.0
+    deatch_cam__viscosity:p2=0.4, 4.5
+
+    "death_cam__killer:eid"{
+      _track:b=yes
+    }
+  }
+
+  "human_equipment__itemRemap:object"{
+  }
+
+  "human_anim__vehicleSelected:eid"{
+  }
+
+  "human_weap__weapTemplates:object"{
+  }
+
+  "last_offenders__engineerAssists:object"{
+    _tags:t="server"
+  }
+
+  "turretHitAlwaysIneffective:tag"{
+    _tags:t="gameClient"
+  }
+
+  anim_phys{
+  }
+
+  phys_vars{
+  }
+
+  "itemContainer:list<eid>"{
+  }
+
+  "noLootDropOnDeath:tag"{
+  }
+
+  "allowOnlyPrimaryWeaponDrop:tag"{
+  }
+
+  "destroyNonPrimaryWeaponOnDeath:tag"{
+  }
+
+  "human_weap__currentGunEid:eid"{
+  }
+
+  "human_weap__currentGunModEids:list<eid>"{
+  }
+
+  "human_weap__gunEids:list<eid>"{
+  }
+
+  "human_weap__gunMods:array"{
+  }
+
+  "human_weap__ammunitionCanBeStolen:tag"{
+  }
+
+  "human_equipment__slots:object"{
+  }
+
+  "inventoryGunsItemsEids:list<eid>"{
+  }
+
+  "human:tag"{
+  }
+
+  "possessedByPlr:eid"{
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  animchar_attaches_bbox{
+    _tags:t="render"
+  }
+
+  ragdoll{
+    _tags:t="render"
+  }
+
+  "ragdoll__isAllowed:b"{
+    _tags:t="render"
+    value:b=yes
+  }
+
+  projectile_impulse{
+    _tags:t="gameClient"
+  }
+
+  "human_inventory:tag"{
+  }
+
+  "human_inventory__selectConvex:list<p4>"{
+  }
+
+  "human_inventory__selectTpsConvex:list<p4>"{
+  }
+
+  collres{
+  }
+
+  capsule_approximation{
+  }
+
+  "killer:eid"{
+  }
+
+  "allow_friendly_damage:tag"{
+  }
+
+  "dm_parts__hitPartsAnimationId:array"{
+  }
+
+  "dm_parts__parts:object"{
+  }
+
+  "invisibleUpdatableAnimchar:tag"{
+  }
+
+  "human_inventory__selectedItem:eid"{
+  }
+
+  "human_net_phys__locationPos:dp3"{
+  }
+}
+
+change_body_position_speed_options{
+  ai__initialFasterChangePoseMult:r=0.0
+  ai__newFasterChangePoseMult:r=0.5
+  _tags:t="server"
+}
+
+enlisted_human_quickchat_requests{
+  human_quickchat__requestAmmoBoxMarkerShowTime:r=10.0
+  human_quickchat__requestRallyPointMarkerShowTime:r=10.0
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    human_quickchat__requestRallyPointMarkerShowUpTo:r=-1.0
+    human_quickchat__requestAmmoBoxMarkerShowUpTo:r=-1.0
+  }
+}
+
+human_cover_grenade{
+  human_cover_grenade__damageMult:r=0.1
+  human_cover_grenade__damageRadiusMult:r=0.5
+}
+
+enlisted_parachuter{
+  human_parachute_wind__speed:r=9.0
+  human_parachute_wind__deadZone:r=45.0
+  human_parachute_redeploy__redeployAtTime:r=-1.0
+  human_parachute_redeploy__redeployDelay:r=2.0
+  _tracked:t="human_parachute_redeploy__redeployAtTime"
+  _replicated:t="human_parachute_redeploy__redeployAtTime"
+
+  _group{
+    _tags:t="server"
+    human_parachute_redeploy__insideAreaTag:t="humanTriggerable"
+    human_parachute_redeploy__shouldRedeployCheckInterval:r=1.0
+    human_parachute_redeploy__altitude:r=60.0
+    human_parachute_redeploy__maxVelocity:r=16.0
+    human_parachute_redeploy__shouldRedeployCheckNextAt:r=-1.0
+  }
+}
+
+damage_on_leaving_vehicle{
+
+  _group{
+    _tags:t="server"
+    collision_damage__lethalHeight:r=15.0
+    collision_damage__vehicleVelocityOnLeaving:p3=0.0, 0.0, 0.0
+    collision_damage__vehicleLeavingAtTime:r=-1.0
+  }
+}
+
+human_aim_stamina{
+  human_weap__minStaminaLevelToAim:r=6.0
+
+  _group{
+    _replicate:b=yes
+    human_weap__staminaToStartAim:r=0.0
+    human_weap__drainStaminaOnAim:r=0.0
+    human_weap__drainStaminaDelay:r=0.0
+
+    "human_weap__staminaCanAim:b"{
+      value:b=yes
+      _track:b=yes
+    }
+  }
+
+  "human_weap__aimStartTime:r"{
+    value:r=0.0
+    _hide:b=yes
+  }
+}
+
+enlisted_base_soldier{
+  _extends:t="base_soldier"
+  _extends:t="barbwire_damage"
+  _extends:t="engineer_barbwire_award"
+  _extends:t="aircraft_identification"
+  _extends:t="driver_skills"
+  _extends:t="friendly_fire_penalty"
+  _extends:t="squad_member_ui"
+  _extends:t="change_body_position_speed_options"
+  _extends:t="enlisted_human_cannon_resupply"
+  _extends:t="enlisted_human_quickchat_requests"
+  _extends:t="human_cover_grenade"
+  _extends:t="enlisted_parachuter"
+  _extends:t="human_freefall"
+  _extends:t="human_parachute"
+  _extends:t="human_aim_stamina"
+  collision_damage__lethalSpeed:r=20.0
+  collision_damage__damageOnLeavingVehicleTemplate:t="damage_on_leaving_vehicle"
+  _tracked:t="human_use_object__selectedBuilding"
+  _tracked:t="stockOfBuilderCapabilities"
+  hitpoints__clearOffenderTimer:r=30.0
+  hitpoints__penetrationStopPower:r=15.0
+  hitpoints__fatalFallSpeed:r=16.0
+  human_inventory__capacity:r=25.0
+  human_inventory__lootCleanupTime:r=60.0
+  human_inventory__dropsLoot:b=yes
+  human_inventory__dropLootOffset:p3=0.1, 0.6, 0.0
+  phys__physTypeStr:t=""
+  entity__recreateToOnDeath:t="dead_enlisted_base_soldier"
+  trajectory__center:c=100, 0, 0, 0
+  burning__affectTemplate:t="enlisted_burning_affect"
+  human_unarmed__hiddenWeapon:b=no
+  human_unarmed__active:b=no
+  human_weap__lockedGrenadeThrowingCounter:i=0
+  human_anim__isNodesDisabled:b=no
+  stockOfBuilderCapabilities:r=20.0
+  _replicated:t="stockOfBuilderCapabilities"
+  human_weap__extraGunSpeedOnJump:r=0.04
+  human_net_phys__minStaminaLevelToHoldBreath:r=0.24
+  human_net_phys__drainStaminaSpeedOnHoldBreath:r=2.5
+  human_net_phys__playerCollisionMaterial:t="walker"
+  human_net_phys__playerCollisionMaterialId:i=-1
+  human_net_phys__botCollisionMaterial:t="walkerBot"
+  human_net_phys__botCollisionMaterialId:i=-1
+  net_phys__collisionMaterialId:i=-1
+  net_phys__ignoreMaterialId:i=-1
+  terraform__wakeUpRagdollRadius:r=20.0
+  digging__decalName:t="shovel_dig"
+  digging__decalId:i=-1
+  digging_fx__name:t="soil_digging_dirt"
+  digging_fx__scale:r=1.5
+  digging_fx__upDirectionWeight:r=0.25
+  dmgzone_fire_resistance__maxTicks:i=0
+  dmgzone_fire_resistance__decayInterval:r=1.0
+  dmgzone_fire_resistance__lastTickAt:r=0.0
+  dmgzone_fire_resistance__currentTicks:i=0
+
+  "override__riextraDamage:tag"{
+  }
+
+  "human_use_object__selectedBuilding:eid"{
+  }
+
+  "noLootDropOnDeath:tag"{
+  }
+
+  "allowOnlyPrimaryWeaponDrop:tag"{
+  }
+
+  "destroyNonPrimaryWeaponOnDeath:tag"{
+  }
+
+  "last_offenders__engineerAssists:object"{
+    _tags:t="server"
+  }
+
+  "canDropGrenadeInDowned:tag"{
+  }
+
+  "hidden_equipment_items_in_vehicle:list<eid>"{
+  }
+
+  "availablePerks:list<t>"{
+    _tags:t="server"
+  }
+
+  "defaultStats:object"{
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="gameClient"
+    camera_shake__collisionDamageHpFactor:r=0.5
+    camera_shake__collisionDamageMaxTrauma:r=0.75
+    camera_shake__jumpMaxPunch:r=10.0
+    camera_shake__jumpMinSpeed:r=4.0
+    camera_shake__jumpMaxSpeed:r=8.0
+    camera_shake__sprintSwingMaxPitch:r=0.25
+    camera_shake__sprintSwingMaxYaw:r=0.0
+    camera_shake__sprintSwingMaxRoll:r=0.5
+    camera_shake__sprintSwingOmega:p3=15.0, 10.0, 10.0
+    camera_shake__sprintSwingMinVelocity:r=3.5
+    camera_shake__sprintSwingMaxVelocity:r=4.5
+    camera_shake__sprintSwingTau:r=0.2
+    camera_shake__sprintSwingTime:r=0.0
+    camera_shake__sprintSwingAmplitude:r=0.0
+    camera_shake__breakWindowTrauma:r=1.0
+  }
+
+  _group{
+    _tags:t="server"
+    obstacle__paddingSide:r=0.25
+  }
+
+  "walker_agent__distanceToShootError:shared:array"{
+
+    "error:object"{
+      distance:r=0.0
+      min:p2=0.0, 0.0
+      max:p2=0.4, 0.8
+      maxEnd:p2=0.0, 0.0
+    }
+
+    "error:object"{
+      distance:r=25.0
+      min:p2=0.25, 0.6
+      max:p2=0.5, 1.0
+      maxEnd:p2=0.25, 0.5
+    }
+
+    "error:object"{
+      distance:r=50.0
+      min:p2=0.5, 1.2
+      max:p2=2.0, 2.0
+      maxEnd:p2=1.2, 1.0
+    }
+
+    "error:object"{
+      distance:r=100.0
+      min:p2=0.5, 1.2
+      max:p2=2.0, 2.0
+      maxEnd:p2=2.0, 2.0
+    }
+  }
+
+  "walker_agent__aiDistanceToShootError:shared:array"{
+
+    "error:object"{
+      distance:r=0.0
+      min:p2=0.0, 0.0
+      max:p2=0.25, 0.5
+      maxEnd:p2=0.0, 0.0
+    }
+
+    "error:object"{
+      distance:r=25.0
+      min:p2=0.0, 0.0
+      max:p2=0.25, 0.5
+      maxEnd:p2=0.0, 0.0
+    }
+
+    "error:object"{
+      distance:r=50.0
+      min:p2=0.0, 0.0
+      max:p2=0.8, 0.8
+      maxEnd:p2=0.25, 0.5
+    }
+
+    "error:object"{
+      distance:r=100.0
+      min:p2=0.0, 0.0
+      max:p2=0.8, 0.8
+      maxEnd:p2=0.8, 0.8
+    }
+  }
+
+  "invisibleUpdatableAnimchar:tag"{
+  }
+
+  "walker_agent__velocityPredictionErrorsTable:shared:array"{
+
+    "error:object"{
+      velocity:r=0.0
+      min:r=0.0
+      max:r=0.0
+    }
+
+    "error:object"{
+      velocity:r=10.0
+      min:r=0.0
+      max:r=1.0
+    }
+  }
+}

@@ -1,0 +1,99 @@
+base_40mm_lva_kan_m36{
+  item__name:t="guns/40mm_lva_kan_m36"
+  gun__blk:t="gamedata/gen/weapons/40mm_lva_kan_m36.blk"
+  gun__shotFreq:r=2.0
+  gun__reloadTime:r=0.5
+  gun__maxAmmo:i=8
+  gun__locName:t="40mm_lva_kan_m36"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_defaultset_bullet_1.blk"
+        name:t="40mm_slpprj_m42"
+        type:t="apc_tank"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_defaultset_bullet_2.blk"
+        name:t="40mm_slsgr_m36c"
+        type:t="he_frag_i_t"
+      }
+    }
+
+    "40mm_sw_kan_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_he_bullet_1.blk"
+        name:t="40mm_slsgr_m36c"
+        type:t="he_frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_he_bullet_2.blk"
+        name:t="40mm_slsgr_m36c"
+        type:t="he_frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_he_bullet_3.blk"
+        name:t="40mm_slsgr_m36c"
+        type:t="he_frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_he_bullet_4.blk"
+        name:t="40mm_slpprj_m42"
+        type:t="apc_tank"
+      }
+    }
+
+    "40mm_sw_kan_APC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_apc_bullet_1.blk"
+        name:t="40mm_slhpgr_m43"
+        type:t="sap_hei_tank"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_apc_bullet_2.blk"
+        name:t="40mm_slhpgr_m43"
+        type:t="sap_hei_tank"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_apc_bullet_3.blk"
+        name:t="40mm_slhpgr_m43"
+        type:t="sap_hei_tank"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_lva_kan_m36_40mm_sw_kan_apc_bullet_4.blk"
+        name:t="40mm_slsgr_m36c"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+tankgun_40mm_lva_kan_m36{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_40mm_lva_kan_m36"
+  _extends:t="gunsound_40mm_lva_kan_m36"
+  turret__triggerGroup:i=0
+}

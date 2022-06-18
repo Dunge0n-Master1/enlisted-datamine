@@ -1,0 +1,49 @@
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=1
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=1
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=1
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=1
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=1
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=2
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=2
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=2
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=2
+}
+
+entity{
+  _template:t="mean_enemy_pos"
+  mean_pos__team:i=2
+}

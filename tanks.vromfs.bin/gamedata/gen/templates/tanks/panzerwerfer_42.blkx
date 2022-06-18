@@ -1,0 +1,305 @@
+base_panzerwerfer_42{
+  _extends:t="base_tank"
+  _extends:t="panzerwerfer_42_ammo_stowages"
+  killLogName:t="germ_panzerwerfer_42"
+  animchar__res:t="panzerwerfer_42_char"
+  collres__res:t="panzerwerfer_42_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/panzerwerfer_42.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="panzerwerfer_42_dmg_char"
+  xray_resource__modelName:t="panzerwerfer_42"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=2.0
+  damage_model__blk:t="gamedata/gen/units/tanks/panzerwerfer_42.blk"
+  item__name:t="items/germ_panzerwerfer_42"
+  resupply__cooldownOverride:r=1.5
+  skin__template:t="panzerwerfer_42_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_mg_aa_flame_01"
+    node:t=""
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_8mm"
+    fx:t=""
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_mg_aa_v"
+    node:t="bone_gun"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+      aimActiveParamName:t="aim_02_active"
+      paramYawSpeed:t="turret_02_yaw_speed"
+      paramYawSpeedMul:t="turret_02_yaw_mul"
+      paramYawAccel:t="turret_02_yaw_accel"
+      paramPitchSpeed:t="gun_02_pitch_speed"
+      paramPitchSpeedMul:t="gun_02_pitch_mul"
+      paramPitchAccel:t="gun_02_pitch_accel"
+      wishYawParamName:t="gun_02_aim:targetYaw"
+      wishPitchParamName:t="gun_02_aim:targetPitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="panzerwerfer_42_turret_01_7_92mm_mg42"
+      barrelDm:t="gun_barrel_01"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      barrelDm:t="gun_barrel"
+      gun:t="panzerwerfer_42_rocket"
+    }
+  }
+}
+
+panzerwerfer_42_projectile{
+  _extends:t="rocket_projectile"
+  animchar__res:t="nebelwerfer_42_rocket_char"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=4.0
+    _tags:t="server"
+  }
+}
+
+panzerwerfer_42_rocket{
+  _extends:t="base_tank_rocket_gun"
+  _extends:t="reloadable_turret"
+  gun__projectileTemplate:t="panzerwerfer_42_projectile"
+  gun__projectileDebugTemplate:t="panzerwerfer_42_projectile+bomb_projectile_debug"
+  item__name:t="guns/158mm_NB_Wf_41_rocket_launcher"
+  gun__blk:t="content/enlisted/gamedata/weapons/panzerwerfer_42/nebelwerfer_42_launcher.blk"
+  gun__shotFreq:r=1.0
+  gun__locName:t="158mm_NB_Wf_41_rocket_launcher"
+  gun__shootNodeName:t="bone_rocket_01"
+  gun__shootNodeEmitterGenFmt:t="bone_rocket_%02d"
+  gun__shootNodeItemTemplate:t="panzerwerfer_42_item"
+  gun__maxAmmo:i=10
+  gun__ammo:i=10
+  gun__reloadTime:r=5.0
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/wgr_41_rocket_panzerwerfer.blk"
+        name:t="158mm_NB_Wf_41_rocket"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=20
+  }
+}
+
+panzerwerfer_42_item{
+  _extends:t="base_tank_rocket_item"
+  animchar__res:t="nebelwerfer_42_rocket_char"
+}
+
+panzerwerfer_42_turret_01_7_92mm_mg42{
+  _extends:t="tankgun_7_92mm_mg42"
+  gun__shootNodeName:t="bone_mg_aa_v"
+  turret__yawSpeed:r=90.0
+  turret__pitchSpeed:r=90.0
+  turret__aimNodeName:t="bone_mg_aa_h"
+  turret__limit:p4=-45.0, 45.0, -5.0, 25.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1250
+    ammo:i=1250
+  }
+}
+
+panzerwerfer_42_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="panzerwerfer_42_ammo_stowage_1"
+  }
+}
+
+panzerwerfer_42_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="panzerwerfer_42_ammo_cluster_1_1"
+    cluster:t="panzerwerfer_42_ammo_cluster_1_2"
+  }
+}
+
+panzerwerfer_42_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret_01"
+    part:t="ammo_turret_02"
+    part:t="ammo_turret_03"
+    part:t="ammo_turret_04"
+    part:t="ammo_turret_05"
+    part:t="ammo_turret_06"
+    part:t="ammo_turret_07"
+    part:t="ammo_turret_08"
+    part:t="ammo_turret_09"
+    part:t="ammo_turret_10"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+  }
+}
+
+panzerwerfer_42_ammo_cluster_1_2{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_r_01"
+    part:t="ammo_body_l_01"
+    part:t="ammo_body_r_02"
+    part:t="ammo_body_l_02"
+    part:t="ammo_body_r_03"
+    part:t="ammo_body_l_03"
+    part:t="ammo_body_r_04"
+    part:t="ammo_body_l_04"
+    part:t="ammo_body_r_05"
+    part:t="ammo_body_l_05"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+  }
+}
+
+panzerwerfer_42_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="panzerwerfer_42_blots"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_lines"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_winter"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_winter_dunkelgelb*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_ger_camo_winter_waves"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_winter_waves_bicolor*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_hinterhalt_daimler"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_hinterhalt_daimler*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_ger_camo_dunkelgelb_green_braun_lines_mhn"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_lines_mhn*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_ger_camo_dunkelgelb_green_braun_blots_man"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots_man*"
+      }
+    }
+
+    "skin:object"{
+      id:t="panzerwerfer_42_blots_small"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots_small*"
+      }
+    }
+  }
+}

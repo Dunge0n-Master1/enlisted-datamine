@@ -1,0 +1,184 @@
+us_m10_wolverine{
+  _extends:t="us_m10_wolverine_common"
+}
+
+us_m10_wolverine_common{
+  _extends:t="base_m10_wolverine"
+  _extends:t="vehicle_effects_tracked"
+  item__iconOffset:p2=0.0, 0.1
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="us_m10_wolverine_gunner_cockpit"
+
+      "turretNames:array"{
+        turretNames:t="turret_01"
+      }
+    }
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="us_m10_wolverine_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="commander"
+      locName:t="vehicle_seats/commander"
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=no
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.35, 0.15, 0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+
+      "turretNames:array"{
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      attachNode:t="loader"
+      locName:t="vehicle_seats/loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="bone_camera_driver"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+
+    "seats:object"{
+      attachNode:t="machine_gunner"
+      locName:t="vehicle_seats/radioman"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="machine_gunner"
+      cameraNodeName:t="bone_camera_driver"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_body_r_01"
+    part:t="ex_armor_body_r_02"
+    part:t="ex_armor_body_r_03"
+    part:t="ex_armor_body_r_04"
+    part:t="ex_armor_body_r_05"
+    part:t="ex_armor_body_l_01"
+    part:t="ex_armor_body_l_02"
+    part:t="ex_armor_body_l_03"
+    part:t="ex_armor_body_l_04"
+    part:t="ex_armor_body_l_05"
+    part:t="ex_armor_body_l_06"
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_r_01"
+  }
+}
+
+us_m10_wolverine_driver_cockpit{
+  _extends:t="base_driver_cockpit"
+  animchar__res:t="ba_11_driver_char"
+  cockpit__offset:p3=-0.4, -0.25, 0.18
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.1
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+}
+
+us_m10_wolverine_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70f.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="ba_11_gunner_char"
+  cockpit__offset:p3=-0.65, -0.06, 0.23
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+    node:t="@root"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.18
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__cockpit__attachNodeNames:list<t>"{
+    node:t="bone_camera_gunner"
+  }
+
+  "cockpit__cockpit__attachNodeIndices:list<i>"{
+  }
+}
+
+us_m10_wolverine_tutorial{
+  _extends:t="us_m10_wolverine"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      fill:b=yes
+    }
+  }
+}
+
+us_m10_wolverine_702td_battlepass_premium{
+  _extends:t="us_m10_wolverine_common"
+
+  "animchar__objTexSet:object"{
+
+    "m10_wolverine_body_c*:object"{
+      "m10_wolverine_normandy_702td_body_c*":t="camo_skin_tex"
+    }
+
+    "m10_wolverine_turret_c*:object"{
+      "m10_wolverine_normandy_702td_turret_c*":t="camo_skin_tex"
+    }
+
+    "mg_browning_m2hb_mount_c*:object"{
+      "mg_browning_m2hb_normandy_702td_mount_c*":t="camo_skin_tex"
+    }
+  }
+}

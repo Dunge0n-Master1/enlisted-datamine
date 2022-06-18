@@ -1,0 +1,29 @@
+default_billboard_decal{
+  diffuseTex:t="decal_bullethole_stone_a_tex_d*"
+  normalTex:t="decal_bullethole_stone_a_tex_n*"
+}
+
+soil_bullet_hole{
+  diffuseTex:t="decal_bullethole_soil_a_tex_d*"
+  normalTex:t="decal_bullethole_soil_a_tex_n*"
+}
+
+wood_bullet_hole{
+  diffuseTex:t="decal_bullethole_wood_a_tex_d*"
+  normalTex:t="decal_bullethole_wood_a_tex_n*"
+}
+
+metal_bullet_hole{
+  diffuseTex:t="decal_bullethole_metal_a_tex_d*"
+  normalTex:t="decal_bullethole_metal_a_tex_n*"
+}
+
+blood_decal{
+  diffuseTex:t="decal_blood_splatter_tex_d*"
+  normalTex:t="decal_blood_splatter_tex_n*"
+}
+
+moon_sand_bullet_hole{
+  diffuseTex:t="decal_bullethole_moon_sand_a_tex_d*"
+  normalTex:t="decal_bullethole_soil_a_tex_n*"
+}

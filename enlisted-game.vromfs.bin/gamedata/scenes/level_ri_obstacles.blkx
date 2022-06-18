@@ -1,0 +1,7 @@
+entity{
+  _template:t="level_ri_obstacles"
+  level_ri_obstacles__paddingSide:r=1.5
+
+  "level_ri_obstacles__resNames:list<t>"{
+  }
+}

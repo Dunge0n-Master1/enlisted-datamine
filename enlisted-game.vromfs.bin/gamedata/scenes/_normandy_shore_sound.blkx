@@ -1,0 +1,15 @@
+entity{
+  _template:t="shore_sound"
+  transform:m=[[0.995004, 0.0, -0.0998334] [0.0, 1.0, 0.0] [0.0998334, 0.0, 0.995004] [0.0, 0.0, 0.0]]
+
+  "shore_sound__offsets:list<p2>"{
+    _tags:t="sound"
+    offset:p2=-2500.0, 0.0
+    offset:p2=-1600.0, 350.0
+    offset:p2=-800.0, 420.0
+    offset:p2=-200.0, 400.0
+    offset:p2=650.0, 550.0
+    offset:p2=1200.0, 300.0
+    offset:p2=2000.0, 300.0
+  }
+}

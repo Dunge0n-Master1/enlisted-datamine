@@ -1,0 +1,404 @@
+team_generic_capture{
+  _extends:t="team_generic"
+  team__deathPenaltyByMember:r=0.0
+  team__minDeathPenalty:r=0.0
+  team__capturePenalty:r=0.0
+  team__winSubtitle:t=""
+  team__loseSubtitle:t=""
+  team__deserterSubtitle:t=""
+  team__winTitle:t=""
+  score_bleed__staticBleed:r=0.0
+  score_bleed__domBleed:r=0.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=-1
+  score_bleed__totalDomBleedMul:r=1.0
+  score_bleed__totalDomBleedOn:b=no
+  team__randomizeTemplate:b=yes
+  team__deathPenalty:r=0.0
+  team__countAdd:r=0.0
+  team__numZonesCaptured:i=0
+  team__showQuickHint:b=no
+  team__showEnemyHint:b=yes
+  team__spawnBotArmy:t=""
+  team__briefing:t=""
+  team__score:r=-1.0
+  team__scoreCap:r=-1.0
+  team__minScoreCap:r=0.0
+  team__squadSpawnCost:i=0
+  team__firstSpawnCostMul:r=1.0
+  team__squadsCanSpawn:b=yes
+  team__noMoreSpawns:b=no
+  team__eachSquadMaxSpawns:i=-1
+  team__zeroScoreFailTimer:r=-1.0
+  team__failEndTime:r=-1.0
+  team__capzoneTimerEndTime:r=-1.0
+  team__roundScore:i=0
+  team__allowRebalance:b=no
+  team__captureSpeedMult:r=1.0
+  team__botCount:i=-1
+  team__aircraftRequestAvailableAtTime:r=-1.0
+  team__aircraftRequestInterval:r=240.0
+  _tracked:t="team__aircraftRequestAvailableAtTime"
+  _tracked:t="team__numZonesCaptured"
+  _tracked:t="team__squadsCanSpawn"
+  _tracked:t="team__score"
+  _tracked:t="team__capzoneTimerEndTime"
+  _tracked:t="artillery_limit__current"
+  _replicated:t="team__aircraftRequestAvailableAtTime"
+  _replicated:t="score_bleed__totalDomBleedOn"
+  _replicated:t="score_bleed__domBleedOn"
+  _replicated:t="team__score"
+  _replicated:t="team__roundScore"
+  _replicated:t="team__failEndTime"
+  _replicated:t="team__capzoneTimerEndTime"
+  _replicated:t="team__squadsCanSpawn"
+  _replicated:t="team__eachSquadMaxSpawns"
+  _replicated:t="artillery_limit__current"
+
+  "team__isGameFinished:b"{
+    value:b=no
+    _tags:t="server"
+    _track:b=yes
+  }
+
+  "team__isFailTimerStoppedByCapzone:b"{
+    value:b=no
+    _tags:t="server"
+    _track:b=yes
+  }
+
+  "artillery_limit__max:list<i>"{
+    max:i=1
+  }
+
+  "artillery_limit__current:list<i>"{
+  }
+
+  "team__spawnPending:object"{
+    _tags:t="server"
+  }
+}
+
+respawn_creators_team{
+  respawnCreatorId:i=1000000
+}
+
+team_usa{
+  _extends:t="team_generic_capture"
+  team__id:i=1
+  team__unitTemplate:t="usa_soldier"
+  team__botTemplate:t="usa_npc_summer_soldier_1"
+  team__lang:t="en"
+  team__name:t="USA forces"
+  team__icon:t="!ui/uiskin/usaf.svg"
+  _tracked:t="team__id"
+  _tracked:t="team__icon"
+  _tracked:t="team__name"
+  _tracked:t="team__lang"
+  _replicated:t="team__id"
+  _replicated:t="team__icon"
+  _replicated:t="team__name"
+  _replicated:t="team__lang"
+
+  "team__armies:list<t>"{
+    army:t="normandy_allies"
+  }
+
+  "team__unitTemplates:object"{
+    usa_summer_soldier_1:r=1.0
+    usa_summer_soldier_2:r=1.0
+    usa_summer_soldier_3:r=1.0
+    usa_summer_soldier_4:r=1.0
+    usa_summer_soldier_5:r=1.0
+  }
+
+  "team__botTemplates:object"{
+    usa_npc_summer_soldier_1:r=1.0
+    usa_npc_summer_soldier_2:r=1.0
+    usa_npc_summer_soldier_3:r=1.0
+    usa_npc_summer_soldier_4:r=1.0
+    usa_npc_summer_soldier_5:r=1.0
+  }
+
+  "team__weaponTemplates:object"{
+    usa_light_assault_preset:r=1.0
+    usa_infantry_preset:r=1.0
+    usa_sniper_preset:r=1.0
+    usa_marksman_preset:r=1.0
+    usa_heavy_assault_preset:r=1.0
+    usa_machine_gunner_preset:r=1.0
+    usa_anti_armor_preset:r=1.0
+  }
+}
+
+team_germany{
+  _extends:t="team_generic_capture"
+  team__id:i=2
+  team__unitTemplate:t="ger_soldier"
+  team__botTemplate:t="ger_npc_summer_soldier_1"
+  team__lang:t="de"
+  team__name:t="Germany forces"
+  team__icon:t="!ui/uiskin/balkenkreuz.svg"
+
+  "team__armies:list<t>"{
+    army:t="normandy_axis"
+  }
+
+  "team__unitTemplates:object"{
+    ger_summer_soldier_1:r=1.0
+    ger_summer_soldier_2:r=1.0
+    ger_summer_soldier_3:r=1.0
+    ger_summer_soldier_5:r=1.0
+    ger_summer_soldier_7:r=1.0
+  }
+
+  "team__botTemplates:object"{
+    ger_npc_summer_soldier_1:r=1.0
+    ger_npc_summer_soldier_2:r=1.0
+    ger_npc_summer_soldier_3:r=1.0
+    ger_npc_summer_soldier_5:r=1.0
+    ger_npc_summer_soldier_7:r=1.0
+  }
+
+  "team__weaponTemplates:object"{
+    ger_light_assault_preset:r=1.0
+    ger_infantry_preset:r=1.0
+    ger_sniper_preset:r=1.0
+    ger_marksman_preset:r=1.0
+    ger_heavy_assault_preset:r=1.0
+    ger_machine_gunner_preset:r=1.0
+    ger_anti_armor_preset:r=1.0
+  }
+}
+
+team_germany_winter{
+  _extends:t="team_germany"
+  team__unitTemplate:t="ger_soldier_winter"
+  team__botTemplate:t="ger_winter_npc_soldier"
+
+  "team__armies:list<t>"{
+    army:t="moscow_axis"
+  }
+
+  "team__unitTemplates:object"{
+    ger_winter_soldier_1:r=1.0
+    ger_winter_soldier_4:r=1.0
+  }
+
+  "team__botTemplates:object"{
+    ger_npc_winter_soldier_1:r=1.0
+    ger_npc_winter_soldier_4:r=1.0
+  }
+
+  "team__weaponTemplates:object"{
+    ger_light_assault_preset:r=1.0
+    ger_infantry_preset:r=1.0
+    ger_sniper_preset:r=1.0
+    ger_41_marksman_preset:r=1.0
+    ger_heavy_assault_preset:r=1.0
+  }
+}
+
+team_germany_berlin{
+  _extends:t="team_germany"
+  team__unitTemplate:t="ger_soldier_winter"
+  team__botTemplate:t="ger_winter_npc_soldier"
+
+  "team__armies:list<t>"{
+    army:t="berlin_axis"
+  }
+
+  "team__unitTemplates:object"{
+    ger_winter_soldier_1:r=1.0
+    ger_winter_soldier_4:r=1.0
+  }
+
+  "team__botTemplates:object"{
+    ger_npc_winter_soldier_1:r=1.0
+    ger_npc_winter_soldier_4:r=1.0
+  }
+
+  "team__weaponTemplates:object"{
+    ger_light_assault_preset:r=1.0
+    ger_infantry_preset:r=1.0
+    ger_sniper_preset:r=1.0
+    ger_41_marksman_preset:r=1.0
+    ger_heavy_assault_preset:r=1.0
+  }
+}
+
+team_ussr{
+  _extends:t="team_generic_capture"
+  team__id:i=1
+  team__unitTemplate:t="sov_soldier_winter"
+  team__botTemplate:t="sov_winter_npc_soldier"
+  team__lang:t="ru"
+  team__name:t="USSR forces"
+  team__icon:t="!ui/uiskin/ussr.svg"
+
+  "team__unitTemplates:object"{
+    ussr_summer_soldier_1:r=1.0
+    ussr_summer_soldier_2:r=0.5
+    ussr_summer_soldier_3:r=0.5
+    ussr_summer_soldier_4:r=0.5
+    ussr_summer_soldier_5:r=1.0
+    ussr_summer_soldier_6:r=0.5
+  }
+
+  "team__botTemplates:object"{
+    ussr_summer_soldier_1:r=1.0
+    ussr_summer_soldier_2:r=0.5
+    ussr_summer_soldier_3:r=0.5
+    ussr_summer_soldier_4:r=0.5
+    ussr_summer_soldier_5:r=1.0
+    ussr_summer_soldier_6:r=0.5
+  }
+
+  "team__weaponTemplates:object"{
+    ussr_light_assault_preset:r=1.0
+    ussr_infantry_preset:r=1.0
+    ussr_sniper_preset:r=1.0
+    ussr_marksman_preset:r=1.0
+    ussr_heavy_assault_preset:r=1.0
+  }
+
+  "team__armies:list<t>"{
+    army:t="moscow_allies"
+  }
+}
+
+team_ussr_berlin{
+  _extends:t="team_generic_capture"
+  team__id:i=1
+  team__unitTemplate:t="sov_soldier_winter"
+  team__botTemplate:t="sov_winter_npc_soldier"
+  team__lang:t="ru"
+  team__name:t="USSR forces"
+  team__icon:t="!ui/uiskin/ussr.svg"
+
+  "team__unitTemplates:object"{
+    ussr_summer_soldier_1:r=1.0
+    ussr_summer_soldier_2:r=0.5
+    ussr_summer_soldier_3:r=0.5
+    ussr_summer_soldier_4:r=0.5
+    ussr_summer_soldier_5:r=1.0
+    ussr_summer_soldier_6:r=0.5
+  }
+
+  "team__botTemplates:object"{
+    ussr_summer_soldier_1:r=1.0
+    ussr_summer_soldier_2:r=0.5
+    ussr_summer_soldier_3:r=0.5
+    ussr_summer_soldier_4:r=0.5
+    ussr_summer_soldier_5:r=1.0
+    ussr_summer_soldier_6:r=0.5
+  }
+
+  "team__weaponTemplates:object"{
+    ussr_light_assault_preset:r=1.0
+    ussr_infantry_preset:r=1.0
+    ussr_sniper_preset:r=1.0
+    ussr_marksman_preset:r=1.0
+    ussr_heavy_assault_preset:r=1.0
+  }
+
+  "team__armies:list<t>"{
+    army:t="berlin_allies"
+  }
+}
+
+team_ussr_winter{
+  _extends:t="team_generic_capture"
+  team__randomizeTemplate:b=yes
+  team__id:i=1
+  team__unitTemplate:t="sov_soldier_winter"
+  team__botTemplate:t="sov_winter_npc_soldier"
+  team__lang:t="ru"
+  team__name:t="USSR forces"
+  team__icon:t="ui/uiskin/ussr.svg"
+
+  "team__unitTemplates:object"{
+    ussr_winter_soldier_9:r=1.0
+    ussr_winter_soldier_10:r=1.0
+    ussr_winter_soldier_12:r=1.0
+  }
+
+  "team__botTemplates:object"{
+    ussr_npc_winter_soldier_9:r=1.0
+    ussr_npc_winter_soldier_10:r=1.0
+    ussr_npc_winter_soldier_12:r=1.0
+  }
+
+  "team__weaponTemplates:object"{
+    ussr_light_assault_preset:r=1.0
+    ussr_infantry_preset:r=1.0
+    ussr_sniper_preset:r=1.0
+    ussr_marksman_preset:r=1.0
+    ussr_heavy_assault_preset:r=1.0
+  }
+
+  "team__armies:list<t>"{
+    army:t="moscow_allies"
+  }
+}
+
+team_resptime_balance{
+  team__balancedRespawnTime:r=7.0
+  team__disbalancedRespawnIncrease:r=10.0
+}
+
+team_captime_balance{
+  team__disbalanceCapSpeedMult:r=1.0
+  team__captureSpeedMult:r=1.0
+}
+
+team_tunisia_allies{
+  _extends:t="team_usa"
+
+  "team__armies:list<t>"{
+    army:t="tunisia_allies"
+  }
+}
+
+team_tunisia_axis{
+  _extends:t="team_germany"
+
+  "team__armies:list<t>"{
+    army:t="tunisia_axis"
+  }
+}
+
+team_stalingrad_allies{
+  _extends:t="team_ussr"
+
+  "team__armies:list<t>"{
+    army:t="stalingrad_allies"
+  }
+}
+
+team_stalingrad_axis{
+  _extends:t="team_germany"
+
+  "team__armies:list<t>"{
+    army:t="stalingrad_axis"
+  }
+}
+
+army_language{
+  _tags:t="gameClient"
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  "armyLanguage:object"{
+    normandy_allies:t="en"
+    normandy_axis:t="de"
+    moscow_axis:t="de"
+    berlin_axis:t="de"
+    moscow_allies:t="ru"
+    berlin_allies:t="ru"
+    tunisia_allies:t="en"
+    tunisia_axis:t="de"
+    stalingrad_allies:t="ru"
+    stalingrad_axis:t="de"
+  }
+}

@@ -1,0 +1,6 @@
+import:t="cannons/germ_20mm_flak38_flakvierling.blk"
+import:t="cannons/germ_towed_at_pak38.blk"
+import:t="cannons/germ_towed_at_pak40.blk"
+import:t="tanks/germ_towed_at_pak36_movable.blk"
+import:t="tanks/germ_towed_at_pak38_movable.blk"
+import:t="tanks/germ_towed_at_pak40_movable.blk"

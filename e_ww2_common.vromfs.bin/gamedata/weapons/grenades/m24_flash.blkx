@@ -1,0 +1,48 @@
+mass:r=0.6
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.04
+speed:r=18.5
+speedPitch:r=5.0
+maxDistance:r=5.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+frictionGround:r=2.0
+noSleepAtTheSlopeCos:r=0.766
+entityTemplate:t="m24_flash_grenade"
+entityPhysTemplate:t="m24_flash_grenade_phys"
+
+collisionResource{
+
+  props{
+    volumeBox:t="box"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.05, 0.0, 0.015
+  ccd:p4=0.0, 0.2, 0.0, 0.015
+  ccd:p4=0.0, -0.05, 0.0, 0.015
+}
+
+solver{
+  energyConservation:r=0.85
+}
+
+visual{
+  template:t="m24_flash_grenade_item+item_in_world"
+}
+
+detonation{
+  onHit:b=no
+  timer:r=2.5
+}
+
+explFx{
+  fxScale:p2=0.8, 0.9
+  effectTemplName:t="flash_explosion_effect_small+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade_flash"
+}

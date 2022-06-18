@@ -1,0 +1,314 @@
+germ_pzkpfw_III_ausf_J{
+  _extends:t="germ_pzkpfw_III_ausf_J_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_winter_grey*"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="track_r_01"
+    part:t="track_l_01"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_stalingrad{
+  _extends:t="germ_pzkpfw_III_ausf_J_common"
+
+  "disableDMParts:list<t>"{
+    part:t="track_r_01"
+    part:t="track_l_01"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_desert{
+  _extends:t="germ_pzkpfw_III_ausf_J_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dunkelgelb_africa*"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="track_r"
+    part:t="track_l"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_common{
+  _extends:t="base_pzkpfw_iii_ausf_j_l42"
+  _extends:t="vehicle_effects_tracked"
+  item__iconOffset:p2=0.0, 0.3
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="germ_pzkpfw_III_ausf_J_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="germ_pzkpfw_III_ausf_J_gunner_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      name:t="commander"
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=yes
+      maxPosWithOpenHatch:r=0.7
+      hatchRotationAxis:p3=1.7, 0.0, 0.0
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.1, 0.05]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+      cockpitTemplate:t="germ_pzkpfw_III_ausf_J_commander_cockpit"
+      cameraNodeName:t="bone_turret"
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
+        node:t="hatch_02"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/loader"
+      attachNode:t="loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="bone_camera_driver"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/radioman"
+      attachNode:t="machine_gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="machine_gunner"
+    }
+  }
+}
+
+germ_pzkpfw_III_ausf_J_driver_cockpit{
+  _extends:t="base_driver_cockpit_no_slits"
+  animchar__res:t="pzkpfw_iii_e_driver_char"
+  cockpit__offset:p3=-0.35, -0.2, 0.01
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.07
+    slit:r=-0.05
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=no
+    slit:b=no
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+    slit:t="cam_left"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf4.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="pzkpfw_iii_e_gunner_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__minZoom:r=-0.4
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_camera_gunner"
+    node:t="bone_turret"
+    node:t="bone_turret"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="@root"
+    node:t="track_r"
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_01"
+    node:t="ex_decor_l_06"
+    node:t="ex_decor_l_07"
+    node:t="ex_decor_l_09"
+    node:t="hatch_11"
+    node:t="hatch_12"
+    node:t="hatch_13"
+    node:t="hatch_14"
+    node:t="hatch_08"
+    node:t="hatch_09"
+    node:t="hatch_10"
+    node:t="hatch_07"
+    node:t="ex_lantern_r_01"
+    node:t="ex_lantern_r_02"
+    node:t="ex_lantern_l_01"
+    node:t="ex_lantern_l_02"
+    node:t="antenna"
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.27
+    slit:r=0.0
+    slit:r=0.0
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+    slit:b=no
+    slit:b=no
+  }
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=-0.8, -0.01, -0.05
+    slit:p3=0.1, 0.33, 0.5
+    slit:p3=0.1, 0.33, 0.5
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+    slit:t="cam_left_front"
+    slit:t="cam_left_rear"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_commander_cockpit{
+  _extends:t="base_commander_tower_cockit_no_slits"
+  animchar__res:t="pzkpfw_iii_e_commander_char"
+  cockpit__offset:p3=-0.47, 0.49, -0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=0.0, 0.0, 0.0
+    slit:p3=0.0, 0.0, 0.0
+    slit:p3=0.0, 0.0, 0.0
+    slit:p3=0.0, 0.0, 0.0
+    slit:p3=0.0, 0.0, 0.0
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+    node:t="bone_gun"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.03
+    slit:r=-0.01
+    slit:r=-0.01
+    slit:r=-0.01
+    slit:r=-0.01
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+    slit:b=no
+    slit:b=no
+    slit:b=no
+    slit:b=no
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+    slit:t="cam_front_left"
+    slit:t="cam_rear_left"
+    slit:t="cam_rear_right"
+    slit:t="cam_front_right"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_624_premium{
+  _extends:t="germ_pzkpfw_III_ausf_J_common"
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_III_ausf_J_kwk_38_L_42_body_c*:object"{
+      "pzkpfw_III_ausf_J_kwk_38_L_42_skin_body_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_III_ausf_J_kwk_38_L_42_turret_c*:object"{
+      "pzkpfw_III_ausf_J_kwk_38_L_42_skin_turret_c*":t="camo_skin_tex"
+    }
+  }
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dark_grey*"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="track_r_01"
+    part:t="track_l_01"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_strolch2_battlepass_premium{
+  _extends:t="germ_pzkpfw_III_ausf_J_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dunkelgelb_green*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_III_ausf_J_kwk_38_L_42_body_c*:object"{
+      "pzkpfw_III_ausf_J_kwk_38_L_42_strolch2_body_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_III_ausf_J_kwk_38_L_42_turret_c*:object"{
+      "pzkpfw_III_ausf_J_kwk_38_L_42_strolch2_turret_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_III_ausf_J_kwk_38_L_42_gun_c*:object"{
+      "pzkpfw_III_ausf_J_kwk_38_L_42_strolch2_gun_c*":t="camo_skin_tex"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="track_r"
+    part:t="track_l"
+  }
+}
+
+germ_pzkpfw_III_ausf_J_112_battlepass_premium{
+  _extends:t="germ_pzkpfw_III_ausf_J_desert"
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_III_ausf_J_kwk_38_L_42_turret_c*:object"{
+      "pzkpfw_III_ausf_J_kwk_38_L_42_112_turret_c*":t="camo_skin_tex"
+    }
+  }
+}

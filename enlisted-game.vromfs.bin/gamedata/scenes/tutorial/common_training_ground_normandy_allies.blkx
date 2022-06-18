@@ -1,0 +1,439 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"
+}
+
+entity{
+  _template:t="team_usa+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=1
+  team__spawnBotArmy:t="normandy_allies"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+}
+
+entity{
+  _template:t="team_germany+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=2
+  team__haveScores:b=no
+  team__spawnBotArmy:t="normandy_axis"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+  team__locked:b=yes
+  team__capacity:i=0
+}
+
+entity{
+  _template:t="mk2_grenade_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.764555, -0.508279, 0.396364] [0.51422, 0.110223, -0.850547] [0.388625, 0.854109, 0.345637] [-533.611, 9.39065, 149.585]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1903a4_springfield_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.93161, 0.32929, 0.153849] [-0.159954, 0.00864752, -0.987088] [-0.326368, -0.944189, 0.0446156] [-533.903, 8.87567, 149.962]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m3_submachine_gun_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.00314189, -0.994446, -0.105182] [0.60058, -0.0859768, 0.794929] [-0.799558, -0.0606736, 0.597516] [-533.648, 9.3927, 152.279]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="thompson_m1928a1_box_mag_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0515395, 0.9986, 0.0118316] [0.980046, -0.0482968, -0.192821] [-0.191978, 0.0215339, -0.981162] [-533.407, 9.39204, 151.497]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="colt_new_service_m1909_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0342758, 0.982147, 0.184961] [0.209738, 0.173881, -0.962173] [-0.977157, 0.0717733, -0.200034] [-533.402, 9.3758, 149.261]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1911_colt_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0416443, 0.996036, 0.0785906] [0.59399, 0.0879293, -0.799653] [-0.803394, 0.0133821, -0.595297] [-533.648, 9.37779, 149.129]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1911_colt_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0272961, 0.995098, 0.0950388] [-0.700987, -0.0487243, 0.711507] [0.712652, -0.0860411, 0.696222] [-533.552, 9.38049, 149.237]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1_bazooka_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.973221, 0.0489467, 0.224594] [0.224281, 0.416275, 0.881144] [-0.0503637, 0.907921, -0.416104] [-533.213, 9.81761, 149.271]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="browning_m1918_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.889353, -0.240163, 0.389064] [-0.394177, 0.0284369, 0.918594] [-0.231677, -0.970315, -0.0693765] [-533.82, 8.9702, 152.012]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m6a1_bazooka_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.789947, 0.609839, 0.0638795] [-0.609952, -0.792187, 0.0199937] [0.0627963, -0.0231701, 0.997757] [-533.313, 9.39485, 149.885]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1928a_thompson_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.00810492, 0.999797, 0.0183776] [0.959968, -0.0129243, 0.279813] [0.279994, 0.0153745, -0.959877] [-533.642, 9.37831, 151.5]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m3_submachine_gun_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0198375, -0.993176, 0.114899] [-0.995218, -0.00862362, 0.0972986] [-0.0956428, -0.11628, -0.9886] [-533.268, 9.37873, 152.307]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m6a1_bazooka_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.798609, 0.597863, 0.0691533] [-0.598494, -0.801014, 0.0135028] [0.0634649, -0.0306055, 0.997514] [-533.101, 9.39226, 149.893]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="browning_m1918_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.010479, 0.999605, -0.0260139] [0.0443382, -0.0264549, -0.998667] [-0.998959, 0.00931303, -0.0445977] [-533.114, 9.39399, 152.281]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="colt_new_service_m1909_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.987662, -0.0928919, 0.12606] [-0.0917323, 0.995672, 0.0149872] [-0.126906, 0.00323683, -0.991908] [-533.303, 9.39538, 149.094]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1928a_thompson_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.02446, 0.999062, 0.0356751] [0.998342, -0.0262717, 0.0512384] [0.0521286, 0.034363, -0.998048] [-533.606, 9.38388, 151.35]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m3_submachine_gun_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0492742, -0.167635, -0.984614] [-0.998343, -0.0210932, 0.0535518] [-0.029746, 0.985623, -0.166317] [-533.284, 9.38426, 152.467]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m6a1_bazooka_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.781769, 0.615506, 0.0999461] [-0.611238, -0.78812, 0.0725012] [0.123393, -0.00441311, 0.992347] [-533.235, 9.38905, 149.948]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="browning_m1918_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0241704, 0.998658, -0.0457592] [0.0715081, -0.0439282, -0.996473] [-0.997145, -0.0273565, -0.0703504] [-533.104, 9.39188, 152.434]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="colt_new_service_m1909_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.873307, -0.0975182, 0.477306] [-0.0335539, 0.989475, 0.140767] [-0.48601, 0.106916, -0.867387] [-533.237, 9.38737, 149.114]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1928a_thompson_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0383112, 0.999214, -0.0100051] [0.993122, -0.0369656, 0.111107] [0.11065, -0.0141927, -0.993757] [-533.617, 9.3769, 151.419]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m3_submachine_gun_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0248348, -0.998994, -0.0372471] [-0.99722, 0.027374, -0.069289] [0.070239, 0.0354232, -0.996901] [-533.254, 9.37171, 152.407]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1903_springfield_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0330498, -0.998653, 0.0399808] [-0.249005, 0.046968, 0.967362] [-0.967937, 0.0220165, -0.250222] [-533.659, 9.3675, 149.863]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1903_springfield_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[-0.0442481, -0.999012, 0.00409252] [-0.159684, 0.0111161, 0.987105] [-0.986174, 0.0430249, -0.160019] [-533.597, 9.37023, 149.794]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mk2_grenade_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.710091, -0.508279, 0.487257] [0.614782, 0.110223, -0.780958] [0.343235, 0.854109, 0.390748] [-533.521, 9.39066, 149.47]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mk2_grenade_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.747712, -0.508279, 0.42729] [0.548563, 0.110223, -0.828813] [0.374169, 0.854109, 0.361237] [-533.609, 9.39065, 149.442]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1911_colt_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.0152457, 0.996463, 0.0826176] [-0.790694, -0.0385597, 0.610996] [0.612022, -0.0746389, 0.787311] [-533.607, 9.38674, 149.208]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-534.719, 9.33534, 147.629]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.132376, 0.0, -0.9912] [0.0, 1.0, 0.0] [0.9912, 0.0, 0.132376] [-534.323, 8.74444, 135.094]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.865467, 0.0, -0.500967] [0.0, 1.0, 0.0] [0.500967, 0.0, 0.865467] [-523.659, 10.1247, 375.179]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-523.193, 10.2259, 402.607]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-529.568, 10.0852, 482.533]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_N"
+  transform:m=[[0.0157356, 0.089859, 0.99583] [-0.0091623, 0.995925, -0.0897228] [-0.999834, -0.00771226, 0.0164948] [-453.213, 10.7311, 438.195]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_sdkfz_234_2"
+  transform:m=[[0.0162838, 0.0166938, 0.999728] [-0.0112142, 0.999801, -0.0165124] [-0.999804, -0.0109422, 0.0164678] [-379.135, 11.5918, 443.781]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_H"
+  transform:m=[[-0.0524183, 0.00362538, 0.998619] [-0.00730979, 0.999965, -0.00401397] [-0.998599, -0.0075101, -0.05239] [-375.367, 11.6087, 361.663]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_J"
+  transform:m=[[-0.373004, -0.00734167, 0.927801] [-0.0152114, 0.999883, 0.00179662] [-0.927705, -0.013443, -0.373072] [-301.614, 12.5027, 362.542]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_H"
+  transform:m=[[0.0155626, -0.0542665, 0.998405] [-0.00402485, 0.998515, 0.0543352] [-0.999871, -0.00486402, 0.015321] [-417.24, 11.4761, 470.389]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther"
+  transform:m=[[-0.135712, 0.0771619, -0.987739] [0.000437219, 0.996967, 0.0778228] [0.990748, 0.0101296, -0.135334] [-334.245, 11.9156, 485.01]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_sdkfz_234_2"
+  transform:m=[[-0.401622, 0.0667782, -0.913368] [0.0609055, 0.997078, 0.0461173] [0.913778, -0.0371073, -0.404515] [-313.717, 12.1779, 473.594]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_H"
+  transform:m=[[-0.319913, 0.00253492, -0.947444] [-0.0185749, 0.999788, 0.00894696] [0.947265, 0.0204609, -0.319798] [-242.893, 13.4029, 493.782]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_J"
+  transform:m=[[0.0167386, -0.0037412, 0.999853] [-0.0169165, 0.999849, 0.00402439] [-0.999717, -0.0169814, 0.0166727] [-214.747, 13.851, 364.746]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_N"
+  transform:m=[[0.0165223, -0.0218885, 0.999624] [-0.0344608, 0.999154, 0.0224478] [-0.999269, -0.0348188, 0.015754] [-354.086, 12.1062, 389.551]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther"
+  transform:m=[[-0.37295, -0.00696086, 0.927825] [-0.0143298, 0.999896, 0.00174155] [-0.927741, -0.012646, -0.373011] [-253.781, 13.2761, 402.412]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_H"
+  transform:m=[[-0.639008, -0.0100583, -0.769134] [-0.0147815, 0.99989, -0.000795282] [0.769058, 0.0108608, -0.639087] [-152.075, 14.7523, 409.966]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_J"
+  transform:m=[[-0.999058, -0.0228849, 0.0368584] [-0.0228285, 0.999737, 0.00195064] [-0.0368934, 0.00110739, -0.999319] [-297.25, 12.602, 452.437]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_J"
+  transform:m=[[0.0166489, 0.00732002, 0.999835] [-0.0207697, 0.99976, -0.00697363] [-0.999646, -0.0206502, 0.0167969] [-37.1877, 16.6643, 359.883]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_N"
+  transform:m=[[0.0443401, 0.000861034, 0.999016] [-0.01804, 0.999837, -6.10607e-05] [-0.998854, -0.0180195, 0.0443484] [-46.1048, 16.487, 449.174]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther"
+  transform:m=[[-0.999827, -0.018242, -0.00373846] [-0.0182348, 0.999832, -0.00194163] [0.00377325, -0.00187313, -0.999991] [129.162, 19.4085, 405.286]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_sdkfz_234_2"
+  transform:m=[[-0.00791463, 0.0378436, -0.999252] [0.0519603, 0.997949, 0.0373827] [0.998618, -0.0516256, -0.00986476] [149.887, 19.9955, 387.298]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther"
+  transform:m=[[-0.697272, -0.0276097, 0.716275] [-0.0246816, 0.99959, 0.0145037] [-0.716382, -0.00756582, -0.697667] [203.299, 20.6049, 426.943]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_N"
+  transform:m=[[-0.0218535, -0.0213144, -0.999534] [-0.166426, 0.985901, -0.0173849] [0.985812, 0.165969, -0.0250927] [270.98, 21.6646, 463.495]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_J"
+  transform:m=[[-0.0249915, 0.00208329, -0.999685] [-0.0183311, 0.999829, 0.00254185] [0.99952, 0.0183888, -0.024949] [110.973, 19.0956, 482.882]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_IV_ausf_H"
+  transform:m=[[-0.614203, 0.0753425, -0.785543] [0.00507749, 0.995789, 0.0915374] [0.789132, 0.0522339, -0.611999] [18.929, 17.3006, 473.268]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_sdkfz_234_2"
+  transform:m=[[-0.0573807, -0.0124628, 0.998275] [-0.0128779, 0.999848, 0.0117422] [-0.998269, -0.0121819, -0.0575325] [-441.889, 10.9723, 362.895]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_N"
+  transform:m=[[-0.999319, -0.0318455, 0.0186314] [-0.0311773, 0.998897, 0.035117] [-0.0197291, 0.0345122, -0.99921] [-498.743, 10.3768, 465.372]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_VI_ausf_E_tiger_normandy"
+  transform:m=[[-0.70913, -0.0602084, 0.702502] [-0.0521956, 0.998096, 0.0328545] [-0.703143, -0.0133694, -0.710923] [-353.994, 11.8006, 416.384]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_VI_ausf_E_tiger_normandy"
+  transform:m=[[0.796929, -0.0214397, 0.603693] [0.0125493, 0.999742, 0.0189388] [-0.603943, -0.00751697, 0.796992] [-253.74, 13.0843, 391.273]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="willys_mb"
+  transform:m=[[-0.451933, 0.0270005, 0.891643] [0.0270005, 0.999498, -0.0165812] [-0.891643, 0.0165812, -0.452435] [-543.52, 9.74066, 171.357]]
+}

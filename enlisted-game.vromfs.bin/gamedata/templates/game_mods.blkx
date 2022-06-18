@@ -1,0 +1,35 @@
+noBotsMode{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  "noBotsMode:tag"{
+  }
+}
+
+game_mode_units_modifier{
+
+  "game_mode__soldierModifier:object"{
+  }
+}
+
+spawnMode_unlimitedSpawns{
+  spawn_mode__unlimitedSpawns:b=yes
+
+  "spawnMode:tag"{
+  }
+
+  _info{
+    desc:t="Custom spawn ruleset. Players can spawn on soldier/squads that just died. Only one custom spawn ruleset can be in mission"
+  }
+}
+
+spawnMode_oneSpawnPerUnit{
+  spawn_mode__oneSpawnPerUnit:b=yes
+
+  "spawnMode:tag"{
+  }
+
+  _info{
+    desc:t="Custom spawn ruleset. Players can only spawn once on each squad/soldier(depending on game mode) they have in battle. Only one custom spawn ruleset can be in mission"
+  }
+}

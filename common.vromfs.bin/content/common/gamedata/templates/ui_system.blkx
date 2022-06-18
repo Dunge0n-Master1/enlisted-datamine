@@ -1,0 +1,87 @@
+crosshair{
+  _extends:t="replicating"
+  _singleton:b=yes
+  _tags:t="ui"
+  ui_crosshair_state__deviation:p2=0.0, 0.0
+  ui_crosshair_state__aimPos:p3=0.0, 0.0, 0.0
+  ui_crosshair_state__defaultColor:c=160, 160, 160, 120
+  ui_crosshair_state__notPenetratedColor:c=245, 30, 30, 255
+  ui_crosshair_state__ineffectiveColor:c=160, 160, 160, 120
+  ui_crosshair_state__effectiveColor:c=30, 255, 30, 255
+  ui_crosshair_state__possibleEffectiveColor:c=230, 230, 20, 255
+  ui_crosshair_state__crosshairType:t="t_post"
+  ui_crosshair_state__crosshairCustomType:t="chevron"
+
+  _group{
+    _tags:t="ui"
+    _track:b=yes
+    ui_crosshair_state__reloadEndTime:r=0.0
+    ui_crosshair_state__reloadTotalTime:r=0.0
+    ui_crosshair_state__canShoot:b=no
+    ui_crosshair_state__teammateAim:b=no
+    ui_crosshair_state__isAimPressed:b=no
+    ui_crosshair_state__isAiming:b=no
+    ui_crosshair_state__debugForceCrosshair:b=no
+    ui_crosshair_state__overheat:r=0.0
+    ui_crosshair_state__color:c=255, 255, 255, 255
+    ui_crosshair_state__showCustomCrosshair:b=no
+  }
+}
+
+connectivity_status{
+  _extends:t="replicating"
+  _singleton:b=yes
+  hud_state__connectivity:i=0
+  _tracked:t="hud_state__connectivity"
+  _tags:t="ui"
+}
+
+perf_stats{
+  _extends:t="replicating"
+  _singleton:b=yes
+  _tags:t="ui"
+
+  ui_perf_stats{
+    _tags:t="ui"
+  }
+
+  _group{
+    _tags:t="ui"
+    _track:b=yes
+    ui_perf_stats__low_fps_warn:i=0
+    ui_perf_stats__latency_warn:i=0
+    ui_perf_stats__packet_loss_warn:i=0
+    ui_perf_stats__latency_variation_warn:i=0
+    ui_perf_stats__server_tick_warn:i=0
+  }
+
+  _group{
+    _tags:t="ui"
+    ui_perf_stats__server_tick_thr:p2=30.0, 100.0
+    ui_perf_stats__low_fps_thr:p2=29.0, 14.0
+    ui_perf_stats__latency_thr:p2=200.0, 350.0
+    ui_perf_stats__packet_loss_thr:p2=7.0, 15.0
+    ui_perf_stats__fps_drop_thr:r=0.5
+  }
+}
+
+level_is_loading{
+  _extends:t="replicating"
+  level_is_loading:b=no
+  _tracked:t="level_is_loading"
+}
+
+minimap_context{
+  _extends:t="replicating"
+  _singleton:b=yes
+  _tags:t="ui"
+
+  "minimap_context:tag"{
+  }
+}
+
+visualConsole{
+
+  "visualConsoleObject:tag"{
+  }
+}

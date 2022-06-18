@@ -1,0 +1,53 @@
+base_76mm_m7_for_m10{
+  item__name:t="guns/76mm_m7_for_m10"
+  gun__blk:t="gamedata/gen/weapons/76mm_m7_for_m10.blk"
+  gun__shotFreq:r=0.2
+  gun__locName:t="76mm_m7_for_m10"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_m7_for_m10_defaultset.blk"
+        name:t="76mm_m62"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "76mm_usa_M42A1_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_m7_for_m10_76mm_usa_m42a1_he.blk"
+        name:t="76mm_m42a1"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "76mm_usa_M79_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_m7_for_m10_76mm_usa_m79_ap.blk"
+        name:t="76mm_m79"
+        type:t="ap_tank"
+      }
+    }
+
+    "76mm_usa_M93_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_m7_for_m10_76mm_usa_m93_apcr.blk"
+        name:t="76mm_m93"
+        type:t="apcr_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_m7_for_m10{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_76mm_m7_for_m10"
+  _extends:t="gunsound_76mm_m7_for_m10"
+  turret__triggerGroup:i=0
+}

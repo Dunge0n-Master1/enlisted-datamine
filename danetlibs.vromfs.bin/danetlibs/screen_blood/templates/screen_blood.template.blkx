@@ -1,0 +1,19 @@
+blood_on_screen{
+  _singleton:b=yes
+  _tags:t="render"
+  blood_on_screen__baseDuration:r=0.7
+  blood_on_screen__baseIntensity:r=1.0
+  blood_on_screen__minRelativeDuration:r=0.6
+  blood_on_screen__albedo:p4=0.053, 0.015, 0.013, 0.0
+  blood_on_screen__albedo2:p4=0.014, 0.0, 0.0, 0.0
+  blood_on_screen__sun_refraction:r=0.3
+  blood_on_screen__specular:p4=0.067, 0.004, 0.0, 0.016
+  blood_on_screen__translucency:p4=0.122, 0.008, 0.0, 0.0
+  blood_on_screen__texture:t="liquid_screen_splatter_tile_tex_n"
+  blood_on_screen__roughness:r=0.08
+  blood_on_screen__linearRoughness:r=0.9
+  blood_on_screen__size:r=0.4
+
+  "blood_on_screen:BloodOnScreen"{
+  }
+}

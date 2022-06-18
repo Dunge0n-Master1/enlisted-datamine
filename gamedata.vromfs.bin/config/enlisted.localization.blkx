@@ -1,0 +1,7 @@
+localizationVroms{
+
+  loc{
+    vrom:t="content/enlisted/enlisted-lang-dev.vromfs.bin"
+    path:t="lang/enlisted_pkg_dev"
+  }
+}

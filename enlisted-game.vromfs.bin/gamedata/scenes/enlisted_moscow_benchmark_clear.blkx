@@ -1,0 +1,138 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_winter.blk"
+  level__timeRange:p2=5.0, 19.2
+  level__day:i=9
+  level__month:i=6
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=16.5
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=0.03
+    paint_details_tex:t="volokolamsk_building_colors_tex_palette*"
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.9
+  anim_track_on:b=yes
+}
+
+entity{
+  _template:t="ui_disabled"
+}
+
+entity{
+  _template:t="benchmark"
+  benchmark_name:t="moscow"
+
+  "camera_tracks:array"{
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1420.35, 6.55075, 627.897
+      from_dir:p3=0.985186, -0.057687, -0.161496
+      to_pos:p3=-1353.6, 7.08025, 613.18
+      to_dir:p3=0.273902, 0.028567, -0.961333
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1285.96, 10.4605, 565.025
+      from_dir:p3=-0.550787, -0.092254, 0.829531
+      to_pos:p3=-1264.71, 9.84965, 584.282
+      to_dir:p3=-0.989288, -0.037955, 0.140957
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1380.69, 9.02201, 533.973
+      from_dir:p3=0.250999, -0.008316, 0.967952
+      to_pos:p3=-1344.01, 8.212, 635.955
+      to_dir:p3=0.333994, -0.008939, 0.942533
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1389.75, 6.18862, 598.302
+      from_dir:p3=0.735447, -0.018405, 0.677332
+      to_pos:p3=-1372.35, 6.09681, 590.831
+      to_dir:p3=-0.09939, -0.024191, 0.994754
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1452.91, 7.5504, 562.397
+      from_dir:p3=-0.733808, -0.100123, -0.671939
+      to_pos:p3=-1434.39, 9.63001, 499.899
+      to_dir:p3=-0.997384, -0.057972, -0.043187
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1303.44, 8.13814, 585.63
+      from_dir:p3=-0.98142, -0.039708, 0.187719
+      to_pos:p3=-1385.89, 6.95965, 619.077
+      to_dir:p3=0.858696, 0.011946, -0.512347
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-1330.98, 86.6618, 606.081
+      from_dir:p3=0.872845, -0.078746, -0.481602
+      to_pos:p3=-1359.14, 10.8167, 610.513
+      to_dir:p3=0.917201, -0.004335, -0.398401
+    }
+  }
+}

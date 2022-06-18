@@ -1,0 +1,8 @@
+server_no_players_timer{
+  _singleton:b=yes
+
+  "server_no_players_timer__handle:u64"{
+    value:i64=0
+    _tags:t="server"
+  }
+}

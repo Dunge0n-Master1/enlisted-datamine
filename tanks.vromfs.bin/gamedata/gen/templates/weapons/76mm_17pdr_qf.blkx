@@ -1,0 +1,71 @@
+base_76mm_17pdr_qf{
+  item__name:t="guns/76mm_17pdr_qf"
+  gun__blk:t="gamedata/gen/weapons/76mm_17pdr_qf.blk"
+  gun__shotFreq:r=0.17
+  gun__locName:t="76mm_17pdr_qf"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_17pdr_qf_defaultset.blk"
+        name:t="76mm_shot_mk6_ap"
+        type:t="ap_tank"
+      }
+    }
+
+    "76mm_britain_17pdr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_17pdr_qf_76mm_britain_17pdr_he.blk"
+        name:t="76mm_shell_mk1_he"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "76mm_britain_17pdr_APC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_17pdr_qf_76mm_britain_17pdr_apc.blk"
+        name:t="76mm_shot_mk4_apc"
+        type:t="apc_solid_medium_caliber_tank"
+      }
+    }
+
+    "76mm_britain_17pdr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_17pdr_qf_76mm_britain_17pdr_apcbc.blk"
+        name:t="76mm_shot_mk8_apcbc"
+        type:t="apcbc_solid_medium_caliber_tank"
+      }
+    }
+
+    "76mm_britain_17pdr_APDS:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_17pdr_qf_76mm_britain_17pdr_apds.blk"
+        name:t="76mm_shot_sv_mk1_apds"
+        type:t="apds_tank"
+      }
+    }
+
+    "76mm_britain_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_17pdr_qf_76mm_britain_smoke.blk"
+        name:t="76mm_shell_ss_mk1"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_17pdr_qf{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_76mm_17pdr_qf"
+  _extends:t="gunsound_76mm_17pdr_qf"
+  turret__triggerGroup:i=0
+}

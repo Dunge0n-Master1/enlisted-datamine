@@ -1,0 +1,77 @@
+base_20mm_tnsh{
+  item__name:t="guns/20mm_tnsh"
+  gun__blk:t="gamedata/gen/weapons/20mm_tnsh.blk"
+  gun__shotFreq:r=12.5
+  gun__reloadTime:r=20.0
+  gun__maxAmmo:i=58
+  gun__locName:t="20mm_tnsh"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_defaultset_bullet_1.blk"
+        type:t="ap_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_defaultset_bullet_2.blk"
+        type:t="frag_i"
+      }
+    }
+
+    "20mm_ussr_TNSh_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_20mm_ussr_tnsh_he.blk"
+        type:t="frag_i"
+      }
+    }
+
+    "20mm_ussr_TNSh_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_20mm_ussr_tnsh_ap.blk"
+        type:t="ap_i"
+      }
+    }
+
+    "20mm_ussr_TNSh_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_20mm_ussr_tnsh_apcr_bullet_1.blk"
+        type:t="ap_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_20mm_ussr_tnsh_apcr_bullet_2.blk"
+        type:t="ap_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_tnsh_20mm_ussr_tnsh_apcr_bullet_3.blk"
+        type:t="frag_i"
+      }
+    }
+  }
+}
+
+tankgun_20mm_tnsh{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_20mm_tnsh"
+  _extends:t="gunsound_20mm_tnsh"
+  turret__triggerGroup:i=0
+}

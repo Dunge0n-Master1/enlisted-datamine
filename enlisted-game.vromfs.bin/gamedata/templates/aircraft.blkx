@@ -1,0 +1,1136 @@
+import:t="gen_aircraft_base.blk"
+import:t="gen_aircraft.blk"
+import:t="plane_cockpit.blk"
+
+aircraft_crew_replicated_components{
+  aircraft_crew__stamina:r=1.0
+  g_force__isPositive:b=yes
+  _replicated:t="g_force__isPositive"
+  _replicated:t="aircraft_crew__stamina"
+}
+
+aircraft_crew_components{
+
+  "aircraftCrew:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    g_force__g:r=1.0
+    g_force__percieved:r=1.0
+    g_force__acting:r=1.0
+    g_force__adapted:r=1.0
+    g_force__unadapted:r=1.0
+    g_force__plusPercievedViscosity:r=2.0
+    g_force__minusPercievedViscosity:r=0.1
+    g_force__releasePercievedViscosity:r=0.2
+    g_force__plusActingViscosity:r=2.5
+    g_force__minusActingViscosity:r=0.12
+    g_force__releaseActingViscosity:r=0.25
+    g_force__adaptedViscosity:r=2.0
+    g_force__unadaptedViscosity:r=1.0
+    g_force__adaptableMin:r=0.5
+    g_force__adaptableMax:r=2.0
+    g_force__blackoutStart:r=1.3
+    g_force__blackoutEnd:r=2.7
+    g_force__redoutStart:r=2.5
+    g_force__redoutEnd:r=4.5
+  }
+
+  _group{
+    _tags:t="server"
+    aircraft_crew__headPos:p3=0.0, 0.0, 0.0
+    aircraft_crew__staminaRecoveryPerSec:r=0.15
+    aircraft_crew__staminaAfterOutRecoveryPerSec:r=0.15
+    aircraft_crew__staminaUsageThreshold:r=0.1
+    aircraft_crew__staminaPositiveUsageSpeed:r=0.3
+    aircraft_crew__staminaNegativeUsageSpeed:r=0.3
+    aircraft_crew__lostControlsSensetivityMult:r=0.3
+    aircraft_crew__isLoseControlsByStamina:b=no
+  }
+
+  "aircraft_crew__staminaPrev:r"{
+    _tags:t="ui,render"
+    value:r=1.0
+  }
+
+  "g_force__visual:r"{
+    _tags:t="ui,render"
+    value:r=0.0
+  }
+}
+
+plane_input{
+  plane_input__bomb:i=0
+  plane_input__rocket:i=0
+  plane_input__aim:i=0
+  plane_input__zoomToggle:i=0
+  plane_input__shoot:i=0
+  plane_input__shootCannons:i=0
+  plane_input__shootAdditionalGuns:i=0
+
+  plane_input{
+    _tags:t="input"
+  }
+}
+
+plane_hero_components{
+  _extends:t="base_vehicle_hero_components"
+  _extends:t="forestall"
+  _extends:t="plane_input"
+  plane_input__speed:r=4.0
+  plane_input__zoomViscosity:r=0.2
+}
+
+plane_control_components{
+
+  "vehicle_input_axes:list<r>"{
+    _tags:t="input"
+  }
+}
+
+plane_cutting{
+  _replicated:t="plane_cutting__cutting"
+  _replicated:t="plane_cutting__orMode"
+  _replicated:t="plane_cutting__setId"
+  _tracked:t="plane_cutting__cutting"
+  plane_cutting__cutting:b=no
+  plane_cutting__orMode:b=no
+  plane_cutting__setId:i=-1
+
+  "plane_cutting__planes:list<p4>"{
+    _track:b=yes
+    _tags:t="render"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+  }
+}
+
+plane_cut_wing_l{
+  plane_cutting__initialCutType:i=0
+  plane_cutting__initialCut:r=0.5
+  plane_cutting__cutting:b=yes
+  plane_cutting__leftWingCutState:i=3
+
+  "plane_cutting__largePartsCut:list<b>"{
+    largePartCut:b=yes
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=no
+  }
+}
+
+plane_cut_wing_r{
+  plane_cutting__initialCutType:i=1
+  plane_cutting__initialCut:r=0.5
+  plane_cutting__cutting:b=yes
+  plane_cutting__rightWingCutState:i=3
+
+  "plane_cutting__largePartsCut:list<b>"{
+    largePartCut:b=no
+    largePartCut:b=yes
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=no
+  }
+}
+
+plane_cut_tail{
+  plane_cutting__initialCutType:i=2
+  plane_cutting__initialCut:r=0.5
+  plane_cutting__cutting:b=yes
+
+  "plane_cutting__largePartsCut:list<b>"{
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=yes
+    largePartCut:b=no
+    largePartCut:b=no
+    largePartCut:b=no
+  }
+}
+
+cutting_planes_manager{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  cutting_planes_manager{
+    _tags:t="render"
+  }
+}
+
+plane_wheel_effects{
+
+  plane_wheel_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    plane_wheel_fx__wheelDustPhysmatFxType:t="dust"
+    plane_wheel_fx__wheelFrictionPhysmatFxType:t="friction"
+    plane_wheel_fx__velMult:r=0.7
+    plane_wheel_fx__spawnRate:p4=10.0, 30.0, 0.0, 1.0
+    plane_wheel_fx__wheelAngularAccelMin:r=30.0
+
+    "plane_wheel_fx__emitters:list<t>"{
+      node:t="wheel_l"
+      node:t="wheel_1l"
+      node:t="wheel_r"
+      node:t="wheel_1r"
+      node:t="wheel_c"
+      node:t="wheel_2c"
+      node:t="wheel_3c"
+    }
+  }
+}
+
+plane_propeller_effects{
+
+  propeller_fx__effects{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    propeller_fx__propellerFxTypeId:i=-1
+    propeller_fx__helicopterRotorFxTypeId:i=-1
+    propeller_fx__propellerFxType:t="propeller"
+    propeller_fx__helicopterRotorFxType:t="rotor"
+    propeller_fx__groundDustAlt:r=50.0
+    propeller_fx__groundDustForce:p2=150.0, 2500.0
+    propeller_fx__groundDustSpeed:p2=30.0, 100.0
+    propeller_fx__groundDustSpeedFromRotor:p2=5.0, 8.0
+    propeller_fx__waterSplashAlt:r=40.0
+    propeller_fx__waterSplashForce:p2=250.0, 4000.0
+    propeller_fx__waterSplashSpeed:p2=30.0, 100.0
+  }
+}
+
+plane_piston_engine_effects{
+
+  piston_engine_exhaust_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    piston_engine_exhaust_fx__engineModeStartFxType:t="motor_exhaust_wep"
+    piston_engine_exhaust_fx__engineModeNominalFxType:t=""
+    piston_engine_exhaust_fx__engineModeCombatFxType:t="motor_wep"
+    piston_engine_exhaust_fx__engineModeWepFxType:t="motor_100throttle"
+    piston_engine_exhaust_fx__transitionThrottle:p2=0.8, 0.95
+    piston_engine_exhaust_fx__transitionMixture:p3=0.4, 0.8, 1.0
+    piston_engine_exhaust_fx__rpmToFxSpeed:r=0.01
+
+    "piston_engine_exhaust_fx__emitters:array"{
+
+      "emitters:object"{
+        engineIndex:i=0
+        node:t="prop03_1"
+      }
+
+      "emitters:object"{
+        engineIndex:i=1
+        node:t="prop03_2"
+      }
+
+      "emitters:object"{
+        engineIndex:i=2
+        node:t="prop03_3"
+      }
+
+      "emitters:object"{
+        engineIndex:i=3
+        node:t="prop03_4"
+      }
+
+      "emitters:object"{
+        engineIndex:i=4
+        node:t="prop03_5"
+      }
+
+      "emitters:object"{
+        engineIndex:i=5
+        node:t="prop03_6"
+      }
+    }
+  }
+}
+
+contrail_effects{
+
+  contrail_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    contrail_fx__fxType:t="contrail"
+    contrail_fx__maxContrailTemperature:r=-20.0
+    contrail_fx__minThrottle:r=0.05
+
+    "contrail_fx__emitters:array"{
+
+      "emitters:object"{
+        engineIndex:i=0
+        node:t="engine1_dm"
+      }
+
+      "emitters:object"{
+        engineIndex:i=1
+        node:t="engine2_dm"
+      }
+
+      "emitters:object"{
+        engineIndex:i=2
+        node:t="engine3_dm"
+      }
+
+      "emitters:object"{
+        engineIndex:i=3
+        node:t="engine4_dm"
+      }
+
+      "emitters:object"{
+        engineIndex:i=4
+        node:t="engine5_dm"
+      }
+
+      "emitters:object"{
+        engineIndex:i=5
+        node:t="engine6_dm"
+      }
+    }
+  }
+}
+
+plane_damage_effects{
+
+  plane_damage_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    plane_damage_fx__engineMinorSmokeFxType:t="minor_engine_smoke"
+    plane_damage_fx__engineMajorSmokeFxType:t="major_engine_smoke"
+    plane_damage_fx__engineMajorFireFxType:t="major_engine_fire"
+    plane_damage_fx__engineOilLeakFxType:t="trail_oil"
+    plane_damage_fx__engineFuelLeakFxType:t="trail_fuel"
+    plane_damage_fx__fuelTankMajorSmokeFxType:t="major_fuel_smoke"
+    plane_damage_fx__fuelTankMajorFireFxType:t="major_fuel_fire"
+    plane_damage_fx__fuelTankTracesFxType:t="trail_fuel"
+    plane_damage_fx__oilTraceFxType:t="trail_oil"
+    plane_damage_fx__waterTraceFxType:t="trail_water"
+    plane_damage_fx__wreckedSmokeFxType:t="wrecked_smoke"
+    plane_damage_fx__tailSmokeFxType:t="cut_tail_smoke"
+    plane_damage_fx__airExplosionFxType:t="explosion_plane"
+    plane_damage_fx__landExplosionFxType:t="land_explosion_plane"
+    plane_damage_fx__waterExplosionFxType:t="water_explosion_plane"
+    plane_damage_fx__landCrashFireEffect:t="land_crash_fire"
+    plane_damage_fx__landCrashSmokeEffect:t="land_crash_smoke"
+    plane_damage_fx__engineMajorSmokeSizeScaleMin:r=0.2
+    plane_damage_fx__engineMajorSmokeSizeScaleMax:r=0.5
+    plane_damage_fx__engineMajorSmokeConstSpawnRateCoeff:r=1.0
+    plane_damage_fx__engineMajorSmokeSpawnRateMax:r=1.0
+    plane_damage_fx__engineFireSizeScale:r=0.5
+    plane_damage_fx__engineFireConstSpawnRateCoeff:r=1.0
+    plane_damage_fx__engineFireSpawnRateMax:r=1.0
+    plane_damage_fx__engineMinorSmokeDamageTreshold:r=0.25
+    plane_damage_fx__engineMinorSmokeTransparencyScale:r=10.0
+    plane_damage_fx__engineMinorSmokeSizeScale:r=1.6
+    plane_damage_fx__engineMinorSmokeConstSpawnRateCoeff:r=12.0
+    plane_damage_fx__engineMinorSmokeSpawnRateMax:r=4.0
+    plane_damage_fx__fuelTankMajorSmokeSizeScaleMin:r=0.4
+    plane_damage_fx__fuelTankMajorSmokeSizeScaleMax:r=1.0
+    plane_damage_fx__oilLeakTransparencyScale:r=420.0
+    plane_damage_fx__oilLeakSizeScale:r=20.5
+    plane_damage_fx__oilLeakConstSpawnRateCoeff:r=420.0
+    plane_damage_fx__oilLeakSpawnRateMax:r=1.0
+    plane_damage_fx__waterLeakTransparencyScale:r=210.0
+    plane_damage_fx__waterLeakSizeScale:r=14.5
+    plane_damage_fx__waterLeakConstSpawnRateCoeff:r=210.0
+    plane_damage_fx__waterLeakSpawnRateMax:r=1.0
+    plane_damage_fx__fuelLeakTransparencyScale:r=210.0
+    plane_damage_fx__fuelLeakSizeScale:r=14.5
+    plane_damage_fx__fuelLeakConstSpawnRateCoeff:r=210.0
+    plane_damage_fx__fuelLeakSpawnRateMax:r=1.0
+    plane_damage_fx__timeForFadeOutSmoke:r=20.0
+    plane_damage_fx__timeForFadeOutFire:r=0.9
+    plane_damage_fx__landCrashFireEffectTime:r=60.0
+
+    "plane_damage_fx__enginesEmitters:array"{
+
+      "enginesEmitter:object"{
+        collNode:t="engine1_dm"
+      }
+
+      "enginesEmitter:object"{
+        collNode:t="engine2_dm"
+      }
+
+      "enginesEmitter:object"{
+        collNode:t="engine3_dm"
+      }
+
+      "enginesEmitter:object"{
+        collNode:t="engine4_dm"
+      }
+
+      "enginesEmitter:object"{
+        collNode:t="engine5_dm"
+      }
+
+      "enginesEmitter:object"{
+        collNode:t="engine6_dm"
+      }
+    }
+
+    "plane_damage_fx__fuelTankEmitters:array"{
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank1_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank2_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank3_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank4_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank5_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank6_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank7_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank8_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank9_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank10_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank11_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank12_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank13_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank14_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank15_dm"
+      }
+
+      "fuelTankEmitter:object"{
+        collNode:t="tank16_dm"
+      }
+    }
+
+    "plane_damage_fx__oilEmitters:array"{
+
+      "oilEmitter:object"{
+        collNode:t="oil1_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil2_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil3_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil4_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil5_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil6_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil7_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil8_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil9_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil10_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil11_dm"
+      }
+
+      "oilEmitter:object"{
+        collNode:t="oil12_dm"
+      }
+    }
+
+    "plane_damage_fx__waterEmitters:array"{
+
+      "waterEmitter:object"{
+        collNode:t="water1_dm"
+      }
+
+      "waterEmitter:object"{
+        collNode:t="water2_dm"
+      }
+
+      "waterEmitter:object"{
+        collNode:t="water3_dm"
+      }
+
+      "waterEmitter:object"{
+        collNode:t="water4_dm"
+      }
+
+      "waterEmitter:object"{
+        collNode:t="water5_dm"
+      }
+
+      "waterEmitter:object"{
+        collNode:t="water6_dm"
+      }
+    }
+
+    "plane_damage_fx__wreckedEmitters:array"{
+
+      "wreckedEmitter:object"{
+        treeNode:t="emtr_inversion_l"
+      }
+
+      "wreckedEmitter:object"{
+        treeNode:t="emtr_inversion_r"
+      }
+
+      "wreckedEmitter:object"{
+        treeNode:t="tail"
+      }
+    }
+
+    "plane_damage_fx__tailSmokeEmitters:array"{
+
+      "tailSmokeEmitter:object"{
+        collNode:t="tail_dm"
+      }
+    }
+
+    "plane_damage_fx__engineParts:list<t>"{
+      enginePart:t="engine1_dm"
+      enginePart:t="engine2_dm"
+      enginePart:t="engine3_dm"
+      enginePart:t="engine4_dm"
+      enginePart:t="engine5_dm"
+      enginePart:t="engine6_dm"
+    }
+
+    "plane_damage_fx__fuelTankParts:list<t>"{
+      fuelTankPart:t="tank1_dm"
+      fuelTankPart:t="tank2_dm"
+      fuelTankPart:t="tank3_dm"
+      fuelTankPart:t="tank4_dm"
+      fuelTankPart:t="tank5_dm"
+      fuelTankPart:t="tank6_dm"
+      fuelTankPart:t="tank7_dm"
+      fuelTankPart:t="tank8_dm"
+    }
+
+    "plane_damage_fx__oilParts:list<t>"{
+      oilPart:t="oil1_dm"
+      oilPart:t="oil2_dm"
+      oilPart:t="oil3_dm"
+      oilPart:t="oil4_dm"
+      oilPart:t="oil5_dm"
+      oilPart:t="oil6_dm"
+    }
+
+    "plane_damage_fx__waterParts:list<t>"{
+      waterPart:t="water1_dm"
+      waterPart:t="water2_dm"
+      waterPart:t="water3_dm"
+      waterPart:t="water4_dm"
+      waterPart:t="water5_dm"
+      waterPart:t="water6_dm"
+    }
+
+    "plane_damage_fx__wreckedParts:array"{
+
+      "wreckedPartsList:list<t>"{
+        part:t="wing_l_dm"
+        part:t="wing1_l_dm"
+        part:t="wing2_l_dm"
+      }
+
+      "wreckedPartsList:list<t>"{
+        part:t="wing_r_dm"
+        part:t="wing1_r_dm"
+        part:t="wing2_r_dm"
+      }
+
+      "wreckedPartsList:list<t>"{
+        part:t="tail_dm"
+      }
+    }
+  }
+}
+
+plane_minimal_view{
+  _track:b=yes
+  plane_view__altitude:r=0.0
+  plane_view__radar_alt:r=0.0
+  plane_view__vertical_speed:r=0.0
+  plane_view__ias:r=0.0
+  plane_view__tas:r=0.0
+  plane_view__heading_deg:i=0
+  plane_view__fuel_time:r=0.0
+  plane_view__fuel_leak:b=no
+  plane_view__fuel_tanks_sealing:b=no
+  plane_view__fuel_mass_ratio:r=0.0
+  plane_view__fuel_pct:r=0.0
+  plane_view__fuel_mass:r=0.0
+  plane_view__fuel_max_mass:r=0.0
+  plane_view__engine_manual_control:b=no
+  plane_view__is_engine_started:b=no
+  plane_view__engine_speed:r=0.0
+  plane_view__engine_has_pitch_control:b=no
+  plane_view__engine_pitch_control_auto:b=no
+  plane_view__engine_pitch_control:r=0.0
+  plane_view__engine_has_radiator_control:b=no
+  plane_view__engine_radiator_control_auto:b=no
+  plane_view__engine_radiator:r=0.0
+  plane_view__engine_oil_radiator_control_auto:b=no
+  plane_view__engine_has_oil_radiator_control:b=no
+  plane_view__engine_oil_radiator:r=0.0
+  plane_view__engine_water_cooled:b=no
+  plane_view__engine_air_cooled:b=yes
+  plane_view__engine_water_temperature:r=0.0
+  plane_view__engine_head_temperature:r=0.0
+  plane_view__engine_oil_temperature:r=0.0
+  plane_view__throttle:r=0.0
+  plane_view__has_gear_control:b=no
+  plane_view__gear_position:b=no
+  plane_view__is_gear_locked:b=no
+  plane_view__is_gear_down:b=no
+  plane_view__has_flaps_control:b=no
+  plane_view__operable:b=yes
+  plane_view__op_engine:b=yes
+  plane_view__op_gear:b=yes
+  plane_view__op_aileron:b=yes
+  plane_view__op_elevator:b=yes
+  plane_view__op_rudder:b=yes
+  plane_view__op_flaps:b=yes
+  plane_view__op_can_taxi:b=yes
+  plane_view__op_can_takeoff:b=yes
+  plane_view__op_can_fly:b=yes
+  plane_view__lights_strobe:b=no
+  plane_view__lights_navigation:b=no
+  plane_view__lights_taxi:b=no
+  plane_view__lights_landing:b=no
+  plane_view__lights_cockpit:b=no
+}
+
+squad_controlled_plane{
+  _extends:t="replicating"
+  isAlive:b=yes
+  team:i=-1
+  _replicated:t="isAlive"
+  _replicated:t="team"
+  _tracked:t="isAlive"
+  _tracked:t="team"
+}
+
+plane_base{
+  _extends:t="replicating"
+  _extends:t="animchar"
+  _extends:t="base_vehicle"
+  _extends:t="base_vehicle_seats"
+  _extends:t="base_damage_model"
+  _extends:t="plane_cutting"
+  _extends:t="plane_wheel_effects"
+  _extends:t="plane_propeller_effects"
+  _extends:t="plane_piston_engine_effects"
+  _extends:t="contrail_effects"
+  _extends:t="plane_damage_effects"
+  _extends:t="plane_minimal_view"
+  _extends:t="capturer"
+  _extends:t="plane_inertial_cam"
+  _extends:t="vehicle_enter_accessibility"
+  battle_area__timeToDamageType:t="aircraft"
+  plane_input__autoDisableMouseAim:b=no
+  plane_input__mouseAimEnabled:b=yes
+  plane_input__simpleJoyEnabled:b=no
+  plane_input__aileronsAxis:r=0.0
+  plane_input__elevatorAxis:r=0.0
+  _tracked:t="plane_input__mouseAimEnabled"
+  _tracked:t="plane_input__simpleJoyEnabled"
+  _tracked:t="transform"
+  _tracked:t="flight_angles_enabled"
+  _tracked:t="flaps_position"
+  _tracked:t="is_parking_brake_on"
+  _tracked:t="vehicleCameraType"
+  _tracked:t="isAlive"
+  _tracked:t="vehicle__localControls"
+  vehicle_seats__exitTime:r=1.0
+  vehicle_seats__enterTime:r=2.0
+  vehicle_seats__restrictToTeam:i=-1
+  zones_visitor__triggerTag:t="planeTriggerable"
+  hitmarks__showUserHits:b=no
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  needsBlood:b=no
+  material:t="steel"
+  flight_angles:p2=0.0, 0.0
+  flight_angles_enabled:b=no
+  stick_pusher_enabled:b=no
+  flaps_position:i=0
+  is_parking_brake_on:b=no
+  parking_anchor_pos:p3=0.0, 0.0, 0.0
+  parking_anchor_dir:p3=1.0, 0.0, 0.0
+  squad:i=-1
+  animchar_render__enabled:b=yes
+  is_seaplane:b=no
+  plane_phys__exploded:b=no
+  _replicated:t="plane_cutting__leftWingCutState"
+  _replicated:t="plane_cutting__rightWingCutState"
+  _replicated:t="plane_cutting__largePartsCut"
+  _replicated:t="plane_cutting__cuttingPlanesW"
+  _replicated:t="plane_cutting__smallPartsCut"
+  _replicated:t="isAlive"
+  _replicated:t="fuelTanksLeaksRate"
+  _replicated:t="enginesFuelLeak"
+  _replicated:t="enginesOilLeak"
+  _replicated:t="enginesWaterLeak"
+  _replicated:t="enginesFire"
+  _replicated:t="oilLeakages"
+  _replicated:t="waterLeakages"
+  _replicated:t="fuelTanksFire"
+  planeColl__enabled:b=yes
+  net__physId:i=-1
+  netLodZones:p4=2500.0, 22500.0, 12250000.0, 25000000.0
+  camera__lookDir:p3=1.0, 0.0, 0.0
+  camera__relative_angle:p2=0.0, 0.0
+  camera__wish_relative_angle:p2=0.0, 0.0
+  camera__unit_offset_multiplier:r=1.0
+  camera__magnification:r=1.0
+  camera__lookLimitAngles:p4=-127.0, 127.0, -35.0, 85.0
+  camera__isStabilized:b=no
+  camName:t="plane_tps_cam"
+  disableTurretCam:b=yes
+  vehicleCameraType:i=0
+  driverFpsCamMaxAngle:p2=90.0, 50.0
+  passengerFpsCamMaxAngle:p2=90.0, 50.0
+  isAlive:b=yes
+  last_driver_leave_time:r=0.0
+  isExploded:b=no
+  destroyExplodedAtTime:r=-1.0
+  vehicle_acceleration__tick:i=0
+  vehicle_acceleration__velocity:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__acceleration:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__viscAcceleration:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__counterAccel:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__accelVisc:r=0.3
+  vehicle_acceleration__counterAccelVisc:r=0.5
+  vehicle_acceleration__axisOffset:p3=0.5, 1.0, 0.0
+  plane__enterAccessibilityTimer:r=-1.0
+  plane__enterAccessibilityTime:r=0.5
+  animchar__turnDir:b=no
+  plane_anim__largeExternalNodesAnimMaxDist:r=2000.0
+  plane_anim__smallExternalNodesAnimMaxDist:r=100.0
+  plane_anim__cockpitNodesAnimMaxDist:r=10.0
+  plane_cutting__leftWingCutState:i=0
+  plane_cutting__rightWingCutState:i=0
+  effectsCulling__cockpitRadius:r=2.0
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+  pair_collision__tag:t="collidableToPlane"
+
+  grid_obj{
+  }
+
+  "airplane:tag"{
+  }
+
+  "overloadZonesVisitorTriggerTag:tag"{
+  }
+
+  "phys__inverseOmega:tag"{
+  }
+
+  "hasTurretCrosshair:b"{
+    _tags:t="gameClient"
+    value:b=no
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__nodeIndex:i=-1
+  }
+
+  _group{
+    _tags:t="gameClient"
+  }
+
+  _group{
+    _tags:t="server"
+
+    "killCrewOnPlayerDeath:tag"{
+    }
+  }
+
+  plane_anim{
+  }
+
+  plane_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  plane_phys_damage{
+  }
+
+  plane_collision{
+  }
+
+  plane_cutting{
+  }
+
+  plane_wreckage_templates{
+  }
+
+  "plane_wreckage__createdLarge:list<b>"{
+  }
+
+  "plane_wreckage__createdSmall:list<b>"{
+  }
+
+  collres{
+  }
+
+  plane_debug_hud{
+    _tags:t="gameClient"
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "camera__look_at:dp3"{
+    _tags:t="render"
+  }
+
+  "camNames:array"{
+    camNames:t="plane_tps_cam"
+    camNames:t="plane_fps_cam"
+  }
+
+  "tankCameraMode:tag"{
+  }
+
+  "defaultCameraTypes:shared:object"{
+    driver:t="driver"
+    passenger:t="passenger"
+    passenger1:t="passenger"
+    passenger2:t="passenger"
+    passenger3:t="passenger"
+    passenger4:t="passenger"
+    passenger5:t="passenger"
+    passenger6:t="passenger"
+    passenger7:t="passenger"
+    passenger8:t="passenger"
+    passenger9:t="passenger"
+    passenger10:t="passenger"
+  }
+
+  vehicle__localControls{
+    _tags:t="gameClient"
+  }
+
+  "vehicle_seats_hide_owner:list<b>"{
+  }
+
+  "vehicle_seats_receive_damage_from_dm_part:list<i>"{
+  }
+
+  "last_driver:eid"{
+  }
+
+  "oilToEngineMap:list<i>"{
+  }
+
+  "waterToEngineMap:list<i>"{
+  }
+
+  "fuelTanksLeaksRate:list<r>"{
+  }
+
+  "enginesFuelLeak:list<b>"{
+  }
+
+  "enginesOilLeak:list<b>"{
+  }
+
+  "enginesWaterLeak:list<b>"{
+  }
+
+  "enginesFire:list<b>"{
+  }
+
+  "oilLeakages:list<b>"{
+  }
+
+  "waterLeakages:list<b>"{
+  }
+
+  "fuelTanksFire:list<b>"{
+  }
+
+  "plane_phys_damage__debug:object"{
+  }
+
+  "plane_phys_damage__explosionCutParts:list<t>"{
+    explosionCutPart:t="spar_l_dm"
+    explosionCutPart:t="spar_r_dm"
+    explosionCutPart:t="spar1_l_dm"
+    explosionCutPart:t="spar1_r_dm"
+    explosionCutPart:t="tail_dm"
+    explosionCutPart:t="gear_l_dm"
+    explosionCutPart:t="gear%d_l_dm"
+    explosionCutPart:t="gear_r_dm"
+    explosionCutPart:t="gear%d_r_dm"
+    explosionCutPart:t="gear_c_dm"
+    explosionCutPart:t="gear%d_c_dm"
+  }
+
+  "plane_cutting__cuttingPlanesW:list<r>"{
+  }
+
+  "plane_cutting__largePartsCut:list<b>"{
+  }
+
+  "plane_cutting__smallPartsCut:list<b>"{
+    _track:b=yes
+  }
+}
+
+plane_wreckage{
+  _extends:t="animchar"
+  _extends:t="plane_cutting"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  plane_cutting__cutting:b=yes
+  plane_cutting__orMode:b=yes
+  plane_wreckage__typeName:t=""
+  plane_wreckage__ttl:r=5.0
+  plane_wreckage__tm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  plane_wreckage__offset:p3=0.0, 0.0, 0.0
+  plane_wreckage__pos:p3=0.0, 0.0, 0.0
+  plane_wreckage__orient:p4=0.0, 0.0, 0.0, 1.0
+  plane_wreckage__vel:p3=0.0, 0.0, 0.0
+  plane_wreckage__omega:p3=0.0, 0.0, 0.0
+  plane_wreckage__mass:r=1.0
+  plane_wreckage__startImpulse:p3=0.0, 0.0, 0.0
+  plane_wreckage__startMoment:p3=0.0, 0.0, 0.0
+
+  "airplane:tag"{
+  }
+
+  plane_wreckage{
+  }
+
+  "plane_wreckage__owner:eid"{
+  }
+}
+
+propeller_collision_damage{
+  propeller_collision_damage__threshold:r=5.0
+  propeller_collision_damage__velDeltaMult:r=0.05
+  propeller_collision_damage__velDeltaPower:r=1.0
+}
+
+plane_inertial_cam{
+
+  _group{
+    _tags:t="input"
+    plane_inertial_cam__cameraFpsPhysMult:r=0.5
+    plane_inertial_cam__accelAdaptationVisc:r=1.0
+    plane_inertial_cam__headAccelPosRange:r=0.5
+    plane_inertial_cam__headAccelRotScale:p3=0.25, 0.25, 0.25
+    plane_inertial_cam__headAccelRotGravScale:p2=0.025, 0.045
+    plane_inertial_cam__headAccelRotLimits:p3=0.3, 0.3, 0.77
+    plane_inertial_cam__immediateToRotVisc:r=0.1
+    plane_inertial_cam__headAccelScale:p3=0.02, 0.02, 0.1
+    plane_inertial_cam__headMoveLimits:p3=0.12, 0.1, 0.12
+    plane_inertial_cam__headMoveCustomLimits:p4=-1.0, 1.0, -1.0, 1.0
+    plane_inertial_cam__headPos:p3=0.0, 0.0, 0.0
+    plane_inertial_cam__headAccelPos:p3=0.0, 0.0, 0.0
+    plane_inertial_cam__headAccelPos2:p3=0.0, 0.0, 0.0
+    plane_inertial_cam__headImmAccelPos2:p3=0.0, 0.0, 0.0
+    plane_inertial_cam__headAccelRot:p3=0.0, 0.0, 0.0
+    plane_inertial_cam__lastAccel:p3=0.0, 0.0, 0.0
+    plane_inertial_cam__headShakePos:p3=0.0, 0.0, 0.0
+  }
+}
+
+_componentFilters{
+  g_force__isPositive:t="filter_possessed_and_spectated"
+  aircraft_crew__stamina:t="filter_possessed_and_spectated"
+}
+
+common_machinegun{
+  gun__sightsDistance:r=0.05
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.12
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=3.0, 5.0
+  gun_deviation__movementDevInc:p2=0.0, 6.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=25.0
+
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=3
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun_mounted/7_62mm_dt"
+  }
+}
+
+ai_aircraft{
+
+  _group{
+    _tags:t="server"
+    ai_aircraft__state:i=0
+    ai_aircraft__endPos:p3=0.0, 0.0, 0.0
+    ai_aircraft__flyPos:p3=0.0, 0.0, 0.0
+    ai_aircraft__targetPos:p3=0.0, 0.0, 0.0
+    ai_aircraft__shootOffset:p3=0.0, 0.0, 0.0
+    ai_aircraft__minDistToHide:r=1000.0
+    ai_aircraft__wishSpeed:r=75.0
+    ai_aircraft__shoot_angles:p2=0.5, 0.7
+    ai_aircraft__prevShootLength:r=-1.0
+    ai_aircraft__lastTimeToTarget:r=-1.0
+    ai_aircraft__lastDstSqToTarget:r=-1.0
+    ai_aircraft__lastShootVelocity:p3=0.0, 0.0, 0.0
+    ai_aircraft__lastHitPosition:p3=0.0, 0.0, 0.0
+    ai_aircraft__timeBetweenBombDrops:p2=0.75, 1.25
+    ai_aircraft__bombDropsTimer:r=-1.0
+    ai_aircraft__rollPidK:p3=0.0234375, 0.0009765625, 0.015625
+    ai_aircraft__pitchPidK:p3=0.046875, 0.0009765625, 0.015625
+    ai_aircraft__yawPidK:p3=0.046875, 0.00390625, 0.015625
+    ai_aircraft__speedPidK:p3=6.0, 0.25, 0.25
+    ai_aircraft__speedPrevError:r=0.0
+    ai_aircraft__speedError:r=0.0
+    ai_aircraft__rollPrevError:r=0.0
+    ai_aircraft__rollError:r=0.0
+    ai_aircraft__yawPrevError:r=0.0
+    ai_aircraft__yawError:r=0.0
+    ai_aircraft__pitchPrevError:r=0.0
+    ai_aircraft__pitchError:r=0.0
+  }
+
+  _group{
+    _tags:t="ui"
+    hud_aircraft_marker__isVisible:b=no
+    hud_aircraft_marker__isIdentified:b=yes
+    _track:b=yes
+  }
+
+  "ai_aircraft:tag"{
+  }
+}
+
+debug_aircraft{
+
+  "debug_aircraft:tag"{
+  }
+}
+
+requested_aircraft{
+
+  "requested_aircraft:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+
+    "requested_aircraft__aircraftRequesterEid:eid"{
+    }
+  }
+}
+
+aircraft_with_gun_redirect{
+
+  "redirectProjectileOffender:eid"{
+  }
+}

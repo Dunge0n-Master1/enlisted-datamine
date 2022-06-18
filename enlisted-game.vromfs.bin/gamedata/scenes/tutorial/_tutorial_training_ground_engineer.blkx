@@ -1,0 +1,216 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/tutorial/_tutorial_training_sounds.blk"
+}
+
+entity{
+  _template:t="briefing_tutorial"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  mission_name:t="basic_tutorial_mission"
+
+  "loading_images:list<t>"{
+    item:t="ui/loading_tutorial_01.jpg"
+    item:t="ui/loading_tutorial_02.jpg"
+    item:t="ui/loading_tutorial_03.jpg"
+  }
+}
+
+entity{
+  _template:t="tutorial_engineer_out_of_resources"
+}
+
+entity{
+  _template:t="tutorial_engineer_resupply_hint_disable"
+}
+
+entity{
+  _template:t="tutorial_lock_squad_member_change"
+}
+
+entity{
+  _template:t="tutorial_destroy_player_ammo"
+}
+
+entity{
+  _template:t="tutorial_engineer_begin"
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[255.515, 0.0, 0.0] [0.0, 11.1607, 0.0] [0.0, 0.0, 280.533] [-614.743, 9.75596, 253.782]]
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.631776, 0.0, -0.775151] [-0.00212011, 0.999996, -0.00172796] [0.775148, 0.00273509, 0.631773] [-547.775, 13.2347, 138.886]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/tutorial_training_ground_2x2.blk"
+  level__timeRange:p2=5.0, 19.2
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=8.2
+    level__timeVec:r=9.5
+    level__timeVec:r=18.3
+  }
+}
+
+entity{
+  _template:t="minimap_tutorial_training_ground_2x2"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.3
+  water__level:r=7.0
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    puddle_increase:r=-0.16
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="basic_sphere"
+  transform:m=[[0.946484, 0.0, -0.322752] [0.0, 1.0, 0.0] [0.322752, 0.0, 0.946484] [-182.732, 6.54999, 264.777]]
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[0.999851, 0.0, 0.0172249] [0.0, 1.0, 0.0] [-0.0172249, 0.0, 0.999851] [-567.257, 11.0624, 139.472]]
+  respawnbaseType:t="human"
+  team:i=1
+  active:b=yes
+}
+
+entity{
+  _template:t="game_mode_loaded"
+  game_mode_loader__dasScript:t="%scripts/tutorial/engineer_init.das"
+}
+
+entity{
+  _template:t="tutorial_map"
+  tutorial__profile:t="engineer"
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[21.0748, 0.0, 0.0] [0.0, 8.53719, 0.0] [0.0, 0.0, 24.3441] [-562.424, 10.1161, 143.282]]
+  tutorial_zone__zoneId:t="build_respawner_zone_1"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[30.241, 0.0, 0.0] [0.0, 5.33976, 0.0] [0.0, 0.0, 22.442] [-526.317, 10.1003, 143.88]]
+  tutorial_zone__zoneId:t="shooting_range_waypoint"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c"
+  transform:m=[[-0.00797134, 0.0, -0.999968] [0.0, 1.0, 0.0] [0.999968, 0.0, -0.00797134] [-511.533, 10.1923, 143.457]]
+  tutorial_target__targetId:t="target"
+  tutorial_target__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[0.144854, 0.0, 0.989453] [0.0, 1.0, 0.0] [-0.989453, 0.0, 0.144854] [-511.594, 11.9495, 143.372]]
+  tutorial_zone__zoneId:t="target"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="team_usa+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=1
+  team__allowRebalance:b=no
+  team__spawnBotArmy:t="normandy_allies"
+  team__briefing:t="training_ground/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+}
+
+entity{
+  _template:t="team_germany+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=2
+  team__haveScores:b=no
+  team__allowRebalance:b=no
+  team__spawnBotArmy:t="normandy_axis"
+  team__briefing:t="training_ground/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+  team__locked:b=yes
+  team__capacity:i=0
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[21.0748, 0.0, 0.0] [0.0, 8.53719, 0.0] [0.0, 0.0, 24.3441] [-535.659, 8.12761, 143.44]]
+  tutorial_zone__zoneId:t="build_respawner_zone_2"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_engineer_resource_box+base_tutorial_zone"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-558.182, 9.79798, 139.501]]
+  team:i=1
+  buildingRadius:r=1.0
+  useful_box__maxUseCount:i=99999
+  tutorial_zone__zoneId:t="resource_ressupply"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[20.4466, 0.0, 0.0] [0.0, 5.33976, 0.0] [0.0, 0.0, 18.7026] [-525.896, 10.1003, 140.5]]
+  tutorial_zone__zoneId:t="ammo_box_zone"
+  tutorial_zone__active:b=no
+}

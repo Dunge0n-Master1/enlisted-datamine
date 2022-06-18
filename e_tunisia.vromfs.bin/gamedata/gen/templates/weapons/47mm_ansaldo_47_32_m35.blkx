@@ -1,0 +1,43 @@
+base_47mm_ansaldo_47_32_m35{
+  item__name:t="guns/47mm_ansaldo_47_32_m35"
+  gun__blk:t="content/tanks/gamedata/gen/weapons/47mm_ansaldo_47_32_m35.blk"
+  gun__shotFreq:r=0.2
+  gun__locName:t="47mm_ansaldo_47_32_m35"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/47mm_ansaldo_47_32_m35_defaultset.blk"
+        name:t="47mm_m35_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "47mm_m35_HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/47mm_ansaldo_47_32_m35_47mm_m35_he.blk"
+        name:t="47mm_m35_he"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "47mm_m39_APBC:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/47mm_ansaldo_47_32_m35_47mm_m39_apbc.blk"
+        name:t="47mm_m39_apc"
+        type:t="apbc_usa_tank"
+      }
+    }
+  }
+}
+
+tankgun_47mm_ansaldo_47_32_m35{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_47mm_ansaldo_47_32_m35"
+  turret__triggerGroup:i=0
+}

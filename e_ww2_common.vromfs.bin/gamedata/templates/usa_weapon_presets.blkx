@@ -1,0 +1,277 @@
+usa_light_assault_preset{
+  weaponPreset:t="Light assault"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="m3_submachine_gun_gun"
+    secondary:t=""
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m3_submachine_gun_magazine"
+      numReserveAmmo:i=4
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+usa_infantry_preset{
+  weaponPreset:t="Infantry"
+  beh_tree__blackboard__preferedWeapon:i=1
+
+  "human_weap__weapTemplates:object"{
+    primary:t="browning_auto_5_gun"
+    secondary:t="m1903_springfield_gun"
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="browning_auto_5_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1903_springfield_magazine"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=2
+    }
+  }
+}
+
+usa_sniper_preset{
+  weaponPreset:t="Sniper"
+  beh_tree__blackboard__preferedWeapon:i=1
+
+  "human_weap__weapTemplates:object"{
+    primary:t="browning_auto_5_gun"
+    secondary:t="m1_garand_gun"
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="browning_auto_5_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1_garand_magazine"
+      numReserveAmmo:i=5
+
+      "gunMods:object"{
+        scope:t="scope_m84"
+      }
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+usa_marksman_preset{
+  weaponPreset:t="Marksman"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="m1_carbine_gun"
+    secondary:t=""
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1_carbine_magazine"
+      numReserveAmmo:i=4
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+usa_heavy_assault_preset{
+  weaponPreset:t="Heavy assault"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="m1a1_thompson_gun"
+    secondary:t=""
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1928a_thompson_magazine"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+usa_machine_gunner_preset{
+  weaponPreset:t="Machine gunner"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="browning_m1918_gun"
+    secondary:t=""
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="browning_m1918_magazine"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+usa_anti_armor_preset{
+  weaponPreset:t="Anti-armor"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="m3_submachine_gun_gun"
+    secondary:t="m1_bazooka_gun"
+    tertiary:t="m1911_colt_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m3_submachine_gun_magazine"
+      numReserveAmmo:i=4
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m6a1_bazooka_item"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="m1911_colt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}

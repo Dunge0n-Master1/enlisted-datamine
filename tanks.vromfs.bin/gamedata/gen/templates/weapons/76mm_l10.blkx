@@ -1,0 +1,44 @@
+base_76mm_l10{
+  item__name:t="guns/76mm_l10"
+  gun__blk:t="gamedata/gen/weapons/76mm_l10.blk"
+  gun__shotFreq:r=0.2
+  gun__locName:t="76mm_l10"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_l10_defaultset.blk"
+        name:t="76mm_sh_354t"
+        type:t="shrapnel_tank"
+      }
+    }
+
+    "76mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_l10_76mm_ussr_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "76mm_ussr_AP_1941:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_l10_76mm_ussr_ap_1941.blk"
+        name:t="76mm_br_350a"
+        type:t="aphebc_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_l10{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_76mm_l10"
+  _extends:t="gunsound_76mm_l10"
+  turret__triggerGroup:i=0
+}

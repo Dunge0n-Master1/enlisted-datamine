@@ -1,0 +1,213 @@
+base_stuh_iii_ausf_g{
+  _extends:t="base_tank"
+  _extends:t="stuh_iii_ausf_g_ammo_stowages"
+  killLogName:t="germ_stuh_iii_ausf_g"
+  animchar__res:t="stuh_III_ausf_G_char"
+  collres__res:t="stuh_III_ausf_G_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/stuh_iii_ausf_g.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="stuh_III_ausf_G_dmg_char"
+  xray_resource__modelName:t="stuh_III_ausf_G"
+  cockpit__zoomOutFov:r=7.2531
+  cockpit__zoomInFov:r=7.7525
+  cockpit__sightName:t="sight_model/sfl_zf_1a"
+  cockpit__sightFov:r=8.0
+  drowningHeight:r=1.728
+  damage_model__blk:t="gamedata/gen/units/tanks/stuh_iii_ausf_g.blk"
+  item__name:t="items/germ_stuh_iii_ausf_g"
+  skin__template:t="stuh_iii_ausf_g_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_100mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="stuh_iii_ausf_g_turret_01_105mm_stuh42+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+stuh_iii_ausf_g_turret_01_105mm_stuh42{
+  _extends:t="tankgun_105mm_stuh42"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=12.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-10.0, 10.0, -6.0, 20.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=8
+    ammo:i=7
+    ammo:i=7
+    ammo:i=7
+    ammo:i=7
+  }
+}
+
+stuh_iii_ausf_g_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="stuh_iii_ausf_g_ammo_stowage_1"
+  }
+}
+
+stuh_iii_ausf_g_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="stuh_iii_ausf_g_ammo_cluster_1_1"
+    cluster:t="stuh_iii_ausf_g_ammo_cluster_1_2"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+stuh_iii_ausf_g_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_r_01"
+    part:t="ammo_body_l_02"
+    part:t="ammo_body_l_03"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=12
+    count:i=12
+    count:i=12
+  }
+}
+
+stuh_iii_ausf_g_ammo_cluster_1_2{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=no
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_r_02"
+    part:t="ammo_body_r_03"
+    part:t="ammo_body_l_01"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=12
+    count:i=12
+    count:i=12
+  }
+}
+
+stuh_iii_ausf_g_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_green"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_blots"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_lines"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_winter"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_winter_dunkelgelb*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_ger_camo_winter_waves"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_winter_waves_bicolor*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_hinterhalt_daimler"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_hinterhalt_daimler*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_ger_camo_dunkelgelb_green_braun_lines_mhn"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_lines_mhn*"
+      }
+    }
+
+    "skin:object"{
+      id:t="stuh_iii_ausf_g_ger_camo_dunkelgelb_green_braun_blots_man"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots_man*"
+      }
+    }
+  }
+}

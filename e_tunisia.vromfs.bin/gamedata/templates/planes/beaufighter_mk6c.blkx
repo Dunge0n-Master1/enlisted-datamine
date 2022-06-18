@@ -1,0 +1,306 @@
+beaufighter_mk6c{
+  _extends:t="beaufighter_mk6c_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/beaufighter_mk6c"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=1.09, 0.646, 0.0
+      cockpitTemplate:t="beaufighter_mk6c_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner2"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.0, 0.0, -1.50996e-07] [0.0, 1.0, 0.0] [1.50996e-07, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isGunner"
+      receiveDamageFromDMPart:t="gunner2_dm"
+      directTurretControl:b=yes
+      roomSpace:i=1
+
+      "turretNames:array"{
+        turret:t="turret_05"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare9"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      paramMinPitchAngle:t="turret1_min_pitch_angle"
+      wishPitchParamName:t="gun1_aim:targetPitch"
+      paramYawSpeedMul:t="turret1_yaw_mul"
+      paramYawSpeed:t="turret1_yaw_speed"
+      paramMaxYawAngle:t="turret1_max_yaw_angle"
+      aimActiveParamName:t="gun1_aim_active"
+      paramPitchSpeedMul:t="gun1_pitch_mul"
+      paramYawAccel:t="turret1_yaw_accel"
+      paramPitchAccel:t="gun1_pitch_accel"
+      paramPitchSpeed:t="gun1_pitch_speed"
+      wishYawParamName:t="gun1_aim:targetYaw"
+      paramMaxPitchAngle:t="turret1_max_pitch_angle"
+      curPitchParamName:t="gun1_pitch"
+      curYawParamName:t="turret1_yaw"
+      paramMinYawAngle:t="turret1_min_yaw_angle"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="turrets_gunner0"
+      trigger:t="machine_guns"
+      gun:t="planegun_beaufighter_mk6c_7_7mm_vikkersk_turret_01"
+    }
+  }
+}
+
+base_beaufighter_mk6c_7_7mm_vikkersk_turret{
+  item__name:t="guns/gunvikkersk_turret"
+  gun__blk:t="gamedata/weapons/beaufighter_mk6c/7_7mm_vikkersk_turret.blk"
+  gun__shotFreq:r=15.8333
+  gun__locName:t="gunvikkersk_turret"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1000
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1000
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        name:t="tracer"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        name:t="ap"
+        type:t="ap_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        name:t="incendiary"
+        type:t="i_ball"
+      }
+    }
+  }
+}
+
+base_beaufighter_mk6c_20mm_hispanomki{
+  item__name:t="guns/cannonhispanomki"
+  gun__blk:t="gamedata/weapons/beaufighter_mk6c/20mm_hispanomki.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="cannonhispanomki"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=240
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=240
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+planegun_beaufighter_mk6c_20mm_hispanomki_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=240
+}
+
+planegun_beaufighter_mk6c_20mm_hispanomki_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=240
+}
+
+planegun_beaufighter_mk6c_20mm_hispanomki_03{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=240
+}
+
+planegun_beaufighter_mk6c_20mm_hispanomki_04{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare4"
+  gun__maxAmmo:i=240
+}
+
+planegun_beaufighter_mk6c_7_7mm_vikkersk_turret_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_beaufighter_mk6c_7_7mm_vikkersk_turret"
+  _extends:t="gunsound_7_7mm_vikkersk_turret_aircraft"
+  gun__shootNodeName:t="flare9"
+  gun__maxAmmo:i=1000
+  turret__aimNodeName:t="turret1"
+  turret__limit:p4=-50.0, 50.0, -7.0, 55.0
+  turret__yawSpeed:r=100.0
+  turret__pitchSpeed:r=100.0
+}
+
+beaufighter_mk6c_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="beaufighter_mk6c_cockpit_char"
+  plane_anim__blk:t="gamedata/units/beaufighter_mk6c.blk"
+  plane_sight__blk:t="gamedata/units/beaufighter_mk6c.blk"
+}

@@ -1,0 +1,75 @@
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [423.804, 2.97412, -977.571]]
+  tracer_launcher__shoot_direction:p2=120.0, 50.0
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+}
+
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [424.635, 2.97412, 634.056]]
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+}
+
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [298.508, 2.97412, 881.639]]
+  tracer_launcher__shoot_direction:p2=45.0, 0.0
+  tracer_launcher__rotate_range:p2=30.0, 60.0
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+}
+
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [103.453, 2.97412, 1101.59]]
+  tracer_launcher__shoot_direction:p2=180.0, 5.0
+  tracer_launcher__rotate_range:p2=50.0, 120.0
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+}
+
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1564.22, 2.97412, -112.722]]
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+}
+
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1697.8, 2.97412, -317.409]]
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+}
+
+entity{
+  _template:t="tracer_launcher"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [570.875, 2.97412, -1024.4]]
+  tracer_launcher__bullet_speed:r=500.0
+  tracer_launcher__time_to_fire:r=1.1282
+  tracer_launcher__long_cooldown_min_max:p2=0.5, 2.0
+  tracer_launcher__long_cooldown_probability:r=0.2
+  tracer_launcher__short_cooldown:r=0.1
+  tracer_launcher__rotate_range:p2=10.0, 50.0
+}

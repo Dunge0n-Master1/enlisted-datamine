@@ -1,0 +1,463 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"
+}
+
+entity{
+  _template:t="team_tunisia_allies+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=1
+  team__spawnBotArmy:t="tunisia_allies"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+}
+
+entity{
+  _template:t="team_tunisia_axis+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  team__countAdd:r=0.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__id:i=2
+  team__haveScores:b=no
+  team__spawnBotArmy:t="tunisia_axis"
+  team__briefing:t="practice_mode/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+  team__locked:b=yes
+  team__capacity:i=0
+}
+
+entity{
+  _template:t="mk2_grenade_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.764555, -0.508279, 0.396364] [0.51422, 0.110223, -0.850547] [0.388625, 0.854109, 0.345637] [-533.611, 9.39065, 149.585]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1903_springfield_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.93161, 0.32929, 0.153849] [-0.159954, 0.00864752, -0.987088] [-0.326368, -0.944189, 0.0446156] [-533.908, 8.85899, 149.962]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="smle_mk3_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.00314189, -0.994446, -0.105182] [0.60058, -0.0859768, 0.794929] [-0.799558, -0.0606736, 0.597516] [-533.648, 9.3927, 152.279]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="thompson_m1921_28_box_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.034662, 0.9986, 0.0399356] [0.905369, -0.0482968, 0.421874] [0.423213, 0.0215339, -0.905773] [-533.187, 9.39204, 151.526]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1_garand_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.942527, 0.273549, 0.191867] [-0.167193, 0.11106, -0.97965] [-0.289292, -0.955425, -0.0589415] [-533.881, 8.89512, 149.489]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1911_colt_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0416443, 0.996036, 0.0785906] [0.59399, 0.0879293, -0.799653] [-0.803394, 0.0133821, -0.595297] [-533.201, 9.37779, 149.254]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1911_colt_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.0272961, 0.995098, 0.0950388] [-0.700987, -0.0487243, 0.711507] [0.712652, -0.0860411, 0.696222] [-533.105, 9.38049, 149.362]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="sten_mk2_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.142346, -0.000771234, 0.989815] [-0.874786, 0.467796, 0.126168] [-0.46313, -0.883835, 0.0659147] [-533.893, 8.99618, 151.739]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="sten_mk2_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.973221, -0.0523059, 0.223836] [0.224281, -0.00272255, 0.974522] [-0.0503637, 0.998627, 0.0143826] [-533.629, 9.38377, 151.706]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="browning_m1918a2_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.889353, -0.240163, 0.389064] [-0.394177, 0.0284369, 0.918594] [-0.231677, -0.970315, -0.0693765] [-533.817, 9.00765, 152.012]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="webley_mk6_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0498436, 0.99875, 0.00388571] [0.413362, 0.024171, -0.910246] [-0.909201, -0.0437632, -0.414051] [-533.492, 9.36358, 149.911]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="webley_mk6_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.997956, 0.00166112, 0.0638795] [-0.00294361, 0.999796, 0.0199937] [-0.0638328, -0.0201397, 0.997757] [-533.405, 9.36322, 150.045]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="piat_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0466723, -0.0100685, -0.99886] [-0.951629, 0.30445, 0.0413963] [0.303684, 0.952475, -0.0237913] [-533.826, 9.1319, 149.748]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="piat_shell_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.789947, 0.61222, 0.034213] [-0.609952, -0.790284, 0.0584095] [0.0627963, 0.0252715, 0.997706] [-533.147, 9.40595, 149.868]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="bren_mk1_gun_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.684089, -0.395595, -0.612802] [0.572759, -0.22886, 0.787129] [-0.451628, -0.889454, 0.070021] [-533.902, 8.99325, 151.404]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="bren_mk2_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.074315, 0.997172, 0.0112018] [-0.66219, -0.0409446, -0.748218] [-0.745643, -0.0630211, 0.663358] [-533.574, 9.37687, 151.448]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1928a_thompson_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.00428435, 0.999797, 0.0196232] [0.610577, -0.0129243, 0.791852] [0.791945, 0.0153745, -0.610397] [-533.379, 9.37831, 151.39]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="lee_enfield_no4_mk1_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0116827, -0.998998, 0.0431196] [-0.995215, 0.0157988, 0.0964256] [-0.0970093, -0.0417869, -0.994405] [-533.268, 9.37399, 152.307]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="atr_boys_gun_item+item_in_world+disable_update+visibility_traceable_item+ui_visible"
+  transform:m=[[0.985888, -0.12682, -0.10927] [0.149478, 0.373069, 0.915683] [-0.0753614, -0.919094, 0.386762] [-534.0, 8.82785, 149.365]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="atr_boys_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.997575, 0.00776109, 0.0691533] [-0.00684285, -0.999886, 0.0135028] [0.0692503, 0.0129955, 0.997514] [-533.567, 9.37123, 149.153]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="browning_m1918_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.010479, 0.999605, -0.0260139] [0.0443382, -0.0264549, -0.998667] [-0.998959, 0.00931303, -0.0445977] [-533.114, 9.39399, 152.281]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1_garand_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.0456727, 0.998515, 0.0296434] [0.998844, -0.0460952, 0.0137213] [0.0150656, 0.0289821, -0.999465] [-533.476, 9.37699, 149.562]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1928a_thompson_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.00126728, 0.999062, 0.0432365] [0.776299, -0.0262717, 0.629818] [0.630364, 0.034363, -0.775537] [-533.261, 9.38388, 151.29]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="lee_enfield_no4_mk1_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0420086, -0.998748, -0.0270391] [-0.929026, 0.0490045, -0.366758] [0.367624, 0.00971418, -0.929923] [-533.358, 9.37122, 152.377]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m30_luftwaffe_drilling_magazine+disable_update"
+  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="browning_m1918_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0241704, 0.998658, -0.0457592] [0.0715081, -0.0439282, -0.996473] [-0.997145, -0.0273565, -0.0703504] [-533.104, 9.39188, 152.434]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1_garand_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.0497592, 0.997259, 0.0547283] [0.981173, -0.0590481, 0.183887] [0.186613, 0.0445486, -0.981421] [-533.471, 9.37498, 149.67]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1928a_thompson_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.0368463, 0.999214, 0.0144982] [0.736796, -0.0369656, 0.675106] [0.675111, -0.0141927, -0.737578] [-533.311, 9.3769, 151.339]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="lee_enfield_no4_mk1_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0713177, -0.993128, 0.09276] [-0.995283, 0.0647234, -0.0722564] [0.0657562, -0.0974757, -0.993063] [-533.254, 9.37267, 152.407]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1903_springfield_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0330498, -0.998653, 0.0399808] [-0.249005, 0.046968, 0.967362] [-0.967937, 0.0220165, -0.250222] [-533.659, 9.3675, 149.863]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1903_springfield_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[-0.0442481, -0.999012, 0.00409252] [-0.159684, 0.0111161, 0.987105] [-0.986174, 0.0430249, -0.160019] [-533.597, 9.37023, 149.794]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mk2_grenade_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.710091, -0.508279, 0.487257] [0.614782, 0.110223, -0.780958] [0.343235, 0.854109, 0.390748] [-533.521, 9.39066, 149.47]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="mk2_grenade_item+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.747712, -0.508279, 0.42729] [0.548563, 0.110223, -0.828813] [0.374169, 0.854109, 0.361237] [-533.609, 9.39065, 149.442]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="m1911_colt_magazine+item_in_world+disable_update+visibility_traceable_item"
+  transform:m=[[0.0152457, 0.996463, 0.0826176] [-0.790694, -0.0385597, 0.610996] [0.612022, -0.0746389, 0.787311] [-533.16, 9.38674, 149.333]]
+  animchar__updatable:b=no
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-534.719, 9.33534, 147.629]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.132376, 0.0, -0.9912] [0.0, 1.0, 0.0] [0.9912, 0.0, 0.132376] [-534.323, 8.74444, 135.094]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.865467, 0.0, -0.500967] [0.0, 1.0, 0.0] [0.500967, 0.0, 0.865467] [-523.659, 10.1247, 375.179]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-523.193, 10.2259, 402.607]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="base_fortification_build+tutorial_ammunition_box_a"
+  transform:m=[[0.999566, 0.0, 0.0294573] [0.0, 1.0, 0.0] [-0.0294573, 0.0, 0.999566] [-529.568, 10.0852, 482.533]]
+  team:i=1
+  buildingRadius:r=1.5
+  grenadeResupplyItem:t="mk2_grenade_item"
+  useful_box__maxUseCount:i=99999
+}
+
+entity{
+  _template:t="it_ab_41"
+  transform:m=[[0.0158154, 0.0799981, 0.99667] [-0.00747441, 0.996776, -0.079888] [-0.999847, -0.00618605, 0.0163624] [-453.213, 10.6705, 438.195]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m14_41"
+  transform:m=[[0.0163478, 0.000450988, 0.999866] [-0.0101382, 0.999949, -0.000285266] [-0.999815, -0.0101322, 0.0163515] [-379.135, 11.5788, 443.781]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m41_75_32"
+  transform:m=[[-0.0523843, -0.00270005, 0.998623] [-0.00788098, 0.999966, 0.00229027] [-0.998596, -0.00775016, -0.0524038] [-375.367, 11.6274, 361.663]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_J_desert"
+  transform:m=[[-0.372949, -0.0131687, 0.927758] [-0.0181211, 0.999812, 0.00690698] [-0.927675, -0.014236, -0.373118] [-301.614, 12.5092, 362.542]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m14_41"
+  transform:m=[[0.0153781, -0.0714151, 0.997328] [-0.0220642, 0.997179, 0.0717446] [-0.999638, -0.0231085, 0.013759] [-417.239, 11.5275, 470.394]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m41_75_32"
+  transform:m=[[-0.135032, -0.00910898, -0.990799] [-0.0156821, 0.999852, -0.00705497] [0.990717, 0.0145851, -0.135155] [-334.243, 12.0512, 485.008]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_ab_41"
+  transform:m=[[-0.401676, 0.0572715, -0.913989] [0.0574446, 0.997653, 0.0372684] [0.913978, -0.0375339, -0.404024] [-313.717, 12.1461, 473.593]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_J_desert"
+  transform:m=[[-0.319862, -0.00791787, -0.947431] [-0.0171339, 0.99985, -0.00257138] [0.947309, 0.0154107, -0.31995] [-242.893, 13.418, 493.782]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m41_75_32"
+  transform:m=[[0.0167668, -0.00660486, 0.999838] [-0.0181448, 0.999811, 0.00690896] [-0.999695, -0.0182576, 0.0166438] [-214.747, 13.8495, 364.746]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_ab_41"
+  transform:m=[[0.0168362, -0.0235711, 0.99958] [-0.0390346, 0.998944, 0.0242136] [-0.999096, -0.0394259, 0.0158983] [-354.085, 12.0528, 389.548]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m14_41"
+  transform:m=[[-0.372963, -0.00754048, 0.927816] [-0.0186977, 0.999825, 0.000609627] [-0.927658, -0.0171207, -0.373038] [-253.781, 13.2552, 402.412]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_J_desert"
+  transform:m=[[-0.638949, -0.011899, -0.769157] [-0.0162092, 0.999867, -0.00200296] [0.769078, 0.0111876, -0.639057] [-152.076, 14.7991, 409.965]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_ab_41"
+  transform:m=[[-0.999058, -0.0229236, 0.0368583] [-0.0227783, 0.999731, 0.00435648] [-0.0369482, 0.0035128, -0.999311] [-297.25, 12.577, 452.437]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m14_41"
+  transform:m=[[0.0167588, 0.000104472, 0.99986] [-0.0203193, 0.999794, 0.00023611] [-0.999653, -0.0203204, 0.0167574] [-37.1877, 16.6452, 359.883]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m41_75_32"
+  transform:m=[[0.044309, -0.00696047, 0.998994] [-0.0165669, 0.999833, 0.00770112] [-0.99888, -0.0168914, 0.0441863] [-46.1049, 16.5154, 449.174]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_J_desert"
+  transform:m=[[-0.999726, -0.0230773, -0.00398527] [-0.0230738, 0.999733, -0.000941876] [0.00400594, -0.000849663, -0.999992] [129.163, 19.3801, 405.286]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m14_41"
+  transform:m=[[-0.00843613, 0.0284334, -0.99956] [0.0558304, 0.99805, 0.0279193] [0.998405, -0.0555703, -0.0100071] [149.887, 20.0289, 387.3]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m41_75_32"
+  transform:m=[[-0.697059, -0.0346739, 0.716175] [-0.0287753, 0.999378, 0.020378] [-0.716436, -0.00640345, -0.697624] [203.297, 20.6337, 426.945]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_ab_41"
+  transform:m=[[-0.0206893, -0.0434096, -0.998843] [-0.182635, 0.98241, -0.0389125] [0.982963, 0.181619, -0.0282535] [270.978, 21.6296, 463.494]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_III_ausf_J_desert"
+  transform:m=[[-0.0249828, 0.000578844, -0.999688] [-0.0198764, 0.999802, 0.00107564] [0.99949, 0.0198971, -0.0249664] [110.973, 19.0956, 482.882]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m41_75_32"
+  transform:m=[[-0.616936, 0.0215833, -0.786717] [-0.0163996, 0.999054, 0.0402691] [0.786843, 0.0377453, -0.615998] [18.9224, 17.3586, 473.287]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_ab_41"
+  transform:m=[[-0.0573932, -0.0080387, 0.998319] [-0.0140887, 0.999875, 0.00724126] [-0.998252, -0.0136495, -0.0574992] [-441.889, 10.9409, 362.895]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="it_m14_41"
+  transform:m=[[-0.999778, 9.83357e-05, 0.0210829] [-0.00186489, 0.995657, -0.0930792] [-0.0210005, -0.0930979, -0.995435] [-498.745, 10.5029, 465.379]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_iv_ausf_f2_tunis"
+  transform:m=[[-0.70913, -0.0602084, 0.702502] [-0.0521956, 0.998096, 0.0328545] [-0.703143, -0.0133694, -0.710923] [-353.994, 11.8006, 416.384]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="germ_pzkpfw_iv_ausf_f2_tunis"
+  transform:m=[[0.796929, -0.0214397, 0.603693] [0.0125493, 0.999742, 0.0189388] [-0.603943, -0.00751697, 0.796992] [-253.74, 13.0843, 391.273]]
+  team:i=2
+  vehicle_seats__restrictToTeam:i=2
+}
+
+entity{
+  _template:t="willys_mb"
+  transform:m=[[-0.451218, -0.00310071, 0.892409] [-0.0329606, 0.99937, -0.0131931] [-0.891805, -0.0353672, -0.451035] [-543.518, 9.69353, 171.359]]
+}

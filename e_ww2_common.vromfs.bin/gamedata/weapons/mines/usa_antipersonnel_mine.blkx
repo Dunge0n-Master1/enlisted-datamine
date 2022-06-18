@@ -1,0 +1,6 @@
+selWeaponVar:t="m2a3_mine"
+
+ownerAnimVars{
+  gun_offset_across:r=0.0
+  gun_offset_along:r=0.0
+}

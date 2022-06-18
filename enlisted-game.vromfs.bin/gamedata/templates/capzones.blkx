@@ -1,0 +1,868 @@
+_infoCommonComponents{
+
+  capzone__capReward{
+    desc:t="The number of spawn points that the attacking team will receive for capturing a strategic point"
+  }
+
+  capzone__capTime{
+    desc:t="Time to capture the point (in seconds)"
+  }
+
+  capzone__decapTime{
+    desc:t="Time to recapture the point (in seconds)"
+  }
+
+  capzone__onlyTeamCanCapture{
+    desc:t="If set, then only this team_id can capture this point"
+  }
+
+  sphere_zone__radius{
+    desc:t="Radius of the strategic point sphere"
+  }
+
+  capzone__icon{
+    desc:t="Capture point icon"
+
+    values{
+      value:t="AAA"
+      value:t="waypoint"
+      value:t="arrows_in_circle"
+      value:t="location_defend"
+      value:t="location_pointer"
+      value:t="moveto"
+      value:t="bunker"
+      value:t="wall"
+      value:t="gate"
+      value:t="train_cross"
+    }
+  }
+}
+
+projective_decal{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "decal__thickness:r"{
+    value:r=0.4
+
+    _info{
+      desc:t="Width of the strategic point boundaries decal line"
+    }
+  }
+
+  "decal__height:r"{
+    value:r=0.5
+
+    _info{
+      desc:t="The height at which the strategic point boundaries decal line will be drawn"
+    }
+  }
+}
+
+capzone_projdecal{
+  decal__id:i=-1
+}
+
+objective_zone_kill_bonus{
+  capzone__defenseRadiusAdd:r=25.0
+  capzone__attackRadiusAdd:r=25.0
+}
+
+objective_zone_smoke_signal{
+  capzone__smokeDropHeight:r=300.0
+  capzone__smokeTemplateFriendly:t="capzone_signal_friendly_smoke_effect"
+  capzone__smokeTemplateNeutral:t="capzone_signal_neutral_smoke_effect"
+  capzone__smokeTemplateEnemy:t="capzone_signal_enemy_smoke_effect"
+
+  "capzone__smokeEid:eid"{
+  }
+}
+
+objective_zone_navmesh{
+  capzone__hasNearestNavmeshPos:b=no
+  capzone__nearestNavmeshPos:p3=0.0, 0.0, 0.0
+  capzone__minRadius:r=-1.0
+}
+
+objective_progress{
+  progress__totalTime:r=-1.0
+  progress__endTime:r=-1.0
+  progress__pausedAt:r=-1.0
+  progress__isPositive:b=yes
+  _replicate:b=yes
+  _track:b=yes
+}
+
+capzone_timer{
+  capzone_timer__timeLeft:r=1500.0
+  capzone_timer__endTime:r=-1.0
+  capzone_timer__isSet:b=no
+  _replicated:t="capzone_timer__endTime"
+  _tracked:t="capzone_timer__endTime"
+}
+
+base_objective_zone_without_navmesh{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _extends:t="replicating"
+  _extends:t="capzone_timer"
+  _extends:t="objective_zone_kill_bonus"
+  _extends:t="objective_zone_smoke_signal"
+  capzone__captureStatus:i=0
+  capzone__titleSize:r=-1.0
+  capzone__iconOffsetY:r=0.0
+  capzone__caption:t=""
+  capzone__alwaysShow:b=no
+  capzone__alwaysHide:b=no
+  capzone__stopFailTimerForTeam:i=-1
+  capzone__narrator_zoneCaptured:t=""
+  capzone__narrator_zoneCapturedMessage:t=""
+  capzone__narrator_zoneCapturedEnemy:t=""
+  capzone__narrator_zoneCapturedEnemyMessage:t=""
+  capzone__narrator_zoneCapturedEnable:b=no
+  ui_order:i=-1
+  _replicated:t="active"
+  _replicated:t="capzone__capTeam"
+  _replicated:t="capzone__owningTeam"
+  _replicated:t="capzone__progress"
+  _replicated:t="capzone__title"
+  _replicated:t="capzone__titleSize"
+  _replicated:t="capzone__icon"
+  _replicated:t="capzone__alwaysShow"
+  _tracked:t="capzone__capTeam"
+  _tracked:t="capzone__owningTeam"
+  _tracked:t="capzone__progress"
+  _tracked:t="capzone__captureStatus"
+  _tracked:t="capzone__stopFailTimerForTeam"
+  _tracked:t="capzone__title"
+  _tracked:t="capzone__icon"
+  _tracked:t="capzone__alwaysShow"
+  _tracked:t="active"
+  _tracked:t="transform"
+  _tracked:t="ui_order"
+
+  "active:b"{
+    value:b=yes
+    _info:t="active"
+  }
+
+  "capzone__progress:r"{
+    value:r=0.0
+
+    _info{
+      desc:t="Initial progress of capturing the point by the defending team"
+    }
+  }
+
+  "capzone__capTeam:i"{
+    value:i=-1
+
+    _info{
+      desc:t="The team_id that will have the initial progress from the capzone__progress parameter"
+    }
+  }
+
+  "capzone__owningTeam:i"{
+    value:i=-1
+
+    _info{
+      desc:t="team_id of the team that holding point when this point become active for the first time"
+    }
+  }
+
+  "capzone__title:t"{
+    value:t=""
+
+    _info{
+      desc:t="Point name, for example: A,B,C, etc."
+    }
+  }
+
+  "capzone__icon:t"{
+    value:t=""
+    _info:t="capzone__icon"
+  }
+
+  "capzone:tag"{
+  }
+
+  "capzone__ownTeamIcon:object"{
+  }
+}
+
+base_objective_zone{
+  _extends:t="base_objective_zone_without_navmesh"
+  _extends:t="objective_zone_navmesh"
+}
+
+capzone_capture_award{
+
+  "capzone__capturersEids:list<eid>"{
+  }
+
+  "capzone__soldiersCapture:object"{
+  }
+}
+
+capzone_team_presence{
+  trackedLastTime:r=0.0
+  trackInterval:p2=1.0, 2.0
+  capzone__maxTeamPresence:i=6
+  _tracked:t="capzone__presenceTeamCount"
+  _replicated:t="capzone__presenceTeamCount"
+
+  "teamPresence:object"{
+    _tags:t="server"
+  }
+
+  "capzone__presenceTeamCount:object"{
+  }
+}
+
+base_capzone_without_navmesh{
+  _extends:t="base_objective_zone_without_navmesh"
+  _extends:t="capzone_capture_award"
+  _extends:t="capzone_team_presence"
+  capzone__curTeamCapturingZone:i=-1
+  capzone__autoDecap:b=yes
+  capzone__autoCap:b=yes
+  capzone__canCaptureByPresenceDomination:b=yes
+  capzone__presenceAdvantageToDominate:i=1
+  capzone__isMultipleTeamsPresent:b=no
+  capzone__capTeamAdvantage:i=0
+  capzone__advantageDivisor:r=4.0
+  capzone__maxCapDecapSpeedMult:r=2.0
+  _tracked:t="capzone__curTeamCapturingZone"
+  _tracked:t="capzone__curTeamDominating"
+  _tracked:t="capzone__isMultipleTeamsPresent"
+  _replicated:t="capzone__curTeamCapturingZone"
+  _replicated:t="capzone__isMultipleTeamsPresent"
+
+  "capzone__curTeamDominating:i"{
+    value:i=-1
+    _tags:t="server"
+  }
+
+  "capzone__capTime:r"{
+    value:r=20.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=30.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__canCaptureOnVehicle:b"{
+    value:b=no
+
+    _info{
+      desc:t="Ability to capture the point in a vehicle"
+    }
+  }
+
+  "capzone__capTeamEid:eid"{
+  }
+
+  "humanTriggerable:tag"{
+  }
+
+  "zone__excludeDowned:tag"{
+  }
+}
+
+base_capzone{
+  _extends:t="base_capzone_without_navmesh"
+  _extends:t="objective_zone_navmesh"
+}
+
+separate_cap_decap_time{
+  capzone__capTimeTeam1:r=20.0
+  capzone__capTimeTeam2:r=20.0
+  capzone__decapTimeTeam1:r=30.0
+  capzone__decapTimeTeam2:r=30.0
+  _replicated:t="capzone__capTime"
+  _replicated:t="capzone__decapTime"
+
+  "capzone__capTime:r"{
+    value:r=20.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=30.0
+    _info:t="capzone__decapTime"
+  }
+}
+
+lockable_capzone{
+  capzone__lockAfterActivate:b=no
+  capzone__lockAfterCap:b=no
+  capzone__endLockTime:r=-1.0
+  capzone__unlockAfterTime:r=-1.0
+  capzone__locked:b=no
+  _replicated:t="capzone__endLockTime"
+  _replicated:t="capzone__locked"
+  _tracked:t="capzone__endLockTime"
+  _tracked:t="capzone__locked"
+}
+
+basic_sphere{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "sphere_zone__radius:r"{
+    value:r=100.0
+    _info:t="sphere_zone__radius"
+  }
+}
+
+objective_zone_sphere{
+  _extends:t="base_objective_zone"
+  sphere_zone__radius:r=8.0
+  _tracked:t="sphere_zone__radius"
+}
+
+objective_zone_box{
+  _extends:t="base_objective_zone"
+
+  "box_zone:tag"{
+  }
+}
+
+capzone_sphere{
+  _extends:t="base_capzone"
+  _extends:t="projective_decal"
+  sphere_zone__radius:r=8.0
+  _tracked:t="sphere_zone__radius"
+}
+
+capzone_area_polygon_point{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  capzone_area_polygon_point__nextId:t=""
+  capzone_area_polygon_point__id:t=""
+  capzone_area_polygon_point__forcapzone_areaId:t=""
+}
+
+capzone_poly{
+  _extends:t="base_capzone"
+
+  _group{
+    capzone__approximateRadius:r=-1.0
+    transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+    _replicate:b=yes
+  }
+
+  _group{
+    _tags:t="server"
+    capzone__areaId:t=""
+    capzone__minHeight:r=0.0
+    capzone__maxHeight:r=0.0
+
+    "capzone__areaPoints:list<p2>"{
+    }
+  }
+}
+
+poly_capzone_area_draw_debug{
+  capzone_area_polygon_point__drawDebug:b=yes
+}
+
+capzone_box_without_navmesh{
+  _extends:t="base_capzone_without_navmesh"
+
+  "box_zone:tag"{
+  }
+}
+
+capzone_box{
+  _extends:t="capzone_box_without_navmesh"
+  _extends:t="objective_zone_navmesh"
+  _extends:t="projective_decal"
+}
+
+moveable_capzone_box{
+  _extends:t="capzone_box_without_navmesh"
+  _extends:t="objective_zone_navmesh"
+
+  _group{
+    _tags:t="server"
+    capzone__next_update_time:r=0.0
+    capzone__update_interval:r=0.5
+    capzone__lastNavmeshValidatedAtPos:p3=0.0, 0.0, 0.0
+  }
+
+  "moveable_capzone:tag"{
+  }
+}
+
+capzone_relative_box{
+  _extends:t="base_capzone"
+  box_zone__boxMin:p3=-0.0, -0.0, -0.0
+  box_zone__boxMax:p3=0.0, 0.0, 0.0
+}
+
+defend_zone{
+  capzone__deactivateAfterCap:b=yes
+  _tracked:t="capzone__onlyTeamCanCapture"
+  _replicated:t="capzone__onlyTeamCanCapture"
+
+  "capzone__capTime:r"{
+    value:r=60.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__onlyTeamCanCapture:i"{
+    value:i=-1
+    _info:t="capzone__onlyTeamCanCapture"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=600.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__capReward:r"{
+    value:r=0.0
+    _info:t="capzone__capReward"
+  }
+
+  "humanTriggerable:tag"{
+  }
+}
+
+defend_zone_sphere{
+  _extends:t="capzone_sphere"
+  _extends:t="defend_zone"
+}
+
+defend_zone_box{
+  _extends:t="capzone_box"
+  _extends:t="defend_zone"
+}
+
+defend_zone_poly{
+  _extends:t="capzone_poly"
+  _extends:t="defend_zone"
+}
+
+capzone_respawn_activator{
+  capzone__acivateRespawnGroup:i=-1
+  capzone__activateRespawnOnProgress:r=1.0
+}
+
+domination_sphere_capzone{
+  _extends:t="capzone_sphere"
+  capzone__autoDecap:b=no
+  capzone__autoCap:b=no
+
+  "capzone__capTime:r"{
+    value:r=25.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=15.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__ownTeamIcon:object"{
+    team1:t="!ui/uiskin/capture_bg_allies.svg"
+    team2:t="!ui/uiskin/capture_bg_axis.svg"
+  }
+
+  _info{
+    desc:t="Spherical strategic point, teams fight for it in missions. A simplified version of defend_zone_chained_sphere+defend_zone_respawnbase parameter values suitable for Conquest missions"
+  }
+}
+
+domination_poly_capzone{
+  _extends:t="capzone_poly"
+  capzone__autoDecap:b=no
+  capzone__autoCap:b=no
+
+  "capzone__capTime:r"{
+    value:r=25.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=15.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__ownTeamIcon:object"{
+    team1:t="!ui/uiskin/capture_bg_allies.svg"
+    team2:t="!ui/uiskin/capture_bg_axis.svg"
+  }
+}
+
+domination_box_capzone_without_navmesh{
+  _extends:t="capzone_box_without_navmesh"
+  capzone__autoDecap:b=no
+  capzone__autoCap:b=no
+
+  "capzone__capTime:r"{
+    value:r=25.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=15.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__ownTeamIcon:object"{
+    team1:t="!ui/uiskin/capture_bg_allies.svg"
+    team2:t="!ui/uiskin/capture_bg_axis.svg"
+  }
+}
+
+domination_box_moveable_capzone{
+  _extends:t="moveable_capzone_box"
+  capzone__autoDecap:b=no
+  capzone__autoCap:b=no
+
+  "capzone__capTime:r"{
+    value:r=25.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=15.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__ownTeamIcon:object"{
+    team1:t="!ui/uiskin/capture_bg_allies.svg"
+    team2:t="!ui/uiskin/capture_bg_axis.svg"
+  }
+}
+
+domination_box_capzone{
+  _extends:t="domination_box_capzone_without_navmesh"
+  _extends:t="objective_zone_navmesh"
+  _extends:t="projective_decal"
+
+  _info{
+    desc:t="Cubic strategic point, teams fight for it in missions. A simplified version of defend_zone_chained_box+defend_zone_respawnbase parameter values suitable for Conquest missions"
+  }
+}
+
+defend_zone_respawnbase{
+  capzone__deactivateAfterTimeout:r=-1.0
+  capzone__createRespawnBase:t="respawnBaseOnCapturePoint"
+
+  "capzone__spawnAtZoneTimeout:r"{
+    value:r=-1.0
+
+    _info{
+      desc:t="How much time(in seconds) the defender team can spawn at respawnBaseWithGroupOnCapturePoint. The timer starts after the current strategic point becomes active"
+    }
+  }
+
+  "capzone__createRespawnBaseForTeam:i"{
+    value:i=-1
+
+    _info{
+      desc:t="Creates respawn points for this team on zone activation"
+    }
+  }
+
+  "capzone__createdRespawnBaseGroup:i"{
+    value:i=-1
+
+    _info{
+      desc:t="Spawn point group number from respawnBaseWithGroupOnCapturePoint"
+    }
+  }
+
+  "capzone__createRespawnBaseForAttackTeam:b"{
+    _tags:t="server"
+    value:b=no
+  }
+
+  "capzone__respawnBaseEid:eid"{
+  }
+}
+
+respawnBaseGroupActivator{
+  _tracked:t="respawn_activator__active"
+  respawn_activator__active:b=yes
+  respawn_activator__groupId:i=-1
+  respawn_activator__groupName:t=""
+  respawn_activator__team:i=-1
+}
+
+defend_zone_chained{
+  capzone__checkAllZonesInGroup:b=no
+  capzone__capRewardPartCap:r=1.0
+  _tracked:t="groupName"
+  _tracked:t="capzone__activateAfterCap"
+
+  "groupName:t"{
+    value:t=""
+    _info:t="groupName"
+  }
+
+  "capzone__activateAfterCap:t"{
+    value:t=""
+
+    _info{
+      desc:t="The name of the point that will be active next, after capturing the current point"
+    }
+  }
+
+  "capzone__mustBeCapturedByTeam:i"{
+    value:i=-1
+
+    _info{
+      desc:t="Mission will progress only if this team_id captures this point. For example can be used in Assault mission to activate next point only if attackers captures it"
+    }
+  }
+
+  "capzone__activateChoice:object"{
+  }
+}
+
+zone_bidirectional_chained_base{
+  groupName:t="_zone_name_"
+  capzone__deactivateAfterCap:b=yes
+  capzone__deactivateAfterTimeout:r=-1.0
+  capzone__activateAfterCap:t=""
+  capzone__activateAfterTeam1Cap:t="_another_zone_group_name_"
+  capzone__activateAfterTeam2Cap:t="_another_zone_group_name_"
+  capzone__capRewardPartCap:r=1.0
+  capzone__autoDecap:b=no
+  capzone__autoCap:b=no
+
+  "capzone__capTime:r"{
+    value:r=25.0
+    _info:t="capzone__capTime"
+  }
+
+  "capzone__decapTime:r"{
+    value:r=15.0
+    _info:t="capzone__decapTime"
+  }
+
+  "capzone__capReward:r"{
+    value:r=500.0
+    _info:t="capzone__capReward"
+  }
+}
+
+zone_bidirectional_two_chains{
+  _extends:t="zone_bidirectional_chained_base"
+
+  "capzone__lastZoneForTeam:i"{
+    _tags:t="server"
+    value:i=0
+  }
+
+  "capzone__activateChoiceTeam1:object"{
+  }
+
+  "capzone__activateChoiceTeam2:object"{
+  }
+
+  "capzoneTwoChains:tag"{
+  }
+}
+
+zone_bidirectional_one_chain{
+  _extends:t="zone_bidirectional_chained_base"
+  capzone__activateGroupNameAfterTeam1Cap:t="_team1_group_name"
+  capzone__activateGroupNameAfterTeam2Cap:t="_team2_group_name"
+  capzone__onlyTeamCanCapture:i=0
+  _tracked:t="capzone__onlyTeamCanCapture"
+  _replicated:t="capzone__onlyTeamCanCapture"
+
+  "capzone__activateBidirectionalChoice:object"{
+  }
+}
+
+defend_zone_chained_sphere{
+  _extends:t="defend_zone_sphere"
+  _extends:t="defend_zone_chained"
+
+  _info{
+    desc:t="Spherical strategic point, teams fight for it in missions. Using the parameters, you can set the time to capture the point, which team will attack, which team will defend the point, the order in which the points are captured, etc."
+  }
+}
+
+zone_bidirectional_two_chains_sphere{
+  _extends:t="capzone_sphere"
+  _extends:t="zone_bidirectional_two_chains"
+}
+
+zone_bidirectional_one_chain_sphere{
+  _extends:t="capzone_sphere"
+  _extends:t="zone_bidirectional_one_chain"
+}
+
+defend_zone_team_chained_sphere{
+  _extends:t="defend_zone_chained_sphere"
+  capzone__activateAfterTeam1Cap:t="_another_zone_group_name_"
+  capzone__activateAfterTeam2Cap:t="_another_zone_group_name_"
+}
+
+defend_zone_chained_box{
+  _extends:t="defend_zone_box"
+  _extends:t="defend_zone_chained"
+
+  _info{
+    desc:t="Cubic strategic point, teams fight for it in missions. Using the parameters, you can set the time to capture the point, which team will attack, which team will defend the point, the order in which the points are captured, etc."
+  }
+}
+
+zone_bidirectional_two_chains_box{
+  _extends:t="capzone_box"
+  _extends:t="zone_bidirectional_two_chains"
+}
+
+zone_bidirectional_one_chain_box{
+  _extends:t="capzone_box"
+  _extends:t="zone_bidirectional_one_chain"
+}
+
+defend_zone_team_chained_box{
+  _extends:t="defend_zone_chained_box"
+  capzone__activateAfterTeam1Cap:t="_another_zone_group_name_"
+  capzone__activateAfterTeam2Cap:t="_another_zone_group_name_"
+}
+
+defend_zone_chained_poly{
+  _extends:t="defend_zone_poly"
+  _extends:t="defend_zone_chained"
+}
+
+zone_bidirectional_two_chains_poly{
+  _extends:t="capzone_poly"
+  _extends:t="zone_bidirectional_two_chains"
+}
+
+zone_bidirectional_one_chain_poly{
+  _extends:t="capzone_poly"
+  _extends:t="zone_bidirectional_one_chain"
+}
+
+defend_zone_team_chained_poly{
+  _extends:t="defend_zone_chained_poly"
+  capzone__activateAfterTeam1Cap:t="_another_zone_group_name_"
+  capzone__activateAfterTeam2Cap:t="_another_zone_group_name_"
+}
+
+objective_bomb_plant_award{
+
+  _group{
+    _tags:t="server"
+    capzone__bombSiteParticipantsAwardAmount:r=0.5
+    capzone__bombSitePlanterAwardAmount:r=0.5
+    capzone__bombSiteDefenseAwardAmount:r=0.25
+
+    "capzone__bombSitePlanterEid:eid"{
+    }
+
+    "capzone__bombSitePlantParticipants:object"{
+    }
+
+    "capzone__bombSiteZonePresenceOnPlant:list<eid>"{
+    }
+  }
+}
+
+objective_bomb{
+  _extends:t="objective_progress"
+  _extends:t="objective_bomb_plant_award"
+  capzone__isBombPlanted:b=no
+  capzone__deactivateAfterCap:b=yes
+  capzone__icon:t="ui/skin#time_bomb.svg"
+  capzone__bombTemplate:t="bomb_site"
+  capzone__bombTransformLocalPos:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _replicated:t="capzone__bombSiteEid"
+  _replicated:t="capzone__isBombPlanted"
+  _tracked:t="capzone__bombSiteEid"
+  _tracked:t="capzone__isBombPlanted"
+  capzone__plantingTeam:i=-1
+  capzone__timeToPlant:r=-1.0
+  capzone__timeToResetPlant:r=-1.0
+  capzone__timeToDefuse:r=-1.0
+  capzone__timeToExplosion:r=-1.0
+
+  "capzone__capReward:r"{
+    value:r=500.0
+    _info:t="capzone__capReward"
+  }
+
+  "capzone__onlyTeamCanCapture:i"{
+    value:i=-1
+    _info:t="capzone__onlyTeamCanCapture"
+  }
+
+  "capzone__bombSiteEid:eid"{
+  }
+}
+
+bomb_site_zone_chained_box{
+  _extends:t="objective_zone_box"
+  _extends:t="defend_zone_chained"
+  _extends:t="objective_bomb"
+}
+
+bomb_site_zone_chained_sphere{
+  _extends:t="objective_zone_sphere"
+  _extends:t="defend_zone_chained"
+  _extends:t="objective_bomb"
+}
+
+ai_domination_box_train_zone{
+
+  _group{
+    _tags:t="server"
+    ai_train_zone__box_min:p3=-0.5, -1.0, -1.5
+    ai_train_zone__box_max:p3=0.5, 1.0, 1.5
+  }
+}
+
+domination_box_train_capzone{
+  _extends:t="domination_box_moveable_capzone"
+  _extends:t="ai_domination_box_train_zone"
+  capzone__offsetFromTrain:p3=0.0, 0.0, 0.0
+  capzone__capPenalty:r=0.0
+  capzone__timerPeriod:r=0.0
+  capzone__trainOffenseTeam:i=-1
+  capzone__icon:t="ui/skin#train/train_marker_point.svg"
+
+  "capzone__advantageWeights:object"{
+  }
+
+  "trainZone:tag"{
+  }
+
+  "capzone__trainEid:eid"{
+  }
+}
+
+objective_train_progress{
+  capzone__trainPathLength:r=0.0
+  _replicated:t="capzone__trainPathLength"
+
+  "capzone__trainProgress:r"{
+    _tags:t="ui"
+    value:r=0.0
+  }
+}
+
+objective_train_zone{
+  _extends:t="base_objective_zone_without_navmesh"
+  _extends:t="defend_zone"
+  _extends:t="defend_zone_chained"
+  _extends:t="objective_train_progress"
+  capzone__hasNearestNavmeshPos:b=no
+  capzone__deactivateAfterCap:b=yes
+  maxDistanceToTrain:r=2.0
+  capzone__alwaysHide:b=yes
+  capzone_timer__timeLeft:r=-1.0
+  capzone__isNextTrainZone:b=no
+
+  "trainTriggerable:tag"{
+  }
+}

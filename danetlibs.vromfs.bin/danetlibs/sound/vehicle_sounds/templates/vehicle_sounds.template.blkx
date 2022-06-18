@@ -1,0 +1,879 @@
+base_vehicle_horn_note{
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=0
+  }
+}
+
+vehicle_horn_note_E4{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=0
+  }
+}
+
+vehicle_horn_note_F4{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=1
+  }
+}
+
+vehicle_horn_note_G4{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=2
+  }
+}
+
+vehicle_horn_note_A5{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=3
+  }
+}
+
+vehicle_horn_note_B5{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=4
+  }
+}
+
+vehicle_horn_note_C5{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=5
+  }
+}
+
+vehicle_horn_note_D5{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=6
+  }
+}
+
+vehicle_horn_note_E5{
+  _extends:t="base_vehicle_horn_note"
+
+  _group{
+    _tags:t="sound"
+    vehicle_horn_sound__note:i=7
+  }
+}
+
+base_vehicle_horn_sound{
+  _extends:t="vehicle_net_horn"
+  _extends:t="base_vehicle_horn_note"
+  vehicle_horn_sound__endTime:r=0.0
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_horn_sound__path:shared:object"{
+      path:t="player/vehicle/car/horns/default/horn"
+    }
+  }
+}
+
+car_vehicle_horn_sound{
+  _extends:t="base_vehicle_horn_sound"
+}
+
+motorcycle_vehicle_horn_sound{
+  _extends:t="base_vehicle_horn_sound"
+
+  "vehicle_horn_sound__path:shared:object"{
+    _tags:t="sound"
+    path:t="player/vehicle/car/horns/motorcycle/horn"
+  }
+}
+
+ship_vehicle_horn_sound{
+  _extends:t="base_vehicle_horn_sound"
+
+  "vehicle_horn_sound__path:shared:object"{
+    _tags:t="sound"
+    path:t="player/vehicle/boat/horns/default/horn"
+  }
+}
+
+plane_dive_siren{
+
+  _group{
+    _tags:t="sound"
+    dive_siren__enabled:b=yes
+    dive_siren__threshold:r=95.0
+    dive_siren__path:t="aircraft/effects/stuka_siren"
+  }
+}
+
+watched_vehicle_sound{
+  _tracked:t="is_watched_sound"
+
+  _group{
+    _tags:t="sound"
+    is_watched_sound:b=no
+  }
+
+  "watchedVehicleSound:tag"{
+  }
+}
+
+base_camera_inside_snapshot{
+
+  _group{
+    _tags:t="sound"
+    camera_inside_snapshot_enable:b=yes
+    camera_inside_snapshot_anyCameraType:b=no
+  }
+}
+
+tank_camera_inside_snapshot{
+  _extends:t="base_camera_inside_snapshot"
+}
+
+plane_camera_inside_snapshot{
+  _extends:t="base_camera_inside_snapshot"
+
+  _group{
+    _tags:t="sound"
+    camera_inside_snapshot_anyCameraType:b=yes
+  }
+}
+
+base_vehicle_tracks_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__timer:r=-3.0
+    vehicle_tracks_sound__speedThreshold:r=0.01
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+
+    "vehicle_tracks_sound__event:SoundEvent"{
+    }
+  }
+}
+
+car_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_olympia/tracks"
+    enemy:t="enemy/vehicle/car/opel_olympia/tracks"
+  }
+}
+
+truck_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 40.0, 1.0, 0.25
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_omnibus/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_omnibus/tracks"
+  }
+}
+
+tank_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/m4a2/tracks"
+    enemy:t="enemy/vehicle/tank/m4a2/tracks"
+  }
+}
+
+tank_with_wheels_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+}
+
+motorcycle_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/motorcycle/motorcycle01/tracks"
+    enemy:t="enemy/vehicle/motorcycle/motorcycle01/tracks"
+  }
+}
+
+movable_cannon_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 5.0, 0.5, 0.2
+    vehicle_tracks_sound__speedThreshold:r=0.005
+    vehicle_sound__noiseSpeedThreshold:r=0.1
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/cannon/tracks"
+    enemy:t="enemy/vehicle/car/cannon/tracks"
+  }
+}
+
+base_vehicle_suspension_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_suspension_sound__hitToVar:p2=0.3, 2.0
+    vehicle_suspension_sound__hitTime:r=-1.0
+    vehicle_suspension_sound__hitForce:r=0.0
+    vehicle_suspension_sound__wheelIdx:i=0
+    vehicle_suspension_sound__waterSurfaceMax:r=0.0
+    vehicle_suspension_sound__concreteSurfaceMax:r=0.0
+
+    "vehicle_suspension_sound__event:SoundEvent"{
+    }
+  }
+}
+
+car_vehicle_suspension_sound{
+  _extends:t="base_vehicle_suspension_sound"
+
+  "vehicle_suspension_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/common/car/rattle"
+    enemy:t="enemy/vehicle/car/common/car/rattle"
+  }
+}
+
+tank_vehicle_suspension_sound{
+  _extends:t="car_vehicle_suspension_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_suspension_sound__hitToVar:p2=0.4, 2.0
+  }
+
+  "vehicle_suspension_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/common/car/rattle"
+    enemy:t="enemy/vehicle/car/common/car/rattle"
+  }
+}
+
+truck_vehicle_suspension_sound{
+  _extends:t="base_vehicle_suspension_sound"
+
+  "vehicle_suspension_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/common/truck/rattle"
+    enemy:t="enemy/vehicle/car/common/truck/rattle"
+  }
+}
+
+motorcycle_vehicle_suspension_sound{
+  _extends:t="base_vehicle_suspension_sound"
+
+  "vehicle_suspension_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/motorcycle/common/motorcycle/rattle"
+    enemy:t="enemy/vehicle/motorcycle/common/motorcycle/rattle"
+  }
+}
+
+car_vehicle_seat_sound{
+
+  "vehicle_seat_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "enter:object"{
+      hero:t="player/vehicle/car/common/door/enter"
+      enemy:t="enemy/vehicle/car/common/door/enter"
+    }
+
+    "leave:object"{
+      hero:t="player/vehicle/car/common/door/leave"
+      enemy:t="enemy/vehicle/car/common/door/leave"
+    }
+
+    "changeSeat:object"{
+      hero:t="ui/change_seat"
+    }
+  }
+}
+
+tank_vehicle_seat_sound{
+
+  "vehicle_seat_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "enter:object"{
+      hero:t="player/vehicle/car/common/door/enter"
+      enemy:t="enemy/vehicle/car/common/door/enter"
+    }
+
+    "leave:object"{
+      hero:t="player/vehicle/car/common/door/leave"
+      enemy:t="enemy/vehicle/car/common/door/leave"
+    }
+
+    "changeSeat:object"{
+      hero:t="ui/change_seat"
+    }
+  }
+}
+
+nodoor_vehicle_seat_sound{
+
+  "vehicle_seat_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "enter:object"{
+      hero:t="player/vehicle/car/common/no_door/enter"
+      enemy:t="enemy/vehicle/car/common/no_door/enter"
+    }
+
+    "leave:object"{
+      hero:t="player/vehicle/car/common/no_door/leave"
+      enemy:t="enemy/vehicle/car/common/no_door/leave"
+    }
+
+    "changeSeat:object"{
+      hero:t="ui/change_seat"
+    }
+  }
+}
+
+motorcycle_vehicle_seat_sound{
+
+  "vehicle_seat_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "enter:object"{
+      hero:t="player/vehicle/motorcycle/common/door/enter"
+      enemy:t="enemy/vehicle/motorcycle/common/door/enter"
+    }
+
+    "leave:object"{
+      hero:t="player/vehicle/car/motorcycle/door/leave"
+      enemy:t="enemy/vehicle/car/motorcycle/door/leave"
+    }
+
+    "changeSeat:object"{
+      hero:t="ui/change_seat"
+    }
+  }
+}
+
+base_vehicle_brakes_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_brakes_sound__brakes:r=0.0
+    vehicle_brakes_sound__speedFadeInOut:p2=1.0, 3.0
+
+    "vehicle_brakes_sound__path:shared:object"{
+      hero:t="player/vehicle/car/common/car/brakes"
+      enemy:t="enemy/vehicle/car/common/brakes"
+    }
+  }
+}
+
+car_vehicle_brakes_sound{
+  _extends:t="base_vehicle_brakes_sound"
+}
+
+truck_vehicle_brakes_sound{
+  _extends:t="base_vehicle_brakes_sound"
+}
+
+motorcycle_vehicle_brakes_sound{
+  _extends:t="base_vehicle_brakes_sound"
+
+  "vehicle_brakes_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/motorcycle/common/motorcycle/brakes"
+    enemy:t="enemy/vehicle/motorcycle/common/brakes"
+  }
+}
+
+base_vehicle_engine_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_engine_sound__isInited:b=no
+    vehicle_engine_sound__isStartStopInited:b=no
+    vehicle_engine_sound__isStarted:b=no
+    vehicle_engine_sound__shouldStart:b=yes
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_olympia/engine"
+      enemy:t="enemy/vehicle/car/opel_olympia/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_olympia/engine_start"
+      enemy:t="enemy/vehicle/car/opel_olympia/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_olympia/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_olympia/engine_stop"
+    }
+  }
+}
+
+car_vehicle_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+}
+
+tank_vehicle_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/m4a2/engine"
+      enemy:t="enemy/vehicle/tank/m4a2/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/tank/m4a2/engine_start"
+      enemy:t="enemy/vehicle/tank/m4a2/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/tank/m4a2/engine_stop"
+      enemy:t="enemy/vehicle/tank/m4a2/engine_stop"
+    }
+  }
+}
+
+motorcycle_vehicle_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/motorcycle/motorcycle01/engine"
+      enemy:t="enemy/vehicle/motorcycle/motorcycle01/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/motorcycle/motorcycle01/engine_start"
+      enemy:t="enemy/vehicle/motorcycle/motorcycle01/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/motorcycle/motorcycle01/engine_stop"
+      enemy:t="enemy/vehicle/motorcycle/motorcycle01/engine_stop"
+    }
+  }
+}
+
+vehicle_engine_sound_seats_starter{
+
+  _group{
+    _tags:t="sound"
+    vehicle_engine_sound__shouldStart:b=no
+
+    "vehicleEngineSoundSeatsStarter:tag"{
+    }
+  }
+}
+
+base_vehicle_gear_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_gear_sound__gear:i=-1
+
+    "vehicle_gear_sound__path:shared:object"{
+      hero:t="player/vehicle/car/common/car/transmission"
+    }
+  }
+}
+
+car_vehicle_gear_sound{
+  _extends:t="base_vehicle_gear_sound"
+}
+
+jeep_vehicle_gear_sound{
+  _extends:t="base_vehicle_gear_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_gear_sound__path:shared:object"{
+      hero:t="player/vehicle/car/common/jeep/transmission"
+    }
+  }
+}
+
+truck_vehicle_gear_sound{
+  _extends:t="base_vehicle_gear_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_gear_sound__path:shared:object"{
+      hero:t="player/vehicle/car/common/truck/transmission"
+    }
+  }
+}
+
+tank_vehicle_gear_sound{
+  _extends:t="base_vehicle_gear_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_gear_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/common/transmission"
+    }
+  }
+}
+
+motorcycle_vehicle_gear_sound{
+  _extends:t="base_vehicle_gear_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_gear_sound__path:shared:object"{
+      hero:t="player/vehicle/motorcycle/common/motorcycle/transmission"
+    }
+  }
+}
+
+vehicle_sound_state{
+
+  _group{
+    _tags:t="sound"
+    vehicle_sound_state__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+    vehicle_sound_state__prevSoundShockSummary:r=0.0
+    vehicle_sound_state__deltaShock:r=0.0
+    vehicle_sound_state__engineRpm:r=0.0
+    vehicle_sound_state__engineLoad:r=0.0
+    vehicle_sound_state__isEngineStarted:b=no
+    vehicle_sound_state__speed:r=-1.0
+    vehicle_sound_state__isOnGround:b=no
+    vehicle_sound_state__noiseReductionTimer:r=1.0
+    vehicle_sound_state__noiseReduction:r=0.0
+    vehicle_sound_state__slip:r=0.0
+    vehicle_sound_state__surfaceTimer:r=0.0
+    vehicle_sound_state__surfaceWater:r=0.0
+    vehicle_sound_state__surfaceConcrete:r=0.0
+  }
+}
+
+base_vehicle_collision_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_collision_sound__enabled:b=no
+    vehicle_collision_sound__entityCollSummary:r=0.0
+    vehicle_collision_sound__entityCollMatId:i=-1
+    vehicle_collision_sound__hitTime:r=-1.0
+    vehicle_collision_sound__hitForce:r=0.0
+    vehicle_collision_sound__scrapeTimer:r=0.0
+    vehicle_collision_sound__scrapeMinMax:p2=0.0, 1.0
+
+    "vehicle_scrape_sound_event:SoundEvent"{
+    }
+
+    "vehicle_hit_sound_event:SoundEvent"{
+    }
+
+    "vehicle_collision_sound__paths:shared:object"{
+
+      "collScrape:object"{
+        hero:t="player/vehicle/car/collision/scrape"
+      }
+
+      "collGeneric:object"{
+        path:t="player/vehicle/car/collision/generic"
+      }
+
+      "collTree:object"{
+        path:t="player/vehicle/car/collision/tree"
+      }
+
+      "collMetal:object"{
+        path:t="player/vehicle/car/collision/metal"
+      }
+
+      "collWood:object"{
+        path:t="player/vehicle/car/collision/wood"
+      }
+
+      "collConcrete:object"{
+        path:t="player/vehicle/car/collision/concrete"
+      }
+
+      "collBush:object"{
+        path:t="player/vehicle/car/collision/bush"
+      }
+    }
+  }
+}
+
+tank_vehicle_collision_sound_setup{
+
+  "vehicle_collision_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "collScrape:object"{
+      hero:t="player/vehicle/tank/collision/scrape"
+    }
+
+    "collGeneric:object"{
+      path:t="player/vehicle/tank/collision/generic"
+    }
+
+    "collTree:object"{
+      path:t="player/vehicle/tank/collision/tree"
+    }
+
+    "collMetal:object"{
+      path:t="player/vehicle/tank/collision/metal"
+    }
+
+    "collWood:object"{
+      path:t="player/vehicle/tank/collision/wood"
+    }
+
+    "collConcrete:object"{
+      path:t="player/vehicle/tank/collision/concrete"
+    }
+
+    "collBush:object"{
+      path:t="player/vehicle/tank/collision/bush"
+    }
+  }
+}
+
+ship_vehicle_collision_sound_setup{
+
+  "vehicle_collision_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "collScrape:object"{
+      hero:t="player/vehicle/boat/collision/scrape"
+    }
+
+    "collGeneric:object"{
+      path:t="player/vehicle/boat/collision/generic"
+    }
+
+    "collTree:object"{
+      path:t="player/vehicle/boat/collision/tree"
+    }
+
+    "collMetal:object"{
+      path:t="player/vehicle/boat/collision/metal"
+    }
+
+    "collWood:object"{
+      path:t="player/vehicle/boat/collision/wood"
+    }
+
+    "collConcrete:object"{
+      path:t="player/vehicle/boat/collision/concrete"
+    }
+
+    "collBush:object"{
+      path:t="player/vehicle/boat/collision/bush"
+    }
+  }
+}
+
+vehicle_projectile_hit_sound{
+
+  _group{
+    _tags:t="sound"
+    vehicle_projectile_hit_sound__smallCaliberThreshold:r=0.02
+
+    "vehicle_projectile_hit_sound__hitPath:shared:object"{
+      hero:t="player/vehicle/tank/impacts/hit_mid"
+      enemy:t="enemy/vehicle/tank/impacts/hit_mid"
+    }
+
+    "vehicle_projectile_hit_sound__hitSmallPath:shared:object"{
+      hero:t="player/vehicle/tank/impacts/hit_small_fail"
+      enemy:t="enemy/vehicle/tank/impacts/hit_small_fail"
+    }
+  }
+}
+
+vehicle_damage_sound{
+
+  "vehicle_damage_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "destroy:object"{
+      path:t="impact/car_explosion"
+    }
+
+    "partDestroy:object"{
+      path:t="player/vehicle/tank/impacts/part_fall_off"
+    }
+
+    "partFire:object"{
+      path:t="player/vehicle/tank/impacts/part_damage_by_fire"
+    }
+  }
+}
+
+tank_vehicle_damage_sound_setup{
+
+  "vehicle_damage_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "destroy:object"{
+      path:t="impact/tank_explosion"
+    }
+
+    "partDestroy:object"{
+      path:t="player/vehicle/tank/impacts/part_fall_off"
+    }
+
+    "partFire:object"{
+      path:t="player/vehicle/tank/impacts/part_damage_by_fire"
+    }
+  }
+}
+
+vehicle_sound{
+  _extends:t="watched_vehicle_sound"
+  _extends:t="sound_control"
+  _extends:t="sound_event_group"
+  _extends:t="sound_player_components"
+  _extends:t="vehicle_sound_state"
+  _extends:t="base_vehicle_collision_sound"
+  _extends:t="vehicle_projectile_hit_sound"
+  _extends:t="vehicle_damage_sound"
+
+  "vehicleSound:tag"{
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_control__range:r=160.0
+  }
+
+  "vehicle_net_sound:tag"{
+    _tags:t="server"
+  }
+}
+
+motorcycle_vehicle_scrape_sound_setup{
+
+  _group{
+    _tags:t="sound"
+    vehicle_collision_sound__scrapeMinMax:p2=0.0, 2.5
+  }
+}
+
+towed_gun_sound{
+
+  "gun_owner_sound_event_group:SoundEventGroup"{
+    _tags:t="sound"
+  }
+}
+
+ship_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedThreshold:r=0.0
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 0.0, 1.0, 1.0
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/boat/small_motor/tracks"
+    enemy:t="enemy/vehicle/boat/small_motor/tracks"
+  }
+}
+
+ship_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/boat/small_motor/engine"
+      enemy:t="enemy/vehicle/boat/small_motor/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/boat/small_motor/engine_start"
+      enemy:t="enemy/vehicle/boat/small_motor/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/boat/small_motor/engine_stop"
+      enemy:t="enemy/vehicle/boat/small_motor/engine_stop"
+    }
+  }
+}
+
+ship_sound{
+  _extends:t="watched_vehicle_sound"
+  _extends:t="sound_control"
+  _extends:t="sound_event_group"
+  _extends:t="sound_player_components"
+  _extends:t="ship_tracks_sound"
+  _extends:t="ship_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="vehicle_sound_state"
+  _extends:t="base_vehicle_collision_sound"
+  _extends:t="ship_vehicle_collision_sound_setup"
+  _extends:t="ship_vehicle_horn_sound"
+
+  "shipSound:tag"{
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_control__range:r=160.0
+  }
+
+  _group{
+    _tags:t="sound"
+    vehicle_collision_sound__scrapeMinMax:p2=0.0, 1.0
+  }
+}

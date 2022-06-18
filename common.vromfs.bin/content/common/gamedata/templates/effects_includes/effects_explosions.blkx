@@ -1,0 +1,14 @@
+explosion_ampule{
+  _extends:t="explosion_effect"
+  wind_emitter__radius:r=1.0
+  wind_emitter__duration:r=1.0
+  wind_emitter__strength:r=1.0
+
+  "wind_emitter__omni:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_ampule_cmps_fx"
+  }
+}

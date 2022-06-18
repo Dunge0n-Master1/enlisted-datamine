@@ -1,0 +1,48 @@
+<svg id="premium" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-4);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="50" y1="98.969" x2="50" y2="1.031" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0e1f24"/>
+      <stop offset="1" stop-color="#0e1f24"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="50" y1="89.344" x2="50" y2="9.969" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#48100c"/>
+      <stop offset="1" stop-color="#ff460a"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="50.031" y1="73.188" x2="50.031" y2="15.031" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#370b07"/>
+      <stop offset="1" stop-color="#a32b0b"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="50.031" y1="68.063" x2="50.031" y2="9.875" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8f4929"/>
+      <stop offset="0.362" stop-color="#cfc261"/>
+      <stop offset="0.614" stop-color="#ffef76"/>
+      <stop offset="0.954" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M82.705,1.026H17.295a9.389,9.389,0,0,0-9.389,9.389V55.246a9.388,9.388,0,0,0,2.584,6.468l32.644,34.34a9.388,9.388,0,0,0,6.783,2.92h0.023a9.39,9.39,0,0,0,6.774-2.888L89.479,61.947a9.39,9.39,0,0,0,2.615-6.5V10.415A9.389,9.389,0,0,0,82.705,1.026Z"/>
+  <path id="Polygon_2_copy_17" data-name="Polygon 2 copy 17" class="cls-2" d="M49.939,89.344L16.895,55V9.974H83.105V55.205Z"/>
+  <path id="Ellipse_1_copy_16" data-name="Ellipse 1 copy 16" class="cls-3" d="M68.961,73.132L50.053,59.378,31.183,73.183,38.421,50.95,19.46,34.7l23.381,0.013,7.152-19.694L57.206,34.7l23.381-.077-18.924,16.3Z"/>
+  <path id="Ellipse_1_copy_16-2" data-name="Ellipse 1 copy 16" class="cls-4" d="M68.961,68L50.053,54.245l-18.87,13.8,7.238-22.233L19.46,32.136,42.841,32.15l7.152-22.26L57.206,32.13l23.381-.076L61.663,45.786Z"/>
+</svg>

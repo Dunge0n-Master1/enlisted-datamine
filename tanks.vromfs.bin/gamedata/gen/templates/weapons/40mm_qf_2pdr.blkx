@@ -1,0 +1,62 @@
+base_40mm_qf_2pdr{
+  item__name:t="guns/40mm_qf_2pdr"
+  gun__blk:t="gamedata/gen/weapons/40mm_qf_2pdr.blk"
+  gun__shotFreq:r=0.36
+  gun__locName:t="40mm_qf_2pdr"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_qf_2pdr_defaultset.blk"
+        name:t="40mm_shot_mk1_apt"
+        type:t="ap_tank"
+      }
+    }
+
+    "40mm_uk_2pdr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_qf_2pdr_40mm_uk_2pdr_he.blk"
+        name:t="40mm_shell_mk2"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "40mm_uk_2pdr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_qf_2pdr_40mm_uk_2pdr_apcbc.blk"
+        name:t="40mm_shot_mk1_apcbct"
+        type:t="apcbc_solid_medium_caliber_tank"
+      }
+    }
+
+    "40mm_uk_2pdr_APHV:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_qf_2pdr_40mm_uk_2pdr_aphv.blk"
+        name:t="40mm_shot_mk1_aphv"
+        type:t="ap_tank"
+      }
+    }
+
+    "40mm_uk_2pdr_APHE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/40mm_qf_2pdr_40mm_uk_2pdr_aphe.blk"
+        name:t="40mm_shell_mk1_apt"
+        type:t="aphe_tank"
+      }
+    }
+  }
+}
+
+tankgun_40mm_qf_2pdr{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_40mm_qf_2pdr"
+  _extends:t="gunsound_40mm_qf_2pdr"
+  turret__triggerGroup:i=0
+}

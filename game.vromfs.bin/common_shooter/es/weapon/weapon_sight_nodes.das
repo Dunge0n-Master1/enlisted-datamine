@@ -1,0 +1,75 @@
+require ecs
+require app
+require EnlistedNet
+require math
+require math.base
+require math.linear
+require game.events_game
+require common_shooter.es.concussion_common
+require Gun
+require HumanPhys
+require EnlistedHuman
+require DagorSystem
+require DagorMath
+require DagorRandom
+require DaWeaponProps
+require DaWeapons
+require EnlistedDm
+require dm
+require AnimV20
+require GeomNodeTree
+
+def find_weapon_sight_node_idx(eid : EntityId;
+                               animchar : AnimcharBaseComponent;
+                               nodeName : string) : int
+  let nodeIdx = animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
+  if (nodeIdx < 0)
+    let templateName = getEntityTemplateName(eid)
+    logerr("Can't find sight node {nodeName} in {templateName}")
+  return nodeIdx
+
+
+[es(on_appear)]
+def weapon_frontsight_node_init(evt : Event;
+                                eid : EntityId;
+                                animchar : AnimcharBaseComponent;
+                                weapon_frontsight_node__nodeName : das_string?;
+                                var weapon_frontsight_node__nodeIdx : int&)
+  let nodeName = weapon_frontsight_node__nodeName != null ? string(*weapon_frontsight_node__nodeName) : "frontsight_aim"
+  let nodeIdx = find_weapon_sight_node_idx(eid, animchar, nodeName)
+  weapon_frontsight_node__nodeIdx = nodeIdx
+
+[es(on_appear)]
+def weapon_rearsight_node_init(evt : Event;
+                               eid : EntityId;
+                               animchar : AnimcharBaseComponent;
+                               weapon_rearsight_node__nodeName : das_string?;
+                               var weapon_rearsight_node__nodeIdx : int&)
+  let nodeName = weapon_rearsight_node__nodeName != null ? string(*weapon_rearsight_node__nodeName) : "rearsight_aim"
+  let nodeIdx = find_weapon_sight_node_idx(eid, animchar, nodeName)
+  weapon_rearsight_node__nodeIdx = nodeIdx
+
+[es]
+def weapon_switch_sight_es(evt : CmdWeapSwitchSight;
+                           eid : EntityId;
+                           animchar : AnimcharBaseComponent;
+                           sightPresets : Array;
+                           var weap__current_sight_preset : int&;
+                           var weapon_frontsight_node__nodeIdx : int&;
+                           var weapon_rearsight_node__nodeIdx : int&)
+  let sightPresetsCount = sightPresets |> length()
+  assert(sightPresetsCount > 0)
+  let inc = evt.toNext ? +1 : -1
+  weap__current_sight_preset = (weap__current_sight_preset + inc + sightPresetsCount) % sightPresetsCount;
+
+  let preset = get_ecs_object(sightPresets[weap__current_sight_preset])
+
+  let frontsightNodeName = preset |> get_string("frontsightNode", "")
+  if frontsightNodeName != ""
+    let nodeIdx = find_weapon_sight_node_idx(eid, animchar, frontsightNodeName)
+    weapon_frontsight_node__nodeIdx = nodeIdx
+
+  let rearsightNodeName = preset |> get_string("rearsightNode", "")
+  if rearsightNodeName != ""
+    let nodeIdx = find_weapon_sight_node_idx(eid, animchar, rearsightNodeName)
+    weapon_rearsight_node__nodeIdx = nodeIdx

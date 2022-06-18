@@ -1,0 +1,7 @@
+entity{
+  _template:t="noBotsMode+gamemodeFriendlyFire+gamemodeCapzoneSmoke"
+}
+
+entity{
+  _template:t="disableTeamkillWeaponDrops"
+}

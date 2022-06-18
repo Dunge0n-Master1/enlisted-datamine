@@ -1,0 +1,17 @@
+<svg id="guns_sights" data-name="guns sights" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="28.031" y1="17.274" x2="99.969" y2="110.788" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dfc742"/>
+      <stop offset="0.005" stop-color="#dfc742"/>
+      <stop offset="0.99" stop-color="#eae25f"/>
+      <stop offset="1" stop-color="#eae25f"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M41.238,112.046C-2.362,58.187,77.572,46.931,56.912,10.028c39.65,24.961,16.024,50.735,15.98,58.55A11.394,11.394,0,0,0,81.112,80.1S95.1,80.7,96.237,64.314c4.275,9.119,13.394,46.165-31.916,53.717,0-22.176-21.8-19.521-14.391-46.165C45.94,75.143,34.257,84.262,41.238,112.046Z"/>
+</svg>

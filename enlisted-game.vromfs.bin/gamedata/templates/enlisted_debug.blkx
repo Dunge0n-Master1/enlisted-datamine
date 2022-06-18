@@ -1,0 +1,13 @@
+vehicle_convoy_debug_path{
+
+  "vehicleConvoyDebugPath:tag"{
+    _tags:t="render"
+  }
+}
+
+vehicle_convoy_debug_destinations{
+
+  "vehicleConvoyDebugDestinations:tag"{
+    _tags:t="render"
+  }
+}

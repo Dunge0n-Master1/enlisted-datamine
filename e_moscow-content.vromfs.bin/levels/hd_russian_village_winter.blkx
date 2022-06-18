@@ -1,0 +1,245 @@
+levelBin:t="content/e_moscow/levels/hd_russian_village_winter.bin"
+
+micro_details{
+  micro_detail:t="microdetail_stone_a_tex_n*"
+  micro_detail:t="microdetail_stone_b_tex_n*"
+  micro_detail:t="microdetail_scan_gravel_a_tex_n*"
+  micro_detail:t="microdetail_sand_a_tex_n*"
+  micro_detail:t="microdetail_sand_c_tex_n*"
+  micro_detail:t="microdetail_soil_plants_a_tex_n*"
+  micro_detail:t="microdetail_soil_a_tex_n*"
+  micro_detail:t="microdetail_mud_a_tex_n*"
+  micro_detail:t="microdetail_generic_granules_a_tex_n*"
+  micro_detail:t="microdetail_wood_a_tex_n*"
+  micro_detail:t="microdetail_moss_a_tex_n*"
+  micro_detail:t="microdetail_grass_a_tex_n*"
+  micro_detail:t="microdetail_forest_floor_a_tex_n*"
+  micro_detail:t="microdetail_snow_a_tex_n*"
+  micro_detail:t="microdetail_snow_a_tex_n*"
+  micro_detail:t="microdetail_snow_a_tex_n*"
+  land_micro_details_uv_scale:r=1.11
+
+  "microdetail_stone_a_tex_n*"{
+    coloring:r=0.3
+  }
+
+  "microdetail_stone_b_tex_n*"{
+    coloring:r=0.4
+  }
+
+  "microdetail_scan_gravel_a_tex_n*"{
+    coloring:r=0.3
+  }
+
+  "microdetail_sand_a_tex_n*"{
+    coloring:r=0.8
+  }
+
+  "microdetail_sand_c_tex_n*"{
+    coloring:r=0.9
+  }
+
+  "microdetail_mud_a_tex_n*"{
+    coloring:r=0.3
+  }
+
+  "microdetail_wood_a_tex_n*"{
+    coloring:r=0.4
+  }
+
+  "microdetail_moss_a_tex_n*"{
+    coloring:r=1.0
+  }
+
+  "microdetail_grass_a_tex_n*"{
+    coloring:r=1.0
+  }
+
+  "microdetail_forest_floor_a_tex_n*"{
+    coloring:r=0.7
+  }
+
+  "microdetail_snow_a_tex_n*"{
+    coloring:r=0.0
+  }
+
+  "microdetail_test_a_tex_n*"{
+    coloring:r=0.0
+  }
+
+  "microdetail_test_b_tex_n*"{
+    coloring:r=0.0
+  }
+}
+
+volFog{
+
+  height_fog{
+    color:p3=0.72, 0.74, 0.76
+    world_noise_freq:p3=0.75, 1.4, 1.1
+    wind_strength:r=5.03
+    constant_density:r=0.0005
+    perlin_density:r=0.2
+    perlin_threshold:r=0.333
+    height_fog_scale:r=0.15
+    height_fog_layer_max:r=0.0
+    ground_fog_density:r=0.3
+    ground_fog_offset:r=-1.0
+  }
+
+  height_fog{
+    color:p3=0.9, 0.91, 0.95
+    world_noise_freq:p3=0.375, 0.4, 0.61
+    wind_strength:r=2.01
+    constant_density:r=0.0003
+    perlin_density:r=0.2
+    perlin_threshold:r=0.6666
+    height_fog_scale:r=0.35
+    height_fog_layer_max:r=4.6
+    ground_fog_density:r=0.0
+    ground_fog_offset:r=0.0
+  }
+
+  height_fog{
+    color:p3=0.92, 0.94, 0.96
+    constant_density:r=0.0006
+    perlin_density:r=0.01
+    perlin_threshold:r=0.5
+    height_fog_scale:r=0.04
+    height_fog_layer_max:r=10.0
+    ground_fog_density:r=0.0
+    ground_fog_offset:r=0.0
+  }
+}
+
+grass{
+  russian_village_winter_tex_d:t=""
+  grass_grid_size:r=0.25
+  grass_distance:r=150.0
+  hor_size_mul:r=1.0
+
+  grass_types{
+
+    simple_grass_a{
+      diffuse:t="grass_tall_a_tex_d"
+      normal:t="grass_tall_a_tex_n"
+      variations:i=1
+      height:r=0.4
+      height_rnd_add:r=0.5
+      hor_size:r=0.7
+      hor_size_rnd_add:r=0.0
+      color_mask_r_from:c=122, 128, 26, 90
+      color_mask_r_to:c=128, 86, 26, 90
+      color_mask_g_from:c=5, 5, 5, 90
+      color_mask_g_to:c=182, 173, 117, 90
+      color_mask_b_from:c=42, 32, 28, 90
+      color_mask_b_to:c=55, 50, 24, 90
+      height_from_weight_mul:r=1.0
+      height_from_weight_add:r=0.0
+      density_from_weight_mul:r=0.0
+      density_from_weight_add:r=0.999
+    }
+
+    simple_grass_b{
+      diffuse:t="grass_tall_b_tex_d"
+      normal:t="grass_tall_b_tex_n"
+      variations:i=1
+      height:r=0.4
+      height_rnd_add:r=0.5
+      hor_size:r=0.7
+      hor_size_rnd_add:r=0.0
+      color_mask_r_from:c=122, 128, 26, 90
+      color_mask_r_to:c=128, 86, 26, 90
+      color_mask_g_from:c=5, 5, 5, 90
+      color_mask_g_to:c=165, 182, 117, 90
+      color_mask_b_from:c=42, 32, 28, 90
+      color_mask_b_to:c=55, 50, 24, 90
+      height_from_weight_mul:r=1.0
+      height_from_weight_add:r=0.0
+      density_from_weight_mul:r=0.0
+      density_from_weight_add:r=0.999
+    }
+
+    simple_grass_snow_a{
+      diffuse:t="grass_tall_a_tex_d"
+      normal:t="grass_tall_a_tex_n"
+      variations:i=1
+      height:r=0.4
+      height_rnd_add:r=0.5
+      hor_size:r=0.7
+      hor_size_rnd_add:r=0.0
+      color_mask_r_from:c=194, 191, 185, 90
+      color_mask_r_to:c=167, 117, 45, 90
+      color_mask_g_from:c=5, 5, 5, 90
+      color_mask_g_to:c=128, 131, 141, 90
+      color_mask_b_from:c=87, 58, 47, 90
+      color_mask_b_to:c=65, 56, 7, 90
+      height_from_weight_mul:r=1.0
+      height_from_weight_add:r=0.0
+      density_from_weight_mul:r=0.0
+      density_from_weight_add:r=0.999
+    }
+
+    simple_grass_snow_b{
+      diffuse:t="grass_tall_b_tex_d"
+      normal:t="grass_tall_b_tex_n"
+      variations:i=1
+      height:r=0.4
+      height_rnd_add:r=0.5
+      hor_size:r=0.7
+      hor_size_rnd_add:r=0.0
+      color_mask_r_from:c=194, 191, 185, 90
+      color_mask_r_to:c=167, 117, 45, 90
+      color_mask_g_from:c=5, 5, 5, 90
+      color_mask_g_to:c=128, 131, 141, 90
+      color_mask_b_from:c=87, 58, 47, 90
+      color_mask_b_to:c=65, 56, 7, 90
+      height_from_weight_mul:r=1.0
+      height_from_weight_add:r=0.0
+      density_from_weight_mul:r=0.0
+      density_from_weight_add:r=0.999
+    }
+
+    bush_dead_a{
+      diffuse:t="bush_dead_a_tex_d"
+      normal:t="bush_dead_a_tex_n"
+      variations:i=1
+      height:r=1.0
+      height_rnd_add:r=1.0
+      hor_size:r=1.5
+      hor_size_rnd_add:r=0.0
+      color_mask_r_from:c=30, 28, 22, 240
+      color_mask_r_to:c=68, 65, 60, 90
+      color_mask_g_from:c=5, 5, 5, 90
+      color_mask_g_to:c=196, 205, 216, 90
+      color_mask_b_from:c=57, 55, 44, 90
+      color_mask_b_to:c=32, 30, 24, 90
+      height_from_weight_mul:r=1.0
+      height_from_weight_add:r=0.0
+      density_from_weight_mul:r=0.0
+      density_from_weight_add:r=0.5
+    }
+  }
+
+  decals{
+
+    oldRedMask{
+      id:i=1
+      nograss:r=1.0
+    }
+
+    oldGreenMask{
+      id:i=2
+      simple_grass_snow_a:r=0.1
+      bush_dead_a:r=0.1
+      nograss:r=1.0
+    }
+
+    oldBlueMask{
+      id:i=3
+      simple_grass_a:r=1.0
+      bush_dead_a:r=0.9
+      nograss:r=1.0
+    }
+  }
+}

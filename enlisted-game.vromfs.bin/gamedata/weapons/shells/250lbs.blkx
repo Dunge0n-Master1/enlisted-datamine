@@ -1,0 +1,67 @@
+mass:r=104.3
+mass_lbs:r=230.0
+explosiveType:t="tnt"
+explosiveMass:r=30.7
+bombType:t="he_bomb"
+bombName:t="gp_250lb_mk_iv"
+caliber:r=0.259
+length:r=1.422
+distFromCmToStab:r=0.013
+dragCx:r=0.015
+sound:t="weapon.bomb_mid"
+explosionPatchRadius:r=5.0
+waterExplosionEffect:t="bigesplashxplosion_fx"
+hitPowerMult:r=1.0
+nearHitPower:p2=1.0, 50.0
+midHitPower:p2=0.9, 400.0
+farHitPower:p2=0.1, 1000.0
+endHitPower:p2=0.01, 1500.0
+explodeTreshold:r=0.0
+relativeVelHitShift:p2=300.0, 1000.0
+explodeHitPower:r=220.0
+nearArmorPower:p2=10.0, 50.0
+explodeArmorPower:r=78.0
+midArmorPower:p2=7.0, 400.0
+explodeRadius:p2=4.5, 13.0
+farArmorPower:p2=0.2, 700.0
+relativeVelArmorShift:p2=200.0, 1000.0
+rendinstDamageRadius:r=20.0
+shutterDamage:b=yes
+shutterDamageRadius:r=48.0
+shutterAmount:i=3000
+shutterArmorPower:r=12.0
+shutterHit:r=12.0
+entityTemplate:t="250lbs_bomb_projectile"
+entityPhysTemplate:t=""
+
+fab_50{
+
+  "shell__concussionMaxRadius:r"{
+    value:r=25.0
+    _tags:t="server"
+  }
+}
+
+pressureDamage{
+  damageType:t="pressure"
+}
+
+DamageParts{
+
+  body{
+    hp:r=35.0
+    armorClass:t="tank_structural_steel"
+    armorThickness:r=5.0
+    explosionArmorQuality:r=45.0
+    shatterArmorQuality:r=45.0
+  }
+}
+
+hitFx{
+  defaultFx:t="generic_weapon_hit_ground"
+  jetFx:t="generic_weapon_hit_ground"
+}
+
+explFx{
+  effectTemplName:t="bomb_expl_100kg"
+}

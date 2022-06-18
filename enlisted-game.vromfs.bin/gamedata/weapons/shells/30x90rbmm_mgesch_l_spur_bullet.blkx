@@ -1,0 +1,88 @@
+mass:r=0.33
+caliber:r=0.03
+explosiveType:t="hta_petn"
+explosiveMass:r=0.075
+speed:r=500.0
+maxDistance:r=1600.0
+normalizationPreset:t="heat"
+ricochetPreset:t="he"
+hitPowerMult:r=2.0
+secondaryShattersPreset:t="ap"
+onHitChanceMultFire:r=4.0
+stabilityCaliberToArmorThreshold:r=5.0
+effectiveDistance:r=300.0
+stabilityReductionAfterRicochet:r=0.5
+relativeVelHitShift:p2=300.0, 1000.0
+bulletType:t="he_i_t_mine"
+relativeVelArmorShift:p2=200.0, 1000.0
+explodeTreshold:r=0.001
+slopeEffectPreset:t="ap"
+fuseDelayDist:r=0.1
+fresnel:p3=0.23, 0.1, 2.0
+shellAnimation:t="video/shells_animations/he.ivf"
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_28_38mm_metal_he"
+groundCollisionEffect:t="hit_28_38mm_dirt_he"
+ricochetEffect:t="hit_28_38mm_metal_ap"
+waterCollisionEffect:t="hit_28_38mm_water"
+explosionPatchRadius:r=1.0
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.05
+  mod2:p2=20.0, 0.1
+  mod3:p2=30.0, 0.2
+  mod3:p2=45.0, 0.3
+}
+
+pressureDamage{
+  damageType:t="pressure"
+}
+
+hitpower{
+  HitPower10m:p2=1.0, 50.0
+  HitPower1000m:p2=0.9, 300.0
+  HitPower1500m:p2=0.1, 700.0
+  HitPower2000m:p2=0.008, 1500.0
+}
+
+armorpower{
+  ArmorPower0m:p2=4.0, 10.0
+  ArmorPower100m:p2=3.0, 100.0
+  ArmorPower500m:p2=2.0, 500.0
+  ArmorPower1000m:p2=1.0, 1000.0
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="20mmWhite"
+  trail:t="black"
+}
+
+hitFx{
+
+  steel{
+    fx:t="hit_28_38mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_28_38mm_wood_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_28_38mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_28_38mm_stone_he"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+tracer{
+  headColor:c=255, 255, 255, 120
+  smokeColor:c=80, 80, 80, 186
+}

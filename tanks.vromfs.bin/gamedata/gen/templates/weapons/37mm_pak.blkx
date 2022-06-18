@@ -1,0 +1,44 @@
+base_37mm_pak{
+  item__name:t="guns/37mm_pak"
+  gun__blk:t="gamedata/gen/weapons/37mm_pak.blk"
+  gun__shotFreq:r=0.367
+  gun__locName:t="37mm_pak"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_pak_defaultset.blk"
+        name:t="37mm_pzgr"
+        type:t="aphe_tank"
+      }
+    }
+
+    "37mm_ger_kwk36_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_pak_37mm_ger_kwk36_he.blk"
+        name:t="37mm_sprgr_18"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "37mm_ger_kwk36_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_pak_37mm_ger_kwk36_apcr.blk"
+        name:t="37mm_pzgr_40"
+        type:t="apcr_tank"
+      }
+    }
+  }
+}
+
+tankgun_37mm_pak{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_37mm_pak"
+  _extends:t="gunsound_37mm_pak"
+  turret__triggerGroup:i=0
+}

@@ -1,0 +1,11 @@
+visual{
+  template:t="attachable_wear_dummy_female_pelvis_item+item_in_world"
+}
+
+visSlots{
+  attachable_wear_dummy_female_pelvis:t="body_armor"
+}
+
+equipable{
+  slot:t="pelvis_vis"
+}

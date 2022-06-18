@@ -1,0 +1,83 @@
+base_driver_cockpit{
+  _extends:t="base_driver_cockpit_no_slits"
+  animchar__res:t="t_26_1940_driver_char"
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.0
+  }
+
+  "cockpit__slitAngles:list<r>"{
+    slit:r=0.0
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}
+
+base_gunner_cockpit{
+  _extends:t="base_vehicle_sight"
+  _extends:t="base_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__zoomTimeMul:r=1.3
+  cockpit__cameraTimeMul:r=1.5
+  cockpit__minZoom:r=-0.1
+  cockpit__offset:p3=-0.35, -0.01, 0.22
+
+  "animchar_render__nodeVisibleStgFilters:list<u8>"{
+    _tags:t="render"
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.2
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}
+
+base_commander_cockpit{
+  _extends:t="base_commander_cockpit_no_slits"
+  animchar__res:t="t_26_1940_commander_char"
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.2
+  }
+
+  "cockpit__slitAngles:list<r>"{
+    slit:r=0.0
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=no
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}
+
+base_commander_tower_cockit_no_slits{
+  _extends:t="base_commander_cockpit_no_slits"
+  cockpit__zoomTimeMul:r=2.0
+  cockpit__cameraTimeMul:r=3.0
+}
+
+cockpit_slit_setter{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  box_zone__scale:p3=2.0, 2.0, 2.0
+  cockpit_slit_setter__index:i=-1
+  _tracked:t="transform"
+
+  "cockpit_slit_setter__cockpitId:eid"{
+  }
+}

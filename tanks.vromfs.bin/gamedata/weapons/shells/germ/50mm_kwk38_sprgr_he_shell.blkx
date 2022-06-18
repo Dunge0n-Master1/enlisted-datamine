@@ -1,0 +1,40 @@
+bulletCount:i=40
+mass:r=1.81
+explosiveType:t="fp02_np10"
+explosiveMass:r=0.17
+caliber:r=0.05
+speed:r=550.0
+maxDistance:r=4000.0
+bulletType:t="he_frag_tank"
+bulletName:t="50mm_sprgr_38"
+hitPowerMult:r=10.0
+nearHitPower:p2=1.0, 50.0
+midHitPower:p2=0.9, 300.0
+farHitPower:p2=0.1, 700.0
+endHitPower:p2=0.008, 1500.0
+relativeVelHitShift:p2=300.0, 1000.0
+nearArmorPower:p2=3.0, 150.0
+midArmorPower:p2=2.0, 600.0
+farArmorPower:p2=2.0, 1000.0
+relativeVelArmorShift:p2=200.0, 1000.0
+explodeTreshold:r=0.1
+explodeHitPower:r=55.0
+explodeArmorPower:r=7.0
+explodeRadius:p2=0.3, 0.8
+fuseDelayDist:r=2.0
+shutterDamage:b=yes
+shutterDamageRadius:r=7.5
+shutterAmount:i=100
+shutterArmorPower:r=6.0
+shutterHit:r=9.0
+ricochetEffect:t="cannon_ricochet"
+waterCollisionEffect:t="120-203_he_water_splash"
+waterFxScale:p2=0.7, 0.8
+explosionPatchRadius:r=2.1
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="50mmBrightRed"
+  trail:t="black"
+}

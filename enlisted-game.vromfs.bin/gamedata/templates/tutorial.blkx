@@ -1,0 +1,521 @@
+tutorial_map{
+  tutorial__stageFlag:i=0
+  _singleton:b=yes
+  tutorial__profile:t="def"
+
+  "isTutorial:tag"{
+  }
+
+  "disableVehicleSpawnDelay:tag"{
+  }
+}
+
+practice_map{
+  _singleton:b=yes
+
+  "isPractice:tag"{
+  }
+
+  "disableVehicleSpawnDelay:tag"{
+  }
+}
+
+base_tutorial_zone{
+  transform:m=[[0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0]]
+  boxMin:p3=0.0, 0.0, 0.0
+  boxMax:p3=0.0, 0.0, 0.0
+  _tracked:t="transform"
+  _tracked:t="tutorial_zone__active"
+  tutorial_zone__zoneCheck:i=0
+  tutorial_zone__active:b=yes
+  tutorial_zone__zoneId:t=""
+
+  "tutorialZone:tag"{
+  }
+}
+
+tutorial_zone_visitor{
+  _track:b=yes
+
+  "tutorial_zone_visitor__zone:eid"{
+  }
+
+  "tutorial_zone_visitor__zoneId:t"{
+  }
+}
+
+tutorial_human{
+  _extends:t="tutorial_zone_visitor"
+  tutorial_human__hasGrenade:b=yes
+  tutorial_human__infHpLimit:r=10.0
+
+  "tutorialHuman:tag"{
+  }
+}
+
+tutorial_target{
+  tutorial_target__targetId:t=""
+  tutorial_target__active:b=yes
+
+  "tutorialTarget:tag"{
+  }
+}
+
+tutorial_target_silhouette_a{
+  _extends:t="rendinst"
+  _extends:t="tutorial_target"
+  _extends:t="target_silhouette_a"
+}
+
+tutorial_target_silhouette_b{
+  _extends:t="rendinst"
+  _extends:t="tutorial_target"
+  _extends:t="target_silhouette_b"
+}
+
+tutorial_target_silhouette_c{
+  _extends:t="rendinst"
+  _extends:t="tutorial_target"
+  _extends:t="target_silhouette_c"
+}
+
+tutorial_target_tank{
+  _extends:t="rendinst"
+  _extends:t="tutorial_target"
+  _extends:t="target_tank_a_mission"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+tutorial_bot_spawn_base{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "tutorial__botSpawnBase:tag"{
+  }
+}
+
+tutorial_bot_anim_state{
+  _extends:t="game_effect_base"
+  game_effect__forceAnimState:t="enlisted_idle_13_weapon"
+  game_effect__forceAnimStateId:i=-1
+
+  "tutorial_bot_anim_state:tag"{
+  }
+}
+
+tutorial_ammunition_box_a{
+  _extends:t="ammunition_box_base"
+  _extends:t="ammunition_box_grenade_resupply"
+  _extends:t="undestroyable_building"
+}
+
+tutorial_engineer_resource_box{
+  _extends:t="resource_box_base"
+  _extends:t="undestroyable_building"
+}
+
+tutorial_player_override{
+
+  "tutorialPlayerOverride:tag"{
+  }
+}
+
+tutorial_zone_debug{
+
+  "tutorialZoneDebug:tag"{
+  }
+}
+
+tutorial_grenade_count_observer{
+  _singleton:b=yes
+
+  "tutorial_observer__grenade_count:tag"{
+  }
+}
+
+tutorial_lock_soldier_change{
+  _singleton:b=yes
+
+  "tutorial_lock_soldier_change:tag"{
+  }
+}
+
+tutorial_stage_debug{
+  _singleton:b=yes
+
+  "tutorialStageDebug:tag"{
+  }
+}
+
+tutorial_stage_begin{
+  tutor_stage__next:t="inf_tutorial_hint_zone_run"
+
+  "tutor_stage__begin:tag"{
+  }
+
+  "tutor_stage__onHeroRespawn:tag"{
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_hint_zone_run{
+  tutor_stage__next:t="inf_tutorial_zone_jump01"
+  tutor_stage__displayHint:t="hint_tutorial_hello"
+  tutor_stage__playerZoneEnter:t="hint_zone_run"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Move"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_jump01{
+  tutor_stage__next:t="inf_tutorial_zone_movement_jump"
+  tutor_stage__displayHint:t="hint_tutorial_run"
+  tutor_stage__playerZoneEnter:t="hint_zone_jump01"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Sprint"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_movement_jump{
+  tutor_stage__next:t="inf_tutorial_zone_jump_over"
+  tutor_stage__displayHint:t="hint_tutorial_jump"
+  tutor_stage__playerZoneEnter:t="hint_zone_jump02"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Jump"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_jump_over{
+  tutor_stage__next:t="inf_tutorial_zone_jump_over_hide"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_jump_over"
+}
+
+inf_tutorial_zone_jump_over_hide{
+  tutor_stage__next:t="inf_tutorial_zone_jump_to_climb"
+  tutor_stage__displayHint:t=""
+  tutor_stage__playerZoneEnter:t="hint_zone_jump_hide"
+}
+
+inf_tutorial_zone_jump_to_climb{
+  tutor_stage__next:t="inf_tutorial_zone_jump_to_climb_check"
+  tutor_stage__displayHint:t="hint_tutorial_jump_to_climb"
+  tutor_stage__playerZoneEnter:t="hint_zone_jump_to_climb"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Jump"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_jump_to_climb_check{
+  tutor_stage__next:t="inf_tutorial_zone_climb_hide"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_climb_check"
+}
+
+inf_tutorial_zone_climb_hide{
+  tutor_stage__next:t="inf_tutorial_zone_before_crouch"
+  tutor_stage__displayHint:t=""
+  tutor_stage__playerZoneEnter:t="hint_zone_jump_to_climb_hide"
+}
+
+inf_tutorial_zone_before_crouch{
+  tutor_stage__next:t="inf_tutorial_zone_movement_crouch"
+  tutor_stage__playerZoneEnter:t="hint_zone_crouch"
+}
+
+inf_tutorial_zone_movement_crouch{
+  tutor_stage__next:t="inf_tutorial_zone_crouch_hide"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_crouch_check"
+  tutor_stage__displayHint:t="hint_tutorial_crouch"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Crouch"
+    key:t="Human.HoldCrouch"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_crouch_hide{
+  tutor_stage__next:t="inf_tutorial_zone_before_crawl"
+  tutor_stage__displayHint:t=""
+  tutor_stage__playerZoneEnter:t="hint_zone_crouch_hide"
+}
+
+inf_tutorial_zone_before_crawl{
+  tutor_stage__next:t="inf_tutorial_movement_crawl"
+  tutor_stage__playerZoneEnter:t="hint_zone_crawl"
+}
+
+inf_tutorial_movement_crawl{
+  tutor_stage__next:t="inf_tutorial_zone_before_fire_range01"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_crawl_check"
+  tutor_stage__displayHint:t="hint_tutorial_crawl"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Crawl"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_before_fire_range01{
+  tutor_stage__next:t="inf_tutorial_movement_part_end"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_fire_range01"
+}
+
+inf_tutorial_movement_part_end{
+  tutor_stage__next:t="inf_tutorial_zone_before_fire_range02"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_fire_range02"
+  tutor_stage__displayHint:t="hint_tutorial_move_to_shooting_range"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Move"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_before_fire_range02{
+  tutor_stage__next:t="inf_tutorial_shooting_target01_restore"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_fire_range_mg"
+}
+
+inf_tutorial_shooting_target01_restore{
+  _extends:t="tutorial_restore_memorize"
+  tutor_stage__next:t="inf_tutorial_shooting_target01"
+}
+
+inf_tutorial_shooting_target01{
+  tutor_stage__next:t="inf_tutorial_fire_range_aim_restore"
+  tutor_stage__hitTarget:t="infantry_target01"
+  tutor_stage__activateZoneId:t="target01_marker_zone"
+  tutor_stage__displayHint:t="hint_tutorial_fire_range_practice01"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Shoot"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_fire_range_aim_restore{
+  _extends:t="tutorial_restore_memorize"
+  tutor_stage__next:t="inf_tutorial_fire_range_aim"
+}
+
+inf_tutorial_fire_range_aim{
+  tutor_stage__next:t="inf_tutorial_grenade_restore"
+  tutor_stage__displayHint:t="hint_tutorial_fire_range_aim"
+  tutor_stage__deactivateZoneId:t="target01_marker_zone"
+  tutor_stage__activateZoneId:t="target02_marker_zone"
+  tutor_stage__hitTarget:t="infantry_target02"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Aim1"
+  }
+}
+
+inf_tutorial_grenade_restore{
+  _extends:t="tutorial_restore_memorize"
+  tutor_stage__next:t="inf_tutorial_grenade"
+}
+
+inf_tutorial_grenade{
+  tutor_stage__next:t="inf_tutorial_deactivate_grenade_resupply"
+  tutor_stage__deactivateZoneId:t="target02_marker_zone"
+  tutor_stage__hitTarget:t="infantry_target_grenade"
+  tutor_stage__hitTargetByWeapon:t="grenade"
+  tutor_stage__activateZoneId:t="target_grenade_expl_zone"
+  tutor_condition__explodedInZone:t="target_grenade_expl_zone"
+  tutor_stage__displayHint:t="hint_tutorial_fire_range_switch_to_grenades"
+
+  "tutor_action__createEntity:list<t>"{
+    key:t="tutorial_grenade_count_observer"
+  }
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.GrenadeNext"
+  }
+}
+
+inf_tutorial_deactivate_grenade_resupply{
+  tutor_stage__next:t="inf_tutorial_squad_intro"
+  tutor_stage__timer:r=0.0
+  tutor_stage__deactivateZoneId:t="target_grenade_resupply_zone"
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_grenade_count_observer"
+  }
+}
+
+inf_tutorial_squad_intro{
+  tutor_stage__displayHint:t="hint_tutorial_about_squad"
+  tutor_stage__deactivateZoneId:t="target_grenade_expl_zone"
+  tutor_stage__next:t="inf_tutorial_stage_change_gunner"
+  tutor_stage__time:r=10.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_stage_change_gunner{
+  tutor_stage__next:t="inf_tutorial_zone_fire_range_mg"
+  tutor_stage__requireWeapon:t="machine_gun"
+  tutor_stage__displayHint:t="hint_tutorial_switch_to_machine_gunner"
+  tutor_action__spawnZoneId:t="waypoint_zone_fire_range_mg"
+
+  "tutor_stage__changeGunner:tag"{
+  }
+
+  "tutor_stage__hintKeys:array"{
+
+    "key:array"{
+      key:t="Human.SquadNext"
+      key:t="HUD.SquadSoldiersMenu"
+    }
+  }
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_lock_soldier_change"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_zone_fire_range_mg{
+  tutor_stage__next:t="inf_tutorial_shooting_hold_breath_restore"
+  tutor_stage__playerZoneEnter:t="waypoint_zone_fire_range_mg"
+  tutor_stage__activateZoneId:t="waypoint_zone_fire_range_mg"
+  tutor_stage__displayHint:t="hint_tutorial_move_to_shooting_range"
+
+  "tutor_action__createEntity:list<t>"{
+    key:t="tutorial_lock_soldier_change"
+  }
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Move"
+  }
+}
+
+inf_tutorial_shooting_hold_breath_restore{
+  _extends:t="tutorial_restore_memorize"
+  tutor_stage__next:t="inf_tutorial_shooting_hold_breath"
+}
+
+inf_tutorial_shooting_hold_breath{
+  tutor_stage__next:t="inf_tutorial_shooting_crouch_restore"
+  tutor_stage__activateZoneId:t="target_mg01_marker_zone"
+  tutor_stage__hitTarget:t="infantry_target_mg01"
+  tutor_stage__displayHint:t="hint_tutorial_hold_breath"
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Aim1"
+    key:t="Human.HoldBreath"
+  }
+}
+
+inf_tutorial_shooting_crouch_restore{
+  _extends:t="tutorial_restore_memorize"
+  tutor_stage__next:t="inf_tutorial_shooting_crouch"
+}
+
+inf_tutorial_shooting_crouch{
+  tutor_stage__displayHint:t="hint_tutorial_crouch_shoot"
+  tutor_stage__activateZoneId:t="target_mg02_marker_zone"
+  tutor_stage__deactivateZoneId:t="target_mg01_marker_zone"
+  tutor_stage__hitTarget:t="infantry_target_mg02"
+  tutor_stage__next:t="inf_tutorial_medkit_intro"
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Human.Crouch"
+    key:t="Human.Crawl"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_medkit_intro{
+  tutor_stage__displayHint:t="hint_tutorial_use_medkit_intro"
+  tutor_stage__next:t="inf_tutorial_stage_hero_explode"
+  tutor_stage__deactivateZoneId:t="target_mg02_marker_zone"
+  tutor_stage__time:r=10.0
+  tutor_stage__timer:r=0.0
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+inf_tutorial_stage_hero_explode{
+  tutor_action__setHeroInfHpLimit:r=5.0
+  tutor_action__damageHeroAmount:r=5.0
+  tutor_stage__deactivateZoneId:t="target_mg02_marker_zone"
+  tutor_stage__next:t="inf_tutorial_stage_use_medkit"
+}
+
+inf_tutorial_stage_use_medkit{
+  tutor_action__setHeroInfHpLimit:r=10.0
+  tutor_stage__next:t="tutorial_stage_complete"
+  tutor_stage__displayHint:t="hint_tutorial_use_medkit"
+
+  "tutor_stage__useMedkit:tag"{
+  }
+
+  "tutor_stage__hintKeys:array"{
+    key:t="Inventory.UseMedkit"
+  }
+
+  "tutor_bq__sendOnBegin:tag"{
+  }
+}
+
+tutorial_stage_complete{
+  tutor_stage__displayHint:t="hint_tutorial_tank_capture_zone_finished"
+
+  "tutor_stage__complete:tag"{
+  }
+
+  "tutor_bq__sendOnEnd:tag"{
+  }
+}
+
+tutorial_infinity_hp{
+
+  "tutorial__infinityHp:tag"{
+  }
+}
+
+tutorial_input_manager{
+  _singleton:b=yes
+
+  "tutorial__savedInput:object"{
+  }
+}

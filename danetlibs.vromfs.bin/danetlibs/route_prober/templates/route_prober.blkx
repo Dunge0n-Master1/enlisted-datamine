@@ -1,0 +1,39 @@
+route_prober{
+  evaluation_period_seconds:r=10.0
+  next_evaluation:r=0.0
+  statistics_reported:b=no
+  diff_sum_min:i=0
+  rtt_sum_threshold:i=0
+  echo_period_seconds:r=1.0
+  next_echo_broadcast:r=0.0
+  _singleton:b=yes
+
+  "routeProber:tag"{
+  }
+
+  "route_count:u32"{
+    value:i=0
+  }
+
+  "initial_best:u32"{
+    value:i=0
+  }
+}
+
+route_stats{
+  rtt_diff_sum:i=0
+
+  "routeStats:tag"{
+  }
+
+  "route_id:u32"{
+    value:i=0
+  }
+
+  "echo_history:list<u32>"{
+  }
+
+  "rtt_estimation:u32"{
+    value:i=0
+  }
+}

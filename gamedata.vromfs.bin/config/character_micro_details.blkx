@@ -1,0 +1,10 @@
+character_micro_details{
+  micro_detail:t="microdetail_generic_noise_a_tex_n*"
+  micro_detail:t="microdetail_02_fabric_tex_n*"
+  micro_detail:t="microdetail_03_fabric_2_tex_n*"
+  micro_detail:t="microdetail_04_wool_tex_n*"
+  micro_detail:t="microdetail_05_wool_2_tex_n*"
+  micro_detail:t="microdetail_06_leather_tex_n*"
+  micro_detail:t="microdetail_07_metal_tex_n*"
+  micro_detail:t="microdetail_08_wood_tex_n*"
+}

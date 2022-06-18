@@ -1,0 +1,19 @@
+<svg id="ger_moscow_prem_engineer_1_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f2f2f2;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #151515;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M146,146H4V4H146V146Z"/>
+  <path class="cls-2" d="M24,144V88l12.828,0.072v19.121L49.973,91.442V48.885H86.348L125,6V61l-13.4-.059V44.791L100.059,58.939V99.084H63.16Zm3.15-52.759v44.295L61.724,95.922H96.91V57.792l17.839-21.706V57.71l7.1-.042V14.3L87.759,52.047H53.122V92.624L33.677,115.64V91.152Zm61.913-3.123H60.97V60.04H89.062V88.115ZM64.119,84.954H85.912V63.2H64.119V84.954Z"/>
+</svg>

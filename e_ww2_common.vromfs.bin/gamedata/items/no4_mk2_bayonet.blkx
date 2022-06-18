@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="bayonet"
+  slotTag:t="no4_mk2_bayonet"
+  gunSlotName:t="bayonet"
+  template:t="no4_mk2_bayonet"
+}
+
+visual{
+  template:t="no4_mk2_bayonet_item+item_in_world"
+}

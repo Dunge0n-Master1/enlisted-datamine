@@ -1,0 +1,3 @@
+visual{
+  template:t="repair_kit_item+item_in_world"
+}

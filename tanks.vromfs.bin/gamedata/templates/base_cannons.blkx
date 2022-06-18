@@ -1,0 +1,389 @@
+base_cannon{
+  _extends:t="base_cannon_no_phys"
+  pair_collision__tag:t="collidableToPhysObj"
+
+  phys_obj_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+}
+
+base_cannon_no_phys{
+  _extends:t="replicating"
+  _extends:t="phys_sleepable"
+  _extends:t="animchar"
+  _extends:t="base_vehicle"
+  _extends:t="base_turret_controls"
+  _extends:t="base_vehicle_seats"
+  _extends:t="base_tank_seat_templates"
+  _extends:t="base_damage_model"
+  _extends:t="base_damage_model_fx"
+  _extends:t="turret_sound_group"
+  _extends:t="watched_vehicle_sound"
+  _extends:t="vehicle_fatal_explosion_external_fire"
+  _extends:t="vehicle_underwater"
+  _extends:t="vehicle_autodetect_team"
+  drowningHeight:r=0.5
+  zones_visitor__triggerTag:t="vehicleTriggerable"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  _tracked:t="isAlive"
+  _tracked:t="vehicle__localControls"
+  _tracked:t="vehicleCameraType"
+  squad:i=-1
+  team:i=-1
+  vehicle_seats__exitTime:r=0.25
+  vehicle_seats__enterTime:r=0.25
+  animchar_render__enabled:b=yes
+  material:t="steel"
+  needsBlood:b=no
+  collision_damage__canBeOffender:b=no
+  phys__lowFreqTickrate:b=yes
+  net__physId:i=-1
+  vehicle_acceleration__viscAcceleration:p3=0.0, 0.0, 0.0
+  vehicle__turretControlComponents:t="cannon_turret_control_components"
+  hitmarks__showUserHits:b=yes
+  camera__lookDir:p3=1.0, 0.0, 0.0
+  camera__magnification:r=1.0
+  camera__isStabilized:b=no
+  camName:t="tank_fps_cam_perlin"
+  vehicleCameraType:i=0
+  vehicleDeathCameraTemplate:t="tank_cam"
+  driverFpsCamMaxAngle:p2=90.0, 50.0
+  passengerFpsCamMaxAngle:p2=90.0, 50.0
+  gunnerFpsCamMaxAngle:p2=20.0, 20.0
+  vehicle_seats_camera_nodes__defaultNode:t="bone_camera_gunner"
+  last_driver_leave_time:r=0.0
+  isAlive:b=yes
+  lastDamageType:i=0
+  lastDamagedNode:i=-1
+  lastGunPropsIdDamagedWith:i=-1
+  _replicated:t="team"
+  _replicated:t="phys__lowFreqTickrate"
+  _replicated:t="lastDamageType"
+  _replicated:t="lastDamagedNode"
+  _replicated:t="lastGunPropsIdDamagedWith"
+  _replicated:t="isAlive"
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+
+  "animchar_render__nodeVisibleStgFilters:list<u8>"{
+    _tags:t="render"
+  }
+
+  grid_obj{
+  }
+
+  "turret_aim__shootRange:r"{
+    _tags:t="gameClient"
+    value:r=300.0
+  }
+
+  "vehicleDisplayMarkerOverHead:tag"{
+    tags:t="ui"
+  }
+
+  "additiveSquadSpread:tag"{
+  }
+
+  "scorchable:tag"{
+    _tags:t="render"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+    data:p4=0.0, 0.0, 0.0, 0.0
+  }
+
+  collres{
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
+
+  _group{
+    _tags:t="render"
+
+    "bullet_holes__ignoreCollisionNodes:array"{
+    }
+
+    "bullet_holes__movingCollisionNodes:array"{
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "fatal_explosion_external_fire__nodeNames:shared:array"{
+      node:t="emtr_explosion_center"
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+    turret_sound__path:t="player/vehicle/tank/common/turret_manual"
+  }
+
+  "camera__look_at:dp3"{
+    _tags:t="render"
+  }
+
+  "camNames:array"{
+    camNames:t="tank_fps_cam_perlin"
+  }
+
+  "vehicleDeathCamera:eid"{
+  }
+
+  "vehiclePrevCamera:eid"{
+  }
+
+  "defaultCameraTypes:shared:object"{
+    driver:t="commander"
+    main_gunner:t="gunner"
+  }
+
+  "vehicle_seats_can_acquire_controls:list<i>"{
+  }
+
+  "vehicle_seats__canAcquireControls:shared:object"{
+
+    "main_gunner:object"{
+      turrets:b=yes
+    }
+
+    "driver:object"{
+      movement:b=yes
+    }
+  }
+
+  vehicle__localControls{
+    _tags:t="gameClient"
+  }
+
+  "vehicle_seats_hide_owner:list<b>"{
+  }
+
+  "last_driver:eid"{
+  }
+
+  bullet_holes{
+    _tags:t="render"
+  }
+
+  bullet_decals{
+    _tags:t="render"
+  }
+
+  "fatal_explosion_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_big"
+          emitter:t="emtr_explosion_center"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_small"
+          emitter:t="emtr_explosion_center"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_big"
+          emitter:t="emtr_explosion_center"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small"
+          emitter:t="emtr_explosion_center"
+        }
+      }
+    }
+  }
+
+  "fatal_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_ammo_fire"
+          emitter:t="emtr_explosion_center"
+        }
+      }
+    }
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_small"
+          emitter:t="emtr_explosion_center"
+        }
+      }
+    }
+  }
+}
+
+movable_cannon_seat_default_sit{
+  _extends:t="base_vehicle_seat"
+  seats_order__canPlaceManually:b=no
+  seat_anim__upper:t="gunner_upper_hands"
+  seat_anim__lower:t="lower_stand"
+  seat_anim__maxStandHeight:r=0.0
+}
+
+movable_cannon_seat_marching{
+  _extends:t="base_vehicle_seat"
+  seat_anim__upper:t="gunner_upper_push"
+  seat_anim__lower:t="lower_stand"
+  seat_anim__lowerMove:t="lower_walk"
+  seat_anim__lowerIdle:t="lower_stand"
+  seat_anim_movable__minVelocity:r=0.3
+  _tracked:t="seat_anim__lower"
+  seat_anim__maxStandHeight:r=0.0
+}
+
+movable_cannon_seat_gunner{
+  _extends:t="movable_cannon_seat_default_sit"
+  seats_order__canPlaceManually:b=yes
+}
+
+movable_cannon_seat_driver{
+  _extends:t="movable_cannon_seat_marching"
+  seats_order__canPlaceManually:b=yes
+}
+
+movable_cannon_seat_templates{
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="movable_cannon_seat_default_sit"
+    driver:t="movable_cannon_seat_driver"
+    main_gunner:t="movable_cannon_seat_gunner"
+    loader:t="movable_cannon_seat_default_sit"
+    loader_marching:t="movable_cannon_seat_marching"
+  }
+}
+
+base_movable_cannon{
+  _extends:t="base_cannon_no_phys"
+  _extends:t="movable_cannon_seat_templates"
+  _extends:t="vehicle_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  cockpit__cameraDir:p3=1.0, 0.0, 0.0
+  _tracked:t="cockpit__eid"
+  pair_collision__tag:t="collidableToVehicle"
+  commanderFpsCamMaxAngle:p2=70.0, 60.0
+
+  "cockpit__eid:eid"{
+    _tags:t="gameClient"
+  }
+
+  cockpit_animchar_res_preload{
+    _tags:t="gameClient"
+  }
+
+  "cockpit__isHeroInCockpit:b"{
+    _tags:t="gameClient"
+    value:b=no
+  }
+
+  vehicle_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  particle_phys{
+  }
+
+  vehicle_wheels{
+  }
+
+  "movableCannon:tag"{
+  }
+}
+
+anti_tank_cannon_common{
+  _extends:t="turret_controls_hit_result_info"
+  vehicle__mapIcon:t="map_icon_cannon_at"
+}
+
+anti_aircraft_cannon_common{
+  _extends:t="forestall"
+  vehicle__mapIcon:t="map_icon_cannon_aa"
+
+  "turretHitAlwaysEffective:tag"{
+    _tags:t="gameClient"
+  }
+
+  "isSimpleTurretCrosshair:b"{
+    _tags:t="gameClient"
+    value:b=yes
+  }
+}
+
+base_anti_tank_cannon{
+  _extends:t="base_cannon"
+  _extends:t="anti_tank_cannon_common"
+}
+
+base_anti_aircraft_cannon{
+  _extends:t="base_cannon"
+  _extends:t="anti_aircraft_cannon_common"
+}
+
+base_movable_anti_tank_cannon{
+  _extends:t="base_movable_cannon"
+  _extends:t="anti_tank_cannon_common"
+}

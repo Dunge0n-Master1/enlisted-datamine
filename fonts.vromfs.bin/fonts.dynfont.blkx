@@ -1,0 +1,467 @@
+baseFontData{
+  baseFont:t="ttfs/trebuc.ttf"
+  forceAutoHint:b=no
+
+  addFont{
+    addFont:t="ttfs/symbols_enlisted.ttf"
+    htScale:r=1.0
+    range:ip2=8756, 8824
+    range:ip2=8902, 8945
+    range:ip2=8962, 8962
+    range:ip2=8966, 8966
+    range:ip2=8968, 8971
+    range:ip2=8992, 8994
+  }
+
+  addFont{
+    addFont:t="ttfs/mplus-2p-regular.ttf"
+    htScale:r=1.0
+    range:ip2=12352, 12543
+    range:ip2=65072, 65103
+    range:ip2=65280, 65519
+  }
+
+  addFont{
+    addFont:t="ttfs/msyh.ttf"
+    htScale:r=1.0
+    range:ip2=12288, 12351
+    range:ip2=13312, 19903
+    range:ip2=19968, 40895
+  }
+
+  addFont{
+    addFont:t="ttfs/nanumGothicRegular.ttf"
+    htScale:r=1.0
+    range:ip2=4352, 4607
+    range:ip2=12592, 12687
+    range:ip2=12800, 13055
+    range:ip2=43360, 43391
+    range:ip2=44032, 55295
+  }
+}
+
+baseFontData{
+  baseFont:t="ttfs/trebucbd.ttf"
+  forceAutoHint:b=no
+
+  addFont{
+    addFont:t="ttfs/symbols_enlisted.ttf"
+    htScale:r=1.0
+    range:ip2=8756, 8824
+    range:ip2=8902, 8945
+    range:ip2=8962, 8962
+    range:ip2=8966, 8966
+    range:ip2=8968, 8971
+    range:ip2=8992, 8994
+  }
+
+  addFont{
+    addFont:t="ttfs/mplus-2p-regular.ttf"
+    htScale:r=1.0
+    range:ip2=12352, 12543
+    range:ip2=65072, 65103
+    range:ip2=65280, 65519
+  }
+
+  addFont{
+    addFont:t="ttfs/msyh.ttf"
+    htScale:r=1.0
+    range:ip2=12288, 12351
+    range:ip2=13312, 19903
+    range:ip2=19968, 40895
+  }
+
+  addFont{
+    addFont:t="ttfs/nanumGothicRegular.ttf"
+    htScale:r=1.0
+    range:ip2=4352, 4607
+    range:ip2=12592, 12687
+    range:ip2=12800, 13055
+    range:ip2=43360, 43391
+    range:ip2=44032, 55295
+  }
+}
+
+baseFontData{
+  baseFont:t="ttfs/fontawesome-webfont.ttf"
+  forceAutoHint:b=no
+}
+
+baseFontData{
+  baseFont:t="ttfs/tactical_enlisted.ttf"
+  forceAutoHint:b=no
+}
+
+baseFontData{
+  baseFont:t="ttfs/jetbrains-mono-nl-regular.ttf"
+}
+
+font{
+  name:t="trebuchet"
+  baseFontData:i=0
+}
+
+font{
+  name:t="trebuchet_bold"
+  baseFontData:i=1
+}
+
+font{
+  name:t="fontawesome"
+  baseFontData:i=2
+}
+
+font{
+  name:t="tactical"
+  baseFontData:i=3
+}
+
+font{
+  name:t="mono"
+  baseFontData:i=4
+}
+
+hRes.480{
+
+  trebuchet{
+    ht:i=7
+  }
+
+  trebuchet_bold{
+    ht:i=7
+  }
+
+  fontawesome{
+    ht:i=9
+  }
+
+  tactical{
+    ht:i=9
+  }
+
+  mono{
+    ht:i=6
+  }
+}
+
+hRes.600{
+
+  trebuchet{
+    ht:i=9
+  }
+
+  trebuchet_bold{
+    ht:i=9
+  }
+
+  fontawesome{
+    ht:i=12
+  }
+
+  tactical{
+    ht:i=12
+  }
+
+  mono{
+    ht:i=8
+  }
+}
+
+hRes.720{
+
+  trebuchet{
+    ht:i=11
+  }
+
+  trebuchet_bold{
+    ht:i=11
+  }
+
+  fontawesome{
+    ht:i=14
+  }
+
+  tactical{
+    ht:i=14
+  }
+
+  mono{
+    ht:i=9
+  }
+}
+
+hRes.768{
+
+  trebuchet{
+    ht:i=11
+  }
+
+  trebuchet_bold{
+    ht:i=11
+  }
+
+  fontawesome{
+    ht:i=15
+  }
+
+  tactical{
+    ht:i=15
+  }
+
+  mono{
+    ht:i=10
+  }
+}
+
+hRes.800{
+
+  trebuchet{
+    ht:i=12
+  }
+
+  trebuchet_bold{
+    ht:i=12
+  }
+
+  fontawesome{
+    ht:i=16
+  }
+
+  tactical{
+    ht:i=16
+  }
+
+  mono{
+    ht:i=10
+  }
+}
+
+hRes.864{
+
+  trebuchet{
+    ht:i=13
+  }
+
+  trebuchet_bold{
+    ht:i=13
+  }
+
+  fontawesome{
+    ht:i=17
+  }
+
+  tactical{
+    ht:i=17
+  }
+
+  mono{
+    ht:i=11
+  }
+}
+
+hRes.900{
+
+  trebuchet{
+    ht:i=13
+  }
+
+  trebuchet_bold{
+    ht:i=13
+  }
+
+  fontawesome{
+    ht:i=17
+  }
+
+  tactical{
+    ht:i=17
+  }
+
+  mono{
+    ht:i=11
+  }
+}
+
+hRes.960{
+
+  trebuchet{
+    ht:i=14
+  }
+
+  trebuchet_bold{
+    ht:i=14
+  }
+
+  fontawesome{
+    ht:i=19
+  }
+
+  tactical{
+    ht:i=19
+  }
+
+  mono{
+    ht:i=12
+  }
+}
+
+hRes.1024{
+
+  trebuchet{
+    ht:i=15
+  }
+
+  trebuchet_bold{
+    ht:i=15
+  }
+
+  fontawesome{
+    ht:i=20
+  }
+
+  tactical{
+    ht:i=20
+  }
+
+  mono{
+    ht:i=13
+  }
+}
+
+hRes.1050{
+
+  trebuchet{
+    ht:i=16
+  }
+
+  trebuchet_bold{
+    ht:i=16
+  }
+
+  fontawesome{
+    ht:i=20
+  }
+
+  tactical{
+    ht:i=20
+  }
+
+  mono{
+    ht:i=13
+  }
+}
+
+hRes.1080{
+
+  trebuchet{
+    ht:i=16
+  }
+
+  trebuchet_bold{
+    ht:i=16
+  }
+
+  fontawesome{
+    ht:i=21
+  }
+
+  tactical{
+    ht:i=21
+  }
+
+  mono{
+    ht:i=14
+  }
+}
+
+hRes.1200{
+
+  trebuchet{
+    ht:i=18
+  }
+
+  trebuchet_bold{
+    ht:i=18
+  }
+
+  fontawesome{
+    ht:i=23
+  }
+
+  tactical{
+    ht:i=23
+  }
+
+  mono{
+    ht:i=15
+  }
+}
+
+hRes.1440{
+
+  trebuchet{
+    ht:i=21
+  }
+
+  trebuchet_bold{
+    ht:i=21
+  }
+
+  fontawesome{
+    ht:i=28
+  }
+
+  tactical{
+    ht:i=28
+  }
+
+  mono{
+    ht:i=18
+  }
+}
+
+hRes.1800{
+
+  trebuchet{
+    ht:i=27
+  }
+
+  trebuchet_bold{
+    ht:i=27
+  }
+
+  fontawesome{
+    ht:i=35
+  }
+
+  tactical{
+    ht:i=35
+  }
+
+  mono{
+    ht:i=23
+  }
+}
+
+hRes.2160{
+
+  trebuchet{
+    ht:i=32
+  }
+
+  trebuchet_bold{
+    ht:i=32
+  }
+
+  fontawesome{
+    ht:i=42
+  }
+
+  tactical{
+    ht:i=42
+  }
+
+  mono{
+    ht:i=27
+  }
+}

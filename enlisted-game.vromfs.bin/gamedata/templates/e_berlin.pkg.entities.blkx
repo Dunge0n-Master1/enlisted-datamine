@@ -1,0 +1,32 @@
+minimap_berlin_invasion{
+  _extends:t="minimap"
+  mapTex:t="berlin_2x2_minimap*"
+  farMapTex:t="berlin_16x16_minimap*"
+  left_top:p2=-102.14, 102.14
+  right_bottom:p2=768.0, -768.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}
+
+minimap_berlin_opera{
+  _extends:t="minimap"
+  mapTex:t="berlin_opera_2x2_minimap*"
+  farMapTex:t="berlin_16x16_minimap*"
+  left_top:p2=-1024.0, 1024.0
+  right_bottom:p2=512.0, -512.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}
+
+minimap_berlin_seelow_heights{
+  _extends:t="minimap"
+  mapTex:t="battle_of_berlin_seelow_heights_minimap*"
+  farMapTex:t="battle_of_berlin_seelow_heights_far_minimap*"
+  left_top:p2=-2048.0, 2048.0
+  right_bottom:p2=2048.0, -2048.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}

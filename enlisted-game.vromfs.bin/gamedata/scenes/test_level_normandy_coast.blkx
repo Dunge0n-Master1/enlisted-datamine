@@ -1,0 +1,216 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/normandy_coastal_area_1x1.blk"
+
+  "level__timeVec:array"{
+    level_timeVec:r=6.5
+    level_timeVec:r=7.5
+    level_timeVec:r=8.5
+    level_timeVec:r=17.0
+  }
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+  }
+}
+
+entity{
+  _template:t="minimap_normandy_coastal_area"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.27
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    land_selfillum_worldscale:r=0.9
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="normandy_wall_color_tex_palette*"
+    puddle_increase:r=0.01
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.891453, 0.0, 0.453112] [0.0, 1.0, 0.0] [-0.453112, 0.0, -0.891453] [345.981, 4.99825, 43.3608]]
+}
+
+entity{
+  _template:t="group_activator"
+
+  "activator__activateChoice:object"{
+    1_2:r=1.0
+  }
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  moveCameraToHeight:r=80.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-95.023, 103.181, 14.9234]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  moveCameraToHeight:r=80.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-77.9592, 101.389, 19.8491]]
+}
+
+entity{
+  _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
+  team__deathPenaltyByMember:r=-5.0
+  team__minDeathPenalty:r=10.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=4000.0
+  team__capturePenalty:r=0.0
+  team__botTemplate:t="usa_npc_summer_soldier_1"
+  team__score:r=4000.0
+  team__deathPenalty:r=35.0
+  team__id:i=1
+  team__briefing:t="invasion/attackers_goals"
+  team__winSubtitle:t="debriefing/won_invasion_subtitle"
+  team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
+  team__winTitle:t="debriefing/usa_won_invasion_title"
+}
+
+entity{
+  _template:t="respawnBase"
+  team:i=1
+  groupName:t="1_2"
+  active:b=yes
+  transform:m=[[-0.246217, 0.0854253, 0.965443] [0.0211104, 0.996345, -0.0827758] [0.968985, 0.0, 0.247121] [-95.023, 23.1806, 14.9234]]
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[0.639315, 0.0, 0.768945] [0.0, 1.0, 0.0] [-0.768945, -0.0, 0.639315] [-77.9592, 21.3888, 19.8491]]
+  team:i=2
+  groupName:t="1_2"
+  active:b=no
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [266.209, 4.49706, 70.3886]]
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [119.692, 8.65717, 103.27]]
+  sphere_zone__radius:r=15.0
+  decal__height:r=2.0
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-156.362, 24.5088, 22.9015]]
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-141.506, 25.828, 162.318]]
+  sphere_zone__radius:r=15.0
+  decal__height:r=2.0
+  decal__id:i=3
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-278.794, 30.5878, 92.7754]]
+  sphere_zone__radius:r=15.0
+  decal__height:r=1.5
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [269.395, -0.052858, -245.357]]
+  sphere_zone__radius:r=20.0
+  decal__height:r=2.0
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [360.851, 7.75605, -319.739]]
+  sphere_zone__radius:r=18.5
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [196.402, 4.69577, -344.014]]
+  sphere_zone__radius:r=15.0
+  decal__height:r=2.0
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-137.116, 20.2825, -127.395]]
+  decal__id:i=10
+  sphere_zone__radius:r=15.0
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [213.272, 6.3373, 194.964]]
+  sphere_zone__radius:r=15.0
+  decal__height:r=2.0
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-316.029, 23.6907, -121.01]]
+  sphere_zone__radius:r=13.0
+  decal__height:r=2.0
+}
+
+entity{
+  _template:t="domination_sphere_capzone+capzone_projdecal"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-233.153, 24.6789, -307.005]]
+  sphere_zone__radius:r=15.0
+}

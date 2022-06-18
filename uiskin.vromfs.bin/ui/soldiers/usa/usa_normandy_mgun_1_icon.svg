@@ -1,0 +1,19 @@
+<svg id="_28_infantry_division" data-name="28_infantry_division" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #a43131;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #e2ba64;
+      }
+    </style>
+  </defs>
+  <path id="Shape_7_copy" data-name="Shape 7 copy" class="cls-1" d="M109.57,41L120.9,6H29.1L40.43,41H7.459L40.807,144h68.385L142.541,41H109.57Z"/>
+  <path id="Shape_7_copy_2" data-name="Shape 7 copy 2" class="cls-2" d="M111.011,147H38.989L4.022,39H36.993L25.661,4h98.678L113.007,39h32.971Zm-68.385-5h64.748L139.1,44H106.133L117.465,9H32.535L43.867,44H10.9Z"/>
+</svg>

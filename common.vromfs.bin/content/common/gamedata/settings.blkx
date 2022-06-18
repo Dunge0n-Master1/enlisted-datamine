@@ -1,0 +1,955 @@
+samplingQuality:ip2=1, 1
+log_lut:b=yes
+physMapDecals:b=yes
+texStreamingFile:t="config/tex_streaming.settings.blk"
+__allow_force_apply_all:b=no
+
+graphics{
+  anisotropy:i=4
+  spotShadowBias:p4=-6e-05, -0.1, 0.001, 0.005
+  dafx:t="cpu"
+}
+
+screenshots{
+  dir:t="Screenshots"
+  hdr_screenshot:t="no"
+  movie_sequence:b=no
+}
+
+video{
+  resolution:t="auto"
+  mode:t="fullscreenwindowed"
+  monitor:t="auto"
+  instancing:t="geom"
+  vsync:b=no
+  max_genmip_tex_sz:i=0
+  maxTexCount:i=32767
+}
+
+directx{
+  bonesCount:i=256
+  debug:b=no
+  threadSafe:b=yes
+}
+
+ps4{
+  garlic_size_mb:i=3172
+  neo_garlic_size_mb:i=3472
+  onion_size_mb:i=312
+  garlic_blocks:i=16384
+  onion_blocks:i=16384
+  dcb_size_mb:i=4
+  ccb_size_mb:i=4
+  max_genmip_tex_sz:i=0
+  mem_reserve_mb:i=256
+  resolution_config:b=yes
+  min_res:t="1920x1080"
+  min_res_4k:t="3200x1800"
+  max_res_4k:t="3200x1800"
+  neo_4k_scale:i=167
+}
+
+ps5{
+  dcb_size_mb:i=8
+  mem_direct_size_mb:i=4095
+  mem_shader_heap_size_kb:i=8192
+  max_genmip_tex_sz:i=0
+  mem_reserve_mb:i=256
+  enable_defrag:b=yes
+  resolution_config:b=yes
+  min_res:t="1920x1080"
+  min_res_4k:t="3200x1800"
+  max_res_4k:t="3200x1800"
+}
+
+phys{
+  numSubSteps:i=1
+}
+
+clipmap{
+}
+
+aviWriter{
+  quality:i=100
+  folder:t="Screenshots"
+  fileLimit:i=2100000000
+  frameRate:r=60.0
+}
+
+tracers{
+  tail_texture:t="tracer_tail_density"
+}
+
+daEditor4{
+  disable:b=no
+
+  input{
+
+    maxCamera{
+      moveSensXY:r=0.05
+      rotSensXY:r=0.005
+      moveSensZ:r=0.02
+      fineMoveScale:r=0.05
+      turboMoveScale:r=20.0
+    }
+  }
+}
+
+sound{
+  maxChannels:i=1024
+  maxSoftwareChannels:i=128
+  maxVorbisCodecs:i=128
+  streamBufferSizeKb:i=96
+  randomizeSeed:b=yes
+  maxEventInstances:i=64
+  rejectFarOneshots:b=yes
+  memoryTrackingMode:b=no
+  memoryPc:i=200
+  memoryPCLowMode:i=200
+  memoryPCHighMode:i=200
+  memoryPS4:i=200
+  banksFolder:t="sound"
+  banksExtension:t=".bank"
+
+  dsp{
+    pan3DDecay:r=0.05
+  }
+
+  banks{
+
+    master_banks{
+
+      master_bank{
+        loadToMemory:b=yes
+      }
+
+      master_bank.assets{
+        async:b=no
+        preload:b=no
+      }
+
+      master_bank.strings{
+        async:b=no
+        preload:b=no
+      }
+    }
+
+    cmn_banks{
+
+      cmn_ambient{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_ambient_battle{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_battle.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_ambient_desert{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_desert.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_ambient_sea{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_sea.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_ambient_summer{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_summer.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_ambient_summer_pos{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_summer_pos.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_ambient_winter{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_ambient_winter.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_enlist{
+        loadToMemory:b=yes
+      }
+
+      cmn_enlist.assets{
+        async:b=no
+        preload:b=no
+      }
+
+      cmn_fx_fire{
+        loadToMemory:b=yes
+      }
+
+      cmn_fx_fire.assets{
+        async:b=no
+        preload:b=no
+      }
+
+      cmn_fx_impact{
+        loadToMemory:b=yes
+      }
+
+      cmn_fx_impact.assets{
+        async:b=no
+        preload:b=no
+      }
+
+      cmn_fx_object_crash{
+        loadToMemory:b=yes
+      }
+
+      cmn_fx_object_crash.assets{
+        async:b=no
+        preload:b=no
+      }
+
+      cmn_gen_ui{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_gen_ui.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_loc_vo{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_loc_vo.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_sfx_door{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_sfx_door.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_sfx_effect{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_sfx_effect.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_sfx_item{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      cmn_sfx_item.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      cmn_weapon{
+        loadToMemory:b=yes
+      }
+
+      cmn_weapon.assets{
+        loadToMemory:b=yes
+      }
+    }
+
+    cmn_loc_vo_banks{
+
+      "_cmn_loc_vo_<loc>"{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      "_cmn_loc_vo_<loc>.assets"{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    cmn_loc_vo_en_banks{
+
+      _cmn_loc_vo_en{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_en.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    cmn_loc_vo_de_banks{
+
+      _cmn_loc_vo_de{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_de.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    cmn_loc_vo_ru_banks{
+
+      _cmn_loc_vo_ru{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_ru.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    cmn_loc_vo_fr_banks{
+
+      _cmn_loc_vo_fr{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_fr.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    cmn_loc_vo_it_banks{
+
+      _cmn_loc_vo_it{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_it.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    ww2_banks{
+
+      ww2_ambient_music{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_ambient_music.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_enlist_ambient_music{
+        loadToMemory:b=yes
+      }
+
+      ww2_enlist_ambient_music.assets{
+        async:b=no
+        preload:b=no
+      }
+
+      ww2_vehicle_aircraft_engine{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_vehicle_aircraft_engine.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_vehicle_car_engine{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_vehicle_car_engine.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_vehicle_tank_engine{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_vehicle_tank_engine.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_vehicle_tank_impact{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_vehicle_tank_impact.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_walker_soldier{
+        loadToMemory:b=yes
+      }
+
+      ww2_walker_soldier.assets{
+        async:b=no
+        preload:b=yes
+      }
+
+      ww2_walker_soldier01_voice{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_walker_soldier01_voice.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_walker_soldier02_voice{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_walker_soldier02_voice.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_walker_soldier03_voice{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_walker_soldier03_voice.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_walker_soldier_voice{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_walker_soldier_voice.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      ww2_weapon_antivehicle{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_antivehicle.assets{
+        async:b=yes
+        loadToMemory:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_antivehicle_foley{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_antivehicle_foley.assets{
+        async:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_cannon{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_cannon.assets{
+        async:b=yes
+        loadToMemory:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_mgun{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_mgun.assets{
+        async:b=yes
+        loadToMemory:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_mgun_foley{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_mgun_foley.assets{
+        async:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_mgun_mounted{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_mgun_mounted.assets{
+        async:b=yes
+        loadToMemory:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_mgun_mounted_foley{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_mgun_mounted_foley.assets{
+        async:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_pistol{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_pistol.assets{
+        async:b=yes
+        loadToMemory:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_pistol_foley{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_pistol_foley.assets{
+        async:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_rifle{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_rifle.assets{
+        async:b=yes
+        loadToMemory:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_rifle_foley{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_rifle_foley.assets{
+        async:b=yes
+        preload:b=yes
+      }
+
+      ww2_weapon_melee_foley{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_weapon_melee_foley.assets{
+        async:b=yes
+        preload:b=yes
+      }
+
+      ww2_mb{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      ww2_mb.assets{
+        async:b=yes
+        preload:b=yes
+      }
+    }
+
+    enl_banks{
+
+      enl_vo_de{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_de.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      enl_vo_en{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_en.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      enl_vo_ru{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_ru.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      enl_vo_gb{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_gb.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      enl_vo_it{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_it.assets{
+        async:b=yes
+        preload:b=no
+      }
+
+      enl_vo_fr{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_fr.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    languageToLocale{
+      German:t="de"
+      Russian:t="ru"
+      English:t="en"
+    }
+  }
+}
+
+folders{
+  webcache:t="{downloads}/webcache"
+  online_storage:t="{downloads}/online_storage"
+  pubcfg:t="{downloads}/pubcfg"
+}
+
+network{
+
+  publicConfigsUrls{
+    url:t="https://public-configs.gaijin.net"
+    url:t="https://public-configs-enlisted-gcore.cdn.gaijin.net"
+  }
+}
+
+__allowedConfigOverrides{
+  launchCnt:i=0
+  disableMenu:b=yes
+  circuit:t="yes"
+  scene:t="yes"
+  region:t="yes"
+  ps4_submission_circuit:t="yes"
+  ps5_submission_circuit:t="yes"
+  xboxOne_submission_circuit:t="yes"
+  xboxScarlett_submission_circuit:t="yes"
+  language:t=""
+
+  ui{
+    enableLabelOnLoot:b=yes
+  }
+
+  logging{
+    __allow_all_params:b=yes
+  }
+
+  createRoom{
+    __allow_all_params:b=yes
+  }
+
+  ai{
+    __allow_all_params:b=yes
+
+    squadFormationOrder{
+      __allow_all_params:b=yes
+    }
+
+    squadBehaviour{
+      __allow_all_params:b=yes
+    }
+  }
+
+  last{
+    __allow_all_params:b=yes
+  }
+
+  screenshots{
+    __allow_all_params:b=yes
+  }
+
+  quickMatch{
+    __allow_all_params:b=yes
+  }
+
+  aviWriter{
+    __allow_all_params:b=yes
+  }
+
+  gameplay{
+    __allow_all_params:b=yes
+  }
+
+  streaming{
+    __allow_all_params:b=yes
+  }
+
+  video{
+    resolution:t=""
+    staticResolutionScale:b=yes
+    temporalUpsamplingRatio:b=yes
+    taaUpsamplingRatio:b=yes
+    antiAliasingMode:b=yes
+    mode:t=""
+    monitor:t=""
+    vsync:b=yes
+    fpsLimit:b=yes
+    safeArea:b=yes
+    driver:t=""
+    frameSkip:i=0
+    vsync_tearing_tolerance_percents:i=0
+    latency:i=0
+    latencyFlash:b=no
+    perfMetrics:i=1
+    enableHdr:b=no
+    paperWhiteNits:i=200
+    fsr:t="off"
+    dlssQuality:i=0
+    forbidTrueFullscreen:b=no
+  }
+
+  graphics{
+    __allow_all_params:b=yes
+
+    __exclude_allow{
+      shouldRenderHaze:b=yes
+      shouldRenderWaterRipples:b=yes
+      supportsIndoorProbes:b=yes
+      grassGridSizeMultiplier:r=1.0
+      forcefield_bilateral_upscale_enabled:b=yes
+      lodDistanceScaleBase:r=1.3
+      rain_numParticles_multiplier:r=1.0
+      rain_particleBox_multiplier:r=1.0
+      rendinstImpostorsFarDistAddMul:r=1.0
+      rendinstImpostorsDistAddMul:r=1.0
+      hmapSubdivCellSize:r=1.0
+      samplingQualityHandleMode:ip2=1, 1
+      samplingQualityTvMode:ip2=1, 1
+      impostorMaxTexSize:i=256
+      impostorMinTexSize:i=8
+      impostorTexCount:i=2
+      rendinstImpostorTex1:t="argb8_srgb"
+      rendinstImpostorCompressedTex1:t="dxt5_srgb"
+      rendinstImpostorClearColor1:c=0, 0, 0, 0
+      use_deferred_specular:b=yes
+      sw_occlusion:b=yes
+      sw_hmap_occlusion:b=yes
+      resolveHZBBeforeDynamic:b=yes
+      use_occlusion_for_shadows:b=yes
+      riSimplifiedRender:b=no
+      shader_reload_allowed:b=no
+      staticShadowsInvalidationGroupingUs:i=0
+    }
+
+    gi{
+      __allow_all_params:b=yes
+    }
+  }
+
+  directx{
+    debug:b=yes
+    throwDebugLayerExceptions:b=yes
+  }
+
+  renderFeatures{
+
+    android{
+      SSAO:b=yes
+      decals:b=yes
+    }
+  }
+
+  voice{
+    __allow_all_params:b=yes
+  }
+
+  debug{
+    enableRawInput:b=yes
+    pollThreadDelayMsec:i=8
+
+    watchdog{
+      __allow_all_params:b=yes
+    }
+  }
+
+  dx12{
+    __allow_all_params:b=yes
+  }
+
+  input{
+    __allow_all_params:b=yes
+  }
+
+  tracers{
+    tail_texture:t=""
+  }
+
+  daEditor4{
+    __allow_all_params:b=yes
+  }
+
+  texStreaming{
+    enableStreaming:b=no
+    logLevel:i=0
+    forceGpuMemMB:i=0
+    maxQuotaOverdraftMB:i=0
+
+    win32{
+      enableStreaming:b=no
+    }
+
+    win64{
+      enableStreaming:b=no
+    }
+
+    linux64{
+      enableStreaming:b=no
+    }
+
+    macosx{
+      enableStreaming:b=no
+    }
+
+    ps4{
+      enableStreaming:b=no
+    }
+
+    xboxOne{
+      enableStreaming:b=no
+    }
+
+    android{
+      enableStreaming:b=no
+    }
+  }
+
+  sound{
+    __allow_all_params:b=yes
+
+    volume{
+      __allow_all_params:b=yes
+    }
+
+    output_device{
+      __allow_all_params:b=yes
+    }
+
+    record_device{
+      __allow_all_params:b=yes
+    }
+  }
+}
+
+langAlias{
+  SChinese:t="Chinese"
+  TChinese:t="Chinese"
+}
+
+dx12{
+  max_genmip_tex_sz:i=0
+
+  gpuDriver{
+
+    vendor{
+      id:i=4318
+      minVersion:t="27.21.14.6140"
+      blacklist:t="27.21.14.6172"
+    }
+
+    vendor{
+      id:i=32902
+      minVersion:t="26.20.0.0"
+    }
+  }
+}
+
+StdGuiRender{
+  dynBufferSize:i=26
+}

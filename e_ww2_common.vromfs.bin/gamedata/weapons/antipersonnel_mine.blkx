@@ -1,0 +1,53 @@
+mass:r=0.6
+momentOfInertia:p3=0.0, 0.0, 0.0
+caliber:r=0.04
+speed:r=0.0
+speedPitch:r=0.0
+maxDistance:r=1.0
+physMat:t="walkRay"
+logCCD:b=no
+useFutureContacts:b=no
+frictionGround:r=100.0
+entityTemplate:t="antipersonnel_mine_shell"
+entityPhysTemplate:t="antipersonnel_mine_phys"
+explosiveType:t="tnt"
+explosiveMass:r=0.057
+
+collisionResource{
+
+  props{
+    volumeBox:t="box"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.02, 0.0, 0.03
+}
+
+splashDamage{
+  radius:p2=1.0, 1.5
+  penetration:p2=15.0, 2.0
+  damage:r=75.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=0.8, 0.9
+  effectTemplName:t="explosion_effect_small+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade"
+}
+
+damage{
+
+  explosive{
+    strengthEquivalent:r=1.0
+    brisanceEquivalent:r=1.0
+  }
+}
+
+solver{
+  energyConservation:r=0.85
+}

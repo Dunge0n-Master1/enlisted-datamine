@@ -1,0 +1,52 @@
+pve_bot{
+
+  "pve_bot:tag"{
+  }
+}
+
+pve_active{
+
+  "pve__active:tag"{
+  }
+}
+
+pve_mission{
+  _tags:t="server"
+  _singleton:b=yes
+  _tracked:t="pve__currentWaveId"
+  pve__currentWaveId:i=0
+  pve__waveDelay:r=60.0
+  pve__waveDelayTimer:r=-1.0
+  pve__botTeam:i=-1
+  pve__stageDelay:r=20.0
+  pve__botProfileFile:t=""
+
+  "pve__botProfile:object"{
+  }
+
+  "pve__waves:list<t>"{
+  }
+}
+
+pve_wave{
+  _tags:t="server"
+  _tracked:t="pve_wave__currentStageId"
+  pve_wave__name:t=""
+  pve_wave__stageDelayTimer:r=-1.0
+  pve_wave__currentStageId:i=0
+
+  "pve_wave__stages:list<t>"{
+  }
+}
+
+pve_stage{
+  _tags:t="server"
+  _tracked:t="pve_stage__enemyCount"
+  pve_stage__name:t=""
+  pve_stage__enemyCount:i=0
+  pve_stage__delayTimer:r=-1.0
+  pve_stage__botExtraTemplate:t="pve_bot"
+
+  "pve_stage__spawner:array"{
+  }
+}

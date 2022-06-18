@@ -1,0 +1,12 @@
+vehicle_net_horn{
+
+  _group{
+    _tags:t="server"
+
+    "vehicle_horn__player:eid"{
+    }
+
+    "vehicle_horn__seat:eid"{
+    }
+  }
+}

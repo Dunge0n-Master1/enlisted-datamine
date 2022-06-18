@@ -1,0 +1,238 @@
+caliber:r=0.114
+mass:r=17.28
+explosiveType:t="tnt"
+normalizationPreset:t="heat"
+ricochetPreset:t="he"
+secondaryShattersPreset:t="ap_rocket"
+stabilityThreshold:r=0.5
+explosiveMass:r=1.95
+stabilityCaliberToArmorThreshold:r=5.0
+massEnd:r=15.17
+stabilityReductionAfterRicochet:r=0.3
+maxDeltaAngle:r=3.5
+stabilityReductionAfterPenetration:r=0.15
+dragCx:r=0.012
+bulletType:t="rocket_tank"
+length:r=0.79
+slopeEffectPreset:t="ap"
+distFromCmToStab:r=0.005
+fresnel:p3=0.23, 0.1, 2.0
+explodeOnRendinst:b=yes
+CxK:r=1.1
+useEffectiveArmorThicknessForShatter:b=yes
+WdK:p3=0.1, 0.1, 0.1
+shellAnimation:t="video/shells_animations/rocket_he.ivf"
+force:r=23000.0
+timeFire:r=0.2
+spawnExplosionFx:b=no
+spawnExplosionWreckage:b=no
+explosionEffect:t="explosion_midair_small"
+fireEffect:t="rocket_fire_light"
+groundCollisionEffect:t="explosion_midair_small"
+smokeEffect:t=""
+maxDistance:r=5000.0
+ricochetEffect:t="hit_59_80mm_metal_ap"
+hazeEffect:t="haze_missile"
+minDistance:r=30.0
+waterCollisionEffect:t="hit_59_80mm_water"
+endSmokeViscosity:r=0.05
+hitPowerMult:r=1.0
+explosionPatchRadius:r=3.4
+nearHitPower:p2=1.0, 50.0
+visualShattersWaterOffset:r=1.2
+midHitPower:p2=0.9, 400.0
+visualShattersGroundOffset:r=1.2
+farHitPower:p2=0.1, 1000.0
+endHitPower:p2=0.01, 1500.0
+distanceFuse:b=no
+relativeVelHitShift:p2=300.0, 1000.0
+nearArmorPower:p2=10.0, 50.0
+midArmorPower:p2=7.0, 400.0
+explodeTreshold:r=0.01
+farArmorPower:p2=0.2, 700.0
+explodeHitPower:r=350.0
+relativeVelArmorShift:p2=200.0, 1000.0
+explodeArmorPower:r=29.0
+statType:t="hydra"
+shutterDamage:b=yes
+shutterDamageRadius:r=25.0
+shutterAmount:i=1000
+shutterArmorPower:r=7.0
+shutterHit:r=12.0
+advancedMissiles:b=no
+useStartSpeed:b=yes
+startSpeed:r=0.0
+endSpeed:r=0.0
+maxSpeed:r=260.0
+price:r=3000.0
+amountPerTier:r=3.0
+iconType:t="rockets_he_middle_group_x3"
+entityTemplate:t="m_8bazooka_rocket_projectile"
+entityPhysTemplate:t=""
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.5
+  mod2:p2=15.0, 0.7
+  mod3:p2=30.0, 0.99
+}
+
+pressureDamage{
+  damageType:t="pressure"
+}
+
+collisions{
+
+  steel{
+    fx:t="explosion_midair_small"
+  }
+
+  armor{
+    fx:t="explosion_midair_small"
+  }
+
+  buildings{
+    fx:t="explosion_midair_small"
+  }
+
+  wood{
+    fx:t="explosion_midair_small"
+  }
+}
+
+shatterCollisions{
+  groundCollisionEffect:t="hit_12_18mm_dirt_ap"
+  waterCollisionEffect:t="hit_8_11mm_water"
+
+  default{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  horLandMesh{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  soil{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  dirt{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  road{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  bricks_red{
+    fx:t="hit_12_18mm_red_brick_ap"
+  }
+
+  roadSoil{
+    fx:t="hit_12_18mm_dirt_ap"
+  }
+
+  sand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  duneSand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  roadSand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  quickSand{
+    fx:t="hit_12_18mm_sand_ap"
+  }
+
+  snow{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  ice{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  roadSnow{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  snowLower{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+
+  glass{
+    fx:t="hit_12_18mm_metal_ap"
+  }
+
+  wood{
+    fx:t="hit_12_18mm_wood_ap"
+  }
+
+  steel{
+    fx:t="hit_12_18mm_metal_ap"
+  }
+
+  metal{
+    fx:t="hit_12_18mm_metal_ap"
+  }
+
+  buildings{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  verLandMesh{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  concrete{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  rocks{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  rocksSlippery{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  fabric{
+    fx:t="hit_12_18mm_stone_ap"
+  }
+
+  stone_snow{
+    fx:t="hit_12_18mm_snow_ap"
+  }
+}
+
+DamageParts{
+
+  body{
+    hp:r=5.0
+    armorClass:t="tank_structural_steel"
+    armorThickness:r=1.0
+  }
+}
+
+DamageEffects{
+
+  part{
+    name:t="body"
+
+    onHit{
+      expl:r=1.0
+    }
+
+    onKill{
+      destruction:r=1.0
+    }
+  }
+}
+
+hitFx{
+  defaultFx:t="generic_weapon_hit_ground"
+  jetFx:t="generic_weapon_hit_ground"
+}

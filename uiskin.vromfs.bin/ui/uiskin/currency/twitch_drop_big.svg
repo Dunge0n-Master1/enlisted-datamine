@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="46" viewBox="0 0 70 46">
+  <defs>
+    <linearGradient id="linear-gradient" x1="36.45" y1="-253.68" x2="36.45" y2="-216.29" gradientTransform="matrix(1, 0, 0, -1, 0, -211.97)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b399d9"/>
+      <stop offset="1" stop-color="#c3b4d9"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <g>
+      <rect x="19" y="1.01" width="34.9" height="44" fill="#ae8cd9"/>
+      <path d="M36.45,11.63,47.83,23,36.45,34.39,25.07,23Z" fill="#b7a1d9" fill-rule="evenodd"/>
+      <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" d="M36.45,7,52.38,23,36.45,39,20.52,23Zm0,1.64L50.75,23,36.45,37.37,22.15,23Z" fill="#b7a1d9" fill-rule="evenodd"/>
+      <polygon points="25.07 11.63 25.07 16.19 25.07 17.7 25.07 19.22 29.62 19.22 29.62 17.7 32.66 17.7 32.66 32.88 31.14 32.88 31.14 35.91 32.66 35.91 35.69 35.91 37.21 35.91 40.24 35.91 41.76 35.91 41.76 32.88 40.24 32.88 40.24 17.7 43.28 17.7 43.28 19.22 47.83 19.22 47.83 17.7 47.83 16.19 47.83 11.63 25.07 11.63" fill="#5d4e84"/>
+      <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" d="M20.52,43.5v-41H52.38v41ZM46.31,4.05H26.59L22,8.6V37.43L26.59,42H46.31l4.55-4.55V8.6Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+    </g>
+    <rect x="1" y="18.51" width="1" height="1" fill="#fff" opacity="0"/>
+    <rect x="69" y="18.51" width="1" height="1" fill="#fff" opacity="0"/>
+  </g>
+</svg>

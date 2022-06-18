@@ -1,0 +1,33 @@
+mass:r=0.6
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.04
+speed:r=18.5
+speedPitch:r=5.0
+maxDistance:r=5.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+entityTemplate:t="signal_flare"
+entityPhysTemplate:t="signal_flare_phys"
+
+collisionResource{
+
+  props{
+    flare_col:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.05, 0.0, 0.015
+  ccd:p4=0.0, 0.2, 0.0, 0.015
+  ccd:p4=0.0, -0.05, 0.0, 0.015
+}
+
+visual{
+  template:t="signal_flare_item+item_in_world"
+}
+
+detonation{
+  onHit:b=no
+  timer:r=180.0
+}

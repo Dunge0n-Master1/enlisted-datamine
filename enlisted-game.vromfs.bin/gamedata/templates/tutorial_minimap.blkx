@@ -1,0 +1,7 @@
+minimap_tutorial_training_ground_2x2{
+  _extends:t="minimap"
+  mapTex:t="tutorial_training_ground_2x2_minimap*"
+  left_top:p2=-1024.0, 1024.0
+  right_bottom:p2=1024.0, -1024.0
+  northAngle:r=0.0
+}

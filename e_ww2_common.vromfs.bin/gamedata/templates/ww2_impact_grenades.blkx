@@ -1,0 +1,137 @@
+impact_grenade_base{
+  gun__visible:b=yes
+  gun_attach__slot:t="r_hand"
+  gun_attach__mainSlotId:i=-1
+  gun_attach__alternativeSlot:t="r_hand"
+  gun_attach__altSlotId:i=-1
+  _tracked:t="gun__visible"
+
+  "gun_attach__holsterSlots:array"{
+    holsterSlots:t="slot_weapon_1"
+    holsterSlots:t="slot_weapon_2"
+    holsterSlots:t="slot_weapon_3"
+    holsterSlots:t="slot_weapon_4"
+    holsterSlots:t="slot_weapon_5"
+  }
+
+  "gun_attach__holsterSlotsIds:list<i>"{
+  }
+}
+
+impact_grenade_shell_base{
+  _extends:t="projectile"
+  _extends:t="impact_grenade_base"
+
+  "animchar__actOnDemand:tag"{
+  }
+}
+
+impact_grenade_phys_base{
+  _extends:t="impact_grenade_base"
+  _extends:t="projectile_phys"
+  _extends:t="impact_shell"
+  _extends:t="hud_grenade_marker"
+  active:b=no
+  start_omega:p3=3.0, 0.0, -15.0
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/weapons/grenades/impact_grenade.blk"
+  ai_target_node__node:t="weaponRoot"
+  effect__scale:r=1.0
+  _tracked:t="active"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=1.8
+    _tags:t="server"
+  }
+
+  "shell__explodeOnContact:tag"{
+  }
+
+  "ai_target_node__nodeId:i"{
+    value:i=-1
+    _tags:t="server"
+  }
+
+  effect{
+    _tags:t="render"
+  }
+}
+
+impact_grenade{
+  _extends:t="impact_grenade_shell_base"
+  _extends:t="grenade_activate_sound"
+  animchar__res:t="srcm_mod_35_char"
+}
+
+impact_grenade_phys{
+  _extends:t="impact_grenade_phys_base"
+  animchar__res:t="srcm_mod_35_char"
+  collres__res:t="grenade_mk2_ready_collision"
+}
+
+impact_grenade_item_base{
+  _extends:t="item_grenade"
+  item__locDetails:t=""
+  item__volume:r=0.5
+  item__grenadeType:t="impact"
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/impact_grenade.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/impact_grenade.blk"
+}
+
+no_69_impact_grenade_base{
+  animchar__res:t="uk_no_69_hand_grenade_char"
+  collres__res:t="uk_no_69_hand_grenade_collision"
+  item__name:t="items/no_69_impact_grenade"
+}
+
+no_69_impact_grenade{
+  _extends:t="impact_grenade"
+  _extends:t="no_69_impact_grenade_base"
+}
+
+no_69_impact_grenade_phys{
+  _extends:t="impact_grenade_phys_base"
+  _extends:t="no_69_impact_grenade_base"
+}
+
+no_69_impact_grenade_item{
+  _extends:t="impact_grenade_item_base"
+  _extends:t="no_69_impact_grenade_base"
+  item__weight:r=0.383
+  item__template:t="no_69_impact_grenade_item"
+  item__userstats__pickupName:t="pickup_no_69_impact_grenade"
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/no_69_impact_grenade.blk"
+}
+
+srcm_mod_35_impact_grenade_base{
+  animchar__res:t="srcm_mod_35_char"
+  collres__res:t="srcm_mod_35_collision"
+  item__name:t="items/srcm_mod_35_impact_grenade"
+}
+
+srcm_mod_35_impact_grenade{
+  _extends:t="impact_grenade"
+  _extends:t="srcm_mod_35_impact_grenade_base"
+}
+
+srcm_mod_35_impact_grenade_phys{
+  _extends:t="impact_grenade_phys_base"
+  _extends:t="srcm_mod_35_impact_grenade_base"
+}
+
+srcm_mod_35_impact_grenade_item{
+  _extends:t="impact_grenade_item_base"
+  _extends:t="srcm_mod_35_impact_grenade_base"
+  item__weight:r=0.24
+  item__template:t="srcm_mod_35_impact_grenade_item"
+  item__userstats__pickupName:t="pickup_srcm_mod_35_impact_grenade"
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/srcm_mod_35_impact_grenade.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/srcm_mod_35_impact_grenade.blk"
+}
+
+handgranate_238_impact_grenade_item{
+  _extends:t="srcm_mod_35_impact_grenade_item"
+  item__name:t="items/handgranate_238_impact_grenade"
+  item__template:t="handgranate_238_impact_grenade_item"
+  item__userstats__pickupName:t="pickup_handgranate_238_impact_grenade"
+}

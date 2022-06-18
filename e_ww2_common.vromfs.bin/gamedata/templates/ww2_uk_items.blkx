@@ -1,0 +1,968 @@
+attachable_wear_head_01_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_01_uk_item"
+  animchar__res:t="head_iten_01_char"
+  collres__res:t="head_iten_01_collision"
+  item__name:t="UK Head 01"
+}
+
+attachable_wear_head_02_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_02_uk_item"
+  animchar__res:t="head_iten_02_char"
+  collres__res:t="head_iten_02_collision"
+  item__name:t="UK Head 02"
+}
+
+attachable_wear_head_03_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_03_uk_item"
+  animchar__res:t="head_iten_05_char"
+  collres__res:t="head_iten_05_collision"
+  item__name:t="UK Head 03"
+}
+
+attachable_wear_head_04_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_04_uk_item"
+  animchar__res:t="head_iten_06_char"
+  collres__res:t="head_iten_06_collision"
+  item__name:t="UK Head 04"
+}
+
+attachable_wear_head_05_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_05_uk_item"
+  animchar__res:t="head_iten_09_char"
+  collres__res:t="head_iten_09_collision"
+  item__name:t="UK Head 05"
+}
+
+attachable_wear_head_06_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_06_uk_item"
+  animchar__res:t="head_iten_10_char"
+  collres__res:t="head_iten_10_collision"
+  item__name:t="UK Head 06"
+}
+
+attachable_wear_head_07_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_07_uk_item"
+  animchar__res:t="head_iten_11_char"
+  collres__res:t="head_iten_11_collision"
+  item__name:t="UK Head 07"
+}
+
+attachable_wear_head_08_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_08_uk_item"
+  animchar__res:t="head_iten_12_char"
+  collres__res:t="head_iten_12_collision"
+  item__name:t="UK Head 08"
+}
+
+attachable_wear_head_09_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_09_uk_item"
+  animchar__res:t="head_iten_13_char"
+  collres__res:t="head_iten_13_collision"
+  item__name:t="UK Head 09"
+}
+
+attachable_wear_head_10_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_10_uk_item"
+  animchar__res:t="head_iten_15_char"
+  collres__res:t="head_iten_15_collision"
+  item__name:t="UK Head 10"
+}
+
+attachable_wear_head_11_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_11_uk_item"
+  animchar__res:t="head_iten_17_char"
+  collres__res:t="head_iten_17_collision"
+  item__name:t="UK Head 11"
+}
+
+attachable_wear_head_12_uk_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_12_uk_item"
+  animchar__res:t="head_iten_18_char"
+  collres__res:t="head_iten_18_collision"
+  item__name:t="UK Head 12"
+}
+
+attachable_wear_head_moroc_01_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_01_item"
+  animchar__res:t="head_maroc_01_char"
+  collres__res:t="head_maroc_01_collision"
+  item__name:t="Moroc Head 01"
+}
+
+attachable_wear_head_moroc_02_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_02_item"
+  animchar__res:t="head_maroc_02_char"
+  collres__res:t="head_maroc_02_collision"
+  item__name:t="Moroc Head 02"
+}
+
+attachable_wear_head_moroc_03_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_03_item"
+  animchar__res:t="head_maroc_03_char"
+  collres__res:t="head_maroc_03_collision"
+  item__name:t="Moroc Head 03"
+}
+
+attachable_wear_head_moroc_04_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_04_item"
+  animchar__res:t="head_maroc_04_char"
+  collres__res:t="head_maroc_04_collision"
+  item__name:t="Moroc Head 04"
+}
+
+attachable_wear_head_moroc_05_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_05_item"
+  animchar__res:t="head_maroc_05_char"
+  collres__res:t="head_maroc_05_collision"
+  item__name:t="Moroc Head 05"
+}
+
+attachable_wear_head_moroc_06_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_06_item"
+  animchar__res:t="head_maroc_06_char"
+  collres__res:t="head_maroc_06_collision"
+  item__name:t="Moroc Head 06"
+}
+
+attachable_wear_head_moroc_07_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_07_item"
+  animchar__res:t="head_maroc_07_char"
+  collres__res:t="head_maroc_07_collision"
+  item__name:t="Moroc Head 07"
+}
+
+attachable_wear_head_moroc_08_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_08_item"
+  animchar__res:t="head_maroc_08_char"
+  collres__res:t="head_maroc_08_collision"
+  item__name:t="Moroc Head 08"
+}
+
+attachable_wear_head_moroc_09_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_moroc_09_item"
+  animchar__res:t="head_maroc_09_char"
+  collres__res:t="head_maroc_09_collision"
+  item__name:t="Moroc Head 09"
+}
+
+attachable_wear_head_hero_1_uk_item{
+  _extends:t="attachable_wear_head_01_uk_item"
+  _extends:t="dynamic_details_hero_preset_5"
+}
+
+attachable_wear_head_hero_2_uk_item{
+  _extends:t="attachable_wear_head_02_uk_item"
+  _extends:t="dynamic_details_hero_preset_7"
+}
+
+attachable_wear_head_hero_3_uk_item{
+  _extends:t="attachable_wear_head_03_uk_item"
+  _extends:t="dynamic_details_hero_preset_1"
+}
+
+attachable_wear_head_hero_4_uk_item{
+  _extends:t="attachable_wear_head_04_uk_item"
+  _extends:t="dynamic_details_hero_preset_2"
+}
+
+attachable_wear_pants_01_uk_summer_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_pants_01_uk_summer_item"
+  animchar__res:t="pants_01_uk_summer_char"
+  collres__res:t="pants_01_uk_summer_collision"
+  item__name:t="UK Summer Pants 01"
+}
+
+attachable_wear_moroccan_pants_uk_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_moroccan_pants_uk_item"
+  animchar__res:t="moroccan_pants_uk_char"
+  collres__res:t="moroccan_pants_uk_collision"
+  item__name:t="UK Moroccan pants"
+}
+
+attachable_wear_raf_pants_uk_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_raf_pants_uk_item"
+  animchar__res:t="raf_pants_uk_char"
+  collres__res:t="raf_pants_uk_collision"
+  item__name:t="UK RAF Pants"
+}
+
+attachable_wear_kd_trousers_m41_uk_tropic_02_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_kd_trousers_m41_uk_tropic_02_item"
+  animchar__res:t="kd_trousers_m41_uk_tropic_02_char"
+  collres__res:t="kd_trousers_m41_uk_tropic_02_collision"
+  item__name:t="UK KD Trousers M41"
+}
+
+attachable_wear_kd_trousers_m41_uk_tropic_01_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_kd_trousers_m41_uk_tropic_01_item"
+  animchar__res:t="kd_trousers_m41_uk_tropic_01_char"
+  collres__res:t="kd_trousers_m41_uk_tropic_01_collision"
+  item__name:t="UK KD Trousers M41"
+}
+
+attachable_wear_serge_dress_trousers_m41_uk_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_serge_dress_trousers_m41_uk_item"
+  animchar__res:t="serge_dress_trousers_m41_uk_char"
+  collres__res:t="serge_dress_trousers_m41_uk_collision"
+  item__name:t="UK KD Trousers M41"
+}
+
+attachable_wear_kd_shorts_m41_uk_tropic_01_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_kd_shorts_m41_uk_tropic_01_item"
+  animchar__res:t="kd_shorts_m41_uk_tropic_01_char"
+  collres__res:t="kd_shorts_m41_uk_tropic_01_collision"
+  item__name:t="UK KD Shorts M41"
+  animchar_fast_phys__res:t="kd_shorts_m41_uk_tropic_01_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_serge_dress_shorts_m41_uk_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_serge_dress_shorts_m41_uk_item"
+  animchar__res:t="serge_dress_shorts_m41_uk_char"
+  collres__res:t="serge_dress_shorts_m41_uk_collision"
+  item__name:t="UK KD Shorts M41"
+  animchar_fast_phys__res:t="serge_dress_shorts_m41_uk_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_serge_battle_dress_pants_uk_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_serge_battle_dress_pants_uk_item"
+  animchar__res:t="serge_battle_dress_pants_uk_char"
+  collres__res:t="serge_battle_dress_pants_uk_collision"
+  item__name:t="UK Serge Battle Dress M40 Pants"
+}
+
+attachable_wear_serge_battle_dress_pants_KD_gamashi_uk_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_serge_battle_dress_pants_KD_gamashi_uk_item"
+  animchar__res:t="serge_battle_dress_pants_KD_gamashi_uk_char"
+  collres__res:t="serge_battle_dress_pants_KD_gamashi_uk_collision"
+  item__name:t="UK Serge Battle Dress M40 Pants"
+}
+
+attachable_wear_motoboots_uk_tropic_01_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_motoboots_uk_tropic_01_item"
+  animchar__res:t="motoboots_uk_tropic_01_char"
+  collres__res:t="motoboots_uk_tropic_01_collision"
+  item__name:t="UK Serge Battle Dress M40 Pants"
+  animchar_fast_phys__res:t="motoboots_uk_tropic_01_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_moroccan_hoodie_uk_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_moroccan_hoodie_uk_item"
+  animchar__res:t="moroccan_hoodie_uk_char"
+  collres__res:t="moroccan_hoodie_uk_collision"
+  item__name:t="Moroccan Goumier Hoodie"
+  animchar_fast_phys__res:t="moroccan_hoodie_uk_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_moroccan_hoodie_uk_cv1_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_moroccan_hoodie_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "moroccan_hoodie_tex_d*":t="moroccan_hoodie_cv1_tex_d*"
+  }
+}
+
+attachable_wear_moroccan_hoodie_uk_cv2_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_moroccan_hoodie_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "moroccan_hoodie_tex_d*":t="moroccan_hoodie_cv2_tex_d*"
+  }
+}
+
+attachable_wear_moroccan_hoodie_uk_cv3_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_moroccan_hoodie_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "moroccan_hoodie_tex_d*":t="moroccan_hoodie_cv3_tex_d*"
+  }
+}
+
+attachable_wear_tunic_01_uk_summer_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_tunic_01_uk_summer_item"
+  animchar__res:t="tunic_01_uk_summer_char"
+  collres__res:t="tunic_01_uk_summer_collision"
+  item__name:t="UK Summer Tunic 01"
+}
+
+attachable_wear_airtex_tunic_01_uk_tropic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_airtex_tunic_01_uk_tropic_item"
+  animchar__res:t="airtex_tunic_01_uk_tropic_char"
+  collres__res:t="airtex_tunic_01_uk_tropic_collision"
+  item__name:t="UK Airtex Tunic"
+}
+
+attachable_wear_kd_bush_jacket_01_uk_tropic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_kd_bush_jacket_01_uk_tropic_item"
+  animchar__res:t="kd_bush_jacket_01_uk_tropic_char"
+  collres__res:t="kd_bush_jacket_01_uk_tropic_collision"
+  item__name:t="UK Airtex Tunic"
+}
+
+attachable_wear_airtex_biker_jerkin_tunic_01_uk_tropic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_airtex_biker_jerkin_tunic_01_uk_tropic_item"
+  animchar__res:t="airtex_biker_jerkin_tunic_01_uk_tropic_char"
+  collres__res:t="airtex_biker_jerkin_tunic_01_uk_tropic_collision"
+  item__name:t="UK Airtex Tunic"
+}
+
+attachable_wear_serge_battle_dress_tunic_uk_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_serge_battle_dress_tunic_uk_item"
+  animchar__res:t="serge_battle_dress_tunic_uk_char"
+  collres__res:t="serge_battle_dress_tunic_uk_collision"
+  item__name:t="UK Serge Battle Dress M40 Tunic"
+}
+
+attachable_wear_nz_serge_battle_dress_tunic_uk_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_nz_serge_battle_dress_tunic_uk_item"
+  animchar__res:t="nz_serge_battle_dress_tunic_uk_char"
+  collres__res:t="nz_serge_battle_dress_tunic_uk_collision"
+  item__name:t="UK Serge Battle Dress M40 Tunic"
+}
+
+attachable_wear_serge_battle_dress_tunic_KD_uk_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_serge_battle_dress_tunic_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "british_serge_battle_dress_m40_jacket_tex_d*":t="british_serge_battle_dress_m40_jacket_KD_tex_d*"
+    "british_serge_battle_dress_m40_jacket_tex_n*":t="british_serge_battle_dress_m40_jacket_KD_tex_n*"
+  }
+}
+
+attachable_wear_serge_dress_pilot_safe_vest_uk_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_serge_dress_pilot_safe_vest_uk_item"
+  animchar__res:t="serge_dress_pilot_safe_vest_uk_char"
+  collres__res:t="serge_dress_pilot_safe_vest_uk_collision"
+  item__name:t="UK Serge Battle Dress M40 Tunic"
+}
+
+attachable_wear_raf_tunic_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_serge_dress_pilot_safe_vest_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "british_serge_battle_dress_m40_jacket_tex_d*":t="raf_jacket_tex_d*"
+    "british_serge_battle_dress_m40_jacket_tex_n*":t="raf_jacket_tex_n*"
+  }
+}
+
+attachable_wear_serge_dress_pilot_safe_vest_gl_uk_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_serge_dress_pilot_safe_vest_gl_uk_item"
+  animchar__res:t="serge_dress_pilot_safe_vest_gl_uk_char"
+  collres__res:t="serge_dress_pilot_safe_vest_gl_uk_collision"
+  item__name:t="UK Serge Battle Dress M40 Tunic"
+}
+
+attachable_wear_denim_tank_suit_uk_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_denim_tank_suit_uk_item"
+  animchar__res:t="denim_tank_suit_uk_char"
+  collres__res:t="denim_tank_suit_uk_collision"
+  item__name:t="UK Denim Tankers Overall"
+}
+
+attachable_wear_denim_tank_suit_light_uk_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_denim_tank_suit_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "uk_denim_tank_suit_tex_d*":t="uk_denim_tank_suit_light_tex_d*"
+    "uk_denim_tank_suit_tex_n*":t="uk_denim_tank_suit_light_tex_n*"
+  }
+}
+
+attachable_wear_hands_01_ussr_summer_item{
+  _extends:t="attachable_gloves"
+  item__uniqueName:t="attachable_wear_hands_01_ussr_summer_item"
+  animchar__res:t="hands_01_ussr_summer_char"
+  collres__res:t="hands_01_ussr_summer_collision"
+  item__name:t="USSR Hands Summer 01"
+}
+
+attachable_wear_hands_01_afro_summer_item{
+  _extends:t="attachable_gloves"
+  _extends:t="attachable_wear_hands_01_ussr_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "hand_tex_d*":t="hand_afro_tex_d*"
+  }
+}
+
+hair_01_us_summer_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="hair_01_us_summer_item"
+  animchar__res:t="hair_01_us_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="USA Hair 01"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+hair_02_us_summer_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="hair_02_us_summer_item"
+  animchar__res:t="hair_02_us_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="USA Hair 02"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+s_field_cap_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="s_field_cap_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Service Field Cap"
+  item__uniqueName:t="s_field_cap_01_uk_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+moroccan_thurban_uk_item{
+  _extends:t="helmet_item"
+  animchar__res:t="moroccan_thurban_uk_char"
+  collres__res:t="medkit_collision"
+  item__name:t="Moroccan Goumier Turban"
+  item__uniqueName:t="moroccan_thurban_uk_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+lemon_squeezer_hat_uk_item{
+  _extends:t="helmet_item"
+  animchar__res:t="lemon_squeezer_hat_uk_char"
+  collres__res:t="medkit_collision"
+  item__name:t="NZ Lemon Squeezer Hat"
+  item__uniqueName:t="lemon_squeezer_hat_uk_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+motorcycle_helmet_01_uk_tropic_item{
+  _extends:t="helmet_item"
+  animchar__res:t="motorcycle_helmet_01_uk_tropic_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Motorcycle Helmet"
+  item__uniqueName:t="motorcycle_helmet_01_uk_tropic_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+raf_helmet_with_goggles_uk_item{
+  _extends:t="helmet_item"
+  animchar__res:t="raf_helmet_with_goggles_uk_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK RAF Helmet"
+  item__uniqueName:t="raf_helmet_with_goggles_uk_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+paratrooper_mk2_helmet_03_uk_tropic_item{
+  _extends:t="helmet_item"
+  animchar__res:t="paratrooper_mk2_helmet_03_uk_tropic_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Paratrooper MK2 Helmet"
+  item__uniqueName:t="paratrooper_mk2_helmet_03_uk_tropic_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+tanker_mk2_helmet_03_uk_tropic_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="tanker_mk2_helmet_03_uk_tropic_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Tanker Paratrooper MK2 Helmet"
+  item__uniqueName:t="tanker_mk2_helmet_03_uk_tropic_item"
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+brodie_helmet_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="brodie_helmet_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Brodie helmet"
+  item__uniqueName:t="brodie_helmet_01_uk_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+brodie_helmet_khakidrill_01_uk_summer_item{
+  _extends:t="helmet_item"
+  _extends:t="brodie_helmet_01_uk_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "uk_brodie_helmet_tex_d*":t="uk_brodie_helmet_khakidrill_tex_d*"
+    "uk_brodie_helmet_tex_n*":t="uk_brodie_helmet_khakidrill_tex_n*"
+  }
+}
+
+metal_mk3_helmet_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="metal_mk3_helmet_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK MK3 Metal Helmet"
+  item__uniqueName:t="metal_mk3_helmet_01_uk_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+khaki_beret_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="khaki_beret_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Khaki Beret"
+  item__uniqueName:t="khaki_beret_01_uk_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+khaki_beret_black_01_uk_summer_item{
+  _extends:t="helmet_item"
+  _extends:t="khaki_beret_01_uk_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "khaki_beret_tex_d*":t="khaki_beret_black_tex_d*"
+    "khaki_beret_tex_n*":t="khaki_beret_black_tex_n*"
+  }
+}
+
+peaked_visor_cap_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="peaked_visor_cap_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Peaked visor cap"
+  item__uniqueName:t="peaked_visor_cap_01_uk_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+helmet_01_uk_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="helmet_01_uk_summer_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Helmet 01"
+  item__uniqueName:t="helmet_01_uk_summer_item"
+  item__armorAmount:r=0.1
+}
+
+mt_goggles_item{
+  _extends:t="attachable_helmet_deco"
+  animchar__res:t="mt_goggles_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK MT Goggles"
+  item__uniqueName:t="mt_goggles_item"
+}
+
+brodie_helmet_grid_item{
+  _extends:t="attachable_helmet_deco"
+  animchar__res:t="brodie_helmet_grid_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Brodie helmet grid"
+  item__uniqueName:t="brodie_helmet_grid_item"
+}
+
+brodie_helmet_grid_camo_item{
+  _extends:t="attachable_helmet_deco"
+  animchar__res:t="brodie_helmet_grid_camo_char"
+  collres__res:t="medkit_collision"
+  item__name:t="UK Brodie helmet grid with camo"
+  item__uniqueName:t="brodie_helmet_grid_camo_item"
+}
+
+bandolier_animation_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_13_weapon"
+    anim:t="enlisted_idle_14_weapon"
+    anim:t="enlisted_idle_18_weapon"
+  }
+}
+
+attachable_wear_uk_flask_in_pouch_serge_dress_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_uk_flask_in_pouch_serge_dress_item"
+  animchar__res:t="uk_flask_in_pouch_serge_dress_char"
+  collres__res:t="uk_flask_in_pouch_serge_dress_collision"
+  item__name:t="UK Flask Tropic"
+  animchar_fast_phys__res:t="uk_flask_in_pouch_serge_dress_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_uk_entrenching_tool_serge_dress_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_uk_entrenching_tool_serge_dress_item"
+  animchar__res:t="uk_entrenching_tool_serge_dress_char"
+  collres__res:t="uk_entrenching_tool_serge_dress_collision"
+  item__name:t="items/small_bag"
+  animchar_fast_phys__res:t="uk_entrenching_tool_serge_dress_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_stan_bandolier_01_uk_summer_item{
+  _extends:t="attachable_chest"
+  _extends:t="bandolier_animation_blacklist"
+  item__uniqueName:t="attachable_wear_stan_bandolier_01_uk_summer_item"
+  animchar__res:t="stan_bandolier_01_uk_summer_char"
+  collres__res:t="stan_bandolier_01_uk_summer_collision"
+  item__name:t="UK Stan Bandolier"
+}
+
+attachable_wear_enfield_puch_l_02_uk_tropic_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_enfield_puch_l_02_uk_tropic_item"
+  animchar__res:t="enfield_puch_l_02_uk_tropic_char"
+  collres__res:t="enfield_puch_l_02_uk_tropic_collision"
+  item__name:t="items/small_ammo_pouch"
+}
+
+attachable_wear_thompson_puch_l_02_uk_tropic_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_thompson_puch_l_02_uk_tropic_item"
+  animchar__res:t="thompson_puch_l_02_uk_tropic_char"
+  collres__res:t="thompson_puch_l_02_uk_tropic_collision"
+  item__name:t="items/big_ammo_pouch"
+}
+
+attachable_wear_enfield_puch_r_02_uk_tropic_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_enfield_puch_r_02_uk_tropic_item"
+  animchar__res:t="enfield_puch_r_02_uk_tropic_char"
+  collres__res:t="enfield_puch_r_02_uk_tropic_collision"
+  item__name:t="UK Enfield pouch"
+}
+
+attachable_wear_enfield_pouch_l_moroccan_uk_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_enfield_pouch_l_moroccan_uk_item"
+  animchar__res:t="enfield_pouch_l_moroccan_uk_char"
+  collres__res:t="enfield_pouch_l_moroccan_uk_collision"
+  item__name:t="UK Enfield pouch"
+}
+
+attachable_wear_enfield_pouch_r_moroccan_uk_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_enfield_pouch_r_moroccan_uk_item"
+  animchar__res:t="enfield_pouch_r_moroccan_uk_char"
+  collres__res:t="enfield_pouch_r_moroccan_uk_collision"
+  item__name:t="UK Enfield pouch"
+}
+
+attachable_wear_thompson_puch_r_02_uk_tropic_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_thompson_puch_r_02_uk_tropic_item"
+  animchar__res:t="thompson_puch_r_02_uk_tropic_char"
+  collres__res:t="thompson_puch_r_02_uk_tropic_collision"
+  item__name:t="UK Thompson pouch"
+}
+
+attachable_wear_grenade_puch_m37_l_02_uk_tropic_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_grenade_puch_m37_l_02_uk_tropic_item"
+  animchar__res:t="grenade_puch_m37_l_02_uk_tropic_char"
+  collres__res:t="grenade_puch_m37_l_02_uk_tropic_collision"
+  item__name:t="items/big_grenade_pouch"
+}
+
+attachable_wear_small_grenade_puch_m37_l_02_uk_tropic_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_small_grenade_puch_m37_l_02_uk_tropic_item"
+  animchar__res:t="small_grenade_puch_m37_l_02_uk_tropic_char"
+  collres__res:t="small_grenade_puch_m37_l_02_uk_tropic_collision"
+  item__name:t="items/small_grenade_pouch"
+}
+
+attachable_wear_lee_enfield_bandolier_02_uk_tropic_item{
+  _extends:t="attachable_chest"
+  _extends:t="bandolier_animation_blacklist"
+  item__uniqueName:t="attachable_wear_lee_enfield_bandolier_02_uk_tropic_item"
+  animchar__res:t="lee_enfield_bandolier_02_uk_tropic_char"
+  collres__res:t="lee_enfield_bandolier_02_uk_tropic_collision"
+  item__name:t="UK Lee Enfield Bandolier"
+}
+
+attachable_wear_moroccan_lenf_bandolier_uk_item{
+  _extends:t="attachable_chest"
+  _extends:t="bandolier_animation_blacklist"
+  item__uniqueName:t="attachable_wear_moroccan_lenf_bandolier_uk_item"
+  animchar__res:t="moroccan_lenf_bandolier_uk_char"
+  collres__res:t="moroccan_lenf_bandolier_uk_collision"
+  item__name:t="UK Lee Enfield Bandolier"
+}
+
+attachable_wear_backpack_01_uk_tropic_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="backpack_01_uk_tropic_char"
+  collres__res:t="backpack_01_uk_tropic_collision"
+  item__name:t="items/big_bag"
+  item__uniqueName:t="attachable_wear_backpack_01_uk_tropic_item"
+  animchar_fast_phys__res:t="backpack_01_uk_tropic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_p37_backpack_goumier_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="p37_backpack_goumier_char"
+  collres__res:t="p37_backpack_goumier_collision"
+  item__uniqueName:t="attachable_wear_p37_backpack_goumier_item"
+  animchar_fast_phys__res:t="p37_backpack_goumier_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_small_pack_m37_01_uk_summer_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="small_pack_m37_01_uk_summer_char"
+  collres__res:t="small_pack_m37_01_uk_summer_collision"
+  item__name:t="items/small_bag"
+  item__uniqueName:t="attachable_wear_small_pack_m37_01_uk_summer_item"
+  animchar_fast_phys__res:t="small_pack_m37_01_uk_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_pouch_01_uk_tropic_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_pouch_01_uk_tropic_item"
+  animchar__res:t="pouch_01_uk_tropic_char"
+  collres__res:t="pouch_01_uk_tropic_collision"
+  item__name:t="UK Tropic Pouch 01"
+  animchar_fast_phys__res:t="pouch_01_uk_tropic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_wsc_mk3_1907_01_uk_tropic_item{
+  _extends:t="attachable_shovel"
+  item__uniqueName:t="attachable_wear_wsc_mk3_1907_01_uk_tropic_item"
+  animchar__res:t="wsc_mk3_1907_01_uk_tropic_char"
+  collres__res:t="wsc_mk3_1907_01_uk_tropic_collision"
+  item__name:t="UK Tropic WSC MK3 1907 01"
+  animchar_fast_phys__res:t="wsc_mk3_1907_01_uk_tropic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_belt_1_01_uk_tropic_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_1_01_uk_tropic_item"
+  animchar__res:t="belt_1_01_uk_tropic_char"
+  collres__res:t="belt_1_01_uk_tropic_collision"
+  item__name:t="UK Tropic Belt 01"
+}
+
+attachable_wear_belt_02_uk_tropic_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_02_uk_tropic_item"
+  animchar__res:t="belt_02_uk_tropic_char"
+  collres__res:t="belt_02_uk_tropic_collision"
+  item__name:t="UK Tropic Belt 01"
+}
+
+attachable_wear_uk_m37_pattern_tropical_01_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_uk_m37_pattern_tropical_01_item"
+  animchar__res:t="uk_m37_pattern_tropical_01_char"
+  collres__res:t="uk_m37_pattern_tropical_01_collision"
+  item__name:t="UK Pattern Belt M37"
+}
+
+attachable_wear_uk_m37_pattern_belt_kd_bush_jacket_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_uk_m37_pattern_belt_kd_bush_jacket_item"
+  animchar__res:t="uk_m37_pattern_belt_kd_bush_jacket_char"
+  collres__res:t="uk_m37_pattern_belt_kd_bush_jacket_collision"
+  item__name:t="UK Pattern Belt M37"
+}
+
+attachable_wear_uk_m37_pattern_tropic_02_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_uk_m37_pattern_tropic_02_item"
+  animchar__res:t="uk_m37_pattern_tropic_02_char"
+  collres__res:t="uk_m37_pattern_tropic_02_collision"
+  item__name:t="UK Pattern Belt M37"
+}
+
+attachable_wear_uk_m37_pattern_belt_jerkin_tropic_01_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_uk_m37_pattern_belt_jerkin_tropic_01_item"
+  animchar__res:t="uk_m37_pattern_belt_jerkin_tropic_01_char"
+  collres__res:t="uk_m37_pattern_belt_jerkin_tropic_01_collision"
+  item__name:t="UK Pattern Belt M37"
+}
+
+attachable_wear_uk_m37_pattern_belt_serge_dress_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_uk_m37_pattern_belt_serge_dress_item"
+  animchar__res:t="uk_m37_pattern_belt_serge_dress_char"
+  collres__res:t="uk_m37_pattern_belt_serge_dress_collision"
+  item__name:t="UK Pattern Belt M37"
+}
+
+attachable_wear_uk_m37_basic_pouches_tropical_01_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_uk_m37_basic_pouches_tropical_01_item"
+  animchar__res:t="uk_m37_basic_pouches_tropical_01_char"
+  collres__res:t="uk_m37_basic_pouches_tropical_01_collision"
+  item__name:t="UK Basic Pouches M37"
+}
+
+attachable_wear_uk_m37_basic_pouches_kd_bushes_jacket_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_uk_m37_basic_pouches_kd_bushes_jacket_item"
+  animchar__res:t="uk_m37_basic_pouches_kd_bushes_jacket_char"
+  collres__res:t="uk_m37_basic_pouches_kd_bushes_jacket_collision"
+  item__name:t="UK Basic Pouches M37"
+}
+
+attachable_wear_thompson_puch_02_uk_tropic_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_thompson_puch_02_uk_tropic_item"
+  animchar__res:t="thompson_puch_02_uk_tropic_char"
+  collres__res:t="thompson_puch_02_uk_tropic_collision"
+  item__name:t="UK Basic Pouches M37"
+}
+
+attachable_wear_uk_m37_basic_pouches_serge_dress_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_uk_m37_basic_pouches_serge_dress_item"
+  animchar__res:t="uk_m37_basic_pouches_serge_dress_char"
+  collres__res:t="uk_m37_basic_pouches_serge_dress_collision"
+  item__name:t="UK Basic Pouches M37"
+}

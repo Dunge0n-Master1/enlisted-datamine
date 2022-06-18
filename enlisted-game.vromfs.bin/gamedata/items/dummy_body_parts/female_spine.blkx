@@ -1,0 +1,11 @@
+visual{
+  template:t="attachable_wear_dummy_female_spine_item+item_in_world"
+}
+
+visSlots{
+  attachable_wear_dummy_female_spine:t="body_armor"
+}
+
+equipable{
+  slot:t="spine_vis"
+}

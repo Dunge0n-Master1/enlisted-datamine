@@ -1,0 +1,69 @@
+motion_matching_animchar_component{
+  input_linear_acceleration:p3=0.0, 0.0, 0.0
+  input_angular_acceleration:p3=0.0, 0.0, 0.0
+  input_linear_velocity:p3=0.0, 0.0, 0.0
+  input_angular_velocity:p3=0.0, 0.0, 0.0
+  input_amort_linear_velocity:p3=0.0, 0.0, 0.0
+  input_amort_angular_velocity:p3=0.0, 0.0, 0.0
+  animation_linear_speed:p3=0.0, 0.0, 0.0
+  animation_angular_speed:p3=0.0, 0.0, 0.0
+  motion_matching_enabled:b=no
+  prev_tranform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  blend_time:r=0.45
+  lerp_factor:r=0.0
+  dataBaseTemplateName:t="main_database"
+
+  "trajectory_times:list<r>"{
+    t0:r=0.1
+    t1:r=0.25
+    t2:r=0.5
+  }
+
+  "predicted_positions:list<p3>"{
+  }
+
+  "predicted_velocity:list<p3>"{
+  }
+
+  "predicted_rotation:list<p3>"{
+  }
+
+  "frame_history:list<ip2>"{
+    first_frame:ip2=0, 0
+  }
+
+  "frame_blend_weights:list<p2>"{
+  }
+
+  "goal_tags:list<t>"{
+  }
+
+  "prev_input:list<t>"{
+  }
+
+  "dataBaseEid:eid"{
+  }
+}
+
+main_database{
+  _tags:t="gameClient"
+  dataBaseName:t="main_database"
+  weightsPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_weights.blk"
+
+  "data_bases_paths:list<t>"{
+    path:t="%danetlibs/motion_matching/animation_data_base/mocap_animations.blk"
+    path:t="%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
+  }
+
+  "dataBase:AnimationDataBase"{
+  }
+
+  "matchingResults:MatchingResults"{
+  }
+}
+
+add_motion_matching_components{
+
+  "requireMotionMatchingComponents:tag"{
+  }
+}

@@ -1,0 +1,254 @@
+hurricane_mk4{
+  _extends:t="hurricane_mk4_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/hurricane_mk4"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.85, 1.072, 0.0
+      cockpitTemplate:t="hurricane_mk4_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_hurricane_mk4_40mm_vickers_s_underwing_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_hurricane_mk4_40mm_vickers_s_underwing_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_hurricane_mk4_7_7mm_browning303_raf_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_hurricane_mk4_7_7mm_browning303_raf_02"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="rocket_pylon"
+    part:t="rocket_pylon1"
+    part:t="rocket_pylon2"
+    part:t="rocket_pylon3"
+    part:t="rocket_pylon4"
+    part:t="rocket_pylon5"
+    part:t="rocket_pylon6"
+    part:t="rocket_pylon7"
+    part:t="rocket_pylon8"
+    part:t="rocket_pylon9"
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+  }
+}
+
+base_hurricane_mk4_40mm_vickers_s_underwing{
+  item__name:t="guns/cannonvickers_s_underwing"
+  gun__blk:t="gamedata/weapons/hurricane_mk4/40mm_vickers_s_underwing.blk"
+  gun__shotFreq:r=1.666
+  gun__locName:t="cannonvickers_s_underwing"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=15
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=15
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/40mm_vickerss_apt_shot_bullet.blk"
+        name:t="shot"
+        type:t="ap_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/40mm_vickerss_he_bullet.blk"
+        name:t="he"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+base_hurricane_mk4_7_7mm_browning303_raf{
+  item__name:t="guns/gunbrowning303_raf"
+  gun__blk:t="gamedata/weapons/hurricane_mk4/7_7mm_browning303_raf.blk"
+  gun__shotFreq:r=16.6667
+  gun__locName:t="gunbrowning303_raf"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=338
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=338
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        name:t="tracer"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        name:t="ap"
+        type:t="ap_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
+        name:t="api"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        name:t="incendiary"
+        type:t="i_ball"
+      }
+    }
+  }
+}
+
+planegun_hurricane_mk4_40mm_vickers_s_underwing_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_hurricane_mk4_40mm_vickers_s_underwing"
+  _extends:t="gunsound_40mm_vickers_s_underwing_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=15
+}
+
+planegun_hurricane_mk4_40mm_vickers_s_underwing_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_hurricane_mk4_40mm_vickers_s_underwing"
+  _extends:t="gunsound_40mm_vickers_s_underwing_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=15
+}
+
+planegun_hurricane_mk4_7_7mm_browning303_raf_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_hurricane_mk4_7_7mm_browning303_raf"
+  _extends:t="gunsound_7_7mm_browning303_raf_aircraft"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=338
+}
+
+planegun_hurricane_mk4_7_7mm_browning303_raf_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_hurricane_mk4_7_7mm_browning303_raf"
+  _extends:t="gunsound_7_7mm_browning303_raf_aircraft"
+  gun__shootNodeName:t="flare4"
+  gun__maxAmmo:i=338
+}
+
+hurricane_mk4_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="hurricane_mk4_cockpit_char"
+  plane_anim__blk:t="gamedata/units/hurricane_mk4.blk"
+  plane_sight__blk:t="gamedata/units/hurricane_mk4.blk"
+}

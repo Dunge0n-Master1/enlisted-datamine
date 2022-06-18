@@ -1,0 +1,4 @@
+entity{
+  _template:t="session_timer"
+  session_timer__time_left:r=3600.0
+}

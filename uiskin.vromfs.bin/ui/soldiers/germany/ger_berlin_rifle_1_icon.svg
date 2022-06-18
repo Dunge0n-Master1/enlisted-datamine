@@ -1,0 +1,21 @@
+<svg id="_2_volkssturm_company" data-name="2_volkssturm_company" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c62c2b;
+      }
+
+      .cls-2 {
+        fill: #101010;
+      }
+
+      .cls-3 {
+        fill: #e0e0e0;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" y="24" width="150" height="102"/>
+  <rect id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="cls-2" y="44" width="150" height="62"/>
+  <rect id="Rectangle_1_copy_2" data-name="Rectangle 1 copy 2" class="cls-3" y="46" width="150" height="58"/>
+  <rect id="Rectangle_1_copy_3" data-name="Rectangle 1 copy 3" class="cls-2" y="49" width="150" height="52"/>
+</svg>

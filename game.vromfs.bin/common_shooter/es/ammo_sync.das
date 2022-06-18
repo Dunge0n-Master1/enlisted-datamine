@@ -1,0 +1,52 @@
+require app
+require ecs
+require game.es.events
+
+
+[es(tag=net, tag=server, track=gun__ammo)]
+def update_server_ammo_for_gun_es(evt : Event; var gun__serverAmmo : int&; gun__ammo : int)
+  gun__serverAmmo = gun__ammo
+
+
+[es(tag=net, tag=gameClient)]
+def load_client_ammo_es(evt : CmdLoadAmmo;
+                        var gun__ammo : int&;
+                        var gun__delayedAmmoSyncTime : float&;
+                        var gun__ammoSyncReloadLock : bool&;
+                        gun__ammoSyncDelay : float = 0.6)
+  gun__ammo = evt.ammoNum
+  gun__delayedAmmoSyncTime = get_sync_time() + gun__ammoSyncDelay
+  gun__ammoSyncReloadLock = true
+
+
+[es(tag=net, tag=gameClient, on_event=CmdUnloadAmmo)]
+def unload_client_ammo_es(evt : Event; var gun__ammo : int&; var gun__delayedAmmoSyncTime : float&; gun__ammoSyncDelay : float = 0.6)
+  gun__ammo = 0
+  gun__delayedAmmoSyncTime = get_sync_time() + gun__ammoSyncDelay
+
+
+[es(tag=net, tag=gameClient, track=gun__serverAmmo)]
+def sync_ammo_with_server_es(evt : Event;
+                             var gun__ammo : int&;
+                             gun__maxAmmo : int;
+                             var gun__delayedAmmoSyncTime : float&;
+                             var gun__ammoSyncReloadLock : bool&;
+                             gun__serverAmmo : int;
+                             gun__ammoSyncDelay : float = 0.6)
+  if gun__serverAmmo == gun__maxAmmo
+    gun__ammoSyncReloadLock = false
+  if gun__serverAmmo <= gun__ammo && !gun__ammoSyncReloadLock
+    gun__ammo = gun__serverAmmo
+    gun__delayedAmmoSyncTime = -1.0
+  else
+    gun__delayedAmmoSyncTime = get_sync_time() + gun__ammoSyncDelay
+
+
+[es(tag=net, tag=gameClient, after=human_phys_es)]
+def delayed_sync_ammo_with_server_es(info : UpdateStageInfoAct;
+                                     var gun__ammo : int&;
+                                     var gun__delayedAmmoSyncTime : float&;
+                                     gun__serverAmmo : int)
+  if gun__ammo != gun__serverAmmo && gun__delayedAmmoSyncTime >= 0.0 && info.curTime >= gun__delayedAmmoSyncTime
+    gun__delayedAmmoSyncTime = -1.0
+    gun__ammo = gun__serverAmmo

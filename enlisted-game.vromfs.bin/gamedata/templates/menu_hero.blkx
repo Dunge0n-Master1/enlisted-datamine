@@ -1,0 +1,86 @@
+common_menu_animchar{
+  _extends:t="base_menu_animchar"
+  _extends:t="usa_summer_1"
+  _extends:t="replicating"
+  human_sec_anim__postFix:t=""
+  human_sec_anim__play:b=no
+  human_sec_anim__setup:t=""
+  human_sec_anim__a2d:t=""
+  human_sec_anim__duration:r=1.5
+  human_sec_anim__reload:b=no
+  human_sec_anim__playStartedAt:r=-1.0
+  human_sec_anim__hideWeapon:b=no
+  human_sec_anim__interruptsMovement:b=no
+  human_sec_anim__instantlyStart:b=yes
+  human_sec_anim__hideMelee:b=no
+
+  human_sec_anim{
+  }
+
+  "animchar__objTexReplace:object"{
+  }
+
+  capsule_approximation{
+  }
+
+  phys_vars{
+  }
+}
+
+customizable_menu_animchar{
+  _extends:t="base_menu_animchar"
+  _extends:t="base_soldier"
+  _extends:t="human_anim_state_restrictions"
+  _extends:t="replicating"
+  guid:t=""
+  guid_hash:i=0
+  human_inventory__capacity:r=25.0
+  human_sec_anim__postFix:t=""
+  human_inventory__currentVolume:r=0.0
+  human_sec_anim__play:b=no
+  human_sec_anim__setup:t=""
+  human_sec_anim__a2d:t=""
+  human_sec_anim__duration:r=1.5
+  human_sec_anim__reload:b=no
+  human_sec_anim__playStartedAt:r=-1.0
+  human_sec_anim__hideWeapon:b=no
+  human_sec_anim__interruptsMovement:b=no
+  human_sec_anim__instantlyStart:b=yes
+  human_sec_anim__hideMelee:b=no
+
+  human_sec_anim{
+  }
+
+  "animchar__objTexReplace:object"{
+  }
+
+  phys_vars{
+  }
+
+  "itemContainer:list<eid>"{
+  }
+
+  "human_inventory__initialItems:object"{
+  }
+
+  "human_equipment__itemRemap:object"{
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  animchar_attaches_bbox{
+    _tags:t="render"
+  }
+}
+
+customizable_benchmark_animchar{
+  _extends:t="customizable_menu_animchar"
+  animchar__res:t="ger_summer_1_char"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "animchar__animStateNames:object"{
+    lower:t="enlisted_action_idle_09_weapon"
+    upper:t="enlisted_action_idle_09_weapon"
+  }
+}

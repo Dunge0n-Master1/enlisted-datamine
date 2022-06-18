@@ -1,0 +1,189 @@
+binocular_cockpit_base{
+  _extends:t="base_cockpit"
+  animchar__res:t="binocular_visor_char"
+  cockpit__zoomTimeMul:r=1.3
+  cockpit__cameraTimeMul:r=1.5
+  cockpit__minZoom:r=-0.1
+  cockpit__offset:p3=0.0, 0.0, 0.3
+  cockpit__scale:p3=0.3, 0.3, 0.3
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+  }
+
+  "cockpit__cockpit__attachNodeNames:list<t>"{
+  }
+
+  "cockpit__cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__binocular:tag"{
+  }
+}
+
+binocular_base_item{
+  _extends:t="item_gun"
+  _extends:t="disable_item_drop"
+  _extends:t="base_equipable_gun"
+  _extends:t="rifle_ww2_preset"
+  _extends:t="scope_gunmod"
+  animchar__res:t="ussr_binoculars_char"
+  collres__res:t="ussr_binoculars_collision"
+  item__iconRoll:r=90.0
+  item__iconScale:r=0.9
+  item__iconYaw:r=0.0
+  item__template:t="binocular_base_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  item__weapTemplate:t="binocular_base_item"
+  item__name:t="items/binocular_base"
+  item__weight:r=0.74
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  gun__locName:t="binocular_base"
+  gun__integratedScope:b=yes
+  gun__reloadable:b=no
+  gun__ammoSyncDelay:r=1.0
+  gun__ammo:i=0
+  gun__maxAmmo:i=0
+  gun__shotFreq:r=1.0
+  gun__automaticReload:b=yes
+  gun__shootNodeName:t=""
+  gun__disableToggleAim:b=yes
+  gun__visible:b=yes
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.1
+  gun__recoilDirAmount:r=0.6
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__adsSpeedMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun_spread__maxDeltaAngle:r=0.01
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gunmod__zoomFactor:r=8.0
+  gunmod__camShiftMin:r=0.13
+  gunmod__camShiftMax:r=0.3
+  gunmod__camFovMin:r=26.0
+  gunmod__camFovMax:r=9.0
+  gunmod__focusPlaneShift:r=0.5
+  gunmod__dofNearAmountPercent:r=0.0
+  gunmod__dofFarAmountPercent:r=0.0
+  cockpitTemplate:t="binocular_cockpit_base"
+  slot_attach__visible:b=no
+
+  "item__weapSlots:array"{
+    slot:t="primary"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_ww2_common/gamedata/weapons/shells/tnt_block_exploder_dummy.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t=""
+  }
+
+  _group{
+    _tags:t="gameClient"
+    gun__additionalHeadRoll:r=-18.0
+    gun__additionalHeadPitch:r=16.0
+    gun__additionalHeadYaw:r=-20.0
+  }
+
+  _group{
+    _tags:t="gameClient"
+    cockpit__isHeroInCockpit:b=no
+
+    cockpit_animchar_res_preload{
+    }
+  }
+
+  "binocular:tag"{
+  }
+
+  "isCameraAlwaysOnScope:tag"{
+  }
+
+  "doNotHideWeapWithoutAmmo:tag"{
+  }
+
+  "notShootableGun:tag"{
+  }
+
+  "disableZoomOnHoldBreath:tag"{
+  }
+
+  "onlyIntegratedGunMod:tag"{
+  }
+
+  "disableMelee:tag"{
+  }
+
+  "itemInWeaponSlot:tag"{
+  }
+}
+
+ussr_binoculars_item{
+  _extends:t="binocular_base_item"
+  animchar__res:t="ussr_binoculars_char"
+  collres__res:t="ussr_binoculars_collision"
+  item__template:t="ussr_binoculars_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  item__name:t="items/ussr_binoculars"
+  item__type:t="binoculars"
+  gun__locName:t="ussr_binoculars"
+}
+
+usa_binoculars_item{
+  _extends:t="binocular_base_item"
+  animchar__res:t="usa_binoculars_char"
+  collres__res:t="usa_binoculars_collision"
+  item__template:t="usa_binoculars_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  item__name:t="items/usa_binoculars"
+  item__type:t="binoculars"
+  gun__locName:t="usa_binoculars"
+}
+
+ger_binoculars_item{
+  _extends:t="binocular_base_item"
+  animchar__res:t="ger_binoculars_char"
+  collres__res:t="ger_binoculars_collision"
+  item__template:t="ger_binoculars_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  item__name:t="items/ger_binoculars"
+  item__type:t="binoculars"
+  gun__locName:t="ger_binoculars"
+}
+
+uk_binoculars_item{
+  _extends:t="binocular_base_item"
+  animchar__res:t="uk_binoculars_char"
+  collres__res:t="uk_binoculars_collision"
+  item__template:t="uk_binoculars_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  item__name:t="items/uk_binoculars"
+  item__type:t="binoculars"
+  gun__locName:t="uk_binoculars"
+}

@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="scope"
+  slotTag:t="unertl_8x_sight"
+  gunSlotName:t="scope"
+  template:t="unertl_8x_sight"
+}
+
+visual{
+  template:t="unertl_8x_sight_item+item_in_world"
+}

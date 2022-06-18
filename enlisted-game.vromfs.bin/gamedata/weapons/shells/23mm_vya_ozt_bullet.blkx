@@ -1,0 +1,93 @@
+mass:r=0.196
+recoilMultiplier:r=0.4
+caliber:r=0.023
+speed:r=890.0
+maxDistance:r=2500.0
+normalizationPreset:t="default"
+modelName:t="tank_bullet_he"
+ricochetPreset:t="defaultExt"
+secondaryShattersPreset:t="ap"
+stabilityThreshold:r=0.05
+stabilityCaliberToArmorThreshold:r=5.0
+stabilityReductionAfterRicochet:r=0.5
+explosiveType:t="a_ix_2"
+stabilityReductionAfterPenetration:r=0.15
+explosiveMass:r=0.0156
+bulletType:t="frag_i_t"
+shellAnimation:t="video/shells_animations/he.ivf"
+hitPowerMult:r=1.0
+onHitChanceMultFire:r=2.0
+effectiveDistance:r=10000.0
+relativeVelHitShift:p2=300.0, 1000.0
+relativeVelArmorShift:p2=200.0, 1000.0
+explodeTreshold:r=0.1
+explodeHitPower:r=16.0
+explodeArmorPower:r=6.0
+explodeRadius:p2=0.057, 0.57
+fuseDelayDist:r=0.2
+shutterDamage:b=yes
+shutterDamageRadius:r=2.5
+shutterAmount:i=20
+shutterArmorPower:r=6.0
+shutterHit:r=3.5
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_19_27mm_metal_he"
+groundCollisionEffect:t="hit_19_27mm_dirt_he"
+ricochetEffect:t="hit_19_27mm_metal_ap"
+waterCollisionEffect:t="hit_19_27mm_water"
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.05
+  mod2:p2=20.0, 0.1
+  mod3:p2=30.0, 0.2
+  mod3:p2=45.0, 0.3
+}
+
+hitpower{
+  HitPower0m:p2=0.9, 500.0
+  HitPower10000m:p2=0.8, 10000.0
+}
+
+armorpower{
+  ArmorPower0m:p2=2.0, 10.0
+  ArmorPower100m:p2=2.0, 100.0
+  ArmorPower500m:p2=1.5, 500.0
+  ArmorPower1000m:p2=1.0, 1000.0
+  ArmorPower1450m:p2=0.5, 1450.0
+  ArmorPower1500m:p2=0.0, 1500.0
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="20mmRed"
+  trail:t="black"
+}
+
+hitFx{
+
+  steel{
+    fx:t="hit_19_27mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  wood{
+    fx:t="hit_19_27mm_wood_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  glass{
+    fx:t="hit_19_27mm_metal_he"
+    fxScale:p2=1.0, 1.0
+  }
+
+  stone{
+    fx:t="hit_19_27mm_stone_he"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+tracer{
+  headColor:c=255, 15, 15, 255
+  smokeColor:c=80, 80, 80, 186
+}

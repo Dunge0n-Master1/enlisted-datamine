@@ -1,0 +1,220 @@
+ai_ju_188{
+  _extends:t="ju_188_base"
+  _extends:t="squad_controlled_plane"
+  _extends:t="ai_aircraft"
+  item__name:t="items/ju_188a_2"
+  item__iconOffset:p2=0.1, 0.0
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.1, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=2.6, 0.692, 0.193
+      cockpitTemplate:t="ju_188_ai_driver_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bomb33"
+    node:t="bomb34"
+    node:t="bomb29"
+    node:t="bomb30"
+    node:t="bomb31"
+    node:t="bomb32"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_05_yaw"
+      curPitchParamName:t="gun_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_06_yaw"
+      curPitchParamName:t="gun_06_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_ju_188_sc_250_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_ju_188_sc_250_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_ju_188_sc_250_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_ju_188_sc_250_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_ju_188_sc_250_launcher_05"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_ju_188_sc_250_launcher_06"
+    }
+  }
+}
+
+base_ai_ju_188_sc_250_launcher{
+  item__name:t="guns/de_sc250"
+  gun__blk:t="content/enlisted/gamedata/weapons/ju_188/sc_250_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="de_sc250"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/sc_250.blk"
+        name:t="sc_250"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+planegun_ai_ju_188_sc_250_launcher_01{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ju_188_sc_250_launcher"
+  _extends:t="gunsound_sc_250_launcher_aircraft"
+  gun__shootNodeName:t="bomb33"
+  slot_attach__slotName:t="bomb33"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_ju_188_sc_250_launcher_02{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ju_188_sc_250_launcher"
+  _extends:t="gunsound_sc_250_launcher_aircraft"
+  gun__shootNodeName:t="bomb34"
+  slot_attach__slotName:t="bomb34"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_ju_188_sc_250_launcher_03{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ju_188_sc_250_launcher"
+  _extends:t="gunsound_sc_250_launcher_aircraft"
+  gun__shootNodeName:t="bomb29"
+  slot_attach__slotName:t="bomb29"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_ju_188_sc_250_launcher_04{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ju_188_sc_250_launcher"
+  _extends:t="gunsound_sc_250_launcher_aircraft"
+  gun__shootNodeName:t="bomb30"
+  slot_attach__slotName:t="bomb30"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_ju_188_sc_250_launcher_05{
+  _extends:t="fab_100_launcher"
+  _extends:t="base_ai_ju_188_sc_250_launcher"
+  _extends:t="gunsound_sc_250_launcher_aircraft"
+  gun__shootNodeName:t="bomb31"
+  slot_attach__slotName:t="bomb31"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_ju_188_sc_250_launcher_06{
+  _extends:t="fab_100_launcher"
+  _extends:t="base_ai_ju_188_sc_250_launcher"
+  _extends:t="gunsound_sc_250_launcher_aircraft"
+  gun__shootNodeName:t="bomb32"
+  slot_attach__slotName:t="bomb32"
+  gun__maxAmmo:i=1
+}
+
+ju_188_ai_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  animchar__res:t="ju_188a_2_cockpit_char"
+  plane_anim__blk:t="content/enlisted/gamedata/units/ju_188.blk"
+  plane_sight__blk:t="content/enlisted/gamedata/units/ju_188.blk"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+}

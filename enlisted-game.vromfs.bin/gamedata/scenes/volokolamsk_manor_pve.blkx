@@ -1,0 +1,597 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.36115, -0.000935749, 0.932507] [-0.148138, 0.987243, 0.0583629] [-0.920666, -0.159218, 0.356404] [-539.295, 21.4795, 564.385]]
+}
+
+entity{
+  _template:t="enemy_attack_marker"
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-721.266, 4.23294, 584.206]]
+  battleAreaId:t="area1"
+  active:b=yes
+  groupName:t="sector_1"
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.999998, 0.0, 0.00221512] [0.0, 1.0, 0.0] [-0.00221512, 0.0, 0.999998] [-585.441, 0.825461, 377.506]]
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.998561, 0.0, 0.0536361] [0.0, 1.0, 0.0] [-0.0536361, 0.0, 0.998561] [-581.426, 10.9439, 794.617]]
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-811.439, 9.03109, 777.644]]
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-818.261, 8.01087, 378.53]]
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-504.38, 6.06061, 488.389]]
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-505.55, 5.13478, 685.948]]
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+}
+
+entity{
+  _template:t="poly_battle_area"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  battle_area__timeToDamage:r=5.0
+  groupName:t="sector_1"
+  active:b=yes
+  battle_area__damage:r=3.0
+  battle_area__team:i=2
+  battleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.998816, 0.0, 0.048647] [0.0, 1.0, 0.0] [-0.048647, 0.0, 0.998816] [-340.503, 3.6961, 806.187]]
+  battle_area_polygon_point__id:t="point1"
+  battle_area_polygon_point__nextId:t="point2"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[0.998816, 0.0, 0.048647] [0.0, 1.0, 0.0] [-0.048647, 0.0, 0.998816] [-588.046, 3.6961, 786.222]]
+  battle_area_polygon_point__id:t="point2"
+  battle_area_polygon_point__nextId:t="point3"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-654.283, 3.6961, 669.878]]
+  battle_area_polygon_point__id:t="point3"
+  battle_area_polygon_point__nextId:t="point4"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-657.221, 3.6961, 523.034]]
+  battle_area_polygon_point__id:t="point4"
+  battle_area_polygon_point__nextId:t="point5"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-604.395, 3.6961, 383.743]]
+  battle_area_polygon_point__id:t="point5"
+  battle_area_polygon_point__nextId:t="point6"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-324.728, 3.6961, 395.663]]
+  battle_area_polygon_point__id:t="point6"
+  battle_area_polygon_point__nextId:t="point1"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="volokolamsk_level"
+  level__blk:t="content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_winter.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="minimap_battle_of_moscow_volokolamsk_countryside_winter"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=0.03
+    paint_details_tex:t="volokolamsk_building_colors_tex_palette*"
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="team_germany_winter+respawn_creators_team"
+  team__id:i=2
+  team__botCount:i=4
+  team__roundScore:i=0
+  team__roundScore:i=0
+  team__score:r=1000.0
+  team__scoreCap:r=1000.0
+  team__locked:b=yes
+}
+
+entity{
+  _template:t="team_ussr+respawn_creators_team"
+  team__id:i=1
+  team__botCount:i=4
+  team__roundScore:i=0
+  team__roundScore:i=0
+  team__score:r=1000.0
+  team__scoreCap:r=1000.0
+  team__capturePenalty:r=1001.0
+}
+
+entity{
+  _template:t="briefing_domination"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  mission_name:t="volokolamsk_manor_pve"
+
+  "loading_images:list<t>"{
+    item:t="ui/volokolamsk_manor_01.jpg"
+    item:t="ui/volokolamsk_manor_02.jpg"
+    item:t="ui/volokolamsk_manor_03.jpg"
+  }
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-757.007, 119.71, 592.322]]
+  moveCameraToHeight:r=120.0
+  respawnSelectorDistanceMult:r=0.8
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase+capzone_projdecal"
+  transform:m=[[22.7002, 0.0, 0.124805] [0.0, 3.41681, 0.0] [-0.108387, 0.0, 30.1387] [-612.206, 9.54315, 586.413]]
+  active:b=yes
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=2
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_1"
+  capzone__capTime:r=150.0
+  capzone__capTeam:i=-1
+  capzone__decapTime:r=6000.0
+  ui_order:i=1
+  capzone__capReward:r=250.0
+  capzone__icon:t="AAA"
+  capzone__caption:t="capzone/central_hall"
+  capzone__spawnAtZoneTimeout:r=55.0
+  capzone__createRespawnBaseForTeam:i=1
+  capzone__createRespawnBase:t="respawnBaseGroupActivator"
+  capzone__createdRespawnBaseGroup:i=3
+  decal__height:r=1.0
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[-0.708946, 0.0, 0.705263] [0.0, 1.0, 0.0] [-0.705263, 0.0, -0.708946] [-413.184, 9.08269, 559.258]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[-0.906598, 0.0, 0.421997] [0.0, 1.0, 0.0] [-0.421997, 0.0, -0.906598] [-449.495, 4.64404, 705.68]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[-0.879062, 0.0, -0.476708] [0.0, 1.0, 0.0] [0.476708, 0.0, -0.879062] [-469.68, 1.30833, 739.809]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.220288, 0.0, -0.975434] [0.0, 1.0, 0.0] [0.975434, 0.0, 0.220288] [-732.13, 1.78027, 641.904]]
+  team:i=1
+  respawnBaseGroup:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.311894, 0.0, -0.950117] [0.0, 1.0, 0.0] [0.950117, 0.0, 0.311894] [-717.281, 0.355233, 665.12]]
+  team:i=1
+  respawnBaseGroup:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.562402, 0.0, -0.826863] [0.0, 1.0, 0.0] [0.826863, 0.0, 0.562402] [-737.455, 3.22302, 606.276]]
+  team:i=1
+  respawnBaseGroup:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.5884, 0.0, 0.808569] [0.0, 1.0, 0.0] [-0.808569, 0.0, 0.5884] [-734.79, 2.12233, 566.924]]
+  team:i=1
+  respawnBaseGroup:i=2
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.40658, 0.0, 0.913615] [0.0, 1.0, 0.0] [-0.913615, 0.0, 0.40658] [-726.469, 1.61328, 536.549]]
+  team:i=1
+  respawnBaseGroup:i=2
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.941151, 0.0, -0.337985] [0.0, 1.0, 0.0] [0.337985, 0.0, 0.941151] [-724.887, 1.15396, 529.839]]
+  team:i=1
+  respawnBaseGroup:i=2
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[-0.701461, 0.0, 0.712709] [0.0, 1.0, 0.0] [-0.712709, 0.0, -0.701461] [-435.379, 14.2282, 461.436]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[-0.96667, 0.0, -0.256025] [0.0, 1.0, 0.0] [0.256025, 0.0, -0.96667] [-402.55, 8.05, 620.118]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[-0.941936, 0.0, 0.335792] [0.0, 1.0, 0.0] [-0.335792, 0.0, -0.941936] [-411.183, 12.3224, 477.368]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnBaseWithGroupOnCapturePoint"
+  transform:m=[[0.996212, 0.0, 0.0869544] [0.0, 1.0, 0.0] [-0.0869544, 0.0, 0.996212] [-620.152, 8.82502, 597.572]]
+  respawnBaseGroup:i=3
+  groupName:t="sector_1"
+  team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="respawnBaseWithGroupOnCapturePoint"
+  transform:m=[[0.999648, 0.0, 0.02652] [0.0, 1.0, 0.0] [-0.02652, 0.0, 0.999648] [-619.571, 8.82502, 586.819]]
+  respawnBaseGroup:i=3
+  groupName:t="sector_1"
+  team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="respawnBaseWithGroupOnCapturePoint"
+  transform:m=[[0.998556, 0.0, -0.0537061] [0.0, 1.0, 0.0] [0.0537061, 0.0, 0.998556] [-621.122, 8.82502, 576.261]]
+  respawnBaseGroup:i=3
+  groupName:t="sector_1"
+  team:i=1
+  active:b=no
+}
+
+entity{
+  _template:t="pve_mission"
+  pve__stageDelay:r=5.0
+  pve__waveDelay:r=60.0
+  pve__botTeam:i=2
+  pve__botProfileFile:t="pve_bots_profile_2.json"
+
+  "pve__waves:list<t>"{
+    item:t="wave_01"
+    item:t="wave_02"
+    item:t="wave_03"
+  }
+}
+
+entity{
+  _template:t="pve_wave"
+  pve__wave__name:t="wave_01"
+
+  "pve__wave__stages:list<t>"{
+    item:t="wave_01_stage_01"
+    item:t="wave_01_stage_02"
+  }
+}
+
+entity{
+  _template:t="pve_wave"
+  pve__wave__name:t="wave_02"
+
+  "pve__wave__stages:list<t>"{
+    item:t="wave_02_stage_01"
+    item:t="wave_02_stage_02"
+    item:t="wave_02_stage_03"
+  }
+}
+
+entity{
+  _template:t="pve_wave"
+  pve__wave__name:t="wave_03"
+
+  "pve__wave__stages:list<t>"{
+    item:t="wave_03_stage_01"
+    item:t="wave_03_stage_02"
+    item:t="wave_03_stage_03"
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_01_stage_01"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=4
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_01_stage_02"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=5
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_02_stage_01"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=5
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=2
+      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
+      squadId:t="ger_moscow_assault_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_02_stage_02"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=4
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=4
+      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
+      squadId:t="ger_moscow_assault_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_02_stage_03"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=5
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=7
+      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
+      squadId:t="ger_moscow_assault_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_03_stage_01"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=5
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=7
+      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
+      squadId:t="ger_moscow_assault_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_03_stage_02"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=4
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=7
+      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
+      squadId:t="ger_moscow_assault_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=3
+      soldierGuid:t="ger_moscow_soldier_mgun_13268407790701351"
+      squadId:t="ger_moscow_mgun_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="pve_stage"
+  pve__stage__name:t="wave_03_stage_03"
+
+  "pve__stage__spawner:array"{
+
+    "pve__stage__spawner:object"{
+      count:i=4
+      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
+      squadId:t="ger_moscow_rifle_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=6
+      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
+      squadId:t="ger_moscow_assault_1"
+      armyId:t="moscow_axis"
+    }
+
+    "pve__stage__spawner:object"{
+      count:i=6
+      soldierGuid:t="ger_moscow_soldier_mgun_13268407790701351"
+      squadId:t="ger_moscow_mgun_1"
+      armyId:t="moscow_axis"
+    }
+  }
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[6642.91, 0.0, -21.0972] [0.0, 3713.36, 0.0] [25.7975, 0.0, 8118.79] [-610.334, 240.916, 582.135]]
+  battle_area__timeToDamage:r=30.0
+  battle_area__damage:r=1.0
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="searchlight_no_base"
+  transform:m=[[-0.862644, 0.418461, -0.28414] [0.398326, 0.908231, 0.128265] [0.311739, -0.00253313, -0.950164] [-639.247, 6.72218, 622.553]]
+}
+
+entity{
+  _template:t="searchlight_no_base"
+  transform:m=[[0.521055, 0.418461, 0.743903] [-0.242355, 0.908231, -0.341145] [-0.818392, -0.00253313, 0.574654] [-579.185, 6.72218, 584.843]]
+}

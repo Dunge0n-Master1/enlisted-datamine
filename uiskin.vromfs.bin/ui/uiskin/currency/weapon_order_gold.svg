@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <linearGradient id="linear-gradient" x1="11.5" y1="29" x2="11.5" y2="0.94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a66e37"/>
+      <stop offset="0.27" stop-color="#c08c3a"/>
+      <stop offset="0.58" stop-color="#fcd381"/>
+      <stop offset="1" stop-color="#fcffc2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="4" y1="14.5" x2="19" y2="14.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e19100"/>
+      <stop offset="1" stop-color="#fcd077"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="1" x2="22" xlink:href="#linear-gradient-2"/>
+    <linearGradient id="linear-gradient-4" x1="11.5" y1="11.18" x2="11.5" y2="35.82" gradientTransform="matrix(1, 0, 0, -1, 0, 38)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9f6700"/>
+      <stop offset="1" stop-color="#fcd88e"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <rect width="23" height="29" fill="url(#linear-gradient)"/>
+    <path d="M11.5,7,19,14.5,11.5,22,4,14.5Z" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+    <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" d="M11.5,4,22,14.5,11.5,25,1,14.5ZM11.5,5l9.42,9.46L11.5,24,2.08,14.5Z" fill-rule="evenodd" fill="url(#linear-gradient-3)"/>
+    <path d="M17.26,18.47l.65.21,2,2.44a.51.51,0,0,1-.07.71h0l-1.29,1a.47.47,0,0,1-.68-.09l0-.07-2.26-4.44-.31.34c-.43.08-.89-.65-.89-.65l-1-1.28-.1-.65L11.5,14.17,9.73,16l-.1.65-1,1.28s-.46.73-.89.65l-.31-.34L5.22,22.68a.48.48,0,0,1-.66.21l-.08-.05-1.28-1a.52.52,0,0,1-.1-.71h0l2-2.44.65-.21a.71.71,0,0,0,.42-.34l.46-.81-.24-.26,4.16-3.81.32.05.11-.1L3.81,6.64l.48-.54.35.31L5,6.05l.69.63L5.32,7l6.18,5.67L17.68,7l-.32-.36.69-.63.32.36.34-.31.48.54L12,13.2l.1.1.32-.05,4.16,3.81-.24.26.46.81A.71.71,0,0,0,17.26,18.47Z" fill="#8c4f00" fill-rule="evenodd"/>
+    <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" d="M1,28V1H22V28ZM18,2H5L2,5V24l3,3H18l3-3V5Z" fill-rule="evenodd" fill="url(#linear-gradient-4)"/>
+  </g>
+</svg>

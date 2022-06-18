@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <linearGradient id="linear-gradient" x1="11.5" y1="29" x2="11.5" y2="0.94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#956b4e"/>
+      <stop offset="1" stop-color="#f4be8d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="4" y1="14.5" x2="19" y2="14.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="1" y1="14.5" x2="22" y2="14.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-4" x1="11.5" y1="-54.82" x2="11.5" y2="-30.18" gradientTransform="matrix(1, 0, 0, -1, 0, -28)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8a5a3a"/>
+      <stop offset="1" stop-color="#da9e70"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <rect width="23" height="29" fill="url(#linear-gradient)"/>
+    <g>
+      <path d="M11.5,7,19,14.5,11.5,22,4,14.5Z" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+      <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" d="M11.5,4,22,14.5,11.5,25,1,14.5ZM11.5,5l9.42,9.46L11.5,24,2.08,14.5Z" fill-rule="evenodd" fill="url(#linear-gradient-3)"/>
+    </g>
+    <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" d="M1,28V1H22V28ZM18,2H5L2,5V24l3,3H18l3-3V5Z" fill-rule="evenodd" fill="url(#linear-gradient-4)"/>
+    <path id="Color_Fill_1_copy" data-name="Color Fill 1 copy" d="M3.36,6.32l1.48,3.73.89-.33.09.36-.41,1,2,5.38.08,0,3,6.42a23.71,23.71,0,0,1-3.84-.48c-1.51-.42-2.45-1-2.45-1.67l0-.15c.45-1.49,1.07-3.23,1.56-3.49a7.6,7.6,0,0,1,1.2-.46v0c0-.1-.22-.2-1.58.2L4.18,12.16l.28-.42L2.94,6.52ZM13.05,23h-.58L8.74,16.16l.19,0,.62-1.94A3.21,3.21,0,0,1,9.22,13,1.09,1.09,0,0,1,9,13a2.37,2.37,0,0,1-.58-1s-.91.15-1-.31c0-.18.46-2.22.46-2.22s.86-3.95,3.41-3.95h1.09c2.54,0,3.34,4.24,3.34,4.24s.48,1.75.5,1.93c-.09.46-1,.31-1,.31-.16.39-.4.91-.58,1a1.09,1.09,0,0,1-.26,0A3.21,3.21,0,0,1,14,14.18l.5,1.93a18.65,18.65,0,0,1,3.31,1c.42.23,1.07,2,1.64,3.86-.29,1-3,1.9-6.44,2.06Z" fill="#653d20" fill-rule="evenodd"/>
+  </g>
+</svg>

@@ -1,0 +1,178 @@
+bulletCount:i=30
+mass:r=4.4
+explosiveType:t="h5"
+explosiveMass:r=0.513
+caliber:r=0.075
+speed:r=450.0
+maxDistance:r=7000.0
+normalizationPreset:t="heat"
+bulletType:t="heat_tank"
+cumulativeSecondaryShattersPreset:t="heat_fs"
+explodeOnRendinst:b=yes
+modelName:t="tank_bullet_heat"
+fresnel:p3=0.23, 0.1, 2.0
+bulletName:t="75mm_grhl_38_b"
+explodeTreshold:r=0.1
+ricochetEffect:t="cannon_ricochet"
+waterCollisionEffect:t="120-203_he_water_splash"
+waterFxScale:p2=0.7, 0.8
+explosionPatchRadius:r=2.1
+secondaryShattersPreset:t="ap"
+
+hitpower{
+  HitPower0m:p2=1.0, 500.0
+  HitPower1000m:p2=0.9, 1000.0
+  HitPower1500m:p2=0.65, 1500.0
+  HitPower2500m:p2=0.5, 2500.0
+  HitPower7000m:p2=0.0, 7000.0
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="30mmWhite"
+  trail:t="black"
+}
+
+cumulativeDamage{
+  armorPower:r=80.0
+  distance:r=2.5
+  damage:r=120.0
+}
+
+damage{
+
+  kinetic{
+    onHitChanceMultExplFuel:r=0.3
+    correctionPenetrationByRelativeVelocity:p2=200.0, 1000.0
+    correctionDamageByRelativeVelocity:p2=300.0, 1000.0
+    damageType:t="generic"
+
+    energyToDamage{
+      p0:p2=3000.0, 5.0
+      p1:p2=15000.0, 10.0
+      p2:p2=30000.0, 15.0
+      p3:p2=60000.0, 25.0
+      p4:p2=80000.0, 40.0
+      p5:p2=110000.0, 60.0
+      p6:p2=300000.0, 70.0
+      p7:p2=400000.0, 75.0
+      p8:p2=500000.0, 80.0
+      p9:p2=650000.0, 110.0
+      p10:p2=1100000.0, 150.0
+      p11:p2=1300000.0, 200.0
+      p12:p2=1800000.0, 230.0
+      p13:p2=2200000.0, 240.0
+      p14:p2=3000000.0, 300.0
+      p15:p2=4000000.0, 320.0
+      p16:p2=5000000.0, 350.0
+      p17:p2=8000000.0, 370.0
+      p18:p2=12000000.0, 900.0
+    }
+  }
+
+  cumulative{
+    penetration:r=80.0
+    damage:r=120.0
+    distance:r=2.5
+    damageType:t="cumulative"
+  }
+
+  secondaryShatter{
+    residualArmorPenetrationToShatterCountMult:p4=20.0, 100.0, 0.5, 1.0
+    residualArmorPenetrationToShatterPenetrationMult:p4=20.0, 100.0, 0.5, 1.0
+    residualArmorPenetrationToShatterDamageMult:p4=20.0, 100.0, 0.4, 1.0
+    caliberToArmorToShatterCountMult:p4=0.5, 1.0, 0.5, 1.0
+    damageType:t="secondaryShatter"
+
+    section0{
+      angles:p2=0.0, 10.0
+
+      shatter{
+        distance:r=5.0
+        size:r=0.05
+        count:i=8
+        penetration:p2=11.0, 8.0
+        damage:p2=20.0, 15.0
+        onHitChanceMultFire:r=1.3
+      }
+    }
+
+    section1{
+      angles:p2=0.0, 25.0
+
+      shatter{
+        distance:r=2.5
+        size:r=0.025
+        count:i=20
+        penetration:p2=7.0, 5.0
+        damage:p2=15.0, 12.0
+        onHitChanceMultFire:r=1.0
+      }
+    }
+
+    section2{
+      angles:p2=0.0, 40.0
+
+      shatter{
+        size:r=0.01
+        distance:r=1.5
+        count:i=40
+        penetration:p2=4.0, 3.0
+        damage:p2=8.0, 6.0
+        onHitChanceMultFire:r=1.0
+      }
+    }
+  }
+
+  explosive{
+    type:t="h5"
+    mass:r=0.513
+    fuseArmorTreshold:r=0.1
+    strengthEquivalent:r=1.7
+    brisanceEquivalent:r=1.4
+  }
+}
+
+ballistics{
+
+  ricochet{
+
+    table{
+
+      t1{
+        caliberToArmor:r=1.0
+        ricochetProbability0deg:p2=0.0, 1.0
+        ricochetProbability09deg:p2=17.0, 1.0
+        ricochetProbability18deg:p2=19.0, 0.9
+        ricochetProbability20deg:p2=22.0, 0.4
+        ricochetProbability25deg:p2=28.0, 0.0
+        ricochetProbability90deg:p2=90.0, 0.0
+      }
+    }
+  }
+
+  stability{
+    stabilityThreshold:r=0.1
+    stabilityCaliberToArmorThreshold:r=100.0
+    stabilityReductionAfterRicochet:r=0.3
+    stabilityReductionAfterPenetration:r=0.01
+
+    stabilityRicochetModifier{
+      mod1:p2=0.0, 0.0
+      mod2:p2=20.0, 1.0
+      mod3:p2=30.0, 0.2
+    }
+  }
+}
+
+hitFx{
+  fxScale:p2=0.8, 1.0
+  defaultFx:t="50_75_he_hit_ground"
+  jetFx:t="50_75_he_hit_ground"
+
+  steel{
+    fx:t="bullet_hit_armor_cumulative"
+    fxScale:p2=1.4, 1.6
+  }
+}

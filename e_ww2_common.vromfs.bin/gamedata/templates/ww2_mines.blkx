@@ -1,0 +1,456 @@
+antipersonnel_mine_shell{
+  _extends:t="projectile_with_shell"
+  animchar__res:t="grenade_mk2_char"
+  shell__expl_node:t="weaponRoot"
+  gun__statName:t="mine"
+  item__name:t="items/antipersonnel_mine"
+  shell__isKillerCamAllowed:b=no
+
+  "shell__mine:tag"{
+  }
+
+  "animchar_no_update:tag"{
+  }
+}
+
+antitank_mine_shell{
+  _extends:t="projectile_with_shell"
+  animchar__res:t="tnt_explosive_char"
+  shell__expl_node:t="weaponRoot"
+  item__name:t="items/antitank_mine"
+  gun__statName:t="mine"
+  shell__isKillerCamAllowed:b=no
+
+  "shell__mine:tag"{
+  }
+
+  "animchar_no_update:tag"{
+  }
+}
+
+placeable_item{
+  placeable_item__inProgress:b=no
+  placeable_item__verifyDistance:r=1.5
+  placeable_item__additionalHeight:r=0.0
+  placeable_item__placeTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="placeable_item__ownerEid"
+  placeable_item__ownerTeam:i=-1
+  placeable_item__keepOldTemplate:b=yes
+  placeable_item__template:t="placeable_item_in_world"
+
+  "placeable_item__ownerEid:eid"{
+  }
+
+  _group{
+    placeable_item__placeRequestSend:b=no
+    placeable_item__placeRequestReady:b=no
+    placeable_item__additionalRotation:p3=0.0, 0.0, 0.0
+    placeable_item__allowablePlaceHeight:r=0.15
+    placeable_item__maxAnimHeight:r=0.2
+    placeable_item__minDistanceToWall:r=0.25
+    placeable_item__lastPosition:p3=0.0, 0.0, 0.0
+    _tags:t="gameClient"
+  }
+}
+
+placeable_item_in_world{
+  _extends:t="item_in_world"
+
+  "net__inInitialScope:tag"{
+  }
+}
+
+attached_to_vehicle{
+  _extends:t="placeable_item_in_world"
+  _extends:t="node_attached_itm"
+
+  "node_attached__updateWtm:tag"{
+  }
+}
+
+attachable_to_vehicle{
+  attachable_to_vehicle__template:t="attached_to_vehicle"
+
+  "attachableToVehicle:tag"{
+  }
+}
+
+base_mine_item_gun{
+  _extends:t="melee_weapon"
+  _extends:t="placeable_item"
+  _extends:t="replicating"
+  _extends:t="base_hitpoints"
+  _extends:t="base_dm_parts"
+  weap__sprintLerpFactor:r=1.0
+  animchar__res:t="antitank_mine_char"
+  collres__res:t="antitank_mine_collision"
+  animchar_render__enabled:b=yes
+  item__template:t="base_mine_item_gun"
+  item__weapTemplate:t="base_mine_item_gun"
+  item__name:t="items/antitank_mine"
+  item__weapType:t="mine"
+  item__weight:r=0.5
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  gun__locName:t="antitank_mine"
+  gun__reloadable:b=no
+  _tracked:t="gun__owner"
+  _tracked:t="mine__activated"
+  _tracked:t="mine__blockedToTime"
+  _replicated:t="gun__owner"
+  _replicated:t="mine__activated"
+  _replicated:t="mine__blockedToTime"
+  mineActivatorTemplate:t="antipersonnel_mine_activator"
+  activationRadius:r=1.5
+  mine__installBlockTime:r=5.0
+  mine__blockedToTime:r=-1.0
+  mine__activated:b=no
+  nextCheckTriggerAtTime:r=-1.0
+  checkTriggerInterval:r=0.1
+  material:t="steel"
+  needsBlood:b=no
+  unit_indicator__noRadar:b=yes
+  meleeSoundType:t=""
+  grid_obj__gridType:t="interactable"
+  grid_obj__fixedTmScale:r=-1.0
+  hitpoints__hp:r=10.0
+  hitpoints__maxHp:r=10.0
+  hitpoints__hpRecoverySpd:r=0.0
+  hitpoints__hpThreshold:r=0.0
+  hitpoints__stoppingPower:r=0.0
+  hitpoints__shellDmgMult:r=0.075
+  hitpoints__shellSplashDmgMult:r=0.075
+
+  grid_obj{
+  }
+
+  "item__weapSlots:array"{
+    slot:t="special"
+  }
+
+  "offenderDesc:object"{
+  }
+
+  "itemInWeaponSlot:tag"{
+  }
+
+  collres{
+  }
+
+  "gun__owner:eid"{
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "specialWeapItem:tag"{
+  }
+
+  "disableMelee:tag"{
+  }
+
+  "mine_activation_zone__initEids:list<eid>"{
+  }
+
+  "engeneer_mine:tag"{
+  }
+
+  "dm_parts__parts:object"{
+
+    "mine_b_collision04:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "mine_b_collision05:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "mine_b_collision06:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+
+  "allow_friendly_damage:tag"{
+  }
+
+  "killer:eid"{
+  }
+
+  _group{
+    ui__geom_node_idx:i=-1
+    ui__node_pos:p3=0.0, 0.0, 0.0
+    ui__geom_node_name:t="weaponRoot"
+    _tags:t="ui"
+  }
+
+  "animchar__noUpdateOnDedicated:tag"{
+  }
+}
+
+antitank_mine_item_gun{
+  _extends:t="base_mine_item_gun"
+  animchar__res:t="tellermine_35_char"
+  collres__res:t="tellermine_35_collision"
+  mineActivatorTemplate:t="antitank_mine_activator"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/antitank_mine_item_gun.blk"
+  gun__locName:t="antitank_mine"
+  item__name:t="items/antitank_mine"
+  item__template:t="antitank_mine_item_gun"
+  item__weapTemplate:t="antitank_mine_item_gun"
+  item__mineType:t="antitank_mine"
+  item__weight:r=8.5
+  item__iconScale:r=1.1
+  item__iconRoll:r=30.0
+  item__iconYaw:r=45.0
+
+  "ui__placeableItemMarker:tag"{
+    _tags:t="ui"
+  }
+
+  "mine_activation__delay:r"{
+    _tags:t="server"
+    value:r=0.1
+  }
+
+  "vehicleTriggerable:tag"{
+  }
+
+  "dm_parts__parts:object"{
+
+    "colBox:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+antipersonnel_mine_item_gun{
+  _extends:t="base_mine_item_gun"
+  animchar__res:t="sprengmine_35_char"
+  collres__res:t="sprengmine_35_collision"
+  mineActivatorTemplate:t="antipersonnel_mine_activator"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/antipersonnel_mine_item_gun.blk"
+  gun__locName:t="antipersonnel_mine"
+  item__name:t="items/antipersonnel_mine"
+  item__template:t="antipersonnel_mine_item_gun"
+  item__weapTemplate:t="antipersonnel_mine_item_gun"
+  item__mineType:t="antipersonnel_mine"
+  item__weight:r=4.0
+  activationRadius:r=1.4
+
+  "ui__placeableItemMarker:tag"{
+    _tags:t="ui"
+  }
+
+  "mine_activation__delay:r"{
+    _tags:t="server"
+    value:r=0.5
+  }
+
+  "vehicleTriggerable:tag"{
+  }
+
+  "humanTriggerable:tag"{
+  }
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_2:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+usa_antipersonnel_mine{
+  _extends:t="antipersonnel_mine_item_gun"
+  animchar__res:t="m2a3_mine_char"
+  collres__res:t="m2a3_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/usa_antipersonnel_mine.blk"
+  item__template:t="usa_antipersonnel_mine"
+  item__weapTemplate:t="usa_antipersonnel_mine"
+  placeable_item__additionalHeight:r=0.015
+  item__weight:r=4.0
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_2:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_03:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+usa_antitank_mine{
+  _extends:t="antitank_mine_item_gun"
+  animchar__res:t="m1_antitank_mine_char"
+  collres__res:t="m1_antitank_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/usa_antitank_mine.blk"
+  item__template:t="usa_antitank_mine"
+  item__weapTemplate:t="usa_antitank_mine"
+  item__weight:r=8.5
+  placeable_item__additionalHeight:r=0.02
+
+  "dm_parts__parts:object"{
+
+    "Box001:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+
+  _group{
+    placeable_item__additionalRotation:p3=0.0, -10.0, 0.0
+    _tags:t="gameClient"
+  }
+}
+
+ger_antipersonnel_mine{
+  _extends:t="antipersonnel_mine_item_gun"
+}
+
+ger_antitank_mine{
+  _extends:t="antitank_mine_item_gun"
+  placeable_item__additionalHeight:r=0.07
+}
+
+ussr_antipersonnel_mine{
+  _extends:t="antipersonnel_mine_item_gun"
+  animchar__res:t="pomz_2_mine_char"
+  collres__res:t="pomz_2_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/ussr_antipersonnel_mine.blk"
+  item__template:t="ussr_antipersonnel_mine"
+  item__weapTemplate:t="ussr_antipersonnel_mine"
+  item__weight:r=4.0
+  placeable_item__additionalHeight:r=-0.04
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_2:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+ussr_antitank_mine{
+  _extends:t="antitank_mine_item_gun"
+  animchar__res:t="tm_41_char"
+  collres__res:t="tm_41_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/ussr_antitank_mine.blk"
+  item__template:t="ussr_antitank_mine"
+  item__weapTemplate:t="ussr_antitank_mine"
+  item__weight:r=8.5
+  placeable_item__additionalHeight:r=0.07
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_01:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+uk_antipersonnel_mine{
+  _extends:t="antipersonnel_mine_item_gun"
+  animchar__res:t="uk_ap_mine_mk1_char"
+  collres__res:t="uk_ap_mine_mk1_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/uk_antipersonnel_mine.blk"
+  item__template:t="uk_antipersonnel_mine"
+  item__weapTemplate:t="uk_antipersonnel_mine"
+  item__weight:r=4.0
+  placeable_item__additionalHeight:r=0.015
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_2:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+uk_antitank_mine{
+  _extends:t="antitank_mine_item_gun"
+  animchar__res:t="uk_at_mine_gs_mark_v_char"
+  collres__res:t="uk_at_mine_gs_mark_v_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/uk_antitank_mine.blk"
+  item__template:t="uk_antitank_mine"
+  item__weapTemplate:t="uk_antitank_mine"
+  item__weight:r=8.5
+  placeable_item__additionalHeight:r=0.03
+
+  "dm_parts__parts:object"{
+
+    "Box001:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+it_antipersonnel_mine{
+  _extends:t="antipersonnel_mine_item_gun"
+  animchar__res:t="ita_vaudagna_b4_mine_char"
+  collres__res:t="ita_vaudagna_b4_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/it_antipersonnel_mine.blk"
+  item__template:t="it_antipersonnel_mine"
+  item__weapTemplate:t="it_antipersonnel_mine"
+  item__weight:r=4.0
+  placeable_item__additionalHeight:r=-0.025
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+it_antitank_mine{
+  _extends:t="antitank_mine_item_gun"
+  animchar__res:t="ita_pignone_type_II_at_mine_char"
+  collres__res:t="ita_pignone_type_II_at_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/it_antitank_mine.blk"
+  item__template:t="it_antitank_mine"
+  item__weapTemplate:t="it_antitank_mine"
+  item__weight:r=8.5
+  placeable_item__additionalHeight:r=0.025
+
+  "dm_parts__parts:object"{
+
+    "Box001:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}

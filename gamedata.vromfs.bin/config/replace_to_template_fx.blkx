@@ -1,0 +1,99 @@
+muzzle_flash{
+  fx:t="fire_muzzle_8_14mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+side_muzzle_flash{
+  fx:t="fire_muzzle_8_14mm_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+}
+
+fire_muzzle_extractor_smoke{
+  fx:t="fire_muzzle_extractor_smoke_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_6_8mm{
+  fx:t="fire_muzzle_6_8mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_6_8mm_no_flash{
+  fx:t="fire_muzzle_6_8mm_no_flash_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_8_14mm{
+  fx:t="fire_muzzle_8_14mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_8_14mm_no_flash{
+  fx:t="fire_muzzle_8_14mm_no_flash_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+muzzle_flash_8_14_rapid{
+  fx:t="fire_muzzle_8_14mm_rapid_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_8_14mm_rapid_brake{
+  fx:t="fire_muzzle_8_14mm_rapid_brake_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_14_20mm{
+  fx:t="fire_muzzle_14_20mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_14_20mm_rapid{
+  fx:t="fire_muzzle_14_20mm_rapid_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_14_20mm_brake_double{
+  fx:t="fire_muzzle_14_20mm_brake_double_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}

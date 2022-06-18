@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="scope"
+  slotTag:t="scope_m84"
+  gunSlotName:t="scope"
+  template:t="scope_m84"
+}
+
+visual{
+  template:t="scope_m84_item+item_in_world"
+}

@@ -1,0 +1,36 @@
+mass:r=1.0
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.04
+speed:r=18.5
+speedPitch:r=5.0
+maxDistance:r=5.0
+physMat:t="grenadeRay"
+useFutureContacts:b=yes
+logCCD:b=no
+frictionGround:r=2.0
+entityTemplate:t="ussr_molotov"
+entityPhysTemplate:t="ussr_molotov_phys"
+
+collisionResource{
+
+  props{
+    volumeBox:t="box"
+  }
+}
+
+splashDamage{
+  radius:p2=1.0, 4.0
+  penetration:p2=2.0, 2.0
+  damage:r=2.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.05, 0.0, 0.015
+  ccd:p4=0.0, 0.2, 0.0, 0.015
+  ccd:p4=0.0, -0.05, 0.0, 0.015
+}
+
+solver{
+  energyConservation:r=0.85
+}

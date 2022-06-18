@@ -1,0 +1,551 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.652336, 0.0, 0.75793] [0.00834575, 0.999939, 0.00718302] [-0.757884, 0.0110112, -0.652296] [259.25, 12.9123, -74.7043]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/battle_of_berlin.blk"
+  level__timeRange:p2=5.0, 19.2
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=16.0
+  }
+}
+
+entity{
+  _template:t="minimap_berlin_invasion"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+
+  "post_fx:object"{
+  }
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    puddle_hardness:r=12.0
+    puddle_flat_noise_normal_effect:r=0.015
+    puddle_flat_normal_hardness:r=25.0
+    layered_fog_density:r=0.005
+    land_selfillum_worldscale:r=1.0
+    river1:c=64, 64, 29, 0
+    river0:c=49, 47, 41, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=-0.2
+    leaves_ss_profile:p4=1.0, 1.0, 1.0, 0.0
+    autodetect_land_selfillum_color:p4=0.176, 0.051, 0.0, 0.094
+    paint_details_tex:t="berlin_wall_color_tex_palette*"
+    layered_fog_height:r=20.0
+    puddle_increase:r=0.0
+    land_selfillum_strength:r=50.0
+    water_color_noise_size:r=71.0
+    puddle_flat_noise_height_reduce:r=0.09
+    water_depth_hardness:r=0.41
+    river_density:r=10.0
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.3
+  water__level:r=-1.0
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=1.3
+  wind__dir:r=190.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_berlin/gamedata/berlin_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="team_ussr_berlin+team_narrator_domination"
+  team__id:i=1
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
+  score_bleed__domBleed:r=0.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=0.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__eachSquadMaxSpawns:i=100
+  team__spawnBotArmy:t="moscow_allies"
+}
+
+entity{
+  _template:t="team_germany_berlin+team_narrator_domination"
+  team__id:i=2
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
+  score_bleed__domBleed:r=0.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=0.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__eachSquadMaxSpawns:i=100
+  team__spawnBotArmy:t="moscow_axis"
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[0.104725, 0.0, -0.994501] [0.0, 1.0, 0.0] [0.994501, 0.0, 0.104725] [287.295, 4.0263, -363.6]]
+  team:i=-1
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[-0.940083, 0.0, -0.340943] [0.0, 1.0, 0.0] [0.340943, 0.0, -0.940083] [327.664, 4.0263, -357.209]]
+  team:i=-1
+  maxVehicleOnSpawn:i=10
+  respTime:i=0
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.940238, 0.0, 0.340518] [0.0, 1.0, 0.0] [-0.340518, 0.0, 0.940238] [270.137, 4.0263, -375.726]]
+  spawnItemStep:p3=0.0, 0.0, 4.0
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="germ_pzkpfw_V_ausf_g_panther+dm_debug"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="germ_pzkpfw_vi_ausf_b_tiger_iip_berlin+dm_debug"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="ussr_t_34_85_zis_53+dm_debug"
+      count:i=1
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [284.185, 3.47888, -372.803]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="ussr_molotov_item+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [285.131, 3.47888, -372.479]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="ger_molotov_item+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [286.078, 3.47888, -372.155]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="ptrs_41_gun_item+item_in_world"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="ptrs_41_magazine+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [287.023, 3.47888, -371.831]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="ptrd_41_gun_item+item_in_world"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="ptrd_41_magazine+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [287.969, 3.47888, -371.507]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="panzerschreck_gun_item+item_in_world"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="rpzb_gr_4322_item+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [291.775, 3.47888, -370.136]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="repair_kit_item+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [293.668, 3.47888, -369.488]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="pzb_39_gun_item+item_in_world"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="pzb_39_magazine+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [288.915, 3.47888, -371.183]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="mortar_gun_item+item_in_world"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="mortar_shell_item+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="item_spawner"
+  transform:m=[[0.946058, 0.0, 0.323997] [0.0, 1.0, 0.0] [-0.323997, 0.0, 0.946058] [290.24, 3.47888, -370.73]]
+  spawnItemStep:p3=0.0, 0.0, 0.25
+
+  "spawnItemList:array"{
+
+    "spawnItemList:object"{
+      templ:t="rpzb_54_1_panzerschreck_gun_item+item_in_world"
+      count:i=1
+    }
+
+    "spawnItemList:object"{
+      templ:t="rpzb_gr_4992_item+item_in_world"
+      count:i=10
+    }
+  }
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.274176, 0.00407592, 0.961671] [-0.0133844, 0.999878, -0.00805381] [-0.961586, -0.0150796, -0.274088] [360.573, 3.2828, -493.337]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.244296, 0.00307228, -0.969696] [-0.0393668, 0.999202, -0.00675195] [0.968901, 0.0398233, 0.244222] [216.198, 3.42097, -75.7005]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.199017, -0.00712942, 0.97997] [0.0117711, 0.999884, 0.00966483] [-0.979925, 0.0134588, -0.19891] [209.006, 3.38401, -513.222]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.86639, 0.00142409, -0.499366] [-0.00194444, 0.999998, -0.000521775] [0.499364, 0.00142305, 0.866391] [253.419, 3.26761, -96.3383]]
+}
+
+entity{
+  _template:t="t_34_85_zis_53_a_destroyed"
+  transform:m=[[0.665351, 0.013231, -0.746413] [-0.00465236, 0.999897, 0.0135771] [0.746516, -0.00556097, 0.665344] [488.945, 3.28737, -194.006]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[0.651558, 0.0147206, 0.758456] [-0.0104656, 0.999891, -0.010416] [-0.758527, -0.00115105, 0.651641] [190.031, 3.33542, -443.265]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[-0.0423161, -9.81934e-05, -0.999104] [-0.00142306, 0.999999, -3.80088e-05] [0.999103, 0.00142018, -0.0423162] [463.012, 3.29254, -98.7474]]
+}
+
+entity{
+  _template:t="t_34_85_zis_53_a_destroyed"
+  transform:m=[[0.549582, 0.000537663, -0.83544] [0.00230975, 0.999995, 0.002163] [0.835437, -0.00311841, 0.549578] [442.483, 3.30638, -90.6012]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.897178, -0.359785, -0.256177] [0.36457, 0.930683, -0.0302972] [0.24932, -0.0662124, 0.966155] [234.655, 0.350236, -492.471]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.947637, -0.0115043, -0.319142] [0.0100229, 0.99993, -0.006284] [0.319192, 0.00275623, 0.947686] [279.847, 3.1708, -477.309]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[0.125984, 0.0016435, 0.992031] [-0.00968877, 0.999953, -0.000426186] [-0.991985, -0.00955787, 0.125994] [308.464, 3.30121, -201.627]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.454291, -0.0134071, 0.890752] [0.00158671, 0.999873, 0.0158588] [-0.890852, 0.00861787, -0.454212] [538.828, 3.35298, -356.255]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.749331, -0.0074494, 0.662154] [-0.00509829, 0.999972, 0.00548042] [-0.662176, 0.000730793, -0.749348] [556.015, 3.18762, -395.346]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.717504, 0.00208501, 0.696551] [-0.029568, 0.999003, -0.0334478] [-0.695927, -0.0445945, -0.716727] [285.34, 3.80718, -334.191]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.494311, 0.00164699, -0.869284] [-0.0018206, 0.999998, 0.000859376] [0.869283, 0.00115782, 0.494313] [223.911, 3.26922, -272.255]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.229041, -0.0193021, 0.973225] [-0.0171642, 0.999728, 0.0157883] [-0.973265, -0.0130884, -0.22931] [232.501, 3.39297, -230.929]]
+}
+
+entity{
+  _template:t="t_34_85_zis_53_a_destroyed"
+  transform:m=[[0.310561, 0.00948086, -0.950506] [-0.00326585, 0.999955, 0.00890703] [0.950548, 0.00033803, 0.310578] [206.323, 3.26889, -133.834]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[-0.251136, 0.00240373, -0.967949] [-0.000835001, 0.999996, 0.00269996] [0.967951, 0.0014863, -0.251133] [334.34, 3.34517, -300.708]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.191245, 0.0, 0.981542] [-0.0, 1.0, 0.0] [-0.981542, -0.0, -0.191245] [203.226, 3.28025, -699.422]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.650151, -0.00049334, 0.759805] [-0.00133535, 0.999999, -0.00049334] [-0.759804, -0.00133535, -0.650151] [444.731, 3.16706, -465.855]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.829628, -0.00666616, 0.558277] [-0.00270916, 0.999965, 0.00791423] [-0.55831, 0.00505341, -0.829617] [373.824, 3.26203, -456.079]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.343156, 0.00140262, -0.939277] [0.00140262, 0.999997, 0.00200572] [0.939277, -0.00200572, 0.343153] [336.522, 3.35196, -129.419]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.689077, -0.051478, -0.722857] [0.0351168, 0.998674, -0.0376444] [0.723837, 0.000555419, 0.689971] [191.753, 3.59311, -246.202]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.548234, 0.031813, 0.83572] [0.0788072, 0.996795, 0.0137531] [-0.832604, 0.0734007, -0.548984] [357.663, 3.59207, -595.617]]
+}
+
+entity{
+  _template:t="t_34_85_zis_53_a_destroyed"
+  transform:m=[[0.152676, 0.00707103, -0.988251] [0.00707103, 0.999941, 0.00824708] [0.988251, -0.00824708, 0.152617] [200.673, 3.35174, -333.356]]
+}
+
+entity{
+  _template:t="t_34_85_zis_53_a_destroyed"
+  transform:m=[[0.682648, 0.00132325, -0.730746] [-0.000523073, 0.999999, 0.00132217] [0.730747, -0.000520341, 0.682648] [339.913, 3.13873, -248.563]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[-0.282747, -0.0150937, 0.959076] [-0.0107817, 0.999863, 0.012557] [-0.959134, -0.00678999, -0.282871] [343.951, 3.22344, -192.13]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[0.377597, -0.00249683, 0.925967] [-0.00249609, 0.99999, 0.0037143] [-0.925967, -0.00371381, 0.377587] [265.317, 3.20583, -216.894]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[0.983405, 0.00204749, -0.181412] [-0.00139082, 0.999992, 0.00374695] [0.181419, -0.00343246, 0.9834] [365.914, 3.29264, -95.6833]]
+}
+
+entity{
+  _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
+  transform:m=[[0.537616, 0.0153729, 0.84305] [0.00190947, 0.999809, -0.019449] [-0.843188, 0.0120659, 0.537484] [618.499, 3.30344, -549.689]]
+}
+
+entity{
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[-0.210453, 0.0049204, 0.977592] [-0.0046518, 0.999971, -0.00603447] [-0.977593, -0.00581753, -0.210424] [202.56, 3.25395, -566.63]]
+}
+
+entity{
+  _template:t="is_2_1944_a_destroyed"
+  transform:m=[[-0.00396935, 0.207726, -0.978179] [-0.134981, 0.969123, 0.206351] [0.99084, 0.132854, 0.0241923] [252.54, 4.20519, -342.187]]
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [215.577, 5.20682, -73.9613]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [442.044, 5.20682, -90.545]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [538.731, 5.20682, -356.626]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [358.905, 4.82505, -597.117]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [233.026, 2.17506, -491.904]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [222.761, 4.67061, -270.348]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [335.722, 4.91928, -127.679]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [335.155, 4.91928, -298.744]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [252.035, 5.37788, -339.6]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[0.958854, 0.0, -0.283899] [0.0, 1.0, 0.0] [0.283899, 0.0, 0.958854] [202.828, 5.06521, -568.748]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="bonfire_effect"
+  transform:m=[[0.958854, 0.0, -0.283899] [0.0, 1.0, 0.0] [0.283899, 0.0, 0.958854] [257.524, 0.07496, -550.719]]
+  dmgzone__teamToDamage:i=-1
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[-0.940083, 0.0, -0.340943] [0.0, 1.0, 0.0] [0.340943, 0.0, -0.940083] [327.664, 4.0263, -357.209]]
+  team:i=-1
+}

@@ -1,0 +1,284 @@
+us_m3_lee{
+  _extends:t="us_m3_lee_common"
+}
+
+us_m3_lee_common{
+  _extends:t="base_m3_lee"
+  _extends:t="vehicle_effects_tracked"
+  gunner_cam_limit__useCockpitDir:b=yes
+
+  "vehicle_seats__seatsProvideOrder:tag"{
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=yes
+      hatchRotationAxis:p3=1.8, 0.0, 0.0
+      locName:t="vehicle_seats/commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, -0.8, 0.0]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+      cameraNodeName:t="bone_camera_gunner_03"
+      cockpitTemplate:t="us_m3_lee_commander_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_04"
+      }
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner_01"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner_01"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="us_m3_lee_gunner_37mm_turret_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_03"
+      }
+    }
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="us_m3_lee_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner_02"
+      cockpitTemplate:t="us_m3_lee_gunner_75mm_hull_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/loader"
+      attachNode:t="loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/loader"
+      attachNode:t="loader_01"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader_01"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+  }
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      fill:b=yes
+    }
+  }
+}
+
+us_m3_lee_driver_cockpit{
+  _extends:t="base_driver_cockpit"
+  animchar__res:t="kv_1_driver_char"
+  cockpit__offset:p3=-0.2, -0.0, -0.0
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="track_l"
+    node:t="track_r"
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_01"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.09
+  }
+}
+
+us_m3_lee_gunner_75mm_hull_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70f.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__minZoom:r=-0.27
+  cockpit__offset:p3=-0.388987, 0.523228, 0.422681
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="emtr_gun_flame_02"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel_02"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.19
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}
+
+us_m3_lee_gunner_37mm_turret_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__minZoom:r=-0.27
+  cockpit__offset:p3=-0.0, -0.0, -0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=-0.38, -0.07, 0.21
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_camera_gunner"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel_01"
+    node:t="@root"
+    node:t="ex_decor_01"
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_02"
+    node:t="gun_barrel_02"
+    node:t="bone_gun_02"
+    node:t="bone_turret_02"
+    node:t="antenna"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.19
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}
+
+us_m3_lee_commander_cockpit{
+  _extends:t="base_commander_cockpit_no_slits"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
+  animchar__res:t="t_26_1940_commander_char"
+  cockpit__offset:p3=-0.6, 0.1, 0.21
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=-0.0, 0.0, 0.0
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_mg_turret_01"
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel_02"
+    node:t="gun_barrel_01"
+    node:t="bone_gun_01"
+    node:t="bone_gun_02"
+    node:t="bone_turret_01"
+    node:t="bone_turret_02"
+    node:t="bone_mg_turret_01"
+    node:t="@root"
+    node:t="ex_decor_01"
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_02"
+    node:t="antenna"
+    node:t="hatch_03"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.17
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}
+
+ussr_m3_lee_premium{
+  _extends:t="us_m3_lee_common"
+  item__name:t="items/ussr_m3_lee_premium"
+  item__iconOffset:p2=0.0, 0.2
+
+  "animchar__objTexReplace:object"{
+    "us_camo_olive*":t="ussr_camo_green*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "m3_lee_body_c*:object"{
+      "m3_lee_ussr_body_c*":t="camo_skin_tex"
+    }
+
+    "m3_lee_turret_c*:object"{
+      "m3_lee_ussr_turret_c*":t="camo_skin_tex"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+cam{
+  esName:t="inertial_free_cam"
+  initial:b=yes
+  tag:t="spectator"
+}
+
+cam{
+  esName:t="fast_free_cam"
+  tag:t="spectator"
+}
+
+cam{
+  esName:t="helmet_cam"
+  tag:t="spectator"
+}
+
+cam{
+  esName:t="observe_head_cam"
+  tag:t="spectator"
+}
+
+cam{
+  esName:t="eye_cam"
+  tag:t="spectator"
+}
+
+cam{
+  esName:t="shooter_cam"
+  tag:t="spectator"
+  bindable:b=yes
+}

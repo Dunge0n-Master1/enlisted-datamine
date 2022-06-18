@@ -1,0 +1,92 @@
+require ecs
+require EnlistedWalkerai
+require pathfinder
+require DagorDataBlock
+require BehNodes
+require DagorRandom
+require math
+require game.es.events
+require enlisted.events_enlisted
+require enlisted.game.es.enlisted_squad_common
+require game.es.sound_net.sound_net_events
+require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+
+def order_heal(squad_eid, squad__leader : ecs::EntityId; squad__numAliveMembers : int) : bool
+  let isLeaderDowned = get_bool(squad__leader, "isDowned") ?? false
+  var ordered = false
+  let nearestTeammate = get_nearest_squad_mate_for_order(squad_eid, squad__leader, SquadMateOrder ESMO_HEAL) <| $(eid : EntityId)
+    return isLeaderDowned ? (get_int(eid, "total_kits__targetRevive") ?? 0 > 0) : (get_int(eid, "total_kits__targetHeal") ?? 0 > 0)
+  if nearestTeammate.executeOrder
+    return true
+  ecs::query(nearestTeammate.eid) <| $ [es] (var squad_member__orderType : int&;
+                                             var squad_member__orderPosition : float3&;
+                                             var squad_member__orderUseEntity : EntityId&;
+                                             var squad_member__isPersonalOrder : bool&;
+                                             var beh_tree : BehaviourTree&)
+    beh_tree.blackBoard |> datablock_setInt("healRequester", int(uint(squad__leader)))
+    squad_member__orderType = int(SquadMateOrder ESMO_HEAL)
+    squad_member__orderPosition = float3()
+    squad_member__orderUseEntity = INVALID_ENTITY_ID
+    squad_member__isPersonalOrder = false
+    request_squad_member_response(nearestTeammate.eid)
+    ordered = true
+  if !ordered
+    if squad__numAliveMembers <= 1
+      sendEvent(squad__leader, [[CmdHeroLogEvent event="squad_order_canceled", text="context_command/no_alive_squadmates"]])
+      send_order_cancel_bq(squad__leader, "no_alive_squadmates", "{SquadMateOrder ESMO_HEAL}")
+    else
+      let text = isLeaderDowned ? "revive_order/no_revive_kits" : "heal_order/no_medkits"
+      sendEvent(squad__leader, [[CmdHeroLogEvent event="squad_order_canceled", text=text]])
+      send_order_cancel_bq(squad__leader, isLeaderDowned ? "no_revive_kits" : "no_medkits",
+        "{SquadMateOrder ESMO_HEAL}")
+  else
+    query(nearestTeammate.eid) <| $ [es] (transform : float3x4)
+      send_squad_member_accept_order_bq(squad__leader, "{SquadMateOrder ESMO_HEAL}", transform[3], true)
+  return ordered
+
+[es(tag=server)]
+def on_squad_mate_heal_order(evt : RequestSquadMateOrder; eid : ecs::EntityId; squad__leader : ecs::EntityId; squad__numAliveMembers : int)
+  if evt.orderType == SquadMateOrder ESMO_HEAL
+    order_heal(eid, squad__leader, squad__numAliveMembers)
+
+[es(on_event=EventEntityDied, tag=server)]
+def on_squad_mate_should_heal_died(evt : Event; eid : EntityId; squad_member__squad : ecs::EntityId; squad_member__orderType : int)
+  if squad_member__orderType == int(SquadMateOrder ESMO_HEAL)
+    send_order_cancel_bq(eid, "died", "{SquadMateOrder ESMO_HEAL}")
+    ecs::query(squad_member__squad) <| $ [es] (squad__leader : ecs::EntityId; squad__numAliveMembers : int)
+      order_heal(squad_member__squad, squad__leader, squad__numAliveMembers)
+
+[es(tag=server, no_order)]
+def on_squad_mate_heal(act : ecs::UpdateStageInfoAct; squad_member__squad : ecs::EntityId;
+                       var beh_tree : BehaviourTree&; var squad_member__orderType : int&;
+                       var squad_member__orderPosition : float3&; var squad_member__orderUseEntity : ecs::EntityId&;
+                       var squad_member__isPersonalOrder : bool&)
+  if squad_member__orderType == int(SquadMateOrder ESMO_HEAL)
+    ecs::query(squad_member__squad) <| $ [es] (squad__leader : ecs::EntityId)
+      if beh_tree.blackBoard |> datablock_getInt("healRequester", 0) != int(uint(squad__leader))
+        beh_tree.blackBoard |> datablock_setInt("healRequester", 0)
+        reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+
+[es(tag=server)]
+def squad_mate_order_heal(evt : RequestSquadMateOrder; squad__leader : ecs::EntityId)
+  if evt.orderType == SquadMateOrder ESMO_HEAL
+    if get_bool(squad__leader, "isDowned") ?? false
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadReviveMeOrder", importance=1.]])
+    else
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadHealMeOrder", importance=1.]])
+
+[es(tag=server, track=human_inventory__entityToUse)]
+def squad_mate_order_heal_interrupted(evt : Event;
+                                      human_inventory__entityToUse : EntityId;
+                                      human_inventory__targetToUse : EntityId;
+                                      var beh_tree : BehaviourTree&;
+                                      var squad_member__orderType : int&;
+                                      var squad_member__orderPosition : float3&;
+                                      var squad_member__orderUseEntity : ecs::EntityId&;
+                                      var squad_member__isPersonalOrder : bool&;
+                                      squad_member__squad : ecs::EntityId)
+  if squad_member__orderType == int(SquadMateOrder ESMO_HEAL)
+    query(squad_member__squad) <| $ [es] (squad__leader : ecs::EntityId)
+      if !human_inventory__entityToUse || human_inventory__targetToUse != squad__leader
+        beh_tree.blackBoard |> datablock_setInt("healRequester", 0)
+        reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)

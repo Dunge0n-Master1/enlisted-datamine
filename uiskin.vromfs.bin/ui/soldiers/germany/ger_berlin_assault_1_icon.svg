@@ -1,0 +1,29 @@
+<svg id="ger_berlin_assault_1_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ba1717;
+      }
+
+      .cls-2 {
+        fill: #151515;
+      }
+
+      .cls-3 {
+        fill: #f2f2f2;
+      }
+
+      .cls-4 {
+        fill: #b9b9b9;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="2" y="25" width="146" height="100"/>
+  <rect class="cls-2" x="2" y="45" width="146" height="60"/>
+  <rect class="cls-3" x="2" y="47" width="146" height="56"/>
+  <rect class="cls-2" x="2" y="50" width="146" height="50"/>
+  <path class="cls-4" d="M20.008,70.317l16.675-7.309,7.309,16.675L27.317,86.992Z"/>
+  <path id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="cls-4" d="M63.008,70.317l16.675-7.309,7.309,16.675L70.317,86.992Z"/>
+  <path id="Rectangle_1_copy_2" data-name="Rectangle 1 copy 2" class="cls-4" d="M106.008,70.317l16.675-7.309,7.309,16.675-16.675,7.309Z"/>
+</svg>

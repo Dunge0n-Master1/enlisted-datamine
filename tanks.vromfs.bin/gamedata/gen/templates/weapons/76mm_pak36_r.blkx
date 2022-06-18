@@ -1,0 +1,53 @@
+base_76mm_pak36_r{
+  item__name:t="guns/76mm_pak36_r"
+  gun__blk:t="gamedata/gen/weapons/76mm_pak36_r.blk"
+  gun__shotFreq:r=0.167
+  gun__locName:t="76mm_pak36_r"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_pak36_r_defaultset.blk"
+        name:t="76mm_pzgr_39_rot"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "76mm_ger_pak36r_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_pak36_r_76mm_ger_pak36r_he.blk"
+        name:t="76mm_sprgr_39"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "76mm_ger_pak36r_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_pak36_r_76mm_ger_pak36r_heat.blk"
+        name:t="76mm_grhl_38_c"
+        type:t="heat_tank"
+      }
+    }
+
+    "76mm_ger_pak36r_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_pak36_r_76mm_ger_pak36r_apcr.blk"
+        name:t="76mm_pzgr_40"
+        type:t="apcr_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_pak36_r{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_76mm_pak36_r"
+  _extends:t="gunsound_76mm_pak36_r"
+  turret__triggerGroup:i=0
+}

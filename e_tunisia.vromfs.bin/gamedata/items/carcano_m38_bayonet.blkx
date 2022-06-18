@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="bayonet"
+  slotTag:t="carcano_m38_bayonet"
+  gunSlotName:t="bayonet"
+  template:t="carcano_m38_bayonet"
+}
+
+visual{
+  template:t="carcano_m38_bayonet_item+item_in_world"
+}

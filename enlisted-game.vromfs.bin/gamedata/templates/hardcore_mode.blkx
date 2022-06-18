@@ -1,0 +1,26 @@
+forceMinimalHud{
+  _extends:t="replicating"
+
+  "forceMinimalHud:tag"{
+  }
+}
+
+gamemodeFriendlyFire{
+  _extends:t="replicating"
+
+  "gamemodeFriendlyFire:tag"{
+  }
+}
+
+gamemodeCapzoneSmoke{
+  _extends:t="replicating"
+
+  "gamemodeCapzoneSmoke:tag"{
+  }
+}
+
+disableTeamkillWeaponDrops{
+
+  "disableTeamkillWeaponDrops:tag"{
+  }
+}

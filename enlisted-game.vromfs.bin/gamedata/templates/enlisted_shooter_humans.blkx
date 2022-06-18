@@ -1,0 +1,171 @@
+base_human_actions{
+  action__running:b=no
+  _replicated:t="actions__actions_enabled"
+  _replicated:t="actions__enabled"
+  actions__enabled:b=yes
+
+  actions{
+  }
+
+  "actions__actions:array"{
+
+    "action:object"{
+      name:t="stand_melee"
+      state:t="upper_melee"
+      class:t="melee"
+      actionTime:r=1.0
+      applyAt:r=0.3
+      props:t="content/enlisted/gamedata/actions_enlisted/melee.blk"
+      irq:t="melee"
+      varName:t="action_progress"
+    }
+
+    "action:object"{
+      name:t="crawl_melee"
+      state:t="crawl_melee"
+      class:t="melee"
+      actionTime:r=1.0
+      applyAt:r=0.3
+      props:t="content/enlisted/gamedata/actions_enlisted/melee.blk"
+      irq:t="melee"
+      varName:t="action_progress"
+    }
+
+    "action:object"{
+      name:t="pickup"
+      state:t="pickup_item"
+      actionTime:r=0.6
+      applyAt:r=0.5
+      props:t="content/common/gamedata/actions/pickup.blk"
+      irq:t="pickup_act"
+      varName:t="action_progress"
+    }
+  }
+
+  "actions__actions_enabled:array"{
+    enabled:b=yes
+    enabled:b=yes
+    enabled:b=yes
+  }
+}
+
+human{
+  _override:b=yes
+
+  "dm_parts__parts:object"{
+
+    "Bip01 Head:object"{
+      dmgMult:r=2.3
+      armor:r=0.0
+      type:t="head"
+    }
+
+    "Bip01 Neck:object"{
+      dmgMult:r=2.5
+      armor:r=0.0
+      type:t="head"
+    }
+
+    "Bip01 L Thigh:object"{
+      dmgMult:r=0.8
+      armor:r=0.0
+      type:t="l_leg"
+    }
+
+    "Bip01 R Thigh:object"{
+      dmgMult:r=0.8
+      armor:r=0.0
+      type:t="r_leg"
+    }
+
+    "Bip01 L Calf:object"{
+      dmgMult:r=0.8
+      armor:r=0.0
+      type:t="l_leg"
+    }
+
+    "Bip01 R Calf:object"{
+      dmgMult:r=0.8
+      armor:r=0.0
+      type:t="r_leg"
+    }
+
+    "Bip01 L Foot:object"{
+      dmgMult:r=0.8
+      armor:r=0.0
+      type:t="l_leg"
+    }
+
+    "Bip01 R Foot:object"{
+      dmgMult:r=0.8
+      armor:r=0.0
+      type:t="r_leg"
+    }
+
+    "Bip01 Pelvis:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="torso"
+    }
+
+    "Bip01 Spine:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="torso"
+    }
+
+    "Bip01 Spine1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="torso"
+    }
+
+    "Bip01 R Clavicle:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="r_hand"
+    }
+
+    "Bip01 L Clavicle:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="l_hand"
+    }
+
+    "Bip01 R UpperArm:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="r_hand"
+    }
+
+    "Bip01 L UpperArm:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="l_hand"
+    }
+
+    "Bip01 R Forearm:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="r_hand"
+    }
+
+    "Bip01 L Forearm:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="l_hand"
+    }
+
+    "Bip01 R Hand:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="r_hand"
+    }
+
+    "Bip01 L Hand:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+      type:t="l_hand"
+    }
+  }
+}

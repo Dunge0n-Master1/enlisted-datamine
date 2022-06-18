@@ -1,0 +1,27 @@
+stat_name:t="launcher"
+selWeaponVar:t="m1_bazooka"
+
+ownerAnimVars{
+  reye_offset_fwd0:r=-0.2
+  gun_offset_along:r=0.11
+  gun_offset_across:r=0.0
+  gun_offset_up:r=0.0
+}
+
+shotDeviation{
+  onShotDeviationChange:r=0.0
+  omegaRange:p2=30.0, 90.0
+  omegaDevInc:p2=0.1, 0.5
+  extraDeviationTau:r=0.15
+  maxDeviation:r=15.0
+  movementRange:p2=3.0, 5.0
+  movementDevInc:p2=0.0, 6.0
+}
+
+gunFlash{
+
+  gunFx_main{
+    fx:t="smoke_rocket_exhaust"
+    scale:r=1.0
+  }
+}

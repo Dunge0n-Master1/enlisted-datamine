@@ -1,0 +1,158 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.238094, -0.000636627, 0.971241] [-0.22585, 0.972623, -0.0547284] [-0.944618, -0.232386, -0.23172] [57.7483, 101.734, -289.515]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
+  level__weather:t="content/common/gamedata/weather/weather_clear.blk"
+  level__timeRange:p2=5.0, 18.0
+
+  "level__timeVec:array"{
+    level_timeVec:r=6.5
+  }
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_overcast.blk":r=1.0
+  }
+}
+
+entity{
+  _template:t="minimap_normandy_beach_fortified"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=2.0
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    paint_details_tex:t="normandy_wall_color_tex_palette*"
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="team_usa+team_narrator_domination+respawn_creators_team"
+  team__id:i=1
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
+  score_bleed__domBleed:r=5.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=0.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__eachSquadMaxSpawns:i=50
+  team__spawnBotArmy:t="normandy_allies"
+}
+
+entity{
+  _template:t="team_germany+team_narrator_domination+respawn_creators_team"
+  team__id:i=2
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
+  score_bleed__domBleed:r=5.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=0.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__eachSquadMaxSpawns:i=50
+  team__spawnBotArmy:t="normandy_axis"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="respTeam1"
+  transform:m=[[-0.197425, 0.0854253, -0.976588] [0.0169269, 0.996345, 0.0837316] [-0.980172, 0.0, 0.198149] [-174.618, 72.3694, -384.758]]
+}
+
+entity{
+  _template:t="respTeam2"
+  transform:m=[[0.0514679, 0.0854253, 0.995015] [-0.00441277, 0.996345, -0.0853114] [0.998665, 0.0, -0.0516562] [-178.675, 73.7652, -431.315]]
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.0381007, 0.0854253, -0.995616] [-0.00326668, 0.996345, 0.085363] [-0.999269, 0.0, -0.038241] [-184.385, 71.5506, -382.422]]
+  team:i=1
+  maxVehicleOnSpawn:i=10
+  respTime:i=0
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.0308458, 0.0854253, 0.995867] [-0.0026447, 0.996345, -0.0853844] [0.999522, 0.0, -0.0309583] [-184.897, 73.8779, -430.482]]
+  team:i=2
+  maxVehicleOnSpawn:i=10
+  respTime:i=0
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[-269.404, 0.0, 11.3328] [0.0, 50.9745, 0.0] [-21.1077, 0.0, -540.778] [-180.351, 76.2643, -406.174]]
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=1.0
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.0381007, 0.0854253, -0.995616] [-0.00326668, 0.996345, 0.085363] [-0.999269, 0.0, -0.038241] [-184.385, 71.5506, -382.422]]
+  team:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  active:b=no
+  transform:m=[[0.0308458, 0.0854253, 0.995867] [-0.0026447, 0.996345, -0.0853844] [0.999522, 0.0, -0.0309583] [-184.897, 73.8779, -430.482]]
+  team:i=2
+}

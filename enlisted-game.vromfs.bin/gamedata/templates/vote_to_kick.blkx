@@ -1,0 +1,24 @@
+vote_to_kick{
+  _extends:t="replicating"
+  vote_to_kick__kickVotingTemplate:t="kick_voting"
+  vote_to_kick__time:r=20.0
+  _singleton:b=yes
+}
+
+kick_voting{
+  _extends:t="replicating"
+  kick_voting__timer:r=0.0
+  _tracked:t="kick_voting__voteYes"
+  _tracked:t="kick_voting__voteNo"
+  _replicated:t="kick_voting__voteYes"
+  _replicated:t="kick_voting__voteNo"
+
+  "kick_voting__accused:eid"{
+  }
+
+  "kick_voting__voteYes:list<eid>"{
+  }
+
+  "kick_voting__voteNo:list<eid>"{
+  }
+}

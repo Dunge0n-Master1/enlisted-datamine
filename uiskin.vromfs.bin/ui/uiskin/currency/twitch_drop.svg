@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <linearGradient id="linear-gradient" x1="11.5" y1="11.18" x2="11.5" y2="35.82" gradientTransform="matrix(1, 0, 0, -1, 0, 38)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b399d9"/>
+      <stop offset="1" stop-color="#c3b4d9"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <g>
+      <rect width="23" height="29" fill="#ae8cd9"/>
+      <path d="M11.5,7,19,14.5,11.5,22,4,14.5Z" fill="#b7a1d9" fill-rule="evenodd"/>
+      <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" d="M11.5,4,22,14.5,11.5,25,1,14.5ZM11.5,5l9.42,9.46L11.5,24,2.08,14.5Z" fill="#b7a1d9" fill-rule="evenodd"/>
+      <polygon points="4 7 4 10 4 11 4 12 7 12 7 11 9 11 9 21 8 21 8 23 9 23 11 23 12 23 14 23 15 23 15 21 14 21 14 11 16 11 16 12 19 12 19 11 19 10 19 7 4 7" fill="#5d4e84"/>
+      <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" d="M1,28V1H22V28ZM18,2H5L2,5V24l3,3H18l3-3V5Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>

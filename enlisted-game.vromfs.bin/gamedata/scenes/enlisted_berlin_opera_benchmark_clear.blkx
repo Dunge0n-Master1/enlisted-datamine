@@ -1,0 +1,196 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_gpu_objects.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_biom_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_background_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_projectors.blk"
+  scene:t="content/enlisted/gamedata/scenes/_berlin_opera_tracers.blk"
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/battle_of_berlin_opera.blk"
+  level__timeRange:p2=5.0, 19.2
+  level__day:i=9
+  level__month:i=6
+
+  "level__weatherChoice:object"{
+
+    "content/common/gamedata/weather/weather_clear.blk:object"{
+      weight:r=1.0
+
+      "entities:array"{
+
+        "entities:object"{
+          template:t="snow"
+
+          "components:object"{
+            snow__alpha_fade_speed_begin:r=2.0
+            snow__speed:r=0.001
+            snow__density:r=0.005
+            snow__length:r=0.0
+            snow__width:r=0.0225
+            snow__alpha_fade_speed_end:r=10.0
+            snow__alpha:r=6.75
+            snow__wind:r=12.0
+          }
+        }
+      }
+    }
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=16.5
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    puddle_hardness:r=12.0
+    puddle_flat_noise_normal_effect:r=0.015
+    puddle_flat_normal_hardness:r=25.0
+    layered_fog_density:r=0.005
+    land_selfillum_worldscale:r=1.0
+    river1:c=64, 64, 29, 0
+    river0:c=49, 47, 41, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=-0.2
+    leaves_ss_profile:p4=1.0, 1.0, 1.0, 0.0
+    autodetect_land_selfillum_color:p4=0.176, 0.051, 0.0, 0.094
+    paint_details_tex:t="berlin_wall_color_tex_palette*"
+    layered_fog_height:r=20.0
+    puddle_increase:r=0.0
+    land_selfillum_strength:r=50.0
+    water_color_noise_size:r=71.0
+    puddle_flat_noise_height_reduce:r=0.09
+    water_depth_hardness:r=0.41
+    river_density:r=0.5
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+
+  "post_fx:object"{
+  }
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=1.3
+  wind__dir:r=190.0
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.3
+  water__level:r=-2.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_berlin/gamedata/berlin_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.9
+  anim_track_on:b=yes
+}
+
+entity{
+  _template:t="ui_disabled"
+}
+
+entity{
+  _template:t="benchmark"
+  benchmark_name:t="berlin_opera"
+
+  "camera_tracks:array"{
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-343.0905, 7.791021, 526.9742
+      from_dir:p3=0.087725, -0.001639, -0.996143
+      from_fov:r=90.0
+      to_pos:p3=-377.8359, 6.906153, 508.4019
+      to_dir:p3=0.654768, 0.02534, -0.755405
+      to_fov:r=90.0
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-440.9261, 6.795364, 593.8124
+      from_dir:p3=-0.331398, -0.017538, 0.943328
+      from_fov:r=90.0
+      to_pos:p3=-461.6671, 6.871418, 590.2778
+      to_dir:p3=0.446636, -0.025352, 0.894357
+      to_fov:r=90.0
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-322.9402, 6.226043, 436.8259
+      from_dir:p3=0.369436, -0.013797, -0.929154
+      from_fov:r=90.0
+      to_pos:p3=-334.0733, 4.615384, 447.1777
+      to_dir:p3=0.568301, -0.008754, -0.822774
+      to_fov:r=90.0
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-367.3421, 5.978925, 545.8976
+      from_dir:p3=-0.879486, -0.011279, 0.47579
+      from_fov:r=90.0
+      to_pos:p3=-395.6578, 5.91275, 569.8866
+      to_dir:p3=-0.981134, 0.000457, 0.193327
+      to_fov:r=90.0
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-368.5833, 7.456196, 373.9548
+      from_dir:p3=0.005834, 0.001288, -0.999982
+      from_fov:r=90.0
+      to_pos:p3=-369.0086, 6.918325, 408.1287
+      to_dir:p3=0.063353, 0.00364, -0.997985
+      to_fov:r=90.0
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-324.3978, 11.97719, 401.2716
+      from_dir:p3=0.892319, -0.104422, 0.439162
+      from_fov:r=90.0
+      to_pos:p3=-306.1089, 11.26319, 402.6077
+      to_dir:p3=-0.191342, -0.072059, 0.978875
+      to_fov:r=90.0
+    }
+
+    "track:object"{
+      duration:r=10.0
+      from_pos:p3=-338.2713, 32.71799, 470.6419
+      from_dir:p3=-0.385628, -0.156592, 0.909269
+      from_fov:r=90.0
+      to_pos:p3=-305.6849, 31.86035, 530.0344
+      to_dir:p3=-0.995035, -0.096204, 0.025517
+      to_fov:r=90.0
+    }
+  }
+}

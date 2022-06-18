@@ -1,0 +1,10 @@
+gunAttachable{
+  slot:t="bayonet"
+  slotTag:t="type_30_bayonet"
+  gunSlotName:t="bayonet"
+  template:t="type_30_bayonet"
+}
+
+visual{
+  template:t="type_30_bayonet_item+item_in_world"
+}

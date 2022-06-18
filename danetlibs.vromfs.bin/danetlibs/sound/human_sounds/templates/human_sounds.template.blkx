@@ -1,0 +1,73 @@
+sound_step_settings{
+  _extends:t="sound_physmat"
+  sound_step__queryResultToPuddleDepth:p4=0.1, 0.4, 0.0, 0.05
+
+  _group{
+    _tags:t="sound"
+
+    "sound_physmat__soundMaterials:list<t>"{
+      mat:t="grass"
+      mat:t="concrete"
+      mat:t="water"
+      mat:t="wood"
+      mat:t="metal"
+      mat:t="mud"
+      mat:t="highgrass"
+      mat:t="fabric"
+      mat:t="snow"
+      mat:t="sand"
+      mat:t="barbwire"
+      mat:t="ice"
+      mat:t="gravel"
+      mat:t="leaves"
+    }
+
+    "sound_physmat__physmatToSoundmat:object"{
+      waterPuddle:t="water"
+      water3d:t="water"
+      water:t="water"
+      concrete:t="concrete"
+      stone:t="concrete"
+      buildings:t="concrete"
+      soil:t="concrete"
+      road:t="concrete"
+      roadSoil:t="concrete"
+      roadSand:t="concrete"
+      quickSand:t="concrete"
+      rocks:t="concrete"
+      rocksSlippery:t="concrete"
+      rubber:t="concrete"
+      ceramic:t="concrete"
+      paper:t="concrete"
+      plastic:t="concrete"
+      small_debris:t="concrete"
+      small_decor:t="concrete"
+      wood:t="wood"
+      wood_railway:t="wood"
+      window_wood:t="wood"
+      cactus:t="wood"
+      softWoodDoor:t="wood"
+      steel:t="metal"
+      metal:t="metal"
+      train:t="metal"
+      softSteelDoor:t="metal"
+      mud:t="mud"
+      roadmud:t="mud"
+      sand:t="sand"
+      quarrySand:t="sand"
+      sand_slope:t="sand"
+      snow:t="snow"
+      snowLower:t="snow"
+      roadSnow:t="snow"
+      ice:t="ice"
+      gravel:t="gravel"
+      fabric:t="fabric"
+      hay:t="highgrass"
+      bushes:t="highgrass"
+      barbwire:t="barbwire"
+    }
+  }
+
+  "soundStepSettings:tag"{
+  }
+}

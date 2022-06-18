@@ -1,0 +1,343 @@
+base_2_0cm_flakvierling_38_ul{
+
+  "gun__shellsAmmo:array"{
+    ammo:i=60
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/weapons/shells/germ/20mm_kwk30_sprgr_he.blk"
+        name:t="20mm_sprgr"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+base_2_0cm_flakvierling_38_ur{
+
+  "gun__shellsAmmo:array"{
+    ammo:i=60
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/weapons/shells/germ/20mm_kwk30_sprgr_he.blk"
+        name:t="20mm_sprgr"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+base_2_0cm_flakvierling_38_dl{
+
+  "gun__shellsAmmo:array"{
+    ammo:i=60
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/weapons/shells/germ/20mm_kwk30_sprgr_he.blk"
+        name:t="20mm_sprgr"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+base_2_0cm_flakvierling_38_dr{
+
+  "gun__shellsAmmo:array"{
+    ammo:i=60
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/weapons/shells/germ/20mm_kwk30_sprgr_he.blk"
+        name:t="20mm_sprgr"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+tankgun_flak38_flakvierling_7_62mm_dt_ul{
+  _extends:t="tankgun_20mm_kwk30"
+  _extends:t="base_2_0cm_flakvierling_38_ul"
+  gun__shootNodeName:t="bone_gun_barrel_ul"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
+  turret__limit:p4=-180.0, 180.0, -5.0, 87.0
+  turret__yawSpeed:r=60.0
+  turret__pitchSpeed:r=20.0
+  turret__triggerGroup:i=0
+
+  "aiAvoidTurret:tag"{
+  }
+}
+
+tankgun_flak38_flakvierling_7_62mm_dt_ur{
+  _extends:t="tankgun_20mm_kwk30"
+  _extends:t="base_2_0cm_flakvierling_38_ur"
+  gun__shootNodeName:t="bone_gun_barrel_ur"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
+}
+
+tankgun_flak38_flakvierling_7_62mm_dt_dl{
+  _extends:t="tankgun_20mm_kwk30"
+  _extends:t="base_2_0cm_flakvierling_38_dl"
+  gun__shootNodeName:t="bone_gun_barrel_dl"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
+}
+
+tankgun_flak38_flakvierling_7_62mm_dt_dr{
+  _extends:t="tankgun_20mm_kwk30"
+  _extends:t="base_2_0cm_flakvierling_38_dr"
+  gun__shootNodeName:t="bone_gun_barrel_dr"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
+}
+
+cannon_germ_20mm_flak38_flakvierling_without_camo{
+  _extends:t="base_anti_aircraft_cannon"
+  killLogName:t="germ_20mm_flak38_flakvierling"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
+  vehicle_seats_camera_nodes__defaultNode:t="sight"
+  animchar__res:t="cannon_germ_20mm_flak38_flakvierling_char"
+  collres__res:t="cannon_germ_20mm_flak38_flakvierling_collision"
+
+  "phys_vars__skipVisibilityCheck:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="sight"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
+
+  _group{
+    _tags:t="server"
+
+    "fatal_explosion_external_fire__nodeNames:shared:array"{
+      node:t="guns"
+    }
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="char_driver_pivot"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      ignoreAttachNodeRotation:b=yes
+      cameraType:t="machinegunner_cockpit"
+      cameraNodeName:t="sight"
+      cameraOffset:p3=0.0, 0.5, 0.0
+      directTurretControl:b=yes
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
+    }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bone_gun_barrel_ul"
+    node:t="bone_gun_barrel_ur"
+    node:t="bone_gun_barrel_dl"
+    node:t="bone_gun_barrel_dr"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_20mm"
+    fx:t="muzzle_ground_20mm"
+    fx:t="muzzle_ground_20mm"
+    fx:t="muzzle_ground_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel_ul"
+    node:t="bone_gun_barrel_ur"
+    node:t="bone_gun_barrel_dl"
+    node:t="bone_gun_barrel_dr"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      gunRecoilParamName:t="gun_01_recoil"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+      gunRecoilParamName:t="gun_02_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+      gunRecoilParamName:t="gun_03_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+      gunRecoilParamName:t="gun_04_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      gun:t="tankgun_flak38_flakvierling_7_62mm_dt_ul+turret_with_several_types_of_shells+main_turret"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="main_turrets"
+      gun:t="tankgun_flak38_flakvierling_7_62mm_dt_ur"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="main_turrets"
+      gun:t="tankgun_flak38_flakvierling_7_62mm_dt_dl"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      gun:t="tankgun_flak38_flakvierling_7_62mm_dt_dr"
+      salt:i=1
+    }
+  }
+
+  "fatal_explosion_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_big"
+          emitter:t="guns"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_small"
+          emitter:t="guns"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_big"
+          emitter:t="guns"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small"
+          emitter:t="guns"
+        }
+      }
+    }
+  }
+
+  "fatal_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_ammo_fire"
+          emitter:t="guns"
+        }
+      }
+    }
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_small"
+          emitter:t="guns"
+        }
+      }
+    }
+  }
+}
+
+cannon_germ_20mm_flak38_flakvierling_green_camo{
+  _extends:t="cannon_germ_20mm_flak38_flakvierling_without_camo"
+
+  "animchar__objTexReplace:object"{
+    "cannon_germ_20mm_flak38_flakvierling_camo*":t="ger_camo_bronzegruen*"
+  }
+}
+
+cannon_germ_20mm_flak38_flakvierling{
+  _extends:t="cannon_germ_20mm_flak38_flakvierling_without_camo"
+
+  "animchar__objTexReplace:object"{
+    "cannon_germ_20mm_flak38_flakvierling_camo*":t="ger_camo_winter_grey*"
+  }
+}
+
+cannon_germ_20mm_flak38_flakvierling_desert{
+  _extends:t="cannon_germ_20mm_flak38_flakvierling_without_camo"
+}

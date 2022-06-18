@@ -1,0 +1,193 @@
+mass:r=5000.0
+momentOfInertia:p3=0.0, 0.0, 1.0
+centerOfMass:p3=0.0, 0.0, 0.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+addToWorld:b=yes
+gravityMult:r=0.0
+ignoreCollision:b=yes
+shouldTraceGround:b=no
+boundingRadius:r=0.1
+Empty:r=5000.0
+CenterOfGravity:p3=-0.2, 0.0, 0.0
+AdvancedMass:b=no
+CenterOfGravityClampY:p2=0.0, 0.7
+
+collisionResource{
+
+  props{
+    cls_body_01:t="convex_hull"
+    cls_body_02:t="convex_hull"
+    cls_body_03:t="convex_hull"
+    cls_body_04:t="convex_hull"
+    cls_body_05:t="convex_hull"
+    cls_body_06:t="convex_hull"
+    cls_body_07:t="convex_hull"
+    cls_body_08:t="convex_hull"
+    cls_body_09:t="convex_hull"
+    cls_body_10:t="convex_hull"
+    cls_body_11:t="convex_hull"
+    cls_body_12:t="convex_hull"
+    cls_body_13:t="convex_hull"
+    cls_body_14:t="convex_hull"
+    cls_body_15:t="convex_hull"
+    cls_body_16:t="convex_hull"
+    cls_body_17:t="convex_hull"
+    cls_body_18:t="convex_hull"
+    cls_body_19:t="convex_hull"
+    cls_body_20:t="convex_hull"
+    cls_body_21:t="convex_hull"
+    cls_body_22:t="convex_hull"
+    cls_body_23:t="convex_hull"
+    cls_body_24:t="convex_hull"
+    cls_body_25:t="convex_hull"
+    cls_body_26:t="convex_hull"
+    cls_body_27:t="convex_hull"
+    cls_body_28:t="convex_hull"
+    cls_body_29:t="convex_hull"
+    cls_body_30:t="convex_hull"
+    cls_body_31:t="convex_hull"
+    cls_body_32:t="convex_hull"
+    cls_body_33:t="convex_hull"
+    cls_body_34:t="convex_hull"
+    cls_body_35:t="convex_hull"
+    cls_body_36:t="convex_hull"
+    cls_body_37:t="convex_hull"
+    cls_body_38:t="convex_hull"
+    cls_body_39:t="convex_hull"
+  }
+}
+
+DamageParts{
+  formatVersion:i=2
+
+  body{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  wheel_l_01{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  wheel_r_01{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  wheel_l_02{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  wheel_r_02{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  turret{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  gun_mask{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  gun_barrel{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_01_l{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_01_r{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_02_l{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_02_r{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_03_l{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_03_r{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_04_l{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_04_r{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_05_l{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+
+  door_05_r{
+    hitTestType:t="armor"
+    armorClass:t="RHA_tank"
+    hp:r=10000.0
+    armorThickness:r=200.0
+  }
+}
+
+DamageEffects{
+}

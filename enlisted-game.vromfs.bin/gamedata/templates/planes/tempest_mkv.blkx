@@ -1,0 +1,269 @@
+tempest_mkv{
+  _extends:t="tempest_mkv_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/tempest_mkv"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.38, 0.939, 0.0
+      cockpitTemplate:t="tempest_mkv_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_06_yaw"
+      curPitchParamName:t="weapon_06_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_tempest_mkv_500lbs_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_tempest_mkv_500lbs_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_tempest_mkv_20mm_hispanomkv_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_tempest_mkv_20mm_hispanomkv_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_tempest_mkv_20mm_hispanomkv_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_tempest_mkv_20mm_hispanomkv_04"
+    }
+  }
+}
+
+base_tempest_mkv_20mm_hispanomkv{
+  item__name:t="guns/cannonhispanomkv"
+  gun__blk:t="gamedata/weapons/tempest_mkv/20mm_hispanomkv.blk"
+  gun__shotFreq:r=12.5
+  gun__locName:t="cannonhispanomkv"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=200
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=200
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_tempest_mkv_500lbs_launcher{
+  item__name:t="guns/uk_500lbs"
+  gun__blk:t="gamedata/weapons/tempest_mkv/500lbs_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="uk_500lbs"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/500lbs.blk"
+        name:t="500lbs"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+planegun_tempest_mkv_500lbs_launcher_01{
+  _extends:t="500lbs_launcher"
+  _extends:t="base_tempest_mkv_500lbs_launcher"
+  _extends:t="gunsound_500lbs_launcher_aircraft"
+  gun__shootNodeName:t="bomb1"
+  slot_attach__slotName:t="bomb1"
+  gun__maxAmmo:i=1
+}
+
+planegun_tempest_mkv_500lbs_launcher_02{
+  _extends:t="500lbs_launcher"
+  _extends:t="base_tempest_mkv_500lbs_launcher"
+  _extends:t="gunsound_500lbs_launcher_aircraft"
+  gun__shootNodeName:t="bomb2"
+  slot_attach__slotName:t="bomb2"
+  gun__maxAmmo:i=1
+}
+
+planegun_tempest_mkv_20mm_hispanomkv_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=200
+}
+
+planegun_tempest_mkv_20mm_hispanomkv_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=200
+}
+
+planegun_tempest_mkv_20mm_hispanomkv_03{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=200
+}
+
+planegun_tempest_mkv_20mm_hispanomkv_04{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  gun__shootNodeName:t="flare4"
+  gun__maxAmmo:i=200
+}
+
+tempest_mkv_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="tempest_mkv_cockpit_char"
+  plane_anim__blk:t="gamedata/units/tempest_mkv.blk"
+  plane_sight__blk:t="gamedata/units/tempest_mkv.blk"
+}

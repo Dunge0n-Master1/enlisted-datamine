@@ -1,0 +1,14 @@
+disable_update{
+
+  "disableUpdate:tag"{
+  }
+}
+
+phys_sleepable{
+  phys__isAsleep:b=no
+  _replicated:t="phys__isAsleep"
+  _tracked:t="phys__isAsleep"
+
+  "animchar__actOnCreate:tag"{
+  }
+}

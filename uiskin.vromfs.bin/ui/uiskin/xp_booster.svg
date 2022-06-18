@@ -1,0 +1,38 @@
+<svg id="xp_buster" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0e1f24;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: #102226;
+        opacity: 0.85;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="49.5" y1="83.906" x2="49.5" y2="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1d5c31"/>
+      <stop offset="1" stop-color="#497641"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="49.531" y1="61.5" x2="49.531" y2="27" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#745839"/>
+      <stop offset="1" stop-color="#ffd38e"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M95.874,13.6A8.789,8.789,0,0,0,88.2,9.026H10.8A8.789,8.789,0,0,0,3.126,13.6a9.2,9.2,0,0,0,.114,9.086L41.939,88.6a8.721,8.721,0,0,0,15.123,0l38.7-65.907A9.2,9.2,0,0,0,95.874,13.6Z"/>
+  <path id="Polygon_2_copy_5" data-name="Polygon 2 copy 5" class="cls-2" d="M88.2,17.991L49.505,83.9l-38.7-65.907H88.2Z"/>
+  <path id="Polygon_2_copy_5-2" data-name="Polygon 2 copy 5" class="cls-3" d="M49.533,69.745L25.515,29.033H73.55Z"/>
+  <path id="Polygon_2_copy_8" data-name="Polygon 2 copy 8" class="cls-4" d="M49.532,61.5L29.186,27.015H69.878Z"/>
+</svg>

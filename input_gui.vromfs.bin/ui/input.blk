@@ -1,0 +1,12 @@
+tex{
+  dynAtlas:b=yes
+  rtTex:b=yes
+  name:t="input"
+  size:ip2=512,512
+  maxAllowedPicSz:ip2=320,320
+  premultiplyAlpha:b=yes
+  margin:i=1
+  picSrcFolder:t="/ui/uiskin/"
+  picReserve:i=128
+  refHRes:i=1080
+}

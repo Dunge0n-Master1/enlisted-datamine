@@ -1,0 +1,78 @@
+import:t="tanks/ussr_t_60_1941.blk"
+import:t="tanks/ussr_t_70.blk"
+import:t="tanks/ussr_t_26_1940.blk"
+import:t="tanks/ussr_ht_130.blk"
+import:t="tanks/ussr_ba_11.blk"
+import:t="tanks/ussr_bt_7_1937.blk"
+import:t="tanks/ussr_t_28.blk"
+import:t="tanks/ussr_t_28e.blk"
+import:t="tanks/ussr_matilda_iii.blk"
+import:t="tanks/ussr_t_34_1940_l_11.blk"
+import:t="tanks/ussr_t_34e_stz.blk"
+import:t="tanks/ussr_valentine_i.blk"
+import:t="tanks/ussr_t_34_1941.blk"
+import:t="tanks/ussr_kv_1_l_11.blk"
+import:t="tanks/ussr_t_50.blk"
+import:t="tanks/ussr_su_85m.blk"
+import:t="tanks/ussr_is_1.blk"
+import:t="tanks/ussr_is_2_1943.blk"
+import:t="tanks/ussr_t_34_85_d_5t.blk"
+import:t="tanks/ussr_t_34_85_zis_53.blk"
+import:t="tanks/ussr_t_34_85_e.blk"
+import:t="tanks/ussr_su_100_1945.blk"
+import:t="tanks/ussr_su_76m.blk"
+import:t="tanks/ussr_bm_8_24.blk"
+
+t_28_turret_02_7_62mm_dt{
+  _override:b=yes
+  turret__limit:p4=-155.0, 33.0, -5.0, 28.0
+}
+
+t_28_turret_03_7_62mm_dt{
+  _override:b=yes
+  turret__limit:p4=-5.0, 145.0, -5.0, 28.0
+}
+
+t_28e_turret_02_7_62mm_dt{
+  _override:b=yes
+  turret__limit:p4=-155.0, 33.0, -5.0, 28.0
+}
+
+t_28e_turret_03_7_62mm_dt{
+  _override:b=yes
+  turret__limit:p4=-5.0, 145.0, -5.0, 28.0
+}
+
+base_76mm_l10{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/76mm_l10_defaultset.blk"
+        name:t="76mm_sh_354t"
+        type:t="shrapnel_tank"
+      }
+    }
+
+    "76mm_ussr_AP_1941:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/76mm_l10_76mm_ussr_ap_1941.blk"
+        name:t="76mm_br_350a"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "76mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/76mm_l10_76mm_ussr_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}

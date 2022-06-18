@@ -1,0 +1,20 @@
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/a13_mk_2_1938.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/a13_mk_2_1939.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/ab_41.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/churchill_3.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/crusader_mk_3.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/daimler_mk_2.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/m13_40_serie_3.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/m14_41.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/m3a1_stuart.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/m41_75_18.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/m41_75_32.blk"
+import:t="#content/e_tunisia/gamedata/gen/templates/tanks/towed_at_17pdr.blk"
+
+daimler_mk_2_turret_02_7_92mm_besa{
+  _override:b=yes
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1350
+  }
+}

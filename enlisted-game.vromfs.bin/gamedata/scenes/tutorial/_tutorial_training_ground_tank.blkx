@@ -1,0 +1,351 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/tutorial/_tutorial_training_sounds.blk"
+}
+
+entity{
+  _template:t="briefing_tutorial"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  mission_name:t="basic_tutorial_mission"
+
+  "loading_images:list<t>"{
+    item:t="ui/loading_tutorial_01.jpg"
+    item:t="ui/loading_tutorial_02.jpg"
+    item:t="ui/loading_tutorial_03.jpg"
+  }
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[474.104, 0.0, 0.0] [0.0, 11.1607, 0.0] [0.0, 0.0, 1366.45] [-539.993, 9.75596, 334.744]]
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.631776, 0.0, -0.775151] [-0.00212011, 0.999996, -0.00172796] [0.775148, 0.00273509, 0.631773] [-547.775, 13.2347, 138.886]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/tutorial_training_ground_2x2.blk"
+  level__timeRange:p2=5.0, 19.2
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
+    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=8.2
+    level_timeVec:r=9.5
+    level_timeVec:r=18.3
+  }
+}
+
+entity{
+  _template:t="minimap_tutorial_training_ground_2x2"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.3
+  water__level:r=7.0
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    puddle_increase:r=-0.16
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="basic_sphere"
+  transform:m=[[0.946484, 0.0, -0.322752] [0.0, 1.0, 0.0] [0.322752, 0.0, 0.946484] [-182.732, 6.54999, 264.777]]
+}
+
+entity{
+  _template:t="respVehicle"
+  transform:m=[[0.0843441, 0.0, 0.996436] [0.0, 1.0, 0.0] [-0.996436, 0.0, 0.0843441] [-546.929, 10.0347, 237.516]]
+  active:b=yes
+  team:i=1
+
+  "respbase__addTemplatesOnSpawn:list<t>"{
+    item:t="vehicle_spawn_validation"
+  }
+}
+
+entity{
+  _template:t="game_mode_loaded"
+  game_mode_loader__dasScript:t="%scripts/tutorial/tank_init.das"
+}
+
+entity{
+  _template:t="tutorial_map"
+  tutorial__profile:t="tank"
+}
+
+entity{
+  _template:t="tutorial_tank_disable_shell_change"
+}
+
+entity{
+  _template:t="tutorial_tank_disable_gunner_change"
+}
+
+entity{
+  _template:t="tutorial_tank_ammo_tracker"
+}
+
+entity{
+  _template:t="tutorial_memorize_holder"
+}
+
+entity{
+  _template:t="team_germany_berlin+team_narrator_tutorial_training+team_captime_balance+respawn_creators_team"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__botCount:i=7
+  team__id:i=2
+  team__haveScores:b=no
+  team__spawnBotArmy:t="berlin_axis"
+  team__briefing:t="training_ground/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+  team__locked:b=yes
+  team__capacity:i=0
+}
+
+entity{
+  _template:t="team_ussr_berlin+team_narrator_tutorial_training+team_resptime_balance+respawn_creators_team"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=0.0
+  team__capturePenalty:r=0.0
+  team__score:r=0.0
+  team__botCount:i=7
+  team__id:i=1
+  team__spawnBotArmy:t="berlin_allies"
+  team__briefing:t="training_ground/goals"
+  team__winTitle:t="debriefing/sucesful_tutorial_title"
+  team__winSubtitle:t="debriefing/sucesful_tutorial_subtitle"
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[55.8078, 0.0, 0.0] [0.0, 11.0, 0.0] [0.0, 0.0, 59.6763] [-525.179, 9.94622, 409.354]]
+  tutorial_zone__active:b=no
+  tutorial_zone__zoneId:t="waypoint_shooting_range_01"
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[453.303, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 34.9358] [-542.884, 10.4243, 379.959]]
+  tutorial_zone__active:b=no
+  tutorial_zone__zoneId:t="waypoint_destroy_tracks"
+}
+
+entity{
+  _template:t="willys_mb_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore"
+  tutorial_target__targetId:t="tank_target_light_vehicle"
+  tutorial_target__active:b=no
+  tutorial_zone__zoneId:t="tank_target_light_vehicle"
+  tutorial_zone__active:b=no
+  transform:m=[[-0.895404, -0.035488, -0.443838] [-0.0197393, 0.999003, -0.0400551] [0.444817, -0.0271045, -0.895211] [-490.242, 10.0967, 421.241]]
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger+tutorial_tank_xray"
+  vehicle_with_passenger__humanTemplate:t="tutorial_tank_passenger+tutorial_infinity_hp"
+  tutorial_zone__zoneId:t="tank_target_side"
+  tutorial_zone__active:b=no
+  tutorial_target__targetId:t="tank_target_side"
+  tutorial_target__active:b=no
+  tutor_tank__xrayTemplate:t="germ_pzkpfw_V_ausf_a_panther_xray"
+  transform:m=[[0.0577036, -0.00171758, 0.998332] [-0.011861, 0.999927, 0.00240589] [-0.998263, -0.0119801, 0.057679] [-486.943, 10.5593, 406.189]]
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger+tutorial_tank_xray"
+  transform:m=[[0.917512, 0.0356037, -0.396112] [-0.0261712, 0.999231, 0.0291938] [0.396847, -0.0164189, 0.917738] [-487.459, 10.2699, 393.297]]
+  vehicle_with_passenger__humanTemplate:t="tutorial_tank_passenger+tutorial_infinity_hp"
+  tutorial_zone__zoneId:t="tank_target_rear"
+  tutorial_zone__active:b=no
+  tutorial_target__targetId:t="tank_target_rear"
+  tutorial_target__active:b=no
+  tutor_tank__xrayTemplate:t="germ_pzkpfw_V_ausf_a_panther_xray"
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger"
+  vehicle_with_passenger__humanTemplate:t="tutorial_tank_passenger"
+  tutorial_zone__zoneId:t="tank_target_front"
+  tutorial_zone__active:b=no
+  tutorial_target__targetId:t="tank_target_front"
+  tutorial_target__active:b=no
+  transform:m=[[-0.996102, -0.00826881, -0.0878204] [-0.00837402, 0.999965, 0.000829689] [0.0878105, 0.00156186, -0.996136] [-473.232, 10.7001, 454.09]]
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther_tutorial+tutorial_target+base_tutorial_zone+tutorial_dm_ignore+vehicle_with_passenger"
+  vehicle_with_passenger__humanTemplate:t="tutorial_tank_passenger+tutorial_infinity_hp"
+  tutorial_zone__zoneId:t="tank_target_far"
+  tutorial_zone__active:b=no
+  tutorial_target__targetId:t="tank_target_far"
+  tutorial_target__active:b=no
+  transform:m=[[0.0395739, -0.0435002, 0.998269] [-0.00744326, 0.999011, 0.0438276] [-0.999189, -0.00916481, 0.039211] [23.1955, 16.2747, 424.445]]
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[1.45307, 0.0, 0.0] [0.0, 1.45307, 0.0] [0.0, 0.0, 1.45307] [-544.168, 9.87163, 429.87]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[600.448, 0.0, 0.0] [0.0, 11.772, 0.0] [0.0, 0.0, 43.324] [-545.785, 10.4243, 289.669]]
+  tutorial_zone__zoneId:t="waypoint_change_seat"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[84.3759, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 76.2289] [-544.965, 10.4243, 430.351]]
+  tutorial_zone__zoneId:t="waypoint_resupply_point"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[9.60525, 0.0, -3.85798] [0.0, 10.3207, 0.0] [4.18707, 0.0, 10.4246] [-503.661, 11.942, 436.979]]
+  tutorial_zone__zoneId:t="marker_infantry_group_target"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[-0.469029, 0.0, -0.883183] [0.0, 1.0, 0.0] [0.883183, 0.0, -0.469029] [-504.759, 9.62981, 437.334]]
+  tutorial_target__targetId:t="tank_target_infantry01"
+  tutorial_zone__zoneId:t="tank_target_infantry01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[-0.469029, 0.0, -0.883183] [0.0, 1.0, 0.0] [0.883183, 0.0, -0.469029] [-502.759, 9.62981, 439.334]]
+  tutorial_target__targetId:t="tank_target_infantry01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[-0.658178, 0.0, -0.752862] [0.0, 1.0, 0.0] [0.752862, 0.0, -0.658178] [-506.466, 9.62981, 435.216]]
+  tutorial_target__targetId:t="tank_target_infantry01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[-0.658178, 0.0, -0.752862] [0.0, 1.0, 0.0] [0.752862, 0.0, -0.658178] [-507.466, 9.62981, 433.216]]
+  tutorial_target__targetId:t="tank_target_infantry01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="germ_pzkpfw_V_ausf_a_panther_xray2"
+  transform:m=[[0.0390136, 0.0, 0.999238] [0.0, 0.9999, 0.0] [-0.982816, -0.0008, 0.0486677] [-486.885, 10.3395, 406.25]]
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[0.750389, 0.0, -0.660997] [0.0, 1.0, 0.0] [0.660997, 0.0, 0.750389] [-503.806, 10.2737, 465.939]]
+  tutorial_target__targetId:t="tank_target_infantry_mgun01"
+  tutorial_zone__zoneId:t="tank_target_infantry_mgun01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[0.750389, 0.0, -0.660997] [0.0, 1.0, 0.0] [0.660997, 0.0, 0.750389] [-504.484, 10.2737, 467.315]]
+  tutorial_target__targetId:t="tank_target_infantry_mgun01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[0.750389, 0.0, -0.660997] [0.0, 1.0, 0.0] [0.660997, 0.0, 0.750389] [-506.313, 10.2737, 467.512]]
+  tutorial_target__targetId:t="tank_target_infantry_mgun01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_target_silhouette_c+tutorial_target+base_tutorial_zone+tutorial_memorize_entity"
+  transform:m=[[0.750389, 0.0, -0.660997] [0.0, 1.0, 0.0] [0.660997, 0.0, 0.750389] [-507.072, 10.2737, 469.277]]
+  tutorial_target__targetId:t="tank_target_infantry_mgun01"
+  tutorial_target__active:b=no
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[9.60525, 0.0, -3.85798] [0.0, 10.3207, 0.0] [4.18707, 0.0, 10.4246] [-505.714, 12.5859, 467.642]]
+  tutorial_zone__zoneId:t="marker_infantry_group_target_he"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[730.731, 0.0, 0.0] [0.0, 7.04834, 0.0] [0.0, 0.0, 76.2289] [-545.115, 10.2678, 348.97]]
+  tutorial_zone__zoneId:t="waypoint_dm_panel_hint"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="base_tutorial_zone"
+  transform:m=[[55.8078, 0.0, 0.0] [0.0, 11.0, 0.0] [0.0, 0.0, 59.6763] [-525.834, 9.94622, 449.741]]
+  tutorial_zone__zoneId:t="waypoint_shooting_range_02"
+  tutorial_zone__active:b=no
+}
+
+entity{
+  _template:t="tutorial_tank_begin"
+}

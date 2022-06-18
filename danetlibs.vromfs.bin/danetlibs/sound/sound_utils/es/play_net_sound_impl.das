@@ -1,0 +1,65 @@
+require ecs
+require ecs.common
+require app
+require soundEvent
+require soundHash
+require soundSystem
+require sound_utils_net.modules.sound_utils_net_events
+require sound_utils.modules.sound_utils_events
+
+let MAX_NET_DELAY = 5.
+
+// -------------------------------------------------------------
+def get_net_sound_desc(hash : uint; descs : Object) : Object const?
+  for it in descs
+    if sound_hash(it.key) == hash
+      return get_ecs_object(it.value)
+  sound_debug("net_sound: hash '{hash}' not found in net_sound.descs, list of descs:")
+  for it in descs
+    sound_debug("  {it.key}({sound_hash(it.key)})")
+  return null
+
+def play_impl(hash : uint; pos : float3; param : float; descs : Object; is_watched : bool; var sound_event_group : SoundEventGroup?)
+  let objRef = get_net_sound_desc(hash, descs)
+  if objRef != null
+    assume obj = *objRef
+    let nameRef = is_watched ? (has(obj, "hero") ? obj["hero"] : obj["path"]) : (has(obj, "enemy") ? obj["enemy"] : obj["path"])
+    if nameRef != null
+      let name = get_string(nameRef, "")
+      let isFar = get_bool(obj, "isFar") ?? false
+      let delayedAbandon = get_bool(obj, "delayedAbandon") ?? false
+      var handle = soundEvent::play(name, "", pos, isFar)
+      if has(obj, "var")
+        set_var(handle, get_string(obj["var"], ""), param)
+      if has(obj, "groupId") && sound_event_group != null
+        if has(obj, "releaseId")
+          release_sound(*sound_event_group, sound_hash(get_string(obj["releaseId"], "")))
+        add_sound(*sound_event_group, sound_hash(get_string(obj, "groupId", "")), handle)
+        if delayedAbandon
+          abandon(handle, param)
+      else
+        abandon(handle, delayedAbandon ? param : 0.)
+// -------------------------------------------------------------
+
+[es(tag=sound)]
+def play_net_sound_pos_impl_cmd(cmd : CmdPlayNetSoundPos; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?)
+  if get_sync_time() < cmd.time + MAX_NET_DELAY
+    play_impl(cmd.hash, cmd.pos, cmd.param, net_sound__descs, has(eid, "hero"), sound_event_group)
+
+[es(tag=sound)]
+def play_net_sound_impl_cmd(cmd : CmdPlayNetSound; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?; transform : float3x4)
+  if get_sync_time() < cmd.time + MAX_NET_DELAY
+    play_impl(cmd.hash, transform[3], cmd.param, net_sound__descs, has(eid, "hero"), sound_event_group)
+
+[es(tag=sound)]
+def play_net_sound_impl_simple(cmd : CmdPlayNetSoundSimple; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?; transform : float3x4)
+  if get_sync_time() < cmd.time + MAX_NET_DELAY
+    play_impl(cmd.hash, transform[3], 0., net_sound__descs, has(eid, "hero"), sound_event_group)
+
+[es(tag=sound)]
+def play_net_sound_impl_client(cmd : CmdPlaySound; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?)
+  play_impl(cmd.hash, cmd.pos, cmd.param, net_sound__descs, has(eid, "hero"), sound_event_group)
+
+[es(tag=sound)]
+def play_net_sound_impl_client_simple(cmd : CmdPlaySoundSimple; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?; transform : float3x4)
+  play_impl(cmd.hash, transform[3], 0., net_sound__descs, has(eid, "hero"), sound_event_group)

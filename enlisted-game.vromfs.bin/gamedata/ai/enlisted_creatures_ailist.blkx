@@ -1,0 +1,810 @@
+selector{
+  name:t="wild_bot"
+  selectStrategy:t="ordered"
+
+  detachFromStationaryGun{
+  }
+
+  sequencer{
+    name:t="grenade_escape"
+
+    findDangerGrenade{
+      grenTargetParam:t="dangerLookAt"
+      radius:r=20.0
+    }
+
+    findSafeFromGrenadePos{
+      posParam:t="grenadeSafePos"
+      grenTargetParam:t="dangerLookAt"
+      radius:r=20.0
+    }
+
+    parallel{
+
+      lookAtTarget{
+        targetUnitParam:t="dangerLookAt"
+      }
+
+      wait{
+        range:p2=0.0, 1.0
+        resetable:b=yes
+      }
+    }
+
+    parallel{
+
+      lookAtTarget{
+        targetUnitParam:t="dangerLookAt"
+      }
+
+      wait{
+        range:p2=0.0, 1.0
+        resetable:b=yes
+      }
+
+      moveToPos{
+        posParam:t="grenadeSafePos"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=10.0
+      }
+    }
+
+    speak{
+      phrase:t="grenadeAware"
+      timeout:r=6.0
+    }
+
+    moveToPos{
+      posParam:t="grenadeSafePos"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=0.5
+    }
+
+    changeStance{
+      stanceName:t="crawl"
+      maxStanceParam:t="maxStance"
+    }
+  }
+
+  sequencer{
+
+    selectUnit{
+      isEnemy:b=yes
+      traceTargets:b=yes
+      paramName:t="meleeEnemy"
+      findClosest:b=yes
+      radius:r=5.0
+      canBeInVehicle:b=no
+    }
+
+    moveToTarget{
+      targetUnitParam:t="meleeEnemy"
+      stopDistRange:p2=1.5, 1.5
+      aimToTarget:b=yes
+    }
+
+    meleeAttack{
+      targetUnitParam:t="meleeEnemy"
+      timeToAttack:r=1.0
+      attackDist:r=1.5
+    }
+
+    wait{
+      range:p2=0.5, 1.0
+      resetable:b=yes
+    }
+  }
+
+  sequencer{
+    name:t="enemy_attack"
+
+    findDanger{
+      paramName:t="shootEnemy"
+      radiusParamName:t="enemyRadius"
+      minDanger:r=1.0
+      tag:t="human"
+    }
+
+    sequencer{
+      name:t="mg_check"
+
+      findStationaryGun{
+        radius:r=20.0
+        posParam:t="stationaryGunPos"
+        posOffset:p3=0.0, -0.5, 0.5
+      }
+
+      moveToPos{
+        posParam:t="stationaryGunPos"
+        sprintTimerRange:p2=10.0, 20.0
+      }
+
+      attachToStationaryGun{
+      }
+
+      shootAtUnit{
+        targetUnitParam:t="shootEnemy"
+        minStance:i=1
+        maxStanceParam:t="maxStance"
+      }
+
+      detachFromStationaryGun{
+      }
+    }
+
+    selector{
+      selectStrategy:t="random"
+
+      moveShoot{
+        posParam:t="wishPosition"
+        targetUnitParam:t="shootEnemy"
+        angleThreshold:r=180.0
+        minStance:i=1
+        maxStanceParam:t="maxStance"
+      }
+
+      shootAtUnit{
+        targetUnitParam:t="shootEnemy"
+        minStance:i=1
+        maxStanceParam:t="maxStance"
+      }
+    }
+  }
+
+  sequencer{
+    name:t="follow_position"
+
+    reaction{
+      event:t="regularCheck"
+
+      orderedSelector{
+
+        sequencer{
+
+          findDangerGrenade{
+            grenTargetParam:t="dangerLookAt"
+            radius:r=5.0
+          }
+
+          recalculateTree{
+          }
+        }
+
+        sequencer{
+
+          findDanger{
+            paramName:t="shootEnemy"
+            radiusParamName:t="enemyRadius"
+            minDanger:r=1.0
+            tag:t="human"
+          }
+
+          speak{
+            phrase:t="enemyAware"
+            timeout:r=15.0
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+    }
+
+    not{
+
+      findDangerGrenade{
+        grenTargetParam:t="dangerLookAt"
+        radius:r=20.0
+      }
+    }
+
+    moveToPos{
+      posParam:t="wishPosition"
+      sprintTimerRange:p2=10.0, 20.0
+    }
+
+    selectUnit{
+      isEnemy:b=no
+      traceTargets:b=yes
+      paramName:t="lookAtUnit"
+      radius:r=20.0
+      findRandom:b=yes
+      minRadius:r=2.0
+    }
+
+    parallel{
+
+      wait{
+        range:p2=3.0, 8.0
+        resetable:b=yes
+      }
+
+      sequencer{
+
+        reaction{
+          event:t="regularCheck"
+
+          sequencer{
+
+            not{
+
+              checkDistance{
+                posParam:t="wishPosition"
+                radius:r=2.0
+              }
+            }
+
+            recalculateTree{
+            }
+          }
+        }
+
+        checkDistance{
+          posParam:t="wishPosition"
+          radius:r=2.0
+        }
+
+        lookAtTarget{
+          targetUnitParam:t="lookAtUnit"
+          horzAnglesLimit:r=30.0
+          vertAnglesLimit:r=30.0
+          targetVisc:r=0.4
+        }
+      }
+    }
+  }
+}
+
+selector{
+  name:t="runner"
+  selectStrategy:t="ordered"
+
+  wait{
+    range:p2=0.0, 15.0
+  }
+
+  selector{
+    name:t="main_seq"
+
+    sequencer{
+      name:t="attack"
+
+      selectUnit{
+        isEnemy:b=yes
+        traceTargets:b=yes
+        paramName:t="shootEnemy"
+        radius:r=100.0
+        findClosest:b=yes
+      }
+
+      selector{
+        selectStrategy:t="ordered"
+
+        moveShoot{
+          posParam:t="curWishPosition"
+          targetUnitParam:t="shootEnemy"
+        }
+
+        shootAtUnit{
+          name:t="attack_direct"
+          targetUnitParam:t="shootEnemy"
+          minStance:i=1
+        }
+      }
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        orderedSelector{
+
+          sequencer{
+
+            ignoreChance{
+              chance:r=0.7
+            }
+
+            selectUnit{
+              isEnemy:b=yes
+              traceTargets:b=yes
+              paramName:t="shootEnemy"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            selectNode{
+              name:t="attack"
+            }
+          }
+        }
+      }
+
+      moveToPos{
+        posParam:t="curWishPosition"
+      }
+
+      changeStance{
+        stanceName:t="crouch"
+        maxStanceParam:t="maxStance"
+      }
+
+      selector{
+
+        sequencer{
+
+          selectUnit{
+            isEnemy:b=yes
+            traceTargets:b=yes
+            paramName:t="shootEnemy"
+            radius:r=100.0
+            findClosest:b=yes
+          }
+
+          selectNode{
+            name:t="attack_direct"
+          }
+        }
+
+        parallel{
+
+          wait{
+            time:r=10.0
+            resetable:b=yes
+          }
+
+          sequencer{
+
+            selectUnit{
+              isEnemy:b=no
+              traceTargets:b=yes
+              paramName:t="lookAtUnit"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            lookAtTarget{
+              targetUnitParam:t="lookAtUnit"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+selector{
+  name:t="runner_wait"
+  selectStrategy:t="ordered"
+
+  wait{
+    range:p2=25.0, 40.0
+  }
+
+  selector{
+    name:t="main_seq"
+
+    sequencer{
+      name:t="attack"
+
+      selectUnit{
+        isEnemy:b=yes
+        traceTargets:b=yes
+        paramName:t="shootEnemy"
+        radius:r=100.0
+        findClosest:b=yes
+      }
+
+      selector{
+        selectStrategy:t="ordered"
+
+        moveShoot{
+          posParam:t="curWishPosition"
+          targetUnitParam:t="shootEnemy"
+        }
+
+        shootAtUnit{
+          name:t="attack_direct"
+          targetUnitParam:t="shootEnemy"
+          minStance:i=1
+        }
+      }
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        orderedSelector{
+
+          sequencer{
+
+            ignoreChance{
+              chance:r=0.9
+            }
+
+            selectUnit{
+              isEnemy:b=yes
+              traceTargets:b=yes
+              paramName:t="shootEnemy"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            selectNode{
+              name:t="attack"
+            }
+          }
+        }
+      }
+
+      moveToPos{
+        posParam:t="curWishPosition"
+      }
+
+      changeStance{
+        stanceName:t="crouch"
+        maxStanceParam:t="maxStance"
+      }
+
+      selector{
+
+        sequencer{
+
+          selectUnit{
+            isEnemy:b=yes
+            traceTargets:b=yes
+            paramName:t="shootEnemy"
+            radius:r=100.0
+            findClosest:b=yes
+          }
+
+          selectNode{
+            name:t="attack_direct"
+          }
+        }
+
+        parallel{
+
+          wait{
+            time:r=10.0
+            resetable:b=yes
+          }
+
+          sequencer{
+
+            selectUnit{
+              isEnemy:b=no
+              traceTargets:b=yes
+              paramName:t="lookAtUnit"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            lookAtTarget{
+              targetUnitParam:t="lookAtUnit"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+selector{
+  name:t="front_runner"
+  selectStrategy:t="ordered"
+
+  repeatUntilFail{
+
+    once{
+    }
+
+    randomizeIntVar{
+      from:i=0
+      to:i=1
+      param:t="preferedWeapon"
+    }
+
+    changeWeapon{
+      param:t="preferedWeapon"
+    }
+
+    changeStance{
+      stanceName:t="crouch"
+      maxStanceParam:t="maxStance"
+    }
+
+    parallel{
+
+      wait{
+        range:p2=15.0, 17.0
+      }
+
+      wanderLook{
+        posParam:t="lookAtPos"
+        range:p2=0.2, 0.2
+      }
+    }
+  }
+
+  selector{
+    name:t="main_seq"
+
+    sequencer{
+      name:t="attack"
+
+      selectUnit{
+        isEnemy:b=yes
+        traceTargets:b=yes
+        paramName:t="shootEnemy"
+        radius:r=100.0
+        findClosest:b=yes
+      }
+
+      selector{
+        selectStrategy:t="ordered"
+
+        moveShoot{
+          posParam:t="curWishPosition"
+          targetUnitParam:t="shootEnemy"
+        }
+
+        shootAtUnit{
+          name:t="attack_direct"
+          targetUnitParam:t="shootEnemy"
+          minStance:i=1
+        }
+      }
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        orderedSelector{
+
+          sequencer{
+
+            ignoreChance{
+              chance:r=0.9
+            }
+
+            selectUnit{
+              isEnemy:b=yes
+              traceTargets:b=yes
+              paramName:t="shootEnemy"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            selectNode{
+              name:t="attack"
+            }
+          }
+        }
+      }
+
+      moveToPos{
+        posParam:t="curWishPosition"
+      }
+
+      changeStance{
+        stanceName:t="crouch"
+        maxStanceParam:t="maxStance"
+      }
+
+      selector{
+
+        sequencer{
+
+          selectUnit{
+            isEnemy:b=yes
+            traceTargets:b=yes
+            paramName:t="shootEnemy"
+            radius:r=100.0
+            findClosest:b=yes
+          }
+
+          selectNode{
+            name:t="attack_direct"
+          }
+        }
+
+        parallel{
+
+          wait{
+            time:r=10.0
+            resetable:b=yes
+          }
+
+          sequencer{
+
+            selectUnit{
+              isEnemy:b=no
+              traceTargets:b=yes
+              paramName:t="lookAtUnit"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            lookAtTarget{
+              targetUnitParam:t="lookAtUnit"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+selector{
+  name:t="back_runner"
+  selectStrategy:t="ordered"
+
+  repeatUntilFail{
+
+    once{
+    }
+
+    randomizeIntVar{
+      from:i=0
+      to:i=1
+      param:t="preferedWeapon"
+    }
+
+    changeWeapon{
+      param:t="preferedWeapon"
+    }
+
+    parallel{
+
+      wait{
+        range:p2=17.0, 19.0
+      }
+
+      wanderLook{
+        posParam:t="lookAtPos"
+        range:p2=0.2, 0.2
+      }
+    }
+  }
+
+  selector{
+    name:t="main_seq"
+
+    sequencer{
+      name:t="attack"
+
+      selectUnit{
+        isEnemy:b=yes
+        traceTargets:b=yes
+        paramName:t="shootEnemy"
+        radius:r=100.0
+        findClosest:b=yes
+      }
+
+      selector{
+        selectStrategy:t="ordered"
+
+        moveShoot{
+          posParam:t="curWishPosition"
+          targetUnitParam:t="shootEnemy"
+        }
+
+        shootAtUnit{
+          name:t="attack_direct"
+          targetUnitParam:t="shootEnemy"
+          minStance:i=1
+        }
+      }
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        orderedSelector{
+
+          sequencer{
+
+            ignoreChance{
+              chance:r=0.9
+            }
+
+            selectUnit{
+              isEnemy:b=yes
+              traceTargets:b=yes
+              paramName:t="shootEnemy"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            selectNode{
+              name:t="attack"
+            }
+          }
+        }
+      }
+
+      moveToPos{
+        posParam:t="curWishPosition"
+      }
+
+      changeStance{
+        stanceName:t="crouch"
+        maxStanceParam:t="maxStance"
+      }
+
+      selector{
+
+        sequencer{
+
+          selectUnit{
+            isEnemy:b=yes
+            traceTargets:b=yes
+            paramName:t="shootEnemy"
+            radius:r=100.0
+            findClosest:b=yes
+          }
+
+          selectNode{
+            name:t="attack_direct"
+          }
+        }
+
+        parallel{
+
+          wait{
+            time:r=10.0
+            resetable:b=yes
+          }
+
+          sequencer{
+
+            selectUnit{
+              isEnemy:b=no
+              traceTargets:b=yes
+              paramName:t="lookAtUnit"
+              radius:r=100.0
+              findClosest:b=yes
+            }
+
+            lookAtTarget{
+              targetUnitParam:t="lookAtUnit"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+selector{
+  name:t="defender"
+  selectStrategy:t="ordered"
+
+  sequencer{
+
+    selectUnit{
+      isEnemy:b=yes
+      traceTargets:b=yes
+      paramName:t="shootEnemy"
+      radius:r=100.0
+      findClosest:b=yes
+    }
+
+    shootAtUnit{
+      targetUnitParam:t="shootEnemy"
+      minStance:i=1
+    }
+  }
+}
+
+selector{
+  name:t="wanderer"
+}

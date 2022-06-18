@@ -1,0 +1,189 @@
+ussr_light_assault_preset{
+  weaponPreset:t="Light assault"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="ppd_3438_gun"
+    secondary:t=""
+    tertiary:t="tt_33_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="ppsh_drum"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="tt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+ussr_infantry_preset{
+  weaponPreset:t="Infantry"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="mosin_m38_gun"
+    secondary:t=""
+    tertiary:t="tt_33_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mosin_magazine"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="tt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=2
+    }
+  }
+}
+
+ussr_sniper_preset{
+  weaponPreset:t="Sniper"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="avs_36_gun"
+    secondary:t=""
+    tertiary:t="tt_33_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="avs_36_magazine"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="tt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+ussr_marksman_preset{
+  weaponPreset:t="Marksman"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="svt_40_gun"
+    secondary:t=""
+    tertiary:t="tt_33_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="svt_40_magazine"
+      numReserveAmmo:i=4
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="tt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}
+
+ussr_heavy_assault_preset{
+  weaponPreset:t="Heavy assault"
+
+  "human_weap__weapTemplates:object"{
+    primary:t="ppsh_41_gun"
+    secondary:t=""
+    tertiary:t="tt_33_gun"
+    melee:t="knife_weapon"
+    grenade:t="grenade_thrower"
+  }
+
+  "human_weap__weapInfo:array"{
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="ppsh_drum"
+      numReserveAmmo:i=5
+    }
+
+    "weapInfo:object"{
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="tt_magazine"
+      numReserveAmmo:i=3
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t=""
+      numReserveAmmo:i=0
+    }
+
+    "weapInfo:object"{
+      reserveAmmoTemplate:t="mk2_grenade_item"
+      numReserveAmmo:i=1
+    }
+  }
+}

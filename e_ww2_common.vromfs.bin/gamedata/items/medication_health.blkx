@@ -1,0 +1,16 @@
+entityMods{
+  modProps:t="content/e_ww2_common/gamedata/items/medication_health.blk"
+}
+
+visual{
+  template:t="medication_health_item+item_in_world"
+}
+
+equipable{
+  slot:t="mod1"
+  slot:t="mod2"
+}
+
+hpIncrease{
+  amount:r=10.0
+}

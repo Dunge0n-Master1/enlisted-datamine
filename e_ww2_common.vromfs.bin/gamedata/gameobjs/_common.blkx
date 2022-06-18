@@ -1,0 +1,10 @@
+physMat:t="walkRay"
+useFutureContacts:b=yes
+addToWorld:b=yes
+skipUpdateOnSleep:b=yes
+useMovementDamping:b=no
+
+solver{
+  linearSlop:r=0.2
+  erp:r=0.5
+}

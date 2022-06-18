@@ -1,0 +1,1 @@
+return [ "primary", "secondary", "tertiary", "melee", "grenade", "special"]

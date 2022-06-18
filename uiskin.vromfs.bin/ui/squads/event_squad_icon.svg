@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="0 0 25 25">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        fill: #1f1f1f;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: #1f3e85;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="12.5" y1="23" x2="12.5" y2="2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b17a33"/>
+      <stop offset="0.362" stop-color="#cfc261"/>
+      <stop offset="0.614" stop-color="#ffef76"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M18.414,18L18,24H17.382l-3.643-4.076A11.345,11.345,0,0,1,12.5,20a11.342,11.342,0,0,1-1.24-.075L7.586,24H7L6.618,18A9.8,9.8,0,0,1,4,13.5C4,12.565,4,10,4,10H21s0,3.025,0,3.5A8.394,8.394,0,0,1,18.414,18Z"/>
+  <path id="Ellipse_1_copy_16" data-name="Ellipse 1 copy 16" class="cls-2" d="M18,17v6l-4-4H11L7,23V17A8.5,8.5,0,1,1,18,17Z"/>
+  <path class="cls-3" d="M12.5,5.142A5.357,5.357,0,1,1,7.144,10.5,5.305,5.305,0,0,1,12.5,5.142M12.5,3A7.5,7.5,0,1,0,20,10.5,7.454,7.454,0,0,0,12.5,3Zm0,3.214,0.857,2.357L15.608,7.5l-1.072,2.25,2.357,0.857-2.357.857,1.072,2.25-2.25-1.071L12.5,15l-0.857-2.357-2.25,1.071,1.071-2.25-2.357-.857,2.357-.857L9.393,7.5l2.25,1.071ZM16,18h1v4l-1-1V18ZM8,18H9v3L8,22V18Z"/>
+</svg>

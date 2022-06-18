@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-8743,-2975)">
+        <g transform="matrix(0.923654,0,0,1.13187,477.217,-202.505)">
+            <g id="military_rank_09_lb">
+                <g transform="matrix(0.324797,0,0,0.265049,6091.76,1989.37)">
+                    <rect x="8797" y="3086" width="80" height="80" style="fill:none;"/>
+                </g>
+                <g transform="matrix(2.17248,0,0,3.95534,-9666.43,-7775.34)">
+                    <g transform="matrix(0.226523,0,0,0.111684,6491.62,2172.96)">
+                        <path d="M9196,4513L9207,4524L9196,4535L9185,4524L9196,4513Z" style="fill:rgb(209,209,209);"/>
+                        <path d="M9197.52,4511.74C9197.13,4511.36 9196.58,4511.13 9196,4511.13C9195.42,4511.13 9194.87,4511.36 9194.48,4511.74L9183.48,4522.74C9182.77,4523.46 9182.77,4524.54 9183.48,4525.26L9194.48,4536.26C9194.87,4536.65 9195.42,4536.87 9196,4536.87C9196.58,4536.87 9197.13,4536.65 9197.52,4536.26L9208.52,4525.26C9209.23,4524.54 9209.23,4523.46 9208.52,4522.74L9197.52,4511.74ZM9196,4513L9207,4524L9196,4535L9185,4524L9196,4513Z" style="fill:rgb(49,49,49);"/>
+                    </g>
+                    <g transform="matrix(0.226523,0,0,0.111684,6491.62,2172.96)">
+                        <path d="M9196,4513L9207,4524L9185,4524L9196,4513Z" style="fill:rgb(240,240,240);"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,26 @@
+tank_phys_spec{
+  tankTemplateName:t=""
+  tank_phys_spec__blk:t=""
+  physModificationsBlk:t=""
+  _tracked:t="tank_phys_spec_result__maxSpeed"
+  tank_phys_spec_result__maxSpeed:r=0.0
+
+  "tankPhysSpec:tag"{
+  }
+}
+
+plane_phys_spec{
+  planeTemplateName:t=""
+  plane_phys_spec__blk:t=""
+  collresName:t=""
+  physModificationsBlk:t=""
+  _tracked:t="plane_phys_spec_result__maxSpeed"
+  _tracked:t="plane_phys_spec_result__maxClimb"
+  _tracked:t="plane_phys_spec_result__bestTurnTime"
+  plane_phys_spec_result__maxSpeed:r=0.0
+  plane_phys_spec_result__maxClimb:r=0.0
+  plane_phys_spec_result__bestTurnTime:r=0.0
+
+  "planePhysSpec:tag"{
+  }
+}

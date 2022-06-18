@@ -1,0 +1,45 @@
+<svg id="guns_sights" data-name="guns sights" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="108.598" y1="121.063" x2="19.747" y2="5.563" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dfc742"/>
+      <stop offset="0.005" stop-color="#dfc742"/>
+      <stop offset="0.99" stop-color="#eae25f"/>
+      <stop offset="1" stop-color="#eae25f"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M121.664,12.885l0,0,0.009,0.009s-6.955,12.6-8.49,14.137l-1.414,1.414L99.048,15.731l1.415-1.414C102,12.783,114.6,5.832,114.6,5.832l0.009,0.009,0,0c0.78-.78,2.992.167,4.94,2.114S122.444,12.105,121.664,12.885ZM105.2,50.023A70.383,70.383,0,0,1,94.557,60.668S73.446,72.629,49.123,86.885L36.817,99.165l-8.483-8.483,12.28-12.305c14.248-24.332,26.2-45.449,26.2-45.449A70.3,70.3,0,0,1,77.462,22.283c8.111-5.48,19.464-4.43,19.464-4.43L109.644,30.57S110.684,41.914,105.2,50.023ZM19.019,91.017l-8.55,8.67L6.416,95.634,14,88h7.41l3.017,3.016H19.019Zm0.988,1.965h6.384l3.36,3.36L18.437,107.655,11.886,101.1Zm13.986,7.6v7.071l-7.778,7.778-6.364-6.364L31.165,97.756Zm2,2,2.987,2.987L39,114l-7.149,7.069-4.227-4.226,8.365-8.481V102.58Z"/>
+</svg>

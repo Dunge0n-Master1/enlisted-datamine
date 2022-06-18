@@ -1,0 +1,180 @@
+typhoon_mk1b_late{
+  _extends:t="typhoon_mk1b_late_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/typhoon_mk1b_late"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.2, 0.725, 0.0
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_typhoon_mk1b_late_20mm_hispanomkii_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_typhoon_mk1b_late_20mm_hispanomkii_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_typhoon_mk1b_late_20mm_hispanomkii_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_typhoon_mk1b_late_20mm_hispanomkii_04"
+    }
+  }
+}
+
+base_typhoon_mk1b_late_20mm_hispanomkii{
+  item__name:t="guns/cannonhispanomkii"
+  gun__blk:t="gamedata/weapons/typhoon_mk1b_late/20mm_hispanomkii.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="cannonhispanomkii"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=140
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=140
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+planegun_typhoon_mk1b_late_20mm_hispanomkii_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_typhoon_mk1b_late_20mm_hispanomkii"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=140
+}
+
+planegun_typhoon_mk1b_late_20mm_hispanomkii_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_typhoon_mk1b_late_20mm_hispanomkii"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=140
+}
+
+planegun_typhoon_mk1b_late_20mm_hispanomkii_03{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_typhoon_mk1b_late_20mm_hispanomkii"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=140
+}
+
+planegun_typhoon_mk1b_late_20mm_hispanomkii_04{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_typhoon_mk1b_late_20mm_hispanomkii"
+  _extends:t="gunsound_20mm_hispanomkii_aircraft"
+  gun__shootNodeName:t="flare4"
+  gun__maxAmmo:i=140
+}

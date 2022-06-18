@@ -1,0 +1,236 @@
+human_stat_tracking{
+  human_stat_tracking__spawnTime:r=0.0
+  human_stat_tracking__ownerTime:r=0.0
+  human_stat_tracking__ownedBy:i=0
+  human_stat_tracking__targetTracesCount:i=0
+  human_stat_tracking__killsCount:i=0
+  human_stat_tracking__botsKillsCount:i=0
+  human_stat_tracking__inVehicleKillsCount:i=0
+  human_stat_tracking__killsDistance:r=0.0
+  human_stat_tracking__maxKillsDistance:r=0.0
+  human_stat_tracking__hitsCount:i=0
+  human_stat_tracking__botsHitsCount:i=0
+  human_stat_tracking__inVehicleHitsCount:i=0
+  human_stat_tracking__hitsDistance:r=0.0
+  human_stat_tracking__shotsCount:i=0
+  human_stat_tracking__inVehicleShotsCount:i=0
+  human_stat_tracking__prevShootAtTime:r=-1.0
+  human_stat_tracking__totalDangers:r=0.0
+}
+
+human_stat_tracking_ext{
+  human_stat_tracking__lastWeaponName:t=""
+  human_stat_tracking__lastWeaponTime:r=-1.0
+
+  "human_stat_tracking__battleTimePerWeapon:object"{
+  }
+
+  "human_stat_tracking__shotsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__inVehicleShotsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__killsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__inVehicleKillsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__killsDistancePerWeapon:object"{
+  }
+
+  "human_stat_tracking__botsKillsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__hitsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__inVehicleHitsPerWeapon:object"{
+  }
+
+  "human_stat_tracking__botsHitsPerWeapon:object"{
+  }
+}
+
+squad_member_server_debug_ai{
+  _replicated:t="beh_tree__debugState"
+
+  "beh_tree__debugState:t"{
+    _tags:t="dev"
+    value:t=""
+  }
+
+  "beh_tree__server_debug:tag"{
+  }
+}
+
+squad_member_on_bullet_nearby_reaction{
+  agent_dangers__lastBulletReactionTime:r=0.0
+
+  "agent_dangers__lastBulletReactionOffenderEid:eid"{
+  }
+}
+
+squad_member_on_hit_reaction{
+  agent_dangers__lastHitReactionTime:r=0.0
+
+  "agent_dangers__lastHitReactionOffenderEid:eid"{
+  }
+}
+
+squad_member_ai{
+  _extends:t="human_stat_tracking"
+  _extends:t="human_stat_tracking_ext"
+  _extends:t="walker_agent_danger_calc"
+  _extends:t="beh_tree_regular_check"
+  _extends:t="beh_tree_enemy_player_in_radius"
+  _extends:t="beh_tree_bomb_site_in_radius"
+  _extends:t="squad_member_on_hit_reaction"
+  _extends:t="squad_member_on_bullet_nearby_reaction"
+  _extends:t="beh_tree_agent_in_train_zone"
+  _extends:t="beh_tree_agent_on_train"
+  beh_tree__node:t="squad_member"
+  beh_tree__debug:b=no
+  walker_agent__velViscosity:r=0.3
+  walker_agent__velFactor:r=1.0
+  walker_agent__aimViscosity:r=0.2
+  walker_agent__aimSpeed:r=1050.0
+  walker_agent__gunAimOffsetCompensation:r=0.9
+  walker_agent__breathOffsetCompensation:r=1.0
+  walker_agent__serverAiAction:i=0
+  walker_agent__nextAiActionUpdate:r=-1.0
+  walker_agent__currentAiAction:i=0
+  _tracked:t="walker_agent__currentAiAction"
+  _replicated:t="walker_agent__currentAiAction"
+  walker_agent__useObjectTimer:r=1.0
+  walker_agent__standShootLocalPos:p3=0.23, 1.4, -0.15
+  walker_agent__crouchShootLocalPos:p3=0.23, 0.95, -0.25
+  walker_agent__crawlShootLocalPos:p3=0.76, 0.26, -0.18
+  beh_tree__blackboard__preferedWeapon:i=0
+  beh_tree__blackboard__enemyRadius:r=90.0
+  beh_tree__blackboard__enemyNearRadius:r=10.0
+  agent_dangers__maxDangerDist:r=90.0
+  agent_dangers__frustumAngle:r=45.0
+  agent_dangers__projectileDist:r=4.0
+  agent_dangers__silencedProjectileDist:r=1.0
+  agent_dangers__lastBulletReactionTime:r=-1.0
+  agent_dangers__nextBulletReactionTime:r=-1.0
+  agent_dangers__hmapTraceOffset:p3=0.0, -0.1, 0.0
+  agent_dangers__nextDangersCheckTime:r=0.0
+  agent_dangers__nextDangersTraceTime:r=0.0
+  agent_dangers__standShootPos:p3=0.0, 0.0, 0.0
+  agent_dangers__standShootDir:p3=0.0, 0.0, 0.0
+  agent_dangers__targetAirplanePilots:b=no
+
+  "beh_tree__debugState:t"{
+    _tags:t="dev"
+    value:t=""
+  }
+
+  walker_agent{
+    _tags:t="server"
+  }
+
+  "beh_tree:BehaviourTree"{
+    _tags:t="server"
+  }
+
+  agent_dangers{
+    _tags:t="server"
+  }
+}
+
+walker_agent_danger_calc{
+  alertness_calc__distCoef:p2=-0.03, 0.8
+  alertness_calc__inFrustumCoef:p2=1.8, 0.25
+  alertness_calc__frustumCoef:p3=5.0, 1.0, 0.0
+  alertness_calc__frustumOffset:p2=-0.1, 0.23
+  alertness_calc__crouchCoef:r=0.85
+  alertness_calc__crawlCoef:r=0.5
+  alertness_calc__downedCoef:r=0.75
+  alertness_calc__inVehicleCoef:r=0.75
+  danger_calc__aiCoef:p2=1.1, 1.0
+  danger_calc__avoidBulletsNearTime:r=10.0
+  danger_calc__lastShootCoef:p2=1.0, 1.0
+  danger_calc__noiseCoef:p2=0.2, 1.0
+  danger_calc__lastBulletNearbyCoef:p2=10.0, 10.0
+}
+
+crawler_ai{
+  _extends:t="squad_member_ai"
+  beh_tree__node:t="crawler"
+  beh_tree__enabled:b=yes
+}
+
+croucher_ai{
+  _extends:t="squad_member_ai"
+  beh_tree__node:t="croucher"
+  beh_tree__enabled:b=yes
+}
+
+mean_enemy_pos{
+  mean_pos__pos:p3=0.0, 0.0, 0.0
+  mean_pos__team:i=-1
+}
+
+moveable_obstacle{
+  editableTemplate:b=no
+
+  _group{
+    _tags:t="server"
+
+    "moveable_obstacle:tag"{
+    }
+  }
+}
+
+still_obstacle{
+  editableTemplate:b=no
+
+  _group{
+    _tags:t="server"
+    obstacle__lastCheckTime:r=-1.0
+    obstacle__checkDelta:r=0.5
+    obstacle__lastStillTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+    obstacle__lastStillTime:r=-1.0
+    obstacle__stillPosThreshold:r=0.3
+    obstacle__stillAngCosThreshold:r=0.9
+    obstacle__initialStillTimeout:r=5.0
+    obstacle__stillTimeout:r=5.0
+    obstacle__stillCount:i=0
+    obstacle__handle:i=0
+    obstacle__padding:r=0.7
+    obstacle__paddingSide:r=0.13
+
+    "obstacle__still:tag"{
+    }
+  }
+}
+
+still_obstacles{
+  _singleton:b=yes
+
+  _group{
+    _tags:t="server"
+    still_obstacles__obstacleTemplate:t="still_obstacle"
+    still_obstacles__lastCheckTime:r=-1.0
+    still_obstacles__checkDelta:r=0.5
+  }
+}
+
+level_ri_obstacles{
+
+  _group{
+    _tags:t="server"
+    level_ri_obstacles__padding:r=0.7
+    level_ri_obstacles__paddingSide:r=0.13
+
+    "level_ri_obstacles__resNames:list<t>"{
+    }
+  }
+}
+
+_componentFilters{
+  walker_agent__currentAiAction:t="filter_friendly_team"
+}

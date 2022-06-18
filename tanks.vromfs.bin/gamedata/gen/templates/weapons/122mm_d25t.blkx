@@ -1,0 +1,71 @@
+base_122mm_d25t{
+  item__name:t="guns/122mm_d25t"
+  gun__blk:t="gamedata/gen/weapons/122mm_d25t.blk"
+  gun__shotFreq:r=0.048
+  gun__locName:t="122mm_d25t"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_defaultset.blk"
+        name:t="122mm_br_471"
+        type:t="aphe_tank"
+      }
+    }
+
+    "122mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_he.blk"
+        name:t="122mm_of_471"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "122mm_ussr_APHE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_aphe.blk"
+        name:t="122mm_br_471b"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "122mm_ussr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_apcbc.blk"
+        name:t="122mm_br_471d"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "122mm_ussr_APDS:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_apds.blk"
+        name:t="122mm_zbm_7"
+        type:t="apds_tank"
+      }
+    }
+
+    "122mm_ussr_HEAT_ZBK:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/122mm_d25t_122mm_ussr_heat_zbk.blk"
+        name:t="122mm_zbk_10"
+        type:t="heat_fs_tank"
+      }
+    }
+  }
+}
+
+tankgun_122mm_d25t{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_122mm_d25t"
+  _extends:t="gunsound_122mm_d25t"
+  turret__triggerGroup:i=0
+}

@@ -1,0 +1,64 @@
+entity{
+  _template:t="menu_camera"
+  fov:r=90.0
+  transform:m=[[-0.286349, 0.0, -0.958125] [-0.0185108, 0.999813, 0.0055322] [0.957947, 0.0193198, -0.286295] [-13.4769, 73.3685, 29.4093]]
+  menuFov:r=90.0
+  menuTransform:m=[[-0.286349, 0.0, -0.958125] [-0.0185108, 0.999813, 0.0055322] [0.957947, 0.0193198, -0.286295] [-13.4769, 73.3685, 29.4093]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/test_level_normandy.blk"
+  level__timeRange:p2=5.0, 19.2
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_clear.blk":r=0.0
+    "content/common/gamedata/weather/weather_almost_clear.blk":r=0.0
+    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+    "content/common/gamedata/weather/weather_poor.blk":r=0.5
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=6.5
+  }
+}
+
+entity{
+  _template:t="ui_disabled"
+  ui__disabled:b=yes
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    river_density:r=0.3
+    hmap_displacement_down:r=-0.15
+    water_color_noise_size:r=71.0
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    hmap_displacement_up:r=0.3
+    paint_details_tex:t="normandy_wall_color_tex_palette*"
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}

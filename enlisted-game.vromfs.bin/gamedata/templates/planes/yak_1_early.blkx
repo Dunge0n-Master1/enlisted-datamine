@@ -1,0 +1,299 @@
+yak_1_early{
+  _extends:t="yak_1_early_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/yak_1_early"
+  item__iconOffset:p2=0.1, 0.0
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.15, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.84, 0.618, 0.0
+      cockpitTemplate:t="yak_1_early_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_yak_1_early_fab_50_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_yak_1_early_fab_50_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_yak_1_early_20mm_shvak_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_yak_1_early_7_62mm_shkas_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_yak_1_early_7_62mm_shkas_02"
+    }
+  }
+}
+
+base_yak_1_early_fab_50_launcher{
+  item__name:t="guns/su_fab50"
+  gun__blk:t="gamedata/weapons/yak_1_early/fab_50_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="su_fab50"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/fab_50.blk"
+        name:t="fab_50"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+base_yak_1_early_20mm_shvak{
+  item__name:t="guns/cannonshvak"
+  gun__blk:t="gamedata/weapons/yak_1_early/20mm_shvak.blk"
+  gun__shotFreq:r=13.3333
+  gun__locName:t="cannonshvak"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=110
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=110
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20mm_shvak_ozt_bullet.blk"
+        name:t="ozt"
+        type:t="frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20mm_shvak_bz_bullet.blk"
+        name:t="bz"
+        type:t="ap_i"
+      }
+    }
+  }
+}
+
+base_yak_1_early_7_62mm_shkas{
+  item__name:t="guns/gunshkas"
+  gun__blk:t="gamedata/weapons/yak_1_early/7_62mm_shkas.blk"
+  gun__shotFreq:r=30.0
+  gun__locName:t="gunshkas"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=620
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=620
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_t46_bullet.blk"
+        name:t="t46"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_l_bullet.blk"
+        name:t="l"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_l_bullet.blk"
+        name:t="l"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_b32_bullet.blk"
+        name:t="b32"
+        type:t="ap_i_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_62mm_shkas_pz_bullet.blk"
+        name:t="pz"
+        type:t="he_ball"
+      }
+    }
+  }
+}
+
+planegun_yak_1_early_fab_50_launcher_01{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_yak_1_early_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb1"
+  slot_attach__slotName:t="bomb1"
+  gun__maxAmmo:i=1
+}
+
+planegun_yak_1_early_fab_50_launcher_02{
+  _extends:t="fab_50_launcher"
+  _extends:t="base_yak_1_early_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb2"
+  slot_attach__slotName:t="bomb2"
+  gun__maxAmmo:i=1
+}
+
+planegun_yak_1_early_20mm_shvak_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_yak_1_early_20mm_shvak"
+  _extends:t="gunsound_20mm_shvak_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=110
+}
+
+planegun_yak_1_early_7_62mm_shkas_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_yak_1_early_7_62mm_shkas"
+  _extends:t="gunsound_7_62mm_shkas_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=620
+}
+
+planegun_yak_1_early_7_62mm_shkas_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_yak_1_early_7_62mm_shkas"
+  _extends:t="gunsound_7_62mm_shkas_aircraft"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=620
+}
+
+yak_1_early_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="yak_1_early_cockpit_char"
+  plane_anim__blk:t="gamedata/units/yak_1_early.blk"
+  plane_sight__blk:t="gamedata/units/yak_1_early.blk"
+}

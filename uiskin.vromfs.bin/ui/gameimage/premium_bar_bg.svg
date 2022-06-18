@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.2.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 500 100" style="enable-background:new 0 0 500 100;" xml:space="preserve">
+<linearGradient id="Rectangle_252_1_" gradientUnits="userSpaceOnUse" x1="150.01" y1="151.406" x2="150.01" y2="150.674" gradientTransform="matrix(6.123234e-15 -100 -500 -3.061617e-14 75650 15051)">
+	<stop  offset="0" style="stop-color:#F7430A"/>
+	<stop  offset="0.525" style="stop-color:#920A01;stop-opacity:0.992"/>
+	<stop  offset="0.555" style="stop-color:#950B01;stop-opacity:0.992"/>
+	<stop  offset="1" style="stop-color:#800000;stop-opacity:0"/>
+</linearGradient>
+<rect id="Rectangle_252" style="fill:url(#Rectangle_252_1_);" width="500" height="100"/>
+</svg>

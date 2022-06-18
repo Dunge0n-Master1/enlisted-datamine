@@ -1,0 +1,19 @@
+<svg id="allies_tunisia_radioman_1_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #efefef;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #c52a2a;
+      }
+    </style>
+  </defs>
+  <path id="Shape_262_copy_2" data-name="Shape 262 copy 2" class="cls-1" d="M7.8,135.492L75,18.607l67.2,116.885H7.8Z"/>
+  <path id="Shape_262_copy" data-name="Shape 262 copy" class="cls-2" d="M75,25.8l60.962,106.09H14.038L75,25.8m0-14.394L1.572,139.091H148.428L75,11.409h0Z"/>
+</svg>

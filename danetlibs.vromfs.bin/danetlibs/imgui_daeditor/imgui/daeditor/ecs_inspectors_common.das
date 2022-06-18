@@ -1,0 +1,188 @@
+options no_global_variables = false
+options persistent_heap = true
+module ecs_inspectors_common shared
+
+require ecs
+require rtti
+require debugapi
+require strings
+require daslib/apply_in_context
+
+class ContextInspectorFn
+  ctx : Context?
+  fn : InspectorFn
+
+  def ContextInspectorFn(var f : InspectorFn; var context : Context)
+    unsafe
+      ctx = addr(context)
+    fn <- f
+
+  [unused_argument(id)] def call(eid : EntityId; name : string; ref : EntityComponentRef#; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
+    unsafe
+      lock_debug_agent() <| $()
+        ctx |> invoke_in_context(fn, eid, name, ref, level, changed, sub_menu)
+
+class ContextEditorFn
+  ctx : Context?
+  fn : EditorFn
+
+  def ContextEditorFn(var f : EditorFn; var context : Context)
+    unsafe
+      ctx = addr(context)
+    fn <- f
+
+  [unused_argument(id)] def call(eid : EntityId) : void
+    unsafe
+      lock_debug_agent() <| $()
+        ctx |> invoke_in_context(fn, eid)
+
+
+struct InspectorDesc
+  field_name : string
+  tag : string
+  fn : ContextInspectorFn?
+
+
+struct EditorDesc
+  prefix : bool
+  tags : array<string>
+  fn : ContextEditorFn?
+
+
+typedef
+  InspectorFn = function<(eid : EntityId; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
+  EditorFn = function<(eid : EntityId) : void>
+
+
+let AGENT_NAME = "ecs_inspectors"
+var
+  inspectors : table<string; array<InspectorDesc>>
+  editors : array<EditorDesc>
+
+
+def not_in_ecs_inspectors_context()
+  unsafe
+    if has_debug_agent_context(AGENT_NAME) && addr(get_debug_agent_context(AGENT_NAME))  != addr(this_context())
+      return true
+  return false
+
+
+class EcsInspectorAgent : DapiDebugAgent
+  def override onDestroyContext(ctx : Context)
+    var toRemove : array<string>
+    for typeName, list in keys(inspectors), values(inspectors)
+      var idx = length(list) - 1
+      while idx >= 0
+        unsafe
+          let linkedCtx & = *(list[idx].fn.ctx)
+          if addr(linkedCtx) == addr(ctx)
+            list |> erase(idx)
+        idx -= 1
+      if length(list) == 0
+        toRemove |> push(typeName)
+    for typeName in toRemove
+      inspectors |> erase(typeName)
+
+    let len = length(editors)
+    for ridx in iter_range(editors)
+      let idx = len - ridx - 1
+      unsafe
+        let linkedCtx & = *(editors[idx].fn.ctx)
+        if addr(linkedCtx) == addr(ctx)
+          editors |> erase(idx)
+
+
+[export, unused_argument(ctx)]
+def private start_debug_agent(ctx : Context)
+  install_new_debug_agent(new EcsInspectorAgent(), AGENT_NAME)
+
+
+[export]
+def start_ecs_inspectors_agent()
+  unsafe
+    lock_debug_agent() <| $()
+      if !has_debug_agent_context(AGENT_NAME) && !is_in_aot() && !is_in_debug_agent_creation()
+        fork_debug_agent_context(@@start_debug_agent)
+
+
+[apply_in_context(ecs_inspectors)]
+def add_inspector(typ_name, field_name, tag : string implicit; var fn : InspectorFn; var ctx : Context implicit) : bool
+  let type_name = clone_string(typ_name)
+  if !key_exists(inspectors, type_name)
+    inspectors[type_name] <- [[array<InspectorDesc>]]
+  inspectors |> find_for_edit_if_exists(type_name) <| $(list)
+    for it in *list
+      if it.field_name == field_name && it.tag == tag
+        delete * it.fn
+        it.fn = new ContextInspectorFn(fn, ctx)
+        return
+
+    *list |> emplace <| [[InspectorDesc field_name=clone_string(field_name), tag=clone_string(tag), fn=new ContextInspectorFn(fn, ctx)]]
+  return true
+
+
+[apply_in_context(ecs_inspectors)]
+def has_inspector(type_name : string implicit) : bool
+  return inspectors |> key_exists(type_name)
+
+
+[apply_in_context(ecs_inspectors)]
+def call_inspector(type_name : string implicit; eid : EntityId; field_name : string implicit; ref : EntityComponentRef#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
+  var res = false
+  inspectors |> find_for_edit_if_exists(type_name) <| $(list)
+    res = true
+    if length(*list) == 1
+      (*list)[0].fn->call(eid, field_name, ref, level, changed, sub_menu)
+      return
+
+    // field_name and tag
+    for it in *list
+      if it.field_name == field_name && !empty(it.tag) && has(eid, it.tag)
+        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        return
+
+    // tag
+    for it in *list
+      if !empty(it.tag) && has(eid, it.tag)
+        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        return
+
+    // field_name
+    for it in *list
+      if it.field_name == field_name
+        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        return
+
+    // default renderer
+    for it in *list
+      if empty(it.field_name) && empty(it.tag)
+        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        return
+
+    // no valid renderers
+    res = false
+  return res
+
+
+[apply_in_context(ecs_inspectors)]
+def add_editor(prefix : bool; tags : array<string> implicit; var fn : EditorFn; var ctx : Context implicit) : bool
+  editors |> emplace <| [[EditorDesc prefix=prefix, tags := tags, fn=new ContextEditorFn(fn, ctx) ]]
+  return true
+
+
+[apply_in_context(ecs_inspectors)]
+def call_editor(prefix : bool; eid : EntityId) : bool
+  var res = false
+  for it in editors
+    if it.prefix != prefix
+      continue
+    var valid = true
+    for tag in it.tags
+      if !eid |> has(tag)
+        valid = false
+        break
+    if valid
+      (*it.fn)->call(eid)
+      res = true
+
+  return res

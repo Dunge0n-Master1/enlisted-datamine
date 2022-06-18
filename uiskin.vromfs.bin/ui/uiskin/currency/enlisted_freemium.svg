@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42.054" height="42.054">
+ <defs>
+  <linearGradient gradientUnits="userSpaceOnUse" x1="0.5" y1="0.0" x2="0.5" y2="12" id="linear-gradient">
+   <stop stop-color="#5a77b5" offset="0"/>
+   <stop stop-color="#584aa3" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <path fill="url(#linear-gradient)" d="m8,0l0,42.054l12.834,-4.006l12.831,4.006l0,-42.054l-25.665,0z" data-name="Path 531" id="Path_531"/>
+ </g>
+</svg>

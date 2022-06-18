@@ -1,0 +1,12 @@
+tex{
+  dynAtlas:b=yes
+  rtTex:b=yes
+  name:t="skin"
+  size:ip2=1024,1024
+  maxAllowedPicSz:ip2=320,320
+  premultiplyAlpha:b=yes
+  margin:i=1
+  picSrcFolder:t="/ui/uiskin/"
+  picReserve:i=128
+  refHRes:i=1080
+}

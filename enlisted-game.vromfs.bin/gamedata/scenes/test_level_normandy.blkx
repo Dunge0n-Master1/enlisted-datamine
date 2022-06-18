@@ -1,0 +1,103 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.0, 0.0, -1.0] [0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/test_level_normandy.blk"
+  level__timeRange:p2=5.0, 19.2
+
+  "level__weatherChoice:object"{
+    "content/common/gamedata/weather/weather_clear.blk":r=0.0
+    "content/common/gamedata/weather/weather_almost_clear.blk":r=0.0
+    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+    "content/common/gamedata/weather/weather_poor.blk":r=0.5
+  }
+
+  "level__timeVec:array"{
+    level_timeVec:r=6.5
+    level_timeVec:r=7.5
+    level_timeVec:r=8.5
+    level_timeVec:r=17.0
+    level_timeVec:r=18.0
+  }
+}
+
+entity{
+  _template:t="minimap_normandy_beach_fortified"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    river_density:r=0.3
+    hmap_displacement_down:r=-0.15
+    water_color_noise_size:r=71.0
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    hmap_displacement_up:r=0.3
+    paint_details_tex:t="normandy_wall_color_tex_palette*"
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="team_usa+team_narrator_invasion_attack"
+  team__deathPenaltyByMember:r=-5.0
+  team__minDeathPenalty:r=10.0
+  team__memberCount:r=0.0
+  team__scoreCap:r=4000.0
+  team__capturePenalty:r=0.0
+  team__botTemplate:t="usa_npc_summer_soldier_1"
+  score_bleed__staticBleed:r=2.0
+  team__score:r=4000.0
+  team__deathPenalty:r=35.0
+  team__id:i=1
+  team__briefing:t="invasion/attackers_goals"
+  team__winSubtitle:t="debriefing/won_invasion_subtitle"
+  team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
+  team__winTitle:t="debriefing/usa_won_invasion_title"
+}
+
+entity{
+  _template:t="respawnBase"
+  team:i=1
+  groupName:t="1_2"
+  active:b=yes
+  transform:m=[[0.4853, 0.0854253, -0.870165] [-0.041609, 0.996345, 0.0746068] [-0.873357, 0.0, -0.487081] [-13.4769, 68.0804, 29.4093]]
+}
+
+entity{
+  _template:t="respawnBase"
+  transform:m=[[0.639315, 0.0, 0.768945] [0.0, 1.0, 0.0] [-0.768945, -0.0, 0.639315] [9.05534, 69.209, 25.997]]
+  team:i=2
+  groupName:t="1_2"
+  active:b=no
+}

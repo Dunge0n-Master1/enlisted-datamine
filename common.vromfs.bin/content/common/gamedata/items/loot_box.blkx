@@ -1,0 +1,3 @@
+visual{
+  template:t="loot_box_item+item_in_world"
+}

@@ -1,0 +1,1718 @@
+armorPartNamesGround{
+
+  viewer_armor{
+    p:t="body"
+    p:t="superstructure"
+    p:t="turret"
+    p:t="gun_barrel"
+    p:t="gun_mask"
+    p:t="ex_era_hull_"
+    p:t="ex_era_turret_"
+    p:t="wheel_"
+    p:t="track_r"
+    p:t="track_l"
+    p:t="rudder_"
+    p:t="suspension_"
+    p:t="ex_armor_"
+    p:t="body_shield_"
+    p:t="gun_mask_shield_"
+    p:t="mg_"
+    p:t="tt_"
+    p:t="ex_decor_"
+    p:t="ex_fuel_tank_"
+    p:t="cannon_breech"
+  }
+
+  viewer_armor_inner{
+    p:t="armor_belt"
+    p:t="armor_cit"
+    p:t="at_bulge"
+  }
+
+  viewer_xray{
+    p:t="driver"
+    p:t="machine_gunner"
+    p:t="loader"
+    p:t="commander"
+    p:t="gunner"
+    p:t="optic_"
+    p:t="drive_turret_h"
+    p:t="drive_turret_v"
+    p:t="cannon_breech"
+    p:t="fuel_tank"
+    p:t="ammo"
+    p:t="radiator"
+    p:t="radio_station"
+    p:t="engine"
+    p:t="transmission"
+    p:t="steering_gear"
+    p:t="gun_barrel_0"
+    p:t="gun_barrel_1"
+    p:t="mg"
+    p:t="composite_armor_hull"
+    p:t="composite_armor_turret"
+    p:t="ex_era_hull"
+    p:t="ex_era_turret"
+
+    p{
+      name:t="gun_barrel"
+      usePrefix:b=no
+    }
+  }
+
+  body{
+    p:t="body"
+    p:t="turret"
+    p:t="gun_barrel"
+    p:t="gun_mask"
+  }
+
+  track{
+
+    p{
+      name:t="track_r_"
+      dmgThreshold:r=0.5
+    }
+
+    p{
+      name:t="track_l_"
+      dmgThreshold:r=0.5
+    }
+
+    p{
+      name:t="wheel_l_back_"
+      dmgThreshold:r=0.3
+    }
+
+    p{
+      name:t="wheel_l_front_"
+      dmgThreshold:r=0.3
+    }
+
+    p{
+      name:t="wheel_l_drive_"
+      dmgThreshold:r=0.3
+    }
+
+    p{
+      name:t="wheel_r_back_"
+      dmgThreshold:r=0.3
+    }
+
+    p{
+      name:t="wheel_r_front_"
+      dmgThreshold:r=0.3
+    }
+
+    p{
+      name:t="wheel_r_drive_"
+      dmgThreshold:r=0.3
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="citroen_kegresse_p4t"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="citroen_kegresse_p4t"
+    }
+
+    p{
+      name:t="wheel_r_06_"
+      modelNames:t="citroen_kegresse_p4t"
+    }
+
+    p{
+      name:t="wheel_l_06_"
+      modelNames:t="citroen_kegresse_p4t"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="cckw_353_bofors"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="cckw_353_bofors"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="cckw_353_bofors"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="cckw_353_bofors"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="cckw_353_bofors"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="cckw_353_bofors"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="flak_37_sdkfz_9"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="flak_37_sdkfz_9"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="flak_36_sdkfz_6_2"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="flak_36_sdkfz_6_2"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="panzerwerfer_42"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="panzerwerfer_42"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="sdkfz_234_2"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="sdkfz_234_3"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="sdkfz_234_4"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="halftrack_m3_t48"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="halftrack_m3_t48"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="halftrack_m13"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="halftrack_m13"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="halftrack_m15"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="halftrack_m15"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="halftrack_m16"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="halftrack_m16"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="m8_greyhound"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="m8_greyhound"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="m8_greyhound"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="m8_greyhound"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="m8_greyhound"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="m8_greyhound"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="type_94"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="type_94"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="type_94"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="type_94"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="type_94"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="type_94"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="armored_car_mk_2_aa"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="armored_car_mk_2_aa"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="armored_car_aec_mk_2"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="armored_car_aec_mk_2"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="t17e2"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="t17e2"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="daimler_mk_2"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="daimler_mk_2"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="bm_13n"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="bm_13n"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="bm_13n"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="bm_13n"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="btr_152a"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="btr_152a"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="btr_152a"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="btr_152a"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="btr_152a"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="btr_152a"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="zsu_29k"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="zsu_29k"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="zsu_29k"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="zsu_29k"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="zis_43"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="zis_43"
+    }
+
+    p{
+      name:t="wheel_r_06_"
+      modelNames:t="zis_43"
+    }
+
+    p{
+      name:t="wheel_l_06_"
+      modelNames:t="zis_43"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="su_57"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="su_57"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="94_km_zis_12_1945"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="94_km_zis_12_1945"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="gaz_mm_72k"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="gaz_mm_72k"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="gaz_aa_dshk"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="gaz_aa_dshk"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="gaz_aa_dshk"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="gaz_aa_dshk"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="gaz_aa_4m"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="gaz_aa_4m"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="gaz_aa_4m"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="gaz_aa_4m"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="sdkfz_221_s_pz_b_41"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="sdkfz_221_s_pz_b_41"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="sdkfz_221_s_pz_b_41"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="sdkfz_221_s_pz_b_41"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="semovente_breda_501"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="semovente_breda_501"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="semovente_breda_501"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="semovente_breda_501"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="semovente_breda_501"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="semovente_breda_501"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="ab_41"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="ab_41"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="ab_41"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="ab_41"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="ab_43"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="ab_43"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="ab_43"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="ab_43"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="as_42_metropolitana"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="as_42_metropolitana"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="as_42_metropolitana"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="as_42_metropolitana"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="b1_centauro"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="b1_centauro_romor"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="fiat_6614_106sr"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="fiat_6614_106sr"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="fiat_6614_106sr"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="fiat_6614_106sr"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="aubl_74_cockerill"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="aubl_74_cockerill"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="aubl_74_cockerill"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="aubl_74_cockerill"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="oto_r3_t20_fa"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="oto_r3_t20_fa"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="oto_r3_t20_fa"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="oto_r3_t20_fa"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="oto_r3_106sr"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="oto_r3_106sr"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="oto_r3_106sr"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="oto_r3_106sr"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="t18e2"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="amx_10rc"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="amx_10rc"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="amx_10rc"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="amx_10rc"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="amx_10rc"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="amx_10rc"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="type_16"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="aubl_74_60_70m"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="aubl_74_60_70m"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="aubl_74_60_70m"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="aubl_74_60_70m"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="ba_11"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="ba_11"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="ba_11"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="ba_11"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="amd_35"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="amd_35"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="amd_35"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="amd_35"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="panhard_aml_90"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="panhard_aml_90"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="panhard_aml_90"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="panhard_aml_90"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="rooikat_76_mk_1d"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="rooikat_105_td"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="landsverk_ush_405"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="landsverk_ush_405"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="landsverk_ush_405"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="landsverk_ush_405"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="tgdgb_m40_lv"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="tgdgb_m40_lv"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="tgdgb_m40_lv"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="tgdgb_m40_lv"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="radpanzer_90"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="centauro_mgs_120"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_r_03_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_l_03_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_r_04_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_l_04_"
+      modelNames:t="sdkfz_234_1"
+    }
+
+    p{
+      name:t="wheel_r_01_"
+      modelNames:t="type_93"
+    }
+
+    p{
+      name:t="wheel_l_01_"
+      modelNames:t="type_93"
+    }
+
+    p{
+      name:t="wheel_r_02_"
+      modelNames:t="type_93"
+    }
+
+    p{
+      name:t="wheel_l_02_"
+      modelNames:t="type_93"
+    }
+  }
+
+  crew{
+
+    p{
+      name:t="driver_"
+    }
+
+    p{
+      name:t="machine_gunner_"
+    }
+
+    p{
+      name:t="loader_"
+    }
+
+    p{
+      name:t="commander_"
+    }
+
+    p{
+      name:t="gunner_"
+    }
+  }
+
+  outer{
+    p:t="body_shield_"
+    p:t="gun_mask_shield_"
+  }
+
+  inner{
+    p:t="antenna_target_location_"
+    p:t="antenna_target_tagging_"
+    p:t="antenna_target_tagging_mount_"
+    p:t="fire_director_"
+    p:t="fire_director_mount_"
+
+    p{
+      name:t="optic_"
+    }
+
+    p{
+      name:t="drive_turret_h_"
+    }
+
+    p{
+      name:t="drive_turret_v_"
+    }
+
+    p{
+      name:t="cannon_breech_"
+    }
+
+    p{
+      name:t="fuel_tank_"
+    }
+
+    p{
+      name:t="ammo_"
+      hideIfDead:b=yes
+    }
+
+    p{
+      name:t="radiator_"
+    }
+
+    p{
+      name:t="radio_station_"
+    }
+
+    p{
+      name:t="engine_"
+    }
+
+    p{
+      name:t="transmission_"
+    }
+
+    p{
+      name:t="aa_gun_"
+    }
+
+    p{
+      name:t="aa_turret_"
+    }
+
+    p{
+      name:t="gun_barrel"
+    }
+
+    p{
+      name:t="gun_barrel_0"
+    }
+
+    p{
+      name:t="gun_barrel_1"
+    }
+
+    p{
+      name:t="tt_"
+    }
+
+    p{
+      name:t="mg_"
+    }
+
+    p{
+      name:t="ex_era_hull_"
+      hideIfDead:b=yes
+    }
+
+    p{
+      name:t="ex_era_turret_"
+      hideIfDead:b=yes
+    }
+  }
+
+  decorators{
+    p:t="wheel_"
+
+    p{
+      name:t="ex_decor_"
+    }
+  }
+}
+
+armorPartNamesAir{
+
+  viewer_armor{
+    p:t="armor"
+  }
+
+  viewer_xray{
+    p:t="pilot"
+    p:t="gunner"
+    p:t="wingcontrol"
+    p:t="wingcontrol"
+    p:t="wingcontrol"
+    p:t="tailcontrol"
+    p:t="transmission"
+    p:t="engine_shaft"
+    p:t="propeller_shaft"
+    p:t="spar"
+    p:t="engine"
+    p:t="tank"
+    p:t="oil"
+    p:t="water"
+    p:t="cannon"
+    p:t="mgun"
+    p:t="gun0"
+    p:t="gun1"
+    p:t="gun2"
+    p:t="gun3"
+    p:t="gun4"
+    p:t="gun5"
+    p:t="gun6"
+    p:t="gun7"
+    p:t="gun8"
+    p:t="gun9"
+    p:t="radar"
+    p:t="ext_armor"
+  }
+
+  body{
+
+    p{
+      name:t="fuse"
+    }
+
+    p{
+      name:t="tail_dm"
+    }
+
+    p{
+      name:t="wing"
+    }
+
+    p{
+      name:t="fin"
+    }
+
+    p{
+      name:t="stab"
+    }
+
+    p{
+      name:t="rudder"
+    }
+
+    p{
+      name:t="elevator"
+    }
+
+    p{
+      name:t="aileron"
+    }
+
+    p{
+      name:t="elevon"
+    }
+
+    p{
+      name:t="flap"
+    }
+
+    p{
+      name:t="flap_airbrake"
+    }
+
+    p{
+      name:t="flaperon"
+    }
+
+    p{
+      name:t="aileron_interceptor"
+    }
+
+    p{
+      name:t="rudder_interceptor"
+    }
+
+    p{
+      name:t="cover"
+    }
+
+    p{
+      name:t="armor"
+    }
+
+    p{
+      name:t="gear"
+    }
+
+    p{
+      name:t="ext_armor"
+    }
+  }
+
+  crew{
+
+    p{
+      name:t="pilot"
+    }
+
+    p{
+      name:t="gunner"
+    }
+  }
+
+  inner{
+
+    p{
+      name:t="wingcontrol"
+    }
+
+    p{
+      name:t="wingcontrol"
+    }
+
+    p{
+      name:t="wingcontrol"
+    }
+
+    p{
+      name:t="tailcontrol"
+    }
+
+    p{
+      name:t="transmission"
+    }
+
+    p{
+      name:t="engine_shaft"
+    }
+
+    p{
+      name:t="propeller_shaft"
+    }
+
+    p{
+      name:t="spar"
+    }
+
+    p{
+      name:t="engine"
+    }
+
+    p{
+      name:t="tank"
+    }
+
+    p{
+      name:t="oil"
+    }
+
+    p{
+      name:t="water"
+    }
+
+    p{
+      name:t="cannon"
+    }
+
+    p{
+      name:t="mgun"
+    }
+
+    p{
+      name:t="gun0"
+    }
+
+    p{
+      name:t="gun1"
+    }
+
+    p{
+      name:t="gun2"
+    }
+
+    p{
+      name:t="gun3"
+    }
+
+    p{
+      name:t="gun4"
+    }
+
+    p{
+      name:t="gun5"
+    }
+
+    p{
+      name:t="gun6"
+    }
+
+    p{
+      name:t="gun7"
+    }
+
+    p{
+      name:t="gun8"
+    }
+
+    p{
+      name:t="gun9"
+    }
+
+    p{
+      name:t="radar"
+    }
+  }
+}
+
+outline{
+  lineWidth:r=0.5
+  lineWidthThick:r=1.0
+  whiteCircle:t="white_circle_hi"
+  spikeCircle:t="searchlight_earth_flare"
+  noiseTexture:t="snow_noise_mask"
+  sourceTex:t="source_tex"
+  armorThicknessMax:r=300.0
+  hsvRange:p2=160.0, 0.0
+  damageOutlineEnabled:b=no
+  xraySelectionColor:p4=1.0, 1.0, 1.0, 1.0
+  xrayColor:p4=0.68, 0.88, 1.0, 0.7
+  xrayFrensel:p4=0.1, 0.1, 0.1, 1.0
+  xrayBgOutlineColor:p4=0.3, 0.3, 0.3, 1.0
+  xrayBgSurfaceColor:p4=0.0, 0.0, 0.0, 0.5
+  xrayHColorEnabled:b=no
+  xrayColorPlane:p4=0.68, 0.88, 1.0, 0.7
+  xrayFrenselPlane:p4=0.1, 0.1, 0.1, 1.0
+  xrayBgOutlineColorPlane:p4=0.3, 0.3, 0.3, 1.0
+  xrayBgSurfaceColorPlane:p4=0.0, 0.0, 0.0, 0.5
+  xrayHColorEnabledPlane:b=no
+  armorPartOutlineColor:p4=1.0, 1.0, 1.0, 0.4
+  armorPartSurfaceColor:p4=1.0, 1.0, 1.0, 0.15
+  armorPartOutlineColorPlane:p4=1.0, 1.0, 1.0, 0.4
+  armorPartSurfaceColorPlane:p4=1.0, 1.0, 1.0, 0.15
+  armorFixedColorCount:i=16
+  armorFixedColorThreshold:r=1.0
+  attachObstructPartOutlineColor:p4=0.8, 0.0, 0.0, 1.0
+  attachObstructPartSurfaceColor:p4=1.0, 0.0, 0.0, 0.25
+  minCropIconSize:r=16.0
+  minCropElementSize:r=0.25
+  cropIconFade:r=0.25
+  cropIconFarFade:r=15.0
+  shipArmorClassForViewer:t="RHA_tank, concrete, armored_glass, ship_STS, ship_Wsh, ship_RHA, ship_RGA, CHA_tank"
+}

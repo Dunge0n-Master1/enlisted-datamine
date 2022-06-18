@@ -1,0 +1,63 @@
+base_25mm_72k{
+  item__name:t="guns/25mm_72k"
+  gun__blk:t="gamedata/gen/weapons/25mm_72k.blk"
+  gun__shotFreq:r=4.0
+  gun__reloadTime:r=0.2
+  gun__maxAmmo:i=7
+  gun__locName:t="25mm_72k"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/25mm_72k_defaultset_bullet_1.blk"
+        name:t="25mm_br_132"
+        type:t="ap_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/25mm_72k_defaultset_bullet_2.blk"
+        name:t="25mm_ozr_132"
+        type:t="frag_i_t"
+      }
+    }
+
+    "25mm_ussr_72K_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/25mm_72k_25mm_ussr_72k_he.blk"
+        name:t="25mm_ozr_132"
+        type:t="frag_i_t"
+      }
+    }
+
+    "25mm_ussr_72K_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/25mm_72k_25mm_ussr_72k_ap.blk"
+        name:t="25mm_br_132"
+        type:t="ap_t"
+      }
+    }
+  }
+}
+
+tankgun_25mm_72k{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_25mm_72k"
+  _extends:t="gunsound_25mm_72k"
+  turret__triggerGroup:i=0
+}

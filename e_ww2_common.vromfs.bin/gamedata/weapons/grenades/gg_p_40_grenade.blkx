@@ -1,0 +1,68 @@
+mass:r=0.52
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.061
+speed:r=65.0
+speedPitch:r=1.5
+maxDistance:r=6.0
+physMat:t="grenadeRay"
+useFutureContacts:b=yes
+frictionGround:r=0.5
+bullets:i=1
+noSleepAtTheSlopeCos:r=0.766
+logCCD:b=no
+entityTemplate:t="gg_p_40_grenade_phys"
+entityPhysTemplate:t="gg_p_40_grenade_phys"
+explosiveType:t="tnt"
+explosiveMass:r=0.031
+
+visual{
+  template:t="gg_p_40_grenade_item+item_in_world"
+}
+
+collisionResource{
+
+  props{
+    volumeBox_1:t="box"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.05, 0.0, 0.0, 0.015
+  ccd:p4=0.2, 0.0, 0.0, 0.015
+  ccd:p4=-0.05, 0.0, 0.0, 0.015
+}
+
+splashDamage{
+  radius:p2=1.0, 10.0
+  penetration:p2=15.0, 2.0
+  damage:r=20.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=0.8, 0.9
+  effectTemplName:t="explosion_effect_small+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade"
+}
+
+cumulativeDamage{
+  armorPower:r=50.0
+  distance:r=3.0
+  damage:r=60.0
+  onHitChanceMultFire:r=15.0
+}
+
+damage{
+
+  explosive{
+    strengthEquivalent:r=1.0
+    brisanceEquivalent:r=1.0
+  }
+}
+
+solver{
+  energyConservation:r=0.85
+}

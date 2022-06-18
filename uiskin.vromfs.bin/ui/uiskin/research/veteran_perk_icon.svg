@@ -1,0 +1,11 @@
+<svg id="guns_sights" data-name="guns sights" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e4d551;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Rectangle_2_copy_4" data-name="Rectangle 2 copy 4" class="cls-1" d="M90,66v56H39V66H16L64,5l48,61H90ZM69.244,44.976L64.05,30.1l-5.3,14.839L43,45.282l12.468,9.632L50.927,70l13.009-8.886L76.879,70.1,72.451,54.976l12.538-9.54Z"/>
+</svg>

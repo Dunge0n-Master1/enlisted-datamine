@@ -1,0 +1,112 @@
+base_panzerjager_tiger{
+  _extends:t="base_tank"
+  killLogName:t="germ_panzerjager_tiger"
+  animchar__res:t="panzerjager_tiger_char"
+  collres__res:t="panzerjager_tiger_collision"
+  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/panzerjager_tiger.blk:VehiclePhys"
+  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="panzerjager_tiger_dmg_char"
+  xray_resource__modelName:t="panzerjager_tiger"
+  drowningHeight:r=2.356
+  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/panzerjager_tiger.blk"
+  item__name:t="items/germ_panzerjager_tiger"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_125mm"
+    fx:t="muzzle_ground_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_body_h_01"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+      aimActiveParamName:t="aim_02_active"
+      paramYawSpeed:t="turret_02_yaw_speed"
+      paramYawSpeedMul:t="turret_02_yaw_mul"
+      paramYawAccel:t="turret_02_yaw_accel"
+      paramPitchSpeed:t="gun_02_pitch_speed"
+      paramPitchSpeedMul:t="gun_02_pitch_mul"
+      paramPitchAccel:t="gun_02_pitch_accel"
+      wishYawParamName:t="gun_02_aim:targetYaw"
+      wishPitchParamName:t="gun_02_aim:targetPitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="panzerjager_tiger_turret_01_128mm_PaK44+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="panzerjager_tiger_turret_02_7_92mm_mg34"
+      barrelDm:t="gun_barrel_01"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+panzerjager_tiger_turret_01_128mm_PaK44{
+  _extends:t="tankgun_128mm_pak44"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=5.0
+  turret__pitchSpeed:r=3.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=14
+    ammo:i=13
+    ammo:i=13
+  }
+}
+
+panzerjager_tiger_turret_02_7_92mm_mg34{
+  _extends:t="tankgun_7_92mm_mg34"
+  gun__shootNodeName:t="bone_mg_body_h_01"
+  turret__yawSpeed:r=5.5
+  turret__pitchSpeed:r=4.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1500
+    ammo:i=1500
+  }
+}

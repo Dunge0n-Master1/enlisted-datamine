@@ -1,0 +1,11 @@
+<svg id="_11th_panzer_division_icon" data-name="11th_panzer_division_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ffc257;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M75,148a73,73,0,1,1,73-73A73,73,0,0,1,75,148ZM20.25,75A54.755,54.755,0,0,0,66,129V21A54.756,54.756,0,0,0,20.25,75ZM85,21.178V128.822A54.742,54.742,0,0,0,85,21.178Z"/>
+</svg>

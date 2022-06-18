@@ -1,0 +1,14 @@
+fontSizeByWidthCap:r=0.75
+refHRes:i=1080
+inscriptionsTexSz:ip2=1024, 512
+genSysTexSz:ip2=1024, 256
+
+fontbins{
+  name:t="ui/fonts"
+}
+
+dynamicGen{
+  texCount:i=2
+  texSz:i=2048
+  prefix:t="ui"
+}

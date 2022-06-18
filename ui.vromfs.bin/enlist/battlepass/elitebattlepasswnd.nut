@@ -1,0 +1,244 @@
+from "%enlSqGlob/ui_library.nut" import *
+
+let closeBtnBase = require("%ui/components/closeBtn.nut")
+let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { Flat } = require("%ui/components/textButton.nut")
+let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
+let { defTxtColor, isWide } = require("%enlSqGlob/ui/viewConst.nut")
+let { mkRewardImages, prepareRewards, mkRewardByTemplate } = require("rewardsPkg.nut")
+let { premiumUnlock, premiumStage0Unlock } = require("%enlist/unlocks/taskRewardsState.nut")
+let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
+let { curSelectedItem } = require("%enlist/showState.nut")
+let {
+  bpHeader, hugePadding, btnBuyPremiumPass, bpTitle, btnSize, cardCountCircle,
+  sizeCard, imageSize, gapCards
+} = require("bpPkg.nut")
+let { seasonIndex } = require("bpState.nut")
+let { buyEliteBattlePass, hasEliteBattlePass, isPurchaseBpInProgress } = require("eliteBattlePass.nut")
+let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
+let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { get_setting_by_blk_path } = require("settings")
+let openUrl = require("%ui/components/openUrl.nut")
+
+let linkToOpen = get_setting_by_blk_path("battlePassUrl")
+
+let curItem = mkWatched(persist, "curItem", null)
+let isOpened = mkWatched(persist, "isOpened", false)
+
+const HIGH_WORTH_REWARD = 3
+
+let localGap = hugePadding * 2
+let maxWidth = (sizeCard[0] + 3*gapCards) * (isWide ? 4 : 3) - 3*gapCards
+let titleAndDescriptionBlockHeight = hdpx(330)
+let cardBlockSize = isWide ? [hdpx(1600), flex()] : [hdpx(1400), flex()]
+
+let showingItem = Computed(function() {
+  if (curItem.value == null)
+    return null
+  let reward = curItem.value.reward
+  let season = seasonIndex.value
+
+  let gametemplate = reward?.specialRewards[season][curArmy.value]
+
+  if (gametemplate != null)
+    return mkRewardByTemplate(gametemplate)
+
+  return reward
+})
+
+showingItem.subscribe(function(item) {
+  if (isOpened.value)
+    curSelectedItem(item)
+})
+
+hasEliteBattlePass.subscribe(function(v) {
+  if (v)
+    isOpened(false)
+})
+
+let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
+
+let function getUniqRewards(unlock) {
+  let items = {}
+  let currency = {}
+  foreach(stage in unlock?.stages ?? []){
+    let { rewards = {}, currencyRewards = {} } = stage
+      foreach(idStr, amount in rewards)
+        items[idStr] <- (items?[idStr] ?? 0) + amount
+    foreach (idStr, amountStr in currencyRewards)
+      currency[idStr] <- (currency?[idStr] ?? 0) + amountStr.tointeger()
+  }
+  return { items, currency }
+}
+
+
+let premItemsAnnouncement = Computed(function() {
+  let immidiatelyGet = prepareRewards(getUniqRewards(premiumStage0Unlock.value).items)
+  let { items, currency } = getUniqRewards(premiumUnlock.value)
+  let receiveLater = prepareRewards(items)
+  let currencyBack = prepareRewards(currency)
+  let sortedRewards = [
+    {locId = "bp/getImmediately", rewards = immidiatelyGet}
+    {locId = "bp/additional",
+      rewards = receiveLater.filter(@(val) val.reward.worth >= HIGH_WORTH_REWARD)}
+    {locId = "bp/goldBack", rewards = currencyBack}
+  ]
+
+  return sortedRewards
+})
+
+let rewardBlock = @(allRewards) @(){
+  hplace = ALIGN_CENTER
+  size = [SIZE_TO_CONTENT, flex()]
+  children = makeHorizScroll({
+    xmbNode = XmbContainer({
+      canFocus = @() false
+      scrollSpeed = 10.0
+      isViewport = true
+    })
+    gap = gapCards
+    flow = FLOW_HORIZONTAL
+    vplace = ALIGN_BOTTOM
+    children = allRewards.map(function(rewardData){
+      if(rewardData == null)
+        return null
+      let {count, reward} = rewardData
+      return {
+        flow = FLOW_HORIZONTAL
+        halign = ALIGN_CENTER
+        children = watchElemState(@(sf){
+          watch = curItem
+          rendObj = ROBJ_BOX
+          size = sizeCard
+          behavior = Behaviors.Button
+          borderWidth = sf & S_HOVER ? hdpx(1) : 0
+          onClick =  @() curItem({ reward = reward })
+          children = [
+            mkRewardImages(reward, imageSize)
+            cardCountCircle(count)
+          ]
+        })
+      }
+    })
+  },{
+    size = [SIZE_TO_CONTENT, flex()]
+    hplace = ALIGN_CENTER
+    maxWidth
+  })
+}
+
+let cardBlock = @(txt, val) @(){
+  minHeight = hdpx(330)
+  padding = [0, gapCards]
+  children = [
+    {
+      rendObj = ROBJ_TEXTAREA
+      halign = ALIGN_CENTER
+      vplace = ALIGN_TOP
+      behavior = Behaviors.TextArea
+      size = [flex(), SIZE_TO_CONTENT]
+      text = loc(txt)
+    }.__update(body_txt)
+    rewardBlock(val)
+  ]
+}
+
+let function cardsBlock(){
+  let separateLine = {
+    rendObj = ROBJ_SOLID
+    size = [hdpx(1), flex()]
+    color = defTxtColor
+  }
+  return {
+    watch = premItemsAnnouncement
+    size = cardBlockSize
+    gap = separateLine
+    flow = FLOW_HORIZONTAL
+    hplace = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    valign = ALIGN_TOP
+    children = premItemsAnnouncement.value.map(@(val) cardBlock(val.locId, val.rewards))
+  }
+}
+
+let mkDescription = @(text, params = {}, txtSize = body_txt){
+  rendObj = ROBJ_TEXTAREA
+  behavior = Behaviors.TextArea
+  size = [hdpx(500), SIZE_TO_CONTENT]
+  text
+}.__update(txtSize, params)
+
+let btnBlock = {
+  size = [flex(), hdpx(150)]
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  children = [
+    function() {
+      let action = linkToOpen != null ? @() openUrl(linkToOpen) : buyEliteBattlePass
+      return {
+        watch = isPurchaseBpInProgress
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_CENTER
+        halign = ALIGN_CENTER
+        gap = localGap
+        size = flex()
+        children = [
+          isPurchaseBpInProgress.value ? { size = btnSize, children = spinner, halign = ALIGN_CENTER, valign = ALIGN_CENTER }
+            : btnBuyPremiumPass(loc("bp/Purchase"), action)
+          Flat(loc("bp/close"), @() isOpened(false), {
+            size = btnSize,
+            hotkeys = [["^J:B", { description = { skip = true }}]]
+          })
+        ]}
+    }
+    mkDescription(loc("bp/moreRewards"),
+      {hplace = ALIGN_RIGHT, size =[hdpx(150), SIZE_TO_CONTENT]}, sub_txt)
+  ]
+}
+
+
+let eliteBattlePassWnd = @(){
+  size = flex()
+  valign = ALIGN_BOTTOM
+  hplace = ALIGN_CENTER
+  watch = [safeAreaBorders, showingItem, isOpened]
+  padding = [safeAreaBorders.value[0] + hdpx(30), safeAreaBorders.value[1] + hdpx(25)]
+  flow = FLOW_VERTICAL
+  children = [
+    bpHeader(showingItem.value, closeButton, !isOpened.value)
+    {
+      size = [flex(), titleAndDescriptionBlockHeight]
+      gap = localGap
+      flow = FLOW_VERTICAL
+      children = [
+        bpTitle(true, hdpx(100))
+        mkDescription(loc("bp/description"))
+      ]
+    }
+    cardsBlock
+    btnBlock
+  ]
+}
+
+let function open() {
+  sceneWithCameraAdd(eliteBattlePassWnd, "battle_pass")
+  curSelectedItem(null)
+  curItem(null)
+}
+
+let function close() {
+  sceneWithCameraRemove(eliteBattlePassWnd)
+  curSelectedItem(null)
+  curItem(null)
+}
+
+if (isOpened.value)
+  open()
+
+isOpened.subscribe(@ (v) v ? open() : close())
+
+
+console_register_command(@() isOpened(true), "ui.battlepassWindow")
+
+return @() isOpened(true)

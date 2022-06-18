@@ -1,0 +1,9 @@
+selWeaponVar:t="105skc"
+
+gunFlash{
+
+  gunFx_main{
+    fx:t="muzzle_flash"
+    scale:r=2.0
+  }
+}

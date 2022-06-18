@@ -1,0 +1,9 @@
+entity{
+  _template:t="custom_profile"
+  customProfile:t="enlisted/game/data/2021_new_year_tournament.json"
+}
+
+entity{
+  _template:t="custom_bot_profile"
+  customBotProfile:t="enlisted/game/data/2021_new_year_tournament_bots.json"
+}

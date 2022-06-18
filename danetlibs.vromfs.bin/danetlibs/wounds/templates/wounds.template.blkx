@@ -1,0 +1,211 @@
+wounds_decal_resources{
+  bloodSplatter_res:t="blood_splatter"
+  bloodSplatter_var:t="teared_wounds_decal"
+  burningEquip_res:t="burning_equip"
+  burningEquip_var:t="burned_cloth"
+  burningSkin_res:t="burning_skin"
+  burningSkin_var:t="burned_flesh"
+  mesh_decal_wounds_size:r=0.15
+  mesh_decal_rand_range:p2=0.9, 1.1
+  mesh_decal_explosion_size_factor:r=1.0
+  blood_fx_limb_offset:r=0.2
+  blood_fx_body_offset:r=0.2
+  blood_puddle_limb_offset:r=0.4
+  blood_puddle_body_offset:r=0.25
+  blood_effect_max_dist:r=30.0
+  _tags:t="render"
+  _singleton:b=yes
+  _tracked:t="mesh_decal_wounds_size"
+  _tracked:t="mesh_decal_rand_range"
+
+  "bloodSplatter:SharedTexHolder"{
+  }
+
+  "burningEquip:SharedTexHolder"{
+  }
+
+  "burningSkin:SharedTexHolder"{
+  }
+
+  _group{
+    _track:b=yes
+    render_params__high_intensity_blood:p4=0.05, 0.001, 0.0, 0.4
+    render_params__low_intensity_blood:p4=0.0, 0.0, 0.0, 0.2
+    render_params__bloody_time:r=0.25
+  }
+
+  "burning_lerp_factor:list<r>"{
+    no_burning:r=0.0
+    low_burning:r=0.5
+    high_burning:r=0.95
+  }
+
+  "wounds_decals_atlas:SharedTexHolder"{
+  }
+
+  "mesh_wounds_decals:list<t>"{
+    decal:t="decal_growth_wound_a_tex_n"
+    decal:t="decal_growth_wound_b_tex_n"
+  }
+
+  "mesh_explosion_wounds_decals:list<t>"{
+    decal:t="decal_growth_wound_c_tex_n"
+    decal:t="decal_growth_wound_d_tex_n"
+  }
+
+  "body_parts_scale:object"{
+    head:r=0.5
+  }
+
+  "wounds_decal_resources:WoundDecalResources"{
+  }
+
+  "torn_wounds__commonParams:array"{
+
+    "right_leg:object"{
+      name:t="right_leg"
+      isBreak:b=yes
+      damage_threshold:r=70.0
+      offset_from_node:p3=0.0, 0.0, 0.0
+      wound_radius:r=0.4
+      start_fade_from:r=0.7
+      trim_vertices_to:r=0.4
+      discard_tex_uv_scale:r=0.9
+      discard_pixel_to:r=0.6
+
+      "ragdoll_bodies:list<t>"{
+        body:t="Bip01 R Calf"
+        body:t="Bip01 R Thigh"
+      }
+
+      "gibs:list<t>"{
+        gib:t="attachable_gib_lower_r_leg_01_item"
+        gib:t="attachable_gib_upper_r_leg_01_item"
+      }
+
+      "gib_slots:list<t>"{
+        gib:t="lower_r_leg_gibs"
+        gib:t="upper_r_leg_gibs"
+      }
+    }
+
+    "left_leg:object"{
+      name:t="left_leg"
+      isBreak:b=yes
+      damage_threshold:r=70.0
+      offset_from_node:p3=0.0, 0.0, 0.0
+      wound_radius:r=0.4
+      start_fade_from:r=0.7
+      trim_vertices_to:r=0.4
+      discard_tex_uv_scale:r=0.9
+      discard_pixel_to:r=0.6
+
+      "ragdoll_bodies:list<t>"{
+        body:t="Bip01 L Calf"
+        body:t="Bip01 L Thigh"
+      }
+
+      "gibs:list<t>"{
+        gib:t="attachable_gib_lower_l_leg_01_item"
+        gib:t="attachable_gib_upper_l_leg_01_item"
+      }
+
+      "gib_slots:list<t>"{
+        gib:t="lower_l_leg_gibs"
+        gib:t="upper_l_leg_gibs"
+      }
+    }
+
+    "right_hand:object"{
+      name:t="right_hand"
+      isBreak:b=yes
+      damage_threshold:r=70.0
+      offset_from_node:p3=-0.03, 0.0, 0.03
+      wound_radius:r=0.38
+      start_fade_from:r=0.7
+      trim_vertices_to:r=0.43
+      discard_tex_uv_scale:r=1.1
+      discard_pixel_to:r=0.6
+
+      "ragdoll_bodies:list<t>"{
+        body:t="Bip01 R Forearm"
+        body:t="Bip01 R UpperArm"
+      }
+
+      "gibs:list<t>"{
+        gib:t="attachable_gib_lower_r_hand_01_item"
+        gib:t="attachable_gib_upper_r_hand_01_item"
+      }
+
+      "gib_slots:list<t>"{
+        gib:t="lower_r_hand_gibs"
+        gib:t="upper_r_hand_gibs"
+      }
+    }
+
+    "left_hand:object"{
+      name:t="left_hand"
+      isBreak:b=yes
+      damage_threshold:r=70.0
+      offset_from_node:p3=0.03, 0.0, 0.03
+      wound_radius:r=0.38
+      start_fade_from:r=0.7
+      trim_vertices_to:r=0.43
+      discard_tex_uv_scale:r=1.1
+      discard_pixel_to:r=0.6
+
+      "ragdoll_bodies:list<t>"{
+        body:t="Bip01 L Forearm"
+        body:t="Bip01 L UpperArm"
+      }
+
+      "gibs:list<t>"{
+        gib:t="attachable_gib_lower_l_hand_01_item"
+        gib:t="attachable_gib_upper_l_hand_01_item"
+      }
+
+      "gib_slots:list<t>"{
+        gib:t="lower_l_hand_gibs"
+        gib:t="upper_l_hand_gibs"
+      }
+    }
+  }
+}
+
+attachable_wear_broken_bones_data{
+  _tracked:t="broken_bones"
+  _tracked:t="projective_wounds"
+
+  broken_bones_nodes{
+    _tags:t="render"
+  }
+
+  "broken_bones:list<p4>"{
+    _tags:t="render"
+  }
+
+  "projective_wounds:list<p4>"{
+    _tags:t="render"
+  }
+
+  "projective_wounds_node_index:list<i>"{
+    _tags:t="dev"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+  }
+}
+
+attachable_wear_broken_bones{
+
+  "attachableBrokenBonesWear:tag"{
+    _tags:t="render"
+  }
+}
+
+human_broken_bones{
+
+  "human__breakable_bones:tag"{
+  }
+}

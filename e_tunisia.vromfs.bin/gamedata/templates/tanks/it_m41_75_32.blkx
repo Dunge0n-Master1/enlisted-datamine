@@ -1,0 +1,136 @@
+it_m41_75_32{
+  _extends:t="it_m41_75_32_common"
+
+  "animchar__objTexReplace:object"{
+    "it_camo_olive_green*":t="it_camo_desert_yellow*"
+  }
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+  }
+}
+
+it_m41_75_32_common{
+  _extends:t="base_m41_75_32"
+  _extends:t="vehicle_effects_tracked"
+  item__iconOffset:p2=0.0, 0.4
+
+  "vehicle_seats__seatsProvideOrder:tag"{
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.75, -0.74, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="commander"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="uk_m41_75_32_gunner_cockpit"
+      hatchRotationAxis:p3=1.5, 0.0, 0.0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+      }
+
+      "hatchNodes:array"{
+        node:t="hatch_05"
+      }
+    }
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="uk_m41_75_32_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="loader"
+      attachNode:t="loader"
+      shouldHideOwner:b=yes
+      locName:t="vehicle_seats/loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.0, 0.8]]
+      seatComponent:t="isPassenger"
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="bone_turret"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+  }
+}
+
+uk_m41_75_32_driver_cockpit{
+  _extends:t="base_driver_cockpit"
+  animchar__res:t="pzkpfw_iii_e_driver_char"
+  cockpit__offset:p3=-0.4, 0.2, -0.095
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="track_l"
+    node:t="track_r"
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_01"
+    node:t="gun_barrel"
+    node:t="bone_gun"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.01
+  }
+}
+
+uk_m41_75_32_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/it_se_75_18.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__minZoom:r=-0.2
+  cockpit__offset:p3=-0.0, -0.0, -0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=-0.45, 0.35, -0.14
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+    node:t="bone_gun"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.19
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}

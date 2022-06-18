@@ -1,0 +1,3792 @@
+carcano_m38{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="carcano_m38_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_m38.blk"
+  item__template:t="carcano_m38_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_m38.blk"
+  item__locDetails:t="6.5x52 Carcano;"
+  item__id:i=0
+  item__weapTemplate:t="carcano_m38_gun"
+  item__name:t="items/carcano_m38"
+  item__weapType:t="rifle"
+  item__weight:r=3.5
+  gun__locName:t="Carcano Mod. 38"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=1.1
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.17
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.2
+  gun__altReloadTime:r=3.8
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+carcano_m38_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_m38"
+  _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.089
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.95
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      carcano_m38_bayonet:t="carcano_m38_bayonet"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+carcano_m38_7_35{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="carcano_m38_7_35_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_m38_7_35.blk"
+  item__template:t="carcano_m38_7_35_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_m38_7_35.blk"
+  item__locDetails:t="7.35x51 Carcano;"
+  item__id:i=0
+  item__weapTemplate:t="carcano_m38_7_35_gun"
+  item__name:t="items/carcano_m38_7_35"
+  item__weapType:t="rifle"
+  item__weight:r=3.5
+  gun__locName:t="Carcano Mod. 38 (cal 7.35mm)"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=1.1
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.16
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.2
+  gun__altReloadTime:r=3.8
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_7_35_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/7.35x51_carcano.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+carcano_m38_7_35_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_m38_7_35"
+  _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.094
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.95
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      carcano_m38_bayonet:t="carcano_m38_bayonet"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+carcano_m38_7_35_with_scope_mount{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="carcano_m38_7_35_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_m38_7_35_with_scope_mount.blk"
+  item__template:t="carcano_m38_7_35_with_scope_mount_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_m38_7_35_with_scope_mount.blk"
+  item__locDetails:t="7.35x51 Carcano;"
+  item__id:i=0
+  item__weapTemplate:t="carcano_m38_7_35_with_scope_mount_gun"
+  item__name:t="items/carcano_m38_7_35_with_scope_mount"
+  item__weapType:t="rifle"
+  item__weight:r=3.5
+  gun__locName:t="Carcano Mod. 38 Scoped (cal 7.35mm)"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=1.1
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.02
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.2
+  gun__altReloadTime:r=3.8
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_7_35_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/7.35x51_carcano_ap.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+carcano_m38_7_35_with_scope_mount_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_m38_7_35_with_scope_mount"
+  _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.094
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.95
+  gun__statName:t="sniper"
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "scope:object"{
+      scope_carcano_m38:t="scope_carcano_m38"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+scope_carcano_m38{
+  _extends:t="scope_gunmod"
+  animchar__res:t="scope_zf_41_char"
+  item__template:t="scope_carcano_m38_item"
+  item__proto:t="content/e_tunisia/gamedata/items/scope_carcano_m38.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_carcano_m38"
+  gunmod__deviationMult:r=0.3
+  gunmod__zoomFactor:r=4.0
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_carcano_m38"
+  item__iconYaw:r=80.0
+
+  "gunAttachable:tag"{
+  }
+}
+
+scope_carcano_m91{
+  _extends:t="scope_gunmod"
+  animchar__res:t="scope_carcano_m91_char"
+  item__template:t="scope_carcano_m91_item"
+  item__proto:t="content/e_tunisia/gamedata/items/scope_carcano_m91.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_carcano_m91"
+  gunmod__deviationMult:r=0.3
+  gunmod__zoomFactor:r=7.0
+  gunmod__camShiftMin:r=0.18
+  gunmod__camShiftMax:r=0.18
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_carcano_m91"
+  item__iconYaw:r=80.0
+
+  "gunAttachable:tag"{
+  }
+}
+
+carcano_m41{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="carcano_m41_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_m41.blk"
+  item__template:t="carcano_m41_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_m41.blk"
+  item__locDetails:t="6.5x52 Carcano;"
+  item__id:i=0
+  item__weapTemplate:t="carcano_m41_gun"
+  item__name:t="items/carcano_m41"
+  item__weapType:t="rifle"
+  item__weight:r=3.5
+  gun__locName:t="Carcano Mod. 41"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=0.9
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.0
+  gun__altReloadTime:r=3.8
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+carcano_m41_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_m41"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.52
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.084
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.95
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      carcano_m91_bayonet:t="carcano_m91_bayonet"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+carcano_m91{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="carcano_m91_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_m91.blk"
+  item__template:t="carcano_m91_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_m91.blk"
+  item__locDetails:t="6.5x52 Carcano;"
+  item__id:i=0
+  item__weapTemplate:t="carcano_m91_gun"
+  item__name:t="items/carcano_m91"
+  item__weapType:t="rifle"
+  item__weight:r=3.8
+  gun__locName:t="Carcano Mod. 91"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=0.95
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.13
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.5
+  gun__altReloadTime:r=3.8
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano_long.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+carcano_m91_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_m91"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.081
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.85
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      carcano_m91_bayonet:t="carcano_m91_bayonet"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+carcano_m91_with_scope_mount{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  _extends:t="main_weap_slots"
+  _extends:t="carcano_m91"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_m91_with_scope_mount.blk"
+  item__template:t="carcano_m91_with_scope_mount_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_m91_with_scope_mount.blk"
+  item__weapTemplate:t="carcano_m91_with_scope_mount_gun"
+  item__name:t="items/carcano_m91_with_scope_mount"
+  gun__locName:t="Sniper Carcano Mod. 91"
+  gun__shotFreq:r=0.65
+  gun_spread__maxDeltaAngle:r=0.01
+  gun__reloadTime:r=3.5
+  gun__altReloadTime:r=3.8
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano_long.blk"
+  }
+}
+
+carcano_m91_with_scope_mount_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_m91_with_scope_mount"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.081
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.75
+  gun__statName:t="sniper"
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "scope:object"{
+      scope_carcano_m91:t="scope_carcano_m91"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+carcano_moschetto_91{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="carcano_moschetto_91_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/carcano_moschetto_91.blk"
+  item__template:t="carcano_moschetto_91_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/carcano_moschetto_91.blk"
+  item__locDetails:t="6.5x52 Carcano;"
+  item__id:i=0
+  item__weapTemplate:t="carcano_moschetto_91_gun"
+  item__name:t="items/carcano_moschetto_91"
+  item__weapType:t="rifle"
+  item__weight:r=3.5
+  gun__locName:t="Moschetto Carcano Mod. 38"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=1.1
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.17
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__integratedBayonet:b=yes
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+  gun__reloadTime:r=3.5
+  gun__altReloadTime:r=4.2
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+carcano_moschetto_91_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="carbine_ww2_preset"
+  _extends:t="carcano_moschetto_91"
+  _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.089
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__recoilControlMult:r=0.0
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.95
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/carcano_m41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/carcano_m41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/carcano_m41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+}
+
+carcano_m91_bayonet{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="carcano_m91_bayonet_char"
+  item__template:t="carcano_m91_bayonet_item"
+  item__proto:t="content/e_tunisia/gamedata/items/carcano_m91_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="carcano_m91_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/carcano_m91_bayonet"
+  melee_weapon__blk:t="content/e_tunisia/gamedata/weapons/carcano_m91_bayonet.blk"
+
+  "gunAttachable:tag"{
+  }
+}
+
+carcano_m38_bayonet{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="carcano_m38_bayonet_char"
+  item__template:t="carcano_m38_bayonet_item"
+  item__proto:t="content/e_tunisia/gamedata/items/carcano_m38_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="carcano_m38_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/carcano_m38_bayonet"
+  melee_weapon__blk:t="content/e_tunisia/gamedata/weapons/carcano_m38_bayonet.blk"
+
+  "gunAttachable:tag"{
+  }
+}
+
+smle_mk3{
+  _extends:t="main_weap_slots"
+  _extends:t="reload_not_empty_single_bullet"
+  _extends:t="ironsights_open_rifle"
+  reload__singleReloadMaxAmmo:i=4
+  single_reload__prepareTime:r=1.0
+  single_reload__loopTime:r=0.63
+  single_reload__postTime:r=1.1
+  animchar__res:t="smle_mk_3_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/smle_mk3.blk"
+  item__template:t="smle_mk3_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/smle_mk3.blk"
+  item__locDetails:t=".303"
+  item__id:i=0
+  item__weapTemplate:t="smle_mk3_gun"
+  item__name:t="items/smle_mk3"
+  item__weapType:t="rifle"
+  item__weight:r=5.0
+  gun__locName:t="Short Magazine Lee-Enfield No. 1 Mk III"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=0.93
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=4.0
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="lee_enfield_no4_mk1_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+smle_mk3_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="rifle_ww2_preset"
+  _extends:t="smle_mk3"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.098
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun_attach__slot:t="weapon"
+  meleeSoundType:t="rifle"
+
+  "gun_mods__slots:object"{
+
+    "bayonet:object"{
+      smle_mk3_bayonet:t="smle_mk3_bayonet"
+    }
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/lee_enfield"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/lee_enfield/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/lee_enfield/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/lee_enfield/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/lee_enfield/bolt_action"
+    }
+  }
+}
+
+smle_mk3_bayonet{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="smle_mk3_bayonet_char"
+  item__template:t="smle_mk3_bayonet_item"
+  item__proto:t="content/e_tunisia/gamedata/items/smle_mk3_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="smle_mk3_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/smle_mk3_bayonet"
+  melee_weapon__blk:t="content/e_tunisia/gamedata/weapons/smle_mk3_bayonet.blk"
+
+  "gunAttachable:tag"{
+  }
+}
+
+armaguerra_mod_39{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="armaguerra_mod_39_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/armaguerra_mod_39.blk"
+  item__template:t="armaguerra_mod_39_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/armaguerra_mod_39.blk"
+  item__locDetails:t="6.5x52 Carcano"
+  item__id:i=0
+  item__weapTemplate:t="armaguerra_mod_39_gun"
+  item__name:t="items/armaguera_mod_39"
+  item__weapType:t="semiauto"
+  item__weight:r=4.2
+  gun__locName:t="Armaguerra mod 39"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.3
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=3.2
+  gun__altReloadTime:r=3.8
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+armaguerra_mod_39_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="armaguerra_mod_39"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.086
+  gun__recoilDirAmount:r=0.74
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.8
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.75
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/armaguerra_mod_39"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
+    }
+  }
+}
+
+beretta_m31{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="beretta_m31_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m31.blk"
+  item__template:t="beretta_m31_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m31.blk"
+  item__locDetails:t="6.5x52 Carcano"
+  item__id:i=0
+  item__weapTemplate:t="beretta_m31_gun"
+  item__name:t="items/beretta_m31"
+  item__weapType:t="semiauto"
+  item__weight:r=4.2
+  gun__locName:t="Beretta M31"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.28
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=3.2
+  gun__altReloadTime:r=3.8
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+beretta_m31_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="beretta_m31"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.087
+  gun__recoilDirAmount:r=0.71
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.8
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.7
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/m1"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/beretta_m31/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/beretta_m31/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/beretta_m31/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/rifle/beretta_m31/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/rifle/beretta_m31/reload5/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/m1/bolt_action"
+    }
+  }
+}
+
+pavesi_m42{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="pavesi_prototype_1942_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/pavesi_m42.blk"
+  item__template:t="pavesi_m42_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/pavesi_m42.blk"
+  item__locDetails:t="8x59 Breda"
+  item__id:i=0
+  item__weapTemplate:t="pavesi_m42_gun"
+  item__name:t="items/pavesi_m42"
+  item__weapType:t="semiauto"
+  item__weight:r=4.4
+  gun__locName:t="Pavesi M1942 Prototype"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.3
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=3.4
+  gun__altReloadTime:r=4.0
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="pavesi_m42_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/8x59_breda_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+pavesi_m42_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="pavesi_m42"
+  _extends:t="rifle_muzzle_break_2_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.125
+  gun__recoilDirAmount:r=0.74
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.8
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.75
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/armaguerra_mod_39"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload5/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
+    }
+  }
+}
+
+pavesi_prototype_svt_copy{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  _extends:t="reload_single_bullet"
+  reload__singleReloadAmmoCount:i=5
+  single_reload__prepareTime:r=1.0
+  single_reload__loopTime:r=1.2
+  single_reload__postTime:r=1.5
+  animchar__res:t="pavesi_prototype_svt_copy_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/pavesi_prototype_svt_copy.blk"
+  item__template:t="pavesi_prototype_svt_copy_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/pavesi_prototype_svt_copy.blk"
+  item__locDetails:t="8x59 Breda"
+  item__id:i=0
+  item__weapTemplate:t="pavesi_prototype_svt_copy_gun"
+  item__name:t="items/pavesi_prototype_svt_copy"
+  item__weapType:t="semiauto"
+  item__weight:r=4.4
+  gun__locName:t="Pavesi SVT Copy Prototype"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=3.0
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.32
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=3.4
+  gun__altReloadTime:r=4.0
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="pavesi_prototype_svt_copy_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/8x59_breda_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+pavesi_prototype_svt_copy_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="pavesi_prototype_svt_copy"
+  _extends:t="rifle_muzzle_break_2_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.113
+  gun__recoilDirAmount:r=0.71
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.2
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.75
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/armaguerra_mod_39"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/rifle/pavesi_m42/reload5/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
+    }
+  }
+}
+
+beretta_m1918_30{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="beretta_m1918_30_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m1918_30.blk"
+  item__template:t="beretta_m1918_30_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m1918_30.blk"
+  item__locDetails:t="9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="beretta_m1918_30_gun"
+  item__name:t="items/beretta_m1918_30"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.0
+  gun__locName:t="Beretta M1918/30"
+  gun__statName:t="submachine_gun"
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.35
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.6
+  gun__altReloadTime:r=2.0
+  gun__integratedBayonet:b=yes
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+  melee_weapon__attackTime:r=0.5
+  melee_weapon__attackAt:r=0.375
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m1918_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+beretta_m1918_30_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="beretta_m1918_30"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="riffle_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.028
+  gun__recoilDirAmount:r=0.52
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__adsSpeedMult:r=0.76
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/beretta_m1918"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/beretta_m1918/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/beretta_m1918/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/beretta_m1918/reload3/change_ammo"
+    }
+  }
+}
+
+sw_light_rifle_mk_1{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="sw_1940_mk_1_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/sw_light_rifle_mk_1.blk"
+  item__template:t="sw_light_rifle_mk_1_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/sw_light_rifle_mk_1.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="sw_light_rifle_mk_1_gun"
+  item__name:t="items/sw_light_rifle_mk_1"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.5
+  gun__locName:t="S&W Light Rifle Mk I"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.25
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.5
+  gun_deviation__omegaRange:p2=25.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.3
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="sw_light_rifle_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_carbine.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+sw_light_rifle_mk_1_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="sw_light_rifle_mk_1"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.03
+  gun__recoilDirAmount:r=0.71
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__adsSpeedMult:r=0.85
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/schmeisser_mk36"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload3/change_ammo"
+    }
+  }
+}
+
+sw_light_rifle_mk_2{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="sw_1940_mk_2_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/sw_light_rifle_mk_2.blk"
+  item__template:t="sw_light_rifle_mk_2_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/sw_light_rifle_mk_2.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="sw_light_rifle_mk_2_gun"
+  item__name:t="items/sw_light_rifle_mk_2"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.5
+  gun__locName:t="S&W Light Rifle Mk II"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.25
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.5
+  gun_deviation__omegaRange:p2=25.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.3
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="sw_light_rifle_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_carbine.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+sw_light_rifle_mk_2_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="sw_light_rifle_mk_2"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.03
+  gun__recoilDirAmount:r=0.71
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun__adsSpeedMult:r=0.85
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/schmeisser_mk36"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload3/change_ammo"
+    }
+  }
+}
+
+turner_automatic_rifle{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  _extends:t="reload_single_bullet"
+  _extends:t="ironsights_open_semiauto"
+  reload__singleReloadAmmoCount:i=5
+  single_reload__prepareTime:r=1.2
+  single_reload__loopTime:r=1.1
+  single_reload__postTime:r=1.4
+  animchar__res:t="turner_semiauto_smle_conversion_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/turner_automatic_rifle.blk"
+  item__template:t="turner_automatic_rifle_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/turner_automatic_rifle.blk"
+  item__locDetails:t=".303 British;"
+  item__id:i=0
+  item__weapTemplate:t="turner_automatic_rifle_gun"
+  item__name:t="items/turner_automatic_rifle"
+  item__weapType:t="semiauto"
+  item__weight:r=4.9
+  gun__locName:t="Turner SMLE"
+  gun__statName:t="semiauto"
+  gun__shotFreq:r=3.333
+  gun__boltFreq:r=6.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.27
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=3.5
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="lee_enfield_no4_mk1_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+turner_automatic_rifle_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="turner_automatic_rifle"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.102
+  gun__recoilDirAmount:r=0.74
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.7
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.9
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    hero:t="player/weapon/rifle/turner"
+    enemy:t="enemy/weapon/rifle/lee_enfield"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/gewehr41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/gewehr41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/gewehr41/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/rifle/gewehr41/reload4/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/gewehr41/bolt_action"
+    }
+  }
+}
+
+beretta_m38_42{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="beretta_m38_42_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m38_42.blk"
+  item__template:t="beretta_m38_42_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m38_42.blk"
+  item__locDetails:t="RoF: 440; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="beretta_m38_42_gun"
+  item__name:t="items/beretta_m38_42"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.2
+  gun__locName:t="Beretta M38/42"
+  gun__statName:t="submachine_gun"
+  gun__shotFreq:r=8.33
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.8
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.6
+  gun__altReloadTime:r=2.1
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m38_40_round_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+beretta_m38_42_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="beretta_m38_42"
+  _extends:t="smg_muzzle_break_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="riffle_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.027
+  gun__recoilDirAmount:r=0.77
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  gun__crawlRecoilMult:r=0.8
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/m38"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/m38/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/m38/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/m38/reload3/change_ammo"
+    }
+  }
+}
+
+beretta_m1{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="beretta_m1_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m1.blk"
+  item__template:t="beretta_m1_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m1.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="beretta_m1_gun"
+  item__name:t="items/beretta_m1"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.1
+  gun__locName:t="Beretta Model 1"
+  gun__statName:t="submachine_gun"
+  gun__shotFreq:r=8.33
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.86
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.8
+  gun__altReloadTime:r=2.3
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m38_40_round_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+beretta_m1_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="beretta_m1"
+  _extends:t="smg_muzzle_break_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="riffle_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.028
+  gun__recoilDirAmount:r=0.71
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  gun__crawlRecoilMult:r=0.8
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/m38"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/m38/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/m38/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/m38/reload3/change_ammo"
+    }
+  }
+}
+
+ovp_1918{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="ovp_1918_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/ovp_1918.blk"
+  item__template:t="ovp_1918_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/ovp_1918.blk"
+  item__locDetails:t="RoF: 900; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="ovp_1918_gun"
+  item__name:t="items/ovp_1918"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.5
+  gun__locName:t="OVP-1918"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.25
+  gun__shotFreq:r=15.0
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.9
+  gun_deviation__omegaRange:p2=25.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.3
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="ovp_1918_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_carbine.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+ovp_1918_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="ovp_1918"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.034
+  gun__recoilDirAmount:r=0.67
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  gun__adsSpeedMult:r=0.85
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/schmeisser_mk36"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/schmeisser_mk36/reload3/change_ammo"
+    }
+  }
+}
+
+tz_45{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="tz_45_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/tz_45.blk"
+  item__template:t="tz_45_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/tz_45.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="tz_45_gun"
+  item__name:t="items/tz_45"
+  item__weapType:t="submachine_gun"
+  item__weight:r=3.6
+  gun__locName:t="Beretta Model 1"
+  gun__statName:t="submachine_gun"
+  gun__shotFreq:r=9.167
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.88
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.6
+  gun__altReloadTime:r=2.1
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m38_40_round_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+tz_45_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="tz_45"
+  _extends:t="smg_muzzle_break_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="riffle_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.03
+  gun__recoilDirAmount:r=0.69
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  gun__crawlRecoilMult:r=0.8
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/m38"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/m38/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/m38/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/m38/reload3/change_ammo"
+    }
+  }
+}
+
+thompson_m1921_28_box{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="thompson_m1921_28_box_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/thompson_m1921_28_box.blk"
+  item__template:t="thompson_m1921_28_box_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/thompson_m1921_28_box.blk"
+  item__locDetails:t="RoF: 700; .45 ACP;"
+  item__id:i=0
+  item__weapTemplate:t="thompson_m1921_28_box_gun"
+  item__name:t="items/thompson_m1921_28_box"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.0
+  gun__locName:t="Thompson M1921/28"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=11.67
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.68
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.3
+  gun__altReloadTime:r=1.7
+
+  "animchar__objTexReplace:object"{
+    "m1921_thompson_main_tex_ao*":t="thompson_m1921_28_main_tex_ao*"
+    "m1921_thompson_main_tex_d*":t="thompson_m1921_28_main_tex_d*"
+    "m1921_thompson_main_tex_n* ":t="thompson_m1921_28_main_tex_n*"
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="m1928a_thompson_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/11.51x23_browning_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+thompson_m1921_28_box_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_45acp_ww2_preset"
+  _extends:t="thompson_m1921_28_box"
+  _extends:t="smg_muzzle_break_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.03
+  gun__recoilDirAmount:r=0.7
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  gun__adsSpeedMult:r=0.75
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/thompson"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/thompson/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/thompson/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/thompson/reload3/change_ammo"
+    }
+  }
+}
+
+sten_mk3{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="sten_mk3_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/sten_mk3.blk"
+  item__template:t="sten_mk3_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/sten_mk3.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="sten_mk3_gun"
+  item__name:t="items/sten_mk3"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.0
+  gun__locName:t="Sten Mk III"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=8.33
+  gun__shotFreqRndK:r=0.17
+  gun_spread__maxDeltaAngle:r=0.95
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.6
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="sten_mk2_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+sten_mk3_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="sten_mk3"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.035
+  gun__recoilDirAmount:r=0.58
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.6
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/sten_mk2"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/sten_mk2/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/sten_mk2/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/sten_mk2/reload3/change_ammo"
+    }
+  }
+}
+
+owen_mk1_42{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="owen_mk1_42_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/owen_mk1_42.blk"
+  item__template:t="owen_mk1_42_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/owen_mk1_42.blk"
+  item__locDetails:t="RoF: 500; 9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="owen_mk1_42_gun"
+  item__name:t="items/owen_mk1_42"
+  item__weapType:t="submachine_gun"
+  item__weight:r=4.0
+  gun__locName:t="Owen Gun MkI/42"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=11.67
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.85
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.7
+  gun__altReloadTime:r=2.2
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="sten_mk2_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+  }
+}
+
+owen_mk1_42_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="owen_mk1_42"
+  _extends:t="smg_muzzle_break_preset"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.033
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.3
+  gun__visualRecoilMult:r=1.6
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/sten_mk2"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/sten_mk2/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/sten_mk2/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/sten_mk2/reload3/change_ammo"
+    }
+  }
+}
+
+beretta_m1923{
+  _extends:t="pistol_weap_slots"
+  _extends:t="ironsights_open_pistol"
+  animchar__res:t="beretta_m1923_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m1923.blk"
+  item__template:t="beretta_m1923_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m1923.blk"
+  item__locDetails:t="9mm Glisenti"
+  item__id:i=0
+  item__weapTemplate:t="beretta_m1923_gun"
+  item__name:t="items/beretta_m1923"
+  item__weapType:t="pistol"
+  item__weight:r=0.8
+  gun__locName:t="Beretta M1923"
+  gun__statName:t="pistol"
+  gun__shotFreq:r=5.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=1.05
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.7
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=2.3
+  gun__altReloadTime:r=1.8
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m1923_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/9x19_glisenti_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+beretta_m1923_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="beretta_m1923"
+  _extends:t="pistol_muzzle_preset"
+  gun__recoilAmount:r=0.044
+  gun__recoilDirAmount:r=0.5
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+  meleeSoundName:t="pistol/whoosh"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/beretta_m1923"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/walther_pp/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/walther_pp/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/walther_pp/reload3/change_ammo"
+    }
+  }
+}
+
+beretta_m1934{
+  _extends:t="pistol_weap_slots"
+  _extends:t="ironsights_open_pistol"
+  animchar__res:t="beretta_m1934_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m1934.blk"
+  item__template:t="beretta_m1934_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m1934.blk"
+  item__locDetails:t="380 ACP"
+  item__id:i=0
+  item__weapTemplate:t="beretta_m1934_gun"
+  item__name:t="items/beretta_m1934"
+  item__weapType:t="pistol"
+  item__weight:r=0.7
+  gun__locName:t="Beretta M1934"
+  gun__statName:t="pistol"
+  gun__shotFreq:r=6.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.95
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.7
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=2.0
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="beretta_m1934_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/9x17_corto_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+beretta_m1934_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="beretta_m1934"
+  _extends:t="pistol_muzzle_preset"
+  gun__recoilAmount:r=0.048
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+  meleeSoundName:t="pistol/whoosh"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/beretta_m1923"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/walther_pp/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/walther_pp/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/walther_pp/reload3/change_ammo"
+    }
+  }
+}
+
+beretta_m1934_gold{
+  _extends:t="beretta_m1934"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/beretta_m1934_gold.blk"
+  item__template:t="beretta_m1934_gold_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/beretta_m1934_gold.blk"
+  item__weapTemplate:t="beretta_m1934_gold_gun"
+  item__name:t="items/beretta_m1934_gold"
+
+  "animchar__objTexReplace:object"{
+    "beretta_m1934_main_tex_ao*":t="beretta_m1934_gold_main_tex_ao*"
+    "beretta_m1934_main_tex_d*":t="beretta_m1934_gold_main_tex_d*"
+    "beretta_m1934_main_tex_n* ":t="beretta_m1934_gold_main_tex_n*"
+    "beretta_m1934_ammo_tex_ao* ":t="beretta_m1934_gold_ammo_tex_ao*"
+    "beretta_m1934_ammo_tex_d* ":t="beretta_m1934_gold_ammo_tex_d*"
+    "beretta_m1934_ammo_tex_n* ":t="beretta_m1934_gold_ammo_tex_n*"
+  }
+}
+
+beretta_m1934_gold_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="beretta_m1934_gold"
+  _extends:t="pistol_muzzle_preset"
+  gun__recoilAmount:r=0.048
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+  meleeSoundName:t="pistol/whoosh"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/beretta_m1923"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/walther_pp/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/walther_pp/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/walther_pp/reload3/change_ammo"
+    }
+  }
+}
+
+webley_mk6{
+  _extends:t="pistol_weap_slots"
+  _extends:t="reload_single_bullet"
+  _extends:t="ironsights_open_pistol"
+  reload__singleReloadAmmoCount:i=1
+  single_reload__prepareTime:r=1.1
+  single_reload__loopTime:r=1.1
+  single_reload__postTime:r=0.7
+  gun_shell_ejection__expireTime:r=0.0
+  animchar__res:t="webley_mk6_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/webley_mk6.blk"
+  item__template:t="webley_mk6_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/webley_mk6.blk"
+  item__locDetails:t=".455 Webley;"
+  item__id:i=0
+  item__weapTemplate:t="webley_mk6_gun"
+  item__name:t="items/webley_mk6"
+  item__weapType:t="pistol"
+  item__weight:r=1.2
+  gun__locName:t="Webley revolver Mk VI"
+  gun__statName:t="pistol"
+  gun__shotFreq:r=2.5
+  gun__boltFreq:r=4.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.7
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.7
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 10.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=8.4
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="webley_mk6_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/455_webley_mk6_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+webley_mk6_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="webley_mk6"
+  _extends:t="pistol_big_muzzle_preset"
+  gun__recoilAmount:r=0.06
+  gun__recoilDirAmount:r=0.63
+  gun__rotationSpringMult:p3=1.0, 1.0, 0.1
+  gun__visualBoltRecoilMult:r=0.0
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+
+  "gun_attach__holsterSlots:array"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/colt_new_service"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/nagant_1895/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/nagant_1895/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/nagant_1895/reload3/change_ammo"
+    }
+  }
+}
+
+webley_mk6_nickel{
+  _extends:t="webley_mk6"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/webley_mk6_nickel.blk"
+  item__template:t="webley_mk6_nickel_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/webley_mk6_nickel.blk"
+  item__weapTemplate:t="webley_mk6_nickel_gun"
+  item__name:t="items/webley_mk6"
+
+  "animchar__objTexReplace:object"{
+    "webley_mk6_main_tex_ao*":t="webley_mk6_nickel_main_tex_ao*"
+    "webley_mk6_main_tex_d*":t="webley_mk6_nickel_main_tex_d*"
+    "webley_mk6_main_tex_n* ":t="webley_mk6_nickel_main_tex_n*"
+  }
+}
+
+webley_mk6_nickel_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="webley_mk6_nickel"
+  _extends:t="pistol_big_muzzle_preset"
+  gun__recoilAmount:r=0.06
+  gun__recoilDirAmount:r=0.63
+  gun__rotationSpringMult:p3=1.0, 1.0, 0.1
+  gun__visualBoltRecoilMult:r=0.0
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+
+  "gun_attach__holsterSlots:array"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/colt_new_service"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/nagant_1895/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/nagant_1895/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/nagant_1895/reload3/change_ammo"
+    }
+  }
+}
+
+enfield_no2_mk1{
+  _extends:t="pistol_weap_slots"
+  _extends:t="reload_single_bullet"
+  _extends:t="ironsights_open_pistol"
+  reload__singleReloadAmmoCount:i=1
+  single_reload__prepareTime:r=1.1
+  single_reload__loopTime:r=1.05
+  single_reload__postTime:r=0.7
+  gun_shell_ejection__expireTime:r=0.0
+  animchar__res:t="enfield_no2_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/enfield_no2_mk1.blk"
+  item__template:t="enfield_no2_mk1_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/enfield_no2_mk1.blk"
+  item__locDetails:t=".380 Revolver;"
+  item__id:i=0
+  item__weapTemplate:t="enfield_no2_mk1_gun"
+  item__name:t="items/enfield_no2_mk1"
+  item__weapType:t="pistol"
+  item__weight:r=0.8
+  gun__locName:t="Enfield No.2 revolver Mk I"
+  gun__statName:t="pistol"
+  gun__shotFreq:r=2.9
+  gun__boltFreq:r=4.5
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.65
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.7
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 10.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=8.1
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="enfield_no2_mk1_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/9x20_380_sw_short_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+enfield_no2_mk1_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="enfield_no2_mk1"
+  _extends:t="pistol_big_muzzle_preset"
+  gun__recoilAmount:r=0.052
+  gun__recoilDirAmount:r=0.68
+  gun__rotationSpringMult:p3=1.0, 1.0, 0.1
+  gun__visualBoltRecoilMult:r=0.0
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="pistol"
+
+  "gun_attach__holsterSlots:array"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/colt_new_service"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/nagant_1895/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/nagant_1895/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/nagant_1895/reload3/change_ammo"
+    }
+  }
+}
+
+bren_mk1{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_machinegun"
+  animchar__res:t="bren_lmg_mk_1_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/bren_lmg_mk_1.blk"
+  item__template:t="bren_mk1_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/bren_lmg_mk_1.blk"
+  item__locDetails:t="RoF: 500; 303 British;"
+  item__id:i=0
+  item__weapTemplate:t="bren_mk1_gun"
+  item__name:t="items/bren_mk1"
+  item__weapType:t="machine_gun"
+  item__weight:r=8.33
+  gun__inertialMass:r=7.0
+  gun__locName:t="bren_mk1"
+  gun__statName:t="machine_gun"
+  gun__sightsDistance:r=0.3
+  gun__shotFreq:r=8.03
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.4
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=0.1, 4.0
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.5
+  gun__altReloadTime:r=2.5
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="bren_mk2_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_tracer.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+  }
+}
+
+bren_mk1_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mg_ww2_preset"
+  _extends:t="bren_mk1"
+  _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.055
+  gun__recoilDirAmount:r=0.63
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.4
+  gun__recoilControlMult:r=0.9
+  gun__recoilOffsMult:r=0.1
+  gun_attach__slot:t="weapon"
+  weap__sprintLerpFactor:r=0.5
+  meleeSoundType:t="rifle"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/zb_26"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/zb_26/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/zb_26/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/zb_26/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/mgun/zb_26/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/mgun/zb_26/reload5/change_ammo"
+    }
+
+    "reload6:object"{
+      path:t="/weapon/mgun/zb_26/reload6/change_ammo"
+    }
+
+    "reload7:object"{
+      path:t="/weapon/mgun/zb_26/reload7/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/mauser98k/bolt_action"
+    }
+  }
+}
+
+besal_lmg{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_machinegun"
+  animchar__res:t="besal_lmg_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/besal_lmg.blk"
+  item__template:t="besal_lmg_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/besal_lmg.blk"
+  item__locDetails:t="RoF: 600; 303 British;"
+  item__id:i=0
+  item__weapTemplate:t="besal_lmg_gun"
+  item__name:t="items/besal_lmg"
+  item__weapType:t="machine_gun"
+  item__weight:r=9.8
+  gun__inertialMass:r=7.0
+  gun__locName:t="besal_lmg"
+  gun__statName:t="machine_gun"
+  gun__sightsDistance:r=0.3
+  gun__shotFreq:r=10.0
+  gun__shotFreqRndK:r=0.15
+  gun_spread__maxDeltaAngle:r=0.4
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=0.1, 4.0
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=4.5
+  gun__altReloadTime:r=3.4
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="bren_mk2_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_tracer.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+  }
+}
+
+besal_lmg_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mg_ww2_preset"
+  _extends:t="besal_lmg"
+  _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.055
+  gun__recoilDirAmount:r=0.63
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.4
+  gun__recoilControlMult:r=0.9
+  gun__recoilOffsMult:r=0.1
+  gun_attach__slot:t="weapon"
+  weap__sprintLerpFactor:r=0.5
+  meleeSoundType:t="rifle"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/zb_26"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/zb_26/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/zb_26/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/zb_26/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/mgun/zb_26/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/mgun/zb_26/reload5/change_ammo"
+    }
+
+    "reload6:object"{
+      path:t="/weapon/mgun/zb_26/reload6/change_ammo"
+    }
+
+    "reload7:object"{
+      path:t="/weapon/mgun/zb_26/reload7/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/mauser98k/bolt_action"
+    }
+  }
+}
+
+charlton_automatic_rifle{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_machinegun"
+  animchar__res:t="charlton_automatic_rifle_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/charlton_automatic_rifle.blk"
+  item__template:t="charlton_automatic_rifle_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/charlton_automatic_rifle.blk"
+  item__locDetails:t="RoF: 600; 303 British;"
+  item__id:i=0
+  item__weapTemplate:t="charlton_automatic_rifle_gun"
+  item__name:t="items/charlton_automatic_rifle"
+  item__weapType:t="machine_gun"
+  item__weight:r=7.5
+  gun__inertialMass:r=7.0
+  gun__locName:t="charlton_automatic_rifle"
+  gun__statName:t="machine_gun"
+  gun__sightsDistance:r=0.3
+  gun__shotFreq:r=6.5
+  gun__shotFreqRndK:r=0.2
+  gun_spread__maxDeltaAngle:r=0.4
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=0.1, 4.0
+  gun_deviation__movementDevInc:p2=13.0, 30.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=5.5
+  gun__altReloadTime:r=3.8
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="charlton_automatic_rifle_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_tracer.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+  }
+}
+
+charlton_automatic_rifle_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mg_ww2_preset"
+  _extends:t="charlton_automatic_rifle"
+  _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.075
+  gun__recoilDirAmount:r=0.63
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.4
+  gun__recoilControlMult:r=0.9
+  gun__recoilOffsMult:r=0.1
+  gun_attach__slot:t="weapon"
+  weap__sprintLerpFactor:r=0.7
+  gun__adsSpeedMult:r=0.65
+  meleeSoundType:t="rifle"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/charlton"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/mg_34/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/mg_34/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/mg_34/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/mgun/mg_34/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/mgun/mg_34/reload5/change_ammo"
+    }
+
+    "reload6:object"{
+      path:t="/weapon/mgun/mg_34/reload6/change_ammo"
+    }
+
+    "reload7:object"{
+      path:t="/weapon/mgun/mg_34/reload7/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/mauser98k/bolt_action"
+    }
+  }
+}
+
+solothurn_s_18_100{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_at_rifle"
+  animchar__res:t="ptrs_41_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/solothurn_s_18_100.blk"
+  item__template:t="solothurn_s_18_100_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/solothurn_s_18_100.blk"
+  item__locDetails:t="14.5x114mm BS41"
+  item__id:i=0
+  item__weapTemplate:t="solothurn_s_18_100_gun"
+  item__name:t="items/solothurn_s_18_100"
+  item__weapType:t="launcher"
+  item__weight:r=20.3
+  gun__locName:t="Solothurn S18-100"
+  gun__statName:t="launcher"
+  gun__shotFreq:r=1.5
+  gun__shotFreqRndK:r=0.1
+  gun__boltFreq:r=14.333
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.22
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.15
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=6.0
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="solothurn_s_18_100_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/20x105_b_solosthurn.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+solothurn_s_18_100_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="ptr_ww2_preset"
+  _extends:t="solothurn_s_18_100"
+  _extends:t="high_caliber_muzzle_brake_2_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.4
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun_attach__slot:t="weapon"
+  weap__sprintLerpFactor:r=0.0
+  meleeSoundType:t="rifle"
+
+  "xrayActivator:tag"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/antivehicle/ptrs41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/antivehicle/ptrs41/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/antivehicle/ptrs41/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/antivehicle/ptrs41/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/mosin/bolt_action"
+    }
+  }
+}
+
+atr_boys{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_rifle"
+  animchar__res:t="atr_boys_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/atr_boys.blk"
+  item__template:t="atr_boys_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/atr_boys.blk"
+  item__locDetails:t="7.92x107mm;"
+  item__id:i=0
+  item__weapTemplate:t="atr_boys_gun"
+  item__name:t="items/atr_boys"
+  item__weapType:t="rifle"
+  item__weight:r=10.0
+  gun__locName:t="atr_boys"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=0.55
+  gun__shotFreqRndK:r=0.15
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.22
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=4.4
+  gun__altReloadTime:r=3.8
+
+  "gun_shell_ejection__onShootRelease:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="atr_boys_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/13.9x99_boys.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+atr_boys_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="ptr_ww2_preset"
+  _extends:t="atr_boys"
+  _extends:t="high_caliber_muzzle_brake_3_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.35
+  gun__recoilDirAmount:r=0.8
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.6
+  gun__recoilControlMult:r=0.4
+  gun__recoilOffsMult:r=1.0
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.45
+  gun__bipodOffset:p3=0.325, 0.07, 0.1
+  meleeSoundType:t="rifle"
+
+  "xrayActivator:tag"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/antivehicle/ptrs41"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/antivehicle/pzb39/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/antivehicle/pzb39/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/antivehicle/pzb39/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/antivehicle/pzb39/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/antivehicle/pzb39/reload5/change_ammo"
+    }
+
+    "reload6:object"{
+      path:t="/weapon/antivehicle/pzb39/reload6/change_ammo"
+    }
+
+    "reload7:object"{
+      path:t="/weapon/antivehicle/pzb39/reload7/change_ammo"
+    }
+
+    "reload8:object"{
+      path:t="/weapon/antivehicle/pzb39/reload8/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/mosin/bolt_action"
+    }
+  }
+}
+
+vickers_berthier{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_machinegun"
+  animchar__res:t="mg_vickers_berthier_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/vickers_berthier.blk"
+  item__template:t="vickers_berthier_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/vickers_berthier.blk"
+  item__locDetails:t="RoF: 500; .303 British;"
+  item__id:i=0
+  item__weapTemplate:t="vickers_berthier_gun"
+  item__name:t="items/vickers_berthier"
+  item__weapType:t="machine_gun"
+  item__weight:r=10.4
+  gun__inertialMass:r=5.0
+  gun__locName:t="vickers_berthier"
+  gun__statName:t="machine_gun"
+  gun__sightsDistance:r=0.3
+  gun__shotFreq:r=7.33
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.47
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 30.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.8
+  gun__altReloadTime:r=2.8
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="vickers_berthier_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7_tracer.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="full_auto"
+    mode:t="semi_auto"
+  }
+}
+
+vickers_berthier_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mg_ww2_preset"
+  _extends:t="vickers_berthier"
+  _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.048
+  gun__bipodRecoilMult:r=0.15
+  gun__recoilDirAmount:r=0.65
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.4
+  gun__recoilControlMult:r=0.9
+  gun__recoilOffsMult:r=0.1
+  gun_attach__slot:t="weapon"
+  weap__sprintLerpFactor:r=0.5
+  meleeSoundType:t="rifle"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/zb_26"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/zb_26/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/zb_26/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/zb_26/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/mgun/zb_26/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/mgun/zb_26/reload5/change_ammo"
+    }
+
+    "reload6:object"{
+      path:t="/weapon/mgun/zb_26/reload6/change_ammo"
+    }
+
+    "reload7:object"{
+      path:t="/weapon/mgun/zb_26/reload7/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/mauser98k/bolt_action"
+    }
+  }
+}
+
+smle_mk3_grenade_launcher{
+  _extends:t="main_weap_slots"
+  _extends:t="reload_not_empty_single_bullet"
+  _extends:t="ironsights_open_rifle"
+  reload__singleReloadMaxAmmo:i=4
+  single_reload__prepareTime:r=1.1
+  single_reload__loopTime:r=0.8
+  single_reload__postTime:r=1.2
+  animchar__res:t="smle_mk3_grenade_launcher_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/smle_mk3_grenade_launcher.blk"
+  item__template:t="smle_mk3_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/smle_mk3_grenade_launcher.blk"
+  item__locDetails:t=".303 British"
+  item__id:i=0
+  item__weapTemplate:t="smle_mk3_grenade_launcher_gun"
+  item__name:t="items/smle_mk3_grenade_launcher"
+  item__weapType:t="rifle"
+  item__weight:r=5.0
+  gun__locName:t="SMLE Mk III with grenade launcher"
+  gun__statName:t="rifle"
+  gun__shotFreq:r=0.93
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.15
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=4.0
+  gun__showChamberedAmmo:b=no
+  animchar_fast_phys__res:t="mosin_1928_grenade_launcher_fastphys"
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="lee_enfield_no4_mk1_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/303_british_mk7.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+smle_mk3_grenade_launcher_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="rifle_ww2_preset"
+  _extends:t="smle_mk3_grenade_launcher"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.098
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  gun_attach__slot:t="weapon"
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/lee_enfield"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/lee_enfield/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/lee_enfield/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/lee_enfield/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/lee_enfield/bolt_action"
+    }
+  }
+
+  "gun_mods__slots:object"{
+
+    "grenade_launcher:object"{
+      smle_2_5_inch_grenade_launcher_cup:t="smle_2_5_inch_grenade_launcher_cup"
+    }
+  }
+}
+
+smle_2_5_inch_grenade_launcher_cup{
+  _extends:t="grenade_launcher_gunmod"
+  animchar__res:t="smle_2_5_inch_grenade_launcher_cup_char"
+  item__template:t="smle_2_5_inch_grenade_launcher_cup_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/smle_2_5_inch_grenade_launcher_cup.blk"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/smle_2_5_inch_grenade_launcher_cup"
+  item__iconYaw:r=175.0
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="grenade_launcher"
+  gunAttachable__gunSlotName:t="grenade_launcher"
+  gunAttachable__slotTag:t="smle_2_5_inch_grenade_launcher_cup"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/smle_2_5_inch_grenade_launcher_cup.blk"
+  gun__shootNodeName:t="bullet"
+  gun__magnification:r=3.0
+  gun__locName:t="SMLE 2.5~' grenade launcher"
+  gun__statName:t="launcher"
+  gun__shotFreq:r=0.8
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.05
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__length:r=0.4
+  gun__reloadTime:r=2.7
+  gun_shell_ejection__timeMult:r=0.35
+  gun__recoilAmount:r=0.2
+  gun__recoilDirAmount:r=0.9
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  weapon_mod__activateTime:r=2.6
+  weapon_mod__deactivateTime:r=2.6
+
+  "gunAttachable:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammo_holder__templateName:t="smle_2_5_inch_rifle_grenade_item"
+    ammoHolders:t="content/e_tunisia/gamedata/weapons/grenades/smle_2_5_inch_rifle_grenade.blk"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/grenades/smle_2_5_inch_rifle_grenade.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+}
+
+smle_2_5_inch_rifle_grenade_shell{
+  animchar__res:t="smle_mk3_grenade_launcher_ammo_char"
+  collres__res:t="smle_mk3_grenade_launcher_ammo_collision"
+  shell__hudMarkerTemplate:t="hud_grenade_marker"
+}
+
+smle_2_5_inch_rifle_grenade_phys{
+  _extends:t="projectile_phys_with_shell"
+  _extends:t="smle_2_5_inch_rifle_grenade_shell"
+  _extends:t="hud_grenade_marker"
+  _extends:t="block_rethrow_shell"
+  _extends:t="shell_launch_sound"
+  havePairCollision:b=no
+  start_omega:p3=100.0, 0.0, 0.0
+  explTimeAdd:r=3.0
+  phys_obj_net_phys__blk:t="content/e_tunisia/gamedata/weapons/grenades/smle_2_5_inch_rifle_grenade.blk"
+  explosion_flash__template:t="default_explosion_flash"
+  shell__active:b=yes
+  shell__launchTime:r=-1.0
+  shell__cleanupTime:r=30.0
+  shell__fuseTime:r=0.0
+
+  "shell__concussionMaxRadius:r"{
+    value:r=1.8
+    _tags:t="server"
+  }
+
+  "shell__explodeOnContact:tag"{
+  }
+
+  _group{
+    _tags:t="sound"
+    shell_launch_sound__name:t="weapon/antivehicle/mortyr_grenade_launcher/shot_single"
+  }
+}

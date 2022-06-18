@@ -1,0 +1,39 @@
+<svg id="full_access" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #19181e;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: #1e1645;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="49.5" y1="91.094" x2="49.5" y2="9.188" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44378b"/>
+      <stop offset="0.367" stop-color="#44378b"/>
+      <stop offset="1" stop-color="#8471ef"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="50" y1="76.031" x2="50" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b8744c"/>
+      <stop offset="0.251" stop-color="#b8744c"/>
+      <stop offset="1" stop-color="#f7e4bb"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M90.046,23.258L52.392,1.777a6,6,0,0,0-5.963.01L8.971,23.317a6,6,0,0,0-3.01,5.206L5.989,71.534a6,6,0,0,0,3.017,5.2L46.493,98.217a6,6,0,0,0,5.965,0l37.6-21.53a6,6,0,0,0,3.018-5.207V28.47A6,6,0,0,0,90.046,23.258Z"/>
+  <path id="Polygon_2_copy_36" data-name="Polygon 2 copy 36" class="cls-2" d="M84.982,29.641L84.994,70.6l-35.461,20.5L14.013,70.65l0-40.963,35.461-20.5Z"/>
+  <path id="Polygon_1_copy_8" data-name="Polygon 1 copy 8" class="cls-3" d="M67.99,27.591H32V80.978H44.048V60.973H65.084V50.222H44.048V38.987H67.99v-11.4Z"/>
+  <path id="Polygon_1_copy_9" data-name="Polygon 1 copy 9" class="cls-4" d="M67.99,22.013H32V76.026H44V56.02H65.021v-11H44V32.972H67.99V22.013Z"/>
+</svg>

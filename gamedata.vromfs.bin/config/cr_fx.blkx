@@ -1,0 +1,257 @@
+teleport_in{
+  fx:t="teleport_in_fx"
+  lifeTime:r=2.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=3
+  group:t="highres"
+}
+
+teleport_out{
+  fx:t="teleport_out_fx"
+  lifeTime:r=2.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=3
+  group:t="highres"
+}
+
+altar_bonfire{
+  fx:t="altar_bonfire_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=65
+  numReserved:i=0
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=1
+  tag:t="fom"
+  sfx:t="env_effects/fire/fire_small"
+}
+
+resurrection_smoke{
+  fx:t="resurrection_smoke_fx"
+  softnessDepth:r=0.1
+  numInstances:i=100
+  numReserved:i=3
+}
+
+thunderstrike_light_column{
+  fx:t="thunderstrike_light_column_composite_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=80
+  group:t="highres"
+}
+
+thunderstrike_flight_lightnings{
+  fx:t="thunderstrike_flight_composite_fx"
+  lifeTime:r=0.0
+  numInstances:i=100
+  numReserved:i=3
+}
+
+thunderstrike_lightnings{
+  fx:t="thunderstrike_lightnings_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=80
+  group:t="highres"
+}
+
+thunderstrike_hit{
+  fx:t="thunderstrike_hit_composite_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=80
+  group:t="highres"
+}
+
+flickering_step_start_composite{
+  fx:t="flickering_step_sparks_start_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=80
+  group:t="highres"
+}
+
+flickering_step_trail_composite{
+  fx:t="flickering_step_trail_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=80
+  group:t="highres"
+}
+
+flickering_step_trail_sparks{
+  fx:t="flickering_step_trail_fx"
+  lifeTime:r=10.0
+  numInstances:i=80
+  numReserved:i=3
+  onePointNumber:i=300
+  group:t="highres"
+}
+
+atmospheric_entry_flame{
+  fx:t="atmospheric_entry_flame_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+atmospheric_entry_smoke{
+  fx:t="atmospheric_entry_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  isTrail:b=yes
+}
+
+capzone_signal_smoke{
+  fx:t="capzone_signal_smoke_fx"
+  lifeTime:r=0.0
+  numInstances:i=100
+  numReserved:i=30
+  group:t="highres"
+  sfx:t="impact/crash_site_smoke"
+}
+
+crash_site_smoke{
+  fx:t="crash_site_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="impact/crash_site_smoke"
+}
+
+crash_impact_smoke{
+  fx:t="crash_impact_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+atmospheric_entry_light{
+  fx:t="atmospheric_entry_light_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+invisibility_continous_smoke{
+  fx:t="invisibility_continous_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+invisibility_in_smoke{
+  fx:t="invisibility_in_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+invisibility_out_smoke{
+  fx:t="invisibility_out_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+rage_electricity_lightning{
+  fx:t="rage_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+rage_electricity_lightning_small{
+  fx:t="rage_small_composite_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+hollow_death_decompose{
+  fx:t="hollow_death_decompose_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.01
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+jetpack_exhaust{
+  fx:t="jetpack_exhaust_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=80
+  numReserved:i=10
+  minScale:r=0.8
+  maxScale:r=1.0
+}
+
+cigar_smoke{
+  fx:t="cigar_smoke_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=2.0
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+  onePointNumber:i=0
+}

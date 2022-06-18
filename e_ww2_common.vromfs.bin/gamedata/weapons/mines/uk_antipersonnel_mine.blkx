@@ -1,0 +1,6 @@
+selWeaponVar:t="uk_ap_mine_mk1"
+
+ownerAnimVars{
+  gun_offset_across:r=0.0
+  gun_offset_along:r=0.0
+}

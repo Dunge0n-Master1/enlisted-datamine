@@ -1,0 +1,15 @@
+mass:r=0.0055
+caliber:r=0.0076
+speed:r=500.0
+maxDistance:r=2000.0
+bulletType:t="ball"
+
+tracer{
+  smokeColor:c=255, 230, 179, 204
+  luminosity:r=10.0
+  headColor:c=255, 170, 85, 255
+  smokeRadius:r=0.01
+  ignitionTime:r=0.005
+  burnTime:r=2.1
+  smokeTime:r=0.01
+}

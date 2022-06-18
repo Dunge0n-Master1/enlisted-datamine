@@ -1,0 +1,60 @@
+mass:r=0.1
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.025
+speed:r=30.0
+physMat:t="bulletRay"
+useFutureContacts:b=yes
+logCCD:b=no
+logCCD:b=no
+bullets:i=1
+entityTemplate:t="sprengpatrone_phys"
+entityPhysTemplate:t="sprengpatrone_phys"
+explosiveType:t="tnt"
+explosiveMass:r=0.022
+
+visual{
+  template:t="sprengpatrone_item+item_in_world"
+}
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.02, 0.0, 0.03
+}
+
+detonation{
+  onHit:b=yes
+}
+
+splashDamage{
+  radius:p2=1.0, 5.0
+  penetration:p2=15.0, 2.0
+  damage:r=35.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=0.8, 0.9
+  effectTemplName:t="explosion_effect_small+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade"
+}
+
+damage{
+
+  explosive{
+    strengthEquivalent:r=1.0
+    brisanceEquivalent:r=1.0
+  }
+}
+
+solver{
+  energyConservation:r=0.85
+}

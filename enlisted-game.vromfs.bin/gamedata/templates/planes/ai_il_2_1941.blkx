@@ -1,0 +1,161 @@
+ai_il_2_1941{
+  _extends:t="il_2_1941"
+
+  _group{
+    _tags:t="ui"
+    hud_aircraft_marker__isVisible:b=no
+    hud_aircraft_marker__isIdentified:b=yes
+    _track:b=yes
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_il_2_1941_fab_50_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_il_2_1941_fab_50_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_il_2_1941_fab_50_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_ai_il_2_1941_fab_50_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_08"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_09"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_05"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_10"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_06"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_11"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_07"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_12"
+      turretGroup:t="rocket_turrets"
+      trigger:t="rockets"
+      gun:t="planegun_il_2_1941_rbs_82_launcher_08"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_13"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_il_2_1941_7_62mm_shkas_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_14"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_il_2_1941_7_62mm_shkas_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_15"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_il_2_1941_20mm_shvak_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_16"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_il_2_1941_20mm_shvak_02"
+    }
+  }
+}
+
+planegun_ai_il_2_1941_fab_50_launcher_01{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb3"
+  slot_attach__slotName:t="bomb3"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_il_2_1941_fab_50_launcher_02{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb4"
+  slot_attach__slotName:t="bomb4"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_il_2_1941_fab_50_launcher_03{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb5"
+  slot_attach__slotName:t="bomb5"
+  gun__maxAmmo:i=1
+}
+
+planegun_ai_il_2_1941_fab_50_launcher_04{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_il_2_1941_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb6"
+  slot_attach__slotName:t="bomb6"
+  gun__maxAmmo:i=1
+}

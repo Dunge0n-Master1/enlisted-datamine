@@ -1,0 +1,15 @@
+visual{
+  template:t="bag_large_item+item_in_world"
+}
+
+equipable{
+  slot:t="backpack"
+}
+
+invExt{
+  extends:r=10.0
+}
+
+visSlots{
+  bag_large_vis:t="backpack"
+}

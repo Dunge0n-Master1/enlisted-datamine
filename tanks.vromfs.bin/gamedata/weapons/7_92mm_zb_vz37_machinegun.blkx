@@ -1,0 +1,56 @@
+maxDeltaAngle:r=0.075
+shotFreq:r=12.8
+shotFreqRndK:r=0.1
+recoilAmount:r=0.1
+selWeaponVar:t="76mm_gun_m1"
+automaticReload:b=no
+sightsDistance:r=0.05
+
+shells{
+  shell:t="content/e_ww2_common/gamedata/weapons/bullets/30_06_springfield.blk"
+}
+
+ammoHolders{
+  ammoholder:t="content/tanks/gamedata/weapons/ammoholders/7_92mm_zb_vz37_ammo_holder.blk"
+}
+
+firingModes{
+
+  automatic{
+    modeType:t="automatic"
+  }
+}
+
+shotDeviation{
+  onShotDeviationChange:r=0.7
+  extraDeviationTau:r=0.08
+  maxDeviation:r=2.0
+}
+
+gunFlash{
+
+  gunFx_main{
+    fx:t="muzzle_flash"
+    scale:r=0.04
+  }
+
+  gunFx_add_1{
+    fx:t="side_muzzle_flash"
+    scale:r=0.02
+  }
+
+  gunFx_add_2{
+    fx:t="side_muzzle_flash"
+    scale:r=0.02
+  }
+
+  gunFx_add_3{
+    fx:t="side_muzzle_flash"
+    scale:r=0.02
+  }
+
+  gunFx_add_bolt{
+    fx:t="side_muzzle_flash"
+    scale:r=0.01
+  }
+}

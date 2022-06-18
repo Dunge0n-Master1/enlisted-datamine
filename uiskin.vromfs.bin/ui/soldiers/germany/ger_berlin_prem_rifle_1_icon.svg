@@ -1,0 +1,27 @@
+<svg id="ger_berlin_prem_rifle_1_icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ba1717;
+      }
+
+      .cls-2, .cls-5 {
+        fill: #151515;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #f2f2f2;
+      }
+
+      .cls-4, .cls-5 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="2" y="25" width="146" height="100"/>
+  <rect class="cls-2" x="2" y="45" width="146" height="60"/>
+  <rect class="cls-3" x="2" y="47" width="146" height="56"/>
+  <rect class="cls-2" x="2" y="50" width="146" height="50"/>
+  <path class="cls-4" d="M121.79,84H74.667L95.052,65h47.123ZM28.21,84H75.333L55,65H8Z"/>
+  <path class="cls-5" d="M135.5,79h-59V77h59v2Zm7-7h-59V70h59v2Zm-128,7h59V77h-59v2Zm-7-7h59V70H7.5v2Z"/>
+</svg>

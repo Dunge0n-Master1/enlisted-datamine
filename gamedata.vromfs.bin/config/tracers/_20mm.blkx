@@ -1,0 +1,5 @@
+halfSize:r=3.5
+distScaleStart:r=50.0
+distScaleEnd:r=2000.0
+distScale:r=3.0
+radius:r=0.04
