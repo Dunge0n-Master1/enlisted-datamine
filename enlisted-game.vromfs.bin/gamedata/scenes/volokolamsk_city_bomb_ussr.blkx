@@ -596,6 +596,9 @@ entity{
   ui_order:i=0
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/artillery_emplacement"
+  capzone__timeToPlant:r=25.0
+  capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -605,7 +608,6 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"
   capzone__bombTransformLocalPos:m=[[-0.937601, 0.0, -0.347711] [0.0, 1.0, 0.0] [0.347711, 0.0, -0.937601] [0.0551758, -1.85853, 0.0323486]]
-  capzone__timeToPlant:r=35.0
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -623,6 +625,9 @@ entity{
   ui_order:i=1
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/stable"
+  capzone__timeToPlant:r=25.0
+  capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -632,7 +637,6 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02"
   capzone__bombTransformLocalPos:m=[[-0.943324, 0.0, 0.331871] [0.0, 1.0, 0.0] [-0.331871, 0.0, -0.943324] [-0.0400391, -2.13861, -0.399414]]
-  capzone__timeToPlant:r=35.0
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -650,7 +654,7 @@ entity{
   ui_order:i=2
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/shop"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=35.0
   capzone__timeToPlant:r=40.0
   capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
@@ -679,6 +683,9 @@ entity{
   ui_order:i=4
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/canteen"
+  capzone__timeToPlant:r=25.0
+  capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -688,7 +695,6 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03"
   capzone__bombTransformLocalPos:m=[[-0.338803, 0.0, -0.940857] [0.0, 1.0, 0.0] [0.940857, 0.0, -0.338803] [-0.17334, -1.64264, -0.524597]]
-  capzone__timeToPlant:r=35.0
 }
 
 entity{
@@ -702,6 +708,9 @@ entity{
   ui_order:i=5
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/garage"
+  capzone__timeToPlant:r=25.0
+  capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -711,7 +720,6 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_04"
   capzone__bombTransformLocalPos:m=[[-0.409413, 0.0, -0.912349] [0.0, 1.0, 0.0] [0.912349, 0.0, -0.409413] [0.201416, -1.8705, -0.448425]]
-  capzone__timeToPlant:r=35.0
 }
 
 entity{

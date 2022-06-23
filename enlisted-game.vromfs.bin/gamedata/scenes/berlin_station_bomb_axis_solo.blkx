@@ -691,8 +691,8 @@ entity{
 entity{
   _template:t="team_germany_berlin+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=4000.0
-  team__score:r=4000.0
+  team__scoreCap:r=3500.0
+  team__score:r=3500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -732,7 +732,7 @@ entity{
   capzone__caption:t="capzone/station"
   active:b=no
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=35.0
@@ -742,7 +742,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=2
   capzone__timeToPlant:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=35.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.782798, 0.0, -0.622277] [0.0, 1.0, 0.0] [0.622277, 0.0, -0.782798] [-0.23233, -1.71874, 0.019165]]
 
@@ -760,7 +760,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/ticket_offices"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -770,7 +770,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=2
   capzone__timeToPlant:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=35.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.994559, 0.0, -0.104171] [0.0, 1.0, 0.0] [0.104171, 0.0, -0.994559] [-0.0750732, -2.03804, 0.0482178]]
 
@@ -788,7 +788,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/station_restaurant"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -816,7 +816,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/canteen"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -845,7 +845,7 @@ entity{
   capzone__caption:t="capzone/artillery_emplacement"
   active:b=no
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=35.0

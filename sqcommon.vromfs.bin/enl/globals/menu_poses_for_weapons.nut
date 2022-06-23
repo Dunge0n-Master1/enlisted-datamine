@@ -44,6 +44,7 @@ local weaponToAnimState = freeze({
   browning_hp =                standardPistol
   welrod_mk2_gun =             standardPistol
   cz_vz_27_gun =               standardPistol
+  p08_luger_artillery_gun =    [i(10)]
 
   mosin_m38_gun =              standardRifle
   stl_mosin_m38_gun =          standardRifle
@@ -141,6 +142,9 @@ local weaponToAnimState = freeze({
   skt_40_gun =                 [i(9), i(16), i(18)]
   suomi_kp_31_gun =            [i(13), i(15)]
   stg_45_m_gun =               [i(12), i(9)]
+  kb_p_135_gun =               [i(9), i(12), i(16)]
+  sw_light_rifle_mk_2_gun =    [i(9), i(13), i(15)]
+  beretta_m1918_30_gun =       [i(9), i(12), i(13), i(15)]
 
   beretta_m38_gun =            [i(9), i(11), i(12), i(15), i(16)]
   beretta_m38_42_gun =         [i(11), i(13), i(15)]

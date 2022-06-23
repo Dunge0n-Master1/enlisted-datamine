@@ -447,7 +447,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_7"
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__alwaysHide:b=no
   capzone_timer__timeLeft:r=2700.0
   capzone__icon:t="train_cross"
@@ -536,7 +536,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_14"
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__capRewardPartCap:r=1.2
   capzone__alwaysHide:b=no
   capzone_timer__timeLeft:r=2700.0
@@ -631,7 +631,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_21"
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__capRewardPartCap:r=1.4
   capzone__alwaysHide:b=no
   capzone_timer__timeLeft:r=2700.0

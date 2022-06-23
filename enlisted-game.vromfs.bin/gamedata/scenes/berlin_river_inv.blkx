@@ -131,6 +131,7 @@ entity{
   sphere_zone__radius:r=12.0
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -157,6 +158,7 @@ entity{
   sphere_zone__radius:r=12.0
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_3_a:r=1.0

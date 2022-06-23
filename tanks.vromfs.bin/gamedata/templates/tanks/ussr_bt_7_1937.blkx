@@ -1,12 +1,16 @@
 ussr_bt_7_1937{
-  _extends:t="base_bt_7_1937"
-  _extends:t="vehicle_effects_tracked"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk:VehiclePhys"
-  damage_model__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk"
+  _extends:t="ussr_bt_7_1937_common"
 
   "animchar__objTexReplace:object"{
     "ussr_camo_green*":t="ussr_camo_winter_white_full*"
   }
+}
+
+ussr_bt_7_1937_common{
+  _extends:t="base_bt_7_1937"
+  _extends:t="vehicle_effects_tracked"
+  vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk:VehiclePhys"
+  damage_model__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk"
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -68,26 +72,6 @@ ussr_bt_7_1937{
         turret:t="turret_01"
       }
     }
-  }
-}
-
-ussr_bt_7_1937_td_purple{
-  _extends:t="ussr_bt_7_1937"
-  item__name:t="items/ussr_bt_7_1937_td_purple"
-
-  "animchar__objTexReplace:object"{
-    "bt_7_body_c*":t="bt_7_skin_body_c*"
-    "bt_7_gun_c*":t="bt_7_skin_gun_c*"
-    "bt_7_turret_c*":t="bt_7_skin_turret_c*"
-  }
-}
-
-ussr_bt_7_1937_td_winter{
-  _extends:t="ussr_bt_7_1937"
-  item__name:t="items/ussr_bt_7_1937_td_winter"
-
-  "animchar__objTexReplace:object"{
-    "ussr_camo_green*":t="ussr_camo_winter_net*"
   }
 }
 
@@ -197,5 +181,40 @@ ussr_bt_7_1937_commander_cockpit{
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_left"
+  }
+}
+
+ussr_bt_7_1937_td_purple{
+  _extends:t="ussr_bt_7_1937_common"
+  item__name:t="items/ussr_bt_7_1937_td_purple"
+
+  "animchar__objTexReplace:object"{
+    "bt_7_body_c*":t="bt_7_skin_body_c*"
+    "bt_7_gun_c*":t="bt_7_skin_gun_c*"
+    "bt_7_turret_c*":t="bt_7_skin_turret_c*"
+  }
+}
+
+ussr_bt_7_1937_td_winter{
+  _extends:t="ussr_bt_7_1937_common"
+  item__name:t="items/ussr_bt_7_1937_td_winter"
+
+  "animchar__objTexReplace:object"{
+    "ussr_camo_green*":t="ussr_camo_winter_net*"
+  }
+}
+
+ussr_bt_7_1937_13th_battlepass_premium{
+  _extends:t="ussr_bt_7_1937_common"
+
+  "animchar__objTexSet:object"{
+
+    "bt_7_body_c*:object"{
+      "bt_7_13th_body_c*":t="camo_skin_tex"
+    }
+
+    "bt_7_turret_c*:object"{
+      "bt_7_13th_turret_c*":t="camo_skin_tex"
+    }
   }
 }

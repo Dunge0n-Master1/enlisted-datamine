@@ -167,6 +167,16 @@ poster_ticket_5{
   }
 }
 
+poster_ticket_6{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/wallposter_battlepass_order"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="agit_poster_enlisted_battlepass_d_tex_d*"
+    "ammunition_supply_tex_n*":t="agit_poster_enlisted_battlepass_d_tex_n*"
+  }
+}
+
 event_ticket{
   _extends:t="item_supply_ticket"
   item__name:t="items/victory_day_event_order"
@@ -402,6 +412,26 @@ battlepass_buster_soldier_3_template{
 battlepass_buster_squad_5_template{
   _extends:t="item_supply_ticket"
   item__name:t="items/battlepass_buster_squad_5"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="training_choose_order_tex_d*"
+    "ammunition_supply_tex_n*":t="training_choose_order_tex_n*"
+  }
+}
+
+booster_global_battlepass_50_battle_12_template{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/booster_global_battlepass_50_battle_12"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="training_choose_order_tex_d*"
+    "ammunition_supply_tex_n*":t="training_choose_order_tex_n*"
+  }
+}
+
+booster_global_battlepass_100_battle_12_template{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/booster_global_battlepass_100_battle_12"
 
   "animchar__objTexReplace:object"{
     "ammunition_supply_bronze_tex_d*":t="training_choose_order_tex_d*"

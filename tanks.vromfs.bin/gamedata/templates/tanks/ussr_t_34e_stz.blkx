@@ -1,4 +1,8 @@
 ussr_t_34e_stz{
+  _extends:t="ussr_t_34e_stz_common"
+}
+
+ussr_t_34e_stz_common{
   _extends:t="base_t_34e_stz"
   _extends:t="vehicle_effects_tracked"
 
@@ -183,5 +187,20 @@ ussr_t_34e_stz_commander_cockpit{
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
     slit:t="cam_right"
+  }
+}
+
+ussr_t_34e_stz_artem_battlepass_premium{
+  _extends:t="ussr_t_34e_stz_common"
+
+  "animchar__objTexSet:object"{
+
+    "t_34_e_stz_1942_turret_c*:object"{
+      "t_34_e_stz_1942_artem_turret_c*":t="camo_skin_tex"
+    }
+  }
+
+  "animchar__objTexReplace:object"{
+    "ussr_camo_green*":t="ussr_camo_dark_swamp*"
   }
 }

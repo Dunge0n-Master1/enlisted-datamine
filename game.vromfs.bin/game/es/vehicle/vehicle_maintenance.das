@@ -19,6 +19,8 @@ def find_maintainable_object(info : UpdateStageInfoAct;
                              bindedCamera : EntityId;
                              var maintenance__target : EntityId&;
                              var maintenance__hasTarget : bool&;
+                             var maintenance__targetNeedsRepair : bool&;
+                             var maintenance__targetNeedsExtinguishing : bool&;
                              human_use_object__nodeId : int;
                              human_use_object__useDist : float;
                              animchar : AnimcharBaseComponent;
@@ -37,15 +39,21 @@ def find_maintainable_object(info : UpdateStageInfoAct;
     : camTm[3])
   var t = human_use_object__useDist
   var newMaintenanceTarget = INVALID_ENTITY_ID
-  find_query() <| $ [es(REQUIRE=maintainable__operator)] (eid : EntityId;
-                                                          collres : CollisionResource;
-                                                          transform : float3x4;
-                                                          animchar : AnimcharBaseComponent;
-                                                          team : int = TEAM_UNASSIGNED)
+  var needsRepair = false
+  var needsExtinguisher = false
+  find_query() <| $ [es(REQUIRE_NOT=deadEntity, REQUIRE=maintainable__operator)] (eid : EntityId;
+                                                                                  collres : CollisionResource;
+                                                                                  transform : float3x4;
+                                                                                  animchar : AnimcharBaseComponent;
+                                                                                  repairable__repairRequired : bool = false;
+                                                                                  fire_damage__isBurn : bool = false;
+                                                                                  team : int = TEAM_UNASSIGNED)
     var norm : float3
     if ((is_teams_friendly(team, maintainable_team) || maintainable_team == TEAM_UNASSIGNED || team == TEAM_UNASSIGNED) &&
         collres_traceray(collres, transform, animchar.nodeTree, tracePos, traceDir, t, norm))
       newMaintenanceTarget = eid
+      needsRepair = repairable__repairRequired
+      needsExtinguisher = fire_damage__isBurn
       return true
     return false
   if newMaintenanceTarget != maintenance__target
@@ -53,6 +61,18 @@ def find_maintainable_object(info : UpdateStageInfoAct;
       sendEvent(eid, [[CmdStopMaintenance target=maintenance__target]])
     maintenance__target = newMaintenanceTarget
   maintenance__hasTarget = maintenance__target != INVALID_ENTITY_ID
+  maintenance__targetNeedsRepair = needsRepair
+  maintenance__targetNeedsExtinguishing = needsExtinguisher
+
+[es(tag=server, on_appear, REQUIRE=maintenance__target, track=(isAlive, isDowned, isInVehicle, enter_vehicle__timerEnabled, burning__isBurning))]
+def can_maintain_vehicle(event : Event;
+                         isAlive : bool;
+                         isDowned : bool;
+                         isInVehicle : bool;
+                         enter_vehicle__timerEnabled : bool;
+                         burning__isBurning : bool;
+                         var maintenance__canMaintainVehicle : bool&)
+  maintenance__canMaintainVehicle = isAlive && !isDowned && !isInVehicle && !enter_vehicle__timerEnabled && !burning__isBurning
 
 [es(tag=gameClient)]
 def find_maintainable_object_event(evt : EventEnterVehicle;
@@ -87,13 +107,12 @@ def maintenance_dispatcher_start(evt : CmdStartMaintenance;
   maintenance__target = evt.target
   if !repair__hasRepairKit
     return
-  let isBurn = get_bool(maintenance__target, "fire_damage__isBurn") ?? false
-  if isBurn
-    sendEvent(eid, [[CmdActivateExtinguisher eid=maintenance__target]])
-    return
-  let isNeedRepair = get_bool(maintenance__target, "repairable__repairRequired") ?? false
-  if isNeedRepair && repair__hasRepairKit
-    sendEvent(eid, [[CmdStartRepair target=maintenance__target]])
+  query(maintenance__target) <| $ [es(REQUIRE_NOT=deadEntity)] (fire_damage__isBurn : bool = false;
+                                                                repairable__repairRequired : bool = false)
+    if fire_damage__isBurn
+      sendEvent(eid, [[CmdActivateExtinguisher eid=maintenance__target]])
+    elif repairable__repairRequired
+      sendEvent(eid, [[CmdStartRepair target=maintenance__target]])
 
 [es(tag=server, REQUIRE=maintenance__target)]
 def maintenance_dispatcher_stop(evt : CmdStopMaintenance;

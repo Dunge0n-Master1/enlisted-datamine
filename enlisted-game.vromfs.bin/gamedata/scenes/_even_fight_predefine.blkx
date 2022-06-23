@@ -1,0 +1,9 @@
+entity{
+  _template:t="custom_profile"
+  customProfile:t="%enlSqGlob/data/lb_event_profile.json"
+}
+
+entity{
+  _template:t="custom_bot_profile"
+  customBotProfile:t="%enlSqGlob/data/lb_event_bots_profile.json"
+}

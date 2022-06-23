@@ -163,17 +163,17 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/gold_weapons.png"
     cardImageParams = mkImageParams([144, 170], [0, 17])
     specialRewards = {
-      [6] = {
-        normandy_allies = "m3_greasegun_supressed_oss"
-        normandy_axis = "silenced_erma_emp"
-        berlin_allies = "ppd_bramit"
-        berlin_axis = "silenced_erma_emp"
-        moscow_allies = "mosin_m91_bramit"
-        moscow_axis = "silenced_erma_emp"
-        tunisia_allies = "delisle_commando_carbine"
-        tunisia_axis = "silenced_erma_emp"
-        stalingrad_allies = "ppd_bramit"
-        stalingrad_axis = "silenced_erma_emp"
+      [7] = {
+        normandy_allies = "sw_light_rifle_mk_2"
+        normandy_axis = "p08_luger_artillery"
+        berlin_allies = "kb_p_135"
+        berlin_axis = "p08_luger_artillery"
+        moscow_allies = "kb_p_135"
+        moscow_axis = "p08_luger_artillery"
+        tunisia_allies = "sw_light_rifle_mk_2"
+        tunisia_axis = "beretta_m1918_30"
+        stalingrad_allies = "kb_p_135"
+        stalingrad_axis = "p08_luger_artillery"
       }
     }
   },
@@ -540,6 +540,35 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = "ui/skin#/battlepass/gold_soldier.png"
     cardImageParams = mkImageParams([162, 178], [0, 12])
+  },
+  ["244"] = {
+    name = loc("items/booster_global_battlepass_50_battle_12")
+    description = loc("items/booster_global_battlepass_50_battle_12/desc")
+    icon = "ui/skin#/battlepass/base_booster_icon.svg"
+    gametemplate = "booster_global_battlepass_50_battle_12_template"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_boost.png"
+    cardImage = "ui/skin#/battlepass/boost_global.png"
+    cardImageParams = mkImageParams([154, 144], [0, 15])
+  },
+  ["245"] = {
+    name = loc("items/booster_global_battlepass_100_battle_12")
+    description = loc("items/booster_global_battlepass_100_battle_12/desc")
+    icon = "ui/skin#/battlepass/base_booster_icon.svg"
+    gametemplate = "booster_global_battlepass_100_battle_12_template"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_boost.png"
+    cardImage = "ui/skin#/battlepass/boost_global.png"
+    cardImageParams = mkImageParams([154, 144], [0, 15])
+  },
+  ["246"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_6"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
   },
 
 

@@ -42760,6 +42760,13 @@ riExtra{
     fxScale:r=1.0
   }
 
+  agit_poster_battlepass_d{
+    hp:r=20.0
+    material:t="small_decor"
+    fx:t="generic_dmg"
+    fxScale:r=1.0
+  }
+
   agit_poster_ny_ussr_a{
     hp:r=20.0
     material:t="small_decor"

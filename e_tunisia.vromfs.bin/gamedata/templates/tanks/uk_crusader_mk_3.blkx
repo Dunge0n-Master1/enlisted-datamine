@@ -155,3 +155,22 @@ uk_crusader_mk_3_19_40_bovinton_twitch_drop_premium{
     }
   }
 }
+
+uk_crusader_mk_3_7ad_1st_rb_battlepass_premium{
+  _extends:t="uk_crusader_mk_3_common"
+
+  "animchar__objTexSet:object"{
+
+    "crusader_mk_2_body_c*:object"{
+      "crusader_mk_2_7ad_1st_rb_body_c*":t="camo_skin_tex"
+    }
+
+    "crusader_mk_3_turret_c*:object"{
+      "crusader_mk_3_7ad_1st_rb_turret_c*":t="camo_skin_tex"
+    }
+  }
+
+  "animchar__objTexReplace:object"{
+    "uk_camo_very_dark_drab*":t="uk_camo_light_mud_blue_black*"
+  }
+}

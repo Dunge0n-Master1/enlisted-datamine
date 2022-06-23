@@ -309,6 +309,7 @@ entity{
   sphere_zone__radius:r=17.0
   decal__height:r=2.0
   ui_order:i=1
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{
@@ -328,6 +329,7 @@ entity{
   sphere_zone__radius:r=17.0
   decal__height:r=2.0
   ui_order:i=3
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{

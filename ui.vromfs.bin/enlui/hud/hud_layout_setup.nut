@@ -43,6 +43,7 @@ let medicHealTip = require("%ui/hud/huds/tips/medic_heal_tip.nut")
 let spectatorKeys_tip = require("%ui/hud/huds/tips/spectatorKeys_tip.nut")
 let hasSpectatorKeys = require("%ui/hud/state/hasSpectatorKeys.nut")
 let { mainAction } = require("%ui/hud/huds/actions.nut")
+let maintenanceHint = require("%ui/hud/huds/maintenance_hint.nut")
 let { localTeamEnemyHint } = require("%ui/hud/huds/enemy_hint.nut")
 let vehicleActions = require("%ui/hud/huds/vehicleActions.nut")
 let buildingActions = require("huds/tips/building_tool_tip.nut")
@@ -126,7 +127,7 @@ let actionsRoot = {
     children = minHud.value
       ? [localTeamEnemyHint].extend(wallposterActions)
       : [
-          medicHealTip, mainAction, localTeamEnemyHint, vehicleFreeSeatTip
+          medicHealTip, maintenanceHint, mainAction, localTeamEnemyHint, vehicleFreeSeatTip
         ].extend(vehicleActions, buildingActions, wallposterActions)
   }
 }

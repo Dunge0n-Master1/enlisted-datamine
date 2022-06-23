@@ -1441,7 +1441,7 @@ entity{
   groupName:t="sector_2_a"
   active:b=no
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/offices"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1469,7 +1469,7 @@ entity{
   active:b=no
   ui_order:i=4
   capzone__owningTeam:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

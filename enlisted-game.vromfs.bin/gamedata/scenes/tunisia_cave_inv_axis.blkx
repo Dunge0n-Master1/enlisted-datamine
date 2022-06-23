@@ -1521,7 +1521,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.89432, 0.0, 1.83405] [0.0, 0.896783, 0.0] [-2.09994, 0.0, 2.16891] [1264.93, 2.3834, 857.693]]
   sphere_zone__radius:r=15.0
@@ -1552,7 +1552,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[2.6133, 0.0, -0.305048] [0.0, 1.06904, 0.0] [0.264419, 0.0, 2.26525] [1139.87, -0.530138, 827.933]]
   sphere_zone__radius:r=15.0

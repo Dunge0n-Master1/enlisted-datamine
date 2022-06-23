@@ -503,13 +503,14 @@ let modMissionTitle = is_console ? null : watchElemState(@(sf){
       ]
 })
 
-let mainSettingsInfo = {
+let mainSettingsInfo = @() {
+  watch = isInRoom
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
   borderWidth = 0
   children = infoBlockRows.map(roomInfoRow)
-    .append(modMissionTitle)
+    .append(isInRoom.value ? null : modMissionTitle)
 }
 
 let applyButton = @(locId) textButton(loc(locId), editEventRoom, {
@@ -645,7 +646,7 @@ let function fillActiveTabs(...){
           gameStartButtons
         ]
       })
-    if (modPath.value == "")
+    if (modPath.value == "" && !isInRoom.value)
       res.append({
         locId = "options/missions"
         id = TabsIds.MISSION_ID
@@ -661,7 +662,7 @@ let function fillActiveTabs(...){
 
 fillActiveTabs()
 
-foreach (v in [optCampaigns.cfg, modPath, allowChooseCampaign])
+foreach (v in [optCampaigns.cfg, modPath, allowChooseCampaign, isInRoom])
   v.subscribe(fillActiveTabs)
 
 activeTabs.subscribe(function(v){

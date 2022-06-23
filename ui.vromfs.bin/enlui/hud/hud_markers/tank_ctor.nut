@@ -5,34 +5,56 @@ let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let {Point2} = require("dagor.math")
 let {controlledVehicleEid, inPlane} = require("%ui/hud/state/vehicle_state.nut")
 let teammateName = require("%ui/hud/components/teammateName.nut")
+let {hasRepairKit} = require("%ui/hud/state/vehicle_maintenance_state.nut")
 let {
   HUD_COLOR_TEAMMATE_INNER, HUD_COLOR_TEAMMATE_OUTER,
   HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER,
   HUD_COLOR_GROUPMATE_BOT_INNER, HUD_COLOR_GROUPMATE_BOT_OUTER
 } = require("%enlSqGlob/ui/style/unit_colors.nut")
 
-let unitIconSize = [fsh(1), fsh(1)].map(@(v) v.tointeger())
+let MIN_HUD_REPAIR_ICON_MAX_DIST = 40
+let REPAIR_ICON_MAX_DIST = 50
+let MIN_HUD_ICON_MAX_DIST = 200
+let ICON_MAX_DIST = 1000
 
-let mkIcon = @(colorInner, colorOuter) {
-  key = $"icon_{colorInner}_{colorOuter}"
+let unitIconSize = [fsh(1), fsh(1)].map(@(v) v.tointeger())
+let repairIconSize = [fsh(3), fsh(3)].map(@(v) v.tointeger())
+
+let mkIcon = @(colors) {
   rendObj = ROBJ_IMAGE
-  color = colorOuter
+  color = colors.outer
   image = Picture($"ui/skin#tank_unit_outer.svg:{unitIconSize[0]}:{unitIconSize[1]}:K")
   size = unitIconSize
-  minDistance = 0.5
 
   children = {
     rendObj = ROBJ_IMAGE
-    color = colorInner
+    color = colors.inner
     image = Picture($"ui/skin#tank_unit_inner.svg:{unitIconSize[0]}:{unitIconSize[1]}:K")
     size = unitIconSize
   }
   markerFlags = MARKER_SHOW_ONLY_IN_VIEWPORT
 }
 
-let teammateVehicleIcon = mkIcon(HUD_COLOR_TEAMMATE_INNER, HUD_COLOR_TEAMMATE_OUTER)
-let squadVehicleIcon = mkIcon(HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER)
-let groupVehicleIcon = mkIcon(HUD_COLOR_GROUPMATE_BOT_INNER, HUD_COLOR_GROUPMATE_BOT_OUTER)
+let mkRepairIcon = @(colors) {
+  rendObj = ROBJ_IMAGE
+  color = colors.outer
+  image = Picture($"ui/skin#item_reapair_kit.svg:{repairIconSize[0]}:{repairIconSize[1]}:K")
+  size = repairIconSize
+  pos = [0, fsh(2)]
+  children = {
+    rendObj = ROBJ_IMAGE
+    color = colors.inner
+    image = Picture($"ui/skin#item_reapair_kit.svg:{repairIconSize[0]}:{repairIconSize[1]}:K")
+    size = repairIconSize
+  }
+}
+
+let nothing = @(...) null
+
+let getIconColors = @(info)
+  info.hasSquadmates     ? {inner=HUD_COLOR_SQUADMATE_INNER,     outer=HUD_COLOR_SQUADMATE_OUTER}
+    : info.hasGroupmates ? {inner=HUD_COLOR_GROUPMATE_BOT_INNER, outer=HUD_COLOR_GROUPMATE_BOT_OUTER}
+                         : {inner=HUD_COLOR_TEAMMATE_INNER,      outer=HUD_COLOR_TEAMMATE_OUTER}
 
 let nameOffset = [fsh(0), fsh(10), -fsh(10)]
 
@@ -54,23 +76,19 @@ let opRangeX_hardcore = Point2(0.125, 0.145)
 let zeroPoint = Point2(0, 0)
 
 return function tank(eid, info){
-  if (info.isEmpty)
-    return null
-
-  return function(){
+  let minHud = forcedMinimalHud.value
+  let maxRepairIconDistance = minHud ? MIN_HUD_REPAIR_ICON_MAX_DIST : REPAIR_ICON_MAX_DIST
+  let maxIconDistance = minHud && !inPlane.value ? MIN_HUD_ICON_MAX_DIST : ICON_MAX_DIST
+  let mkTankIcon = function(iconCtor, minDistance, maxDistance) {
     if (controlledVehicleEid.value == eid)
       return {watch = controlledVehicleEid}
-    let icon = info.hasSquadmates ? squadVehicleIcon
-               : info.hasGroupmates ? groupVehicleIcon
-               : teammateVehicleIcon
+    let colors = getIconColors(info)
     let showNames = (info?.names.len() ?? 0) > 0
     let names = showNames ? mkNames(eid, info?.names ?? []) : null
-    let minHud = forcedMinimalHud.value
+
     return {
       data = {
         eid
-        minDistance = 2
-        maxDistance = minHud && !inPlane.value ? 200 : 1000
         distScaleFactor = 0.5
         clampToBorder = false
         yOffs = 0.25
@@ -78,17 +96,23 @@ return function tank(eid, info){
           ? zeroPoint
           : minHud ? opRangeX_hardcore : opRangeX
         opacityRangeY = showNames && ! minHud ? zeroPoint : opRangeY
+        minDistance
+        maxDistance
       }
 
       key = $"unit_marker_{eid}"
       sortOrder = eid
-      watch = [controlledVehicleEid, forcedMinimalHud, inPlane]
+      watch = [controlledVehicleEid, forcedMinimalHud, inPlane, hasRepairKit]
       transform = {}
 
       halign = ALIGN_CENTER
       valign = ALIGN_BOTTOM
       size = [0,0] // icon will have same pos with or without name
-      children = [names, icon]
+      children = [names, iconCtor(colors)]
     }
   }
+  return [
+    @() mkTankIcon(info.isEmpty ? nothing : mkIcon, hasRepairKit.value && info.repairRequired ? maxRepairIconDistance : 0, maxIconDistance)
+    @() mkTankIcon(hasRepairKit.value && info.repairRequired ? mkRepairIcon : nothing, 0, maxRepairIconDistance)
+  ]
 }

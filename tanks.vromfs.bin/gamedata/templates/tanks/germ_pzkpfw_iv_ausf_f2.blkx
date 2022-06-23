@@ -269,3 +269,27 @@ germ_pzkpfw_iv_ausf_f2_stalingrad_rg24_1233_battlepass_premium{
     }
   }
 }
+
+germ_pzkpfw_iv_ausf_f2_n1_voronesh_43_battlepass_premium{
+  _extends:t="germ_pzkpfw_iv_ausf_f2_common"
+
+  "disableDMParts:list<t>"{
+    part:t="track_r_01"
+    part:t="track_l_01"
+  }
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dunkelgelb_green_braun_big_blots*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_IV_ausf_F_body_c*:object"{
+      "pzkpfw_iv_ausf_f_n1_voronesh_43_body_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_IV_ausf_F_turret_c*:object"{
+      "pzkpfw_iv_ausf_f_n1_voronesh_43_turret_c*":t="camo_skin_tex"
+    }
+  }
+}

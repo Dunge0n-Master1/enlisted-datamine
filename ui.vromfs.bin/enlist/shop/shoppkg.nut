@@ -28,6 +28,7 @@ let { hasGoldValue } = require("armyShopState.nut")
 let { shopItems } = require("shopItems.nut")
 let { BtnBdNormal } = require("%ui/style/colors.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 
 const MAX_CLASSES_USAGE = 4
 let PRICE_HEIGHT = hdpx(44)
@@ -377,6 +378,39 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, pe
   }
 }
 
+let function mkTimeAvailable(shopItem) {
+  let { showIntervalTs = [] } = shopItem
+  let toTs = showIntervalTs?[1] ?? 0
+  if (toTs < serverTime.value)
+    return null
+
+  return function() {
+    let res = { watch = serverTime }
+    let timeLeft = toTs - serverTime.value
+    if (timeLeft <= 0)
+      return res
+
+    return res.__update({
+      size = [SIZE_TO_CONTENT, hdpx(32)]
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
+      gap = hdpx(2)
+      padding = [0, bigPadding]
+      children = [
+        faComp("clock-o", {
+          fontSize = hdpx(13)
+          color = TextNormal
+        })
+        {
+          rendObj = ROBJ_TEXT
+          text = secondsToHoursLoc(timeLeft)
+          color = TextNormal
+        }.__update(sub_txt)
+      ]
+    })
+  }
+}
+
 let debugTag = {
   rendObj = ROBJ_SOLID
   color = 0xFFCC0000
@@ -404,7 +438,15 @@ let mkShopItemView = kwarg(@(
       mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, personalOffer)
       containerIcon
       purchasingItem == null ? null : mkPurchaseSpinner(shopItem, purchasingItem)
-      unseenSignalObj
+      {
+        valign = ALIGN_CENTER
+        hplace = ALIGN_RIGHT
+        flow = FLOW_HORIZONTAL
+        children = [
+          mkTimeAvailable(shopItem)
+          unseenSignalObj
+        ]
+      }
       onInfoCb != null ? mkInfoBtn(onInfoCb) : mkViewCrateBtn(crateContent, onCrateViewCb)
       shopItem?.isShowDebugOnly ?? false ? debugTag : null
       itemHighlight(shopItem.guid)

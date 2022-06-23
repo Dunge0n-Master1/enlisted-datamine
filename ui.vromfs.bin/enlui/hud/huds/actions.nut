@@ -18,7 +18,7 @@ let getFramedNickByEid = require("%ui/hud/state/getFramedNickByEid.nut")
 let {sound_play} = require("sound")
 let {is_fast_pickup_item} = require("humaninv")
 let {
-  ACTION_USE, ACTION_EXTINGUISH, ACTION_REPAIR, ACTION_REQUEST_AMMO, ACTION_RECOVER, ACTION_PICK_UP, ACTION_SWITCH_WEAPONS,
+  ACTION_USE, ACTION_REQUEST_AMMO, ACTION_RECOVER, ACTION_PICK_UP, ACTION_SWITCH_WEAPONS,
   ACTION_OPEN_DOOR, ACTION_CLOSE_DOOR, ACTION_REMOVE_SPRAY, ACTION_DENIED_TOO_MUCH_WEIGHT, ACTION_THROW_BACK,
   ACTION_LOOT_BODY, ACTION_OPEN_WINDOW, ACTION_CLOSE_WINDOW, ACTION_REVIVE_TEAMMATE } =  require("hud_actions")
 let {localTeamEnemyHint} = require("%ui/hud/huds/enemy_hint.nut")
@@ -56,7 +56,7 @@ let pickupkeyId = "Inventory.Pickup"
 let forcedPickupkeyId = "Inventory.ForcedPickup"
 let usekeyId = "Human.Use"
 let throwBackKeyId = "Human.ThrowBack"
-let extinguishkeyId = "Human.VehicleMaintenance"
+
 let actionsMap = {
   [ACTION_USE] = {
                     textf = function (item) {
@@ -71,8 +71,6 @@ let actionsMap = {
                             }
                     key = usekeyId
   },
-  [ACTION_EXTINGUISH] = {text = loc("hud/extinguish", "Hold to extinguish") key = extinguishkeyId},
-  [ACTION_REPAIR] = {text = loc("hud/repair", "Hold to repair") key = extinguishkeyId},
   [ACTION_REQUEST_AMMO] = {text = loc("hud/request_ammo", "Request ammo") key = usekeyId},
   [ACTION_PICK_UP] = {
                         keyf = @(item) is_fast_pickup_item(item.eid) ? pickupkeyId : forcedPickupkeyId ,

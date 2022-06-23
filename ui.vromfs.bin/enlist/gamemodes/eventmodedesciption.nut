@@ -182,8 +182,11 @@ let mkTasksBlock = @(unlocks, selectedLbMode, rewardType = null,
   mkChild = @(_) null, rewardExtraObj = null, isLastType = false
 ) function() {
   let rewardsChildren = []
-  let rewardsArr = unlocks?[selectedLbMode] ?? []
+  local rewardsArr = clone unlocks?[selectedLbMode] ?? []
   let totalUnlocks = rewardsArr.len()
+  if (rewardType == null)
+    rewardsArr.sort(@(a, b) (a?.required ?? 0) <=> (b?.required ?? 0))
+
 
   foreach (uIdx, unlock in rewardsArr) {
     let { stages = [] } = unlock

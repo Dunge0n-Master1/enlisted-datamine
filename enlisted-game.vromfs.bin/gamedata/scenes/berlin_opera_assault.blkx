@@ -829,6 +829,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
+  capzone__iconOffsetY:r=1.7
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -863,6 +864,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
+  capzone__iconOffsetY:r=1.7
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -896,6 +898,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
+  capzone__iconOffsetY:r=2.7
 }
 
 entity{

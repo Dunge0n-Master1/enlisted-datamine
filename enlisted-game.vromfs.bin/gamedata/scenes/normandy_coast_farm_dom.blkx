@@ -304,11 +304,11 @@ entity{
 
 entity{
   _template:t="domination_box_capzone+capzone_projdecal"
-  transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.819, -121.508]]
+  transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.3326, -121.508]]
   capzone__title:t="A"
   capzone__caption:t="capzone/warehouse"
   ui_order:i=1
-  decal__height:r=2.3
+  decal__height:r=3.0
   decal__id:i=0
 }
 
@@ -329,6 +329,7 @@ entity{
   ui_order:i=3
   sphere_zone__radius:r=17.0
   decal__height:r=0.5
+  capzone__iconOffsetY:r=2.5
 }
 
 entity{

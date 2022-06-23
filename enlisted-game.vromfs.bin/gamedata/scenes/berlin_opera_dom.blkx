@@ -733,6 +733,7 @@ entity{
   capzone__defenseRadiusAdd:r=25.0
   capzone__caption:t="capzone/restaurant"
   capzone__title:t="B"
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{

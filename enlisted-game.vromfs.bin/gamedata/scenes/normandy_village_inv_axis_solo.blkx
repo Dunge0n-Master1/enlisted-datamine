@@ -1381,10 +1381,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1_a_1"
 }
@@ -1392,10 +1390,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1_a_2"
 }
@@ -1403,10 +1399,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2_a_1"
 }
@@ -1414,10 +1408,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2_a_2"
 }
@@ -1425,10 +1417,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area3_a_1"
 }
@@ -1436,10 +1426,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area3_a_2"
 }
@@ -1447,10 +1435,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3_b"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area3_b_1"
 }
@@ -1458,10 +1444,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3_b"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area3_b_2"
 }
@@ -1469,10 +1453,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area4_a_1"
 }
@@ -1480,10 +1462,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area4_a_2"
 }
@@ -1491,10 +1471,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area4_b_1"
 }
@@ -1502,10 +1480,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area4_b_2"
 }
@@ -1513,10 +1489,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_5_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area5_a_1"
 }
@@ -1524,10 +1498,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_5_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area5_a_2"
 }
@@ -1535,8 +1507,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[10899.2, 0.0, 2596.87] [0.0, 8000.03, 0.0] [-2639.28, 0.0, 11019.2] [301.929, 240.916, 675.462]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 
@@ -2036,8 +2006,8 @@ entity{
 entity{
   _template:t="team_germany+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=4000.0
-  team__score:r=4000.0
+  team__scoreCap:r=3500.0
+  team__score:r=3500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2071,13 +2041,13 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.13987, 0.0, -0.786582] [0.0, 1.0, 0.0] [0.530008, 0.0, 0.768059] [-39.6917, 20.4539, 633.907]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barn"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2107,7 +2077,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/stable"
   capzone__iconOffsetY:r=1.0
@@ -2139,7 +2109,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/farm_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2163,18 +2133,18 @@ entity{
   groupName:t="sector_3_b"
   capzone__capTime:r=30.0
   capzone__capTeam:i=-1
-  transform:m=[[-46.4705, 0.0, 10.4189] [0.0, 5.82023, 0.0] [-5.17242, 0.0, -23.0701] [187.726, 16.3597, 702.055]]
+  transform:m=[[-46.4705, 0.0, 10.4189] [0.0, 7.0436, 0.0] [-5.17242, 0.0, -23.0701] [187.726, 15.5648, 702.055]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barracks"
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   decal__thickness:r=0.4
-  decal__height:r=0.7
+  decal__height:r=3.0
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
 
@@ -2196,7 +2166,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barn"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2226,7 +2196,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/pillbox"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2256,7 +2226,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=5
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/mill"
   capzone__deactivateAfterTimeout:r=25.0
@@ -3503,7 +3473,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [85.9821, 16.2992, 640.469]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [85.9821, 14.9595, 640.469]]
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_2_a"
   capzone_area_polygon_point__id:t="point5"
   capzone_area_polygon_point__nextId:t="point6"

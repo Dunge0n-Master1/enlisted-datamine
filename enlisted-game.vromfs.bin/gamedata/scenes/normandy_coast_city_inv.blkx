@@ -1739,6 +1739,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   sphere_zone__radius:r=15.5
   decal__height:r=3.5
+  capzone__iconOffsetY:r=4.0
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -1770,6 +1771,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   sphere_zone__radius:r=17.0
   decal__height:r=0.5
+  capzone__iconOffsetY:r=3.0
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -1800,6 +1802,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=6
   sphere_zone__radius:r=17.0
   decal__height:r=0.5
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -2734,6 +2737,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=8
   sphere_zone__radius:r=16.0
   decal__height:r=1.5
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4_b:r=1.0
@@ -2847,6 +2851,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=9
   sphere_zone__radius:r=17.0
   decal__height:r=1.9
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -2954,7 +2959,7 @@ entity{
   groupName:t="sector_4_b"
   capzone__capTime:r=65.0
   capzone__capTeam:i=-1
-  transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.819, -121.508]]
+  transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.3326, -121.508]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -2967,7 +2972,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=10
-  decal__height:r=2.3
+  decal__height:r=3.0
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0

@@ -65,6 +65,7 @@ let function trackComps(eid, comp) {
     isEmpty = aliveSitters.len() == 0
     hasSquadmates = aliveSitters.findindex(isSquadmate) != null
     hasGroupmates = groupmates.len() > 0
+    repairRequired = comp.repairable__repairRequired
   }
   vehicle_markers.mutate(@(v) v[eid] <- marker)
   if (comp.isTank)
@@ -76,12 +77,14 @@ let vehicle_comps = {
     ["team", ecs.TYPE_INT],
     ["isAlive", ecs.TYPE_BOOL],
     ["vehicle_seats__seatEids", ecs.TYPE_EID_LIST],
+    ["repairable__repairRequired", ecs.TYPE_BOOL, false],
     ["vehicle__mapIcon", ecs.TYPE_STRING],
     ["isTank", ecs.TYPE_TAG, null],
   ]
   comps_track = [
     ["team", ecs.TYPE_INT],
     ["isAlive", ecs.TYPE_BOOL],
+    ["repairable__repairRequired", ecs.TYPE_BOOL],
   ]
 }
 let vehicleQuery = ecs.SqQuery("vehicleQuery", vehicle_comps)

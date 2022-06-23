@@ -2233,8 +2233,8 @@ entity{
 entity{
   _template:t="team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=4000.0
-  team__score:r=4000.0
+  team__scoreCap:r=3500.0
+  team__score:r=3500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2605,7 +2605,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_2"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2701,7 +2701,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_2_b"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2785,7 +2785,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[22.9596, 0.0, 2.12298] [0.0, 2.85453, 0.0] [-4.85246, 0.0, 52.3839] [-11.4002, 19.389, -946.813]]
+  transform:m=[[22.9596, 0.0, 2.12298] [0.0, 2.85453, 0.0] [-4.85246, 0.0, 52.3839] [-11.4002, 19.2297, -946.813]]
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1"
@@ -2803,7 +2803,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=9
   decal__thickness:r=0.4
-  decal__height:r=1.8
+  decal__height:r=2.5
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -3085,7 +3085,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[1.82454, 0.0, -18.9015] [0.0, 2.85453, 0.0] [37.3415, 0.0, 3.45607] [-10.2146, 24.1132, -978.812]]
+  transform:m=[[1.82454, 0.0, -18.9015] [0.0, 2.85453, 0.0] [37.3415, 0.0, 3.45607] [-10.2146, 23.983, -978.812]]
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1_b"

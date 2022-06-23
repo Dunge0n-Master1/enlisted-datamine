@@ -335,6 +335,7 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
   let startRelativeSpeed  = spawnParams?.startRelativeSpeed
   let addTemplatesOnSpawn = spawnParams?.addTemplatesOnSpawn
   let squadEid            = squadParams.squadEid
+  let playerEid           = squadParams.playerEid
 
   if (shouldValidateTm)
     transform = validateVehiclePosition(transform)
@@ -357,6 +358,7 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
     __update({
       team                                       = team,
       ownedBySquad                               = ecs.EntityId(squadEid),
+      ownedByPlayer                              = ecs.EntityId(playerEid),
       ["vehicle_seats__restrictToTeam"]           = team,
       ["vehicle_seats__autoDetectRestrictToTeam"] = false,
       transform                                   = transform,

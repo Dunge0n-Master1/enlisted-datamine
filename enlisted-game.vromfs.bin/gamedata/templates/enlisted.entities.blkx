@@ -576,6 +576,9 @@ plane_base{
   "ownedBySquad:eid"{
   }
 
+  "ownedByPlayer:eid"{
+  }
+
   "vehicleOffenders:object"{
     _tags:t="server"
   }
@@ -705,6 +708,9 @@ base_tank{
   }
 
   "ownedBySquad:eid"{
+  }
+
+  "ownedByPlayer:eid"{
   }
 
   "vehicle__isDestroyedWithoutCrew:b"{
@@ -1242,6 +1248,7 @@ enlisted_player_user_point_list{
     "main:object"{
       templateName:t="map_user_point_main"
       findEnemy:b=yes
+      skipDead:b=yes
       findEnemyNewMark:t="enemy"
       findEnemyVehicleNewMark:t="enemy_vehicle"
       findEnemyPointOnVehicleNewMark:t="enemy_point_on_vehicle"
@@ -1259,6 +1266,7 @@ enlisted_player_user_point_list{
     "enemy:object"{
       templateName:t="enlisted_map_user_point_enemy"
       findEnemy:b=yes
+      skipDead:b=yes
       findEnemyVehicleNewMark:t="enemy_vehicle"
       findEnemyPointOnVehicleNewMark:t="enemy_point_on_vehicle"
       findEnemyBuildingNewMark:t="enemy_building"
@@ -1270,18 +1278,21 @@ enlisted_player_user_point_list{
     "enemy_vehicle:object"{
       templateName:t="map_user_point_enemy_vehicle"
       findEnemy:b=yes
+      skipDead:b=yes
       yOffset:r=0.1
     }
 
     "enemy_point_on_vehicle:object"{
       templateName:t="map_user_point_enemy_point_on_vehicle"
       findEnemy:b=yes
+      skipDead:b=yes
       yOffset:r=-0.1
     }
 
     "enemy_building:object"{
       templateName:t="map_user_point_enemy_building"
       findEnemy:b=yes
+      skipDead:b=yes
       yOffset:r=0.1
     }
   }
@@ -1720,6 +1731,7 @@ enlisted_player{
     scoring_player__builtMedBoxRefills:i=0
     scoring_player__builtRallyPointUses:i=0
     scoring_player__hostedOnSoldierSpawns:i=0
+    scoring_player__vehicleRepairs:i=0
     scoring_player__reviveAssists:i=0
     scoring_player__healAssists:i=0
     scoring_player__barrageBalloonDestructions:i=0

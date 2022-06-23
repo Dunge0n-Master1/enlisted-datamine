@@ -645,8 +645,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -691,6 +691,7 @@ entity{
   capzone__caption:t="capzone/artillery_emplacement"
   decal__height:r=0.3
   decal__thickness:r=0.3
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{
@@ -849,7 +850,7 @@ entity{
 
 entity{
   _template:t="domination_box_capzone+capzone_projdecal"
-  transform:m=[[47.5338, 0.0, 17.0288] [0.0, 9.76297, 0.0] [-10.5571, 0.0, 29.419] [494.508, 7.13479, -345.553]]
+  transform:m=[[47.5338, 0.0, 17.0288] [0.0, 9.76297, 0.0] [-10.5571, 0.0, 29.419] [494.508, 6.53088, -345.553]]
   capzone__title:t="C"
   capzone__caption:t="capzone/headquarters"
   decal__height:r=4.0

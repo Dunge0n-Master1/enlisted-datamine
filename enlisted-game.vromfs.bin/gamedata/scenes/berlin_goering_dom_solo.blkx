@@ -682,8 +682,8 @@ entity{
 entity{
   _template:t="team_germany_berlin+team_narrator_domination+respawn_creators_team"
   team__id:i=2
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -703,6 +703,7 @@ entity{
   capzone__title:t="A"
   capzone__caption:t="capzone/warehouse"
   decal__height:r=1.0
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{
@@ -712,6 +713,7 @@ entity{
   capzone__caption:t="capzone/tiergarten"
   sphere_zone__radius:r=15.5
   decal__height:r=1.5
+  capzone__iconOffsetY:r=0.5
 }
 
 entity{

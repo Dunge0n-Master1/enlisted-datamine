@@ -311,7 +311,7 @@ entity{
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/field_headquarters"
   capzone__checkAllZonesInGroup:b=yes
@@ -343,7 +343,7 @@ entity{
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/stable"
   capzone__checkAllZonesInGroup:b=yes
@@ -375,7 +375,7 @@ entity{
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="C"
   capzone__caption:t="capzone/north_wing"
   capzone__checkAllZonesInGroup:b=yes
@@ -407,7 +407,7 @@ entity{
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="D"
   capzone__caption:t="capzone/south_wing"
   capzone__checkAllZonesInGroup:b=yes

@@ -253,7 +253,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="2_1"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.375294, 0.0148486, 0.926787] [0.0142652, 0.999661, -0.0217927] [-0.926796, 0.0213995, 0.374954] [-215.595, 7.61921, 252.377]]
   active:b=no
@@ -379,7 +379,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="2_2"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.257218, 0.0105424, 0.660226] [0.00977704, 0.70975, -0.0155247] [-0.635205, 0.0151935, 0.26711] [-156.632, 6.06504, 250.083]]
   active:b=no
@@ -502,7 +502,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="3_1"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-0.88295, 0.0443913, 0.467363] [0.0386196, 0.999014, -0.021928] [-0.467874, -0.00131194, -0.883794] [-70.2257, 4.81015, 174.637]]
   sphere_zone__radius:r=15.0
@@ -630,7 +630,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="4_1"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-0.679103, 0.0158374, 0.214746] [-0.0207979, 1.00114, 0.000596561] [-0.330063, -0.0132062, -0.747181] [8.65356, 5.52848, 125.605]]
   sphere_zone__radius:r=23.0
@@ -749,7 +749,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="5_1"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-0.996594, 0.0, -0.08246] [0.0, 1.0, 0.0] [0.08246, 0.0, -0.996594] [102.971, 3.7932, 155.028]]
   active:b=no

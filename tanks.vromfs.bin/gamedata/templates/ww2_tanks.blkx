@@ -1490,7 +1490,7 @@ fatal_explosion_external_fire{
   _extends:t="smoke_occluders"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   fatal_explosion_external_fire__endTime:r=-1.0
-  sphere_zone__radius:r=2.0
+  sphere_zone__radius:r=1.0
 
   "smoke_occluders__updateInterval:r"{
     _tags:t="server"

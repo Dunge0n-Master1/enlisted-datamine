@@ -78,8 +78,8 @@ entity{
 entity{
   _template:t="team_usa+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -127,11 +127,11 @@ entity{
 
 entity{
   _template:t="domination_box_capzone+capzone_projdecal"
-  transform:m=[[18.0037, 0.0, 0.376661] [0.0, 7.43032, 0.0] [-0.0703578, 0.0, 14.592] [44.6478, 71.7212, -313.297]]
+  transform:m=[[18.0037, 0.0, 0.376661] [0.0, 10.5586, 0.0] [-0.0703578, 0.0, 14.592] [44.6478, 72.0401, -313.297]]
   capzone__title:t="A"
   capzone__caption:t="capzone/field_headquarters"
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.7
   ui_order:i=1
 }
 
@@ -143,15 +143,16 @@ entity{
   decal__thickness:r=0.4
   decal__height:r=0.4
   ui_order:i=2
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{
   _template:t="domination_box_capzone+capzone_projdecal"
-  transform:m=[[16.411, 0.0, 3.61908] [0.0, 6.72048, 0.0] [-3.46433, 0.0, 15.7093] [-121.711, 70.6723, -301.683]]
+  transform:m=[[16.411, 0.0, 3.61908] [0.0, 7.12316, 0.0] [-3.46433, 0.0, 15.7093] [-121.711, 70.227, -301.683]]
   capzone__title:t="C"
   capzone__caption:t="capzone/warehouse"
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.4
   ui_order:i=3
 }
 

@@ -624,7 +624,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-744.322, 17.6097, -18.6326]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-732.171, 17.6097, 40.4095]]
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
   battle_area_polygon_point__forBattleAreaId:t="area3_2"
@@ -632,7 +632,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-808.209, 17.6097, 166.475]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-787.804, 17.6097, 167.419]]
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
   battle_area_polygon_point__forBattleAreaId:t="area3_2"
@@ -1015,7 +1015,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1076.41, 17.6097, 140.118]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1054.16, 17.6097, 142.245]]
   battle_area_polygon_point__id:t="point2"
   battle_area_polygon_point__nextId:t="point3"
   battle_area_polygon_point__forBattleAreaId:t="area5_1"
@@ -1382,7 +1382,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[33.9699, 0.0, 5.22714] [0.0, 10.8714, 0.0] [-5.20954, 0.0, 33.8189] [-985.373, 24.4451, -82.2704]]
+  transform:m=[[33.9699, 0.0, 5.22714] [0.0, 11.5181, 0.0] [-5.20954, 0.0, 33.8189] [-985.373, 23.4658, -82.2704]]
   capzone__capRewardPartCap:r=1.5
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
@@ -1401,7 +1401,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
   decal__thickness:r=0.4
-  decal__height:r=1.0
+  decal__height:r=2.7
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0

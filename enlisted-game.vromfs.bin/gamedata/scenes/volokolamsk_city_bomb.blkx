@@ -64,8 +64,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2500.0
+  team__score:r=2500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -679,6 +679,8 @@ entity{
   ui_order:i=4
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/canteen"
+  capzone__timeToPlant:r=25.0
+  capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -701,6 +703,8 @@ entity{
   ui_order:i=5
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/garage"
+  capzone__timeToPlant:r=25.0
+  capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

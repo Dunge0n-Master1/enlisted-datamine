@@ -74,6 +74,7 @@ entity{
   transform:m=[[1.11308, 0.0499751, 0.316534] [-0.0742991, 1.40817, 0.0527342] [-0.437454, -0.11201, 0.80419] [-343.162, 4.72486, 484.806]]
   capzone__title:t="C"
   capzone__caption:t="capzone/north_wing"
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{

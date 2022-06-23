@@ -130,6 +130,9 @@ base_bike_common{
   "ownedBySquad:eid"{
   }
 
+  "ownedByPlayer:eid"{
+  }
+
   _group{
     _tags:t="render"
 

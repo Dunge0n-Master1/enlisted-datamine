@@ -3863,9 +3863,9 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
-  transform:m=[[25.4097, 0.0, 14.8391] [0.0, 8.51159, 0.0] [-20.6797, 0.0, 35.4107] [197.103, 4.7142, -14.0403]]
+  transform:m=[[25.4097, 0.0, 14.8391] [0.0, 9.9143, 0.0] [-20.6797, 0.0, 35.4107] [197.103, 4.7142, -14.0403]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -3876,7 +3876,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   decal__thickness:r=0.4
-  decal__height:r=1.6
+  decal__height:r=2.6
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
 
@@ -4012,7 +4012,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[10.4529, 0.0, 7.30904] [0.0, 6.24236, 0.0] [-7.17426, 0.0, 10.2601] [79.267, 4.69631, 23.3608]]
   active:b=no
@@ -4219,7 +4219,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[12.0914, 0.0, 5.51599] [0.0, 6.24236, 0.0] [-5.25847, 0.0, 11.5269] [42.7013, 4.61105, 94.6066]]
   active:b=no
@@ -4323,9 +4323,9 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
-  transform:m=[[19.6373, 0.0, 10.3601] [0.0, 7.81965, 0.0] [-10.266, 0.0, 19.459] [-29.3516, 4.36599, 179.88]]
+  transform:m=[[19.6373, 0.0, 10.3601] [0.0, 8.60118, 0.0] [-10.266, 0.0, 19.459] [-29.3516, 3.9641, 179.88]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
@@ -4336,7 +4336,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
 
@@ -4790,7 +4790,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[0.883827, 0.0, -0.436966] [0.0, 1.0, 0.0] [0.503401, 0.0, 1.0182] [26.1194, 1.53607, -42.4819]]
   active:b=no
@@ -4909,7 +4909,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[5.88472, 0.0, 6.49875] [0.0, 6.24236, 0.0] [-16.5757, 0.0, 15.0095] [-75.4694, 4.56994, -0.775954]]
   active:b=no
@@ -5009,7 +5009,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[23.3911, 0.0, 5.61987] [0.0, 6.24236, 0.0] [-5.71689, 0.0, 23.7949] [-5.03837, 4.12993, 84.6901]]
   active:b=no
@@ -5117,7 +5117,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_d"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[23.0579, 0.0, 9.69256] [0.0, 6.24236, 0.0] [-6.94491, 0.0, 16.5214] [107.458, 4.56994, 104.07]]
   active:b=no
@@ -5277,7 +5277,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[1.27592, 0.0, -0.34587] [0.0, 1.0, 0.0] [0.269114, 0.0, 0.992769] [-137.213, 1.51062, 61.2448]]
   active:b=no
@@ -5692,7 +5692,7 @@ entity{
   groupName:t="sector_1_c"
   capzone__capTime:r=30.0
   capzone__capTeam:i=-1
-  transform:m=[[14.0981, 0.0, -5.1819] [0.0, 10.2359, 0.0] [8.0851, 0.0, 21.9966] [123.934, 5.76258, -94.9645]]
+  transform:m=[[14.0981, 0.0, -5.1819] [0.0, 10.2359, 0.0] [8.0851, 0.0, 21.9966] [123.934, 5.13516, -94.9645]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
@@ -5703,7 +5703,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=14
 

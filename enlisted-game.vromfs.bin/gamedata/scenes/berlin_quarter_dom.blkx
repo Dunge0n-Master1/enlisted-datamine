@@ -59,6 +59,7 @@ entity{
   capzone__caption:t="capzone/barricades"
   decal__height:r=0.3
   decal__thickness:r=0.3
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{
@@ -69,6 +70,7 @@ entity{
   capzone__caption:t="capzone/ruins"
   decal__height:r=1.0
   decal__thickness:r=0.3
+  capzone__iconOffsetY:r=1.0
 }
 
 entity{
@@ -79,6 +81,7 @@ entity{
   capzone__caption:t="capzone/artillery_emplacement"
   decal__height:r=0.3
   decal__thickness:r=0.3
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{

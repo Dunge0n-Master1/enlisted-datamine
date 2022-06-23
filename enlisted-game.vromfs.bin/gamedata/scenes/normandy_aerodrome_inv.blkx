@@ -427,7 +427,7 @@ entity{
   groupName:t="sector_1"
   capzone__capTime:r=40.0
   capzone__capTeam:i=-1
-  transform:m=[[21.4505, 0.0, -7.61472] [0.0, 10.2359, 0.0] [17.6411, 0.0, 49.6948] [161.532, 15.0631, -599.075]]
+  transform:m=[[22.7347, 0.0, -8.0706] [0.0, 10.2359, 0.0] [17.6411, 0.0, 49.6948] [161.532, 15.0631, -599.075]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -471,6 +471,7 @@ entity{
   sphere_zone__radius:r=16.0
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -486,7 +487,7 @@ entity{
   groupName:t="sector_3"
   capzone__capTime:r=45.0
   capzone__capTeam:i=-1
-  transform:m=[[29.8547, 0.0, 14.1422] [0.0, 7.7708, 0.0] [-23.201, 0.0, 48.9782] [-17.221, 13.862, -519.356]]
+  transform:m=[[30.4327, 0.0, 14.416] [0.0, 7.7708, 0.0] [-23.662, 0.0, 49.9514] [-17.221, 13.862, -519.356]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -529,6 +530,7 @@ entity{
   sphere_zone__radius:r=15.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -557,6 +559,7 @@ entity{
   sphere_zone__radius:r=27.0
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=7
+  capzone__iconOffsetY:r=2.5
 }
 
 entity{
@@ -2110,6 +2113,7 @@ entity{
   sphere_zone__radius:r=18.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_3_b:r=1.0
@@ -2184,7 +2188,7 @@ entity{
   groupName:t="sector_3_b"
   capzone__capTime:r=45.0
   capzone__capTeam:i=-1
-  transform:m=[[-8.71747, 0.0, 19.2634] [0.0, 7.7708, 0.0] [-38.9563, 0.0, -17.3905] [-120.436, 13.862, -592.636]]
+  transform:m=[[-9.00896, 0.0, 19.5403] [0.0, 7.7708, 0.0] [-38.7424, 0.0, -17.862] [-120.606, 13.862, -592.268]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1

@@ -37,6 +37,7 @@ let scoringPlayerSoldiersStatsComps = [
   ["scoring_player__builtMedBoxRefills", ecs.TYPE_INT],
   ["scoring_player__builtRallyPointUses", ecs.TYPE_INT],
   ["scoring_player__hostedOnSoldierSpawns", ecs.TYPE_INT],
+  ["scoring_player__vehicleRepairs", ecs.TYPE_INT],
   ["scoring_player__reviveAssists", ecs.TYPE_INT],
   ["scoring_player__healAssists", ecs.TYPE_INT],
   ["scoring_player__tankKillAssists", ecs.TYPE_INT],

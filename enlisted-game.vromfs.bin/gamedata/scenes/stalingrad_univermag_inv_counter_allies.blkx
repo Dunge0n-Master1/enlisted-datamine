@@ -3550,7 +3550,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=85.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-209.11, 7.48749, -11.9725]]
   active:b=no
@@ -3581,7 +3581,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-208.514, 7.99945, -89.948]]
   active:b=no
@@ -3612,7 +3612,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-109.585, 5.47424, -17.7569]]
   active:b=no
@@ -3643,9 +3643,9 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
-  transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 6.8964, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 7.46217, -92.1479]]
+  transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 7.31018, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 6.80561, -92.1479]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
@@ -3656,7 +3656,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
 
@@ -3672,7 +3672,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-42.4754, 5.59654, -23.138]]
   active:b=no

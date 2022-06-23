@@ -207,3 +207,14 @@ it_ab_41_gunner_cockpit{
     slit:b=no
   }
 }
+
+it_ab_41_15th_battlepass_premium{
+  _extends:t="it_ab_41"
+
+  "animchar__objTexSet:object"{
+
+    "ab_41_body_c*:object"{
+      "ab_41_15th_body_c*":t="camo_skin_tex"
+    }
+  }
+}

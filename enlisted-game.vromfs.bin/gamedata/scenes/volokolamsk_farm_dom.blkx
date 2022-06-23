@@ -64,8 +64,8 @@ entity{
 entity{
   _template:t="team_ussr+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -338,7 +338,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_poly_capzone+capzone_projdecal"
+  _template:t="domination_poly_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-14.3194, 4.82185, 164.652]]
   capzone__title:t="A"
   capzone__caption:t="capzone/barn"

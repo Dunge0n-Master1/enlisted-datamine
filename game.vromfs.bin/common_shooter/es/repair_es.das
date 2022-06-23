@@ -123,17 +123,19 @@ def repair_stop_es(evt : CmdStopRepair; var repair__active : bool&)
   repair__active = stop_repair(evt.target)
 
 [es(tag=server, no_order)]
-def check_repairing_distance_es(info : UpdateStageInfoAct;
-                                maintenance__target : EntityId;
-                                var repair__active : bool&;
-                                transform : float3x4;
-                                repair__effectiveDistance : float)
+def check_repairing_conditions(info : UpdateStageInfoAct;
+                               maintenance__target : EntityId;
+                               var repair__active : bool&;
+                               transform aka operator_transform : float3x4;
+                               repair__effectiveDistance : float;
+                               maintenance__canMaintainVehicle : bool = true)
   if !repair__active
     return
-  var targetPosition : float3
-  ecs::query(maintenance__target) <| $ [es] (transform : float3x4)
-    targetPosition = transform[3]
-  if length_sq(targetPosition - transform[3]) > square(repair__effectiveDistance)
+  var isDistanceValid = false
+  if maintenance__canMaintainVehicle
+    query(maintenance__target) <| $ [es] (transform aka target_transform : float3x4)
+      isDistanceValid = length_sq(target_transform[3] - operator_transform[3]) < square(repair__effectiveDistance)
+  if !isDistanceValid || !maintenance__canMaintainVehicle
     repair__active = stop_repair(maintenance__target)
 
 [es(tag=server, before=find_maintainable_object_event)]

@@ -2528,7 +2528,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[0.998522, 0.0543497, 0.0] [-0.0543009, 0.997626, -0.0423615] [-0.00230234, 0.0422989, 0.999102] [-568.235, 14.4628, -1355.35]]
   sphere_zone__radius:r=18.0
@@ -2558,7 +2558,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[0.998522, 0.0543497, 0.0] [-0.0543009, 0.997626, -0.0423615] [-0.00230234, 0.0422989, 0.999102] [-568.235, 14.4628, -1355.35]]
   sphere_zone__radius:r=18.0
@@ -2588,7 +2588,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-746.82, 2.96491, -1283.22]]
   active:b=no
@@ -2618,7 +2618,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-565.415, 1.45036, -1252.83]]
   active:b=no
@@ -2648,7 +2648,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-565.415, 1.45036, -1252.83]]
   active:b=no
@@ -2738,7 +2738,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
-  capzone__capTime:r=75.0
+  capzone__capTime:r=85.0
   capzone__capTeam:i=-1
   transform:m=[[24.8909, 0.0, 2.1943] [0.0, 4.08704, 0.0] [-2.62367, 0.0, 29.7615] [-652.393, 16.3875, -1020.62]]
   active:b=no

@@ -1198,6 +1198,34 @@ human_breath{
   }
 }
 
+human_vehicle_maintenance{
+  maintenance__hasTarget:b=no
+  repair__effectiveDistance:r=5.0
+  extinguisher__effectiveDistance:r=5.0
+
+  "maintenance__target:eid"{
+  }
+
+  "repair__repairKit:eid"{
+  }
+
+  _group{
+    _tags:t="gameClient"
+    _track:b=yes
+    maintenance__targetNeedsRepair:b=no
+    maintenance__targetNeedsExtinguishing:b=no
+  }
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    extinguisher__active:b=no
+    repair__active:b=no
+    repair__hasRepairKit:b=no
+    maintenance__canMaintainVehicle:b=no
+  }
+}
+
 human{
   _extends:t="base_human"
   _extends:t="human_item_use"
@@ -1213,6 +1241,7 @@ human{
   _extends:t="human_swimsplash_fx"
   _extends:t="base_dm_parts"
   _extends:t="simple_damage_model"
+  _extends:t="human_vehicle_maintenance"
   _replicated:t="human_equipment__slots"
   _replicated:t="itemContainer"
   _replicated:t="human_aim_punch__queuedEvents"
@@ -1227,9 +1256,6 @@ human{
   _replicated:t="human_inventory__currentVolume"
   _replicated:t="human_inventory__currentWeight"
   _replicated:t="building_action__target"
-  _replicated:t="extinguisher__active"
-  _replicated:t="repair__active"
-  _replicated:t="repair__hasRepairKit"
   _replicated:t="isDriver"
   _replicated:t="isPassenger"
   _replicated:t="isGunner"
@@ -1248,8 +1274,6 @@ human{
   _tracked:t="human_inventory__currentWeight"
   _tracked:t="human_inventory__selectedItem"
   _tracked:t="building_action__target"
-  _tracked:t="extinguisher__active"
-  _tracked:t="repair__active"
   _tracked:t="human_use_object__selectedObject"
   _tracked:t="isGunner"
   _tracked:t="current_region__name"
@@ -1277,12 +1301,8 @@ human{
   human_falling_stand__newState:i=0
   human_inventory__dropLootOffset:p3=0.7, 0.6, -0.3
   human__canPickupItems:b=yes
-  maintenance__hasTarget:b=no
   building_action__lastActionAtTime:r=-1.0
   building_action__updateInterval:r=0.1
-  extinguisher__active:b=no
-  extinguisher__effectiveDistance:r=5.0
-  extinguisher__count:i=0
   human_visibility_tracer__gridType:t="loot"
   human_cam_walk_bhv__spreadMult:r=0.2
   human_cam_walk_bhv__attachedGunSpreadMult:r=0.14
@@ -1338,9 +1358,6 @@ human{
   human_inventory__dropsLoot:b=no
   human_inventory__currentVolume:r=0.0
   human_inventory__currentWeight:r=0.0
-  repair__active:b=no
-  repair__extinguisher__effectiveDistance:r=5.0
-  repair__hasRepairKit:b=no
   human_use_object__lookAtSelected:b=no
   human_use_object__nodeId:i=0
   human_use_object__useDist:r=3.5
@@ -1418,9 +1435,6 @@ human{
   }
 
   "human_inventory__selectTpsConvex:list<p4>"{
-  }
-
-  "maintenance__target:eid"{
   }
 
   "building_action__target:eid"{
@@ -1771,9 +1785,6 @@ human{
   "human_inventory__selectedItem:eid"{
   }
 
-  "repair__repairKit:eid"{
-  }
-
   "human_use_object__selectedObject:eid"{
   }
 
@@ -1809,6 +1820,7 @@ _componentFilters{
   hasConcussedVision:t="filter_possessed_squad_and_spectated_squad"
   hasConcussedSound:t="filter_possessed_squad_and_spectated_squad"
   concussion__endTime:t="filter_possessed_squad_and_spectated_squad"
+  maintenance__canMaintainVehicle:t="filter_possessed_and_spectated"
 }
 
 hero_usable_objects{

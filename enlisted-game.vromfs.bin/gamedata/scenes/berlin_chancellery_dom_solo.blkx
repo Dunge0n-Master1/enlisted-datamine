@@ -481,6 +481,7 @@ entity{
   capzone__title:t="A"
   capzone__caption:t="capzone/rotunda"
   decal__height:r=0.1
+  capzone__iconOffsetY:r=2.0
 }
 
 entity{
@@ -506,6 +507,7 @@ entity{
   capzone__caption:t="capzone/artillery_emplacement"
   decal__height:r=1.0
   sphere_zone__radius:r=16.0
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{
@@ -515,6 +517,7 @@ entity{
   capzone__caption:t="capzone/fortification"
   decal__height:r=1.0
   sphere_zone__radius:r=15.0
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{

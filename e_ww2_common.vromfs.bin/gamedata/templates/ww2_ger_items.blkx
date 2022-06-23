@@ -1248,6 +1248,13 @@ attachable_wear_m35_helmet_w_face_cover_01_ger_summer_item{
   }
 }
 
+attachable_wear_gasmask_m38_helmet_01_ger_summer_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="gasmask_m38_helmet_01_ger_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_gasmask_m38_helmet_01_ger_summer_item"
+}
+
 werchmaht_cap_01_ger_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="werchmaht_cap_01_ger_summer_char"

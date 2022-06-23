@@ -1870,7 +1870,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[19.0367, 0.0, -12.0052] [0.0, 14.8991, 0.0] [9.35901, 0.0, 14.842] [-314.432, 11.3859, -535.299]]
+  transform:m=[[19.0367, 0.0, -12.0052] [0.0, 14.8991, 0.0] [9.35901, 0.0, 14.842] [-314.432, 12.02, -535.299]]
   capzone__capRewardPartCap:r=1.125
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
@@ -2213,7 +2213,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[21.3323, 0.0, -6.81173] [0.0, 12.1958, 0.0] [5.37537, 0.0, 16.8337] [-114.682, 14.8758, -897.996]]
+  transform:m=[[21.3323, 0.0, -6.81173] [0.0, 12.1958, 0.0] [5.59014, 0.0, 17.5063] [-114.415, 14.5745, -898.234]]
   capzone__capRewardPartCap:r=1.5
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
@@ -2423,7 +2423,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[22.9596, 0.0, 2.12298] [0.0, 2.85453, 0.0] [-4.85246, 0.0, 52.3839] [-11.4002, 19.6871, -946.813]]
+  transform:m=[[22.9596, 0.0, 2.12298] [0.0, 2.85453, 0.0] [-4.85246, 0.0, 52.3839] [-11.4002, 19.2297, -946.813]]
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_5"
@@ -2626,7 +2626,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[18.3232, 0.0, 1.40139] [0.0, 12.1958, 0.0] [-0.878159, 0.0, 11.483] [-325.652, 12.6532, -749.406]]
+  transform:m=[[18.3232, 0.0, 1.40139] [0.0, 12.1958, 0.0] [-0.878159, 0.0, 11.483] [-325.652, 12.3421, -749.406]]
   capzone__capRewardPartCap:r=1.25
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
@@ -2746,7 +2746,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[1.82454, 0.0, -19.2862] [0.0, 2.85453, 0.0] [37.3415, 0.0, 3.52642] [-10.2146, 24.1072, -978.812]]
+  transform:m=[[1.82454, 0.0, -18.9015] [0.0, 2.85453, 0.0] [37.3415, 0.0, 3.45607] [-10.2146, 23.983, -978.812]]
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_5_b"

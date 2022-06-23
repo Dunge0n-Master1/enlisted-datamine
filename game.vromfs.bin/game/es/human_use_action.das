@@ -77,19 +77,7 @@ def human_use_action_es(info : UpdateStageInfoAct;
       if attachedGunEid != INVALID_ENTITY_ID
         pass
       elif has(selectedObjectEid, "vehicle_seats__seats") && get_bool(selectedObjectEid, "isAlive") ?? false
-        let maintenance__target = get_Eid(eid, "maintenance__target") ?? INVALID_ENTITY_ID
-        let isMaintenanceAlive = get_bool(maintenance__target, "isAlive") ?? false
-        let hasMaintainable = isMaintenanceAlive && maintenance__target != INVALID_ENTITY_ID
-        let isBurn = get_bool(maintenance__target, "fire_damage__isBurn") ?? false
-        let hasRepairKit = get_bool(eid, "repair__hasRepairKit") ?? false
-        let isNeedExtinguish = isBurn && hasRepairKit && !(get_bool(eid, "isInVehicle") ?? true)
-        let isNeedRepair = get_bool(maintenance__target, "repairable__repairRequired") ?? false && hasRepairKit && !(get_bool(eid, "isInVehicle") ?? true)
-        if hasMaintainable && isNeedExtinguish
-          useActionAvailable = int(HumanAction ACTION_EXTINGUISH)
-        elif hasMaintainable && isNeedRepair
-          useActionAvailable = int(HumanAction ACTION_REPAIR)
-        else
-          useActionAvailable = int(HumanAction ACTION_USE)
+        useActionAvailable = int(HumanAction ACTION_USE)
       elif has(selectedObjectEid, "lootable") && !has(selectedObjectEid, "lootableGunOnly") && !(get_bool(selectedObjectEid, "isAlive") ?? true)
         useActionAvailable = int(HumanAction ACTION_LOOT_BODY)
       elif has(selectedObjectEid, "squad_member__squad") && has(selectedObjectEid, "human")

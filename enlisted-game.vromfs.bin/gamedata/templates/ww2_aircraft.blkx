@@ -94,6 +94,47 @@ yak_3_czech45_battlepass_premium_driver_cockpit{
   }
 }
 
+yak_3_fyodorov_battlepass_premium{
+  _extends:t="yak_3"
+
+  "animchar__objTexReplace:object"{
+    "yak_3_a*":t="yak_3_fyodorov_a*"
+    "yak_3_a_dmg*":t="yak_3_fyodorov_a_dmg*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.15, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.788, 0.607, 0.0
+      cockpitTemplate:t="yak_3_fyodorov_driver_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+      }
+    }
+  }
+}
+
+yak_3_fyodorov_driver_cockpit{
+  _extends:t="yak_3_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "yak_3_a*":t="yak_3_fyodorov_a*"
+    "yak_3_a_dmg*":t="yak_3_fyodorov_a_dmg*"
+  }
+}
+
 yak_9_grey_battlepass_premium{
   _extends:t="yak_9t"
 
@@ -823,6 +864,52 @@ bf_109g_6_summer42_premium{
   "animchar__objTexReplace:object"{
     "bf_109g_6_a*":t="bf_109g_6_summer42_a*"
     "bf_109g_6_a_dmg*":t="bf_109g_6_summer42_a_dmg*"
+  }
+}
+
+bf_109g_6_grey_3_battlepass_premium{
+  _extends:t="bf_109g_6"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_6_a*":t="bf_109g_6_grey_camo_a*"
+    "bf_109g_6_a_dmg*":t="bf_109g_6_grey_camo_a_dmg*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.1, -0.1]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.89, 0.788, -0.033
+      cockpitTemplate:t="bf_109g_6_grey_3_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+    }
+  }
+}
+
+bf_109g_6_grey_3_driver_cockpit{
+  _extends:t="bf_109g_6_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_6_a*":t="bf_109g_6_grey_camo_a*"
+    "bf_109g_6_a_dmg*":t="bf_109g_6_grey_camo_a_dmg*"
   }
 }
 
@@ -1780,6 +1867,57 @@ p_51d_5_driver_cockpit{
     node:t="pylon_rocket8"
     node:t="pylon_rocket9"
     node:t="pylon_rocket10"
+  }
+}
+
+p_51d_5_honey_battlepass_premium{
+  _extends:t="p_51d_5"
+
+  "animchar__objTexReplace:object"{
+    "p_51d_a*":t="p_51d_5_honey_a*"
+    "p_51d_a_dmg*":t="p_51d_5_honey_a_dmg*"
+    "p_51d_n_dmg*":t="p_51d_5_honey_n_dmg*"
+    "p_51d_n*":t="p_51d_5_n*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.83, 1.04, 0.0
+      cockpitTemplate:t="p_51d_5_honey_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+        turret:t="turret_08"
+      }
+    }
+  }
+}
+
+p_51d_5_honey_driver_cockpit{
+  _extends:t="p_51d_5_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "p_51d_a*":t="p_51d_5_honey_a*"
+    "p_51d_a_dmg*":t="p_51d_5_honey_a_dmg*"
+    "p_51d_n_dmg*":t="p_51d_5_honey_n_dmg*"
+    "p_51d_n*":t="p_51d_5_n*"
   }
 }
 

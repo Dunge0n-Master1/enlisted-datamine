@@ -1698,7 +1698,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/bunker"
@@ -1721,13 +1721,13 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-141.639, 20.7199, 162.528]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/coast_tower"
@@ -1738,6 +1738,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   sphere_zone__radius:r=15.5
   decal__height:r=3.5
+  capzone__iconOffsetY:r=4.0
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -1752,13 +1753,13 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[0.999971, -0.00761502, 0.0] [0.00760894, 0.999172, -0.0399697] [0.00030437, 0.0399686, 0.999201] [-155.419, 24.5704, 21.9055]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/church"
@@ -1769,6 +1770,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   sphere_zone__radius:r=17.0
   decal__height:r=0.5
+  capzone__iconOffsetY:r=3.0
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -1788,7 +1790,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/farm_house"
@@ -1799,6 +1801,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=6
   sphere_zone__radius:r=17.0
   decal__height:r=0.5
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -1817,7 +1820,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/chateau"
@@ -2716,13 +2719,13 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-280.854, 30.7565, 96.5235]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/radar"
@@ -2733,6 +2736,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=8
   sphere_zone__radius:r=16.0
   decal__height:r=1.5
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4_b:r=1.0
@@ -2829,13 +2833,13 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[1.14137, -0.00761502, 0.0] [0.00868482, 0.999172, -0.0467992] [0.000347407, 0.0399686, 1.16993] [-238.496, 24.2093, 57.644]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/farm_house"
@@ -2846,6 +2850,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=9
   sphere_zone__radius:r=17.0
   decal__height:r=1.9
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -2953,11 +2958,11 @@ entity{
   groupName:t="sector_4_b"
   capzone__capTime:r=30.0
   capzone__capTeam:i=-1
-  transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.819, -121.508]]
+  transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.3326, -121.508]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/warehouse"
@@ -2966,7 +2971,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=10
-  decal__height:r=2.3
+  decal__height:r=3.0
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -3069,7 +3074,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/fountain_yard"

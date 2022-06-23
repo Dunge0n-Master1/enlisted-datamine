@@ -119,6 +119,7 @@ let soldierStatsCfg = [
   { stat = "builtMedBoxRefills", locId = "debriefing/awards/builtMedBoxRefills" },
   { stat = "builtRallyPointUses", locId = "debriefing/awards/builtRallyPointUses" },
   { stat = "hostedOnSoldierSpawns", locId = "debriefing/awards/hostedOnSoldierSpawns" },
+  { stat = "vehicleRepairs", locId = "debriefing/awards/vehicleRepairs" },
   { stat = "barrageBalloonDestructions", locId = "debriefing/awards/barrageBalloonDestructions" },
   { stat = "enemyBuiltFortificationDestructions", locId = "debriefing/awards/enemyBuiltFortificationDestructions" },
   { stat = "enemyBuiltGunDestructions", locId = "debriefing/awards/enemyBuiltGunDestructions" },

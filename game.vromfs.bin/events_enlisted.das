@@ -504,3 +504,7 @@ struct CmdSwitchBinocular
 [event(unicast)]
 struct CmdSwitchBinocularCockpit
   enabled : bool
+
+[cpp_event(broadcast)]
+struct EventSquadMembersStats
+  data : Object

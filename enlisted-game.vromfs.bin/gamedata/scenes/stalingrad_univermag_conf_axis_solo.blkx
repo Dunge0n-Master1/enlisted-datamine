@@ -3025,7 +3025,7 @@ entity{
   capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=30.0
+  capzone__capTimeTeam2:r=40.0
   capzone__capTimeTeam1:r=30.0
   capzone__decapTimeTeam2:r=20.0
   capzone__decapTimeTeam1:r=20.0
@@ -3087,19 +3087,19 @@ entity{
   capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
-  capzone__capTimeTeam2:r=30.0
+  capzone__capTimeTeam2:r=40.0
   capzone__capTimeTeam1:r=30.0
   capzone__decapTimeTeam2:r=20.0
   capzone__decapTimeTeam1:r=20.0
   capzone__capTeam:i=-1
-  transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 6.8964, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 7.46217, -92.1479]]
+  transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 7.31018, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 6.80561, -92.1479]]
   active:b=no
   ui_order:i=3
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/fallen_fighters_square"
   capzone__deactivateAfterTimeout:r=25.0
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.7
 
   "capzone__activateChoiceTeam2:object"{
     sector_4_b:r=1.0
@@ -3154,7 +3154,7 @@ entity{
   capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=140.0
-  capzone__capTimeTeam2:r=30.0
+  capzone__capTimeTeam2:r=40.0
   capzone__capTimeTeam1:r=30.0
   capzone__decapTimeTeam2:r=20.0
   capzone__decapTimeTeam1:r=20.0

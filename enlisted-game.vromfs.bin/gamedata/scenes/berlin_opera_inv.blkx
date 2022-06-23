@@ -845,6 +845,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
   sphere_zone__radius:r=10.7
+  capzone__iconOffsetY:r=1.7
 
   "capzone__activateChoice:object"{
     sector_4_b:r=2.0
@@ -874,6 +875,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
   sphere_zone__radius:r=11.2
+  capzone__iconOffsetY:r=1.7
 
   "capzone__activateChoice:object"{
     sector_4_b:r=2.0
@@ -930,6 +932,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=9
   sphere_zone__radius:r=10.7
+  capzone__iconOffsetY:r=1.2
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -956,6 +959,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=7
   decal__height:r=0.5
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{

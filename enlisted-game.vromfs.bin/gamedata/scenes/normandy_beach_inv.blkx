@@ -142,6 +142,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   decal__thickness:r=0.4
   decal__height:r=0.3
+  capzone__iconOffsetY:r=1.0
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -268,8 +269,8 @@ entity{
   capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   capzone__icon:t="AAA"
-  transform:m=[[0.0, 0.0, 12.85] [0.0, 4.98719, 0.0] [21.4403, 0.0, 0.0] [-18.9443, 25.8557, 35.85]]
-  decal__height:r=2.9
+  transform:m=[[0.0, 0.0, 12.85] [0.0, 6.97502, 0.0] [21.4403, 0.0, 0.0] [-18.9443, 25.9609, 35.85]]
+  decal__height:r=4.0
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
@@ -395,8 +396,8 @@ entity{
   capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   capzone__icon:t="AAA"
-  transform:m=[[0.0, 0.0, 25.7721] [0.0, 9.26524, 0.0] [13.9782, 0.0, 0.0] [17.9813, 23.3981, 18.3576]]
-  decal__height:r=1.7
+  transform:m=[[0.0, 0.0, 25.7721] [0.0, 10.188, 0.0] [14.5413, 0.0, 0.0] [17.8414, 23.179, 18.3576]]
+  decal__height:r=3.3
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
@@ -741,7 +742,7 @@ entity{
   capzone__capTeam:i=-1
   capzone__icon:t="AAA"
   capzone__icon:t="AAA"
-  transform:m=[[6.71421, 0.0, 24.8953] [0.0, 15.5294, 0.0] [19.8941, 0.0, -4.82571] [4.71533, 47.425, -94.5193]]
+  transform:m=[[6.71421, 0.0, 24.8953] [0.0, 13.6662, 0.0] [19.8941, 0.0, -4.82571] [4.71533, 51.6193, -94.5193]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
@@ -751,6 +752,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
   decal__thickness:r=0.4
+  decal__height:r=2.2
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -1812,6 +1814,7 @@ entity{
   decal__height:r=2.4
   decal__thickness:r=0.4
   sphere_zone__radius:r=11.0
+  capzone__iconOffsetY:r=3.0
 }
 
 entity{
@@ -1947,6 +1950,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   decal__thickness:r=0.4
   decal__height:r=0.3
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -2079,6 +2083,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   decal__thickness:r=0.4
   decal__height:r=0.3
+  capzone__iconOffsetY:r=1.0
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0

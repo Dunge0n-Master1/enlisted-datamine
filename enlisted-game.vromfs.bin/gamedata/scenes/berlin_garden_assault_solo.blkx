@@ -705,7 +705,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/goebbels_villa"
   capzone__checkAllZonesInGroup:b=yes
@@ -781,7 +781,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/goering_strasse"
   sphere_zone__radius:r=10.0
@@ -793,6 +793,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
+  capzone__iconOffsetY:r=1.5
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -817,7 +818,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__checkAllZonesInGroup:b=yes
   decal__thickness:r=0.3
   decal__height:r=0.2
@@ -827,6 +828,7 @@ entity{
   sphere_zone__radius:r=15.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
+  capzone__iconOffsetY:r=1.5
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -890,7 +892,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=5
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="D"
   capzone__caption:t="capzone/warehouse"
   sphere_zone__radius:r=17.5
@@ -902,6 +904,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0

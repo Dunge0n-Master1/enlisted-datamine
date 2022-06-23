@@ -63,14 +63,16 @@ def check_extinguishing_restrictions(info : UpdateStageInfoAct;
                                      maintenance__target : EntityId;
                                      var extinguisher__active : bool&;
                                      transform : float3x4;
-                                     extinguisher__effectiveDistance : float)
+                                     extinguisher__effectiveDistance : float;
+                                     maintenance__canMaintainVehicle : bool = true)
   if !extinguisher__active
     return
   let pos = transform[3]
-  var isRestricted = false
-  query(maintenance__target) <| $ [es] (transform : float3x4; isAlive : bool)
-    isRestricted = !isAlive || length_sq(transform[3] - pos) > square(extinguisher__effectiveDistance)
-  if isRestricted
+  var isTargetValid = false
+  if maintenance__canMaintainVehicle
+    query(maintenance__target) <| $ [es] (transform : float3x4; isAlive : bool)
+      isTargetValid = isAlive && length_sq(transform[3] - pos) < square(extinguisher__effectiveDistance)
+  if !isTargetValid || !maintenance__canMaintainVehicle
     stop_extinguisher_impl(extinguisher__active, maintenance__target)
 
 [es(on_event=EventEnterVehicle)]

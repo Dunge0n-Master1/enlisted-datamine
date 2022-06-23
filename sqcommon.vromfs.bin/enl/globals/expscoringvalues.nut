@@ -28,6 +28,7 @@ let scoreSquads = {
   builtCapzoneFortificationActivations = 5
   builtRallyPointUses = 30
   hostedOnSoldierSpawns = 15
+  vehicleRepairs = 45
   barrageBalloonDestructions = 15
   enemyBuiltFortificationDestructions = 5
   enemyBuiltGunDestructions = 45

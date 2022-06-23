@@ -2785,7 +2785,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[22.9596, 0.0, 2.12298] [0.0, 2.85453, 0.0] [-4.85246, 0.0, 52.3839] [-11.4002, 19.389, -946.813]]
+  transform:m=[[22.9596, 0.0, 2.12298] [0.0, 2.85453, 0.0] [-4.85246, 0.0, 52.3839] [-11.4002, 19.2297, -946.813]]
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1"
@@ -2803,7 +2803,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=9
   decal__thickness:r=0.4
-  decal__height:r=1.8
+  decal__height:r=2.5
 
   "capzone__activateChoice:object"{
     sector_2:r=1.0
@@ -3085,7 +3085,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[1.82454, 0.0, -18.9015] [0.0, 2.85453, 0.0] [37.3415, 0.0, 3.45607] [-10.2146, 24.1132, -978.812]]
+  transform:m=[[1.82454, 0.0, -18.9015] [0.0, 2.85453, 0.0] [37.3415, 0.0, 3.45607] [-10.2146, 23.983, -978.812]]
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1_b"

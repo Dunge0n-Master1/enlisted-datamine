@@ -1,5 +1,21 @@
 us_m10_wolverine{
   _extends:t="us_m10_wolverine_common"
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_body_r_01"
+    part:t="ex_armor_body_r_02"
+    part:t="ex_armor_body_r_03"
+    part:t="ex_armor_body_r_04"
+    part:t="ex_armor_body_r_05"
+    part:t="ex_armor_body_l_01"
+    part:t="ex_armor_body_l_02"
+    part:t="ex_armor_body_l_03"
+    part:t="ex_armor_body_l_04"
+    part:t="ex_armor_body_l_05"
+    part:t="ex_armor_body_l_06"
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_r_01"
+  }
 }
 
 us_m10_wolverine_common{
@@ -84,22 +100,6 @@ us_m10_wolverine_common{
       cameraNodeName:t="bone_camera_driver"
     }
   }
-
-  "disableDMParts:list<t>"{
-    part:t="ex_armor_body_r_01"
-    part:t="ex_armor_body_r_02"
-    part:t="ex_armor_body_r_03"
-    part:t="ex_armor_body_r_04"
-    part:t="ex_armor_body_r_05"
-    part:t="ex_armor_body_l_01"
-    part:t="ex_armor_body_l_02"
-    part:t="ex_armor_body_l_03"
-    part:t="ex_armor_body_l_04"
-    part:t="ex_armor_body_l_05"
-    part:t="ex_armor_body_l_06"
-    part:t="ex_armor_turret_l_01"
-    part:t="ex_armor_turret_r_01"
-  }
 }
 
 us_m10_wolverine_driver_cockpit{
@@ -165,7 +165,7 @@ us_m10_wolverine_tutorial{
 }
 
 us_m10_wolverine_702td_battlepass_premium{
-  _extends:t="us_m10_wolverine_common"
+  _extends:t="us_m10_wolverine"
 
   "animchar__objTexSet:object"{
 
@@ -180,5 +180,37 @@ us_m10_wolverine_702td_battlepass_premium{
     "mg_browning_m2hb_mount_c*:object"{
       "mg_browning_m2hb_normandy_702td_mount_c*":t="camo_skin_tex"
     }
+  }
+}
+
+us_m10_wolverine_2d_ad_epervier_battlepass_premium{
+  _extends:t="us_m10_wolverine_common"
+
+  "animchar__objTexSet:object"{
+
+    "m10_wolverine_body_c*:object"{
+      "m10_wolverine_2d_ad_epervier_body_c*":t="camo_skin_tex"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_body_r_01"
+    part:t="ex_armor_body_r_02"
+    part:t="ex_armor_body_r_03"
+    part:t="ex_armor_body_r_04"
+    part:t="ex_armor_body_r_05"
+    part:t="ex_armor_body_l_01"
+    part:t="ex_armor_body_l_04"
+    part:t="ex_armor_body_l_05"
+    part:t="ex_armor_body_l_06"
+    part:t="ex_armor_04"
+    part:t="ex_armor_01"
+    part:t="ex_decor_r_05"
+    part:t="ex_decor_l_07"
+    part:t="ex_decor_r_01"
+    part:t="ex_decor_r_02"
+    part:t="ex_decor_l_02"
+    part:t="ex_decor_l_04"
+    part:t="ex_decor_02"
   }
 }

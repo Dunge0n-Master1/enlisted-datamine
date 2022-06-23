@@ -64,8 +64,8 @@ entity{
 entity{
   _template:t="team_ussr+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -123,7 +123,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_poly_capzone+capzone_projdecal"
+  _template:t="domination_poly_capzone"
   transform:m=[[30.5507, 0.0, 15.5196] [0.0, 7.7087, 0.0] [-6.38321, 0.0, 11.8583] [686.975, 7.55474, 536.193]]
   capzone__title:t="B"
   capzone__caption:t="capzone/сathedral"
@@ -136,7 +136,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_poly_capzone+capzone_projdecal"
+  _template:t="domination_poly_capzone"
   transform:m=[[-15.4371, 0.0, -5.53117] [0.0, 6.90298, 0.0] [9.73246, 0.0, -27.4458] [803.127, 6.83844, 526.584]]
   capzone__title:t="C"
   capzone__caption:t="capzone/barn"

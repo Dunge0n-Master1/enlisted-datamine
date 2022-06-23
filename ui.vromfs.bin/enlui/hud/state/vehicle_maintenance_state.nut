@@ -9,6 +9,10 @@ let state = {
   maintenanceTime = Watched(0.0)
   maintenanceTotalTime = Watched(0.0)
   vehicleRepairTime = Watched(null)
+  isRepairRequired = Watched(false)
+  isExtinguishRequired = Watched(false)
+  hasRepairKit = Watched(false)
+  canMaintainVehicle = Watched(false)
 }
 
 let maintenanceTargetQuery = ecs.SqQuery("maintenanceTargetQuery", {
@@ -30,7 +34,11 @@ ecs.register_es("ui_maintenance_es",
 
       state.isExtinguishing(isHeroExtinguishing)
       state.isRepairing(isHeroRepairing)
+      state.hasRepairKit(comp.repair__hasRepairKit)
+      state.canMaintainVehicle(comp.maintenance__canMaintainVehicle)
       if (mntTgtEid != INVALID_ENTITY_ID){
+        state.isRepairRequired(comp.maintenance__targetNeedsRepair)
+        state.isExtinguishRequired(comp.maintenance__targetNeedsExtinguishing)
         maintenanceTargetQuery.perform(mntTgtEid, function(_eid, comp){
           state.vehicleRepairTime((comp["repairable__inProgress"] && isHeroRepairing) ? comp["repairable__repairTime"] : null)
           if (comp["extinguishable__inProgress"] && isHeroExtinguishing) {
@@ -45,6 +53,8 @@ ecs.register_es("ui_maintenance_es",
           }
         })
       } else {
+        state.isRepairRequired(false)
+        state.isExtinguishRequired(false)
         state.vehicleRepairTime(null)
         state.maintenanceTime(0.0)
         state.maintenanceTotalTime(0.0)
@@ -55,13 +65,21 @@ ecs.register_es("ui_maintenance_es",
       state.maintenanceTime(0.0)
       state.isRepairing(false)
       state.isExtinguishing(false)
+      state.isRepairRequired(false)
+      state.isExtinguishRequired(false)
+      state.hasRepairKit(false)
+      state.canMaintainVehicle(false)
     }
   },
   {
     comps_track = [
       ["maintenance__target", ecs.TYPE_EID],
       ["extinguisher__active", ecs.TYPE_BOOL, false],
-      ["repair__active", ecs.TYPE_BOOL, false]
+      ["repair__active", ecs.TYPE_BOOL, false],
+      ["repair__hasRepairKit", ecs.TYPE_BOOL, false],
+      ["maintenance__canMaintainVehicle", ecs.TYPE_BOOL, false],
+      ["maintenance__targetNeedsRepair", ecs.TYPE_BOOL, false],
+      ["maintenance__targetNeedsExtinguishing", ecs.TYPE_BOOL, false],
     ],
     comps_rq=["watchedByPlr"]
   }

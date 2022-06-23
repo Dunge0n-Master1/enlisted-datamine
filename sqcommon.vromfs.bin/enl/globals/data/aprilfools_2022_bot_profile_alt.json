@@ -1,0 +1,2677 @@
+{
+  "berlin_axis": {
+    "armyId": "berlin_axis",
+    "boosters": [],
+    "classBonus": {},
+    "country": "germany",
+    "curSquadId": "germany_moon_assault_1",
+    "exp": 0,
+    "expToLevel": [
+      0,
+      800,
+      1600,
+      3200,
+      6400,
+      12800
+    ],
+    "expToPerkOnMaxLevel": 3200,
+    "globalData": {
+      "globalGifts": {},
+      "globalGiftsCfg": null
+    },
+    "isArmyProgressLocked": false,
+    "level": 1,
+    "squads": [
+      {
+        "artilleryCooldownMul": 1,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.75,
+        "level": 46,
+        "squad": [
+          {
+            "appearance__rndSeed": 958,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.005669713020325,
+              "width": 1.013848066329956
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_assault_13291479200567713",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "lightthrower_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "germ_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Irnfried",
+            "perkPoints": {
+              "speed": 8,
+              "vitality": 7,
+              "weapon": 9
+            },
+            "perks": [
+              {
+                "name": "starter_assault",
+                "stats": [
+                  {
+                    "statKey": "climb_speed",
+                    "statValue": 0.3499999940395355
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "assault",
+            "surname": "Hasse",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 3867,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.000271558761597,
+              "width": 1.015359401702881
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_assault_13291479200570138",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "lightthrower_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 5,
+            "name": "Kilian",
+            "perkPoints": {
+              "speed": 10,
+              "vitality": 8,
+              "weapon": 9
+            },
+            "perks": [
+              {
+                "name": "starter_assault",
+                "stats": [
+                  {
+                    "statKey": "climb_speed",
+                    "statValue": 0.3499999940395355
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "assault",
+            "surname": "Maeder",
+            "tier": 4,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 8726,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9956950545310974,
+              "width": 1.054171562194824
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_rifle_13291479200567759",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "germ_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 2,
+            "name": "Gregor",
+            "perkPoints": {
+              "speed": 3,
+              "vitality": 4,
+              "weapon": 3
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.1049999967217445
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Gauss",
+            "tier": 1,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 32514,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.015330672264099,
+              "width": 1.045479893684387
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_engineer_13291479200570183",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "ger_berlin_building_tool_gun",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 5,
+            "name": "Johannes",
+            "perkPoints": {
+              "speed": 11,
+              "vitality": 10,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_engineer",
+                "stats": [
+                  {
+                    "statKey": "crawl_crouch_speed",
+                    "statValue": 0.2099999934434891
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "engineer",
+            "sKind": "engineer",
+            "surname": "Loeper",
+            "tier": 4,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "germany_moon_assault_1",
+        "squadType": "assault",
+        "vehicleType": ""
+      },
+      {
+        "artilleryCooldownMul": 1,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.75,
+        "level": 27,
+        "squad": [
+          {
+            "appearance__rndSeed": 16487,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.003233075141907,
+              "width": 1.002851605415344
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_sniper_13291479200569863",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_3_5x"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "railgun_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "germ_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Dedo",
+            "perkPoints": {
+              "speed": 10,
+              "vitality": 5,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_sniper",
+                "stats": [
+                  {
+                    "statKey": "jump_height",
+                    "statValue": 0.1400000005960464
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "sniper",
+            "sKind": "sniper",
+            "surname": "Brucher",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 5028,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.985619068145752,
+              "width": 1.066059112548828
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_sniper_13291479200570227",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_3_5x"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "railgun_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Rainer",
+            "perkPoints": {
+              "speed": 6,
+              "vitality": 2,
+              "weapon": 7
+            },
+            "perks": [
+              {
+                "name": "starter_sniper",
+                "stats": [
+                  {
+                    "statKey": "jump_height",
+                    "statValue": 0.1400000005960464
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "sniper",
+            "sKind": "sniper",
+            "surname": "Jeschonnek",
+            "tier": 2,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 12100,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9858863949775696,
+              "width": 1.013398885726929
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_rifle_13291479200569910",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "germ_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 2,
+            "name": "Freimut",
+            "perkPoints": {
+              "speed": 3,
+              "vitality": 3,
+              "weapon": 3
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.1049999967217445
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Jansing",
+            "tier": 1,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "germany_moon_sniper_1",
+        "squadType": "sniper",
+        "vehicleType": ""
+      },
+      {
+        "artilleryCooldownMul": 1,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.5,
+        "level": 23,
+        "squad": [
+          {
+            "appearance__rndSeed": 8164,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9932193756103516,
+              "width": 1.062826633453369
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_antitank_13291479200570038",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "plasma_cannon_germany_gun",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "germ_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Rudi",
+            "perkPoints": {
+              "speed": 6,
+              "vitality": 9,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_antitank",
+                "stats": [
+                  {
+                    "statKey": "faster_change_pose_speed",
+                    "statValue": 0.5249999761581421
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "anti_tank",
+            "sKind": "anti_tank",
+            "surname": "Jansing",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 6659,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.003086686134338,
+              "width": 1.020989418029785
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_antitank_13291479200570158",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "plasma_cannon_germany_gun",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Hansgeorg",
+            "perkPoints": {
+              "speed": 5,
+              "vitality": 8,
+              "weapon": 10
+            },
+            "perks": [
+              {
+                "name": "starter_antitank",
+                "stats": [
+                  {
+                    "statKey": "faster_change_pose_speed",
+                    "statValue": 0.5249999761581421
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "anti_tank",
+            "sKind": "anti_tank",
+            "surname": "Kuhnke",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 1629,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9912051558494568,
+              "width": 1.034754514694214
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_rifle_13291479200570091",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 2,
+            "name": "Reinhardt",
+            "perkPoints": {
+              "speed": 5,
+              "vitality": 5,
+              "weapon": 5
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.1049999967217445
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "assault",
+            "surname": "Hirshfeld",
+            "tier": 1,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 31926,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.0149827003479,
+              "width": 1.044781684875488
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_wear_ger_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "belt_2": {
+                "gametemplate": "attachable_wear_ger_sholder_belt_april_2022_item",
+                "slot": "belt_2"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_ger_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "pants": {
+                "gametemplate": "attachable_wear_ger_pants_april_2022_item",
+                "slot": "pants"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_ger_overcoat_2022_item",
+                "slot": "tunic"
+              },
+              "front_belt_l": {
+                "gametemplate": "attachable_wear_ger_parabelum_holster_april_2022_item",
+                "slot": "front_belt_l"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_ger_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ger_moon_soldier",
+            "guid": "ger_berlin_soldier_engineer_13291479200570204",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_germany_gun",
+              "secondary": "ger_berlin_building_tool_gun",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Iro",
+            "perkPoints": {
+              "speed": 7,
+              "vitality": 8,
+              "weapon": 5
+            },
+            "perks": [
+              {
+                "name": "starter_engineer",
+                "stats": [
+                  {
+                    "statKey": "crawl_crouch_speed",
+                    "statValue": 0.2099999934434891
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "assault",
+            "surname": "Baer",
+            "tier": 2,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "germany_moon_antitank_1",
+        "squadType": "anti_tank",
+        "vehicleType": ""
+      }
+    ],
+    "wallPosters": [],
+    "wallPostersCount": 3
+  },
+  "normandy_allies": {
+    "armyId": "normandy_allies",
+    "boosters": [],
+    "classBonus": {},
+    "country": "usa",
+    "curSquadId": "usa_moon_assault_1",
+    "exp": 0,
+    "expToLevel": [
+      0,
+      800,
+      1600,
+      3200,
+      6400,
+      12800
+    ],
+    "expToPerkOnMaxLevel": 3200,
+    "globalData": {
+      "globalGifts": {},
+      "globalGiftsCfg": null
+    },
+    "isArmyProgressLocked": false,
+    "level": 1,
+    "squads": [
+      {
+        "artilleryCooldownMul": 1,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.75,
+        "level": 46,
+        "squad": [
+          {
+            "appearance__rndSeed": 13521,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9831006526947021,
+              "width": 1.010730266571045
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_assault_13291479200567419",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "lightthrower_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "ussr_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Rudy",
+            "perkPoints": {
+              "speed": 8,
+              "vitality": 6,
+              "weapon": 8
+            },
+            "perks": [
+              {
+                "name": "starter_assault",
+                "stats": [
+                  {
+                    "statKey": "climb_speed",
+                    "statValue": 0.3499999940395355
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "assault",
+            "surname": "Hoffman",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 20299,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.018784165382385,
+              "width": 1.052384376525879
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_assault_13291479200569671",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "lightthrower_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Kian",
+            "perkPoints": {
+              "speed": 8,
+              "vitality": 6,
+              "weapon": 7
+            },
+            "perks": [
+              {
+                "name": "starter_assault",
+                "stats": [
+                  {
+                    "statKey": "climb_speed",
+                    "statValue": 0.3499999940395355
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "assault",
+            "surname": "Spencer",
+            "tier": 2,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 19182,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9993695020675659,
+              "width": 1.007456302642822
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_rifle_13291479200567470",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "ussr_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 2,
+            "name": "Theo",
+            "perkPoints": {
+              "speed": 4,
+              "vitality": 4,
+              "weapon": 5
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.1049999967217445
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Turner",
+            "tier": 1,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 31230,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.010577082633972,
+              "width": 1.035972833633423
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_engineer_13291479200569771",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "ussr_berlin_building_tool_gun",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Kayden",
+            "perkPoints": {
+              "speed": 7,
+              "vitality": 7,
+              "weapon": 6
+            },
+            "perks": [
+              {
+                "name": "starter_engineer",
+                "stats": [
+                  {
+                    "statKey": "crawl_crouch_speed",
+                    "statValue": 0.2099999934434891
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "engineer",
+            "sKind": "engineer",
+            "surname": "Bell",
+            "tier": 2,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "usa_moon_assault_1",
+        "squadType": "assault",
+        "vehicleType": ""
+      },
+      {
+        "artilleryCooldownMul": 1,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.75,
+        "level": 27,
+        "squad": [
+          {
+            "appearance__rndSeed": 28390,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9956400990486145,
+              "width": 1.067668080329895
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_sniper_13291479200569413",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_3_5x"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "railgun_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "ussr_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Beckett",
+            "perkPoints": {
+              "speed": 8,
+              "vitality": 4,
+              "weapon": 9
+            },
+            "perks": [
+              {
+                "name": "starter_sniper",
+                "stats": [
+                  {
+                    "statKey": "jump_height",
+                    "statValue": 0.1400000005960464
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "sniper",
+            "sKind": "sniper",
+            "surname": "Mcgee",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 12210,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9932218194007874,
+              "width": 1.001259803771973
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_sniper_13291479200569690",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_3_5x"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "railgun_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Joel",
+            "perkPoints": {
+              "speed": 6,
+              "vitality": 3,
+              "weapon": 8
+            },
+            "perks": [
+              {
+                "name": "starter_sniper",
+                "stats": [
+                  {
+                    "statKey": "jump_height",
+                    "statValue": 0.1400000005960464
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "sniper",
+            "sKind": "sniper",
+            "surname": "Rosales",
+            "tier": 2,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 13446,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9841248989105225,
+              "width": 1.016860842704773
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_rifle_13291479200569452",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "ussr_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 2,
+            "name": "Victor",
+            "perkPoints": {
+              "speed": 5,
+              "vitality": 3,
+              "weapon": 5
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.1049999967217445
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "rifle",
+            "sKind": "rifle",
+            "surname": "Larson",
+            "tier": 1,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "usa_moon_sniper_1",
+        "squadType": "sniper",
+        "vehicleType": ""
+      },
+      {
+        "artilleryCooldownMul": 1,
+        "artilleryTypeUnlocks": [],
+        "curVehicle": null,
+        "engineerUnlocks": [],
+        "exp": 0,
+        "expBonus": 0.5,
+        "level": 23,
+        "squad": [
+          {
+            "appearance__rndSeed": 8750,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.004608869552612,
+              "width": 1.005603194236755
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_antitank_13291479200569581",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "plasma_cannon_usa_gun",
+              "tertiary": ""
+            },
+            "id": 0,
+            "inventory": [
+              {
+                "gametemplate": "ussr_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 4,
+            "name": "Kellan",
+            "perkPoints": {
+              "speed": 6,
+              "vitality": 9,
+              "weapon": 11
+            },
+            "perks": [
+              {
+                "name": "starter_antitank",
+                "stats": [
+                  {
+                    "statKey": "faster_change_pose_speed",
+                    "statValue": 0.5249999761581421
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "anti_tank",
+            "sKind": "anti_tank",
+            "surname": "Stewart",
+            "tier": 3,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 19076,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.005260825157166,
+              "width": 1.02534008026123
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_antitank_13291479200569712",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "plasma_cannon_usa_gun",
+              "tertiary": ""
+            },
+            "id": 1,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Rooney",
+            "perkPoints": {
+              "speed": 4,
+              "vitality": 8,
+              "weapon": 9
+            },
+            "perks": [
+              {
+                "name": "starter_antitank",
+                "stats": [
+                  {
+                    "statKey": "faster_change_pose_speed",
+                    "statValue": 0.5249999761581421
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "anti_tank",
+            "sKind": "anti_tank",
+            "surname": "Cooley",
+            "tier": 2,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 13172,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 1.014830112457275,
+              "width": 1.02915620803833
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_rifle_13291479200569628",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "",
+              "tertiary": ""
+            },
+            "id": 2,
+            "inventory": [
+              {
+                "gametemplate": "ussr_medkit_item"
+              },
+              {
+                "gametemplate": "explosion_pack_item"
+              }
+            ],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 2,
+            "name": "Ashton",
+            "perkPoints": {
+              "speed": 3,
+              "vitality": 3,
+              "weapon": 5
+            },
+            "perks": [
+              {
+                "name": "starter_rifle",
+                "stats": [
+                  {
+                    "statKey": "faster_decreasing_of_maximum_shot_spread",
+                    "statValue": 0.1049999967217445
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "rifle",
+            "surname": "Bennett",
+            "tier": 1,
+            "weaponPreset": ""
+          },
+          {
+            "appearance__rndSeed": 10017,
+            "availPerks": 0,
+            "bodyScale": {
+              "height": 0.9968156814575195,
+              "width": 1.008449912071228
+            },
+            "callname": "",
+            "equipment": {
+              "belt_1": {
+                "gametemplate": "attachable_usa_belt_april_2022_item",
+                "slot": "belt_1"
+              },
+              "gloves": {
+                "gametemplate": "attachable_wear_usa_gloves_april_2022_item",
+                "slot": "gloves"
+              },
+              "tunic": {
+                "gametemplate": "attachable_wear_usa_coverall_april_2022_item",
+                "slot": "tunic"
+              },
+              "skined_helmet": {
+                "gametemplate": "attachable_wear_usa_gas_mask_april_2022_item",
+                "slot": "skined_helmet"
+              },
+              "backpack": {
+                "gametemplate": "attachable_wear_oxygen_backpack_april_2022_item",
+                "slot": "backpack"
+              }
+            },
+            "exp": 0,
+            "gametemplate": "ussr_moon_soldier",
+            "guid": "ussr_berlin_soldier_engineer_13291479200569749",
+            "heroTpl": "",
+            "human_weap__weapInfo": [
+              {
+                "gunSlots": {
+                  "scope": "scope_pulsar_n870"
+                },
+                "numReserveAmmo": 1,
+                "reserveAmmoTemplate": "infinite_magazine"
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              },
+              {
+                "gunSlots": {},
+                "numReserveAmmo": 0,
+                "reserveAmmoTemplate": ""
+              }
+            ],
+            "human_weap__weapInitialComponents": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "human_weap__weapTemplates": {
+              "grenade": "grenade_thrower",
+              "melee": "knife_weapon",
+              "primary": "blaster_usa_gun",
+              "secondary": "ussr_berlin_building_tool_gun",
+              "tertiary": ""
+            },
+            "id": 3,
+            "inventory": [],
+            "isPremium": false,
+            "level": 1,
+            "maxLevel": 3,
+            "name": "Louis",
+            "perkPoints": {
+              "speed": 7,
+              "vitality": 8,
+              "weapon": 6
+            },
+            "perks": [
+              {
+                "name": "starter_engineer",
+                "stats": [
+                  {
+                    "statKey": "crawl_crouch_speed",
+                    "statValue": 0.2099999934434891
+                  }
+                ]
+              }
+            ],
+            "perksCount": 1,
+            "sClass": "assault",
+            "sKind": "rifle",
+            "surname": "Woods",
+            "tier": 2,
+            "weaponPreset": ""
+          }
+        ],
+        "squadId": "usa_moon_antitank_1",
+        "squadType": "anti_tank",
+        "vehicleType": ""
+      }
+    ],
+    "wallPosters": [],
+    "wallPostersCount": 3
+  }
+}

@@ -1340,14 +1340,14 @@ beretta_m1918_30{
   item__weight:r=4.0
   gun__locName:t="Beretta M1918/30"
   gun__statName:t="submachine_gun"
-  gun__shotFreq:r=5.333
+  gun__shotFreq:r=7.0
   gun__boltFreq:r=7.0
   gun__shotFreqRndK:r=0.1
   gun_spread__maxDeltaAngle:r=0.35
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.07, 0.5
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 7.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
@@ -1358,6 +1358,7 @@ beretta_m1918_30{
   melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
   melee_weapon__attackTime:r=0.5
   melee_weapon__attackAt:r=0.375
+  gun__kineticDamageMult:r=1.05
 
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m1918_magazine"
@@ -1392,8 +1393,9 @@ beretta_m1918_30_gun{
   gun__length:r=0.4
   gun__recoilAmount:r=0.028
   gun__recoilDirAmount:r=0.52
+  gun__recoilControlMult:r=0.6
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
+  gun__visualRecoilMult:r=1.3
   gun__adsSpeedMult:r=0.76
   meleeSoundType:t="mgun"
 
@@ -1436,11 +1438,11 @@ sw_light_rifle_mk_1{
   item__weapTemplate:t="sw_light_rifle_mk_1_gun"
   item__name:t="items/sw_light_rifle_mk_1"
   item__weapType:t="submachine_gun"
-  item__weight:r=4.5
+  item__weight:r=4.1
   gun__locName:t="S&W Light Rifle Mk I"
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.25
-  gun__shotFreq:r=5.333
+  gun__shotFreq:r=7.0
   gun__boltFreq:r=7.0
   gun__shotFreqRndK:r=0.1
   gun_spread__maxDeltaAngle:r=0.5
@@ -1531,11 +1533,11 @@ sw_light_rifle_mk_2{
   item__weapTemplate:t="sw_light_rifle_mk_2_gun"
   item__name:t="items/sw_light_rifle_mk_2"
   item__weapType:t="submachine_gun"
-  item__weight:r=4.5
+  item__weight:r=3.1
   gun__locName:t="S&W Light Rifle Mk II"
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.25
-  gun__shotFreq:r=5.333
+  gun__shotFreq:r=7.0
   gun__boltFreq:r=7.0
   gun__shotFreqRndK:r=0.1
   gun_spread__maxDeltaAngle:r=0.5
@@ -1549,6 +1551,7 @@ sw_light_rifle_mk_2{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=3.8
   gun__altReloadTime:r=3.3
+  gun__kineticDamageMult:r=1.05
 
   "gun__ammoHolders:array"{
     ammoHolders:t="sw_light_rifle_magazine"
@@ -1580,8 +1583,9 @@ sw_light_rifle_mk_2_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.03
+  gun__recoilAmount:r=0.034
   gun__recoilDirAmount:r=0.71
+  gun__recoilControlMult:r=0.6
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
   gun__adsSpeedMult:r=0.85

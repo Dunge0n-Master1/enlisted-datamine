@@ -883,6 +883,7 @@ entity{
   decal__thickness:r=0.3
   decal__height:r=3.0
   sphere_zone__radius:r=18.0
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4_b:r=1.0
@@ -912,6 +913,7 @@ entity{
   decal__thickness:r=0.3
   decal__height:r=3.0
   sphere_zone__radius:r=18.0
+  capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
     sector_4_b:r=1.0
@@ -940,6 +942,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   decal__thickness:r=0.3
   decal__height:r=0.3
+  capzone__iconOffsetY:r=2.5
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -1024,6 +1027,7 @@ entity{
   decal__thickness:r=0.4
   decal__height:r=0.5
   capzone__checkAllZonesInGroup:b=no
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{

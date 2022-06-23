@@ -212,3 +212,22 @@ us_m4a1_76w_sherman_gunner_cockpit{
   "cockpit__cockpit__attachNodeIndices:list<i>"{
   }
 }
+
+us_m4a1_76w_sherman_in_the_mood_battlepass_premium{
+  _extends:t="us_m4a1_76w_sherman"
+
+  "animchar__objTexSet:object"{
+
+    "m4a1_76w_sherman_body_c*:object"{
+      "m4a1_76w_sherman_in_the_mood_body_c*":t="camo_skin_tex"
+    }
+
+    "m4a1_76w_sherman_turret_c*:object"{
+      "m4a1_76w_sherman_in_the_mood_turret_c*":t="camo_skin_tex"
+    }
+  }
+
+  "animchar__objTexReplace:object"{
+    "us_camo_olive*":t="us_camo_bicolor_green_black*"
+  }
+}

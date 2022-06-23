@@ -1,15 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {useActionAvailable} = require("%ui/hud/state/actions_state.nut")
 let {isExtinguishing, isRepairing, maintenanceTime, maintenanceTotalTime} = require("%ui/hud/state/vehicle_maintenance_state.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
-let {ACTION_EXTINGUISH, ACTION_REPAIR} = require("hud_actions")
 let faComp = require("%ui/components/faComp.nut")
-
-let maintenanceActions = {
-  [ACTION_EXTINGUISH] = { icon = "fire-extinguisher"},
-  [ACTION_REPAIR] = { icon = "wrench"},
-}
 
 let maintenanceTimer = mkCountdownTimer(maintenanceTime)
 let maintenanceProgress = Computed(@() maintenanceTotalTime.value > 0 ? (1 - (maintenanceTimer.value / maintenanceTotalTime.value)) : 0)
@@ -20,13 +13,13 @@ let commands = [
 ]
 let sector = commands[1]
 let maintenanceIndicatorSize = [hdpx(80), hdpx(80)]
-let maintenanceIndicator = @(action) {
+let maintenanceIndicator = @(icon) {
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
   children = [
-    faComp(action.icon, {
+    faComp(icon, {
       color = Color(255, 255, 255)
       fontSize = hdpx(40)
     })
@@ -46,7 +39,7 @@ let maintenanceIndicator = @(action) {
 }
 
 return function () {
-  let action = maintenanceActions?[useActionAvailable.value]
+  let action = isExtinguishing.value ? "fire-extinguisher" : "wrench"
 
   return {
     watch = [maintenanceTime, maintenanceTimer]
@@ -55,6 +48,6 @@ return function () {
     hplace = ALIGN_CENTER
     vplace = ALIGN_BOTTOM
 
-    children = (maintenanceTime.value > 0 && action != null && (isRepairing.value || isExtinguishing.value)) ? maintenanceIndicator(action) : null
+    children = (maintenanceTime.value > 0 && (isRepairing.value || isExtinguishing.value)) ? maintenanceIndicator(action) : null
   }
 }

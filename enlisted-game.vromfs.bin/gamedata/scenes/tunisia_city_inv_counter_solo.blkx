@@ -153,7 +153,7 @@ entity{
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/palace"
   capzone__deactivateAfterTimeout:r=25.0
@@ -167,17 +167,17 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[19.029, 0.0, 5.5852] [0.0, 5.6447, 0.0] [-5.56534, 0.0, 20.9635] [-43.3215, 24.0641, -39.9869]]
+  transform:m=[[19.029, 0.0, 5.5852] [0.0, 5.6447, 0.0] [-5.56534, 0.0, 20.9635] [-43.3215, 23.0301, -39.9869]]
   capzone__capRewardPartCap:r=1.25
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_4_a"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -186,7 +186,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
   decal__thickness:r=0.4
-  decal__height:r=2.5
+  decal__height:r=3.1
 
   "capzone__activateChoice:object"{
     sector_5_b:r=1.0
@@ -203,7 +203,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=30.0
   capzone__decapTime:r=2500.0
   capzone__capTeam:i=-1
   active:b=no
@@ -230,12 +230,12 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3_a"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/market"
   capzone__deactivateAfterTimeout:r=25.0
@@ -259,12 +259,12 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3_b"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/administration_building"
   capzone__deactivateAfterTimeout:r=25.0
@@ -290,7 +290,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=30.0
   capzone__decapTime:r=2500.0
   capzone__capTeam:i=-1
   active:b=no
@@ -317,12 +317,12 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_2_b"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartments"
   capzone__deactivateAfterTimeout:r=25.0
@@ -340,7 +340,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[37.6586, 0.0, 14.9269] [0.0, 8.85788, 0.0] [-16.9685, 0.0, 42.8092] [336.82, 18.0724, 177.538]]
+  transform:m=[[37.6586, 0.0, 14.9269] [0.0, 8.85788, 0.0] [-16.9685, 0.0, 42.8092] [336.82, 16.9811, 177.538]]
   groupName:t="sector_1"
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
@@ -353,7 +353,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
   decal__thickness:r=0.3
-  decal__height:r=0.9
+  decal__height:r=2.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=11
 

@@ -3349,6 +3349,12 @@ p08_luger_magazine{
   collres__res:t="p08_luger_ammo_collision"
 }
 
+p08_luger_artillery_gun_item{
+  _extends:t="item_gun"
+  _extends:t="p08_luger_artillery"
+  collres__res:t="p08_artillery_luger_collision"
+}
+
 ppt_27_gun_item{
   _extends:t="item_gun"
   _extends:t="ppt_27"
@@ -3387,6 +3393,12 @@ ppd_1929_magazine{
   item__volume:r=1.0
   item__name:t="items/ppd_1929_magazine"
   collres__res:t="ppd_1929_ammo_collision"
+}
+
+kb_p_135_gun_item{
+  _extends:t="item_gun"
+  _extends:t="kb_p_135"
+  collres__res:t="kb_p_135_collision"
 }
 
 ppd_3438_gun_item{

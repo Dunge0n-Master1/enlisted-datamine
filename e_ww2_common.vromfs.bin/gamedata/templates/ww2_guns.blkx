@@ -5740,6 +5740,107 @@ ppd_1929_gun{
   }
 }
 
+kb_p_135{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_smg"
+  animchar__res:t="kb_p_135_char"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/kb_p_135.blk"
+  item__template:t="kb_p_135_gun_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/kb_p_135.blk"
+  item__locDetails:t="RoF: 800; 7.62x25mm;"
+  item__id:i=0
+  item__weapTemplate:t="kb_p_135_gun"
+  item__name:t="items/kb_p_135"
+  item__weapType:t="submachine_gun"
+  item__weight:r=2.8
+  gun__locName:t="Degtyaryov carbine"
+  gun__statName:t="submachine_gun"
+  gun__sightsDistance:r=0.15
+  gun__shotFreq:r=7.0
+  gun__shotFreqRndK:r=0.1
+  gun_spread__maxDeltaAngle:r=0.58
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=2.7
+  gun__altReloadTime:r=2.3
+  gun__kineticDamageMult:r=1.05
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="ppd_3438_box_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/7.62x25_tokarev_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+kb_p_135_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="mp_ww2_preset"
+  _extends:t="kb_p_135"
+  _extends:t="smg_muzzle_preset"
+  _extends:t="gun_switch_firing_mode_sound"
+  _extends:t="mgun_gun_aim_sound"
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.031
+  gun__recoilDirAmount:r=0.7
+  gun__recoilControlMult:r=0.6
+  gun__recoilDir:r=0.0
+  gun__adsSpeedMult:r=0.85
+  gun__visualRecoilMult:r=1.6
+  meleeSoundType:t="mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=3
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/ppd3438"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/mgun/pp_dolganov/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/mgun/pp_dolganov/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/mgun/pp_dolganov/reload3/change_ammo"
+    }
+
+    "reload4:object"{
+      path:t="/weapon/mgun/pp_dolganov/reload4/change_ammo"
+    }
+  }
+}
+
 ppd_3438{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_smg"
@@ -16581,6 +16682,95 @@ p08_luger_platinum_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="p08_luger_gun"
   _extends:t="p08_luger_platinum"
+}
+
+p08_luger_artillery{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_pistol"
+  animchar__res:t="p08_artillery_luger_char"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/p08_luger_artillery.blk"
+  item__template:t="p08_luger_artillery_gun_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/p08_luger_artillery.blk"
+  item__locDetails:t="9x19mm;"
+  item__id:i=0
+  item__weapTemplate:t="p08_luger_artillery_gun"
+  item__name:t="items/p08_luger_artillery"
+  item__weapType:t="submachine_gun"
+  item__weight:r=1.5
+  gun__locName:t="P08 Luger"
+  gun__statName:t="submachine_gun"
+  gun__shotFreq:r=6.0
+  gun__shotFreqRndK:r=0.1
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.65
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.4
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 5.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=2.8
+  gun__altReloadTime:r=2.4
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="mp_18_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons_enlisted/bullets/9x19_parabellum_smg.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+p08_luger_artillery_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="p08_luger_artillery"
+  _extends:t="pistol_muzzle_preset"
+  gun__recoilAmount:r=0.051
+  gun__recoilDirAmount:r=0.64
+  gun__recoilControlMult:r=0.6
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=0.5
+  gun__rotationSpringMult:p3=0.9, 0.8, 0.8
+  meleeSoundType:t="pistol"
+
+  "gun_attach__holsterSlots:array"{
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/p08"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/p08/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/p08/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/p08/reload3/change_ammo"
+    }
+  }
 }
 
 dreyse_m1907{
@@ -27862,7 +28052,7 @@ activated_m24_smoke_grenade{
 }
 
 m24_smoke_grenade_short_time{
-  _extends:t="m24_grenade"
+  _extends:t="m24_smoke_grenade"
 }
 
 m24_smoke_grenade_short_time_phys{

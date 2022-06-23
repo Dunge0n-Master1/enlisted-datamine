@@ -738,7 +738,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__timeToPlant:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=35.0
   sphere_zone__radius:r=14.0
   capzone__createdRespawnBaseGroup:i=4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
@@ -767,7 +767,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__timeToPlant:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=35.0
   capzone__createdRespawnBaseGroup:i=4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
@@ -795,7 +795,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__timeToPlant:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=35.0
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
@@ -823,7 +823,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__timeToPlant:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=35.0
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
