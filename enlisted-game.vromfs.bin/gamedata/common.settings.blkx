@@ -1096,6 +1096,30 @@ vromList{
     mnt:t="ui/"
     optional:b=yes
   }
+
+  pack{
+    path:t="content/enlisted/uiskin.vromfs.bin"
+    mnt:t="content/enlisted/"
+    optional:b=yes
+  }
+
+  pack{
+    path:t="content/enlisted/loading.vromfs.bin"
+    mnt:t="content/enlisted/"
+    optional:b=yes
+  }
+
+  pack{
+    path:t="content/enlisted/uiskin-dev.vromfs.bin"
+    mnt:t="content/enlisted/"
+    optional:b=yes
+  }
+
+  pack{
+    path:t="content/enlisted/input_gui.vromfs.bin"
+    mnt:t="content/enlisted/"
+    optional:b=yes
+  }
 }
 
 mountPoints{
@@ -1189,33 +1213,9 @@ mountPoints{
 addonBasePath{
 
   addon{
-    vrom:t="content/enlisted/uiskin.vromfs.bin"
-    vromed:b=no
-    src:t="../develop/gui/enlisted"
-  }
-
-  addon{
-    vrom:t="content/enlisted/loading.vromfs.bin"
-    vromed:b=no
-    src:t="../develop/gui/enlisted"
-  }
-
-  addon{
     vrom:t="content/enlisted/uiskin_update.vromfs.bin"
     vromed:b=no
     src:t="../develop/gui/enlisted/update"
-  }
-
-  addon{
-    vrom:t="content/enlisted/uiskin-dev.vromfs.bin"
-    vromed:b=no
-    src:t="../develop/gui/enlisted_pkg_dev"
-  }
-
-  addon{
-    vrom:t="content/enlisted/input_gui.vromfs.bin"
-    vromed:b=no
-    src:t="../develop/gui/input"
   }
 
   addon{

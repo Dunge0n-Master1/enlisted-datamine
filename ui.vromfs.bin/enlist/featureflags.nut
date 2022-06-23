@@ -1,6 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { get_setting_by_blk_path } = require("settings")
 let { DBGLEVEL } = require("dagor.system")
+
+let featuresOverride = get_setting_by_blk_path("features")
 
 let hasProfileCard = mkWatched(persist, "hasProfileCard", true)
 let hasMedals = mkWatched(persist, "hasMedals", true)
@@ -28,6 +31,11 @@ let features = {
   showReplayTabInProfile
 }
 
+foreach (featureId, featureFlag in features) {
+  if (featureId in featuresOverride)
+    featureFlag(featuresOverride[featureId])
+}
+
 console_register_command(
   @(name) name in features ? console_print($"{name} = {features[name].value}") : console_print($"FEATURE NOT EXIST {name}"),
   "feature.has")
@@ -42,4 +50,4 @@ console_register_command(
   }
   "feature.toggle")
 
-return features
+return freeze(features)

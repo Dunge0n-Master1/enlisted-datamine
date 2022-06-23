@@ -96,7 +96,7 @@
          "tanker_premium_1" : 1.0
       },
       "country" : "ussr",
-      "curSquadId" : "ussr_berlin_prem_tank_2",
+      "curSquadId" : "ussr_berlin_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -3417,6 +3417,176 @@
             "squadId" : "ussr_berlin_prem_tank_2",
             "squadType" : "tank",
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "il_2_37_1943",
+               "guid" : "il_2_37_1943_25267510769",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 10605,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9898183941841125,
+                     "width" : 1.031570792198181
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_officer_pilot_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_17_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "flight_helmet_01_ussr_summer_item",
+                        "slot" : "head"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "ussr_berlin_soldier_pilot_assaulter_25267510747",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nagant_m1895_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ussr_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Vladimir",
+                  "perkPoints" : {
+                     "speed" : 7,
+                     "vitality" : 9,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Chernov",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ussr_berlin_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 5790,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -3523,7 +3693,7 @@
          "tanker_premium_1" : 1.0
       },
       "country" : "germany",
-      "curSquadId" : "ger_berlin_sniper_2",
+      "curSquadId" : "ger_berlin_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -6828,6 +6998,176 @@
             "squadId" : "ger_berlin_prem_tank_1",
             "squadType" : "tank",
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "ju_87d_5",
+               "guid" : "ju_87d_5_25181559504",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 15961,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.019291996955872,
+                     "width" : 1.077221632003784
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_26_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ger_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_pilot_ger_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "flight_helmet_01_ger_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_flight_tunic_01_ger_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_berlin_soldier_pilot_assaulter_25181559487",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "walther_ppk_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "walther_ppk_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "germ_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Karlheinz",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 9,
+                     "weapon" : 9
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Mackensen",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_berlin_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 5790,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -6927,7 +7267,7 @@
          "tanker_2" : 1.0
       },
       "country" : "ussr",
-      "curSquadId" : "ussr_moscow_tank_2",
+      "curSquadId" : "ussr_moscow_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -11081,6 +11421,171 @@
             "squadType" : "tank",
             "toLevelExp" : 26020,
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "il_2_1941",
+               "guid" : "il_2_1941_25269012924",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 194,
+            "expBonus" : 1.0,
+            "level" : 29,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 14532,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.000358343124390,
+                     "width" : 1.077101945877075
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_lp1_parachute_pilot_ussr_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_officer_pilot_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_05_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "flight_helmet_01_ussr_summer_item",
+                        "slot" : "head"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 194,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "ussr_moscow_soldier_pilot_assaulter_25269012908",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nagant_m1895_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Stepan",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 7,
+                     "weapon" : 9
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Ershov",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ussr_moscow_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -11180,7 +11685,7 @@
          "tanker_2" : 1.0
       },
       "country" : "germany",
-      "curSquadId" : "ger_moscow_assault_1",
+      "curSquadId" : "ger_moscow_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -15184,6 +15689,122 @@
             "squadType" : "tank",
             "toLevelExp" : 27130,
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "ju_87b_2",
+               "guid" : "ju_87b_2_25272891454"
+            },
+            "engineerUnlocks" : [],
+            "exp" : 972,
+            "expBonus" : 1.0,
+            "level" : 25,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 24404,
+                  "availPerks" : 1,
+                  "bodyScale" : {
+                     "height" : 1.001953840255737,
+                     "width" : 1.074621438980103
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_21_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                        "slot" : "gloves"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "flight_helmet_01_ger_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_sommer_fliegerkombi_ger_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 172,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_moscow_soldier_pilot_assaulter_25272891441",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "mauser_c96_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "mauser_c96_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 2,
+                  "maxLevel" : 4,
+                  "name" : "Eggert",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 9,
+                     "weapon" : 9
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Reinke",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_moscow_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 15340,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -15285,7 +15906,7 @@
          "tanker_3" : 1.0
       },
       "country" : "usa",
-      "curSquadId" : "usa_normandy_assault_1",
+      "curSquadId" : "usa_normandy_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -19315,6 +19936,130 @@
             "squadType" : "tank",
             "toLevelExp" : 20480,
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "a_20g",
+               "guid" : "a_20g_25283643085"
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 21,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 11416,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.003334403038025,
+                     "width" : 1.004834175109863
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_31_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "pilot_helmet_us_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pilot_pants_us_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_a2_jacket_bomb_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "usa_normandy_soldier_pilot_assaulter_25283643069",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "m1911_colt_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "m1911_colt_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Jeffrey",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 4,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Jacobs",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "usa_normandy_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 27650,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -19416,7 +20161,7 @@
          "tanker" : 1.0
       },
       "country" : "germany",
-      "curSquadId" : "ger_normandy_sniper_1",
+      "curSquadId" : "ger_normandy_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -23521,6 +24266,130 @@
             "squadId" : "ger_normandy_tank_1",
             "squadType" : "tank",
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "ju_188",
+               "guid" : "ju_188_25284362758"
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 28,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 18069,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9880691170692444,
+                     "width" : 1.009050607681274
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_05_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ger_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_pilot_ger_blue_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "flight_helmet_01_ger_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_flight_tunic_01_ger_black_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_normandy_soldier_pilot_assaulter_25284362742",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "walther_pp_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "walther_pp_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Alfreds",
+                  "perkPoints" : {
+                     "speed" : 9,
+                     "vitality" : 9,
+                     "weapon" : 11
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter_2",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_awareness",
+                              "statValue" : 0.09960000216960907
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter_2",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Galland",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_normandy_pilot_assaulter_2",
+            "squadType" : "aircraft",
+            "toLevelExp" : 20280,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -23609,7 +24478,7 @@
          "tanker_premium_2_flametrooper" : 1.0
       },
       "country" : "ussr",
-      "curSquadId" : "allies_stalingrad_radioman_1",
+      "curSquadId" : "allies_stalingrad_rifle_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 4.0,
@@ -28664,6 +29533,208 @@
             "squadId" : "allies_stalingrad_prem_tank_1",
             "squadType" : "tank",
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "su_2_m82",
+               "guid" : "su_2_m82_10290083",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 1.0
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 9313,
+                  "availPerks" : 4,
+                  "bodyScale" : {
+                     "height" : 1.019119858741760,
+                     "width" : 1.035704255104065
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_lp1_parachute_pilot_ussr_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_officer_pilot_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_47_ussr_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "flight_helmet_01_ussr_summer_item",
+                        "slot" : "head"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "allies_stalingrad_soldier_pilot_assaulter_10290068",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "stl_nagant_m1895_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ussr_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 5,
+                  "maxLevel" : 5,
+                  "name" : "Kirill",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "pilot_willpower",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.2000000029802322
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "heal_speed",
+                        "stats" : [
+                           {
+                              "statKey" : "heal_speed",
+                              "statValue" : 0.750
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "pilot_stamina_regeneration",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_stamina_regeneration",
+                              "statValue" : 0.2000000029802322
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "faster_change_weapon",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_change_weapon",
+                              "statValue" : 0.50
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 5,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Tihonov",
+                  "tier" : 4,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_stalingrad_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 5530,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -28750,7 +29821,7 @@
          "tanker_premium_2_flametrooper" : 1.0
       },
       "country" : "germany",
-      "curSquadId" : "axis_stalingrad_medic_1",
+      "curSquadId" : "axis_stalingrad_rifle_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 4.0,
@@ -33971,6 +35042,212 @@
             "squadId" : "axis_stalingrad_prem_tank_1",
             "squadType" : "tank",
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "ju_87d_3",
+               "guid" : "ju_87d_3_10291637",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 1.0
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 26153,
+                  "availPerks" : 4,
+                  "bodyScale" : {
+                     "height" : 0.9820874929428101,
+                     "width" : 1.038875699043274
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_26_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "ger_ssk90_m41_pilot_helmet_item",
+                        "slot" : "head"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_sommer_fliegerkombi_brown_ger_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_stalingrad_soldier_pilot_assaulter_10291623",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "walther_ppk_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "stl_walther_ppk_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "germ_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 5,
+                  "maxLevel" : 5,
+                  "name" : "Arnold",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 9,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "heal_effectivity",
+                        "stats" : [
+                           {
+                              "statKey" : "heal_effectivity",
+                              "statValue" : 2.0
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "pilot_stamina_regeneration",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_stamina_regeneration",
+                              "statValue" : 0.2000000029802322
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "seat_change_speed",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.3000000119209290
+                           }
+                        ]
+                     },
+                     {
+                        "name" : "less_shot_spread_after_turn",
+                        "stats" : [
+                           {
+                              "statKey" : "less_maximum_shot_spread_after_turn",
+                              "statValue" : 0.250
+                           },
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1500000059604645
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 5,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Lummel",
+                  "tier" : 4,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_stalingrad_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 5790,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -34094,7 +35371,7 @@
          "tanker_uk" : 1.0
       },
       "country" : "usa",
-      "curSquadId" : "allies_tunisia_sniper_1",
+      "curSquadId" : "allies_tunisia_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -37509,6 +38786,130 @@
             "squadType" : "tank",
             "toLevelExp" : 8560,
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "sbd_3",
+               "guid" : "sbd_3_25275591778"
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 20,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 1503,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9857118725776672,
+                     "width" : 1.047811508178711
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_01_us_summer_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "pilot_helmet_us_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pilot_pants_us_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_a2_jacket_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_tunisia_soldier_pilot_assaulter_usa_25275591762",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Brian",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 8,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Powers",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_tunisia_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 26720,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
@@ -37633,7 +39034,7 @@
          "tanker_it" : 1.0
       },
       "country" : "germany",
-      "curSquadId" : "axis_tunisia_sniper_1",
+      "curSquadId" : "axis_tunisia_engineer_1",
       "exp" : 0,
       "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
       "freemiumExpMult" : 1.0,
@@ -41264,6 +42665,130 @@
             "squadType" : "tank",
             "toLevelExp" : 8270,
             "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "ju_87r_2",
+               "guid" : "ju_87r_2_25276079266"
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 20,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 823,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9975103139877319,
+                     "width" : 1.061923265457153
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_11_ger_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ger_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_pilot_ger_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "flight_helmet_01_ger_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_flight_tunic_01_ger_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_tunisia_soldier_pilot_assaulter_ger_25276079251",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "walther_ppk_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "walther_ppk_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Konstantin",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 8,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Soldner",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_tunisia_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 26720,
+            "vehicleType" : "assault_aircraft"
          }
       ],
       "wallPosters" : [
