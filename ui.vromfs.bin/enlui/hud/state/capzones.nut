@@ -11,7 +11,6 @@ let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")
 let {showMinorCaptureZoneEventsInHud, showMajorCaptureZoneEventsInHud} = require("%enlSqGlob/wipFeatures.nut")
 let {allZonesInGroupCapturedByTeam, isLastSectorForTeam} = require("%enlSqGlob/zone_cap_group.nut")
-let {is_entity_in_capzone} = require("ecs.utils")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 
 let isTwoChainsCapzones = mkWatched(persist, "isTwoChainsCapzones", false)
@@ -325,14 +324,14 @@ let function onCapzonesInitialized(_evt, eid, comp) {
 
 
 let queryCapturerZones = ecs.SqQuery("queryCapturerZones",
-  {comps_ro = [["isDowned", ecs.TYPE_BOOL, false], ["isInVehicle", ecs.TYPE_BOOL, false]]})
+  {comps_ro = [["isDowned", ecs.TYPE_BOOL, false], ["isInVehicle", ecs.TYPE_BOOL, false], ["capturer__capZonesIn", ecs.TYPE_EID_LIST]]})
 
 let function onHeroChanged(evt, _eid, _comp){
   let newHeroEid = evt[0]
   queryCapturerZones.perform(newHeroEid, function(_, visitorComp) {
     let zonesUpdate = {}
     foreach (zoneEid, zone in capZones.value) {
-      let heroInsideEid = (is_entity_in_capzone(newHeroEid, zoneEid)
+      let heroInsideEid = (visitorComp.capturer__capZonesIn.getAll().indexof(zoneEid) != null
                             && zone.active
                             && (visitorComp.isInVehicle ? zone.canCaptureOnVehicle : zone.humanTriggerable)
                             && (!zone.excludeDowned || !visitorComp.isDowned))
@@ -376,7 +375,7 @@ let function onCapZoneChanged(_evt, eid, comp) {
     if (capTeam >= FIRST_GAME_TEAM && zone.capTeam < FIRST_GAME_TEAM) {
       let isHeroTeam = capTeam == heroTeam
       let isAllies = isFriendlyTeam(capTeam, heroTeam)
-      let isHero = isHeroTeam && is_entity_in_capzone(controlledHeroEid.value, eid)
+      let isHero = isHeroTeam && (queryCapturerZones(controlledHeroEid.value, @(_, comp) comp.capturer__capZonesIn.getAll().indexof(eid) != null) ?? false)
       let event = {event="zone_capture_start", text=loc("Zone is being captured"), myTeamScores=isHeroTeam}
       let title = comp["capzone__title"]
       if (!isHero && !tryPlayMajorEvent(event, "pointCapturingPlayer") && !tryPlayMajorEvent(event, isAllies ? $"point{title}CapturingAlly" : $"point{title}CapturingEnemy"))

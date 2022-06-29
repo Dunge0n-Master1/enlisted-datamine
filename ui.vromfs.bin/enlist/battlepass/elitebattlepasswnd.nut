@@ -5,7 +5,7 @@ let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { defTxtColor, isWide } = require("%enlSqGlob/ui/viewConst.nut")
-let { mkRewardImages, prepareRewards, mkRewardByTemplate } = require("rewardsPkg.nut")
+let { mkRewardImages, prepareRewards } = require("rewardsPkg.nut")
 let { premiumUnlock, premiumStage0Unlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { curSelectedItem } = require("%enlist/showState.nut")
@@ -42,7 +42,10 @@ let showingItem = Computed(function() {
   let gametemplate = reward?.specialRewards[season][curArmy.value]
 
   if (gametemplate != null)
-    return mkRewardByTemplate(gametemplate)
+    return reward.__merge({
+      isSpecial = true
+      gametemplate
+    })
 
   return reward
 })

@@ -185,7 +185,10 @@ let mkTasksBlock = @(unlocks, selectedLbMode, rewardType = null,
   local rewardsArr = clone unlocks?[selectedLbMode] ?? []
   let totalUnlocks = rewardsArr.len()
   if (rewardType == null)
-    rewardsArr.sort(@(a, b) (a?.required ?? 0) <=> (b?.required ?? 0))
+    rewardsArr = rewardsArr
+      .map(@(v) v.__merge({ maxProgress =
+        v.stages.reduce(@(res, val) val.progress > res ? val.progress : res, 0) }))
+      .sort(@(a, b) a.maxProgress <=> b.maxProgress)
 
 
   foreach (uIdx, unlock in rewardsArr) {

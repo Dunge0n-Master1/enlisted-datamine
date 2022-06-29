@@ -1144,6 +1144,9 @@ base_rallypoint{
     sound_control__range:r=50.0
   }
 
+  "rallypoint:tag"{
+  }
+
   "undestroyableyByTeammates:tag"{
   }
 
@@ -1296,6 +1299,9 @@ ammunition_box_base{
   }
 
   "ammunitionBox:tag"{
+  }
+
+  "useful_box__anyTeam:tag"{
   }
 }
 

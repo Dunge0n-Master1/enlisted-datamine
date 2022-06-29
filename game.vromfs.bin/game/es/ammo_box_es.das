@@ -121,17 +121,19 @@ def has_ammo_holder(gun_eid; item_template)
   return hasHolder
 
 
-def try_to_refill_ammo(requester; box_use_count)
+def try_to_refill_ammo(requester; box_use_count; box_team)
   var hasStoledWeapon = false
   var spentResources = 0
+  var isFriendlyBox = false
   query(requester) <| $ [es] (var itemContainer : EidList&; human_weap__gunEids : ecs::EidList; team : int)
+    isFriendlyBox = is_teams_friendly(team, box_team)
     for slotId in [[HUWeaponSlots HUWeaponSlots EWS_PRIMARY; HUWeaponSlots EWS_SECONDARY; HUWeaponSlots EWS_TERTIARY]]
       query(human_weap__gunEids[int(slotId)]) <| $ [es(REQUIRE_NOT=itemInWeaponSlot)] (gun__ammoHolders : Array;
                                                                                        item__ownedByTeam : int;
                                                                                        gun__ammo : int;
                                                                                        gun__numReserveAmmo : int;
                                                                                        gun__reserveAmmoTemplate : string)
-        if item__ownedByTeam != team
+        if item__ownedByTeam != box_team
           hasStoledWeapon = true
           return
 
@@ -153,7 +155,8 @@ def try_to_refill_ammo(requester; box_use_count)
           gun__ammoHolders, gun__ammo, gun__numReserveAmmo, gun__reserveAmmoTemplate)
 
   if hasStoledWeapon
-    sendEvent(requester, [[CmdHeroLogEvent event="cant_refill_picked_weapon", text="resupply/cant_refill_picked_weapon"]])
+    let text = isFriendlyBox ? "resupply/cant_refill_picked_weapon" : "resupply/cant_refill_friendly_weapon_from_enemy_box"
+    sendEvent(requester, [[CmdHeroLogEvent event="cant_refill_picked_weapon", text=text]])
   elif spentResources <= 0
     sendEvent(requester, [[CmdHeroLogEvent event="ammo_full", text="resupply/ammo_full"]])
 
@@ -171,9 +174,10 @@ def ammo_box_on_refill_es(evt : Event;
 [es(tag=server, before=useful_box_use_finish_es, REQUIRE=ammunitionBox)]
 def ammo_box_resupply_ammo_es(evt : CmdUseUsefulBox;
                               useful_box__useCount : int;
+                              team : int;
                               var useful_box__requiredUseCount : int&;
                               var useful_box__successUse : bool&)
-  useful_box__requiredUseCount = try_to_refill_ammo(evt.requesterEid, useful_box__useCount)
+  useful_box__requiredUseCount = try_to_refill_ammo(evt.requesterEid, useful_box__useCount, team)
   useful_box__successUse ||= useful_box__requiredUseCount > 0
 
 [es(tag=server, before=useful_box_use_finish_es, REQUIRE=ammunitionBox)]

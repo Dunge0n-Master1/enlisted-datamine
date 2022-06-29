@@ -501,7 +501,6 @@ jupiter{
   }
 
   matching{
-    server:t="mgate-jupiter-sv-nl-01.enlisted.net:7853"
     server:t="mgate-jupiter-lw-nl-01.enlisted.net:7853"
     server:t="mgate-jupiter-am-uk-01.enlisted.net:7853"
   }

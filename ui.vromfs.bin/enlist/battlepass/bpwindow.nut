@@ -20,7 +20,7 @@ let {
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 let { premiumStage0Unlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
-let { getOneReward, prepareRewards, mkRewardByTemplate } = require("rewardsPkg.nut")
+let { getOneReward, prepareRewards } = require("rewardsPkg.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let {
@@ -68,7 +68,10 @@ let showingItem = Computed(function() {
   let season = seasonIndex.value
   let gametemplate = reward?.specialRewards[season][curArmy.value]
   if (gametemplate != null)
-    return mkRewardByTemplate(gametemplate)
+    return reward.__merge({
+      isSpecial = true
+      gametemplate
+    })
 
   if ((curItem.value?.stage0idx ?? -1 ) >= 0)
     return reward.__merge({isPremium = true})

@@ -22,6 +22,7 @@ let {
 } = require("%enlist/components/mkXpBooster.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
+let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const DAY_SEC = 86400
 const BP_LEFT_DAYS_ALERT = 3
@@ -77,8 +78,6 @@ let curItemDescription = @(locId) locId == null ? null : {
   text = loc(locId)
 }.__update(textAreaStyle)
 
-let itemSpecialDescription = curItemDescription("bp/otherRewardsAvailable")
-
 let function lockScreenBlock() {
   let res = { watch = hasEliteBattlePass }
   if (hasEliteBattlePass.value)
@@ -113,7 +112,11 @@ let function bpItemInfo(showingItem) {
 
   let itemName = curItemName(showingItem?.name)
   let itemDescription = curItemDescription(showingItem?.description)
-  let specialDescription = (showingItem?.isSpecial ?? false) ? itemSpecialDescription : null
+  let specialDescription = (showingItem?.isSpecial ?? false)
+    ? curItemDescription(loc("bp/otherRewardsAvailable", {
+      weapon = getItemName(showingItem.gametemplate)
+    }))
+    : null
   return {
     size = flex()
     hplace = ALIGN_CENTER

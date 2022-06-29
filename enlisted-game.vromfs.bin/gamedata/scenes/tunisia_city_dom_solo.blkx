@@ -95,7 +95,6 @@ entity{
   team__briefing:t="domination/common_goals"
   team__numZonesCaptured:i=0
   team__deathPenalty:r=2.0
-  team__eachSquadMaxSpawns:i=17
   team__spawnBotArmy:t="tunisia_allies"
 }
 
@@ -112,7 +111,6 @@ entity{
   team__briefing:t="domination/common_goals"
   team__numZonesCaptured:i=0
   team__deathPenalty:r=2.0
-  team__eachSquadMaxSpawns:i=17
   team__spawnBotArmy:t="tunisia_axis"
 }
 

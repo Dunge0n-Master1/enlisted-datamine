@@ -23,6 +23,15 @@ console_register_command(@() console_print("interval:", unlockOfferTime.value), 
 let getNextUnlock = @(unlockName, unlocks)
   unlocks.findvalue(@(u) (u?.requirement ?? "") == unlockName)
 
+let eventForcedUrl = Computed(function() {
+  foreach (unlock in unlocksSorted.value) {
+    let { force_open_url = "" } = unlock?.meta
+    if (force_open_url != "")
+      return force_open_url
+  }
+  return null
+})
+
 let eventUnlocks = Computed(function() {
   let progresses = unlockProgress.value
   let unlocks = unlocksSorted.value.filter(@(u) u?.meta.event_unlock ?? false)
@@ -59,6 +68,7 @@ let showNotActiveTaskMsgbox = @()
   msgbox.show({ text = loc("unlocks/eventUnlockNotActiveYet") })
 
 return {
+  eventForcedUrl
   unlockOfferTime
   eventUnlocks
   hasReward

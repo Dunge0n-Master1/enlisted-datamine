@@ -11,7 +11,12 @@ def init_useful_box_refill_count_es(evt : Event; useful_box__maxUseCount : int; 
   useful_box__useCount = useful_box__maxUseCount
 
 [es(tag=server)]
-def useful_box_use_request_es(evt : CmdUse; eid : EntityId; useful_box__useCount : int; useful_box__hintEnemy : string; team : int)
+def useful_box_use_request_es(evt : CmdUse;
+                              eid : EntityId;
+                              useful_box__useCount : int;
+                              useful_box__hintEnemy : string;
+                              team : int;
+                              useful_box__anyTeam : Tag?)
   let requester = evt.requesterEid
   if !requester || useful_box__useCount <= 0
     return
@@ -19,7 +24,7 @@ def useful_box_use_request_es(evt : CmdUse; eid : EntityId; useful_box__useCount
   let ownedByTeam = team
   var isValidTeam = false
   query(requester) <| $ [es] (team : int)
-    isValidTeam = is_teams_friendly(team, ownedByTeam)
+    isValidTeam = useful_box__anyTeam != null || is_teams_friendly(team, ownedByTeam)
 
   if !isValidTeam
     sendEvent(requester, [[CmdHeroLogEvent event="enemy_crate", text=useful_box__hintEnemy]])

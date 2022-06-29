@@ -109,7 +109,6 @@ entity{
   team__briefing:t="domination/common_goals"
   team__numZonesCaptured:i=0
   team__deathPenalty:r=2.0
-  team__eachSquadMaxSpawns:i=10
   team__spawnBotArmy:t="moscow_allies"
 }
 
@@ -126,7 +125,6 @@ entity{
   team__briefing:t="domination/common_goals"
   team__numZonesCaptured:i=0
   team__deathPenalty:r=2.0
-  team__eachSquadMaxSpawns:i=10
   team__spawnBotArmy:t="moscow_axis"
 }
 

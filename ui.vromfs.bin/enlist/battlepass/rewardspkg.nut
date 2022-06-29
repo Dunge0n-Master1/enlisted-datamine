@@ -26,13 +26,6 @@ let function prepareRewards(rewards, itemMapping = {}) {
 // find most valuable reward that have presentation data
 let getOneReward = @(rewards, itemMapping = {}) prepareRewards(rewards, itemMapping)?[0]
 
-let mkRewardByTemplate = @(gametemplate) {
-  isSpecial = true
-  name = $"items/{gametemplate}"
-  description = $"items/{gametemplate}/desc"
-  gametemplate
-}
-
 let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
   let { icon = null } = reward
   if (icon == null)
@@ -122,7 +115,6 @@ return {
   mkRewardIcon
   mkSeasonTime
   prepareRewards
-  mkRewardByTemplate
   mkRewardImages
   mkRewardText
   rewardWidthToHeight

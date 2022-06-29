@@ -20,7 +20,8 @@ let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
-
+let { eventForcedUrl } = require("%enlist/unlocks/eventsTaskState.nut")
+let openUrl = require("%ui/components/openUrl.nut")
 
 const SWITCH_SEC = 8.0
 
@@ -140,15 +141,21 @@ let widgetList = Computed(function() {
   }
 
   let { availableCampaign = curCampaign.value } = offersTags.value
-  if (hasSpecialEvent.value
-    && (availableCampaign == curCampaign.value || availableCampaign.contains(curCampaign.value))
-  ) {
-    let { heading = null } = headingAndDescription.value
-    list.append({
-      backImage = heading?.v ?? defOfferImg
-      mkContent = @(sf) mkInfo(sf, utf8ToUpper(offersShortTitle.value))
+  if (hasSpecialEvent.value) {
+    local onClick
+    if (eventForcedUrl.value != null)
+      onClick = @() openUrl(eventForcedUrl.value)
+    else if (availableCampaign == curCampaign.value || availableCampaign.contains(curCampaign.value))
       onClick = offersPromoWndOpen
-    })
+
+    if (onClick != null) {
+      let { heading = null } = headingAndDescription.value
+      list.append({
+        backImage = heading?.v ?? defOfferImg
+        mkContent = @(sf) mkInfo(sf, utf8ToUpper(offersShortTitle.value))
+        onClick
+      })
+    }
   }
 
   return list

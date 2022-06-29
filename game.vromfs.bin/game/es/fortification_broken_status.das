@@ -52,3 +52,8 @@ def break_additive_buildings(evt : Event;
                      var building__breakOffender : EntityId&)
     if parent_eid == dependsOnBuildingEid
       break_building(eid, parent_building__breakOffender, building__isBroken, building__breakOffender)
+
+[es(tag=server, REQUIRE=rallypoint)]
+def log_player_rallypoint_destroyed(evt : EventEngineerBuildingBroken;
+                                    buildByPlayer : EntityId)
+  sendEvent(buildByPlayer, [[CmdHeroLogEvent event="your_rally_point_destroyed", text="your_rally_point_destroyed"]])

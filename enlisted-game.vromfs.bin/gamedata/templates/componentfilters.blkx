@@ -40,4 +40,5 @@ _componentFilters{
   human_weap__staminaToStartAim:t="filter_possessed_and_spectated"
   human_weap__drainStaminaOnAim:t="filter_possessed_and_spectated"
   human_weap__drainStaminaDelay:t="filter_possessed_and_spectated"
+  capturer__capZonesIn:t="filter_possessed_squad_and_spectated_squad"
 }

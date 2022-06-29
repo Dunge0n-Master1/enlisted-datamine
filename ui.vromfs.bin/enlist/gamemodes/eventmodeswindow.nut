@@ -332,7 +332,7 @@ let function curLbPlacementBlock() {
   let place = curLbPlacement.value + 1
   if (place <= 3) {
     text = loc("lbCurrenPlacemet", { placement = colorize(accentTitleTxtColor, place) })
-  } else {
+  } else if (lbPlayersCount.value > 0) {
     let topPercentPlacement = ceil(100.0 * place / lbPlayersCount.value)
     if (topPercentPlacement <= 99)
       text = loc("lbPercentPlacemet", {
