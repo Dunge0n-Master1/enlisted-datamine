@@ -428,7 +428,7 @@ let toEventBattleButton = @() {
     selEvent.value == null
         ? null
       : ((selEvent.value?.showWhenInactive ?? false) && !selEvent.value.enabled &&
-          (selEvent.value?.leaderboardTableIdx ?? 0) < curLbIdx.value)
+          (curLbIdx.value == 0 || (selEvent.value?.leaderboardTableIdx ?? 0) < curLbIdx.value))/* FIX ME: remove leadearboard as a reason to finish event, add timestamp to matching instead */
         ? endedEventBtn
       : ((selEvent.value?.showWhenInactive ?? false) && !selEvent.value.enabled)
         ? inactiveEventBtn

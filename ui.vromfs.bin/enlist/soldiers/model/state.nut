@@ -427,47 +427,52 @@ console_register_command(@(itemTmpl, count) add_items("common_army", itemTmpl, c
 console_register_command(@(itemTmpl) add_outfit(curArmy.value, itemTmpl, 1), "meta.addOutfit")
 
 let DROP_COMMANDS = {
-  addAllVehicles          = { vehicle = 1 }
-  addAllSemiautos         = { semiauto = 1 }
-  addAllShotguns          = { shotgun = 1 }
-  addAllSniperBoltactions = { boltaction = 1 }
-  addAllSniperSemiautos   = { semiauto_sniper = 1 }
-  addAllBoltactions       = { boltaction_noscope = 1 }
-  addAllGrenadeRifles     = { rifle_grenade_launcher = 1 }
-  addAllAntitankRifles    = { antitank_rifle = 1 }
-  addAllGrenadeLaunchers  = { grenade_launcher = 1 }
-  addAllInfantryLaunchers = { infantry_launcher = 1 }
-  addAllRocketLaunchers   = { launcher = 1 }
-  addAllMachineguns       = { mgun = 1 }
-  addAllSubmachineguns    = { submgun = 1 }
-  addAllAssaultrifles     = { assault_rifle = 1 }
-  addAllFlareguns         = { flaregun = 1 }
-  addAllMortars           = { mortar = 1 }
-  addAllFlamethrowers     = { flamethrower = 1 }
-  addAllScopes            = { scope = 1 }
-  addAllPistols           = { sideweapon = 1 }
-  addAllMedkits           = { medkits = 1 }
-  addAllGrenades          = { grenade = 1 }
-  addAllMines             = { mine = 1 }
-  addAllTntBlockExploders = { tnt_block_exploder = 1 }
-  addAllRepairKits        = { reapair_kit = 1 }
-  addAllMelee             = { melee = 1 }
-  addAllBayonet           = { bayonet = 1 }
-  addAllBackpacks         = { backpack = 1 }
+  addAllVehicles          = ["vehicle"]
+  addAllSemiautos         = ["semiauto"]
+  addAllShotguns          = ["shotgun"]
+  addAllSniperBoltactions = ["boltaction"]
+  addAllSniperSemiautos   = ["semiauto_sniper"]
+  addAllBoltactions       = ["boltaction_noscope"]
+  addAllGrenadeRifles     = ["rifle_grenade_launcher"]
+  addAllAntitankRifles    = ["antitank_rifle"]
+  addAllGrenadeLaunchers  = ["grenade_launcher"]
+  addAllInfantryLaunchers = ["infantry_launcher"]
+  addAllRocketLaunchers   = ["launcher"]
+  addAllMachineguns       = ["mgun"]
+  addAllSubmachineguns    = ["submgun"]
+  addAllAssaultrifles     = ["assault_rifle"]
+  addAllFlareguns         = ["flaregun"]
+  addAllMortars           = ["mortar"]
+  addAllFlamethrowers     = ["flamethrower"]
+  addAllScopes            = ["scope"]
+  addAllPistols           = ["sideweapon"]
+  addAllMedkits           = ["medkits", "medic_medkits"]
+  addAllGrenades          = ["grenade", "explosion_pack", "molotov", "tnt_block_exploder",
+                             "impact_grenade", "smoke_grenade"]
+  addAllMines             = ["antipersonnel_mine", "antitank_mine"]
+  addAllRepairKits        = ["reapair_kit"]
+  addAllMelee             = ["melee"]
+  addAllBayonet           = ["bayonet"]
+  addAllBackpacks         = ["backpack"]
+  addAllBinoculars        = ["binoculars_usable"]
+  addAllFlasks            = ["flask_usable"]
 }
 let COMMON_ARMY_DROP_COMMANDS = {
-  addAllTickets           = { ticket = 10 }
-  addAllBoosters          = { booster = 1 }
+  addAllTickets           = ["ticket"]
+  addAllBoosters          = ["booster"]
+}
+let COUNT_OVERRIDES = {
+  addAllTickets = 10
 }
 foreach (cmd, drop in DROP_COMMANDS) {
-  let items = drop.keys()[0]
-  let count = drop.values()[0]
-  console_register_command(@() add_items_by_type(curArmy.value, items, count), $"meta.{cmd}")
+  let types = drop
+  let count = COUNT_OVERRIDES?[cmd] ?? 1
+  console_register_command(@() add_items_by_type(curArmy.value, types, count), $"meta.{cmd}")
 }
 foreach (cmd, drop in COMMON_ARMY_DROP_COMMANDS) {
-  let items = drop.keys()[0]
-  let count = drop.values()[0]
-  console_register_command(@() add_items_by_type("common_army", items, count), $"meta.{cmd}")
+  let types = drop
+  let count = COUNT_OVERRIDES?[cmd] ?? 1
+  console_register_command(@() add_items_by_type("common_army", types, count), $"meta.{cmd}")
 }
 
 console_register_command(function() {
@@ -476,11 +481,8 @@ console_register_command(function() {
     common_army = COMMON_ARMY_DROP_COMMANDS
   }
   foreach (armyId, typeList in dropTable)
-    foreach (itemDesc in typeList) {
-      let itemType = itemDesc.keys()[0]
-      let itemCount = itemDesc.values()[0]
-      add_items_by_type(armyId, itemType, itemType == "vehicle" ? itemCount : max(itemCount, 20))
-    }
+    foreach (cmd, types in typeList)
+      add_items_by_type(armyId, types, COUNT_OVERRIDES?[cmd] ?? 1)
 }, "meta.addAll")
 
 return {

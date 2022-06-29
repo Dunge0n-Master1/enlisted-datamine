@@ -8,6 +8,7 @@ let rand = require("%sqstd/rand.nut")()
 let { updateAllConfigs } = require("%enlSqGlob/configs/configs.nut")
 let { serverTimeUpdate } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
 let { get_time_msec } = require("dagor.time")
+let { logerr } = require("dagor.debug")
 let logApi = require("%sqstd/log.nut")().with_prefix("[ClientApi] ")
 
 const MAX_REQUESTS_HISTORY = 20
@@ -61,6 +62,11 @@ let function handleMessages(msg) {
 
   if (result?.full ?? false) {
     let curTime = get_time_msec()
+    delete result.full
+    if ("removed" in result) {
+      logerr($"Not empty removed field on full profile update on '{method}'")
+      delete result.removed
+    }
     profile(result)
     logApi($"Full profile update on '{method}' takes {diffTime(curTime)} ms")
   }
@@ -69,14 +75,28 @@ let function handleMessages(msg) {
     if (found != null) {
       let curTime = get_time_msec()
       local count = 0
+      local removed = 0
       profile.mutate(function(data) {
         foreach (k, v in result)
-          if (type(v) == "table") {
+          if (type(v) == "table" && k != "removed") {
             ++count
             data[k] <- k in data ? data[k].__merge(v) : v
           }
+
+        foreach (tableId, list in (result?.removed ?? {})) {
+          if (tableId not in data) {
+            logerr($"Trying to remove unknown table '{tableId}' from profile on '{method}'")
+            continue
+          }
+          ++removed
+          let tbl = clone data[tableId]
+          foreach (fieldId in list)
+            if (fieldId in tbl)
+              delete tbl[fieldId]
+          data[tableId] <- tbl
+        }
       })
-      logApi($"Profile update of {count} keys on '{method}' takes {diffTime(curTime)} ms")
+      logApi($"Profile updated:{count} deleted:{removed} tables of '{method}' takes {diffTime(curTime)} ms")
     }
   }
 
@@ -259,9 +279,9 @@ return {
     params = { itemGuid, count }
   })
 
-  add_items_by_type = @(armyId, itemType, count, cb = null) request({
+  add_items_by_type = @(armyId, itemTypes, count, cb = null) request({
     method = "add_items_by_type"
-    params = { armyId, itemType, count }
+    params = { armyId, itemTypes, count }
   }, cb)
 
   add_army_exp = @(armyId, exp, cb) request({
