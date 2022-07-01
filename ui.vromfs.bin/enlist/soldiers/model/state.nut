@@ -5,7 +5,6 @@ require("onlyInEnlistVm.nut")("soldiersState")
 let json = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { profile } = require("%enlist/meta/servProfile.nut")
-let { rand } = require("math")
 let { endswith } = require("string")
 let { gameProfile, allArmiesInfo } = require("config/gameProfile.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
@@ -347,13 +346,6 @@ let function setVehicleToSquad(squadGuid, vehicleGuid) {
   set_vehicle_to_squad(vehicleGuid, squadGuid)
 }
 
-local function openCrate(armyId = null, crateId = null) {
-  if (armyId == null)
-    armyId = curArmiesList.value?[rand() % (curArmiesList.value.len() || 1)]
-
-  drop_items(armyId, crateId)
-}
-
 let function resetProfile() {
   reset_profile(function(res) {
     debugTableData(res)
@@ -404,9 +396,7 @@ console_register_command(function() {
   setCurArmies(null)
 }, "meta.resetCurCampaign")
 
-console_register_command(@() openCrate(), "meta.dropAfterBattle")
-console_register_command(@() openCrate(curArmy.value), "meta.dropAfterBattleCurArmy")
-console_register_command(@(crateId) openCrate(curArmy.value, crateId), "meta.dropCrate")
+console_register_command(@(crateId) drop_items(curArmy.value, crateId), "meta.dropCrate")
 console_register_command(@() update_profile(), "meta.updateProfile")
 console_register_command(@() soldiers_regenerate_view(), "meta.soldiersRegenerateView")
 console_register_command(function() {

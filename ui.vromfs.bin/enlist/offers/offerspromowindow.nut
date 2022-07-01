@@ -17,10 +17,10 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkFormatText } = require("%enlist/components/formatText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let {
-  hasSpecialEvent, isRequestInProgress, isDataReady, offersTitle, offersTags,
+let { hasSpecialEvent, hasEventData, isRequestInProgress, isDataReady, offersTitle, offersTags,
   isUnseen, markSeen, timeLeft, headingAndDescription
 } = require("offersState.nut")
+let { squadsPromotion } = require("%enlist/unlocks/eventsTaskState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { eventTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
 let { mkHeaderFlag, casualFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -196,13 +196,12 @@ let curArmyShopSquads = Computed(function() {
 })
 
 let curArmyOfferSquads = Computed(function() {
-  let { squadInfoButton = null } = offersTags.value
-  if (squadInfoButton == null)
+  let squads = squadsPromotion.value
+  if (squads.len() == 0)
     return null
 
   let availSquads = curArmyShopSquads.value
-  let res = (type(squadInfoButton) != "array" ? [squadInfoButton] : squadInfoButton)
-    .filter(@(id) id in availSquads)
+  let res = squads.filter(@(id) id in availSquads)
   return res.len() == 0 ? null : res
 })
 
@@ -289,6 +288,7 @@ isOpened.subscribe(@(v) v ? open() : close())
 
 let needShowOfferWindow = Computed(@() canDisplayOffers.value
   && hasSpecialEvent.value
+  && hasEventData.value
   && isUnseen.value)
 
 let openOfferWindowDelayed = @()

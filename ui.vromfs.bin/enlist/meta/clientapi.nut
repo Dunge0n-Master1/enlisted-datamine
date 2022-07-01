@@ -240,9 +240,9 @@ return {
     }
   }, cb)
 
-  drop_items = @(armyId, dropCrateId, cb = null) request({
+  drop_items = @(armyId, crateId, cb = null) request({
     method = "drop_items"
-    params = { army = armyId, dropCrate = dropCrateId ?? "" }
+    params = { armyId, crateId }
   }, cb)
 
   get_crates_content = @(armyId, crates, cb) request({

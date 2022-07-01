@@ -1,10 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
-let {
-  unlocksSorted, unlockProgress, emptyProgress
+let { unlocksSorted, unlockProgress, emptyProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { userstatStats } = require("%enlSqGlob/userstats/userstat.nut")
+let { curCampaign } = require("%enlist/meta/curCampaign.nut")
+let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 
 let debugOverrideTime = mkWatched(persist, "debugOverrideTime", null)
 
@@ -23,13 +24,49 @@ console_register_command(@() console_print("interval:", unlockOfferTime.value), 
 let getNextUnlock = @(unlockName, unlocks)
   unlocks.findvalue(@(u) (u?.requirement ?? "") == unlockName)
 
-let eventForcedUrl = Computed(function() {
-  foreach (unlock in unlocksSorted.value) {
-    let { force_open_url = "" } = unlock?.meta
-    if (force_open_url != "")
-      return force_open_url
+
+let unlocksMeta = Computed(function() {
+  let res = {
+    forcedUrl = []
+    promoteSquads = []
+    promoteCampaign = []
   }
-  return null
+
+  foreach (unlock in unlocksSorted.value) {
+    let {
+      force_open_url = "", promote_squads = null, promote_campaign = null, platforms = []
+    } = unlock?.meta
+    if (force_open_url != "") {
+      if (isPlatformRelevant(typeof platforms == "array" ? platforms : [platforms])) {
+        let title = unlock?.localization.name ?? ""
+        res.forcedUrl.append({
+          url = force_open_url
+          image = unlock?.meta.image
+          title = title != "" ? title : loc("eventWidget/specialOffer")
+        })
+      }
+    }
+
+    if (promote_squads != null)
+      res.promoteSquads.extend(typeof promote_squads == "array"
+        ? promote_squads
+        : [promote_squads])
+
+    if (promote_campaign != null)
+      res.promoteCampaign.extend(typeof promote_campaign == "array"
+        ? promote_campaign
+        : [promote_campaign])
+  }
+  return res
+})
+
+let eventForcedUrl = Computed(@() unlocksMeta.value.forcedUrl)
+
+let squadsPromotion = Computed(@() unlocksMeta.value.promoteSquads)
+
+let isPromoteCampaign = Computed(function() {
+  let { promoteCampaign } = unlocksMeta.value
+  return promoteCampaign.len() == 0 || promoteCampaign.contains(curCampaign.value)
 })
 
 let eventUnlocks = Computed(function() {
@@ -69,6 +106,8 @@ let showNotActiveTaskMsgbox = @()
 
 return {
   eventForcedUrl
+  squadsPromotion
+  isPromoteCampaign
   unlockOfferTime
   eventUnlocks
   hasReward

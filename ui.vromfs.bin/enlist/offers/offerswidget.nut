@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
-let { hasSpecialEvent, offersTags, allActiveOffers, headingAndDescription, offersShortTitle
+let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, offersShortTitle
 } = require("offersState.nut")
 let { taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
 let offersWindow = require("offersWindow.nut")
@@ -20,14 +20,15 @@ let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
-let { eventForcedUrl } = require("%enlist/unlocks/eventsTaskState.nut")
+let { eventForcedUrl, isPromoteCampaign } = require("%enlist/unlocks/eventsTaskState.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 
 const SWITCH_SEC = 8.0
+const defOfferImg = "ui/tunisia_city_inv_01.jpg"
+const defExtUrlImg = "ui/normandy_village_04.jpg"
 
 let curWidgetIdx = Watched(0)
 let displayedOffers = {}
-let defOfferImg = "ui/tunisia_city_inv_01.jpg"
 
 let mkOfferImage = @(img) {
   key = $"offer_{img}"
@@ -46,6 +47,7 @@ let discountIconStyle = {
   hplace = ALIGN_RIGHT
   pos = [hdpx(11), hdpx(18)]
 }
+
 let timerStyle = {
   hplace = ALIGN_LEFT
   padding = taskSlotPadding
@@ -140,22 +142,19 @@ let widgetList = Computed(function() {
     })
   }
 
-  let { availableCampaign = curCampaign.value } = offersTags.value
-  if (hasSpecialEvent.value) {
-    local onClick
-    if (eventForcedUrl.value != null)
-      onClick = @() openUrl(eventForcedUrl.value)
-    else if (availableCampaign == curCampaign.value || availableCampaign.contains(curCampaign.value))
-      onClick = offersPromoWndOpen
+  list.extend(eventForcedUrl.value.map(@(v) {
+    backImage = v?.image ?? defExtUrlImg
+    mkContent = @(sf) mkInfo(sf, v.title)
+    onClick = @() openUrl(v.url)
+  }))
 
-    if (onClick != null) {
-      let { heading = null } = headingAndDescription.value
-      list.append({
-        backImage = heading?.v ?? defOfferImg
-        mkContent = @(sf) mkInfo(sf, utf8ToUpper(offersShortTitle.value))
-        onClick
-      })
-    }
+  if (hasSpecialEvent.value && hasEventData.value && isPromoteCampaign.value) {
+    let { heading = null } = headingAndDescription.value
+    list.append({
+      backImage = heading?.v ?? defOfferImg
+      mkContent = @(sf) mkInfo(sf, utf8ToUpper(offersShortTitle.value))
+      onClick = offersPromoWndOpen
+    })
   }
 
   return list

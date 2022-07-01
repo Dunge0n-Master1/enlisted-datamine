@@ -148,6 +148,9 @@ let offersTitle = Computed(@()
 
 let offersDescription = Computed(@() offersData.value?.content)
 
+let hasEventData = Computed(@() offersDescription.value != null
+  && (offersData.value?.published ?? true))
+
 let offersTags = Computed(function() {
   let { tags = [] } = offersData.value
   return tags.reduce(function(tbl, tag) {
@@ -245,6 +248,7 @@ return {
   isDataReady
   timeLeft
   hasSpecialEvent
+  hasEventData
   isUnseen
   markSeen
   offersTitle

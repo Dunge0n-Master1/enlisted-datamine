@@ -753,7 +753,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -783,7 +783,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=110.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -810,7 +810,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/artillery_emplacement"
-  capzone__capTime:r=95.0
+  capzone__capTime:r=110.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -838,7 +838,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -864,7 +864,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -888,7 +888,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -920,7 +920,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
