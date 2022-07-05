@@ -570,6 +570,36 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/posters.png"
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
+  ["247"] = {
+    name = loc("items/booster_global_battlepass_100_battle_6")
+    description = loc("items/booster_global_battlepass_100_battle_6/desc")
+    icon = "ui/skin#/battlepass/base_booster_icon.svg"
+    gametemplate = "booster_global_battlepass_100_battle_6_template"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_boost.png"
+    cardImage = "ui/skin#/battlepass/boost_global.png"
+    cardImageParams = mkImageParams([154, 144], [0, 15])
+  },
+  ["248"] = {
+    name = loc("items/booster_global_battlepass_100_battle_24")
+    description = loc("items/booster_global_battlepass_100_battle_24/desc")
+    icon = "ui/skin#/battlepass/base_booster_icon.svg"
+    gametemplate = "booster_global_battlepass_100_battle_24_template"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_boost.png"
+    cardImage = "ui/skin#/battlepass/boost_global.png"
+    cardImageParams = mkImageParams([154, 144], [0, 15])
+  },
+  ["249"] = {
+    name = loc("items/vehicle_upgrade_order")
+    description = loc("items/vehicle_upgrade_order/desc")
+    icon = "ui/skin#/currency/vehicle_upgrade.svg"
+    gametemplate = "vehicle_upgrade_ticket"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = "ui/skin#/battlepass/up_weapons.png"
+    cardImageParams = mkImageParams([180, 131], [0, 1])
+  },
 
 
   // boosters presentation

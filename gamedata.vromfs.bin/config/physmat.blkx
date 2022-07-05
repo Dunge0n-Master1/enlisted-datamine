@@ -1084,7 +1084,7 @@ PhysMats{
   }
 
   mud{
-    bf_class:t="dirt"
+    bf_class:t="mud"
     deformable_width:r=0.2
     resistanceK:r=0.0008
     sound_step_material:t="mud"
@@ -2388,13 +2388,18 @@ InteractPropsList{
     }
 
     roadSand{
-      fk:r=0.3
-      rollingFrictionK:r=0.001
+      fk:r=0.5
+      rollingFrictionK:r=0.04
     }
 
     snow{
       fk:r=0.8
       rollingFrictionK:r=0.09
+    }
+
+    mud{
+      fk:r=0.8
+      rollingFrictionK:r=0.11
     }
 
     ice{
@@ -2451,37 +2456,37 @@ InteractPropsList{
 
     horLandMesh{
       fk:r=1.0
-      rollingFrictionK:r=0.03
+      rollingFrictionK:r=0.2
     }
 
     concrete{
-      fk:r=0.9
-      rollingFrictionK:r=0.015
+      fk:r=0.8
+      rollingFrictionK:r=0.014
     }
 
     stone{
-      fk:r=0.9
-      rollingFrictionK:r=0.015
+      fk:r=0.8
+      rollingFrictionK:r=0.014
     }
 
     wood{
-      fk:r=0.9
-      rollingFrictionK:r=0.02
+      fk:r=0.8
+      rollingFrictionK:r=0.01
     }
 
     steel{
       fk:r=0.9
-      rollingFrictionK:r=0.015
+      rollingFrictionK:r=0.014
     }
 
     soil{
       fk:r=1.0
-      rollingFrictionK:r=0.1
+      rollingFrictionK:r=0.08
     }
 
     leaves{
       fk:r=1.0
-      rollingFrictionK:r=0.12
+      rollingFrictionK:r=0.1
     }
 
     dirt{
@@ -2491,7 +2496,7 @@ InteractPropsList{
 
     roadSoil{
       fk:r=1.0
-      rollingFrictionK:r=0.05
+      rollingFrictionK:r=0.014
     }
 
     roadmud{
@@ -2521,22 +2526,27 @@ InteractPropsList{
 
     roadSand{
       fk:r=1.0
-      rollingFrictionK:r=0.04
+      rollingFrictionK:r=0.014
     }
 
     snow{
+      fk:r=0.8
+      rollingFrictionK:r=0.11
+    }
+
+    mud{
       fk:r=0.8
       rollingFrictionK:r=0.15
     }
 
     ice{
-      fk:r=0.3
+      fk:r=0.35
       rollingFrictionK:r=0.25
     }
 
     roadSnow{
       fk:r=0.7
-      rollingFrictionK:r=0.06
+      rollingFrictionK:r=0.014
     }
 
     rocks{
@@ -2545,7 +2555,7 @@ InteractPropsList{
     }
 
     rocksSlippery{
-      fk:r=0.6
+      fk:r=0.65
       rollingFrictionK:r=0.09
     }
 
@@ -2556,7 +2566,7 @@ InteractPropsList{
 
     fabric{
       fk:r=0.8
-      rollingFrictionK:r=0.09
+      rollingFrictionK:r=0.15
     }
 
     glass{

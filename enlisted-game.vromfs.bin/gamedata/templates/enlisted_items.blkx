@@ -117,6 +117,16 @@ item_upgrade_ticket{
   }
 }
 
+vehicle_upgrade_ticket{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/vehicle_upgrade_order"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="vehicle_upgrade_tex_d*"
+    "ammunition_supply_tex_n*":t="vehicle_upgrade_tex_n*"
+  }
+}
+
 soldier_level_ticket{
   _extends:t="item_supply_ticket"
   item__name:t="items/soldier_levelup_order"
@@ -432,6 +442,26 @@ booster_global_battlepass_50_battle_12_template{
 booster_global_battlepass_100_battle_12_template{
   _extends:t="item_supply_ticket"
   item__name:t="items/booster_global_battlepass_100_battle_12"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="training_choose_order_tex_d*"
+    "ammunition_supply_tex_n*":t="training_choose_order_tex_n*"
+  }
+}
+
+booster_global_battlepass_100_battle_6_template{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/booster_global_battlepass_100_battle_6"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="training_choose_order_tex_d*"
+    "ammunition_supply_tex_n*":t="training_choose_order_tex_n*"
+  }
+}
+
+booster_global_battlepass_100_battle_24_template{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/booster_global_battlepass_100_battle_24"
 
   "animchar__objTexReplace:object"{
     "ammunition_supply_bronze_tex_d*":t="training_choose_order_tex_d*"

@@ -29,7 +29,7 @@ VehiclePhys{
   }
 
   engine{
-    horsePowers:r=80.0
+    horsePowers:r=54.0
     maxRPM:r=2800.0
     minRPM:r=900.0
     rpmTau:r=0.1

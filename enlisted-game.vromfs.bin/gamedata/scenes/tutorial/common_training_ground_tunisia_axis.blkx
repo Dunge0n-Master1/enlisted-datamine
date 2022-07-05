@@ -432,3 +432,8 @@ entity{
   team:i=2
   vehicle_seats__restrictToTeam:i=2
 }
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[-0.451933, 0.0270005, 0.891643] [0.0270005, 0.999498, -0.0165812] [-0.891643, 0.0165812, -0.452435] [-543.52, 9.74066, 171.357]]
+}

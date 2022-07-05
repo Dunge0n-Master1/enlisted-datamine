@@ -37,7 +37,7 @@ let allBoostersBase = Computed(function() {
         campaignLimit[campByArmy[armyId].id] <- campByArmy[armyId]
 
     return {
-      guid, bType, expMul, armyLimit, leftBattles, expireTime, battles, lifeTime,
+      guid, bType, expMul, armyLimit, leftBattles, expireTime, battles, lifeTime, ctime,
       campaignLimit = campaignLimit.values()
     }
   })
@@ -49,8 +49,17 @@ let nextExpireTime = Computed(@() allBoosters.value
 
 let function recalcActiveBosters() {
   let time = serverTime.value
-  let boosters = allBoostersBase.value.filter(@(b) b.expireTime <= 0 || (b.expireTime - time) > 0)
+  let allBaseBoosters = allBoostersBase.value
+  let boosters = allBaseBoosters.filter(@(b) b.expireTime <= 0 || b.expireTime > time)
   allBoosters(freeze(boosters))
+
+  // FIXME: This is for debug info. Should be removed
+  let hiddenBoosters = allBaseBoosters.filter(@(b) b.expireTime > 0 && b.expireTime <= time)
+  log($"recalcActiveBosters hides {hiddenBoosters.len()} boosters of {allBaseBoosters.len()} | time: {time}")
+  foreach (b in hiddenBoosters) {
+    let { guid, ctime, lifeTime, expireTime, battles, leftBattles } = b
+    log($"expireTime: {expireTime} = {ctime} + {lifeTime}, battles: {leftBattles}/{battles}, guid: {guid}")
+  }
 }
 
 nextExpireTime.subscribe(function(v) {
