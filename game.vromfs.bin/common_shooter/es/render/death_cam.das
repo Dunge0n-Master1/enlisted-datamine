@@ -5,7 +5,7 @@ require common_shooter.events_common_shooter
 
 [es(tag=render, REQUIRE=watchedByPlr)]
 def set_death_cam_killer(evt : EventOnEntityHit; eid : EntityId; var death_cam__killer : EntityId&)
-  if evt.hitResult != HitResult HIT_RES_KILLED || evt.victim != eid
+  if (evt.hitResult != HitResult HIT_RES_KILLED && evt.hitResult != HitResult HIT_RES_DOWNED) || evt.victim != eid
     return
 
   death_cam__killer = evt.offender
