@@ -554,7 +554,7 @@ entity{
 
 entity{
   _template:t="gun_game_respawn_base"
-  transform:m=[[-0.0200206, 0.0, 0.999804] [0.0, 1.0, 0.0] [-0.999797, 0.0, -0.0200204] [-226.481, 22.1756, -298.829]]
+  transform:m=[[-0.0200206, 0.0, 0.999804] [0.0, 1.0, 0.0] [-0.999797, 0.0, -0.0200204] [-226.481, 22.1756, -298.945]]
   team:i=3
   gun_game__respawnFriendlyRadius:r=10.0
 }
@@ -572,4 +572,21 @@ entity{
 entity{
   _template:t="sawmill_wood_boards_a"
   transform:m=[[0.999917, 0.0, -0.0128587] [0.0, 1.0, 0.0] [0.0128587, -0.0, 0.999917] [-259.572, 21.3015, -304.413]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.000325881, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, -0.000325881] [-239.199, 21.4469, -299.707]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-238.397, 21.4469, -298.507]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0200206, 0.0, 0.999804] [0.0, 1.0, 0.0] [-0.999797, 0.0, -0.0200204] [-239.552, 22.1756, -298.884]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=10.0
 }

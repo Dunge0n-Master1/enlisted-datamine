@@ -4,7 +4,12 @@ from "%enlSqGlob/ui_library.nut" import *
 let { playerEvents } = require("%ui/hud/state/eventlog.nut")
 let { localPlayerTeam, localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { TEAM0_TEXT_COLOR, TEAM1_TEXT_COLOR } = require("%ui/hud/style.nut")
-let { EventGunGameLevelReached, EventGunGameNewLeader } = require("dasevents")
+let { EventGunGameLevelReached = null, EventGunGameNewLeader = null } = require("dasevents")
+
+// FIXME: quickfix to remove loggerrs about non existant EventGunGameLevelReached event
+// remove this later
+if (EventGunGameLevelReached == null || EventGunGameNewLeader == null)
+  return
 
 let showMsg = @(text, color) playerEvents.pushEvent({ text, color, ttl = 4 })
 

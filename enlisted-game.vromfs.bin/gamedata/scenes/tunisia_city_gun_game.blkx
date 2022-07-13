@@ -553,3 +553,24 @@ entity{
   team:i=3
   gun_game__respawnFriendlyRadius:r=11.0
 }
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.57665, 0.0, -0.816997] [0.0, 0.999999, 0.0] [0.816993, -0.0, 0.576647] [186.558, 30.2521, 33.5346]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.531901, 0.0, -0.846812] [0.0, 0.999999, 0.0] [0.846807, -0.0, 0.531898] [210.681, 30.2521, 26.6757]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.848921, 0.0, -0.528529] [0.0, 0.999999, 0.0] [0.528526, 0.0, -0.848916] [209.178, 32.7434, 22.1739]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
