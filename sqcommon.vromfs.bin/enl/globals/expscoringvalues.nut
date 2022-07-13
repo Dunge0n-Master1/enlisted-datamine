@@ -45,6 +45,9 @@ let scoreSquads = {
   friendlyTankKills = -200
   friendlyPlaneHits = -50
   friendlyPlaneKills = -400
+
+  // gun game
+  gunGameLevelup = 1000
 }
 
 let expSquads = scoreSquads.__merge({

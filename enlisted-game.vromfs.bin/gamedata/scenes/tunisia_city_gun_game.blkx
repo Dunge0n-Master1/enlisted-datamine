@@ -1,0 +1,555 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_tunisia_sounds.blk"
+}
+
+entity{
+  _template:t="gun_game_mode_logic"
+
+  "gun_game__levels:array"{
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="smle_mk3_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="winchester_model_1912_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="armaguerra_mod_39_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="lanchester_32_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="vickers_berthier_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="lee_enfield_no4_mk1_with_scope_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="silenced_erma_emp_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="pavesi_m42_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="beretta_m38_42_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="browning_m1918a2_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="neiman_minethrower_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="m1903a1_springfield_gun"
+      }
+
+      "additionalWeapInfo:array"{
+
+        "additionalWeapInfo:object"{
+
+          "gunMods:object"{
+            scope:t="unertl_8x_sight"
+          }
+        }
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="flammenwerfer_35_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="p08_luger_artillery_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="delisle_commando_carbine_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="tertiary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="beretta_m1923_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="atr_boys_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="melee"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="british_officer_sword_weapon"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="tertiary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="enfield_no2_mk1_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="melee"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="knife_weapon"
+      }
+    }
+  }
+}
+
+entity{
+  _template:t="gun_game_mode_sounds"
+}
+
+entity{
+  _template:t="custom_profile"
+  customProfile:t="%enlSqGlob/data/gun_game_profile.json"
+}
+
+entity{
+  _template:t="briefing_gun_game"
+  mission_name:t="tunisia_city_gun_game"
+
+  "loading_images:list<t>"{
+    item:t="ui/tunisia_city_inv_03.jpg"
+  }
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.99842, 0.00272234, 0.0561442] [-0.00356561, 0.999882, 0.0149251] [-0.0560968, -0.0151016, 0.998311] [215.578, 31.355, -36.3341]]
+}
+
+entity{
+  _template:t="minimap_tunisia_tataouine"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    ocean1:p4=0.267, 0.251, 0.125, 0.0
+    ocean0:p4=0.278, 0.247, 0.129, 0.0
+    ocean_density:r=0.4
+    puddle_hardness:r=33.0
+    puddle_flat_noise_normal_effect:r=0.015
+    puddle_flat_normal_hardness:r=45.0
+    layered_fog_density:r=0.008
+    river1:p4=0.192, 0.373, 0.235, 0.0
+    river0:p4=0.58, 0.592, 0.38, 0.0
+    puddle_flat_hmap_reduce:r=-0.0095
+    leaves_ss_profile:p4=1.0, 1.0, 1.0, 0.0
+    paint_details_tex:t="tunisia_wall_color_tex_palette*"
+    layered_fog_height:r=100.0
+    puddle_increase:r=-0.02
+    water_color_noise_size:r=737.0
+    puddle_flat_noise_height_reduce:r=0.09
+    max_river_width:r=50.0
+    river_density:r=0.4
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="team_tunisia_allies+team_narrator_gun_game+respawn_creators_team"
+  team__id:i=1
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="gun_game/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__spawnBotArmy:t="tunisia_allies"
+}
+
+entity{
+  _template:t="team_tunisia_axis+team_narrator_gun_game+respawn_creators_team"
+  team__id:i=2
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="gun_game/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__spawnBotArmy:t="tunisia_axis"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[64.3659, 0.0, 41.9681] [0.0, 67.9606, -0.0] [-42.9116, 0.0, 65.8126] [211.779, 12.1462, 18.5706]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/tunisia_4x4.blk"
+  level__minimapDefaultVisibleRadius:i=75
+
+  "level__weatherChoice:object"{
+    weather_cloudy_a:r=1.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=8.5
+  }
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.6
+  water__level:r=0.0
+  water__wind_dir:r=40.0
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="land_haze"
+  ground_effect__biome_group_name:t="dune"
+  ground_effect__grid_cell_size:r=16.0
+  ground_effect__grid_world_origin:p2=0.0, 0.0
+  ground_effect__vis_radius:r=50.0
+  ground_effect__biome_weight_for_active_thr:r=0.25
+  ground_effect__fx_radius:r=-1.0
+  ground_effect__scale_x:p2=1.3, 0.0
+  ground_effect__scale_y:p2=1.3, 0.0
+  ground_effect__scale_z:p2=1.3, 0.0
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="land_dust_storm"
+  ground_effect__biome_group_name:t="dune"
+  ground_effect__grid_cell_size:r=4.0
+  ground_effect__grid_world_origin:p2=0.0, 0.0
+  ground_effect__vis_radius:r=50.0
+  ground_effect__offset_y:p2=0.4, 0.0
+  ground_effect__scale_x:p2=0.3, 0.0
+  ground_effect__scale_y:p2=0.3, 0.0
+  ground_effect__scale_z:p2=0.3, 0.0
+}
+
+entity{
+  _template:t="distant_haze"
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.781264, 0.0, -0.624206] [0.0, 1.0, 0.0] [0.624203, 0.0, -0.781261] [232.941, 22.4288, 41.8548]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.882322, 0.0, -0.470653] [0.0, 1.0, 0.0] [0.470651, 0.0, -0.882319] [223.445, 26.0268, 48.5191]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.81303, 0.0, -0.582227] [0.0, 1.0, 0.0] [0.582225, 0.0, -0.813027] [233.736, 26.0268, 41.8536]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.81303, 0.0, -0.582227] [0.0, 1.0, 0.0] [0.582225, 0.0, -0.813027] [236.347, 26.0268, 38.2269]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.854506, 0.0, 0.519448] [0.0, 1.0, -0.0] [-0.519445, 0.0, 0.854502] [247.481, 23.919, 4.93734]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.464095, 0.0, -0.88579] [0.0, 1.0, 0.0] [0.885785, -0.0, 0.464093] [240.249, 22.4288, 18.0023]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.821909, 0.0, 0.569624] [0.0, 1.0, -0.0] [-0.569622, 0.0, 0.821905] [214.216, 23.3539, -8.86845]]
+  team:i=2
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.432352, 0.0, -0.901709] [0.0, 1.0, 0.0] [0.901705, -0.0, 0.43235] [188.392, 23.3539, 32.367]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.536882, 0.0, -0.843662] [0.0, 1.0, 0.0] [0.843658, -0.0, 0.536879] [201.402, 23.3539, 41.9115]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.930324, 0.0, -0.36675] [0.0, 1.0, 0.0] [0.366748, -0.0, 0.930319] [199.425, 27.1688, 42.4584]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.857354, 0.0, -0.514735] [0.0, 1.0, 0.0] [0.514732, -0.0, 0.857349] [188.404, 27.1688, 29.3108]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.758887, 0.0, -0.651229] [0.0, 0.999999, 0.0] [0.651226, -0.0, 0.758883] [187.669, 27.1688, 25.8901]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.900379, 0.0, -0.435116] [0.0, 0.999999, 0.0] [0.435113, 0.0, -0.900374] [217.688, 27.1688, 27.5795]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.704495, 0.0, -0.709714] [0.0, 1.0, 0.0] [0.709711, -0.0, 0.704492] [178.89, 23.3539, 21.6693]]
+  team:i=2
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.842532, 0.0, 0.538655] [0.0, 1.0, -0.0] [-0.538651, 0.0, 0.842527] [176.394, 23.3539, 24.8813]]
+  team:i=2
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.431156, 0.0, 0.902282] [0.0, 1.0, 0.0] [-0.902277, 0.0, -0.431153] [190.156, 23.8749, 0.522184]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.186745, 0.0, 0.982413] [0.0, 1.0, 0.0] [-0.982407, 0.0, -0.186744] [213.834, 23.6852, 7.90411]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.965701, 0.0, 0.259675] [0.0, 0.999999, 0.0] [-0.259674, 0.0, -0.965695] [212.129, 23.6852, 14.812]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=20.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.426758, 0.0, 0.904371] [0.0, 0.999999, -0.0] [-0.904365, 0.0, 0.426756] [220.548, 23.6852, 11.0274]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.105627, 0.0, -0.994411] [0.0, 0.999999, 0.0] [0.994404, 0.0, -0.105626] [240.85, 25.975, 18.1196]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken+still_obstacle"
+  transform:m=[[0.322977, 0.0, 0.946407] [0.0, 1.0, -0.0] [-0.946407, 0.0, 0.322977] [201.354, 23.1309, -13.9362]]
+}
+
+entity{
+  _template:t="storage_tank_c+still_obstacle"
+  transform:m=[[0.797306, 0.0, 0.603576] [0.0, 1.0, -0.0] [-0.603576, 0.0, 0.797306] [230.057, 22.2428, 4.40062]]
+}
+
+entity{
+  _template:t="storage_tank_c+still_obstacle"
+  transform:m=[[0.797306, 0.0, 0.603576] [0.0, 1.0, -0.0] [-0.603576, 0.0, 0.797306] [225.869, 22.37, 0.975491]]
+}
+
+entity{
+  _template:t="24kw_flak_generator+still_obstacle"
+  transform:m=[[0.933882, -0.00337686, -0.357565] [0.00585917, 0.999966, 0.00585917] [0.357533, -0.00756681, 0.93387] [196.438, 22.9506, -2.53363]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.811256, 0.0, -0.584696] [0.0, 1.0, 0.0] [0.584694, 0.0, -0.811253] [219.518, 23.7998, 55.6492]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.16995, 0.0, -0.985456] [0.0, 1.0, 0.0] [0.985453, 0.0, -0.169949] [221.052, 21.9781, 48.5559]]
+  team:i=1
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.558268, 0.0, 0.829666] [0.0, 0.999999, 0.0] [-0.829661, 0.0, -0.558265] [228.276, 23.6852, 2.34628]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=20.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.815823, 0.0, 0.57831] [0.0, 0.999999, -0.0] [-0.578306, 0.0, 0.815818] [205.975, 27.1249, 18.0368]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.552874, 0.0, -0.83327] [0.0, 1.0, 0.0] [0.833265, -0.0, 0.552871] [196.275, 27.3984, 32.0941]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=11.0
+}

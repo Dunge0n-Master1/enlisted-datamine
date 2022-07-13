@@ -23,6 +23,7 @@ def human_inventory_input_action_triggered_es(evt : EventDaInputActionTriggered;
                                               human_inventory_input__dropGun : int;
                                               human_input__lastShootInput : float;
                                               var human_input__lastWeaponChangeInput : float&;
+                                              human_inventory__dropsLoot : bool = true;
                                               heal__continuousInput : bool = true;
                                               human_weap__currentGunSlot : int = -1;
                                               human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID)
@@ -55,7 +56,8 @@ def human_inventory_input_action_triggered_es(evt : EventDaInputActionTriggered;
     let atTime = get_sync_time()
     // we're blocking weapon drop right after shoot, so we'll not be able to drop our gun on server before it've processed
     // our shot.
-    let isWeaponDropBlocked = atTime - human_input__lastShootInput < get_interp_delay_time(human_net_phys)
+    let isWeaponDropBlocked = (atTime - human_input__lastShootInput < get_interp_delay_time(human_net_phys) ||
+                               !human_inventory__dropsLoot)
     if isWeaponDropBlocked || has(human_weap__currentGunEid, "disableItemDrop")
       return
 

@@ -10,6 +10,12 @@ require sound_utils.modules.sound_utils_events
 let MAX_NET_DELAY = 5.
 
 // -------------------------------------------------------------
+def has_net_sound_desc(hash : uint; descs : Object) : bool
+  for it in descs
+    if sound_hash(it.key) == hash
+      return true
+  return false
+
 def get_net_sound_desc(hash : uint; descs : Object) : Object const?
   for it in descs
     if sound_hash(it.key) == hash
@@ -63,3 +69,14 @@ def play_net_sound_impl_client(cmd : CmdPlaySound; eid : EntityId; [[shared_comp
 [es(tag=sound)]
 def play_net_sound_impl_client_simple(cmd : CmdPlaySoundSimple; eid : EntityId; [[shared_comp]] net_sound__descs : Object; var sound_event_group : SoundEventGroup?; transform : float3x4)
   play_impl(cmd.hash, transform[3], 0., net_sound__descs, has(eid, "hero"), sound_event_group)
+
+
+// -------------------------------------------------------------
+
+[es(tag=sound)]
+def play_net_sound_impl_from_any_source(cmd : CmdPlayNetSoundFromAnySource; eid : EntityId; var sound_event_group : SoundEventGroup?; transform : float3x4)
+  find_query() <| $ [es(REQUIRE=anySourceNetSounds)] ([[shared_comp]] net_sound__descs : Object)
+    if has_net_sound_desc(cmd.hash, net_sound__descs)
+      play_impl(cmd.hash, transform[3], 0., net_sound__descs, has(eid, "hero"), sound_event_group)
+      return true
+    return false

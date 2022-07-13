@@ -24,9 +24,6 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
   let crateContent = shopItemContentCtor(shopItem)
   let hasItemContent = crateContent == null ? false
     : (crateContent.value?.content.items ?? {}).len() > 0
-  let { x = 0, y = 0 } = crateContent?.value.content.itemsAmount
-  let { soldierRareMax = -1, soldierTierMin = -1, items = {} } = crateContent?.value.content
-  let isLootBox = x != y || soldierRareMax != soldierTierMin || items.len() > 1
   if ((shopItem?.offerContainer ?? "") != "")
     setCurArmyShopPath((clone curArmyShopFolder.value.path).append(shopItem))
   else if (isFreemium && needFreemiumStatus.value)
@@ -53,16 +50,14 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
         viewBtnCb = hasItemContent ? @() viewShopItemsScene(shopItem) : null
         pOfferGuid = personalOffer?.guid
       })
-      if (!isLootBox)
-        buyItemAction()
-      else
-        checkLootRestriction(
-            buyItemAction,
-            {
-              itemView = mkProductView(shopItem, allItemTemplates, crateContent)
-              description
-            }
-          )
+      checkLootRestriction(
+          buyItemAction,
+          {
+            itemView = mkProductView(shopItem, allItemTemplates, crateContent)
+            description
+          },
+          crateContent
+        )
     }
   }
 }

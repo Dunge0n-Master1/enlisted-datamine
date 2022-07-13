@@ -28,6 +28,7 @@ level{
   level__fixedBattleAreas:b=no
   level__loadNavMesh:b=yes
   level__useRenderFeaturesOverride:b=no
+  level__minimapDefaultVisibleRadius:i=150
 
   "level__loaded:b"{
     value:b=no

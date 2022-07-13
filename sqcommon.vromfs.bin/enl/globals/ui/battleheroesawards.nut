@@ -104,18 +104,21 @@ let requiredScoreTable = {
     domination = { withBots = 0, noBots = 0 }
     invasion   = { withBots = 0, noBots = 0 }
     assault    = { withBots = 0, noBots = 0 }
+    gun_game   = { withBots = 0, noBots = 0 }
     no_mode    = { withBots = 0, noBots = 0 }
   },
   [BattleHeroesAward.TOP_VEHICLE_SQUAD] = {
     domination = { withBots = 800,  noBots = 400 }
     invasion   = { withBots = 1200, noBots = 500 }
     assault    = { withBots = 1200, noBots = 500 }
+    gun_game   = { withBots = 800,  noBots = 400 }
     no_mode    = { withBots = 1200, noBots = 500 }
   },
   [BattleHeroesAward.TOP_INFANTRY_SQUAD] = {
     domination = { withBots = 800,  noBots = 400 }
     invasion   = { withBots = 1200, noBots = 500 }
     assault    = { withBots = 1200, noBots = 500 }
+    gun_game   = { withBots = 800, noBots =  400 }
     no_mode    = { withBots = 1200, noBots = 500 }
   },
 }
@@ -164,6 +167,7 @@ let requiredSoldierKindScoreTable = {
   domination = { withBots = 300, noBots = 250 }
   invasion   = { withBots = 450, noBots = 350 }
   assault    = { withBots = 450, noBots = 350 }
+  gun_game   = { withBots = 300, noBots = 250 }
   no_mode    = { withBots = 450, noBots = 350 }
 }
 

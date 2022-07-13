@@ -847,7 +847,8 @@ let function statisticBlock(debriefing) {
     teams,
     localPlayerEid,
     localPlayerGroupId = INVALID_GROUP_ID,
-    localPlayerGroupMembers = {}
+    localPlayerGroupMembers = {},
+    missionType = null
   } = debriefing
 
   let params = {
@@ -859,6 +860,7 @@ let function statisticBlock(debriefing) {
     width = BODY_W
     sessionId = debriefing?.sessionId ?? INVALID_SESSION_ID
     isInteractive = true
+    missionType
   }
 
   return blockCtr(null, mkScoresStatistics(debriefing.players, params), debriefing)

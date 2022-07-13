@@ -508,3 +508,13 @@ struct CmdSwitchBinocularCockpit
 [cpp_event(broadcast)]
 struct EventSquadMembersStats
   data : Object
+
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+struct EventGunGameNewLeader
+  oldLeaderPlayerEid : EntityId
+  newLeaderPlayerEid : EntityId
+
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+struct EventGunGameLevelReached
+  playerEid : EntityId
+  level : int

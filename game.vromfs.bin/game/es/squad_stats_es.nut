@@ -62,6 +62,7 @@ let newStats = @() {
   meleeKills = 0
   grenadeKills = 0
   longRangeKills = 0
+  gunGameLevelup = 0
   time = 0.0 // float
   spawnTime = -1.0 // float
   score = 0
@@ -178,6 +179,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__meleeKills", ecs.TYPE_INT],
     ["scoring_player__grenadeKills", ecs.TYPE_INT],
     ["scoring_player__longRangeKills", ecs.TYPE_INT],
+    ["scoring_player__gunGameLevelup", ecs.TYPE_INT],
   ]
 })
 

@@ -1,7 +1,7 @@
 require ecs
 require HumanPhys
 
-[es(tag=server, on_appear, before=(server_init_gun_es, human_weap_created_server_es), REQUIRE=human_weap)]
+[es(tag=server, on_appear, on_event=CmdReinitWeapons, before=(human_weap_reinit_guns_es, server_init_gun_es, human_weap_created_server_es), REQUIRE=human_weap)]
 def human_weapon_init_es(evt : Event;
                          human_weap__weapInfo : Array;
                          var human_weap__gunModsBySlot : Array&)

@@ -14,6 +14,7 @@ let { visibleZoneGroups, whichTeamAttack } = require("%ui/hud/state/capZones.nut
 let {secondsToStringLoc} = require("%ui/helpers/time.nut")
 
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
+let { missionType } = require("%enlSqGlob/missionParams.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { removeInteractiveElement, hudIsInteractive, switchInteractiveElement
 } = require("%ui/hud/state/interactive_state.nut")
@@ -216,6 +217,7 @@ let scoresMenuUi = {
         inputPassive = true
       }]]
       mkContextMenuButton = mkContextMenuButton
+      missionType = missionType.value
     }).__update({
       eventHandlers = eventHandlers
       watch = [ scoringPlayers, localPlayerTeam, localPlayerEid,

@@ -120,7 +120,7 @@ local function mkCrateItemsInfo(crContent, header = null, addChild = null, isRes
     let ungroupedItems = []
     foreach (tplId, idx in items) {
       let locId = $"crategroup/{groupLocId}_{idx}"
-      if (!isRestrictedItem || doesLocTextExist(locId)) {
+      if (!isRestrictedItem && doesLocTextExist(locId)) {
         local data = groupedItems?[idx]
         if (data == null) {
           data = {

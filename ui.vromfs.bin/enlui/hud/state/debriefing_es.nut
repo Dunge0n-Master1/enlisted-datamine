@@ -8,7 +8,7 @@ let {localPlayerName, localPlayerTeam} = require("%ui/hud/state/local_player.nut
 let {EventTeamRoundResult, broadcastNetEvent} = require("dasevents")
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
 let { get_session_id } = require("app")
-let { missionName } = require("%enlSqGlob/missionParams.nut")
+let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let psnMatchIdQuery = ecs.SqQuery("psnMatchInfoQuery", {comps_ro=[["psn_external_match_id", ecs.TYPE_STRING]]})
 let getPsnMatchId = @() (psnMatchIdQuery.perform(@(_, comp) comp.psn_external_match_id) ?? "")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
@@ -61,6 +61,7 @@ let function setResult(comp, status) {
     playerNamePrefixIcon = localPlayerNamePrefixIcon.value
     exitToLobby = true
     missionName = loc(missionName.value)
+    missionType = missionType.value
 
     result = {
       status = status

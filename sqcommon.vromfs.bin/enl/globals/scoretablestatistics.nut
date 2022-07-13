@@ -54,6 +54,7 @@ let scoringPlayerSoldiersStatsComps = [
   ["scoring_player__meleeKills", ecs.TYPE_INT],
   ["scoring_player__grenadeKills", ecs.TYPE_INT],
   ["scoring_player__longRangeKills", ecs.TYPE_INT],
+  ["scoring_player__gunGameLevelup", ecs.TYPE_INT],
   ["scoring_player__friendlyHits", ecs.TYPE_INT],
   ["scoring_player__friendlyKills", ecs.TYPE_INT],
   ["scoring_player__friendlyKillsSamePlayer2Add", ecs.TYPE_INT],

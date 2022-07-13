@@ -276,7 +276,7 @@ ironsights_open_machinegun{
 }
 
 ironsights_open_stationary_machinegun{
-  gun__magnification:r=2.0
+  gun__magnification:r=1.5
 }
 
 ironsights_open_assault_rifle{
@@ -11160,13 +11160,14 @@ delisle_commando_carbine{
   gun__locName:t="Delisle Carbine"
   gun__statName:t="rifle"
   gun__sightsDistance:r=0.25
+  gun__zeroingDistance:r=30.0
   gun__shotFreq:r=1.6
   gun__shotFreqRndK:r=0.1
-  gun_spread__maxDeltaAngle:r=0.35
+  gun_spread__maxDeltaAngle:r=0.25
   gun_deviation__omegaRange:p2=25.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__omegaDevInc:p2=0.04, 0.2
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 10.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2

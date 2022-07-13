@@ -1,0 +1,3471 @@
+{
+   "berlin_allies" : {
+      "armyId" : "berlin_allies",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "ussr_berlin_assault_3" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "ussr_berlin_sniper_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "berlin",
+      "classBonus" : {
+         "anti_tank" : 1.0,
+         "assault" : 0.750,
+         "assault_2" : 1.0,
+         "assault_2_premium_1" : 1.0,
+         "engineer" : 1.0,
+         "pilot_assaulter_2" : 1.0,
+         "pilot_fighter_premium_2" : 1.0,
+         "rifle" : 1.0,
+         "rifle_premium_1" : 1.0,
+         "sniper" : 0.750,
+         "sniper_2" : 1.0,
+         "tanker_2_premium_1" : 1.0,
+         "tanker_premium_1" : 1.0
+      },
+      "country" : "ussr",
+      "curSquadId" : "ussr_berlin_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [ 1, 2 ],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 26632,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9898098707199097,
+                     "width" : 1.074438333511353
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_06_ussr_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_31_us_item",
+                        "slot" : "face"
+                     },
+                     "flask_r" : {
+                        "gametemplate" : "attachable_wear_flask_01_ussr_summer_item",
+                        "slot" : "flask_r"
+                     },
+                     "front_belt_r" : {
+                        "gametemplate" : "attachable_wear_pouch_ppsh_r_07_ussr_winter_item",
+                        "slot" : "front_belt_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_02_ussr_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_01_4_windings_ussr_winter_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tunic_05_1_ussr_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "ussr_berlin_soldier_engineer_25271340939",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Matvey",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Kurochkin",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ussr_berlin_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "berlin_axis" : {
+      "armyId" : "berlin_axis",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "ger_berlin_assault_3" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "ger_berlin_sniper_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "berlin",
+      "classBonus" : {
+         "anti_tank" : 1.0,
+         "assault" : 0.750,
+         "assault_2" : 1.0,
+         "engineer" : 1.0,
+         "pilot_assaulter_2" : 1.0,
+         "pilot_fighter_premium_2" : 1.0,
+         "rifle" : 1.0,
+         "rifle_3_premium_1" : 1.0,
+         "rifle_premium_1" : 1.0,
+         "sniper" : 0.750,
+         "sniper_2" : 1.0,
+         "tanker_2_premium_1" : 1.0,
+         "tanker_premium_1" : 1.0
+      },
+      "country" : "germany",
+      "curSquadId" : "ger_berlin_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [ 1, 2 ],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+                              {
+                  "appearance__rndSeed" : 6978,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.004195094108582,
+                     "width" : 1.023208737373352
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ger_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_43_ger_item",
+                        "slot" : "face"
+                     },
+                     "front_belt_r" : {
+                        "gametemplate" : "attachable_wear_pouch_02_ger_summer_item",
+                        "slot" : "front_belt_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_01_ger_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_gray_01_ger_summer_item",
+                        "slot" : "pants"
+                     },
+                     "shovel" : {
+                        "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
+                        "slot" : "shovel"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tunic_01_gray_ger_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_berlin_soldier_sniper_25256243918",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Einhart",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Schabenberger",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_berlin_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "moscow_allies" : {
+      "armyId" : "moscow_allies",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "ussr_moscow_pilot_assaulter_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "moscow",
+      "classBonus" : {
+         "anti_tank" : 1.0,
+         "assault" : 1.0,
+         "assault_premium_2" : 1.0,
+         "engineer" : 1.0,
+         "mgun" : 1.0,
+         "pilot_assaulter" : 1.0,
+         "pilot_assaulter_2" : 1.0,
+         "rifle" : 1.0,
+         "sniper" : 1.0,
+         "tanker_2" : 1.0
+      },
+      "country" : "ussr",
+      "curSquadId" : "ussr_moscow_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 21333,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.005080103874207,
+                     "width" : 1.028780221939087
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "chest" : {
+                        "gametemplate" : "attachable_wear_bandolier_01_ussr_winter_item",
+                        "slot" : "chest"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_30_ussr_item",
+                        "slot" : "face"
+                     },
+                     "flask_r" : {
+                        "gametemplate" : "attachable_wear_flask_01_ussr_winter_item",
+                        "slot" : "flask_r"
+                     },
+                     "front_belt_r" : {
+                        "gametemplate" : "attachable_wear_pouch_ppsh_r_07_ussr_winter_item",
+                        "slot" : "front_belt_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_01_ussr_winter_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_01_7_windings_ussr_winter_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_l" : {
+                        "gametemplate" : "attachable_wear_axe_pouch_01_ussr_winter_item",
+                        "slot" : "rear_belt_l"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "ussr_moscow_soldier_engineer_25272017526",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Andrey",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Troshin",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ussr_moscow_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "moscow_axis" : {
+      "armyId" : "moscow_axis",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "ger_moscow_pilot_assaulter_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "moscow",
+      "classBonus" : {
+         "anti_tank" : 0.750,
+         "anti_tank_2" : 1.0,
+         "assault" : 1.0,
+         "engineer" : 1.0,
+         "mgun" : 0.750,
+         "mgun_2" : 1.0,
+         "pilot_assaulter" : 1.0,
+         "rifle" : 1.0,
+         "sniper" : 1.0,
+         "tanker_2" : 1.0
+      },
+      "country" : "germany",
+      "curSquadId" : "ger_moscow_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 15297,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.000355839729309,
+                     "width" : 1.003083586692810
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ger_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_belt_2_01_ger_summer_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_26_us_item",
+                        "slot" : "face"
+                     },
+                     "front_belt_r" : {
+                        "gametemplate" : "attachable_wear_pouch_02_ger_summer_item",
+                        "slot" : "front_belt_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_engineer_pants_01_ger_summer_item",
+                        "slot" : "pants"
+                     },
+                     "shovel" : {
+                        "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
+                        "slot" : "shovel"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_engineer_tunic_01_ger_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_moscow_soldier_rifle_25273021050",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Schubert",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Theissig",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_moscow_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "normandy_allies" : {
+      "armyId" : "normandy_allies",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "usa_normandy_antitank_2" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "usa_normandy_mgun_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "normandy",
+      "classBonus" : {
+         "anti_tank" : 1.0,
+         "assault" : 1.0,
+         "engineer" : 1.0,
+         "flametrooper" : 1.0,
+         "pilot_assaulter" : 1.0,
+         "rifle" : 1.0,
+         "sniper" : 1.0,
+         "tanker_3" : 1.0
+      },
+      "country" : "usa",
+      "curSquadId" : "usa_normandy_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [ 1, 2 ],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 12909,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9950358867645264,
+                     "width" : 1.063319802284241
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_26_us_item",
+                        "slot" : "face"
+                     },
+                     "front_belt_r" : {
+                        "gametemplate" : "attachable_wear_pouch_m1_thompson_03_us_summer_item",
+                        "slot" : "front_belt_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "helmet_deco" : {
+                        "gametemplate" : "cigarette_lighter_01_item",
+                        "slot" : "helmet_deco"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "usa_normandy_soldier_rifle_25283464685",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Jason",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Williams",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "usa_normandy_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "normandy_axis" : {
+      "armyId" : "normandy_axis",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "ger_normandy_antitank_2" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "ger_normandy_mgun_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "normandy",
+      "classBonus" : {
+         "anti_tank" : 1.0,
+         "assault" : 1.0,
+         "engineer" : 1.0,
+         "flametrooper" : 1.0,
+         "pilot_assaulter_2" : 1.0,
+         "rifle" : 1.0,
+         "sniper" : 1.0,
+         "tanker" : 1.0
+      },
+      "country" : "germany",
+      "curSquadId" : "ger_normandy_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [ 1, 2 ],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+                              {
+                  "appearance__rndSeed" : 11727,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9845033288002014,
+                     "width" : 1.051922917366028
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ger_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_23_ger_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_01_ger_summer_item",
+                        "slot" : "head"
+                     },
+                     "helmet_deco" : {
+                        "gametemplate" : "helmet_grid_01_item",
+                        "slot" : "helmet_deco"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_gray_01_ger_summer_item",
+                        "slot" : "pants"
+                     },
+                     "roll" : {
+                        "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
+                        "slot" : "roll"
+                     },
+                     "shovel" : {
+                        "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
+                        "slot" : "shovel"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tunic_01_gray_ger_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_normandy_soldier_assault_25308618579",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Theo",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Haker",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_normandy_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "stalingrad_allies" : {
+      "armyId" : "stalingrad_allies",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {}
+      },
+      "boosters" : [],
+      "campaignId" : "stalingrad",
+      "classBonus" : {
+         "rifle" : 1.0,
+         "tanker_premium_2_flametrooper" : 1.0
+      },
+      "country" : "ussr",
+      "curSquadId" : "allies_stalingrad_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 4.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+                              {
+                  "appearance__rndSeed" : 20027,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.018718242645264,
+                     "width" : 1.052252531051636
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_belt_2_01_ussr_winter_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_01_us_summer_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_05_ussr_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_overcoat_01_ussr_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "allies_stalingrad_soldier_rifle_10292848",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Ivan",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Semenyuk",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_stalingrad_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "stalingrad_axis" : {
+      "armyId" : "stalingrad_axis",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {}
+      },
+      "boosters" : [],
+      "campaignId" : "stalingrad",
+      "classBonus" : {
+         "rifle" : 1.0,
+         "tanker_premium_2_flametrooper" : 1.0
+      },
+      "country" : "germany",
+      "curSquadId" : "axis_stalingrad_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 4.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 9013,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9902762174606323,
+                     "width" : 1.031756281852722
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ger_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_belt_2_02_ger_winter_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_43_ger_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_overcoat_01_ger_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_stalingrad_soldier_rifle_37858349842",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Jordan",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 0,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Rudler",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_stalingrad_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "tunisia_allies" : {
+      "armyId" : "tunisia_allies",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "allies_tunisia_assault_3" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "allies_tunisia_pilot_assaulter_2" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "allies_tunisia_tank_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_tunisia_10291018"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "tunisia_OBT_boost_10292958"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.2000000029802322,
+            "guid" : "tunisia_OBT_boost_small_10292977"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "tunisia",
+      "classBonus" : {
+         "assault" : 1.0,
+         "engineer" : 1.0,
+         "flametrooper" : 1.0,
+         "mgun" : 0.750,
+         "pilot_assaulter" : 1.0,
+         "radioman" : 1.0,
+         "rifle" : 1.0,
+         "rifle_uk" : 1.0,
+         "sniper" : 1.0,
+         "tanker" : 1.0,
+         "tanker_uk" : 1.0
+      },
+      "country" : "usa",
+      "curSquadId" : "allies_tunisia_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [ 1, 2 ],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 23069,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9856373667716980,
+                     "width" : 1.018569946289062
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_uk_m37_pattern_tropical_01_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_uk_m37_basic_pouches_tropical_01_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_01_uk_item",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_thompson_puch_l_02_uk_tropic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "brodie_helmet_01_uk_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_kd_trousers_m41_uk_tropic_01_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tunic_01_uk_summer_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "uk_base_soldier",
+                  "guid" : "allies_tunisia_soldier_rifle_uk_25275590651",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Henry",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle_uk",
+                  "sKind" : "rifle",
+                  "surname" : "Walker",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_tunisia_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   },
+   "tunisia_axis" : {
+      "armyId" : "tunisia_axis",
+      "armyProgress" : {
+         "expToArmyLevel" : [
+            0,
+            500,
+            12000,
+            24000,
+            26400,
+            36000,
+            38400,
+            48000,
+            50400,
+            72000,
+            74400,
+            96000,
+            98400,
+            120000,
+            120000,
+            132000,
+            132000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            144000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000,
+            180000
+         ],
+         "lockedSquads" : {
+            "axis_tunisia_assault_3" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "axis_tunisia_pilot_assaulter_2" : {
+               "exp" : 0,
+               "level" : 1
+            },
+            "axis_tunisia_tank_3" : {
+               "exp" : 0,
+               "level" : 1
+            }
+         }
+      },
+      "boosters" : [
+         {
+            "bType" : "global",
+            "expMul" : 0.3000000119209290,
+            "guid" : "booster_global_30_battle_1_10292961"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_xboxScarletCompensation_50_days_5_10291026"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_tunisia_10291018"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 3.0,
+            "guid" : "booster_global_300_battle_2_10291009"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "tunisia_OBT_boost_10292958"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.2000000029802322,
+            "guid" : "tunisia_OBT_boost_small_10292977"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.50,
+            "guid" : "booster_global_every_day_award_50_battle_1_10310716"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 0.1000000014901161,
+            "guid" : "booster_global_10_10291019"
+         }
+      ],
+      "campaignId" : "tunisia",
+      "classBonus" : {
+         "assault" : 1.0,
+         "assault_1_premium_1" : 1.0,
+         "engineer" : 1.0,
+         "flametrooper" : 1.0,
+         "mgun" : 0.750,
+         "pilot_assaulter" : 1.0,
+         "radioman" : 1.0,
+         "rifle" : 1.0,
+         "rifle_it" : 1.0,
+         "sniper" : 1.0,
+         "tanker" : 1.0,
+         "tanker_it" : 1.0
+      },
+      "country" : "germany",
+      "curSquadId" : "axis_tunisia_rifle_1",
+      "exp" : 0,
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {
+            "progress_gift_common_army_soldier_order" : {
+               "cycle" : 9578,
+               "exp" : 719,
+               "guid" : "progress_gift_common_army_soldier_order"
+            },
+            "progress_gift_common_army_weapon_order" : {
+               "cycle" : 4789,
+               "exp" : 2219,
+               "guid" : "progress_gift_common_army_weapon_order"
+            },
+            "progress_gift_stalingrad_soldier_order" : {
+               "cycle" : 1667,
+               "exp" : 1998,
+               "guid" : "progress_gift_stalingrad_soldier_order"
+            },
+            "progress_gift_stalingrad_soldier_order_silver" : {
+               "cycle" : 99,
+               "exp" : 199998,
+               "guid" : "progress_gift_stalingrad_soldier_order_silver"
+            },
+            "progress_gift_stalingrad_weapon_order" : {
+               "cycle" : 833,
+               "exp" : 19998,
+               "guid" : "progress_gift_stalingrad_weapon_order"
+            },
+            "progress_gift_stalingrad_weapon_order_silver" : {
+               "cycle" : 200,
+               "exp" : 49998,
+               "guid" : "progress_gift_stalingrad_weapon_order_silver"
+            }
+         },
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : false,
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 24000,
+               "startCount" : 1,
+               "startExp" : 12000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 12000,
+               "startCount" : 1,
+               "startExp" : 6000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 100000,
+               "startCount" : 1,
+               "startExp" : 50000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "isFreemium" : true,
+               "loopCount" : 1,
+               "loopExp" : 200000,
+               "startCount" : 1,
+               "startExp" : 200000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [ 1, 2 ],
+            "exp" : 0,
+            "expBonus" : 1.0,
+            "level" : 1,
+            "squad" : [ 
+                              {
+                  "appearance__rndSeed" : 22223,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.000913739204407,
+                     "width" : 1.054545164108276
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_bag_02_ger_tropic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_02_ger_tropic_item",
+                        "slot" : "belt_1"
+                     },
+                     "belt_2" : {
+                        "gametemplate" : "attachable_wear_belt_2_02_ger_tropic_item",
+                        "slot" : "belt_2"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_43_ger_item",
+                        "slot" : "face"
+                     },
+                     "front_belt_r" : {
+                        "gametemplate" : "attachable_wear_case_02_ger_tropic_item",
+                        "slot" : "front_belt_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_01_ger_tropic_camo_nobelt_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_02_ger_tropic_item",
+                        "slot" : "pants"
+                     },
+                     "roll" : {
+                        "gametemplate" : "attachable_wear_roll_02_ger_summer_item",
+                        "slot" : "roll"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tunic_02_ger_tropic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_tunisia_soldier_assault_ger_25282848239",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [
+                     {},
+                     {},
+                     {},
+                     {},
+                     {}
+                  ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 1,
+                  "name" : "Jacob",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 10,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "hp_boost",
+                        "stats" : [
+                           {
+                              "statKey" : "hp_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Weller",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_tunisia_rifle_1",
+            "squadType" : "rifle",
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [
+         {
+            "template" : "wallposter_battlepass_season_4_preview"
+         }
+      ],
+      "wallPostersCount" : 3
+   }
+}

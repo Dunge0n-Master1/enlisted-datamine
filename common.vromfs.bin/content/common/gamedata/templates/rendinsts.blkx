@@ -157,6 +157,18 @@ russia_yellow_onion{
   ri_extra__name:t="russia_yellow_onion"
 }
 
+storage_tank_c{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="storage_tank_c"
+}
+
+opel_blitz_kfz_305_broken{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="opel_blitz_kfz_305_broken"
+}
+
 88mm_flak_36_canon_b{
   _extends:t="rendinst"
   _extends:t="replicating"
@@ -185,6 +197,24 @@ tree_spruce_christmas_c{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_extra__name:t="tree_spruce_christmas_c"
+}
+
+debris_wooden_planks_stack_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="debris_wooden_planks_stack_a"
+}
+
+sawmill_wood_boards_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="sawmill_wood_boards_a"
+}
+
+russia_wooden_planks_b{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="russia_wooden_planks_b"
 }
 
 animated_scene_rendinst{

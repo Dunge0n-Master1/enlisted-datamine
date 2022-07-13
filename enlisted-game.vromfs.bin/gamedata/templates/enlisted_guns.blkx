@@ -75,11 +75,6 @@ ironsights_open_at_rifle{
   gun__magnification:r=2.0
 }
 
-ironsights_open_stationary_machinegun{
-  _override:b=yes
-  gun__magnification:r=1.0
-}
-
 mortar_gun_base{
   _override:b=yes
   gun_spread__maxDeltaAngle:r=2.0

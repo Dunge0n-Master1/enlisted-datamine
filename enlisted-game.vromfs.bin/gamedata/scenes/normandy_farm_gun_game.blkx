@@ -1,0 +1,575 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[71.6709, 0.0, -0.564328] [0.0, 81.9636, 0.0] [0.419721, -0.0, 53.3055] [-232.384, 9.50716, -307.458]]
+}
+
+entity{
+  _template:t="custom_profile"
+  customProfile:t="%enlSqGlob/data/gun_game_profile.json"
+}
+
+entity{
+  _template:t="gun_game_mode_logic"
+
+  "gun_game__levels:array"{
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="mannlicher_m1895_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="winchester_model_1912_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="m1_garand_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="mp34o_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="breda_mod_30_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="sniper_gewehr_43_gun"
+      }
+
+      "additionalWeapInfo:array"{
+
+        "additionalWeapInfo:object"{
+
+          "gunMods:object"{
+            scope:t="scope_zf4"
+          }
+        }
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="m3_greasegun_supressed_oss_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="m2_carbine_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="m1_thompson_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="browning_m1919a6_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="neiman_minethrower_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="m1903a1_springfield_gun"
+      }
+
+      "additionalWeapInfo:array"{
+
+        "additionalWeapInfo:object"{
+
+          "gunMods:object"{
+            scope:t="unertl_8x_sight"
+          }
+        }
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="m1_flamethrower_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="p08_luger_artillery_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="delisle_commando_carbine_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="tertiary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="m1911a1_colt_nickel_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="atr_boys_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="melee"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="german_officer_sword_weapon"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="tertiary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="colt_new_service_m1909_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="melee"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="knife_weapon"
+      }
+    }
+  }
+}
+
+entity{
+  _template:t="gun_game_mode_sounds"
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/normandy_coastal_area_1x1.blk"
+  level__minimapDefaultVisibleRadius:i=50
+
+  "level__weatherChoice:object"{
+    weather_cloudy_a:r=1.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=8.5
+  }
+}
+
+entity{
+  _template:t="minimap_normandy_coastal_area"
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.27
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=68, 70, 70, 0
+    ocean0:c=56, 59, 62, 0
+    ocean_density:r=0.1
+    land_selfillum_worldscale:r=0.9
+    river1:c=68, 70, 70, 0
+    river0:c=56, 59, 62, 0
+    hmap_displacement_down:r=-0.15
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="normandy_wall_color_tex_palette*"
+    puddle_increase:r=0.01
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    river_density:r=3.0
+  }
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.879986, -0.00213794, -0.474993] [-0.0121064, 0.999766, 0.0179287] [0.474844, 0.0215275, -0.879807] [-254.947, 30.5011, -244.232]]
+}
+
+entity{
+  _template:t="briefing_gun_game"
+  mission_name:t="normandy_farm_gun_game"
+
+  "loading_images:list<t>"{
+    item:t="ui/normandy_coast_farm_02.jpg"
+  }
+}
+
+entity{
+  _template:t="team_usa+team_narrator_gun_game+respawn_creators_team"
+  team__id:i=1
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="gun_game/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__spawnBotArmy:t="normandy_allies"
+}
+
+entity{
+  _template:t="team_germany+team_narrator_gun_game+respawn_creators_team"
+  team__id:i=2
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="gun_game/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__spawnBotArmy:t="normandy_axis"
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.0352549, 0.0, -0.999383] [0.0, 1.0, 0.0] [0.999376, -0.0, 0.0352547] [-243.498, 22.1755, -299.149]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=20.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.0352549, 0.0, -0.999383] [0.0, 1.0, 0.0] [0.999376, -0.0, 0.0352547] [-252.052, 22.1756, -307.594]]
+  team:i=2
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0181393, 0.0, 0.99984] [0.0, 1.0, 0.0] [-0.999834, 0.0, -0.0181391] [-214.854, 22.1756, -313.625]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0181393, 0.0, 0.99984] [0.0, 1.0, 0.0] [-0.999834, 0.0, -0.0181391] [-222.559, 22.1756, -313.653]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0101846, 0.0, -0.999953] [0.0, 1.0, 0.0] [0.999946, 0.0, -0.0101846] [-223.838, 22.1756, -298.981]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=20.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.639434, 0.0, 0.768852] [0.0, 1.0, -0.0] [-0.768847, 0.0, 0.63943] [-243.402, 22.1756, -313.164]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[1.0, 0.0, -0.00254607] [0.0, 1.0, 0.0] [0.00254606, -0.0, 0.999995] [-215.517, 25.4495, -303.703]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.00125141, 0.0, 1.0] [-0.0, 1.0, 0.0] [-0.999997, -0.0, 0.0012514] [-220.75, 25.4495, -304.074]]
+  team:i=1
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.00125141, 0.0, 1.0] [-0.0, 1.0, 0.0] [-0.999997, -0.0, 0.0012514] [-244.622, 25.4495, -305.4]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.952988, 0.0, -0.303025] [0.0, 0.999999, 0.0] [0.303023, 0.0, -0.952981] [-243.178, 25.4495, -308.635]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.385738, 0.0, -0.922614] [0.0, 1.0, 0.0] [0.922607, -0.0, 0.385735] [-223.092, 25.4495, -309.787]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.937165, 0.0, -0.348902] [0.0, 1.0, 0.0] [0.348899, -0.0, 0.937158] [-221.466, 29.2433, -308.365]]
+  team:i=1
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0673503, 0.0, -0.997735] [0.0, 0.999999, 0.0] [0.997727, 0.0, -0.0673498] [-214.705, 29.2433, -298.444]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=18.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0673503, 0.0, -0.997735] [0.0, 0.999999, 0.0] [0.997727, 0.0, -0.0673498] [-250.636, 29.2433, -298.713]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.902944, 0.0, 0.429769] [0.0, 0.999999, -0.0] [-0.429766, 0.0, 0.902938] [-253.598, 29.2433, -312.88]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=7.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0105502, 0.0, -0.99995] [0.0, 0.999999, 0.0] [0.999942, 0.0, -0.0105502] [-246.198, 29.2433, -307.294]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.999629, 0.0, 0.0274453] [0.0, 0.999999, 0.0] [-0.0274451, 0.0, -0.999621] [-221.439, 30.5544, -304.947]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=7.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.0140807, 0.0, 0.999906] [0.0, 0.999999, -0.0] [-0.999899, 0.0, 0.0140806] [-238.832, 25.4495, -315.666]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.0140807, 0.0, 0.999906] [0.0, 0.999999, -0.0] [-0.999899, 0.0, 0.0140806] [-227.225, 25.4495, -315.767]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.492066, 0.0, -0.870559] [0.0, 1.0, 0.0] [0.870556, -0.0, 0.492064] [-214.706, 25.4495, -308.485]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.874162, 0.0, 0.485645] [0.0, 1.0, -0.0] [-0.485641, 0.0, 0.874155] [-255.139, 25.4495, -313.741]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=17.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.874162, 0.0, 0.485645] [0.0, 1.0, -0.0] [-0.485641, 0.0, 0.874155] [-255.139, 25.4495, -313.741]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=17.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.999958, 0.0, 0.00977416] [0.0, 0.999999, -0.0] [-0.00977408, 0.0, 0.99995] [-244.76, 30.5392, -305.059]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=7.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.374288, 0.0, -0.927319] [0.0, 0.999999, 0.0] [0.927312, 0.0, -0.374285] [-214.901, 29.2946, -309.726]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.0719464, 0.0, -0.997408] [0.0, 1.0, 0.0] [0.997409, 0.0, -0.0719464] [-232.483, 21.4469, -315.471]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[0.00137194, 0.0, 0.999999] [0.0, 1.0, -0.0] [-0.999999, 0.0, 0.00137194] [-234.457, 21.4469, -315.443]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.957591, 0.0, 0.288146] [0.0, 1.0, -0.0] [-0.288144, 0.0, 0.957585] [-232.986, 22.1756, -316.647]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=10.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0899539, 0.0, -0.995951] [0.0, 1.0, 0.0] [0.995944, 0.0, -0.0899533] [-214.947, 22.1756, -307.639]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=10.0
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-248.861, 21.4469, -302.448]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-248.873, 21.4469, -300.485]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.0352549, 0.0, -0.999383] [0.0, 1.0, 0.0] [0.999376, -0.0, 0.0352547] [-250.281, 22.1756, -302.001]]
+  team:i=3
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.000325881, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, -0.000325881] [-226.801, 21.4469, -299.707]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-227.589, 21.4469, -298.507]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.0200206, 0.0, 0.999804] [0.0, 1.0, 0.0] [-0.999797, 0.0, -0.0200204] [-226.481, 22.1756, -298.829]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=10.0
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-250.498, 20.1499, -313.311]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.0171256, 0.0, 0.999853] [0.0, 1.0, -0.0] [-0.999853, 0.0, 0.0171256] [-259.619, 20.0793, -307.338]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.999917, 0.0, -0.0128587] [0.0, 1.0, 0.0] [0.0128587, -0.0, 0.999917] [-259.572, 21.3015, -304.413]]
+}

@@ -71,12 +71,20 @@ let function mkVersion(v){
       throw null
   }
   let version = mkVersionFromString(tVersion)
-  let title = v?.title ?? tVersion
   local titleshort = v?.titleshort ?? "undefined"
-  if (titleshort=="undefined" || titleshort.len() > 50 )
+  if (titleshort == "undefined" || titleshort.len() > 50 )
     titleshort = null
-  let date = v?.date ?? ""
-  return {version, title, tVersion, versionType, titleshort, iVersion = versionToInt(version), id = v.id, date }
+  return {
+    version
+    title = v?.title ?? tVersion
+    tVersion
+    versionType
+    titleshort
+    iVersion = versionToInt(version)
+    id = v.id
+    date = v?.date ?? ""
+    alwaysShowPopup = v?.alwaysShowPopup ?? false
+  }
 }
 
 let function filterVersions(vers){
@@ -138,31 +146,34 @@ let function requestPatchnotes(){
   http.request(request)
 }
 
-let function isVersion(version){
-  return type(version?.version) == "array" && type(version?.iVersion) == "integer" && type(version?.tVersion) == "string"
-}
+let isVersion = @(version) type(version?.version) == "array"
+  && type(version?.iVersion) == "integer"
+  && type(version?.tVersion) == "string"
 
 local function findBestVersionToshow(versionsList = versions, lastSeenVersionNum=0) {
   //here we want to find first unseen Major version or last unseed hotfix version.
   lastSeenVersionNum = lastSeenVersionNum ?? 0
   versionsList = versionsList ?? []
-  foreach (version in versionsList) {
-    if (lastSeenVersionNum < version.iVersion && version.versionType=="major"){
-      return version
-    }
-  }
   local res = null
-  foreach(version in versionsList)
-    if (version.iVersion > lastSeenVersionNum)
+  foreach (version in versionsList) {
+    if (version.alwaysShowPopup && res == null)
+      return version
+    if (lastSeenVersionNum < version.iVersion) {
+      if (version.versionType == "major")
+        return version
       res = version
+    }
     else
       break
+  }
   return res
 }
 
-let unseenPatchnote = Computed(
-  @() onlineSettingUpdated.value ? findBestVersionToshow(versions.value, lastSeenVersionInfoNumState.value) : null)
-let curPatchnote = Computed(@() chosenPatchnote.value ?? unseenPatchnote.value ?? versions.value?[0])
+let unseenPatchnote = Computed(@() !onlineSettingUpdated.value ? null
+  : findBestVersionToshow(versions.value, lastSeenVersionInfoNumState.value))
+
+let curPatchnote = Computed(@()
+  chosenPatchnote.value ?? unseenPatchnote.value ?? versions.value?[0])
 
 let function markSeenVersion(v) {
   if (v == null)
@@ -260,6 +271,8 @@ console_register_command(function() {
   if (SAVE_ID in settings.value)
     settings.mutate(@(v) delete v[SAVE_ID])
 }, "changelog.reset")
+
+console_register_command(requestPatchnotes, "changelog.requestVersions")
 
 return {
   changelogDisabled

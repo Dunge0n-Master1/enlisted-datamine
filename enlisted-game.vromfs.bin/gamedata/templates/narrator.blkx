@@ -187,6 +187,25 @@ team_narrator_domination{
   }
 }
 
+team_narrator_gun_game{
+
+  "team__narrator:object"{
+    _tags:t="sound"
+
+    "win:object"{
+      path:t="vo/ui/enlisted/narrator/victory_domination"
+    }
+
+    "lose:object"{
+      path:t="vo/ui/enlisted/narrator/defeat_domination"
+    }
+
+    "leftBattleArea:object"{
+      path:t="vo/ui/enlisted/narrator/leave_area_warn"
+    }
+  }
+}
+
 team_narrator_invasion_attack{
 
   "team__narrator:object"{

@@ -20,11 +20,20 @@ let isCountryProhibited = Computed(function() {
   return prohibitionCountriesList?[get_country_code()] ?? false
 })
 
-let function checkLootRestriction(cb, content) {
+let function checkLootRestriction(cb, content, crateContent) {
   if (!isCountryProhibited.value || skipCountryCheck.value || !isLootBoxProhibited.value) {
     cb?()
     return
   }
+
+  let { x = 0, y = 0 } = crateContent?.value.content.itemsAmount
+  let { soldierRareMax = -1, soldierTierMin = -1, items = {} } = crateContent?.value.content
+  let isLootBox = x != y || soldierRareMax != soldierTierMin || items.len() > 1
+  if (!isLootBox){
+    cb?()
+    return
+  }
+
   let function onDecline() {
     // user abandons country
     skipCountryCheck(true)

@@ -22202,7 +22202,7 @@ riExtra{
     isParent:b=yes
     destructibleByParent:b=yes
     fx:t="wood_small_destr"
-    fxScale:r=1.0
+    fxScale:r=0.5
     physRes:t="wood_box_a_destr_phobj"
   }
 
@@ -22212,7 +22212,7 @@ riExtra{
     isParent:b=yes
     destructibleByParent:b=yes
     fx:t="wood_small_destr"
-    fxScale:r=1.0
+    fxScale:r=0.5
     physRes:t="wood_box_b_destr_phobj"
   }
 
@@ -22222,7 +22222,7 @@ riExtra{
     isParent:b=yes
     destructibleByParent:b=yes
     fx:t="wood_small_destr"
-    fxScale:r=1.0
+    fxScale:r=0.5
     physRes:t="wood_box_c_destr_phobj"
   }
 
@@ -22232,7 +22232,7 @@ riExtra{
     isParent:b=yes
     destructibleByParent:b=yes
     fx:t="wood_small_destr"
-    fxScale:r=1.0
+    fxScale:r=0.5
     physRes:t="wood_box_d_destr_phobj"
   }
 
@@ -25254,8 +25254,8 @@ riExtra{
   }
 
   window_1500x2500_barricaded_sandbags_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25264,8 +25264,8 @@ riExtra{
   }
 
   window_1500x2500_barricaded_sandbags_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25274,8 +25274,8 @@ riExtra{
   }
 
   window_1500x2500_barricaded_sandbags_c{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25284,8 +25284,8 @@ riExtra{
   }
 
   window_1900x3000_barricaded_sandbags_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25294,8 +25294,8 @@ riExtra{
   }
 
   window_1900x3000_barricaded_sandbags_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25304,8 +25304,8 @@ riExtra{
   }
 
   window_1900x3000_barricaded_sandbags_c{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25314,8 +25314,8 @@ riExtra{
   }
 
   window_1900x3000_barricaded_sandbags_d{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25324,8 +25324,8 @@ riExtra{
   }
 
   window_2200x2500_barricaded_sandbags_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25334,8 +25334,8 @@ riExtra{
   }
 
   window_2200x2500_barricaded_sandbags_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25344,8 +25344,8 @@ riExtra{
   }
 
   window_2200x2500_barricaded_sandbags_c{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25354,8 +25354,8 @@ riExtra{
   }
 
   window_2200x2500_barricaded_sandbags_d{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25364,8 +25364,8 @@ riExtra{
   }
 
   window_3200x3500_barricaded_sandbags_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25374,8 +25374,8 @@ riExtra{
   }
 
   window_3200x3500_barricaded_sandbags_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25384,8 +25384,8 @@ riExtra{
   }
 
   window_3200x3500_barricaded_sandbags_c{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -25394,8 +25394,8 @@ riExtra{
   }
 
   window_3200x3500_barricaded_sandbags_d{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -32099,8 +32099,8 @@ riExtra{
   }
 
   stalingrad_department_store_sandbag_barricade_2100_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38311,8 +38311,8 @@ riExtra{
   }
 
   sandbags_wall_high_10x8_canopy_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="wood"
     isParent:b=no
     fx:t="wood_small_destr"
@@ -38322,8 +38322,8 @@ riExtra{
   }
 
   sandbags_wall_high_l2000_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38332,8 +38332,8 @@ riExtra{
   }
 
   sandbags_wall_high_l2000_side_l{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38342,8 +38342,8 @@ riExtra{
   }
 
   sandbags_wall_high_l2000_side_r{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38352,8 +38352,8 @@ riExtra{
   }
 
   sandbags_wall_high_l2000_window_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38362,8 +38362,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38372,8 +38372,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_hole_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38382,8 +38382,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_hole_a_center{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38393,8 +38393,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_hole_a_left{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38403,8 +38403,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_hole_a_right{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38413,8 +38413,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_hole_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38423,8 +38423,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_hole_b_short{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38433,8 +38433,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_window_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38443,8 +38443,8 @@ riExtra{
   }
 
   sandbags_wall_high_l4000_window_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38453,8 +38453,8 @@ riExtra{
   }
 
   sandbags_wall_high_rounded_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38463,8 +38463,8 @@ riExtra{
   }
 
   sandbags_wall_high_rounded_hole_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38473,8 +38473,8 @@ riExtra{
   }
 
   sandbags_wall_high_rounded_window_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38483,8 +38483,8 @@ riExtra{
   }
 
   sandbags_wall_low_l2000_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38493,8 +38493,8 @@ riExtra{
   }
 
   sandbags_wall_low_rounded_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38503,8 +38503,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l1000_side_l{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38513,8 +38513,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l1000_side_r{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38523,8 +38523,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l1000_side_r_short{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38533,8 +38533,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l2000_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38543,8 +38543,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l2000_a_short{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38553,8 +38553,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l3000_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38563,8 +38563,8 @@ riExtra{
   }
 
   sandbags_wall_medium_l8000_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38573,8 +38573,8 @@ riExtra{
   }
 
   sandbags_wall_medium_rounded_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38583,8 +38583,8 @@ riExtra{
   }
 
   sandbags_wall_medium_rounded_a_mission_object{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38592,9 +38592,49 @@ riExtra{
     physRes:t="sandbags_wall_medium_rounded_a_destr_phobj"
   }
 
+  sandbags_wall_medium_rounded_b_mission_object{
+    hp:r=255.0
+    impulseThreshold:r=100.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=2.0
+    physRes:t="sandbags_wall_medium_rounded_b_mission_object_destr_phobj"
+  }
+
+  sandbags_wall_medium_rounded_c_mission_object{
+    hp:r=255.0
+    impulseThreshold:r=100.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=2.0
+    physRes:t="sandbags_wall_medium_rounded_c_mission_object_destr_phobj"
+  }
+
+  sandbags_wall_medium_rounded_d_mission_object{
+    hp:r=255.0
+    impulseThreshold:r=100.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=2.0
+    physRes:t="sandbags_wall_medium_rounded_d_mission_object_destr_phobj"
+  }
+
+  sandbags_wall_medium_rounded_e_mission_object{
+    hp:r=255.0
+    impulseThreshold:r=100.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=2.0
+    physRes:t="sandbags_wall_medium_rounded_e_mission_object_destr_phobj"
+  }
+
   sandbag_single_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38603,8 +38643,8 @@ riExtra{
   }
 
   sandbag_single_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38613,8 +38653,8 @@ riExtra{
   }
 
   sandbag_single_c{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38623,8 +38663,8 @@ riExtra{
   }
 
   sandbag_single_d{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38633,8 +38673,8 @@ riExtra{
   }
 
   sandbag_single_e{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38643,8 +38683,8 @@ riExtra{
   }
 
   sandbag_single_f{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38654,8 +38694,8 @@ riExtra{
 
   sandbags_wall_mid_a{
     nextRes:t="sandbags_wall_mid_a_dmg"
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38665,8 +38705,8 @@ riExtra{
 
   sandbags_wall_mid_b{
     nextRes:t="sandbags_wall_mid_b_dmg"
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38676,8 +38716,8 @@ riExtra{
 
   sandbags_wall_mid_c{
     nextRes:t="sandbags_wall_mid_c_dmg"
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=yes
     fx:t="sandbag_destr"
@@ -38685,9 +38725,49 @@ riExtra{
     physRes:t="sandbags_wall_mid_c_destr_phobj"
   }
 
+  soil_heap_medium_a{
+    destructionImpulse:r=10000.0
+    impulseThreshold:r=256.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=1.0
+    physRes:t="soil_heap_medium_a_destr_phobj"
+  }
+
+  soil_heap_medium_b{
+    destructionImpulse:r=10000.0
+    impulseThreshold:r=256.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=1.0
+    physRes:t="soil_heap_medium_b_destr_phobj"
+  }
+
+  soil_heap_small_a{
+    destructionImpulse:r=10000.0
+    impulseThreshold:r=256.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=1.0
+    physRes:t="soil_heap_small_a_destr_phobj"
+  }
+
+  soil_heap_small_b{
+    destructionImpulse:r=10000.0
+    impulseThreshold:r=256.0
+    material:t="sand"
+    isParent:b=no
+    fx:t="sandbag_destr"
+    fxScale:r=1.0
+    physRes:t="soil_heap_small_b_destr_phobj"
+  }
+
   bag_grain_flat_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -38696,8 +38776,8 @@ riExtra{
   }
 
   bag_grain_stand_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -41796,8 +41876,8 @@ riExtra{
   }
 
   market_bag_a{
-    hp:r=180.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="generic_dmg"
@@ -41806,8 +41886,8 @@ riExtra{
   }
 
   market_bag_b{
-    hp:r=180.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="generic_dmg"
@@ -41816,8 +41896,8 @@ riExtra{
   }
 
   market_bag_c{
-    hp:r=180.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="generic_dmg"
@@ -41826,8 +41906,8 @@ riExtra{
   }
 
   market_bag_d{
-    hp:r=180.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="generic_dmg"
@@ -41836,8 +41916,8 @@ riExtra{
   }
 
   market_bag_e{
-    hp:r=180.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="generic_dmg"
@@ -41846,8 +41926,8 @@ riExtra{
   }
 
   market_bag_f{
-    hp:r=180.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="generic_dmg"
@@ -42219,8 +42299,8 @@ riExtra{
   }
 
   food_bag_a{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -42229,8 +42309,8 @@ riExtra{
   }
 
   food_bag_b{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -42239,8 +42319,8 @@ riExtra{
   }
 
   food_bag_c{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -42249,8 +42329,8 @@ riExtra{
   }
 
   food_bag_d{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -42259,8 +42339,8 @@ riExtra{
   }
 
   food_bag_e{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"
@@ -42269,8 +42349,8 @@ riExtra{
   }
 
   food_bag_f{
-    hp:r=150.0
-    impulseThreshold:r=75.0
+    hp:r=255.0
+    impulseThreshold:r=100.0
     material:t="sand"
     isParent:b=no
     fx:t="sandbag_destr"

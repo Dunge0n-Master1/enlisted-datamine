@@ -14,6 +14,7 @@ let {
 } = require("%ui/hud/state/team_scores.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {secondsToStringLoc} = require("%ui/helpers/time.nut")
+let { isGunGameMode, GunGameModeUI } = require("gun_game.game_mode.ui.nut")
 
 const GAP_RATIO = 0.4 // magic number calculated as gap/icon = (1 / 1.5) / (1 + 1 / 1.5)
 
@@ -421,13 +422,15 @@ let modeEscort = {
   ]
 }
 
+
 let isDominationMode = Computed(@() whichTeamAttack.value < 0)
 let isEscortMode = Computed(@() capZones.value.findindex(@(zone) zone?.trainZone) != null)
 
 let gameModeBlock = @() {
-  watch = isDominationMode
+  watch = [isDominationMode, isGunGameMode]
   hplace = ALIGN_CENTER
-  children = isEscortMode.value ? modeEscort
+  children = isGunGameMode.value ? GunGameModeUI
+           : isEscortMode.value ? modeEscort
            : isDominationMode.value ? modeDomination
            : modeInvasion
 }

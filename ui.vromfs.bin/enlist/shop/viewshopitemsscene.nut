@@ -107,6 +107,7 @@ let function purchaseBtnUi() {
   let { armyLevel = 0, isFreemium = false } = requirements
   let { level = 0 } = curArmyData.value
   let btnCtor = armyLevel > level ? Flat : PrimaryFlat
+  let crateContent = shopItemContentCtor(shopItemData)
   return {
     watch = [curArmyData, shopItem, purchaseIsPossible]
     rendObj = ROBJ_BOX
@@ -134,8 +135,9 @@ let function purchaseBtnUi() {
                 itemView = mkShopItemImg(shopItemData.image, {
                   size = [fsh(40), fsh(24)]
                 })
-                description = mkShopItemUsage(shopItemContentCtor(shopItemData), allItemTemplates)
-              }
+                description = mkShopItemUsage(crateContent, allItemTemplates)
+              },
+              crateContent
             )
           },
           {

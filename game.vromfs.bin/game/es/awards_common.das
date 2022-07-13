@@ -4,6 +4,7 @@ require game.es.events
 require EnlistedNet
 require ecs.common
 require enlisted.game.es.offender_cache_common
+require enlisted.events_enlisted
 
 def send_award_to_player(player_eid : EntityId; award : string)
   server_send_schemeless_event(player_eid, typeinfo(undecorated_typename type<CmdAddAward>), player_eid) <| $(var init : Object#)
@@ -24,3 +25,9 @@ def push_soldier_stat(var awards : Array#; player : EntityId; guid : string; sta
 
 def push_soldier_stat(var awards : Array#; soldier : CachedSoldier; stat : string; amount : float = 1.0)
   push_soldier_stat(awards, soldier.player, soldier.guid, stat, amount)
+
+def send_award_stat(player : EntityId; guid : string; stat : string; amount : float = 1.0)
+  using <| $(var awardList : Array#)
+    awardList |> push_soldier_stat(player, guid, stat, amount)
+    broadcast_schemeless_event(typeinfo(undecorated_typename type<EventSquadMembersStats>)) <| $(var init : Object)
+      set(init, "list", awardList)

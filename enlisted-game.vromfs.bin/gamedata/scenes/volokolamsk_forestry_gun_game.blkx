@@ -1,0 +1,1082 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[61.4859, 0.0, -98.3224] [0.0, 48.5729, 0.0] [96.5868, -0.0, 60.4002] [-1050.46, -0.229181, 72.7254]]
+}
+
+entity{
+  _template:t="custom_profile"
+  customProfile:t="%enlSqGlob/data/gun_game_profile.json"
+}
+
+entity{
+  _template:t="gun_game_mode_logic"
+
+  "gun_game__levels:array"{
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="mosin_dragoon_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="m30_luftwaffe_drilling_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="svt_38_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="mp_38_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="madsen_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="sniper_avs_36_gun"
+      }
+
+      "additionalWeapInfo:array"{
+
+        "additionalWeapInfo:object"{
+
+          "gunMods:object"{
+            scope:t="scope_avs_36_pe"
+          }
+        }
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="silenced_erma_emp_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="zh_29_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="suomi_kp_31_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=2
+
+      "weapons:list<t>"{
+        item:t="dt_29_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="neiman_minethrower_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="mosin_m91_gun"
+      }
+
+      "additionalWeapInfo:array"{
+
+        "additionalWeapInfo:object"{
+
+          "gunMods:object"{
+            scope:t="scope_pu_m1891_1930"
+          }
+        }
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="roks_2_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="p08_luger_artillery_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="primary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="mosin_m91_bramit_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="tertiary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="walther_ppk_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="secondary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="ptrd_41_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="melee"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="german_officer_sword_weapon"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="tertiary"
+      levelKills:i=3
+
+      "weapons:list<t>"{
+        item:t="nagant_m1895_gun"
+      }
+    }
+
+    "gun_game__levels:object"{
+      weaponSlot:t="melee"
+      levelKills:i=1
+
+      "weapons:list<t>"{
+        item:t="knife_weapon"
+      }
+    }
+  }
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="ground_leaves_10m"
+  ground_effect__biome_group_name:t="forest_leaves"
+  ground_effect__rot_z:p2=0.0, 10.0
+  ground_effect__offset_x:p2=0.0, 0.0
+  ground_effect__offset_y:p2=3.5, 0.2
+  ground_effect__offset_z:p2=0.0, 0.0
+  ground_effect__grid_cell_size:r=8.0
+  ground_effect__grid_world_origin:p2=0.0, 0.0
+  ground_effect__vis_radius:r=50.0
+  ground_effect__biome_weight_for_active_thr:r=0.25
+  ground_effect__fx_radius:r=-1.0
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="location_sand_wind_ground_fx"
+  ground_effect__biome_group_name:t="sand_slope"
+  ground_effect__grid_cell_size:r=8.0
+  ground_effect__grid_world_origin:p2=0.0, 0.0
+  ground_effect__vis_radius:r=50.0
+  ground_effect__offset_y:p2=0.0, 0.0
+  ground_effect__scale_x:p2=0.05, 0.0
+  ground_effect__scale_y:p2=0.05, 0.0
+  ground_effect__scale_z:p2=0.05, 0.0
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_bricks_a"
+  ri_gpu_object__biom_indexes:p4=20.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=6
+  ri_gpu_object__cell_size:r=4.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.7, 1.15
+  ri_gpu_object__rotate_range:p2=0.0, 960.0
+  ri_gpu_object__seed:i=112
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaf_pile_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaf_pile_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaf_pile_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaf_pile_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaf_pile_e"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_bricks_a"
+  ri_gpu_object__biom_indexes:p4=20.0, 21.0, 22.0, -1.0
+  ri_gpu_object__grid_size:i=6
+  ri_gpu_object__grid_tiling:i=2
+  ri_gpu_object__cell_size:r=12.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.6, 1.05
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=55113
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_dry_branches_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_dry_branches_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_dry_branches_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_branches_small_a"
+      weight:r=0.33
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_branches_small_b"
+      weight:r=0.33
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_branches_small_c"
+      weight:r=0.33
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_branches_small_d"
+      weight:r=0.33
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_bricks_a"
+  ri_gpu_object__biom_indexes:p4=6.0, 7.0, 15.0, -1.0
+  ri_gpu_object__grid_size:i=6
+  ri_gpu_object__grid_tiling:i=4
+  ri_gpu_object__cell_size:r=12.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.5, 1.0
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=55112
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_e"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_f"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_bricks_a"
+  ri_gpu_object__biom_indexes:p4=9.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=16
+  ri_gpu_object__cell_size:r=16.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.5, 1.25
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=55114
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_e"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="desert_stone_small_f"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=142, 137, 71, 0
+    ocean0:c=76, 63, 5, 0
+    ocean_density:r=0.1
+    land_selfillum_worldscale:r=0.9
+    river1:c=142, 137, 71, 0
+    river0:c=76, 63, 5, 0
+    hmap_displacement_down:r=-0.15
+    puddle_flat_hmap_reduce:r=0.03
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="volokolamsk_building_colors_tex_palette*"
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    river_density:r=0.3
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="minimap_battle_of_moscow_volokolamsk_countryside_autumn"
+}
+
+entity{
+  _template:t="briefing_gun_game"
+  mission_name:t="volokolamsk_forestry_gun_game"
+
+  "loading_images:list<t>"{
+    item:t="ui/volokolamsk_forestery_01.jpg"
+  }
+}
+
+entity{
+  _template:t="team_ussr+team_narrator_gun_game+respawn_creators_team"
+  team__id:i=1
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="gun_game/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__spawnBotArmy:t="moscow_allies"
+}
+
+entity{
+  _template:t="team_germany_winter+team_narrator_gun_game+respawn_creators_team"
+  team__id:i=2
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="gun_game/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=0.0
+  team__spawnBotArmy:t="moscow_axis"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.197132, 0.0132409, 0.980287] [0.0030309, 0.999895, -0.0141152] [-0.980374, 0.00575373, 0.197071] [-1006.21, 7.59878, 25.8167]]
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_autumn.blk"
+  level__minimapDefaultVisibleRadius:i=75
+
+  "level__weatherChoice:object"{
+    weather_cloudy_a:r=1.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=8.5
+  }
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.481177, 0.0, 0.876628] [0.0, 1.0, 0.0] [-0.876625, 0.0, -0.481175] [-1061.41, 3.5174, 27.5825]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.843427, 0.0, -0.537252] [0.0, 1.0, 0.0] [0.53725, 0.0, -0.843423] [-1084.24, 3.5174, 60.6707]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.517229, 0.0, -0.855852] [0.0, 1.0, 0.0] [0.855848, -0.0, 0.517227] [-1074.3, 7.80646, 68.2584]]
+  team:i=3
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.792041, 0.0, -0.610474] [0.0, 1.0, 0.0] [0.610472, 0.0, -0.792038] [-1042.16, 3.28447, 115.447]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=17.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.506018, 0.0, -0.862528] [0.0, 1.0, 0.0] [0.862524, -0.0, 0.506015] [-1084.29, 3.51744, 53.5824]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.553917, 0.0, 0.832577] [0.0, 1.0, 0.0] [-0.832573, 0.0, -0.553914] [-1071.27, 7.49387, 35.4476]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=16.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.54713, 0.0, -0.837053] [0.0, 1.0, 0.0] [0.837049, -0.0, 0.547128] [-1080.85, 7.49387, 44.9675]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=18.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.637849, 0.0, 0.770166] [0.0, 1.0, -0.0] [-0.770164, 0.0, 0.637847] [-1068.05, 4.69991, 30.0531]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=10.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.889699, 0.0, 0.456557] [0.0, 1.0, -0.0] [-0.456555, 0.0, 0.889695] [-1068.57, 3.51763, 37.1381]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.244371, 0.0, 0.969686] [0.0, 1.0, 0.0] [-0.969681, 0.0, -0.24437] [-1071.55, 3.5125, 34.9708]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=20.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.878898, 0.0, 0.477017] [0.0, 1.0, -0.0] [-0.477015, 0.0, 0.878895] [-1084.47, 0.405557, 76.6037]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=25.0
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1067.12, 2.04672, 21.1047]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1030.82, 2.12013, 72.0935]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.842243, 0.0, 0.539098] [0.0, 1.0, -0.0] [-0.539098, 0.0, 0.842243] [-1043.44, 2.07018, 64.5818]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.503413, 0.0, -0.864046] [0.0, 1.0, 0.0] [0.864046, -0.0, 0.503413] [-1067.87, 2.48106, 82.5655]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.525533, 0.0, -0.850773] [0.0, 1.0, 0.0] [0.850773, -0.0, 0.525533] [-1084.21, 2.41906, 71.4696]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.72584, 0.0, -0.687864] [0.0, 1.0, 0.0] [0.687864, -0.0, 0.72584] [-1035.67, 2.12013, 72.0736]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[0.968744, 0.0, 0.248064] [0.0, 1.0, -0.0] [-0.248064, 0.0, 0.968744] [-1055.35, 2.26722, 94.3886]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[0.856706, 0.0, 0.515805] [0.0, 1.0, -0.0] [-0.515805, 0.0, 0.856706] [-1031.42, 2.07453, 53.1168]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[-0.549038, 0.0, 0.835797] [0.0, 1.0, 0.0] [-0.835797, 0.0, -0.549038] [-1013.89, 2.07018, 64.8781]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.944615, 0.0197203, -0.327588] [-0.0447693, 0.996605, -0.0691005] [0.325113, 0.0799393, 0.94229] [-1038.66, 1.93276, 54.2362]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[-0.836481, 0.0, 0.547996] [0.0, 1.0, 0.0] [-0.547996, 0.0, -0.836481] [-1021.43, 2.12014, 66.1672]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.287008, 0.0, -0.957928] [0.0, 1.0, 0.0] [0.957928, 0.0, -0.287008] [-1005.52, 2.41907, 69.8604]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[-0.0692209, 0.0, 0.997602] [0.0, 1.0, 0.0] [-0.997601, 0.0, -0.0692209] [-1008.71, 2.47863, 80.1552]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.364759, 0.0, -0.931102] [0.0, 1.0, 0.0] [0.931102, -0.0, 0.364759] [-996.742, 2.12013, 71.4785]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.364759, 0.0, -0.931102] [0.0, 1.0, 0.0] [0.931102, -0.0, 0.364759] [-1000.67, 2.12013, 53.1042]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[-0.931473, 0.0, -0.36381] [0.0, 1.0, 0.0] [0.36381, 0.0, -0.931473] [-995.469, 2.12013, 53.2235]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[-0.491681, -0.0148849, 0.870649] [-0.0302596, 0.999543, 0.0] [-0.870249, -0.0263454, -0.491906] [-1029.0, 1.96785, 41.1927]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[-0.951181, 0.0, -0.308632] [0.0, 1.0, 0.0] [0.308632, 0.0, -0.951182] [-1085.95, 2.07454, 39.557]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.474749, 0.0, 0.880121] [0.0, 1.0, 0.0] [-0.880121, 0.0, -0.474749] [-1039.73, 2.41907, 108.726]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.474749, 0.0, 0.880121] [0.0, 1.0, 0.0] [-0.880121, 0.0, -0.474749] [-1039.73, 3.87788, 108.726]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.474749, 0.0, 0.880121] [0.0, 1.0, 0.0] [-0.880121, 0.0, -0.474749] [-1043.11, 2.41907, 99.9753]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.911277, 0.0, -0.411805] [0.0, 1.0, 0.0] [0.411803, 0.0, -0.911272] [-1019.74, 3.28449, 85.2088]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.425669, 0.0, 0.904884] [0.0, 1.0, -0.0] [-0.904879, 0.0, 0.425667] [-1035.7, 3.28449, 78.0559]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=12.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.864037, 0.0, -0.503435] [0.0, 1.0, 0.0] [0.503433, 0.0, -0.864034] [-1034.55, 3.28447, 102.418]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.870264, 0.0, 0.492586] [0.0, 1.0, -0.0] [-0.492586, 0.0, 0.870264] [-1037.08, 2.7491, 77.1469]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.870264, 0.0, 0.492586] [0.0, 1.0, -0.0] [-0.492586, 0.0, 0.870264] [-1038.14, 2.7491, 78.9863]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.870264, 0.0, 0.492586] [0.0, 1.0, -0.0] [-0.492586, 0.0, 0.870264] [-1039.11, 2.7491, 80.8204]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.299732, 0.0, -0.954028] [0.0, 1.0, 0.0] [0.954024, -0.0, 0.299731] [-1009.21, 3.28448, 51.3002]]
+  team:i=3
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.454477, 0.0, -0.890758] [-0.0, 1.0, 0.0] [0.890759, 0.0, 0.454477] [-1009.64, 2.53941, 52.7381]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.894886, 0.0, -0.446295] [0.0, 1.0, 0.0] [0.446295, 0.0, -0.894886] [-1011.32, 2.5, 50.3466]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[0.859709, 0.0, 0.510783] [0.0, 1.0, -0.0] [-0.510783, 0.0, 0.85971] [-1040.13, 2.74993, 82.4828]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.894052, 0.0, 0.447963] [0.0, 1.0, -0.0] [-0.447963, 0.0, 0.894052] [-989.468, 2.5, 51.8033]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[0.904981, 0.0, 0.425453] [0.0, 1.0, -0.0] [-0.425453, 0.0, 0.904981] [-990.306, 2.5, 53.564]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.523608, 0.0, -0.851959] [0.0, 1.0, 0.0] [0.851959, -0.0, 0.523608] [-1037.22, 2.7491, 80.1926]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[0.577489, 0.0, -0.816398] [0.0, 1.0, 0.0] [0.816398, -0.0, 0.577489] [-1035.58, 2.74993, 81.2861]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.428131, 0.0, 0.903717] [0.0, 1.0, -0.0] [-0.903717, 0.0, 0.428131] [-1036.68, 2.42712, 127.907]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1026.15, 2.04671, 32.1529]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1026.15, 3.509, 32.1529]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.484352, -0.00381718, -0.874865] [0.00781217, 0.99997, -3.79752e-05] [0.874838, -0.00681619, 0.484367] [-1023.38, 2.00918, 28.9251]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.484352, -0.00381718, -0.874865] [0.00781217, 0.99997, -3.79752e-05] [0.874838, -0.00681619, 0.484367] [-1023.38, 2.00918, 28.9251]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1021.41, 2.04671, 34.0752]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1021.41, 3.509, 34.0752]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1023.8, 2.04671, 38.0036]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1023.8, 3.509, 38.0036]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.525533, 0.0, -0.850773] [0.0, 1.0, 0.0] [0.850773, -0.0, 0.525533] [-1068.61, 2.41907, 100.451]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.525533, 0.0, -0.850773] [0.0, 1.0, 0.0] [0.850773, -0.0, 0.525533] [-1068.61, 3.88159, 100.451]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.525533, 0.0, -0.850773] [0.0, 1.0, 0.0] [0.850773, -0.0, 0.525533] [-1073.91, 3.89424, 105.588]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[-0.834043, 0.0, -0.551699] [0.0, 1.0, 0.0] [0.551699, 0.0, -0.834043] [-1107.91, 2.424, 84.4006]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.781666, 0.0, 0.623704] [0.0, 1.0, -0.0] [-0.623702, 0.0, 0.781662] [-1112.7, 2.68594, 78.8313]]
+  team:i=1
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[0.552206, 0.0, -0.833714] [0.0, 1.0, 0.0] [0.833709, -0.0, 0.552203] [-1072.07, 2.68593, 108.554]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[-0.871518, 0.0, -0.490364] [0.0, 1.0, 0.0] [0.490364, 0.0, -0.871518] [-1046.73, 2.12012, 94.7845]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.525533, 0.0, -0.850773] [0.0, 1.0, 0.0] [0.850773, -0.0, 0.525533] [-1065.67, 3.71303, 103.862]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[0.799573, 0.0, 0.600569] [0.0, 1.0, -0.0] [-0.600569, 0.0, 0.799573] [-1045.74, 2.1221, 76.5273]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[-0.513839, 0.0, 0.857886] [0.0, 1.0, 0.0] [-0.857886, 0.0, -0.513839] [-1020.34, 2.74993, 86.0402]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.870264, 0.0, 0.492586] [0.0, 1.0, -0.0] [-0.492586, 0.0, 0.870264] [-1050.89, 2.7491, 109.194]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.870264, 0.0, 0.492586] [0.0, 1.0, -0.0] [-0.492586, 0.0, 0.870264] [-1040.42, 2.7491, 115.081]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.474749, 0.0, 0.880121] [0.0, 1.0, 0.0] [-0.880121, 0.0, -0.474749] [-1034.68, 2.41907, 100.292]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.474749, 0.0, 0.880121] [0.0, 1.0, 0.0] [-0.880121, 0.0, -0.474749] [-1043.11, 3.87255, 99.9753]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.894886, 0.0, -0.446295] [0.0, 1.0, 0.0] [0.446295, 0.0, -0.894886] [-1008.23, 2.5, 51.7924]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[-0.886525, 0.0, -0.462678] [0.0, 1.0, 0.0] [0.462679, 0.0, -0.886526] [-1007.39, 2.5, 50.2479]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[-0.900164, 0.0, -0.435549] [0.0, 1.0, 0.0] [0.435549, 0.0, -0.900165] [-1010.49, 2.5, 48.6972]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.526659, 0.0, 0.850082] [0.0, 1.0, 0.0] [-0.850078, 0.0, -0.526657] [-1024.09, 3.28448, 32.2558]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=10.0
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.855258, 0.0, 0.518203] [0.0, 1.0, -0.0] [-0.518203, 0.0, 0.855258] [-1021.79, 2.04519, 37.9831]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[-0.287008, 0.0, -0.957928] [0.0, 1.0, 0.0] [0.957928, 0.0, -0.287008] [-1005.52, 3.87864, 69.8604]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.914041, 0.0, -0.405622] [0.0, 1.0, 0.0] [0.405622, -0.0, 0.914041] [-1035.97, 1.62309, 35.5693]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.541445, 0.0, -0.840737] [0.0, 1.0, 0.0] [0.840737, -0.0, 0.541445] [-1049.65, 2.05331, 28.0492]]
+}
+
+entity{
+  _template:t="russia_wooden_planks_b"
+  transform:m=[[0.541445, 0.0, -0.840737] [0.0, 1.0, 0.0] [0.840737, -0.0, 0.541445] [-1056.87, 3.60855, 21.112]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.844874, 0.0, 0.534965] [0.0, 1.0, -0.0] [-0.534965, 0.0, 0.844874] [-1054.06, 2.05331, 24.7636]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.844874, 0.0, 0.534965] [0.0, 1.0, -0.0] [-0.534965, 0.0, 0.844874] [-1054.06, 4.45516, 24.7636]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[-0.503739, 0.0, -0.863856] [0.0, 1.0, 0.0] [0.863856, 0.0, -0.50374] [-1095.87, 1.22874, 48.9598]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[0.551412, -0.0095736, -0.834179] [0.0155827, 0.999878, -0.00117475] [0.834087, -0.012351, 0.551493] [-1071.83, 2.11874, 14.0767]]
+}
+
+entity{
+  _template:t="debris_wooden_planks_stack_a"
+  transform:m=[[-0.770869, -0.0095736, -0.636922] [0.000487564, 0.999878, -0.0156193] [0.636993, -0.012351, -0.770769] [-1063.12, 2.11874, 9.11691]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.844874, 0.0, 0.534965] [0.0, 1.0, -0.0] [-0.534965, 0.0, 0.844874] [-1071.91, 2.05331, 10.2058]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.43692, 0.0, -0.8995] [0.0, 1.0, 0.0] [0.899501, -0.0, 0.43692] [-1071.05, 2.3686, 7.10343]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.830977, 0.0, -0.556306] [0.0, 1.0, 0.0] [0.556306, -0.0, 0.830977] [-1075.3, 0.952585, 15.9585]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[0.0696505, 0.0, -0.997571] [0.0, 1.0, 0.0] [0.997571, -0.0, 0.0696505] [-1079.44, 0.952583, 25.5909]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[-0.614198, -0.012329, 0.789055] [0.0, 0.999878, 0.0156231] [-0.789152, 0.00959568, -0.614123] [-1042.81, 2.05412, 15.9487]]
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.567559, 0.0, 0.823338] [0.0, 1.0, 0.0] [-0.823334, 0.0, -0.567557] [-1064.2, 3.28448, 6.42013]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=10.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.624111, 0.0, -0.781341] [0.0, 1.0, 0.0] [0.781338, 0.0, -0.624108] [-1091.32, 0.508597, 94.9849]]
+  team:i=1
+  gun_game__respawnFriendlyRadius:r=30.0
+}
+
+entity{
+  _template:t="gun_game_respawn_base"
+  transform:m=[[-0.582696, 0.0, 0.812696] [0.0, 1.0, 0.0] [-0.812692, 0.0, -0.582693] [-994.012, 3.28448, 49.0626]]
+  team:i=2
+  gun_game__respawnFriendlyRadius:r=20.0
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.903766, 0.0, -0.428027] [0.0, 1.0, 0.0] [0.428027, 0.0, -0.903766] [-998.973, 2.5, 47.0548]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[0.891904, 0.0, 0.452223] [0.0, 1.0, -0.0] [-0.452223, 0.0, 0.891905] [-999.813, 2.5, 48.8771]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[-0.47736, 0.0, 0.878708] [0.0, 1.0, 0.0] [-0.878708, 0.0, -0.47736] [-993.354, 2.19356, 47.0644]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.454477, 0.0, -0.890758] [-0.0, 1.0, 0.0] [0.890759, 0.0, 0.454477] [-988.533, 2.7491, 63.7166]]
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.454477, 0.0, -0.890758] [-0.0, 1.0, 0.0] [0.890759, 0.0, 0.454477] [-988.533, 2.7491, 63.7166]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305_broken"
+  transform:m=[[-0.763203, -0.00429073, -0.646146] [-0.0312243, 0.999055, 0.0302467] [0.645404, 0.0432598, -0.762615] [-1025.74, 2.37861, 108.109]]
+}
+
+entity{
+  _template:t="sawmill_wood_boards_a"
+  transform:m=[[-0.991073, 0.0, -0.133326] [0.0, 1.0, 0.0] [0.133326, 0.0, -0.991073] [-1094.01, 1.22874, 68.2724]]
+}

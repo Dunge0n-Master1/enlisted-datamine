@@ -44,6 +44,7 @@ team_generic_capture{
   _tracked:t="team__score"
   _tracked:t="team__capzoneTimerEndTime"
   _tracked:t="artillery_limit__current"
+  _tracked:t="team__gunGameLevel"
   _replicated:t="team__aircraftRequestAvailableAtTime"
   _replicated:t="score_bleed__totalDomBleedOn"
   _replicated:t="score_bleed__domBleedOn"
@@ -54,6 +55,8 @@ team_generic_capture{
   _replicated:t="team__squadsCanSpawn"
   _replicated:t="team__eachSquadMaxSpawns"
   _replicated:t="artillery_limit__current"
+  _replicated:t="team__gunGameLevel"
+  team__gunGameLevel:i=0
 
   "team__isGameFinished:b"{
     value:b=no

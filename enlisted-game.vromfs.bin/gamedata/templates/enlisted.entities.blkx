@@ -1624,6 +1624,7 @@ enlisted_player{
   _extends:t="friendly_fire_forgivable"
   _extends:t="respawner"
   _extends:t="squad_members_ui"
+  _extends:t="gun_game_mode_player_components"
   _replicated:t="userModsClientData"
   _replicated:t="userstatsInBattle"
   _replicated:t="userid"
@@ -1741,6 +1742,7 @@ enlisted_player{
     scoring_player__meleeKills:i=0
     scoring_player__grenadeKills:i=0
     scoring_player__longRangeKills:i=0
+    scoring_player__gunGameLevelup:i=0
     scoring_player__battleTimeLastStartedAt:r=-1.0
     scoring_player__isGameFinished:b=no
     scoring_player__score:i=0
@@ -2451,6 +2453,309 @@ scenery_remover{
 
     _info{
       desc:t="List of scanned level scenery, may be used to fill in   scenery_remove__exclude   list to avoid removal of required scenery elements. Reset it with R button before saving scene."
+    }
+  }
+}
+
+gun_game_mode_player_components{
+  gun_game__currentLevelWeapSlot:i=-1
+  gun_game__levelPropsId:i=-1
+
+  "gunGameModePlayer:tag"{
+  }
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    gun_game__currentLevel:i=0
+    gun_game__killsForNextLevel:i=-1
+    gun_game__killsForNextLevelRequire:i=0
+  }
+}
+
+gun_game_mode_weapon_components{
+
+  "gunGameModeWeapon:tag"{
+  }
+}
+
+gun_game_mode_logic{
+  _extends:t="replicating"
+  _extends:t="disableTeamkillWeaponDrops"
+
+  "gunGameModeLogic:tag"{
+  }
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    gun_game__levelsCount:i=0
+
+    "gun_game__leaderPlayerEid:eid"{
+    }
+  }
+
+  _group{
+    _tags:t="server"
+    gun_game__finished:b=no
+    gun_game__resetSpawnsTimeout:r=15.0
+    gun_game__resetSpawnsAtTime:r=-1.0
+    gun_game__leaderLevel:i=0
+
+    "gun_game__announceLevelReach:list<i>"{
+      level:i=4
+      level:i=9
+      level:i=14
+      level:i=19
+    }
+
+    "gun_game__levels:array"{
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="ppd_3438_gun"
+          w:t="mp_40_1_gun"
+          w:t="thompson_m1928a1_box_mag_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="stg_44_gun"
+          w:t="fedorov_avtomat_gun"
+          w:t="m2a1_carbine_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="m1_thompson_gun"
+          w:t="pps_42_gun"
+          w:t="suomi_kp_26_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="browning_m1918a1_gun"
+          w:t="lewis_lmg_gun"
+          w:t="mg_42_handheld_gun"
+          w:t="dt_29_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="sniper_avs_36_gun"
+          w:t="sniper_gewehr_43_gun"
+          w:t="sniper_svt_38_gun"
+        }
+
+        "additionalWeapInfo:array"{
+
+          "info:object"{
+
+            "gunMods:object"{
+              scope:t="scope_avs_36_pe"
+            }
+          }
+
+          "info:object"{
+
+            "gunMods:object"{
+              scope:t="scope_zf4"
+            }
+          }
+
+          "info:object"{
+
+            "gunMods:object"{
+              scope:t="scope_svt_pu"
+            }
+          }
+        }
+
+        "selectedAdditionalInfo:object"{
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="silenced_erma_emp_gun"
+          w:t="ppd_bramit_gun"
+          w:t="m3_greasegun_supressed_oss_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="zh_29_gun"
+          w:t="m1_carbine_gun"
+          w:t="svt_40_gun"
+          w:t="gewehr_41_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="rpzb_54_1_panzerschreck_gun"
+          w:t="m1_bazooka_gun"
+          w:t="m9_bazooka_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="kar98k_with_scope_mount_gun"
+          w:t="carcano_m38_7_35_with_scope_mount_gun"
+          w:t="m1903a3_springfield_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="roks_2_gun"
+          w:t="m2_flamethrower_gun"
+          w:t="flammenwerfer_35_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="kar98k_with_schiessbecher_grenade_launcher_gun"
+          w:t="mosin_1928_grenade_launcher_gun"
+          w:t="m1_carbine_grenade_launcher_gun"
+          w:t="m1_garand_grenade_launcher_m7_gun"
+          w:t="kar98k_with_schiessbecher_grenade_launcher_gun"
+          w:t="kar98k_with_gg_p_40_grenade_launcher_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="winchester_model_1912_gun"
+          w:t="ithaca_37_gun"
+          w:t="m30_luftwaffe_drilling_gun"
+          w:t="toz_b_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="kar98k_kriegsmodell_gun"
+          w:t="armaguerra_mod_39_gun"
+          w:t="lee_enfield_no4_mk1_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="ptrs_41_gun"
+          w:t="ptrd_41_gun"
+          w:t="pzb_39_gun"
+          w:t="atr_boys_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="bren_mk2_gun"
+          w:t="breda_mod_30_gun"
+          w:t="zb_26_gun"
+          w:t="madsen_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="piat_gun"
+          w:t="grb_39_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="tertiary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="mauser_c96_gun"
+          w:t="nagant_m1895_gun"
+          w:t="walther_pp_gun"
+          w:t="tt_33_gun"
+          w:t="colt_new_service_m1909_gun"
+        }
+      }
+
+      "level:object"{
+        weaponSlot:t="melee"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          w:t="us_officer_sword_1902_weapon"
+          w:t="axe_weapon"
+        }
+      }
+    }
+  }
+}
+
+gun_game_mode_sounds{
+  _extends:t="replicating"
+  _extends:t="any_source_net_sound_descs"
+
+  "net_sound__descs:shared:object"{
+
+    "gunGameNextLevel:object"{
+      path:t="ui/academy_training_popup"
+      toPlayer:b=yes
     }
   }
 }

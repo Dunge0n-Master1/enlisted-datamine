@@ -91,6 +91,23 @@ briefing_domination{
   }
 }
 
+briefing_gun_game{
+  _extends:t="briefing"
+  mission_type:t="gun_game"
+  _singleton:b=yes
+
+  _group{
+    _track:b=yes
+    briefing:b=yes
+    common:t="gun_game/hints"
+    common_header:t="briefing/common_header"
+    hints:t="common/controls"
+    showtime:r=7.0
+    header:t="briefing/header"
+    hints_header:t="briefing/common_hints_header"
+  }
+}
+
 briefing_tutorial{
   _extends:t="briefing"
   briefing:b=yes

@@ -69,3 +69,18 @@ def play_scene_net_sound(name : string; pos : float3; should_exist : bool = true
       let searchRange : float = *desc |> get_float("range") ?? 100.
       send_net_event(eid, [[CmdPlayNetSoundPos hash=sound_hash(name), pos=pos, param=0., time=get_sync_time()]],
         scene_net_sound_rcptf(pos, searchRange))
+
+
+def play_net_sound_from_any_source(target : EntityId; name : string; should_exist : bool = true)
+  var numSounds = 0
+  query() <| $ [es(REQUIRE=anySourceNetSounds)] ([[shared_comp]] net_sound__descs : Object)
+    if is_valid(get_desc(name, net_sound__descs, false))
+      ++numSounds
+      if numSounds == 1
+        query(target) <| $ [es] (transform : float3x4)
+          send_net_event(target, [[CmdPlayNetSoundFromAnySource hash=sound_hash(name), time=get_sync_time()]],
+            net_sound_rcptf(target, transform[3], name, net_sound__descs, false, true))
+  if numSounds > 1
+    sound_debug("net_sound: more than one sound with name '{name}' found")
+  elif numSounds == 0 && should_exist
+    sound_debug("net_sound: sound with name '{name}' not found")
