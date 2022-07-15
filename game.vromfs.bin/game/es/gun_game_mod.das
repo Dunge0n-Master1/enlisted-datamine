@@ -237,6 +237,7 @@ def gun_game_mode_score(evt : EventAnyEntityDied;
   let offenderInfo = get_offender_from_cache(offenderEid)
   let victimInfo = get_offender_from_cache(victimEid)
   query(offenderInfo.player) <| $ [es] (team : int;
+                                        possessed : EntityId;
                                         var gun_game__levelPropsId : int&;
                                         var gun_game__currentLevel : int&;
                                         var gun_game__killsForNextLevel : int&)
@@ -276,4 +277,4 @@ def gun_game_mode_score(evt : EventAnyEntityDied;
             team__gunGameLevel = gun_game__currentLevel
           return true
         return false
-      gun_game_init_level(evt.offender)
+      gun_game_init_level(possessed)

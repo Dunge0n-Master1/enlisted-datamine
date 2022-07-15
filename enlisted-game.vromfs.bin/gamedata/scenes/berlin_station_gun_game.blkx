@@ -871,10 +871,6 @@ entity{
 }
 
 entity{
-  _template:t="enemy_attack_marker"
-}
-
-entity{
   _template:t="briefing_gun_game"
   mission_name:t="berlin_station_gun_game"
 
