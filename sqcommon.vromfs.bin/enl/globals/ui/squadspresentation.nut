@@ -304,6 +304,7 @@ return freeze({
     ger_normandy_prem_tank_2 = genSquadGer("ger_normandy_prem_tank_2")
     ger_normandy_prem_assault_4 = genSquadGer("ger_normandy_prem_assault_4")
     ger_normandy_prem_tank_4 = genSquadGer("ger_normandy_prem_tank_4")
+    ger_normandy_event_assault_1 = genSquadGer("ger_normandy_event_assault_1", {premIcon = ICON_EVENT})
   }
 
   tunisia_allies = {
@@ -342,6 +343,7 @@ return freeze({
     allies_tunisia_event_mgun_1 = genSquadUsa("allies_tunisia_event_mgun_1", {premIcon = ICON_EVENT})
     allies_tunisia_prem_tank_2 = genSquadUsa("allies_tunisia_prem_tank_2")
     allies_tunisia_prem_pilot_assaulter_2 = genSquadUsa("allies_tunisia_prem_pilot_assaulter_2")
+    allies_tunisia_event_assault_1 = genSquadUsa("allies_tunisia_event_assault_1", {premIcon = ICON_EVENT})
   }
 
 

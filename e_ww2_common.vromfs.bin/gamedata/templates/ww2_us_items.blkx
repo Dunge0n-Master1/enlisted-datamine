@@ -82,14 +82,6 @@ ttachable_wear_pants_m39_long_gr_item{
   }
 }
 
-attachable_wear_pants_01_uk_summer_item{
-  _extends:t="attachable_pants"
-  item__uniqueName:t="attachable_wear_pants_01_uk_summer_item"
-  animchar__res:t="pants_01_uk_summer_char"
-  collres__res:t="pants_01_uk_summer_collision"
-  item__name:t="UK Summer Pants 01"
-}
-
 attachable_wear_pants_01_us_winter_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_pants_01_us_winter_item"
@@ -238,14 +230,6 @@ attachable_wear_tunic_03_us_summer_4inf_item{
     "us_field_jacket_M41_tex_d*":t="us_field_jacket_M41_2_tex_d*"
     "us_field_jacket_M41_tex_n*":t="us_field_jacket_M41_2_tex_n*"
   }
-}
-
-attachable_wear_tunic_01_uk_summer_item{
-  _extends:t="attachable_tunic"
-  item__uniqueName:t="attachable_wear_tunic_01_uk_summer_item"
-  animchar__res:t="tunic_01_uk_summer_char"
-  collres__res:t="tunic_01_uk_summer_collision"
-  item__name:t="UK Summer Tunic 01"
 }
 
 attachable_wear_pilot_a2_jacket_item{
@@ -612,116 +596,6 @@ m1_garand_clip_01_item{
   item__uniqueName:t="m1_garand_clip_01_item"
 }
 
-s_field_cap_01_uk_summer_item{
-  _extends:t="helmet_item"
-  animchar__res:t="s_field_cap_01_uk_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Service Field Cap"
-  item__uniqueName:t="s_field_cap_01_uk_summer_item"
-  item__armorAmount:r=0.1
-
-  "disabledFaceGenParams:shared:array"{
-    param:t="forehead_pos_y"
-    param:t="forehead_hor_scale"
-    param:t="forehead_scale"
-  }
-}
-
-brodie_helmet_01_uk_summer_item{
-  _extends:t="helmet_item"
-  animchar__res:t="brodie_helmet_01_uk_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Brodie helmet"
-  item__uniqueName:t="brodie_helmet_01_uk_summer_item"
-  item__armorAmount:r=0.1
-
-  "disabledFaceGenParams:shared:array"{
-    param:t="forehead_pos_y"
-    param:t="forehead_hor_scale"
-    param:t="forehead_scale"
-  }
-}
-
-brodie_helmet_khakidrill_01_uk_summer_item{
-  _extends:t="helmet_item"
-  _extends:t="brodie_helmet_01_uk_summer_item"
-
-  "animchar__objTexReplace:object"{
-    "uk_brodie_helmet_tex_d*":t="uk_brodie_helmet_khakidrill_tex_d*"
-    "uk_brodie_helmet_tex_n*":t="uk_brodie_helmet_khakidrill_tex_n*"
-  }
-}
-
-metal_mk3_helmet_01_uk_summer_item{
-  _extends:t="helmet_item"
-  animchar__res:t="metal_mk3_helmet_01_uk_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK MK3 Metal Helmet"
-  item__uniqueName:t="metal_mk3_helmet_01_uk_summer_item"
-  item__armorAmount:r=0.1
-
-  "disabledFaceGenParams:shared:array"{
-    param:t="forehead_pos_y"
-    param:t="forehead_hor_scale"
-    param:t="forehead_scale"
-  }
-}
-
-khaki_beret_01_uk_summer_item{
-  _extends:t="helmet_item"
-  animchar__res:t="khaki_beret_01_uk_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Khaki Beret"
-  item__uniqueName:t="khaki_beret_01_uk_summer_item"
-  item__armorAmount:r=0.1
-
-  "disabledFaceGenParams:shared:array"{
-    param:t="forehead_pos_y"
-    param:t="forehead_hor_scale"
-    param:t="forehead_scale"
-  }
-}
-
-peaked_visor_cap_01_uk_summer_item{
-  _extends:t="helmet_item"
-  animchar__res:t="peaked_visor_cap_01_uk_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Peaked visor cap"
-  item__uniqueName:t="peaked_visor_cap_01_uk_summer_item"
-  item__armorAmount:r=0.1
-
-  "disabledFaceGenParams:shared:array"{
-    param:t="forehead_pos_y"
-    param:t="forehead_hor_scale"
-    param:t="forehead_scale"
-  }
-}
-
-helmet_01_uk_summer_item{
-  _extends:t="helmet_item"
-  animchar__res:t="helmet_01_uk_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Helmet 01"
-  item__uniqueName:t="helmet_01_uk_summer_item"
-  item__armorAmount:r=0.1
-}
-
-brodie_helmet_grid_item{
-  _extends:t="attachable_helmet_deco"
-  animchar__res:t="brodie_helmet_grid_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Brodie helmet grid"
-  item__uniqueName:t="brodie_helmet_grid_item"
-}
-
-brodie_helmet_grid_camo_item{
-  _extends:t="attachable_helmet_deco"
-  animchar__res:t="brodie_helmet_grid_camo_char"
-  collres__res:t="medkit_collision"
-  item__name:t="UK Brodie helmet grid with camo"
-  item__uniqueName:t="brodie_helmet_grid_camo_item"
-}
-
 helmet_us_a_item{
   _extends:t="helmet_item"
   animchar__res:t="warfare_helmet_ww_us_a_char"
@@ -902,40 +776,6 @@ attachable_wear_backpack_01_uk_tropic_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
-}
-
-attachable_wear_pouch_01_uk_tropic_item{
-  _extends:t="attachable_front_belt_l"
-  item__uniqueName:t="attachable_wear_pouch_01_uk_tropic_item"
-  animchar__res:t="pouch_01_uk_tropic_char"
-  collres__res:t="pouch_01_uk_tropic_collision"
-  item__name:t="UK Tropic Pouch 01"
-  animchar_fast_phys__res:t="pouch_01_uk_tropic_fastphys"
-
-  animchar_fast_phys{
-    _tags:t="gameClient"
-  }
-}
-
-attachable_wear_wsc_mk3_1907_01_uk_tropic_item{
-  _extends:t="attachable_shovel"
-  item__uniqueName:t="attachable_wear_wsc_mk3_1907_01_uk_tropic_item"
-  animchar__res:t="wsc_mk3_1907_01_uk_tropic_char"
-  collres__res:t="wsc_mk3_1907_01_uk_tropic_collision"
-  item__name:t="UK Tropic WSC MK3 1907 01"
-  animchar_fast_phys__res:t="wsc_mk3_1907_01_uk_tropic_fastphys"
-
-  animchar_fast_phys{
-    _tags:t="gameClient"
-  }
-}
-
-attachable_wear_belt_1_01_uk_tropic_item{
-  _extends:t="attachable_belt1"
-  item__uniqueName:t="attachable_wear_belt_1_01_uk_tropic_item"
-  animchar__res:t="belt_1_01_uk_tropic_char"
-  collres__res:t="belt_1_01_uk_tropic_collision"
-  item__name:t="UK Tropic Belt 01"
 }
 
 attachable_wear_ammo_bag_01_us_summer_item{

@@ -160,7 +160,7 @@ ussr_kv_1_L_11_commander_cockpit{
 }
 
 ussr_kv_1_L_11_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tod_6.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="kv_1_gunner_char"
   cockpit__minZoom:r=-0.27

@@ -11978,6 +11978,7 @@ sten_mk2{
   gun_deviation__extraDeviationTau:r=0.2
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.6
+  gun__altReloadTime:r=2.1
 
   "gun__ammoHolders:array"{
     ammoHolders:t="sten_mk2_magazine"
@@ -12045,6 +12046,28 @@ sten_mk2_gun{
     "reload3:object"{
       path:t="/weapon/mgun/sten_mk2/reload3/change_ammo"
     }
+  }
+}
+
+sten_mk2s{
+  _extends:t="sten_mk2"
+  _extends:t="smg_silenced_muzzle_preset"
+  animchar__res:t="sten_mk2s_char"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/sten_mk2s.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/sten_mk2s.blk"
+  item__template:t="sten_mk2s_gun_item"
+  item__weapTemplate:t="sten_mk2s_gun"
+  item__name:t="items/sten_mk2s"
+}
+
+sten_mk2s_gun{
+  _extends:t="sten_mk2_gun"
+  _extends:t="sten_mk2s"
+  gun__projectileTemplate:t="bullet_silenced_projectile"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/m3_supressed"
   }
 }
 
@@ -20626,6 +20649,28 @@ mp40_gun{
   }
 }
 
+mp_40_silenced{
+  _extends:t="mp40"
+  _extends:t="smg_silenced_muzzle_preset"
+  animchar__res:t="mp_40_silencer_char"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/mp_40_silenced.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/mp_40_silenced.blk"
+  item__template:t="mp_40_silenced_gun_item"
+  item__weapTemplate:t="mp_40_silenced_gun"
+  item__name:t="items/mp_40_silenced"
+}
+
+mp_40_silenced_gun{
+  _extends:t="mp40_gun"
+  _extends:t="mp_40_silenced"
+  gun__projectileTemplate:t="bullet_silenced_projectile"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun/m3_supressed"
+  }
+}
+
 mp_40_1{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_smg"
@@ -27770,6 +27815,22 @@ knife_weapon{
   _extends:t="knife"
   meleeSoundType:t="knife"
   actionSfxSound:t="impact/knife"
+}
+
+uk_2nd_pattern_fighting_knife{
+  _extends:t="knife"
+  animchar__res:t="uk_2nd_pattern_fighting_knife_char"
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/uk_2nd_pattern_fighting_knife.blk"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/uk_2nd_pattern_fighting_knife.blk"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/uk_2nd_pattern_fighting_knife.blk"
+  item__template:t="uk_2nd_pattern_fighting_knife_item"
+  item__weapTemplate:t="uk_2nd_pattern_fighting_knife_weapon"
+  item__name:t="items/uk_2nd_pattern_fighting_knife"
+}
+
+uk_2nd_pattern_fighting_knife_weapon{
+  _extends:t="knife_weapon"
+  _extends:t="uk_2nd_pattern_fighting_knife"
 }
 
 axe{

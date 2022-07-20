@@ -17,10 +17,12 @@ let {
   crossnetworkPlay, isCrossplayOptionNeeded, CrossplayState
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let colorize = require("%ui/components/colorize.nut")
 
 
 let textAreaOffset = hdpx(10)
 let infoRowHeight = hdpx(40)
+let headerTxtColor = 0xFF808080
 
 const SHOW_MISSIONS_WHEN_HIDDEN = 3
 const MAX_LENGTH_SHOW_ALL_MISSION = 5
@@ -29,7 +31,7 @@ let optLoc = @(v) v == null ? null : loc($"options/{v}", v)
 let selRoomId = Computed(@() selRoom.value?.roomId)
 let hTxt = @(text) {
     rendObj = ROBJ_TEXT
-    color = 0xFF808080
+    color = headerTxtColor
     text
   }.__update(sub_txt)
 
@@ -171,8 +173,17 @@ let function mkRoomCreateTime(room) {
   }
 }
 
-let reducedXpWarning = textArea(loc("rooms/reducedXpNotEnoughPlayersWarning"))
-let modsXpWarning = textArea(loc("mods/econRules"))
+let reducedXpWarning = textArea(loc("rooms/reducedXpNotEnoughPlayersWarning"),
+  { color = titleTxtColor })
+let modsXpWarning = textArea(loc("mods/econRules"), { color = titleTxtColor })
+let modDescription = @(description) {
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = [0,0, hdpx(20), 0]
+  children = textArea(
+    loc("mods/modDescription", { description = colorize(defTxtColor, description) }),
+    { color = headerTxtColor }
+  )
+}
 
 let function mkRoomInfo(room){
   return @(){
@@ -196,6 +207,8 @@ let function mkRoomInfo(room){
       room?.voteToKick == null ? null
         : mkInfoTextRow(loc("options/voteToKick"), getBoolText(room?.voteToKick))
       mkInfoTextRow(loc("quickMatch/Server"), clusterLoc(room?.cluster ?? ""))
+      room?.modName != null ? mkInfoTextRow(loc("mods/modName"), room?.modName) : null
+      room?.modDescription != null ? modDescription(room.modDescription) : null
       mkExpandedMissions(room?.scenes ?? [])
       room?.scene == null ? modsXpWarning : reducedXpWarning
     ]

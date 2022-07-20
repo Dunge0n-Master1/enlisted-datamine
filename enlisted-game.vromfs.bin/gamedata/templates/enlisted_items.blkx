@@ -189,7 +189,6 @@ poster_ticket_6{
 
 event_ticket{
   _extends:t="item_supply_ticket"
-  item__name:t="items/victory_day_event_order"
 
   "animchar__objTexReplace:object"{
     "ammunition_supply_bronze_tex_d*":t="event_order_tex_d*"

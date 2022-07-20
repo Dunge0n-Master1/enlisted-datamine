@@ -600,6 +600,65 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/up_weapons.png"
     cardImageParams = mkImageParams([180, 131], [0, 1])
   },
+  ["250"] = {
+    name = loc("squad/allies_tunisia_event_assault_1")
+    description = loc("squadannounce/allies_tunisia_event_assault_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/usa/allies_tunisia_event_assault_1_icon.svg") //600 * 555
+  },
+  ["251"] = {
+    name = loc("squad/ger_normandy_event_assault_1")
+    description = loc("squadannounce/ger_normandy_event_assault_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/germany/ger_normandy_event_assault_1_icon.svg") //600 * 555
+  },
+  ["252"] = {
+    name = loc("items/ussr_bt_7a_f32")
+    description = loc("items/ussr_bt_7a_f32/desc")
+    icon = "ui/skin#/tank_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkTemplateImageCtor([170, 150], [0, 12], "ussr_bt_7a_f32_stalingrad_premium")
+  },
+  ["253"] = {
+    name = loc("items/moscow_allies_hero_marathon_2022_summer")
+    description = "items/moscow_allies_hero_marathon_2022_summer/desc"
+    icon = "ui/squads/ussr/ussr_hero_medal_1_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/ussr/ussr_hero_medal_1_icon.svg")
+  },
+  ["254"] = {
+    name = loc("items/normandy_axis_event_marathon_summer_2022_portrait")
+    description = "items/normandy_axis_event_marathon_summer_2022_portrait/desc"
+    icon = "ui/portraits/default_portrait.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["255"] = {
+    name = loc("items/tunisia_allies_event_marathon_summer_2022_portrait")
+    description = "items/tunisia_allies_event_marathon_summer_2022_portrait/desc"
+    icon = "ui/portraits/default_portrait.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["256"] = {
+    name = loc("items/marathon_2022_summer_event_order")
+    description = loc("items/marathon_2022_summer_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["257"] = {
+    name = loc("items/booster_global_100_battle_2")
+    description = loc("items/booster_global_100_battle_2/desc")
+    icon = "ui/skin#/battlepass/base_booster_icon.svg"
+    gametemplate = "battlepass_buster_1_template"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_boost.png"
+    cardImage = "ui/skin#/battlepass/boost_global.png"
+    cardImageParams = mkImageParams([154, 144], [0, 15])
+  },
 
 
   // boosters presentation

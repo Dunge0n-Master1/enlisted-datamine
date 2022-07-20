@@ -181,6 +181,12 @@ let modInfoRows = @(modInfo) [
   { //TEAM ARMIES
     text = $"{loc("options/teamArmies")}: {mkOptions(modInfo, "public/teamArmies", true)}"
   }
+  { //DESCRIPTION
+    text = (modInfo?.description ?? "") == ""
+      ? ""
+      : loc("mods/modDescription", { description = modInfo.description })
+    behavior = Behaviors.TextArea
+  }
 ]
 
 let function currentModInfo(){

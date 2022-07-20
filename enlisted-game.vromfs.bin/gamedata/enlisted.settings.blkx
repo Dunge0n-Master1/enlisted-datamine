@@ -82,6 +82,7 @@ ps4{
   ccb_size_mb:i=4
   max_genmip_tex_sz:i=0
   mem_reserve_mb:i=256
+  enable_defrag:b=yes
   resolution_config:b=yes
   min_res:t="1920x1080"
   min_res_4k:t="3200x1800"

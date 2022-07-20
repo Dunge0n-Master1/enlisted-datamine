@@ -10,6 +10,7 @@ commonScenes{
   scene:t="content/common/gamedata/scenes/level_is_loading.blk"
   scene:t="content/common/gamedata/scenes/loose_grid_scene.blk"
   scene:t="content/common/gamedata/scenes/server_no_players_timer.blk"
+  scene:t="content/common/gamedata/scenes/server_explosions.blk"
 }
 
 bulletHoles{

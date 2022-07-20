@@ -71,7 +71,7 @@ damage{
 
   cumulative{
     penetration:r=90.0
-    damage:r=60.0
+    damage:r=150.0
     distance:r=0.7
     onHitChanceMultFire:r=15.0
     damageType:t="cumulative"

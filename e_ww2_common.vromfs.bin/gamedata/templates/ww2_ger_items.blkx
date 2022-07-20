@@ -417,6 +417,18 @@ attachable_wear_tunic_01_ger_summer_item{
   }
 }
 
+attachable_wear_anorak_m42_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_anorak_m42_item"
+  animchar__res:t="anorak_m42_char"
+  collres__res:t="anorak_m42_collision"
+  animchar_fast_phys__res:t="anorak_m42_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_tunic_m43_peadot_01_ger_summer_item{
   _extends:t="attachable_tunic"
   _extends:t="attachable_wear_tunic_01_ger_summer_item"
@@ -1253,6 +1265,13 @@ attachable_wear_gasmask_m38_helmet_01_ger_summer_item{
   animchar__res:t="gasmask_m38_helmet_01_ger_summer_char"
   collres__res:t="medkit_collision"
   item__uniqueName:t="attachable_wear_gasmask_m38_helmet_01_ger_summer_item"
+}
+
+attachable_wear_cap_w_elite_mask_anorak_m42_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="cap_w_elite_mask_anorak_m42_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_cap_w_elite_mask_anorak_m42_item"
 }
 
 werchmaht_cap_01_ger_summer_item{
@@ -2386,6 +2405,18 @@ attachable_wear_pioniersturmgepack_m42_gebirgsjager_anorak_item{
   }
 }
 
+attachable_wear_pioniersturmgepack_m42_anorak_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_pioniersturmgepack_m42_anorak_item"
+  animchar__res:t="pioniersturmgepack_m42_anorak_char"
+  collres__res:t="pioniersturmgepack_m42_anorak_collision"
+  animchar_fast_phys__res:t="pioniersturmgepack_m42_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_pioniersturmgepack_01_ger_summer_item{
   _extends:t="attachable_backpack"
   item__uniqueName:t="attachable_wear_pioniersturmgepack_01_ger_summer_item"
@@ -2501,12 +2532,23 @@ attachable_wear_shovel_04_ger_winter_item{
   }
 }
 
+attachable_wear_shovel_m42_anorak_item{
+  _extends:t="attachable_shovel"
+  item__uniqueName:t="attachable_wear_shovel_m42_anorak_item"
+  animchar__res:t="shovel_m42_anorak_char"
+  collres__res:t="shovel_m42_anorak_collision"
+  animchar_fast_phys__res:t="shovel_m42_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_engineer_cutters_item{
   _extends:t="attachable_shovel"
   item__uniqueName:t="attachable_wear_engineer_cutters_item"
   animchar__res:t="engineer_cutters_char"
   collres__res:t="engineer_cutters_collision"
-  item__name:t="Ger Engineer Cutters"
   animchar_fast_phys__res:t="engineer_cutters_fastphys"
 
   animchar_fast_phys{
@@ -2519,8 +2561,19 @@ attachable_wear_case_01_ger_summer_item{
   item__uniqueName:t="attachable_wear_case_01_ger_summer_item"
   animchar__res:t="case_01_ger_summer_char"
   collres__res:t="case_01_ger_summer_collision"
-  item__name:t="Ger Case Summer 01"
   animchar_fast_phys__res:t="case_01_ger_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_gasmask_case_m42_anorak_item{
+  _extends:t="attachable_ammo_case"
+  item__uniqueName:t="attachable_wear_gasmask_case_m42_anorak_item"
+  animchar__res:t="gasmask_case_m42_anorak_char"
+  collres__res:t="gasmask_case_m42_anorak_collision"
+  animchar_fast_phys__res:t="gasmask_case_m42_anorak_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2943,6 +2996,20 @@ attachable_wear_mauser_pouch_l_m42_gebirgsjager_anorak_item{
   collres__res:t="mauser_pouch_l_m42_gebirgsjager_anorak_collision"
 }
 
+attachable_wear_mauser_pouch_r_m42_anorak_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_mauser_pouch_r_m42_anorak_item"
+  animchar__res:t="mauser_pouch_r_m42_anorak_char"
+  collres__res:t="mauser_pouch_r_m42_anorak_collision"
+}
+
+attachable_wear_mauser_pouch_l_m42_anorak_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_mauser_pouch_l_m42_anorak_item"
+  animchar__res:t="mauser_pouch_l_m42_anorak_char"
+  collres__res:t="mauser_pouch_l_m42_anorak_collision"
+}
+
 attachable_wear_pouch_mauser_r_ger_01_summer_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_pouch_mauser_r_ger_01_summer_item"
@@ -3109,6 +3176,18 @@ attachable_wear_bag_w_flask_gebirgsjager_jacket_item{
   animchar__res:t="bag_w_flask_gebirgsjager_jacket_char"
   collres__res:t="bag_w_flask_gebirgsjager_jacket_collision"
   animchar_fast_phys__res:t="bag_w_flask_gebirgsjager_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_bag_w_flask_m42_anorak_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_bag_w_flask_m42_anorak_item"
+  animchar__res:t="bag_w_flask_m42_anorak_char"
+  collres__res:t="bag_w_flask_m42_anorak_collision"
+  animchar_fast_phys__res:t="bag_w_flask_m42_anorak_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -3477,6 +3556,13 @@ attachable_wear_gas_cape_pouch_01_ger_summer_item{
   animchar__res:t="gas_cape_pouch_01_ger_summer_char"
   collres__res:t="gas_cape_pouch_01_ger_summer_collision"
   item__name:t="Ger Gas Cape Pouch Summer 01"
+}
+
+attachable_wear_gas_cape_pouch_m42_anorak_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_gas_cape_pouch_m42_anorak_item"
+  animchar__res:t="gas_cape_pouch_m42_anorak_char"
+  collres__res:t="gas_cape_pouch_m42_anorak_collision"
 }
 
 attachable_wear_gas_cape_pouch_knochensack_item{

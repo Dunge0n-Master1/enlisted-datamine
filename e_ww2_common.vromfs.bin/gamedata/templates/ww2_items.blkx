@@ -919,6 +919,12 @@ mp40_magazine{
   collres__res:t="mp40_ammo_collision"
 }
 
+mp_40_silenced_gun_item{
+  _extends:t="item_gun"
+  _extends:t="mp_40_silenced"
+  collres__res:t="mp_40_silencer_collision"
+}
+
 mp41_gun_item{
   _extends:t="item_gun"
   _extends:t="mp41"
@@ -3081,6 +3087,12 @@ sten_mk2_magazine{
   collres__res:t="m1928a1_thompson_ammo_collision"
 }
 
+sten_mk2s_gun_item{
+  _extends:t="item_gun"
+  _extends:t="sten_mk2s"
+  collres__res:t="sten_mk2s_collision"
+}
+
 mauser_c96_gun_item{
   _extends:t="item_gun"
   _extends:t="mauser_c96"
@@ -5083,6 +5095,12 @@ knife_item{
   _extends:t="item_melee"
   _extends:t="knife"
   collres__res:t="sov_knife_nr_40_collision"
+}
+
+uk_2nd_pattern_fighting_knife_item{
+  _extends:t="item_melee"
+  _extends:t="uk_2nd_pattern_fighting_knife"
+  collres__res:t="uk_2nd_pattern_fighting_knife_collision"
 }
 
 axe_item{

@@ -19,22 +19,30 @@ def private calc_head_pitch_yaw(state : HumanPhysState)
   return float2(-atan2(localHeadDir.z, localHeadDir.x) - yawPitch.x,
                  atan2(localHeadDir.y, length(localHeadDir.xz)) - yawPitch.y)
 
-def calc_shoot_anims(actor : HumanActor;
+def calc_head_roll_pitch_yaw(actor : HumanActor;
+                             at_time : float;
+                             head_additional_roll : float;
+                             head_additional_pitch : float;
+                             head_additional_yaw : float;
+                             var head_roll : float&;
+                             var head_pitch : float&;
+                             var head_yaw : float&)
+  assume phys = actor.phys
+  let interpK = get_phys_interpk_clamped(phys, at_time)
+  let prevHead = calc_head_pitch_yaw(phys.previousState)
+  let curHead = calc_head_pitch_yaw(phys.currentState)
+
+  head_roll = clamp(deg_to_rad(head_additional_roll), deg_to_rad(-30.0), deg_to_rad(30.0))
+  head_yaw = clamp(lerp(prevHead.x, curHead.x, interpK) + deg_to_rad(head_additional_yaw), deg_to_rad(-45.0), deg_to_rad(45.0))
+  head_pitch = clamp(lerp(prevHead.y, curHead.y, interpK) + deg_to_rad(head_additional_pitch), deg_to_rad(-70.0), deg_to_rad(60.0))
+
+def calc_shoot_pitch(actor : HumanActor;
                      eid : EntityId;
                      at_time : float;
                      tm : float3x4;
-                     head_additional_roll : float;
-                     head_additional_pitch : float;
-                     head_additional_yaw : float;
-                     var pitch : float&;
-                     var head_roll : float&;
-                     var head_pitch : float&;
-                     var head_yaw : float&)
+                     var pitch : float&)
   assume phys = actor.phys
   let interpK = get_phys_interpk_clamped(phys, at_time)
-
-  let prevHead = calc_head_pitch_yaw(phys.previousState)
-  let curHead = calc_head_pitch_yaw(phys.currentState)
   let prevGun = dir_to_quat(phys.previousState.gunDir)
   let curGun = dir_to_quat(phys.currentState.gunDir)
   var interpGun = slerp(prevGun, curGun, interpK)
@@ -47,10 +55,73 @@ def calc_shoot_anims(actor : HumanActor;
     interpGun = quat(shootTm)
 
   pitch = atan2(dot(tm[1], shootTm[0]), dot(tm[0], shootTm[0]))
-  head_roll = clamp(deg_to_rad(head_additional_roll), deg_to_rad(-30.0), deg_to_rad(30.0))
-  head_yaw = clamp(lerp(prevHead.x, curHead.x, interpK) + deg_to_rad(head_additional_yaw), deg_to_rad(-45.0), deg_to_rad(45.0))
-  head_pitch = clamp(lerp(prevHead.y, curHead.y, interpK) + deg_to_rad(head_additional_pitch), deg_to_rad(-70.0), deg_to_rad(60.0))
 
+[es(tag=gameClient, REQUIRE_NOT=animchar__actOnDemand, no_order)]
+def human_head_anim_es(info : UpdateStageInfoAct;
+                       animchar__updatable : bool;
+                       animchar__visible : bool = true;
+                       human_net_phys : HumanActor;
+                       human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
+                       human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
+                       human_head_dir__interpolationSpeed : float;
+                       prevLocoQuat : float4 = float4(0.0, 0.0, 0.0, 1.0);
+                       human_anim__headYawRotVisc : float = 0.2;
+                       human_anim : HumanAnimCtx;
+                       var phys_vars : PhysVars;
+                       var human_head_dir__prevAdditionalRoll : float&;
+                       var human_head_dir__prevAdditionalPitch : float&;
+                       var human_head_dir__prevAdditionalYaw : float&)
+  if !animchar__updatable || !animchar__visible
+    return
+
+  var additionalHeadRoll = 0.0
+  var additionalHeadPitch = 0.0
+  var additionalHeadYaw = 0.0
+
+  let currentGunEid = (human_weap__currentGunEid != INVALID_ENTITY_ID
+                    ?  human_weap__currentGunEid
+                    :  human_attached_gun__attachedGunEid)
+  query(currentGunEid) <| $ [es] (gun__additionalHeadRoll : float = 0.0;
+                                  gun__additionalHeadPitch : float = 0.0;
+                                  gun__additionalHeadYaw : float = 0.0)
+    additionalHeadRoll = lerp(human_head_dir__prevAdditionalRoll, gun__additionalHeadRoll, human_head_dir__interpolationSpeed)
+    additionalHeadPitch = lerp(human_head_dir__prevAdditionalPitch, gun__additionalHeadPitch, human_head_dir__interpolationSpeed)
+    additionalHeadYaw = lerp(human_head_dir__prevAdditionalYaw, gun__additionalHeadYaw, human_head_dir__interpolationSpeed)
+    human_head_dir__prevAdditionalRoll = additionalHeadRoll
+    human_head_dir__prevAdditionalPitch = additionalHeadPitch
+    human_head_dir__prevAdditionalYaw = additionalHeadYaw
+
+  var headRoll : float;
+  var headPitch : float;
+  var headYaw : float;
+
+  calc_head_roll_pitch_yaw(human_net_phys, info.curTime,
+                           additionalHeadRoll, additionalHeadPitch, additionalHeadYaw,
+                           headRoll, headPitch, headYaw)
+
+  assume phys = human_net_phys.phys
+  let dt = info.dt
+  let interpK = get_phys_interpk_clamped(phys, get_sync_time())
+
+  if phys.currentState.isAiming
+    let breathOffset = lerp(phys.previousState.breathOffset, phys.currentState.breathOffset, float2(interpK))
+    headYaw += breathOffset.x * 0.9
+    headPitch += breathOffset.y * 0.9
+    var hd : float
+    var att : float
+    var bank : float
+    let q = quat(prevLocoQuat)
+    quat_to_euler(q, hd, att, bank)
+    headPitch += att
+    headPitch = max(0.0, headPitch)
+
+  let prevHeadYawVar = phys_vars |> getVar(human_anim.headYawVarId)
+  let newHeadYawVar = approach(prevHeadYawVar, rad_to_deg(headYaw),
+                               dt, human_anim__headYawRotVisc)
+
+  phys_vars |> setVar(human_anim.headRollVarId, rad_to_deg(headRoll))
+  phys_vars |> setVar(human_anim.headPitchVarId, rad_to_deg(headPitch))
+  phys_vars |> setVar(human_anim.headYawVarId, newHeadYawVar)
 
 [es(REQUIRE_NOT=animchar__actOnDemand, no_order)]
 def human_anim_es(info : UpdateStageInfoAct;
@@ -59,7 +130,6 @@ def human_anim_es(info : UpdateStageInfoAct;
                   dm_parts__hitPartsAnimationId : Array?;
                   human_net_phys__climbToPos : float3 = float3();
                   transform : float3x4;
-                  prevLocoQuat : float4 = float4(0.0, 0.0, 0.0, 1.0);
                   human_net_phys : HumanActor;
                   eid : EntityId;
                   isAlive : bool;
@@ -70,14 +140,12 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_inventory__entityUseStart : float = -1.0;
                   human_inventory__entityUseEnd : float = -1.0;
                   human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
-                  human_anim__headYawRotVisc : float = 0.2;
                   human_net_phys__isClimbing : bool = false;
                   human_weap__reloadAtTime : float = -1.0;
                   human_weap__reloadStartTime : float = -1.0;
                   human_weap__weapModActivateStartTime : float = -1.0;
                   human_weap__weapModActivateFinishTime : float = -1.0;
                   human_weap__blockAiming : bool = false;
-                  human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
                   human_ladder__attached : bool = false;
                   isGunner : bool = false;
                   isInVehicle : bool = false;
@@ -101,38 +169,15 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_vehicle_anim__maxStandHeight : float = 1.;
                   animchar__updatable : bool;
                   animchar__visible : bool = true;
-                  human_head_dir__interpolationSpeed : float;
-                  var human_head_dir__prevAdditionalRoll : float&;
-                  var human_head_dir__prevAdditionalPitch : float&;
-                  var human_head_dir__prevAdditionalYaw : float&;
                   var human_anim : HumanAnimCtx;
                   var phys_vars : PhysVars;
                   var animchar__animSpeed : float&;
                   var human_anim__jumpTimer : float&)
   if !animchar__updatable || !animchar__visible
     return
+
   var pitch : float;
-  var headRoll : float;
-  var headPitch : float;
-  var headYaw : float;
-
-  var additionalHeadRoll = 0.0
-  var additionalHeadPitch = 0.0
-  var additionalHeadYaw = 0.0
-
-  query(human_weap__currentGunEid) <| $ [es] (gun__additionalHeadRoll : float = 0.0;
-                                              gun__additionalHeadPitch : float = 0.0;
-                                              gun__additionalHeadYaw : float = 0.0)
-    additionalHeadRoll = lerp(human_head_dir__prevAdditionalRoll, gun__additionalHeadRoll, human_head_dir__interpolationSpeed)
-    additionalHeadPitch = lerp(human_head_dir__prevAdditionalPitch, gun__additionalHeadPitch, human_head_dir__interpolationSpeed)
-    additionalHeadYaw = lerp(human_head_dir__prevAdditionalYaw, gun__additionalHeadYaw, human_head_dir__interpolationSpeed)
-    human_head_dir__prevAdditionalRoll = additionalHeadRoll
-    human_head_dir__prevAdditionalPitch = additionalHeadPitch
-    human_head_dir__prevAdditionalYaw = additionalHeadYaw
-
-  calc_shoot_anims(human_net_phys, eid, info.curTime, transform,
-                   additionalHeadRoll, additionalHeadPitch, additionalHeadYaw,
-                   pitch, headRoll, headPitch, headYaw)
+  calc_shoot_pitch(human_net_phys, eid, info.curTime, transform, pitch)
 
   let dt = info.dt
   let curTime = get_sync_time()
@@ -162,23 +207,6 @@ def human_anim_es(info : UpdateStageInfoAct;
   phys_vars |> setVar(human_anim.walkDirVarId, walkYaw + 90.0)
   phys_vars |> setVar(human_anim.bodyDirVarId, bodyYaw + 90.0)
 
-  if phys.currentState.isAiming
-    let breathOffset = lerp(phys.previousState.breathOffset, phys.currentState.breathOffset, float2(interpK))
-    headYaw += breathOffset.x * 0.9
-    headPitch += breathOffset.y * 0.9
-    var hd : float
-    var att : float
-    var bank : float
-    let q = quat(prevLocoQuat)
-    quat_to_euler(q, hd, att, bank)
-    headPitch += att
-    headPitch = max(0.0, headPitch)
-  phys_vars |> setVar(human_anim.headRollVarId, rad_to_deg(headRoll))
-  phys_vars |> setVar(human_anim.headPitchVarId, rad_to_deg(headPitch))
-  let prevHeadYawVar = phys_vars |> getVar(human_anim.headYawVarId)
-  let newHeadYawVar = approach(prevHeadYawVar, rad_to_deg(headYaw),
-                               dt, human_anim__headYawRotVisc)
-  phys_vars |> setVar(human_anim.headYawVarId, newHeadYawVar)
   phys_vars |> setVar(human_anim.leanVarId, lerp(phys.previousState.leanPosition, phys.currentState.leanPosition, interpK))
   phys_vars |> setVar(human_anim.standHeightVarId, lerp(phys.previousState.height, phys.currentState.height, interpK))
   phys_vars |> setVar(human_anim.hitPartsSelectedVarId, float(animHitPartId))

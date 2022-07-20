@@ -51,7 +51,7 @@ explSound{
 cumulativeDamage{
   armorPower:r=50.0
   distance:r=3.0
-  damage:r=60.0
+  damage:r=120.0
   onHitChanceMultFire:r=15.0
 }
 

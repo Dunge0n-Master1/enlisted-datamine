@@ -30,6 +30,7 @@ commonScenes{
   scene:t="content/common/gamedata/scenes/ssss_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/_cutting_planes_mgr_scene.blk"
   scene:t="content/common/gamedata/scenes/server_no_players_timer.blk"
+  scene:t="content/common/gamedata/scenes/server_explosions.blk"
   scene:t="content/enlisted/gamedata/scenes/army_language.blk"
   scene:t="content/enlisted/gamedata/scenes/mission_time.blk"
   scene:t="content/common/gamedata/scenes/_outdoor_factor_tracer.blk"

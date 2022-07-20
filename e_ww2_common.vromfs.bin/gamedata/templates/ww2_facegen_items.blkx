@@ -1343,3 +1343,18 @@ gen_hero_head_09{
   mustache_id:i=-1
   headgen__blendFactor:r=0.0465
 }
+
+gen_hero_head_10{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_04_tex"
+  headgen__tex1:t="head_european_08_tex"
+  animchar__res:t="headgenmesh_european_13_char"
+  collres__res:t="headgenmesh_european_13_collision"
+  beard_id:i=-1
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.1532
+}

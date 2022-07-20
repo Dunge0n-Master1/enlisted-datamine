@@ -12,13 +12,13 @@ let txt = @(text, width = flex()) {
     text
   }.__update(sub_txt)
 
-let textArea = @(text, width = flex()) {
-    size = [width, SIZE_TO_CONTENT]
+let textArea = @(text, params = {}) {
+    size = [flex(), SIZE_TO_CONTENT]
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
     color = defTxtColor
     text
-  }.__update(sub_txt)
+  }.__update(sub_txt, params)
 
 let lockIcon = faComp("lock", {
     fontSize = lockIconSize

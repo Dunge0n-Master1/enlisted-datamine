@@ -62,7 +62,7 @@ armorpower{
 cumulativeDamage{
   armorPower:r=60.0
   distance:r=2.5
-  damage:r=60.0
+  damage:r=150.0
   onHitChanceMultFire:r=15.0
 }
 

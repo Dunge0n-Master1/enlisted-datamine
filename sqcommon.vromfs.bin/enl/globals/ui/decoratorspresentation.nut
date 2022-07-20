@@ -120,6 +120,9 @@ local portraits = {
     icon = "ui/portraits/normandy/ger_normandy_4.png"
     bgimg = "ui/portraits/back_t4.png"
   }
+  normandy_axis_event_marathon_summer_2022 = {
+    icon = "ui/portraits/normandy/ger_normandy_5.png"
+  }
 
   normandy_allies_t1_1 = {
     icon = "ui/portraits/normandy/usa_normandy_3.png"
@@ -178,6 +181,9 @@ local portraits = {
   tunisia_allies_t4_1 = {
     icon = "ui/portraits/tunisia/allies_tunisia_6.png"
     bgimg = "ui/portraits/back_t4.png"
+  }
+  tunisia_allies_event_marathon_summer_2022 = {
+    icon = "ui/portraits/tunisia/allies_tunisia_7.png"
   }
 }
 

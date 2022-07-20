@@ -505,6 +505,27 @@ let soldierClasses = freeze({
     rank = 10
     kind = "engineer"
   }
+  assault_2_premium_2_event = {
+    locId = "soldierClass/assault"
+    getIcon = eventIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "assault"
+  }
+  assault_2_premium_2_event_engineer = {
+    locId = "soldierClass/engineer"
+    getIcon = eventIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }
+  assault_2_premium_2_event_anti_tank = {
+    locId = "soldierClass/anti_tank"
+    getIcon = eventIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "anti_tank"
+  }
   assault_3_premium_1 = {
     locId = "soldierClass/assault"
     getIcon = premiumIcon

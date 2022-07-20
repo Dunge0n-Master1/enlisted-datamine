@@ -15,6 +15,7 @@ require dm
 require DaWeapons
 require DaWeaponProps
 require Dacoll
+require DagorDataBlock
 require DagorSystem
 require DagorRandom
 require DagorMath
@@ -675,9 +676,21 @@ def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
                                        projectile_ballistics : ProjectileBallistics;
                                        scene_hit_place__norm : float3;
                                        projectile__stopped : bool;
-                                       var projectile__exploded : bool&)
+                                       var projectile__exploded : bool&;
+                                       var projectile__explosionDelayed : int&)
   if projectile__stopped
     if !projectile__exploded && projectile__lifeTime > projectile__minLifeTime
+      let shouldDelay : bool = find_query() <| $ [es] (server_explosions__maxProjectilesCount : int;
+                                                       server_explosions__maxDelayedFramesCounter : int;
+                                                       var server_explosions__projectilesCounter : int&)
+        server_explosions__projectilesCounter++
+        return (projectile__explosionDelayed < server_explosions__maxDelayedFramesCounter &&
+                server_explosions__projectilesCounter > server_explosions__maxProjectilesCount)
+
+      if shouldDelay
+        projectile__explosionDelayed++
+        return
+
       detonate_shell_server(eid, launch_desc.shellId, int(launch_desc.gunPropsId),
                             projectile_ballistics.state.pos, ownerEid,
                             projectile__prevPos, projectile_ballistics.state.vel,
@@ -690,3 +703,16 @@ def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
     // Actually, it is better to check lengthSq(ballistics.state.vel) > threshold
     if projectile__lifeTime > projectile__maxLifeTime || projectile__exploded
       destroyEntity(eid)
+
+[es(after=after_update_stopped_projectile_es)]
+def clear_exploding_projectiles_counter(info : UpdateStageInfoAct;
+                                        var server_explosions__projectilesCounter : int&)
+  server_explosions__projectilesCounter = 0
+
+[es(on_appear)]
+def init_max_exploding_projectiles(evt : Event;
+                                   var server_explosions__maxProjectilesCount : int&;
+                                   var server_explosions__maxDelayedFrames : int&)
+  let dedBlock = dgs_get_settings() |> datablock_get_block_by_name_const("dedicated")
+  server_explosions__maxProjectilesCount = dedBlock |> datablock_getInt("maxExplodingProjectiles", server_explosions__maxProjectilesCount)
+  server_explosions__maxDelayedFrames = dedBlock |> datablock_getInt("maxExplosionDelay", server_explosions__maxDelayedFrames)

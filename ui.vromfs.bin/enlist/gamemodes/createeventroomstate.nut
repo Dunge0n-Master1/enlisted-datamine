@@ -424,9 +424,13 @@ let function createEventRoom() {
 
   let modHash = receivedModInfos.value?[modPath.value].content[0].hash // Only one file support now(blk with scene)
   let modId = receivedModInfos.value?[modPath.value].id
+  let modName = receivedModInfos.value?[modPath.value].title
+  let modDescription = receivedModInfos.value?[modPath.value].description
   if (isAnyModEnabled() && modHash != null) {
     roomParams.public.modId <- modId
     roomParams.public.modHashes <- modHash
+    roomParams.public.modName <- modName
+    roomParams.public.modDescription <- modDescription
   }
 
   let crossPlatform = getCrossPlatformsList()
