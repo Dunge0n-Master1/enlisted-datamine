@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  unlocksSorted, emptyProgress, unlockProgress, allUnlocks
+  unlocksSorted, emptyProgress, unlockProgress, allUnlocks, DAILY_TASK_KEY
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let statsInGame = require("%ui/hud/state/userstatStateInBattle.nut")
 
@@ -10,15 +10,16 @@ let isEvent = Computed(@() statsInGame.value?.modes.contains("endgame_events") ?
 let isActiveWeeklyTask = @(u) (u?.meta.weekly_unlock ?? false)
   && !(u?.isFinished ?? false)
 
-let getTaskFilter = @(u) isEvent.value
+let getTaskFilter = @(u) (u?.meta.isVisibleInBattle ?? true) && isEvent.value
   ? (u?.meta.event_unlock ?? false)
-  : u.table == "daily" || isActiveWeeklyTask(u)
+  : u.table == DAILY_TASK_KEY || isActiveWeeklyTask(u)
 
 let unlockProgressInBattle = Computed(function() {
   return unlockProgress.value.map(function(progress, name) {
-    let {stat=null, mode=null} = allUnlocks.value?[name].meta
+    let { stat = null, mode = null } = allUnlocks.value?[name].meta
     if (mode != null && statsInGame.value?.modes.contains(mode)) {
-      let inGameStat = statsInGame.value?[stat] ?? 0
+      let statToCheck = typeof stat == "array" ? stat : [stat]
+      let inGameStat = statToCheck.reduce(@(res, s) (statsInGame.value?[s] ?? 0) + res, 0)
       let current = min((progress?.current ?? 0) + inGameStat, progress.required)
       return progress.__merge({current, isCompleted = current >= progress.required})
     }

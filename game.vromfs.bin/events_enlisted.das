@@ -122,6 +122,11 @@ struct WallposterRequestPlace
   bmin : float3
   bmax : float3
 
+[event(unicast)]
+struct OnScoringKillBySquadMember
+  victim : EntityId
+  offender : EntityId
+
 [cpp_event(unicast)]
 struct EventOnPlayerWipedOutInfantrySquad
   data : ecs::Object

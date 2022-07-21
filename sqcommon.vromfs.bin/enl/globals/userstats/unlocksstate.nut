@@ -4,6 +4,7 @@ let { strip } = require("string")
 let { userstatUnlocks, userstatDescList, userstatStats } = require("%enlSqGlob/userstats/userstat.nut")
 
 let isDebugPersonal = mkWatched(persist, "isDebugPersonal", false)
+const DAILY_TASK_KEY = "daily"
 
 let emptyProgress = {
   stage = 0
@@ -116,4 +117,5 @@ return {
   getUnlockProgress
   isUnlockAvailable
   mkRequirements
+  DAILY_TASK_KEY
 }

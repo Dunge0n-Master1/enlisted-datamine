@@ -62,6 +62,7 @@ let playerStatQuery = ecs.SqQuery("playerStatQuery", {
     ["army", ecs.TYPE_STRING],
     ["userstats", ecs.TYPE_OBJECT, null],
     ["userstats__bestWeaponKillStreak", ecs.TYPE_OBJECT, null],
+    ["scoring_player__bestPossessedInfantryKillstreak", ecs.TYPE_INT, 0],
     ["userstatsFilter", ecs.TYPE_SHARED_OBJECT, null],
     ["scoring_player__isGameFinished", ecs.TYPE_BOOL, true],
     ["scoring_player__kills", ecs.TYPE_INT, 0],

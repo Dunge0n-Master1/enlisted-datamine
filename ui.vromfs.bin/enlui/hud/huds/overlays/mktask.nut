@@ -7,7 +7,7 @@ let {
 let {
   darkBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-
+let { DAILY_TASK_KEY } = require("%enlSqGlob/userstats/unlocksState.nut")
 
 let function mkTaskContent(unlockDesc) {
   let {
@@ -48,9 +48,10 @@ let mkUnlockSlot = @(unlockDesc) {
       valign = ALIGN_CENTER
       children = [
         mkTaskContent(unlockDesc)
-        taskDescription(unlockDesc.localization.description, {
-          margin = taskDescPadding
-        })
+        unlockDesc?.table != DAILY_TASK_KEY ? null
+          : taskDescription(unlockDesc.localization.description, {
+              margin = taskDescPadding
+            })
       ]
     }
   ]

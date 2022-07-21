@@ -264,7 +264,7 @@ let function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
           : hasReward ? mkBtnReceiveReward(task)
           : isPurchasable ? mkBtnBuyTask(task)
           : null
-        customDescription = !isMain && idx == lastActiveIdx
+        customDescription = !isMain && idx >= lastActiveIdx
             ? taskDescription(loc("unlocks/blockedByPrevious"), {
                 margin = taskDescPadding
               })

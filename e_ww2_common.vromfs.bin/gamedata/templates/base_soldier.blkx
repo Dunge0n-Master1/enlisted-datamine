@@ -942,6 +942,7 @@ dead_enlisted_base_soldier{
     _replicate:b=yes
     squad_member__memberIdx:i=0
     squad_member__kills:i=0
+    squad_member__possessedInfantryKills:i=0
 
     "squad_member__squad:eid"{
     }

@@ -4,7 +4,7 @@ let {TEAM_UNASSIGNED} = require("team")
 let { addAward } = require("awards.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 let { get_gun_stat_type_by_props_id, EventOnEntityHit, DM_MELEE, DM_BACKSTAB, DM_PROJECTILE } = require("dm")
-let { EventAnyEntityDied, EventEntityDied, EventEngineerBuildingBroken } = require("dasevents")
+let { EventAnyEntityDied, EventEntityDied, EventEngineerBuildingBroken, OnScoringKillBySquadMember } = require("dasevents")
 let { EventOnLootItemUsed } = require("lootevents")
 let { get_time_msec } = require("dagor.time")
 let { get_sync_time } = require("net")
@@ -248,20 +248,13 @@ let function onEntityDied(victimEid, killerEid, gunPropsId, damageType) {
   if (victimEid == killerEid || !isValidSoldier(offender) || victim.team == TEAM_UNASSIGNED || is_teams_friendly(offender.team, victim.team))
     return
 
-  if (victim.isStatsCountAsKill) {
+  let isVictimValidSoldier = isValidSoldier(victim)
+  let isCountedAsKill = isVictimValidSoldier || victim.isStatsCountAsKill
+  if (isCountedAsKill) {
     ecs.g_entity_mgr.broadcastEvent(ecs.event.EventSquadMembersStats(
       { list = [
         { stat = "kills", playerEid = offender.player, guid = offender.guid },
       ] }))
-  }
-
-  if (isValidSoldier(victim)) {
-    ecs.g_entity_mgr.broadcastEvent(ecs.event.EventSquadMembersStats(
-      { list = [
-        { stat = "kills", playerEid = offender.player, guid = offender.guid },
-        { stat = "killed", playerEid = victim.player, guid = victim.guid }
-      ] }))
-
     if (damageType == DM_MELEE || damageType == DM_BACKSTAB)
       ecs.g_entity_mgr.broadcastEvent(ecs.event.EventSquadMembersStats(
         { list = [
@@ -284,11 +277,15 @@ let function onEntityDied(victimEid, killerEid, gunPropsId, damageType) {
             ] }))
       })
     }
+    ecs.g_entity_mgr.sendEvent(offender.player, OnScoringKillBySquadMember({victim=victimEid, offender=killerEid}))
   }
 
-  let kills = ecs.obsolete_dbg_get_comp_val(killerEid, "squad_member__kills")
-  if (kills != null)
-    ecs.obsolete_dbg_set_comp_val(killerEid, "squad_member__kills", kills + 1)
+  if (isVictimValidSoldier) {
+    ecs.g_entity_mgr.broadcastEvent(ecs.event.EventSquadMembersStats(
+      { list = [
+        { stat = "killed", playerEid = victim.player, guid = victim.guid }
+      ] }))
+  }
 
   let crewForAssist = getCrewForAssist(killerEid)
   let engineerForAssist = getEngineerForOffender(victimEid, killerEid)
@@ -622,5 +619,34 @@ ecs.register_es("engineer_building_destroyed_award",
       ["builder_info__team", ecs.TYPE_INT, null],
       ["placeable_item__ownerTeam", ecs.TYPE_INT, null],
       ["building__destructionAwardStat", ecs.TYPE_STRING]
+    ]
+  }, {tags = "server"})
+
+let offenderKillstreakQuery = ecs.SqQuery("offenderKillstreakQuery", {
+  comps_ro=[
+    ["possessedByPlr", ecs.TYPE_EID],
+    ["human_anim__vehicleSelected", ecs.TYPE_EID],
+  ],
+  comps_rw=[
+    ["squad_member__kills", ecs.TYPE_INT],
+    ["squad_member__possessedInfantryKills", ecs.TYPE_INT],
+  ]
+})
+
+ecs.register_es("count_squad_member_kills",
+  { [OnScoringKillBySquadMember] = function(evt, playerEid, playerComp) {
+      offenderKillstreakQuery(evt.offender, function(_eid, soldierComp) {
+        soldierComp.squad_member__kills += 1
+        if (soldierComp.possessedByPlr == playerEid && soldierComp.human_anim__vehicleSelected == INVALID_ENTITY_ID) {
+          soldierComp.squad_member__possessedInfantryKills += 1
+          playerComp. scoring_player__bestPossessedInfantryKillstreak = max(playerComp.scoring_player__bestPossessedInfantryKillstreak,
+                                                                            soldierComp.squad_member__possessedInfantryKills)
+        }
+      })
+    }
+  },
+  {
+    comps_rw = [
+      ["scoring_player__bestPossessedInfantryKillstreak", ecs.TYPE_INT]
     ]
   }, {tags = "server"})

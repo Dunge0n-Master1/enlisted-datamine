@@ -1814,6 +1814,7 @@ _componentFilters{
   human_hit_tagging__tagEnd:t="filter_possessed_and_spectated"
   human_hit_tagging__currentTagPower:t="filter_possessed_and_spectated"
   squad_member__kills:t="filter_possessed_squad_and_spectated_squad"
+  squad_member__possessedInfantryKills:t="filter_possessed_squad_and_spectated_squad"
   hands_shake__speedMult:t="filter_possessed_and_spectated"
   hands_shake__magnitude:t="filter_possessed_and_spectated"
   concussion__isActive:t="filter_possessed_squad_and_spectated_squad"

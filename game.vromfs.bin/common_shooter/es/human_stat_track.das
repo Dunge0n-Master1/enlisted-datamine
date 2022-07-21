@@ -18,19 +18,23 @@ let
   BOT_OWNER = 0
   PLAYER_OWNER = 1
 
-def get_weapon_name_by_props_shell_id(human_weap__gunEids : EidList; human_weap__currentGunEid : EntityId; gun_props_id, shell_id : int16)
-  if int(gun_props_id) == -1 && int(shell_id) == -1
+def get_weapon_name_with_shell(base_name : string; shell_id : int)
+  var resName = ""
+  if int(shell_id) >= 0
+    shell_entity_get_props(shell_id) <| $(entProps : ShellEntityTypeProps)
+      let templName = entProps.templName
+      resName = "{base_name}_{templName}"
+  return resName
+
+def get_weapon_name_by_props_shell_id(human_weap__gunEids : EidList; human_weap__currentGunEid : EntityId; gun_props_id, shell_id : int)
+  if gun_props_id == -1 && shell_id == -1
     return remove_sub_template_name(getEntityTemplateName(human_weap__currentGunEid), "attached_to_parent")
 
   for gun in human_weap__gunEids
-    if get_int(gun, "gun__propsId") ?? -1 == int(gun_props_id)
+    if get_int(gun, "gun__propsId") ?? -1 == gun_props_id
       let res = remove_sub_template_name(getEntityTemplateName(gun), "attached_to_parent")
       if gun |> has("grenade_thrower")
-        var resName = ""
-        shell_entity_get_props(int(shell_id)) <| $(entProps : ShellEntityTypeProps)
-          let templName = entProps.templName
-          resName = "{res}_{templName}"
-        return resName
+        return get_weapon_name_with_shell(res, shell_id)
       return res
   return ""
 
@@ -63,7 +67,7 @@ def human_stat_on_kill(evt : EventAnyEntityDied)
     let botTarget = get_int(evt.victim, "human_stat_tracking__ownedBy") ?? -1 == BOT_OWNER
     if (human_stat_tracking__killsPerWeapon != null || human_stat_tracking__botsKillsPerWeapon != null
         || human_stat_tracking__killsDistancePerWeapon != null || human_stat_tracking__inVehicleKillsPerWeapon != null)
-      let weaponName = get_weapon_name_by_props_shell_id(human_weap__gunEids, human_weap__currentGunEid, int16(evt.gunPropsId), int16(evt.shellId))
+      let weaponName = get_weapon_name_by_props_shell_id(human_weap__gunEids, human_weap__currentGunEid, evt.gunPropsId, evt.shellId)
       if !empty(weaponName)
         if isInVehicle
           try_inc_object_value(human_stat_tracking__inVehicleKillsPerWeapon, weaponName)
@@ -98,7 +102,7 @@ def human_stat_on_hit(evt : EventOnEntityHit)
                                    var human_stat_tracking__hitsCount, human_stat_tracking__botsHitsCount, human_stat_tracking__inVehicleHitsCount : int&)
       let botTarget = get_int(evt.victim, "human_stat_tracking__ownedBy") ?? -1 == BOT_OWNER
       if human_stat_tracking__hitsPerWeapon != null || human_stat_tracking__botsHitsPerWeapon != null
-        let weaponName = get_weapon_name_by_props_shell_id(human_weap__gunEids, human_weap__currentGunEid, evt.damageDesc.gunPropsId, evt.damageDesc.shellId)
+        let weaponName = get_weapon_name_by_props_shell_id(human_weap__gunEids, human_weap__currentGunEid, int(evt.damageDesc.gunPropsId), int(evt.damageDesc.shellId))
         if !empty(weaponName)
           if isInVehicle
             try_inc_object_value(human_stat_tracking__inVehicleHitsPerWeapon, weaponName)
@@ -164,21 +168,55 @@ def human_stat_hero_change(evt : Event; eid : EntityId; possessedByPlr : EntityI
   human_stat_tracking__ownedBy = owner
   human_stat_tracking__ownerTime = atTime
 
-[es(tag=server, on_appear, track=human_weap__currentGunEid)]
-def track_weapon_use_time(evt : Event; human_weap__currentGunEid : EntityId;
-                          human_stat_tracking__spawnTime : float;
-                          var human_stat_tracking__lastWeaponName : das_string;
-                          var human_stat_tracking__lastWeaponTime : float&;
-                          var human_stat_tracking__battleTimePerWeapon : Object)
-  let weaponName = remove_sub_template_name(getEntityTemplateName(human_weap__currentGunEid), "attached_to_parent")
+def update_weapon_use_time(human_weap__currentGunEid : EntityId;
+                           human_stat_tracking__spawnTime : float;
+                           var human_stat_tracking__lastWeaponName : das_string;
+                           var human_stat_tracking__lastWeaponTime : float&;
+                           var human_stat_tracking__battleTimePerWeapon : Object)
+  var weaponName = remove_sub_template_name(getEntityTemplateName(human_weap__currentGunEid), "attached_to_parent")
+  query(human_weap__currentGunEid) <| $ [es(REQUIRE=grenade_thrower)] (gun__curShellId : ShellPropIds)
+    weaponName = get_weapon_name_with_shell(weaponName, int(gun__curShellId.shellId))
   let curTime = get_sync_time()
   human_stat_tracking__lastWeaponName |> peek() <| $(lastWeaponName)
-    if !empty(lastWeaponName) && lastWeaponName != weaponName
-      let battleTime = curTime - max(human_stat_tracking__lastWeaponTime, human_stat_tracking__spawnTime)
+    let battleTime = curTime - max(human_stat_tracking__lastWeaponTime, human_stat_tracking__spawnTime)
+    if !empty(lastWeaponName) && battleTime > 0.
       let prevTime = human_stat_tracking__battleTimePerWeapon |> get_float(lastWeaponName) ?? 0f
       human_stat_tracking__battleTimePerWeapon |> set(lastWeaponName, prevTime + battleTime)
   human_stat_tracking__lastWeaponTime = curTime
   human_stat_tracking__lastWeaponName := weaponName
+
+[es(tag=server, REQUIRE=(grenade_thrower, gun__curShellId), track=gun__curShellId)]
+def track_grenade_type_use_time(evt : Event; gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
+                               human_stat_tracking__spawnTime : float;
+                               var human_stat_tracking__lastWeaponName : das_string;
+                               var human_stat_tracking__lastWeaponTime : float&;
+                               var human_stat_tracking__battleTimePerWeapon : Object)
+    update_weapon_use_time(human_weap__currentGunEid, human_stat_tracking__spawnTime,
+                           human_stat_tracking__lastWeaponName, human_stat_tracking__lastWeaponTime,
+                           human_stat_tracking__battleTimePerWeapon)
+
+[es(tag=server, on_appear)]
+def weapon_use_time_on_create(evt : Event; gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
+                               human_stat_tracking__spawnTime : float;
+                               var human_stat_tracking__lastWeaponName : das_string;
+                               var human_stat_tracking__lastWeaponTime : float&;
+                               var human_stat_tracking__battleTimePerWeapon : Object)
+    update_weapon_use_time(human_weap__currentGunEid, human_stat_tracking__spawnTime,
+                           human_stat_tracking__lastWeaponName, human_stat_tracking__lastWeaponTime,
+                           human_stat_tracking__battleTimePerWeapon)
+
+[es(tag=server, on_appear, track=human_weap__currentGunEid)]
+def track_weapon_use_time(evt : Event;
+                          human_weap__currentGunEid : EntityId;
+                          human_stat_tracking__spawnTime : float;
+                          var human_stat_tracking__lastWeaponName : das_string;
+                          var human_stat_tracking__lastWeaponTime : float&;
+                          var human_stat_tracking__battleTimePerWeapon : Object)
+  update_weapon_use_time(human_weap__currentGunEid, human_stat_tracking__spawnTime,
+                         human_stat_tracking__lastWeaponName, human_stat_tracking__lastWeaponTime,
+                         human_stat_tracking__battleTimePerWeapon)
 
 [es(tag=server, on_event=CommitHumanStat, on_event=EventEntityDied)]
 def human_stat_died_track(evt : Event; eid, possessedByPlr : EntityId; team : int; isAlive : bool;

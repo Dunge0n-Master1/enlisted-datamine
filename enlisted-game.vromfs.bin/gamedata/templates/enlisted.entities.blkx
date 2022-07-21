@@ -1372,6 +1372,8 @@ enlisted_userstat_filter{
     best_killstreak_submachine_gun:b=yes
     best_killstreak_machine_gun:b=yes
     infantry_squad_wipeout:b=yes
+    best_possessed_infantry_killstreak:b=yes
+    best_possessed_infantry_killstreak_10:b=yes
     team_score_top_50_percent:b=yes
     team_score_top_30_percent:b=yes
     team_score_top_20_percent:b=yes
@@ -1395,11 +1397,48 @@ enlisted_userstat_filter{
     battle_group_sum_score_per_minute:b=yes
     engineer_rally_point_usage:b=yes
     engineer_ammo_box_usage:b=yes
-    kills_by_engineer_kind:b=yes
+    kills_by_rifle_kind:b=yes
+    kills_by_mgun_kind:b=yes
+    kills_by_assault_kind:b=yes
+    kills_by_sniper_kind:b=yes
+    kills_by_anti_tank_kind:b=yes
+    kills_by_tanker_kind:b=yes
     kills_by_radioman_kind:b=yes
+    kills_by_mortarman_kind:b=yes
+    kills_by_pilot_fighter_kind:b=yes
+    kills_by_pilot_assaulter_kind:b=yes
+    kills_by_flametrooper_kind:b=yes
+    kills_by_engineer_kind:b=yes
+    kills_by_biker_kind:b=yes
     kills_by_medic_kind:b=yes
+    tank_kills_by_rifle_kind:b=yes
+    tank_kills_by_mgun_kind:b=yes
+    tank_kills_by_assault_kind:b=yes
+    tank_kills_by_sniper_kind:b=yes
+    tank_kills_by_anti_tank_kind:b=yes
+    tank_kills_by_tanker_kind:b=yes
+    tank_kills_by_radioman_kind:b=yes
+    tank_kills_by_mortarman_kind:b=yes
+    tank_kills_by_pilot_fighter_kind:b=yes
+    tank_kills_by_pilot_assaulter_kind:b=yes
+    tank_kills_by_flametrooper_kind:b=yes
     tank_kills_by_engineer_kind:b=yes
+    tank_kills_by_biker_kind:b=yes
+    tank_kills_by_medic_kind:b=yes
+    plane_kills_by_rifle_kind:b=yes
+    plane_kills_by_mgun_kind:b=yes
+    plane_kills_by_assault_kind:b=yes
+    plane_kills_by_sniper_kind:b=yes
+    plane_kills_by_anti_tank_kind:b=yes
+    plane_kills_by_tanker_kind:b=yes
+    plane_kills_by_radioman_kind:b=yes
+    plane_kills_by_mortarman_kind:b=yes
+    plane_kills_by_pilot_fighter_kind:b=yes
+    plane_kills_by_pilot_assaulter_kind:b=yes
+    plane_kills_by_flametrooper_kind:b=yes
     plane_kills_by_engineer_kind:b=yes
+    plane_kills_by_biker_kind:b=yes
+    plane_kills_by_medic_kind:b=yes
     kills_by_engineer_buildings:b=yes
     tank_kills_by_engineer_buildings:b=yes
     plane_kills_by_engineer_buildings:b=yes
@@ -1761,6 +1800,7 @@ enlisted_player{
 
   _group{
     _tags:t="server"
+    scoring_player__bestPossessedInfantryKillstreak:i=0
     scoring_player__isBattleHero:b=no
     scoring_player__minScoreForXpMultipliers:i=500
 
