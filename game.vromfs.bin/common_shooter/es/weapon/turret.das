@@ -131,7 +131,7 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
                            turret_state__atTick : int;
                            var turret_input__prevCmdSendTick : int&)
   let curTime = info.curTime
-  let curTick = int(curTime / get_actor_min_time_step())
+  let curTick = int(curTime * float(PHYS_DEFAULT_TICKRATE))
   if int(vehicle__localControls.turretsMask) == 0 || turret_input__prevCmdSendTick >= curTick
     return
 

@@ -450,7 +450,7 @@ let function soldiersCountDesc(classes){
 let function primeDescBlock(squadCfg){
   let rank = squadCfg.startSoldiers[0].tier
   let perksCount = squadCfg.startSoldiers[0].level - 1
-  let { newClass, announceLocId, vehicleType = "" } = squadCfg
+  let { newClass, announceLocId, vehicleType = "", battleExpBonus = 0.0 } = squadCfg
   let hasVehicle = vehicleType != ""
 
   let soldierClasses = squadCfg.startSoldiers.reduce(function(res, soldier){
@@ -487,8 +487,8 @@ let function primeDescBlock(squadCfg){
             margin = [hdpx(10),0]
             image = Picture($"!ui/uiskin/thumb.svg:{30}:{30}:K")
           }}, loc("squads/primeOptimalPerks"))
-          primeDescription({
-            titleText = "+100%",
+          battleExpBonus <= 0.0 ? null : primeDescription({
+            titleText = $"+{(100 * battleExpBonus).tointeger()}%",
             addChild = {
               rendObj = ROBJ_TEXT
               text = loc("squads/primeExp")

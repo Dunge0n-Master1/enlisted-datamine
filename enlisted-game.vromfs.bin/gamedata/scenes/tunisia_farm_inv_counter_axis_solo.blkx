@@ -15,6 +15,10 @@ entity{
 }
 
 entity{
+  _template:t="enemy_attack_marker"
+}
+
+entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[0.999503, 0.0, -0.0315237] [0.0, 1.0, 0.0] [0.0315237, 0.0, 0.999503] [394.533, 65.481, -638.487]]
