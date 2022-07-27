@@ -1498,6 +1498,10 @@ antitank_mine_preview{
 }
 
 building_restricted_zone{
+  building_restricted_zone__nextUpdateAt:r=0.0
+  building_restricted_zone__updateInterval:r=0.5
+  building_restricted_zone__maxAngle:r=30.0
+  building_restricted_zone__minDistance:r=200.0
 
   "buildingRestrictedZone:tag"{
   }

@@ -11,6 +11,21 @@ require ecs
 require EnlistedNet
 require player
 
+[es(tag=server, no_order, REQUIRE=buildingRestrictedZone)]
+def building_fortification_destroy_on_distance(info : UpdateStageInfoAct;
+                                               transform aka restricted_zone_transform : float3x4;
+                                               building_restricted_zone__updateInterval : float;
+                                               building_restricted_zone__maxAngle : float;
+                                               building_restricted_zone__minDistance : float;
+                                               var building_restricted_zone__nextUpdateAt : float&)
+  if info.curTime < building_restricted_zone__nextUpdateAt
+    return
+  building_restricted_zone__nextUpdateAt = info.curTime + building_restricted_zone__updateInterval
+
+  query() <| $ [es(REQUIRE=(buildByPlayer, buildTypeId))] (eid : EntityId; transform : float3x4)
+    if is_in_building_restricted_zone_sector(transform[3], restricted_zone_transform, building_restricted_zone__minDistance, building_restricted_zone__maxAngle)
+      destroyEntity(eid)
+
 [es(on_event=EventEntityDestroyed, tag=server, REQUIRE=buildByPlayer)]
 def building_target_destroyed(evt : Event; eid : EntityId)
   let buildingEid = eid

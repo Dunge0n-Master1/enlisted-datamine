@@ -163,33 +163,36 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
     return
 
   let buttons = []
+
+  if (playerData.canForgive)
+    buttons.append({
+      locId = "btn/forgive"
+      action = @() forgive(localPlayerEid, playerData.eid)
+    })
+
+  let playerUid = playerData.player?.userid ?? INVALID_USER_ID
+
+  buttons.extend((params?.mkContextMenuButton(playerData) ?? [])
+    .filter(@(item) item?.mkIsVisible(playerUid.tostring()).value ?? true)
+    .map(@(item) item.__merge({action = @() item.action(playerUid.tostring())})))
+
+  if (canShowUserInfo(playerData.player.userid.tointeger(), playerData.player.name) && !playerData.isLocal)
+    buttons.append({
+    locId = "show_user_live_profile"
+    action = @() showUserInfo(playerData.player.userid)
+  })
+
   if (canComplain(playerData))
     buttons.append({
-      text = loc("btn/complain")
+      locId = "btn/complain"
       action = @() complain(
         playerData.sessionId,
-        playerData.player?.userid ?? INVALID_USER_ID,
+        playerUid,
         getFramedNick(playerData.player)
       )
     })
 
-  if (playerData.canForgive)
-    buttons.append({
-      text = loc("btn/forgive")
-      action = @() forgive(localPlayerEid, playerData.eid)
-    })
-
-  if (canShowUserInfo(playerData.player.userid.tointeger(), playerData.player.name) && !playerData.isLocal)
-    buttons.append({
-      text = loc("show_user_live_profile")
-      action = @() showUserInfo(playerData.player.userid)
-    })
-
-  if (params?.mkContextMenuButton != null)
-    buttons.extend(params.mkContextMenuButton(playerData))
-
-  if (buttons.len())
-    contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
+  contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
 }
 
 let countAssistActions = @(data)

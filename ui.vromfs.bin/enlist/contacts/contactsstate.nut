@@ -19,6 +19,7 @@ let { crossnetworkChat, canCrossnetworkChatWithAll,
   canCrossnetworkChatWithFriends } = require("%enlSqGlob/crossnetwork_state.nut")
 let { getAppIdsList } = require("%enlist/getAppIdsList.nut")
 let { showCrossnetworkChatRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
+let { INVALID_USER_ID } = require("matching.errors")
 
 let logC = require("%sqstd/log.nut")().with_prefix("[CONTACTS STATE] ")
 
@@ -45,6 +46,10 @@ let searchContactsResults = Watched({})
 local fetchContacts = null
 
 let function execContactsCharAction(userId, charAction) {
+  if (userId == INVALID_USER_ID) {
+    logC($"trying to do {charAction} with invalid contact")
+    return
+  }
   charClient[charAction](userId.tointeger(), GAME_GROUP_NAME, {
     success = function () {
       fetchContacts(null)

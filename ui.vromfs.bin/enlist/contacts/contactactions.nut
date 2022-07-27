@@ -253,7 +253,7 @@ let actions = {
 
   COMPARE_ACHIEVEMENTS = {
     locId = "Compare achievements"
-    mkIsVisible = @(_userId) Computed(@() platform.is_pc && achievementUrl != "")
+    mkIsVisible = @(userId) Computed(@() platform.is_pc && achievementUrl != "" && userId != myUserId.value)
     action      = @(userId)
       openUrl(
         ["moon"].contains(get_circuit())

@@ -44,6 +44,15 @@ let { BattleHeroesAward, awardPriority, isSoldierAward, isTopSquadAward
 } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
+let { INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, REJECT_INVITE,
+  REMOVE_FROM_FRIENDS, ADD_TO_BLACKLIST, REMOVE_FROM_BLACKLIST, REMOVE_FROM_BLACKLIST_XBOX,
+  REMOVE_FROM_BLACKLIST_PSN, SHOW_USER_LIVE_PROFILE
+} = require("%enlist/contacts/contactActions.nut")
+let userActions = [
+  INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, REJECT_INVITE,
+  REMOVE_FROM_FRIENDS, ADD_TO_BLACKLIST, REMOVE_FROM_BLACKLIST, REMOVE_FROM_BLACKLIST_XBOX,
+  REMOVE_FROM_BLACKLIST_PSN, SHOW_USER_LIVE_PROFILE
+]
 
 const ANIM_TRIGGER = "new_items_wnd_anim"
 const NEW_BLOCK_TRIGGER = "new_debr_block_appear"
@@ -861,6 +870,7 @@ let function statisticBlock(debriefing) {
     sessionId = debriefing?.sessionId ?? INVALID_SESSION_ID
     isInteractive = true
     missionType
+    mkContextMenuButton = @(_) userActions
   }
 
   return blockCtr(null, mkScoresStatistics(debriefing.players, params), debriefing)

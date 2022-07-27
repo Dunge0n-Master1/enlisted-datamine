@@ -24,6 +24,8 @@ let tutorialTankSceneByArmy = {
   normandy_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
   tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
   tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
+  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
+  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
 }
 
 const defTutorialEngineer = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
@@ -36,6 +38,8 @@ let tutorialEngineerSceneByArmy = {
   normandy_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
   tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
   tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
+  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
+  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
 }
 
 const defTutorialAircraft = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
@@ -48,6 +52,8 @@ let tutorialAircraftSceneByArmy = {
   normandy_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
   tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
   tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
+  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
+  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
 }
 
 const defPractice = "content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"

@@ -6,6 +6,7 @@ let gamepadImgByKey = require("%ui/components/gamepadImgByKey.nut")
 let active_controls = require("%ui/control/active_controls.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
 
 
 let function listItem(text, action) {
@@ -63,7 +64,8 @@ let function mkMenu(width, actions, uid) {
       watch = actions.map(@(a) a?.isVisible).filter(@(w) w != null)
       size = [width, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
-      children = visibleActions.map(@(item) listItem(item.text,
+      children = visibleActions.map(@(item) listItem(
+        item?.text ?? locByPlatform(item?.locId),
         function() {
           item.action()
           modalPopupWnd.remove(uid)

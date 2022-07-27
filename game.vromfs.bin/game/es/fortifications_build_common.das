@@ -152,9 +152,27 @@ def is_distance_to_capture_points_valid(pos; min_distance)
     let halfDiag = length(transform[0] + transform[2]) * 0.5
     return distanceSq < square(min_distance + halfDiag)
 
+def is_in_building_restricted_zone_sector(pos : float3; zone_transform : float3x4; zone_min_distance : float; zone_max_angle : float)
+  let offset = pos - zone_transform[3]
+
+  if length_sq(offset) >= square(zone_min_distance)
+    let dir = normalize(offset)
+    let cosAngle = dot(dir, -zone_transform[0]) / length(zone_transform[0])
+
+    if cosAngle > cos(deg_to_rad(zone_max_angle))
+      return true
+  return false
+
 def is_in_building_restricted_zone(pos : float3)
-  return find_query() <| $ [es(REQUIRE=buildingRestrictedZone)] (eid : EntityId)
-    return is_point_in_capzone(pos, eid, 1.)
+  return find_query() <| $ [es(REQUIRE=buildingRestrictedZone)] (eid : EntityId;
+                                                                 transform aka restricted_zone_transform : float3x4;
+                                                                 building_restricted_zone__maxAngle : float;
+                                                                 building_restricted_zone__minDistance : float)
+    return (is_point_in_capzone(pos, eid, 1.) ||
+            is_in_building_restricted_zone_sector(pos,
+                                                  restricted_zone_transform,
+                                                  building_restricted_zone__minDistance,
+                                                  building_restricted_zone__maxAngle))
 
 def get_player_eid_interacting_building(building_eid, exclude_eid = INVALID_ENTITY_ID)
   var player_eid = INVALID_ENTITY_ID

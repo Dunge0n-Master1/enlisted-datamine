@@ -2,6 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let lowLevelClient = require("char")
+let { INVALID_USER_ID } = require("matching.errors")
 //if (lowLevelClient == null)
 //  return null
 
@@ -54,10 +55,10 @@ let function perform_contact_action(action, request, params) {
   let onSuccessCb = params?.success
   local onFailureCb = params?.failure
 
-  log("perform_contact_action", request)
+  log("[CHAR CLIENT] perform_contact_action", request)
 
   char_request(action, request, function(result) {
-    log("char_request", result)
+    log("[CHAR CLIENT] char_request", result)
 
     let subResult = result?.result
     if (subResult != null)
@@ -72,7 +73,7 @@ let function perform_contact_action(action, request, params) {
       if (typeof onSuccessCb == "function") {
         onSuccessCb()
       }
-      log("Ok")
+      log("[CHAR CLIENT] Ok")
     }
   })
 }
@@ -102,6 +103,11 @@ let function contacts_remove(id, params = {}) {
 }
 
 let function perform_contacts_for_requestor(action, apprUid, group, params = {}, requestAddon = {}) {
+  if (apprUid == INVALID_USER_ID) {
+    log($"[CHAR CLIENT] try perform action {action} for invalid contact, group {group}")
+    return
+  }
+
   let request = {
     apprUid = apprUid
     groupName = group
@@ -110,6 +116,11 @@ let function perform_contacts_for_requestor(action, apprUid, group, params = {},
 }
 
 let function perform_contacts_for_approver(action, requestorUid, group, params = {}, requestAddon = {}) {
+  if (requestorUid == INVALID_USER_ID) {
+    log($"[CHAR CLIENT] try perform action {action} for invalid contact, group {group}")
+    return
+  }
+
   let request = {
     requestorUid = requestorUid
     groupName = group
@@ -161,7 +172,7 @@ let charClient = {
 // console commands
 let function contacts_get() {
   char_request("cln_get_contact_lists_ext", null, function(result) {
-    log(result)
+    log("[CHAR CLIENT] cln_get_contact_lists_ext", result)
   })
 }
 
@@ -175,7 +186,7 @@ let function leaderboard_get() {
   }
 
   char_request("cln_get_leaderboard_json", request, function(result) {
-    log(result)
+    log("[CHAR CLIENT] cln_get_leaderboard_json", result)
   })
 }
 
@@ -198,10 +209,10 @@ let function leaderboard_host_push() {
 
   char_host_request("hst_leaderboard_player_set", 666, request, function(result) {
     if (result) {
-      log("hst_leaderboard_player_set result", result)
+      log("[CHAR CLIENT] hst_leaderboard_player_set result", result)
     }
     else {
-      log("Ok")
+      log("[CHAR CLIENT] Ok")
     }
   })
 }
@@ -215,7 +226,7 @@ let function contacts_search(nick) {
   }
 
   char_request("cln_find_users_by_nick_prefix_json", request, function(result) {
-    log("cln_find_users_by_nick_prefix_json result", result)
+    log("[CHAR CLIENT] cln_find_users_by_nick_prefix_json result", result)
   })
 }
 
