@@ -670,6 +670,9 @@ jinxing{
   shopGuidUrl:t="https://cj.zhanhuo.com/eshop-test"
   shopCategoryUrl:t="https://cj.zhanhuo.com/eshop-test"
   webLoginUrl:t="https://act.zhanhuo.com/cj/login-test/"
+  premiumUrl:t="https://cj.zhanhuo.com/eshop-test/account"
+  battlePassUrl:t="https://cj.zhanhuo.com/eshop-test/battlepass"
+  squadCashUrl:t="https://cj.zhanhuo.com/eshop-test/echogenic"
 
   matching{
     server:t="allinone-jinxing.zhanhuo.com:7853"
@@ -719,6 +722,9 @@ mingwangxing{
   shopGuidUrl:t="https://cj.zhanhuo.com/eshop-test"
   shopCategoryUrl:t="https://cj.zhanhuo.com/eshop-test"
   webLoginUrl:t="https://act.zhanhuo.com/cj/login-test/"
+  premiumUrl:t="https://cj.zhanhuo.com/eshop-test/account"
+  battlePassUrl:t="https://cj.zhanhuo.com/eshop-test/battlepass"
+  squadCashUrl:t="https://cj.zhanhuo.com/eshop-test/echogenic"
 
   matching{
     server:t="allinone-mingwangxing.zhanhuo.com:7853"
@@ -768,6 +774,9 @@ muxing{
   shopGuidUrl:t="https://cj.zhanhuo.com/eshop"
   shopCategoryUrl:t="https://cj.zhanhuo.com/eshop"
   webLoginUrl:t="https://act.zhanhuo.com/cj/login/"
+  premiumUrl:t="https://cj.zhanhuo.com/eshop/account"
+  battlePassUrl:t="https://cj.zhanhuo.com/eshop/battlepass"
+  squadCashUrl:t="https://cj.zhanhuo.com/eshop/echogenic"
 
   matching{
     server:t="match-muxing.zhanhuo.com:7853"

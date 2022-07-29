@@ -20,6 +20,7 @@ ecs.register_es("mods_send_postback_es",
       isResultSend.value = true
 
       let apiKey = get_arg_value_by_name("sandbox_api_key") ?? ""
+      let apiUrl = get_arg_value_by_name("sandbox_api_url") ?? "https://sandbox.enlisted.net/api/post/launched/"
       let modId = get_matching_invite_data()?.mode_info.modId ?? ""
       logGM("modId", modId)
       if (modId == "" || apiKey == "") {
@@ -29,7 +30,7 @@ ecs.register_es("mods_send_postback_es",
 
       http.request({
         method = "POST"
-        url = "https://enlisted-sandbox.gaijin.net/api/post/launched/"
+        url = apiUrl
         data = $"apiKey={apiKey}&id={modId}"
         callback = @(response) logGM("Mod postback response", response?.body?.as_string())
       })
