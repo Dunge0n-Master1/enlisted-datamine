@@ -39,7 +39,6 @@ germ_panzerwerfer_42_common{
       receiveDamageFromDMPart:t="commander"
 
       "turretNames:array"{
-        turretNames:t="turret_02"
         turretNames:t="turret_01"
       }
     }

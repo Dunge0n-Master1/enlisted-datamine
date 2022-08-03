@@ -26,6 +26,7 @@ let heroState = {
   needReload = Watched(false)
   weaponsList
   fastThrowExclusive = Watched(false)
+  isThrowMode = Watched(false)
 }
 
 let updateWeaponsList = @(list) weaponsList(list)
@@ -329,6 +330,17 @@ ecs.register_es("hero_state_weapons_ui_es",
       ["human_net_phys__weapEquipNextSlot", ecs.TYPE_INT],
       ["itemContainer", ecs.TYPE_EID_LIST],
     ]
+  }
+)
+
+ecs.register_es("hero_throw_mode_es",
+  {
+    [["onInit", ecs.EventComponentChanged]] = @(_, comp) heroState.isThrowMode(comp.human_weap__throwMode)
+    onDestroy = @(...) heroState.isThrowMode(false)
+  },
+  {
+    comps_rq = ["watchedByPlr"]
+    comps_track = [["human_weap__throwMode", ecs.TYPE_BOOL]]
   }
 )
 

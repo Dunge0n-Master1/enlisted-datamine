@@ -111,6 +111,7 @@ let perksFactory = {
   hp_boost                                    = { ctor = mkCalcAdd,       compName = "entity_mods__maxHpMult", compType = ecs.TYPE_FLOAT }
   base_hp_mult                                = { ctor = mkCalcMult,      compName = "baseMaxHpMult", compType = ecs.TYPE_FLOAT }
   hp_regeneration                             = { ctor = mkCalcAdd,       compName = "entity_mods__hpToRegen", compType = ecs.TYPE_FLOAT }
+  hp_regen_speed                              = { ctor = mkCalcAddPercent,compName = "hitpoints__hpRecoverySpd", compType = ecs.TYPE_FLOAT }
   more_stability_when_hit                     = { ctor = mkCalcAdd,       compName = "entity_mods__moreStabilityWhenHitMult", compType = ecs.TYPE_FLOAT }
   less_stopping_power                         = { ctor = mkCalcAdd,       compName = "entity_mods__lessStoppingPower", compType = ecs.TYPE_FLOAT }
   faster_aiming_point_return_after_fire       = { ctor = mkCalcSubstract, compName = "entity_mods__aimingAfterFireMult", compType = ecs.TYPE_FLOAT }
@@ -146,12 +147,15 @@ let perksFactory = {
   more_downed_time                            = { ctor = mkCalcAddPercent,compName = "hitpoints__downedTimer", compType = ecs.TYPE_FLOAT }
   longer_grenade_throw                        = { ctor = mkCalcAdd        compName = "entity_mods__grenadeThrowDistMult", compType = ecs.TYPE_FLOAT }
   more_ammo                                   = null,       // direct apply to squadData
+  more_ammo_secondary                         = null,       // direct apply to squadData
   large_inventory                             = null,       // direct apply to squadData
   perk_point_stamina_boost                    = { ctor = mkCalcAdd,       compName = "entity_mods__staminaBoostMult", compType = ecs.TYPE_FLOAT }
   perk_point_less_recoil                      = { ctor = mkCalcSubstract, compName = "entity_mods__verticalRecoilOffsMult", compType = ecs.TYPE_FLOAT }
   perk_point_run_speed                        = { ctor = mkCalcAdd,       compName = "entity_mods__speedMult", compType = ecs.TYPE_FLOAT }
   less_concussion_time                        = { ctor = mkCalcSubstract, compName = "entity_mods__concussionDurationMult", compType = ecs.TYPE_FLOAT }
   less_concussion_shake                       = { ctor = mkCalcSubstract, compName = "entity_mods__concussionShakeMult", compType = ecs.TYPE_FLOAT }
+  faster_self_fire_putout                     = { ctor = mkCalcAddPercent,compName = "burning__putOutForce", compType = ecs.TYPE_FLOAT }
+  more_flamethrower_fuel                      = { ctor = mkCalcAdd       ,compName = "entity_mods__flamethrowerFuelMult", compType = ecs.TYPE_FLOAT }
 }
 
 let perksPointFactory = {

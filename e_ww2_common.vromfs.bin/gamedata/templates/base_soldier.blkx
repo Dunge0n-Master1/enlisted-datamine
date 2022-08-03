@@ -244,6 +244,7 @@ base_soldier{
     _tags:t="server"
     entity_mods__concussionDurationMult:r=1.0
     entity_mods__concussionShakeMult:r=1.0
+    entity_mods__flamethrowerFuelMult:r=1.0
   }
 
   _group{

@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require app
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
@@ -111,8 +112,10 @@ def restore_ammo_impl(eid : EntityId;
         initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
       for i in range(initialNum, numResvAmmo)
         let itemEid = createEntitySync(*resvAmmoTemplate |> string()) <| $(var init : ComponentsInitializer)
+          set(init, "item__ownerEid", eid)
           set(init, "item__lastOwner", eid)
-        itemContainer |> push(itemEid)
+        if find_index(itemContainer, itemEid) == -1
+          itemContainer |> push(itemEid)
       if (gun_slot != int(HUWeaponSlots EWS_GRENADE))
         reload_impl(eid, gun_slot, ReloadAmmoMode CONSUME)
       result = true

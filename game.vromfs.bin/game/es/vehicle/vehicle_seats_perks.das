@@ -61,7 +61,7 @@ def apply_vehicle_reload_perks(vehicle_seats__seatEids : EidList;
                                turret_control__gunEids : EidList)
   set_default_perk_values(turret_control__gunEids)
   for seatEid, turretIds in vehicle_seats__seatEids, vehicle_seats__applyLoaderModsToTurrets
-    query() <| $ [es] (seat__ownerEid : EntityId; seat_perks__vehicleReloadMult : float = 1f)
+    query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat_perks__vehicleReloadMult : float = 1f)
       let ownerEid = seat__ownerEid
       if ownerEid != ecs::INVALID_ENTITY_ID && get_bool(ownerEid, "isAlive") ?? true
         apply_sitter_loader_perks(ownerEid, get_ecs_array(turretIds), turret_control__gunEids, seat_perks__vehicleReloadMult)

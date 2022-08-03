@@ -5516,6 +5516,9 @@ flamethrower_fuel_tank{
   item__weight:r=10.5
   item__volume:r=3.5
   item__name:t="items/flamethrower_fuel_tank"
+
+  "flamethrowerFuelTank:tag"{
+  }
 }
 
 flamethrower_fuel_tank_light{
@@ -5530,6 +5533,9 @@ flamethrower_fuel_tank_light{
   item__weight:r=5.2
   item__volume:r=2.2
   item__name:t="items/flamethrower_fuel_tank_light"
+
+  "flamethrowerFuelTank:tag"{
+  }
 }
 
 diakov_grenade_launcher_item{
