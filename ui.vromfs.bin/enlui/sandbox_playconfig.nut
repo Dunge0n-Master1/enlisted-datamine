@@ -3,19 +3,21 @@ from "%darg/laconic.nut" import *
 
 let cursors = require("%daeditor/components/cursors.nut")
 let textButton = require("%daeditor/components/textButton.nut")
-let {makeVertScroll} = require("%darg/components/scrollbar.nut")
+let {makeVertScroll} = require("%ui/components/scrollbar.nut")
 
-let {checkbox} = require("%darg/components/checkbox.nut")
+let checkbox = require("%ui/components/checkbox.nut")
 let {hintWelcomeKeepShowing} = require("sandbox_hints.nut")
 let showHintAtStartup = Watched(hintWelcomeKeepShowing.value)
 
-let { save_settings=null, get_setting_by_blk_path=null, set_setting_by_blk_path=null } = require_optional("settings")
+let {
+  save_settings = null, get_setting_by_blk_path = null, set_setting_by_blk_path = null
+} = require_optional("settings")
 
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let function getAllSquads() {
   local squads = [""]
-  foreach(group in squadsPresentation)
-    foreach(name,_val in group)
+  foreach (group in squadsPresentation)
+    foreach (name,_val in group)
       if (!name.contains("_prem"))
         squads.append(name)
   return squads.sort()
@@ -33,7 +35,7 @@ let playOptions = {
 }
 
 let playConfig = {}
-foreach(opt,_ in playOptions) {
+foreach (opt,_ in playOptions) {
   playConfig[opt] <- playOptions[opt][0]
   let val = get_setting_by_blk_path?($"{SETTING_EDITOR_PLAYCONFIG}{opt}")
   if (val!=null && val!="")
@@ -41,8 +43,7 @@ foreach(opt,_ in playOptions) {
 }
 
 
-let editConfig = {}
-let editConfigUpdated = Watched(null)
+let editConfig = Watched({})
 local editConfigModalWindows = null
 
 let function setupOption(opt) {
@@ -51,28 +52,23 @@ let function setupOption(opt) {
     return
   local use_next = false
   local value = options[0]
-  foreach(v in options) {
+  foreach (v in options) {
     if (use_next) {
       value = v
       break
     }
-    if (editConfig[opt] == v)
+    if (editConfig.value[opt] == v)
       use_next = true
   }
-  editConfig[opt] <- value
-  editConfigUpdated.trigger()
-}
-
-let function setOption(opt,val) {
-  editConfig[opt] <- val
-  editConfigUpdated.trigger()
+  editConfig.mutate(@(v) v[opt] <- value)
 }
 
 let mkSelectLine = kwarg(function(selected, textCtor = null, onSelect=null, onDClick=null){
   textCtor = textCtor ?? @(opt) opt
   return function(opt, i){
     let isSelected = Computed(@() selected.value == opt)
-    let onClick = onSelect != null ? @() onSelect?(opt) : @() (!isSelected.value ? selected(opt) : selected(null))
+    let onClick = onSelect != null ? @() onSelect?(opt)
+      : @() (!isSelected.value ? selected(opt) : selected(null))
     let onDoubleClick = onDClick != null ? @() onDClick?(opt) : null
     return watchElemState(@(sf) {
       size = [flex(), SIZE_TO_CONTENT]
@@ -118,11 +114,13 @@ let function openSelectSquadList(squad, onSelect) {
   })
 }
 
+let gap = @(size) { size = [size, size] }
+
 let function openPlayConfigDialogInternal(modalWindows) {
   let key = "play_config_dialog"
   let close = @() modalWindows.removeModalWindow(key)
   let apply = function() {
-    foreach(opt,val in editConfig) {
+    foreach (opt,val in editConfig.value) {
       if (playConfig[opt]!=val) {
         playConfig[opt] = val
         set_setting_by_blk_path?($"{SETTING_EDITOR_PLAYCONFIG}{opt}", val ?? playOptions[opt][0])
@@ -135,9 +133,18 @@ let function openPlayConfigDialogInternal(modalWindows) {
 
   let txtStyle1 = {size=[hdpx(120),SIZE_TO_CONTENT] pos=[0,hdpx(5)]}
   let valStyle  = {size=[hdpx(260),SIZE_TO_CONTENT]}
-  let optionButton = @(opt)
-    textButton((editConfig[opt]==null || editConfig[opt]=="" || editConfig[opt]==-1) ? "<default>" : editConfig[opt],
-    @() opt == "squad" ? openSelectSquadList(editConfig[opt], @(v) setOption(opt,v)) : setupOption(opt), valStyle)
+
+  let optionButton = @(opt) @(){
+      watch = editConfig
+      children = textButton(
+        (editConfig.value[opt] ?? "") == "" || editConfig.value[opt]==-1
+          ? "<default>"
+          : editConfig.value[opt],
+        @() opt == "squad"
+          ? openSelectSquadList(editConfig.value[opt], @(val) editConfig.mutate(@(v) v[opt] <- val))
+          : setupOption(opt)
+        , valStyle)
+  }
 
   modalWindows.addModalWindow({key,
     children = {
@@ -153,20 +160,24 @@ let function openPlayConfigDialogInternal(modalWindows) {
         Flex()
         Gap(hdpx(10))
         txt("SANDBOX CONFIG", {hplace = ALIGN_CENTER})
-        txt("Scene should be reloaded for modifications to take place", {hplace = ALIGN_CENTER, fontSize = hdpx(13)})
-        txt("", {hplace = ALIGN_CENTER, fontSize = hdpx(2)})
+        txt("Scene should be restarted for modifications to take place",
+          {hplace = ALIGN_CENTER, fontSize = hdpx(13)})
+        gap(hdpx(2))
         hflow(Flex() txt("Difficulty",  txtStyle1) optionButton("difficulty"))
         hflow(Flex() txt("Game mode",   txtStyle1) optionButton("mode"))
         hflow(Flex() txt("Spawn mode",  txtStyle1) optionButton("spawnMode"))
         hflow(Flex() txt("Bot count",   txtStyle1) optionButton("botpop"))
         hflow(Flex() txt("Team",        txtStyle1) optionButton("team"))
         // FIXME, not working for now (REQUIRED VALID sandbox_profile.nut) ==> hflow(Flex() txt("Squad",       txtStyle1) optionButton("squad"))
-        txt("", {hplace = ALIGN_CENTER, fontSize = hdpx(2)})
+        gap(hdpx(2))
         hflow(
-          Size(flex(), SIZE_TO_CONTENT)
-          { pos = [0, hdpx(6)], children = checkbox({state = showHintAtStartup, text = "Show hint window at startup", textStyle = {fontSize = hdpx(13)}}) }
+          Size(flex(), SIZE_TO_CONTENT) {
+            pos = [0, hdpx(6)], children = checkbox(showHintAtStartup, {
+            text = "Show hint window at startup"
+            textStyle = {fontSize = hdpx(13)}})
+          }
         )
-        txt("", {hplace = ALIGN_CENTER, fontSize = hdpx(2)})
+        gap(hdpx(2))
         hflow(
           Size(flex(), SIZE_TO_CONTENT)
           comp(Flex())
@@ -178,18 +189,10 @@ let function openPlayConfigDialogInternal(modalWindows) {
   })
 }
 
-editConfigUpdated.subscribe(function(_v) {
-  if (editConfigModalWindows!=null) {
-    editConfigModalWindows.removeModalWindow("play_config_dialog")
-    gui_scene.resetTimeout(0.0, @() openPlayConfigDialogInternal(editConfigModalWindows))
-  }
-})
-
 let function openPlayConfigDialog(modalWindows) {
   editConfigModalWindows = modalWindows
 
-  foreach(opt,val in playConfig)
-  editConfig[opt] <- val
+  editConfig(clone playConfig)
 
   showHintAtStartup(hintWelcomeKeepShowing.value)
 

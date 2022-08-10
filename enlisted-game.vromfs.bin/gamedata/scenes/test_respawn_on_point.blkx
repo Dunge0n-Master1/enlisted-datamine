@@ -15,7 +15,6 @@ entity{
 entity{
   _template:t="level"
   level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
-  level__weather:t="content/common/gamedata/weather/weather_clear.blk"
   level__timeRange:p2=5.0, 18.0
 
   "level__timeVec:array"{
@@ -23,7 +22,7 @@ entity{
   }
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_overcast.blk":r=1.0
+    weather_overcast_b:r=1.0
   }
 }
 
@@ -108,7 +107,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 0.999998, 0.00182071] [0.0, -0.00182071, 0.999998] [-129.671, 68.3553, -296.459]]
   sphere_zone__radius:r=6.0
   capzone__title:t="A"

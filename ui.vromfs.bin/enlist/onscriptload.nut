@@ -45,12 +45,14 @@ require("%enlist/tutorial/tutorialWnd.nut")
 require("%enlist/tutorial/newSquadByArmyLevelTutorial.nut")
 require("%enlSqGlob/ui/webHandlers/webHandlers.nut")
 require("%enlSqGlob/ui/weGameHandlers/weGameHandlers.nut")
+require("battlepass/bpWindow.nut")
 require("battlepass/debugBpRewardsView.nut")
 require("unlocks/dailyRewardsUi.nut")
 require("gameModes/eventModesWindow.nut")
 require("gameModes/createEventRoomWnd.nut")
 require("leaderboard/leaderboardWnd.nut")
 require("%enlist/profile/profileScene.nut")
+require("%enlist/profile/anoProfileScene.nut")
 require("%enlist/profile/unseenProfileStuffs.nut")
 require("%enlist/contacts/externalIdsManager.nut")
 require("%enlist/soldiers/soldierCustomizationScene.nut")
@@ -58,8 +60,12 @@ require("%enlist/usermail/usermailScene.nut")
 require("%enlist/vehicles/selectVehicleScene.nut")
 require("%enlist/vehicles/customizeScene.nut")
 require("%enlist/soldiers/model/console_cmd.nut")
+require("%enlist/replay/replayDownloadInfo.nut")
+require("%enlist/replay/replayWebHadlers.nut")
+require("%enlist/items/itemCollageScene.nut")
+require("%enlist/shop/rentedSquadDialog.nut")
 
-let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu_state.nut")
+let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
 let { cameraShakeOptions } = require("%ui/hud/menus/options/camera_shake_options.nut")
@@ -115,7 +121,8 @@ aboveUiLayer.add(quickMatchQueueInfoCmp, "quickMatchQueue")
 
 let { matchRandomTeam } = require("%enlist/quickMatch.nut")
 let { curArmy, selectArmy } = require("soldiers/model/state.nut")
-let { isEventModesOpened, selCustomRoomsMode, isCustomRoomsMode } = require("gameModes/eventModesState.nut")
+let { isEventModesOpened, customRoomsModeSaved, isCustomRoomsMode
+} = require("gameModes/eventModesState.nut")
 let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 
 let { throttle } = require("%sqstd/timers.nut")
@@ -124,18 +131,23 @@ let { changelogDisabled, haveUnseenVersions, requestPatchnotes,
 let {openChangelog} = require("openChangelog.nut")
 
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let patchnote = persist("patchnote", @() { cachedUpdatedVersion = -1, timeShown = -1, requestMadeTime = -1 })
+let patchnote = mkWatched(persist, "patchnote", {
+  cachedUpdatedVersion = -1
+  timeShown = -1
+  requestMadeTime = -1
+})
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 
 const MIN_SEC_BETWEEN_REQUESTS = 10 //10 seconds
-let checkVersionAndReqPatchnotes = throttle(function(...){
+let checkVersionAndReqPatchnotes = throttle(function(...) {
   if (!isInBattleState.value
       && maxVersionInt.value >= 0
-      && maxVersionInt.value > patchnote.cachedUpdatedVersion
-    ) {
+      && maxVersionInt.value > patchnote.value.cachedUpdatedVersion) {
     requestPatchnotes()
-    patchnote.cachedUpdatedVersion = maxVersionInt.value
-    patchnote.requestMadeTime = get_time_msec()
+    patchnote.mutate(function(v) {
+      v.cachedUpdatedVersion = maxVersionInt.value
+      v.requestMadeTime = get_time_msec()
+    })
   }
 }, MIN_SEC_BETWEEN_REQUESTS, {leading=true, trailing=false})
 checkVersionAndReqPatchnotes()
@@ -144,9 +156,8 @@ isInBattleState.subscribe(checkVersionAndReqPatchnotes) //check versions after r
 
 let needShowPatchnote = keepref(Computed(@() patchnotesReceived.value
   && haveUnseenVersions.value
-  && unlockProgress.value.len() > 0 //received any progress
   && (unlockProgress.value?["not_a_new_player_unlock"].isCompleted ?? false)
-  && patchnote.timeShown != patchnote.requestMadeTime
+  && patchnote.value.timeShown != patchnote.value.requestMadeTime
 ))
 
 if (!changelogDisabled)
@@ -154,7 +165,7 @@ if (!changelogDisabled)
     if (!v)
       return
     openChangelog()
-    patchnote.timeShown = patchnote.requestMadeTime
+    patchnote.mutate(@(v) v.timeShown = v.requestMadeTime)
   })
 
 let leaveQueueNotification = require("notifications/leaveQueueNotification.nut")
@@ -172,7 +183,7 @@ leaveQueueNotification({
 })
 leaveQueueNotification({
   watch = isCustomRoomsMode
-  setValue = selCustomRoomsMode
+  setValue = customRoomsModeSaved
 })
 
 let dCtorBase = require("%enlist/debriefing/debriefingCtor.nut")
@@ -192,7 +203,7 @@ debriefingDbg.init({
       return
 
     let players = {}
-    foreach(id, player in debrData.players)
+    foreach (id, player in debrData.players)
       players[id.tointeger()] <- player
     debrData.players = players
   }

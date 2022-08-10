@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let {actionTimer} = require("%ui/hud/state/fortification_builder_action.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 
 let endTimerTime = Computed(@() actionTimer.value.endTimeToComplete ?? 0.0)

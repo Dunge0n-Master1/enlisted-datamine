@@ -39,7 +39,7 @@ let mkBattlesComputed = @(baseData, mode) Computed(@() (baseData.value?[mode] ??
   .map(function(battle) {
     let modeBattle = battle?[mode] ?? {}
     let res = { timestamp = battle?["$timestamp"] ?? 0 }
-    foreach(category in lbCategory) {
+    foreach (category in lbCategory) {
       let value = modeBattle?[category.field] ?? -1
       if (value > 0 || (category.field not in res))
         res[category.field] <- value

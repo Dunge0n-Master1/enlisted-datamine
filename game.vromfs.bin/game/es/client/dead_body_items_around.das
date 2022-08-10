@@ -7,10 +7,11 @@ require GeomNodeTree
 require AnimV20
 require HumanPhys
 require DagorMath
+require enlisted.events_enlisted
 
 
 [es(after=items_around_es, before=human_inventory_hero_es, tag=(ui, render, gameClient), REQUIRE=watchedByPlr)]
-def dead_body_items_around_es(info : UpdateStageInfoAct;
+def dead_body_items_around_es(info : ParallelUpdateFrameDelayed;
                               eid : EntityId;
                               var itemsAround : ecs::Array;
                               human_inventory__lookNodeId : int;

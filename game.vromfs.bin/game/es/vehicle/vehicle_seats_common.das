@@ -226,3 +226,30 @@ def send_enter_vehicle_event(incomer : EntityId; vehicle : EntityId; seat_no : i
   let recipients <- target_entity_pos_range(vehicle)
   send_net_event(incomer, [[EventEnterVehicle incomer=incomer, vehicle=vehicle, seat_no=seat_no, enter=enter]], recipients)
   send_net_event(vehicle, [[EventEnterVehicle incomer=incomer, vehicle=vehicle, seat_no=seat_no, enter=enter]], recipients)
+
+def can_bot_replace_seat_owner(owner_eid : EntityId)
+  return !owner_eid || has(owner_eid, "deadEntity")
+
+def can_take_adjacent_seat(seat_eid : EntityId)
+  var res = false
+  query(seat_eid) <| $ [es] (seat__ownerEid : EntityId)
+    res = can_bot_replace_seat_owner(seat__ownerEid)
+  return res
+
+def find_vehicle_seat(seat_eids : EidList)
+  var foundSeatNo = -1
+  var isSeatWithControlFound = false
+  for seatNo in iter_range(seat_eids)
+    let seatEid = seat_eids[seatNo]
+    query(seatEid) <| $ [es] (seat__ownerEid : EntityId;
+                              seat__availableControls : VehicleControlsState;
+                              seat__isLocked : bool = false;
+                              seat__adjacentSeat : int = -1)
+      if !seat__isLocked && can_bot_replace_seat_owner(seat__ownerEid)
+        if seat__adjacentSeat > -1 && !can_take_adjacent_seat(seat_eids[seat__adjacentSeat])
+          return
+        foundSeatNo = seatNo
+        isSeatWithControlFound = seat__availableControls.canControlVehicleOrTurrets
+    if isSeatWithControlFound
+      break
+  return foundSeatNo

@@ -7,11 +7,11 @@ let mkGenRank = @(rank, rankName, rankBack) {
   imageScore = $"!ui/uiskin/ranks/imageScore/military_rank_{rank}_lb.svg"
 }
 
-let iconSize = hdpx(24).tointeger()
-let imageSize = hdpx(50).tointeger()
+let iconSize = hdpxi(24)
+let imageSize = hdpxi(50)
 
 let ranks = freeze([
-  mkGenRank("01", "UNKNOWN_RANK", "01")
+  mkGenRank("01", "noRank", "01")
   mkGenRank("01", "private", "01")
   mkGenRank("02", "corporal", "01")
   mkGenRank("03", "sergeant", "02")
@@ -44,7 +44,7 @@ let function mkRankImage(rank, onClick = null) {
     image = Picture(rankCfg.imageBack)
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
-    children = {
+    children = rank == 0 ? null : {
       rendObj = ROBJ_IMAGE
       image = Picture($"{rankCfg.image}:{imageSize}:{imageSize}:K")
     }

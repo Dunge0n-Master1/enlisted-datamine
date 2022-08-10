@@ -72,10 +72,6 @@ const medCharScaleDef = 0.7
 const smallCharScaleDef = 0.5
 const microCharScaleDef = 0.3
 
-let defaultsCompassObject = [
-  {watch = userPoints, childrenCtor = @() userPoints.value}
-]
-
 let compassCardinalDir = @(text, angle, scale) compassElem(text, angle, bigCharScaleDef*scale)
 let compassNumberedDir = @(angle, scale) compassElem(angle.tostring(), angle, smallCharScaleDef*scale)
 let compassNotchDir = @(angle, scale) compassElem(null, angle, microCharScaleDef*scale)
@@ -87,7 +83,7 @@ local mkCompassStrip = kwarg(function mkCompassStripImlp(size = defaultSize,
       hplace = ALIGN_CENTER, showCompass = null, step = 15, subStep = null
   ) {
   showCompass = showCompass ?? Watched(true)
-  let children = ((clone defaultsCompassObject).extend(compassObjects)).map(@(v) @(){
+  let children = ([userPoints].extend(compassObjects)).map(@(v) @(){
         size = flex()
         data = compassFovSettings
         behavior = Behaviors.PlaceOnCompassStrip

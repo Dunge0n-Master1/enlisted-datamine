@@ -91,7 +91,7 @@ def auto_gun_controller_es(info : UpdateStageInfoAct;
     dist = length(dir)
     dir *= safeinv(dist)
     let additionalAngles = float2()
-    mounted_gun |> mounted_gun_setControls(gun, dir, dir, canShoot, info.curTime, phys_vars, additionalAngles)
+    mounted_gun |> mounted_gun_setControls(gun, dir, dir, canShoot, info.dt, info.curTime, phys_vars, additionalAngles)
 
 
 def get_vertical_offset(gun__curShellId : ShellPropIds; dist : float)
@@ -120,7 +120,7 @@ def auto_shoot_event_send(info : UpdateStageInfoAct;
                           auto_shoot__shouldShoot : bool)
   let isForReal = true
   let rndSeed = grnd()
-  let gctrl = [[GunControls() shoot=auto_shoot__canShoot && auto_shoot__shouldShoot, wishShoot=false, boltActionMult = 1.0]]
+  let gctrl = [[GunControls() shoot=auto_shoot__canShoot && auto_shoot__shouldShoot, wishShoot=false, boltActionMult = 1.0, timeStep = info.dt]]
   let gloc = GunLocation(auto_shoot__gunDir, auto_shoot__gunDir, auto_shoot__gunPos)
   sendEventImmediate(eid, [[CmdGunUpdate atTime=info.curTime, isForReal=isForReal, seed=rndSeed, gctrl=gctrl, gloc=gloc]])
 

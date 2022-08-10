@@ -47,10 +47,10 @@ let function ammo_depleted(){
              canBeResuppliedOnPoint,
              canBeResuppliedByEngineer]
   }
-  if(!isAmmoCurrentTurretDepleted.value){
+  if (!isAmmoCurrentTurretDepleted.value){
     return res
   }
-  if(!isAmmoTotalDepleted.value){
+  if (!isAmmoTotalDepleted.value){
     return res.__update({
       children = showTip.value ?
         [

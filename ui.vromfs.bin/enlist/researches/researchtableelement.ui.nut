@@ -30,7 +30,7 @@ let function bgHighLight(id, sizeMul) {
       {
         size = flex()
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/open_flash")
+        image = Picture("ui/open_flash.png")
         transform = { }
         transitions = hoverImage.transitions
         animations = [
@@ -43,7 +43,7 @@ let function bgHighLight(id, sizeMul) {
       {
         size = flex()
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/open_flash")
+        image = Picture("ui/open_flash.png")
         transform = { }
         transitions = hoverImage.transitions
         animations = [

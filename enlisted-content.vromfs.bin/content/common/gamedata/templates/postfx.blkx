@@ -1,0 +1,100 @@
+postfx{
+  _tracked:t="post_fx"
+  _singleton:b=yes
+  damage_indicator__phase:r=0.0
+  damage_indicator__stage:i=0
+  damage_indicator__startTime:r=0.0
+  damage_indicator__prevLife:r=0.0
+  damage_indicator__blockDuration:r=6.0
+  damage_indicator__pulseState:p3=0.0, 0.0, 0.0
+  damage_indicator__thresholds:p3=0.5, 0.35, 0.2
+  damage_indicator__lightPulsationFreq:p4=0.66, 0.0, 0.0, 0.0
+  damage_indicator__lightIntensities:p4=1.0, 0.0, 0.0, 0.0
+  damage_indicator__lightIntensitySaturations:p4=0.0, 0.0, 0.0, 0.0
+  damage_indicator__mediumPulsationFreq:p4=1.0, 0.66, 0.0, 0.0
+  damage_indicator__mediumIntensities:p4=1.0, 0.7, 0.0, 0.0
+  damage_indicator__mediumIntensitySaturations:p4=0.2, 0.0, 0.0, 0.0
+  damage_indicator__severePulsationFreq:p4=1.0, 0.75, 0.5, 0.25
+  damage_indicator__severeIntensities:p4=1.2, 1.0, 1.0, 1.0
+  damage_indicator__severeIntensitySaturations:p4=0.3, 0.2, 0.1, 0.1
+  _extends:t="replicating"
+
+  "post_fx:object"{
+    bloom__on:b=yes
+    adaptation__on:b=yes
+    adaptation__autoExposureScale:r=1.5
+    adaptation__highPart:r=0.0
+    bloom__threshold:r=1.8
+    bloom__highQuality:b=yes
+    adaptation__maxExposure:r=16.0
+    adaptation__minExposure:r=0.25
+    adaptation__lowPart:r=0.0
+    adaptation__adaptDownSpeed:r=4.0
+    adaptation__adaptUpSpeed:r=3.0
+    bloom__radius:r=1.0
+    adaptation__fixedExposure:r=-1.0
+    bloom__upSample:r=0.45
+    damage_indicator__color:p4=1.0, 0.3, 0.3, 0.0
+    damage_indicator__size:r=0.5
+    flash_blind__decay_factor:r=0.2
+    flash_blind__decay_color:p4=0.9, 0.95, 1.0, 1.0
+    flash_blind__desaturation_scale:r=0.5
+    smoke_blackout_effect__increaseDuration:r=3.0
+    smoke_blackout_effect__decreaseDuration:r=2.0
+    smoke_blackout_effect__maxIntensity:r=1.3
+    smoke_blackout_effect__minIntensity:r=0.9
+  }
+}
+
+postfx_roundctrl{
+  _extends:t="postfx"
+  postfx_round_ctrl__scaleOnWin:r=1.15
+  postfx_round_ctrl__scaleOnLose:r=0.9
+  postfx_round_ctrl__expScale:r=1.1
+  postfx_round_ctrl__maxExposure:r=10.0
+  _singleton:b=yes
+
+  "postfxRoundctrlTag:tag"{
+  }
+}
+
+postfx_roundctrl_update{
+
+  "postfx_round_ctrl_update:tag"{
+    _tags:t="render"
+  }
+}
+
+depth_of_field{
+  _singleton:b=yes
+
+  "dof:DepthOfFieldPS"{
+    _tags:t="render"
+  }
+
+  "downsampled_dof_frame_fallback:UniqueTex"{
+    _tags:t="render"
+  }
+
+  "is_dof:tag"{
+  }
+
+  _group{
+    _track:b=yes
+    dof__on:b=no
+    dof__is_filmic:b=no
+    dof__focusDistance:r=-1.0
+    dof__fStop:r=1.0
+    dof__sensorHeight:r=0.024
+    dof__focalLength:r=-1.0
+    dof__nearDofStart:r=0.01
+    dof__nearDofEnd:r=0.35
+    dof__nearDofAmountPercent:r=0.0
+    dof__farDofStart:r=100.0
+    dof__farDofEnd:r=1000000.0
+    dof__farDofAmountPercent:r=0.0
+    dof__bokehShape_bladesCount:r=6.0
+    dof__bokehShape_kernelSize:r=8.0
+    dof__minCheckDistance:r=0.3
+  }
+}

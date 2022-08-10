@@ -17,6 +17,7 @@ require PhysMat
 require Grid
 require GridCollision
 require enlisted.game.es.train.train_common
+require enlisted.game.es.terraform.terraform_common
 require EnlistedDm
 require strings
 
@@ -142,11 +143,6 @@ def foreach_available_part(bomb_crater__position : float3;
         let partPos = castPosStart + partSize * float2(partIndexX, partIndexY) * 2.0
         invoke(cb, partPos, bomb_crater__partRadius)
 
-def clean_loot_in_radius(pos : float3; radius : float)
-  let sphere = BSphere3(pos, radius)
-  for_each_entity_in_grid(ecs_hash("loot"), sphere, GridEntCheck POS) <| $ [unused_argument(loot_pos)] (loot_eid : EntityId; loot_pos : float3)
-    destroyEntity(loot_eid)
-
 def is_valid_place_for_crater(crater_pos : float3; outer_radius : float; max_height_at_land : float)
   let craterPosXZ = crater_pos.xz
 
@@ -175,7 +171,7 @@ def is_ri_pool_block_crater(pool_id : uint;
 
   let isPoolForcedRemovable = get_bool(is_ri_pool_removable, riName)
   if isPoolForcedRemovable != null
-    return ! * isPoolForcedRemovable
+    return !*isPoolForcedRemovable
 
   if riex_isWalls(pool_id) || riex_isImmortal(pool_id)
     return true
@@ -277,7 +273,7 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
                      bomb_crater_config__maxHeightAtLand : float;
                      bomb_crater_config__splashToCraterRadius : Point2List)
     using <| $(var splashParams : SplashParams#)
-      splashParams = calc_splash_params(int(launch_desc.shellId.shellId), false, 0.0f)
+      splashParams = calc_splash_params(int(launch_desc.shellId.shellId), false)
 
       let position = evt.pos
       let outerRadius = interpolate_by_point_list(bomb_crater_config__splashToCraterRadius, splashParams.outerRadius) * bomb_crater_config__outerRadiusScale

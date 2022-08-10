@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
-let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
 let {HUD_TIPS_HOTKEY_FG, FAIL_TEXT_COLOR, DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let heroVehicleState = require("%ui/hud/state/vehicle_hp.nut").hero
 let {vehicleTurrets, turretsReload, turretsAmmo, showVehicleWeapons, mainTurretAmmoSets} = require("%ui/hud/state/vehicle_turret_state.nut")
@@ -10,6 +10,7 @@ let vehicleWeaponWidget = require("vehicle_weapon_widget.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let mkBulletTypeIcon = require("mkBulletTypeIcon.nut")
 let {get_sync_time} = require("net")
+let fa = require("%ui/components/fontawesome.map.nut")
 
 let healthBar = require("mk_health_bar.nut")
 let { textListFromAction, buildElems } = require("%ui/control/formatInputBinding.nut")
@@ -37,7 +38,7 @@ let makeTurretControlTip = @(hotkey) function(){
 }
 
 let reloadProgressSize = fsh(4.0)
-let mkReloadProgress = @(from, to, duration, key) {
+let mkReloadProgress = @(from, to, duration, key, mult) {
   margin = [0, 0, 0, hdpx(10)]
   rendObj = ROBJ_PROGRESS_CIRCULAR
   image = Picture("ui/skin#round_border.svg:{0}:{0}:K".subst(reloadProgressSize.tointeger()))
@@ -48,6 +49,29 @@ let mkReloadProgress = @(from, to, duration, key) {
   size = [reloadProgressSize, reloadProgressSize]
   fValue = 0
   key
+  children = [
+    mult > 1. ? {
+      size = [fontH(100), SIZE_TO_CONTENT]
+      rendObj = ROBJ_INSCRIPTION
+      font = fontawesome.font
+      color = Color(255, 86, 86)
+      text = fa["arrow-down"]
+      fontSize = hdpx(10)
+      vplace = ALIGN_CENTER
+      hplace = ALIGN_CENTER
+    }
+    : mult < 1. ? {
+      size = [fontH(100), SIZE_TO_CONTENT]
+      rendObj = ROBJ_INSCRIPTION
+      font = fontawesome.font
+      color = Color(86, 255, 86)
+      text = fa["arrow-up"]
+      fontSize = hdpx(10)
+      vplace = ALIGN_CENTER
+      hplace = ALIGN_CENTER
+    }
+    : null
+  ]
   animations = [
     { prop = AnimProp.fValue, from, to, duration, play = true}
   ]
@@ -63,7 +87,7 @@ let function turretControlTip(turret, index) {
   let turretReloadState = Computed(@() turretsReload.value?[gunEid] ?? {})
 
   return function() {
-    let { progressStopped = -1, totalTime = -1, endTime = -1 } = turretReloadState.value
+    let { progressStopped = -1, totalTime = -1, endTime = -1, reloadTimeMult = 1. } = turretReloadState.value
     let reloadTimeLeft = max(0, endTime - get_sync_time())
     let isReloadStopped = progressStopped >= 0
     let startProgress = isReloadStopped ? progressStopped
@@ -76,7 +100,7 @@ let function turretControlTip(turret, index) {
       valign = ALIGN_CENTER
       vplace = ALIGN_CENTER
       children = [
-        isReloading ? mkReloadProgress(startProgress, endProgress, reloadTimeLeft, turretReloadState.value)
+        isReloading ? mkReloadProgress(startProgress, endProgress, reloadTimeLeft, turretReloadState.value, reloadTimeMult)
                     : makeTurretControlTip(hotkey ?? (triggerGroup != -1
                       ? triggerGroupTurretControlTips[triggerGroup]
                       : defaultTurretControlTips?[index]))
@@ -90,7 +114,7 @@ let function turretNextBulletTip(triggerGroup) {
   return makeTurretControlTip(triggerGroupNextBulletTips?[triggerGroup] ?? triggerGroupNextBulletTips[0])
 }
 
-let iconBlockWidth = hdpx(230).tointeger()
+let iconBlockWidth = hdpxi(230)
 let function turretIconCtor(weapon, _baseWidth, baseHeight) {
   let width = iconBlockWidth
   let height = (0.8 * baseHeight).tointeger()

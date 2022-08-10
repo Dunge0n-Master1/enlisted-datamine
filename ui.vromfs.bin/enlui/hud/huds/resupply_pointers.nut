@@ -1,15 +1,112 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { resupplyZones, heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
+let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+let { logerr } = require("dagor.debug")
+let { endswith } = require("string")
 
+let ZONE_ICON_COLOR = Color(200,200,200,200)
 
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
+let baseZoneAppearAnims = [
+  { prop=AnimProp.scale, from=[2.5,2.5], to=[1,1], duration=0.4, play=true}
+  { prop=AnimProp.opacity, from=0.0, to=1.0, duration=0.2, play=true}
+]
 
-let { resupplyZoneCtor } = require("%ui/hud/components/resupplyZone.nut")
+let transformCenterPivot = {pivot = [0.5, 0.5]}
+
+let animActive = [
+  { prop=AnimProp.scale, from=[7.5,7.5], to=[1,1], duration=0.3, play=true}
+  { prop=AnimProp.translate, from=[0,sh(20)], to=[0,0], duration=0.4, play=true, easing=OutQuart}
+  { prop=AnimProp.opacity, from=0.0, to=1.0, duration=0.25, play=true}
+]
+
+let getPicture = memoize(function getPicture(name, iconSz) {
+  if ((name ?? "") == "")
+    return null
+
+  local imagename = null
+  if (name.indexof("/") != null) {
+    imagename = endswith(name,".svg") ? "{0}:{1}:{1}:K".subst(name, iconSz.tointeger()) : name
+  }
+
+  if (!imagename) {
+    logerr("no image found")
+    return null
+  }
+
+  return Picture(imagename)
+})
+
+let capzonBlurback = memoize(@(height) {
+    size = [height, height]
+    rendObj = ROBJ_MASK
+    image = Picture("ui/skin#white_circle.svg:{0}:{0}:K".subst(height.tointeger()))
+    children = [{size = flex() rendObj = ROBJ_WORLD_BLUR color = Color(220, 220, 220, 255)}]
+  })
+
+let zSize = [fsh(3), fsh(3)]
+let blur_back = capzonBlurback(zSize[1])
+let zIconSz = [zSize[0] / 1.5, zSize[1] / 1.5]
+let zMargin = (zSize[0] / 1.5).tointeger()
+
+let mkZoneIcon = memoize(function(icon) {
+  let zoneIconPic = getPicture(icon, zIconSz[0])
+  if (zoneIconPic == null)
+    return null
+
+  return {
+    rendObj = ROBJ_IMAGE
+    size = zIconSz
+    halign  = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    color = ZONE_ICON_COLOR
+    transform = transformCenterPivot
+    image = zoneIconPic
+    animations =  baseZoneAppearAnims
+  }
+})
+let zTransitions = [{ prop=AnimProp.translate, duration=0.2 }]
+
+let function resupplyZoneCtor(zoneWatch) {
+  let {icon, eid} = zoneWatch.value
+
+  let zoneIcon = mkZoneIcon(icon)
+
+  return function(){
+    let {ui_order, active} = zoneWatch.value
+
+    let innerZone = {
+      flow = FLOW_VERTICAL
+      halign = ALIGN_CENTER
+      children = {
+        halign  = ALIGN_CENTER
+        valign = ALIGN_CENTER
+        size = zSize
+        children = [
+          blur_back
+          active ? zoneIcon : null
+        ]
+      }
+      transitions = zTransitions
+      animations = active ? animActive : null
+    }
+
+    return {
+      size = zSize
+      margin = [0, zMargin]
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      key = eid
+      watch = zoneWatch
+      zoneData = { zoneEid = eid }
+      children = innerZone
+
+      ui_order
+    }
+  }
+}
 
 let function distanceText(eid, radius) {
   return {
@@ -28,74 +125,74 @@ let function distanceText(eid, radius) {
 }
 
 let pointerColor = Color(200,200,200)
+let animations = [
+  { prop=AnimProp.opacity, from=0, to=1, duration=0.5, play=true, easing=InOutCubic}
+  { prop=AnimProp.opacity, from=1, to=0, duration=0.3, playFadeOut=true, easing=InOutCubic}
+]
+let pic = Picture("!ui/skin#target_pointer.png")
 
-let mkZonePointer = @(zoneWatch) function() {
-  let res = { watch = zoneWatch }
-  let zone = zoneWatch.value
-  if (zone == null)
-    return res
-
-  return res.__update({
-    halign = ALIGN_CENTER
-    valign = ALIGN_CENTER
-    size = [0,0]
-
-    key = zone.eid
-    data = {
-      zoneEid = zone.eid
-    }
-    transform = {}
-    children = {
+let mkZonePointer = memoize(function(eid) {
+  let zoneWatch = resupply_zones_GetWatched(eid)
+  let ressuply = resupplyZoneCtor(zoneWatch)
+  let size = [fsh(4.8), fsh(4.8)]
+  return function(){
+    let {radius} = zoneWatch.value
+    return {
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
+      size = [0,0]
+
+      key = eid
       data = {
-        eid = zone.eid
-        priorityOffset = 10000
+        zoneEid = eid
       }
-      size = flex()
-      pos = [0, -fsh(1)]
-      behavior = [Behaviors.DistToPriority, Behaviors.OverlayTransparency]
-      children = [
-        {
-          size = [fsh(4.8), fsh(4.8)]
-          halign = ALIGN_CENTER
-          transform = {}
-
-          children = {
-            rendObj = ROBJ_IMAGE
-            image = Picture("!ui/skin#target_pointer")
-            size = [fsh(4), fsh(4.8)]
-            pos = [fsh(0.0), -fsh(0.35)]
-            color = pointerColor
-            key = zone.eid
-            animations = []
-          }
+      transform = {}
+      children = {
+        halign = ALIGN_CENTER
+        valign = ALIGN_CENTER
+        data = {
+          eid = eid
+          priorityOffset = 10000
         }
-        resupplyZoneCtor(zone)
-        distanceText(zone.eid, zone.radius)
-      ]
-    }
+        size = flex()
+        pos = [0, -fsh(1)]
+        behavior = [Behaviors.DistToPriority, Behaviors.OverlayTransparency]
+        children = [
+          {
+            size
+            halign = ALIGN_CENTER
+            transform = {}
 
-    animations = [
-      { prop=AnimProp.opacity, from=0, to=1, duration=0.5, play=true, easing=InOutCubic}
-      { prop=AnimProp.opacity, from=1, to=0, duration=0.3, playFadeOut=true, easing=InOutCubic}
-    ]
-  })
-}
+            children = {
+              rendObj = ROBJ_IMAGE
+              image = pic
+              size = [fsh(4), fsh(4.8)]
+              pos = [fsh(0.0), -fsh(0.35)]
+              color = pointerColor
+            }
+          }
+          ressuply
+          distanceText(eid, radius)
+        ]
+      }
+
+      animations
+    }
+  }
+})
 
 let function resupplyPointers() {
-  let children = heroActiveResupplyZonesEids.value
-    .map(@(eid) mkZonePointer(Computed(@() resupplyZones.value?[eid])))
+  let children = heroActiveResupplyZonesEids.value.keys().map(mkZonePointer)
 
   return {
-    watch = [heroActiveResupplyZonesEids, localPlayerTeam, watchedHeroEid, safeAreaHorPadding, safeAreaVerPadding]
+    watch = [heroActiveResupplyZonesEids, safeAreaHorPadding, safeAreaVerPadding]
     size = [sw(100)-safeAreaHorPadding.value*2 - fsh(6), sh(100) - safeAreaVerPadding.value*2-fsh(8)]
     behavior = Behaviors.ZonePointers
     halign = ALIGN_CENTER
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     valign = ALIGN_CENTER
-    children = children
+    children
   }
 }
 

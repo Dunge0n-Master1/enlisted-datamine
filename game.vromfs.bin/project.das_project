@@ -1,7 +1,8 @@
-include %scripts/game/base_project.das_project
+include %danetlibs/dascript_base/base_project.das_project
 
 let
   mountPointPrefixes <- {{
+    "game" => "%scripts/game";
     "enlisted" => "%scripts";
     "enlisted_pkg_dev" => "%enlisted_pkg_dev";
     "common_shooter" => "%scripts/common_shooter";
@@ -10,7 +11,9 @@ let
     "sound_utils_net" => "%danetlibs/sound/sound_utils_net";
     "common_sounds" => "%danetlibs/sound/common_sounds";
     "environment_sounds" => "%danetlibs/sound/environment_sounds";
-    "human_sounds" => "%danetlibs/sound/human_sounds";
+    "door_sounds" => "%danetlibs/sound/door_sounds";
+    "common_human_sounds" => "%danetlibs/sound/common_human_sounds";
+    "shooter_human_sounds" => "%danetlibs/sound/shooter_human_sounds";
     "vehicle_sounds" => "%danetlibs/sound/vehicle_sounds";
     "vehicle_sounds_net" => "%danetlibs/sound/vehicle_sounds_net";
     "weapon_sounds" => "%danetlibs/sound/weapon_sounds"

@@ -6,7 +6,8 @@ require game.es.events
 require enlisted.events_enlisted
 require game.utils.team
 require RendInst
-
+require AnimV20
+require GeomNodeTree
 
 def start_planting(eid, requester_eid;
                    total_time : float;
@@ -160,8 +161,9 @@ def bomb_site_check_operator(info : UpdateStageInfoAct;
     return
   let bombPos = transform[3]
   var isOperatorValid = false
-  query(bomb_site__operator) <| $ [es] (isAlive : bool; isDowned : bool; transform : float3x4)
-    isOperatorValid = isAlive && !isDowned && length_sq(transform[3] - bombPos) < square(bomb_site__maxDist)
+  query(bomb_site__operator) <| $ [es] (isAlive : bool; isDowned : bool; transform : float3x4; human_use_object__nodeId : int; animchar : AnimcharBaseComponent)
+    let isHeightValid = geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId).y > bombPos.y
+    isOperatorValid = isAlive && !isDowned && length_sq(transform[3] - bombPos) < square(bomb_site__maxDist) && isHeightValid
   if !isOperatorValid
     bomb_site__operator = INVALID_ENTITY_ID
     bomb_site__plantProgressDeltaPerSec = 0.0

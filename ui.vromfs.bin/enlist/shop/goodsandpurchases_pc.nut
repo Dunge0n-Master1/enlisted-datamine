@@ -17,7 +17,7 @@ let function requestGoodsInfo() {
   if (!guids.len())
     return
 
-  foreach(guid in guids)
+  foreach (guid in guids)
     goodsInfo.value[guid] <- null
 
   isGoodsRequested(true)

@@ -1,12 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt, tiny_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { mkShopItemPrice } = require("mkShopItemPrice.nut")
-let { mkCurrencyCount } = require("%enlist/currency/currenciesComp.nut")
 let spinner = require("%ui/components/spinner.nut")({ opacity = 0.7 })
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
@@ -24,9 +22,9 @@ let { TextHover, TextNormal, textMargin
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { armySquadsById, lockedArmySquadsById } = require("%enlist/soldiers/model/state.nut")
 let allowedVehicles = require("%enlist/vehicles/allowedVehicles.nut")
-let { hasGoldValue } = require("armyShopState.nut")
 let { shopItems } = require("shopItems.nut")
 let { BtnBdNormal } = require("%ui/style/colors.nut")
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 
@@ -52,6 +50,14 @@ let mkShopItemImg = @(img, override = {}) (img ?? "").len()  == 0 ? null
       keepAspect = true
       image = Picture(img)
     }.__update(override)
+
+let mkShopItemVideo = @(uri) {
+  size = flex()
+  keepAspect = true
+  rendObj = ROBJ_MOVIE
+  movie = uri
+  behavior = Behaviors.Movie
+}
 
 let shopBottomLine = {
   rendObj = ROBJ_SOLID
@@ -92,8 +98,8 @@ let itemHighlight = @(trigger){
   ]
 }
 
-let infoBtnSize = hdpx(30).tointeger()
-let hoveredInfoBtnSize = hdpx(33).tointeger()
+let infoBtnSize = hdpxi(30)
+let hoveredInfoBtnSize = hdpxi(33)
 
 let mkInfoBtn = @(onClick) watchElemState(function(sf) {
   let size = sf & S_HOVER ? hoveredInfoBtnSize : infoBtnSize
@@ -248,26 +254,6 @@ let function mkShopItemUsage(crateContent, itemTemplates) {
     }
 }
 
-let mkDiscountIcon = @(discountInPercent, override = {}) (discountInPercent ?? 0) > 0
-  ? {
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      hplace = ALIGN_RIGHT
-      vplace = ALIGN_TOP
-      size = [SIZE_TO_CONTENT, hdpx(20)]
-      children = [
-        {
-          rendObj = ROBJ_INSCRIPTION
-          validateStaticText = false
-          text = fa["certificate"]
-          color = 0xffff313b
-        }.__update(fontawesome, { fontSize = hdpx(70) })
-        mkCurrencyCount($"-{discountInPercent}%")
-      ]
-      pos = [0, -hdpx(10)]
-    }.__update(override)
-  : null
-
 let function mkTitle(text, itemAmount, idx, isBundle) {
   let { minAmount = -1, maxAmount = -1} = itemAmount
   return {
@@ -290,21 +276,7 @@ let function mkTitle(text, itemAmount, idx, isBundle) {
   }
 }
 
-let mkDiscountEndingAnim = @(delay){
-  transform = {}
-  animations = [{
-    prop = AnimProp.opacity
-    from = 0.3
-    to = 1
-    duration = 1
-    loop = true
-    easing = Blink
-    play = true
-    delay
-  }]
-}
-
-let function mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, personalOffer) {
+let function mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount) {
   let { armyId = null, content = {} } = crateContent?.value
   local shopIcon
 
@@ -319,27 +291,7 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, pe
   if (soldierClasses != null && soldierClasses.len() == 1)
     shopIcon = kindIcon(soldierClasses[0], hdpx(22))
 
-  local { discountInPercent = 0, shop_discount = null, discountIntervalTs = [] } = shopItem
-  local discount = personalOffer == null
-    ? discountInPercent
-    : personalOffer.discountInPercent
-
-  local hasDiscount = (shop_discount ?? discount) > 0
-  if (discount > 0 && !hasGoldValue(shopItem)){
-    hasDiscount = false
-    discount = 0
-  }
-
-  local discountAnimation = {}
-  if (hasDiscount && discountIntervalTs.len() == 2){
-    let [from, to] = discountIntervalTs
-    let ts = serverTime.value
-    if (from <= ts && to != 0 && to > ts)
-      discountAnimation = mkDiscountEndingAnim(max(to - ts - DISCOUNT_WARN_TIME, 0))
-  }
-
-  let rightOffset = !isLocked && hasDiscount ? hdpx(70) : 0
-  let titleList = loc(shopItem.nameLocId).split("\r\n")
+  let titleList = loc(shopItem?.nameLocId ?? "").split("\r\n")
   let itemMinAmount = content?.itemsAmount.x ?? 0
   let itemMaxAmount = content?.itemsAmount.y ?? 0
   let isBundle = (shopItem?.crates ?? []).len() > 1
@@ -355,6 +307,8 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, pe
     vplace = ALIGN_BOTTOM
     color = defBgColor
     children = [
+      !showDiscount ? null
+        : mkDiscountWidget(shopItem.discountInPercent, { pos = [hdpx(20), -hdpx(20)] })
       {
         size = [flex(), SIZE_TO_CONTENT]
         minHeight = fsh(6)
@@ -362,7 +316,6 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, pe
         gap = bigPadding
         valign = ALIGN_CENTER
         vplace = ALIGN_BOTTOM
-        margin = [0, rightOffset, 0, 0]
         children = [
           shopIcon
           {
@@ -373,7 +326,6 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, pe
           }
         ]
       }
-      isLocked ? null : mkDiscountIcon(shop_discount ?? discount, discountAnimation)
     ]
   }
 }
@@ -424,18 +376,18 @@ let debugTag = {
 let mkShopItemView = kwarg(@(
     shopItem, purchasingItem = null, unseenSignalObj = null, onCrateViewCb = null,
     onInfoCb = null, isLocked = false, containerIcon = null, crateContent = null,
-    itemTemplates = null, personalOffer = null
+    itemTemplates = null, showVideo = null, showDiscount = false
   ) {
     size = flex()
     halign = ALIGN_RIGHT
     children = [
-      mkShopItemImg(shopItem.image, {
-        keepAspect = KEEP_ASPECT_FILL
-        imageHalign = ALIGN_CENTER
-        imageValign = ALIGN_TOP
-        picSaturate = isLocked ? 0.1 : 1
-      })
-      mkShopItemTitle(shopItem, crateContent, itemTemplates, isLocked, personalOffer)
+      showVideo ? mkShopItemVideo(shopItem.video) : mkShopItemImg(shopItem?.image ?? "", {
+          keepAspect = KEEP_ASPECT_FILL
+          imageHalign = ALIGN_CENTER
+          imageValign = ALIGN_TOP
+          picSaturate = isLocked ? 0.1 : 1
+        })
+      mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount)
       containerIcon
       purchasingItem == null ? null : mkPurchaseSpinner(shopItem, purchasingItem)
       {
@@ -504,5 +456,4 @@ return {
   viewShopInfoBtnStyle
   mkLevelLockLine
   mkShopItemPriceLine
-  mkDiscountIcon
 }

@@ -1,7 +1,6 @@
 require ecs
 require ecs.common
 require fx
-require game.es.camera_common
 require math.base
 require vehicle
 require VehicleFx
@@ -9,6 +8,7 @@ require AnimV20
 require GeomNodeTree
 require DagorMath
 require DagorSystem
+require EnlistedCamera
 
 
 [es(tag=render, on_appear)]
@@ -46,7 +46,7 @@ def exhaust_fx_death_es(evt : Event;
   stop_exhaust_fxs(exhaust_fx)
 
 
-[es(tag=render, on_appear, REQUIRE_NOT=deadEntity)]
+[es(tag=render, REQUIRE_NOT=deadEntity, after=update_animchar_visibility_es)]
 def exhaust_fx_es(info : UpdateStageInfoAct;
                   transform : float3x4;
                   vehicle_net_phys : VehiclePhysActor;
@@ -55,7 +55,8 @@ def exhaust_fx_es(info : UpdateStageInfoAct;
                   exhaust_fx__updateDistSq : float = square(100.0f);
                   var exhaust_fx : ExhaustFx)
   if !animchar__visible
-    let sqDistToCam = length_sq(get_cam_pos() - transform[3])
+    let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
+    let sqDistToCam = distance_sq(cameraTm[3], transform[3])
     if sqDistToCam >= exhaust_fx__updateDistSq
       if exhaust_fx.haveActiveEmitters
         stop_exhaust_fxs(exhaust_fx)

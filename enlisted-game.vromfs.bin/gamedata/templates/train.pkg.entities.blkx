@@ -247,10 +247,10 @@ primary_cart{
   "train__primaryCart:tag"{
   }
 
-  "user_point__canBeMarkedByAnyTeam:tag"{
+  "user_point__attachWithOffset:tag"{
   }
 
-  "user_point__attachWithOffset:tag"{
+  "phys__hasCustomMoveLogic:tag"{
   }
 
   "phys__broadcastAAS:tag"{
@@ -268,10 +268,10 @@ secondary_cart{
   "train__primaryCartEid:eid"{
   }
 
-  "user_point__canBeMarkedByAnyTeam:tag"{
+  "user_point__attachWithOffset:tag"{
   }
 
-  "user_point__attachWithOffset:tag"{
+  "phys__hasCustomMoveLogic:tag"{
   }
 }
 
@@ -509,6 +509,9 @@ train_attachment{
   train_attachment__attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   "train_attachment__parentEid:eid"{
+  }
+
+  "user_point__attachWithOffset:tag"{
   }
 }
 

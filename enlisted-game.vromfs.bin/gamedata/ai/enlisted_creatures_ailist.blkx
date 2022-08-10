@@ -808,3 +808,11 @@ selector{
 selector{
   name:t="wanderer"
 }
+
+selector{
+  name:t="walker"
+
+  moveToPos{
+    posParam:t="wishPos"
+  }
+}

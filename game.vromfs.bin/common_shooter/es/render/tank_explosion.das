@@ -4,7 +4,7 @@ require EnlistedDm
 require DagorTexture3D
 require MaterialRecreate
 
-[es(tag=render, track=isExploded, REQUIRE=scorchable)]
+[es(tag=render, on_appear, track=isExploded, REQUIRE=scorchable)]
 def tank_explosion_es(evt : Event;
                       isExploded : bool;
                       var animchar_render : AnimcharRendComponent&;

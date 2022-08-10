@@ -12,7 +12,7 @@ let { localGap } = require("%enlist/gameModes/eventModeStyle.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
-let { addModalWindow, removeModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let math = require("%sqstd/math.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 

@@ -491,8 +491,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_1"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1_1"
 }
@@ -502,8 +500,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_1"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2_1"
 }
@@ -513,8 +509,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_2"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1_2"
 }
@@ -524,8 +518,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_2"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2_2"
 }
@@ -535,8 +527,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1_3"
 }
@@ -546,8 +536,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2_3"
 }
@@ -555,8 +543,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11269.8, 0.0, -1003.34] [0.0, 8000.03, 0.0] [1002.81, 0.0, 11269.8] [-194.512, 240.916, 77.5836]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
 }
 
@@ -647,7 +633,6 @@ entity{
 
 entity{
   _template:t="briefing_assault"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="normandy_coast_city_assault"
 
   "loading_images:list<t>"{
@@ -681,7 +666,6 @@ entity{
   team__capturePenalty:r=1001.0
   team__score:r=3000.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="assault/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
@@ -698,7 +682,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
@@ -729,7 +713,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
@@ -829,7 +813,7 @@ entity{
   capzone__capTime:r=20.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
-  transform:m=[[15.1904, 0.0, 0.0] [0.0, 7.10198, 0.0] [0.0, 0.0, 27.4791] [-233.059, 28.1386, -306.984]]
+  transform:m=[[15.1904, 0.0, 0.0] [0.0, 7.10198, 0.0] [0.0, 0.0, 27.4791] [-233.059, 27.7862, -306.984]]
   active:b=no
   capzone__decapTime:r=20.0
   ui_order:i=5
@@ -837,7 +821,7 @@ entity{
   capzone__title:t="E"
   capzone__caption:t="capzone/chateau"
   capzone__checkAllZonesInGroup:b=yes
-  decal__height:r=0.1
+  decal__height:r=0.6
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2

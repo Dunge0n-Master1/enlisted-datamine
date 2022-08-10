@@ -1,0 +1,66 @@
+duck_hunt{
+  duck__min:p3=0.0, 0.0, 0.0
+  duck__max:p3=0.0, 0.0, 0.0
+  duck__phaseShift:r=0.0
+  duck__dir:p3=1.0, 0.0, 0.0
+  duck__speed:r=0.25
+  duck__halfDist:r=2.5
+}
+
+dev_soldier_tag{
+
+  "devSoldier:tag"{
+  }
+}
+
+dev_soldier{
+  _extends:t="usa_base_soldier"
+  _extends:t="dev_soldier_tag"
+  _extends:t="stats_count_as_kill"
+  beh_tree__node:t="wanderer"
+
+  "devSoldier:tag"{
+  }
+
+  "human_equipment__initialEquip:object"{
+    attachable_wear_head_01_us_summer_item:t="face"
+    attachable_wear_tunic_01_ger_summer_item:t="tunic"
+    attachable_wear_gloves_01_us_summer_item:t="gloves"
+    attachable_wear_pants_01_ger_summer_item:t="pants"
+  }
+}
+
+walk_soldier{
+  _extends:t="dev_soldier"
+  beh_tree__node:t="walker"
+}
+
+editor_soldier{
+  _extends:t="dev_soldier"
+  hitpoints__hp:r=999999995904.0
+  hitpoints__maxHp:r=999999995904.0
+
+  "human_weap__weapTemplates:object"{
+    melee:t="knife_weapon"
+  }
+
+  "editor_soldier:tag"{
+  }
+}
+
+dead_dev_soldier{
+  _extends:t="usa_base_soldier"
+  _extends:t="dev_soldier_tag"
+  _extends:t="stats_count_as_kill"
+  hitpoints__hp:r=-100.0
+
+  "devSoldier:tag"{
+  }
+
+  "human_equipment__initialEquip:object"{
+    attachable_wear_head_01_us_summer_item:t="face"
+    attachable_wear_tunic_01_ger_summer_item:t="tunic"
+    attachable_wear_gloves_01_us_summer_item:t="gloves"
+    attachable_wear_pants_01_ger_summer_item:t="pants"
+  }
+}

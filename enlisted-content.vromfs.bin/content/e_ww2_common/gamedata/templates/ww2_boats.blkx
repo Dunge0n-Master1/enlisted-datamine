@@ -1,0 +1,469 @@
+elco77_pt20{
+  _extends:t="base_ship"
+  animchar__res:t="elco77_pt20_char"
+  collres__res:t="elco77_pt20_collision"
+  ship_net_phys__blk:t="content/e_ww2_common/gamedata/units/ships/elco77_pt20.blk:ShipPhys"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="bone_camera_driver"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      shouldHideOwner:b=yes
+      cameraNodeName:t="bone_camera_driver"
+    }
+  }
+
+  "vehicle_seats__canAcquireControls:shared:object"{
+
+    "driver:object"{
+      movement:b=yes
+    }
+  }
+}
+
+pv_sturmbot39{
+  _extends:t="civil_boat"
+  _extends:t="four_seats_vehicle"
+  animchar__res:t="pv_sturmbot39_char"
+  collres__res:t="pv_sturmbot39_collision"
+  ship_net_phys__blk:t="content/e_ww2_common/gamedata/units/ships/pv_sturmbot39.blk:ShipPhys"
+}
+
+nine_boat_seats{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+
+      "effectors:object"{
+        l.hand:t="ik_hand_left"
+      }
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+  }
+}
+
+four_boat_seats{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+
+      "effectors:object"{
+        l.hand:t="ik_hand_left"
+      }
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+  }
+}
+
+vehicle_seats_effectors{
+
+  "vehicle_seats__effectors:array"{
+  }
+}
+
+american_assault_boat_m1{
+  _extends:t="base_ship"
+  _extends:t="ship_camera"
+  _extends:t="nine_boat_seats"
+  _extends:t="vehicle_horn_note_E5"
+  _extends:t="vehicle_seats_effectors"
+  _extends:t="simple_damage_model"
+  vehicle_seats__exitTime:r=0.25
+  vehicle_seats__enterTime:r=0.25
+  animchar__res:t="american_assault_boat_m1_char"
+  collres__res:t="american_assault_boat_m1_dynmodel_collision"
+  ship_net_phys__blk:t="content/ships/gamedata/ships/american_assault_boat_m1.blk:ShipPhys"
+  vehicle_seats__enumVarName:t="boat_small_simple_a"
+  damage_model__blk:t="content/ships/gamedata/ships/american_assault_boat_m1.blk"
+  isExploded:b=no
+  triggerDamageEffects:b=yes
+  camera__offset:p3=0.0, -1.0, -4.0
+
+  "nonLethalExplodeOnFire:tag"{
+  }
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_fire_ready"
+    driver:t="vehicle_seat_driver"
+  }
+
+  _group{
+    _tags:t="render"
+
+    "destroyed_fx__eids:list<eid>"{
+    }
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
+  }
+
+  "scorchable:tag"{
+    _tags:t="render"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+    data:p4=0.0, 0.0, 0.0, 0.0
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+      }
+    }
+  }
+
+  "engine_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+        dmParts:t="engine"
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+      }
+    }
+  }
+}
+
+german_assault_boat_39{
+  _extends:t="base_ship"
+  _extends:t="ship_camera"
+  _extends:t="nine_boat_seats"
+  _extends:t="vehicle_horn_note_E5"
+  _extends:t="vehicle_seats_effectors"
+  _extends:t="simple_damage_model"
+  vehicle_seats__exitTime:r=0.25
+  vehicle_seats__enterTime:r=0.25
+  animchar__res:t="german_assault_boat_39_char"
+  collres__res:t="german_assault_boat_39_dynmodel_collision"
+  ship_net_phys__blk:t="content/ships/gamedata/ships/german_assault_boat_39.blk:ShipPhys"
+  vehicle_seats__enumVarName:t="boat_small_simple_a"
+  damage_model__blk:t="content/ships/gamedata/ships/german_assault_boat_39.blk"
+  isExploded:b=no
+  triggerDamageEffects:b=yes
+  camera__offset:p3=0.0, -1.0, -4.0
+
+  "nonLethalExplodeOnFire:tag"{
+  }
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_fire_ready"
+    driver:t="vehicle_seat_driver"
+  }
+
+  _group{
+    _tags:t="render"
+
+    "destroyed_fx__eids:list<eid>"{
+    }
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
+  }
+
+  "scorchable:tag"{
+    _tags:t="render"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+    data:p4=0.0, 0.0, 0.0, 0.0
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+      }
+    }
+  }
+
+  "engine_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+        dmParts:t="engine"
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+      }
+    }
+  }
+}
+
+poluglisser_pg_117{
+  _extends:t="base_ship"
+  _extends:t="ship_camera"
+  _extends:t="four_boat_seats"
+  _extends:t="vehicle_horn_note_E5"
+  _extends:t="vehicle_seats_effectors"
+  _extends:t="simple_damage_model"
+  vehicle_seats__exitTime:r=0.25
+  vehicle_seats__enterTime:r=0.25
+  animchar__res:t="poluglisser_pg_117_char"
+  collres__res:t="poluglisser_pg_117_collision"
+  ship_net_phys__blk:t="content/ships/gamedata/ships/poluglisser_pg_117.blk:ShipPhys"
+  vehicle_seats__enumVarName:t="boat_small_simple_a"
+  damage_model__blk:t="content/ships/gamedata/ships/poluglisser_pg_117.blk"
+  isExploded:b=no
+  triggerDamageEffects:b=yes
+  camera__offset:p3=0.0, -1.0, -4.0
+
+  "nonLethalExplodeOnFire:tag"{
+  }
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_fire_ready"
+    driver:t="vehicle_seat_driver"
+  }
+
+  _group{
+    _tags:t="render"
+
+    "destroyed_fx__eids:list<eid>"{
+    }
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
+  }
+
+  "scorchable:tag"{
+    _tags:t="render"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+    data:p4=0.0, 0.0, 0.0, 0.0
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+      }
+    }
+  }
+
+  "engine_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+        dmParts:t="engine_dm"
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ let fullWatches = [showTip,keysImagesMap].extend(defWatches).extend(watches.valu
 const showTipFor = 15
 inGroundVehicle.subscribe(@(v) showTip(v))
 let hideTip = @() gui_scene.setTimeout(showTipFor, @() showTip(false))
-showTip.subscribe(function(v) {if(v) hideTip()})
+showTip.subscribe(function(v) {if (v) hideTip()})
 hideTip()
 
 let function prepareTipCmp(key,imageMap) {

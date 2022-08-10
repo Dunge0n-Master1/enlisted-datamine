@@ -82,7 +82,7 @@ let function obtainPerksChoice(soldierGuid, tierIdx, slotIdx, cb) {
 let resData = @(errorText) { isSuccess = !errorText, errorText = errorText }
 
 let function getTierAvailableData(soldier, tierData) {
-  foreach(tData in soldier?.tiers ?? [])
+  foreach (tData in soldier?.tiers ?? [])
     if (tData == tierData)
       return resData(null)
     else if (tData.slots.indexof(null) != null)

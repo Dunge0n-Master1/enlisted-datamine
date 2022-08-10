@@ -5,6 +5,8 @@ require math.base
 require level
 require Dacoll
 
+let REPLAY_CAMERA_MOVE_DT = 100.
+
 [es(tag=render, after=shooter_cam_act_es, before=after_camera_sync)]
 def shooter_cam_clamp_tau_es(info : UpdateStageInfoAct;
                              camera__tauPos : float;
@@ -36,9 +38,11 @@ def shooter_cam_rotate_es(info : UpdateStageInfoAct;
                           shooter_cam__tauInc : float;
                           var shooter_cam__lastDir : float3&;
                           var transform aka camera_transform : float3x4;
-                          shooter_camera__forceStabilized = false)
+                          shooter_camera__forceStabilized = false;
+                          replayCamera : Tag?)
   if !camera__active || is_level_loading()
     return
+  let dt = replayCamera == null ? info.dt : REPLAY_CAMERA_MOVE_DT
   query(camera__target) <| $ [es] (transform : float3x4;
                                    camera__isStabilized = true;
                                    camera__isRotateInGlobal = false;
@@ -52,7 +56,7 @@ def shooter_cam_rotate_es(info : UpdateStageInfoAct;
       let worldDir = relativeQuat * camera__lookDir
       wishQ = camera__isRotateInGlobal ? dir_to_quat(worldDir) : (wishQ * relativeQuat)
 
-    let lastQ = normalize(approach(dir_to_quat(shooter_cam__lastDir), wishQ, info.dt, shooter_cam__tauInc))
+    let lastQ = normalize(approach(dir_to_quat(shooter_cam__lastDir), wishQ, dt, shooter_cam__tauInc))
     let lastDir = quat_get_forward(lastQ)
     shooter_cam__lastDir = lastDir
     let stabVec = !camera__isStabilized && !shooter_camera__forceStabilized ? transform[1] : float3(0.f, 1.f, 0.f)
@@ -97,10 +101,12 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
                              shooter_cam__tauMult = 1.f;
                              shooter_cam__velTauMult = 1.f;
                              shooter_cam__magnificationMult = 1.f;
-                             shooter_cam__offset_multiplier = 1.f)
+                             replay_cam__tpsOffsetMultiplierVehicle = 2.5f;
+                             shooter_cam__offset_multiplier = 1.f;
+                             replayCamera : Tag?)
   if !camera__active || is_level_loading()
     return
-
+  let dt = replayCamera == null ? info.dt : REPLAY_CAMERA_MOVE_DT
   query(camera__target) <| $ [es] (transform : float3x4;
                                    camera__look_at : DPoint3;
                                    camera__magnification = 1.f;
@@ -117,13 +123,17 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
     assert(camera__magnification > 0.0f)
     let baseOffset = camera__offset + shooter_cam__offset + shooter_cam__additionalOffset
     var offset = baseOffset
+    var vehicleOffsetMult = 1.
     isCockpitCam = length_sq(offset) == 0f // exactly zero, we switch to a cockpit cam in that case
     if isTpsView && !isInVehicle && !isCockpitCam
       // Indoor offset
       offset = human_cam__isIndoor ? offset + human_cam__indoorOffs : offset
       // Horizontal offset
       offset.x *= human_cam__horizontalOffsetMult
-      offset = approach(camera__prevOffset, offset, info.dt, human_cam__viscosity)
+      offset = approach(camera__prevOffset, offset, dt, human_cam__viscosity)
+
+    if isTpsView && isInVehicle
+      vehicleOffsetMult = replay_cam__tpsOffsetMultiplierVehicle
     camera__prevOffset = offset
 
     let magnification = camera__magnification * shooter_cam__magnificationMult
@@ -142,10 +152,10 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
       let velTau = camera__velTau * shooter_cam__velTauMult
 
       let tau = (camera__tau * shooter_cam__tauMult + shooter_cam__tauInc) * camera__tauMult
-      wishPos = approach_vel(DPoint3(shooter_cam__lastPos), lookAtPos, info.dt, tau, velMain, velTau, camera__velFactor)
+      wishPos = approach_vel(DPoint3(shooter_cam__lastPos), lookAtPos, dt, tau, velMain, velTau, camera__velFactor)
 
       let taua = (camera__animTau + shooter_cam__tauInc) * camera__tauMult
-      wishPosAnim = approach_vel(DPoint3(shooter_cam__lastAnimTmOffset), animTmOffset, info.dt, taua, velAnim, velTau, camera__velFactor)
+      wishPosAnim = approach_vel(DPoint3(shooter_cam__lastAnimTmOffset), animTmOffset, dt, taua, velAnim, velTau, camera__velFactor)
 
     shooter_cam__lastPos = float3(wishPos)
     shooter_cam__velMain = float3(velMain)
@@ -157,8 +167,8 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
 
     wishPos = wishPos * (1.f - camera__tmToAnimRatio) + (wishPosAnim + DPoint3(transform[3])) * camera__tmToAnimRatio
 
-    var cameraOffs = rotate(camera_transform, offset * shooter_cam__offset_multiplier)
-    let cameraBaseOffs = rotate(camera_transform, baseOffset * shooter_cam__offset_multiplier)
+    var cameraOffs = rotate(camera_transform, offset * shooter_cam__offset_multiplier * vehicleOffsetMult)
+    let cameraBaseOffs = rotate(camera_transform, baseOffset * shooter_cam__offset_multiplier * vehicleOffsetMult)
     let cameraOffsLenSq = length_sq(cameraOffs)
 
     var pivotOffs = rotate(camera_transform, camera__pivotPos)
@@ -180,10 +190,10 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
     var multSpd = shooter_cam__moveInSpd
     if wishDistMult > shooter_cam__lastOffsDistMult
       multSpd = shooter_cam__moveOutSpd
-    shooter_cam__lastOffsDistMult = move_to_scalar(shooter_cam__lastOffsDistMult, wishDistMult, info.dt, multSpd)
+    shooter_cam__lastOffsDistMult = move_to_scalar(shooter_cam__lastOffsDistMult, wishDistMult, dt, multSpd)
     cameraOffs = lerp(pivotOffs, cameraOffs, float3(shooter_cam__lastOffsDistMult))
-    camera__posOnlyBaseOffset = approach(camera__posOnlyBaseOffset, wishPos + DPoint3(cameraBaseOffs), info.dt, shooter_cam__tauInc)
-    camera__accuratePos = approach(camera__accuratePos, wishPos + DPoint3(cameraOffs), info.dt, shooter_cam__tauInc)
+    camera__posOnlyBaseOffset = approach(camera__posOnlyBaseOffset, wishPos + DPoint3(cameraBaseOffs), dt, shooter_cam__tauInc)
+    camera__accuratePos = approach(camera__accuratePos, wishPos + DPoint3(cameraOffs), dt, shooter_cam__tauInc)
 
     if (!isAlive || isDowned) && camera__fallenGroundDistance > 0.f
       let tracePoint = float2(float(camera__accuratePos.x), float(camera__accuratePos.z))

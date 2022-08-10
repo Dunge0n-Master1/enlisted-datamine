@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { isDowned } = require("%ui/hud/state/health_state.nut")
-let { weaponsList } = require("%ui/hud/state/hero_state.nut")
+let { hasAnyGrenade } = require("%ui/hud/state/hero_weapons.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 let { mkHasBinding } = require("%ui/control/formatInputBinding.nut")
 
@@ -12,10 +12,8 @@ let color1 = Color(200,200,40,180)
 
 let hasGrenadeBind = mkHasBinding("Human.ThrowDowned")
 
-let hasAnyGrenade = Computed(@() weaponsList.value.filter(@(val) val?.grenadeType != null))
-
 let needShowGrenadeTip = Computed(@() isDowned.value && controlledHeroEid.value
-  && hasGrenadeBind.value && hasAnyGrenade.value.len() > 0)
+  && hasGrenadeBind.value && hasAnyGrenade.value)
 
 let tipDefaults = {
   textColor = Color(200,40,40,110)

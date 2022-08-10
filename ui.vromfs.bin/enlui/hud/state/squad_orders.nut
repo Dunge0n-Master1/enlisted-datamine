@@ -1,33 +1,31 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {localPlayerTeam, localPlayerEid} = require("%ui/hud/state/local_player.nut")
-let orders = Watched({})
+let { ESO_DEFEND_POINT } = require("ai")
+let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
+let { mkWatchedSetAndStorage, MK_COMBINED_STATE } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid, state){
-  if (eid in state.value && eid != INVALID_ENTITY_ID)
-    state.mutate(@(v) delete v[eid])
-}
+let {
+  squad_orders_State,
+  squad_orders_UpdateEid,
+  squad_orders_DestroyEid
+} = mkWatchedSetAndStorage("squad_orders_", MK_COMBINED_STATE)
+
 ecs.register_es("squad_orders_ui_es",
   {
-    [["onInit", "onChange"]] = function(_evt, _eid, comp) {
-      let playerEid = comp["squad__ownerPlayer"]
-      if (playerEid != localPlayerEid.value) {
-        deleteEid(playerEid, orders)
-        return
-      }
-      orders.mutate(function(value) {
-        value[playerEid] <- {
-          team = localPlayerTeam.value
+    [["onInit", "onChange"]] = function(_evt, eid, comp) {
+      squad_orders_UpdateEid(eid, {
           leader = comp["squad__leader"]
           orderType = comp["squad__orderType"]
+          owner = comp["squad__ownerPlayer"]
           orderPosition = comp["squad__orderPosition"]
           persistent = false
+          isAlive = comp["squad__isAlive"]
         }
-      })
+      )
     },
-    function onDestroy(_evt, _eid, comp) {
-      deleteEid(comp["squad__ownerPlayer"], orders)
+    function onDestroy(_evt, eid, _comp) {
+      squad_orders_DestroyEid(eid)
     }
   },
   {
@@ -36,10 +34,18 @@ ecs.register_es("squad_orders_ui_es",
       ["squad__leader", ecs.TYPE_EID],
       ["squad__orderType", ecs.TYPE_INT],
       ["squad__orderPosition", ecs.TYPE_POINT3],
+      ["squad__isAlive", ecs.TYPE_BOOL]
     ]
   }
 )
 
+let localSquadOrder = Computed(function() {
+  let v = squad_orders_State.value.findvalue(@(v) v.owner == localPlayerEid.value)
+  if (v != null && v.orderType == ESO_DEFEND_POINT && v.isAlive==true)
+    return v.orderPosition
+  return null
+})
+
 return {
-  squad_orders = orders
+  localSquadOrder
 }

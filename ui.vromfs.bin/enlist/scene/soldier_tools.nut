@@ -101,7 +101,7 @@ let function reinitEquipment(eid, equipment) {
     }
     if (slot == "face")
       initFacegenParams(eq, animcharDisabledParams, comps)
-    if(eq.template!="")
+    if (eq.template!="")
       cur_human_equipment[slot].item = ecs.g_entity_mgr.createEntity(eq.template, comps)
   }
   ecs.obsolete_dbg_set_comp_val(eid, "human_equipment__slots", cur_human_equipment)
@@ -132,7 +132,7 @@ let function setEquipment(eid, equipment) {
     }
     if (slot == "face")
       initFacegenParams(eq, animcharDisabledParams, comps)
-    if(eq.template && eq.template!="")
+    if (eq.template && eq.template!="")
       ecs.g_entity_mgr.createEntity(eq.template, comps, onCreateEquip)
   }
 }
@@ -157,7 +157,7 @@ let function getWearInfos(soldierGuid, scheme) {
 let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLook) {
   let itemTemplates = []
   let armyId = getLinkedArmyName(soldier ?? {})
-  foreach(slotType, _ in scheme) {
+  foreach (slotType, _ in scheme) {
     let item = getSoldierItem(soldierGuid, slotType, campItemsByLink.value)
     let { gametemplate = "" } = item
     if (gametemplate != "") {
@@ -188,7 +188,7 @@ let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLoo
 
 let function getWeapTemplates(soldierGuid, scheme) {
   let weapTemplates = {primary="", secondary="", tertiary=""}
-  foreach(slotType, slot in scheme) {
+  foreach (slotType, slot in scheme) {
     if (weapTemplates?[slot?.ingameWeaponSlot] != "")
       continue
     let weapon = getSoldierItem(soldierGuid, slotType, campItemsByLink.value)
@@ -244,7 +244,7 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
 
   local equipment = {}
   let soldiersDefaultLook = soldiersLook?[soldierGuid]
-  if(soldiersDefaultLook == null)
+  if (soldiersDefaultLook == null)
     return equipment
 
   let armyId = getLinkedArmyName(soldier ?? {})
@@ -254,10 +254,10 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
   local premiumItemsToEquip = {}
   let premiumToOverride = premiumItems?[armyId]
 
-  if(soldiersLookToShow != null && premiumToOverride != null)
-    foreach(item in premiumToOverride){
+  if (soldiersLookToShow != null && premiumToOverride != null)
+    foreach (item in premiumToOverride){
       let slot = item?.links[soldierGuid]
-      if(slot != null)
+      if (slot != null)
         premiumItemsToEquip.__update({ [slot] = item.basetpl })
     }
 
@@ -272,12 +272,12 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
     }
 
 
-  if(premiumItemsToEquip.len() > 0){
+  if (premiumItemsToEquip.len() > 0){
     soldiersDefaultItems = soldiersDefaultItems.__merge(premiumItemsToEquip)
     soldiersLookToShow = soldiersLookToShow.__merge({ items = soldiersDefaultItems })
   }
 
-  if((customizationOvr ?? {}).len() > 0){
+  if ((customizationOvr ?? {}).len() > 0){
     soldiersDefaultItems = soldiersDefaultItems.__merge(customizationOvr)
     soldiersLookToShow = soldiersLookToShow.__merge({items = soldiersDefaultItems})
   }
@@ -298,7 +298,7 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
 
 
   foreach (eInfo in eInfos)
-    if(eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null){
+    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null){
       let data = appendEquipment(equipment, eInfo)
       if (!data)
         break
@@ -309,7 +309,7 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
 
   foreach (eInfo in eInfos) {
     if (eInfo?.slotTemplates != null)
-      foreach(slot, gametemplate in eInfo.slotTemplates){
+      foreach (slot, gametemplate in eInfo.slotTemplates){
         let itemsInfo = {
           slot
           gametemplate

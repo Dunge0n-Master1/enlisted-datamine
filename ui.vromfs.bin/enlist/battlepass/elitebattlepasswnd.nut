@@ -14,14 +14,15 @@ let {
   sizeCard, imageSize, gapCards
 } = require("bpPkg.nut")
 let { seasonIndex } = require("bpState.nut")
-let { buyEliteBattlePass, hasEliteBattlePass, isPurchaseBpInProgress } = require("eliteBattlePass.nut")
+let { elitePassItem, hasEliteBattlePass, isPurchaseBpInProgress } = require("eliteBattlePass.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { get_setting_by_blk_path } = require("settings")
+let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 
-let linkToOpen = get_setting_by_blk_path("battlePassUrl")
+let circuitConf = require("app").get_circuit_conf()
+let linkToOpen = circuitConf?.battlePassUrl
 
 let curItem = mkWatched(persist, "curItem", null)
 let isOpened = mkWatched(persist, "isOpened", false)
@@ -65,9 +66,9 @@ let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
 let function getUniqRewards(unlock) {
   let items = {}
   let currency = {}
-  foreach(stage in unlock?.stages ?? []){
+  foreach (stage in unlock?.stages ?? []){
     let { rewards = {}, currencyRewards = {} } = stage
-      foreach(idStr, amount in rewards)
+      foreach (idStr, amount in rewards)
         items[idStr] <- (items?[idStr] ?? 0) + amount
     foreach (idStr, amountStr in currencyRewards)
       currency[idStr] <- (currency?[idStr] ?? 0) + amountStr.tointeger()
@@ -104,7 +105,7 @@ let rewardBlock = @(allRewards) @(){
     flow = FLOW_HORIZONTAL
     vplace = ALIGN_BOTTOM
     children = allRewards.map(function(rewardData){
-      if(rewardData == null)
+      if (rewardData == null)
         return null
       let {count, reward} = rewardData
       return {
@@ -171,6 +172,12 @@ let mkDescription = @(text, params = {}, txtSize = body_txt){
   size = [hdpx(500), SIZE_TO_CONTENT]
   text
 }.__update(txtSize, params)
+
+let function buyEliteBattlePass() {
+  if (hasEliteBattlePass.value)
+    return
+  buyShopItem({ shopItem = elitePassItem.value })
+}
 
 let btnBlock = {
   size = [flex(), hdpx(150)]

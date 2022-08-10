@@ -1,5 +1,8 @@
 module render_events shared
 require ecs
+require DagorDriver3D
+require DagorMath
+
 
 [cpp_event(broadcast)]
 struct SetResolutionEvent
@@ -11,3 +14,17 @@ struct SetResolutionEvent
 [cpp_event(broadcast)]
 struct QueryUnexpectedAltitudeChange
   enabled : bool = false
+
+[cpp_event(broadcast)]
+struct RenderEventUI
+  viewTm : TMatrix
+  viewItm : TMatrix
+  globtm : mat44f
+  persp : Driver3dPerspective
+
+[cpp_event(broadcast)]
+struct RenderEventAfterUI
+  viewTm : TMatrix
+  viewItm : TMatrix
+  globtm : mat44f
+  persp : Driver3dPerspective

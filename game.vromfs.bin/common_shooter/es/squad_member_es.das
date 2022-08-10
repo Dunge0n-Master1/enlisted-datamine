@@ -40,43 +40,6 @@ def squad_member_response_es(info : ecs::UpdateStageInfoAct;
   if isResponseRequired
     sendEvent(eid, [[CmdRequestHumanSpeech phrase="{squad_member__response}Response", importance=1.]])
 
-
-[es(no_order, tag=server)]
-def squad_member_avoid_leader(info : UpdateStageInfoAct;
-                              eid : ecs::EntityId;
-                              squad__leader : ecs::EntityId;
-                              var squad__nextOverlapMembersUpdate : float&;
-                              squad__overlapMembersUpdate : float = 0.7;
-                              squad__overlapMembersDistance : float = 15.;
-                              squad__stanceChangeOrderTime : float2 = float2(4f, 7f))
-  if squad__nextOverlapMembersUpdate > info.curTime
-    return
-  squad__nextOverlapMembersUpdate = info.curTime + squad__overlapMembersUpdate
-
-  var aimTm = float3x4()
-  var leaderStance = STANCE_STAND
-  query(squad__leader) <| $ [es] (human__aimTm : float3x4; human_net_phys : HumanActor)
-    leaderStance = determinate_stance(human_net_phys.phys.currentState)
-    aimTm = human__aimTm
-
-  let boundingOffset = 1.5
-  for_each_entity_in_grid(ecs_hash("humans"), aimTm[3], aimTm[0], squad__overlapMembersDistance, boundingOffset, GridEntCheck BOUNDING) <| $(smEid : EntityId)
-    query(smEid) <| $ [es(REQUIRE_NOT=deadEntity)] (squad_member__squad : EntityId;
-                                                    human_net_phys : HumanActor;
-                                                    var beh_tree : BehaviourTree&)
-      if squad_member__squad != eid || human_net_phys.phys.currentState.moveState != HUMoveState EMS_STAND
-        return
-
-      if leaderStance != STANCE_CRAWL
-        beh_tree.blackBoard |> datablock_setInt("maxStanceOrder", STANCE_CRAWL)
-      else
-        let stance = determinate_stance(human_net_phys.phys.currentState)
-        beh_tree.blackBoard |> datablock_setInt("maxStanceOrder", min(stance + 1, STANCE_STAND))
-
-      let orderTime = rnd_float(squad__stanceChangeOrderTime.x, squad__stanceChangeOrderTime.y)
-      beh_tree.blackBoard |> datablock_setReal("maxStanceOrderEndTime", info.curTime + orderTime)
-      beh_tree.blackBoard |> datablock_setBool("maxStanceOrderForce", true)
-
 [es(no_order, tag=server)]
 def squad_member_crawl_with_leader(info : UpdateStageInfoAct; eid : ecs::EntityId; squad__leader : ecs::EntityId;
                                    squad__ownerPlayer : ecs::EntityId;
@@ -116,7 +79,7 @@ def squad_member_can_be_leader_set(evt : Event; isInVehicle : bool; var squad_me
 
 [es(tag=server, on_appear, on_event=EventOnSeatOwnersChanged)]
 def squad_member_can_be_leader_update(evt : Event; vehicle_seats__seatEids : EidList)
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__orderNo : int)
       let canPlaceManually = get_bool(vehicle_seats__seatEids[seat__orderNo], "seats_order__canPlaceManually") ?? false
       setOptional(seat__ownerEid, "squad_member__canBeLeader", canPlaceManually)

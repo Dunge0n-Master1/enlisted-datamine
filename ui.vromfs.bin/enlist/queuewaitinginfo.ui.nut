@@ -114,8 +114,14 @@ let queueContent = @() {
       : null
 }
 
+let randomTeamHint = noteTextArea({
+  text = loc("queue/join_any_team_hint")
+  halign = ALIGN_CENTER
+  color = titleTxtColor
+}).__update(sub_txt)
+
 let function mkRandomTeamContent() {
-  let res = { watch = [randTeamAvailable, isCurQueueReqRandomSide] }
+  let res = { watch = [randTeamAvailable, isCurQueueReqRandomSide, matchRandomTeam] }
   if (!randTeamAvailable.value)
     return res
 
@@ -124,11 +130,7 @@ let function mkRandomTeamContent() {
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     children = [
-      noteTextArea({
-        text = loc("queue/join_any_team_hint")
-        halign = ALIGN_CENTER
-        color = titleTxtColor
-      }).__update(sub_txt)
+      matchRandomTeam.value ? null : randomTeamHint
       isCurQueueReqRandomSide.value ? alwaysRandTeamSign : randTeamCheckbox
     ]
   })

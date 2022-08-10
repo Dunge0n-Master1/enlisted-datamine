@@ -9,12 +9,12 @@ require EnlistedNet
 
 [es(tag=sound, on_event=(EventExplosionFatal, EventCrashExplosionFatal))]
 def vehicle_damage_sound_explosion_fatal(evt : Event;
-                                         sound_control__enabled : bool;
+                                         sound_control__shouldPlay : bool;
                                          [[shared_comp]] vehicle_damage_sound__paths : Object;
                                          sound_tags : Object;
                                          is_watched_sound : bool;
                                          transform : float3x4)
-  if sound_control__enabled
+  if sound_control__shouldPlay
     sound_player_common::play_path("destroy", vehicle_damage_sound__paths, sound_tags, is_watched_sound, transform[3])
 
 

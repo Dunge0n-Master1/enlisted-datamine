@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let { seasonIndex, premiumUnlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { purchaseInProgress } = require("%enlist/shop/armyShopState.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
-let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { shopItemsBase, shopItems } = require("%enlist/shop/shopItems.nut")
 
@@ -30,11 +29,6 @@ let hasEliteBattlePass = Computed(function() {
 })
 
 let isPurchaseBpInProgress = Computed(@() purchaseInProgress.value == elitePassItem.value)
-let function buyEliteBattlePass() {
-  if (hasEliteBattlePass.value)
-    return
-  buyShopItem({ shopItem = elitePassItem.value })
-}
 
 console_register_command(@() isDebugBP(!isDebugBP.value), "meta.debugBattlePass")
 
@@ -42,5 +36,5 @@ return {
   hasEliteBattlePass
   premRewardsAllowed
   isPurchaseBpInProgress
-  buyEliteBattlePass
+  elitePassItem
 }

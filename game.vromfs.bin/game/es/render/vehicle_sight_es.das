@@ -9,7 +9,7 @@ require EnlistedCamera
 require DagorDataBlock
 require game.events_game
 require DagorStdGuiRender
-require game.es.camera_common
+require game.es.render.render_events
 
 let
   DEFAULT_SIGHT_COLOR = E3DCOLOR(0xFF000000)
@@ -107,9 +107,9 @@ def vehicle_sight_draw_es(evt : RenderEventUI;
     let screenSize = StdGuiRender_screen_size()
     let halfScreen = screenSize * 0.5
     let sp = uiViewTm * calc_sight_position(cam_transform[3])
-    let startPos = float2(safediv(sp.x, sp.z) * evt.wk * halfScreen.x, safediv(-sp.y, sp.z) * evt.hk * halfScreen.y) + halfScreen
+    let startPos = float2(safediv(sp.x, sp.z) * evt.persp.wk * halfScreen.x, safediv(-sp.y, sp.z) * evt.persp.hk * halfScreen.y) + halfScreen
 
-    let fovInThousandth = (fov_to_deg(evt.wk) / 360.0f) * THOUSANDTH_MULT
+    let fovInThousandth = (fov_to_deg(evt.persp.wk) / 360.0f) * THOUSANDTH_MULT
     let oneThousandthSize = safediv(screenSize.x, fovInThousandth) * 2f
 
     let sizeMult = safediv(fovLimits.x, fov) * vehicle_sight__fontSizeMult

@@ -111,6 +111,12 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
                               hitpoints__hp : float;
                               hitpoints__maxHp : float;
                               isAlive : bool;
+                              human_inventory__entityToUse : EntityId;
+                              maintenance__canMaintainVehicle : bool;
+                              extinguisher__hasExtinguisher : bool;
+                              repair__hasRepairKit : bool;
+                              maintenance__targetNeedsExtinguishing : bool = false;
+                              maintenance__targetNeedsRepair : bool = false;
                               isInVehicle : bool = false;
                               burning__isBurning : bool = false;
                               human_medkit__allowUseOnFullHP : bool = false;
@@ -119,6 +125,12 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
                               hitpoints_heal__restoreAmount : float = 0.0;
                               hitpoints__criticalHpRatio : float = 0.1;
                               hitpoints__maxHealAmountWasteRatio : float = 0.2)
+  let extinguishAvailable = maintenance__canMaintainVehicle && extinguisher__hasExtinguisher && maintenance__targetNeedsExtinguishing
+  let repairAvailable = maintenance__canMaintainVehicle && repair__hasRepairKit && maintenance__targetNeedsRepair
+
+  if extinguishAvailable || repairAvailable
+    return
+
   if burning__isBurning
     if !isInVehicle
       send_net_event(eid, [[CmdPutOutFireStart]])
@@ -138,7 +150,7 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
       bestItem = get_most_effective_heal_item(itemContainer, neededHealAmount, hitpoints__maxHealAmountWasteRatio, healAmountComp)
   if bestItem == ecs::INVALID_ENTITY_ID && isDowned && hitpoints__canSelfReviveByPerk
     bestItem = get_fastest_heal_item(human_equipment__slots, healAmountComp)
-  if bestItem != ecs::INVALID_ENTITY_ID
+  if bestItem != ecs::INVALID_ENTITY_ID && bestItem != human_inventory__entityToUse
     sendEvent(eid, [[EventUseItem item=bestItem, target=INVALID_ENTITY_ID]])
 
 

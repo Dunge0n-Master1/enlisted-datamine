@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let scrollbar = require("%darg/components/scrollbar.nut")
+let scrollbar = require("%ui/components/scrollbar.nut")
 let { INVALID_GROUP_ID, INVALID_SESSION_ID } = require("matching.errors")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let style = require("%ui/hud/style.nut")
@@ -113,11 +113,15 @@ local function mkTeamPanel(columns, players, params, minRows, bordersColor, slot
 }
 
 let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
-  let hasAllies = true//allies.len() > 0
-  let hasEnemies = true//enemies.len() > 0
+  let myTeamStr = params.myTeam.tostring()
+  let enemyTeamData = getEnemyTeam(params?.teams, myTeamStr)
+  let enemySlots = params?.teamsSlots[enemyTeamData?.teamId]
+  let alliesSlots = params?.teamsSlots[params.myTeam]
+  let hasAllies = allies.len() > 0 || alliesSlots != null
+  let hasEnemies = enemies.len() > 0 || enemySlots != null
   if (!hasAllies && !hasEnemies)
     return null
-  let myTeamStr = params.myTeam.tostring()
+
   let scrollWidth = params.scrollIsPossible && minRows > MAX_ROWS_TO_SCROLL ? fsh(1) : 0
   let myTeamData = params?.teams[myTeamStr]
   let alliesHeader = !hasAllies ? null : paneHeader(columns, {
@@ -129,7 +133,6 @@ let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
     isInteractive = params?.isInteractive ?? false
   })
 
-  let enemyTeamData = getEnemyTeam(params?.teams, myTeamStr)
   let enemiesHeader = !hasEnemies ? null : paneHeader(columns, {
     armies = enemyTeamData?.armies,
     teamIcon = enemyTeamData?.icon,
@@ -138,9 +141,6 @@ let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
     teamColor = enemyTeamColor
     isInteractive = params?.isInteractive ?? false
   })
-
-  let enemySlots = params?.teamsSlots[getEnemyTeam(params?.teams, myTeamStr)?.teamId]
-  let alliesSlots = params?.teamsSlots[params.myTeam]
 
   let maxRows = max(enemies.len(), allies.len(), enemySlots ?? 0, alliesSlots ?? 0 )
   let teams = []

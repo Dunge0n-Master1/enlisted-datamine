@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let xp = require("%xboxLib/impl/presence.nut")
 let app = require("%xboxLib/impl/app.nut")
-let logX = require("%sqstd/log.nut")().with_prefix("[XBOX PRESENCE] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX PRESENCE] ")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { updatePresences } = require("%enlist/contacts/contactPresence.nut")
 let { console2uid } = require("%enlist/contacts/consoleUidsRemap.nut")

@@ -87,6 +87,7 @@ pzkpfw_IV_ausf_H_turret{
     repairable__repairTotalTime:r=-1.0
     repairable__repairTime:r=-1.0
     repairable__repairRequired:b=no
+    repairable__extinguishRequired:b=no
   }
 
   _group{
@@ -303,172 +304,172 @@ pzkpfw_IV_ausf_H_turret{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_big"
+          name:t="tank_smoke_big_template"
           emitter:t="emtr_smoke_dmg"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_02"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_03"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_04"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_05"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_06"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_07"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_08"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_09"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_10"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_11"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_12"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_13"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_14"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_15"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_smoke_small_dmg_16"
         }
 
         "fx:object"{
-          name:t="tank_fire_big"
+          name:t="tank_fire_big_template"
           emitter:t="emtr_fire_dmg"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_01"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_02"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_03"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_04"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_05"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_06"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_07"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_08"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_09"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_10"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_11"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_12"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_13"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_14"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_15"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_16"
         }
       }
@@ -482,17 +483,17 @@ pzkpfw_IV_ausf_H_turret{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_ammo"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_ammo_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_ammo_02"
         }
       }
@@ -509,57 +510,57 @@ pzkpfw_IV_ausf_H_turret{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_01"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_02"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_03"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_04"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_05"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_06"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_07"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_08"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_09"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_10"
         }
       }
@@ -576,97 +577,97 @@ pzkpfw_IV_ausf_H_turret{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_02"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_03"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_04"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_05"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_06"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_07"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_08"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_09"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_10"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_11"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_12"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_13"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_14"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_15"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_16"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_fire_ammo"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_fire_ammo_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_fire_ammo_02"
         }
       }

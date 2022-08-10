@@ -20,9 +20,6 @@ struct EventOnSelectNextBulletId
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdDeleteMapUserPoint {}
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct EventUserMarkDisabled {}
-
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdCreateMapUserPoint
   pos : float3
@@ -30,30 +27,32 @@ struct CmdCreateMapUserPoint
   norm : float3
   item_name : string
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdSpotEnemy
-  enemy : EntityId
-
 [event(unicast)]
 struct CmdCreateMapPoint
   x : float
   z : float
 
-[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
-struct CmdAttachMapUserPoint
-  itemEid : ecs::EntityId
-  pointType : string
-  silent : bool
-
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdUseWeaponFlashlight {}
 
-[cpp_event(broadcast)]
+[cpp_event(broadcast, with_scheme, cpp_gen=false)]
 struct EventOnEntityHit
-  victim : ecs::EntityId
-  offender : ecs::EntityId
-  damageDesc : DamageDesc
-  hitResult : HitResult
+  victim : EntityId
+  offender : EntityId
+  hitResult : int
+  damageType : int
+  shellId : int
+  gunPropsId : int
+  actionPropsId : int
+  collNodeId : int
+  deltaHp : float
+  blockingDeltaHp : float
+  stoppingPower : float
+  hitPos : float3
+  hitDir : float3
+  hitNorm : float3
+  dmgMult : float
+  armorMult : float
 
 [cpp_event(unicast)]
 struct EventOnGunCreated
@@ -259,6 +258,7 @@ struct CmdShellExplodeClient
   offender : EntityId
   explVictim : EidList
   explDamageAndFatal : UInt8List
+  shellEid : EntityId
 
 [cpp_event(unicast)]
 struct CmdShellExplode

@@ -11,8 +11,7 @@ let { equipItem } = require("%enlist/soldiers/model/itemActions.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { prepareItems, addShopItems, itemsSort
-} = require("%enlist/soldiers/model/items_list_lib.nut")
+let { prepareItems, addShopItems, itemsSort } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { itemTypesInSlots } = require("all_items_templates.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let soldierSlotsCount = require("soldierSlotsCount.nut")
@@ -31,6 +30,8 @@ let { transfer_item } = require("%enlist/meta/clientApi.nut")
 let { lockedProgressCampaigns } = require("%enlist/meta/campaigns.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { room, roomIsLobby } = require("%enlist/state/roomState.nut")
+let { isObjGuidBelongToRentedSquad } = require("squadInfoState.nut")
+let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 
 
 let selectParamsList = mkWatched(persist, "selectParamsList", [])
@@ -62,7 +63,8 @@ let calcItems = function(params, _objInfoByGuidV, armoryByArmyV) {
   addShopItems(itemsList, armyId, @(tplId, tpl)
     filterFunc(tplId, tpl) && (tpl?.upgradeIdx ?? 0) == 0)
   itemsList.sort(itemsSort)
-  return itemsList}
+  return itemsList
+}
 
 let calcOther = function(params, armoryByArmyV, itemTypesInSlotsV) {
   let { slotType = null, armyId = null, filterFunc = @(_tplId, _tpl) true } = params
@@ -84,6 +86,14 @@ let calcOther = function(params, armoryByArmyV, itemTypesInSlotsV) {
 
 let slotItems = Computed(@()
   calcItems(selectParams.value, objInfoByGuid.value, armoryByArmy.value))
+
+let inventoryItems = Computed(function() {
+  let res = {}
+  foreach (item in slotItems.value)
+    if (!(item?.isShopItem ?? false))
+      res[item.basetpl] <- item
+  return res
+})
 
 let otherSlotItems = Computed(@()
   calcOther(selectParams.value, armoryByArmy.value, itemTypesInSlots.value))
@@ -286,8 +296,13 @@ let function selectItem(item) {
     return msgbox.show({ text = checkSelectInfo.text, buttons = buttons })
   }
 
-  let p = selectParams.value
-  equipItem(item?.guid, p?.slotType, p?.slotId, p?.ownerGuid)
+  let { slotType = null, slotId = null, ownerGuid = null } = selectParams.value
+  if (ownerGuid != null && isObjGuidBelongToRentedSquad(ownerGuid)) {
+    showRentedSquadLimitsBox()
+    return
+  }
+
+  equipItem(item?.guid, slotType, slotId, ownerGuid)
 }
 
 let unseenViewSlotTpls = Computed(function() {
@@ -319,11 +334,17 @@ let function getModifyItemGuid(stackedItem, canBeLinked = false) {
   return null
 }
 
-let getBetterItem = @(item1, item2)
-  item1 != null && (item1?.tier ?? 0) >= (item2?.tier ?? 0) ? item1 : item2
+let unwantedTypes = { boltaction_noscope = true }
 
-let getWorseItem = @(item1, item2)
-  item1 == null || (item1?.tier ?? 0) <= (item2?.tier ?? 0) ? item1 : item2
+let function getBetterItem(item1, item2) {
+  let isUnwanted1 = item1?.itemtype in unwantedTypes
+  let isUnwanted2 = item2?.itemtype in unwantedTypes
+  return item2 != null && (isUnwanted2 < isUnwanted1
+    || (isUnwanted2 == isUnwanted1 && (item2?.tier ?? 0) > (item1?.tier ?? 0))) ? item2 : item1
+}
+
+let getWorseItem = @(item1, item2) item1 == null
+  || (item1?.tier ?? 0) <= (item2?.tier ?? 0) ? item1 : item2
 
 let function getAlternativeEquipList(soldier, chooseFunc, excludeSlots = []) {
   let armyId = getLinkedArmyName(soldier)
@@ -334,8 +355,8 @@ let function getAlternativeEquipList(soldier, chooseFunc, excludeSlots = []) {
   let equipList = []
   foreach (slotsItem in slotsItems) {
     let { slotType, slotId } = slotsItem
-    let scheme = getScheme(soldier, slotType)
-    let filterCb = mkDefaultFilterFunc(scheme?.itemTypes, scheme?.items)
+    let { itemTypes = [], items = [] } = getScheme(soldier, slotType)
+    let filterCb = mkDefaultFilterFunc(itemTypes, items)
     local choosenItem = slotsItem?.item
     foreach (item in armoryByArmy.value?[armyId] ?? [])
       if (filterCb(item.basetpl, findItemTemplate(allItemTemplates, armyId, item.basetpl)))
@@ -378,8 +399,9 @@ let defaultSortOrder = {
   antitank_mine = 1
 }
 let classSortOrder = {
-  tanker = { reapair_kit = 2 }
+  tanker = { repair_kit = 2 }
   sniper = { smoke_grenade = 5 }
+  assault = { assault_rifle_stl = 4, assault_rifle = 3, submgun = 2, shotgun = 1 }
 }
 
 let AUTO_SLOTS = [
@@ -390,7 +412,7 @@ let function getPossibleEquipList(soldier) {
   let { guid = null, equipScheme = {} } = soldier
   let slotsItems = getSoldierItemSlots(guid, campItemsByLink.value)
   let reqItemTypes = AUTO_SLOTS.filter(@(iType) slotsItems.findindex(@(slot)
-    slot.item.itemtype == iType) == null)
+    slot.item?.itemtype == iType) == null)
 
   let equipList = []
   if (reqItemTypes.len() == 0)
@@ -433,14 +455,11 @@ let function getPossibleEquipList(soldier) {
 
     let filterCb = mkDefaultFilterFunc(itemTypes, items)
     let availSlotItems = (armoryByArmy.value?[armyId] ?? [])
-      .filter(@(item) filterCb(item.basetpl, findItemTemplate(
-        allItemTemplates, armyId, item.basetpl)))
+      .filter(@(item)
+        filterCb(item.basetpl, findItemTemplate(allItemTemplates, armyId, item.basetpl)))
       .sort(sortFunc)
 
-    local choosenItem = null
-    foreach (item in availSlotItems)
-      choosenItem = choosenItem == null ? item
-        : getBetterItem(choosenItem, item)
+    let choosenItem = availSlotItems.reduce(@(res, item) getBetterItem(res, item))
     if (choosenItem != null)
       equipList.append(availSlot.__update({ guid = choosenItem.guid }))
   }
@@ -527,6 +546,7 @@ return {
   curInventoryItem
   curEquippedItem
   selectParams
+  inventoryItems
   slotItems
   otherSlotItems //items fit to current slot, but not fit to current soldier class
   viewSoldierInfo

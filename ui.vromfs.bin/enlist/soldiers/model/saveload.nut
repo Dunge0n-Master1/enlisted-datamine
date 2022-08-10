@@ -4,7 +4,7 @@ let json = require("%sqstd/json.nut")
 let { file_exists } = require("dagor.fs")
 let { DBGLEVEL } = require("dagor.system")
 
-let logg = DBGLEVEL !=0 ? log_for_user : log.log
+let logg = DBGLEVEL !=0 ? log_for_user : log
 
 let function save(filename, data, pretty_print=true){
   json.save(filename, data, {pretty_print = pretty_print, logger = logg})

@@ -19,15 +19,15 @@ let GRENADES_ORDER = {
   smoke = 5
 }
 
-let grenadeIcon = @(gType, size) Picture("ui/skin#{0}:{1}:{2}:K"
-  .subst(grenadeIconNames?[gType] ?? grenadeIconNames.fougasse, size[0], size[1]))
+let grenadeIcon = memoize(@(gType, size) Picture("ui/skin#{0}:{1}:{2}:K"
+  .subst(grenadeIconNames?[gType] ?? grenadeIconNames.fougasse, size[0], size[1])))
 
-let mkGrenadeIcon = @(grenadeType, size) grenadeType == null ? null : {
+let mkGrenadeIcon = memoize(@(grenadeType, size) grenadeType == null ? null : {
   rendObj = ROBJ_IMAGE
   size = [size, size]
   image = grenadeIcon(grenadeType, [size, size])
   tint = Color(220, 220, 220)
-}
+})
 
 return {
   GRENADES_ORDER

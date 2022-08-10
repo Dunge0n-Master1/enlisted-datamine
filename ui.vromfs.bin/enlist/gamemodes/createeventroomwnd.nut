@@ -1,14 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "createEventRoomState.nut" import *
+
 let { sub_txt, body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { logerr } = require("dagor.debug")
 let { bigPadding, blurBgColor, defInsideBgColor, defTxtColor, accentColor,
-  blurBgFillColor, smallPadding, activeTxtColor, commonBtnHeight,
-  smallOffset
+  blurBgFillColor, smallPadding, activeTxtColor, commonBtnHeight, smallOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { chooseRandom } = require("%sqstd/rand.nut")
 let { arrayByRows } = require("%sqstd/underscore.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let closeBtn = require("%ui/components/closeBtn.nut")
 let textInput = require("%ui/components/textInput.nut")
 let spinnerList = require("%ui/components/spinnerList.nut")
@@ -31,13 +31,19 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { lobbyPresets, openSaveWindow, openChooseWindow
 } = require("%enlist/mpRoom/saveChooseLobbySettings.nut")
-let { updateModList, modPath, receivedModInfos, allowChooseCampaign
+let { modPath, receivedModInfos, allowChooseCampaign, isModAvailable
 } = require("sandbox/customMissionState.nut")
 let openCustomMissionWnd = require("sandbox/customMissionWnd.nut")
 let { isXboxOne, isPS4, is_console } = require("%dngscripts/platform.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { showModsInCustomRoomCreateWnd } = require("%enlist/featureFlags.nut")
-let { isModsAvailable } = require("createEventRoomCfg.nut")
+let { premiumImage } = require("%enlist/currency/premiumComp.nut")
+let premiumWnd = require("%enlist/currency/premiumWnd.nut")
+
+enum TabsIds {
+  EVENT_ID
+  CAMPAIGN_ID
+  MISSION_ID
+}
 
 const WND_UID = "editEventGm"
 let maxWndWidth = sw(95)
@@ -61,17 +67,26 @@ let prevGenPlatform = isXboxOne ? "xbox"
   : null
 
 let curTabIdx = mkWatched(persist, "curTabIdx", 0)
-let activeTabs = mkWatched(persist, "activeTabs", [])
 
-enum TabsIds {
-  EVENT_ID = "eventTab"
-  CAMPAIGN_ID = "campaignTab"
-  MISSION_ID = "missionsTab"
-}
+let activeTabIds = Computed(function() {
+  let tabs = [TabsIds.EVENT_ID]
+  if (optCampaigns.cfg.value != null) {
+    if (allowChooseCampaign.value)
+      tabs.append(TabsIds.CAMPAIGN_ID)
+    if (modPath.value == "" && !isInRoom.value)
+      tabs.append(TabsIds.MISSION_ID)
+  }
+  return tabs
+})
 
-let function toggleCampaignsFilter(campaign){
+activeTabIds.subscribe(function(v) {
+  if (curTabIdx.value >= v.len())
+    curTabIdx(0)
+})
+
+let function toggleCampaignsFilter(campaign) {
   let idx = selectedCampaignsFilters.value.findindex(@(val) val == campaign)
-  if(idx != null){
+  if (idx != null) {
     selectedCampaignsFilters.mutate(@(val) val.remove(idx))
   }
   else
@@ -89,10 +104,11 @@ let baseOptions = [
   optTeamArmies
   optCluster
   optCrossplay
+  optPassword
 ]
 
 let function curTabById(id) {
-  let idx = activeTabs.value.findindex(@(d) d.id == id)
+  let idx = activeTabIds.value.indexof(id)
   if (idx != null)
     curTabIdx(idx)
 }
@@ -113,49 +129,54 @@ let close = @() isEditEventRoomOpened(false)
 let locOn = loc($"option/on")
 let locOff = loc($"option/off")
 let defBoolToString = @(val) val ? locOn : locOff
-let mkValueText = @(curValue, valToString) @() {
+let mkValueText = @(curValue, valToString, overrideText = null) @() {
   watch = curValue
   rendObj = ROBJ_TEXT
   color = defTxtColor
-  text = valToString?(curValue.value) ?? curValue.value
+  text = overrideText ?? valToString?(curValue.value) ?? curValue.value
 }.__update(body_txt)
 
 let optionCtor = {
-  [OPT_LIST] = @(opt, cfg, isDisabled = false) (cfg.values.len() <= 1 || isDisabled)
+  [OPT_LIST] = @(opt, cfg, isInactive = false) (cfg.values.len() <= 1 || isInactive)
     ? mkValueText(opt.curValue, opt?.valToString)
     : spinnerList({
         curValue = opt.curValue, setValue = opt.setValue, allValues = cfg.values,
         valToString = opt?.valToString
       }),
 
-  [OPT_CHECKBOX] = @(opt, cfg, isDisabled = false) (cfg.values.len() <= 1 || isDisabled)
+  [OPT_CHECKBOX] = @(opt, cfg, isInactive = false) (cfg.values.len() <= 1 || isInactive)
     ? mkValueText(opt.curValue, opt?.valToString ?? defBoolToString)
     : spinnerList({
         curValue = opt.curValue, setValue = opt.setValue, allValues = cfg.values
         valToString = opt?.valToString ?? defBoolToString
       }),
 
-  [OPT_EDITBOX] = @(opt, cfg, isDisabled = false) isDisabled
-    ? mkValueText(opt.curValue, @(v) v)
+  [OPT_EDITBOX] = @(opt, cfg, isInactive = false) isInactive
+    ? mkValueText(opt.curValue, @(v) v, opt?.optDummy)
     : textInput(opt?.savedValue ?? opt.curValue,
       { maxChars = cfg?.maxChars, placeholder = opt?.placeholder, setValue = opt.setValue,
-        textmargin = [hdpx(6), hdpx(2)]})
+        textmargin = [hdpx(6), hdpx(2)], password = opt?.password, charMask = opt?.charMask})
 }
 
-let mkOption = @(option)  function () {
+let optionRequirement = mkOptionRow(
+  loc("password/req"),
+  premiumImage(hdpx(40)), { valign = ALIGN_CENTER },
+  premiumWnd)
+
+let mkOption = @(option) function () {
   let res = { watch = [option.cfg] }
   let cfg = option.cfg.value
   if (cfg == null)
     return res
 
   let { isEditAllowed = true } = option
-  let { optType, locId = null } = cfg
+  let { optType, locId = null, isHidden = false } = cfg
   let hintText = loc($"{locId}/hint", "")
 
-  return  {
+  return {
     watch = [option.cfg, isInRoom]
     size = [ flex(), SIZE_TO_CONTENT]
-    children = option.cfg == null ? null
+    children = isHidden ? optionRequirement
       : mkOptionRow(locId, {
           size = [ optionsWidth/2.6, flex() ]
           valign = ALIGN_CENTER
@@ -193,7 +214,7 @@ let function mkMultiSelect(opt, cfg, ctor) {
   ))
 }
 
-let mkCampaignSelectRow = @(campaign) watchElemState(@(sf){
+let mkCampaignSelectRow = @(campaign) watchElemState(@(sf) {
   rendObj = ROBJ_SOLID
   watch = selectedCampaignsFilters
   size = [campaignsBlockWidth, rowHeight]
@@ -201,7 +222,7 @@ let mkCampaignSelectRow = @(campaign) watchElemState(@(sf){
   behavior = Behaviors.Button
   color = sf & S_HOVER ? defInsideBgColor : blurBgFillColor
   valign = ALIGN_CENTER
-  function onClick(){
+  function onClick() {
     toggleCampaignsFilter(campaign)
     sound_play(selectedCampaignsFilters.value.contains(campaign)
       ? "ui/enlist/flag_set"
@@ -230,7 +251,7 @@ let mkCampaignImg = @(campaign) {
   image = Picture($"ui/gameImage/{campaign}.jpg")
 }
 
-let cardTextBlock = @(label, typeTxt, sf, isSelected, params = {}){
+let cardTextBlock = @(label, typeTxt, sf, isSelected, params = {}) {
   flow = FLOW_VERTICAL
   size = flex()
   halign = ALIGN_RIGHT
@@ -274,7 +295,7 @@ let mkCampaignSelectBlock = @(label, _typeTxt, setValue, isSelected, value)
     behavior = Behaviors.Button
     color = sf & S_HOVER ? defInsideBgColor : blurBgFillColor
     valign = ALIGN_CENTER
-    function onClick(){
+    function onClick() {
       setValue(!isSelected.value)
       sound_play(isSelected.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
     }
@@ -313,7 +334,7 @@ let allertSign = {
   }.__update(sub_txt)) : null)
 }
 
-optMissions.curValue.subscribe(function(v){
+optMissions.curValue.subscribe(function(v) {
   if (prevGenPlatform) {
     let missionsWithAlert = []
     foreach (mission in v) {
@@ -331,7 +352,7 @@ optMissions.curValue.subscribe(function(v){
   }
 })
 
-let function mkMissionCard(label, typeTxt, setValue, isSelected, value){
+let function mkMissionCard(label, typeTxt, setValue, isSelected, value) {
   let { image, prevGenAlert = [] } = getMissionInfo(value)
   let hasPrevgen = prevGenAlert.contains(prevGenPlatform)
   return watchElemState(@(sf) {
@@ -341,7 +362,7 @@ let function mkMissionCard(label, typeTxt, setValue, isSelected, value){
     behavior = Behaviors.Button
     flow = FLOW_VERTICAL
     color = sf & S_HOVER ? defInsideBgColor : blurBgFillColor
-    function onClick(){
+    function onClick() {
       setValue(!isSelected.value)
       sound_play(isSelected.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
     }
@@ -363,7 +384,7 @@ let function mkMissionCard(label, typeTxt, setValue, isSelected, value){
 }
 
 
-let mkSelectBlock = @(options, content) function(){
+let mkSelectBlock = @(options, content) function() {
   let children = arrayByRows(mkMultiSelect(options, options.cfg.value, content),
     maxMissionsCardsPerRaw)
       .map(@(row) {
@@ -394,12 +415,12 @@ let baseOptionsList = {
   children = baseOptions.map(mkOption)
 }
 
-let roomInfoRow = @(block) function getRoomInfoRow(){
+let roomInfoRow = @(block) function getRoomInfoRow() {
   let { option, onClick } = block
   let res = { watch = option.cfg }
   let chosenValues = []
   let currentValue = option.curValue.value
-  if(option.cfg.value?.optType != OPT_MULTISELECT)
+  if (option.cfg.value?.optType != OPT_MULTISELECT)
     return res
 
   let {values, locId} = option.cfg.value
@@ -463,7 +484,7 @@ let roomInfoRow = @(block) function getRoomInfoRow(){
   })
 }
 
-let modMissionTitle = is_console ? null : watchElemState(@(sf){
+let modMissionTitle = is_console ? null : watchElemState(@(sf) {
   rendObj = ROBJ_SOLID
   watch = [modPath, receivedModInfos]
   color = sf & S_HOVER ? defInsideBgColor : blurBgFillColor
@@ -475,10 +496,7 @@ let modMissionTitle = is_console ? null : watchElemState(@(sf){
   valign = ALIGN_CENTER
   margin = [smallPadding, 0]
   minHeight = rowHeight
-  onClick = function() {
-    updateModList()
-    openCustomMissionWnd()
-  }
+  onClick = openCustomMissionWnd
   children = modPath.value == ""
     ? {
         rendObj = ROBJ_TEXT
@@ -504,13 +522,13 @@ let modMissionTitle = is_console ? null : watchElemState(@(sf){
 })
 
 let mainSettingsInfo = @() {
-  watch = isInRoom
+  watch = [isInRoom, isModAvailable]
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
   borderWidth = 0
   children = infoBlockRows.map(roomInfoRow)
-    .append(isInRoom.value ? null : modMissionTitle)
+    .append(isInRoom.value || !isModAvailable.value ? null : modMissionTitle)
 }
 
 let applyButton = @(locId) textButton(loc(locId), editEventRoom, {
@@ -519,16 +537,6 @@ let applyButton = @(locId) textButton(loc(locId), editEventRoom, {
   style = { BgNormal = accentColor }
   hotkeys = [["^J:X", { description = { skip = true }}]]
 })
-
-let mainSettingsWndContent = {
-  size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_HORIZONTAL
-  gap = localPadding
-  children = [
-    baseOptionsList
-    mainSettingsInfo
-  ]
-}
 
 let campaignsDescBlock = {
   rendObj = ROBJ_TEXTAREA
@@ -544,17 +552,6 @@ let campaignsChooseBlock = {
   children = mkSelectBlock(optCampaigns, mkCampaignSelectBlock)
 }
 
-let campsWndContent ={
-  flow = FLOW_HORIZONTAL
-  gap = localPadding
-  size = flex()
-  children = [
-    campaignsDescBlock
-    campaignsChooseBlock
-  ]
-}
-
-
 let campaignsFiltersBlock = @() {
   watch = optCampaigns.cfg
   size = [campaignsBlockWidth, SIZE_TO_CONTENT]
@@ -562,17 +559,7 @@ let campaignsFiltersBlock = @() {
   children = optCampaigns.cfg.value?.values.map(@(campaign) mkCampaignSelectRow(campaign))
 }
 
-let missionsWndContent = @(){
-  flow = FLOW_HORIZONTAL
-  gap = localPadding
-  size = flex()
-  children = [
-    campaignsFiltersBlock
-    mkSelectBlock(optMissions, mkMissionCard)
-  ]
-}
-
-let allValuesButton = @(option) function(){
+let allValuesButton = @(option) function() {
   let res = { watch = [option.cfg, option.curValue] }
   let { values = [], optType = null } = option.cfg.value
   if (optType != OPT_MULTISELECT)
@@ -581,11 +568,13 @@ let allValuesButton = @(option) function(){
   local hasUnselected = false
   let curList = option.curValue.value
   if (curList != null)
-    foreach(m in values)
+    foreach (m in values)
       if (curList.contains(m))
         hasSelected = true
       else
         hasUnselected = true
+  if (!hasSelected && !hasUnselected)
+    return res
   return res.__update({
     gap = localGap
     flow = FLOW_HORIZONTAL
@@ -608,116 +597,122 @@ let lobbyPresetsButtons = @() {
 }
 
 let gameStartButtons = @() {
-  watch = [isInRoom, showModsInCustomRoomCreateWnd, optMaxPlayers.curValue, modPath, isModsAvailable]
+  watch = [isInRoom, isModAvailable, optMaxPlayers.curValue, modPath]
   hplace = ALIGN_RIGHT
   flow = FLOW_HORIZONTAL
   gap = localGap
   children = [
-    !showModsInCustomRoomCreateWnd.value || isInRoom.value || !isModsAvailable.value || is_console
+    !isModAvailable.value || isInRoom.value || is_console
       ? null
-      : textButton(loc("Mods"), function() {
-          updateModList()
-          openCustomMissionWnd()
-        })
+      : textButton(loc("Mods"), openCustomMissionWnd)
     modPath.value != "" && optMaxPlayers.curValue.value <= 1
       ? applyButton("Start local")
       : applyButton(isInRoom.value ? "changeAttributesRoom" : "createRoom")
   ]
 }
 
-let function fillActiveTabs(...){
-  let res = [{
+let tabsData = {
+  [TabsIds.EVENT_ID] = {
     locId = "events/setting"
-    id = TabsIds.EVENT_ID
-    content = mainSettingsWndContent
+    content = {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_HORIZONTAL
+      gap = localPadding
+      children = [
+        baseOptionsList
+        mainSettingsInfo
+      ]
+    }
     buttons = [
       lobbyPresetsButtons
       gameStartButtons
     ]
-  }]
-  if (optCampaigns.cfg.value != null) {
-    if (allowChooseCampaign.value)
-      res.append({
-        locId = "options/campaigns"
-        content = campsWndContent
-        id = TabsIds.CAMPAIGN_ID
-        buttons = [
-          allValuesButton(optCampaigns)
-          gameStartButtons
-        ]
-      })
-    if (modPath.value == "" && !isInRoom.value)
-      res.append({
-        locId = "options/missions"
-        id = TabsIds.MISSION_ID
-        content = missionsWndContent
-        buttons = [
-          allValuesButton(optMissions)
-          gameStartButtons
-        ]
-      })
+  },
+
+  [TabsIds.CAMPAIGN_ID] = {
+    locId = "options/campaigns"
+    content = {
+      flow = FLOW_HORIZONTAL
+      gap = localPadding
+      size = flex()
+      children = [
+        campaignsDescBlock
+        campaignsChooseBlock
+      ]
+    }
+    buttons = [
+      allValuesButton(optCampaigns)
+      gameStartButtons
+    ]
+  },
+
+  [TabsIds.MISSION_ID] = {
+    locId = "options/missions"
+    content = {
+      flow = FLOW_HORIZONTAL
+      gap = localPadding
+      size = flex()
+      children = [
+        campaignsFiltersBlock
+        mkSelectBlock(optMissions, mkMissionCard)
+      ]
+    }
+    buttons = [
+      allValuesButton(optMissions)
+      gameStartButtons
+    ]
   }
-  activeTabs(res)
 }
 
-fillActiveTabs()
-
-foreach (v in [optCampaigns.cfg, modPath, allowChooseCampaign, isInRoom])
-  v.subscribe(fillActiveTabs)
-
-activeTabs.subscribe(function(v){
-  if (curTabIdx.value >= v.len())
-    curTabIdx(0)
-})
-
-let function switchTab(delta){
+let function switchTab(delta) {
   let newIdx = curTabIdx.value + delta
-  if (newIdx >= 0 && newIdx < activeTabs.value.len())
+  if (newIdx >= 0 && newIdx < activeTabIds.value.len())
     curTabIdx(newIdx)
 }
 
-let headerTabs = @(tabs) @(){
-  watch = [curTabIdx, isGamepad, optCampaigns.cfg, optMissions.cfg]
+let headerTabs = @() {
+  watch = [activeTabIds, curTabIdx, isGamepad, optCampaigns.cfg, optMissions.cfg]
   flow = FLOW_HORIZONTAL
   size = [flex(), SIZE_TO_CONTENT]
   gap = localPadding
-  children = tabs
-    .map(@(tab, idx) mkWindowTab(loc(tab.locId), @() curTabIdx(idx), idx == curTabIdx.value))
-    .insert(0, isGamepad.value && curTabIdx.value != 0 && tabs.len() > 1
+  children = activeTabIds.value
+    .map(@(tabId, idx)
+      mkWindowTab(loc(tabsData[tabId].locId), @() curTabIdx(idx), idx == curTabIdx.value))
+    .insert(0, isGamepad.value && curTabIdx.value != 0 && activeTabIds.value.len() > 1
       ? mkHotkey("^J:LB", @() switchTab(-1))
       : null)
-    .append(isGamepad.value && curTabIdx.value + 1 < tabs.len()
+    .append(isGamepad.value && curTabIdx.value + 1 < activeTabIds.value.len()
       ? mkHotkey("^J:RB", @() switchTab(1))
       : null)
 }
 
-let createRoomContent = @(){
+let createRoomContent = @() {
   size = [flex(), wndHeight]
   padding = [localPadding, localPadding, localPadding + localGap, localPadding]
   children = [
-    @(){
-      watch = [curTabIdx, activeTabs]
+    @() {
+      watch = [curTabIdx, activeTabIds]
       flow = FLOW_VERTICAL
       size = [flex(), SIZE_TO_CONTENT]
       gap = localGap
       children = [
-        headerTabs(activeTabs.value)
-        activeTabs.value?[curTabIdx.value].content
+        headerTabs
+        tabsData?[activeTabIds.value?[curTabIdx.value]].content
       ]
     }
   ]
 }
 
-
 let wndButtons= @() {
-  watch = [isEditInProgress, curTabIdx, activeTabs]
+  watch = [isEditInProgress, curTabIdx, activeTabIds]
   size = [flex(), 0]
   margin = [0, localPadding]
   vplace = ALIGN_BOTTOM
   valign = ALIGN_CENTER
-  children = isEditInProgress.value ? spinner : activeTabs.value?[curTabIdx.value].buttons
+  children = isEditInProgress.value
+    ? spinner
+    : tabsData?[activeTabIds.value?[curTabIdx.value]].buttons
 }
-
 
 let createRoomWnd = @() {
   watch = isInRoom
@@ -738,16 +733,19 @@ let createRoomWnd = @() {
   ]
 }
 
-let open = @() addModalWindow({
-  key = WND_UID
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  fillColor = defInsideBgColor
-  size = flex()
-  valign = ALIGN_CENTER
-  halign = ALIGN_CENTER
-  children = createRoomWnd
-  onClick = @() null
-})
+let function open() {
+  currentPassword("")
+  return addModalWindow({
+    key = WND_UID
+    rendObj = ROBJ_WORLD_BLUR_PANEL
+    fillColor = defInsideBgColor
+    size = flex()
+    valign = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    children = createRoomWnd
+    onClick = @() null
+  })
+}
 
 if (isEditEventRoomOpened.value)
   open()

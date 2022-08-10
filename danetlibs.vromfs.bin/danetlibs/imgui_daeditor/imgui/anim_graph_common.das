@@ -137,11 +137,9 @@ def link_child(var graph : AnimationGraph; var nod : IAnimBlendNode?; outId : in
 
   if *childNode |> anim_blend_node_isSubOf(AnimBlendNodeNullCID) // remap to null node
     let nullNodeId = graph |> anim_graph_getNodeId("null")
-    print("nullNodeId {nullNodeId}")
     if nullNodeId >= 0
       context.links |> emplace <| [[auto outId, get_input_node_idx(nullNodeId)]]
       return
-
   let name = graph |> anim_graph_getBlendNodeName(childNode)
   print("'{name}' : {*nod |> anim_blend_node_class_name()} {graph |> anim_graph_getAnimNodeName(*nod |> anim_blend_node_getAnimNodeId)} child mismatch {*childNode |> anim_blend_node_getAnimNodeId} {*childNode |> anim_blend_node_class_name()}")
 
@@ -745,7 +743,7 @@ def render_anim_graph2(var graph : AnimationGraph; var state : IAnimStateHolder;
           maxWidth = 0f
 
       var paramIdx = startParamsIdx + 1
-      for idx, it in range(length(ctx.links), length(ctx.links) + length(ctx.params)), ctx.params
+      for _idx, it in range(length(ctx.links), length(ctx.links) + length(ctx.params)), ctx.params
         if it.paramId < 0
           continue
         let selfDim = GetNodeSize(paramIdx)

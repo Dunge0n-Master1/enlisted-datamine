@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { localPlayerTeam, localPlayerGroupId } = require("%ui/hud/state/local_player.nut")
 let { INVALID_GROUP_ID } = require("matching.errors")
-
+let { mkWatchedSetAndStorage, mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
 //===============heroes stats===============
 let heroesTrackComps = [
@@ -25,20 +25,21 @@ let teammatePlayerInfoQuery = ecs.SqQuery("teammatePlayerInfoQuery", {
   ]
 })
 
-let alivePossessedTeammates = Watched({})
-let teammatesAvatars = Watched({})
+let {alivePossessedTeammates, alivePossessedTeammatesMutate, alivePossessedTeammatesSetKeyVal, alivePossessedTeammatesDeleteKey} = mkFrameIncrementObservable({}, "alivePossessedTeammates")
 
-let function deleteEid(eid, state){
-  if (eid in state.value)
-    state.mutate(@(v) delete v[eid])
-}
+let {
+  teammatesAvatarsSet,
+  teammatesAvatarsGetWatched,
+  teammatesAvatarsUpdateEid,
+  teammatesAvatarsDestroyEid
+} = mkWatchedSetAndStorage("teammatesAvatars")
 
 ecs.register_es("human_teammates_stats_ui_es",
   {
     [["onChange","onInit"]] = function(_evt, eid, comp){
       if (localPlayerTeam.value != comp["team"]){
-        deleteEid(eid, teammatesAvatars)
-        deleteEid(eid, alivePossessedTeammates)
+        teammatesAvatarsDestroyEid(eid)
+        alivePossessedTeammatesDeleteKey(eid)
         return
       }
       let res = {}
@@ -47,15 +48,17 @@ ecs.register_es("human_teammates_stats_ui_es",
       res.isAlive <- comp.isAlive
       teammatePlayerInfoQuery(comp.possessedByPlr, @(_, playerComp) res.__update(playerComp))
 
-      teammatesAvatars.mutate(@(value) value[eid] <- res)
-      if (comp.possessedByPlr == INVALID_ENTITY_ID)
-        deleteEid(eid, alivePossessedTeammates)
-      else
-        alivePossessedTeammates.mutate(@(value) value[eid] <- res)
+      teammatesAvatarsUpdateEid(eid, res)
+      if (comp.possessedByPlr == INVALID_ENTITY_ID) {
+        alivePossessedTeammatesDeleteKey(eid)
+      }
+      else {
+        alivePossessedTeammatesSetKeyVal(eid, res)
+      }
     },
     function onDestroy(_evt, eid, _comp){
-      deleteEid(eid, teammatesAvatars)
-      deleteEid(eid, alivePossessedTeammates)
+      teammatesAvatarsDestroyEid(eid)
+      alivePossessedTeammatesDeleteKey(eid)
     }
   },
   {
@@ -70,51 +73,66 @@ ecs.register_es("human_teammates_stats_ui_es",
 
 //===============player teammates stats===============
 
-let players = mkWatched(persist, "players", {})
-
-let playerCompsTrack = [
-  ["team", ecs.TYPE_INT],
-  ["is_local", ecs.TYPE_BOOL, false],
-  ["disconnected", ecs.TYPE_BOOL],
-  ["possessed", ecs.TYPE_EID],
-  ["groupId", ecs.TYPE_INT64],
-  ["name", ecs.TYPE_STRING]
-]
-
 ecs.register_es("human_teammates_players_ui_es",
   {
-    [["onInit", "onChange"]] = function(_evt, eid, comp){
+    [["onInit", "onChange"]] = function(_evt, _eid, comp){
       if (comp["is_local"] || comp["team"] != localPlayerTeam.value){
-        deleteEid(eid, players)
         return
       }
-      let res = {}
-      foreach (i in playerCompsTrack){
-        let compName = i[0]
-        res[compName] <- comp[compName]
-      }
-      players.mutate(@(value) value[eid] <- res)
-      alivePossessedTeammates.mutate(@(value) value?[comp.possessed]?.__update({
-        name = comp.name,
-        groupId = comp.groupId,
-        disconnected = comp.disconnected
-      }))
+      let {possessed, name, groupId, disconnected} = comp
+      alivePossessedTeammatesMutate(@(value) value?[possessed]?.__update({name, groupId, disconnected}))
     },
-    function onDestroy(_evt, eid, _comp){
-      deleteEid(eid, players)
-    }
   },
-  {comps_track = playerCompsTrack, comps_rq = ["player"]}
+  {
+    comps_track = [
+      ["team", ecs.TYPE_INT],
+      ["is_local", ecs.TYPE_BOOL, false],
+      ["disconnected", ecs.TYPE_BOOL],
+      ["possessed", ecs.TYPE_EID],
+      ["groupId", ecs.TYPE_INT64],
+      ["name", ecs.TYPE_STRING],
+      ["decorators__nickFrame", ecs.TYPE_STRING, null]
+    ],
+    comps_rq = ["player"]
+  }
 )
 
-let teammatesConnectedNum = Computed(@() players.value.filter(@(player) !player.disconnected).len())
 let teammatesAliveNum = Computed(@() alivePossessedTeammates.value.filter(@(teammate) !(teammate?.disconnected ?? true)).len())
 let groupmatesAvatars = Computed(@() alivePossessedTeammates.value.filter(@(teammate)
   localPlayerGroupId.value != INVALID_GROUP_ID && (teammate?.groupId ?? INVALID_GROUP_ID) == localPlayerGroupId.value))
 
+let groupmatesAvatarsStorage = {}
+let groupmatesAvatarsGetWatched = @(eid) groupmatesAvatarsStorage?[eid]
+
+let groupmatesAvatarsSet = Watched({})
+let function updateGroupmatesAvatarsSetAndStorage(v){
+  let s = v.map(function(_, eid) {
+    if (eid not in groupmatesAvatarsStorage)
+      groupmatesAvatarsStorage[eid] <- Computed(@() groupmatesAvatars.value?[eid]) //this looks awful but we need it
+    return eid
+  })
+  let toDelete = []
+  foreach (eid, _ in groupmatesAvatarsStorage){
+    if (eid not in s)
+      toDelete.append(eid)
+  }
+  foreach (eid in toDelete){
+    delete groupmatesAvatarsStorage[eid]
+  }
+  groupmatesAvatarsSet(s)
+}
+
+updateGroupmatesAvatarsSetAndStorage(groupmatesAvatars.value)
+groupmatesAvatars.subscribe(updateGroupmatesAvatarsSetAndStorage)
+
 return {
-  teammatesAvatars // alive soldier, not watched, same team
-  groupmatesAvatars // alive soldier, possessed, not watched, same team, same group
+  teammatesAvatarsSet
+  teammatesAvatarsNotGroupmatesSet = Computed(function() {
+    let groupmates = groupmatesAvatars.value
+    return teammatesAvatarsSet.value.filter(@(_, eid) eid not in groupmates)
+  })// alive soldier key eid, same team
+  teammatesAvatarsGetWatched
+  groupmatesAvatarsGetWatched
+  groupmatesAvatarsSet
   teammatesAliveNum // num of alive soldiers, possessed, same team, not disconnected player, not local player
-  teammatesConnectedNum // num of players, same team, not disconnected, not local
 }

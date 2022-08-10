@@ -327,7 +327,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=40.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
   ground_effect__offset_y:p2=3.0, 1.0
@@ -340,7 +339,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=20.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.35
   ground_effect__fx_radius:r=-1.0
   ground_effect__offset_y:p2=3.0, 1.0
@@ -357,7 +355,6 @@ entity{
   ground_effect__grid_cell_size:r=32.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -373,7 +370,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -389,7 +385,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -401,7 +396,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -797,7 +791,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="stalingrad_station_dom"
 
   "loading_images:list<t>"{

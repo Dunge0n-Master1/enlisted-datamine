@@ -1,6 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let {TEAM_UNASSIGNED} = require("team")
-let logBR = require("%sqstd/log.nut")().with_prefix("[BattleReward] ")
+let logBR = require("%enlSqGlob/library_logs.nut").with_prefix("[BattleReward] ")
 let {EventLevelLoaded} = require("gameevents")
 let {EventTeamRoundResult} = require("dasevents")
 let { find_human_player_by_connid, find_local_player } = require("%dngscripts/common_queries.nut")
@@ -62,7 +62,7 @@ let scorePlayerInfoQuery = ecs.SqQuery("scorePlayerInfoQuery", {
 let playerAwardsQuery = ecs.SqQuery("playerAwardsQuery", { comps_ro = [["awards", ecs.TYPE_ARRAY]] })
 
 let missionParamsQuery = ecs.SqQuery("missionParamsQuery", {
-  comps_ro = [["mission_name", ecs.TYPE_STRING, ""]]
+  comps_ro = [["mission_name", ecs.TYPE_STRING]]
 })
 
 let playerArmyQuery = ecs.SqQuery("playerArmyQuery",
@@ -136,7 +136,7 @@ let function sendExpToProfileServer(playerEid, expReward) {
     squadsExp = expReward?.squadsExp ?? {}
     soldiersExp = expReward?.soldiersExp ?? {}
     battleInfo = {
-      missionId = missionParamsQuery(@(_, comp) comp.mission_name)
+      missionId = missionParamsQuery(@(_, comp) comp.mission_name) ?? ""
       result = expReward?.result ?? 0
       activity = expReward?.activity ?? 0.0
     }
@@ -374,7 +374,7 @@ let function onRoundResult(evt, _eid, _comp) {
     delete hero.playerEid
   }))
   let battleEndTime = get_sync_time()
-  foreach(playerEid, playerData in playersStats) {
+  foreach (playerEid, playerData in playersStats) {
     let team = playerData.team
     let teamHeroes = heroes?[team] ?? {}
     let playerAwards = awards?[team]?[playerEid] ?? []

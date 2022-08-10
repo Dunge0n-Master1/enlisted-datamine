@@ -12,7 +12,7 @@ let {
   mkShopItemView, shopItemLockedMsgBox, mkShopItemImg, mkLevelLockLine, mkShopItemPriceLine,
   mkShopItemUsage
 } = require("shopPkg.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
@@ -222,7 +222,7 @@ let shopItemsScene = @() {
           valign = ALIGN_BOTTOM
           children = isSelectedVehicle.value
             ? vehicleDetails
-            : mkDetailsInfo(curSelectedItem, Watched(null), false)
+            : mkDetailsInfo(curSelectedItem, false)
         }
       ]
     }

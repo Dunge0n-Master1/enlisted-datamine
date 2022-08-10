@@ -40,10 +40,9 @@ def draw_camera_gun_aim_es(evt : UpdateStageInfoRenderDebug)
     if traceray_normalized(tracePos, traceDir, len, norm)
       color = E3DCOLOR(0xFF00FF00)
 
-    using() <| $(var intersections : IntersectedEntities#)
-      trace_entities_in_grid(ecs_hash("humans"), tracePos, traceDir, len, INVALID_ENTITY_ID, intersections, SortIntersections NO)
-      trace_entities_in_grid(ecs_hash("vehicles"), tracePos, traceDir, len, INVALID_ENTITY_ID, intersections, SortIntersections NO)
-      trace_entities_in_grid(ecs_hash("interactable"), tracePos, traceDir, len, INVALID_ENTITY_ID, intersections, SortIntersections NO)
+    trace_entities_in_grid(ecs_hash("humans"), tracePos, traceDir, len, INVALID_ENTITY_ID)
+    trace_entities_in_grid(ecs_hash("vehicles"), tracePos, traceDir, len, INVALID_ENTITY_ID)
+    trace_entities_in_grid(ecs_hash("interactable"), tracePos, traceDir, len, INVALID_ENTITY_ID)
 
     let pos = tracePos + traceDir * len
     draw_debug_sphere_buffered(pos, 0.25, color, 24, 5)
@@ -51,7 +50,7 @@ def draw_camera_gun_aim_es(evt : UpdateStageInfoRenderDebug)
 
 def shoot_from_gun(gun_eid : EntityId; gun_tm : float3x4?; start_vel : float)
   let atTime = get_sync_time()
-  let gctrl = [[GunControls() shoot=true, wishShoot=true, boltActionMult = 1.]]
+  let gctrl = [[GunControls() shoot=true, wishShoot=true, boltActionMult = 1., timeStep = 0.01]]
   let gunPos = (*gun_tm)[3]
   let gunDir = (*gun_tm)[0]
   let gunVel = start_vel * gunDir

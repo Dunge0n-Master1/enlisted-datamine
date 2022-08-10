@@ -1,6 +1,6 @@
 require ecs
 require EnlistedNet
-require Action
+require game.es.action_common
 require game.es.events
 require game.events_game
 require game.utils.team

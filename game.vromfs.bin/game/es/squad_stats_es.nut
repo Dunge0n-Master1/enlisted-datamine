@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-let logBR = require("%sqstd/log.nut")().with_prefix("[BattleReward] ")
+let logBR = require("%enlSqGlob/library_logs.nut").with_prefix("[BattleReward] ")
 let {EventAnyEntityDied} = require("dasevents")
 let {EventLevelLoaded} = require("gameevents")
 let { get_sync_time, INVALID_CONNECTION_ID, has_network } = require("net")
@@ -43,6 +43,7 @@ let newStats = @() {
   builtRallyPointUses = 0
   hostedOnSoldierSpawns = 0
   vehicleRepairs = 0
+  vehicleExtinguishes = 0
   reviveAssists = 0
   healAssists = 0
   barrageBalloonDestructions = 0
@@ -157,6 +158,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__builtRallyPointUses", ecs.TYPE_INT],
     ["scoring_player__hostedOnSoldierSpawns", ecs.TYPE_INT],
     ["scoring_player__vehicleRepairs", ecs.TYPE_INT],
+    ["scoring_player__vehicleExtinguishes", ecs.TYPE_INT],
     ["scoring_player__reviveAssists", ecs.TYPE_INT],
     ["scoring_player__healAssists", ecs.TYPE_INT],
     ["scoring_player__crewKillAssists", ecs.TYPE_FLOAT],
@@ -203,7 +205,7 @@ let squadStatsFilter = {
 let function onSquadMembersStats(evt, _, __) {
   let awardsByPlayer = {}
   let awardsByGuid = {}
-  foreach(data in evt.data.list) {
+  foreach (data in evt.data.list) {
     local { stat, playerEid = INVALID_ENTITY_ID, squadEid = INVALID_ENTITY_ID, guid = "", eid = INVALID_ENTITY_ID, amount = 1
     } = data
 

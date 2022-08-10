@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { MY_SQUAD_TEXT_COLOR } = require("%ui/hud/style.nut")
-let { ESO_DEFEND_POINT } = require("ai")
-let { makeArrow } = require("%ui/hud/huds/hud_markers/components/hud_markers_components.nut")
+let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
+let { localSquadOrder } = require("%ui/hud/state/squad_orders.nut")
 
 let moveToPicSize = [fsh(4), fsh(4)]
 let moveToPicName = $"!ui/skin#moveto.svg:{moveToPicSize[0]}:{moveToPicSize[1]}:K"
@@ -34,28 +34,35 @@ let squadOrderIcon = {
 
 let squadOrderArrow = makeArrow({ color=MY_SQUAD_TEXT_COLOR, yOffs=fsh(4), anim = squadOrderAnim })
 
-let squadOrderChildren = [squadOrderIcon, squadOrderArrow]
+let squadOrderChildren = freeze([squadOrderIcon, squadOrderArrow])
 
-let function squad_order_ctor(eid, marker) {
-  let {orderPosition, orderType} = marker
-  if (orderType != ESO_DEFEND_POINT)
-    return null
+let ctor = function(...) {
+  let watch = localSquadOrder
+  return function() {
+    let orderPosition = watch.value
+    if (orderPosition == null)
+      return {watch}
 
-  return {
-    data = {
-      minDistance = 0.5
-      maxDistance = 10000
-      distScaleFactor = 0.3
-      worldPos = orderPosition
+    return {
+      watch
+      data = {
+        minDistance = 0.5
+        maxDistance = 10000
+        distScaleFactor = 0.3
+        worldPos = orderPosition
+      }
+      halign = ALIGN_CENTER
+      valign = ALIGN_BOTTOM
+      transform = defTransform
+      key = orderPosition
+      children = squadOrderChildren
     }
-    halign = ALIGN_CENTER
-    valign = ALIGN_BOTTOM
-    transform = defTransform
-    key = eid
-    sortOrder = eid
-
-    children = squadOrderChildren
   }
 }
 
-return squad_order_ctor
+return {
+  squad_order_ctor = {
+    ctor
+    watch = null
+  }
+}

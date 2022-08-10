@@ -112,7 +112,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
@@ -128,7 +127,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[16.1833, 0.0, -2.15183] [0.0, 1.0, 0.0] [0.972095, 0.0, 7.31085] [31.4917, 7.22142, 291.071]]
   capzone__title:t="A"
   capzone__caption:t="capzone/railway_station"
@@ -137,7 +136,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[11.8665, 0.0, -1.59052] [0.0, 1.0, 0.0] [0.803588, 0.0, 5.99538] [-58.9688, 5.61992, 162.449]]
   capzone__title:t="B"
   capzone__caption:t="capzone/utility_house"
@@ -147,7 +146,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[5.84098, 0.0, -0.772541] [0.0, 1.0, 0.0] [0.733346, 0.0, 5.54464] [41.8724, 7.80332, 153.897]]
   capzone__title:t="C"
   capzone__caption:t="capzone/repnikova_house"
@@ -159,16 +158,12 @@ entity{
   _template:t="box_battle_area"
   transform:m=[[24.7209, 0.0, 233.19] [0.0, 85.5262, 0.0] [-231.301, 0.0, 28.349] [8.89086, 15.3102, 224.483]]
   battle_area__team:i=2
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
   _template:t="box_battle_area"
   transform:m=[[231.806, 0.0, -35.425] [0.0, 85.5262, 0.0] [38.9617, 0.0, 229.751] [20.8623, 15.3102, 206.42]]
   battle_area__team:i=1
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{

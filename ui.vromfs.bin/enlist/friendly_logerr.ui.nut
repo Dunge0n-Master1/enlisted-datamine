@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let colors = require("%ui/style/colors.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")

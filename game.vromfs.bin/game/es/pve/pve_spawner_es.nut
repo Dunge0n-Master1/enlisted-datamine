@@ -1,15 +1,14 @@
 import "%dngscripts/ecs.nut" as ecs
 
 let { spawnSquad } = require("%scripts/game/utils/squad_spawn.nut")
+let { mkSpawnParamsByTeam } = require("%scripts/game/utils/spawn.nut")
+let { loadJson } = require("%sqstd/json.nut")
 
 let pveMissionInfoQuery = ecs.SqQuery("pveMissionInfoQuery", {comps_ro=[["pve__botProfile", ecs.TYPE_OBJECT], ["pve__botTeam", ecs.TYPE_INT]]})
 
 ecs.register_es("pve_init_es",
   {
-    [["onInit"]] = function(_eid, comp) {
-      let botProfileFile = comp["pve__botProfileFile"]
-      comp["pve__botProfile"] = require($"%enlSqGlob/data/{botProfileFile}")
-    }
+    [["onInit"]] = @(_eid, comp) comp.pve__botProfile <- loadJson(comp["pve__botProfileFile"])
   },
   {
     comps_ro = [["pve__botProfileFile", ecs.TYPE_STRING]],
@@ -31,7 +30,8 @@ ecs.register_es("pve_stage_active_es",
           let squads = botProfile[spawner["armyId"]].squads
           let squad = squads.findvalue(@(val) val.squadId == spawner["squadId"]).squad
 
-          enemyCount += spawner["count"]
+          enemyCount += spawner["count"] * squad.len()
+          let spawnPos = spawner?.spawnPos
           for (local i = 0; i < spawner["count"]; ++i) {
             spawnSquad({
               squad = squad
@@ -39,6 +39,11 @@ ecs.register_es("pve_stage_active_es",
               playerEid = INVALID_ENTITY_ID
               memberId = squad.findindex(@(val) val.guid == spawner["soldierGuid"])
               addTemplatesOnSpawn = botExtraTemplate
+              mkSpawnParamsCb = function(team) {
+                let params = mkSpawnParamsByTeam(team)
+                params.transform[3] = spawnPos ?? params.transform[3]
+                return params
+              }
             })
           }
         }

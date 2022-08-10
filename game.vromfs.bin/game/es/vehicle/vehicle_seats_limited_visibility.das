@@ -13,7 +13,7 @@ def seat_limited_visibility_impl(seat__ownerEid, seat__limitedVisibility)
 
 [es(tag=server, on_event=EventOnSeatOwnersChanged)]
 def seat_visibility_changed(evt : Event; vehicle_seats__seatEids : EidList)
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__limitedVisibility : int)
       seat_limited_visibility_impl(seat__ownerEid, seat__limitedVisibility)
 

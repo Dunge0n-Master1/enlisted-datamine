@@ -21,7 +21,7 @@ let { getAppIdsList } = require("%enlist/getAppIdsList.nut")
 let { showCrossnetworkChatRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
 let { INVALID_USER_ID } = require("matching.errors")
 
-let logC = require("%sqstd/log.nut")().with_prefix("[CONTACTS STATE] ")
+let logC = require("%enlSqGlob/library_logs.nut").with_prefix("[CONTACTS STATE] ")
 
 let isOnlineContactsSearchEnabled = true //TODO: remove flag
 let isContactsEnabled = true //TODO: Remove flag
@@ -179,7 +179,7 @@ let function updateGroup(new_contacts, uids, groupName) {
     ? canCrossnetworkChatWithFriends.value
     : canCrossnetworkChatWithAll.value
 
-  foreach(member in members) {
+  foreach (member in members) {
     local { userId, nick } = member
     if (!canInterractCrossPlatform(nick, cnChatWatchVal))
       continue
@@ -237,7 +237,7 @@ let function searchContactsOnline(nick, callback = null) {
 
       let myUserId = userInfo.value?.userIdStr ?? ""
       let resContacts = {}
-      foreach(uidStr, name in result)
+      foreach (uidStr, name in result)
         if ((typeof name == "string")
             && uidStr != myUserId
             && uidStr != "") {
@@ -280,7 +280,7 @@ if (platform.is_sony)
 
 blockedUids.subscribe(function(b) {
   let byUid = {}
-  foreach(userId, _ in b)
+  foreach (userId, _ in b)
     byUid[userId.tointeger()] <- true
   blacklist(byUid)
 })

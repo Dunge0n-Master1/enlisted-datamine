@@ -26,7 +26,7 @@ let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let finishedOpacity = 0.5
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
 
-let mkTaskContent = @(task) function() {
+let mkTaskContent = @(task, sf) function() {
   let progress = getUnlockProgress(task)
   let { isFinished = false, activity = null } = task
   let { active = false } = activity
@@ -44,15 +44,15 @@ let mkTaskContent = @(task) function() {
         gap = taskDescPadding
         opacity = isFinished || !active ? finishedOpacity : 1.0
         children = [
-          taskHeader(task, progress)
-          taskDescription(task.localization.description)
+          taskHeader(task, progress, true, sf)
+          taskDescription(task?.localization.description, sf)
         ]
       }
     ]
   }
 }
 
-let timerSize = hdpx(18).tointeger()
+let timerSize = hdpxi(18)
 let timerIcon = {
   rendObj = ROBJ_IMAGE
   size = [timerSize, timerSize]
@@ -98,10 +98,18 @@ let function mkWeeklyTaskSlot(task, isUnseen) {
   let { name, isFinished = false, hasReward = false, activity = null } = task
   let { end_timestamp = 0, active = false } = activity
   let hasExpireTimer = active && !isFinished
+  let timeLeft = hasReward ? mkGetTaskRewardBtn(task, receiveTaskRewards, unlockRewardsInProgress)
+    : !active ? {
+        rendObj = ROBJ_TEXT
+        text = loc("notActive")
+        color = defTxtColor
+      }
+    : hasExpireTimer ? mkTaskExpireTimer(end_timestamp)
+    : null
   return {
     size = [flex(), SIZE_TO_CONTENT]
     children = [
-      {
+      watchElemState(@(sf) {
         size = [flex(), SIZE_TO_CONTENT]
         minHeight = taskMinHeight
         rendObj = ROBJ_SOLID
@@ -117,18 +125,10 @@ let function mkWeeklyTaskSlot(task, isUnseen) {
             hoverHoldAction("markSeenWeeklyTasks", name, @(v) markSeenWeeklyTasks(v))(on)
         }
         children = [
-          mkTaskContent(task)
-          hasReward
-            ? mkGetTaskRewardBtn(task, receiveTaskRewards, unlockRewardsInProgress)
-            : !active ? {
-                rendObj = ROBJ_TEXT
-                text = loc("notActive")
-                color = defTxtColor
-              }
-            : hasExpireTimer ? mkTaskExpireTimer(end_timestamp)
-            : null
+          mkTaskContent(task, sf)
+          timeLeft
         ]
-      }
+      })
       statusBlock(task)
       isUnseen ? unseenSignal : null
     ]

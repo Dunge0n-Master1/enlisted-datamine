@@ -31,7 +31,7 @@ let sumExp = @(boosters) boosters.reduce(@(res, b) res + b.expMul, 0.0)
 let function mkTooltip() {
   let infoBlocks = Computed(function() {
     let boostersByType = {}
-    foreach(booster in curArmyBoosters.value)
+    foreach (booster in curArmyBoosters.value)
       boostersByType[booster.bType] <- (boostersByType?[booster.bType] ?? []).append(booster)
 
     let globalAdd = sumExp(boostersByType?[globalBoost] ?? [])

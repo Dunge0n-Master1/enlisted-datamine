@@ -5,6 +5,8 @@ require imgui
 
 [imgui_window(name="Replay control", group="Replay")]
 def ecs_anim_graph2()
+  if IsWindowCollapsed()
+    return
   let size = imgui::GetWindowSize()
   if size.x <= 200f || size.y <= 200f
     imgui::SetWindowSize(float2(200))

@@ -12,6 +12,7 @@ let state = {
   isRepairRequired = Watched(false)
   isExtinguishRequired = Watched(false)
   hasRepairKit = Watched(false)
+  hasExtinguisher = Watched(false)
   canMaintainVehicle = Watched(false)
 }
 
@@ -35,6 +36,7 @@ ecs.register_es("ui_maintenance_es",
       state.isExtinguishing(isHeroExtinguishing)
       state.isRepairing(isHeroRepairing)
       state.hasRepairKit(comp.repair__hasRepairKit)
+      state.hasExtinguisher(comp.extinguisher__hasExtinguisher)
       state.canMaintainVehicle(comp.maintenance__canMaintainVehicle)
       if (mntTgtEid != INVALID_ENTITY_ID){
         state.isRepairRequired(comp.maintenance__targetNeedsRepair)
@@ -77,6 +79,7 @@ ecs.register_es("ui_maintenance_es",
       ["extinguisher__active", ecs.TYPE_BOOL, false],
       ["repair__active", ecs.TYPE_BOOL, false],
       ["repair__hasRepairKit", ecs.TYPE_BOOL, false],
+      ["extinguisher__hasExtinguisher", ecs.TYPE_BOOL, false],
       ["maintenance__canMaintainVehicle", ecs.TYPE_BOOL, false],
       ["maintenance__targetNeedsRepair", ecs.TYPE_BOOL, false],
       ["maintenance__targetNeedsExtinguishing", ecs.TYPE_BOOL, false],

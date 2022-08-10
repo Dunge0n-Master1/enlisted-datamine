@@ -1,33 +1,5 @@
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
+import{
+  scene:t="content/enlisted/gamedata/scenes/_common_sounds.blk"
 }
 
 entity{
@@ -36,13 +8,5 @@ entity{
 }
 
 entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    path:t="ambient/europe_winter"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
+  _template:t="europe_winter_ambient_sound"
 }

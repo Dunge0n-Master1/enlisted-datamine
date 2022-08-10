@@ -18,6 +18,12 @@ def respawn_camera_delay_change_target_es(evt : Event;
     if is_teams_friendly(team, respawnCameraForTeam) || respawnCameraForTeam == TEAM_UNASSIGNED
       respawner__changeCameraAtTime = get_sync_time() + respawnCamera__showDelay
 
+[es(on_appear, REQUIRE=respawnCameraForTeam)]
+def reset_respawn_camera_rotation(evt : Event; var transform : float3x4)
+  var newTm = IDENT_TM
+  newTm[3] = transform[3]
+  transform = newTm
+
 def setup_camera_as_active(cam_eid : EntityId; cam_name : string)
   query(get_local_player_eid()) <| $ [es] (var activeCamEid : EntityId&; var activeCamName : das_string)
     activeCamEid = cam_eid

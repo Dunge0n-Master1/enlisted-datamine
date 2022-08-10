@@ -1,26 +1,16 @@
 sequencer{
-  name:t="sub.train"
+  name:t="sub.runToTrain"
 
   reaction{
-    event:t="onAgentTrainZoneEnter"
-
-    recalculateTree{
-    }
-  }
-
-  reaction{
-    event:t="onAgentTrainEnter"
-
-    recalculateTree{
-    }
-  }
-
-  reaction{
-    event:t="onAgentTrainLeave"
+    event:t="onEnemyPlayerNear"
 
     sequencer{
 
-      resetNavPoints{
+      findDanger{
+        paramName:t="shootEnemy"
+        radiusParamName:t="enemyNearRadius"
+        minDanger:r=0.1
+        tag:t="human"
       }
 
       recalculateTree{
@@ -28,612 +18,555 @@ sequencer{
     }
   }
 
-  isInTrainZone{
-  }
+  reaction{
+    event:t="regularCheck"
 
-  orderedSelector{
+    repeat{
+      count:i=1
 
-    sequencer{
-
-      isOnTrain{
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
       }
 
-      repeat{
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
 
-        reaction{
-          event:t="onEnemyPlayerNear"
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
 
-          sequencer{
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
 
-            not{
+      subTree{
+        name:t=""
+        treeName:t="sub.swimUpCheck"
+      }
 
-              isDowned{
-              }
-            }
+      subTree{
+        name:t=""
+        treeName:t="sub.tryToOpenDoors"
+      }
 
-            findDanger{
-              paramName:t="shootEnemy"
-              radiusParamName:t="enemyNearRadius"
-              minDanger:r=0.1
-              outDangerParam:t="outDanger"
-              tag:t="human"
-            }
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerZone"
+      }
 
-            checkTarget{
-              targetUnitParam:t="shootEnemy"
-            }
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerGrenade"
+      }
+    }
+  }
 
-            orderedSelector{
+  parallel{
 
-              isVarsIntEqual{
-                lhs:t="prevShootEnemy"
-                rhs:t="shootEnemy"
-              }
+    cycle{
 
-              sequencer{
+      updateTrainLocalPoint{
+        localPosParam:t="enterPosition"
+        worldPosParam:t="wishPosition"
+      }
+    }
 
-                copyIntVar{
-                  to:t="prevShootEnemy"
-                  from:t="shootEnemy"
-                }
+    orderedSelector{
 
-                selectNode{
-                  selectName:t="one_shoot_attack_train"
-                }
-              }
-            }
-          }
+      sequencer{
+
+        checkDistance{
+          posParam:t="wishPosition"
+          radius:r=4.0
+          yRadius:r=4.5
         }
 
-        reaction{
-          event:t="regularCheck"
-
-          sequencer{
-
-            not{
-
-              isDowned{
-              }
-            }
-
-            findDanger{
-              paramName:t="shootEnemy"
-              radiusParamName:t="enemyRadius"
-              minDanger:r=0.1
-              outDangerParam:t="outDanger"
-              tag:t="human"
-            }
-
-            checkTarget{
-              targetUnitParam:t="shootEnemy"
-            }
-
-            orderedSelector{
-
-              isVarsIntEqual{
-                lhs:t="prevShootEnemy"
-                rhs:t="shootEnemy"
-              }
-
-              sequencer{
-
-                copyIntVar{
-                  to:t="prevShootEnemy"
-                  from:t="shootEnemy"
-                }
-
-                selectNode{
-                  selectName:t="one_shoot_attack_train"
-                }
-              }
-            }
-          }
+        changeStance{
+          stanceName:t="stand"
         }
 
-        sequencer{
+        parallel{
 
-          isDowned{
+          moveByDir{
+            endPos:t="wishPosition"
+            duration:r=2.0
+            distThresholsd:r=0.5
           }
 
-          setCurrentAiAction{
-            state:t="heal"
+          walkerClimb{
+            duration:r=2.0
           }
+        }
+      }
 
-          useMedkit{
-          }
+      sequencer{
+
+        moveToPos{
+          posParam:t="wishPosition"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=0.5
+          tryClimbing:b=yes
+          distThreshold:r=1.0
+          avoidAiObstacles:b=no
+          minStance:i=2
+        }
+
+        checkDistance{
+          posParam:t="wishPosition"
+          radius:r=4.0
+          yRadius:r=4.5
+        }
+      }
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.oneShootAttackTrain"
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+    }
+  }
+
+  reaction{
+    event:t="onEnemyPlayerNear"
+
+    orderedSelector{
+
+      sequencer{
+
+        findDanger{
+          paramName:t="meleeEnemy"
+          radiusParamName:t="enemyMeleeRadius"
+          minDanger:r=0.5
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.5
+          tag:t="human"
         }
 
         orderedSelector{
 
-          reaction{
-            event:t="onEnemyPlayerNear"
-
-            sequencer{
-
-              findDanger{
-                paramName:t="shootEnemy"
-                radiusParamName:t="enemyNearRadius"
-                minDanger:r=0.1
-                outDangerParam:t="outDanger"
-                tag:t="human"
-              }
-
-              checkTarget{
-                targetUnitParam:t="shootEnemy"
-              }
-
-              selectNode{
-                selectName:t="one_shoot_attack_train"
-              }
-            }
+          isVarsIntEqual{
+            lhs:t="prevShootEnemy"
+            rhs:t="shootEnemy"
           }
 
-          reaction{
-            event:t="onBulletNearby"
-
-            selectNode{
-              selectName:t="one_shoot_attack_train"
-            }
-          }
-
-          reaction{
-            event:t="regularCheck"
-
-            sequencer{
-
-              orderedSelector{
-
-                sequencer{
-
-                  isDowned{
-                  }
-
-                  recalculateTree{
-                  }
-                }
-
-                success{
-                }
-              }
-
-              orderedSelector{
-
-                isVarsIntEqual{
-                  lhs:t="prevShootEnemy"
-                  rhs:t="shootEnemy"
-                }
-
-                sequencer{
-
-                  copyIntVar{
-                    to:t="prevShootEnemy"
-                    from:t="shootEnemy"
-                  }
-
-                  selectNode{
-                    selectName:t="one_shoot_attack_train"
-                  }
-                }
-              }
-
-              not{
-
-                isDowned{
-                }
-              }
-
-              findDanger{
-                paramName:t="shootEnemy"
-                radiusParamName:t="enemyRadius"
-                minDanger:r=0.1
-                outDangerParam:t="outDanger"
-                tag:t="human"
-              }
-
-              checkTarget{
-                targetUnitParam:t="shootEnemy"
-              }
-            }
-          }
-
-          sequencer{
-
-            orderedSelector{
-
-              isLeaderOnTrain{
-              }
-
-              not{
-
-                isLeaderAlive{
-                }
-              }
-            }
-
-            orderedSelector{
-
-              isAgentCartEidValid{
-              }
-
-              sequencer{
-
-                resetNavPoints{
-                }
-
-                findAgentCart{
-                }
-
-                findTrainEnterPoint{
-                  posParam:t="enterPosition"
-                  init:b=no
-                }
-
-                orderedSelector{
-
-                  sequencer{
-
-                    isOnTheTrainRoof{
-                    }
-
-                    findTrainNavPointOnTheRoof{
-                      posParam:t="navPosition"
-                    }
-                  }
-
-                  findTrainNavPoint{
-                    posParam:t="navPosition"
-                  }
-                }
-              }
-            }
-
-            orderedSelector{
-
-              sequencer{
-
-                findTrainDangerPoint{
-                  posParam:t="dangerPosition"
-                }
-
-                updateTrainLocalPoint{
-                  localPosParam:t="dangerPosition"
-                  worldPosParam:t="potentialEnemyPos"
-                }
-              }
-
-              findPotentialEnemyPos{
-                posParam:t="potentialEnemyPos"
-                minNoiseLevel:r=0.1
-              }
-
-              findDangerAttractionPos{
-                posParam:t="potentialEnemyPos"
-                radius:r=0.0
-                minNoiseLevel:r=0.1
-              }
-            }
-
-            ifThenElse{
-
-              isOnTheTrainRoof{
-              }
-
-              orderedSelector{
-
-                isNavPointOnTheRoofValid{
-                }
-
-                sequencer{
-
-                  resetNavPoints{
-                    resetCartEid:b=no
-                  }
-
-                  findTrainEnterPoint{
-                    posParam:t="enterPosition"
-                    init:b=no
-                  }
-
-                  findTrainNavPointOnTheRoof{
-                    posParam:t="navPosition"
-                  }
-                }
-              }
-
-              orderedSelector{
-
-                isNavPointValid{
-                }
-
-                sequencer{
-
-                  resetNavPoints{
-                    resetCartEid:b=no
-                  }
-
-                  findTrainEnterPoint{
-                    posParam:t="enterPosition"
-                    init:b=no
-                  }
-
-                  findTrainNavPoint{
-                    posParam:t="navPosition"
-                  }
-                }
-              }
-            }
-
-            changeStance{
-              stanceName:t="stand"
-            }
-
-            parallel{
-
-              cycle{
-
-                updateTrainLocalPoint{
-                  localPosParam:t="navPosition"
-                  worldPosParam:t="wishPosition"
-                }
-              }
-
-              moveByDir{
-                endPos:t="wishPosition"
-                duration:r=2.0
-                distThreshold:r=0.5
-              }
-            }
-
-            parallel{
-
-              cycle{
-
-                orderedSelector{
-
-                  sequencer{
-
-                    findTrainDangerPoint{
-                      posParam:t="dangerPosition"
-                    }
-
-                    updateTrainLocalPoint{
-                      localPosParam:t="dangerPosition"
-                      worldPosParam:t="potentialEnemyPos"
-                    }
-                  }
-
-                  running{
-                  }
-                }
-              }
-
-              wait{
-                range:p2=1.5, 4.0
-                resetable:b=yes
-              }
-
-              wanderLook{
-                posParam:t="potentialEnemyPos"
-                range:p2=0.2, 0.1
-                maxStanceParam:t="trainStance"
-              }
-            }
-
-            parallel{
-
-              cycle{
-
-                orderedSelector{
-
-                  sequencer{
-
-                    findTrainDangerPoint{
-                      posParam:t="dangerPosition"
-                    }
-
-                    updateTrainLocalPoint{
-                      localPosParam:t="dangerPosition"
-                      worldPosParam:t="potentialEnemyPos"
-                    }
-                  }
-
-                  running{
-                  }
-                }
-              }
-
-              wait{
-                range:p2=1.5, 4.0
-                resetable:b=yes
-              }
-
-              wanderLook{
-                posParam:t="potentialEnemyPos"
-                range:p2=0.2, 0.1
-                maxStanceParam:t="trainStance"
-              }
-            }
-
-            chooseRandomStance{
-              stanceParam:t="trainStance"
-              minStance:i=1
-              maxStance:i=1
-            }
-
-            chooseRandomStance{
-              stanceParam:t="trainStance"
-            }
-          }
-
-          sequencer{
-
-            orderedSelector{
-
-              isAgentCartEidValid{
-              }
-
-              sequencer{
-
-                resetNavPoints{
-                }
-
-                findAgentCart{
-                }
-              }
-            }
-
-            orderedSelector{
-
-              isOnTheTrainRoof{
-              }
-
-              sequencer{
-
-                findTrainEnterPoint{
-                  posParam:t="enterPosition"
-                  init:b=no
-                  nearestToLeader:b=yes
-                }
-
-                changeStance{
-                  stanceName:t="stand"
-                }
-
-                parallel{
-
-                  cycle{
-
-                    updateTrainLocalPoint{
-                      localPosParam:t="enterPosition"
-                      worldPosParam:t="wishPosition"
-                    }
-                  }
-
-                  moveByDir{
-                    endPos:t="wishPosition"
-                    duration:r=5.0
-                    distThreshold:r=0.5
-                  }
-                }
-              }
-            }
-
-            findTrainExitPoint{
-              posParam:t="exitPosition"
-              nearestToLeader:b=yes
-            }
-
-            changeStance{
-              stanceName:t="stand"
-            }
-
-            parallel{
-
-              cycle{
-
-                updateTrainLocalPoint{
-                  localPosParam:t="exitPosition"
-                  worldPosParam:t="wishPosition"
-                }
-              }
-
-              moveByDir{
-                endPos:t="wishPosition"
-                duration:r=5.0
-                distThreshold:r=0.5
-              }
-            }
-
-            resetNavPoints{
-            }
+          recalculateTree{
           }
         }
+      }
+    }
+  }
 
-        repeatUntilFail{
-          name:t="one_shoot_attack_train"
-          count:i=2
+  chooseBestWeapon{
+    targetParam:t="shootEnemy"
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
+  }
+
+  getRandomPointNearTarget{
+    targetUnitParam:t="shootEnemy"
+    posParam:t="posNearTarget"
+    useGenerationByY:b=no
+  }
+
+  rotateToPoint{
+    posParam:t="posNearTarget"
+  }
+
+  repeat{
+    count:i=2
+
+    copyIntVar{
+      to:t="prevShootEnemy"
+      from:t="shootEnemy"
+    }
+
+    shootAtUnit{
+      targetUnitParam:t="shootEnemy"
+      minStance:i=1
+      shootCycles:i=1
+      tryToSaveCurrentStance:b=no
+      minStanceChance:r=1.5
+      shootTime:p2=0.2, 1.0
+      cooldownTime:p2=0.1, 0.9
+      minAimTime:p2=0.1, 0.4
+      maxStanceParam:t="maxStance"
+    }
+  }
+}
+
+repeat{
+  name:t="sub.useTrain"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.chooseMaxStance"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.deactivateWeapMod"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.selfExtinguish"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.selfHealing"
+  }
+
+  orderedSelector{
+    name:t="attackTrain"
+
+    subTree{
+      name:t=""
+      treeName:t="sub.enemyMelee"
+    }
+
+    sequencer{
+
+      orderedSelector{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+      }
+
+      subTree{
+        treeName:t="sub.oneShootAttackTrain"
+      }
+    }
+  }
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      recalculateTree{
+      }
+    }
+
+    reaction{
+      event:t="onBulletNearby"
+
+      recalculateTree{
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      subTree{
+        treeName:t="sub.stayFindDangerCheck"
+      }
+    }
+
+    orderedSelector{
+
+      isAgentCartEidValid{
+      }
+
+      sequencer{
+
+        resetNavPoints{
+        }
+
+        findAgentCart{
+        }
+
+        findTrainEnterPoint{
+          posParam:t="enterPosition"
+          init:b=no
+        }
+
+        orderedSelector{
 
           sequencer{
 
-            not{
-
-              isDowned{
-              }
+            isOnTheTrainRoof{
             }
 
-            findDanger{
-              paramName:t="shootEnemy"
-              radiusParamName:t="enemyRadius"
-              minDanger:r=0.1
-              outDangerParam:t="outDanger"
-              tag:t="human"
+            findTrainNavPointOnTheRoof{
+              posParam:t="navPosition"
             }
+          }
 
-            checkTarget{
-              targetUnitParam:t="shootEnemy"
-            }
-
-            chooseBestWeapon{
-              targetParam:t="shootEnemy"
-            }
-
-            setCurrentAiAction{
-              state:t="attack"
-            }
-
-            getRandomPointNearTarget{
-              targetUnitParam:t="shootEnemy"
-              posParam:t="posNearTarget"
-            }
-
-            rotateToPoint{
-              posParam:t="posNearTarget"
-            }
-
-            shootAtUnit{
-              targetUnitParam:t="shootEnemy"
-              minStance:i=1
-              shootCycles:i=2
-              tryToSaveCurrentStance:b=no
-              minStanceChance:r=1.5
-              shootTime:p2=0.2, 0.9
-              cooldownTime:p2=0.1, 0.3
-              minAimTime:p2=0.1, 0.4
-              maxStanceParam:t="maxStance"
-            }
+          findTrainNavPoint{
+            posParam:t="navPosition"
           }
         }
       }
     }
 
-    sequencer{
+    orderedSelector{
 
-      not{
+      sequencer{
 
-        isDowned{
+        findTrainDangerPoint{
+          posParam:t="dangerPosition"
+        }
+
+        updateTrainLocalPoint{
+          localPosParam:t="dangerPosition"
+          worldPosParam:t="potentialEnemyPos"
         }
       }
 
-      resetNavPoints{
+      findPotentialEnemyPos{
+        posParam:t="potentialEnemyPos"
+        minNoiseLevel:r=0.1
+      }
+
+      findDangerAttractionPos{
+        posParam:t="potentialEnemyPos"
+        radius:r=0.0
+        minNoiseLevel:r=0.1
+      }
+    }
+
+    ifThenElse{
+
+      isOnTheTrainRoof{
       }
 
       orderedSelector{
 
-        isLeader{
+        isNavPointOnTheRoofValid{
         }
 
-        isLeaderOnTrain{
+        sequencer{
+
+          resetNavPoints{
+            resetCartEid:b=no
+          }
+
+          findTrainEnterPoint{
+            posParam:t="enterPosition"
+            init:b=no
+          }
+
+          findTrainNavPointOnTheRoof{
+            posParam:t="navPosition"
+          }
         }
       }
+
+      orderedSelector{
+
+        isNavPointValid{
+        }
+
+        sequencer{
+
+          resetNavPoints{
+            resetCartEid:b=no
+          }
+
+          findTrainEnterPoint{
+            posParam:t="enterPosition"
+            init:b=no
+          }
+
+          findTrainNavPoint{
+            posParam:t="navPosition"
+          }
+        }
+      }
+    }
+
+    changeStance{
+      stanceName:t="stand"
+    }
+
+    parallel{
+
+      cycle{
+
+        updateTrainLocalPoint{
+          localPosParam:t="navPosition"
+          worldPosParam:t="wishPosition"
+        }
+      }
+
+      moveByDir{
+        endPos:t="wishPosition"
+        duration:r=6.0
+        distThreshold:r=0.5
+      }
+    }
+
+    parallel{
+
+      cycle{
+
+        orderedSelector{
+
+          sequencer{
+
+            findTrainDangerPoint{
+              posParam:t="dangerPosition"
+            }
+
+            updateTrainLocalPoint{
+              localPosParam:t="dangerPosition"
+              worldPosParam:t="potentialEnemyPos"
+            }
+          }
+
+          running{
+          }
+        }
+      }
+
+      wait{
+        range:p2=1.5, 4.0
+        resetable:b=yes
+      }
+
+      wanderLook{
+        posParam:t="potentialEnemyPos"
+        range:p2=0.2, 0.1
+        maxStanceParam:t="trainStance"
+      }
+    }
+
+    parallel{
+
+      cycle{
+
+        orderedSelector{
+
+          sequencer{
+
+            findTrainDangerPoint{
+              posParam:t="dangerPosition"
+            }
+
+            updateTrainLocalPoint{
+              localPosParam:t="dangerPosition"
+              worldPosParam:t="potentialEnemyPos"
+            }
+          }
+
+          running{
+          }
+        }
+      }
+
+      wait{
+        range:p2=1.5, 4.0
+        resetable:b=yes
+      }
+
+      wanderLook{
+        posParam:t="potentialEnemyPos"
+        range:p2=0.2, 0.1
+        maxStanceParam:t="trainStance"
+      }
+    }
+
+    chooseRandomStance{
+      stanceParam:t="trainStance"
+      minStance:i=1
+      maxStance:i=1
+    }
+
+    chooseRandomStance{
+      stanceParam:t="trainStance"
+    }
+  }
+}
+
+repeat{
+  name:t="sub.outTrain"
+
+  orderedSelector{
+
+    isAgentCartEidValid{
+    }
+
+    sequencer{
+
+      resetNavPoints{
+      }
+
+      findAgentCart{
+      }
+    }
+  }
+
+  orderedSelector{
+
+    isOnTheTrainRoof{
+    }
+
+    sequencer{
 
       findTrainEnterPoint{
         posParam:t="enterPosition"
-        maxDist:r=36.0
+        init:b=no
+        nearestToLeader:b=yes
       }
 
-      findTrainNavPoint{
-        posParam:t="navPosition"
-        maxDist:r=36.0
+      changeStance{
+        stanceName:t="stand"
       }
 
       parallel{
@@ -646,54 +579,41 @@ sequencer{
           }
         }
 
-        orderedSelector{
-
-          sequencer{
-
-            checkDistance{
-              posParam:t="wishPosition"
-              radius:r=4.0
-              yRadius:r=4.5
-            }
-
-            changeStance{
-              stanceName:t="stand"
-            }
-
-            parallel{
-
-              moveByDir{
-                endPos:t="wishPosition"
-                duration:r=2.0
-                distThresholsd:r=0.5
-              }
-
-              walkerClimb{
-                duration:r=2.0
-              }
-            }
-          }
-
-          sequencer{
-
-            moveToPos{
-              posParam:t="wishPosition"
-              sprintTimerRange:p2=10.0, 20.0
-              minDistToSprint:r=0.5
-              tryClimbing:b=yes
-              distThreshold:r=1.0
-              avoidAiObstacles:b=no
-              minStance:i=2
-            }
-
-            checkDistance{
-              posParam:t="wishPosition"
-              radius:r=4.0
-              yRadius:r=4.5
-            }
-          }
+        moveByDir{
+          endPos:t="wishPosition"
+          duration:r=5.0
+          distThreshold:r=0.5
         }
       }
     }
+  }
+
+  findTrainExitPoint{
+    posParam:t="exitPosition"
+    nearestToLeader:b=yes
+  }
+
+  changeStance{
+    stanceName:t="stand"
+  }
+
+  parallel{
+
+    cycle{
+
+      updateTrainLocalPoint{
+        localPosParam:t="exitPosition"
+        worldPosParam:t="wishPosition"
+      }
+    }
+
+    moveByDir{
+      endPos:t="wishPosition"
+      duration:r=5.0
+      distThreshold:r=0.5
+    }
+  }
+
+  resetNavPoints{
   }
 }

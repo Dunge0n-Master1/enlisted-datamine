@@ -37,7 +37,7 @@ let mkArmyExpTooltip = @(header, exp, squads, expCtor) tooltipBox({
               loc("debriefing/tooltipExp")))
             expDetailed
           ]
-        } : {}
+        } : null
       })
     }
   ]
@@ -147,9 +147,9 @@ let mkArmyBaseExpTooltip = @(squads, exp) mkArmyExpTooltip(
 
 let resultExpCfg = @(squad, details, isDeserter, armyId)
   squad.__merge({
-    boostBonus = ((squad?.baseExp ?? 0) * (squad?.squadExpBoost ?? 0)).tointeger()
-    premAccountBonus = ((squad?.baseExp ?? 0) * (1.0 + (squad?.squadExpBoost ?? 0)) * (squad?.premAccountExpBonus ?? 0)).tointeger(),
-    premSquadBonus = ((squad?.baseExp ?? 0) * (squad?.premSquadExpBonus ?? 0)).tointeger(),
+    boostBonus = ((squad?.baseExp ?? 0) * (details?.armyExpBoost ?? 0)).tointeger()
+    premAccountBonus = ((squad?.baseExp ?? 0) * (1.0 + (details?.armyExpBoost ?? 0)) * (squad?.premAccountExpBonus ?? 0)).tointeger(),
+    premSquadBonus = ((squad?.baseExp ?? 0) * (1.0 + (details?.armyExpBoost ?? 0)) * (squad?.premSquadExpBonus ?? 0)).tointeger(),
     resultMult = details?.battleResultMult ?? 1.0,
     awardsMult = details?.battleHeroAwardsMult ?? 1.0,
     playerCountMult = details?.playerCountMult  ?? 1.0,
@@ -166,15 +166,15 @@ let mkArmyResultExpTooltip = @(squads, exp, details, isDeserter, armyId) mkArmyE
     resultExpCfg(squad, details, isDeserter, armyId))
 )
 
-let premExpCfg = @(squad, armyId) {
-  premAccountBonus = (squad.baseExp * (squad?.premAccountExpBonus ?? 0)).tointeger(),
-  premSquadBonus = (squad.baseExp * (squad?.premSquadExpBonus ?? 0)).tointeger(),
+let premExpCfg = @(squad, details, armyId) {
+  premAccountBonus = (squad.baseExp * (1.0 + (details?.armyExpBoost ?? 0)) * (squad?.premAccountExpBonus ?? 0)).tointeger(),
+  premSquadBonus = (squad.baseExp * (1.0 + (details?.armyExpBoost ?? 0)) * (squad?.premSquadExpBonus ?? 0)).tointeger(),
   armyId = armyId
 }
 
-let function getSquadPremiumExpDetailed(squad, armyId) {
+let function getSquadPremiumExpDetailed(squad, details, armyId) {
   let hasPremiumBonuses = (squad?.premAccountExpBonus ?? 0) + (squad?.premSquadExpBonus ?? 0) > 0
-  return hasPremiumBonuses ? getSquadExpDetailed(premExpCfg(squad, armyId)) : null
+  return hasPremiumBonuses ? getSquadExpDetailed(premExpCfg(squad, details, armyId)) : null
 }
 
 let function getPremiumTooltipHeader(hasPremiumAccount, hasPremiumSquad) {
@@ -187,11 +187,11 @@ let function getPremiumTooltipHeader(hasPremiumAccount, hasPremiumSquad) {
   return null
 }
 
-let mkArmyPremiumExpTooltip = @(squads, exp, armyId, hasPremiumAccount, hasPremiumSquad) mkArmyExpTooltip(
+let mkArmyPremiumExpTooltip = @(squads, exp, details, armyId, hasPremiumAccount, hasPremiumSquad) mkArmyExpTooltip(
   getPremiumTooltipHeader(hasPremiumAccount, hasPremiumSquad)
   exp
   squads
-  @(squad) getSquadPremiumExpDetailed(squad, armyId)
+  @(squad) getSquadPremiumExpDetailed(squad, details, armyId)
 )
 
 return {

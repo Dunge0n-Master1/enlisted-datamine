@@ -22,7 +22,7 @@ let place_bipod_tip          = require("%ui/hud/huds/tips/place_bipod_tip.nut")
 let open_parachute_tip       = require("huds/tips/open_parachute_tip.nut")
 let mark_enemy_tip           = require("huds/tips/mark_enemy_tip.nut")
 let mortar_aiming_tip        = require("%ui/hud/huds/tips/mortar_aiming_tip.nut")
-let mortar_marker_tip        = require("%ui/_packages/common_shooter/hud/huds/tips/mortar_mark_enemy_tip.nut")
+let mortar_marker_tip        = require("%ui/hud/huds/tips/mortar_mark_enemy_tip.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
 
 let fullTips = [

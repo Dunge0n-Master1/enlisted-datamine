@@ -1,12 +1,9 @@
 let dagor_sys = require("dagor.system")
-let {gui_scene} = require("daRg")
+let { setInterval, clearTimer } = require("dagor.workcycle")
 let {Watched} = require("frp")
 let console = require("console")
 let log = require("log.nut")()
 let conprint = log.console_print
-
-let clearTimer = @(v) gui_scene.clearTimer(v)
-let setInterval = @(time, v) gui_scene.setInterval(time, v)
 
 let mkWatched = @(id, val) persist(id, @() Watched(val))
 

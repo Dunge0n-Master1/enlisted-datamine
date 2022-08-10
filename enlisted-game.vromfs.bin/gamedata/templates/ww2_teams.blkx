@@ -58,6 +58,11 @@ team_generic_capture{
   _replicated:t="team__gunGameLevel"
   team__gunGameLevel:i=0
 
+  "score_bleed__nextUpdate:r"{
+    value:r=-1.0
+    _tags:t="server"
+  }
+
   "team__isGameFinished:b"{
     value:b=no
     _tags:t="server"

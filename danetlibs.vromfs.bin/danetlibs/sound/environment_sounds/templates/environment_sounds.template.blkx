@@ -2,7 +2,7 @@ birds_sound{
 
   _group{
     _tags:t="sound"
-    birds_sound__var:r=0.0
+    birds_sound__globalVar:t="action"
     birds_sound__noiseTime:r=-10.0
     birds_sound__timeRange:p2=9.5, 10.0
   }
@@ -17,8 +17,6 @@ shore_sound{
   _group{
     _tags:t="sound"
     shore_sound__path:t="ambient/positioned/beach"
-    shore_sound__minMaxRainDensity:p2=1.0, 15.0
-    shore_sound__rainStrength:r=0.1
 
     "shore_sound__event:SoundEvent"{
     }
@@ -49,13 +47,93 @@ river_sound{
   }
 }
 
-ambient_sound_regionquery{
+ambient_sound{
+  _extends:t="replicating"
+  _extends:t="sound_bank_preset_state"
+  _extends:t="birds_sound"
 
   _group{
     _tags:t="sound"
-    ambient_sound_regionquery__curNextTime:p2=0.0, 0.0
-    ambient_sound_regionquery__values:p2=0.0, 0.0
-    ambient_sound_regionquery__result:r=0.0
-    ambient_sound_regionquery__updateInterval:r=3.0
+    ambient_sound__path:t=""
+
+    "ambient_sound__event:SoundEvent"{
+    }
   }
+}
+
+biome_sound_query{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    biome_sound_query__period:r=1.0
+    biome_sound_query__range:r=10.0
+    biome_sound_query__id:i=-1
+    biome_sound_query__nextQueryTime:r=0.0
+    biome_sound_query__timeRange:p2=0.0, 0.0
+
+    "biome_sound_query__values:list<p3>"{
+    }
+
+    "biome_sound_query__biomeNames:list<t>"{
+      name:t="forest"
+      name:t="grass"
+      name:t="swamp"
+    }
+
+    "biome_sound_query__varNames:list<t>"{
+      name:t="biome_forest"
+      name:t="biome_grass"
+      name:t="biome_swamp"
+    }
+  }
+}
+
+rain_global_sound_var{
+
+  _group{
+    _tags:t="sound"
+    rain_global_sound_var__name:t="rain"
+    rain_global_sound_var__mult:r=1.0
+  }
+}
+
+daytime_global_sound_var{
+
+  _group{
+    _tags:t="sound"
+    daytime_global_sound_var__name:t="daytime"
+  }
+}
+
+altitude_global_sound_var{
+
+  _group{
+    _tags:t="sound"
+    altitude_global_sound_var__nextTime:r=0.0
+    altitude_global_sound_var__name:t="altitude"
+    altitude_global_sound_var__interval:r=1.0
+  }
+}
+
+region_global_sound_var{
+
+  _group{
+    _tags:t="sound"
+    region_global_sound_var__curNextTime:p2=0.0, 0.0
+    region_global_sound_var__values:p2=0.0, 0.0
+    region_global_sound_var__value:r=0.0
+    region_global_sound_var__updateInterval:r=3.0
+    region_global_sound_var__name:t="region"
+  }
+}
+
+global_sound_vars{
+  _extends:t="replicating"
+  _extends:t="rain_global_sound_var"
+  _extends:t="daytime_global_sound_var"
+  _extends:t="altitude_global_sound_var"
+  _extends:t="region_global_sound_var"
+  _singleton:b=yes
 }

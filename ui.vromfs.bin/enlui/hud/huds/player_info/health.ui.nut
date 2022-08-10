@@ -5,11 +5,11 @@ let {hp, maxHp, hpRestoreAmount, scaleHp} = require("%ui/hud/state/health_state.
 let {hitAnimTrigger} = require("%ui/hud/state/hit_anim_trigger_es.nut")
 let {barHeight, barWidth} = require("style.nut")
 
-local prevMaxHp = maxHp.value
+//local prevMaxHp = maxHp.value
 maxHp.subscribe(function(maxHpValue) {
   if (maxHpValue > 0 && hp.value > 0)
     anim_start("hero_max_hp_changed")
-  prevMaxHp = maxHpValue
+//  prevMaxHp = maxHpValue
 })
 let maxHpTrigger = {}
 let health = @() {

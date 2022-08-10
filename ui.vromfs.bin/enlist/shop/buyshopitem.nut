@@ -26,13 +26,14 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
 let { priceWidget } = require("%enlist/components/priceWidget.nut")
-let { viewCurrencies } = require("%enlist/shop/armyShopState.nut")
+let { viewCurrencies, shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { openShopByCurrencyId } = require("%enlist/currency/purchaseMsgBox.nut")
 let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
+let { openBPwindow, getRewardIdx } = require("%enlist/battlepass/bpWindowState.nut")
 
 
 enum DISCOUNT_STATE {
@@ -216,6 +217,8 @@ let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState
   discountState(newState)
 }
 
+let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
+
 let function buyItem(shopItem, productView = null, viewBtnCb = null,
   activatePremiumBttn = null, description = null, pOfferGuid = null
 ) {
@@ -282,8 +285,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     : Computed(@() (balance.value?[currencyId] ?? 0) < price.value)
 
   let hasSquads = (shopItem?.squads.len() ?? 0) > 0
-
-  let title = !hasSquads ? loc("shop/wantPurchaseMsg", { purchase=loc(shopItem?.nameLocId) ?? "" })
+  let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
+  let title = isSoldier ? titleLocalization("shop/wantPurchaseSoldier", shopItem)
+    : !hasSquads ? titleLocalization("shop/wantPurchaseMsg", shopItem)
     : shopItem?.nameLocId ? loc(shopItem.nameLocId)
     : ", ".join(shopItem.squads.map(@(sq) loc(squadsPresentation?[sq.armyId][sq.id].titleLocId)))
 
@@ -291,7 +295,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
 
   let buyCb = hasSquads ? null
     : function(isSuccess){
-      if(isSuccess)
+      if (isSuccess)
         sound_play("ui/purchase_additional_squad")
     }
 
@@ -444,6 +448,17 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
             sendBigQueryUIEvent("event_low_currency", null, srcComponent)
           }
         })
+    }
+
+    // No gold price and not enough items for barter:
+    if (hasBarter && !barterInfo.value && referralLink == "" && !hasBuy.value){
+      let rewardIdx = getRewardIdx(curItemCost.keys()?[0])
+      if (rewardIdx != null) {
+        btns.append({
+          text = loc("btn/gotoBattlepass")
+          action = @() openBPwindow(rewardIdx)
+        })
+      }
     }
 
     btns.append({ text = loc("Cancel") })

@@ -39,7 +39,7 @@ let benchStatsQuery = ecs.SqQuery("benchStatsQuery", {comps_rw=benchStatsComps})
 
 let function resetPerf() {
   benchStatsQuery.perform(function(_eid, comps){
-    foreach(compName, _ in comps){
+    foreach (compName, _ in comps){
       if (compName == "averageDt")
         comps[compName] = 0.0
       else if (compName == "firstMsec")
@@ -136,7 +136,7 @@ let function appendScreen(pos, dir, name = null) {
 local hasStarted = false
 ecs.register_es("regression_tests", {
   [EventLevelLoaded] = function(_eid, comp) {
-    foreach( screen in comp.camera_locations?.getAll() ?? [] ) {
+    foreach ( screen in comp.camera_locations?.getAll() ?? [] ) {
       appendScreen(screen.pos, screen.dir, screen?.name)
     }
     if (batch.len() > 0 && !hasStarted) {

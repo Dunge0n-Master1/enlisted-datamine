@@ -28,7 +28,7 @@ let function soldierIconWithType(soldierIcon, soldierName) {
 }
 
 let function weaponIconWithType(weapons){
-  if(weapons.len() == 0)
+  if (weapons.len() == 0)
     return null
 
   let children = weapons.map(function(weapon) {

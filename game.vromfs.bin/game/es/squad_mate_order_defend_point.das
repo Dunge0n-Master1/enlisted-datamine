@@ -5,18 +5,26 @@ require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require EnlistedBehTree
 
 [es(tag=server)]
 def on_personal_squadmate_defend_order(evt : RequestPersonalSquadMateOrder;
                                        eid : EntityId;
                                        squad_member__squad : EntityId;
                                        transform : float3x4;
+                                       beh_tree__isInTrainBeh : bool;
+                                       beh_tree__data__personalOrder : string;
                                        var squad_member__orderType : int&;
                                        var squad_member__orderPosition : float3&;
                                        var squad_member__orderUseEntity : EntityId&;
-                                       var squad_member__isPersonalOrder : bool&)
-  if evt.orderType == int(SquadMateOrder ESMO_DEFEND_POINT)
+                                       var squad_member__isPersonalOrder : bool&;
+                                       var beh_tree__refs__behaviour : das_string&)
+  if evt.orderType == int(SquadMateOrder ESMO_DEFEND_POINT) && !beh_tree__isInTrainBeh
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
+      beh_tree__refs__behaviour := beh_tree__data__personalOrder
+
+      EnlistedBehTree::load_beh_tree_from_ecs(eid)
+
       squad_member__orderType = int(SquadMateOrder ESMO_DEFEND_POINT)
       squad_member__orderPosition = evt.orderPosition
       squad_member__orderUseEntity = evt.orderUseEntity

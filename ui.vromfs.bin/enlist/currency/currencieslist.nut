@@ -11,6 +11,9 @@ let enlistedGold = freeze({
   image = @(size) "ui/skin#currency/enlisted_gold.svg:{0}:{0}:K".subst(size.tointeger())
   locId = "currency/code/EnlistedGold"
   purchaseUrl = shopCategoryUrl.subst({ category = "EnlistedGold" })
+  qrDesc = "currency/code/qr/EnlistedGoldConsoles"
+  qrConsoleUrl = "{0}&partner=QRLogin&partner_val=q37edt1l".subst(
+    shopCategoryUrl.subst({ category = "EnlistedGoldConsoles" }))
 })
 
 currenciesList([enlistedGold])

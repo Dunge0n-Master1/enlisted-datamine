@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let { inviteToSquad, dismissSquadMember, transferSquad, revokeSquadInvite,
   leaveSquad, isInSquad, isSquadLeader, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad
 } = require("%enlist/squad/squadManager.nut")
@@ -232,7 +232,7 @@ let actions = {
 
   PROMOTE_TO_LEADER = {
     locId = "Promote to squad chief"
-    mkIsVisible = @(userId) Computed(@() !platform.is_xbox && enabledSquad.value
+    mkIsVisible = @(userId) Computed(@() enabledSquad.value
       && userId != myUserId.value && isSquadLeader.value && isInMySquad(userId, squadMembers))
     action      = @(userId) transferSquad(userId.tointeger())
   }

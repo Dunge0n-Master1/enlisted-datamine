@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { DM_PROJECTILE, DM_MELEE, DM_EXPLOSION, DM_ZONE, DM_COLLISION, DM_HOLD_BREATH,
   DM_FIRE, DM_BACKSTAB, DM_BARBWIRE } = require("dm")
-let { tostring_r } = require("%sqstd/string.nut")
 let { killLogState } = require("%ui/hud/state/kill_log_es.nut")
 let { is_console } = require("%dngscripts/platform.nut")
 let style = require("%ui/hud/style.nut")
@@ -70,7 +69,7 @@ let mkIcon = memoize(function(image){
 
 let function mkKillEventIcon(data) {
   local image = null
-  if (data?.nodeType == "head" && data?.damageType == DM_PROJECTILE) {
+  if (data?.isHeadshot) {
     image = getPicture(killIconsHeadshot)
   } else {
     image = getPicture(damageTypeIcons?[data?.damageType])
@@ -90,7 +89,7 @@ let function blurBack(){
   }
 }
 
-let function nameAndColor(entity, is_killer = false) {//entity here is just table with description
+let function nameAndColor(entity) {//entity here is just table with description
   local name = entity?.name
   local color = ENEMY_TEAM_COLOR
   if (entity?.isHero) {
@@ -104,8 +103,6 @@ let function nameAndColor(entity, is_killer = false) {//entity here is just tabl
       : entity?.inMySquad ? loc("log/squadmate")
       : loc("log/teammate")
     color = (entity?.inMySquad ? MY_SQUAD_COLOR : MY_TEAM_COLOR)
-  } else if (is_killer && name != null && name != "" && ("player_eid" in entity) && entity.player_eid == INVALID_ENTITY_ID) {
-    name = loc(name)
   } else {
     name = name != null && name != "" ? loc(name) : loc("log/enemy")
   }
@@ -121,11 +118,11 @@ let selfContainer = {
   padding = [0, hdpx(3), 0, 0]
 }
 
-let appendRank = @(textBlock, player) (player?.rank ?? 0) < MIN_RANK_TO_SHOW
+let appendRank = @(textBlock, rank) (rank ?? 0) < MIN_RANK_TO_SHOW
   ? textBlock
   : {
       flow = FLOW_HORIZONTAL
-      children = [textBlock, mkRankIcon(player.rank)]
+      children = [textBlock, mkRankIcon(rank)]
     }
 
 let function message(data) {
@@ -147,27 +144,18 @@ let function message(data) {
     children = data.victim.isHero
       ? textElem(loc("log/local_player_suicide"), color)
       : [
-          appendRank(textElem(loc("log/player_suicide", { user = name }), color), data.victim)
+          appendRank(textElem(loc("log/player_suicide", { user = name }), color), data.victim.rank)
           gunInfo
         ]
-  } else if (!(data?.victim?.isAlive ?? true)) {
+  } else {
     let victimInfo = nameAndColor(data.victim)
-    let killerInfo = nameAndColor(data.killer, /* is_killer */ true)
+    let killerInfo = nameAndColor(data.killer)
     children = [
-      appendRank(textElem(killerInfo.name, killerInfo.color), data.killer)
+      appendRank(textElem(killerInfo.name, killerInfo.color), data.killer.rank)
       gunInfo
-      appendRank(textElem(victimInfo.name, victimInfo.color), data.victim)
+      appendRank(textElem(victimInfo.name, victimInfo.color), data.victim.rank)
       num
     ]
-
-  } else if (data?.victim?.isDowned ?? false ) {
-    let { name, color } = nameAndColor(data.victim)
-    children = data.victim.isHero
-      ? textElem(loc("log/local_player_downed"), MY_SQUAD_COLOR)
-      : appendRank(textElem(loc("log/player_downed", { user = name }), color), data.victim)
-  } else {
-    //debug test message
-    children = textElem(data?.text ?? tostring_r(data))
   }
 
   return {

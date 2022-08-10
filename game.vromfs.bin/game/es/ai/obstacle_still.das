@@ -38,28 +38,29 @@ def still_obstacles_from_grid(cur_time : float; obstacle_template : string)
       removeSubTemplate(eid, obstacle_template)
 
 def still_obstacles_from_riextra(cur_time : float; obstacle_template : string)
-  ecs::query() <| $ [es(REQUIRE_NOT=(obstacle__still, obstacle__handle, ri_extra__handle, moveable_obstacle))] (eid : EntityId; transform : float3x4; ri_extra : RiExtraComponent)
+  ecs::query() <| $ [es(REQUIRE_NOT=(obstacle__still, obstacle__handle, ri_extra__handle, moveable_obstacle, gameRendInstTag, unbakedRendInstTag))] (eid : EntityId; transform : float3x4; ri_extra : RiExtraComponent)
     let riType = handle_to_ri_type(ri_extra.handle)
     if get_ri_gen_extra_collres(int(riType)) != null
       add_obstacle_template(eid, transform, cur_time, obstacle_template)
 
 def still_obstacles_update(cur_time : float)
-  ecs::query() <| $ [es(REQUIRE=obstacle__still)] (eid : EntityId;
-                                                   obstacle__checkDelta : float;
-                                                   obstacle__stillPosThreshold : float;
-                                                   obstacle__stillAngCosThreshold : float;
-                                                   obstacle__stillTimeout : float;
-                                                   obstacle__initialStillTimeout : float;
-                                                   obstacle__padding : float = 0.0f;
-                                                   obstacle__paddingSide : float = 0.0f;
-                                                   var obstacle__stillCount : int&;
-                                                   var obstacle__handle : int&;
-                                                   var obstacle__lastCheckTime : float&;
-                                                   var obstacle__lastStillTransform : float3x4&;
-                                                   var obstacle__lastStillTime : float&;
-                                                   transform : float3x4;
-                                                   collres : CollisionResource?;
-                                                   ri_extra : RiExtraComponent?)
+  ecs::query() <| $ [es(REQUIRE=obstacle__still,
+                        REQUIRE_NOT=(gameRendInstTag, unbakedRendInstTag))] (eid : EntityId;
+                                                                             obstacle__checkDelta : float;
+                                                                             obstacle__stillPosThreshold : float;
+                                                                             obstacle__stillAngCosThreshold : float;
+                                                                             obstacle__stillTimeout : float;
+                                                                             obstacle__initialStillTimeout : float;
+                                                                             obstacle__padding : float = 0.0f;
+                                                                             obstacle__paddingSide : float = 0.0f;
+                                                                             var obstacle__stillCount : int&;
+                                                                             var obstacle__handle : int&;
+                                                                             var obstacle__lastCheckTime : float&;
+                                                                             var obstacle__lastStillTransform : float3x4&;
+                                                                             var obstacle__lastStillTime : float&;
+                                                                             transform : float3x4;
+                                                                             collres : CollisionResource?;
+                                                                             ri_extra : RiExtraComponent?)
     if (cur_time < obstacle__lastCheckTime + obstacle__checkDelta)
       return
     obstacle__lastCheckTime = cur_time

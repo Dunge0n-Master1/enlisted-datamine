@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "minimap" import MinimapState
 
-
-let { mmChildrenCtorsGeneration, getMmChildrenCtors } = require("%ui/hud/huds/minimap/minimap_state.nut")
+let { h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { mmChildrenCtors } = require("%ui/hud/minimap_ctors.nut")
 let { bigmapDefaultVisibleRadius } = require("bigmap_state.nut")
 let mmContext = require("%ui/hud/huds/minimap/minimap_ctx.nut")
 let mouseButtons = require("%enlSqGlob/mouse_buttons.nut")
 let mkTask = require("%ui/hud/huds/overlays/mkTask.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 
 let { removeInteractiveElement, hudIsInteractive, switchInteractiveElement
 } = require("%ui/hud/state/interactive_state.nut")
@@ -22,10 +22,12 @@ let {mouseNavTips, placePointsTipGamepad, navGamepadHints, placePointsTipMouse} 
 let {isAlive} = require("%ui/hud/state/health_state.nut")
 let cursors = require("%ui/style/cursors.nut")
 let tasksInBattle = require("%ui/hud/state/tasksInBattle.nut")
+let { missionName } = require("%enlSqGlob/missionParams.nut")
 
 let screen_aspect_ratio = sw(100)/sh(100)
 local mapSizeForTasks = [fsh(70), fsh(70)]
 let leftPadding = Watched(mapSizeForTasks[1]/10)
+let mapPadding = fsh(1)
 
 if (screen_aspect_ratio <= 1280.0/1024) {
   mapSizeForTasks = [fsh(50), fsh(50)]
@@ -43,17 +45,17 @@ let mapSize = Computed(@() needShowTasks.value
   : [safeAreaAmount.value*fsh(70), safeAreaAmount.value*fsh(70)])
 
 let tasksList = @() {
-  watch = tasksInBattle
+  watch = [tasksInBattle, mapSize]
   size = [hdpx(450), SIZE_TO_CONTENT]
   children = makeVertScroll({
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      children = tasksInBattle.value.map(@(u) mkTask(u))
-    },
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      maxHeight = mapSize.value[0]
-    })
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    children = tasksInBattle.value.map(@(u) mkTask(u))
+  },
+  {
+    size = [flex(), SIZE_TO_CONTENT]
+    maxHeight = mapSize.value[0]
+  })
 }
 
 
@@ -105,7 +107,6 @@ let mkPlacePointsTip = @(mapSize, addChild) @() {
   halign = ALIGN_CENTER
   gap = fsh(0.5)
   children = [
-    //modeHotkeyTip
     isGamepad.value ? navGamepadHints : mouseNavTips
     isGamepad.value ? placePointsTipGamepad : placePointsTipMouse
     addChild
@@ -113,10 +114,11 @@ let mkPlacePointsTip = @(mapSize, addChild) @() {
 }
 let mkInteractiveTips = @(internactiveTips, notInteractiveTips) @() {
   watch = hudIsInteractive
-  size = [flex(), fontH(430)]
+  size = [flex(), hdpx(100)]
+  valign = ALIGN_CENTER
   flow = FLOW_VERTICAL
   gap = fsh(0.5)
-  padding = [fsh(1), 0]
+  padding = [mapPadding, 0]
   halign = ALIGN_CENTER
   children = hudIsInteractive.value ? internactiveTips : notInteractiveTips
 }
@@ -131,9 +133,12 @@ let function interactiveFrame() {
     borderWidth = hdpx(2)
     color = Color(180,160,10,130)
 
-    // use frame since parent already has another hook
-    hooks = HOOK_ATTACH
-    actionSet = "StopInput"
+    children = {
+      // use frame since parent already has another hook
+      hooks = HOOK_ATTACH
+      actionSet = "StopInput"
+      children = null
+    }
   })
 }
 
@@ -189,7 +194,7 @@ let markersParams = Computed(@() {
 
 let baseMap = @() {
   size = mapSize.value
-  watch = mapSize
+  watch = [hudIsInteractive, mapSize]
   minimapState = minimapState
   rendObj = ROBJ_MINIMAP
   transform = mapTransform
@@ -214,26 +219,23 @@ let baseMap = @() {
 let mapLayers = @() {
   hooks = HOOK_ATTACH
   actionSet = "BigMap"
-  watch = [mmChildrenCtorsGeneration, mapSize]
+  watch = [ mapSize]
   size = mapSize.value
   children = [
     baseMap
   ]
-    .extend(getMmChildrenCtors().map(@(c) mkMapLayer(c, markersParams, mapSize.value)))
+    .extend(mmChildrenCtors.map(@(c) mkMapLayer(c, markersParams, mapSize.value)))
     .append(interactiveFrame)
 }
 
 let framedMap = @() {
-  color = Color(0,0,0,140)
-  rendObj = ROBJ_SOLID
-  padding = fsh(1)
+  padding = [0, mapPadding]
   watch = mapSize
   children = mapLayers
 }
 
 let mapBlock = @(){
   watch = hudIsInteractive
-  size = SIZE_TO_CONTENT
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   children = [
@@ -242,38 +244,52 @@ let mapBlock = @(){
   ]
 }
 
+let missionTitle = @(){
+  watch = missionName
+  size = [flex(), SIZE_TO_CONTENT]
+  padding = [mapPadding, mapPadding]
+  children = missionName.value == null ? null : {
+    rendObj = ROBJ_TEXT
+    text = loc(missionName.value)
+    fontFxColor = DEFAULT_TEXT_COLOR
+  }.__update(h1_txt)
+}
+
 let function bigMap() {
   let needCursor = hudIsInteractive.value
   return {
+    rendObj = ROBJ_SOLID
+    color = Color(0,0,0,140)
     watch = hudIsInteractive
     key = "big_map"
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
     pos = [0, hdpx(30)]
-    size = SIZE_TO_CONTENT
+    padding = [mapPadding, 0]
     cursor = needCursor ? cursors.normal : null
+    flow = FLOW_VERTICAL
     sound = {
       attach = "ui/map_on"
       detach = "ui/map_off"
     }
-
-    children = @() {
-      watch = [needShowTasks, hudIsInteractive]
-      size = SIZE_TO_CONTENT
-      flow = FLOW_HORIZONTAL
-      gap = fsh(1)
-      children = [
-        needShowTasks.value ? @(){size = [leftPadding.value, 0] watched= leftPadding} : null
-        mapBlock
-        needShowTasks.value
-          ? @() {
-              size = [SIZE_TO_CONTENT, mapSize.value[1] + fsh(11)]
-              disableInput = !hudIsInteractive.value
-              children = tasksList
-            }
-          : null
-      ]
-    }
+    children = [
+      missionTitle
+      @() {
+        watch = [needShowTasks, hudIsInteractive]
+        flow = FLOW_HORIZONTAL
+        children = [
+          mapBlock
+          needShowTasks.value
+            ? @() {
+                watch = hudIsInteractive
+                size = [SIZE_TO_CONTENT, flex()]
+                disableInput = !hudIsInteractive.value
+                children = tasksList
+              }
+            : null
+        ]
+      }
+    ]
 
 
     animations = mapRootAnims

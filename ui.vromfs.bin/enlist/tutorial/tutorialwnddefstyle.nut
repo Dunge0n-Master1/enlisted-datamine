@@ -105,7 +105,7 @@ let isSkipPushed = Watched(false) //update with debounce, to not change value to
 skipStateFlags.subscribe(debounce(@(v) isSkipPushed((v & S_ACTIVE) != 0), 0.01))
 isSkipPushed.subscribe(@(v) v ? anim_start(skipTrigger) : anim_skip(skipTrigger))
 
-let pSize = hdpx(40).tointeger()
+let pSize = hdpxi(40)
 let mkSkipProgress = @(stepSkipDelay, skipStep, keyImg) {
   key = "skipProgress"
   size = [pSize, pSize]
@@ -149,7 +149,7 @@ let skipBtnCtor = @(stepSkipDelay, skipStep, key) {
   animations = [{ prop=AnimProp.opacity, from = 0, to = 1, duration = 3, play = true }]
 }
 
-let pointerSize = hdpx(70).tointeger()
+let pointerSize = hdpxi(70)
 let pointerAnimTime = 1.0
 let pointerAnimOffset = hdpx(25)
 let pointerArrow = {

@@ -27,14 +27,14 @@ let goodsInfo = Computed(function() {
 
   let list = {}
 
-  foreach(val in marketIds.value) {
+  foreach (val in marketIds.value) {
     let itemId = val?.product_id
     let guid = val?.guid
-    if(itemId == "" || guid == "") {
+    if (itemId == "" || guid == "") {
       continue
     }
     let nsuid = nswitchShop.getItemNsUid(itemId)
-    if(nsuid == 0) {
+    if (nsuid == 0) {
       continue
     }
 
@@ -137,7 +137,7 @@ let function log_items(_status) {
 
 let regionalPurchases = Computed(function() {
     let res = {}
-    foreach(guid, v in currenciesPurchases.value) {
+    foreach (guid, v in currenciesPurchases.value) {
       let purchInfo = deep_clone(v)
       purchInfo.meta.showInGame <- ((itemGroupNsUid.value?[purchInfo?.meta.nintendoId].nsUid ?? "") != "")
 
@@ -154,7 +154,7 @@ let regionalPurchases = Computed(function() {
 )
 
 let function onNswitchEshopInitialized(status) {
-  if(status == 0) {
+  if (status == 0) {
     log_items(status)
     nsItemsReady(true)
     let message = nswitchShop.getIncTaxMessage()
@@ -162,7 +162,7 @@ let function onNswitchEshopInitialized(status) {
 
     isGoodsRequested(false)
   }
-  else if(status == nswitchShop.REQUEST_TIMEOUT && request_number < max_request_number) {
+  else if (status == nswitchShop.REQUEST_TIMEOUT && request_number < max_request_number) {
     request_number = request_number + 1
     log("nswitch: Eshop: item request failed. Retry.")
     eventbus.subscribe_onehit("nswitch.eshop.onItemsRequested", @(val) reRequestFunc(val.status))
@@ -177,7 +177,7 @@ let function onNswitchEshopInitialized(status) {
         onClose = @() null
       })
     }
-    else if(status != nswitchShop.REQUEST_TIMEOUT && status != nswitchShop.REQUEST_NETWORK_ERROR)
+    else if (status != nswitchShop.REQUEST_TIMEOUT && status != nswitchShop.REQUEST_NETWORK_ERROR)
       logerr($"nswitch: Eshop: error occur: group={err.group}, code={err.code}, status={status}")
     isGoodsRequested(false)
   }

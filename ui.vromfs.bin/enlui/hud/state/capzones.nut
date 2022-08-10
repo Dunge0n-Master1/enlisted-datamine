@@ -1,6 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
 let {localPlayerTeamInfo} = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
@@ -13,8 +14,8 @@ let {showMinorCaptureZoneEventsInHud, showMajorCaptureZoneEventsInHud} = require
 let {allZonesInGroupCapturedByTeam, isLastSectorForTeam} = require("%enlSqGlob/zone_cap_group.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 
-let isTwoChainsCapzones = mkWatched(persist, "isTwoChainsCapzones", false)
-let capZones = mkWatched(persist, "capZones", {})
+let {isTwoChainsCapzones, isTwoChainsCapzonesSetValue} = mkFrameIncrementObservable(false, "isTwoChainsCapzones")
+let {capZones, capZonesMutate, capZonesSetKeyVal, capZonesDeleteKey} = mkFrameIncrementObservable({}, "capZones")
 let isReverseZoneUiOrder = Computed(@() isTwoChainsCapzones.value && localPlayerTeam.value != FIRST_GAME_TEAM)
 let whichTeamAttack = Computed(@()
   capZones.value.reduce(@(team, zone) (zone.active && !zone.trainZone) ? zone.attackTeam : team, -1))
@@ -23,7 +24,8 @@ let trainZoneEid = Computed(@() capZones.value.findvalue(@(z) z?.trainZone)?.eid
 let nextTrainCapzoneEid = Watched(INVALID_ENTITY_ID)
 
 let curCapZone = Computed(function(){
-  let zoneEid = capZones.value.findvalue(@(zone) zone.heroInsideEid == watchedHeroEid.value)?.eid
+  let hero = watchedHeroEid.value
+  let zoneEid = capZones.value.findvalue(@(zone) zone.heroInsideEid == hero)?.eid
   if (zoneEid == null)
     return null
 
@@ -33,9 +35,6 @@ let curCapZone = Computed(function(){
 let forwardUiOrder = @(a, b) a.ui_order <=> b.ui_order
 let forwardOrder = @(a, b) forwardUiOrder(a, b) || a.title <=> b.title
 let reverseOrder = @(a, b) -forwardOrder(a, b)
-
-let getForwardSortedZoneEids = @(zones) zones.sort(forwardOrder).map(@(z) z.eid)
-let getReverseSortedZoneEids = @(zones) zones.sort(reverseOrder).map(@(z) z.eid)
 
 let visibleCurrentCapZonesEids = Computed(function(prev) {
   let eids = capZones.value.map(function(z, eid) {
@@ -49,11 +48,11 @@ let visibleCurrentCapZonesEids = Computed(function(prev) {
   return prev
 })
 let visibleZoneGroups = Computed(function(prev){
-  let visible = []
+  let zones = []
   let groups = {}
   foreach (zone in capZones.value)
     if ((zone.active || zone.wasActive || zone.alwaysShow) && !zone.alwaysHide) {
-      visible.append(zone)
+      zones.append(zone)
       let groupId = zone?.groupName ?? ""
       if (!(groupId in groups))
         groups[groupId] <- { zones = [], ui_order = zone.ui_order }
@@ -61,13 +60,13 @@ let visibleZoneGroups = Computed(function(prev){
       group.zones.append(zone)
       group.ui_order = min(group.ui_order, zone.ui_order)
     }
-  let getSortedZoneEids = isReverseZoneUiOrder.value ? getReverseSortedZoneEids : getForwardSortedZoneEids
+  let zoneComparator = isReverseZoneUiOrder.value ? reverseOrder : forwardOrder
   let groupComparator = isReverseZoneUiOrder.value ? @(a, b) -forwardUiOrder(a, b) : forwardUiOrder
-  let groupsSorted = groups.len() == visible.len()
-    ? [getSortedZoneEids(visible)]
-    : groups.values()
-        .sort(groupComparator)
-        .map(@(g) getSortedZoneEids(g.zones))
+  let hasGroups = groups.len() != zones.len()
+  local groupsSorted = (hasGroups ? groups.values() : [{zones, ui_order = 0}])
+  groupsSorted.sort(groupComparator)
+  groupsSorted.each(@(g) g.zones.sort(zoneComparator))
+  groupsSorted = groupsSorted.map(@(g) g.zones.map(@(z) z.eid))
 
   if (prev==FRP_INITIAL || !isEqual(groupsSorted, prev))
     return groupsSorted
@@ -317,9 +316,9 @@ let function onCapzonesInitialized(_evt, eid, comp) {
     capzoneTwoChains = comp["capzoneTwoChains"] != null
   }
   zone.wasActive <- zone.active
-  capZones.mutate(@(v) v[eid] <- zone)
+  capZonesSetKeyVal(eid, zone)
   if (zone.capzoneTwoChains)
-    isTwoChainsCapzones(true)
+    isTwoChainsCapzonesSetValue(true)
 }
 
 
@@ -330,17 +329,18 @@ let function onHeroChanged(evt, _eid, _comp){
   let newHeroEid = evt[0]
   queryCapturerZones.perform(newHeroEid, function(_, visitorComp) {
     let zonesUpdate = {}
+    let capturer__capZonesIn = visitorComp.capturer__capZonesIn.getAll()
     foreach (zoneEid, zone in capZones.value) {
-      let heroInsideEid = (visitorComp.capturer__capZonesIn.getAll().indexof(zoneEid) != null
-                            && zone.active
+      let heroInsideEid = (zone.active
                             && (visitorComp.isInVehicle ? zone.canCaptureOnVehicle : zone.humanTriggerable)
-                            && (!zone.excludeDowned || !visitorComp.isDowned))
+                            && (!zone.excludeDowned || !visitorComp.isDowned)
+                            && capturer__capZonesIn.indexof(zoneEid) != null)
                             ? newHeroEid : INVALID_ENTITY_ID
       if (heroInsideEid != zone.heroInsideEid)
         zonesUpdate[zoneEid] <- zone.__merge({ heroInsideEid })
     }
-    if (zonesUpdate.len())
-      capZones.mutate(@(v) v.__update(zonesUpdate))
+    if (zonesUpdate.len()>0)
+      capZonesMutate(@(v) v.__update(zonesUpdate))
   })
 }
 
@@ -349,7 +349,7 @@ let function onCapZoneChanged(_evt, eid, comp) {
   if (zone==null)
     return
   let changedZoneVals = {}
-  foreach(attrName, v in comp){
+  foreach (attrName, v in comp){
     let zonePropName = attr2gui?[attrName]
     if (attrName == "capzone__ownTeamIcon") {
       let ico = mkOwnTeamIco(v, comp["capzone__owningTeam"])
@@ -387,36 +387,35 @@ let function onCapZoneChanged(_evt, eid, comp) {
     && newZone.active
   if (changedZoneVals?.active)
     newZone.wasActive = true
-  capZones.mutate(@(v) v[eid] = newZone)
+  capZonesSetKeyVal(eid, newZone)
 }
 
-
-let function onCapzonesDestroy(eid, _comp) {
-  if (eid in capZones.value)
-    capZones.mutate(@(v) delete v[eid])
-}
 
 
 let function onZonePresenseChange(eid, visitor_eid, leave) {
-  let zone = capZones.value?[eid]
-  if (!zone)
-    return
-
   let hero_eid = controlledHeroEid.value
-  if (visitor_eid == hero_eid)
-    capZones.mutate(@(v) v[eid] = zone.__merge({ heroInsideEid = leave ? INVALID_ENTITY_ID : hero_eid }))
+  capZonesMutate(function(v) {
+    let zone = v?[eid]
+    if (!zone || visitor_eid != hero_eid)
+      return
+    v[eid] = zone.__merge({ heroInsideEid = leave ? INVALID_ENTITY_ID : hero_eid })
+  })
 }
+
+ecs.register_es("capzones_ui_state_hero_changed",
+  { [EventHeroChanged] = onHeroChanged }, // broadcast
+  {}, { tags="gameClient" }
+)
 
 ecs.register_es("capzones_ui_state_es",
   {
     onChange = onCapZoneChanged,
     onInit = onCapzonesInitialized,
-    onDestroy = onCapzonesDestroy,
+    onDestroy = @(_, eid, __) capZonesDeleteKey(eid),
     [EventCapZoneEnter] = @(evt, eid, _comp) onZonePresenseChange(eid, evt.visitor, false),
     [EventCapZoneLeave] = @(evt, eid, _comp) onZonePresenseChange(eid, evt.visitor, true),
     [EventZoneCaptured] = narratorOnZoneCaptured,
     [EventZoneIsAboutToBeCaptured] = narratorOnZoneCaptured,
-    [EventHeroChanged] = onHeroChanged,
   },
   {
     comps_ro = [
@@ -484,8 +483,11 @@ ecs.register_es("capzones_ui_state_train_progress",
 )
 
 
+let getZoneWatch = memoize(@(eid) Computed(@() capZones.value?[eid]))
+
 return {
   capZones
+  getZoneWatch
   visibleCurrentCapZonesEids
   visibleZoneGroups
   whichTeamAttack

@@ -4,7 +4,7 @@ let {
   TextDefault, BtnBdDisabled, ModalBgTint
 } = require("%ui/style/colors.nut")
 let { show } = require("%ui/components/msgbox.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let eventbus = require("eventbus")
 let { browser_go_back = @() null,

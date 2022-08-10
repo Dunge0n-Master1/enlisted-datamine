@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 
-let msgbox = require("%darg/components/msgbox.nut")
+let msgbox = require("%ui/components/sys_msgbox.nut")
 
 let JB = require("%ui/control/gui_buttons.nut")
 let cursors = require("%ui/style/cursors.nut")

@@ -37,7 +37,7 @@ let function getNotReadyHashes(hashes){
   let notReady = []
   let failed = []
   let curStatus = downloadStatus.value
-  foreach( hash in hashes){
+  foreach ( hash in hashes){
     if (curStatus?[hash] != HTTP_READY)
       notReady.append(hash)
     if (curStatus?[hash] == HTTP_FAILED || curStatus?[hash] == HTTP_ABORTED)

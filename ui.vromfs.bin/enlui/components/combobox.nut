@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
-let baseCombo = require("%darg/components/combobox.nut")
+let baseCombo = require("%ui/components/base_combobox.nut")
 
 let {BtnTextHover, comboboxBorderColor, BtnBgActive, BtnBgHover, ControlBgOpaque, Active, Inactive, TextHighlight, TextDefault} = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {mkImageCompByDargKey} = require("gamepadImgByKey.nut")
 let {isGamepad, isTouch} = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")

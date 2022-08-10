@@ -41,8 +41,7 @@ let listTxtColor = @(sf, isSelected) isSelected ? activeTxtColor
 
 let noMessagesTitle = {
   rendObj = ROBJ_TEXT
-  size = flex()
-  valign = ALIGN_CENTER
+  size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
   color = activeTxtColor
   text = loc("mail/no_messages")
@@ -60,7 +59,7 @@ let completedRewardSign = {
 }
 
 let function timeLimitIcon(){
-  let size = hdpx(15).tointeger()
+  let size = hdpxi(15)
   return{
     rendObj = ROBJ_IMAGE
     size = [size, size]
@@ -84,7 +83,7 @@ let function mkReward(rewardNumb, hasReceived = true) {
   let reward = rewardsItemMapping.value?[rewardNumb]
   local rewardToShow = mkRewardImages(reward, imageSize)
     ?? mkRewardText(reward, hdpx(60), {size = imageSize})
-  if(reward?.stackImages != null){
+  if (reward?.stackImages != null){
     let r = reward
     rewardToShow = mkMedalCard(r.bgImage, r.stackImages, imageHeight)
   }
@@ -161,26 +160,40 @@ let backBtn = Bordered(loc("BackBtn"), closeUsermailWindow, {
   hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") } ]]
 })
 
-let centralBlock = makeVertScroll(
-  @(){
-    watch = [isRequest, letters]
-    size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    gap = {
-      rendObj = ROBJ_SOLID
-      size = [flex(), hdpx(2)]
-      color = airBgColor
+let lettersBlock = @(letters) letters.len() <= 0 ? noMessagesTitle
+  : makeVertScroll(
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      gap = {
+        rendObj = ROBJ_SOLID
+        size = [flex(), hdpx(2)]
+        color = airBgColor
+      }
+      children = letters.map(@(val, idx) messageRow(val, idx))
+    },
+    {
+      size = flex()
+      styling = thinStyle
     }
-    children = isRequest.value ? waitingSpinner
-      : letters.value.len() <= 0 ? noMessagesTitle
-      : letters.value.map(@(val, idx) messageRow(val, idx))
-  },
-  {
-    size = flex()
-    styling = thinStyle
-  }
 )
 
+let function centralBlock(){
+  let children = []
+  if (letters.value.len() > 0)
+    children.append(lettersBlock(letters.value))
+  else if (!isRequest)
+    children.append(noMessagesTitle)
+  if (isRequest)
+    children.append(waitingSpinner)
+  return {
+    watch = [letters, isRequest]
+    size = flex()
+    valign = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    children = isRequest.value ? waitingSpinner : lettersBlock(letters.value)
+  }
+}
 
 let mailTab = {
   id = "mailTab"

@@ -4,7 +4,6 @@ import{
 
 entity{
   _template:t="briefing_tutorial"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="basic_tutorial_mission"
 
   "loading_images:list<t>"{
@@ -28,11 +27,11 @@ entity{
 entity{
   _template:t="level"
   level__blk:t="content/enlisted/levels/tutorial_training_ground_2x2.blk"
-  level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+    weather_clear_a:r=1.0
+    weather_cloudy_a:r=2.0
+    weather_cloudy_b:r=2.0
   }
 
   "level__timeVec:array"{
@@ -138,7 +137,6 @@ entity{
   team__score:r=0.0
   team__botCount:i=7
   team__id:i=2
-  team__haveScores:b=no
   team__spawnBotArmy:t="berlin_axis"
   team__briefing:t="training_ground/goals"
   team__winTitle:t="debriefing/sucesful_tutorial_title"

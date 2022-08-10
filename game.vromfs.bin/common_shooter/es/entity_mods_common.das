@@ -1,5 +1,6 @@
 module entity_mods_common shared
 require ecs
+require ecs.safe
 
 def is_mod_allowed(allowed : StringList?; mod : string)
   if allowed == null || length(*allowed) == 0
@@ -29,3 +30,10 @@ def calc_diminishing_change_mult_attr(map : Object; allowed : StringList?)
   for i in iter_range(mods)
     mult *= pow(mods[i], 1.0 / float(i + 1))
   return mult
+
+def calc_change_add_attr(map : Object; allowed : StringList?)
+  var add = 0f
+  for mod in map
+    if is_mod_allowed(allowed, mod.key)
+      add += mod.value ?? 0.
+  return add

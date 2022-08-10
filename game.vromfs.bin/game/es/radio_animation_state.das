@@ -5,9 +5,10 @@ require EnlistedDeviceAnim
 require AnimV20
 require AnimatedPhys
 require game.es.device_animation_common
+require enlisted.events_enlisted
 
-[es(tag=gameClient, no_order)]
-def radio_animation(act : UpdateStageInfoAct;
+[es(tag=gameClient)]
+def radio_animation(act : ParallelUpdateFrameDelayed;
                     device_anim__stateVarId aka human_device_anim__stateVarId : int;
                     device_anim__progressVarId aka human_device_anim__progressVarId : int;
                     device_anim__states aka human_device_anim__states : IntList;

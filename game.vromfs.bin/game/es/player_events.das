@@ -58,6 +58,3 @@ struct EventOnPlayerSpawned
 [event(unicast)]
 struct CmdPossessEntity
   possessedEid : EntityId
-
-[cpp_event(broadcast, with_scheme)]
-struct ServerCreatePlayersEntities {}

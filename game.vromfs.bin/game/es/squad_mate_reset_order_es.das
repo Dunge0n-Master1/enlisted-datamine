@@ -36,6 +36,7 @@ def squadmate_reset_personal_order_far_away_es(act : UpdateStageInfoAct;
       if distSqFromOrderPosToLeader >= maxOrderDistSq && distSqFromMemberToLeader >= maxOrderDistSq
         sendEvent(squad__leader, [[CmdHeroLogEvent event="squad_order_canceled", text="personal_context_command_canceled/too_far"]])
         reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+        reset_squad_mate_behaviour(eid)
         send_order_cancel_bq(eid, "too_far", "{SquadMateOrder ESMO_DEFEND_POINT}")
 
 [es(tag=server, REQUIRE=battle_area, track=active)]
@@ -58,6 +59,7 @@ def squadmate_reset_personal_order_on_battlearea_deactivation_es(evt : Event; ei
       return
     if !has_active_human_battle_area_at(squad_member__orderPosition, team, areaEid)
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+      reset_squad_mate_behaviour(eid)
       send_order_cancel_bq(eid, "battlearea_deactivation", "{SquadMateOrder ESMO_DEFEND_POINT}")
 
 [es(tag=server, REQUIRE=capzone, track=active)]
@@ -78,3 +80,4 @@ def squadmate_reset_personal_order_on_capzone_deactivation_es(evt : Event; activ
       return
     send_order_cancel_bq(eid, "capzone_update", "{squad_member__orderType}")
     reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+    reset_squad_mate_behaviour(eid)

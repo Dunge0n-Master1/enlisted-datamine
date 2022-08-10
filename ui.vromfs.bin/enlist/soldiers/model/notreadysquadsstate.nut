@@ -6,6 +6,9 @@ let {
 } = require("%enlist/soldiers/model/state.nut")
 let { matchRandomTeam } = require("%enlist/quickMatch.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { myExtSquadData } = require("%enlist/squad/squadState.nut")
+let { curCampaign } = require("%enlist/meta/curCampaign.nut")
+
 
 let showNotReadySquads = Watched(null)
 let armiesForBattle = Computed(@() matchRandomTeam.value ? curArmiesList.value : [curArmy.value])
@@ -26,13 +29,19 @@ let function calcSquadReady(squad, soldiers, statuses) {
 
 let function getNotReadySquadsInfo(armiesList, chosenSquads, soldiers, statuses) {
   let res = []
-  foreach(armyId in armiesList)
-    foreach(squad in chosenSquads?[armyId] ?? []) {
+  foreach (armyId in armiesList)
+    foreach (squad in chosenSquads?[armyId] ?? []) {
       let readyData = calcSquadReady(squad, soldiers?[squad.guid] ?? [], statuses)
       if (!readyData.isReady)
         res.append(readyData)
     }
   return res
+}
+
+let function hasCurArmiesSquadsReady() {
+  let notReadyInfo = getNotReadySquadsInfo(armiesForBattle.value, chosenSquadsByArmy.value,
+    soldiersBySquad.value, soldiersStatuses.value)
+  return notReadyInfo.len() == 0
 }
 
 let function showCurNotReadySquadsMsg(onContinue) {
@@ -55,10 +64,14 @@ let function goToSquadAndClose(squad) {
     setCurSquadId(squadId)
 }
 
-return {
-  getNotReadySquadsInfo = getNotReadySquadsInfo
-  showCurNotReadySquadsMsg = showCurNotReadySquadsMsg
-  goToSquadAndClose = goToSquadAndClose
+curCampaign.subscribe(function(_) {
+  if (myExtSquadData.ready.value && !hasCurArmiesSquadsReady())
+    myExtSquadData.ready(false)
+})
 
-  showNotReadySquads = showNotReadySquads
+return {
+  getNotReadySquadsInfo
+  showCurNotReadySquadsMsg
+  goToSquadAndClose
+  showNotReadySquads
 }

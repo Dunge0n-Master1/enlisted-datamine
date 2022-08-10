@@ -10,21 +10,21 @@ let { mkItemPromo, freemiumPromoLink } = require("components/itemRewardPromo.nut
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let activatePremiumBttn = require("%enlist/shop/activatePremiumBtn.nut")
 let buySquad = require("%enlist/shop/buySquadWindow.nut")
-let { mkShopItemView, mkDiscountIcon } = require("%enlist/shop/shopPkg.nut")
+let { mkShopItemView } = require("%enlist/shop/shopPkg.nut")
 let { mkPrice } = require("%enlist/shop/mkShopItemPrice.nut")
 let { safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let { get_army_level_reward } = require("%enlist/meta/clientApi.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { makeHorizScroll } = require("%darg/components/scrollbar.nut")
-let armySelect = require("army_select.ui.nut")
+let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
+let armySelectUi = require("army_select.ui.nut")
 let { mkBackWithImage, mkUnlockInfo, mkSquadBodyBottomSmall
 } = require("mkSquadPromo.nut")
 let { ModalBgTint, borderColor } = require("%ui/style/colors.nut")
-let promoSmall = require("%enlist/currency/pkgPremiumWidgets.nut")
+let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { shadowStyle, bigGap, bigPadding, defBgColor, darkBgColor, freemiumColor, accentColor,
-  freemiumDarkColor
+  freemiumDarkColor, commonBtnHeight, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { curArmyData, armySquadsById, curUnlockedSquads } = require("model/state.nut")
 let { curArmyLevels, curArmyExp, hasArmyUnlocks, allArmyUnlocks, uType,
@@ -39,7 +39,7 @@ let { lockedProgressCampaigns } = require("%enlist/meta/campaigns.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { mkUnlockCampaignBlock } = require("lockCampaignPkg.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(58) })
-let { progressBarHeight, completedProgressLine, acquiredProgresLine,
+let { progressBarHeight, completedProgressLine, acquiredProgressLine,
   progressContainerCtor, gradientProgressLine, imageProgressCtor
 } = require("%enlist/components/mkProgressBar.nut")
 let { weapInfoBtn, btnSizeSmall, progressBarWidth, rewardToScroll,
@@ -50,13 +50,13 @@ let mkBuyArmyLevel = require("mkBuyArmyLevel.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { needFreemiumStatus, isFreemiumCampaign, isFreemiumBought
 } = require("%enlist/campaigns/freemiumState.nut")
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 
 let tblScrollHandler = ScrollHandler()
 
 let showSubLevels = Watched(false)
 let squadMediumIconSize = [hdpx(85), hdpx(105)]
 
-let summaryBlockHeight = hdpx(60)
 let localGap = bigPadding * 2
 
 let cardProgressBar = progressContainerCtor(
@@ -81,7 +81,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     if (!isFreemiumCampaign.value)
       children.append(mkBuyArmyLevel(lvlToBuy, cost, costFull))
     if (hasDiscount)
-      children.append(mkDiscountIcon(discount, { pos = [0, -hdpx(30)] }))
+      children.append(mkDiscountWidget(discount, { pos = [hdpx(30), hdpx(7)] }))
   } else if (unlockCb == null && unlockText != null)
     children.append(mkUnlockInfo(unlockText))
   else if (!hasReceived
@@ -129,6 +129,9 @@ let mkSquadSmallCard = kwarg(function(squadCfg, armyId, unlockInfo, squad = null
     watch = progressWatch
     hplace = ALIGN_RIGHT
     halign = ALIGN_CENTER
+    flow = FLOW_VERTICAL
+    pos = [0, commonBtnHeight / 2]
+    gap = smallPadding
     vplace = ALIGN_BOTTOM
     children = progressWatch.value && progressWatch.value == squadData.id
       ? spinner
@@ -328,8 +331,7 @@ let function mkShowcaseItem(shopItemGuid, uid) {
   let summary = mkPrice({
     shopItem,
     bgParams = {
-      size = [SIZE_TO_CONTENT, summaryBlockHeight]
-      valign = ALIGN_TOP
+      valign = ALIGN_BOTTOM
       hplace = ALIGN_CENTER
     }
   })
@@ -372,7 +374,7 @@ let function freemiumProgressBar(nextUnlockLvl, level, expCur,
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward && hasFreemium)
     return completedProgressLine(1, glareAnimation(2), freemiumColor, freemiumDarkColor)
   else if (nextUnlockLvl > level && expCur >= expToReceive)
-    return acquiredProgresLine(1, [], freemiumColor, freemiumColor)
+    return acquiredProgressLine(1, [], freemiumColor, freemiumColor)
 
   progress = expToReceive > 0
     ? 1.0 - (expToReceive - expCur) / expToReceive.tofloat()
@@ -385,7 +387,7 @@ let function progressBarVariation(nextUnlockLvl, level, expCur,
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward)
     return completedProgressLine(1, glareAnimation(2))
   else if (nextUnlockLvl > level)
-    return acquiredProgresLine(1, [], accentColor)
+    return acquiredProgressLine(1, [], accentColor)
 
   progress = expToReceive > 0
     ? 1.0 - (expToReceive - expCur) / expToReceive.tofloat()
@@ -503,12 +505,12 @@ let function getPositionByLvl() {
 
   local neededIdx = curLvl - 1
 
-  if(idxToForceScroll.value != null){
+  if (idxToForceScroll.value != null){
     neededIdx = idxToForceScroll.value
     idxToForceScroll(null)
   }
 
-  if(rewardToScroll.value != null){
+  if (rewardToScroll.value != null){
     neededIdx = allArmyUnlocks.value.findindex(@(val) val.uid == rewardToScroll.value) ?? neededIdx
     rewardToScroll(null)
   }
@@ -553,12 +555,7 @@ let function scrollByArrow(dir) {
 }
 
 let monetizationBlock = @(isVisible) !isVisible ? null
-  : promoSmall("army_unlocks", null, {
-      size = [flex(), SIZE_TO_CONTENT]
-      color = defBgColor
-      padding = bigGap
-      margin = [hdpx(3),0,0,0]
-    }, "premium/buyForExperience", body_txt)
+  : promoWidget("army_unlocks")
 
 let unlocksProgressBlock = @(isVisible) !isVisible ? noArmyUnlocks
   : @(){
@@ -574,7 +571,7 @@ let unlocksProgressBlock = @(isVisible) !isVisible ? noArmyUnlocks
           })
           children = unlocksBlock
           onAttach = function(){
-            if(idxToForceScroll.value == null){
+            if (idxToForceScroll.value == null){
               let lvlToScroll = needFreemiumStatus.value
                 ? curArmyLevel.value + 1
                 : curArmyNextUnlockLevel.value
@@ -634,7 +631,7 @@ let campaignBlock = @() {
       flow = FLOW_HORIZONTAL
       gap = bigPadding
       children = [
-        armySelect()
+        armySelectUi
         topBlock
         campaignTitle
       ]

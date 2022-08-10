@@ -136,7 +136,4 @@ def cvt(val : float; from : float2; to : float2) : float
 
 [generic]
 def frac(x)
-  if x >= 0.0
-    return x - floor(x)
-  else
-    return x - ceil(x)
+  return x - floor(x)

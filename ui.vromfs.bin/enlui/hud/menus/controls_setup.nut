@@ -13,7 +13,7 @@ let checkbox = require("%ui/components/checkbox.nut")
 let slider = require("%ui/components/slider.nut")
 let mkSliderWithText = require("%ui/components/optionTextSlider.nut")
 let settingsHeaderTabs = require("%ui/components/settingsHeaderTabs.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {dtext} = require("%ui/components/text.nut")
 let console = require("console")
 let { buildElems, buildDigitalBindingText, isValidDevice,eventTypeLabels,
@@ -188,7 +188,7 @@ let function makeTabsList() {
     let ah = dainput.get_action_handle_by_ord(i)
     if (!dainput.is_action_internal(ah)){
       let tags = getActionTags(ah)
-      foreach(tag in tags)
+      foreach (tag in tags)
         hasActions[tag] <- true
     }
   }
@@ -1417,6 +1417,7 @@ let function actionTypeSelect(_cell_data, watched, value) {
       function onClick() {
         watched(value)
       }
+      watch = [watched]
       flow = FLOW_HORIZONTAL
       children = [
         {

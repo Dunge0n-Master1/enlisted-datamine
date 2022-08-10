@@ -659,6 +659,63 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/boost_global.png"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
+  ["259"] = {
+    name = loc("wp/agit_poster_china_b_preview/name")
+    description = loc("wp/agit_poster_china_b_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["260"] = {
+    name = loc("wp/agit_poster_china_c_preview/name")
+    description = loc("wp/agit_poster_china_c_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["261"] = {
+    name = loc("wp/agit_poster_china_d_preview/name")
+    description = loc("wp/agit_poster_china_d_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["262"] = {
+    name = loc("wp/agit_poster_china_e_preview/name")
+    description = loc("wp/agit_poster_china_e_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["263"] = {
+    name = loc("wp/agit_poster_china_f_preview/name")
+    description = loc("wp/agit_poster_china_f_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["264"] = {
+    name = loc("items/normandy_allies_hero_airborne_day_2022")
+    description = "items/normandy_allies_hero_airborne_day_2022/desc"
+    icon = "ui/squads/usa/usa_hero_medal_1_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/usa/usa_hero_medal_1_icon.svg")
+  },
 
 
   // boosters presentation

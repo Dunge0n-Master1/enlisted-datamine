@@ -14,6 +14,7 @@ let scorePlayerInfoComps = [
   ["decorators__portrait", ecs.TYPE_STRING],
   ["player__roomOwner", ecs.TYPE_BOOL],
   ["player_info__military_rank", ecs.TYPE_INT],
+  ["player_info__rating", ecs.TYPE_INT],
 ]
 
 let scoringPlayerSoldiersStatsComps = [
@@ -38,6 +39,7 @@ let scoringPlayerSoldiersStatsComps = [
   ["scoring_player__builtRallyPointUses", ecs.TYPE_INT],
   ["scoring_player__hostedOnSoldierSpawns", ecs.TYPE_INT],
   ["scoring_player__vehicleRepairs", ecs.TYPE_INT],
+  ["scoring_player__vehicleExtinguishes", ecs.TYPE_INT],
   ["scoring_player__reviveAssists", ecs.TYPE_INT],
   ["scoring_player__healAssists", ecs.TYPE_INT],
   ["scoring_player__tankKillAssists", ecs.TYPE_INT],

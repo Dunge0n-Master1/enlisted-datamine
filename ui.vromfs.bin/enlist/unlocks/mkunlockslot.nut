@@ -19,7 +19,7 @@ let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 
 let taskRewardSize = taskMinHeight - 2 * taskSlotPadding[0]
 
-let mkTaskContent = @(unlockDesc, canTakeReward)
+let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
   function() {
     let progress = getUnlockProgress(unlockDesc)
     return {
@@ -33,7 +33,7 @@ let mkTaskContent = @(unlockDesc, canTakeReward)
         valign = ALIGN_CENTER
         children = [
           mkTaskEmblem(unlockDesc, progress, canTakeReward)
-          taskHeader(unlockDesc, progress, canTakeReward)
+          taskHeader(unlockDesc, progress, canTakeReward, sf)
         ]
       }
     }
@@ -166,13 +166,13 @@ let mkUnlockSlot = kwarg(@(
             gap = smallPadding
             valign = ALIGN_CENTER
             children = [
-              mkTaskContent(task, canTakeReward)
+              mkTaskContent(task, canTakeReward, sf)
               mkTaskRewards(task, isAllRewardsVisible, rewardsAnim)
               rightObject
             ]
           }
           hasDescription
-            ? taskDescription(task.localization.description, {
+            ? taskDescription(task.localization.description, sf, {
                 margin = taskDescPadding
               })
             : null

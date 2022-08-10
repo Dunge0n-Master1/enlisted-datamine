@@ -31,7 +31,7 @@ def delete_player_points(var points : array<PointsStruct>; count : int)
       send_net_event(point.eid, [[CmdDeleteMapUserPoint]])
   elif length(points) > count
     let numPoints = length(points) - count
-    for i in range(numPoints)
+    for _i in range(numPoints)
       var first = 0
       for j in range(1, length(points))
         if points[j].time < points[first].time
@@ -56,7 +56,7 @@ def map_user_point_init_es(evt : Event;
   let renamePointGroup = pointGroup
   var points : array<PointsStruct>
 
-  query() <| $ [es] (eid :  EntityId;
+  query() <| $ [es] (eid : EntityId;
                      userPointOwner : EntityId;
                      timer__start : float;
                      pointGroup : int)
@@ -157,11 +157,12 @@ def find_building_on_ray(player_team : int;
   query() <| $ [es(REQUIRE_NOT=(builder_preview, user_point__ignore))] (eid : EntityId;
                                                                         transform : float3x4;
                                                                         buildingRadius : float;
+                                                                        building_menu__image : string;
                                                                         isAlive : bool = true;
                                                                         team : int = TEAM_UNASSIGNED;
                                                                         builder_info__team : int = TEAM_UNASSIGNED)
     let currentTeam = team != TEAM_UNASSIGNED ? team : builder_info__team
-    if !isAlive || is_teams_friendly(currentTeam, player_team)
+    if empty(building_menu__image) || !isAlive || is_teams_friendly(currentTeam, player_team)
       return
     if test_segment_sphere_intersection(trace_pos, trace_to, transform[3], buildingRadius)
       buildingEid = eid
@@ -182,18 +183,18 @@ def find_vehicle_on_ray(player_team : int;
     for it in intersections
       if selected_vehicle == it.eid
         continue
-      query(it.eid) <| $ [es(REQUIRE=vehicle)] (isAlive : bool; team = TEAM_UNASSIGNED)
-        if (team == TEAM_UNASSIGNED || is_teams_friendly(team, player_team)) && !has(it.eid, "user_point__canBeMarkedByAnyTeam") || isAlive == false
-          point_on_vehicle = true
+      query(it.eid) <| $ [es(REQUIRE=vehicle)] (isAlive : bool = false; team = TEAM_UNASSIGNED; user_point__attachWithOffset : Tag?)
         let ray_tolerance = 0.2f
         if it.t <= ray_tolerance || !rayhit_normalized(trace_pos, trace_dir, it.t - ray_tolerance, ETF_DEFAULT, aim_ray_mat_id)
           found = true
           pos_mark = trace_pos + trace_dir * it.t
-          vehicle_eid = it.eid
+          point_on_vehicle = user_point__attachWithOffset != null
+          if (isAlive && !is_teams_friendly(team, player_team)) || point_on_vehicle
+            vehicle_eid = it.eid
       if found
         break
 
-  return found
+  return !!vehicle_eid
 
 def find_vehicle_around(player_team : int;
                         var pos_mark : float3&;
@@ -208,7 +209,7 @@ def find_vehicle_around(player_team : int;
                                                                                     transform : float3x4;
                                                                                     team : int;
                                                                                     collres : CollisionResource)
-    if (team == TEAM_UNASSIGNED || is_teams_friendly(team, player_team)) && !has(eid, "user_point__canBeMarkedByAnyTeam")
+    if team == TEAM_UNASSIGNED || is_teams_friendly(team, player_team)
       return
 
     var intersection = false
@@ -277,6 +278,9 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
                              markerAroundBoxMult : float = 5f;
                              markerAroundMaxDist : float = 8000f;
                              marker__enemyDetectMaxDistance : float = 250f)
+  if is_cooldown(lastSetMarkTime, setMarkCooldown, lastMarkCount, setMarkLimit)
+    return
+
   var pos = evt.pos
 
   let templateName = getEntityTemplateName(eid)
@@ -336,52 +340,17 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
         : find_vehicle_on_ray(team, pos, vehicleEid, pointOnVehicle, vehicleSelected, traceStart, traceDir, enemyDetectMaxDistance, aimRayMatId))
         query(vehicleEid) <| $ [es] (user_point__icon : string)
           userPointCustomIcon = user_point__icon
-        pointOnVehicle ||= has(vehicleEid, "user_point__attachWithOffset")
         let newTemplateName = pointOnVehicle ? "findEnemyPointOnVehicleNewMark" : "findEnemyVehicleNewMark"
         let newObj = get_custom_mark_object(*obj, user_points, newTemplateName)
         if newObj != null
           userPointVehicleTargetEid = vehicleEid
           obj = newObj
-  if !is_cooldown(lastSetMarkTime, setMarkCooldown, lastMarkCount, setMarkLimit)
-    create_map_user_point(evt.item_name, pos, evt.norm, eid, team, *obj, false) <| $(var init : ComponentsInitializer)
-      if !empty(userPointCustomIcon)
-        set(init, "userPointCustomIcon", userPointCustomIcon)
-      if !!buildingEid
-        set(init, "userPointTarget", buildingEid)
-      query(userPointVehicleTargetEid) <| $ [es] (transform : float3x4)
-        set(init, "userPointVehicleTargetEid", userPointVehicleTargetEid)
-        if pointOnVehicle
-          set(init, "userPointVehicleOffset", pos - transform[3])
-    if enemyEid != INVALID_ENTITY_ID && get_bool(obj, "spotEnemy") ?? false
-      send_net_event(eid, [[CmdSpotEnemy enemy=enemyEid]], entity_team(eid))
-  else
-    send_net_event(possessed, [[EventUserMarkDisabled]], target_entity_conn(possessed))
-
-[es(tag=server, REQUIRE=player)]
-def map_user_point_attach_es(evt : CmdAttachMapUserPoint;
-                             eid : EntityId;
-                             possessed : EntityId;
-                             team : int;
-                             user_points : Object;
-                             var lastSetMarkTime : float&;
-                             setMarkCooldown : float;
-                             var lastMarkCount : int&;
-                             setMarkLimit : int)
-  var pos : float3 = float3(0, 0, 0)
-  query(evt.itemEid) <| $ [es] (transform : float3x4)//FIXME No need take pos before get_mark_object and if null == obj
-    pos = transform[3]
-  let templateName = getEntityTemplateName(eid)
-  let obj = get_mark_object(user_points, evt.pointType, templateName)
-  if null == obj
-    return
-  if is_cooldown(lastSetMarkTime, setMarkCooldown, lastMarkCount, setMarkLimit)
-    send_net_event(possessed, [[EventUserMarkDisabled]], target_entity_conn(possessed))
-    return
-  let mark_eid = create_map_user_point(evt.pointType, pos, float3(0, 0, 0), eid, team, *obj, evt.silent) <| $(var init : ComponentsInitializer)//FIXME no need call this if pos == 0
-    set(init, "target", evt.itemEid)
-  if mark_eid == INVALID_ENTITY_ID
-    return
-  let found = query(evt.itemEid) <| $ [es] (var countUserMark : int&)
-    countUserMark++
-  if found
-    addSubTemplate(evt.itemEid, "user_point_entities_tracker")
+  create_map_user_point(evt.item_name, pos, evt.norm, eid, team, *obj, false) <| $(var init : ComponentsInitializer)
+    if !empty(userPointCustomIcon)
+      set(init, "userPointCustomIcon", userPointCustomIcon)
+    if !!buildingEid
+      set(init, "userPointTarget", buildingEid)
+    query(userPointVehicleTargetEid) <| $ [es] (transform : float3x4)
+      set(init, "userPointVehicleTargetEid", userPointVehicleTargetEid)
+      if pointOnVehicle
+        set(init, "userPointVehicleOffset", pos - transform[3])

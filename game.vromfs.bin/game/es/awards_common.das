@@ -1,20 +1,25 @@
-module awards_common shared
+module awards_common shared public
+
 require ecs
-require game.es.events
-require EnlistedNet
 require ecs.common
 require enlisted.game.es.offender_cache_common
 require enlisted.events_enlisted
 
-def send_award_to_player(player_eid : EntityId; award : string)
-  server_send_schemeless_event(player_eid, typeinfo(undecorated_typename type<CmdAddAward>), player_eid) <| $(var init : Object#)
-    set(init, "award", award)
+def add_award(var awards : Array&; award_type : string)
+  add_award(awards, award_type) <| $ [unused_argument(it)] (it) {}
 
+def add_award(var awards : Array&; award_type : string; cb : block<(var it : Object#) : void>)
+  push_to_array(awards) <| $(var obj : Object#)
+    obj |> set("id", length(awards))
+    obj |> set("type", award_type)
+    invoke(cb, obj)
 
-def send_award_to_team(dst_team : int; award : string)
-  query() <| $ [es] (eid : EntityId; team : int)
-    if dst_team == team
-      send_award_to_player(eid, award)
+def add_award(player_eid : EntityId; award_type : string; cb : block<(var id : Object#) : void>)
+  query(player_eid) <| $ [es] (var awards : Array&)
+    add_award(awards, award_type, cb)
+
+def add_award(player_eid : EntityId; award_type : string)
+  add_award(player_eid, award_type) <| $ [unused_argument(it)] (it) {}
 
 def push_soldier_stat(var awards : Array#; player : EntityId; guid : string; stat : string; amount : float = 1.0)
   push_to_array(awards) <| $(var obj : Object#)

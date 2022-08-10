@@ -10,8 +10,8 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 
 
-let wpSize = hdpx(190).tointeger()
-let wpHeaderWidth = hdpx(150).tointeger()
+let wpSize = hdpxi(190)
+let wpHeaderWidth = hdpxi(150)
 
 let mkText = @(text, style) {
   rendObj = ROBJ_TEXT

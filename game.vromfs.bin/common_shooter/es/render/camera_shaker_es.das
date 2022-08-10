@@ -7,6 +7,7 @@ require EnlistedPhysObj
 require CameraShaker
 require EnlistedCameraShaker
 require BallisticsProps
+require enlisted.events_enlisted
 
 [es(tag=gameClient, after=after_camera_sync)]
 def camera_shaker_update_es(info : UpdateStageInfoAct;
@@ -16,7 +17,7 @@ def camera_shaker_update_es(info : UpdateStageInfoAct;
   camera_shaker_shakeMatrix(camera_shaker, transform)
 
 [es(tag=gameClient, no_order)]
-def shell_fly_shock_wave_es(info : UpdateStageInfoAct;
+def shell_fly_shock_wave_es(info : ParallelUpdateFrameDelayed;
                             phys_obj_net_phys : PhysObjActor;
                             shell__shell_id__shell_id : int;
                             active : bool&)

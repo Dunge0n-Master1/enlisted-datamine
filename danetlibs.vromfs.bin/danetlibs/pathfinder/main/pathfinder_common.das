@@ -9,6 +9,7 @@ require DagorRandom
 require RendInst
 require math.maybe_pos public
 
+
 def get_lower_navmesh_pos(position : float3; horz_extents : float; is_valid : block<(pos : float3) : bool>) : MaybePos
   var minY = FLT_MAX
   var res = [[MaybePos invalid=null]]
@@ -30,23 +31,6 @@ def get_lower_navmesh_pos_in_radius(position : float3; radius : float; is_valid 
   return res
 
 
-// more accurate version, returns point exactly in given radius
-def find_random_point_in_radius(start : float3; radius : float; extends : float; var resPos : float3&) : bool
-  let res = find_random_point_around_circle(start, radius, resPos)
-  if !res
-    return false
-  let dir = resPos - start
-  let distSq = length_sq(dir)
-  if distSq < square(radius)
-    return res
-
-  let dist = sqrt(distSq)
-  let nearestPos = resPos - dir * safediv(rnd_float(dist - radius + extends, dist), dist)
-  if !traceray_navmesh(resPos, nearestPos, extends, resPos)
-    return false
-  return distance_sq(start, resPos) < square(radius)
-
-
 def find_nav_point_around(start_pos, center : float3; radius : float; tries : int; is_valid : block<(pos : float3) : bool>) : MaybePos
   let angleDelta = 2f * PI * safeinv(float(tries))
   let startAngle = angleDelta * gfrnd()
@@ -59,7 +43,11 @@ def find_nav_point_around(start_pos, center : float3; radius : float; tries : in
       continue
     if !invoke(is_valid, pos)
       continue
-    if !check_path(start_pos, pos, 0.5f, 0.5f, 0.5f)
+    var checkPath = false
+    let extents = float3(0.5, FLT_MAX, 0.5)
+    using(start_pos, pos, extents) <| $(var req : FindRequest#)
+      checkPath = check_path(req, 0.5f, 0.5f)
+    if !checkPath
       continue
     return [[MaybePos pos=pos]]
   return [[MaybePos invalid=null]]
@@ -69,9 +57,9 @@ def get_triangle_by_pos(pos : float3; hor_dist : float; var result : NavMeshTria
   return get_triangle_by_pos(pos, result, hor_dist, int(PolyFlag POLYFLAG_GROUND) | int(PolyFlag POLYFLAG_OBSTACLE), 0, null)
 
 
-def get_surface_normal_by_pos(pos : float3; poly : int64)
+def get_surface_normal_by_pos(pos : float3; poly : dtPolyRef)
   var res : NavMeshTriangle
-  if get_triangle_by_poly(pos, uint64(poly), res)
+  if get_triangle_by_poly(pos, poly, res)
     let x0 = res.p0 - res.p2
     let x1 = res.p1 - res.p2
     return cross(x0, x1) |> normalize()

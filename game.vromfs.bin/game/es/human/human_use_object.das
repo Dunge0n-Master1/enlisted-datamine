@@ -1,6 +1,7 @@
 require ecs
 require game.es.human.human_use_object_common
 require game.es.events
+require enlisted.events_enlisted
 require math.base
 require game.utils.team
 require zones
@@ -38,7 +39,7 @@ def human_use_object_created_es(evt : Event;
 
 
 [es(REQUIRE=hero)]
-def hero_human_pre_use_object_es(info : UpdateStageInfoAct;
+def hero_human_pre_use_object_es(info : ParallelUpdateFrameDelayed;
                                  var human_use_object__selectedObject : EntityId&;
                                  var human_use_object__lookAtSelected : bool&;
                                  var human_use_object__lookAtObject : EntityId&;
@@ -50,7 +51,7 @@ def hero_human_pre_use_object_es(info : UpdateStageInfoAct;
 
 
 [es(REQUIRE=hero, after=(hero_human_use_delivery_item, hero_human_use_revive_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
-def hero_human_use_current_vehicle_object_es(info : UpdateStageInfoAct;
+def hero_human_use_current_vehicle_object_es(info : ParallelUpdateFrameDelayed;
                                              isInVehicle : bool = false;
                                              human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
                                              var human_use_object__selectedObject : EntityId&;
@@ -62,7 +63,7 @@ def hero_human_use_current_vehicle_object_es(info : UpdateStageInfoAct;
 
 
 [es(REQUIRE=hero, after=hero_human_pre_use_object_es, before=hero_human_final_use_object_sync)]
-def hero_human_use_grenade_rethrow_object_es(info : UpdateStageInfoAct;
+def hero_human_use_grenade_rethrow_object_es(info : ParallelUpdateFrameDelayed;
                                              eid : EntityId;
                                              human_use_object__lockGrenadeRethrowing : bool = false;
                                              var human_use_object__selectedObject : EntityId&)
@@ -74,7 +75,7 @@ def hero_human_use_grenade_rethrow_object_es(info : UpdateStageInfoAct;
 
 
 [es(REQUIRE=hero, after=(hero_human_use_craft_bag, hero_human_use_current_vehicle_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
-def hero_human_use_stationary_gun_object_es(info : UpdateStageInfoAct;
+def hero_human_use_stationary_gun_object_es(info : ParallelUpdateFrameDelayed;
                                             eid : EntityId;
                                             human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                                             human_use_object__lockStationaryGunUse : bool = false;

@@ -8,7 +8,7 @@ let { WindowBd } = require("%ui/style/colors.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { use_transfer_item_order } = require("%enlist/meta/clientApi.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { curCampItems, curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
@@ -68,7 +68,7 @@ let mkTransferItemInfo = @(item) {
   ]
 }
 
-let armyIconSize = hdpx(44).tointeger()
+let armyIconSize = hdpxi(44)
 let armySlotWidth = fsh(25)
 
 let function mkArmy(variant, isSelected, onClick = null) {

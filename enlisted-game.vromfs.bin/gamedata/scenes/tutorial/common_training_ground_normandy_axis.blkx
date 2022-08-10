@@ -26,7 +26,6 @@ entity{
   team__capturePenalty:r=0.0
   team__score:r=0.0
   team__id:i=1
-  team__haveScores:b=no
   team__spawnBotArmy:t="normandy_axis"
   team__briefing:t="practice_mode/goals"
   team__winTitle:t="debriefing/sucesful_tutorial_title"
@@ -89,8 +88,6 @@ entity{
 
 entity{
   _template:t="m30_luftwaffe_drilling_magazine+disable_update"
-  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
-  animchar__updatable:b=no
 }
 
 entity{
@@ -119,8 +116,6 @@ entity{
 
 entity{
   _template:t="m30_luftwaffe_drilling_magazine+disable_update"
-  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
-  animchar__updatable:b=no
 }
 
 entity{
@@ -143,8 +138,6 @@ entity{
 
 entity{
   _template:t="m30_luftwaffe_drilling_magazine+disable_update"
-  transform:m=[[-0.996336, 0.0854036, -0.00430199] [0.0854975, 0.995822, -0.032041] [0.00154776, -0.0322914, -0.999478] [-107.252, 60.7908, -1048.15]]
-  animchar__updatable:b=no
 }
 
 entity{

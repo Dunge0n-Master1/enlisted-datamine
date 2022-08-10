@@ -63,8 +63,8 @@ def on_explosion_concussion_launch_desc(evt : EventShellExplodedServer;
 def on_hit_concussion(evt : EventOnEntityHit; eid : EntityId; isAlive : bool; concussion__duration : float)
   if evt.victim != eid || !isAlive
     return
-  if evt.damageDesc.damageType == DamageType DM_MELEE || evt.damageDesc.damageType == DamageType DM_BACKSTAB
-    let actionPropId = int(evt.damageDesc.actionPropsId)
+  if evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)
+    let actionPropId = evt.actionPropsId
     if actionPropId >= 0
       melee_get_props(actionPropId) <| $(meleeProps : MeleeProps)
         if meleeProps.concussion

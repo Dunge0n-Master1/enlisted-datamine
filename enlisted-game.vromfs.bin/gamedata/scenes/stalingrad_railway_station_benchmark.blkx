@@ -221,7 +221,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[27.4532, 0.0, -3.29887] [0.0, 3.40527, 0.0] [1.82842, 0.0, 13.8368] [-64.8851, 6.89984, 170.833]]
   capzone__title:t="B"
   capzone__title:t="B"
@@ -230,7 +230,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[1.34715, 0.0, 9.1892] [0.0, 3.47757, 0.0] [31.0445, 0.0, -3.14362] [47.6992, 8.55081, 289.3]]
   capzone__title:t="C"
   capzone__title:t="A"
@@ -441,7 +441,7 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+    weather_clear_a:r=1.0
   }
 
   "level__timeVec:array"{
@@ -498,30 +498,30 @@ entity{
 
     "camera_tracks:object"{
       from_fov:r=90.0
-      from_pos:p3=127.4912, 14.91371, 375.7261
+      from_pos:p3=127.491, 14.9137, 375.726
       from_dir:p3=0.111675, 0.005453, -0.99373
       duration:r=10.0
-      to_pos:p3=137.716, 14.98038, 347.7597
+      to_pos:p3=137.716, 14.9804, 347.76
       to_dir:p3=-0.599001, -0.004706, -0.800734
       to_fov:r=90.0
     }
 
     "camera_tracks:object"{
       from_fov:r=90.0
-      from_pos:p3=162.8131, 7.758057, 319.3317
+      from_pos:p3=162.813, 7.75806, 319.332
       from_dir:p3=-0.999676, -0.008213, -0.024109
       duration:r=10.0
-      to_pos:p3=125.5858, 7.575629, 318.8928
+      to_pos:p3=125.586, 7.57563, 318.893
       to_dir:p3=-0.620155, 0.003498, -0.784471
       to_fov:r=90.0
     }
 
     "camera_tracks:object"{
       from_fov:r=90.0
-      from_pos:p3=-9.22598, 7.117452, 123.4237
+      from_pos:p3=-9.22598, 7.11745, 123.424
       from_dir:p3=0.28372, -0.041464, 0.95801
       duration:r=10.0
-      to_pos:p3=-24.07095, 8.143997, 88.35396
+      to_pos:p3=-24.0709, 8.144, 88.354
       to_dir:p3=0.763527, 0.00169, 0.645774
       to_fov:r=90.0
     }
@@ -548,20 +548,20 @@ entity{
 
     "camera_tracks:object"{
       from_fov:r=90.0
-      from_pos:p3=56.898, 10.09905, 287.557
+      from_pos:p3=56.898, 10.0991, 287.557
       from_dir:p3=-0.987655, 0.009803, 0.156336
       duration:r=10.0
-      to_pos:p3=80.89311, 9.862353, 284.7209
+      to_pos:p3=80.8931, 9.86235, 284.721
       to_dir:p3=-0.990576, 0.004739, 0.136882
       to_fov:r=90.0
     }
 
     "camera_tracks:object"{
       from_fov:r=90.0
-      from_pos:p3=39.09797, 8.959698, 237.233
+      from_pos:p3=39.098, 8.9597, 237.233
       from_dir:p3=0.146908, 0.006496, 0.989129
       duration:r=10.0
-      to_pos:p3=35.57115, 8.79367, 211.9174
+      to_pos:p3=35.5711, 8.79367, 211.917
       to_dir:p3=0.146908, 0.006496, 0.989129
       to_fov:r=90.0
     }
@@ -575,7 +575,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=40.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
   ground_effect__offset_y:p2=3.0, 1.0
@@ -588,7 +587,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=20.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.35
   ground_effect__fx_radius:r=-1.0
   ground_effect__offset_y:p2=3.0, 1.0
@@ -605,7 +603,6 @@ entity{
   ground_effect__grid_cell_size:r=32.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -621,7 +618,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -637,7 +633,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -649,7 +644,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }

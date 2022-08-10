@@ -12,7 +12,7 @@ require sound_utils.modules.sound_player_common
 
 [es(tag=sound, after=vehicle_phys_sound_state)]
 def vehicle_suspension_sound(info : UpdateStageInfoAct;
-                             sound_control__enabled : bool;
+                             sound_control__shouldPlay : bool;
                              vehicle_net_phys : VehiclePhysActor;
 
                              vehicle_suspension_sound__hitToVar : float2;
@@ -36,7 +36,7 @@ def vehicle_suspension_sound(info : UpdateStageInfoAct;
   // suspension hit --------------------------
   var total = 0.
 
-  if sound_control__enabled
+  if sound_control__shouldPlay
     for idx in range(int(vehicle_net_phys.phys.currentState.wheelCount))
       let wheel = vehicle_phys_get_wheel(vehicle_net_phys.phys, idx)
       if wheel != null
@@ -46,7 +46,7 @@ def vehicle_suspension_sound(info : UpdateStageInfoAct;
   sound_player_common::play_parameterized(vehicle_suspension_sound__event, total, vehicle_suspension_sound__hitForce, "force", transform[3], vehicle_suspension_sound__path, sound_tags, true, info.curTime, vehicle_suspension_sound__hitTime)
 
   // surface type ----------------------------
-  if !sound_control__enabled || int(vehicle_net_phys.phys.currentState.wheelCount) <= 0 || vehicle_suspension_sound__wheelIdx >= int(vehicle_net_phys.phys.currentState.wheelCount)
+  if !sound_control__shouldPlay || int(vehicle_net_phys.phys.currentState.wheelCount) <= 0 || vehicle_suspension_sound__wheelIdx >= int(vehicle_net_phys.phys.currentState.wheelCount)
     vehicle_sound_state__surfaceConcrete = 0.
     vehicle_sound_state__surfaceWater = 0.
     vehicle_suspension_sound__concreteSurfaceMax = 0.

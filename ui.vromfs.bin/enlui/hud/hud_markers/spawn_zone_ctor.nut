@@ -3,6 +3,11 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h0_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { respawnsInBot, canUseRespawnbaseByType, needSpawnMenu, selectedRespawnGroupId, isFirstSpawn } = require("%ui/hud/state/respawnState.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
+let {
+  spawnZonesState,
+  spawnZonesGetWatched,
+} = require("%ui/hud/state/spawn_zones_markers.nut")
+
 let spawnIconColor = Color(86,131,212,250)
 let inactiveSpawnIconColor = Color(160,160,160,150)
 let playerSpawnActiveColor = Color(57, 99, 255)
@@ -76,38 +81,40 @@ let mkTextPlayerGroupmate = @(num, isSelected) {
 
 let isAllZonesHidden = Computed(@() isFirstSpawn.value || respawnsInBot.value || !needSpawnMenu.value)
 
-let function respawn_point(eid, marker) {
-  let {selectedGroup, iconType, iconIndex, forTeam, isCustom, isPlayerSpawn, isActive, additiveAngle} = marker
-
-  local spawnIconInfo = spawnPointsTypesInfo?[iconType] ?? spawnPointsTypesInfo.human
-  if (isPlayerSpawn)
-    spawnIconInfo = playerSpawnPointInfo
-  else if (isCustom)
-    spawnIconInfo = customSpawnPointInfo
+let mk_respawn_point = memoize(function(eid) {
+  let data = {
+    eid
+    minDistance = 0.7
+    maxDistance = 15000
+    distScaleFactor = 0.5
+    clampToBorder = true
+  }
+  let markerState = spawnZonesGetWatched(eid)
+  let watch = [selectedRespawnGroupId, canUseRespawnbaseByType, isAllZonesHidden, localPlayerTeam, markerState]
 
   return function() {
+    let {selectedGroup, iconType, iconIndex, forTeam, isCustom, isPlayerSpawn, isActive, additiveAngle} = markerState.value
+    local spawnIconInfo = spawnPointsTypesInfo?[iconType] ?? spawnPointsTypesInfo.human
+    if (isPlayerSpawn)
+      spawnIconInfo = playerSpawnPointInfo
+    else if (isCustom)
+      spawnIconInfo = customSpawnPointInfo
+
     let isHidden = isAllZonesHidden.value
-      || forTeam != localPlayerTeam.value
-      || iconType != canUseRespawnbaseByType.value
+        || forTeam != localPlayerTeam.value
+        || iconType != canUseRespawnbaseByType.value
     let isSelected = (selectedRespawnGroupId.value?[iconType] ?? -1) == selectedGroup
     return {
-      data = {
-        eid
-        minDistance = 0.7
-        maxDistance = 15000
-        distScaleFactor = 0.5
-        clampToBorder = true
-      }
+      data
       targetEid = eid
       halign = ALIGN_CENTER
       valign = ALIGN_BOTTOM
       key = eid
       transform = defTransform
       behavior = Behaviors.Projection
-      watch = [selectedRespawnGroupId, canUseRespawnbaseByType, isAllZonesHidden]
+      watch
       sortOrder = eid
-      children = isHidden ? []
-        : [
+      children = isHidden ? null : [
             mkRespawnPoint(
               eid, isSelected, spawnIconInfo, selectedGroup, isActive, additiveAngle, iconType
             )
@@ -115,6 +122,8 @@ let function respawn_point(eid, marker) {
           ]
     }
   }
-}
+})
 
-return respawn_point
+return {
+   spawn_zone_ctor = {watch = spawnZonesState, ctor = @() spawnZonesState.value.keys().map(mk_respawn_point)},
+}

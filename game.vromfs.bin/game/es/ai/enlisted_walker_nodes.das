@@ -6,7 +6,6 @@ require app
 require enlisted.game.es.ai.ai_aiming_common
 require enlisted.game.es.squad_behaviour_command_common
 require math.base
-require common_shooter.es.ai.beh_node_common
 require game.es.ai.walker_common
 require Covers
 require CollRes
@@ -213,9 +212,19 @@ class GetRegroupPos : BehNodeAdapter
     let eid = beh_tree_eid(owner)
 
     query(squadEid) <| $ [es] (squad__regroupPos : float3; squad__leader : ecs::EntityId)
-      let position = squad__regroupPos
-      if squad__leader != eid && is_point_safe(position, agent.teamId)
-        datablock_setPoint3(owner.blackBoard, posParam, position)
+      if squad__leader == eid
+        return
+
+      datablock_setPoint3(owner.blackBoard, posParam, agent.pos)
+
+      query(eid) <| $ [es] (squad_member__isPersonalOrder : bool;
+                            squad_member__orderPosition : float3)
+        if !squad_member__isPersonalOrder
+          let position = squad__regroupPos
+          if squad__leader != eid && is_point_safe(position, agent.teamId)
+            datablock_setPoint3(owner.blackBoard, posParam, position)
+        else
+          datablock_setPoint3(owner.blackBoard, posParam, squad_member__orderPosition)
 
     return EBehResult ER_SUCCESS
 
@@ -283,6 +292,7 @@ typedef
 
 
 def try_find_points_near_cap_zone(agent; var pos : float3&)
+  let extents = float3(0.5, FLT_MAX, 0.5)
   return find_query() <| $ [es(REQUIRE=capzone__progress)] (active : bool;
                                                             capzone__hasNearestNavmeshPos : bool;
                                                             capzone__nearestNavmeshPos : float3;
@@ -290,7 +300,7 @@ def try_find_points_near_cap_zone(agent; var pos : float3&)
     if !active || !capzone__hasNearestNavmeshPos
       return false
 
-    for i in range(5)
+    for _i in range(5)
       let biasAngle = rnd_float(0.0, 2.0 * PI)
       let radiusExt = 1.5
       let horzExt = 1.5
@@ -300,13 +310,221 @@ def try_find_points_near_cap_zone(agent; var pos : float3&)
 
       var newPos = capzone__nearestNavmeshPos + biasPos
 
-      if (project_to_nearest_navmesh_point_no_obstacles(newPos, horzExt) &&
-          check_path(agent.pos, newPos, 0.5, 0.5, 0.5, agent.customNav))
+      let projExtents = float3(horzExt, FLT_MAX, horzExt)
+      if (project_to_nearest_navmesh_point_no_obstacles(newPos, projExtents) &&
+          check_path(agent.pos, newPos, extents, 0.5, 0.5, agent.customNav))
         pos = newPos
         return true
 
     pos = capzone__nearestNavmeshPos
     return true
+
+[beh_node(name="findPointInCapzone")]
+class FindPointInCapzone : BehNodeAdapter
+  posParam : int = -1
+  targetEidParam : int = -1
+
+  maxDistSq : float = 1000000.
+
+  squadEid : EntityId = INVALID_ENTITY_ID
+
+  def override loadFromBlk(var data : DataBlock) : void
+    query(beh_tree_eid(owner)) <| $ [es] (transform aka agent_transform : float3x4;
+                                          squad_member__squad : EntityId)
+      posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), agent_transform[3])
+      squadEid = squad_member__squad
+
+    targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetEidParam", "leaderTargetEid"), 0)
+
+    let maxDist = datablock_getReal(data, "maxDist", 1000.)
+
+    maxDistSq = maxDist * maxDist
+
+  def override update(dt : float) : EBehResult
+    var res = EBehResult ER_FAILED
+
+    query(squadEid) <| $ [es] (squad__leader : EntityId)
+      if squad__leader != beh_tree_eid(owner)
+        return
+
+      query(beh_tree_eid(owner)) <| $ [es] (transform aka agent_transform : float3x4;
+                                            team aka owner_team : int;
+                                            squad_member__squad : EntityId)
+        let teamHash = string(owner_team)
+        var capzones : array<tuple<dist : float; eid : EntityId>>
+
+        query() <| $ [es(REQUIRE=capzone__progress)] (eid : EntityId;
+                                                      active : bool;
+                                                      capzone__progress : float;
+                                                      capzone__hasNearestNavmeshPos : bool;
+                                                      capzone__capTeam : int;
+                                                      transform aka capzone_transform : float3x4)
+          if !active || !capzone__hasNearestNavmeshPos || (abs(1. - capzone__progress) <= FLT_EPSILON && capzone__capTeam == owner_team)
+            return
+
+          let distSqr = distance_sq(agent_transform[3], capzone_transform[3])
+          capzones |> emplace([[auto distSqr, eid]])
+
+        sort(capzones) <| $(lhs, rhs)
+          return lhs.dist < rhs.dist
+
+        for elem in capzones
+          if res == EBehResult ER_SUCCESS
+            return
+
+          query(elem.eid) <| $ [es] (teamPresence : Object;
+                                     capzone__maxTeamPresence : int;
+                                     capzone__nearestNavmeshPos : float3;
+                                     transform aka capzone_transform : float3x4)
+            let myTeamInZone = teamPresence[teamHash] != null ? get_ecs_array(teamPresence[teamHash]) : null
+
+            if myTeamInZone == null
+              owner.blackBoard |> datablock_setInt(targetEidParam, int(uint(elem.eid)))
+              owner.blackBoard |> datablock_setPoint3(posParam, capzone__nearestNavmeshPos)
+
+              res = EBehResult ER_SUCCESS
+              return
+
+            var uniqueTeams : table<uint>
+            for agentEid in *myTeamInZone
+              query(get_Eid(agentEid) ?? INVALID_ENTITY_ID) <| $ [es] (squad_member__squad : EntityId)
+                uniqueTeams |> insert(uint(squad_member__squad))
+
+            let alreadyOnRoute = uniqueTeams |> key_exists(uint(squad_member__squad))
+
+            if alreadyOnRoute
+              res = EBehResult ER_SUCCESS
+              return
+
+            if myTeamInZone != null && length(uniqueTeams) > capzone__maxTeamPresence
+              return
+
+            let distSq = distance_sq(capzone_transform[3], agent_transform[3])
+            if distSq > maxDistSq
+              return
+
+            owner.blackBoard |> datablock_setInt(targetEidParam, int(uint(elem.eid)))
+            owner.blackBoard |> datablock_setPoint3(posParam, capzone__nearestNavmeshPos)
+
+            res = EBehResult ER_SUCCESS
+
+    return res
+
+[beh_node(name="findPointNearCapzone")]
+class FindPointNearCapzone : BehNodeAdapter
+  posParam : int = -1
+  targetEidParam : int = -1
+
+  maxDistSq : float = 1000000.
+
+  squadEid : EntityId = INVALID_ENTITY_ID
+
+  def override loadFromBlk(var data : DataBlock) : void
+    query(beh_tree_eid(owner)) <| $ [es] (transform aka agent_transform : float3x4;
+                                          squad_member__squad : EntityId)
+      posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), agent_transform[3])
+      squadEid = squad_member__squad
+
+    targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetEidParam", "leaderTargetEid"), 0)
+
+    let maxDist = datablock_getReal(data, "maxDist", 1000.)
+
+    maxDistSq = maxDist * maxDist
+
+  def override update(dt : float) : EBehResult
+    var capturedZonesMap : table<uint; uint>
+
+    var res = EBehResult ER_FAILED
+
+    query(squadEid) <| $ [es] (squad__leader : EntityId)
+      if squad__leader != beh_tree_eid(owner)
+        return
+
+      query(beh_tree_eid(owner)) <| $ [es] (team aka owner_team : int;
+                                            transform aka agent_transform : float3x4;
+                                            var beh_tree__capzoneOfInterest : EntityId&)
+        query() <| $ [es(tag=capzone)] (eid : EntityId)
+          capturedZonesMap[uint(eid)] = 0u
+
+        query() <| $ [es] (team aka agent_team : int;
+                           beh_tree__capzoneOfInterest : EntityId)
+          if owner_team == agent_team
+            capturedZonesMap[uint(beh_tree__capzoneOfInterest)] += 1u
+
+        let alreadyOnRoute = find_query() <| $ [es] (eid : EntityId;
+                                                     active : bool;
+                                                     capzone__hasNearestNavmeshPos : bool)
+          if !active || !capzone__hasNearestNavmeshPos
+            return false
+
+          return beh_tree__capzoneOfInterest == eid
+
+        if alreadyOnRoute
+          res = EBehResult ER_SUCCESS
+          return
+
+        var maxTeamInZone = UINT_MAX
+
+        query() <| $ [es(REQUIRE=capzone__progress)] (eid : EntityId;
+                                                      active : bool;
+                                                      capzone__hasNearestNavmeshPos : bool;
+                                                      capzone__outsideNavmeshPositions : Point3List;
+                                                      transform aka capzone_transform : float3x4)
+          if !active || !capzone__hasNearestNavmeshPos
+            return
+
+          let distSq = distance_sq(capzone_transform[3], agent_transform[3])
+          if distSq > maxDistSq
+            return
+
+          if capturedZonesMap[uint(eid)] <= maxTeamInZone
+            beh_tree__capzoneOfInterest = eid
+            owner.blackBoard |> datablock_setInt(targetEidParam, int(uint(eid)))
+            owner.blackBoard |> datablock_setPoint3(posParam,
+              capzone__outsideNavmeshPositions[rnd_int(0, length(capzone__outsideNavmeshPositions) - 1)])
+
+            maxTeamInZone = capturedZonesMap[uint(eid)]
+
+            res = EBehResult ER_SUCCESS
+
+    return res
+
+[beh_node(name="initPeriodicTimer")]
+class InitPeriodicTimer : BehNodeAdapter
+  timeParam : int = -1
+  timePeriod : float2 = float2(2.5, 5.)
+
+  def override loadFromBlk(var data : DataBlock)
+    timeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "timeParam", "time"), 0.)
+
+    timePeriod = datablock_getPoint2(data, "timePeriod", float2(2.5, 5.))
+
+  def override update(dt : float) : EBehResult
+    owner.blackBoard |> datablock_setReal(timeParam, get_sync_time() + rnd_float(timePeriod.x, timePeriod.y))
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="periodicTimer")]
+class PeriodicTimer : BehNodeAdapter
+  timeParam : int = -1
+
+  timePeriod : float2 = float2(2.5, 5.)
+
+  def override loadFromBlk(var data : DataBlock)
+    timeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "timeParam", "time"), 0.)
+
+    timePeriod = datablock_getPoint2(data, "timePeriod", float2(2.5, 5.))
+
+  def override update(dt : float) : EBehResult
+    let prevTime = owner.blackBoard |> datablock_getReal(timeParam)
+
+    let curTime = get_sync_time()
+
+    if prevTime - curTime < 0.
+      owner.blackBoard |> datablock_setReal(timeParam, curTime + rnd_float(timePeriod.x, timePeriod.y))
+      return EBehResult ER_SUCCESS
+
+    return EBehResult ER_FAILED
+
 
 [beh_node(name="leaderBehaviour")]
 class LeaderBehaviour : BehNodeAdapter
@@ -393,7 +611,8 @@ class LeaderBehaviour : BehNodeAdapter
           if length(*myTeamInZone) > capzone__maxTeamPresence
             return
         zonePos = capzone__nearestNavmeshPos
-        let hasPath = pathfinder::find_path(agent.pos, zonePos, 0.5, 1.0, 0.25, agent.customNav)
+        let extents = float3(0.5, FLT_MAX, 0.5)
+        let hasPath = pathfinder::find_path(agent.pos, zonePos, extents, 1.0, 0.25, agent.customNav)
         if hasPath != FindPathResult FPR_FAILED
           if agent.teamId != capzone__owningTeam
             validZones |> emplace([[auto eid, zonePos, capzone__minRadius]])
@@ -434,8 +653,9 @@ class LeaderBehaviour : BehNodeAdapter
         sincos(gfrnd() * PI * 2.0, s, c)
         let radius = (0.1f + gfrnd() * 0.9f) * max(nextPos.radius - 2.0f, 0.0f)
         let randomPos = nextPos.pos + float3(c * radius, 0f, s * radius)
+        let extents = float3(0.5, FLT_MAX, 0.5)
         let newPos = get_lower_navmesh_pos(randomPos, 0.5f) <| $(p)
-          return is_point_in_capzone(p, nextPos.eid, 1.0) && check_path(nextPos.pos, p, 0.5, 0.5, 0.5, agent.customNav)
+          return is_point_in_capzone(p, nextPos.eid, 1.0) && check_path(nextPos.pos, p, extents, 0.5, 0.5, agent.customNav)
         if newPos is pos
           result = newPos as pos
           found = true
@@ -498,7 +718,6 @@ class InteractWithBuildingTarget : BehNodeAdapter
 
   def override exit()
     let agent = beh_tree_entity_agent(*owner)
-    owner.blackBoard |> datablock_setInt("buildTarget", 0)
     var phys = agent.phys
     if phys != null
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, false)
@@ -587,12 +806,12 @@ class CheckVehicleSeats : BehNodeAdapter
         let maxvel = maxVehicleVelocityCanReEnter
         let canChangeRoomNow = maxvel < 0.0 || length_sq(curvel) < maxvel * maxvel
 
-        var seatsDrivers     : int = 0
-        var seatsGunners     : int = 0
-        var seatsLoaders     : int = 0
+        var seatsDrivers : int = 0
+        var seatsGunners : int = 0
+        var seatsLoaders : int = 0
         var seatsMoreGunners : int = 0
-        var seatsForPlayer   : int = 0
-        var seatsFilter      : int = -1
+        var seatsForPlayer : int = 0
+        var seatsFilter : int = -1
 
         for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
           query(seatEid) <| $ [es] (seat__availableControls : VehicleControlsState;
@@ -600,6 +819,8 @@ class CheckVehicleSeats : BehNodeAdapter
                                     seats_order__canPlaceManually : bool;
                                     seats_switch_time__time : float;
                                     seats_switch_time__newSeatNo : int;
+                                    seat__loaderTurretIds : IntList?;
+                                    seat_perks__vehicleReloadMult : float = 1.;
                                     seat__adjacentSeat : int = -1;
                                     seat__isLocked : bool = false;
                                     seat__roomSpace : int = -1)
@@ -608,7 +829,7 @@ class CheckVehicleSeats : BehNodeAdapter
               return
 
             let isSeatCanPlaceMan = seats_order__canPlaceManually
-            var isSeatAcceptable  = seats_switch_time__time <= 0.0 && !(get_bool(seat__ownerEid, "isAlive") ?? false)
+            var isSeatAcceptable  = eid == seat__ownerEid || (seats_switch_time__time <= 0.0 && !(get_bool(seat__ownerEid, "isAlive") ?? false))
 
             if seat__adjacentSeat > -1
               query(vehicle_seats__seatEids[seat__adjacentSeat]) <| $ [es] (seat__ownerEid aka adjacent_seat__ownerEid : EntityId)
@@ -624,7 +845,7 @@ class CheckVehicleSeats : BehNodeAdapter
                 add_to_set(seatsDrivers, seatNo)
               elif seat__availableControls.canControlTurrets
                 add_to_set(isSeatCanPlaceMan ? seatsGunners : seatsMoreGunners, seatNo)
-              elif has(seatEid, "seat_perks__vehicleReloadMult")
+              elif (seat_perks__vehicleReloadMult < 1.0) || (seat__loaderTurretIds != null && length(*seat__loaderTurretIds) > 0)
                 add_to_set(seatsLoaders, seatNo)
               elif isSeatCanPlaceMan
                 add_to_set(seatsForPlayer, seatNo)
@@ -698,24 +919,21 @@ class GetOrderPosition : BehNodeAdapter
       return EBehResult ER_FAILED
 
     let oldPos = datablock_getPoint3(owner.blackBoard, posParam)
-    if oldPos == float3(0.0f, 0.0f, 0.0f)
-      datablock_setPoint3(owner.blackBoard, orderPosParam, agent.pos)
-    elif is_point_safe(oldPos, agent.teamId)
+
+    datablock_setPoint3(owner.blackBoard, orderPosParam, agent.pos)
+    if is_point_safe(oldPos, agent.teamId)
       datablock_setPoint3(owner.blackBoard, orderPosParam, oldPos)
 
     query(agent.eid) <| $ [es] (squad_member__squad : ecs::EntityId;
                                 squad_member__orderType : int;
-                                squad_member__offset : float3 const&;
+                                squad_member__offset : float3;
                                 squad_member__isPersonalOrder : bool;
-                                squad_member__orderPosition : float3 const&)
+                                squad_member__orderPosition : float3)
       query(squad_member__squad) <| $ [es] (squad__leader : ecs::EntityId;
                                             squad__orderType : int;
                                             squad__regroupPos : float3;
                                             squad__spreadAroundOrderPoint : float3)
-        if squad_member__orderType == int(SquadMateOrder ESMO_NO_ORDER)
-          if squad__leader == agent.eid
-            return
-
+        if !squad_member__isPersonalOrder && squad__leader != agent.eid
           let wishPosition = find_best_squad_pos(squad__leader, squad__orderType, squad__regroupPos,
             squad_member__offset, squad__spreadAroundOrderPoint.x)
 
@@ -749,11 +967,6 @@ class PrepareArtillery : BehNodeAdapter
 
   def override exit()
     let agent = beh_tree_entity_agent(*owner)
-    let zeroPos = float3()
-    owner.blackBoard |> datablock_setInt(requesterEidParam, 0)
-    owner.blackBoard |> datablock_setInt(typeIndexParam, 0)
-    owner.blackBoard |> datablock_setPoint3(posEndParam, zeroPos)
-    owner.blackBoard |> datablock_getBool(shouldSendParam)
     var phys = agent.phys
     if phys != null
       phys.producedCT |> human_control_state_set_device_state(false)
@@ -825,7 +1038,7 @@ class FindNearestActiveBombSiteForPlanting : BehNodeAdapter
       if (active && agent.teamId == bomb_site__plantingTeam &&
          !bomb_site__isPlantingOrReseting && !bomb_site__isBombPlanted)
         let isNearBombSite = distance_sq(agent.pos, transform[3]) < bombSiteInRadiusDistSqr
-        if  isNearBombSite
+        if isNearBombSite
           owner.blackBoard |> datablock_setPoint3(bombSitePosParam, transform[3])
           owner.blackBoard |> datablock_setInt(bombSiteEidParam, int(uint(eid)))
           return true
@@ -862,7 +1075,7 @@ class FindNearestActiveBombSiteForDefusing : BehNodeAdapter
       if (active && agent.teamId != bomb_site__plantingTeam &&
           bomb_site__isBombPlanted && !bomb_site__isDefusing)
         let isNearBombSite = distance_sq(agent.pos, transform[3]) < bombSiteInRadiusDistSqr
-        if  isNearBombSite
+        if isNearBombSite
           owner.blackBoard |> datablock_setPoint3(bombSitePosParam, transform[3])
           owner.blackBoard |> datablock_setInt(bombSiteEidParam, int(uint(eid)))
           return true
@@ -1020,7 +1233,8 @@ class FindPotentialEnemyDirectionEntryPoint : BehNodeAdapter
         if isCoverNearWall && posParam != -1
           let to = owner.blackBoard |> datablock_getPoint3(posParam)
 
-          find_path(transform[3], to, 1.0, 1.0, 1.0, null) <| $(data)
+          let extents = float3(0.5, FLT_MAX, 0.5)
+          find_path(transform[3], to, extents, 1.0, 1.0, null) <| $(data)
             if length(data) > 1
               let dir = transform[3] + normalize(data[1] - transform[3])
               owner.blackBoard |> datablock_setPoint3(posParam, dir)
@@ -1147,7 +1361,7 @@ class RotateToPoint : BehNodeAdapter
                                walker_agent__breathOffsetCompensation : float;
                                walker_agent__aimViscosity : float;
                                walker_agent__velViscosity : float;
-                               walker_agent__velFactor    : float)
+                               walker_agent__velFactor : float)
       assume phys = human_net_phys.phys
       let curAngles = dir_to_angles(phys.producedCT.wishShootDir)
 
@@ -1992,3 +2206,81 @@ class CheckDistanceToLeader : BehNodeAdapter
           res = EBehResult ER_SUCCESS
 
     return res
+
+[beh_node(name="calcDistance")]
+class CalcDistance : BehNodeAdapter
+  endPosParam   : int = -1
+  startPosParam : int = -1
+  distanceParam : int = -1
+
+  def override loadFromBlk(var data : DataBlock) : void
+    endPosParam   = owner.blackBoard |> get_or_create(datablock_getStr(data, "endPosParam", ""), float3(0., 0., 0.))
+    startPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "startPosParam", ""), float3(0., 0., 0.))
+
+    distanceParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "distanceParam", ""), 0.)
+
+  def override update(dt : float) : EBehResult
+    let distance = distance(owner.blackBoard |> datablock_getPoint3(startPosParam),
+      owner.blackBoard |> datablock_getPoint3(endPosParam))
+
+    owner.blackBoard |> datablock_setReal(distanceParam, distance)
+
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="getPointInTrainCapzone")]
+class GetPointInTrainCapzone : BehNodeAdapter
+  posParam   : int = -1
+
+  maxDiffDistSq : float = 25.
+
+  squadEid : EntityId = INVALID_ENTITY_ID
+
+  def override loadFromBlk(var data : DataBlock) : void
+    posParam   = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3(0., 0., 0.))
+
+    let maxDiffDist = datablock_getReal(data, "maxDiffDist", 5.)
+
+    maxDiffDistSq = maxDiffDist * maxDiffDist
+
+    squadEid = get_Eid(beh_tree_eid(owner), "squad_member__squad") ?? INVALID_ENTITY_ID
+
+  def override update(dt : float) : EBehResult
+    var res = EBehResult ER_FAILED
+
+    query(squadEid) <| $ [es] (squad__leader : EntityId)
+      if squad__leader != beh_tree_eid(owner)
+        return
+
+      query() <| $ [es(REQUIRE=trainZone)] (capzone__hasNearestNavmeshPos : bool;
+                                            capzone__nearestNavmeshPos : float3)
+        if capzone__hasNearestNavmeshPos && maxDiffDistSq <= distance_sq(owner.blackBoard |> datablock_getPoint3(posParam), capzone__nearestNavmeshPos)
+          owner.blackBoard |> datablock_setPoint3(posParam, capzone__nearestNavmeshPos)
+
+          res = EBehResult ER_SUCCESS
+
+    return res
+
+[beh_node(name="resetShoulUseVehicleTrigger")]
+class ResetShoulUseVehicleTrigger : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+
+    query(beh_tree_eid(owner)) <| $ [es] (var beh_tree__shouldUseVehicleResetTrigger : bool&)
+      beh_tree__shouldUseVehicleResetTrigger = false
+
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="resetIsInVehicleTrigger")]
+class ResetIsInVehicleTrigger : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid(owner)) <| $ [es] (var beh_tree__isInVehicleResetTrigger : bool&)
+      beh_tree__isInVehicleResetTrigger = false
+
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="resetUseBombTrigger")]
+class ResetUseBombTrigger : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid(owner)) <| $ [es] (var beh_tree__useBombResetTrigger : bool&)
+      beh_tree__useBombResetTrigger = false
+
+    return EBehResult ER_SUCCESS

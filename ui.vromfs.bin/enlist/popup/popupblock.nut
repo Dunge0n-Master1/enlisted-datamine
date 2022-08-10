@@ -33,7 +33,7 @@ let popupBlockStyle = Watched({
 let function popupBlock() {
   let children = []
   let popups = getPopups()
-  foreach(idx, p in popups) {
+  foreach (idx, p in popups) {
     let popup = p
     let prevVisIdx = popup.visibleIdx.value
     let curVisIdx = popups.len() - idx

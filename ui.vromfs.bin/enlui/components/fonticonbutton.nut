@@ -12,7 +12,7 @@ let defIconColor = @(sf) sf & S_ACTIVE ? TextActive
   : TextDefault
 
 let function fontIconButton(icon, params = null) {
-  let stateFlags = Watched(0)
+  let stateFlags = params?.stateFlags ?? Watched(0)
   let gamepadHotkey = getGamepadHotkeys(params?.hotkeys, true)
   let { skipDirPadNav = (gamepadHotkey ?? "") != "" } = params
   let img = (gamepadHotkey == "") ? null : gamepadImgByKey.mkImageCompByDargKey(gamepadHotkey)
@@ -29,7 +29,7 @@ let function fontIconButton(icon, params = null) {
       valign = ALIGN_CENTER
 
       behavior = Behaviors.Button
-      onElemState = @(sf) stateFlags.update(sf)
+      onElemState = @(sf) stateFlags.update(sf & ~S_TOP_HOVER)
       children = gamepadImg ? img : faComp(icon, {
         fontSize = hdpx(20)
         color = params?.iconColor(sfVal) ?? defIconColor(sfVal)

@@ -14,7 +14,7 @@ let unseenSquadTutorials = Computed(function() {
   let seen = squadTutorialSeen.value
   let res = {}
   foreach (squadId in tutorials.keys()){
-    if(squadId not in seen)
+    if (squadId not in seen)
       res[squadId] <- true
   }
   return res

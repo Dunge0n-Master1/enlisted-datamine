@@ -738,6 +738,12 @@ vehicle_projectile_hit_sound{
 
 vehicle_damage_sound{
 
+  _group{
+    _tags:t="server"
+    vehicle_damage_net_sound__nextTime:r=0.0
+    vehicle_damage_net_sound__cooldown:r=0.05
+  }
+
   "vehicle_damage_sound__paths:shared:object"{
     _tags:t="sound"
 
@@ -745,12 +751,15 @@ vehicle_damage_sound{
       path:t="impact/car_explosion"
     }
 
-    "partDestroy:object"{
-      path:t="player/vehicle/tank/impacts/part_fall_off"
+    "partDamage:object"{
     }
 
-    "partFire:object"{
-      path:t="player/vehicle/tank/impacts/part_damage_by_fire"
+    "partDestroy:object"{
+      path:t="enemy/vehicle/tank/impacts/part_destroy"
+    }
+
+    "partDestroyByFire:object"{
+      path:t="enemy/vehicle/tank/impacts/part_destroy_by_fire"
     }
   }
 }
@@ -764,12 +773,16 @@ tank_vehicle_damage_sound_setup{
       path:t="impact/tank_explosion"
     }
 
-    "partDestroy:object"{
-      path:t="player/vehicle/tank/impacts/part_fall_off"
+    "partDamage:object"{
+      path:t="enemy/vehicle/tank/impacts/damage"
     }
 
-    "partFire:object"{
-      path:t="player/vehicle/tank/impacts/part_damage_by_fire"
+    "partDestroy:object"{
+      path:t="enemy/vehicle/tank/impacts/part_destroy"
+    }
+
+    "partDestroyByFire:object"{
+      path:t="enemy/vehicle/tank/impacts/part_destroy_by_fire"
     }
   }
 }
@@ -790,10 +803,6 @@ vehicle_sound{
   _group{
     _tags:t="sound"
     sound_control__range:r=160.0
-  }
-
-  "vehicle_net_sound:tag"{
-    _tags:t="server"
   }
 }
 
@@ -875,5 +884,14 @@ ship_sound{
   _group{
     _tags:t="sound"
     vehicle_collision_sound__scrapeMinMax:p2=0.0, 1.0
+  }
+}
+
+car_vehicle_inside_snapshot{
+  _extends:t="watched_entity_snapshot"
+
+  _group{
+    _tags:t="sound"
+    watched_entity_snapshot__path:t="snapshots/filter_car_int"
   }
 }

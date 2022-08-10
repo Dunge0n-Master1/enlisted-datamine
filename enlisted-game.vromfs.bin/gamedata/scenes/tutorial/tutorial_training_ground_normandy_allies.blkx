@@ -24,7 +24,6 @@ entity{
   team__capturePenalty:r=0.0
   team__score:r=0.0
   team__id:i=2
-  team__haveScores:b=no
   team__spawnBotArmy:t="normandy_axis"
   team__briefing:t="training_ground/goals"
   team__winTitle:t="debriefing/sucesful_tutorial_title"

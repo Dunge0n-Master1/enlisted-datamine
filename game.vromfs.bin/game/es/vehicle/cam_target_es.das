@@ -5,8 +5,8 @@ require game.es.events
 require player
 
 def bind_camera_to_vehicle(vehicle : ecs::EntityId; var camera__target : ecs::EntityId&)
-  ecs::query(vehicle) <| $ [es] (vehicleCameraType : int)
-    if vehicleCameraType != int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
+  ecs::query(vehicle) <| $ [es] (vehicleCameraType : int; vehicle_commander_cam__attachToVehicle : bool = false)
+    if vehicle_commander_cam__attachToVehicle || vehicleCameraType != int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
       camera__target = vehicle
 
 def set_camera_target(target : ecs::EntityId;

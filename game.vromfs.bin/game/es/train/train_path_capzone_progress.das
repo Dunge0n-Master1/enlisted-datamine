@@ -24,7 +24,7 @@ def escort_capzone_init_train_path_length(evt : Event;
     capzone__trainPathLength = length(train_transform[3] - capzone_transform[3])
 
 [es(tag=ui, no_order)]
-def escort_capzone_progress(info : UpdateStageInfoAct;
+def escort_capzone_progress(info : ParallelUpdateFrameDelayed;
                             transform aka train_transform : float3x4;
                             train_progress__nextCapzoneEid : EntityId;
                             train_progress__updateInterval : float;

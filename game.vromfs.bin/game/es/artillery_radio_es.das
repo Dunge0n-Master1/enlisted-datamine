@@ -57,11 +57,13 @@ def artillery_radio_mode_server(info : UpdateStageInfoAct;
                                 isDowned : bool;
                                 human_net_phys : HumanActor;
                                 human_weap__radioEid : EntityId;
+                                human_net_phys__isClimbing : bool = false;
+                                human_net_phys__isSwimming : bool = false;
                                 var radioMode__startTime : float&;
                                 var radioMode__endTime : float&;
                                 var human_weap__radioMode : bool&)
   let isInputSet = human_net_phys.phys.appliedCT.isDeviceStateSet
-  let isAllowed = isAlive && !isDowned
+  let isAllowed = isAlive && !isDowned && !human_net_phys__isSwimming && !human_net_phys__isClimbing
   if !isAllowed && human_weap__radioMode
     force_stop_radio_mode(eid, human_weap__radioMode, radioMode__startTime, radioMode__endTime)
     return

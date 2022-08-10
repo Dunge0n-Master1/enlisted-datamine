@@ -46,26 +46,6 @@ struct CmdTeleportEntity
 struct CmdSetCameraTarget
   target : EntityId
 
-[cpp_event(unicast)]
-struct EventOnVehicleDamageEffects
-  offender : EntityId
-  vehicle : EntityId
-  effects : int
-
-[cpp_event(unicast)]
-struct CmdShowVehicleDamageEffectsHint
-  offender : EntityId
-  vehicle : EntityId
-  effects : int
-
-[cpp_event(unicast)]
-struct EventOnVehicleDamaged
-  offender : EntityId
-  vehicle : EntityId
-  damage : float
-  hp : float
-  maxHp : float
-
 [event(unicast)]
 struct EventOnVehiclePartTypeDamaged
   partType : string
@@ -181,10 +161,6 @@ struct EventCutPart
 struct EventOnDeviceShoot {}
 
 [cpp_event(unicast)]
-struct EventEntityAboutToDeactivate
-  data : ecs::Object
-
-[cpp_event(unicast)]
 struct CmdEquipItemDirect
   itemEid : ecs::EntityId
   slot : string
@@ -220,20 +196,12 @@ struct EventOnModsChanged {}
 struct CmdBodyCleanup
   time : float
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct EventOnItemStartUse
   target : EntityId
 
 [cpp_event(unicast)]
 struct CmdChatMessage//mode="team",text="",qmsg=null
-  data : Object
-
-[cpp_event(unicast)]
-struct CmdSetMarkMain
-  data : Object
-
-[cpp_event(unicast)]
-struct CmdSetMarkEnemy
   data : Object
 
 [cpp_event(unicast)]
@@ -280,7 +248,7 @@ struct CmdDropLoot
 struct CmdLoadAmmo
   ammoNum : int
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdUseVehicle
   requester : ecs::EntityId
   seat_no : int
@@ -349,10 +317,6 @@ struct EventUserLoggedIn
   user_id : int64
 
 [cpp_event(unicast)]
-struct EventTeamItemHint
-  data : ecs::Object
-
-[cpp_event(unicast)]
 struct EventSqChatMessage
   qmsg : ecs::Object
 
@@ -397,10 +361,6 @@ struct RequestBipodPlacing
   anchorNormal : float3
 
 [cpp_event(unicast)]
-struct CmdAddAward
-  data : Object
-
-[cpp_event(unicast)]
 struct EventFlashExploded
   pos : float3
   tinnitusRad : float2
@@ -428,10 +388,6 @@ struct EventPlayerTinnituss
   radius : float2
   power : float2
   distExponent : float
-
-[event(unicast)]
-struct EventForcePlayerBlindness
-  pow : float
 
 [cpp_event(unicast)]
 struct ProjectileHitInvulnerableNotification

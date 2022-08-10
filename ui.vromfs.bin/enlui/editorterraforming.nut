@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
-let {showPointAction, namePointAction, setPointActionMode, updatePointActionPreview, resetPointActionMode} = require("%daeditor/state.nut")
+let {showPointAction, namePointAction, setPointActionMode, updatePointActionPreview, resetPointActionMode, editorUnpause} = require("%daeditor/state.nut")
 let {CmdTerraBrush, CmdTerraBrushUndo, CmdTerraBrushRedo} = require("dasevents")
 let entity_editor = require_optional("entity_editor")
 
@@ -78,6 +78,7 @@ let function onTerraformingAction(action) {
       local rad = terraformParams.radius.value
       ecs.g_entity_mgr.broadcastEvent(CmdTerraBrush({pos=action.pos, radius=rad, alt=0.0, clearMode=false, eraseGrass=true }))
       gui_scene.resetTimeout(0.5, saveTerraforming)
+      editorUnpause(1.5)
     }
     if (isTerraformingMode(POINTACTION_MODE_DELETE_GRASS_ERASERS)) {
       local rad = terraformParams.radius.value

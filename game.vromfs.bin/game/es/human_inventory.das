@@ -1,4 +1,5 @@
 require ecs
+require EnlistedNet
 require inventory
 require ecs.common
 require DagorSystem
@@ -7,9 +8,11 @@ require HumanPhys
 require DagorMath
 require DagorMathUtils
 require AnimV20
+require game.es.action_common
 require game.es.inventory_common
 require game.es.events
 require game.events_game
+require common_shooter.events_common_shooter
 
 [es(tag=server, on_appear)]
 def inventory_item_push_es(evt : Event; eid : EntityId; item__ownerEid : EntityId)
@@ -98,7 +101,18 @@ def item_container_init_es(evt : Event; eid : EntityId; var human_inventory__ini
     let itemTemplate = item.key
     let itemCount = get_int(item.value) ?? 0
     if itemTemplate != ""
-      for i in range(0, itemCount)
+      for _i in range(0, itemCount)
         createEntity(itemTemplate, onCreate, $ [unused_argument(_)] (var _ : ComponentsInitializer) {})
 
   clear(human_inventory__initialItems)
+
+[es(REQUIRE=human_inventory)]
+def human_inventory_pickup_es(evt : CmdInventoryPickup; eid : EntityId)
+  let itemEid = evt.itemEid
+  run_action(eid, "pickup")
+  if has(itemEid, "gunAttachable")
+    if try_pickup_item(eid, itemEid) && can_pickup_item(itemEid, eid)
+      sendEvent(eid, [[EventOnLootPickup itemEid=itemEid]])
+    sendEvent(eid, [[CmdInventoryPickupGunMod item=itemEid]])
+    return
+  pickup_item_ex(eid, itemEid, evt.usefulOnly)

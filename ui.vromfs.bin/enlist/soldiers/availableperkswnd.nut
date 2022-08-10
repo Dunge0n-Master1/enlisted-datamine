@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let scrollbar = require("%darg/components/scrollbar.nut")
+let scrollbar = require("%ui/components/scrollbar.nut")
 let { bigPadding, noteTxtColor, defTxtColor, insideBorderColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { addModalWindow, removeModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { uniteEqualPerks, tierTitle, thumbIconSize, perkCard
 } = require("components/perksPackage.nut")
 let { getPerkPointsInfo } = require("model/soldierPerks.nut")
@@ -134,7 +134,7 @@ let function mkTierPossiblePerks(armyId, tier, pointsInfo) {
     p.totalCost <- 0
     p.isAvailable <- true
     p.costMask <- 0
-    if(index < RECOMMENDED_PERKS_COUNT)
+    if (index < RECOMMENDED_PERKS_COUNT)
       p.recommended <- true
     let perkCost = perksList?[p.perkId].cost ?? {}
     p.type <- perkCost.keys()?[0] ?? "other"

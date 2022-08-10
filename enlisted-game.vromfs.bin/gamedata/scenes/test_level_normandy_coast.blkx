@@ -18,7 +18,7 @@ entity{
   }
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
+    weather_cloudy_a:r=1.0
   }
 }
 
@@ -137,24 +137,24 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [266.209, 4.49706, 70.3886]]
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [119.692, 8.65717, 103.27]]
   sphere_zone__radius:r=15.0
   decal__height:r=2.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-156.362, 24.5088, 22.9015]]
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-141.506, 25.828, 162.318]]
   sphere_zone__radius:r=15.0
   decal__height:r=2.0
@@ -162,55 +162,55 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-278.794, 30.5878, 92.7754]]
   sphere_zone__radius:r=15.0
   decal__height:r=1.5
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [269.395, -0.052858, -245.357]]
   sphere_zone__radius:r=20.0
   decal__height:r=2.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [360.851, 7.75605, -319.739]]
   sphere_zone__radius:r=18.5
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [196.402, 4.69577, -344.014]]
   sphere_zone__radius:r=15.0
   decal__height:r=2.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-137.116, 20.2825, -127.395]]
   decal__id:i=10
   sphere_zone__radius:r=15.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [213.272, 6.3373, 194.964]]
   sphere_zone__radius:r=15.0
   decal__height:r=2.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-316.029, 23.6907, -121.01]]
   sphere_zone__radius:r=13.0
   decal__height:r=2.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-233.153, 24.6789, -307.005]]
   sphere_zone__radius:r=15.0
 }

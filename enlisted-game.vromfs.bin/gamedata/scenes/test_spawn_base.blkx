@@ -14,7 +14,7 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 
   "level__timeVec:array"{
@@ -148,7 +148,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.089019, 0.0, 0.99603] [0.0, 1.0, 0.0] [-0.99603, 0.0, 0.089019] [276.938, 3.1969, -88.2711]]
   sphere_zone__radius:r=8.0
   capzone__title:t="A"
@@ -170,7 +170,6 @@ entity{
   _template:t="respTeam1"
   transform:m=[[-0.621528, 0.0, -0.783391] [0.0, 1.0, 0.0] [0.783391, 0.0, -0.621528] [336.922, 4.0263, -31.9799]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=1
   active:b=no
 }
 
@@ -178,7 +177,6 @@ entity{
   _template:t="respTeam1"
   transform:m=[[-0.966567, 0.0, -0.256412] [0.0, 1.0, 0.0] [0.256412, 0.0, -0.966567] [342.796, 4.0263, -45.9018]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=1
   active:b=no
 }
 
@@ -186,7 +184,6 @@ entity{
   _template:t="respTeam1"
   transform:m=[[-0.993339, 0.0, -0.115223] [0.0, 1.0, 0.0] [0.115223, 0.0, -0.993339] [345.677, 4.0263, -102.237]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=2
   active:b=no
 }
 
@@ -194,7 +191,6 @@ entity{
   _template:t="respTeam1"
   transform:m=[[-0.578645, 0.0, 0.815578] [0.0, 1.0, 0.0] [-0.815578, 0.0, -0.578645] [335.999, 4.0263, -128.319]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=2
   active:b=no
 }
 
@@ -210,7 +206,6 @@ entity{
   _template:t="respTeam2"
   transform:m=[[0.684765, 0.0, -0.728763] [0.0, 1.0, 0.0] [0.728763, 0.0, 0.684765] [199.216, 4.0263, -56.7799]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=1
   active:b=no
 }
 
@@ -218,7 +213,6 @@ entity{
   _template:t="respTeam2"
   transform:m=[[0.996967, 0.0, 0.077815] [0.0, 1.0, 0.0] [-0.077815, 0.0, 0.996967] [190.128, 4.0263, -69.6169]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=1
   active:b=no
 }
 
@@ -226,7 +220,6 @@ entity{
   _template:t="respTeam2"
   transform:m=[[0.647152, 0.0, 0.76236] [0.0, 1.0, 0.0] [-0.76236, 0.0, 0.647152] [208.498, 4.0263, -138.062]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=2
   active:b=no
 }
 
@@ -234,7 +227,6 @@ entity{
   _template:t="respTeam2"
   transform:m=[[0.996967, 0.0, 0.077815] [0.0, 1.0, 0.0] [-0.077815, 0.0, 0.996967] [194.465, 4.0263, -124.78]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=2
   active:b=no
 }
 
@@ -242,7 +234,6 @@ entity{
   _template:t="respTeam2"
   transform:m=[[0.697857, 0.0, 0.716236] [0.0, 1.0, 0.0] [-0.716236, 0.0, 0.697857] [194.444, 4.0263, -143.939]]
   groupName:t="sector_1"
-  respawnBaseGroup:i=2
   active:b=no
 }
 

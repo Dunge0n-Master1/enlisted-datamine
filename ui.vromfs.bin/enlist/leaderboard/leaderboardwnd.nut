@@ -8,7 +8,7 @@ let {
   rowBg
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { UserNameColor } = require("%ui/style/colors.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let {
   refreshLbData, curLbRequestData, curLbData, curLbSelfRow, curLbErrName,
   isLbWndOpened, lbCategoriesByGroup, LB_PAGE_ROWS, bestBattlesByMode, isRefreshLbEnabled
@@ -33,7 +33,7 @@ let top3Color = Color(255, 245, 180)
 let localGap = bigPadding * 2
 let wreathSize = hdpx(24)
 let headerImgHeight = hdpx(150)
-let iconHeaderSize = hdpx(30).tointeger()
+let iconHeaderSize = hdpxi(30)
 
 
 let styleByCategory = {

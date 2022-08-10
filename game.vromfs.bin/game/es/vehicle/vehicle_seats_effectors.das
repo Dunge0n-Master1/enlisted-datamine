@@ -9,10 +9,10 @@ require GeomNodeTree
 require EffectorData
 
 [es(tag=render, on_appear)]
-def boat_anim_init_es(evt : Event;
-                      animchar : AnimcharBaseComponent;
-                      [[shared_comp]] vehicle_seats__seats : Array;
-                      var vehicle_seats__effectors : Array)
+def vehicle_seats_effectors_init(evt : Event;
+                                 animchar : AnimcharBaseComponent;
+                                 [[shared_comp]] vehicle_seats__seats : Array;
+                                 var vehicle_seats__effectors : Array)
   if vehicle_seats__seats.empty
     return
   for seat in vehicle_seats__seats
@@ -23,7 +23,8 @@ def boat_anim_init_es(evt : Event;
 
     push_to_array(vehicle_seats__effectors) <| $(var obj : Object#)
       let effectors = get_ecs_object(seatObj, "effectors")
-      if effectors == null
+      let cockpitTemplate = get_string(seatObj, "cockpitTemplate", "")
+      if effectors == null || cockpitTemplate != ""
         return
       for field in *effectors
         let nodeValue = get_string(field.value, "")

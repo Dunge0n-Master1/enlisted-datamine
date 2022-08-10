@@ -15,6 +15,9 @@ let hasVehicleCustomization = mkWatched(persist, "hasVehicleCustomization", true
 let isOffersVisible = mkWatched(persist, "isOffersVisible", true)
 let hasUsermail = mkWatched(persist, "hasUsermail", DBGLEVEL > 0)
 let showReplayTabInProfile = mkWatched(persist, "showReplayTabInProfile", DBGLEVEL > 0)
+let useNewDesign = mkWatched(persist, "useNewDesign", false)
+let showUserProfile = mkWatched(persist, "showUserProfile", DBGLEVEL > 0)
+let multyPurchaseAllowed = mkWatched(persist, "multyPurchaseAllowed", DBGLEVEL > 0)
 
 let features = {
   hasProfileCard
@@ -28,6 +31,9 @@ let features = {
   isOffersVisible
   hasUsermail
   showReplayTabInProfile
+  useNewDesign
+  showUserProfile
+  multyPurchaseAllowed
 }
 
 foreach (featureId, featureFlag in features)

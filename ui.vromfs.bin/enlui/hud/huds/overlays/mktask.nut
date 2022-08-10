@@ -14,9 +14,10 @@ let function mkTaskContent(unlockDesc) {
     isCompleted = false, isFinished = false, required = 0, current = 0
   } = unlockDesc
   let progress = { isCompleted, required, current, isFinished }
-  return {
+  return watchElemState(@(sf) {
     size = [flex(), SIZE_TO_CONTENT]
     valign = ALIGN_CENTER
+    behavior = Behaviors.Button
     children = {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
@@ -24,15 +25,16 @@ let function mkTaskContent(unlockDesc) {
       valign = ALIGN_CENTER
       children = [
         mkTaskEmblem(unlockDesc, progress)
-        taskHeader(unlockDesc, progress)
+        taskHeader(unlockDesc, progress, true, sf)
       ]
     }
-  }
+  })
 }
 
-let mkUnlockSlot = @(unlockDesc) {
+let mkUnlockSlot = @(unlockDesc) watchElemState(@(sf) {
   size = [flex(), SIZE_TO_CONTENT]
   minHeight = taskMinHeight
+  behavior = Behaviors.Button
   valign = ALIGN_CENTER
   children = [
     {
@@ -49,12 +51,12 @@ let mkUnlockSlot = @(unlockDesc) {
       children = [
         mkTaskContent(unlockDesc)
         unlockDesc?.table != DAILY_TASK_KEY ? null
-          : taskDescription(unlockDesc.localization.description, {
+          : taskDescription(unlockDesc.localization.description, sf, {
               margin = taskDescPadding
             })
       ]
     }
   ]
-}
+})
 
 return mkUnlockSlot

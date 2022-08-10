@@ -152,8 +152,8 @@ def binocular_disable_force_aim(evt : CmdSwitchBinocular; human_binocular__mode 
     human_input__forceAim = false
 
 
-[es(tag=gameClient, REQUIRE=hero, no_order)]
-def binocular_on_aiming(info : UpdateStageInfoAct;
+[es(tag=gameClient, REQUIRE=hero)]
+def binocular_on_aiming(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
                         isAlive : bool;
                         human_net_phys__aimPosition : float;
@@ -302,3 +302,12 @@ def binocular_diable_on_enter_or_exit_vehicle(evt : Event;
       switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
     human_binocular__prevGunSlot = -1
 
+[es(tag=gameClient, track=(human_binocular__mode, human_binocular__cockpitEid))]
+def binocular_switch_block_look_mode(evt : Event;
+                                     human_binocular__mode : bool;
+                                     human_binocular__cockpitEid : EntityId;
+                                     var human_input__blockLookModeCounter : int&)
+  if human_binocular__mode && !human_binocular__cockpitEid
+    human_input__blockLookModeCounter++
+  else
+    human_input__blockLookModeCounter--

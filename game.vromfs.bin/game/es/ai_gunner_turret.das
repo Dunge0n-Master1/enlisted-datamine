@@ -158,7 +158,7 @@ def turret_ai_gunner_aim(evt : CmdTurretsUpdate;
                                                            turret_ai__sleepTimer : float;
                                                            turret_ai__distrTimer : float;
                                                            turret_ai__amplitude : float2;
-                                                           turret_ai__period    : float2;
+                                                           turret_ai__period : float2;
                                                            turret_ai__minWindow : float2;
                                                            turret_ai__maxWindow : float2;
                                                            var turret_ai__distrTime : float&;

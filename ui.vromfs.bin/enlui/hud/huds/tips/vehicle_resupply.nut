@@ -49,7 +49,7 @@ let function isShootingDry() {
 }
 
 let function trackComps() {
-  if (heroActiveResupplyZonesEids.value.len() <= 0)
+  if (heroActiveResupplyZonesEids.value.len() == 0)
     return
   if (isShootingDry())
     showResupplyTip()
@@ -57,7 +57,6 @@ let function trackComps() {
 
 ecs.register_es("turret_dry_shoot",
   { [["onInit", "onChange"]] = @(_evt, _eid, _comp) trackComps(),
-    [ecs.sqEvents.EventTurretAmmoDepleted] = @(_evt, _eid, _comp) trackComps()
   },
   {
     comps_track = [["turret_input__shootFlag", ecs.TYPE_BOOL]]

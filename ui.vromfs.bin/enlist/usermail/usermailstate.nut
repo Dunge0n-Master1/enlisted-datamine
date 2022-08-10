@@ -2,22 +2,29 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { usermail_list, usermail_take_reward } = require("%enlist/meta/clientApi.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let matching_api = require("matching.api")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let eventbus = require("eventbus")
 let { sound_play } = require("sound")
+let { subscribe } = require("%enlSqGlob/notifications/matchingNotifications.nut")
 
 const MAX_AMOUNT = 20
 let MAX_LIFETIME = 30 * 24 * 60 * 60
-let soundNewMail = "ui/enlist/notification"
+const soundNewMail = "ui/enlist/notification"
 
 let letters = mkWatched(persist, "letters", [])
-let lastTime = mkWatched(persist, "lastTime", serverTime.value - MAX_LIFETIME)
+let lastTime = mkWatched(persist, "lastTime", 0)
 
 let isRequest = Watched(false)
 let isUsermailWndOpend = mkWatched(persist, "isUsermailWndOpend", false)
 let selectedLetterIdx = mkWatched(persist, "selectedLetterIdx", -1)
 let hasUnseenLetters = mkWatched(persist, "hasUnseenLetters", false)
+
+serverTime.subscribe(function(ts) {
+  if (ts <= 0)
+    return
+  serverTime.unsubscribe(callee())
+  lastTime(ts - MAX_LIFETIME)
+})
 
 let function markUnseenLetters(){
   if (isRequest.value)
@@ -27,9 +34,8 @@ let function markUnseenLetters(){
     sound_play(soundNewMail)
 }
 
-matching_api.listen_notify("newmail")
-
 eventbus.subscribe("matching.notify_new_mail", @(...) markUnseenLetters())
+subscribe("profile", @(ev) ev?.func == "newmail" ? markUnseenLetters() : null)
 
 let function closeUsermailWindow(){
   isUsermailWndOpend(false)

@@ -34,7 +34,7 @@ def show_dmg(show : bool;
     return true;
   return false;
 
-[es(tag=render, track=damage_part_alive, before=before_animchar_update_sync)]
+[es(tag=render, on_appear, track=damage_part_alive, before=before_animchar_update_sync, after=visual_damage_remap_init_es)]
 def visual_damage_immediate_es(evt : Event;
                                eid : EntityId;
                                visual_dmg_remap__collNodeIdToNodeIdMain, visual_dmg_remap__collNodeIdToNodeIdDmg : IntList;

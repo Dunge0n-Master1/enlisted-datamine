@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { navHeight } = require("mainmenu.style.nut")
-let { mkDropMenuBtn } = require("%enlist/components/mkDropDownMenu.nut")
+let mkDropMenuBtn = require("%enlist/components/mkDropDownMenu.nut")
 let {
   btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
@@ -72,7 +71,8 @@ let btnDebugConfigs = {
 let btnForum = enlistedForumUrl == "" ? null : {
   id = "Forum"
   name = loc("forum")
-  cb = !is_xbox ? @() openUrl(enlistedForumUrl) : @() qrWindow(enlistedForumUrl, loc("forum"))
+  cb = !is_xbox ? @() openUrl(enlistedForumUrl)
+    : @() qrWindow({url = enlistedForumUrl, header = loc("forum")})
 }
 
 let btnFeedback = feedbackUrl == "" ? null : {
@@ -119,4 +119,4 @@ let function buttons(){
 }
 let watch = [needCustomGames, hasCampaignSelection, canDebugProfile]
 
-return mkDropMenuBtn({buttons, watch, size = [navHeight*0.75, navHeight]})
+return mkDropMenuBtn(buttons, watch)

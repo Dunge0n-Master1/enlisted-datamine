@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { borderColor } = require("profilePkg.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
@@ -16,7 +17,12 @@ let function mkWallposterBlock(wallposter, unseenList) {
     behavior = Behaviors.Button
     onClick = function() {
       wpIdSelected(id)
-      markSeenWallposter(id)
+      if (isUnseen)
+        markSeenWallposter(id)
+    }
+    onHover = function(on) {
+      if (isUnseen)
+        hoverHoldAction("markSeenWallposter", id, @(v) markSeenWallposter(v))(on)
     }
     xmbNode = XmbNode()
     children = mkWallposter(wallposter, sf, isUnseen)

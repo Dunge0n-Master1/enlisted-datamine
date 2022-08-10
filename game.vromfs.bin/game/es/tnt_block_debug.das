@@ -5,7 +5,7 @@ require game.es.net_console_macro
 
 [net_console_cmd(name="tnt_block.addTestSet")]
 def tnt_block_add_test_set_debug_cmd(tnt_block_template : string = "ussr_tnt_block"; tnt_blocks_count : int = 5; [[net_hero]] hero_eid : EntityId)
-  for i in range(0, tnt_blocks_count)
+  for _i in range(0, tnt_blocks_count)
     createEntity(tnt_block_template) <| $(var init : ComponentsInitializer)
       set(init, "item__ownerEid", hero_eid)
 

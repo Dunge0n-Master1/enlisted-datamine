@@ -5,10 +5,10 @@ require GeomNodeTree
 require DagorMath
 require AnimV20
 require math.base
-
+require enlisted.events_enlisted
 
 [es(after=human_visibility_tracer_es, before=human_inventory_hero_es, tag=(ui, render, gameClient), REQUIRE=watchedByPlr, REQUIRE_NOT=deadEntity)]
-def items_around_es(info : UpdateStageInfoAct;
+def items_around_es(info : ParallelUpdateFrameDelayed;
                     var itemsAround : ecs::Array;
                     transform : float3x4;
                     human_inventory__lookNodeId : int;

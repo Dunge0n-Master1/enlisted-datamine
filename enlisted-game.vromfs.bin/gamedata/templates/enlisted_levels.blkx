@@ -107,7 +107,7 @@ berlin_level{
     }
 
     "weather_poor_a:object"{
-      weight:r=2.0
+      weight:r=0.5
       cloudsHoleEnabled:b=no
 
       "level__timeVec:array"{
@@ -123,18 +123,18 @@ berlin_level{
           template:t="camera_rain_heavy_template"
 
           "components:object"{
-            far_rain__speed:r=10.0
+            far_rain__speed:r=1.0
             rain_ripples__size:r=0.04
             drop_splashes__volumetricSplashScale:r=0.5
             far_rain__wind:r=8.0
             far_rain__density:r=10.0
             drop_splashes__spriteSplashScale:r=7.25
             drop_splashes__iterationTime:r=2.0
-            far_rain__length:r=0.3
+            far_rain__length:r=1.0
             wetness__strength:r=0.6
-            far_rain__alpha:r=0.04
+            far_rain__alpha:r=1.0
             puddles__growthLimit:r=0.03
-            far_rain__width:r=0.01
+            far_rain__width:r=1.0
             puddles__growthRate:r=0.2
             far_rain__alpha_fade_speed_begin:r=150.0
             far_rain__alpha_fade_speed_end:r=400.0
@@ -143,7 +143,15 @@ berlin_level{
         }
 
         "entity:object"{
-          template:t="lightning"
+          template:t="lightning_animchar_manager"
+        }
+
+        "entity:object"{
+          template:t="lightning_volumetric"
+        }
+
+        "entity:object"{
+          template:t="lightning_panorama"
         }
       }
     }
@@ -209,7 +217,7 @@ stalingrad_level{
     }
 
     "weather_poor_a:object"{
-      weight:r=2.0
+      weight:r=0.5
       cloudsHoleEnabled:b=no
 
       "entities:array"{
@@ -218,18 +226,18 @@ stalingrad_level{
           template:t="camera_rain_heavy_template"
 
           "components:object"{
-            far_rain__speed:r=10.0
+            far_rain__speed:r=1.0
             rain_ripples__size:r=0.04
             drop_splashes__volumetricSplashScale:r=0.5
             far_rain__wind:r=8.0
             far_rain__density:r=10.0
             drop_splashes__spriteSplashScale:r=7.25
             drop_splashes__iterationTime:r=2.0
-            far_rain__length:r=0.3
+            far_rain__length:r=1.0
             wetness__strength:r=0.6
-            far_rain__alpha:r=0.04
+            far_rain__alpha:r=1.0
             puddles__growthLimit:r=0.03
-            far_rain__width:r=0.01
+            far_rain__width:r=1.0
             puddles__growthRate:r=0.2
             far_rain__alpha_fade_speed_begin:r=150.0
             far_rain__alpha_fade_speed_end:r=400.0
@@ -238,7 +246,15 @@ stalingrad_level{
         }
 
         "entity:object"{
-          template:t="lightning"
+          template:t="lightning_animchar_manager"
+        }
+
+        "entity:object"{
+          template:t="lightning_volumetric"
+        }
+
+        "entity:object"{
+          template:t="lightning_panorama"
         }
       }
     }
@@ -314,7 +330,7 @@ volokolamsk_level{
     }
 
     "weather_poor_a:object"{
-      weight:r=1.0
+      weight:r=0.5
       cloudsHoleEnabled:b=no
 
       "level__timeVec:array"{
@@ -331,18 +347,18 @@ volokolamsk_level{
           template:t="camera_rain_heavy_template"
 
           "components:object"{
-            far_rain__speed:r=10.0
+            far_rain__speed:r=1.0
             rain_ripples__size:r=0.04
             drop_splashes__volumetricSplashScale:r=0.5
             far_rain__wind:r=8.0
             far_rain__density:r=10.0
             drop_splashes__spriteSplashScale:r=7.25
             drop_splashes__iterationTime:r=2.0
-            far_rain__length:r=0.3
+            far_rain__length:r=1.0
             wetness__strength:r=0.6
-            far_rain__alpha:r=0.04
+            far_rain__alpha:r=1.0
             puddles__growthLimit:r=0.03
-            far_rain__width:r=0.01
+            far_rain__width:r=1.0
             puddles__growthRate:r=0.2
             far_rain__alpha_fade_speed_begin:r=150.0
             far_rain__alpha_fade_speed_end:r=400.0
@@ -351,7 +367,15 @@ volokolamsk_level{
         }
 
         "entity:object"{
-          template:t="lightning"
+          template:t="lightning_animchar_manager"
+        }
+
+        "entity:object"{
+          template:t="lightning_volumetric"
+        }
+
+        "entity:object"{
+          template:t="lightning_panorama"
         }
       }
     }
@@ -427,8 +451,9 @@ normandy_level{
     }
 
     "weather_poor_a:object"{
-      weight:r=1.0
+      weight:r=0.5
       cloudsHoleEnabled:b=no
+      level__maxNightLuminance:r=1.5
 
       "entities:array"{
 
@@ -436,18 +461,18 @@ normandy_level{
           template:t="camera_rain_heavy_template"
 
           "components:object"{
-            far_rain__speed:r=10.0
+            far_rain__speed:r=1.0
             rain_ripples__size:r=0.04
             drop_splashes__volumetricSplashScale:r=0.5
             far_rain__wind:r=8.0
             far_rain__density:r=10.0
             drop_splashes__spriteSplashScale:r=7.25
             drop_splashes__iterationTime:r=2.0
-            far_rain__length:r=0.3
+            far_rain__length:r=1.0
             wetness__strength:r=0.6
-            far_rain__alpha:r=0.04
+            far_rain__alpha:r=1.0
             puddles__growthLimit:r=0.03
-            far_rain__width:r=0.01
+            far_rain__width:r=1.0
             puddles__growthRate:r=0.2
             far_rain__alpha_fade_speed_begin:r=150.0
             far_rain__alpha_fade_speed_end:r=400.0
@@ -456,7 +481,15 @@ normandy_level{
         }
 
         "entity:object"{
-          template:t="lightning"
+          template:t="lightning_animchar_manager"
+        }
+
+        "entity:object"{
+          template:t="lightning_volumetric"
+        }
+
+        "entity:object"{
+          template:t="lightning_panorama"
         }
       }
     }

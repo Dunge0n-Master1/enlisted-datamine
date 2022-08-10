@@ -4,7 +4,9 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { mkOnlinePersistentFlag, mkOnlinePersistentWatched
 } = require("%enlist/options/mkOnlinePersistentFlag.nut")
-let { seenShopItems, excludeShopItemSeen } = require("unseenShopItems.nut")
+let {
+  seenShopItems, excludeShopItemSeen, getSeenStatus, SeenMarks
+} = require("unseenShopItems.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { configs } = require("%enlSqGlob/configs/configs.nut")
 let { getShopUrl, getUrlByGuid } = require("%enlist/shop/shopUrls.nut")
@@ -33,6 +35,9 @@ let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { shopItemsBase, shopItems, shopDiscountGen
 } = require("shopItems.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
+let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileCountry.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 
 
 let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
@@ -146,9 +151,15 @@ let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
   ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
     || itemId in itemsByTime
 
-let isAvailableBySquads = @(shopItem, squadsByArmyV)
-  shopItem?.squads
-    .findindex(@(sqData) squadsByArmyV?[sqData?.armyId][sqData?.squadId ?? sqData.id] != null) == null
+let isAvailableBySquads = function(shopItem, squadsByArmyV) {
+  foreach (squadData in shopItem?.squads ?? []) {
+    let { id, squadId = null, armyId = null } = squadData
+    let squad = squadsByArmyV?[armyId][squadId ?? id]
+    if (squad != null && (squad?.expireTime ?? 0) == 0)
+      return false
+  }
+  return true
+}
 
 let isAvailableByLimit = @(sItem, purchases)
   (sItem?.limit ?? 0) <= 0 || sItem.limit > (purchases?[sItem?.id].amount ?? 0)
@@ -243,7 +254,7 @@ let function getCurShopTree(allItems){
   let groups = {}
   let rootItems = []
 
-  foreach(item in allItems) {
+  foreach (item in allItems) {
     let { offerGroup = "", offerContainer = ""} = item
     let isContainer = offerContainer != ""
     let isInGroup = offerGroup != ""
@@ -290,11 +301,11 @@ let curArmyShopFolder = Computed(function(){
 let curArmyShopLines = Computed(function() {
   local linesCount = 0
   let curItems = curArmyShopFolder.value.items
-  foreach(item in curItems)
+  foreach (item in curItems)
     linesCount = max(linesCount, (item?.offerLine ?? 0) + 1)
 
   let res = array(linesCount).map(@(_) [])
-  foreach(item in curItems)
+  foreach (item in curItems)
     res[item?.offerLine ?? 0].append(item)
 
   return res
@@ -427,7 +438,7 @@ let curUnseenAvailShopGuids = Computed(function() {
   let avail = {}
   foreach (item in curAvailableShopItems.value)
     avail[item.guid] <- true
-  let seen = seenShopItems.value?[curArmy.value] ?? {}
+  let seen = seenShopItems.value.seen?[curArmy.value] ?? {}
   let fullTree = curFullTree.value
 
   return getUnseenGuids(fullTree, {}, seen, avail)
@@ -435,7 +446,7 @@ let curUnseenAvailShopGuids = Computed(function() {
 
 curAvailableShopItems.subscribe(function(items) {
   let armyId = curArmy.value
-  let seen = seenShopItems.value?[armyId] ?? {}
+  let seen = seenShopItems.value.seen?[armyId] ?? {}
   if (seen.len() == 0)
     return
 
@@ -510,11 +521,30 @@ let function buyItemByStoreId(storeId) {
   checkPurchases()
 }
 
-let buyCurrency = is_pc ? openPurchaseUrl
-  : function(_) {
-    openConsumable()
-    checkPurchases()
+let function buyCurrency(currency) {
+  if (is_pc) {
+    openPurchaseUrl(currency?.purchaseUrl ?? "")
+    return
   }
+
+  if (isPlayerRecommendedEmailRegistration() && gameLanguage == "Russian") {
+    qrWindow({
+        header = currency?.locId ? loc(currency.locId) : ""
+        url = currency?.qrConsoleUrl ?? "",
+        needShowRealUrl = false,
+        desc = currency?.qrDesc ? loc(currency.qrDesc) : ""
+      },
+      function() {
+        openConsumable()
+        checkPurchases()
+      }
+    )
+    return
+  }
+
+  openConsumable()
+  checkPurchases()
+}
 
 userInfo.subscribe(function(u) {
   if (u != null)
@@ -522,7 +552,7 @@ userInfo.subscribe(function(u) {
 })
 
 let function blinkCurrencies() {
-  foreach(currencyTpl, count in viewArmyCurrency.value)
+  foreach (currencyTpl, count in viewArmyCurrency.value)
     if (count > 0)
       anim_start($"blink_{currencyTpl}")
 }
@@ -618,6 +648,20 @@ let function setCurArmyShopFolder(folderId){
     shopGroupItemsChain(shopGroupItemsChain.value.slice(0, groupIdx + 1))
 }
 
+let findSquadShopItem = @(armyId, squadId)
+  curArmyShopItems.value.findvalue(function(sItem) {
+    let { squads = [] } = sItem
+    return squads.len() == 1 && squads[0].armyId == armyId && squads[0].id == squadId
+  })
+
+let notOpenedShopItems = Computed(function() {
+  let opened = seenShopItems.value?.opened[curArmy.value] ?? {}
+  let notOpenedGuids = curAvailableShopItems.value
+    .filter(@(item) getSeenStatus(opened?[item.guid]) == SeenMarks.NOT_SEEN)
+    .map(@(item) item.guid)
+  return notOpenedGuids
+})
+
 return {
   hasShopSection
   shopConfig
@@ -651,4 +695,7 @@ return {
   setCurArmyShopFolder
   getAllChildItems
   hasGoldValue
+  findSquadShopItem
+  curAvailableShopItems
+  notOpenedShopItems
 }

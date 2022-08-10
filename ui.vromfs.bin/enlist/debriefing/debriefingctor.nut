@@ -9,7 +9,7 @@ let { strokeStyle, bigPadding, awardIconSize, awardIconSpacing, debriefingDarkCo
 let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { secondsToTimeSimpleString } = require("%ui/helpers/time.nut")
-let scrollbar = require("%darg/components/scrollbar.nut")
+let scrollbar = require("%ui/components/scrollbar.nut")
 let dtxt = require("%ui/components/text.nut").dtext
 let { sound_play } = require("sound")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -44,6 +44,8 @@ let { BattleHeroesAward, awardPriority, isSoldierAward, isTopSquadAward
 } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
+let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { showAnoProfile } = require("%enlist/profile/anoProfileState.nut")
 let { INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, REJECT_INVITE,
   REMOVE_FROM_FRIENDS, ADD_TO_BLACKLIST, REMOVE_FROM_BLACKLIST, REMOVE_FROM_BLACKLIST_XBOX,
   REMOVE_FROM_BLACKLIST_PSN, SHOW_USER_LIVE_PROFILE
@@ -53,6 +55,8 @@ let userActions = [
   REMOVE_FROM_FRIENDS, ADD_TO_BLACKLIST, REMOVE_FROM_BLACKLIST, REMOVE_FROM_BLACKLIST_XBOX,
   REMOVE_FROM_BLACKLIST_PSN, SHOW_USER_LIVE_PROFILE
 ]
+let { showUserProfile } = require("%enlist/featureFlags.nut")
+
 
 const ANIM_TRIGGER = "new_items_wnd_anim"
 const NEW_BLOCK_TRIGGER = "new_debr_block_appear"
@@ -129,6 +133,7 @@ let soldierStatsCfg = [
   { stat = "builtRallyPointUses", locId = "debriefing/awards/builtRallyPointUses" },
   { stat = "hostedOnSoldierSpawns", locId = "debriefing/awards/hostedOnSoldierSpawns" },
   { stat = "vehicleRepairs", locId = "debriefing/awards/vehicleRepairs" },
+  { stat = "vehicleExtinguishes", locId = "debriefing/awards/vehicleExtinguishes" },
   { stat = "barrageBalloonDestructions", locId = "debriefing/awards/barrageBalloonDestructions" },
   { stat = "enemyBuiltFortificationDestructions", locId = "debriefing/awards/enemyBuiltFortificationDestructions" },
   { stat = "enemyBuiltGunDestructions", locId = "debriefing/awards/enemyBuiltGunDestructions" },
@@ -278,7 +283,7 @@ let blockHeader = @(locId) {
 let function continueAnimImpl(debriefing) {
   local blockIdx = -1
   local block = null
-  foreach(idx, ctor in windowContentQueue) {
+  foreach (idx, ctor in windowContentQueue) {
     block = ctor(debriefing)
     if (block != null) {
       blockIdx = idx
@@ -491,30 +496,39 @@ let function debriefingHeader(debriefing) {
     children = [
       {
         size = [sw(75), SIZE_TO_CONTENT]
-        children = {
-          flow = FLOW_VERTICAL
-          hplace = ALIGN_CENTER
-          halign = ALIGN_CENTER
-          children = [
-            missionTitle(debriefing)
-            {
-              flow = FLOW_HORIZONTAL
-              valign = ALIGN_CENTER
-              gap = hdpx(30)
-              children = [
-                mkAnim(armyIcon, null, HEADER_ICON_DELAY)
-                mkAnim({
-                    size = SIZE_TO_CONTENT
-                    rendObj = ROBJ_TEXT
-                    text = utf8ToUpper(result?.title ?? "")
-                  }.__update(h2_txt, {fontSize = hdpx(46)}),
-                  @() sound_play("ui/debriefing/{0}".subst(result?.success ? "text_victory" : "text_defeat")),
-                  HEADER_TEXT_DELAY)
-                mkAnim(armyIcon, null, HEADER_ICON_DELAY)
-              ]
-            }
-          ]
-        }
+        children = [
+          {
+            flow = FLOW_VERTICAL
+            hplace = ALIGN_CENTER
+            halign = ALIGN_CENTER
+            children = [
+              missionTitle(debriefing)
+              {
+                flow = FLOW_HORIZONTAL
+                valign = ALIGN_CENTER
+                gap = hdpx(30)
+                children = [
+                  mkAnim(armyIcon, null, HEADER_ICON_DELAY)
+                  mkAnim({
+                      size = SIZE_TO_CONTENT
+                      rendObj = ROBJ_TEXT
+                      text = utf8ToUpper(result?.title ?? "")
+                    }.__update(h2_txt, {fontSize = hdpx(46)}),
+                    @() sound_play("ui/debriefing/{0}".subst(result?.success
+                      ? "text_victory"
+                      : "text_defeat"
+                    )),
+                    HEADER_TEXT_DELAY)
+                  mkAnim(armyIcon, null, HEADER_ICON_DELAY)
+                ]
+              }
+            ]
+          }
+          {
+            hplace = ALIGN_RIGHT
+            children = promoWidget("debriefing_sections", "debriefing_sections")
+          }
+        ]
       }
       result?.finishedEarly ? dtxt(loc("debriefing/finished_early/desc")) : null
       blockCtr("debriefing/squad_unlocking", armyProgress, debriefing, {
@@ -790,7 +804,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
       let soldierData = debriefing?.soldiers.items[soldierStat.soldierId]
       if (!soldierData)
         continue
-      if(squads?[soldierData.squadId] != squad)
+      if (squads?[soldierData.squadId] != squad)
         continue
 
       let soldierAwards = collectSoldierAwards(soldierData.guid, squadSoldiersAwards)
@@ -869,6 +883,7 @@ let function statisticBlock(debriefing) {
     width = BODY_W
     sessionId = debriefing?.sessionId ?? INVALID_SESSION_ID
     isInteractive = true
+    showProfileCb = showUserProfile.value ? showAnoProfile : null
     missionType
     mkContextMenuButton = @(_) userActions
   }

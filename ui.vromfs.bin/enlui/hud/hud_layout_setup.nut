@@ -14,7 +14,7 @@ let squadMembersUi = require("huds/squad_members.ui.nut")
 let voteKickUi = require("huds/vote_kick.ui.nut")
 let artilleryOrderUi = require("huds/artillery_order.ui.nut")
 let { chatRoot } = require("%ui/hud/chat.ui.nut")
-let serviceMessages = require("huds/serviceMessages.nut")
+let { serviceMessages, hasServiceMessages } = require("huds/serviceMessages.nut")
 let vehicleRepair = require("%ui/hud/huds/vehicle_repair.nut")
 let playerEventsRoot = require("%ui/hud/huds/player_events.nut")
 let throw_grenade_tip = require("%ui/hud/huds/tips/throw_grenade_tip.nut")
@@ -65,8 +65,8 @@ let spectatorMode_tip = require("%ui/hud/huds/tips/spectatorMode_tip.nut")
 let hints = require("%ui/hud/huds/hints.nut")
 let killLog = require("huds/killLog.nut")
 let playerDynamic = require("huds/player_weapons.ui.nut")
-let mortarTips = require("%ui/_packages/common_shooter/hud/huds/tips/mortar_tips.nut")
-let {isMortarMode} = require("%ui/_packages/common_shooter/hud/state/mortar.nut")
+let mortarTips = require("%ui/hud/huds/tips/mortar_tips.nut")
+let {isMortarMode} = require("%ui/hud/state/mortar.nut")
 let {inPlane} = require("%ui/hud/state/vehicle_state.nut")
 let {showBigMap} = require("%ui/hud/menus/big_map.nut")
 let {showArtilleryMap} = require("menus/artillery_radio_map.nut")
@@ -78,11 +78,7 @@ let {playerDeaths} = require("huds/player_deaths.nut")
 let {tkWarning} = require("huds/team_kills.nut")
 let {text} = require("%ui/components/text.nut")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
-let {canShowReplayHud} = require("%ui/hud/replay/replayState.nut")
-let replayHudLayout = require("%ui/hud/replay/replay_hud_layout.nut")
-let {isReplay} = require("%ui/hud/state/replay_state.nut")
 
-let needShowReplayHud = Computed(@() isReplay.value && canShowReplayHud.value)
 let minHud = keepref(Computed(@() forcedMinimalHud.value || minimalistHud.value))
 let showGameMode = Computed( @() !minHud.value || showSquadSpawn.value || showBigMap.value)
 let curCapZoneTitle = Computed(@() curCapZone.value?.caption)
@@ -181,7 +177,9 @@ let spectatorKeys = @() {
 }
 
 let function tutorialHudLayout(){
-  let chat = showChat.value ? chatRoot : serviceMessages
+  let chat = hasServiceMessages.value ? serviceMessages
+    : showChat.value ? chatRoot
+    : null
   /// Left Panel
   hudLayoutState.leftPanelTop([planeHud, vehicleHud])
   hudLayoutState.leftPanelMiddle([chat, vehicleSeats, squadMembersUi, artilleryOrderUi])
@@ -210,14 +208,12 @@ let function tutorialHudLayout(){
 let function setHudLayout(...) {
   let isHudMinimal = minHud.value
   let onlyFull = isHudMinimal ? @(_list) [] : @(list) list
-  let chat = showChat.value ? chatRoot : serviceMessages
+  let chat = hasServiceMessages.value ? serviceMessages
+    : showChat.value ? chatRoot
+    : null
   let mnlstHud = minimalistHud.value
-  if (needShowReplayHud.value) {
-    replayHudLayout()
-    return
-  }
 
-  if(isTutorial.value){
+  if (isTutorial.value){
     tutorialHudLayout()
     return
   }
@@ -232,7 +228,7 @@ let function setHudLayout(...) {
   hudLayoutState.centerPanelTop(isHudMinimal
     ? [gameMode, spectatorMode_tip, noRespawnTip, vehicleChangeSeats, enterVehicleIndicator, exitVehicleIndicator]
     : [gameMode, hints, warnings, spectatorMode_tip, noRespawnTip, vehicleChangeSeats,
-       enterVehicleIndicator, exitVehicleIndicator])
+        enterVehicleIndicator, exitVehicleIndicator])
 
   hudLayoutState.centerPanelMiddle(isHudMinimal
     ? [
@@ -263,5 +259,5 @@ let function setHudLayout(...) {
 }
 setHudLayout()
 foreach (s in [showChat, minHud, minimalistHud, forcedMinimalHud, showSelfAwards, showSquadSpawn,
-                showBigMap, isTutorial, needShowReplayHud])
+                showBigMap, isTutorial, hasServiceMessages])
   s.subscribe(setHudLayout)

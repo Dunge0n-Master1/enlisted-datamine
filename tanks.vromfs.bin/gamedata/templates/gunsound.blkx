@@ -67,6 +67,20 @@ gunsound_7_92mm_mg34{
   }
 }
 
+gunsound_8mm_breda_mod38{
+  _extends:t="gunsound_base_mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=3
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun_mounted/7_92mm_mg34"
+  }
+}
+
 gunsound_7_92mm_mg42{
   _extends:t="gunsound_base_mgun"
 
@@ -124,6 +138,21 @@ gunsound_20mm_breda_m35{
   }
 }
 
+gunsound_20mm_breda_m35_l6{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/20mm_breda_m35"
+  }
+}
+
 gunsound_20mm_kwk30{
   _extends:t="gunsound_base_cannon"
 
@@ -149,6 +178,21 @@ gunsound_20mm_tnsh{
 }
 
 gunsound_37mm_kwk36{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/37mm_kwk36"
+  }
+}
+
+gunsound_37mm_flak36{
   _extends:t="gunsound_base_cannon"
 
   _group{
@@ -194,6 +238,21 @@ gunsound_40mm_lva_kan_m36{
 }
 
 gunsound_45mm_20k{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/45mm_20k"
+  }
+}
+
+gunsound_47mm_ansaldo_47_32_m35{
   _extends:t="gunsound_base_cannon"
 
   _group{
@@ -268,6 +327,51 @@ gunsound_75mm_kwk37{
   }
 }
 
+gunsound_75mm_kwk40_l43{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/75mm_kwk37"
+  }
+}
+
+gunsound_75mm_ansaldo_75_18_m34{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/75mm_kwk37"
+  }
+}
+
+gunsound_75mm_ansaldo_75_32_m37{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/75mm_kwk37"
+  }
+}
+
 gunsound_75mm_stuk37{
   _extends:t="gunsound_base_cannon"
 
@@ -283,7 +387,37 @@ gunsound_75mm_stuk37{
   }
 }
 
+gunsound_75mm_stuk40_l43{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/75mm_stuk37"
+  }
+}
+
 gunsound_76mm_f34{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/76mm_f34"
+  }
+}
+
+gunsound_76mm_zis3{
   _extends:t="gunsound_base_cannon"
 
   _group{
@@ -343,6 +477,21 @@ gunsound_76mm_pak36_r{
   }
 }
 
+gunsound_105mm_k18{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/76mm_pak36_r"
+  }
+}
+
 gunsound_150mm_sig_33{
   _extends:t="gunsound_base_cannon"
 
@@ -388,6 +537,20 @@ gunsound_7_62mm_maxim{
 }
 
 gunsound_7_92mm_besa{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=3
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun_mounted/12_7mm_m2"
+  }
+}
+
+gunsound_7_7mm_vikkers{
   _extends:t="gunsound_base_cannon"
 
   _group{
@@ -518,6 +681,36 @@ gunsound_57mm_zis4m{
   }
 }
 
+gunsound_37mm_m5_user_cannon_for_m3_lee{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/45mm_20k"
+  }
+}
+
+gunsound_37mm_m5_early{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/45mm_20k"
+  }
+}
+
 gunsound_37mm_m6{
   _extends:t="gunsound_base_cannon"
 
@@ -549,6 +742,21 @@ gunsound_40mm_qf_2pdr{
 }
 
 gunsound_57mm_6pdr_qqf_mk_3_l43{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/45mm_20k"
+  }
+}
+
+gunsound_57mm_6pdr_qqf_mk_5_l50{
   _extends:t="gunsound_base_cannon"
 
   _group{
@@ -665,6 +873,21 @@ gunsound_85mm_zis_s_53{
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/cannon/76mm_l11"
+  }
+}
+
+gunsound_75mm_m2{
+  _extends:t="gunsound_base_cannon"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/75mm_m3"
   }
 }
 
@@ -1010,4 +1233,8 @@ gunsound_flamethrower{
     _tags:t="sound"
     path:t="/weapon/mgun_mounted/flamethrower"
   }
+}
+
+gunsound_82mm_m8_rocket_launcher{
+  _extends:t="gunsound_base_rocket_launcher"
 }

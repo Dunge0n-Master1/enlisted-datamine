@@ -28,7 +28,7 @@ let { Alert } = require("%ui/style/colors.nut")
 let { showVersionRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
 let { curBattleTutorial } = require("%enlist/tutorial/battleTutorial.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { hasCustomRooms, openCustomGameMode, eventGameModes, openEventModes, customRoomsModeSaved
+let { hasCustomRooms, openCustomGameMode, openEventsGameMode, eventGameModes
 } = require("eventModesState.nut")
 let { actualizeRoomCfg } = require("%enlist/gameModes/createEventRoomCfg.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
@@ -50,12 +50,12 @@ let infoMaxWidth = hdpx(500)
 
 let fbImageByCampaign = {
   berlin = "ui/loading_berlin_26.jpg"
-  moscow = "ui/volokolamsk_village_01"
-  normandy = "ui/launcher_normandy_bg_2"
+  moscow = "ui/volokolamsk_village_01.jpg"
+  normandy = "ui/launcher_normandy_bg_2.jpg"
 }
 
 let defTutorialParams = Computed(@() {
-  image = "ui/game_mode_tutorial_2"
+  image = "ui/game_mode_tutorial_2.jpg"
   id = "tutorials"
   title = loc("tutorials")
   description = loc("tutorials/desc")
@@ -66,12 +66,12 @@ let defTutorialParams = Computed(@() {
 
 let hoveredGameMode = Watched(null)
 let isOpened = mkWatched(persist, "isOpened", false)
-let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value] ?? "ui/volokolamsk_city_01")
+let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value] ?? "ui/volokolamsk_city_01.jpg")
 
-let defCustomGameImage = "ui/game_mode_moscow_solo"
+let defCustomGameImage = "ui/game_mode_moscow_solo.jpg"
 
 let close = function(){
-  if(isTutorialsWndOpened.value)
+  if (isTutorialsWndOpened.value)
     isTutorialsWndOpened(false)
   isOpened(false)
 }
@@ -96,12 +96,6 @@ let customGameMode = Computed(function() {
   }
 })
 
-let function onGameModeClick() {
-  customRoomsModeSaved(false)
-  openEventModes()
-  close()
-}
-
 let mkEventGameMode = @(event) {
   id = "events"
   image = event?.extraParams.image ?? defCustomGameImage
@@ -110,7 +104,10 @@ let mkEventGameMode = @(event) {
   isAvailable = true
   needShowCrossplayIcon = true
   isVersionCompatible = true
-  onClick = onGameModeClick
+  onClick = function() {
+    openEventsGameMode()
+    close()
+  }
 }
 
 let mkImage = @(image, fbImage, isAvailable, sf) {
@@ -321,10 +318,9 @@ local gameModeOnClickAction = @(_gameMode) null
 gameModeOnClickAction = function(gameMode) {
   isGameModeChangedManually(true)
   let { id, isAvailable, isLocked, isLocal, lockLevel, isVersionCompatible } = gameMode
-  log($"GP: gameModeOnClickAction for mode {id}, isInSquad.value {isInSquad.value}, isLeavingWillDisbandSquad.value {isLeavingWillDisbandSquad.value}", gameMode)
 
   if (!isAvailable) {
-    if(isInSquad.value && isLocal)
+    if (isInSquad.value && isLocal)
       msgbox.show({
         text = loc("squad/leaveSquadQst")
         buttons = [
@@ -445,10 +441,10 @@ let function gameModesList() {
       seenGM?[custGameMode?.id] ?? false,
       mkAnimations(modes.len(), modes.len() + 1)))
 
-  let modesOnScreen = Computed(@() isTutorialsWndOpened.value ? tutorialsToShow : modes)
+  let modesOnScreen = isTutorialsWndOpened.value ? tutorialsToShow : modes
   return {
     size = flex()
-    watch = [seenGamemodes, customGameMode, modesOnScreen, tutorialModes,
+    watch = [seenGamemodes, customGameMode, mainModes, tutorialModes,
       isTutorialsWndOpened, eventGameModes]
     xmbNode = XmbContainer({
       canFocus = @() false
@@ -462,7 +458,7 @@ let function gameModesList() {
         flow = FLOW_HORIZONTAL
         gap
         vplace = ALIGN_CENTER
-        children = modesOnScreen.value.map(@(children) { children })
+        children = modesOnScreen.map(@(children) { children })
       }, {
         size = [SIZE_TO_CONTENT, flex()]
         maxWidth = safeAreaSize.value[0]
@@ -579,6 +575,4 @@ if (isOpened.value)
 canShowGameMode.subscribe(@(v) v ? null : close())
 curSection.subscribe(@(_) close())
 
-return {
-  openChangeGameModeWnd = @() isOpened(true)
-}
+return @() isOpened(true)

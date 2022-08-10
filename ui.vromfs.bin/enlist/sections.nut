@@ -6,12 +6,14 @@ let researchesList = require("researches/researchesList.ui.nut")
 let mkNotifier = require("%enlist/components/mkNotifier.nut")
 let armyShopUi = require("shop/armyShopUi.nut")
 let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { setSectionsSorted } = require("%enlist/mainMenu/sectionsState.nut")
+let { setSectionsSorted, curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { hasResearchesSection } = require("researches/researchesState.nut")
 let { unseenResearches } = require("researches/unseenResearches.nut")
 let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
-let { curUnseenAvailShopGuids, hasUnseenCurrencies, isShopVisible, hasShopSection,
-  curArmyShopItems } = require("shop/armyShopState.nut")
+let {
+  curUnseenAvailShopGuids, hasUnseenCurrencies, isShopVisible, hasShopSection,
+  curArmyShopItems, notOpenedShopItems
+} = require("shop/armyShopState.nut")
 let { nextTutorialUnlock, showGetUnlockTutorial
 } = require("%enlist/tutorial/notReceivedUnlockTutorial.nut")
 let { hasCampaignSection, hasCurArmyUnlockAlert
@@ -21,6 +23,9 @@ let { hasLevelDiscount, curLevelDiscount
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { getStoreUrl, getEventUrl} = require("%ui/networkedUrls.nut")
+let { isEventUnseen, markEventSeen } = require("gameModes/eventUnseenSignState.nut")
+let { markShopItemOpened } = require("%enlist/shop/unseenShopItems.nut")
+
 
 let hasCampaignAlert = Computed(@() hasCampaignSection.value
   && isCurCampaignProgressUnlocked.value
@@ -47,6 +52,28 @@ let hasShopAlert = Computed(@() hasShopSection.value
   && (maxCurArmyDiscount.value > 0 || hasUnseenShopItems.value))
 
 let discountBg = { color = 0xffff313b }
+
+let shopAlertBlink = Computed(@()
+  curSection.value != "SHOP" && notOpenedShopItems.value.len() > 0)
+
+let function shopAlertUi() {
+  let override = shopAlertBlink.value
+    ? { key = "blink_on" }
+    : { key = "blink_off", animations = null }
+  let percents = maxCurArmyDiscount.value
+  let children = percents > 0
+      ? mkNotifier(loc("shop/discount", { percents }), {},
+          override.__merge(discountBg), tiny_txt)
+    : hasShopAlert.value
+      ? mkNotifier(loc("hint/newShopItemsAvailable"), {}, override, tiny_txt)
+    : null
+  return {
+    watch = [hasShopAlert, maxCurArmyDiscount, shopAlertBlink]
+    hplace = ALIGN_RIGHT
+    pos = [0, hdpx(30)]
+    children
+  }
+}
 
 let sections = [
 
@@ -101,13 +128,10 @@ let sections = [
     content = armyShopUi
     id = "SHOP"
     camera = "researches"
-    unseenWatch = Computed(@() hasShopAlert.value && maxCurArmyDiscount.value == 0)
-    addChild = @() {
-      watch = maxCurArmyDiscount
-      hplace = ALIGN_RIGHT
-      pos = [0, hdpx(30)]
-      children = maxCurArmyDiscount.value == 0 ? null : mkNotifier(loc("shop/discount",
-        { percents = maxCurArmyDiscount.value }), {}, discountBg, tiny_txt)
+    addChild = shopAlertUi
+    onExitCb = function() {
+      markShopItemOpened(curArmyData.value?.guid, notOpenedShopItems.value)
+      return true
     }
   }
 ]
@@ -125,7 +149,11 @@ if (getEventUrl() != null)
     locId = "menu/event"
     id = "EVENT"
     selectable = false
-    onClickCb = @() openUrl(getEventUrl())
+    onClickCb = function(){
+      openUrl(getEventUrl())
+      markEventSeen()
+    }
+    unseenWatch = isEventUnseen
   })
 
 setSectionsSorted(sections)

@@ -1,10 +1,11 @@
 require ecs
-require game.es.camera_common
 require common_shooter.es.human_weap_common
+require enlisted.events_enlisted
 require math.base
 require HumanPhys
 require EnlistedHuman
 require EnlistedWeapon
+require EnlistedCamera
 require DagorMath
 require DagorMathUtils
 require DagorSystem
@@ -14,18 +15,7 @@ require GridCollision
 require Dacoll
 require CollRes
 require AnimV20
-
-
-def apply_gun_angle_offsets(phys : HumanPhys; at_time : float; var angles : float2&)
-  assume prevState = phys.previousState
-  assume curState  = phys.currentState
-  let prevOffset = prevState.breathOffset + prevState.handsShakeOffset + prevState.gunAimOffset
-  let curOffset = curState.breathOffset + curState.handsShakeOffset + curState.gunAimOffset
-  let interpK = get_phys_interpk_clamped(phys, at_time)
-
-  angles += lerp(prevOffset, curOffset, float2(interpK))
-  let interpQuat = slerp(prevState.location.O.quat, curState.location.O.quat, interpK)
-  angles.y = phys |> human_phys_clampVertAimAngle(angles.y, interpQuat)
+require GeomNodeTree
 
 
 def do_gun_traceray(from : float3; dir : float3; var t : float&; ray_mat_id : int; ignore_human_eid : EntityId)
@@ -44,6 +34,26 @@ def do_gun_traceray(from : float3; dir : float3; var t : float&; ray_mat_id : in
   return retEid
 
 
+[es(REQUIRE=(human_input, human_weap))]
+def human_weap_trace_es(info : ParallelUpdateFrameDelayed;
+                        eid : EntityId;
+                        human_net_phys : HumanActor;
+                        human_weap__prevGunAngles : float2&;
+                        var human_weap__traceIntersectedEid : EntityId&;
+                        var human_weap__tracerayLen : float&;
+                        isDowned : bool = false;
+                        isAlive : bool = true)
+  if !isAlive || isDowned || human_net_phys.phys.currentState |> human_phys_state_attachedToLadder
+    return
+  let gunDir = angles_to_dir(human_weap__prevGunAngles)
+  let gunEid = get_human_gun_eid(eid)
+  if gunEid != INVALID_ENTITY_ID
+    query(gunEid) <| $ [es(REQUIRE_NOT=mortar)] (gun__aimRayMatId : int = -1)
+      let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
+      let camPos = cameraTm[3]
+      human_weap__tracerayLen = 100.0
+      human_weap__traceIntersectedEid = do_gun_traceray(camPos, gunDir, human_weap__tracerayLen, gun__aimRayMatId, eid)
+
 [es(after=human_phys_es, before=after_guns_update_sync, REQUIRE=(human_input, human_weap))]
 def human_weap_update_es(info : UpdateStageInfoAct;
                          eid : EntityId;
@@ -52,6 +62,12 @@ def human_weap_update_es(info : UpdateStageInfoAct;
                          humap_weap__useGrenadeInVehicle : bool = false;
                          human_weap__lockedGrenadeThrowingCounter : int = 0;
                          human_weap__mortarMode : bool = false;
+                         human_weap__jumpDeviation : float = 0.;
+                         human_weap__changePosDeviationCanAim : float = 0.;
+                         human_weap__changePosDeviationCanNotAim : float = 0.;
+                         human_phys__afterJumpDelay : float = 0.;
+                         human_phys__jumpEndTime : float;
+                         human_phys__isInAirLong : bool;
                          isDowned : bool = false;
                          isAlive : bool = true;
                          entity_mods__shotDeviationMult : float = 1.0;
@@ -64,21 +80,27 @@ def human_weap_update_es(info : UpdateStageInfoAct;
                          human_weap__fastThrowExclusive : bool = true;
                          human_weap__maxParallaxDeviation : float = 10.0;
                          human_weap__extraGunSpeedOnJump : float = 0.0;
+                         human_weap__maxGunVisualAngleDeviation : float = 10.;
                          human_unarmed__active : bool = false;
                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
+                         human_weap__tracerayLen : float&;
                          var human_net_phys : HumanActor;
                          var transform : float3x4;
                          var human_weap__gunEids : EidList;
                          var human_weap__throwMode : bool&;
                          var human_weap__prevGunAngles : float2&;
-                         var human_weap__gunAngleSpeed : float2&;
-                         var human_weap__traceIntersectedEid : EntityId&;
-                         var human_weap__tracerayLen : float&)
+                         var human_weap__gunAngleSpeed : float2&)
   if !isAlive || isDowned || human_net_phys.phys.currentState |> human_phys_state_attachedToLadder
     return
 
   let dt = info.dt
-  let atTime = info.curTime
+  var atTime = info.curTime
+
+  // Align updates on phys ticks to phys.timeStep for shooting end time synchronization
+  assume ct = human_net_phys.phys.producedCT
+  if ct |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && !ct.haveUnenqueuedHctShoot
+    atTime = floor(atTime / human_net_phys.phys.timeStep) * human_net_phys.phys.timeStep
+
   let isForReal = true
   let wishGunDir = human_net_phys.phys.producedCT.wishShootDir
   var gunDir = wishGunDir
@@ -116,10 +138,9 @@ def human_weap_update_es(info : UpdateStageInfoAct;
   var gunShootDir = gunDir
   let gunEid = get_human_gun_eid(eid)
   if gunEid != INVALID_ENTITY_ID
-    query(gunEid) <| $ [es(REQUIRE_NOT=mortar)] (gun__aimRayMatId : int = -1; gun : Gun)
-      let camPos = get_cam_pos()
-      human_weap__tracerayLen = 100.0
-      human_weap__traceIntersectedEid = do_gun_traceray(camPos, gunDir, human_weap__tracerayLen, gun__aimRayMatId, eid)
+    query(gunEid) <| $ [es(REQUIRE_NOT=mortar)] (gun : Gun; animchar : AnimcharBaseComponent)
+      let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
+      let camPos = cameraTm[3]
       let shootTm = gun.shootNodeData |> gun_shoot_node_data_calcShootTm(gunDir, transform, transform)
       let shootPos = shootTm[3]
       gunShootDir = normalize(camPos + gunDir * human_weap__tracerayLen - shootPos)
@@ -130,6 +151,12 @@ def human_weap_update_es(info : UpdateStageInfoAct;
                                                                                initialGunAngles.x + angDevRad)
       wishGunAngles.y = clamp(wishGunAngles.y, initialGunAngles.y - angDevRad, initialGunAngles.y + angDevRad)
       gunShootDir = angles_to_dir(wishGunAngles)
+
+      var visualTm : float3x4
+      geomtree_getNodeWtmScalar(animchar.nodeTree, 0/*root*/, visualTm)
+      let visualGunDir = normalize(-visualTm[2])
+      if !human_weap__throwMode && dot(visualGunDir, gunShootDir) < cos(deg_to_rad(human_weap__maxGunVisualAngleDeviation))
+        gunShootDir = visualGunDir
 
   let updCtx = [[GunUpdateCtx
     dt=dt,
@@ -149,4 +176,6 @@ def human_weap_update_es(info : UpdateStageInfoAct;
   human_weap_gun_update(human_net_phys, human_weap__gunEids, human_weap__throwMode,
                         updCtx, transform, gunDir, gunShootDir, transform,
                         human_net_phys.phys.producedCT, human_use_object__selectedObject,
-                        human_unarmed__active, human_attached_gun__attachedGunEid)
+                        human_unarmed__active, human_attached_gun__attachedGunEid,
+                        human_weap__jumpDeviation, human_weap__changePosDeviationCanAim, human_weap__changePosDeviationCanNotAim,
+                        human_phys__jumpEndTime, human_phys__afterJumpDelay, human_phys__isInAirLong)

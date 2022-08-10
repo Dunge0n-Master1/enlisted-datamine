@@ -1,4 +1,3 @@
-thousandth:t="“real”"
 rangefinderProgressBarColor1:c=0, 255, 0, 64
 rangefinderProgressBarColor2:c=255, 255, 255, 64
 rangefinderTextScale:r=0.7
@@ -23,416 +22,133 @@ crosshair_hor_ranges{
 drawLines{
 
   line{
-    line:p4=-14.2962, 1.6873, -13.7191, 1.6873
-    radialMoveSpeed:r=14.1089
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.104861, 0.105523, -0.00082671, -0.000165342
   }
 
   line{
-    line:p4=12.9825, 1.6844, 13.5567, 1.6844
-    radialMoveSpeed:r=13.3761
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.00082671, -0.000165342, -0.106515, 0.105523
   }
 
   line{
-    line:p4=13.5567, 1.6844, 13.5588, 1.6873
-    radialMoveSpeed:r=13.6621
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0218144, 0.00453067, 0.020397, 0.00453067
   }
 
   line{
-    line:p4=13.5567, 1.6844, 13.5596, 1.6844
-    radialMoveSpeed:r=13.6624
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.020397, 0.00453067, 0.0227578, -0.000186234
   }
 
   line{
-    line:p4=8.8271, 1.6871, 9.3997, 1.6871
-    radialMoveSpeed:r=9.2682
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0227578, -0.000186234, 0.0251198, 0.00453067
   }
 
   line{
-    line:p4=9.3997, 1.6871, 9.3999, 1.6873
-    radialMoveSpeed:r=9.55
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0251198, 0.00453067, 0.0237011, 0.00453067
   }
 
   line{
-    line:p4=9.3997, 1.6871, 9.4042, 1.6871
-    radialMoveSpeed:r=9.5521
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0142674, 0.00453067, 0.01285, 0.00453067
   }
 
   line{
-    line:p4=4.7108, 1.689, 5.2879, 1.689
-    radialMoveSpeed:r=5.277
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.01285, 0.00453067, 0.0152107, -0.000186234
   }
 
   line{
-    line:p4=-3.8239, 1.7233, -3.247, 1.7233
-    radialMoveSpeed:r=3.933
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0152107, -0.000186234, 0.0175728, 0.00453067
   }
 
   line{
-    line:p4=-3.247, 1.7233, -3.2461, 1.7245
-    radialMoveSpeed:r=3.6759
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0175728, 0.00453067, 0.0161542, 0.00453067
   }
 
   line{
-    line:p4=-3.247, 1.7233, -3.2468, 1.7233
-    radialMoveSpeed:r=3.6758
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.00625927, 0.00453067, 0.00484194, 0.00453067
   }
 
   line{
-    line:p4=-8.0748, 1.6918, -7.4977, 1.6918
-    radialMoveSpeed:r=7.968
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.00484194, 0.00453067, 0.00720268, -0.000186234
   }
 
   line{
-    line:p4=-12.3771, 1.6901, -11.8, 1.6901
-    radialMoveSpeed:r=12.2061
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.00720268, -0.000186234, 0.00956476, 0.00453067
   }
 
   line{
-    line:p4=-3.4514, 3.2296, -19.8879, 21.391
-    radialMoveSpeed:r=16.9625
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.00956476, 0.00453067, 0.00814603, 0.00453067
   }
 
   line{
-    line:p4=2.798, 3.2296, 20.5731, 21.391
-    radialMoveSpeed:r=16.9734
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.00300347, -0.000186234, 0.00300347, 0.00139816
   }
 
   line{
-    line:p4=-19.8879, 21.391, -46.1679, 50.4288
-    radialMoveSpeed:r=48.789
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0111204, -0.000186234, 0.0111204, 0.00139816
   }
 
   line{
-    line:p4=20.5731, 21.391, 48.993, 50.4288
-    radialMoveSpeed:r=49.9938
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=0.0189693, -0.000186234, 0.0189693, 0.00139816
   }
 
   line{
-    line:p4=-0.4489, 10.5003, -0.4489, 50.4288
-    radialMoveSpeed:r=30.4678
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0234735, 0.00453067, -0.0220561, 0.00453067
   }
 
   line{
-    line:p4=-0.4489, -45.1138, -0.4489, -21.4514
-    radialMoveSpeed:r=33.2856
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0220561, 0.00453067, -0.0244169, -0.000186234
   }
 
   line{
-    line:p4=10.2218, -0.0879, 10.2218, -0.7756
-    radialMoveSpeed:r=10.2309
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0244169, -0.000186234, -0.0267789, 0.00453067
   }
 
   line{
-    line:p4=-10.9113, 0.5973, -10.9113, -0.7736
-    radialMoveSpeed:r=10.9116
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0267789, 0.00453067, -0.0253602, 0.00453067
   }
 
   line{
-    line:p4=-6.6314, 0.5973, -6.6314, -0.7736
-    radialMoveSpeed:r=6.632
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0159264, 0.00453067, -0.014509, 0.00453067
   }
 
   line{
-    line:p4=-2.4763, -0.0693, -2.4827, -0.7736
-    radialMoveSpeed:r=2.5151
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.014509, 0.00453067, -0.0168698, -0.000186234
   }
 
   line{
-    line:p4=1.791, 0.5973, 1.791, -0.7736
-    radialMoveSpeed:r=1.7932
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0168698, -0.000186234, -0.0192319, 0.00453067
   }
 
   line{
-    line:p4=6.0867, 0.5973, 6.0867, -0.7736
-    radialMoveSpeed:r=6.0873
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0192319, 0.00453067, -0.0178132, 0.00453067
   }
 
   line{
-    line:p4=10.2219, 0.5973, 10.2219, -0.0904
-    radialMoveSpeed:r=10.225
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.00791834, 0.00453067, -0.00650098, 0.00453067
   }
 
   line{
-    line:p4=-9.9922, 1.6873, -8.7593, -0.0879
-    radialMoveSpeed:r=9.4098
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.00650098, 0.00453067, -0.00886172, -0.000186234
   }
 
   line{
-    line:p4=-8.7593, -0.0879, -7.5017, 1.6873
-    radialMoveSpeed:r=8.1697
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.00886172, -0.000186234, -0.0112238, 0.00453067
   }
 
   line{
-    line:p4=-5.7366, 1.7245, -4.5036, -0.0507
-    radialMoveSpeed:r=5.1881
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0112238, 0.00453067, -0.00980506, 0.00453067
   }
 
   line{
-    line:p4=8.1423, -0.0879, 9.3997, 1.6871
-    radialMoveSpeed:r=8.8074
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.00466251, -0.000186234, -0.00466251, 0.00139816
   }
 
   line{
-    line:p4=-14.2962, 1.6873, -13.0632, -0.0879
-    radialMoveSpeed:r=13.7031
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0127795, -0.000186234, -0.0127795, 0.00139816
   }
 
   line{
-    line:p4=6.9094, 1.6873, 8.1423, -0.0879
-    radialMoveSpeed:r=7.5682
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
+    line:p4=-0.0206283, -0.000186234, -0.0206283, 0.00139816
   }
+}
 
-  line{
-    line:p4=-13.0632, -0.0879, -11.8057, 1.6873
-    radialMoveSpeed:r=12.4602
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=-4.5036, -0.0507, -3.247, 1.7233
-    radialMoveSpeed:r=3.9645
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=2.798, 3.2296, -0.4489, -0.0879
-    radialMoveSpeed:r=1.9614
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=11.0683, 1.6873, 12.3012, -0.0879
-    radialMoveSpeed:r=11.7121
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=12.3012, -0.0879, 13.5567, 1.6844
-    radialMoveSpeed:r=12.9536
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=-0.4489, -0.0879, -3.4514, 3.2296
-    radialMoveSpeed:r=2.5041
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=4.031, -0.0879, 5.2885, 1.6873
-    radialMoveSpeed:r=4.7279
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=2.798, 1.6873, 4.031, -0.0879
-    radialMoveSpeed:r=3.5069
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=2.798, 1.6873, 3.3751, 1.6873
-    radialMoveSpeed:r=3.5177
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=-5.7366, 1.7245, -5.1595, 1.7245
-    radialMoveSpeed:r=5.7145
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=11.0683, 1.6873, 11.6453, 1.6873
-    radialMoveSpeed:r=11.4815
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=-9.9922, 1.6873, -9.4152, 1.6873
-    radialMoveSpeed:r=9.8493
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=-2.4763, -0.0693, -2.4763, 0.5973
-    radialMoveSpeed:r=2.4903
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
-
-  line{
-    line:p4=6.9094, 1.6873, 7.4864, 1.6873
-    radialMoveSpeed:r=7.393
-    thousandth:b=yes
-    move:b=no
-    moveRadial:b=no
-    radialCenter:p2=0.0, 0.0
-  }
+drawCircles{
 }

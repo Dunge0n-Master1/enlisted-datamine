@@ -5,9 +5,7 @@ require DagorShaders
 require MaterialRecreate
 require AnimV20
 
-def set_burning_params(
-                       var burning__burnedEffectState : int&;
-                       attaches_list : EidList;
+def set_burning_params(attaches_list : EidList;
                        burning_state : int)
 
   let hasBurningVarId = get_shader_variable_id("has_burning", true)
@@ -18,7 +16,6 @@ def set_burning_params(
     else
       logerr("burning_state = {burning_state} out of bound [0, {length(burning_lerp_factor)})")
 
-  burning__burnedEffectState = burning_state
   for eid in attaches_list
     query(eid) <| $ [es] (var burning_effect : float&; var animchar_render : AnimcharRendComponent)
       burning_effect = burn

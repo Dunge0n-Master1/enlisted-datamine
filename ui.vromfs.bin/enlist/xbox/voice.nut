@@ -6,7 +6,7 @@ let { xboxCrossVoiceWithFriendsAllowed, xboxCrossVoiceWithAllAllowed } = require
 let { subsMemberAddedEvent, subsMemberRemovedEvent, squadMembers } = require("%enlist/squad/squadManager.nut")
 let { console2uid, uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
 let { friendsUids } = require("%enlist/contacts/contactsWatchLists.nut")
-let logX = require("%sqstd/log.nut")().with_prefix("[XVOICE] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XVOICE] ")
 
 
 let function voice_mute(uid) {
@@ -112,7 +112,7 @@ let function update_foreign_user_state(uid) {
 
 
 let function update_crossnet_chat() {
-  foreach(userId, _ in squadMembers.value)
+  foreach (userId, _ in squadMembers.value)
     update_foreign_user_state(userId)
 }
 

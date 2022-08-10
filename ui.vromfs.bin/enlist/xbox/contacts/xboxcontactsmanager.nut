@@ -9,7 +9,7 @@ let { update_presences_for_users } = require("%enlist/xbox/presence.nut")
 let { start_monitoring, stop_monitoring } = require("%xboxLib/impl/presence.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
-let logxb = require("%sqstd/log.nut")().with_prefix("[XBOX CONTACTS]")
+let logxb = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX CONTACTS]")
 
 
 let CONTACT_GROUP_FRIENDS = "f"

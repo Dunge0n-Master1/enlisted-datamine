@@ -7,6 +7,7 @@ let { INVALID_USER_ID } = require("matching.errors")
 //  return null
 
 let {get_app_id} = require("app")
+let logC = require("%enlSqGlob/library_logs.nut").with_prefix("[CHAR CLIENT] ")
 
 local function char_request(action, data, callback, auth_token = null) {
   auth_token = auth_token ?? userInfo.value?.token
@@ -55,10 +56,10 @@ let function perform_contact_action(action, request, params) {
   let onSuccessCb = params?.success
   local onFailureCb = params?.failure
 
-  log("[CHAR CLIENT] perform_contact_action", request)
+  logC("perform_contact_action", request)
 
   char_request(action, request, function(result) {
-    log("[CHAR CLIENT] char_request", result)
+    logC("char_request", result)
 
     let subResult = result?.result
     if (subResult != null)
@@ -73,7 +74,7 @@ let function perform_contact_action(action, request, params) {
       if (typeof onSuccessCb == "function") {
         onSuccessCb()
       }
-      log("[CHAR CLIENT] Ok")
+      logC("Ok")
     }
   })
 }
@@ -104,7 +105,7 @@ let function contacts_remove(id, params = {}) {
 
 let function perform_contacts_for_requestor(action, apprUid, group, params = {}, requestAddon = {}) {
   if (apprUid == INVALID_USER_ID) {
-    log($"[CHAR CLIENT] try perform action {action} for invalid contact, group {group}")
+    logC($"try perform action {action} for invalid contact, group {group}")
     return
   }
 
@@ -117,7 +118,7 @@ let function perform_contacts_for_requestor(action, apprUid, group, params = {},
 
 let function perform_contacts_for_approver(action, requestorUid, group, params = {}, requestAddon = {}) {
   if (requestorUid == INVALID_USER_ID) {
-    log($"[CHAR CLIENT] try perform action {action} for invalid contact, group {group}")
+    logC($"try perform action {action} for invalid contact, group {group}")
     return
   }
 
@@ -172,7 +173,7 @@ let charClient = {
 // console commands
 let function contacts_get() {
   char_request("cln_get_contact_lists_ext", null, function(result) {
-    log("[CHAR CLIENT] cln_get_contact_lists_ext", result)
+    logC("cln_get_contact_lists_ext", result)
   })
 }
 
@@ -186,7 +187,7 @@ let function leaderboard_get() {
   }
 
   char_request("cln_get_leaderboard_json", request, function(result) {
-    log("[CHAR CLIENT] cln_get_leaderboard_json", result)
+    logC("cln_get_leaderboard_json", result)
   })
 }
 
@@ -209,10 +210,10 @@ let function leaderboard_host_push() {
 
   char_host_request("hst_leaderboard_player_set", 666, request, function(result) {
     if (result) {
-      log("[CHAR CLIENT] hst_leaderboard_player_set result", result)
+      logC("hst_leaderboard_player_set result", result)
     }
     else {
-      log("[CHAR CLIENT] Ok")
+      logC("Ok")
     }
   })
 }
@@ -226,7 +227,7 @@ let function contacts_search(nick) {
   }
 
   char_request("cln_find_users_by_nick_prefix_json", request, function(result) {
-    log("[CHAR CLIENT] cln_find_users_by_nick_prefix_json result", result)
+    logC("cln_find_users_by_nick_prefix_json result", result)
   })
 }
 

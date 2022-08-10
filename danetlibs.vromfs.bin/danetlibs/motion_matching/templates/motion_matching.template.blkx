@@ -1,57 +1,69 @@
 motion_matching_animchar_component{
-  input_linear_acceleration:p3=0.0, 0.0, 0.0
-  input_angular_acceleration:p3=0.0, 0.0, 0.0
-  input_linear_velocity:p3=0.0, 0.0, 0.0
-  input_angular_velocity:p3=0.0, 0.0, 0.0
-  input_amort_linear_velocity:p3=0.0, 0.0, 0.0
-  input_amort_angular_velocity:p3=0.0, 0.0, 0.0
-  animation_linear_speed:p3=0.0, 0.0, 0.0
-  animation_angular_speed:p3=0.0, 0.0, 0.0
-  motion_matching_enabled:b=no
-  prev_tranform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  blend_time:r=0.45
-  lerp_factor:r=0.0
-  dataBaseTemplateName:t="main_database"
+  _tags:t="render"
+  motion_matching__enabled:b=no
+  motion_matching__blendTimeToAnimtree:r=0.45
+  motion_matching__blendProgressToAnimtree:r=0.0
+  motion_matching__trajectoryInertionFactor:r=0.75
+  motion_matching__linearVelocityViscosity:r=0.1
+  motion_matching__angularVelocityViscosity:r=0.1
+  motion_matching__linearVelocity:p3=0.0, 0.0, 0.0
+  motion_matching__angularVelocity:p3=0.0, 0.0, 0.0
+  motion_matching__linearVelocityAmortized:p3=0.0, 0.0, 0.0
+  motion_matching__angularVelocityAmortized:p3=0.0, 0.0, 0.0
+  motion_matching__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  motion_matching__animationBlendTime:r=0.45
+  motion_matching__updateProgress:r=0.0
+  motion_matching__distanceFactor:r=1.0
+  motion_matching__trajectoryTolerance:r=3.0
+  motion_matching__dataBaseTemplateName:t="motion_matchign_animation_database"
 
-  "trajectory_times:list<r>"{
-    t0:r=0.1
-    t1:r=0.25
-    t2:r=0.5
+  "motion_matching__trajectoryTimes:list<r>"{
   }
 
-  "predicted_positions:list<p3>"{
+  "motion_matching__predictedPositions:list<p3>"{
   }
 
-  "predicted_velocity:list<p3>"{
+  "motion_matching__predictedVelocity:list<p3>"{
   }
 
-  "predicted_rotation:list<p3>"{
+  "motion_matching__predictedRotation:list<p3>"{
   }
 
-  "frame_history:list<ip2>"{
-    first_frame:ip2=0, 0
+  "motion_matching__goalFeature:FrameFeature"{
   }
 
-  "frame_blend_weights:list<p2>"{
+  "motion_matching__goalNodesIdx:list<i>"{
   }
 
-  "goal_tags:list<t>"{
+  "motion_matching__goalTags:list<t>"{
   }
 
-  "prev_input:list<t>"{
+  "motion_matching__dataBaseEid:eid"{
   }
 
-  "dataBaseEid:eid"{
+  "motion_matching__controller:MotionMatchingController"{
+  }
+
+  _group{
+    _tags:t="tools"
+    motion_matching__walkSpeed:r=1.8
+    motion_matching__runSpeed:r=3.7
+
+    "motion_matching__clipProgress:list<r>"{
+    }
   }
 }
 
-main_database{
-  _tags:t="gameClient"
-  dataBaseName:t="main_database"
+motion_matchign_animation_database{
+  _extends:t="replicating"
+  _tags:t="render"
+  dataBaseName:t="motion_matchign_animation_database"
+  main_database__loaded:b=no
+  main_database__perFrameLimit:i=-1
   weightsPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_weights.blk"
+  main_database__root_node:t="Bip01"
 
   "data_bases_paths:list<t>"{
-    path:t="%danetlibs/motion_matching/animation_data_base/mocap_animations.blk"
     path:t="%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
   }
 
@@ -60,10 +72,91 @@ main_database{
 
   "matchingResults:MatchingResults"{
   }
+
+  "main_database__direction_nodes:list<t>"{
+    node:t="Bip01"
+    node:t="Bip01 Pelvis"
+  }
+
+  "main_database__direction_weights:list<r>"{
+    weight:r=1.0
+    weight:r=1.0
+  }
+
+  "main_database__center_of_mass_nodes:list<t>"{
+    node:t="Bip01 Pelvis"
+    node:t="Bip01 L Thigh"
+    node:t="Bip01 R Thigh"
+    node:t="Bip01 L Calf"
+    node:t="Bip01 R Calf"
+  }
+
+  "main_database__center_of_mass_params:list<p4>"{
+    params:p4=0.0, 0.0, 0.0, 13.0
+    params:p4=0.0, 0.0, 0.0, 10.0
+    params:p4=0.0, 0.0, 0.0, 10.0
+    params:p4=0.0, 0.0, 0.0, 5.0
+    params:p4=0.0, 0.0, 0.0, 5.0
+  }
 }
 
-add_motion_matching_components{
+motion_matchign_animation_database_extended{
+  _extends:t="motion_matchign_animation_database"
+  _tags:t="render"
+  dataBaseName:t="motion_matchign_animation_database_extended"
 
-  "requireMotionMatchingComponents:tag"{
+  "data_bases_paths:list<t>"{
+    path:t="%danetlibs/motion_matching/animation_data_base/mocap_animations.blk"
+    path:t="%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
+  }
+}
+
+optional_motion_matching{
+
+  "optionalRequestMotionMatching:tag"{
+  }
+}
+
+animation_test_scope{
+  animation_test__startTime:r=0.0
+  animation_test__duration:r=10.0
+
+  "animationTestScope:tag"{
+  }
+}
+
+animation_test_spawn_area{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "animationTestSpawnArea:tag"{
+  }
+}
+
+animation_test_target{
+  test_target:p3=0.0, 0.0, 0.0
+  test_target_velocity:p3=0.0, 0.0, 0.0
+  test_target_center:p3=0.0, 0.0, 0.0
+}
+
+animation_tester{
+  animation_tester__moveTarget:p3=0.0, 0.0, 0.0
+}
+
+animation_self_tester{
+  _extends:t="animation_tester"
+  _extends:t="animation_test_target"
+}
+
+animation_test_pair{
+  _extends:t="animation_test_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "animationTestPair:tag"{
+  }
+
+  "first_tester:eid"{
+  }
+
+  "second_tester:eid"{
   }
 }

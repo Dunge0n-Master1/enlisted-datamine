@@ -19,7 +19,7 @@ let mkNextPathItem = @(item) item.__merge({
 
 let curBuildingToolMenuItems = Computed(function() {
   local list = buildingToolMenuItems.value
-  foreach(id in path.value) {
+  foreach (id in path.value) {
     list = list.findvalue(@(p) p?.id == id)?.items
     if (type(list) != "array")
       return [] //no items by path

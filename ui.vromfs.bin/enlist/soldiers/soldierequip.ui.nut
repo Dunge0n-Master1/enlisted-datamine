@@ -7,7 +7,6 @@ let { Flat } = require("%ui/components/textButton.nut")
 let {
   smallPadding, bigPadding, soldierWndWidth, unitSize, msgHighlightedTxtColor, slotBaseSize
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { statusBadgeWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
@@ -20,7 +19,6 @@ let {
 } = require("model/selectItemState.nut")
 let { curUnseenAvailableUpgrades, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
-let { defSlotnameCtor } = require("components/itemComp.nut")
 let soldierSlotsCount = require("model/soldierSlotsCount.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
@@ -73,14 +71,6 @@ let function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
     : emptySlot.__merge({ slotId = slotId, isLocked = true }))
 }
 
-let emptySlotWithWarningChildren = @(slotType, itemSize, isSelected, sf, group) {
-  size = flex()
-  children = [
-    statusBadgeWarning
-    defSlotnameCtor(slotType, itemSize, isSelected, sf, group)
-  ]
-}
-
 let mkItemsBlock = kwarg(function(
   soldierGuid, canManage, slots = [], itemCtor = mkItem, numInRow = MAX_ITEMS_IN_ROW,
   gap = smallPadding
@@ -97,8 +87,8 @@ let mkItemsBlock = kwarg(function(
         soldierGuid = soldierGuid
         itemSize = itemSize
         isInteractive = canManage
-        emptySlotChildren = slot.hasWarning ? emptySlotWithWarningChildren : defSlotnameCtor
         hasUnseenSign = slot.isUnseen
+        hasWarningSign = slot.hasWarning
         canDrag = true
       }))),
     { width = soldierWndInnerWidth, hGap = gap, vGap = gap, hplace = ALIGN_CENTER }
@@ -108,12 +98,12 @@ let mkItemsBlock = kwarg(function(
 let function getWarningSlotTypes(slotsItems, groupSchemes) {
   let equipped = {}
   let slotTypeToGroup = {}
-  foreach(slot in groupSchemes)
+  foreach (slot in groupSchemes)
     if ((slot?.atLeastOne ?? "") != "") {
       equipped[slot.atLeastOne] <- false
       slotTypeToGroup[slot.slotType] <- slot.atLeastOne
     }
-  foreach(slotData in slotsItems) {
+  foreach (slotData in slotsItems) {
     if (slotData.item == null)
       continue
     let group = slotTypeToGroup?[slotData.slotType]
@@ -144,7 +134,7 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
 
     let rowsData = []
     local lastRow = null
-    foreach(scheme in groupSchemes) {
+    foreach (scheme in groupSchemes) {
       let { slotType, isPrimary = false, isDisabled = false } = scheme
       let currentSlotsCount = slotsCount.value?[slotType] ?? 0
       let slotsList = collectSlots(slotType, currentSlotsCount, slotsItems, soldierGuid)
@@ -207,13 +197,11 @@ let mkEquipBtn = @(soldier, objInfoByGuidWatched, reserveSoldiersWatch)
       changeEquipList = getAlternativeEquipList(soldier, getWorseItem, toRemoveEquipList)
         .extend(toRemoveEquipList)
     }
-    else {
-      if (getLinkedSquadGuid(soldier) != null) {
-        btnTextLocId = "autoEquip"
-        let toAddEquipList = getPossibleEquipList(soldier)
-        changeEquipList = getAlternativeEquipList(soldier, getBetterItem)
-          .extend(toAddEquipList)
-      }
+    else if (getLinkedSquadGuid(soldier) != null) {
+      btnTextLocId = "autoEquip"
+      let toAddEquipList = getPossibleEquipList(soldier)
+      changeEquipList = getAlternativeEquipList(soldier, getBetterItem)
+        .extend(toAddEquipList)
     }
 
     if (changeEquipList.len() == 0)

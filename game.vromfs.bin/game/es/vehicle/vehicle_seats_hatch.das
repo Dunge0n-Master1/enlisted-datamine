@@ -9,6 +9,7 @@ require HumanPhys
 require AnimV20
 require GeomNodeTree
 require DagorSystem
+require DagorMath
 
 let
   openVel = 5.0f
@@ -74,7 +75,7 @@ def rotate_hatch_node(var animchar : AnimcharBaseComponent;
 
 [es(tag=server, after=after_net_phys_sync)]
 def vehicle_seats_hatch_crouch_es(info : UpdateStageInfoAct; vehicle_seats__seatEids : EidList)
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seats_hatch_nodes__isValid : bool; seat__ownerEid : EntityId; seat__isPlayer : bool; var seat__isInHatch : bool&)
       if !seats_hatch_nodes__isValid || !seat__isPlayer
         return
@@ -91,7 +92,7 @@ def vehicle_seats_hatch_es(info : UpdateStageInfoAct;
                            var animchar : AnimcharBaseComponent)
   if !animchar__updatable
     return
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (var seats_attach_nodes__attachTm : float3x4;
                               var seats_hatch_nodes__openPos : float&;
                               var seat__isInHatch : bool&;
@@ -121,7 +122,7 @@ def vehicle_seats_hatch_es(info : UpdateStageInfoAct;
       seats_hatch_nodes__openPos = clamp(seats_hatch_nodes__openPos + (isOpen ? 1.0f : -1.0f) * openVel * info.dt, 0.0f, 1.0f)
       let curPos = seats_hatch_nodes__openPos
       let trgPos = (isInHatch ? 1.0f : 0.0f) * seats_hatch_nodes__openPos * seats_hatch_nodes__maxPos
-      let k = clamp((seats_hatch_nodes__maxPos - curPos * 2.0f) / seats_hatch_nodes__maxPos, 0.0f, 1.0f)
+      let k = clamp(safediv(seats_hatch_nodes__maxPos - curPos * 2.0f, seats_hatch_nodes__maxPos), 0.0f, 1.0f)
       var pos = seats_attach_nodes__initialTm[3]
       seat__isInHatch = (seats_hatch_nodes__openPos != 0.f)
       pos.y = approach(seats_attach_nodes__attachTm[3].y, pos.y + trgPos, info.dt, 0.1f)

@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 
 let console = require("console")
-let logHR = require("%sqstd/log.nut")().with_prefix("[HERO_RESPAWN]")
+let logHR = require("%enlSqGlob/library_logs.nut").with_prefix("[HERO_RESPAWN]")
 let { isSandboxContext, getSandboxConfigValue } = require("sandbox_read_config.nut")
 
 let function onRequestRespawn(evt, eid, comp) {

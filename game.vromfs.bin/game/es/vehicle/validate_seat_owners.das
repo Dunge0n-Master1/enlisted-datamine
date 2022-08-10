@@ -6,7 +6,7 @@ require game.es.vehicle.vehicle_seats_common
 
 def find_first_proper_seat_no(seatEids, requiredRoomSpace)
   var res = -1
-  for orderNo, orderSeatEid in iter_range(seatEids), seatEids
+  for orderSeatEid in seatEids
     query(orderSeatEid) <| $ [es] (seats_order__seatNo : int; seats_order__canPlaceManually : bool; seat__roomSpace : int = -1)
       if !seats_order__canPlaceManually
         return

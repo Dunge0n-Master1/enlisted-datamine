@@ -1,5 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
-if (require_optional("dedicated"))
+
+let isDedicated = require_optional("dedicated") != null
+if (isDedicated)
   return
 
 let userInfo = require("%enlSqGlob/userInfo.nut")

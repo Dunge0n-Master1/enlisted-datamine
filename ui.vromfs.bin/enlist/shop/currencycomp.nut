@@ -4,7 +4,7 @@ let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let {
-  bigGap, smallPadding, defTxtColor, activeTxtColor, isWide
+  bigGap, smallPadding, defTxtColor, activeTxtColor, isWide, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { getCurrencyPresentation, ticketGroups } = require("currencyPresentation.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
@@ -125,7 +125,7 @@ let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
     .sort(@(a, b) a.order <=> b.order)
   currencySumm = sortedCards.reduce(@(sum, value) sum + value.amount, 0)
   let expandOrders = isWide && isShop && (ticketGroups[cardType]?.expandedInShop ?? false)
-  if(sortedCards.len() == 0)
+  if (sortedCards.len() == 0)
     return null
 
   return @(){
@@ -251,6 +251,32 @@ let mkLogisticsPromoMsgbox = @(currencies, buttons = []) msgbox.showMessageWithC
   buttons
 })
 
+let function mkDiscountWidget(discountInPercent, override = {}) {
+  if (discountInPercent <= 0)
+    return null
+
+  let { size = [hdpx(68), hdpx(34)] } = override
+
+  return {
+    size
+    hplace = ALIGN_RIGHT
+    children = [
+      {
+        rendObj = ROBJ_IMAGE
+        imageValign = ALIGN_TOP
+        image = Picture($"!ui/gameImage/discount_corner.svg:{size[0].tointeger()}:{size[1].tointeger()}:K")
+        color = accentTitleTxtColor
+      }
+      txt({
+        text = $"-{discountInPercent}%"
+        color  = Color(0,0,0)
+        vplace = ALIGN_CENTER
+        margin = [0, 0, 0, smallPadding]
+      }.__update(override?.textStyle ?? body_txt))
+    ]
+  }.__update(override)
+}
+
 return {
   mkCurrencyOverall
   mkCurrencyTooltip
@@ -260,4 +286,5 @@ return {
   mkCurrencyButton = kwarg(mkCurrencyButton)
   mkItemCurrency = kwarg(mkItemCurrency)
   mkLogisticsPromoMsgbox
+  mkDiscountWidget
 }

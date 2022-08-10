@@ -6,10 +6,11 @@ require EnlistedHuman
 require RendInst
 require DagorMath
 require CollRes
+require enlisted.events_enlisted
 
 
 [es(tag=gameClient, after=hero_human_use_door_object_es, REQUIRE=hero)]
-def push_door_es(info : UpdateStageInfoAct;
+def push_door_es(info : ParallelUpdateFrameDelayed;
                  eid : EntityId;
                  isAlive : bool;
                  human_use_object__selectedObject : EntityId;

@@ -4,7 +4,7 @@ let {h1_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
 let { logerr } = require("dagor.debug")
 let { endswith } = require("string")
 let {TEAM0_COLOR_FG, TEAM1_COLOR_FG} = require("%ui/hud/style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let capzone_images = require("capzone_images.nut")
 
 let ZONE_TEXT_COLOR = Color(80,80,80,20)
@@ -28,14 +28,13 @@ let function mkPosOffsetForLetterVisPos(letter, fontSize){
   return lettersCorrection?[letter](fontSize) ?? [0, fontSize*0.05]
 }
 
-let function zoneBase(text_params={}, params={}, cache = null) {
-  let text = text_params?.text
-  if (cache!=null && text in cache)
-    return cache[text]
+let function zoneBase(text_params={}, params={}) {
+  let {text} = text_params
   if (text == null)
     return null
-  let color = params?.color ?? ZONE_TEXT_COLOR
+  let {color = ZONE_TEXT_COLOR} = params
   let fontSize = (params?.size ?? defZoneBaseSize)[1] * 0.8
+
   let children = {
     rendObj = ROBJ_INSCRIPTION
     color
@@ -43,16 +42,13 @@ let function zoneBase(text_params={}, params={}, cache = null) {
     animations = params?.animAppear ?? params?.baseZoneAppearAnims
     transform = transformCenterPivot
   }.__update(text_params, { fontSize })
-  let res = {
+  return {
     transform = transformCenterPivot
     size = SIZE_TO_CONTENT
     halign  = ALIGN_CENTER
     valign = ALIGN_CENTER
     children
   }
-  if (cache!=null)
-    cache[text] <- res
-  return res
 }
 
 let function zoneFontAwesome(symbol, params) {
@@ -81,22 +77,14 @@ let getPicture = memoize(function getPicture(name, iconSz) {
   }
 
   return Picture(imagename)
-}, @(name, iconSz) $"{name}{iconSz}")
+})
 
 
-let caches = {}
-let mkZoneCaches = @() {
-  title = {}
-  icon = {}
-}
-
-let function mkZoneIcon(icon, iconSz, animations, cache){
-  if (icon in cache)
-    return cache[icon]
+let mkZoneIcon = memoize(function(icon, iconSz, animations){
   let image = getPicture(icon, iconSz[0])
   if (image == null)
     return null
-  let res = {
+  return {
     rendObj = ROBJ_IMAGE
     size = iconSz
     halign  = ALIGN_CENTER
@@ -106,47 +94,46 @@ let function mkZoneIcon(icon, iconSz, animations, cache){
     image
     animations
   }
-  cache[icon] <- res
-  return res
-}
+})
+
 let mkZoneToCaptureIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("shield",
-  { size = iconSz, color = TEAM1_COLOR_FG, animAppear}))
+  { size = iconSz, color = TEAM1_COLOR_FG, animAppear}), 1)
 let mkZoneCapturedIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("check",
-  { size = iconSz, color = TEAM0_COLOR_FG, animAppear}))
+  { size = iconSz, color = TEAM0_COLOR_FG, animAppear}), 1)
 let mkZoneToDefendIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("shield",
-  { size = iconSz, color = TEAM0_COLOR_FG, animAppear}))
+  { size = iconSz, color = TEAM0_COLOR_FG, animAppear}), 1)
 let mkZoneFailedIcon = memoize(@(_width, iconSz, animAppear) zoneFontAwesome("close",
-  { size = iconSz, color = TEAM1_COLOR_FG, animAppear}))
+  { size = iconSz, color = TEAM1_COLOR_FG, animAppear}), 1)
 
-let mkZoneTitle = @(text, iconSz, titleSize, animAppear, cache) zoneBase({ text }.__update(h1_txt),
-    { size = titleSize > 0 ? [fsh(titleSize), fsh(titleSize)] : iconSz, animAppear}, cache)
+let mkZoneTitle = memoize(@(text, iconSz, titleSize, animAppear) zoneBase({ text }.__update(h1_txt),
+    { size = titleSize > 0 ? [fsh(titleSize), fsh(titleSize)] : iconSz, animAppear}))
 
-let function mkObjectiveIcon(zoneData, iconSz, params={}) {
+let function mkObjectiveIcon(zoneData, iconSz, heroTeam, params={}) {
   let { animAppear = null, baseZoneAppearAnims = null } = params
-  let { icon = null, bombPlantingTeam, attackTeam, trainTriggerable = null, active = null, capTeam = null, capzoneTwoChains = null, owningTeam = null, titleSize, title} = zoneData
+  let { icon = null, bombPlantingTeam, attackTeam, trainTriggerable = null,
+    active = null, capTeam = null, capzoneTwoChains = null, owningTeam = null, titleSize, title
+  } = zoneData
   let [iconWidth] = iconSz
-  if (iconWidth not in caches)
-    caches[iconWidth] <- mkZoneCaches()
-  let cacheBySz = caches[iconWidth]
+
   let zoneToCaptureIcon = mkZoneToCaptureIcon(iconWidth, iconSz, animAppear)
   let zoneCapturedIcon = mkZoneCapturedIcon(iconWidth, iconSz, animAppear)
   let zoneToDefendIcon = mkZoneToDefendIcon(iconWidth, iconSz, animAppear)
   let zoneFailedIcon = mkZoneFailedIcon(iconWidth, iconSz, animAppear)
 
-  let zoneTitle = mkZoneTitle(title, iconSz, titleSize, animAppear, cacheBySz.title)
-  let zoneIcon = mkZoneIcon(icon, iconSz, animAppear ?? baseZoneAppearAnims, cacheBySz.icon)
-  let activeIcon = {
+  let zoneIcon = mkZoneIcon(icon, iconSz, animAppear ?? baseZoneAppearAnims)
+  let activeIcon = freeze({
     size = flex()
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
-    children = [zoneIcon, zoneTitle]
-  }
+    children = [
+      zoneIcon
+      mkZoneTitle(title, iconSz, titleSize, animAppear)
+    ]
+  })
 
-  let heroTeam = params?.heroTeam ?? INVALID_ENTITY_ID
   let attackTeamId = bombPlantingTeam > -1 ? bombPlantingTeam : attackTeam
   let isDefendZone = attackTeamId > -1 && attackTeamId != heroTeam
   let isAttackZone = attackTeamId > -1 && attackTeamId == heroTeam
-
   return (trainTriggerable || active)
     ? activeIcon
     : isAttackZone

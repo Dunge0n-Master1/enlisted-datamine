@@ -1,16 +1,17 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 
+let isDedicated = require_optional("dedicated") != null
+if (isDedicated)
+  return
+
 let {has_network} = require("net")
-let dedicated = require_optional("dedicated")
 let {EventTeamRoundResult, EventSessionFinished} = require("dasevents")
 let {EventOnDisconnectedFromServer} = require("gameevents")
 let { get_local_player_team } = require("%dngscripts/common_queries.nut")
 let {get_setting_by_blk_path} = require("settings")
 let {DBGLEVEL} = require("dagor.system")
 
-if (dedicated!=null)
-  return
 
 let find_local_player_id_compsQuery = ecs.SqQuery("find_local_player_uid_compsQuery", {
     comps_ro = [
@@ -43,29 +44,29 @@ let { psnSend,
 
 let accountIdString = platform.is_ps5 ? require("sony.user").accountIdString : "0123456789"
 
-let function makePlayerRec(has_teams) {
+let function makePlayerRec(comp) {
   let player = {
-      playerId = $"{getPlayerId()}"
-      accountId = accountIdString
-      playerType = "PSN_PLAYER"
+    playerId = $"{comp.playerIdInSession}"
+    accountId = accountIdString
+    playerType = "PSN_PLAYER"
   }
 
-  if (has_teams)
+  if (comp.psn_activity_requires_teams)
     player["teamId"] <- $"{get_local_player_team()}"
 
   return player
 }
 
-let function joinPsnMatch(matchId, has_teams){
+let function joinPsnMatch(matchId, comp){
   if (matchId!="") {
     dbgLog("join", matchId)
-    psnSend(psnMatchJoin(matchId, makePlayerRec(has_teams)))
+    psnSend(psnMatchJoin(matchId, makePlayerRec(comp)))
   }
 }
 
-let function startPsnMatch(matchId, has_teams) {
+let function startPsnMatch(matchId, comp) {
   if (matchId != "")
-    psnSend(psnMatchUpdateStatus(matchId, PSN_MATCH_STATUS_PLAYING), @(_r, _e) joinPsnMatch(matchId, has_teams))
+    psnSend(psnMatchUpdateStatus(matchId, PSN_MATCH_STATUS_PLAYING), @(_r, _e) joinPsnMatch(matchId, comp))
 }
 
 let function onEventTeamRoundResult(evt, _eid, comp) {
@@ -89,48 +90,62 @@ let function leavePsnMatch(comp, reason=null){
   if (matchId != "") {
     dbgLog("leave", matchId)
     psnSend(psnMatchLeave(matchId, {
-      playerId = $"{getPlayerId()}"
+      playerId = $"{comp.playerIdInSession}"
       reason = reason ?? PSN_MATCH_LEAVE_REASON_QUIT
     }))
     comp.psn_local_user_leaved_match = true
   }
 }
 
-local createPsnMatch = function createPsnMatchImpl(eid, comp){ //<----------- overriden when debug=true
-  let activityId = comp.psn_activity_id
-  let hasTeams = comp.psn_activity_requires_teams
-  if (activityId=="")
-    return
-  let inGameRoster = { players = [makePlayerRec(hasTeams)] }
-  if (hasTeams)
-    inGameRoster["teams"] <- [{teamId="1"}, {teamId="2"}]
-  let matchCreateRequest = psnMatchCreate({activityId, inGameRoster })
-  dbgLog("create", activityId)
-  psnSend(matchCreateRequest, function(resp, err){
-    if (err!=null)
-      dbgLog("psn matchCreateRequest failed", err)
-    else if (resp?.matchId!=null) {
-      dbgLog($"psn match created {activityId} - {resp.matchId}")
-      startPsnMatch(resp.matchId, hasTeams)
-      ecs.client_send_event(eid, ecs.event.CmdPsnExternalMatchId({match_id = $"{resp.matchId}", player_id = getPlayerId()}))
+let createPsnMatch = debug
+  ? @(eid, comp) ecs.client_send_event(
+      eid,
+      ecs.event.CmdPsnExternalMatchId({
+        match_id = "123456789",
+        player_id = comp.playerIdInSession
+      })
+    )
+  : function(eid, comp) {
+      let activityId = comp.psn_activity_id
+      let playerId = comp.playerIdInSession
+      if (activityId == "" || playerId == "")
+        return
+
+      let inGameRoster = { players = [makePlayerRec(comp)] }
+      let hasTeams = comp.psn_activity_requires_teams
+      if (hasTeams)
+        inGameRoster["teams"] <- [{teamId="1"}, {teamId="2"}]
+      let matchCreateRequest = psnMatchCreate({activityId, inGameRoster })
+      dbgLog("create", activityId)
+      psnSend(matchCreateRequest, function(resp, err){
+        if (err!=null)
+          dbgLog("psn matchCreateRequest failed", err)
+        else if (resp?.matchId!=null) {
+          dbgLog($"psn match created {activityId} - {resp.matchId}")
+          startPsnMatch(resp.matchId, comp)
+          ecs.client_send_event(
+            eid,
+            ecs.event.CmdPsnExternalMatchId({
+              match_id = $"{resp.matchId}",
+              player_id = playerId
+            })
+          )
+        }
+      })
     }
-  })
-}
 
 let function joinOrCreatePsnMatch(eid, comp) {
   let isMatchCreated = comp.psn_external_match_id != ""
-  let isMatchLeader = comp.psn_external_match_leader == getPlayerId()
+  let playerId = getPlayerId()
+  if (playerId)
+    comp.playerIdInSession = playerId
+
+  let isMatchLeader = comp.psn_external_match_leader == comp.playerIdInSession
   if (!isMatchCreated && isMatchLeader) {
     createPsnMatch(eid, comp)
   }
   else if (isMatchCreated && !isMatchLeader)
-    joinPsnMatch(comp.psn_external_match_id, comp.psn_activity_requires_teams)
-}
-
-if (debug) {
-  createPsnMatch = function createPsnMatchDebug(eid, _comp){
-    ecs.client_send_event(eid, ecs.event.CmdPsnExternalMatchId({match_id = "123456789", player_id=getPlayerId()}))
-  }
+    joinPsnMatch(comp.psn_external_match_id, comp)
 }
 
 ecs.register_es("psn_match_client_es",
@@ -164,7 +179,8 @@ ecs.register_es("psn_match_client_es",
       ["psn_activity_requires_teams", ecs.TYPE_BOOL, false]
     ],
     comps_rw = [
-      ["psn_local_user_leaved_match", ecs.TYPE_BOOL]
+      ["psn_local_user_leaved_match", ecs.TYPE_BOOL],
+      ["playerIdInSession", ecs.TYPE_STRING]
     ]
   },
   {tags = debug ? "" : "gameClient"}

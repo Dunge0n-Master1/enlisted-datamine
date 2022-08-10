@@ -18,12 +18,12 @@ def on_hit(caliber : float; local_pos : float3;
            sound_tags : Object;
            is_watched_sound : bool;
            transform : float3x4;
-           sound_control__enabled : bool;
+           sound_control__shouldPlay : bool;
            caliber_to_dist : float4;
            caliber_to_var : float4;
            var group : SoundEventGroup&)
   let maxDist = convert_caliber_to_(caliber, caliber_to_dist)
-  if sound_control__enabled && (is_watched_sound || length_sq(get_listener_pos() - transform * local_pos) < maxDist * maxDist)
+  if sound_control__shouldPlay && (is_watched_sound || length_sq(get_listener_pos() - transform * local_pos) < maxDist * maxDist)
     var handle = sound_player_common::play_path(path_id, plane_hit_sound__paths, sound_tags, is_watched_sound, transform * local_pos, false/*is_abandon*/)
     set_var(handle, "cal", convert_caliber_to_(caliber, caliber_to_var))
     if is_watched_sound
@@ -37,7 +37,7 @@ def plane_hit_sound_projectile(evt : EventOnHitByProjectile;
                                sound_tags : Object;
                                is_watched_sound : bool;
                                transform : float3x4;
-                               sound_control__enabled : bool;
+                               sound_control__shouldPlay : bool;
                                plane_hit_sound__caliberToDist : float4;
                                plane_hit_sound__caliberToVar : float4;
                                var sound_event_group : SoundEventGroup&;
@@ -48,7 +48,7 @@ def plane_hit_sound_projectile(evt : EventOnHitByProjectile;
          sound_tags,
          is_watched_sound,
          transform,
-         sound_control__enabled,
+         sound_control__shouldPlay,
          plane_hit_sound__caliberToDist,
          plane_hit_sound__caliberToVar,
          sound_event_group)
@@ -59,7 +59,7 @@ def plane_hit_sound_ricochet(evt : EventOnRicochet;
                              sound_tags : Object;
                              is_watched_sound : bool;
                              transform : float3x4;
-                             sound_control__enabled : bool;
+                             sound_control__shouldPlay : bool;
                              plane_hit_sound__caliberToDist : float4;
                              plane_hit_sound__caliberToVar : float4;
                              var sound_event_group : SoundEventGroup&)
@@ -69,7 +69,7 @@ def plane_hit_sound_ricochet(evt : EventOnRicochet;
          sound_tags,
          is_watched_sound,
          transform,
-         sound_control__enabled,
+         sound_control__shouldPlay,
          plane_hit_sound__caliberToDist,
          plane_hit_sound__caliberToVar,
          sound_event_group)
@@ -80,8 +80,8 @@ def plane_hit_sound_collision(evt : Event;
                               sound_tags : Object;
                               is_watched_sound : bool;
                               transform : float3x4;
-                              sound_control__enabled : bool)
-  if sound_control__enabled && is_watched_sound
+                              sound_control__shouldPlay : bool)
+  if sound_control__shouldPlay && is_watched_sound
     sound_player_common::play_path("collision", plane_hit_sound__paths, sound_tags, is_watched_sound, transform[3])
 
 [es(tag=sound, on_appear)]

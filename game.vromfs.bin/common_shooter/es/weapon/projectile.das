@@ -12,6 +12,7 @@ require EnlistedWeapon
 require AnimV20
 require GeomNodeTree
 require GamePhys
+require enlisted.events_enlisted
 
 
 [es(on_appear, no_order)]
@@ -106,7 +107,7 @@ def update_projectile_ballistics(var projectile_ballistics : ProjectileBallistic
   let numSteps = floori(deltaTime / FIXED_DT)
   deltaTime -= float(numSteps) * FIXED_DT
   ures.prevPos = projectile_ballistics.state.pos
-  for i in range(numSteps)
+  for _i in range(numSteps)
     // Don't increment tick each step, this one tick alone moves the
     // projectile by deltaTime.
     let atTick = projectile_ballistics.state.atTick + 1
@@ -120,7 +121,7 @@ def update_projectile_ballistics(var projectile_ballistics : ProjectileBallistic
 
 
 [es(before=update_projectile_es)]
-def update_projectile_phys_es(info : UpdateStageInfoAct;
+def update_projectile_phys_es(info : ParallelUpdateFrameDelayed;
                               launch_desc : LaunchDesc;
                               projectile__lifeTime : float;
                               projectile__isBomb : bool = false;
@@ -139,7 +140,7 @@ def update_projectile_phys_es(info : UpdateStageInfoAct;
 
 
 [es(no_order)]
-def update_projectile_es(info : UpdateStageInfoAct;
+def update_projectile_es(info : ParallelUpdateFrameDelayed;
                          eid : EntityId;
                          ownerEid : EntityId;
                          launch_desc : LaunchDesc;
@@ -157,7 +158,7 @@ def update_projectile_es(info : UpdateStageInfoAct;
   if detonation__timer >= 0.0 && projectile__lifeTime > detonation__timer
     detonate_shell_server(eid, launch_desc.shellId, int(launch_desc.gunPropsId), projectile_ballistics.state.pos,
                           ownerEid, /*prev_pos*/ null, /*vel*/ null, /*ignore_entity*/ INVALID_ENTITY_ID,
-                          /*normal*/ null, /*offender_desc*/ null, /*alternative_offender*/ INVALID_ENTITY_ID)
+                          /*normal*/ null, /*alternative_offender*/ INVALID_ENTITY_ID)
     projectile__exploded = true
 
 

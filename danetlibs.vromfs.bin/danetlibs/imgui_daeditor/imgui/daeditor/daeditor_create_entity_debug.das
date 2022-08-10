@@ -9,7 +9,7 @@ require DagorConsole
 require imgui/imgui_boost
 
 
-[console_cmd(name="editor.create_window")]
+[console_cmd(name="imgui.editor_create_window")]
 def show_create_window()
   let isVisible = imgui_get_state() != ImGuiState OFF && imgui_window_is_visible("Editor", "Create entity")
   let setVisible = !isVisible
@@ -19,4 +19,4 @@ def show_create_window()
 
 [init]
 def init_create_window_shortcut()
-  console_command("consoleKeybindings.bind ctrl+shift+[ editor.create_window")
+  console_command("consoleKeybindings.bind ctrl+shift+[ imgui.editor_create_window")

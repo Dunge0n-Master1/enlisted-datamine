@@ -18,7 +18,7 @@ let fullWatches = [showTip].extend(defWatches).extend(watches.values())
 const showTipFor = 15
 inPlane.subscribe(@(v) showTip(v))
 let hideTip = @() gui_scene.setTimeout(showTipFor, @() showTip(false))
-showTip.subscribe(function(v) {if(v) hideTip()})
+showTip.subscribe(function(v) {if (v) hideTip()})
 hideTip()
 
 return function() {

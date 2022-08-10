@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { send, fetch, profile, getPreferredVersion } = require("%sonyLib/webApi.nut")
 let { pluck } = require("%sqstd/underscore.nut")
 let statsd = require("statsd")
-let logPSN = require("%sqstd/log.nut")().with_prefix("[PSN FRIENDS] ")
+let logPSN = require("%enlSqGlob/library_logs.nut").with_prefix("[PSN FRIENDS] ")
 
 let fields = getPreferredVersion() == 2
   ? { BLOCKLIST = "blocks", FRIENDLIST = "friends" }

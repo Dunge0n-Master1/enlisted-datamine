@@ -140,7 +140,6 @@ let function sectionsUi() {
   return {
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
-    rendObj = ROBJ_WORLD_BLUR_PANEL
     gap = fsh(1)
     children = [
       {hotkeys=[["^Tab", @() changeTabWrap(1)], ["^L.Shift Tab | R.Shift Tab", @() changeTabWrap(-1)]]}
@@ -155,7 +154,6 @@ let menuRightUiComp = {
   size = [SIZE_TO_CONTENT, navHeight]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
-  rendObj = ROBJ_WORLD_BLUR_PANEL
   children = menuHeaderRightUiList
 }
 

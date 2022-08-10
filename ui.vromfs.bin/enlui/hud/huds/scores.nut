@@ -29,6 +29,7 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let { INVALID_USER_ID } = require("matching.errors")
 let { sendNetEvent, CmdVoteToKick } = require("dasevents")
 let { voteToKickEnabled } = require("%ui/hud/state/vote_kick_state.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 let showScores = mkWatched(persist, "showScores", false)
 let teamsSlotsQuery = ecs.SqQuery("teamsSlotsQuery", {comps_ro = [["teamsSlots", ecs.TYPE_INT_LIST]]})
@@ -201,7 +202,7 @@ let scoresMenuUi = {
       localPlayerUserId = localPlayerUserId.value
       localPlayerGroupMembers = localPlayerGroupMembers.value
       canForgivePlayers = canForgivePlayers.value
-      myTeam = localPlayerTeam.value
+      myTeam = isReplay.value ? 1 : localPlayerTeam.value
       teams = getScoresTeams()
       sessionId = get_session_id()
       title = title
@@ -217,10 +218,11 @@ let scoresMenuUi = {
         inputPassive = true
       }]]
       mkContextMenuButton = mkContextMenuButton
+      isReplay = isReplay.value
       missionType = missionType.value
     }).__update({
       eventHandlers = eventHandlers
-      watch = [ scoringPlayers, localPlayerTeam, localPlayerEid,
+      watch = [ scoringPlayers, localPlayerTeam, localPlayerEid, isReplay,
         hudIsInteractive, verPadding, localPlayerGroupMembers, canForgivePlayers, voteToKickEnabled]
       hooks = HOOK_ATTACH
       actionSet = "Scores"

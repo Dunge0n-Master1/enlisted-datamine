@@ -17,7 +17,7 @@ let {Inactive, SelectedItemBg, HoverItemBg} = require("%ui/style/colors.nut")
 let {tostring_any} = require("%sqstd/string.nut")
 let matching_errors = require("matching.errors")
 let {squadId} = require("%enlist/squad/squadState.nut")
-let { language } = require("%enlSqGlob/clientState.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 
 let selectedRoom = Watched(null)
 let { strip } = require("string")
@@ -181,7 +181,8 @@ let function listItem(roomInfo) {
     else
       color = (stateFlags.value & S_HOVER) ? HoverItemBg : Color(0,0,0,0)
 
-    let modTitle = roomInfo?.modTitles?[language.value] ?? roomInfo?.modTitles.title ?? roomInfo?.mod ?? ""
+    let modTitle = roomInfo?.modTitles?[gameLanguage]
+      ?? roomInfo?.modTitles.title ?? roomInfo?.mod ?? ""
     return {
       rendObj = ROBJ_SOLID
       color = color

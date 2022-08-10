@@ -23,8 +23,8 @@ def human_hit_tagging_applier_es(info : ecs::UpdateStageInfoAct;
 
 [es(REQUIRE=human_hit_tagging__tagEnd)]
 def human_hit_tagging(evt : EventOnEntityHit; eid : EntityId)
-  let damageType = evt.damageDesc.damageType
-  if eid != evt.victim || damageType == (DamageType DM_ZONE)
+  let damageType = evt.damageType
+  if eid != evt.victim || damageType == int(DamageType DM_ZONE)
     return
 
   sendEventImmediate(eid, [[CmdHumanHitTagging powerMult=1.f]])

@@ -119,7 +119,7 @@ local mkCustomizationSlot = @(itemToShow, itemsPrices) watchElemState(function(s
 })
 
 let function mkPrice(currencyId, count){
-  if(currencyId == "EnlistedGold")
+  if (currencyId == "EnlistedGold")
     return mkCurrency({
       currency = enlistedGold
       price = count
@@ -192,7 +192,7 @@ let function selectingItemBlock(item, itemTemplate, guid, isSelected,
       let itemToShow = hovered
         ? item
         : customizationToApply.value?[currentSlot] ?? oldSoldiersLook.value?[currentSlot]
-      if(itemToShow == null)
+      if (itemToShow == null)
         return
       res = res.__merge({ [currentSlot] = itemToShow })
       appearanceToRender(res)
@@ -213,20 +213,22 @@ let function selectingItemBlock(item, itemTemplate, guid, isSelected,
   })
 }
 
-let purchasingItemBlock = @(item, itemTemplate, removeAction, iconAttachments, itemPrice)
-  watchElemState(@(sf){
+let purchasingItemBlock = @(item, itemTemplate, premiumItemsCount, removeAction,
+  iconAttachments, itemPrice) watchElemState(@(sf){
     flow = FLOW_VERTICAL
     gap = smallPadding
     halign = ALIGN_CENTER
     children = [{
       size = [blockHeight, blockHeight]
       rendObj = ROBJ_SOLID
-      flow = FLOW_VERTICAL
       color = listBgColor(sf)
-      children = icon3dByGameTemplate(itemTemplate, purchasingItemParams.__merge({
-        genOverride = { iconAttachments }
-        shading = "same"
-      }))
+      children = [
+        (premiumItemsCount ?? []).len() <= 1 ? null : amountText(premiumItemsCount.len(), sf, false)
+        icon3dByGameTemplate(itemTemplate, purchasingItemParams.__merge({
+          genOverride = { iconAttachments }
+          shading = "same"
+        }))
+      ]
     }
       priceBlock(itemPrice)
       removeBtn(item, removeAction)
@@ -247,7 +249,8 @@ let itemBlock = @(item, itemsPrices, premiumItemsCount = [], removeAction = null
       removeAction == null
         ? selectingItemBlock(item, gametemplate, guid, isSelected.value,
             iconAttachments, premiumItemsCount, itemPrice)
-        : purchasingItemBlock(item, gametemplate, removeAction, iconAttachments, itemPrice)
+        : purchasingItemBlock(item, gametemplate, premiumItemsCount, removeAction,
+            iconAttachments, itemPrice)
     ]}
 }
 

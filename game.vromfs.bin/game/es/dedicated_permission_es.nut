@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-let dedicated = require_optional("dedicated")
+let isDedicated = require_optional("dedicated") != null
 let {isInternalCircuit} = require("%dngscripts/appInfo.nut")
 let {readPermissions} = require("%enlSqGlob/permission_utils.nut")
 let {has_network, INVALID_CONNECTION_ID} = require("net")
@@ -16,7 +16,7 @@ let function hasDedicatedPermission(userid, permission){
 
   let userPermissions = permissions?[userid]
   return (userPermissions?.value.contains(permission) ?? false) ||
-         (dedicated == null && (userPermissions?.value.contains($"{LOCAL_PERM}{permission}") ?? false))
+         (!isDedicated && (userPermissions?.value.contains($"{LOCAL_PERM}{permission}") ?? false))
 }
 
 
@@ -38,7 +38,7 @@ ecs.register_es("read_dedicated_permissions",
 )
 
 
-if (dedicated == null) { //we need code only on client in both offline and network mode
+if (!isDedicated) { //we need code only on client in both offline and network mode
   let userInfo = require("%enlSqGlob/userInfo.nut")
   let {EventLevelLoaded} = require("gameevents")
   ecs.register_es("send_dedicated_permissions",

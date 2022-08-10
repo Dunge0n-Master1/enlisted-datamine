@@ -35,32 +35,28 @@ def squad_info_debug(hero_eid = 0u)
       console_print("squad member: eid={eid} isAlive={isAlive} isInVehicle={isInVehicle} index={squad_member__memberIdx} name={name} {surname}")
   console_print(" ")
 
-[console_cmd(name="squad.suicide")]
-def squad_suicide_debug(squad = 0u; eid = 0u)
-  if is_server()
-    kill_squad(get_squad_eid(squad, eid))
-  else
-    exec_server_cmd("squad.suicide 0 {get_controlled_hero()}")
+[net_console_cmd(name="squad.suicide")]
+def squad_suicide_debug([[net_hero]] hero_eid : EntityId)
+  let squadEid = get_Eid(hero_eid, "squad_member__squad") ?? INVALID_ENTITY_ID
+  kill_squad(squadEid)
 
-[console_cmd(name="squad.kill")]
-def squad_kill_debug(index : int; hero_eid = 0u)
-  let squadEid = get_squad_eid(0u, hero_eid)
-  find_query() <| $ [es] (eid : EntityId; squad_member__squad : EntityId; squad_member__memberIdx : int)
-    if squad_member__squad == squadEid && squad_member__memberIdx == index
-      suicide_kill(eid)
-      return true
-    return false
+[net_console_cmd(name="squad.kill")]
+def squad_kill_debug(index : int; [[net_hero]] hero_eid : EntityId)
+  let squadEid = get_Eid(hero_eid, "squad_member__squad") ?? INVALID_ENTITY_ID
+  query(squadEid) <| $ [es] (squad__allMembers : EidList)
+    if uint(index) < uint(length(squad__allMembers))
+      suicide_kill(squad__allMembers[index])
 
 
-def suicideBots(squad = 0u; eid = 0u)
-  let squadEid = get_squad_eid(squad, eid)
-  let squadLeaderEid = get_squad_leader(squadEid)
-  kill_squad(squadEid) <| $(memberEid)
+def suicideBots(squad_eid : EntityId)
+  let squadLeaderEid = get_squad_leader(squad_eid)
+  kill_squad(squad_eid) <| $(memberEid)
     return squadLeaderEid != memberEid
 
-[console_cmd(name="squad.suicide_bots")]
-def squad_suicide_bots_debug(squad = 0u; eid = 0u)
-  suicideBots(squad, eid)
+[net_console_cmd(name="squad.suicide_bots")]
+def squad_suicide_bots_debug([[net_hero]] hero_eid : EntityId)
+  let squadEid = get_Eid(hero_eid, "squad_member__squad") ?? INVALID_ENTITY_ID
+  suicideBots(squadEid)
 
 [console_cmd(name="squad.changeTeam")]
 def squad_change_team()
@@ -79,11 +75,11 @@ def squad_change_team()
   set(playerEid, "team", newTeam)
   sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1]])
 
-def spawn_soldiers_at_pos(pos : float3; count : int; spawn_template : string)
+def spawn_soldiers_at_pos(pos : float3; count, team : int; spawn_template : string; cell_size : float)
   query() <| $ [es(REQUIRE=devSoldier)] (eid : EntityId) { destroyEntity(eid); }
   var offset = float3(0.f, 0.f, 0.f)
-  for j in range(0, count)
-    for i in range(0, count)
+  for _j in range(0, count)
+    for _i in range(0, count)
       createEntity(spawn_template) <| $(var init : ComponentsInitializer)
         var tm : float3x4
         tm[0] = float3(1., 0., 0.)
@@ -91,15 +87,15 @@ def spawn_soldiers_at_pos(pos : float3; count : int; spawn_template : string)
         tm[2] = float3(0., 0., 1.)
         tm[3] = pos + offset - float3(float(count) * 0.5f, 0.f, float(count) * 0.5f)
         set(init, "transform", tm)
-        set(init, "team", 0)
+        set(init, "team", team)
         set(init, "spawn_immunity__timer", 0.f)
 
-        offset += float3(0.f, 0.f, 1.f)
-    offset += float3(1.f, 0.f, 0.f)
+        offset += float3(0.f, 0.f, cell_size)
+    offset += float3(cell_size, 0.f, 0.f)
     offset.z = 0.f
 
 [console_cmd(name="squad.spawnMoreSoldiers")]
-def squad_spawnMoreSoldiers(count = 7; isAlive = true)
+def squad_spawnMoreSoldiers(count = 7; isAlive = true; team = 0; cellSize = 1.f)
   find_query() <| $ [es] (camera__active : bool; transform : float3x4)
     var tm : float3x4
     if !camera__active
@@ -112,15 +108,15 @@ def squad_spawnMoreSoldiers(count = 7; isAlive = true)
     traceray_normalized(pos, dir, len, norm)
     let center = pos + dir * len
     if is_server()
-      spawn_soldiers_at_pos(center, count, isAlive ? "dev_soldier+dev_soldier_tag" : "dead_dev_soldier+dev_soldier_tag")
+      spawn_soldiers_at_pos(center, count, team, isAlive ? "dev_soldier+dev_soldier_tag" : "dead_dev_soldier+dev_soldier_tag", cellSize)
     else
       exec_server_cmd("squad.spawnMoreSoldiersPos {count} {center[0]} {center[1]} {center[2]} {isAlive}")
     return true
 
 [console_cmd(name="squad.spawnMoreSoldiersPos")]
-def squad_spawnMoreSoldiers(count = 7; x, y, z : float = 0.f; isAlive = true)
+def squad_spawnMoreSoldiers(count = 7; x, y, z : float = 0.f; isAlive = true; team = 0; cellSize = 1.f)
   if is_server()
-    spawn_soldiers_at_pos(float3(x, y, z), count, isAlive ? "dev_soldier+dev_soldier_tag" : "dead_dev_soldier+dev_soldier_tag")
+    spawn_soldiers_at_pos(float3(x, y, z), count, team, isAlive ? "dev_soldier+dev_soldier_tag" : "dead_dev_soldier+dev_soldier_tag", cellSize)
   else
     exec_server_cmd("squad.spawnMoreSoldiersPos {count} {x} {y} {z} {isAlive}")
 

@@ -12,7 +12,7 @@ let isNotificationsAttached = Watched(false)
 let isNotificationsVisible = Computed(@() isNotificationsAttached.value && !isAnyMenuVisible.value)
 
 let getUid = @(notify) $"{notify.message}_{notify.till_timestamp}"
-let visibleList = Computed(@() serviceNotificationsList.value
+let messagesToShow = Computed(@() serviceNotificationsList.value
   .filter(function(notify) {
     let { leftTime = SHOW_TIME_MSEC } = showInfo.value?[getUid(notify)]
     return leftTime > 0
@@ -32,7 +32,7 @@ let function updateLeftTime() {
   let curTimeMsec = get_time_msec()
   let showInfoV = clone showInfo.value
   if (!isNotificationsVisible.value)
-    foreach(notify in list) {
+    foreach (notify in list) {
       let info = addInfoOnce(showInfoV, notify)
       let { hideTime } = info
       if (hideTime != null)
@@ -43,7 +43,7 @@ let function updateLeftTime() {
     }
   else {
     local nextTimeMsec = null
-    foreach(notify in list) {
+    foreach (notify in list) {
       let info = addInfoOnce(showInfoV, notify)
       let { leftTime, hideTime } = info
       if (leftTime <= 0)
@@ -64,12 +64,16 @@ serviceNotificationsList.subscribe(@(_) updateLeftTime())
 isNotificationsVisible.subscribe(@(_) updateLeftTime())
 
 let serviceMessages = @() {
-  watch = visibleList
+  watch = messagesToShow
   size = [flex(), SIZE_TO_CONTENT]
-  children = mkServiceNotification(visibleList.value, {
+  children = mkServiceNotification(messagesToShow.value, {
     onAttach = @() isNotificationsAttached(true)
     onDetach = @() isNotificationsAttached(false)
+    isInBattle = true
   })
 }
 
-return serviceMessages
+return {
+  hasServiceMessages = Computed(@() messagesToShow.value.len() > 0)
+  serviceMessages
+}

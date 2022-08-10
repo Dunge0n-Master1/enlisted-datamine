@@ -1,0 +1,157 @@
+bomb_crater_config_override{
+  _extends:t="replicating"
+  bomb_crater_config_override__decalName:t="explosion"
+}
+
+bomb_crater_config{
+  _extends:t="replicating"
+
+  _group{
+    _tags:t="server"
+    crater_config__maxRIRadiusToRemove:r=2.0
+    bullet_crater_config__innerRadiusScale:r=0.8
+    bullet_crater_config__innerDepthScale:r=0.4
+    bullet_crater_config__outerAltScale:r=0.35
+    bullet_crater_config__outerRadiusScale:r=1.2
+    bullet_crater_config__maxHeightAtLand:r=1.0
+    bomb_crater_config__innerRadiusScale:r=0.8
+    bomb_crater_config__innerDepthScale:r=0.3
+    bomb_crater_config__outerAltScale:r=0.35
+    bomb_crater_config__outerRadiusScale:r=0.8
+    bomb_crater_config__maxHeightAtLand:r=1.0
+
+    "crater_config__disabledPhysMatNames:list<t>"{
+      name:t="concrete"
+      name:t="stone"
+      name:t="rocks"
+      name:t="gravel"
+    }
+
+    "crater_config__disabledPhysMatIds:list<i>"{
+    }
+
+    "crater_config__isRIPoolRemovable:object"{
+      sandbox_3x5_a:b=yes
+      sandbags_wall_high_l4000_a_dmg:b=yes
+      career_stuff_m:b=yes
+      normandy_fence_flat_b_debris_a:b=yes
+      normandy_fence_flat_a_debris_a:b=yes
+      scaffold_decor_base_walls_a:b=yes
+      european_railway_station_ruins_funnel_soil_a:b=no
+      european_railway_station_ruins_funnel_soil_b:b=no
+      sandbags_wall_high_l2000_hard_a:b=no
+      tunisia_ruins_pillar_big_base_a:b=no
+      tunisia_ruins_pillar_big_base_b:b=no
+      tunisia_ruins_pillar_small_base_a:b=no
+      tunisia_ruins_pillar_small_base_b:b=no
+    }
+
+    "crater_config__unremovableRIPoolsByNamePart:list<t>"{
+      name:t="_door_"
+      name:t="_window_"
+      name:t="_gate_jamb_"
+      name:t="_hull_rendinst"
+      name:t="_turret_rendinst"
+      name:t="_gun_a_rendinst"
+      name:t="_gun_b_rendinst"
+      name:t="_trench_decor_"
+      name:t="scaffold_"
+      name:t="platform_wooden_"
+      name:t="_flag_ring"
+      name:t="_flag_base_"
+    }
+
+    "crater_config__removableRiPoolIds:list<b>"{
+    }
+
+    "bullet_crater_config__explosiveMassToCraterRadius:list<p2>"{
+      p:p2=0.1, 0.35
+      p:p2=0.3, 0.7
+      p:p2=1.0, 1.4
+      p:p2=2.0, 2.4
+      p:p2=4.0, 2.85
+      p:p2=5.0, 3.2
+      p:p2=12.0, 4.0
+    }
+
+    "bomb_crater_config__splashToCraterRadius:list<p2>"{
+      p:p2=1.2, 1.3
+      p:p2=2.0, 2.0
+      p:p2=5.0, 3.5
+      p:p2=12.0, 4.5
+      p:p2=20.0, 7.0
+      p:p2=120.0, 25.0
+    }
+  }
+
+  _group{
+    _tags:t="render"
+    bomb_crater_config__decalName:t="explosion"
+    bomb_crater_config__decalId:i=-1
+  }
+}
+
+bomb_crater_terraformer{
+
+  _group{
+    _tags:t="server"
+    bomb_crater_terraformer__processPartsPerFrame:i=7
+    bomb_crater_terraformer__gridWidth:i=5
+    bomb_crater_terraformer__railroadHalfWidth:r=3.0
+    bomb_crater_terraformer__processedPartsCount:i=0
+    bomb_crater_terraformer__position:p3=0.0, 0.0, 0.0
+    bomb_crater_terraformer__innerRadius:r=0.0
+    bomb_crater_terraformer__innerDepth:r=0.0
+    bomb_crater_terraformer__outerAlt:r=0.0
+    bomb_crater_terraformer__outerRadius:r=0.0
+    bomb_crater_terraformer__expectedRiHandlesToRemoveCount:i=32
+
+    "bomb_crater_terraformer__availablePartsMask:u64"{
+      value:i64=0
+    }
+
+    "bomb_crater_terraformer__riHandlesToRemove:list<u64>"{
+    }
+  }
+}
+
+bomb_crater{
+  _extends:t="replicating"
+  bomb_crater__removeRiCountPerFrame:i=7
+  bomb_crater__position:p3=0.0, 0.0, 0.0
+  bomb_crater__innerRadius:r=0.0
+  bomb_crater__innerDepth:r=0.0
+  bomb_crater__outerRadius:r=0.0
+  bomb_crater__outerAlt:r=0.0
+  bomb_crater__partRadius:r=0.0
+  bomb_crater__gridWidth:i=0
+  bomb_crater__riHandlesRemovedCount:i=0
+  bomb_crater__isTerraformed:b=no
+
+  "bomb_crater__availablePartsMask:u64"{
+    value:i64=0
+  }
+
+  "bomb_crater__riHandlesToRemove:list<u64>"{
+  }
+}
+
+bomb_crater_applied_client{
+
+  _group{
+    _tags:t="gameClient"
+
+    "bombCraterAppliedClient:tag"{
+    }
+  }
+}
+
+bomb_crater_applied_server{
+
+  _group{
+    _tags:t="server"
+
+    "bombCraterAppliedServer:tag"{
+    }
+  }
+}

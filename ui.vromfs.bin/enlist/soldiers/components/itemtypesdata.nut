@@ -89,7 +89,7 @@ let itemTypesData = {
   tnt_block = { svg = "item_tnt_block_exploder.svg" }
   tnt_block_exploder = { svg = "item_tnt_block_exploder.svg" }
   sideweapon = { svg = "item_pistol.svg" }
-  reapair_kit = { svg = "item_reapair_kit.svg" }
+  repair_kit = { svg = "item_repair_kit.svg" }
   flaregun = { svg = "launcher.svg" }
   backpack = { svg = "item_backpack.svg" }
   binoculars_usable = { svg = "binoculars_icon.svg" }

@@ -8,13 +8,14 @@ require math
 require math.base
 require game.es.events
 require game.es.vehicle.vehicle_events
+require enlisted.events_enlisted
 require AnimV20
 require GeomNodeTree
 require CollRes
 require DagorSystem
 
-[es(tag=gameClient, REQUIRE=input__enabled, no_order)]
-def find_maintainable_object(info : UpdateStageInfoAct;
+[es(tag=gameClient, REQUIRE=input__enabled)]
+def find_maintainable_object(info : ParallelUpdateFrameDelayed;
                              eid : EntityId;
                              bindedCamera : EntityId;
                              var maintenance__target : EntityId&;
@@ -46,14 +47,14 @@ def find_maintainable_object(info : UpdateStageInfoAct;
                                                                                   transform : float3x4;
                                                                                   animchar : AnimcharBaseComponent;
                                                                                   repairable__repairRequired : bool = false;
-                                                                                  fire_damage__isBurn : bool = false;
+                                                                                  repairable__extinguishRequired : bool = false;
                                                                                   team : int = TEAM_UNASSIGNED)
     var norm : float3
     if ((is_teams_friendly(team, maintainable_team) || maintainable_team == TEAM_UNASSIGNED || team == TEAM_UNASSIGNED) &&
         collres_traceray(collres, transform, animchar.nodeTree, tracePos, traceDir, t, norm))
       newMaintenanceTarget = eid
       needsRepair = repairable__repairRequired
-      needsExtinguisher = fire_damage__isBurn
+      needsExtinguisher = repairable__extinguishRequired
       return true
     return false
   if newMaintenanceTarget != maintenance__target
@@ -83,7 +84,7 @@ def find_maintainable_object_event(evt : EventEnterVehicle;
 
 [es(tag=server, REQUIRE=maintenance__target)]
 def maintenance_net_start(evt : RequestStartMaintenance; eid : EntityId)
-  send_net_event(eid, [[CmdStartMaintenance target=evt.target]])
+  sendEvent(eid, [[CmdStartMaintenance target=evt.target]])
 
 [es(tag=server, REQUIRE=maintenance__target)]
 def maintenance_net_stop(evt : RequestStopMaintenance; eid : EntityId)
@@ -99,19 +100,29 @@ def request_start_maintenance_client(evt : CmdStartMaintenance; eid : EntityId; 
 def request_stop_maintenance_client(evt : CmdStopMaintenance; eid : EntityId)
   send_net_event(eid, [[RequestStopMaintenance target=evt.target]])
 
+[es(tag=server, on_appear, track=(fire_damage__isBurn, attached_fire__isAnyFireAttached))]
+def update_extinguish_required(evt : Event;
+                               fire_damage__isBurn : bool = false;
+                               attached_fire__isAnyFireAttached : bool = false;
+                               var repairable__extinguishRequired : bool&)
+  repairable__extinguishRequired = fire_damage__isBurn || attached_fire__isAnyFireAttached
+
 [es(tag=server)]
 def maintenance_dispatcher_start(evt : CmdStartMaintenance;
                                  eid : EntityId;
                                  var maintenance__target : EntityId&;
-                                 repair__hasRepairKit : bool = true)
+                                 repair__hasRepairKit : bool = true;
+                                 extinguisher__hasExtinguisher : bool = true)
   maintenance__target = evt.target
-  if !repair__hasRepairKit
-    return
-  query(maintenance__target) <| $ [es(REQUIRE_NOT=deadEntity)] (fire_damage__isBurn : bool = false;
+  query(maintenance__target) <| $ [es(REQUIRE_NOT=deadEntity)] (repairable__extinguishRequired : bool = false;
                                                                 repairable__repairRequired : bool = false)
-    if fire_damage__isBurn
-      sendEvent(eid, [[CmdActivateExtinguisher eid=maintenance__target]])
-    elif repairable__repairRequired
+    let canRepair = repairable__repairRequired && repair__hasRepairKit
+    if repairable__extinguishRequired
+      if extinguisher__hasExtinguisher
+        sendEvent(eid, [[CmdActivateExtinguisher eid=maintenance__target]])
+      elif canRepair
+        sendEvent(eid, [[CmdHeroLogEvent event="repair_blocked_by_fire", text="repair_blocked_by_fire"]])
+    elif canRepair
       sendEvent(eid, [[CmdStartRepair target=maintenance__target]])
 
 [es(tag=server, REQUIRE=maintenance__target)]

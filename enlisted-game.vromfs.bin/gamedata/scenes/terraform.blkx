@@ -7,5 +7,9 @@ entity{
 }
 
 entity{
+  _template:t="digging_config"
+}
+
+entity{
   _template:t="grass_erasers"
 }

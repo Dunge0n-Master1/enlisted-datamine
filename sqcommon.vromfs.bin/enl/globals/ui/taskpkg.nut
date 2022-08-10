@@ -17,12 +17,10 @@ let { getStageByIndex } = require("%enlSqGlob/unlocks_utils.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 
 
-let EMBLEM_SIZE = hdpx(24).tointeger()
+let EMBLEM_SIZE = hdpxi(24)
 
-let taskNameColor = Color(220, 220, 220)
-let taskDescColor = Color(160, 160, 160)
 let taskMinHeight = hdpx(56)
-let statusWidth = hdpx(36).tointeger()
+let statusWidth = hdpxi(36)
 
 let taskSlotPadding = [hdpx(5), hdpx(5), hdpx(5), hdpx(24)]
 let taskDescPadding = [hdpx(8), hdpx(5), hdpx(16), hdpx(24) + statusWidth + bigPadding * 2]
@@ -41,11 +39,11 @@ let rewardAnimBg = {
   transform = { scale = [3, 3] }
 }.__update(blinkAnimation)
 
-let mkTaskTextArea = @(txt, color = taskNameColor, style = {}) {
+let mkTaskTextArea = @(txt, sf, style = {}) {
   rendObj = ROBJ_TEXTAREA
   size = [pw(75), SIZE_TO_CONTENT]
   behavior = Behaviors.TextArea
-  color
+  color = sf & S_HOVER ? titleTxtColor : defTxtColor
   text = txt
   key = txt
 }.__update(sub_txt, style)
@@ -61,7 +59,7 @@ let rerollUnlockIcon = {
   image = Picture("ui/skin#tasks/rerool_icon.svg:{0}:{0}:K".subst(EMBLEM_SIZE))
 }
 
-let taskLabelSize = [hdpx(13).tointeger(), hdpx(26).tointeger()]
+let taskLabelSize = [hdpxi(13), hdpxi(26)]
 let function mkTaskLabel(labelName = null) {
   let res = {
     size = taskLabelSize
@@ -128,17 +126,18 @@ let statusBlock = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
         })
   }
 
-let taskHeader = @(unlockDesc, progress, canTakeReward = true, textStyle = {})
+let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle = {})
   function() {
     let { isCompleted, isFinished, hasReward = false } = progress
     let { lastRewardedStage = 0, stages = [] } = unlockDesc
     if (isDailyTask(unlockDesc) && isCompleted) {
       let locId = isCompleted && !canTakeReward ? "finishedTaskText" : "completeTaskText"
-      let color = hasReward && canTakeReward ? titleTxtColor
-        : hasReward && !canTakeReward ? defTxtColor
-        : activeTxtColor
-      let style = hasReward && canTakeReward ? blinkAnimation : {}
-      return mkTaskTextArea(utf8ToUpper(loc(locId)), color, style)
+      return mkTaskTextArea(utf8ToUpper(loc(locId)), sf, {
+        color = hasReward && canTakeReward ? titleTxtColor
+          : hasReward && !canTakeReward ? defTxtColor
+          : sf & S_HOVER ? titleTxtColor
+          : defTxtColor
+      }.__update(hasReward && canTakeReward ? blinkAnimation : {}))
     }
 
     local { required, current } = progress
@@ -169,14 +168,18 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, textStyle = {})
     if (addTexts.len() > 0)
       unlockTxt = "{0} ({1})".subst(unlockTxt, ", ".join(addTexts))
 
-    let color = isEventTask(unlockDesc) && isFinished ? defTxtColor : activeTxtColor
-    return mkTaskTextArea(unlockTxt, color)
-      .__update({ watch = unlockWatch }, textStyle)
+    return mkTaskTextArea(unlockTxt, sf)
+      .__update({
+        watch = unlockWatch
+        color = isEventTask(unlockDesc) && isFinished ? defTxtColor
+        : sf & S_HOVER ? titleTxtColor
+        : defTxtColor
+      }, textStyle)
   }
 
-let taskDescription = @(description, style = {})
-  (description ?? "").len() == 0 ? null
-    : mkTaskTextArea(description, taskDescColor, style)
+let taskDescription = @(description, sf = 0, style = {})
+  (description ?? "") == "" ? null
+    : mkTaskTextArea(description, sf, style)
 
 let function getTaskEmblemImg(unlockDesc, isCompleted) {
   let img = isDailyTask(unlockDesc) ? "star"
@@ -267,8 +270,8 @@ let function mkAchievementTitle(tasksList, locId) {
   }.__update(body_txt)
 }
 
-let starSize = hdpx(18).tointeger()
-let weeklyTasksTitle = {
+let starSize = hdpxi(18)
+let weeklyTasksTitle = @(sf) {
   flow = FLOW_HORIZONTAL
   gap = bigPadding
   padding = taskSlotPadding
@@ -277,7 +280,7 @@ let weeklyTasksTitle = {
     {
       rendObj = ROBJ_TEXT
       text = loc("profile/weeklyTasks")
-      color = activeTxtColor
+      color = sf & S_HOVER ? titleTxtColor : defTxtColor
     }.__update(body_txt)
     {
       flow = FLOW_HORIZONTAL

@@ -19,26 +19,25 @@ def rumble_on_damage(evt : EventOnEntityHit)
   if !is_gamepad_input()
     return
   let victim      = evt.victim
-  assume damageDesc = evt.damageDesc
   if !victim || !has(victim, "human_input")
     return
 
-  if damageDesc.damageType == DamageType DM_ZONE || damageDesc.damageType == DamageType DM_COLLISION || damageDesc.damageType == DamageType DM_PROJECTILE
-    let scale = cvt(damageDesc.deltaHp, 0.0, get_float(evt.victim, "hitpoints__maxHp") ?? 0.0, 0.0, 1.0)
+  if evt.damageType == int(DamageType DM_ZONE) || evt.damageType == int(DamageType DM_COLLISION) || evt.damageType == int(DamageType DM_PROJECTILE)
+    let scale = cvt(evt.deltaHp, 0.0, get_float(evt.victim, "hitpoints__maxHp") ?? 0.0, 0.0, 1.0)
     sendEvent(evt.victim, [[CmdScaledRumble eventMinName="scaledDamageMin", eventMaxName="scaledDamageMax", scale=scale]])
 
   var rumbleEvent : string
-  if damageDesc.damageType == DamageType DM_MELEE
+  if evt.damageType == int(DamageType DM_MELEE)
     rumbleEvent = "meleeDamage"
-  elif damageDesc.damageType == DamageType DM_BACKSTAB
+  elif evt.damageType == int(DamageType DM_BACKSTAB)
     rumbleEvent = "backstabDamage"
-  elif damageDesc.damageType == DamageType DM_EXPLOSION
+  elif evt.damageType == int(DamageType DM_EXPLOSION)
     rumbleEvent = "explosionDamage"
-  elif damageDesc.damageType == DamageType DM_HOLD_BREATH
+  elif evt.damageType == int(DamageType DM_HOLD_BREATH)
     rumbleEvent = "holdBreathDamage"
-  elif damageDesc.damageType == DamageType DM_FIRE
+  elif evt.damageType == int(DamageType DM_FIRE)
     rumbleEvent = "fireDamage"
-  elif damageDesc.damageType == DamageType DM_BARBWIRE
+  elif evt.damageType == int(DamageType DM_BARBWIRE)
     rumbleEvent = "barbwireDamage"
 
   sendEvent(evt.victim, [[CmdRumble eventName=rumbleEvent]])

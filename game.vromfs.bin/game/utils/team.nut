@@ -1,6 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let { TEAM_UNASSIGNED } = require("team")
-let debug = require("%sqstd/log.nut")().with_prefix("[TEAM]")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[TEAM]")
 let random = require("dagor.random")
 
 let assignTeamQuery = ecs.SqQuery("assignTeamQuery", {comps_ro =

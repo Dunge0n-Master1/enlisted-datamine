@@ -53,7 +53,7 @@ let function mkExtAutoRefreshTimer(
   }
 
   isBrowserClosed.subscribe(function(v){
-    if(v && needOnBrowserCloseCb)
+    if (v && needOnBrowserCloseCb)
       autoRefreshImpl()
   })
 

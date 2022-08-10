@@ -1,14 +1,16 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
+
+let isDedicated = require_optional("dedicated") != null
+if (isDedicated)
+  return
+
 let {DBGLEVEL} = require("dagor.system")
 let {has_network} = require("net")
-let dedicated = require_optional("dedicated")
-if (dedicated!=null)
-  return
 let {crossnetworkPlay, CrossplayState} = require("%enlSqGlob/crossnetwork_state.nut")
 
 let platform = require("%dngscripts/platform.nut")
-if (!(platform.is_ps5 || DBGLEVEL > 0 ))
+if (!(platform.is_ps5 || (DBGLEVEL > 0 && platform.is_pc)))
   return
 
 local {hasPremium = @() false, reportPremiumFeatureUsage = @(...) log(vargv)} = require_optional("sony.user")
@@ -34,6 +36,6 @@ ecs.register_es("report_premium_usage_es", {
     }
   },
   {comps_rq=["msg_sink"]},
-  { updateInterval=5.0, tags="gameClient", after="*", before="*" }
+  { updateInterval=7.0, tags="gameClient", after="*", before="*" }
 )
 

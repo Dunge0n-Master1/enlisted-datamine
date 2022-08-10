@@ -2,7 +2,6 @@ options always_export_initializer = true
 
 require ecs
 require EnlistedNet
-require common_shooter.es.ai.beh_node_common
 require DagorDataBlock
 require BehNodes
 require EnlistedWalkerai
@@ -99,8 +98,8 @@ class Extinguish : BehNodeAdapter
     return burning ? EBehResult ER_RUNNING : EBehResult ER_SUCCESS
 
 
-[beh_node(name="healing")]
-class Healing : BehNodeAdapter
+[beh_node(name="reviving")]
+class Reviving : BehNodeAdapter
   startTime : float = -1.
 
   def override update(dt : float) : EBehResult

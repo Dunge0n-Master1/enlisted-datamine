@@ -9,7 +9,8 @@ let { createEventRoomCfg, allModes, getValuesFromRule
 } = require("createEventRoomCfg.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { createRoom, changeAttributesRoom, room, isInRoom } = require("%enlist/state/roomState.nut")
+let { createRoom, changeAttributesRoom, room, isInRoom, roomPasswordToJoin
+} = require("%enlist/state/roomState.nut")
 let { getValInTblPath, setValInTblPath } = require("%sqstd/table.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { isCrossplayOptionNeeded, crossnetworkPlay, availableCrossplayOptions, CrossplayState
@@ -19,16 +20,20 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { receivedModInfos, modPath, getModPathToStart } = require("sandbox/customMissionState.nut")
 let { set_matching_invite_data } = require("app")
 let gameLauncher = require("%enlist/gameLauncher.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
+let { hasPremium } = require("%enlist/currency/premium.nut")
 
 let consoleAliases = ["sony", "xbox", "nswitch"]
 let allAliases = ["pc", "sony", "xbox", "nswitch", "mobile"]
 let selectedCampaignsFilters = Watched([])
+let currentPassword = Watched("")
 
 const OPT_EDITBOX = "editbox"
 const OPT_LIST = "list"
 const OPT_CHECKBOX = "checkbox"
 const OPT_MULTISELECT = "multiselect"
 const MODDED_CONFIG_POSTFIX = "_MODDED"
+const PASSWORD_MAX_LENGTH = 16
 
 const SAVE_ID = "eventRoomParams"
 let saved = Computed(@() settings.value?[SAVE_ID])
@@ -75,9 +80,9 @@ room.subscribe(function(v) { if (v != null) isEditEventRoomOpened(false) })
 let function getValuesByRule(rule, curValues) {
   let { override = [] } = rule
   local { values, isMultival } = getValuesFromRule(rule)
-  foreach(ovr in override) {
+  foreach (ovr in override) {
     local isFit = true
-    foreach(fName, fValue in ovr?.applyIf ?? {}) {
+    foreach (fName, fValue in ovr?.applyIf ?? {}) {
       if (fName not in curValues)
         return null //not all values are ready to check filters
       if (curValues[fName] != fValue) {
@@ -98,13 +103,13 @@ let function parseMatchingError(loc_base, response) {
   if (response.error != matching_errors.SERVER_ERROR_GENERIC)
     return loc(loc_base, { responce_error = matching_errors.error_string(response.error)}) // 'responce' is a typo. 'response' is a correct spelling for this word
 
- let errorId = response.error_id
- let errorInfo = response?.info
- let errorIdStr = loc(loc_base, { responce_error = errorId})
- if (errorInfo == null)
-  return errorIdStr
+  let errorId = response.error_id
+  let errorInfo = response?.info
+  let errorIdStr = loc(loc_base, { responce_error = errorId})
+  if (errorInfo == null)
+    return errorIdStr
 
- return $"{errorIdStr}\nparam: {errorInfo?.param}\n{errorInfo?.detail}"
+  return $"{errorIdStr}\nparam: {errorInfo?.param}\n{errorInfo?.detail}"
 }
 
 let getDefValue = @(defaults, id) getValInTblPath(defaults, id.split("/"))
@@ -244,6 +249,24 @@ let optMode = {
   valToString = loc
 }
 
+let optPasswordId = "password"
+let optPassword = {
+  id = optPasswordId
+  cfg = Computed(@() {
+    locId = "options/password",
+    optType = OPT_EDITBOX,
+    maxChars = curCfg.value?.rules[optPasswordId].max_strlen ?? PASSWORD_MAX_LENGTH
+    isHidden = !(hasPremium.value || isInRoom.value)
+  })
+  curValue = currentPassword
+  isEditAllowed = false
+  password = true
+  charMask = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+  setValue = currentPassword
+  optDummy = loc("password_access")
+  placeholder = loc("create_pass")
+}
+
 let optClusterId = "public/cluster"
 let optCluster = {
   id = optClusterId
@@ -265,6 +288,7 @@ let campCfg = Computed(function() {
   let unlocked = unlockedCampaigns.value
   return res.__merge(optCampStatic, { values = res.values.filter(@(c) unlocked.contains(c)) })
 })
+
 let campaigns = Computed(function() {
   let unlocked = unlockedCampaigns.value
   return optionsConfig.value.curValues?[optCampId].filter(@(c) unlocked.contains(c))
@@ -278,10 +302,23 @@ let optCampaigns = {
   valToString = @(c) loc(gameProfile.value?.campaigns[c]?.title ?? c)
 }
 
-let optMissions = mkOption("public/scenes",
-  "options/missions",
-  @(s) loc(getMissionInfo(s).locId),
-  @(s) loc(getMissionInfo(s).typeLocId))
+let optMissionsId = "public/scenes"
+let optMissionsCfg = Computed(@() optionsConfig.value.optionsInfo?[optMissionsId]
+  .__merge({ locId = "options/missions" }))
+let optMissionsCurValue = Computed(function() {
+  let res = optionsConfig.value.curValues?[optMissionsId]
+  return typeof res == "table" ? [] : res
+})
+let optMissions = {
+  id = optMissionsId
+  cfg = optMissionsCfg
+  curValue = optMissionsCurValue
+  setValue = mkSave(optMissionsId)
+  typeToString = @(s) loc(getMissionInfo(s).typeLocId)
+  toggleValue = mkToggleValue(optMissionsId, optMissionsCfg, optMissionsCurValue)
+  valToString = @(s) loc(getMissionInfo(s).locId)
+}
+
 
 let mCurValueBase = optMissions.curValue
 let mCfgBase = optMissions.cfg
@@ -366,7 +403,7 @@ let function getCrossPlatformsList() {
   let aliasesList = curCP == CrossplayState.ALL ? allAliases
     : curCP == CrossplayState.CONSOLES ? consoleAliases
     : platformAlias
-  foreach(alias in aliasesList)
+  foreach (alias in aliasesList)
     allowTbl[$"{alias}_{curCP}"] <- true
   return all.filter(@(p) p in allowTbl)
 }
@@ -404,7 +441,7 @@ let function createEventRoom() {
     }
   }
 
-  foreach(opt in [
+  foreach (opt in [
     optIsPrivate
     optDifficulty
     optMaxPlayers
@@ -415,13 +452,15 @@ let function createEventRoom() {
     optCluster
     optMissions
     optCampaigns
+    optPassword
   ])
-    if (opt.cfg.value != null)
+    if (opt.cfg.value != null && opt.curValue.value != "")
       setValInTblPath(roomParams, opt.id.split("/"),
         type(opt.curValue.value) == "array" && opt.curValue.value.len() == 0
           ? opt.cfg.value.values
           : opt.curValue.value)
 
+  roomParams.public.creatorId <- userInfo.value.userIdStr
   let modHash = receivedModInfos.value?[modPath.value].content[0].hash // Only one file support now(blk with scene)
   let modId = receivedModInfos.value?[modPath.value].id
   let modName = receivedModInfos.value?[modPath.value].title
@@ -451,6 +490,11 @@ let function createEventRoom() {
       isEditEventRoomOpened(false)
       if (response.error != 0)
         msgbox.show({ text = parseMatchingError("customRoom/failCreate", response) })
+      if (response?.public.hasPassword ?? false){
+        let password = optPassword.curValue.value
+        let roomId = response.roomId
+        roomPasswordToJoin.mutate(@(v) v[roomId] <- password)
+      }
     })
 }
 
@@ -470,7 +514,7 @@ let function updateAttributesEventRoom() {
     }
   }
 
-  foreach(opt in [
+  foreach (opt in [
     optIsPrivate
     optDifficulty
     optMaxPlayers
@@ -481,6 +525,7 @@ let function updateAttributesEventRoom() {
     optCluster
     optMissions
     optCampaigns
+    optPassword
   ])
     if (opt.cfg.value != null && (opt?.isEditAllowed ?? true)) {
       let path = opt.id.split("/")
@@ -527,10 +572,12 @@ return {
   optMissions
   optCluster
   optCampaigns
+  optPassword
 
   isInRoom
   isEditInProgress
   isEditEventRoomOpened
   editEventRoom
   selectedCampaignsFilters
+  currentPassword
 }

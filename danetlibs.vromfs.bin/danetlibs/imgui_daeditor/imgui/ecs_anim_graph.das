@@ -11,6 +11,8 @@ require daslib/safe_addr
 
 [imgui_window(name="Anim graph", group="Anim")]
 def ecs_anim_graph2()
+  if IsWindowCollapsed()
+    return
   let size = imgui::GetWindowSize()
   if size.x <= 500f || size.y <= 500f
     imgui::SetWindowSize(float2(500))

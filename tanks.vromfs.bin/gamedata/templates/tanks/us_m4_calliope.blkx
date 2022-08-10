@@ -136,7 +136,7 @@ us_m4_sherman_calliope_commander_cockpit{
 }
 
 us_m4_sherman_calliope_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m55.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m55_calliope.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="ba_11_gunner_char"
   cockpit__offset:p3=-0.8, -0.07, 0.23

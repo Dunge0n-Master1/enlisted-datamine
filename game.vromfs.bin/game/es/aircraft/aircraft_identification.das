@@ -2,9 +2,10 @@ require ecs
 require DagorMath
 require EnlistedNet
 require math.base
+require enlisted.events_enlisted
 
-[es(tag=gameClient, no_order, REQUIRE=watchedByPlr)]
-def aircraft_identification(info : UpdateStageInfoAct;
+[es(tag=gameClient, REQUIRE=watchedByPlr)]
+def aircraft_identification(info : ParallelUpdateFrameDelayed;
                             var aircraft_identification__nextCheckAtTime : float&;
                             aircraft_identification__checkInterval : float;
                             transform aka hero_transform : float3x4;
@@ -45,7 +46,7 @@ def aircraft_identification(info : UpdateStageInfoAct;
     hud_aircraft_marker__isIdentified = hud_aircraft_marker__isVisible && distance < identifyDist
 
 [es(tag=gameClient, no_order, REQUIRE=ai_aircraft)]
-def hidden_ai_aircraft_identification(info : UpdateStageInfoAct;
+def hidden_ai_aircraft_identification(info : ParallelUpdateFrameDelayed;
                                       transform : float3x4;
                                       var hud_aircraft_marker__isVisible : bool&)
   // If hidden, aircraft is at -500 height (get_hidden_pos().y)
@@ -54,7 +55,7 @@ def hidden_ai_aircraft_identification(info : UpdateStageInfoAct;
   hud_aircraft_marker__isVisible = transform[3].y > (get_hidden_pos().y + 10.f)
 
 [es(tag=gameClient, after=aircraft_identification, REQUIRE_NOT=ai_aircraft)]
-def hidden_aircraft_identification(info : UpdateStageInfoAct;
+def hidden_aircraft_identification(info : ParallelUpdateFrameDelayed;
                                    transform : float3x4;
                                    var hud_aircraft_marker__isVisible : bool&)
   if transform[3].y < (get_hidden_pos().y + 10.f)

@@ -1,12 +1,17 @@
+let texNameConvertor = require("%enlSqGlob/ui/texNameConvertor.nut")
+
+let defImg = "agit_poster_enlisted_battlepass_tex_d*"
+
 let locIds = {
   nameLocId = @(id) $"wp/{id}/name"
   descLocId = @(id) $"wp/{id}/desc"
   hintLocId = @(id) $"wp/{id}/hint"
 }
 
-let function mkPresetnation(cfg, id) {
+let function mkPresentation(cfg, id) {
   let res = { id }.__update(cfg)
-  foreach(key, ctor in locIds)
+  res.img <- texNameConvertor(res?.img ?? defImg)
+  foreach (key, ctor in locIds)
     if (key not in res)
       res[key] <- ctor(id)
   return res
@@ -14,13 +19,13 @@ let function mkPresetnation(cfg, id) {
 
 let baseWpPresentation = {
   id = "baseWpPresentation"
-  img = "agit_poster_enlisted_battlepass_tex_d*"
+  img = texNameConvertor(defImg)
   nameLocId = $"wp/unknown/name"
   descLocId = $"wp/unknown/desc"
   hintLocId = $"wp/unknown/hint"
 }
 
-let wpPresentation = {
+let wpPresentation = freeze({
   wallposter_battlepass_season_2_preview = {
     img = "agit_poster_enlisted_battlepass_tex_d*"
   }
@@ -66,9 +71,25 @@ let wpPresentation = {
   agit_poster_china_a_preview = {
     img = "agit_poster_china_a_tex_d*"
   }
-}.map(mkPresetnation)
+  agit_poster_china_b_preview = {
+    img = "agit_poster_china_b_tex_d*"
+  }
+  agit_poster_china_c_preview = {
+    img = "agit_poster_china_c_tex_d*"
+  }
+  agit_poster_china_d_preview = {
+    img = "agit_poster_china_d_tex_d*"
+  }
+  agit_poster_china_e_preview = {
+    img = "agit_poster_china_e_tex_d*"
+  }
+  agit_poster_china_f_preview = {
+    img = "agit_poster_china_f_tex_d*"
+  }
+}.map(mkPresentation))
+
+let getWPPresentation = @(wpTpl) wpPresentation?[wpTpl] ?? baseWpPresentation
 
 return {
-  wpPresentation
-  baseWpPresentation
+  getWPPresentation
 }

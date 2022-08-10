@@ -6,7 +6,7 @@ require HumanPhys
 require EnlistedHuman
 require inventory
 require Action
-
+require enlisted.events_enlisted
 
 
 def can_auto_equip_gun_mod(item_eid : EntityId; eid : EntityId) : bool
@@ -34,7 +34,7 @@ def can_auto_equip_gun_mod(item_eid : EntityId; eid : EntityId) : bool
 
 
 [es(tag=(ui, render, gameClient), after=hero_human_use_human_object_es, REQUIRE=watchedByPlr)]
-def human_use_action_es(info : UpdateStageInfoAct;
+def human_use_action_es(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
                         human_net_phys : HumanActor?;
                         human_weap__gunEids : EidList;

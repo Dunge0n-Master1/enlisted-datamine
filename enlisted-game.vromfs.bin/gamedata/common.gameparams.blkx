@@ -35,6 +35,7 @@ commonScenes{
   scene:t="content/enlisted/gamedata/scenes/mission_time.blk"
   scene:t="content/common/gamedata/scenes/_outdoor_factor_tracer.blk"
   scene:t="content/common/gamedata/scenes/debug_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/motion_matching_data_base.blk"
 }
 
 bulletHoles

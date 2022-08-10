@@ -19,7 +19,6 @@ briefing{
     _replicate:b=yes
     mission_name:t=""
     mission_type:t=""
-    mission__startTime:i64=0
 
     "loading_images:list<t>"{
     }

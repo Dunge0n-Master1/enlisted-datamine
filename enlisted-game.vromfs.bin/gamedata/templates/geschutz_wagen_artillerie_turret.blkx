@@ -87,6 +87,7 @@ geschutz_wagen_artillerie_turret{
     repairable__repairTotalTime:r=-1.0
     repairable__repairTime:r=-1.0
     repairable__repairRequired:b=no
+    repairable__extinguishRequired:b=no
   }
 
   _group{

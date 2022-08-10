@@ -12,10 +12,10 @@ let JB = require("%ui/control/gui_buttons.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { BtnActionBgDisabled }  = require("%ui/style/colors.nut")
 let {
-  eventGameModes, isEventModesOpened, isCustomRoomsMode, hasCustomRooms, selCustomRoomsMode,
+  eventGameModes, isEventModesOpened, isCustomRoomsMode, hasCustomRooms,
   selEvent, selectEvent, selLbMode, eventCustomSquads, eventsSquadList, eventsArmiesList,
   eventCurArmyIdx, eventCampaigns, activeEvents, inactiveEventsToShow,
-  customRoomsModeSaved, eventCustomProfile
+  customRoomsModeSaved, eventCustomProfile, curTab
 } = require("eventModesState.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let { unseenEvents, markSeenEvent, markAllSeenEvents } = require("unseenEvents.nut")
@@ -53,7 +53,7 @@ let { room, roomIsLobby, lobbyStatus, LobbyStatus } = require("%enlist/state/roo
 let lobbyWnd = require("%enlist/mpRoom/eventLobbyWnd.nut")
 let progressText = require("%enlist/components/progressText.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let eventRoomsList = require("eventRoomsList.nut")
+let { eventRoomsList, modsRoomsList} = require("eventRoomsList.nut")
 let { curEventRoomInfo } = require("eventRoomInfo.nut")
 let { joinSelEventRoom } = require("joinEventRoom.nut")
 let { selRoom } = require("eventRoomsListState.nut")
@@ -65,16 +65,22 @@ let { horGap, emptyGap } = require("%enlist/components/commonComps.nut")
 let premiumWidgetUi = require("%enlist/currency/premiumWidgetUi.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 let armyCurrencyUi = require("%enlist/shop/armyCurrencyUi.nut")
-let mainMenuBtn = require("%enlist/mainMenu/dropDownMenu.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { ceil } = require("%sqstd/math.nut")
+let customMissionOfferBlock = require("sandbox/customMissionOfferBlock.nut")
+let { FEATURED_MODS_TAB_ID, featuredModsRoomsList, isFeaturedAvailable
+} = require("sandbox/customMissionOfferState.nut")
 
 const CONTAINTERS_ANIM_DURATION = 0.3
 const CAMP_OVR_ID = "events_wnd"
+const EVENTS_TAB_ID = "events"
+const CUSTOM_MATCHES_TAB_ID = "custom_matches"
+
+
 let tabHoverAnim    = [{ prop = AnimProp.translate, duration = 0.2}]
 let tabStateCommon = { translate = [hdpx(380), 0] }
 let tabStateHovered = { translate = [0, 0] }
@@ -82,21 +88,31 @@ let buttonTabBgNormal = 0xfa015ea2
 let buttonTabBgActive = 0xfa0182b5
 let activeBoostersMarkPosition = { hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] }
 
-let curTab = Watched(null)
 
+let isCustomRoomsUi = Computed(@() isCustomRoomsMode.value || curTab.value == FEATURED_MODS_TAB_ID )
 let windowTabs = Computed(function(){
   let tabs = []
-  if(eventGameModes.value.len() > 0)
-    tabs.append("events")
-  if(hasCustomRooms.value)
-    tabs.append("custom_matches")
+  if (eventGameModes.value.len() > 0)
+    tabs.append(EVENTS_TAB_ID)
+  if (hasCustomRooms.value)
+    tabs.append(CUSTOM_MATCHES_TAB_ID)
+  if ((hasCustomRooms.value && featuredModsRoomsList.value.len() > 0)
+    || curTab.value == FEATURED_MODS_TAB_ID
+  )
+    tabs.append(FEATURED_MODS_TAB_ID)
   return tabs
 })
 
-curTab.subscribe(@(v) selCustomRoomsMode(v == "custom_matches"))
+windowTabs.subscribe(function(v) {
+  if (v.len() > 0 && v.findvalue(@(t) t == curTab.value) == null)
+    curTab(v[0])
+})
+
+
+curTab.subscribe(@(v) customRoomsModeSaved(v == CUSTOM_MATCHES_TAB_ID))
 
 let needOvrCampaign = Computed(@() isEventModesOpened.value && eventCampaigns.value.len() <= 1
-  && !isCustomRoomsMode.value)
+  && !isCustomRoomsUi.value)
 let ovrCampaign = keepref(Computed(@() needOvrCampaign.value ? selEvent.value?.campaigns[0] : null))
 ovrCampaign.subscribe(@(c) c != null
   ? addCurCampaignOverride(CAMP_OVR_ID, c)
@@ -128,7 +144,7 @@ let defQuickMatchBtnParams = {
 let function changeWindowTab(delta){
   let wndTabs = windowTabs.value
   let curTabIdx = wndTabs?.indexof(curTab.value) ?? 0
-  if((curTabIdx + delta) < wndTabs.len() && (curTabIdx + delta) >= 0)
+  if ((curTabIdx + delta) < wndTabs.len() && (curTabIdx + delta) >= 0)
     curTab(wndTabs[curTabIdx + delta])
 }
 
@@ -137,13 +153,13 @@ let function wndTabsBlock(){
   let children = windowTabs.value.map(@(val)
     mkWindowTab(loc(val), @() curTab(val), curTab.value == val))
 
-  if(isGamepad.value && windowTabs.value.len() > 1)
+  if (isGamepad.value && windowTabs.value.len() > 1)
     children
       .insert(0, mkHotkey("^J:LB", @() changeWindowTab(-1)))
       .append(mkHotkey("^J:RB", @() changeWindowTab(1)))
 
   return {
-    watch = [isCustomRoomsMode, isGamepad, curTab, eventGameModes, hasCustomRooms, windowTabs]
+    watch = [isGamepad, curTab, windowTabs]
     flow = FLOW_HORIZONTAL
     size = [flex(), commonBtnHeight]
     gap = localPadding
@@ -175,8 +191,9 @@ let allCampaignsAvailable = {
 let function mkEventBtn(eventGm, _idx, eCampaigns) {
   let isSelected = Computed(@() selEvent.value == eventGm)
   let isUnseen = Computed(@() unseenEvents.value.contains(eventGm.id))
-  let isInactive = Computed(@() !eventGm.enabled && (eventGm?.queue.extraParams.showWhenInactive ?? false))
-  let isEnded = Computed(@() isInactive.value && (eventGm?.leaderboardTableIdx ?? 0) < curLbIdx.value)
+  let isInactive = !eventGm.enabled && (eventGm?.queue.extraParams.showWhenInactive ?? false)
+  let isEnded = Computed(@() isInactive && (eventGm?.leaderboardTableIdx ?? 0) < curLbIdx.value)
+  let isCustom = eventGm?.queue.extraParams.customProfile != null
 
   return watchElemState(@(sf) {
     size = [flex(), SIZE_TO_CONTENT]
@@ -209,14 +226,13 @@ let function mkEventBtn(eventGm, _idx, eCampaigns) {
             size = [flex(), SIZE_TO_CONTENT]
             behavior = Behaviors.TextArea
             text = eventGm.title == "" ? eventGm.locId : eventGm.title
-            color = txtColor(sf, isInactive.value)
+            color = txtColor(sf, isInactive)
           }.__update(body_txt)
-          eventCustomProfile.value != null ? null
+          isCustom ? null
             : unlockedCampaigns.value.len() == eCampaigns.len() ? allCampaignsAvailable
-              : wrap(eCampaigns.map(@(campaign) availableCampaign(loc(isEnded.value
+            : wrap(eCampaigns.map(@(campaign) availableCampaign(loc(isEnded.value
                   ? "endedEvent"
-                  : gameProfile.value?.campaigns[campaign]?.title ?? campaign),
-                isInactive.value)),
+                  : gameProfile.value?.campaigns[campaign]?.title ?? campaign), isInactive)),
                 campaignWrapParams)
         ]
       }
@@ -304,25 +320,6 @@ let mkRightBlockHeader = @(sf, label){
   ]
 }
 
-let leaderboard = watchElemState(@(sf){
-  size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_VERTICAL
-  gap = localGap
-  behavior = Behaviors.Button
-  sound = {
-    click  = "ui/enlist/button_click"
-    hover  = "ui/enlist/button_highlight"
-  }
-  onClick = openLbWnd
-  children = [
-    mkRightBlockHeader(sf, loc("Leaderboard"))
-    mkPanel({
-      size = [flex(), SIZE_TO_CONTENT]
-      children = shortLbUi
-    })
-  ]
-})
-
 let function curLbPlacementBlock() {
   let res = { watch = [curLbPlacement, lbPlayersCount] }
   if (curLbPlacement.value < 0)
@@ -345,6 +342,28 @@ let function curLbPlacementBlock() {
     text
   }.__update(body_txt))
 }
+
+
+let leaderboard = watchElemState(@(sf){
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  gap = localGap
+  behavior = Behaviors.Button
+  sound = {
+    click  = "ui/enlist/button_click"
+    hover  = "ui/enlist/button_highlight"
+  }
+  onClick = openLbWnd
+  children = [
+    mkRightBlockHeader(sf, loc("Leaderboard"))
+    mkPanel({
+      size = [flex(), SIZE_TO_CONTENT]
+      children = shortLbUi
+    })
+    curLbPlacementBlock
+  ]
+})
+
 
 let lowLevelForEventMsgbox = @(level) showMsgbox({
   text = loc("events/lowLevelToPlay", { level })
@@ -395,7 +414,7 @@ let function joinEventQueue() {
     showSquadVersionRestrictionMsgBox(unsuitableByVersion.values())
     return
   }
-  if(eventsArmiesList.value.len() > 0 && isEventModesOpened.value){
+  if (eventsArmiesList.value.len() > 0 && isEventModesOpened.value){
     let specialParams = clone selEvent.value
     specialParams.eventCurArmy <- eventCurArmyIdx.value
     showCurNotReadySquadsMsg(@() joinQueue(specialParams))
@@ -502,11 +521,11 @@ let topBar = {
   maxWidth = maxContentWidth
   children = [
     @() {
-      watch = isCustomRoomsMode
+      watch = isCustomRoomsUi
       hplace = ALIGN_LEFT
       vplace = ALIGN_BOTTOM
       pos = [0, hdpx(10)]
-      children = isCustomRoomsMode.value ? null : curCampaignName
+      children = isCustomRoomsUi.value ? null : curCampaignName
     }
     {
       size = [SIZE_TO_CONTENT, flex()]
@@ -520,7 +539,7 @@ let topBar = {
         currenciesWidgetUi
         emptyGap
         armyCurrencyUi
-        mainMenuBtn
+        emptyGap
         closeBtn
       ]
     }
@@ -569,17 +588,18 @@ let buttonsBlock = @() {
     createRoomBtn
   ]
 }
-let roomsListBlock = {
+let roomsListBlock = @() {
+  watch = curTab
   size = flex()
   flow = FLOW_VERTICAL
   gap = localGap
   children = [
-    eventRoomsList
+    curTab.value == FEATURED_MODS_TAB_ID ? modsRoomsList : eventRoomsList
     buttonsBlock
   ]
 }
 let centralBlock = @() {
-  watch = isCustomRoomsMode
+  watch = isCustomRoomsUi
   size = flex()
   flow = FLOW_VERTICAL
   padding = [0, localPadding, 0, 0]
@@ -589,12 +609,29 @@ let centralBlock = @() {
   gap = localGap
   children = [
     wndTabsBlock
-    isCustomRoomsMode.value ? roomsListBlock : events
+    isCustomRoomsUi.value ? roomsListBlock : events
+  ]
+}
+
+let customMatchesRightBlock = {
+  size = flex()
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  children = [
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      children = [
+        isFeaturedAvailable ? customMissionOfferBlock : null
+        mkPanel({ size = flex(), children = curEventRoomInfo })
+      ]
+    }
   ]
 }
 
 let rightBlock = @() {
-  watch = [isCustomRoomsMode, selEvent, lbCurrentTable, eventCustomProfile]
+  watch = [selEvent, lbCurrentTable, eventCustomProfile, isCustomRoomsUi]
   size = [startBtnWidth, flex()]
   flow = FLOW_VERTICAL
   transform = {}
@@ -603,7 +640,7 @@ let rightBlock = @() {
       duration = CONTAINTERS_ANIM_DURATION, easing = InOutCubic, play = true }
   ]
   children = [
-    isCustomRoomsMode.value ? null
+    isCustomRoomsUi.value ? null
       : eventCampaigns.value.len() > 1 && eventCustomProfile.value == null ? eventsCampaignBlock
       : { size = [SIZE_TO_CONTENT, hdpx(150) + commonBtnHeight + localGap]}
     {
@@ -615,21 +652,19 @@ let rightBlock = @() {
           size = flex()
           flow = FLOW_VERTICAL
           gap = bigPadding
-          children = [isCustomRoomsMode.value
-            ? mkPanel({ size = flex(), children = curEventRoomInfo })
+          children = isCustomRoomsUi.value ? customMatchesRightBlock
             : selEvent.value != null && lbCurrentTable.value != null
               ? selEvent.value?.isLeaderboardVisible ?? true ? leaderboard : null
               : null
-            isCustomRoomsMode.value ? null : curLbPlacementBlock]
         }
         {
           flow = FLOW_VERTICAL
           gap = bigPadding
           children = [
-            isCustomRoomsMode.value ? joinCustomRoomButton
+            isCustomRoomsUi.value ? joinCustomRoomButton
               : selEvent.value != null ? toEventBattleButton
               : null
-            isCustomRoomsMode.value ? null
+              isCustomRoomsUi.value ? null
               : ClusterAndRandTeamButtons
           ]
         }
@@ -640,7 +675,7 @@ let rightBlock = @() {
 
 let function eventsContent(){
   return {
-    watch = isCustomRoomsMode
+    watch = isCustomRoomsUi
     size = flex()
     flow = FLOW_HORIZONTAL
     maxWidth = maxContentWidth
@@ -651,7 +686,7 @@ let function eventsContent(){
     transform = {}
     animations = menuContentAnimation
     children = [
-      isCustomRoomsMode.value ? null : leftBlock
+      isCustomRoomsUi.value ? null : leftBlock
       centralBlock
       rightBlock
     ]
@@ -669,8 +704,8 @@ let eventsWndHub = @() {
 }
 
 let open = function(){
-  if(eventGameModes.value.len() <= 0 || customRoomsModeSaved.value)
-    curTab("custom_matches")
+  if (eventGameModes.value.len() <= 0 || customRoomsModeSaved.value)
+    curTab(CUSTOM_MATCHES_TAB_ID)
   else
     curTab(windowTabs.value?[0])
   sceneWithCameraAdd(eventsWndHub, "events")

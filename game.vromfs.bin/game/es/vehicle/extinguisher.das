@@ -1,5 +1,6 @@
 require ecs
 require ecs.common
+require ecs.safe
 require EnlistedNet
 require vehicle
 require player
@@ -19,8 +20,11 @@ def extinguisher_external(info : UpdateStageInfoAct;
   extinguishable__extinguishTime -= info.dt
   if extinguishable__extinguishTime <= 0.0
     sendEventImmediate(eid, [[CmdStopBurn]])
-    query(maintainable__operator) <| $ [es] (var extinguisher__active : bool&)
+    sendEvent(eid, [[EventOnVehicleExtinguished eid=maintainable__operator]])
+    query(maintainable__operator) <| $ [es] (extinguisher__eid : EntityId; var extinguisher__active : bool&)
       extinguisher__active = false
+      query(extinguisher__eid) <| $ [es] (var extinguisher__usesLeft : int&)
+        extinguisher__usesLeft -= 1
     extinguishable__inProgress = false
 
 def set_extinguishable_state(in_progress : bool;
@@ -32,8 +36,8 @@ def set_extinguishable_state(in_progress : bool;
                                extinguishable__baseExtinguishTotalTime : float;
                                var extinguishable__extinguishTotalTime : float&;
                                var extinguishable__inProgress : bool&;
-                               fire_damage__isBurn : bool)
-    if !fire_damage__isBurn
+                               repairable__extinguishRequired : bool)
+    if !repairable__extinguishRequired
       return
     maintainable__operator = operator_eid
     extinguishable__inProgress = in_progress
@@ -85,3 +89,25 @@ def stop_extinguishing_on_enter_vehicle(evt : Event;
     return
   stop_extinguisher_impl(extinguisher__active, maintenance__target)
   maintenance__hasTarget = false
+
+def find_extinguisher_kit(item_container : EidList)
+  let itemIndex = find_index_if(each(item_container)) <| $(itemEid) => get_int(itemEid, "extinguisher__usesLeft") ?? 0 > 0
+  return item_container?[itemIndex] ?? INVALID_ENTITY_ID
+
+[es(tag=server, on_appear, track=itemContainer)]
+def check_item_container_has_extinguisher(evt : Event;
+                                          itemContainer : EidList;
+                                          var extinguisher__hasExtinguisher : bool&;
+                                          var extinguisher__eid : EntityId&)
+  extinguisher__eid = find_extinguisher_kit(itemContainer)
+  extinguisher__hasExtinguisher = !!extinguisher__eid
+
+[es(tag=server, track=extinguisher__usesLeft)]
+def track_extinguisher_uses(evt : Event; eid : EntityId; item__ownerEid : EntityId; extinguisher__usesLeft : int)
+  if extinguisher__usesLeft <= 0
+    query(item__ownerEid) <| $ [es] (itemContainer : EidList;
+                                     var extinguisher__hasExtinguisher : bool&;
+                                     var extinguisher__eid : EntityId&)
+      if extinguisher__eid == eid
+        extinguisher__eid = find_extinguisher_kit(itemContainer)
+        extinguisher__hasExtinguisher = !!extinguisher__eid

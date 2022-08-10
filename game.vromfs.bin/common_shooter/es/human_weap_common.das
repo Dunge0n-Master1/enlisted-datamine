@@ -16,7 +16,7 @@ require EnlistedHuman
 require EnlistedNet
 require Gun
 require AnimV20
-
+require DagorMath
 
 def human_weap_switch_to_slot(eid : EntityId;
                               gun_eid : EntityId;
@@ -125,7 +125,13 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
                           ct : HumanControlState;
                           human_use_object__selectedObject : EntityId?;
                           human_unarmed__active : bool;
-                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID)
+                          human_attached_gun__attachedGunEid : EntityId;
+                          human_weap__jumpDeviation : float;
+                          human_weap__changePosDeviationCanAim : float;
+                          human_weap__changePosDeviationCanNotAim : float;
+                          human_phys__jumpEndTime : float;
+                          human_phys__afterJumpDelay : float;
+                          human_phys__isInAirLong : bool)
   assume phys = human_net_phys.phys
   let selectedGun = determine_current_weapon_slot(ctx.atTime, human_net_phys)
   var curGun = selectedGun
@@ -194,12 +200,14 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
   let gunEid = human_weap__gunEids[int(curGun)]
   // overrideGunEid is gun eid or subsidiary gun, if activated.
   var overrideGunEid = gunEid
-  query(gunEid) <| $ [es] (subsidiaryGunEid : EntityId)
-    overrideGunEid = subsidiaryGunEid
+  query(gunEid) <| $ [es] (subsidiaryGunEid : EntityId?)
+    if subsidiaryGunEid != null
+      overrideGunEid = *subsidiaryGunEid
 
   var wgun : Gun? = null
   var gunDev : GunDeviation? = null
   var gunAmmo = 0
+  var jumpDeviation = human_weap__jumpDeviation
   var grenadeThrower : GrenadeThrower? = null
   var defaultInit = false
   if curGun == HUWeaponSlots EWS_MELEE
@@ -217,12 +225,19 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
   if defaultInit
     query(overrideGunEid) <| $ [es] (gun : Gun?;
                                      gun_deviation : GunDeviation?;
+                                     gun__jumpDeviation : float?;
                                      gun__ammo : int = 0)
       wgun = gun
       gunDev = gun_deviation
       gunAmmo = gun__ammo
+      jumpDeviation = gun__jumpDeviation ?? jumpDeviation
     if wgun == null && !has(gunEid, "itemInWeaponSlot")
       return
+
+  let isJumping = ((uint(phys.currentState.states) & uint(StateFlag ST_JUMP)) != 0u
+    || phys.currentState.jumpStartTime > 0.
+    || ctx.atTime - human_phys__jumpEndTime < human_phys__afterJumpDelay
+    || human_phys__isInAirLong)
 
   if gunDev != null && ctx.isForReal
     *gunDev |> gun_deviation_getAppliedCT() <| $(var gunDevCT : GunDeviationInput#)
@@ -231,8 +246,11 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
       gunDevCT.rotationShotSpreadDecrMult = ctx.rotationShotSpreadDecrMult
       gunDevCT.aimingAfterFireMult = ctx.aimingAfterFireMult
       gunDevCT.movement = phys.currentState.velocity.xz
-      gunDevCT.minExtraDev = lerp(get_float(overrideGunEid, "gun__deviationInFireReady") ?? 0.0, 0.0,
-                                  phys.currentState.aimPosition) + ctx.shotDeviationAdd
+      let changePoseDeviation = human_phys_state_can_aim(phys.currentState) ? human_weap__changePosDeviationCanAim : human_weap__changePosDeviationCanNotAim
+      gunDevCT.minExtraDev = (lerp(get_float(overrideGunEid, "gun__deviationInFireReady") ?? 0.0, 0.0, phys.currentState.aimPosition)
+                            + ctx.shotDeviationAdd
+                            + max(cvt(abs(phys.currentState.heightCurVel), 0., 1., 0., changePoseDeviation),
+                                 (isJumping ? jumpDeviation : 0.0)))
 
   var needsInterruptActions = false
   var shoot = ((human_weap__throwMode
@@ -268,7 +286,6 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
         if blockShoot && wgun != null && !wgun.appliedControls.wishShoot
           broadcastEvent([[EventOnGunBlocksShoot reason=blockShootReason]])
         shoot = !blockShoot && shoot
-
       let isMeleeWeapon = (curGun == HUWeaponSlots EWS_MELEE) || human_unarmed__active
       let buildingAction = building_action__target != INVALID_ENTITY_ID
       let isBuildingToolGun = has(gunEid, "previewEid") && buildingAction
@@ -303,8 +320,9 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
 
   using() <| $(var gctrl : GunControls#)
     gctrl.shoot = shoot
-    gctrl.boltActionMult = ctx.boltActionMult
     gctrl.wishShoot = isHctShootSet
+    gctrl.boltActionMult = ctx.boltActionMult
+    gctrl.timeStep = human_net_phys.phys.timeStep
 
     if ct |> human_control_state_get_shootPos_packed() > 0u
       let worldShootPos = phys_transform * ct |> human_control_state_unpack_shootPos()
@@ -405,3 +423,30 @@ def switch_to_first_weap_with_ammo(human_weap__gunEids : EidList;
       break
 
   return choosenSlot > -1
+
+def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
+  var canReload = true
+  query(human_eid) <| $ [es] (human_net_phys : HumanActor;
+                              human_weap__throwMode : bool;
+                              human_weap__weapModActivateStartTime : float;
+                              boltActionProgress : float;
+                              human_weap__lockWeaponReload : bool = false;
+                              burning__isBurning : bool = false;
+                              human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
+                              human_inventory__entityToUse : EntityId = INVALID_ENTITY_ID)
+    assume currentState = human_net_phys.phys.currentState
+    assume eqState = currentState.weapEquipState.curState
+    assume mvState = currentState.moveState
+    let isCrawlMoving = currentState.isCrawl && mvState != HUMoveState EMS_STAND
+    let isAttachedToGun = !!human_attached_gun__attachedGunEid
+    let isBlockedByBoltAction = ((get_bool(gun_eid, "reload__waitBoltActionFinished") ?? false) &&
+                                  boltActionProgress > 0. && boltActionProgress < 1.)
+    let usingItem = !!human_inventory__entityToUse && has(human_inventory__entityToUse, "item__interruptsReloading")
+
+    canReload = (!human_weap__throwMode &&
+                 !isCrawlMoving &&
+                 !burning__isBurning &&
+                 (eqState == HUWeaponEquipState EES_EQUIPED || eqState == HUWeaponEquipState EES_DOWN || isAttachedToGun) &&
+                 !isBlockedByBoltAction && !human_weap__lockWeaponReload && (human_weap__weapModActivateStartTime < 0.) &&
+                 !usingItem)
+  return canReload

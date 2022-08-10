@@ -6,6 +6,7 @@ let { localizeSoldierName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { AI_ACTION_ATTACK } = require("ai")
 let { GRENADES_ORDER } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { MINES_ORDER } = require("%ui/hud/huds/player_info/mineIcon.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
 const HEAL_RES_COMMON = "actHealCommon"
 const HEAL_RES_REVIVE = "actHealRevive"
@@ -34,13 +35,25 @@ let getMineType = @(mines)
   mines.reduce(@(a, b)
     (MINES_ORDER?[a] ?? 0) <= (MINES_ORDER?[b] ?? 0) ? a : b)
 
-let watchedHeroSquadEid = Watched(INVALID_ENTITY_ID)
-let controlledSquadEid = Watched(INVALID_ENTITY_ID)
 
 let sortMembers = @(a,b) a.memberIdx <=> b.memberIdx
-let watchedHeroSquadMembersRaw = Watched({})
+let mkDefState = @() {watchedHeroSquadEid = INVALID_ENTITY_ID, controlledSquadEid = INVALID_ENTITY_ID, members = {}}
+let {watchedHeroSquadMembersRaw, watchedHeroSquadMembersRawSetValue, watchedHeroSquadMembersRawMutate} = mkFrameIncrementObservable(mkDefState(), "watchedHeroSquadMembersRaw")
+
+let watchedHeroSquadMembersGetWatched = memoize(@(eid) Computed(@() watchedHeroSquadMembersRaw.value.members?[eid]))
+
 let watchedHeroSquadMembers = Computed(@()
-  watchedHeroSquadMembersRaw.value.values().sort(sortMembers))
+  watchedHeroSquadMembersRaw.value.members.values().sort(sortMembers))
+
+let watchedHeroSquadMembersOrderedSet = Computed(function(old){
+  let newres = watchedHeroSquadMembers.value.map(@(v) v.eid)
+  if (!isEqual(newres, old))
+    return newres
+  return old
+})
+
+let watchedHeroSquadEid = Computed(@() watchedHeroSquadMembersRaw.value.watchedHeroSquadEid)
+let controlledSquadEid = Computed(@() watchedHeroSquadMembersRaw.value.controlledSquadEid)
 
 let localPlayerSquadMembers = Computed(@() controlledSquadEid.value == watchedHeroSquadEid.value ? watchedHeroSquadMembers.value : {})
 
@@ -98,18 +111,21 @@ ecs.register_es("track_squad_members_state_ui",
       if (!comp.is_local)
         return
       let watchedSquadEid = comp["squad_members_ui__watchedSquadEid"]
-      if (watchedHeroSquadEid.value != watchedSquadEid)
-        watchedHeroSquadMembersRaw.update({})
-      watchedHeroSquadEid(watchedSquadEid)
-      controlledSquadEid(comp["squad_members_ui__controlledSquadEid"])
-      watchedHeroSquadMembersRaw.mutate(function(state) {
-        let squadMembers = comp["squad_members_ui__watchedSquadState"].getAll()
+      let prevWatchedHeroSquadEid = watchedHeroSquadEid.value
+      if (prevWatchedHeroSquadEid != watchedSquadEid) {
+        watchedHeroSquadMembersRawSetValue(mkDefState())
+      }
+      let controlled = comp["squad_members_ui__controlledSquadEid"]
+      let squadMembers = comp["squad_members_ui__watchedSquadState"].getAll()
+      watchedHeroSquadMembersRawMutate(function(state) {
+        state.watchedHeroSquadEid = watchedSquadEid
+        state.controlledSquadEid = controlled
         foreach (k, v in squadMembers) {
           let eid = k.tointeger()
-          let oldState = state?[eid]
+          let oldState = state.members?[eid]
           let updatedState = getState(v)
           startMemberAnimations(updatedState, oldState)
-          state[eid] <- updatedState
+          state.members[eid] <- updatedState
         }
       })
     },
@@ -153,6 +169,8 @@ ecs.register_es("hero_personal_bot_order_ui_es",
 return {
   watchedHeroSquadEid
   watchedHeroSquadMembers
+  watchedHeroSquadMembersGetWatched
+  watchedHeroSquadMembersOrderedSet
   localPlayerSquadMembers
   selectedBotForOrderEid
   isPersonalContextCommandMode

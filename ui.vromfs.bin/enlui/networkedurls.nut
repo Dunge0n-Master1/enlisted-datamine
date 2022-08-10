@@ -5,8 +5,14 @@ let circuitConf = require("app").get_circuit_conf()
 let getStoreUrl = @() circuitConf?.storeUrl
 
 let getEventUrl = @() circuitConf?.eventUrl
+let getPremiumUrl = @() circuitConf?.premiumUrl
+let getBattlePassUrl = @() circuitConf?.battlePassUrl
+let getSquadCashUrl = @() circuitConf?.squadCashUrl
 
 return {
   getStoreUrl
   getEventUrl
+  getPremiumUrl
+  getBattlePassUrl
+  getSquadCashUrl
 }

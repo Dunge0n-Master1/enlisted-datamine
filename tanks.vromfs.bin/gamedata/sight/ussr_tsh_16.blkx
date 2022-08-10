@@ -13,7 +13,6 @@ crosshairDistHorSizeAdditional:p2=0.005, 0.003
 distanceCorrectionPos:p2=-0.2, -0.05
 drawDistanceCorrection:b=no
 move:b=yes
-thousandth:t="“ussr”"
 
 crosshair_distances{
 }

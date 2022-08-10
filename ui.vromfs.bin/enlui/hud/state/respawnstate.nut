@@ -12,7 +12,7 @@ let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
 let vehiclesData = require("%ui/hud/state/vehiclesData.nut")
 let app = require("net")
 let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
-let logHR = require("%sqstd/log.nut")().with_prefix("[HERO_RESPAWN]")
+let logHR = require("%enlSqGlob/library_logs.nut").with_prefix("[HERO_RESPAWN]")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let armyData = require("armyData.nut")
 let soldiersData = require("soldiersData.nut")
@@ -20,7 +20,7 @@ let vehicleRespawnBases = require("%ui/hud/state/vehicleRespawnBases.nut")
 let { get_can_use_respawnbase_type } = require("%enlSqGlob/spawn_base.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let {spawn_zone_markers} = require("%ui/hud/state/spawn_zones_markers.nut")
+let {spawnZonesState} = require("%ui/hud/state/spawn_zones_markers.nut")
 let humanCanRespawn = require("%ui/hud/state/humanCanRespawn.nut")
 
 let respEndTime = mkWatched(persist, "respEndTime", -1)
@@ -229,10 +229,12 @@ let soldiersList = Computed(function() {
 })
 
 let respawnBlockedReason = Computed(function() {
-  let zones = spawn_zone_markers.value
+  let zones = spawnZonesState.value
+  let respawnId = currentRespawnGroup.value
+  let canUse = canUseRespawnbaseByType.value
+  let lpt = localPlayerTeam.value
   foreach (zone in zones) {
-    let respawnId = currentRespawnGroup.value
-    if (zone?.forTeam == localPlayerTeam.value && zone?.selectedGroup == respawnId && canUseRespawnbaseByType.value == zone.iconType){
+    if (zone?.forTeam == lpt && zone?.selectedGroup == respawnId && canUse == zone.iconType){
       if (!zone.isActive && zone.enemyAtRespawn)
         return  {reason = "respawn/enemy_at_respawn"}
       if (canRespawnWaitNumber.value > 0)
@@ -445,7 +447,7 @@ let beforeDebugSpawn = mkWatched(persist, "beforeDebugSpawn")
 let function setDebugMode(isRespawnInBot) {
   let isChanged = debugSpawn.value?.respawnsInBot != isRespawnInBot
   if (!isChanged) {
-    foreach(key, value in beforeDebugSpawn.value)
+    foreach (key, value in beforeDebugSpawn.value)
       state[key](value)
     beforeDebugSpawn(null)
     debugSpawn(null)
@@ -460,7 +462,7 @@ let function setDebugMode(isRespawnInBot) {
   debugSpawn(newData)
   if (!beforeDebugSpawn.value)
     beforeDebugSpawn(newData.map(@(_value, key) state[key].value))
-  foreach(key, value in newData)
+  foreach (key, value in newData)
     state[key](value)
 }
 

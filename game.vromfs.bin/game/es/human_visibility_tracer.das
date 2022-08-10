@@ -8,6 +8,7 @@ require GridCollision
 require Grid
 require DagorMath
 require CollRes
+require enlisted.events_enlisted
 
 
 [es(no_order, tag=render, REQUIRE=human_visibility_tracer)]

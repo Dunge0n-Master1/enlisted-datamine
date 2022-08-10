@@ -51,8 +51,8 @@ let roomCampaigns = Computed(function() {
 let roomTeamArmies = Computed(function() {
   let { teamArmies = "historical" } = room.value?.public
   let res = [[], []]
-  foreach(campaign in roomCampaigns.value)
-    foreach(teamIdx, army in gameProfile.value?.campaigns[campaign].armies ?? [])
+  foreach (campaign in roomCampaigns.value)
+    foreach (teamIdx, army in gameProfile.value?.campaigns[campaign].armies ?? [])
       if (teamIdx in res)
         res[teamIdx].append(army.id)
 
@@ -121,12 +121,12 @@ let function doLeaveRoom() {
 
 
 joinedRoomWithInvite.subscribe(function(v){
-  if(!v)
+  if (!v)
     return
 
   local missingCampaign = null
   foreach (rCampaign in roomCampaigns.value)
-    if(!unlockedCampaigns.value.contains(rCampaign))
+    if (!unlockedCampaigns.value.contains(rCampaign))
       missingCampaign = rCampaign
 
   if (missingCampaign != null){

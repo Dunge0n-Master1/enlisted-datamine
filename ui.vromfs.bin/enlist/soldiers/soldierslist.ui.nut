@@ -1,11 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { notChoosenPerkArmies } = require("model/soldierPerks.nut")
-let { unseenArmiesWeaponry } = require("model/unseenWeaponry.nut")
-let { unseenArmiesVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
-let { bigPadding, hoverBgColor, slotBaseSize, multySquadPanelSize
-} = require("%enlSqGlob/ui/viewConst.nut")
-let armySelect = require("army_select.ui.nut")
+let { bigPadding, hoverBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let armySelectUi = require("army_select.ui.nut")
 let squads_list = require("squads_list.ui.nut")
 let squad_info = require("squad_info.ui.nut")
 let mkSoldierInfo = require("mkSoldierInfo.nut")
@@ -15,9 +11,7 @@ let { startBtn, startBtnWidth } = require("%enlist/startBtn.nut")
 let { changeGameModeWidget, selectedGameMode
 } = require("%enlist/gameModes/changeGameModeBtn.nut")
 let { mkClustersUi } = require("%enlist/clusters.nut")
-let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
 let { randTeamAvailable, randTeamCheckbox } = require("%enlist/quickMatch.nut")
-let { unseenUpgradesByArmy, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { dailyTasksUi, weeklyTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
 let battlepassWidgetOpen = require("%enlist/battlepass/bpWidgets.nut")
 let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
@@ -25,29 +19,11 @@ let offersWidget = require("%enlist/offers/offersWidget.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let serviceNotificationsList = require("%enlSqGlob/serviceNotificationsList.nut")
+let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
 
+
 let quickMatchButtonWidth = hdpx(400)
-
-let armySelectWithMarks = armySelect({
-  function addChild(armyId, _sf) {
-    let count = Computed(function() {
-      let unseenUpgradesCount = (isUpgradeUsed.value ?? false) ? 0
-        : (unseenUpgradesByArmy.value?[armyId].len() ?? 0)
-      return max(notChoosenPerkArmies.value?[armyId] ?? 0, unseenArmiesWeaponry.value?[armyId] ?? 0)
-        + (unseenArmiesVehicle.value?[armyId] ?? 0)
-        + unseenUpgradesCount
-    })
-    return function() {
-      let res = { watch = count, pos = [hdpx(25), hdpx(5)], key = armyId }
-      if (count.value <= 0)
-        return res
-      return blinkingIcon("user", count.value, false).__update(res)
-    }
-  }
-  override = { minWidth = slotBaseSize[0] + multySquadPanelSize[0] + bigPadding * 5 }
-})
-
 
 let mainContent = {
   size = flex()
@@ -57,13 +33,16 @@ let mainContent = {
     {
       size = [flex(), SIZE_TO_CONTENT]
       children = [
-        {
+        @() {
+          watch = squadInfoState.curSoldierInfo
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
           valign = ALIGN_CENTER
           gap = bigPadding
           children = [
-            armySelectWithMarks
+            armySelectUi
+            squadInfoState.curSoldierInfo.value == null ? null
+              : promoWidget("soldier_equip", "soldier_inventory")
           ]
         }
       ]

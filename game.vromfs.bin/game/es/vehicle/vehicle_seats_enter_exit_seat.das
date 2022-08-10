@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require game.es.events
 require game.es.vehicle.vehicle_events
@@ -63,10 +64,10 @@ def vehicle_seats_enter_exit_seat_server_es(evt : CmdAcquireVehicleSeat;
   query(reqSeatEid) <| $ [es] (seat__component : int;
                                seat__adjacentSeat : int = -1;
                                seat__isLocked : bool = false;
-                               var seat__isPlayer :  bool&;
-                               var seat__ownerEid :  EntityId&;
+                               var seat__isPlayer : bool&;
+                               var seat__ownerEid : EntityId&;
                                var seat__playerEid : EntityId&;
-                               var seat__squadEid :  EntityId&)
+                               var seat__squadEid : EntityId&)
     if seat__isLocked
       return
     if seat__adjacentSeat > -1

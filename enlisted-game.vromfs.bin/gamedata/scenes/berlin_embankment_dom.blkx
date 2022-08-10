@@ -242,15 +242,7 @@ entity{
 }
 
 entity{
-  _template:t="snow"
-  snow__alpha_fade_speed_end:r=10.0
-  snow__alpha_fade_speed_begin:r=2.0
-  snow__speed:r=0.001
-  snow__width:r=0.0225
-  snow__wind:r=12.0
-  snow__alpha:r=6.75
-  snow__density:r=0.005
-  snow__length:r=0.0
+  _template:t="camera_dust_template"
 }
 
 entity{
@@ -467,7 +459,6 @@ entity{
   ground_effect__grid_cell_size:r=8.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -483,7 +474,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -499,7 +489,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -511,7 +500,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -524,7 +512,6 @@ entity{
   effect_area__effectName:t="background_flash_8s_fx"
   effect_area__isPaused:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-941.109, 3.255, -280.225]]
-  box_zone__scale:p3=600.0, 400.0, 600.0
 }
 
 entity{
@@ -960,7 +947,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[47.3436, 0.0, -38.8925] [0.0, 7.76617, 0.0] [11.7816, 0.0, 14.3417] [-397.376, 6.66665, 561.852]]
   capzone__title:t="A"
   capzone__caption:t="capzone/moltke_bridge"
@@ -1041,13 +1028,13 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[11.1446, 0.0, -12.4095] [0.0, 5.94526, 0.0] [24.3513, 0.0, 22.9235] [-507.415, 1.55469, 473.297]]
   capzone__title:t="B"
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[-11.862, 0.0, -7.07334] [0.0, 3.31149, 0.0] [6.58272, 0.0, -11.0615] [-245.308, 5.98804, 582.937]]
   capzone__title:t="C"
 }

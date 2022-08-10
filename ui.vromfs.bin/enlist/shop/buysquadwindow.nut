@@ -40,7 +40,7 @@ let viewData = Computed(function() {
     return null
 
   let squad = armySquadsById.value?[armyId][squadId]
-  if (squad != null)
+  if (squad != null && (squad?.expireTime ?? 0) == 0)
     return null
 
   let squadCfg = squadsCfgById.value?[armyId][squadId]

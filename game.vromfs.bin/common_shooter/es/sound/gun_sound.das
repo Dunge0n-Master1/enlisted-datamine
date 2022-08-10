@@ -51,7 +51,6 @@ def on_launch(tm : float3x4;
               gun : Gun;
               gun_sound__isWatched : bool;
               time_between_shots : float;
-              shot_freq_rnd_k : float;
               force_oneshot, force_oneshot_enemy : bool;
               start_loop_with_n_oneshots : int;
               var num_shots_in_loop : int&;
@@ -92,7 +91,7 @@ def on_launch(tm : float3x4;
       set_pos(sound_event.handle, launchPos)
 
   broadcastEvent([[EventOnLoudSound pos=launchPos]])
-  shot_loop_timeout = (time_between_shots * (1. + shot_freq_rnd_k) * time_between_shots_mad.x + time_between_shots_mad.y)
+  shot_loop_timeout = (time_between_shots * time_between_shots_mad.x + time_between_shots_mad.y)
 
 
 
@@ -101,7 +100,6 @@ def gun_sound_on_shot(evt : EventShot;
                       gun : Gun;
                       gun_sound__isWatched : bool;
                       gun__timeBetweenShots : float = 0.;
-                      gun__shotFreqRndK : float = 0.;
                       gun_sound__forceOneshot : bool;
                       gun_sound__forceOneshotEnemy : bool;
                       gun_sound__startLoopWithNOneshots : int;
@@ -120,7 +118,6 @@ def gun_sound_on_shot(evt : EventShot;
               gun,
               gun_sound__isWatched,
               gun__timeBetweenShots,
-              gun__shotFreqRndK,
               gun_sound__forceOneshot,
               gun_sound__forceOneshotEnemy,
               gun_sound__startLoopWithNOneshots,
@@ -138,7 +135,6 @@ def gun_sound_on_net_shot(evt : CmdNetShot;
                           gun : Gun;
                           gun_sound__isWatched : bool;
                           gun__timeBetweenShots : float = 0.;
-                          gun__shotFreqRndK : float = 0.;
                           gun_sound__forceOneshot : bool;
                           gun_sound__forceOneshotEnemy : bool;
                           gun_sound__startLoopWithNOneshots : int;
@@ -157,7 +153,6 @@ def gun_sound_on_net_shot(evt : CmdNetShot;
               gun,
               gun_sound__isWatched,
               gun__timeBetweenShots,
-              gun__shotFreqRndK,
               gun_sound__forceOneshot,
               gun_sound__forceOneshotEnemy,
               gun_sound__startLoopWithNOneshots,

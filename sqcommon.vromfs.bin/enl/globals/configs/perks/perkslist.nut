@@ -10,7 +10,7 @@ serverConfigs.configs.subscribe(
       return
 
     perkList.clear()
-    foreach(id, perk in list) {
+    foreach (id, perk in list) {
       perk.locId <- perk?.locId ?? id
       perkList[id] <- perk
     }

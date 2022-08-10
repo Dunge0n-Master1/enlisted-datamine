@@ -2,11 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let netUtils = require("%enlist/netUtils.nut")
 let { updateUids } = require("%enlist/contacts/consoleUidsRemap.nut")
-let logX = require("%sqstd/log.nut")().with_prefix("[XUIDS] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XUIDS] ")
 
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
-let requestedUids = sharedWatched("requestedUids", @() [])
-
+let requestedUids = {}
 
 let function request_known_xuid(userId, callback) {
   let function response_handler(response) {
@@ -20,13 +18,13 @@ let function request_known_xuid(userId, callback) {
       logX($"UserID {userId} has known xuid {response.live_xuid}")
       callback?(response.user_id, response.live_xuid)
     } else {
-      requestedUids.value.mutate(@(v) v.append(userId))
+      requestedUids[userId] <- true
       logX($"UserID {userId} doesn't contain known xuid, remembering")
       callback?(userId, null)
     }
   }
 
-  if (userId in requestedUids.value) {
+  if (userId in requestedUids) {
     logX($"UserID {userId} was requested already and doesn't contain known xuid")
     callback?(userId, null)
     return

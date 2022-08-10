@@ -2,20 +2,19 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {isFriendlyFireMode} = require("%enlSqGlob/missionType.nut")
-let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
-let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
-let {TEAM_UNASSIGNED} = require("team")
+let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 
-let getOwnerTeamQuery = ecs.SqQuery("getOwnerTeamQuery", {comps_ro = [["team", ecs.TYPE_INT]]})
-let getOwnerTeam = @(ownerEid) getOwnerTeamQuery.perform(ownerEid, @(_eid, comp) comp["team"]) ?? TEAM_UNASSIGNED
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let shell_activators = Watched({})
+let {
+  shell_activators_Set,
+  shell_activators_GetWatched,
+  shell_activators_UpdateEid,
+  shell_activators_DestroyEid
+} = mkWatchedSetAndStorage("shell_activators_")
 
-let function deleteActivator(eid) {
-  if (eid in shell_activators.value)
-    shell_activators.mutate(@(v) delete v[eid])
-}
+let { getTeam } = require("get_team.nut")
 
 ecs.register_es(
   "spawn_shell_activator_hud_es",
@@ -24,13 +23,13 @@ ecs.register_es(
       let activatorOwnerEid = comp.ownerEid
       let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
       let showActivatorIndicator = activatorOwnerEid == heroEid || isFriendlyFireMode()
-        || !is_teams_friendly(localPlayerTeam.value, getOwnerTeam(activatorOwnerEid))
+        || !is_teams_friendly(watchedTeam.value, getTeam(activatorOwnerEid))
 
       if (showActivatorIndicator)
-        shell_activators.mutate(@(v) v[eid] <- {maxDistance = comp.hud_marker__max_distance,
-                                                icon = comp.hud_marker__icon})
+        shell_activators_UpdateEid(eid, {maxDistance = comp.hud_marker__max_distance,
+                                         icon = comp.hud_marker__icon})
     }
-    onDestroy = @(eid,_) deleteActivator(eid)
+    onDestroy = @(_, eid, __) shell_activators_DestroyEid(eid)
   },
   {
     comps_ro = [
@@ -43,5 +42,5 @@ ecs.register_es(
 )
 
 return {
-  shell_activators
+  shell_activators_Set, shell_activators_GetWatched
 }

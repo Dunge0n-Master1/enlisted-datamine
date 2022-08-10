@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let profile_server = require("profile_server")
 let netErrorConverter = require("%enlSqGlob/netErrorConverter.nut")
 let {appId} = require("%enlSqGlob/clientState.nut")
-let stdlog = require("%sqstd/log.nut")()
+let stdlog = require("%enlSqGlob/library_logs.nut")
 let logPSC = stdlog.with_prefix("[profileServerClient]")
 let json = require("json")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -21,7 +21,7 @@ let function checkAndLogError(id, action, cb, result) {
     }
     if (typeof err != "string")
       err = $"(full answer dump) {json.to_string(result)}"
-    stdlog.logerr($"[profileServerClient] request {id}: {action} returned error: {err}")
+    stdlog.log($"[profileServerClient] request {id}: {action} returned error: {err}")
   } else {
     logPSC($"request {id}: {action} completed without error")
   }
@@ -30,7 +30,7 @@ let function checkAndLogError(id, action, cb, result) {
 }
 
 
-local function doRequest(action, params, id, cb, token = null) {
+local function doRequest(action, params, args, id, cb, token = null) {
   token = token ?? userInfo.value?.token
   if (!token) {
     logPSC($"Skip action {action}, no token")
@@ -49,14 +49,14 @@ local function doRequest(action, params, id, cb, token = null) {
   if (params != null)
     reqData["params"] <- params
 
-  let request = {
+  let request = args.__merge({
     headers = {
       token = token
       appid = appId.value
     },
     action = actionEx
     data = reqData
-  }
+  })
 
   logPSC($"Sending request {id}, method: {action}")
   profile_server.request(request,

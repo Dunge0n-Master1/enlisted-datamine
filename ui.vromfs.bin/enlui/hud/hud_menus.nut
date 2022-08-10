@@ -21,6 +21,7 @@ let { showSquadSoldiersMenu, isSquadSoldiersMenuAvailable } = require("%ui/hud/s
 let { showWallposterMenu } = require("%ui/hud/state/wallposter_menu.nut")
 let wallposterMenu = require("%ui/hud/huds/wallposter_menu.ui.nut")
 let { forceDisableBattleChat } = require("%ui/hud/state/hudOptionsState.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 //local { forcedMinimalHud } = require("state/hudGameModes.nut")
 
 let function openBuildingToolMenu() {
@@ -52,6 +53,7 @@ let groups = {
   pieMenu   = 5
 }
 let showChatInputAct = Computed( @() /*!forcedMinimalHud.value && */ showChatInput.value)
+let showPieMenuAct = Computed(@() showPieMenu.value && !isReplay.value)
 
 let disableMenu = get_setting_by_blk_path("disableMenu") ?? false
 hudMenus([
@@ -74,8 +76,11 @@ hudMenus([
       id = "WallposterMenu"
     },
     {
-      show = showPieMenu,
-      open = openCommandsMenu,
+      show = showPieMenuAct,
+      open = function () {
+        if (!isReplay.value)
+          openCommandsMenu()
+      },
       close = @() showPieMenu(false)
       menu = pieMenu,
       event = "HUD.CommandsMenu"

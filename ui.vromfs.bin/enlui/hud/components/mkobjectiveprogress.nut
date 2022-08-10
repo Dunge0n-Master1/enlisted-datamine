@@ -9,14 +9,14 @@ let {get_sync_time} = require("net")
 
 let ZoneProgress = {
   rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("ui/skin#circle_progress")
+  image = Picture("ui/skin#circle_progress.png")
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
 }
 
 let ZoneDefendProgress = {
   rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("!ui/skin#icon_defend")
+  image = Picture("!ui/skin#icon_defend.png")
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
 }
@@ -206,7 +206,6 @@ let function mkProgress(zoneData, heroTeam, size) {
     prgs = 1
   else if (progress > 0.0)
     prgs = lerp(0, 1, 0.015, 0.985, progress)
-
   return progressCtor(zoneData, heroTeam, size, color, prgs)
 }
 

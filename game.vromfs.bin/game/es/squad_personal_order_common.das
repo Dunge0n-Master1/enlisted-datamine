@@ -17,7 +17,7 @@ def find_next_bot_for_personal_order(squad_leader_eid : EntityId;
       var nextIndex = (curIndex + 1) % count
       var botEid = squad__allMembers[nextIndex]
 
-      for i in range(0, count)
+      for _i in range(0, count)
         if nextIndex == curIndex
           break
         if is_bot_valid_for_personal_order(squad_leader_eid, botEid)

@@ -6,7 +6,7 @@ let {isAiming} = require("%ui/hud/huds/crosshair_state_es.nut")
 let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")
 let {inPlane, isDriver, isGunner} = require("%ui/hud/state/vehicle_state.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
-let { currentGunEid } = require("%ui/hud/state/hero_weapon_state.nut")
+let { currentGunEid } = require("%ui/hud/state/hero_weapons.nut")
 
 let entityAimRangePreset = Watched(0)
 let aimRangeValues = Watched([])
@@ -29,7 +29,7 @@ let tipDecreaseAim = tipCmp({
 
 ecs.register_es("aim_range_preset",{
   [["onChange"]] = function(eid,comp){
-    if(eid == currentGunEid.value)
+    if (eid == currentGunEid.value)
       entityAimRangePreset(comp["weap__current_sight_preset"])
   }
 }, {comps_track=[["weap__current_sight_preset", ecs.TYPE_INT]]})
@@ -70,7 +70,7 @@ let function aimRangeValuesTip(){
                    duration = 0.1, play = true}]
   }
 
-  if(!needTip.value)
+  if (!needTip.value)
     return res
 
   return res.__update({

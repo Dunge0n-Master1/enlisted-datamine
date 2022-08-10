@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let mkPieMenuDarg = require("%darg/components/mkPieMenu.nut")
+let mkPieMenuDarg = require("%ui/components/mkPieMenuBase.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 let dainput = require("dainput2")
@@ -94,15 +94,19 @@ let function mkmkDefCtor(elemSize) {
 }
 
 
-let function mkBlurBack(radius){
-  let size = [2*radius*1.02, 2*radius*1.02]
-  return{
-    size = size
+let function mkBlurBack(radius) {
+  let size = array(2, 2 * radius * 1.02)
+  return {
+    size
     rendObj = ROBJ_MASK
     image = Picture("ui/uiskin/white_circle.svg:{0}:{0}:K".subst(size[0].tointeger()))
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
-    children = { rendObj=ROBJ_WORLD_BLUR size color = Color(190,190,190,190) }
+    children = {
+      rendObj = ROBJ_WORLD_BLUR
+      size
+      color = Color(190,190,190,190)
+    }
   }
 }
 
@@ -309,7 +313,7 @@ let function removeValue(list, value) {
 let function collectUnusedHotkeys(actions) {
   let gpUnused = clone cfgMax.gamepadHotkeys
   let idxUnused = cfgMax.gamepadHotkeys.map(@(_, idx) idx)
-  foreach(action in actions) {
+  foreach (action in actions) {
     removeValue(gpUnused, action?.gpHotkey)
     removeValue(idxUnused, action?.idx)
   }

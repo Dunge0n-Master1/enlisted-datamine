@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 require("%scripts/game/es/team.nut")
 
 let {kwarg, KWARG_NON_STRICT} = require("%sqstd/functools.nut")
-let debug = require("%sqstd/log.nut")().with_prefix("[SPAWN]")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
 let logerr = require("dagor.debug").logerr
 let {Point3, TMatrix} = require("dagor.math")
 let weapon_slots = require("%enlSqGlob/weapon_slots.nut")

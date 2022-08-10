@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { DBGLEVEL } = require("dagor.system")
 let { configs } = require("%enlSqGlob/configs/configs.nut")
 let { campaignsByArmy, wallposters } = require("%enlist/meta/profile.nut")
-let { wpPresentation, baseWpPresentation } = require("wallpostersPresentation.nut")
+let { getWPPresentation } = require("wallpostersPresentation.nut")
 let { add_wallposter } = require("%enlist/meta/clientApi.nut")
 
 
@@ -13,8 +13,8 @@ let wallpostersCfg = Computed(function() {
   let campaigns = campaignsByArmy.value
   let wpList = (wallposters.value ?? {}).values()
   let res = []
-  foreach(armyId, wpData in configs.value?.wallpostersCfg ?? {})
-    foreach(wallposterTpl, wallposter in wpData ?? {}) {
+  foreach (armyId, wpData in configs.value?.wallpostersCfg ?? {})
+    foreach (wallposterTpl, wallposter in wpData ?? {}) {
       let { isNotOwnedHidden = false } = wallposter
       let hasReceived = wpList.findindex(@(wp) wp.tpl == wallposterTpl) != null
       let isHidden = isNotOwnedHidden && !hasReceived
@@ -26,9 +26,8 @@ let wallpostersCfg = Computed(function() {
         isHidden
         campaignId = campaigns?[armyId].id
         campaignTitle = campaigns?[armyId].title
-      }.__update(wpPresentation?[wallposterTpl] ?? baseWpPresentation))
+      }.__update(getWPPresentation(wallposterTpl)))
     }
-
   return res
 })
 

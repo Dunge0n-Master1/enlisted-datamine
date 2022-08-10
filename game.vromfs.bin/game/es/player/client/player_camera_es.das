@@ -15,7 +15,7 @@ def player_enable_spectator_camera(evt : EnableSpectatorForPlayer; var activeCam
     return
   print("Enable spectator camera for camera entity {int(uint(activeCamEid))}")
   if possessed != INVALID_ENTITY_ID
-    removeSubTemplate(possessed, "observed")
+    removeSubTemplate(possessed, "observed_local")
   let camTm = get_TMatrix(get_cur_cam_entity(), "transform")
   if camTm == null
     return

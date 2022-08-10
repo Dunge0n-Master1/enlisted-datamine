@@ -1,8 +1,9 @@
 require ecs
+require ecs.safe
 require ecs.common
 require DaWeaponProps
 require DagorSystem
-require debug.log_utils
+require debug.logerr_once
 
 
 def try_init_shell(shell : Object; var gun__shells : Array&)

@@ -2,6 +2,7 @@ require ecs
 require player
 require ecs.common
 require EnlistedWalkerai
+require enlisted.events_enlisted
 
 def private write_member_data(var states : Object&; member_eid : EntityId)
   query(member_eid) <| $ [es] (squad_member__memberIdx : int;
@@ -58,7 +59,7 @@ def private write_member_data(var states : Object&; member_eid : EntityId)
 
 
 [es(tag=ui, no_order)]
-def squad_members_ui_update_state(info : UpdateStageInfoAct)
+def squad_members_ui_update_state(info : ParallelUpdateFrameDelayed)
   query(get_local_player_eid()) <| $ [es] (squad_members_ui__watchedSquadEid : EntityId;
                                            squad_members_ui__updateInterval : float;
                                            var squad_members_ui__nextUpdateAtTime : float&;

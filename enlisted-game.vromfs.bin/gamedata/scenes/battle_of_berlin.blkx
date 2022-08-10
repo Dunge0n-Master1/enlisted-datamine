@@ -315,7 +315,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=120.0
   team__id:i=1
-  team__haveScores:b=no
   team__briefing:t="invasion/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
@@ -750,7 +749,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-7.11362, 0.0, -0.136158] [0.0, 3.43331, 0.0] [-0.0672885, 0.0, -11.2712] [249.336, 6.69245, -189.637]]
   groupName:t="1_capzone_american_embassy"
   capzone__capRewardPartCap:r=1.0

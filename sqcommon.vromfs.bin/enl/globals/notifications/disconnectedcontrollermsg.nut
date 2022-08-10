@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {MenuBgOverlay} = require("%ui/style/colors.nut")
 let { controllerDisconnected } = require("%enlSqGlob/uistate.nut")
-let {removeModalWindow, addModalWindow} = require("%darg/components/modalWindows.nut")
+let {removeModalWindow, addModalWindow} = require("%ui/components/modalWindows.nut")
 
 const WND_UID = "disconnectedControllerMsg"
 

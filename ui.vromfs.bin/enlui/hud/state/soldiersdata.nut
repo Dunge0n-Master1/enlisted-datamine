@@ -29,7 +29,7 @@ let function getWeaponData(weapSlotIdx, soldier) {
     let modTemplate = db.getTemplateByName(modTplName)
     gunMods.append({
       templateName = modTplName
-      name = loc(modTemplate.getCompValNullable("item__name") ?? modTplName)
+      name = loc(modTemplate?.getCompValNullable("item__name") ?? modTplName)
     })
   })
 

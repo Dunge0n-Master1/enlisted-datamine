@@ -1,7 +1,5 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
-  scene:t="content/enlisted/gamedata/scenes_volokolamsk_biom_fx.blk"
-  scene:t="content/enlisted/gamedata/scenes_volokolamsk_gpu_objects.blk"
 }
 
 entity{
@@ -53,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{

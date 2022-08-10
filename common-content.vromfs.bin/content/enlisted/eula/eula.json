@@ -1,0 +1,11 @@
+{
+  "english": {"file":"content/enlisted/eula/eula.txt", "version":10},
+  "german": {"file":"content/enlisted/eula/eula_de.txt", "version":10},
+  "spanish": {"file":"content/enlisted/eula/eula_es.txt", "version":10},
+  "french": {"file":"content/enlisted/eula/eula_fr.txt", "version":10},
+  "japanese": {"file":"content/enlisted/eula/eula_jp.txt", "version":10},
+  "korean": {"file":"content/enlisted/eula/eula_ko.txt", "version":10},
+  "polish": {"file":"content/enlisted/eula/eula_pl.txt", "version":10},
+  "russian": {"file":"content/enlisted/eula/eula_ru.txt", "version":10},
+  "chinese": {"file":"content/enlisted/eula/eula_zhtw.txt", "version":10}
+}

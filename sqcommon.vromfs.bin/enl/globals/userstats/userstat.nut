@@ -7,8 +7,8 @@ if (userstat==null)
 let loginState = require("%enlSqGlob/login_state.nut")
 let CharClientEvent = require("%enlSqGlob/charClient/charClientEvent.nut")
 
-let logUs = require("%sqstd/log.nut")().with_prefix("[USERSTAT] ")
-let string = require("%sqstd/string.nut")
+let logUs = require("%enlSqGlob/library_logs.nut").with_prefix("[USERSTAT] ")
+let { split_by_chars } = require("string")
 let { debug } = require("dagor.debug")
 let { debounce } = require("%sqstd/timers.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -20,7 +20,7 @@ let matchingNotifications = require("%enlSqGlob/notifications/matchingNotificati
 let { get_app_id } = require("app")
 let { arrayByRows } = require("%sqstd/underscore.nut")
 
-let { appId, language } = require("%enlSqGlob/clientState.nut")
+let { appId, gameLanguage } = require("%enlSqGlob/clientState.nut")
 let time = require("serverTime.nut")
 let { serverTimeUpdate } = require("serverTimeUpdate.nut")
 
@@ -126,7 +126,7 @@ let function makeUpdatable(persistName, request, watches, defValue) {
     refresh(cb)
   }
 
-  foreach(w in watches)
+  foreach (w in watches)
     w.subscribe(function(_v) {
       lastTime.mutate(@(v) v.update = 0)
       data(defValue)
@@ -153,11 +153,11 @@ let descListUpdatable = makeUpdatable("GetUserStatDescList",
     headers = {
       appid = appId.value,
       token = chardToken.value,
-      language = loc("steam/languageName", language.value.tolower())
+      language = loc("steam/languageName", gameLanguage.tolower())
     },
     action = "GetUserStatDescList"
   }, cb),
-  [appId, chardToken, language],
+  [appId, chardToken],
   {})
 
 let statsFilter = mkWatched(persist, "statsFilter", {
@@ -179,7 +179,7 @@ let function isEqualUnordered(arr1, arr2) {
   let tbl2 = toTable(arr2)
   if (tbl1.len() != tbl2.len())
     return false
-  foreach(val, _ in tbl1)
+  foreach (val, _ in tbl1)
     if (val not in tbl2)
       return false
   return true
@@ -219,7 +219,7 @@ let lastMassiveRequestTime = mkWatched(persist, "lastMassiveRequestTime", 0)
 let massiveRefresh = debounce(
   function(checkTime) {
     logUs("Massive update start")
-    foreach(data in [statsUpdatable, descListUpdatable, unlocksUpdatable])
+    foreach (data in [statsUpdatable, descListUpdatable, unlocksUpdatable])
       if (data.lastUpdateTime.value < checkTime) {
         logUs($"Update {data.id}")
         data.forceRefresh()
@@ -231,12 +231,12 @@ let nextMassiveUpdateTime = mkWatched(persist, "nextMassiveUpdateTime", 0)
 statsUpdatable.data.subscribe(function(stats) {
   local nextUpdate = 0
   let curTime = time.value
-  foreach(tbl in stats?.inactiveTables ?? {}) {
+  foreach (tbl in stats?.inactiveTables ?? {}) {
     let startsAt = tbl?["$startsAt"] ?? 0
     if (startsAt > curTime)
       nextUpdate = nextUpdate > 0 ? min(nextUpdate, startsAt) : startsAt
   }
-  foreach(tbl in stats?.stats ?? {}) {
+  foreach (tbl in stats?.stats ?? {}) {
     let endsAt = tbl?["$endsAt"] ?? 0
     if (endsAt > curTime)
       nextUpdate = nextUpdate > 0 ? min(nextUpdate, endsAt) : endsAt
@@ -380,9 +380,9 @@ let function changeStat(stat, mode, amount, shouldSet, cb = null) {
   else if (descListUpdatable.data.value?.stats?[stat] == null) {
     errorText = $"Stat {stat} does not exist."
     let similar = []
-    let parts = string.split_by_chars(stat, "_", true)
-    foreach(s, _v in descListUpdatable.data.value?.stats ?? {})
-      foreach(part in parts)
+    let parts = split_by_chars(stat, "_", true)
+    foreach (s, _v in descListUpdatable.data.value?.stats ?? {})
+      foreach (part in parts)
         if (s.indexof(part) != null) {
           similar.append(s)
           break
@@ -456,7 +456,7 @@ let function getStatsSum(tableName, statName) {
   local res = 0
   let tbl = statsUpdatable.data.value?.stats?[tableName]
   if (tbl)
-    foreach(modeTbl in tbl)
+    foreach (modeTbl in tbl)
       res += modeTbl?[statName] ?? 0
   return res
 }
@@ -550,6 +550,19 @@ matchingNotifications.subscribe("userStat",
   @(ev) ev?.func == "updateConfig" ? queueMassiveUpdate() : unlocksUpdatable.forceRefresh())
 
 
+let function requestAnoPlayerStats(uid, cb){
+  doRequest({
+    headers = {
+      appid = appId.value,
+      token = chardToken.value
+      userId = uid
+    },
+    action = "AnoGetStats"
+    allow_other = true
+    data = statsFilter.value
+  }, cb)
+}
+
 let debugRecursive = @(v) log.debugTableData(v, { recursionLevel = 7, printFn = debug })
 console_register_command(@() descListUpdatable.forceRefresh(console_print), "userstat.get_desc_list")
 console_register_command(@() debugRecursive(descListUpdatable.data.value) ?? console_print("Done"),
@@ -614,6 +627,8 @@ return {
   setStatsModes
   setUnlocksFilter
   markUserLogsAsSeen
+
+  requestAnoPlayerStats
 
   unlockRewardsInProgress
 }

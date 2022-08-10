@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
-let {sound_set_volume} = require_optional("sound")
+let { sound_set_volume } = require("sound")
 let {is_pc} = require("%dngscripts/platform.nut")
 let {outputDevicesList, outputDevice} = require("%enlSqGlob/sound_state.nut")
 let {

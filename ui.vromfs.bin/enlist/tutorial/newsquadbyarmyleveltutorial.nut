@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let { logerr } = require("dagor.debug")
-let logAT = require("%sqstd/log.nut")().with_prefix("[ARMY_LEVEL_TUTOR] ")
+let logAT = require("%enlSqGlob/library_logs.nut").with_prefix("[ARMY_LEVEL_TUTOR] ")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let {
   airSelectedBgColor, msgHighlightedTxtColor, bigPadding
@@ -28,14 +28,17 @@ let { mkHorizontalSlot } = require("%enlist/soldiers/chooseSquadsSlots.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-
+let { isInSquad } = require("%enlist/squad/squadManager.nut")
 
 const LEVEL_TO_SHOW = 2
 
 let needTutorial = Computed(function() {
-  let hasOtherArmyLevel = null != armies.value.findvalue(
-    @(armyData, armyId) armyId != curArmy.value && (armyData?.level ?? 0) >= LEVEL_TO_SHOW)
-  return !hasOtherArmyLevel && curArmyNextUnlockLevel.value == LEVEL_TO_SHOW && readyToUnlockSquadId.value != null
+  let hasOtherArmyLevel = null != armies.value.findvalue(@(armyData, armyId) armyId != curArmy.value
+    && (armyData?.level ?? 0) >= LEVEL_TO_SHOW)
+  return !hasOtherArmyLevel
+    && curArmyNextUnlockLevel.value == LEVEL_TO_SHOW
+    && readyToUnlockSquadId.value != null
+    && !isInSquad.value
 })
 
 let canShowTutorialFromMainMenu = Computed(@() canDisplayOffers.value

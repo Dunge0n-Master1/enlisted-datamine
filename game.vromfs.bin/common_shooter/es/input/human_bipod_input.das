@@ -2,6 +2,7 @@ require ecs
 require app
 require game.es.events
 require game.es.input.input_events
+require enlisted.events_enlisted
 require DagorInput
 require DagorMath
 require DagorMathUtils
@@ -92,7 +93,7 @@ def human_bipod_input_action_triggered_es(evt : EventDaInputActionTriggered;
     bipod__anchorPos += bipod__placeNormal * bipodHeight
 
 [es(tag=input, REQUIRE=hero, no_order)]
-def human_bipod_check_es(info : UpdateStageInfoAct;
+def human_bipod_check_es(info : ParallelUpdateFrameDelayed;
                          human_weap__currentGunEid : EntityId;
                          human_input__aimAngle : float2;
                          human_input__standState : int;

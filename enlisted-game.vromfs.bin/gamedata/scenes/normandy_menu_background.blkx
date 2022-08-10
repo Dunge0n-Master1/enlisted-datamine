@@ -2,7 +2,6 @@ entity{
   _template:t="menu_camera"
   fov:r=90.0
   transform:m=[[-0.286349, 0.0, -0.958125] [-0.0185108, 0.999813, 0.0055322] [0.957947, 0.0193198, -0.286295] [-13.4769, 73.3685, 29.4093]]
-  menuFov:r=90.0
   menuTransform:m=[[-0.286349, 0.0, -0.958125] [-0.0185108, 0.999813, 0.0055322] [0.957947, 0.0193198, -0.286295] [-13.4769, 73.3685, 29.4093]]
 }
 
@@ -12,10 +11,10 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=0.0
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=0.0
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
-    "content/common/gamedata/weather/weather_poor.blk":r=0.5
+    weather_clear_a:r=0.0
+    weather_clear_b:r=0.0
+    weather_cloudy_a:r=1.0
+    weather_poor_a:r=0.5
   }
 
   "level__timeVec:array"{

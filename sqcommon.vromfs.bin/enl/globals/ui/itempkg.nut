@@ -61,6 +61,7 @@ let mkLevelBlock = @(level) mkBackBlock({
 
 let statusIconCtor = @(demands) demands?.classLimit != null ? iconBlocked
   : demands == null ? null
+  : demands?.canObtainInShop ? null
   : iconLocked
 
 let mkHintText = @(text) {

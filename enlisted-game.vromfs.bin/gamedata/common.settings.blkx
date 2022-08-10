@@ -35,13 +35,18 @@ registerUrl:t="https://login.gaijin.net/fromgame?project=enlisted"
 aiList:t="content/enlisted/gamedata/ai/enlisted_ailist.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_creatures_ailist.blk"
 aiList:t="content/enlisted/gamedata/ai/enlisted_train.blk"
-aiList:t="content/enlisted/gamedata/ai/enlisted_default.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_common_sub_trees.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_passive_beh.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_agressive_beh.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_defend_point.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_personal_order.blk"
+aiList:t="content/enlisted/gamedata/ai/enlisted_order_req.blk"
 game_sq_script:t="%scripts/game/onGameScriptLoad.nut"
 game_das_loading_threads:i=1
 game_das_project:t="%scripts/project.das_project"
 game_das_script:t="%scripts/enlisted.das"
 game_das_script_init:t="%scripts/enlisted_init.das"
-game_das_sandbox_project:t="%scripts/game/sandbox.das_project"
+game_das_sandbox_project:t="%scripts/sandbox.das_project"
 
 graphics{
   anisotropy:i=4
@@ -160,17 +165,21 @@ sound{
     master_banks{
 
       master_bank{
+        async:b=no
+        preload:b=yes
         loadToMemory:b=yes
       }
 
       master_bank.assets{
         async:b=no
-        preload:b=no
+        preload:b=yes
+        loadToMemory:b=yes
       }
 
       master_bank.strings{
         async:b=no
-        preload:b=no
+        preload:b=yes
+        loadToMemory:b=yes
       }
     }
 
@@ -863,6 +872,7 @@ __allowedConfigOverrides{
     paperWhiteNits:i=200
     fsr:t="off"
     dlssQuality:i=0
+    xessQuality:i=0
     forbidTrueFullscreen:b=no
   }
 
@@ -1006,17 +1016,18 @@ langAlias{
 dx12{
   max_genmip_tex_sz:i=0
 
-  gpuDriver{
+  gpuPreferences{
 
-    vendor{
-      id:i=4318
-      minVersion:t="27.21.14.6140"
-      blacklist:t="27.21.14.6172"
+    nvidia{
+      vendorId:i=4318
+      minDriver:t="27.21.14.6140"
+      blacklistedDrivers:t="27.21.14.6172"
     }
 
-    vendor{
-      id:i=32902
-      minVersion:t="26.20.0.0"
+    intel{
+      vendorId:i=32902
+      preferedDeviceIds:i=22176
+      minDriver:t="26.20.0.0"
     }
   }
 }
@@ -1043,6 +1054,8 @@ addons{
   folder:t="content/tomoe"
   folder:t="content.hq/tomoe_hq"
   folder:t="content/lshaders_{SHADER_SUFFIX}"
+  folder:t="content/modern_conflict"
+  folder:t="content.hq/modern_conflict_hq"
 }
 
 chunksMapping{
@@ -1088,6 +1101,18 @@ chunksMapping{
     id:i=1001
     sony_id:i=0
   }
+
+  chunk{
+    folder:t="content/modern_conflict"
+    id:i=1001
+    sony_id:i=0
+  }
+
+  chunk{
+    folder:t="content.hq/modern_conflict_hq"
+    id:i=1002
+    sony_id:i=1
+  }
 }
 
 vromList{
@@ -1095,30 +1120,6 @@ vromList{
   pack{
     path:t="content/enlisted/fonts.vromfs.bin"
     mnt:t="ui/"
-    optional:b=yes
-  }
-
-  pack{
-    path:t="content/enlisted/uiskin.vromfs.bin"
-    mnt:t="content/enlisted/"
-    optional:b=yes
-  }
-
-  pack{
-    path:t="content/enlisted/loading.vromfs.bin"
-    mnt:t="content/enlisted/"
-    optional:b=yes
-  }
-
-  pack{
-    path:t="content/enlisted/uiskin-dev.vromfs.bin"
-    mnt:t="content/enlisted/"
-    optional:b=yes
-  }
-
-  pack{
-    path:t="content/enlisted/input_gui.vromfs.bin"
-    mnt:t="content/enlisted/"
     optional:b=yes
   }
 }
@@ -1214,9 +1215,37 @@ mountPoints{
 addonBasePath{
 
   addon{
+    vrom:t="content/enlisted/uiskin.vromfs.bin"
+    vromOptionalForServer:b=yes
+    mountAsPack:b=yes
+    src:t="../develop/gui/enlisted"
+  }
+
+  addon{
+    vrom:t="content/enlisted/loading.vromfs.bin"
+    vromOptionalForServer:b=yes
+    mountAsPack:b=yes
+    src:t="../develop/gui/enlisted"
+  }
+
+  addon{
     vrom:t="content/enlisted/uiskin_update.vromfs.bin"
     vromed:b=no
     src:t="../develop/gui/enlisted/update"
+  }
+
+  addon{
+    vrom:t="content/enlisted/uiskin-dev.vromfs.bin"
+    vromOptional:b=yes
+    mountAsPack:b=yes
+    src:t="../develop/gui/enlisted_pkg_dev"
+  }
+
+  addon{
+    vrom:t="content/enlisted/input_gui.vromfs.bin"
+    vromOptionalForServer:b=yes
+    mountAsPack:b=yes
+    src:t="../develop/gui/input"
   }
 
   addon{
@@ -1231,6 +1260,13 @@ addonBasePath{
     vrom:t="content/dev/dev-content.vromfs.bin"
     vromed:b=no
     src:t="../develop/gameBase/content/dev"
+  }
+
+  addon{
+    folder:t="content/modern_conflict"
+    vrom:t="content/modern_conflict/modern_conflict-content.vromfs.bin"
+    vromed:b=no
+    src:t="../develop/gameBase/content/modern_conflict"
   }
 
   addon{
@@ -1254,23 +1290,10 @@ addonBasePath{
   }
 
   addon{
-    vromed:b=yes
-    vrom:t="content/common/common.vromfs.bin"
-    src:t="../prog/gameBase/content/common"
-    src:t="../prog/gameBase"
-  }
-
-  addon{
     folder:t="content/common"
     vrom:t="content/common/common-content.vromfs.bin"
     vromed:b=yes
     src:t="../develop/gameBase/content/common"
-  }
-
-  addon{
-    folder:t="content/common_shooter"
-    src:t="../prog/gameBase/content/common_shooter"
-    vromed:b=yes
   }
 
   addon{
@@ -1280,22 +1303,26 @@ addonBasePath{
   }
 
   addon{
-    folder:t="content/e_normandy"
-    src:t="../prog/gameBase/content/e_normandy"
-    vromed:b=yes
+    folder:t="content/e_tunisia"
+    src:t="../prog/gameBase/content/e_tunisia"
+    vromed:b=no
   }
 
   addon{
-    folder:t="content/enlisted"
     vrom:t="content/enlisted/enlisted-content.vromfs.bin"
-    vromed:b=no
+    vromed:b=yes
     src:t="../develop/gameBase/content/enlisted"
-  }
-
-  addon{
-    folder:t="content/aircraft"
-    src:t="../prog/gameBase/content/aircraft"
-    vromed:b=no
+    src:t="../develop/gameBase/content/common"
+    src:t="../prog/gameBase/content/common"
+    src:t="../prog/gameBase"
+    src:t="../prog/gameBase/content/common_shooter"
+    src:t="../prog/gameBase/content/e_ww2_common"
+    src:t="../prog/gameBase/content/e_normandy"
+    src:t="../prog/gameBase/content/e_berlin"
+    src:t="../prog/gameBase/content/e_stalingrad"
+    src:t="../prog/gameBase/content/e_aprilfools_2022"
+    src:t="../prog/gameBase/content/e_moscow"
+    src:t="../prog/gameBase/content/modern_equipment"
   }
 
   addon{
@@ -1308,48 +1335,6 @@ addonBasePath{
   addon{
     folder:t="content/tanks"
     src:t="../prog/gameBase/content/tanks"
-    vromed:b=no
-  }
-
-  addon{
-    folder:t="content/e_berlin"
-    src:t="../prog/gameBase/content/e_berlin"
-    vromed:b=yes
-  }
-
-  addon{
-    folder:t="content/e_stalingrad"
-    src:t="../prog/gameBase/content/e_stalingrad"
-    vromed:b=no
-  }
-
-  addon{
-    folder:t="content/e_tunisia"
-    src:t="../prog/gameBase/content/e_tunisia"
-    vromed:b=no
-  }
-
-  addon{
-    folder:t="content/e_aprilfools_2022"
-    src:t="../prog/gameBase/content/e_aprilfools_2022"
-    vromed:b=no
-  }
-
-  addon{
-    folder:t="content/e_modern"
-    src:t="../prog/gameBase/content/e_modern"
-    vromed:b=no
-  }
-
-  addon{
-    folder:t="content/e_moscow"
-    src:t="../prog/gameBase/content/e_moscow"
-    vromed:b=yes
-  }
-
-  addon{
-    folder:t="content/modern_equipment"
-    src:t="../prog/gameBase/content/modern_equipment"
     vromed:b=no
   }
 
@@ -1378,6 +1363,7 @@ addonBasePath{
 
   addon{
     vrom:t="dedicated.vromfs.bin"
+    vromOptionalForClient:b=yes
   }
 
   addon{

@@ -14,7 +14,7 @@ def on_ri_extra_destroyed(evt : EventRiExtraDestroyed;
                           riExtra__saveOffenderTo = "";
                           riExtra__createOnDestroyCountRange : int2 = int2(1, 1))
   let count = rnd_int(riExtra__createOnDestroyCountRange.x, riExtra__createOnDestroyCountRange.y)
-  for i in range(count)
+  for _i in range(count)
     createEntity(riExtra__createOnDestroyTemplate) <| $(var init)
       init |> set("transform", transform)
       if !empty(riExtra__saveOffenderTo)
@@ -29,7 +29,7 @@ def on_ri_extra_destroyed_on_ground(evt : EventRiExtraDestroyed;
                                     riExtra__createOnDestroyCountRange : int2 = int2(1, 1);
                                     riExtra__saveOffenderTo = "")
   let count = rnd_int(riExtra__createOnDestroyCountRange.x, riExtra__createOnDestroyCountRange.y)
-  for i in range(count)
+  for _i in range(count)
     createEntity(riExtra__createOnDestroyTemplate) <| $(var init)
       var tm = IDENT_TM
       tm[3] += transform[3]

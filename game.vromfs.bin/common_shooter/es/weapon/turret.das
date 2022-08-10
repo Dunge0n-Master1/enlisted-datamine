@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require app
 require common_shooter.events_common_shooter
 require common_shooter.es.weapon.turret_common
@@ -8,7 +9,7 @@ require EnlistedNet
 require math.base
 require math.shooter_phys_common
 require game.es.events
-require debug.log_utils
+require debug.logerr_once
 require DagorMathUtils
 require EnlistedWeapon
 require EnlistedActor
@@ -22,6 +23,8 @@ require GameMath
 require DagorMath
 require Gun
 require BitStream
+require game.utils.hero
+require EnlistedWeapon
 
 
 [es]
@@ -30,8 +33,6 @@ def vehicle_input_turret_es(evt : CmdTurretsUpdate;
                             turret_control__gunEids : EidList;
                             vehicle__localControls : VehicleControlsState? = null;
                             vehicle__allAcquiredControls : VehicleControlsState? = null)
-  let AIM_DISTANCE = 1000.0
-
   assume controlsState = vehicle__localControls != null ? *vehicle__localControls : *vehicle__allAcquiredControls
 
   let shootFromPos = net_phys__currentStatePosition + float3(0.0, 2.0, 0.0)
@@ -83,10 +84,11 @@ def calc_turret_angles(wish_dir : float3&)
   return float2(-wishAngles.x, wishAngles.y) // -x because dir_to_angles uses negative z (for heading, not true rotation)
 
 
-[es(tag=gameClient, REQUIRE_NOT=heroVehicle)]
+[es(tag=gameClient)]
 def turret_direction_control_remote_es(evt : CmdTurretsUpdate;
                                        net_phys__role : int;
                                        turret_control__gunEids : EidList)
+  // Even heroVehicle needs to receive remote turret state, if the player doesn't controll the vehicle.
   if net_phys__role == int(NetRole ROLE_REMOTELY_CONTROLLED_SHADOW)
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=resolvedTurret, REQUIRE_NOT=turretInput)] (turret_state_remote : TurretState;
@@ -123,7 +125,6 @@ def turret_weap_on_tickrate_changed_es(evt : Event;
 
 [es(tag=(netClient, input))]
 def turret_input_client_es(info : UpdateStageUpdateInput;
-                           eid : EntityId;
                            net_phys__currentStatePosition : float3;
                            net_phys__currentStateOrient : float4;
                            vehicle__localControls : VehicleControlsState;
@@ -152,8 +153,15 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
                                                                       turret_input__aimPos : float3;
                                                                       turret_aim__shootDirWithCorrection : float3;
                                                                       turret_state : TurretState;
+                                                                      turret_input__isLocalControlLocked : bool = false;
                                                                       var turret_aim__shootAngles : float2&;
                                                                       var turret_aim__shootFlag : bool&)
+        if turret_input__isLocalControlLocked
+          turretCount = uint8(int(turretCount) + 1)
+          bs |> Write(INVALID_ENTITY_ID)
+          bs |> Write(uint(0))
+          return
+
         let aimPos = turret_input__aimPos
         let shootFlag = turret_input__shootFlag
 
@@ -175,13 +183,13 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
           bs |> Write(turret_state.shoot.pos)
 
     bs |> WriteAt(turretCount, 0u)
-    send_turret_controls_msg(eid, bs)
+    send_turret_controls_msg(get_controlled_hero(), bs)
     turret_input__prevCmdSendTick = curTick
 
-
-[es(tag=(server, net))]
-def turret_apply_client_input_es(evt : TurretControlsMsg;
-                                 net__controlsTickDelta : int)
+def turret_apply_client_input(evt : TurretControlsMsg;
+                              net__controlsTickDelta : int;
+                              turret_control__gunEids : EidList;
+                              seat__ownerControls : VehicleControlsState)
   assume bs = evt.bs
 
   var turretCount = uint8(0)
@@ -191,7 +199,7 @@ def turret_apply_client_input_es(evt : TurretControlsMsg;
   isOk = bs |> ReadCompressed(turretStateTick) && isOk
 
   var tdirp = 0u
-  for i in range(int(turretCount))
+  for _i in range(int(turretCount))
     var turretEid = INVALID_ENTITY_ID
     isOk = bs |> Read(turretEid) && isOk
     isOk = bs |> Read(tdirp) && isOk
@@ -207,7 +215,12 @@ def turret_apply_client_input_es(evt : TurretControlsMsg;
     if !isOk
       break
 
-    query(turretEid) <| $ [es] (var turret_controls_history : TurretControlsHistory)
+    if find_index(each(turret_control__gunEids), turretEid) < 0
+      continue
+
+    query(turretEid) <| $ [es] (turret__id : int; var turret_controls_history : TurretControlsHistory)
+      if !can_control_turret(seat__ownerControls, turret__id)
+        return
       assume history = turret_controls_history.history
       var latestIndex = int(length(history)) - 1
 
@@ -246,6 +259,19 @@ def turret_apply_client_input_es(evt : TurretControlsMsg;
           history |> push(st)
   if !isOk
     logerr_once("turret_weap_on_tickrate_changed_es: deserialization failed")
+
+[es(tag=(server, net), after=vehicle_seats_update_controls)]
+def turret_apply_client_input_es(evt : TurretControlsMsg; eid : EntityId; human_anim__vehicleSelected : EntityId)
+  query(human_anim__vehicleSelected) <| $ [es] (net__controlsTickDelta : int; vehicle_seats__seatEids : EidList; turret_control__gunEids : EidList)
+    var found = false
+    for seatEid in vehicle_seats__seatEids
+      query(seatEid) <| $ [es] (seat__ownerControls : VehicleControlsState; seat__ownerEid : EntityId)
+        if seat__ownerEid != eid
+          return
+        found = true
+        turret_apply_client_input(evt, net__controlsTickDelta, turret_control__gunEids, seat__ownerControls)
+      if found
+        return
 
 def turret_shoot_tm_save(isAlive : bool = true;
                          turret_control__gunEids : EidList;
@@ -322,6 +348,7 @@ def turret_weap_update(gunEid : EntityId;
     using() <| $(var gctr : GunControls#)
       gctr.shoot = shoot
       gctr.boltActionMult = gun__timeBetweenShotMult
+      gctr.timeStep = 1. / float(PHYS_DEFAULT_TICKRATE)
       using(turret_state.shoot.dir, shootDir, turret_state.shoot.vel, turret_state.shoot.pos) <| $(var gloc : GunLocation#)
         sendEventImmediate(
           gunEid,

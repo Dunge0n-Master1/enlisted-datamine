@@ -9,25 +9,16 @@ require GridCollision
 require Grid
 require DagorMath
 require ecs.common
-
-def detonate_mine(mine_eid : EntityId; mineActivatorTemplate : string; owner : EntityId; offender_desc : Object?; tm : float3x4; delay = 0.)
-  createEntity(mineActivatorTemplate) <| $(var init : ComponentsInitializer)
-    set(init, "ownerEid", owner)
-    if offender_desc != null
-      set(init, "offenderDesc", *offender_desc)
-    set(init, "transform", tm)
-    set(init, "activator__weaponEid", mine_eid)
-    set(init, "activator__spawnShellDelay", delay)
+require game.es.mine_common
 
 [es(on_event=EventEntityDestroyed, tag=server, REQUIRE=engeneer_mine)]
 def mine_was_destroyed_es(evt : Event;
                           transform : float3x4;
                           mineActivatorTemplate : string;
                           placeable_item__ownerEid : EntityId;
-                          offenderDesc : Object?;
                           var mine__activated : bool&)
   if mine__activated
-    detonate_mine(INVALID_ENTITY_ID, mineActivatorTemplate, placeable_item__ownerEid, offenderDesc, transform)
+    detonate_mine(INVALID_ENTITY_ID, mineActivatorTemplate, placeable_item__ownerEid, transform)
     mine__activated = false
 
 [es(on_event=EventEntityDestroyed, tag=server)]
@@ -42,10 +33,9 @@ def mine_exploder_by_hp_es(evt : Event;
                            transform : float3x4;
                            mineActivatorTemplate : string;
                            placeable_item__ownerEid : EntityId;
-                           offenderDesc : Object?;
                            var mine__activated : bool&)
   if mine__activated
-    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, offenderDesc, transform)
+    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, transform)
     mine__activated = false
 
 [es(on_appear, before=mine_zone_list_cleaner_es, tag=server, REQUIRE=engeneer_mine, REQUIRE_NOT=menuItemObject)]
@@ -90,22 +80,11 @@ def mine_zone_list_cleaner_es(info : UpdateStageInfoAct;
       mine_activation_zone__initEids |> erase(idx)
     idx--
 
-[es(on_appear, tag=server)]
-def mine_init_offender_desc(evt : Event; placeable_item__ownerEid : EntityId; var offenderDesc : Object&)
-  query(placeable_item__ownerEid) <| $ [es] (possessedByPlr : EntityId = INVALID_ENTITY_ID;
-                                             squad_member__squad : EntityId = INVALID_ENTITY_ID;
-                                             team : int = TEAM_UNASSIGNED)
-    offenderDesc |> set("player", possessedByPlr)
-    offenderDesc |> set("squad", squad_member__squad)
-    offenderDesc |> set("squadOwner", get_Eid(squad_member__squad, "squad__ownerPlayer") ?? INVALID_ENTITY_ID)
-    offenderDesc |> set("team", team)
-
 [es(before=mine_was_destroyed_es, tag=server)]
 def mine_zone_checker(info : UpdateStageInfoAct;
                       eid : EntityId;
                       transform : float3x4;
                       placeable_item__ownerEid : EntityId;
-                      offenderDesc : Object?;
                       activationRadius : float;
                       mineActivatorTemplate : string;
                       checkTriggerInterval : float;
@@ -145,5 +124,5 @@ def mine_zone_checker(info : UpdateStageInfoAct;
                      (length_sq(transform[3] - minePosition) < mineTriggerRadiusSq))
     return objectFound
   if objectFound && mine__blockedToTime < 0.f
-    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, offenderDesc, transform, mine_activation__delay)
+    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, transform, mine_activation__delay)
     mine__activated = false

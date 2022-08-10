@@ -25,11 +25,18 @@ def replay_create_cameras(evt : Event; replay_cameras : StringList)
 
 [es(tag=playingReplay, after=(replay_speed_change_es, change_replay_speed_es))]
 def replay_set_current_time_es(evt : UpdateStageInfoAct;
+                               replay__firstHumanSpawnTime : float;
+                               replay__startAt : float;
                                var replay__curTime : float&;
                                var replay__speed : float&)
-  replay__curTime = evt.curTime
+  replay__curTime = evt.curTime - replay__firstHumanSpawnTime - replay__startAt
   replay__speed = get_timespeed()
 
 [es(tag=playingReplay, on_appear)]
-def replay_read_meta_es(evt : Event; var replay__playTime : float&)
+def replay_read_meta_es(evt : Event;
+                        var replay__playTime : float&;
+                        var replay__startAt : float&;
+                        var replay__firstHumanSpawnTime : float&)
   replay__playTime = get_currently_playing_replay_meta_info() |> json_get_or("total_play_time", 0.)
+  replay__firstHumanSpawnTime = get_currently_playing_replay_meta_info() |> json_get_or("first_human_spawn_time", 0.)
+  replay__startAt = get_currently_playing_replay_meta_info() |> json_get_or("replay__startAt", 0.)

@@ -2,7 +2,7 @@ require ecs
 require app
 require game.utils.team
 require game.utils.hero
-require game.events_game
+require game.es.render.render_events
 require dm
 require DagorSystem
 require DagorMath

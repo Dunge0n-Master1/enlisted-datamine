@@ -32,12 +32,18 @@ def squad_es(info : ecs::UpdateStageInfoAct;
 
   if squad__orderType == int(SquadOrder ESO_FOLLOW_ME)
     query(squad__leader) <| $ [es] (transform : float3x4)
-      squad__regroupPos = transform[3]
+      var pos = transform[3]
+      let projExtents = float3(1.5, FLT_MAX, 1.5)
+      project_to_nearest_navmesh_point_no_obstacles(pos, projExtents)
+      squad__regroupPos = pos
   elif squad__orderType == int(SquadOrder ESO_DEFEND_POINT)
     squad__regroupPos = squad__orderPosition
     query(squad__orderUseEntity) <| $ [es] (capzone__hasNearestNavmeshPos : bool; capzone__nearestNavmeshPos : float3)
       if capzone__hasNearestNavmeshPos
         squad__regroupPos = capzone__nearestNavmeshPos
+  elif squad__orderType == int(SquadOrder ESO_USE_VEHICLE)
+    query(squad__orderUseEntity) <| $ [es] (transform : float3x4)
+      squad__regroupPos = transform[3]
 
 
 def set_custom_spread_order_point(squad_eid : EntityId; apply_condition : bool; spread = float2(); force_spread : bool = false)
@@ -55,7 +61,7 @@ def set_custom_spread_order_point(squad_eid : EntityId; apply_condition : bool; 
     ecs::query(squad__ownerPlayer) <| $ [es] (squadFormationSpread : int)
       formationSpread = squadFormationSpread
     if squad__orderType == int(SquadOrder ESO_FOLLOW_ME) && apply_condition
-      let minDistance = get_squad_formation_spread(squad__orderType, formationSpread,
+      let minDistance = get_squad_formation_spread(formationSpread,
                                                    squad__spreadAroundOrderPoint,
                                                    squad__formationSpreadClosest,
                                                    squad__formationSpreadStandard,
@@ -65,7 +71,7 @@ def set_custom_spread_order_point(squad_eid : EntityId; apply_condition : bool; 
         spreadDistance.y = max(spreadDistance.y, minDistance.y)
       squad__spreadAroundOrderPoint = float3(spreadDistance.x, spreadDistance.y, minDistance.z)
     else
-      squad__spreadAroundOrderPoint = get_squad_formation_spread(squad__orderType, formationSpread,
+      squad__spreadAroundOrderPoint = get_squad_formation_spread(formationSpread,
                                                    squad__initialSpreadAroundOrderPoint,
                                                    squad__formationSpreadClosest,
                                                    squad__formationSpreadStandard,

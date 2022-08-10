@@ -5,7 +5,7 @@ from "minimap" import MinimapState
 let {Point2,Point3} = require("dagor.math")
 let { sqrt } = require("%sqstd/math.nut")
 let mmContext = require("%ui/hud/huds/minimap/minimap_ctx.nut")
-let {mmChildrenCtorsGeneration, getMmChildrenCtors} = require("%ui/hud/huds/minimap/minimap_state.nut")
+let {mmChildrenCtors} = require("%ui/hud/minimap_ctors.nut")
 let {removeInteractiveElement, addInteractiveElement, hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
 let {closeMenu} = require("%ui/hud/ct_hud_menus.nut")
 let mouseButtons = require("%enlSqGlob/mouse_buttons.nut")
@@ -289,12 +289,12 @@ let baseMap = @() {
 }
 
 let framedMap = @() framedMapBg.__merge({
-  watch = [mmChildrenCtorsGeneration, mapSize]
+  watch = [mapSize]
   size = mapSize.value
   children = [
     baseMap
   ]
-    .extend(getMmChildrenCtors().map(@(c) mkMapLayer(c, markersParams)))
+    .extend(mmChildrenCtors.map(@(c) mkMapLayer(c, markersParams)))
     .append(interactiveFrame)
 })
 

@@ -3,33 +3,31 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { logerr } = require("dagor.debug")
 let JB = require("%ui/control/gui_buttons.nut")
-
 let armyData = require("%ui/hud/state/armyData.nut")
 let soldiersData = require("%ui/hud/state/soldiersData.nut")
-
 let { localPlayerSquadMembers } = require("%ui/hud/state/squad_members.nut")
-let respawnState = require("%ui/hud/state/respawnState.nut")
+let { respRequested, needSpawnMenu } = require("%ui/hud/state/respawnState.nut")
 let respawnSelection = require("%ui/hud/state/respawnSelection.nut")
-
-let {squadBlock, headerBlock, panel, respawnTimer, forceSpawnButton} = require("%ui/hud/respawn_parts.nut")
-let {localPlayerEid} = require("%ui/hud/state/local_player.nut")
+let { squadBlock, headerBlock, panel, respawnTimer, forceSpawnButton
+} = require("%ui/hud/respawn_parts.nut")
+let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { mkKeyboardHint } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-
-let forceRespawn = @() respawnState.respRequested(true)
-
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
-let {
-  mkAiActionIcon, mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock,
-  mkMemberFlaskBlock
-} = require("%ui/hud/components/squad_member.nut")
-let {sendNetEvent, RequestNextRespawnEntity} = require("dasevents")
+let { mkAiActionIcon, mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock,
+  mkMemberFlaskBlock } = require("%ui/hud/components/squad_member.nut")
+let { sendNetEvent, RequestNextRespawnEntity } = require("dasevents")
 
-let sIconSize = hdpx(15).tointeger()
+let forceRespawn = @() respRequested(true)
 
-let requestRespawnToEntity = @(eid) sendNetEvent(localPlayerEid.value, RequestNextRespawnEntity({memberEid=eid}))
+let sIconSize = hdpxi(15)
+
+let requestRespawnToEntity = @(eid)
+  sendNetEvent(localPlayerEid.value, RequestNextRespawnEntity({memberEid=eid}))
 
 let spawnSquadLocId = Computed(function() {
+  if (!needSpawnMenu.value)
+    return null
   let guid = localPlayerSquadMembers.value?[0].guid
   let squadsList = armyData.value?.squads
   if (guid == null || (squadsList?.len() ?? 0) == 0)
@@ -169,7 +167,7 @@ let memberRespawn = @() panel(
     hotkeys = [
       ["^Right | J:D.Right", @() changeRespawn(-1)],
       ["^Left | J:D.Left",  @() changeRespawn(1)],
-      ["^Enter| {0}".subst(JB.A),  function() {forceRespawn()}]
+      ["^Enter| {0}".subst(JB.A), @() forceRespawn()]
     ].extend(array(10).map(@(_, n)
       [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]
     ))

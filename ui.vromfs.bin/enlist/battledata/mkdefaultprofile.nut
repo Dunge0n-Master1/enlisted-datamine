@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("json")
-let io = require("io")
-
+let { to_string } = require("json")
+let { file } = require("io")
+let { file_exists } = require("dagor.fs")
 let { gen_default_profile, gen_tutorial_profiles } = require("%enlist/meta/clientApi.nut")
-let {logerr} = require("dagor.debug")
+let { logerr } = require("dagor.debug")
 
 let function prepareProfileData(profile) {
   foreach (armyData in profile) {
@@ -24,19 +24,22 @@ let function prepareProfileData(profile) {
   return isSuccess
 }
 
-let function saveProfileImpl(profile, to_file, folder_name = "") {
-  let file = io.file($"../prog/enlisted/{folder_name}/game/data/{to_file}", "wt+")
-  file.writestring("return ");
-  file.writestring(json.to_string(profile, true))
-  file.close()
-  console_print($"Saved to {to_file}")
+let function saveProfileImpl(profile, fileName, folderName = "sq_globals") {
+  local filePath = $"../prog/{folderName}/data/{fileName}"
+  if (!file_exists(filePath))
+    filePath = fileName
+  let output = file(filePath, "wt+")
+  output.writestring("return ");
+  output.writestring(to_string(profile, true))
+  output.close()
+  console_print($"Saved to {filePath}")
 }
 
-let function saveOneProfile(profile, to_file, folder_name = "") {
+let function saveOneProfile(profile, fileName, folderName = "sq_globals") {
   if (profile == null)
     return
   if (prepareProfileData(profile))
-    saveProfileImpl(profile, to_file, folder_name)
+    saveProfileImpl(profile, fileName, folderName)
 }
 
 let function saveProfilePack(profiles, to_file) {
@@ -55,7 +58,7 @@ foreach (campaign in defCampaigns)
 
 console_register_command(@()
   gen_default_profile("dev", defProfileArmies,
-    @(res) saveOneProfile(res?.defaultProfile, "dev_profile.nut", "enlisted_pkg_dev")),
+    @(res) saveOneProfile(res?.defaultProfile, "dev_profile.nut", "enlisted_pkg_dev/game")),
   "meta.genDevProfile")
 
 console_register_command(@()

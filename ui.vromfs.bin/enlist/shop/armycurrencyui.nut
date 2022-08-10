@@ -53,7 +53,7 @@ let function getSortedCards(armyCurrency) {
   let sortedCards = []
   ticketGroups.map(function(groupContent, groupName) {
     let showInCurrentSection = groupContent?.showInSection.contains(curSection.value) ?? true
-    if(showInCurrentSection){
+    if (showInCurrentSection){
       let cardsTable = {
         groupOrder = groupContent.order
         cards = {}
@@ -65,10 +65,10 @@ let function getSortedCards(armyCurrency) {
         if (value.group == groupContent) {
           armyCurrency.each(function(val, k) {
             if (key == k)
-              cardsTable.cards.rawset(k, val)
+              cardsTable.cards[k] <- val
           })
           if (key not in cardsTable.cards && !(value?.hideIfZero ?? false))
-            cardsTable.cards.rawset(key, 0)
+            cardsTable.cards[key] <- 0
         }
       })
       if (cardsTable.cards.findindex(@(v) v > 0) != null || cardsTable.showIfZero)

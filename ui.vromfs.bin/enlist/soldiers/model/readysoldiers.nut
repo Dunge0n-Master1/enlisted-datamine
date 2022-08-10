@@ -15,7 +15,7 @@ let invalidEquipSoldiers = mkWatched(persist, "invalidEquipSoldiers")
 
 let function updateInvalidSoldiers() {
   let equipped = {}
-  foreach(item in curCampItems.value) {
+  foreach (item in curCampItems.value) {
     let sd = getLinkedSlotData(item)
     if (sd == null)
       continue
@@ -34,7 +34,7 @@ let function updateInvalidSoldiers() {
         return false //mostly happen on login when configs not received yet
 
       let slotsData = {}
-      foreach(slotType, slot in equipScheme) {
+      foreach (slotType, slot in equipScheme) {
         let { atLeastOne = "" } = slot
         if (atLeastOne == "" || slotsData?[atLeastOne] == true)
           continue
@@ -59,7 +59,7 @@ let getSoldiersBattleReady = kwarg(
     let vehicleSize = vehicle?.crew ?? squadSize
     local totalReady = 0
     let usedClasses = {}
-    foreach(soldier in soldiers) {
+    foreach (soldier in soldiers) {
       local state = READY
       let sKind = soldier?.sKind ?? classesCfg?[soldier.sClass].kind
       if (soldier.guid in invalidSoldiers)

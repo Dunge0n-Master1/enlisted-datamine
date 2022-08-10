@@ -21,3 +21,9 @@ def load_imgui_daeditor(base_path : string) : bool
 
   ok = ok // workaround for "variable ... can be made const" in case if both DagorImgui & DagorImgui are absent
   return ok
+
+
+[export]
+def test()
+  let ok = load_imgui_daeditor("%danetlibs/imgui_daeditor")
+  assert(ok)

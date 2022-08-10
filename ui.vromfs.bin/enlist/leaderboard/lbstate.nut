@@ -32,14 +32,14 @@ let lbPlayersCount = Computed(function() {
 })
 
 let curLbPlacement = Computed(function(){
-  if(curLbData.value == null)
+  if (curLbData.value == null)
     return -1
   return (curLbData.value.findindex(@(val) (val?.self)) ?? -1)
 })
 
 let curSeasons = Computed(function() {
   let res = {}
-  foreach(mode in lbStatsModes.value)
+  foreach (mode in lbStatsModes.value)
     res[mode] <- userstatStats.value?.stats[lbCurrentTable.value?.mode]["$index"] ?? 0
   return res
 })
@@ -69,7 +69,7 @@ let requestDataInternal = keepref(Computed(function() {
     table = reqMode
     platformFilter = separateLeaderboardPlatformName.value
   }
-  if(hasLbHistory.value)
+  if (hasLbHistory.value)
     newData.__update({ history = 1 })
 
   return newData
@@ -113,14 +113,14 @@ let updateLbMode = function(_) {
   })
 }
 
-foreach(v in [selLbMode, lbCategoriesByGroup])
+foreach (v in [selLbMode, lbCategoriesByGroup])
   v.subscribe(updateLbMode)
 
 updateLbMode(selLbMode.value)
 
 let ratingBattlesCountByMode = Computed(function() {
   let res = {}
-  foreach(mode in eventGameModes.value) {
+  foreach (mode in eventGameModes.value) {
     let modeId = mode?.queue.extraParams.leaderboardTables[0]
     if (modeId != null)
       res[modeId] <- userstatStats.value?.stats[modeId]["ratingSessions"] ?? 0
@@ -130,7 +130,7 @@ let ratingBattlesCountByMode = Computed(function() {
 
 let bestBattlesByMode = Computed(function() {
   let res = {}
-  foreach(mode in eventGameModes.value) {
+  foreach (mode in eventGameModes.value) {
     let modeId = mode?.queue.extraParams.leaderboardTables[0]
     if (modeId == null)
       continue

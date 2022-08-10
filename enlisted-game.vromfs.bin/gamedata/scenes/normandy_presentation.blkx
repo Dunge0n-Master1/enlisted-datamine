@@ -18,7 +18,7 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 
   "level__timeVec:array"{
@@ -113,7 +113,6 @@ entity{
   team__score:r=5000.0
   team__botTemplate:t="ger_npc_summer_soldier_1"
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="invasion/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
@@ -2311,7 +2310,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{

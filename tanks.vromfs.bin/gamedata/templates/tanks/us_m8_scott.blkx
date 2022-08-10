@@ -107,7 +107,7 @@ us_m8_scott_driver_cockpit{
 }
 
 us_m8_scott_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70f.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m56.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="ba_11_gunner_char"
   cockpit__offset:p3=-0.35, -0.01, 0.22

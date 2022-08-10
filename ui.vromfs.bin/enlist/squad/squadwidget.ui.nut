@@ -17,6 +17,7 @@ let {
   SHOW_USER_LIVE_PROFILE, INVITE_TO_PSN_FRIENDS
 } = require("%enlist/contacts/contactActions.nut")
 let { roomIsLobby } = require("%enlist/state/roomState.nut")
+let { showCurNotReadySquadsMsg } = require("%enlist/soldiers/model/notReadySquadsState.nut")
 
 
 let contextMenuActions = [INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, REMOVE_FROM_SQUAD, PROMOTE_TO_LEADER, REVOKE_INVITE, SHOW_USER_LIVE_PROFILE]
@@ -65,7 +66,7 @@ let function squadMembersUi() {
     else
       squadList.append(horizontalContact(member.contact, hasStatusBlock))
 
-  foreach(uid, _ in isInvitedToSquad.value)
+  foreach (uid, _ in isInvitedToSquad.value)
     squadList.append(horizontalContact(Contact(uid.tostring()), hasStatusBlock))
 
   if (maxMembers.value > 1 && canInviteToSquad.value)
@@ -82,7 +83,12 @@ let function squadMembersUi() {
 
 let squadReadyButton = @(ready) textButton(
   ready.value ? loc("Set not ready") : loc("Press when ready"),
-  @() ready(!ready.value),
+  function() {
+    if (ready.value)
+      ready(false)
+    else
+      showCurNotReadySquadsMsg(@() ready(true))
+  },
   { size = [SIZE_TO_CONTENT, flex()]
     margin = [0, 0, 0, hdpx(5)]
     textParams = { validateStaticText = false, vplace = ALIGN_CENTER }.__update(sub_txt)

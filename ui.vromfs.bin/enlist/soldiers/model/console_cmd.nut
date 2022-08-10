@@ -13,6 +13,7 @@ let { soldierReset, soldierResetAll, isSoldierDisarmed, setSoldierDisarmed, setS
   switchSoldierIdle, setSoldierHead, switchSoldierHead, setSoldierFace, switchSoldierFace,
   isSoldierSlotsSwap, setSoldierSlotsSwap
 } = require("%enlist/scene/soldier_overrides.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let curSoldier = Computed(@() selectedSoldierGuid.value ?? curSoldierGuid.value)
 
@@ -46,6 +47,8 @@ console_register_command(function(steps) {
 
 console_register_command(@() appearance_change(curSoldier.value), "meta.changeSoldierAppearance")
 
+console_register_command(@()
+  console_print($"{userInfo.value.nameorig}:{userInfo.value.userId}"), "whoami")
 console_register_command(@() resetProfile(), "meta.resetProfile")
 console_register_command(@() dumpProfile(), "meta.dumpProfile")
 console_register_command(@() reset_mutations_timestamp(), "meta.resetMutationsTimestamp")

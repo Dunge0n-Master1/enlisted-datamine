@@ -1,0 +1,439 @@
+sbd_3{
+  _extends:t="sbd_3_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/sbd_3"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.31, 1.191, 0.0
+      cockpitTemplate:t="sbd_3_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+      }
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.0, 0.0, -1.50996e-07] [0.0, 1.0, 0.0] [1.50996e-07, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isGunner"
+      receiveDamageFromDMPart:t="gunner1_dm"
+      directTurretControl:b=yes
+      roomSpace:i=1
+
+      "turretNames:array"{
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bomb2"
+    node:t="bomb3"
+    node:t="bomb1"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+
+    "vars:object"{
+      paramMinPitchAngle:t="turret1_min_pitch_angle"
+      wishPitchParamName:t="gun1_aim:targetPitch"
+      paramYawSpeedMul:t="turret1_yaw_mul"
+      paramYawSpeed:t="turret1_yaw_speed"
+      paramMaxYawAngle:t="turret1_max_yaw_angle"
+      aimActiveParamName:t="gun1_aim_active"
+      paramPitchSpeedMul:t="gun1_pitch_mul"
+      paramYawAccel:t="turret1_yaw_accel"
+      paramPitchAccel:t="gun1_pitch_accel"
+      paramPitchSpeed:t="gun1_pitch_speed"
+      wishYawParamName:t="gun1_aim:targetYaw"
+      paramMaxPitchAngle:t="turret1_max_pitch_angle"
+      curPitchParamName:t="gun1_pitch"
+      curYawParamName:t="turret1_yaw"
+      paramMinYawAngle:t="turret1_min_yaw_angle"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret1_yaw"
+      curPitchParamName:t="gun1_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_sbd_3_100lb_anm_30_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_sbd_3_100lb_anm_30_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_sbd_3_1000lb_anm_65a_1_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_sbd_3_12_7mm_browning50_early_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_sbd_3_12_7mm_browning50_early_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      turretGroup:t="turrets_gunner0"
+      trigger:t="machine_guns"
+      gun:t="planegun_sbd_3_7_62mm_browning30_turret_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      turretGroup:t="turrets_gunner0"
+      trigger:t="machine_guns"
+      gun:t="planegun_sbd_3_7_62mm_browning30_turret_02"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="dgp_1_l"
+    part:t="dgp_1_r"
+    part:t="pylon_dgp_1"
+    part:t="pylon_dgp_2"
+    part:t="flare13"
+    part:t="flare14"
+    part:t="flare15"
+    part:t="flare16"
+  }
+}
+
+base_sbd_3_100lb_anm_30_launcher{
+  item__name:t="guns/us_100lb_anm30"
+  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/100lb_anm_30_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="us_100lb_anm30"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/100lb_anm_30.blk"
+        name:t="100lb_anm_30"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+base_sbd_3_12_7mm_browning50_early{
+  item__name:t="guns/gunbrowning50_early"
+  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/12_7mm_browning50_early.blk"
+  gun__shotFreq:r=12.5
+  gun__locName:t="gunbrowning50_early"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=180
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=180
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m1_tracer_bullet.blk"
+        name:t="tracer"
+        type:t="t_ball_M1"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m2_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball_M2"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m1_incendiary_bullet.blk"
+        name:t="incendiary"
+        type:t="i_ball_M1"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m2_ap_bullet.blk"
+        name:t="ap"
+        type:t="ap_ball_M2"
+      }
+    }
+  }
+}
+
+base_sbd_3_7_62mm_browning30_turret{
+  item__name:t="guns/gunbrowning30_turret"
+  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/7_62mm_browning30_turret.blk"
+  gun__shotFreq:r=16.6667
+  gun__locName:t="gunbrowning30_turret"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1000
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1000
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_tracer_bullet.blk"
+        name:t="tracer"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_ap_bullet.blk"
+        name:t="ap"
+        type:t="ap_ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m1_incendiary_bullet.blk"
+        name:t="incendiary"
+        type:t="i_ball"
+      }
+    }
+  }
+}
+
+base_sbd_3_1000lb_anm_65a_1_launcher{
+  item__name:t="guns/us_1000lb_anm65a1"
+  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/1000lb_anm_65a_1_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="us_1000lb_anm65a1"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/1000lb_anm_65a_1.blk"
+        name:t="1000lb_anm_65a_1"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+planegun_sbd_3_100lb_anm_30_launcher_01{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_sbd_3_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb2"
+  slot_attach__slotName:t="bomb2"
+  gun__maxAmmo:i=1
+}
+
+planegun_sbd_3_100lb_anm_30_launcher_02{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_sbd_3_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb3"
+  slot_attach__slotName:t="bomb3"
+  gun__maxAmmo:i=1
+}
+
+planegun_sbd_3_1000lb_anm_65a_1_launcher_01{
+  _extends:t="1000lb_anm_65a_1_launcher"
+  _extends:t="base_sbd_3_1000lb_anm_65a_1_launcher"
+  _extends:t="gunsound_1000lb_anm_65a_1_launcher_aircraft"
+  gun__shootNodeName:t="bomb1"
+  slot_attach__slotName:t="bomb1"
+  gun__maxAmmo:i=1
+}
+
+planegun_sbd_3_12_7mm_browning50_early_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_sbd_3_12_7mm_browning50_early"
+  _extends:t="gunsound_12_7mm_browning50_early_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=180
+}
+
+planegun_sbd_3_12_7mm_browning50_early_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_sbd_3_12_7mm_browning50_early"
+  _extends:t="gunsound_12_7mm_browning50_early_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=180
+}
+
+planegun_sbd_3_7_62mm_browning30_turret_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_sbd_3_7_62mm_browning30_turret"
+  _extends:t="gunsound_7_62mm_browning30_turret_aircraft"
+  gun__shootNodeName:t="flare3"
+  gun__maxAmmo:i=1000
+  turret__aimNodeName:t="turret1"
+  turret__limit:p4=-120.0, 120.0, -5.0, 60.0
+  turret__yawSpeed:r=100.0
+  turret__pitchSpeed:r=100.0
+}
+
+planegun_sbd_3_7_62mm_browning30_turret_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_sbd_3_7_62mm_browning30_turret"
+  _extends:t="gunsound_7_62mm_browning30_turret_aircraft"
+  gun__shootNodeName:t="flare4"
+  gun__maxAmmo:i=1000
+  turret__aimNodeName:t="turret1"
+  turret__limit:p4=-120.0, 120.0, -5.0, 60.0
+  turret__yawSpeed:r=100.0
+  turret__pitchSpeed:r=100.0
+}
+
+sbd_3_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="sbd_3_cockpit_char"
+  plane_anim__blk:t="content/enlisted/gamedata/units/sbd_3.blk"
+  plane_sight__blk:t="content/enlisted/gamedata/units/sbd_3.blk"
+}

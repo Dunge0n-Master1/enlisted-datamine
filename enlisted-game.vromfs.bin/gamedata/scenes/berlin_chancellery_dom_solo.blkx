@@ -64,15 +64,7 @@ entity{
 }
 
 entity{
-  _template:t="snow"
-  snow__alpha_fade_speed_end:r=10.0
-  snow__alpha_fade_speed_begin:r=2.0
-  snow__speed:r=0.001
-  snow__width:r=0.0225
-  snow__wind:r=12.0
-  snow__alpha:r=6.75
-  snow__density:r=0.005
-  snow__length:r=0.0
+  _template:t="camera_dust_template"
 }
 
 entity{
@@ -86,7 +78,6 @@ entity{
   ground_effect__grid_cell_size:r=8.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -102,7 +93,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -118,7 +108,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -130,7 +119,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -143,7 +131,6 @@ entity{
   effect_area__effectName:t="background_flash_8s_fx"
   effect_area__isPaused:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-941.109, 3.255, -280.225]]
-  box_zone__scale:p3=600.0, 400.0, 600.0
 }
 
 entity{
@@ -413,7 +400,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_chancellery_dom"
 
   "loading_images:list<t>"{
@@ -473,7 +459,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [456.133, 6.28828, -623.59]]
   sphere_zone__radius:r=6.8
   capzone__title:t="A"
@@ -483,7 +469,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[27.1486, 0.0, 5.24555] [0.0, 3.40527, 0.0] [-2.48601, 0.0, 13.7339] [377.522, 7.7857, -624.062]]
   capzone__title:t="B"
   capzone__caption:t="capzone/hitlers_office"
@@ -491,7 +477,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[-3.3627, 0.0, 24.546] [0.0, 2.77912, 0.0] [-17.1862, 0.0, -2.78485] [293.873, 7.48954, -644.649]]
   capzone__title:t="C"
   capzone__caption:t="capzone/chancellery_hall"
@@ -499,7 +485,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 0.996838, 0.079455] [0.0, -0.079455, 0.996838] [416.696, 4.09128, -522.146]]
   capzone__title:t="D"
   capzone__caption:t="capzone/artillery_emplacement"
@@ -509,7 +495,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.740083, -0.0690634, 0.66896] [-0.00601634, 0.993993, 0.109276] [-0.672489, -0.0848978, 0.735222] [322.709, 4.4288, -541.011]]
   capzone__title:t="E"
   capzone__caption:t="capzone/fortification"
@@ -695,8 +681,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11146.8, 0.0, 1940.19] [0.0, 8000.03, 0.0] [-1940.71, 0.0, 11146.6] [362.935, 240.916, -586.859]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 
@@ -717,8 +701,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -774,8 +756,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }

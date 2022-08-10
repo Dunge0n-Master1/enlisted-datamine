@@ -1,5 +1,5 @@
 options no_global_variables = false
-options persistent_heap = true
+options persistent_heap
 module ecs_inspectors_common shared
 
 require ecs
@@ -17,10 +17,10 @@ class ContextInspectorFn
       ctx = addr(context)
     fn <- f
 
-  [unused_argument(id)] def call(eid : EntityId; name : string; ref : EntityComponentRef#; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
+  [unused_argument(id)] def call(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
     unsafe
       lock_debug_agent() <| $()
-        ctx |> invoke_in_context(fn, eid, name, ref, level, changed, sub_menu)
+        ctx |> invoke_in_context(fn, eid, flags, name, ref, level, changed, sub_menu)
 
 class ContextEditorFn
   ctx : Context?
@@ -50,7 +50,7 @@ struct EditorDesc
 
 
 typedef
-  InspectorFn = function<(eid : EntityId; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
+  InspectorFn = function<(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
   EditorFn = function<(eid : EntityId) : void>
 
 
@@ -127,36 +127,36 @@ def has_inspector(type_name : string implicit) : bool
 
 
 [apply_in_context(ecs_inspectors)]
-def call_inspector(type_name : string implicit; eid : EntityId; field_name : string implicit; ref : EntityComponentRef#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
+def call_inspector(type_name : string implicit; eid : EntityId; flags : uint; field_name : string implicit; ref : EntityComponentRef#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
   var res = false
   inspectors |> find_for_edit_if_exists(type_name) <| $(list)
     res = true
     if length(*list) == 1
-      (*list)[0].fn->call(eid, field_name, ref, level, changed, sub_menu)
+      (*list)[0].fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
       return
 
     // field_name and tag
     for it in *list
       if it.field_name == field_name && !empty(it.tag) && has(eid, it.tag)
-        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
     // tag
     for it in *list
       if !empty(it.tag) && has(eid, it.tag)
-        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
     // field_name
     for it in *list
       if it.field_name == field_name
-        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
     // default renderer
     for it in *list
       if empty(it.field_name) && empty(it.tag)
-        it.fn->call(eid, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
     // no valid renderers

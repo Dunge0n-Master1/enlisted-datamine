@@ -12,7 +12,7 @@ let function mkAmmo(item, soldierGuid, weapData, slotType){
 
   return function (){
     local increase = 0
-    if(isWeapToIncreaseAmmo){
+    if (isWeapToIncreaseAmmo){
       let slotsItems = campItemsByLink.value?[soldierGuid]
       let itemsToIncreaseAmmo = slotsItems
         ?.reduce(@(res,slot) res.extend(slot), [])

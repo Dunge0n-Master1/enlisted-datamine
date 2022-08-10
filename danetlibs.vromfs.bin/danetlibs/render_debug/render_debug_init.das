@@ -12,3 +12,9 @@ def load_render_debug(base_path : string) : bool
     ok = load_sub_folder(base_path, "render") && ok
 
   return ok
+
+
+[export]
+def test()
+  let ok = load_render_debug("%danetlibs/render_debug")
+  assert(ok)

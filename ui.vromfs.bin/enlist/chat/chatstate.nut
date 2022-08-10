@@ -37,7 +37,7 @@ let chat_handlers = {
 }
 
 let function subscribeHandlers() {
-  foreach(k, v in chat_handlers) {
+  foreach (k, v in chat_handlers) {
     matching_api.listen_notify(k)
     eventbus.subscribe(k, v)
   }

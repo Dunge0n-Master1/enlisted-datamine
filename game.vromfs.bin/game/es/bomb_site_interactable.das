@@ -8,9 +8,10 @@ require DagorMath
 require CollRes
 require Dacoll
 require RendInst
+require enlisted.events_enlisted
 
 [es(tag=gameClient, REQUIRE=hero, REQUIRE_NOT=deadEntity, after=hero_human_pre_use_object_es, before=hero_human_final_use_object_sync)]
-def on_looking_at_bomb_site_ri(act : UpdateStageInfoAct;
+def on_looking_at_bomb_site_ri(act : ParallelUpdateFrameDelayed;
                                eid : EntityId;
                                team : int;
                                human_use_object__useDist : float;
@@ -56,6 +57,8 @@ def on_looking_at_bomb_site_ri(act : UpdateStageInfoAct;
       var t = human_use_object__useDist
       var norm : float3
       var matId : int
+      if transform[3].y > useParams.pos.y
+        return false
       if collres_traceray(*riCollres, transform, useParams.pos, useParams.dir, t, norm, matId)
         var checkDist = max(0.f, t - human_use_bomb_site__traceSafeOffset)
         if !traceray_normalized(useParams.pos, useParams.dir, checkDist, norm)

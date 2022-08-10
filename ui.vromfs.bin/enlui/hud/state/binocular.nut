@@ -1,16 +1,28 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let hasHeroBinocular = Watched(false)
+let { anyItemComps, mkItemDescFromComp } = require("items.nut")
+
 let isBinocularMode = Watched(false)
+let binocularInfo = Watched()
+let heroBinocularEid = Watched(INVALID_ENTITY_ID)
+let hasHeroBinocular = Computed(@() heroBinocularEid.value!=INVALID_ENTITY_ID)
+
+let memoizedBinocularDescription = memoize(@(_name, eid, comp) mkItemDescFromComp(eid, comp), 1)
 
 ecs.register_es("binocular_hero_state", {
-  [["onInit", "onChange"]] = @(_, comp) hasHeroBinocular(comp["human_binocular__eid"] != INVALID_ENTITY_ID)
-  onDestroy = @(...) hasHeroBinocular(false)
+  onInit = function(_, eid, comp) {
+    heroBinocularEid(eid)
+    binocularInfo(memoizedBinocularDescription(comp["item__name"], 1, comp))
+  }
+  onDestroy = function(...) {
+    heroBinocularEid(INVALID_ENTITY_ID)
+    binocularInfo(null)
+  }
 },
 {
-  comps_track=[["human_binocular__eid", ecs.TYPE_EID]],
-  comps_rq=["hero"]
+  comps_rq = ["binocular", "watchedPlayerItem"]
+  comps_ro = anyItemComps.comps_ro
 })
 
 ecs.register_es("binocular_mode_hero_state", {
@@ -19,7 +31,7 @@ ecs.register_es("binocular_mode_hero_state", {
 },
 {
   comps_track=[["human_binocular__mode", ecs.TYPE_BOOL]],
-  comps_rq=["hero"]
+  comps_rq=[["watchedByPlr", ecs.TYPE_EID]]
 })
 
-return { hasHeroBinocular, isBinocularMode }
+return { hasHeroBinocular, isBinocularMode, heroBinocularEid, binocularInfo }

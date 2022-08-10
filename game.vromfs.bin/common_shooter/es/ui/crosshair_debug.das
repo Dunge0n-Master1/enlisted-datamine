@@ -3,7 +3,7 @@ require ecs
 require ecs.ecs_template
 require app
 require game.utils.team
-require game.events_game
+require game.es.render.render_events
 require game.utils.hero
 require DagorSystem
 require DagorMath

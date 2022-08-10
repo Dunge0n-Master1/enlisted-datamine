@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let iconSize = hdpx(18).tointeger()
+let iconSize = hdpxi(18)
 let mkSvg = @(img) $"!ui/uiskin/{img}.svg:{iconSize}:{iconSize}:K"
 
 let mkBuildingIcon = @(eid, marker, options = null) {

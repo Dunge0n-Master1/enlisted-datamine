@@ -120,8 +120,8 @@ def create_fire_impl(pos : float3; fire_template : string; offender : EntityId; 
 
   return createEntity(fire_template) <| $(var init : ComponentsInitializer)
     set(init, "transform", posTm)
-    set(init, "dmgzone__burningOffender", offender)
-    set(init, "fire_source__gunPropsId", gun_props_id)
+    set(init, "dmgzone__offender", offender)
+    set(init, "dmgzone__gunPropsId", gun_props_id)
 
 def is_too_close_to_created_fire(pos : float3; cast_result : FireCastResult; min_distance_between_sq)
   return cast_result.isFireCreated && distance_sq(cast_result.pos, pos) < min_distance_between_sq

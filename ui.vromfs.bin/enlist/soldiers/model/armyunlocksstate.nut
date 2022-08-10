@@ -275,8 +275,8 @@ let allArmyUnlocks = Computed(function() {
 
   let curArmyLvl = curArmyData.value?.level ?? 0
   if (curArmyLvl > 1){
-    foreach(level, guidsList in curArmyShowcase.value)
-      foreach(guid in guidsList)
+    foreach (level, guidsList in curArmyShowcase.value)
+      foreach (guid in guidsList)
         if (guid in shopItems.value)
           allUnlocks.append(shopItems.value[guid].__merge({
             level, unlockType = uType.SHOP, uid = guid }))

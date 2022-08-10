@@ -110,7 +110,7 @@ def restore_ammo_impl(eid : EntityId;
         query(itemEid) <| $ [es] (item__id aka entity_item__id : int)
           itemId = entity_item__id
         initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
-      for i in range(initialNum, numResvAmmo)
+      for _i in range(initialNum, numResvAmmo)
         let itemEid = createEntitySync(*resvAmmoTemplate |> string()) <| $(var init : ComponentsInitializer)
           set(init, "item__ownerEid", eid)
           set(init, "item__lastOwner", eid)
@@ -191,7 +191,7 @@ def attach_item_to_gun_impl(eid : EntityId;
     if gunModSlots == null
       return
 
-    if ! * gunModSlots |> has(slot_name)
+    if !*gunModSlots |> has(slot_name)
       return
 
     // Unload ammo from weapon mod, if any.
@@ -284,7 +284,7 @@ def server_init_gun(eid : EntityId;
         query(gunEidInSlot) <| $ [es] (var gun_mods__slots : Object)
           for slot in gun_mods__slots
             let slotName = slot.key
-            if ! * gunModsInSlot |> has(slotName)
+            if !*gunModsInSlot |> has(slotName)
               *gunModsInSlot |> set(slotName, "")
 
         if length(*gunModsInSlot) > 0
@@ -485,6 +485,12 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
                             isInVehicle : bool;
                             humap_weap__useGrenadeInVehicle : bool = false;
                             human_weap__lockedGrenadeThrowingCounter : int = 0;
+                            human_weap__jumpDeviation : float = 0.;
+                            human_weap__changePosDeviationCanAim : float = 0.;
+                            human_weap__changePosDeviationCanNotAim : float = 0.;
+                            human_phys__afterJumpDelay : float = 0.;
+                            human_phys__jumpEndTime : float;
+                            human_phys__isInAirLong : bool;
                             entity_mods__shotDeviationMult : float = 1.0;
                             entity_mods__rotationShotSpreadDecrMult : float = 1.0;
                             entity_mods__aimingAfterFireMult : float = 1.0;
@@ -526,7 +532,9 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
     human_weap_gun_update(human_net_phys, human_weap__gunEids, human_weap__throwMode,
                           updCtx,  transform, gunDir, gunDir, physTransform,
                           human_net_phys.phys.appliedCT, human_use_object__selectedObject,
-                          human_unarmed__active, human_attached_gun__attachedGunEid)
+                          human_unarmed__active, human_attached_gun__attachedGunEid,
+                          human_weap__jumpDeviation, human_weap__changePosDeviationCanAim, human_weap__changePosDeviationCanNotAim,
+                          human_phys__jumpEndTime, human_phys__afterJumpDelay, human_phys__isInAirLong)
 
 
 def determine_current_slot(cur_time : float;
@@ -737,8 +745,9 @@ def human_weap_drop_grenade_es(evt : Event;
           using(dir, dir, human_net_phys__velocity, tm, tm) <| $(var gloc : GunLocation#)
             using() <| $(var gtrlNew : GunControls#)
               gtrlNew.shoot = true
-              gtrlNew.boltActionMult = 1.0
               gtrlNew.wishShoot = false
+              gtrlNew.boltActionMult = 1.0
+              gtrlNew.timeStep = 0.01
               sendEventImmediate(
                 human_weap__gunEids[int(HUWeaponSlots EWS_GRENADE)],
                 [[CmdGunUpdate

@@ -58,6 +58,11 @@ aircraft_crew_components{
     _tags:t="ui,render"
     value:r=0.0
   }
+
+  "g_force__forestallThreshold:r"{
+    _tags:t="ui,render"
+    value:r=0.3
+  }
 }
 
 plane_input{
@@ -785,6 +790,14 @@ plane_base{
   effectsCulling__cockpitRadius:r=2.0
   grid_obj__gridType:t="vehicles"
   grid_obj__fixedTmScale:r=-1.0
+  vehicle_kill_assist__stat:t="planeKillAssists"
+  vehicle_kill_assist__crewStat:t="planeKillAssistsAsCrew"
+  vehicle_kill_assist__engineerStat:t="builtGunPlaneKillAssists"
+  vehicle_kill_assist__time:r=20.0
+  vehicle_kill__award:t="planeKill"
+  vehicle_kill__stat:t="planeKills"
+  vehicle_kill__crewStat:t="crewPlaneKillAssists"
+  vehicle_kill__engineerStat:t="builtGunPlaneKills"
   pair_collision__tag:t="collidableToPlane"
 
   grid_obj{
@@ -1043,7 +1056,6 @@ _componentFilters{
 
 common_machinegun{
   gun__sightsDistance:r=0.05
-  gun__shotFreqRndK:r=0.1
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.12
   gun_deviation__omegaRange:p2=30.0, 90.0

@@ -20,7 +20,7 @@ def private trace_cache_invalidation_impl(pos : float3; radius : float)
       vehicle_net_phys.phys.traceHandle |> invalidate_trace_cache()
 
 [es(REQUIRE=terraform)]
-def trace_cache_invalidation_es(evt : CmdTerraform)
+def trace_cache_invalidation_es(evt : CmdDig)
   trace_cache_invalidation_impl(evt.pos, 2. * evt.radius)
 
 [es(REQUIRE=terraform)]

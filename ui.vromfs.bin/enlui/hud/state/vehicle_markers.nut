@@ -1,23 +1,28 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {EventOnSeatOwnersChanged} = require("vehicle")
-let {EventEntityDied} = require("dasevents")
+let {EventEntityDied,EventOnSeatOwnersChanged} = require("dasevents")
 let {localPlayerTeam, localPlayerGroupId} = require("%ui/hud/state/local_player.nut")
 let {watchedHeroSquadEid} = require("%ui/hud/state/squad_members.nut")
 let {INVALID_GROUP_ID} = require("matching.errors")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
 
-let vehicle_markers = Watched({})
-let tank_markers = Watched({})
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid) {
-  if (eid in vehicle_markers.value)
-    vehicle_markers.mutate(@(v) delete v[eid])
-  if (eid in tank_markers.value)
-    tank_markers.mutate(@(v) delete v[eid])
-}
+let {
+  vehicle_markers_Set,
+  vehicle_markers_GetWatched,
+  vehicle_markers_UpdateEid,
+  vehicle_markers_DestroyEid
+} = mkWatchedSetAndStorage("vehicle_markers_")
+
+let {
+  tank_markers_Set,
+  tank_markers_GetWatched,
+  tank_markers_UpdateEid,
+  tank_markers_DestroyEid
+} = mkWatchedSetAndStorage("tank_markers_")
 
 let isSquadmate = @(owner) owner.squad != INVALID_ENTITY_ID && owner.squad == watchedHeroSquadEid.value
 let isGroupmate = @(owner) owner.groupId != INVALID_GROUP_ID && owner.groupId == localPlayerGroupId.value
@@ -50,7 +55,8 @@ let getSitterInfo = @(seatEid) seatOwnerQuery.perform(seatEid, function(_,comp) 
 
 let function trackComps(eid, comp) {
   if (!comp.isAlive || comp.team != localPlayerTeam.value) {
-    deleteEid(eid)
+    vehicle_markers_DestroyEid(eid)
+    tank_markers_DestroyEid(eid)
     return
   }
   let aliveSitters = (comp["vehicle_seats__seatEids"]?.getAll() ?? []).map(getSitterInfo).
@@ -67,9 +73,9 @@ let function trackComps(eid, comp) {
     hasGroupmates = groupmates.len() > 0
     repairRequired = comp.repairable__repairRequired
   }
-  vehicle_markers.mutate(@(v) v[eid] <- marker)
+  vehicle_markers_UpdateEid(eid, marker)
   if (comp.isTank)
-    tank_markers.mutate(@(t) t[eid] <- marker)
+    tank_markers_UpdateEid(eid, marker)
 }
 
 let vehicle_comps = {
@@ -93,7 +99,10 @@ ecs.register_es(
   "vehicle_markers_es",
   {
     [["onInit", "onChange", EventOnSeatOwnersChanged]] = trackComps
-    onDestroy = @(_evt, eid, _comp) deleteEid(eid)
+    onDestroy = function(_evt, eid, _comp) {
+      vehicle_markers_DestroyEid(eid)
+      tank_markers_DestroyEid(eid)
+    }
   },
   vehicle_comps,
   {tags="gameClient"}
@@ -114,6 +123,8 @@ ecs.register_es(
 )
 
 return{
-  friendly_tank_markers = tank_markers
-  friendly_vehicle_markers = vehicle_markers
+  vehicle_markers_Set,
+  vehicle_markers_GetWatched,
+  tank_markers_Set,
+  tank_markers_GetWatched
 }

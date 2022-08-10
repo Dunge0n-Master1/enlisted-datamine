@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let {BtnBgNormal} = require("%ui/style/colors.nut")
 

@@ -3,12 +3,11 @@ require ecs
 require RendInst
 require DagorMath
 require rapidjson
+require danetlibs.native_dasevents.main.native_events public
+require danetlibs.route_prober.main.net_events public
 
 
-[cpp_event(broadcast)]
-struct EventEntityManagerBeforeClear {}
-
-[cpp_event(unicast, with_scheme, routing=ROUTING_SERVER_TO_CLIENT)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDied
   victim : EntityId
   offender : EntityId
@@ -19,7 +18,7 @@ struct EventEntityDied
   victimTeam : int
   offenderTeam : int
 
-[cpp_event(broadcast, with_scheme, routing=ROUTING_SERVER_TO_CLIENT)]
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventAnyEntityDied
   victim : EntityId
   offender : EntityId
@@ -33,29 +32,22 @@ struct EventAnyEntityDied
   offenderTeam : int
 
 [cpp_event(broadcast)]
+struct EventEntityManagerBeforeClear {}
+
+[cpp_event(broadcast)]
 struct RenderEventBeforeUI
   viewTm : TMatrix
   viewItm : TMatrix
   globtm : mat44f
 
-[cpp_event(broadcast)]
-struct RenderEventUI
-  viewTm : TMatrix
-  viewItm : TMatrix
-  globtm : mat44f
-  wk : float
-  hk : float
-
-[cpp_event(broadcast)]
-struct RenderEventAfterUI
-  viewTm : TMatrix
-  viewItm : TMatrix
-  globtm : mat44f
-  wk : float
-  hk : float
-
 [event(unicast)]
 struct EventLutSwitcherAliveState {}
+
+[event(unicast)]
+struct CmdSetMarkMain {}
+
+[event(unicast)]
+struct CmdSetMarkEnemy {}
 
 [event(broadcast)]
 struct CmdClearAllAttachedUserPoint
@@ -67,15 +59,6 @@ struct CmdCollisionDamage
   damage : float
   pos : float3
   offender : ecs::EntityId
-
-[cpp_event(unicast, with_scheme)]
-struct EventMeleeAttackHit
-  pos : float3
-  power : float
-
-[cpp_event(unicast, with_scheme)]
-struct CmdUpdateHitpoints
-  time : float
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityResurrected {}
@@ -111,9 +94,6 @@ struct EventAnimIrq
 struct GameEffectStateChanged // note: can be resended on recreate
   attachedTo : EntityId
   activated : bool
-
-[cpp_event(unicast, with_scheme)]
-struct CmdAddDefaultEntitiesInNetScopeForPlayer {}
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EnableSpectatorForTarget
@@ -165,9 +145,6 @@ struct CmdDestroyRendinst
   user_data : int
   isDynamic : bool
 
-[cpp_event(unicast, with_scheme)]
-struct PlayerRequestRespawnInWorld {}
-
 [event(unicast)]
 struct EventPlayerOnLootUse
   entityToUse : EntityId
@@ -176,16 +153,6 @@ struct EventPlayerOnLootUse
 struct EventTeamRoundResult
   team : int
   isWon : bool
-
-[event(broadcast)]
-struct EventTeamLost
-  team : int
-
-[cpp_event(broadcast, with_scheme)]
-struct PlayerStartQuitGameTimer {}
-
-[cpp_event(unicast, with_scheme)]
-struct PlayerResetQuitGameTimer {}
 
 [event(unicast)]
 struct CmdSwitchCamera {}
@@ -202,13 +169,6 @@ struct CmdSwitchCameraByIndex
 [event(unicast)]
 struct CmdTryToSwitchCameraInVehicle {}
 
-[cpp_event(unicast, with_scheme, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
-struct RequestCamSwitch
-  isTpsView : bool
-
-[event(unicast, with_scheme, routing=ROUTING_SERVER_TO_CLIENT)]
-struct SetLocalPlayerMsg {}
-
 [event(broadcast)]
 struct EventTeamMemberJoined
   eid : ecs::EntityId
@@ -222,10 +182,6 @@ struct EventTeamMemberLeave
 [event(unicast)]
 struct CmdWeapSwitchSight
   toNext : bool
-
-[cpp_event(unicast, with_scheme)]
-struct EventOnSelectWeap
-  curr_gun_slot_id : int
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct PossessHero // Possess/unposses entity
@@ -251,14 +207,6 @@ struct CmdVehiclePushPhys
   arm : float3
   duration : float
 
-[cpp_event(unicast, with_scheme)]
-struct GainVehicleVelocity
-  vehicleEid : EntityId
-
-[cpp_event(unicast, with_scheme)]
-struct PossessTargetByPlayer
-  target : EntityId
-
 [event(unicast)]
 struct EventPlayerPossessedEntityDied
   victimEid : EntityId
@@ -270,6 +218,18 @@ struct EventPlayerPossessedEntityDied
 [event(unicast)]
 struct ChangeReplayTarget
   newReplayTarget : EntityId
+
+[event(broadcast)]
+struct ReplaySetTpsCamera {}
+
+[event(broadcast)]
+struct ReplaySetFreeTpsCamera {}
+
+[event(broadcast)]
+struct ReplaySetFpsCamera {}
+
+[event(unicast)]
+struct ReplaySetCamera {}
 
 [event(unicast)]
 struct CmdSpawnEntity
@@ -303,38 +263,9 @@ struct EventOnNetworkDestroyed
 struct DynamicQualityChangeEvent
   name : string
 
-[cpp_event(broadcast, with_scheme)]
-struct ChangeServerRoute
-  currentIsUnresponsive : bool
-
 [cpp_event(broadcast)]
 struct EventOnWriteReplayMetaInfo
   replayMeta : JsonDocument
-
-[event(broadcast)]
-struct MatchingRoomExtraParams
-  routeEvaluationChance : float
-
-// this is like UpdateStageInfoAct, but is also sent in level loading as well
-[cpp_event(broadcast, with_scheme)]
-struct UpdateStageGameLogic
-  dt : float
-  curTime : float
-
-[cpp_event(unicast, with_scheme)]
-struct EventMeleeTargetHit
-  target : EntityId
-  impulse : float3
-
-[cpp_event(broadcast, with_scheme)]
-struct EventGameSessionFinished
-  disconnected : bool
-
-[cpp_event(broadcast, with_scheme)]
-struct EventGameSessionStarted {}
-
-[cpp_event(broadcast, with_scheme)]
-struct EventSessionFinished {}
 
 [event(unicast)]
 struct CmdGetUserstats {}
@@ -359,7 +290,10 @@ struct EventZoneUnlock {}
 struct EventOnUsefulBoxSuccessfulUse
   requester : EntityId
 
-[cpp_event(unicast, with_scheme)]
-struct EventUseItem
-  item : EntityId
-  target : EntityId
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct RunActionCmd
+  id : int
+  overridePropsId : int
+  overrideTime : float
+  overrideAt : float
+  actionPeriod : float

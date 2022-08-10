@@ -17,19 +17,36 @@ require player
 require app
 require EnlistedNet
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require EnlistedBehTree
 
-
-def order_ammo(squad_eid, squad__leader : ecs::EntityId; squad__numAliveMembers : int) : bool
+def order_ammo(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int) : bool
   var ordered = false
   let nearestTeammate = get_nearest_squad_mate_for_order(squad_eid, squad__leader, SquadMateOrder ESMO_BRING_AMMO)
   if nearestTeammate.executeOrder
     return true
-  query(nearestTeammate.eid) <| $ [es] (var squad_member__orderType : int&;
+  query(nearestTeammate.eid) <| $ [es] (beh_tree__isInTrainBeh : bool;
+                                        beh_tree__data__orderReq : string;
+                                        beh_tree__data__ammoReq : string;
+                                        var squad_member__orderType : int&;
                                         var squad_member__orderPosition : float3&;
-                                        var squad_member__orderUseEntity : ecs::EntityId&;
+                                        var squad_member__orderUseEntity : EntityId&;
                                         var squad_member__isPersonalOrder : bool&;
-                                        var beh_tree : BehaviourTree&)
+                                        var beh_tree : BehaviourTree&;
+                                        var beh_tree__refs__behaviour : das_string&;
+                                        var beh_tree__refs__orderType : das_string&;
+                                        var beh_tree__latencyLoadBlackBoard : Object?)
+    if beh_tree__isInTrainBeh
+      return
+
+    beh_tree__refs__behaviour := beh_tree__data__orderReq
+    beh_tree__refs__orderType := beh_tree__data__ammoReq
+
+    EnlistedBehTree::load_beh_tree_from_ecs(nearestTeammate.eid)
+
+    if beh_tree__latencyLoadBlackBoard != null
+      *beh_tree__latencyLoadBlackBoard |> set("ammoRequester", int(uint(squad__leader)))
     beh_tree.blackBoard |> datablock_setInt("ammoRequester", int(uint(squad__leader)))
+
     squad_member__orderType = int(SquadMateOrder ESMO_BRING_AMMO)
     squad_member__orderPosition = float3()
     squad_member__orderUseEntity = INVALID_ENTITY_ID
@@ -49,7 +66,7 @@ def order_ammo(squad_eid, squad__leader : ecs::EntityId; squad__numAliveMembers 
   return ordered
 
 [es(tag=server)]
-def on_squad_mate_bring_ammo_order(evt : RequestSquadMateOrder; eid : ecs::EntityId; squad__leader : ecs::EntityId;
+def on_squad_mate_bring_ammo_order(evt : RequestSquadMateOrder; eid : EntityId; squad__leader : EntityId;
                                    squad__isLeaderNeedsAmmo : bool; squad__numAliveMembers : int)
   if evt.orderType == SquadMateOrder ESMO_BRING_AMMO && squad__isLeaderNeedsAmmo
     let requestAmmoAllowTime = get_float(squad__leader, "requestAmmoAllowTime") ?? 0f
@@ -62,27 +79,32 @@ def on_squad_mate_bring_ammo_order(evt : RequestSquadMateOrder; eid : ecs::Entit
       order_ammo(eid, squad__leader, squad__numAliveMembers)
 
 [es(on_event=EventEntityDied, tag=server)]
-def on_squad_mate_bring_ammo_died_es(evt : Event; eid : EntityId; squad_member__squad : ecs::EntityId; squad_member__orderType : int;
+def on_squad_mate_bring_ammo_died_es(evt : Event; eid : EntityId; squad_member__squad : EntityId; squad_member__orderType : int;
                                      squad__isLeaderNeedsAmmo : bool; squad__numAliveMembers : int)
   if squad_member__orderType == int(SquadMateOrder ESMO_BRING_AMMO) && squad__isLeaderNeedsAmmo
     send_order_cancel_bq(eid, "died", "{SquadMateOrder ESMO_BRING_AMMO}")
-    ecs::query(squad_member__squad) <| $ [es] (squad__leader : ecs::EntityId)
+    query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
       order_ammo(squad_member__squad, squad__leader, squad__numAliveMembers)
 
 [es(tag=server, no_order)]
-def on_squad_mate_bring_ammo_es(act : ecs::UpdateStageInfoAct; squad_member__squad : ecs::EntityId;
-                                var beh_tree : BehaviourTree&; var squad_member__orderType : int&;
-                                var squad_member__orderPosition : float3&; var squad_member__orderUseEntity : ecs::EntityId&;
+def on_squad_mate_bring_ammo_es(act : UpdateStageInfoAct;
+                                eid : EntityId;
+                                squad_member__squad : EntityId;
+                                var beh_tree : BehaviourTree&;
+                                var squad_member__orderType : int&;
+                                var squad_member__orderPosition : float3&;
+                                var squad_member__orderUseEntity : EntityId&;
                                 var squad_member__isPersonalOrder : bool&)
   if squad_member__orderType != int(SquadMateOrder ESMO_BRING_AMMO)
     return
-  ecs::query(squad_member__squad) <| $ [es] (squad__leader : ecs::EntityId)
+  query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
     if beh_tree.blackBoard |> datablock_getInt("ammoRequester", 0) != int(uint(squad__leader))
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+      reset_squad_mate_behaviour(eid)
       beh_tree.blackBoard |> datablock_setInt("ammoRequester", 0)
 
 [es(tag=server)]
-def squad_mate_order_bring_ammo_es(evt : RequestSquadMateOrder; squad__leader : ecs::EntityId)
+def squad_mate_order_bring_ammo_es(evt : RequestSquadMateOrder; squad__leader : EntityId)
   if evt.orderType == SquadMateOrder ESMO_BRING_AMMO
     sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBringAmmoOrder", importance=1.]])
 

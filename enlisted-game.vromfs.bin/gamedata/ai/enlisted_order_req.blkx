@@ -1,0 +1,1087 @@
+repeat{
+  name:t="sub.orderReq"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.chooseMaxStance"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.deactivateWeapMod"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.swimUp"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.selfExtinguish"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.selfHealing"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.dmgZoneEscape"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.rethrowGrenade"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.grenadeEscape"
+  }
+
+  orderedSelector{
+
+    orderedSelector{
+
+      subTree{
+        name:t=""
+        treeName:t="sub.enemyMelee"
+      }
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        subTree{
+          treeName:t="sub.oneShootAttack"
+        }
+      }
+    }
+
+    subTree{
+      name:t=""
+      refId:t="orderType"
+    }
+  }
+}
+
+repeat{
+  name:t="sub.vehicleBeh"
+
+  checkVehicleSeats{
+  }
+
+  orderedSelector{
+
+    isInVehicle{
+    }
+
+    resetIsInVehicleTrigger{
+    }
+  }
+}
+
+orderedSelector{
+  name:t="sub.defuseBombReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    moveToPos{
+      posParam:t="bombSitePos"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=0.5
+      tryClimbing:b=yes
+      distThreshold:r=1.0
+      avoidAiObstacles:b=no
+    }
+
+    defuseBombNode{
+      bombSiteEidParam:t="bombSiteEid"
+    }
+
+    setIntVar{
+      to:t="bombSiteEid"
+      value:i=0
+    }
+
+    resetUseBombTrigger{
+    }
+  }
+
+  sequencer{
+
+    setIntVar{
+      to:t="bombSiteEid"
+      value:i=0
+    }
+
+    resetUseBombTrigger{
+    }
+  }
+}
+
+orderedSelector{
+  name:t="sub.plantBombReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    moveToPos{
+      posParam:t="bombSitePos"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=0.5
+      tryClimbing:b=yes
+      distThreshold:r=1.0
+      avoidAiObstacles:b=no
+    }
+
+    plantBombNode{
+      bombSiteEidParam:t="bombSiteEid"
+    }
+
+    setIntVar{
+      to:t="bombSiteEid"
+      value:i=0
+    }
+
+    resetUseBombTrigger{
+    }
+  }
+
+  sequencer{
+
+    setIntVar{
+      to:t="bombSiteEid"
+      value:i=0
+    }
+
+    resetUseBombTrigger{
+    }
+  }
+}
+
+orderedSelector{
+  name:t="sub.ammoReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    setCurrentAiAction{
+      state:t="move"
+    }
+
+    moveToTarget{
+      targetUnitParam:t="ammoRequester"
+      stopDistRange:p2=1.5, 1.5
+      aimToTarget:b=yes
+      maxStanceParam:t="maxStance"
+      jumpOver:b=no
+    }
+
+    giveAmmo{
+      targetUnitParam:t="ammoRequester"
+    }
+
+    setIntVar{
+      to:t="ammoRequester"
+      value:i=0
+    }
+  }
+
+  setIntVar{
+    to:t="ammoRequester"
+    value:i=0
+  }
+}
+
+orderedSelector{
+  name:t="sub.healReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    setCurrentAiAction{
+      state:t="move"
+    }
+
+    moveToTarget{
+      targetUnitParam:t="healRequester"
+      stopDistRange:p2=1.5, 1.5
+      aimToTarget:b=yes
+      maxStanceParam:t="maxStance"
+      jumpOver:b=no
+    }
+
+    wait{
+      range:p2=0.2, 0.4
+      resetable:b=yes
+    }
+
+    parallel{
+
+      reaction{
+        event:t="regularCheck"
+
+        repeat{
+          count:i=1
+
+          subTree{
+            name:t=""
+            treeName:t="sub.chooseMaxStance"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.deactivateWeapMod"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkDowned"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkBurning"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.swimUpCheck"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.tryToOpenDoors"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerZone"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerGrenade"
+          }
+
+          sequencer{
+
+            setPosFromEntity{
+              to:t="healRequesterPos"
+              from:t="healRequester"
+            }
+
+            not{
+
+              checkDistance{
+                posParam:t="healRequesterPos"
+                radius:r=2.0
+                yRadius:r=1.0
+              }
+            }
+
+            recalculateTree{
+            }
+          }
+        }
+      }
+
+      lookAtTarget{
+        targetUnitParam:t="healRequester"
+      }
+
+      healTarget{
+        targetUnitParam:t="healRequester"
+      }
+    }
+
+    setIntVar{
+      to:t="healRequester"
+      value:i=0
+    }
+  }
+
+  setIntVar{
+    to:t="healRequester"
+    value:i=0
+  }
+}
+
+orderedSelector{
+  name:t="sub.artilleryReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    setCurrentAiAction{
+      state:t="attack"
+    }
+
+    prepareArtillery{
+      targetUnitParam:t="artilleryRequester"
+      shouldSendParamName:t="artilleryShouldSend"
+      typeIndexParamName:t="artilleryTypeIndex"
+      posEndParamName:t="artilleryPosEnd"
+    }
+
+    setIntVar{
+      to:t="artilleryRequester"
+      value:i=0
+    }
+  }
+
+  setIntVar{
+    to:t="artilleryRequester"
+    value:i=0
+  }
+}
+
+orderedSelector{
+  name:t="sub.buildReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    checkTarget{
+      targetUnitParam:t="buildTarget"
+      ignoreDead:b=no
+    }
+
+    orderedSelector{
+
+      isVarsIntEqual{
+        lhs:t="buildPositionFounded"
+        rhs_value:i=1
+      }
+
+      findPointNearTarget{
+        posParam:t="buildPosition"
+        dist:p2=2.0, 2.5
+        targetParam:t="buildTarget"
+        traceTarget:b=no
+        reusePrevPos:b=no
+      }
+    }
+
+    setIntVar{
+      to:t="buildPositionFounded"
+      value:i=1
+    }
+
+    setIntVar{
+      to:t="buildTarget"
+      value:i=0
+    }
+
+    setCurrentAiAction{
+      state:t="move"
+    }
+
+    moveToPos{
+      posParam:t="buildPosition"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=4.0
+      distThreshold:r=0.5
+      avoidAiObstacles:b=no
+      incObstacles:b=no
+    }
+
+    findWeaponSlotWithTag{
+      tag:t="buildingTool"
+      toParam:t="buildToolSlot"
+    }
+
+    changeWeapon{
+      param:t="buildToolSlot"
+    }
+
+    parallel{
+
+      reaction{
+        event:t="regularCheck"
+
+        repeat{
+          count:i=1
+
+          subTree{
+            name:t=""
+            treeName:t="sub.chooseMaxStance"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.deactivateWeapMod"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkDowned"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkBurning"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.swimUpCheck"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.tryToOpenDoors"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerZone"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerGrenade"
+          }
+
+          sequencer{
+
+            not{
+
+              checkDistance{
+                posParam:t="buildPosition"
+                radius:r=1.5
+                yRadius:r=1.0
+              }
+            }
+
+            recalculateTree{
+            }
+          }
+        }
+      }
+
+      lookAtTarget{
+        targetUnitParam:t="buildTarget"
+        rotateBody:b=yes
+        allowDead:b=yes
+      }
+
+      interactWithBuildingTarget{
+        targetUnitParam:t="buildTarget"
+      }
+    }
+  }
+
+  setIntVar{
+    to:t="buildTarget"
+    value:i=0
+  }
+}
+
+orderedSelector{
+  name:t="sub.attackReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    chooseBestWeapon{
+      targetParam:t="attackTarget"
+    }
+
+    setCurrentAiAction{
+      state:t="attack"
+    }
+
+    findPointNearTarget{
+      posParam:t="attackPosition"
+      dist:p2=15.0, 18.0
+      targetParam:t="attackTarget"
+      traceTarget:b=yes
+      reusePrevPos:b=no
+    }
+
+    moveToPos{
+      posParam:t="attackPosition"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=1.5
+      targetParam:t="attackTarget"
+      timeToLookAtTarget:r=4.0
+      lookVisc:r=0.1
+      tryClimbing:b=yes
+      maxStanceParam:t="maxStance"
+      avoidAiObstacles:b=no
+    }
+
+    throwGrenade{
+      targetUnitParam:t="attackTarget"
+      minThrowDistance:r=1.0
+    }
+
+    setIntVar{
+      to:t="attackTarget"
+      value:i=0
+    }
+  }
+
+  setIntVar{
+    to:t="attackTarget"
+    value:i=0
+  }
+}
+
+orderedSelector{
+  name:t="sub.useVehicleReq"
+
+  sequencer{
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.chooseMaxStance"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.deactivateWeapMod"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.tryToOpenDoors"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenade"
+        }
+      }
+    }
+
+    setCurrentAiAction{
+      state:t="move"
+    }
+
+    setPosFromEntity{
+      to:t="wishPos"
+      from:t="vehicleEid"
+    }
+
+    moveToPos{
+      posParam:t="wishPos"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=0.5
+      tryClimbing:b=yes
+      distThreshold:r=2.5
+      avoidAiObstacles:b=no
+    }
+
+    orderedSelector{
+
+      useVehicle{
+        targetUnitParam:t="vehicleEid"
+      }
+
+      resetShoulUseVehicleTrigger{
+      }
+    }
+  }
+}

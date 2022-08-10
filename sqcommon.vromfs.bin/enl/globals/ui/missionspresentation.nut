@@ -149,6 +149,18 @@ let missions = {
     army = MissionArmy.ALLIES
   }
 
+  volokolamsk_grove_conf = {
+    image = "ui/volokolamsk_grove_02.jpg"
+    locId = "lobbies/volokolamsk_grove_conf_axis"
+    type = MissionType.CONFRONTATION
+  }
+
+  volokolamsk_grove_conf_ussr = {
+    image = "ui/volokolamsk_grove_02.jpg"
+    locId = "lobbies/volokolamsk_grove_conf_allies"
+    type = MissionType.CONFRONTATION
+  }
+
   volokolamsk_lake_dom = {
     image = "ui/volokolamsk_lake_03.jpg"
     locId = "lobbies/volokolamsk_lake_dom"
@@ -305,7 +317,7 @@ let missions = {
 
   volokolamsk_voskhod_conf_ussr = {
     image = "ui/volokolamsk_voskhod_inv_02.jpg"
-    locId = "lobbies/volokolamsk_voskhod_conf_ussr"
+    locId = "lobbies/volokolamsk_voskhod_conf_allies"
     type = MissionType.CONFRONTATION
   }
 
@@ -384,6 +396,18 @@ let missions = {
     locId = "lobbies/normandy_coast_ruins_inv"
   }
 
+  normandy_coast_ruins_inv_counter = {
+    image = "ui/normandy_coast_ruins_01.jpg"
+    locId = "lobbies/normandy_coast_ruins_inv_counter_allies"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_coast_ruins_inv_counter_axis = {
+    image = "ui/normandy_coast_ruins_01.jpg"
+    locId = "lobbies/normandy_coast_ruins_inv_counter_axis"
+    army = MissionArmy.AXIS
+  }
+
   normandy_coast_ruins_dom = {
     image = "ui/normandy_coast_ruins_03.jpg"
     locId = "lobbies/normandy_coast_ruins_dom"
@@ -438,6 +462,18 @@ let missions = {
     locId = "lobbies/normandy_omer_bomb_axis"
     type = MissionType.DESTRUCTION
     army = MissionArmy.AXIS
+  }
+
+  normandy_omer_conf = {
+    image = "ui/normandy_urban_omer_03.jpg"
+    locId = "lobbies/normandy_omer_conf_allies"
+    type = MissionType.CONFRONTATION
+  }
+
+  normandy_omer_conf_axis = {
+    image = "ui/normandy_urban_omer_03.jpg"
+    locId = "lobbies/normandy_omer_conf_axis"
+    type = MissionType.CONFRONTATION
   }
 
   normandy_station_inv = {
@@ -524,6 +560,18 @@ let missions = {
   berlin_ministry_inv_counter = {
     image = "ui/berlin_opera_inv_03.jpg"
     locId = "lobbies/berlin_ministry_inv_counter"
+  }
+
+  berlin_ministry_conf = {
+    image = "ui/berlin_opera_inv_02.jpg"
+    locId = "lobbies/berlin_ministry_conf_allies"
+    type = MissionType.CONFRONTATION
+  }
+
+  berlin_ministry_conf_axis = {
+    image = "ui/berlin_opera_inv_02.jpg"
+    locId = "lobbies/berlin_ministry_conf_axis"
+    type = MissionType.CONFRONTATION
   }
 
   berlin_moat_germany_inv = {
@@ -686,6 +734,18 @@ let missions = {
     type = MissionType.CONQUEST
   }
 
+  tunisia_city_conf = {
+    image = "ui/tunisia_city_inv_03.jpg"
+    locId = "lobbies/tunisia_city_conf_allies"
+    type = MissionType.CONFRONTATION
+  }
+
+  tunisia_city_conf_axis = {
+    image = "ui/tunisia_city_inv_03.jpg"
+    locId = "lobbies/tunisia_city_conf_axis"
+    type = MissionType.CONFRONTATION
+  }
+
   tunisia_cave_conf = {
     image = "ui/tunisia_cave_inv_03.jpg"
     locId = "lobbies/tunisia_cave_conf"
@@ -844,6 +904,18 @@ let missions = {
     image = "ui/stalingrad_inv_08.jpg"
     locId = "lobbies/stalingrad_gogol_inv_counter"
     army = MissionArmy.ALLIES
+  }
+
+  stalingrad_gogol_conf = {
+    image = "ui/stalingrad_inv_12.jpg"
+    locId = "lobbies/stalingrad_gogol_conf_axis"
+    type = MissionType.CONFRONTATION
+  }
+
+  stalingrad_gogol_conf_allies = {
+    image = "ui/stalingrad_inv_12.jpg"
+    locId = "lobbies/stalingrad_gogol_conf_allies"
+    type = MissionType.CONFRONTATION
   }
 
   stalingrad_univermag_inv = {

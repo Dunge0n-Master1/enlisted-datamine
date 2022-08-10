@@ -1,5 +1,3 @@
-options multiple_contexts // Required for MT systems (parallel_for)
-
 require ecs
 require ecs.common
 require app
@@ -11,6 +9,7 @@ require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
+require enlisted.events_enlisted
 require dm
 require DaWeapons
 require DaWeaponProps
@@ -142,8 +141,7 @@ def launch_shell_es(evt : CmdLaunchShell;// e.g. grenade
         explTime = launchDesc.atTime
 
       create_shell_entity(entPropsPhysTemplName, launchTm, launchDesc.vel, grenadeOwner, launchDesc.shellId, int(launchDesc.gunPropsId),
-                          launchDesc.atTime, explTime, /*active*/ true, /*offenderDesc*/ null, /*clientSide*/ false,
-                          grenadeRethrower)
+                          launchDesc.atTime, explTime, /*active*/ true, /*clientSide*/ false, grenadeRethrower)
     // Only doing client-side prediction for localy-controlled player
     // A projectile without a phys_obj_net_phys currently can't be lag-compensated on the server, so it's not client-side predicted
     else
@@ -162,8 +160,8 @@ def launch_shell_es(evt : CmdLaunchShell;// e.g. grenade
           if explTime > launchDesc.atTime
             human_weap__localProjectilePhysEid = create_shell_entity(entPropsPhysTemplName, launchTm, launchDesc.vel,
                                                                     grenadeOwner, launchDesc.shellId, int(launchDesc.gunPropsId),
-                                                                    launchDesc.atTime, explTime, /*active*/ true,
-                                                                    /*offenderDesc*/ null, /*clientSide*/ true, grenadeRethrower)
+                                                                    launchDesc.atTime, explTime, /*active*/ true, /*clientSide*/ true,
+                                                                    grenadeRethrower)
           else
             human_weap__localProjectilePhysEid = INVALID_ENTITY_ID
 
@@ -236,7 +234,7 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
       var seed = phys_time_to_seed(launchDesc.atTime)
       let count = _rnd_int(seed, spawnProps.minCount, spawnProps.maxCount)
       let chokeSpread = deg_to_rad(gun__chokeSpread)
-      for i in range(count)
+      for _i in range(count)
         var sin = 0.0
         var cos = 0.0
         sincos(chokeSpread * _gauss_rnd(seed, 0), sin, cos)
@@ -265,7 +263,8 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
             init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
 
 
-def projectile_trace_scene(bullet_mat_id : int;
+def projectile_trace_scene(eid : EntityId;
+                           bullet_mat_id : int;
                            prev_pos : float3;
                            dir : float3;
                            cur_time : float;
@@ -275,7 +274,7 @@ def projectile_trace_scene(bullet_mat_id : int;
                            var norm : float3&;
                            var water_len : float&)
   if bullet_mat_id < 0
-    // logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
+    logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
     return false
   var sceneIntersected = traceray_normalized(prev_pos, dir, len, pmid, norm,
                                              ETF_ALL, ri_desc, bullet_mat_id)
@@ -294,7 +293,8 @@ def projectile_trace_scene(bullet_mat_id : int;
 
 
 [es(after=update_projectile_es, parallel_for=1)]
-def trace_scene_after_update_projectile_es(info : UpdateStageInfoAct;
+def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
+                                           eid : EntityId;
                                            projectile__traceRayMatId : int;
                                            projectile__stopped : bool;
                                            projectile__prevPos : float3;
@@ -320,7 +320,7 @@ def trace_scene_after_update_projectile_es(info : UpdateStageInfoAct;
     projectile_trace_info__prevProjectileDistance = dm_projectile_state.distance - projectile_trace_info__len
 
     using() <| $(var riDesc : RendInstDesc#)
-      projectile_trace_info__sceneIntersected = projectile_trace_scene(projectile__traceRayMatId,
+      projectile_trace_info__sceneIntersected = projectile_trace_scene(eid, projectile__traceRayMatId,
                                                                        prevPos, projectile_trace_info__dir,
                                                                        info.curTime, riDesc,
                                                                        projectile_trace_info__len,
@@ -509,7 +509,7 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
       if allow_detonation
         detonate_shell_server(projectile_eid, launch_desc.shellId, int(launch_desc.gunPropsId), pos, ownerEid,
                               projectile__prevPos, projectile_ballistics.state.vel, INVALID_ENTITY_ID, norm,
-                              /*offender_desc*/ null, /*alternative_offender*/ INVALID_ENTITY_ID)
+                              /*alternative_offender*/ INVALID_ENTITY_ID)
         projectile__exploded = true
       projectile_ballistics.state.pos = prev_pos + dir * water_len
 
@@ -545,8 +545,8 @@ def trace_shootable_objects(from, dir : float3; len : float; ignore_human, ignor
     invoke(cb, intersections)
 
 
-[es(after=trace_scene_after_update_projectile_es)]
-def after_update_projectile_es(info : UpdateStageInfoAct;
+[es(after=trace_scene_after_update_projectile_es, before=before_net_phys_sync)]
+def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from ParallelUpdateFrameDelayed!! Not thread safe now (fx/sound)
                                eid : EntityId;
                                ownerEid : EntityId;
                                gunEid : EntityId;
@@ -578,19 +578,19 @@ def after_update_projectile_es(info : UpdateStageInfoAct;
                                var scene_hit_place__pos : float3&;
                                var scene_hit_place__norm : float3&;
                                var scene_hit_place__matId : int&;
+                               var scene_hit_place__rendinstIdx : int&;
                                var projectile__intersectionCount : int&)
   if projectile__stopped
     return
 
-  var shouldErase = false
   let allowDetonation = (projectile__lifeTime > projectile__minLifeTime)
   let prevPos = projectile__prevPos
   let dir = projectile_trace_info__dir
   let norm = projectile_trace_info__norm
   let pmid = projectile_trace_info__pmid
   let len = projectile_trace_info__len
+  let rendinstIdx = projectile_trace_info__riDescIdx
   var entitiesIntersected = false
-  var prevProjectileDistance = projectile_trace_info__prevProjectileDistance
   let vehicleEid = get_Eid(ownerEid, "human_anim__vehicleSelected") ?? INVALID_ENTITY_ID
   let projectileOwnerTeam = get_int(ownerEid, "team") ?? TEAM_UNASSIGNED
   let turretOwnerEid = get_Eid(gunEid, "turret__owner") ?? INVALID_ENTITY_ID
@@ -608,7 +608,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct;
         let hitRes = projectile_on_hit_entity(eid, isect, projectileOwnerTeam,
                                               projectile_ballistics.state.vel, prevPos,
                                               dir, projectile_trace_info__waterLen,
-                                              info.curTime, prevProjectileDistance,
+                                              info.curTime, projectile_trace_info__prevProjectileDistance,
                                               sortedIntersectedList,
                                               allowDetonation)
         if hitRes == ProjectileHitResult Ignore
@@ -625,11 +625,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct;
   // Actually correct would be iterate over until we got closest hit. However, we will be using simplified version.
   let maxLen = min(projectile_trace_info__waterLen, len)
   let isLocalOwner = ownerEid |> has("hero")
-  var event = [[EventProjectileFlight prevPos=prevPos, normalizedDir=dir, dist=maxLen, isLocalOwner=isLocalOwner]]
-  broadcastEventImmediate(event)
-  if event.dist < maxLen //this code path is relying on const_cast within event handlers
-    prevProjectileDistance = event.dist
-    shouldErase = true
+  broadcastEventImmediate([[EventProjectileFlight prevPos=prevPos, normalizedDir=dir, dist=maxLen, isLocalOwner=isLocalOwner]])
 
   if projectile_trace_info__sceneIntersected && !entitiesIntersected
     using(projectile_trace_info__riDescCellIdx,
@@ -638,7 +634,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct;
           projectile_trace_info__riDescOffs,
           projectile_trace_info__riDescLayer) <| $(var riDesc : RendInstDesc#)
       projectile__intersectionCount += 1
-      let projectileDist = prevProjectileDistance + projectile_trace_info__waterLen + dm_projectile_state.piercingShift
+      let projectileDist = projectile_trace_info__prevProjectileDistance + projectile_trace_info__waterLen + dm_projectile_state.piercingShift
       let shouldStop = on_projectile_hit_scene(eid, riDesc, pmid, norm, prevPos, dir,
                                                projectile_trace_info__len, projectile_trace_info__waterLen,
                                                projectileDist, allowDetonation, projectile__intersectionCount,
@@ -656,11 +652,12 @@ def after_update_projectile_es(info : UpdateStageInfoAct;
     if projectile_trace_info__sceneIntersected && !entitiesIntersected
       scene_hit_place__norm = norm
       scene_hit_place__matId = pmid
+      scene_hit_place__rendinstIdx = rendinstIdx
     else
       scene_hit_place__matId = -1
 
   // Actually, it is better to check lengthSq(ballistics.state.vel) > threshold
-  if shouldErase || projectile__lifeTime > projectile__maxLifeTime || projectile__exploded
+  if projectile__lifeTime > projectile__maxLifeTime || projectile__exploded
     destroyEntity(eid)
 
 
@@ -695,7 +692,7 @@ def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
                             projectile_ballistics.state.pos, ownerEid,
                             projectile__prevPos, projectile_ballistics.state.vel,
                             INVALID_ENTITY_ID, scene_hit_place__norm,
-                            /*offender_desc*/ null, /*alternative_offender*/ INVALID_ENTITY_ID)
+                            /*alternative_offender*/ INVALID_ENTITY_ID)
 
       sendEventImmediate(eid, [[CmdShellExplosionFx]])
       projectile__exploded = true

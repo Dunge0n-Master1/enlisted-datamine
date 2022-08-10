@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
-let {curWeapon, isThrowMode} = require("%ui/hud/state/hero_state.nut")
+let {curWeaponIsGrenade, isThrowMode} = require("%ui/hud/state/hero_weapons.nut")
 let {isDowned} = require("%ui/hud/state/health_state.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")
@@ -24,10 +24,10 @@ let tipFastLongThrow = tipCmp({
 let showTip = Computed(@() showPlayerHuds.value && !inVehicle.value && !isDowned.value)
 let function throw_grenade() {
   return {
-    watch = [showTip, isThrowDistanceIncreased, curWeapon, isThrowMode]
+    watch = [showTip, isThrowDistanceIncreased, curWeaponIsGrenade, isThrowMode]
     children = !showTip.value
       ? null
-      : curWeapon.value?.grenadeType != null
+      : curWeaponIsGrenade.value
         ? isThrowDistanceIncreased.value
           ? tipLongThrow
           : tipNormalThrow

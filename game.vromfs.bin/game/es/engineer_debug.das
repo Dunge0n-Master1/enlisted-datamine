@@ -19,3 +19,8 @@ def engineer_unlock_all_cmd([[net_hero]] hero_eid : EntityId)
 def engineer_resupple_resource_cmd([[net_hero]] hero_eid : EntityId; count : float = 100.0f)
   query(hero_eid) <| $ [es] (var stockOfBuilderCapabilities : float&)
     stockOfBuilderCapabilities += count
+
+[net_console_cmd(name="engineer.fast_build")]
+def engineer_instant_build_cmd([[net_hero]] hero_eid : EntityId)
+  query(hero_eid) <| $ [es] (var entity_mods__timeToBuildMul : float&)
+    entity_mods__timeToBuildMul = 100.0

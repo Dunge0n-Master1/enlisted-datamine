@@ -211,7 +211,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_manor_pve"
 
   "loading_images:list<t>"{
@@ -230,7 +229,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[22.7002, 0.0, 0.124805] [0.0, 3.41681, 0.0] [-0.108387, 0.0, 30.1387] [-612.206, 9.54315, 586.413]]
   active:b=yes
   capzone__capRewardPartCap:r=1.125
@@ -361,7 +360,7 @@ entity{
   pve__stageDelay:r=5.0
   pve__waveDelay:r=60.0
   pve__botTeam:i=2
-  pve__botProfileFile:t="pve_bots_profile_2.json"
+  pve__botProfileFile:t="%enlSqGlob/data/pve_bots_profile_2.json"
 
   "pve__waves:list<t>"{
     item:t="wave_01"
@@ -372,210 +371,46 @@ entity{
 
 entity{
   _template:t="pve_wave"
-  pve__wave__name:t="wave_01"
-
-  "pve__wave__stages:list<t>"{
-    item:t="wave_01_stage_01"
-    item:t="wave_01_stage_02"
-  }
 }
 
 entity{
   _template:t="pve_wave"
-  pve__wave__name:t="wave_02"
-
-  "pve__wave__stages:list<t>"{
-    item:t="wave_02_stage_01"
-    item:t="wave_02_stage_02"
-    item:t="wave_02_stage_03"
-  }
 }
 
 entity{
   _template:t="pve_wave"
-  pve__wave__name:t="wave_03"
-
-  "pve__wave__stages:list<t>"{
-    item:t="wave_03_stage_01"
-    item:t="wave_03_stage_02"
-    item:t="wave_03_stage_03"
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_01_stage_01"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=4
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_01_stage_02"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=5
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_02_stage_01"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=5
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=2
-      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
-      squadId:t="ger_moscow_assault_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_02_stage_02"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=4
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=4
-      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
-      squadId:t="ger_moscow_assault_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_02_stage_03"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=5
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=7
-      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
-      squadId:t="ger_moscow_assault_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_03_stage_01"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=5
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=7
-      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
-      squadId:t="ger_moscow_assault_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_03_stage_02"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=4
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=7
-      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
-      squadId:t="ger_moscow_assault_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=3
-      soldierGuid:t="ger_moscow_soldier_mgun_13268407790701351"
-      squadId:t="ger_moscow_mgun_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{
   _template:t="pve_stage"
-  pve__stage__name:t="wave_03_stage_03"
-
-  "pve__stage__spawner:array"{
-
-    "pve__stage__spawner:object"{
-      count:i=4
-      soldierGuid:t="ger_moscow_soldier_rifle_13268407790700987"
-      squadId:t="ger_moscow_rifle_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=6
-      soldierGuid:t="ger_moscow_soldier_assault_13268407790701118"
-      squadId:t="ger_moscow_assault_1"
-      armyId:t="moscow_axis"
-    }
-
-    "pve__stage__spawner:object"{
-      count:i=6
-      soldierGuid:t="ger_moscow_soldier_mgun_13268407790701351"
-      squadId:t="ger_moscow_mgun_1"
-      armyId:t="moscow_axis"
-    }
-  }
 }
 
 entity{

@@ -102,7 +102,7 @@ let getItemOwnerGuid = @(item) (item?.links ?? {})
   .findvalue(@(guid) guid in curCampSoldiers.value || guid in curCampItems.value)
 
 let function getItemOwnerSoldier(itemGuid) {
-  foreach(guid, _ in curCampItems.value?[itemGuid].links ?? {})
+  foreach (guid, _ in curCampItems.value?[itemGuid].links ?? {})
     if (guid in curCampSoldiers.value)
       return curCampSoldiers.value[guid]
   return null
@@ -255,7 +255,7 @@ let function setCurSquadId(squadId) {
 
 let function getModSlots(item /*full item info recived via objInfoByGuid*/) {
   let res = []
-  foreach(slotType, scheme in item?.equipScheme ?? {})
+  foreach (slotType, scheme in item?.equipScheme ?? {})
     if ((scheme?.listSize ?? 0) <= 0) //do not support modes list as item mods yet.
       res.append({
         slotType = slotType
@@ -288,7 +288,7 @@ let curArmory = Computed(@() armoryByArmy.value?[curArmy.value] ?? [])
 
 let itemCountByArmy = Computed(function() {
   let res = {}
-  foreach(armyId in curArmiesListExt.value) {
+  foreach (armyId in curArmiesListExt.value) {
     let armyCount = {}
     foreach (item in itemsByArmies.value?[armyId] ?? []) {
       let { basetpl } = item
@@ -316,12 +316,12 @@ let armyItemCountByTpl = Computed(function() {
 
 let curCampItemsCount = Computed(function() {
   local res = {}
-  foreach(armyCount in itemCountByArmy.value) {
+  foreach (armyCount in itemCountByArmy.value) {
     if (res.len() == 0) {
       res = clone armyCount
       continue
     }
-    foreach(basetpl, count in armyCount)
+    foreach (basetpl, count in armyCount)
       res[basetpl] <- (res?[basetpl] ?? 0) + count
   }
   return res
@@ -366,8 +366,8 @@ let function dumpProfile() {
 let function getSoldierItemSlots(guid, itemsByLink) {
   //todo: here better same format with campItemsByLink
   let res = []
-  foreach(slotType, itemsList in itemsByLink?[guid] ?? {})
-    foreach(item in itemsList)
+  foreach (slotType, itemsList in itemsByLink?[guid] ?? {})
+    foreach (item in itemsList)
       res.append({ item, slotType, slotId = getItemIndex(item) })
   return res
 }
@@ -440,7 +440,7 @@ let DROP_COMMANDS = {
   addAllGrenades          = ["grenade", "explosion_pack", "molotov", "tnt_block_exploder",
                              "impact_grenade", "smoke_grenade"]
   addAllMines             = ["antipersonnel_mine", "antitank_mine"]
-  addAllRepairKits        = ["reapair_kit"]
+  addAllRepairKits        = ["repair_kit"]
   addAllMelee             = ["melee"]
   addAllBayonet           = ["bayonet"]
   addAllBackpacks         = ["backpack"]

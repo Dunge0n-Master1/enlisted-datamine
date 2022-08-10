@@ -3,7 +3,7 @@ from "ecs" import *
 let { regexp, strip, format } = require("string")
 let dagorMath = require("dagor.math")
 let {tostring_r} = require("%sqstd/string.nut")
-let {logerr} = require("dagor.debug")
+let {command} = require("console")
 
 let rexFloat = regexp(@"(\+|-)?([0-9]+\.?[0-9]*|\.[0-9]+)([eE](\+|-)?[0-9]+)?")
 let rexInt = regexp(@"[\+\-]?[0-9]+")
@@ -228,6 +228,10 @@ let function setValToObj(eid, comp_name, path, val){
   }
 }
 
+let function updateComp(eid, comp_name){
+  command?($"ecs.update_component {eid} {comp_name}")
+}
+
 let exports = {
   isCompReadOnly
   getValFromObj
@@ -235,6 +239,7 @@ let exports = {
   isValueTextValid
   convertTextToVal
   compValToString
+  updateComp
 
   ecsTypeToSquirrelType = {
     //[TYPE_NULL] = null
@@ -253,8 +258,5 @@ let exports = {
     [TYPE_EID] = "integer",
   }
 }
-
-
-
 
 return exports

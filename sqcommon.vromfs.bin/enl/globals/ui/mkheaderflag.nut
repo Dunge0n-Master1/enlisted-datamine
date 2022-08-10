@@ -68,7 +68,7 @@ local function mkHeaderFlag(content, p = FLAG_PARAMS) {
       {
         rendObj = ROBJ_IMAGE
         size = flex()
-        image = Picture($"{p.flagImage}:{hdpx(150).tointeger()}:4:K?Ac")
+        image = Picture($"{p.flagImage}:{hdpxi(150)}:4:K?Ac")
         color = p.flagColor
       }
       content

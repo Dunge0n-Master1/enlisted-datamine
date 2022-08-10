@@ -1006,7 +1006,7 @@ base_hurricane_mk4_40mm_vickers_s_underwing{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/e_tunisia/gamedata/weapons/shells/40mm_vickerss_apt_shot_bullet.blk"
+        blk:t="content/enlisted/gamedata/weapons/shells/40mm_vickerss_apt_shot_bullet.blk"
         name:t="shot"
         type:t="ap_t"
       }
@@ -1921,6 +1921,156 @@ p_51d_5_honey_driver_cockpit{
   }
 }
 
+hurricane_mk2b{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+    part:t="pylon_rocket1"
+    part:t="pylon_rocket2"
+    part:t="pylon_rocket3"
+    part:t="pylon_rocket4"
+    part:t="pylon_rocket5"
+    part:t="pylon_rocket6"
+  }
+
+  "animchar__objTexReplace:object"{
+    "hurricane_mk2b_a*":t="hurricane_mk2b_desert_a*"
+  }
+}
+
+hurricane_mk2b_driver_cockpit{
+  _override:b=yes
+
+  "animchar__objTexReplace:object"{
+    "hurricane_mk2b_a*":t="hurricane_mk2b_desert_a*"
+  }
+}
+
+bf_109f_4_trop{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+  }
+}
+
+bf_109f_4_trop_driver_cockpit{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+  }
+}
+
+hurricane_mk2b_africa_premium{
+  _extends:t="hurricane_mk2b"
+
+  "animchar__objTexReplace:object"{
+    "hurricane_mk2b_a*":t="hurricane_mk2b_africa_a*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.85, 1.072, 0.0
+      cockpitTemplate:t="hurricane_mk2b_africa_premium_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+        turret:t="turret_08"
+        turret:t="turret_09"
+        turret:t="turret_10"
+        turret:t="turret_11"
+        turret:t="turret_12"
+      }
+    }
+  }
+}
+
+hurricane_mk2b_africa_premium_cockpit{
+  _extends:t="hurricane_mk2b_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "hurricane_mk2b_a*":t="hurricane_mk2b_africa_a*"
+  }
+}
+
+hurricane_mk2b_night_twitch_drop_premium{
+  _extends:t="hurricane_mk2b"
+
+  "animchar__objTexReplace:object"{
+    "hurricane_mk2b_a*":t="hurricane_mk2b_night40_a*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.85, 1.072, 0.0
+      cockpitTemplate:t="hurricane_mk2b_night_twitch_drop_premium_cockpit"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+        turret:t="turret_08"
+        turret:t="turret_09"
+        turret:t="turret_10"
+        turret:t="turret_11"
+        turret:t="turret_12"
+      }
+    }
+  }
+}
+
+hurricane_mk2b_night_twitch_drop_premium_cockpit{
+  _extends:t="hurricane_mk2b_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "hurricane_mk2b_a*":t="hurricane_mk2b_night40_a*"
+  }
+}
+
+fw_190a_1{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_bomb1"
+    part:t="pylon_bomb2"
+  }
+}
+
 plane_spawn_in_air{
   startVelDir:p3=1.0, 0.0, 0.0
   startRelativeSpeed:r=0.5
@@ -1973,12 +2123,16 @@ plane_damage_sound{
       path:t="aircraft/effects/wreck"
     }
 
-    "partDestroy:object"{
-      path:t="player/vehicle/tank/impacts/part_fall_off"
+    "partDamage:object"{
+      path:t="aircraft/effects/damage"
     }
 
-    "partFire:object"{
-      path:t="player/vehicle/tank/impacts/part_damage_by_fire"
+    "partDestroy:object"{
+      path:t="aircraft/effects/part_destroy"
+    }
+
+    "partDestroyByFire:object"{
+      path:t="aircraft/effects/part_destroy_by_fire"
     }
   }
 }
@@ -2004,10 +2158,6 @@ plane_sound{
 
   plane_engine_sound{
     _tags:t="sound"
-  }
-
-  "vehicle_net_sound:tag"{
-    _tags:t="server"
   }
 }
 
@@ -2099,6 +2249,7 @@ plane{
   plane_sight__gyroSightSize:r=0.1
   plane_sight__angleMaxCameraTarget:r=60.0
   plane_sight__preciseCollimator:b=yes
+  ai_target__noiseLevel:r=0.0
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -2283,6 +2434,13 @@ ai_500lb_anm_64a_1_launcher{
   animchar__res:t="us_500lb_anm64a1_char"
 }
 
+1000lb_anm_65a_1_launcher{
+  _extends:t="base_bomb_launcher"
+  gun__projectileTemplate:t="1000lb_anm_65a_1_bomb_projectile"
+  gun__projectileDebugTemplate:t="1000lb_anm_65a_1_bomb_projectile+bomb_projectile_debug"
+  animchar__res:t="us_1000lb_anm65a1_char"
+}
+
 100lb_anm_30_launcher{
   _extends:t="base_bomb_launcher"
   gun__projectileTemplate:t="100lb_anm_30_bomb_projectile"
@@ -2400,6 +2558,13 @@ hvar_launcher{
   gun__projectileTemplate:t="hvar_rocket_projectile"
   gun__projectileDebugTemplate:t="hvar_rocket_projectile+bomb_projectile_debug"
   animchar__res:t="us_5in_hvar_b_char"
+}
+
+rp_3_launcher{
+  _extends:t="base_rocket_launcher"
+  gun__projectileTemplate:t="rp_3_rocket_projectile"
+  gun__projectileDebugTemplate:t="rp_3_rocket_projectile+bomb_projectile_debug"
+  animchar__res:t="uk_60lb_sap_mk1_rocket_char"
 }
 
 fab_100x_launcher{

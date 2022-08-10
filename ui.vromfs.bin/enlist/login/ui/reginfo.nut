@@ -7,7 +7,7 @@ let { smallPadding, titleTxtColor, accentColor } = require("%enlSqGlob/ui/viewCo
 let faComp = require("%ui/components/faComp.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 
-if(!(get_setting_by_blk_path("gaijin_net_login") ?? true))
+if (!(get_setting_by_blk_path("gaijin_net_login") ?? true))
   return null
 
 let function text(str) {

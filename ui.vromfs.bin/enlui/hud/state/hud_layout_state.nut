@@ -16,7 +16,7 @@ let he = {
 let hudState = {
   hudLayoutStateGen
   addToPanel = function(panel, elems) {
-    foreach(elem in elems) {
+    foreach (elem in elems) {
       let pos = elem?.pos
       panel.insert(min(pos ?? panel.len(), panel.len()), pos == null ? elem : elem.value)
     }

@@ -9,7 +9,7 @@ let allowedBySquads = Computed(@()
       let squadVehicle = squad?.startVehicle ?? "" //compatibility with prev profile version. 30.10.2020
       if (squadVehicle != "")
         res[squadVehicle] <- true
-      foreach(vehicle in squad?.allowedVehicles ?? [])
+      foreach (vehicle in squad?.allowedVehicles ?? [])
         res[vehicle] <- true
       return res
     })

@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require game.es.events
 require game.utils.animchar
 require common_shooter.events_common_shooter
@@ -163,3 +164,28 @@ def grenade_thrower_on_destroy_es(evt : Event;
       return false
     grenade_thrower__projectileEntity = INVALID_ENTITY_ID
     return true
+
+
+[es(tag=server, track=(gun__totalAmmo, gun__wishAmmoItemType), REQUIRE=grenade_thrower)]
+def mark_slot_on_grenades(evt : Event;
+                          eid, gun__owner : EntityId;
+                          gun__totalAmmo, gun__wishAmmoItemType : int)
+  if gun__totalAmmo == 0
+    return
+  query(gun__owner) <| $ [es] (itemContainer : EidList; human_weap__gunEids : EidList)
+    let slotIdx = human_weap__gunEids |> find_index(eid)
+    var isMarkGrenade = false
+    for itemEid in itemContainer
+      query(itemEid) <| $ [es(REQUIRE=item__grenadeType)] (item__id : int; var slot_attach__weaponSlotIdx : int&)
+        slot_attach__weaponSlotIdx = -1
+        if !isMarkGrenade && item__id == gun__wishAmmoItemType
+          slot_attach__weaponSlotIdx = slotIdx
+          isMarkGrenade = true
+
+
+[es(tag=server, track=item__ownerEid, REQUIRE=item__grenadeType)]
+def mark_slot_on_dropped_grenades(evt : Event;
+                                  item__ownerEid : EntityId;
+                                  var slot_attach__weaponSlotIdx : int&)
+  if item__ownerEid == INVALID_ENTITY_ID
+    slot_attach__weaponSlotIdx = -1

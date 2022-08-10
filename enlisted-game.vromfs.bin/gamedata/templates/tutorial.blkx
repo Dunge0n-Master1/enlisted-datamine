@@ -482,7 +482,6 @@ inf_tutorial_stage_hero_explode{
 }
 
 inf_tutorial_stage_use_medkit{
-  tutor_action__setHeroInfHpLimit:r=10.0
   tutor_stage__next:t="tutorial_stage_complete"
   tutor_stage__displayHint:t="hint_tutorial_use_medkit"
 

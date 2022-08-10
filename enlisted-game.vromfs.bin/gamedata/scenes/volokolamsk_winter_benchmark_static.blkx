@@ -68,7 +68,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_monastery_dom"
 
   "loading_images:list<t>"{
@@ -122,7 +121,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[27.6959, 0.0, -7.26927] [0.0, 14.8743, 0.0] [7.26927, 0.0, 27.6959] [-113.693, 32.3563, -119.145]]
   ui_order:i=2
   capzone__title:t="B"
@@ -294,7 +293,7 @@ entity{
   level__month:i=6
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+    weather_clear_a:r=1.0
   }
 
   "level__timeVec:array"{

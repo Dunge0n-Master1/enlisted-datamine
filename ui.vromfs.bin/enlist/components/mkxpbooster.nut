@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { mkCountdownTimer } = require("%ui/helpers/timers.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { smallPadding, bigPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
@@ -23,7 +22,7 @@ let imgByBtype = {
   soldier      = "ui/skin#/battlepass/boost_soldier.png"
 }
 let imgUnknown = "ui/skin#/battlepass/random.png"
-let durationIconSize = hdpx(20).tointeger()
+let durationIconSize = hdpxi(20)
 
 let durationBoosterBlock = txt({
   text = loc("booster/duration")
@@ -110,10 +109,9 @@ let function mkBoosterExpireInfo(booster, hasDurationLabel = false, cStyle = {},
       children = mkBoosterLeftBattles(leftBattles, override)
     })
 
-  let countDownTimer = mkCountdownTimer(Watched(expireTime - serverTime.value))
   return @() res.__update({
-    watch = countDownTimer
-    children = mkLimitsChildren(leftBattles, countDownTimer.value, hasDurationLabel, override)
+    watch = serverTime
+    children = mkLimitsChildren(leftBattles, expireTime - serverTime.value, hasDurationLabel, override)
   })
 }
 

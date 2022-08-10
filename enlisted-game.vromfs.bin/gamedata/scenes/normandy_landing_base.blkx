@@ -19,7 +19,7 @@ entity{
   }
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 }
 

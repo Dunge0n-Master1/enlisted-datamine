@@ -40,14 +40,6 @@ shutterHit:r=10.0
 entityTemplate:t="100lb_anm_30_bomb_projectile"
 entityPhysTemplate:t=""
 
-fab_50{
-
-  "shell__concussionMaxRadius:r"{
-    value:r=25.0
-    _tags:t="server"
-  }
-}
-
 pressureDamage{
   damageType:t="pressure"
 }

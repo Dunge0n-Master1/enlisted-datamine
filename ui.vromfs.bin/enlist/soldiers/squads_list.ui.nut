@@ -12,38 +12,17 @@ let { notChoosenPerkSquads } = require("model/soldierPerks.nut")
 let { unseenSquadsWeaponry } = require("model/unseenWeaponry.nut")
 let { unseenSquadsVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let { unseenSquads } = require("model/unseenSquads.nut")
-let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
 let { openChooseSquadsWnd } = require("model/chooseSquadsState.nut")
 let { squadBgColor } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { needSoldiersManageBySquad } = require("model/reserve.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.7)
+let unseenSignal = require("%ui/components/unseenSignal.nut")
 let { curUnseenUpgradesBySquad, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { armySlotDiscount } = require("%enlist/shop/armySlotDiscount.nut")
 let mkNotifier = require("%enlist/components/mkNotifier.nut")
+let {
+  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
+} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 
-let function newPerksArmyIcon(squad) {
-  let count = Computed(function() {
-    let unseenUpgradesCount = (isUpgradeUsed.value ?? false) ? 0
-      : (curUnseenUpgradesBySquad.value?[squad.guid] ?? 0)
-    return max(notChoosenPerkSquads.value?[curArmy.value][squad.squadId] ?? 0,
-      unseenSquadsWeaponry.value?[squad.guid] ?? 0)
-    + (unseenSquadsVehicle.value?[squad.guid].len() ? 1 : 0)
-    + unseenUpgradesCount
-  })
-
-  return function () {
-    let res = { watch = count }
-    if (count.value > 0)
-      res.__update(blinkingIcon("user", count.value, false))
-    return res
-  }
-}
-
-let squadAlertIcon = @(squad) function() {
-  let ret = { watch = needSoldiersManageBySquad }
-  let needManage = needSoldiersManageBySquad.value?[squad.guid] ?? false
-  return needManage ? ret.__update(unseenSignal) : ret
-}
 
 let restSquadsCount = Computed(@()
   max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
@@ -55,8 +34,19 @@ let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
       hplace = ALIGN_RIGHT
       valign = ALIGN_CENTER
       children = [
-        squadAlertIcon(squad)
-        newPerksArmyIcon(squad)
+        mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
+          needSoldiersManageBySquad.value?[squad.guid] ?? false
+        ))
+        mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
+          let count = (unseenSquadsWeaponry.value?[squad.guid] ?? 0)
+            + (unseenSquadsVehicle.value?[squad.guid].len() ? 1 : 0)
+            + ((isUpgradeUsed.value ?? false) ? 0
+              : (curUnseenUpgradesBySquad.value?[squad.guid] ?? 0))
+          return count > 0
+        }))
+        mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
+          (notChoosenPerkSquads.value?[curArmy.value][squad.squadId] ?? 0) > 0
+        ))
       ]
     }
     level = allSquadsLevels.value?[squad.squadId] ?? 0
@@ -75,10 +65,11 @@ let unseeSquadsIcon = @() {
   watch = [unseenSquads, curArmy]
   hplace = ALIGN_RIGHT
   children = (unseenSquads.value?[curArmy.value] ?? {}).findindex(@(v) v)
-    ? unseenSignal
+    ? unseenSignal(0.7)
     : null
 }
 
+let squadManageButtonStateFlags = Watched(0)
 let squadManageButton = watchElemState(function(sf) {
   let rest = restSquadsCount.value
   return {
@@ -93,6 +84,7 @@ let squadManageButton = watchElemState(function(sf) {
     xmbNode = XmbNode()
     color = squadBgColor(sf, false)
     onClick = @() openChooseSquadsWnd(curArmy.value, curSquadId.value)
+    onDetach = @() squadManageButtonStateFlags(0)
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
@@ -120,7 +112,7 @@ let squadManageButton = watchElemState(function(sf) {
         { percents = armySlotDiscount.value }), {}, { color = 0xffff313b }, tiny_txt)
     ]
   }
-})
+}, {stateFlags = squadManageButtonStateFlags})
 
 return mkCurSquadsList({
   curSquadsList

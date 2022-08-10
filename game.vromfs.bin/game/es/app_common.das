@@ -1,5 +1,5 @@
 module app_common shared
-require app
+require net
 require DagorDataBlock
 
 def get_environment() : string

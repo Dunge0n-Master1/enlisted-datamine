@@ -1,46 +1,5 @@
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="ambient/city_battle"
-    ambient_sound__events:t="ambient/walla_screams"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
 }
 
 entity{
@@ -99,15 +58,7 @@ entity{
 }
 
 entity{
-  _template:t="snow"
-  snow__alpha_fade_speed_end:r=10.0
-  snow__alpha_fade_speed_begin:r=2.0
-  snow__speed:r=0.001
-  snow__width:r=0.0225
-  snow__wind:r=12.0
-  snow__alpha:r=6.75
-  snow__density:r=0.005
-  snow__length:r=0.0
+  _template:t="camera_dust_template"
 }
 
 entity{
@@ -324,7 +275,6 @@ entity{
   ground_effect__grid_cell_size:r=8.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -340,7 +290,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -356,7 +305,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -368,7 +316,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -380,7 +327,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -393,7 +339,6 @@ entity{
   effect_area__effectName:t="background_flash_8s_fx"
   effect_area__isPaused:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-941.109, 3.255, -280.225]]
-  box_zone__scale:p3=600.0, 400.0, 600.0
 }
 
 entity{
@@ -674,7 +619,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_wilhelm_dom"
 
   "loading_images:list<t>"{
@@ -724,7 +668,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[-0.176679, 0.0, 0.984269] [0.0, 1.0, 0.0] [-0.984269, 0.0, -0.176679] [504.052, 3.24142, -232.851]]
   sphere_zone__radius:r=15.0
   capzone__title:t="B"
@@ -789,8 +733,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -798,8 +740,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -807,8 +747,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[6330.02, 0.0, 2710.95] [0.0, 3713.36, 0.0] [-3313.24, 0.0, 7736.39] [388.666, 240.916, -79.4068]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 
@@ -889,7 +827,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[47.5338, 0.0, 17.0288] [0.0, 9.76297, 0.0] [-10.5571, 0.0, 29.419] [494.508, 6.53088, -345.553]]
   capzone__title:t="C"
   capzone__caption:t="capzone/headquarters"
@@ -897,7 +835,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[19.2239, 0.0, 6.6548] [0.0, 8.79303, 0.0] [-6.353, 0.0, 18.352] [492.068, 6.90607, -112.805]]
   capzone__title:t="A"
   capzone__caption:t="capzone/сafeteria"

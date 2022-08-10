@@ -249,7 +249,6 @@ entity{
   ground_effect__grid_cell_size:r=8.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -504,7 +503,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_quarry_inv"
 
   "loading_images:list<t>"{
@@ -567,7 +565,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.28286, -0.0389111, 0.18382] [0.0459987, 0.999303, 0.00659114] [-0.198126, 0.0, 1.3827] [-713.481, 13.921, -1170.36]]
   sphere_zone__radius:r=19.0
   capzone__title:t="B"
@@ -688,7 +686,7 @@ entity{
   level__month:i=6
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+    weather_clear_a:r=1.0
   }
 
   "level__timeVec:array"{

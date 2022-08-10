@@ -62,4 +62,4 @@ buildingUnlocks.subscribe(@(_) updateBuildingsPie(buildingTemplates.value))
 buildingTemplates.subscribe(updateBuildingsPie)
 
 
-isBuildingToolMenuAvailable.subscribe(function(isAvailable) { if(!isAvailable) showBuildingToolMenu(false) })
+isBuildingToolMenuAvailable.subscribe(function(isAvailable) { if (!isAvailable) showBuildingToolMenu(false) })

@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import hdpx, Computed, watchElemState, kwarg, l
 let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
 let {BtnBgHover, BtnBgActive, ControlBgOpaque, TextHighlight, TextDefault, Active} = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {isTouch} = require("%ui/control/active_controls.nut")
 
 let fillColor = @(sf, active)
@@ -63,7 +63,7 @@ let mkSpinnerBtn = @(isEnabled, icon, action)
   )
 
 local spinner = kwarg(function(curValue, allValues, setValue = null,
-  valToString = null, xmbNode= null, group = null, isEqual = null
+  valToString = null, xmbNode= null, group = null, isEqual = null, stateFlags = null
 ) {
   setValue = setValue ?? @(v) curValue(v)
   valToString = valToString ?? @(v) v
@@ -139,7 +139,7 @@ local spinner = kwarg(function(curValue, allValues, setValue = null,
         buttons
         sf & S_HOVER ? hotkeysElem : null
       ]
-    })
+    }, {stateFlags})
 })
 
 

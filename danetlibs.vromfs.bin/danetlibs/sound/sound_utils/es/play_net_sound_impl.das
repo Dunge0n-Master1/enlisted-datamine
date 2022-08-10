@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require app
 require soundEvent
@@ -19,7 +20,7 @@ def has_net_sound_desc(hash : uint; descs : Object) : bool
 def get_net_sound_desc(hash : uint; descs : Object) : Object const?
   for it in descs
     if sound_hash(it.key) == hash
-      return get_ecs_object(it.value)
+      return it.value as Object
   sound_debug("net_sound: hash '{hash}' not found in net_sound.descs, list of descs:")
   for it in descs
     sound_debug("  {it.key}({sound_hash(it.key)})")
@@ -31,16 +32,16 @@ def play_impl(hash : uint; pos : float3; param : float; descs : Object; is_watch
     assume obj = *objRef
     let nameRef = is_watched ? (has(obj, "hero") ? obj["hero"] : obj["path"]) : (has(obj, "enemy") ? obj["enemy"] : obj["path"])
     if nameRef != null
-      let name = get_string(nameRef, "")
-      let isFar = get_bool(obj, "isFar") ?? false
-      let delayedAbandon = get_bool(obj, "delayedAbandon") ?? false
+      let name = (*nameRef) ?? ""
+      let isFar = obj.isFar ?? false
+      let delayedAbandon = obj.delayedAbandon ?? false
       var handle = soundEvent::play(name, "", pos, isFar)
       if has(obj, "var")
-        set_var(handle, get_string(obj["var"], ""), param)
+        set_var(handle, obj["var"] ?? "", param)
       if has(obj, "groupId") && sound_event_group != null
         if has(obj, "releaseId")
-          release_sound(*sound_event_group, sound_hash(get_string(obj["releaseId"], "")))
-        add_sound(*sound_event_group, sound_hash(get_string(obj, "groupId", "")), handle)
+          release_sound(*sound_event_group, sound_hash(obj.releaseId ?? ""))
+        add_sound(*sound_event_group, sound_hash(obj.groupId ?? ""), handle)
         if delayedAbandon
           abandon(handle, param)
       else

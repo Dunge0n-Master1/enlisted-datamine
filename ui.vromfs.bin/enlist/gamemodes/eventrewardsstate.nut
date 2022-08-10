@@ -24,7 +24,7 @@ let function getSubArray(tbl, id) {
 
 let eventRewardsUnlocks = Computed(function() {
   let res = {}
-  foreach(unlock in activeUnlocks.value) {
+  foreach (unlock in activeUnlocks.value) {
     let { events_lb_rewards = null } = unlock?.meta
     if (events_lb_rewards == null)
       continue
@@ -36,8 +36,8 @@ let eventRewardsUnlocks = Computed(function() {
 
 let mkLbUnlocksStages = {}
 
-lbRewardsTypes.each(@(rType)
-  mkLbUnlocksStages.rawset(rType, function(rewardCfg) {
+lbRewardsTypes.each(function(rType) {
+  mkLbUnlocksStages[rType] <- function(rewardCfg) {
     let rewards = rewardCfg?[rType] ?? {}
     if (rewards.len() == 0)
       return null
@@ -45,8 +45,8 @@ lbRewardsTypes.each(@(rType)
     rewards.each(@(r, place) stages.append({ progress = place.tointeger(), rewards = r.itemdefids }))
     //progress = -1: any place
     return stages.sort(@(a, b) b.progress < 0 <=> a.progress < 0 || b.progress <=> a.progress)
-  })
-)
+  }
+})
 
 let lbRewards = Computed(function() {
   let res = {}
@@ -54,7 +54,7 @@ let lbRewards = Computed(function() {
   let rewardsBase = showPrevSeasonRewards
     ? seasonRewards.value?.previous
     : seasonRewards.value?.current
-  foreach(rewardsBlock in rewardsBase ?? []) {
+  foreach (rewardsBlock in rewardsBase ?? []) {
     let { index = 1, modes = [], category = "", rewards = [] } = rewardsBlock
     let lbUnlockBase = {
       season = index
@@ -62,10 +62,10 @@ let lbRewards = Computed(function() {
       rType = REWARD_LB
       stages = []
     }
-    foreach(modeId in modes) {
+    foreach (modeId in modes) {
       let resModeUnlocks = getSubArray(res, modeId)
-      foreach(rewardCfg in rewards)
-        foreach(name, mkStages in mkLbUnlocksStages) {
+      foreach (rewardCfg in rewards)
+        foreach (name, mkStages in mkLbUnlocksStages) {
           let stages = mkStages(rewardCfg)
           if (stages != null)
             resModeUnlocks.append(lbUnlockBase.__merge({ name, stages }))
@@ -77,9 +77,9 @@ let lbRewards = Computed(function() {
 
 let function mergeTblArrays(t1, t2) {
   let res = {}
-  foreach(key, list in t1)
+  foreach (key, list in t1)
     res[key] <- clone list
-  foreach(key, list in t2)
+  foreach (key, list in t2)
     if (key in res)
       res[key].extend(list)
     else

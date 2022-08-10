@@ -16,7 +16,7 @@ def private wake_up_ragdoll_on_terraform_impl(terraformPos : float3;
     ragdoll |> ragdoll_wakeUp()
 
 [es(tag=gameClient, REQUIRE=deadEntity, REQUIRE_NOT=animchar__actOnDemand, after=apply_terraform_es)]
-def wake_up_ragdoll_on_terraform(evt : CmdTerraform;
+def wake_up_ragdoll_on_terraform(evt : CmdDig;
                                  animchar : AnimcharBaseComponent;
                                  var ragdoll : PhysRagdoll;
                                  var animchar__updatable : bool&)

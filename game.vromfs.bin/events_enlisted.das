@@ -4,6 +4,11 @@ require EnlistedWalkerai
 require common_shooter.events_common_shooter
 require enlisted.game.es.medic_common
 
+[cpp_event(broadcast)]
+struct ParallelUpdateFrameDelayed
+  curTime : float
+  dt : float
+
 [event(broadcast)]
 struct EventRequestedAircraftShootAllBombs
   aircraftEid : EntityId
@@ -127,25 +132,30 @@ struct OnScoringKillBySquadMember
   victim : EntityId
   offender : EntityId
 
-[cpp_event(unicast)]
-struct EventOnPlayerWipedOutInfantrySquad
-  data : ecs::Object
+[event(unicast)]
+struct EventOnPlayerWipedOutInfantrySquad {}
 
 [event(broadcast)]
 struct EventTeamWon
-  teamId : int
+  team : int
 
 [event(broadcast)]
+struct EventTeamLost
+  team : int
+
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventTeamLowScore
   teamId : int
 
-[event(broadcast)]
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventTeamLoseHalfScore
   teamId : int
 
-[cpp_event(unicast)]
-struct EventOnBarbwireDamageAward
-  data : ecs::Object
+[event(unicast)]
+struct EventPlayerSquadFinishedCapturing {}
+
+[event(unicast)]
+struct EventOnBarbwireDamageAward {}
 
 [event(unicast)]
 struct EventOnPlayerMineVehicleKill {}
@@ -153,15 +163,18 @@ struct EventOnPlayerMineVehicleKill {}
 [event(unicast)]
 struct EventOnPlayerMineInfantryKill {}
 
-[cpp_event(unicast)]
-struct EventOnCapzoneFortificationAward
-  data : ecs::Object
+[event(unicast)]
+struct EventOnCapzoneFortificationAward {}
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdHumanHoorayRequest {}
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdBlinkMarker {}
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestForgiveFriendlyFire
+  player : EntityId
 
 [event(unicast)]
 struct OnFriendlyFire
@@ -172,6 +185,25 @@ struct OnFriendlyFire
 struct OnTeamKill
   offender : EntityId
   gunPropsId : int
+
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct EventKillReport
+  victim : EntityId
+  victimTeam : int
+  victimPlayer : EntityId
+  victimName : string
+  victimRank : int
+  isVictimVehicle : bool
+  scoreId : string
+  killer : EntityId
+  killerTeam : int
+  killerPlayer : EntityId
+  killerName : string
+  killerRank : int
+  isKillerVehicle : bool
+  isHeadshot : bool
+  damageType : int
+  gunName : string
 
 [event(unicast)]
 struct CmdSwitchSquad {}
@@ -311,6 +343,9 @@ struct EventZoneIsAboutToBeCaptured
   zone : EntityId
   team : int
 
+[event(unicast)]
+struct EventEntityAboutToDeactivate {}
+
 [event(broadcast)]
 struct EventZoneDeactivated
   zone : EntityId
@@ -322,10 +357,12 @@ struct EventZoneDecaptured
   team : int
 
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdTerraform
+struct CmdDig
+  diggerEid : EntityId
   pos : float3
   radius : float
   depth : float
+  matId : int
 
 [event(broadcast)]
 struct CmdTerraBrush
@@ -353,8 +390,8 @@ struct CmdRIToolAddSelected
   tm : float3x4
   name : string
   bsph : float4
-  kind : string
-  unbaked : bool
+  action : string
+  kind : int
 
 [event(broadcast)]
 struct CmdRIToolClearSelected {}
@@ -372,6 +409,12 @@ struct CmdRIToolUnbakeRendInst
   eid : EntityId
 
 [event(broadcast)]
+struct CmdRIToolEnbakeRendInst
+  tm : float3x4
+  name : string
+  eid : EntityId
+
+[event(broadcast)]
 struct CmdRIToolRebakeRendInst
   tm : float3x4
   name : string
@@ -382,9 +425,13 @@ struct CmdRIToolCreateRendInst
   tpl : string
   tm : float3x4
   name : string
+  eid : EntityId
 
 [event(broadcast)]
 struct CmdRIToolRestoreRendInst {}
+
+[event(unicast)]
+struct EventEditorEntityMoved {}
 
 [event(broadcast)]
 struct EventBombCraterPartTerraformed
@@ -417,7 +464,7 @@ struct CmdNextBuildingType {}
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventOnDig
-  isSuccessful : bool
+  canTerraformCheckResult : int
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdStopInteractBomb
@@ -474,6 +521,9 @@ struct EventUpdatedItemContainer {}
 [event(unicast)]
 struct NextReplayTarget
   delta : int
+
+[event(unicast)]
+struct SetReplayTarget {}
 
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdSpawnCharredArea

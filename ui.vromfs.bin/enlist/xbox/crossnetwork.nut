@@ -1,5 +1,5 @@
 let cn = require("%xboxLib/impl/crossnetwork.nut")
-let logX = require("%sqstd/log.nut")().with_prefix("[CROSSNET] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[CROSSNET] ")
 let {voiceChatRestricted} = require("%enlSqGlob/voiceChatGlobalState.nut")
 
 let { xboxCrossplayAvailable, xboxCrosschatAvailable, xboxMultiplayerAvailable,

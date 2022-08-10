@@ -11,7 +11,7 @@ let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 let { mkMedkitIcon } = require("%ui/hud/huds/player_info/medkitIcon.nut")
 let { mkFlaskIcon } = require("%ui/hud/huds/player_info/flaskIcon.nut")
 
-let sIconSize = hdpx(15).tointeger()
+let sIconSize = hdpxi(15)
 
 let seatsOrderWatch = mkVehicleSeats(vehicleInfo)
 
@@ -38,7 +38,7 @@ return mkMainSoldiersBlock({
   seatsOrderWatch
   hasVehicleWatch = Computed(@() vehicleInfo.value != null)
   curSoldierIdxWatch = curSoldierIdx
-  curVehicleUi = mkCurVehicle({ canSpawnOnVehicle, vehicleInfo })
+  curVehicleUi = mkCurVehicle({ canSpawnOnVehicle, vehicleInfo, soldiersList })
   canDeselect = false
   addCardChild
 })

@@ -9,16 +9,16 @@ let {tostring_r} = require("%sqstd/string.nut")
 //===== DARG specific methods=====
   this function create element that has internal basic stateFlags (S_HOVER S_ACTIVE S_DRAG)
 */
-let function watchElemState(builder) {
-  let stateFlags = Watched(0)
+let function watchElemState(builder, params={}) {
+  let stateFlags = params?.stateFlags ?? Watched(0)
+  let onElemState = @(sf) stateFlags.update(sf)
   return function() {
     let desc = builder(stateFlags.value)
     local watch = desc?.watch ?? []
     if (type(watch) != "array")
       watch = [watch]
-    watch.append(stateFlags)
-    desc.watch <- watch
-    desc.onElemState <- @(sf) stateFlags.update(sf)
+    desc.watch <- [stateFlags].extend(watch)
+    desc.onElemState <- onElemState
     return desc
   }
 }
@@ -67,6 +67,8 @@ let function isDargComponent(comp) {
 let hdpx = sh(100) <= sw(75)
   ? @(pixels) sh(100.0 * pixels / 1080)
   : @(pixels) sw(75.0 * pixels / 1080)
+
+let hdpxi = @(pixels) hdpx(pixels).tointeger()
 
 let fsh = sh(100) <= sw(75) ? sh : @(v) sw(0.75 * v)
 
@@ -179,6 +181,7 @@ return {
   wrap
   dump_observables
   hdpx
+  hdpxi
   watchElemState
   isDargComponent
   fsh

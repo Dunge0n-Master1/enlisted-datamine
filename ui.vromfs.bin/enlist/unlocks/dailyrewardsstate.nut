@@ -175,7 +175,7 @@ let function gotoNextStageOrClose(receivedData, closeCb) {
 
   if (!(dailyRewardsUnlock.value.hasReward ?? false)){
     closeCb()
-    if(specialUnlock.value != null){
+    if (specialUnlock.value != null){
       specialUnlockToReceive(specialUnlock.value)
       doReceiveRewards(specialUnlock.value)
     }

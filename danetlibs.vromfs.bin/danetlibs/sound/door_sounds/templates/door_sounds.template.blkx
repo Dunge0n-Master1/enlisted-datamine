@@ -1,0 +1,72 @@
+base_door_sound{
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/standart/open"
+    door_sound__closePath:t="env_effects/doors/standart/close"
+  }
+}
+
+standart_door_sounds{
+  _extends:t="base_door_sound"
+}
+
+metal_gate_door_sounds{
+  _extends:t="base_door_sound"
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/metal_gate_01/open"
+    door_sound__closePath:t="env_effects/doors/metal_gate_01/close"
+  }
+}
+
+gate_door_sounds{
+  _extends:t="base_door_sound"
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/gate/open"
+    door_sound__closePath:t="env_effects/doors/gate/close"
+  }
+}
+
+normandy_decor_gate_door_sounds{
+  _extends:t="base_door_sound"
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/normandy_decor_gate/open"
+    door_sound__closePath:t="env_effects/doors/normandy_decor_gate/close"
+  }
+}
+
+bunker_door_sounds{
+  _extends:t="base_door_sound"
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/bunker/open"
+    door_sound__closePath:t="env_effects/doors/bunker/close"
+  }
+}
+
+hatch_door_sounds{
+  _extends:t="base_door_sound"
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/hatch/open"
+    door_sound__closePath:t="env_effects/doors/hatch/close"
+  }
+}
+
+standart_window_sounds{
+  _extends:t="base_door_sound"
+
+  _group{
+    _tags:t="sound"
+    door_sound__openPath:t="env_effects/doors/window/open"
+    door_sound__closePath:t="env_effects/doors/window/close"
+  }
+}

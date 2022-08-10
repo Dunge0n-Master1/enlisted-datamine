@@ -12,7 +12,7 @@ let {
   myCampaign, setMyCampaign, isPrevCampaignNotAvailible, hasPlayedCurSession
 } = require("myRoomMemberParams.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let math = require("%sqstd/math.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 
@@ -22,7 +22,7 @@ const WND_UID = "CHOOSE_CAMPAIGN_WND"
 let isOpened = mkWatched(persist, "isOpened", false)
 let close = @() isOpened(false)
 
-let teamBlockHeaderHeight = hdpx(68).tointeger()
+let teamBlockHeaderHeight = hdpxi(68)
 let campaignsCount = Computed(@() roomCampaigns.value.len())
 let campaignsFreeHeight = sh(75)
 let gapCards = hdpx(25)

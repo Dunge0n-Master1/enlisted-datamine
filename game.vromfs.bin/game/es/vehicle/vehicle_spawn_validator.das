@@ -19,7 +19,7 @@ def vehicle_spawn_validate(evt : Event;
 
   var shouldTeleport = false
 
-  for i in range(0, 6)
+  for _i in range(0, 6)
     var isWorking = false
     for pos in vehiclesPos
       var dist = wishPos - pos

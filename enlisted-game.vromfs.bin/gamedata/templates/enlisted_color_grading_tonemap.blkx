@@ -39,7 +39,7 @@ postfx_color_grading_tonemap_enlisted{
   "tonemap:object"{
     tonemapContrast:r=1.1
     tonemapShoulder:r=0.85
-    tonemapMidIn:r=0.08
+    tonemapMidIn:r=0.07
     tonemapMidOut:r=0.18
     tonemapHdrMax:r=4.0
     _tags:t="render"

@@ -72,11 +72,7 @@ let function mkExistIndicator(obj){
   }
 }
 
-let function mkHide(_obj){
-  return function() {
-    return null
-  }
-}
+//let mkHide = @(_obj) dlog(_obj.locId, _obj.comp)
 
 let state = [
   // flight parameters
@@ -88,12 +84,12 @@ let state = [
 
   // controls
   {comp = "plane_view__throttle",      watch = Watched(), locId="plane_hud/Thr",  typ = ecs.TYPE_FLOAT, transformFunc = transformPercentsFunc}
-  {comp = "plane_view__has_gear_control", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, mkCaption = mkHide, mkValue = mkHide }
+  {comp = "plane_view__has_gear_control", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, show = false }
   {comp = "plane_view__gear_position", watch = Watched(),
     compShow = "plane_view__has_gear_control", watchShow = Watched(false),
     locId="plane_hud/Gear",  typ = ecs.TYPE_BOOL,
     boolValues = ["plane_hud/GearUp", "plane_hud/GearDown"], transformFunc = transformBoolFunc}
-  {comp = "plane_view__has_flaps_control", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, mkCaption = mkHide, mkValue = mkHide }
+  {comp = "plane_view__has_flaps_control", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, show = false }
   {comp = "flaps_position",           watch = Watched(),
     compShow = "plane_view__has_flaps_control", watchShow = Watched(false),
     locId="plane_hud/Flaps", typ = ecs.TYPE_INT,
@@ -146,41 +142,49 @@ state.each(@(obj) obj.isActiveWatch <- Watched(false))
 
 ecs.register_es("plane_basic_hud_es",
   {
-    [["onInit","onUpdate"]] = function(_evt, _eid, comp){
-      state.each(@(v) v.watch(comp[v.comp]))
-      state.each(@(v) v?.watchShow != null && v?.compShow != null ? v.watchShow(comp[v.compShow]) : null)
-      state.each(@(v) v.isActiveWatch(comp[v.comp] != null && (v?.watchShow.value ?? true)))
-      state.each(@(v) v?.watchAuto != null && v?.compAuto != null ? v.watchAuto(comp[v.compAuto]) : null)
+    [["onInit","onChange"]] = function(_evt, _eid, comps){
+      state.each(function(v) {
+        let {comp, watch, isActiveWatch} = v
+        watch(comps[comp])
+        if (v?.watchShow != null && v?.compShow != null)
+          v.watchShow(comps[v.compShow])
+        isActiveWatch(comps[comp] != null && (v?.watchShow.value ?? true))
+        if (v?.watchAuto != null && v?.compAuto != null)
+          v.watchAuto(comps[v.compAuto])
+      })
     }
     function onDestroy(_evt, _eid, _comp){
-      state.each(@(v) v.watch(null))
-      state.each(@(v) v.isActiveWatch(false))
-      state.each(@(v) v?.watchAuto != null ? v.watchAuto(null) : null)
+      state.each(function(v) {
+        v.watch(null)
+        v.isActiveWatch(false)
+        if (v?.watchAuto != null)
+         v.watchAuto(null)
+      })
     }
   },
   {
-    comps_ro = state.map(@(obj) [obj.comp, obj.typ, null]),
+    comps_track = state.map(@(obj) [obj.comp, obj.typ, null]),
     comps_rq = ["airplane", "heroVehicle"]
     comps_no = ["deadEntity"]
   },
-  { updateInterval = 0.1, tags="gameClient", after="*", before="*" }
+  { tags="gameClient", after="*", before="*" }
 )
 
-let planeState = state.filter(@(obj) "watch" in obj).reduce(function(memo, obj) {memo[obj.comp.replace("plane_view.", "plane_")] <- obj.watch; return memo;}, {})
+let planeState = state.filter(@(obj) "watch" in obj).reduce(function(memo, obj) {memo[obj.comp] <- obj.watch; return memo;}, {})
 return {
-  planeState = planeState
-  mkExistIndicator = mkExistIndicator //to prevent static analyzer warning
+  planeState
+  mkExistIndicator //to prevent static analyzer warning
 
   function planeHud(){
     let captions = []
     let values = []
     foreach (obj in state) {
-      if (obj?.isActiveWatch.value) {
+      if (obj?.isActiveWatch.value && obj?.show!=false ) {
         captions.append(obj?.mkCaption(obj) ?? mkCaption(obj))
         values.append(obj?.mkValue(obj) ?? mkValue(obj))
       }
     }
-    let watches = state.filter(@(obj) "isActiveWatch" in obj).map(@(obj) obj?.isActiveWatch)
+    let watches = state.filter(@(obj) "isActiveWatch" in obj).map(@(obj) obj.isActiveWatch)
     return {
       flow = FLOW_HORIZONTAL
       gap = hdpx(5)

@@ -304,3 +304,73 @@ agit_poster_china_a{
   _extends:t="wallposter"
   ri_extra__name:t="agit_poster_china_a"
 }
+
+agit_poster_china_b_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_b"
+  instantiateTemplate:t="agit_poster_china_b"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_b_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_b{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_b"
+}
+
+agit_poster_china_c_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_c"
+  instantiateTemplate:t="agit_poster_china_c"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_c_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_c{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_c"
+}
+
+agit_poster_china_d_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_d"
+  instantiateTemplate:t="agit_poster_china_d"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_d_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_d{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_d"
+}
+
+agit_poster_china_e_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_e"
+  instantiateTemplate:t="agit_poster_china_e"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_e_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_e{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_e"
+}
+
+agit_poster_china_f_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_f"
+  instantiateTemplate:t="agit_poster_china_f"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_f_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_f{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_f"
+}

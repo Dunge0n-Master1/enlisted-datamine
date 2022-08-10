@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let {heroCurrentGunSlot, heroModsByWeaponSlot, weaponSlotsStatic} = require("%ui/hud/state/hero_weapons.nut")
 let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {SELECTION_BORDER_COLOR} = require("%ui/hud/style.nut")
 let { blurBack } = require("style.nut")
@@ -9,7 +10,7 @@ let ammoColor = Color(100,100,100,50)
 let curColor = Color(180,200,230,180)
 let color = Color(168,168,168,150)
 let curBorderColor = SELECTION_BORDER_COLOR
-let nextBorderColor = Color(200, 200, 200, 100)
+//let nextBorderColor = Color(200, 200, 200, 100)
 
 
 let function itemAppearing(duration=0.2) {
@@ -19,63 +20,66 @@ let wWidth = hdpx(280)
 let aHgt = calc_str_box("A", sub_txt)[1]*2 //we want to be sure that weapon name and icon could be displayed without big overlapping
 let wHeight = max(aHgt+hdpx(2), hdpx(40))
 
-
-let function weaponId(weapon, params={width=flex() height=wHeight}) {
+let weapIdPadding = freeze([0,0,hdpx(2),hdpx(2)])
+let function weaponId(weaponName, isCurrent, params={width=flex() height=wHeight}) {
   let size = [params?.width ?? flex(), params?.height ?? wHeight]
-  let name = weapon.name
-
+  let {padding = weapIdPadding, margin = null} = params
   return {
     size
-    padding= params?.padding ?? [0,0,hdpx(2),hdpx(2)]
-    margin = params?.margin
+    padding
+    margin
     clipChildren = true
     children = {
       behavior = Behaviors.Marquee
       size = flex()
       valign = ALIGN_BOTTOM
-      children = {
+      children = @() {
+        watch = isCurrent
         size = SIZE_TO_CONTENT
         halign = ALIGN_LEFT
         rendObj = ROBJ_TEXT
-//        fontSize = size[1]/3
-        text = loc(name)
+        text = loc(weaponName)
         fontFx = FFT_BLUR
         fontFxColor = Color(0,0,0,30)
-        key = name
-        color = weapon?.isCurrent ? curColor : color
+        color = isCurrent.value ? curColor : color
       }.__update(sub_txt)
     }
   }
 }
 let wAmmoDef = {width=SIZE_TO_CONTENT height=SIZE_TO_CONTENT}
-let function weaponAmmo(weapon, params=wAmmoDef) {
-  //note: no sense in having size, cause we do not have scalable DTEXT yet :(
+let weapAmmoAnimations = [ { prop=AnimProp.scale, from=[1.1,1.3], to=[1,1], duration=0.2, play=true, easing=OutCubic } ]
+
+let function weaponAmmo(watchedWeapon, isCurrent, params=wAmmoDef, idx = null) {
   let size = [params?.width ?? SIZE_TO_CONTENT, params?.height ?? SIZE_TO_CONTENT]
-  let addAmmo = weapon?.additionalAmmo ?? 0
-  let curAmmo = (weapon?.curAmmo ?? 0) + addAmmo
-  let totalAmmo = max(0, (weapon?.totalAmmo ?? 0) - addAmmo)
-  let instant = weapon?.instant
-  let showZeroAmmo = weapon?.showZeroAmmo ?? false
+  let totalAmmoW = Computed(@() watchedWeapon?.value.totalAmmo ?? 0)
+  let curAmmoW = Computed(@() watchedWeapon?.value.curAmmo ?? 0)
+  let addAmmoW =Computed(@() watchedWeapon?.value.additionalAmmo ?? 0)
+  let {margin = hdpx(5), halign = ALIGN_RIGHT, hplace = ALIGN_RIGHT} = params
+  return function(){
+    let addAmmo = addAmmoW.value
+    let curAmmo = curAmmoW.value + addAmmo
+    let totalAmmo = max(0, totalAmmoW.value - addAmmo)
+    let isReloadable = watchedWeapon.value?.isReloadable ?? weaponSlotsStatic?[idx].isReloadable
 
-  let ammo_string = (totalAmmo + curAmmo <= 0 && !showZeroAmmo) ? ""
-    : instant ? (totalAmmo + curAmmo)
-    : (weapon?.isReloadable ?? false) ? $"{curAmmo}/{totalAmmo}"
-    : totalAmmo
+    let ammo_string = (totalAmmo + curAmmo <= 0 )
+      ? ""
+      : isReloadable
+        ? $"{curAmmo}/{totalAmmo}"
+        : totalAmmo
 
-  return {
-    rendObj = ROBJ_TEXT
-    text = ammo_string
-    color = weapon?.isCurrent ? curColor : ammoColor
-    size = size
-    clipChildren=true
-    key = totalAmmo+curAmmo
-    halign = params?.halign ?? ALIGN_RIGHT
-    hplace = params?.hplace ?? ALIGN_RIGHT
-    transform  = {pivot =[0.5,0.5]}
-    margin = params?.margin ?? hdpx(5)
-    animations = [
-      { prop=AnimProp.scale, from=[1.1,1.3], to=[1,1], duration=0.2, play=true, easing=OutCubic }
-    ]
+    return {
+      rendObj = ROBJ_TEXT
+      watch = [totalAmmoW, curAmmoW, addAmmoW, isCurrent]
+      text = ammo_string
+      color = isCurrent.value ? curColor : ammoColor
+      size
+      clipChildren=true
+      halign
+      hplace
+      transform  = {pivot =[0.5,0.5]}
+      margin
+      animations = weapAmmoAnimations
+    }
   }
 }
 
@@ -87,41 +91,49 @@ let outlineDefColor=[0,0,0,0]
 let outlineEmptyColor=[200,200,200,0]
 let outlineInactiveColor=[200,200,200,0]
 
-let weaponWidgetAnims = [
+let weaponWidgetAnims = freeze([
   {prop=AnimProp.opacity, from=1, to=0, duration=0.3, playFadeOut=true}
   itemAppearing()
-]
+])
 
-let function iconCtorDefault(weapon, width, height) {
-  let isLoadable = weapon?.isReloadable ?? ((weapon?.maxAmmo ?? 0) > 0)
-  let isAmmoLoaded = (!isLoadable || (weapon?.curAmmo ?? 0) > 0)
-  return iconWidget(weapon, {
-    width = width
-    height = height
-    hplace = ALIGN_CENTER
-    shading = "silhouette"
-    silhouette = isAmmoLoaded ? silhouetteDefColor : silhouetteEmptyColor
-    outline = isLoadable ? outlineDefColor : outlineEmptyColor
-    silhouetteInactive = silhouetteInactiveColor
-    outlineInactive = outlineInactiveColor
-  })
+let function iconCtor(itemInfo, isLoadable, isAmmoLoaded, width, height, mods=null) {
+  return iconWidget(itemInfo, {
+      width
+      height
+      hplace = ALIGN_CENTER
+      shading = "silhouette"
+      silhouette = isAmmoLoaded ? silhouetteDefColor : silhouetteEmptyColor
+      outline = isLoadable ? outlineDefColor : outlineEmptyColor
+      silhouetteInactive = silhouetteInactiveColor
+      outlineInactive = outlineInactiveColor
+    }, mods)
 }
+let iconCtorMemoized  = memoize(iconCtor)
 
-let currentBorder = { size = flex(), rendObj = ROBJ_FRAME, borderWidth = 1, color = curBorderColor }
-let nextBorder = { size = flex(), rendObj = ROBJ_FRAME, borderWidth = 1, color = nextBorderColor, key = {}
-  animations = [{ prop = AnimProp.opacity, from = 0.5, to = 1, duration = 1, play = true, loop = true, easing = CosineFull }] }
+let currentBorder = freeze({ size = flex(), rendObj = ROBJ_FRAME, borderWidth = hdpx(1), color = curBorderColor })
 
-let function weaponWidget(weapon, hint = null, width = wWidth, height = wHeight, showHint = true, iconCtor = iconCtorDefault) {
-  let markAsSelected = weapon?.isEquiping || (weapon?.isCurrent && !weapon?.isHolstering)
-  let borderComp = markAsSelected ? currentBorder
-    : weapon?.isNext ? nextBorder
-    : null
+let function weaponWidget(weapon=null, idx=null, hint = null, width = wWidth, height = wHeight, weaponState = null, doMemoize=false) {
+  let weaponWatched = Computed(@() (weapon ?? {}).__merge(weaponState?.value ?? {}))
+  let name = Computed(@() weapon?.name ?? weaponSlotsStatic?[idx].name ?? weaponWatched?.value.name)
+  let isCurrentW = Computed(@() heroCurrentGunSlot.value!=null && heroCurrentGunSlot.value == idx)
+  let controlHint = hint
+  let hintsPadding = wHeight + hdpx(2)
+  let borderComp = @() {size = flex() children  = isCurrentW.value ? currentBorder : null, watch=isCurrentW}
+  let weaponHudIcon = function() {
+    let sInfo = weaponSlotsStatic?[idx]
+    let isLoadable = sInfo?.isReloadable ?? weaponWatched?.value.isReloadable ?? ((weaponWatched?.value.maxAmmo ?? 0) > 0)
+    let isAmmoLoaded = !isLoadable || ((weaponWatched?.value.curAmmo ?? 0) > 0)
+    let ctor = doMemoize || (sInfo != null && !weaponWatched?.value.subsidiaryGunEid) ? iconCtorMemoized : iconCtor
+    return {
+      size = flex()
+      watch= [heroModsByWeaponSlot,  name]
+      children = ctor(weaponSlotsStatic?[idx] ?? weaponWatched.value, isLoadable, isAmmoLoaded, hdpx(128), height - hdpx(2) * 2, weaponWatched?.value.subsidiaryGunEid ? heroModsByWeaponSlot.value?[idx].iconAttachments : null)
+    }
+  }
+  let ammo = weaponWatched != null ? weaponAmmo(weaponWatched, isCurrentW, {width = SIZE_TO_CONTENT height=wHeight/2 hplace=ALIGN_RIGHT vplace = ALIGN_CENTER}, idx) : null
+  let weapId = @() weaponId(name.value, isCurrentW, { size=[flex(),height/2]}).__update({watch = name})
 
-  let weaponHudIcon = iconCtor(weapon, hdpx(128), height - hdpx(2) * 2)
-
-  let controlHint = showHint ? hint : null
-  let hintsPadding = showHint ? wHeight + hdpx(2) : hdpx(2)
-  return @() {
+  return freeze({
     size = [width,height]
     animations = weaponWidgetAnims
     flow = FLOW_HORIZONTAL
@@ -136,33 +148,26 @@ let function weaponWidget(weapon, hint = null, width = wWidth, height = wHeight,
             size = [width-hintsPadding,height]
             clipChildren = true
             valign = ALIGN_CENTER
-            children = (weapon?.name && weapon?.name!= "")
-              ? [
-                  {
-                    size = flex()
-                    padding=hdpx(2)
-                    children = [
-                      weaponHudIcon,
-                      {
-                        flow = FLOW_HORIZONTAL
-                        size = flex()
-                        valign = ALIGN_CENTER
-                        children = [
-                          weaponId(weapon, { size=[flex(),height/2]})
-                          weaponAmmo(weapon, {width = SIZE_TO_CONTENT height=wHeight/2 hplace=ALIGN_RIGHT vplace = ALIGN_CENTER})
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              : {size=flex()}
+            children = {
+              size = flex()
+              padding=hdpx(2)
+              children = [
+                weaponHudIcon,
+                {
+                  flow = FLOW_HORIZONTAL
+                  size = flex()
+                  valign = ALIGN_CENTER
+                  children = [ weapId, ammo ]
+                }
+              ]
+            }
           }
         ]
       }
-      showHint ? {size = flex(0.01) minWidth=hdpx(1)} : null
+      {size = flex(0.01) minWidth=hdpx(1)}
       controlHint
     ]
-  }
+  })
 }
 
 return {

@@ -1,0 +1,444 @@
+sequencer{
+  name:t="sub.defendPointMoveToCover"
+
+  subTree{
+    treeName:t="sub.tryToSaveOrFindCover"
+  }
+
+  subTree{
+    treeName:t="sub.moveToCoverNearPosition"
+  }
+
+  setIntVar{
+    to:t="isOnDefendPoint"
+    value:i=0
+  }
+
+  setIntVar{
+    to:t="isOnDefendPoint"
+    value:i=1
+  }
+}
+
+orderedSelector{
+  name:t="sub.defendPointMove"
+
+  reaction{
+    event:t="onBulletNearby"
+
+    sequencer{
+
+      periodicTimer{
+        timeParam:t="onBulletNearbyTimer"
+        timePeriod:p2=2.0, 4.0
+      }
+
+      recalculateTree{
+      }
+    }
+  }
+
+  reaction{
+    event:t="onEnemyPlayerNear"
+
+    sequencer{
+
+      findDanger{
+        paramName:t="shootEnemy"
+        radiusParamName:t="enemyNearRadius"
+        minDanger:r=0.1
+        tag:t="human"
+      }
+
+      recalculateTree{
+      }
+    }
+  }
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.swimUpCheck"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.tryToOpenDoors"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerGrenade"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerZone"
+      }
+
+      sequencer{
+        name:t="regroup"
+
+        orderedSelector{
+
+          orderedSelector{
+
+            subTree{
+              name:t=""
+              treeName:t="sub.checkCover"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.findCover"
+            }
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.regroupCheck"
+          }
+        }
+      }
+    }
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.defendPointMoveToCover"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.defendPointMoveToPosition"
+  }
+}
+
+orderedSelector{
+  name:t="sub.defendPointStay"
+
+  reaction{
+    event:t="onBulletNearby"
+
+    sequencer{
+
+      recalculateTree{
+      }
+    }
+  }
+
+  reaction{
+    event:t="onTraceableDanger"
+
+    subTree{
+      name:t=""
+      treeName:t="sub.stayTraceableDangerCheck"
+    }
+  }
+
+  reaction{
+    event:t="onEnemyPlayerNear"
+
+    sequencer{
+
+      findDanger{
+        paramName:t="shootEnemy"
+        radiusParamName:t="enemyNearRadius"
+        minDanger:r=0.1
+        tag:t="human"
+      }
+
+      recalculateTree{
+      }
+    }
+  }
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.swimUpCheck"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.tryToOpenDoors"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerGrenade"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerZone"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.stayFindDangerCheck"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.changeStanceWhenInTheSquadLeaderAim"
+      }
+
+      sequencer{
+        name:t="regroup"
+
+        orderedSelector{
+
+          orderedSelector{
+
+            subTree{
+              name:t=""
+              treeName:t="sub.checkCover"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.stayFindCover"
+            }
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.stayRegroupCheck"
+          }
+        }
+      }
+    }
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.stayInCover"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.stayAtPos"
+  }
+}
+
+repeat{
+  name:t="sub.defendPoint"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.chooseMaxStance"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.deactivateWeapMod"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.swimUp"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.selfExtinguish"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.selfHealing"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.dmgZoneEscape"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.rethrowGrenade"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.grenadeEscape"
+  }
+
+  orderedSelector{
+    name:t="attack"
+
+    subTree{
+      name:t=""
+      treeName:t="sub.enemyMelee"
+    }
+
+    sequencer{
+
+      orderedSelector{
+
+        isVarsIntEqual{
+          lhs:t="isOnDefendPoint"
+          rhs_value:i=1
+        }
+
+        wasAttackedRecently{
+          targetUnitParam:t="shootEnemy"
+        }
+      }
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        subTree{
+          treeName:t="sub.oneShootAttack"
+        }
+      }
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        subTree{
+          treeName:t="sub.oneShootAttack"
+        }
+
+        setPosFromEntity{
+          to:t="potentialEnemyPos"
+          from:t="shootEnemy"
+        }
+
+        parallel{
+
+          wait{
+            range:p2=0.5, 1.0
+            resetable:b=yes
+          }
+
+          wanderLook{
+            posParam:t="potentialEnemyPos"
+            range:p2=0.2, 0.1
+            maxStanceParam:t="coverStance"
+          }
+        }
+      }
+    }
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  copyPoint3Var{
+    from:t="regroupPosition"
+    to:t="storedRegroupPosition"
+  }
+
+  sequencer{
+    name:t="follow_position"
+
+    orderedSelector{
+
+      sequencer{
+
+        isVarsIntEqual{
+          lhs:t="isInShootState"
+          rhs_value:i=1
+        }
+
+        initPeriodicTimer{
+          timeParam:t="onBulletNearbyTimer"
+          timePeriod:p2=2.0, 4.0
+        }
+
+        initPeriodicTimer{
+          timeParam:t="onTraceableDangerTimer"
+          timePeriod:p2=2.0, 4.0
+        }
+
+        initPeriodicTimer{
+          timeParam:t="onFollowPosFindDangerTimer"
+          timePeriod:p2=2.0, 4.0
+        }
+      }
+
+      continue{
+      }
+    }
+
+    setCurrentAiAction{
+      state:t="move"
+    }
+
+    subTree{
+      name:t=""
+      treeName:t="sub.defendPointMove"
+    }
+
+    subTree{
+      name:t=""
+      treeName:t="sub.defendPointStay"
+    }
+  }
+}

@@ -24,7 +24,7 @@ let { squadId, isInSquad, isSquadLeader, isInvitedToSquad, selfUid,
   isManuallyLeavedSquadOnFullSquad
 } = squadState
 
-let logSq = require("%sqstd/log.nut")().with_prefix("[SQUAD] ")
+let logSq = require("%enlSqGlob/library_logs.nut").with_prefix("[SQUAD] ")
 let sessionManager = require("%enlist/squad/consoleSessionManager.nut")
 let eventbus = require("eventbus")
 let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
@@ -94,7 +94,7 @@ let function applyRemoteDataToSquadMember(member, msquad_data) {
     return {}
 
   let oldVal = member.state.value
-  foreach(k,v in data){
+  foreach (k,v in data){
     if (k in oldVal && oldVal[k] == v)
       continue
     member.state(oldVal.__merge(data))
@@ -182,7 +182,7 @@ let function subscribeSquadMember(member) {
     @(v) allMembersState.mutate(@(m) m[member.userId] <- clone v)) //!!FIX ME: States must be store in allMembersState by default, and only computed version in member
 }
 
-foreach(key, oldMember in squadMembers.value) {
+foreach (key, oldMember in squadMembers.value) {
   //script reload
   oldMember.clearSubscriptions()
   let newMember = SquadMember(oldMember.userId, squadId).setState(oldMember.state)
@@ -199,16 +199,16 @@ let function reset() {
     squadChatJoined(false)
     let chat_id = squadSharedData.squadChat.value?.chatId
     leaveChat(chat_id, null)
-    if(chat_id)
+    if (chat_id)
       leave_voice_chat(voiceChatId(chat_id))
   }
 
-  foreach(w in squadSharedData)
+  foreach (w in squadSharedData)
     w.update(null)
-  foreach(w in squadServerSharedData)
+  foreach (w in squadServerSharedData)
     w.update(null)
 
-  foreach(member in squadMembers.value) {
+  foreach (member in squadMembers.value) {
     setOnlineBySquad(member.contact, null)
     member.clearSubscriptions()
     sendEvent(notifyMemberRemoved, member.userId)
@@ -239,12 +239,12 @@ let function applySharedData(dataTable) {
   if (!isInSquad.value)
     return
 
-  foreach(key, w in squadServerSharedData)
+  foreach (key, w in squadServerSharedData)
     if (key in dataTable)
       w.update(dataTable[key])
 
   if (!isSquadLeader.value)
-    foreach(key, w in squadSharedData)
+    foreach (key, w in squadSharedData)
       w.update(squadServerSharedData[key].value)
 }
 
@@ -262,7 +262,7 @@ let function revokeSquadInvite(user_id) {
 }
 
 let function revokeAllSquadInvites() {
-  foreach(uid, _ in isInvitedToSquad.value)
+  foreach (uid, _ in isInvitedToSquad.value)
     revokeSquadInvite(uid)
 }
 
@@ -335,7 +335,7 @@ let function updateSquadInfo(squad_info) {
   }
   squadMembers.trigger()
 
-  foreach(uid in squad_info?.invites ?? [])
+  foreach (uid in squad_info?.invites ?? [])
     addInvited(uid)
 
   if (squad_info?.data)
@@ -550,7 +550,7 @@ let function dismissSquadMember(user_id) {
 let function dismissAllOfflineSquadmates() {
   if (!isSquadLeader.value)
     return
-  foreach(member in squadMembers.value)
+  foreach (member in squadMembers.value)
     if (!isContactOnline(member.contact.value.userId, onlineStatus.value))
       MSquadAPI.dismissMember(member.userId)
 }
@@ -664,7 +664,7 @@ let function inviteToSquad(user_id, needConsoleInvite = true) {
 local isSharedDataRequestInProgress = false
 let function syncSharedDataImpl() {
   let function isSharedDataDifferent() {
-    foreach(key, w in squadSharedData)
+    foreach (key, w in squadSharedData)
       if (w.value != squadServerSharedData[key].value)
         return true
     return false
@@ -701,7 +701,7 @@ let function syncSharedData(...) {
   gui_scene.setInterval(0.1, syncSharedDataTimer)
 }
 
-foreach(w in squadSharedData)
+foreach (w in squadSharedData)
   w.subscribe(syncSharedData)
 
 subscribeGroup(INVITE_ACTION_ID, {
@@ -730,11 +730,12 @@ subscribeGroup(INVITE_ACTION_ID, {
 let function onAcceptMembership(newContact) {
   let { realnick, uid } = newContact.value
   logSq($"Squad application notification from {uid}/{realnick}")
-  if (consoleCompare.xbox.isFromPlatform(realnick) && isSquadLeader.value) {
+  if ((consoleCompare.xbox.isFromPlatform(realnick)
+      || consoleCompare.psn.isFromPlatform(realnick)) && isSquadLeader.value) {
     logSq($"Accepting squad membership from {uid}")
     MSquadAPI.acceptMembership(uid)
   } else {
-    logSq("Not squad leader or request was performed from non-xbox platform. Skipping.")
+    logSq($"Not squad leader or request was performed from {realnick} non-(xbox or psn) platform. Skipping.")
   }
 }
 
@@ -742,7 +743,7 @@ let function onApplicationNotify(params) {
   let applicant = params?.applicant
   let uid = applicant?.id
   let newContact = Contact(uid?.tostring())
-  validateNickNames([newContact], @() onAcceptMembership(Contact(uid?.tostring())))
+  validateNickNames([newContact], @() onAcceptMembership(newContact))
 }
 
 
@@ -812,7 +813,7 @@ let msubscribes = {
   ["msquad.notify_application_denied"] = function(...) {}
 }
 
-foreach(k, v in msubscribes) {
+foreach (k, v in msubscribes) {
   matching_api.listen_notify(k)
   eventbus.subscribe(k, v)
 }
@@ -832,7 +833,7 @@ squadSharedData.squadChat.subscribe(function(value) {
           squadChatJoined(false)
       })
     }
-    if(value?.chatId)
+    if (value?.chatId)
       join_voice_chat(voiceChatId(value.chatId))
   }
 })

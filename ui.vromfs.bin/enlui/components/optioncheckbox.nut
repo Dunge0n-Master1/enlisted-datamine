@@ -6,6 +6,7 @@ let locOn = loc($"option/on")
 let locOff = loc($"option/off")
 let function optionCheckbox(opt, group, xmbNode) {
   let available = Watched([false, true])
+  let stateFlags = Watched(0)
   return @(){
     size = flex()
     watch = available
@@ -17,6 +18,7 @@ let function optionCheckbox(opt, group, xmbNode) {
       allValues = available.value
       xmbNode
       group
+      stateFlags
     })
   }
 }

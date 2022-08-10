@@ -9,6 +9,25 @@ require HumanPhys
 require AnimV20
 require CollRes
 require Dacoll
+require DagorSystem
+
+
+def get_item_use_time(item : EntityId; is_downed : bool; is_self_targeting : bool)
+  var useTime = -1f
+  var hasUseTime = false
+  if is_self_targeting
+    query(item) <| $ [es] (item__useTime : float; item__downedTimeMultiplier : float = 1f)
+      useTime = item__useTime  * (is_downed ? item__downedTimeMultiplier : 1f)
+      hasUseTime = true
+  else
+    query(item) <| $ [es] (item__useTimeToTarget : float; item__downedTimeMultiplier : float = 1f)
+      useTime = item__useTimeToTarget * (is_downed ? item__downedTimeMultiplier : 1.f)
+      hasUseTime = true
+  if hasUseTime && useTime < 0f
+    let compName = is_self_targeting ? "useTime" : "useTimeToTarget"
+    logerr("item.{compName} < 0 {getEntityTemplateName(item)}")
+  return useTime
+
 
 def push_item_in_cont(owner_eid : EntityId; name : string)
   return createEntity(name) <| $(var init : ComponentsInitializer)

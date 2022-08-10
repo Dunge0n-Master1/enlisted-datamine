@@ -2,9 +2,10 @@ require ecs
 require app
 require math
 require math.base
+require enlisted.events_enlisted
 
-[es(no_order)]
-def spawn_immunity_es(info : UpdateStageInfoAct;
+[es]
+def spawn_immunity_es(info : ParallelUpdateFrameDelayed;
                       var hitpoints__dmgMult : float&;
                       var spawn_immunity__timer : float&;
                       transform : float3x4;

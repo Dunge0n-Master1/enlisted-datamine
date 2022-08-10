@@ -6,7 +6,7 @@ from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, BASE_URL, statusText, isS
 let { debounce } = require("%sqstd/timers.nut")
 let eventbus = require("eventbus")
 let json = require("json")
-let { language } = require("%enlSqGlob/clientState.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let {h2_txt, body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {checkMultiplayerPermissions} = require("permissions/permissions.nut")
 let {createRoom} = require("state/roomState.nut")
@@ -142,7 +142,7 @@ let hashesStatus = Watched({})
 let function setCurHashesStatus(...){
   let hashes = modFilesHashes.value
   let res = clone hashesStatus.value
-  foreach(hash in hashes){
+  foreach (hash in hashes){
     if (res?[hash] == WAITING || res?[hash] == SUCCESS)
       continue
     if (!isStrHash(hash)) {
@@ -154,7 +154,7 @@ let function setCurHashesStatus(...){
     reqFileHeaders(hash)
   }
   let toDelete = []
-  foreach(hash, value in res){
+  foreach (hash, value in res){
     if (!hashes.contains(hash)) {
       if (!(value==SUCCESS || value==WAITING))
         toDelete.append(hash)
@@ -244,7 +244,7 @@ let function getModInfo(mpath) {
   let {contentId=null, vromfs=null, manifestFromFile=null, sceneBlkFound=false} = mod
   local titles = manifest?.title_localizations ?? {}
   titles = titles.__merge({title = manifestFromFile?.title ?? contentId})
-  let title = titles?[language.value] ?? titles?.title ?? contentId
+  let title = titles?[gameLanguage] ?? titles?.title ?? contentId
   let fname = getFname(mpath).slice(0, -MODS_EXT.len())
 
   let sceneInMode = sceneBlkFound ? "scene.blk" : null
@@ -473,7 +473,7 @@ let openModsWindow = mkSelectWindow({
   onAttach = function() {
     let mods = scan_folder({root=USER_MODS_FOLDER, vromfs = false, realfs = true, recursive = false, files_suffix=MODS_EXT})
     gameMods(mods)
-    foreach(m in mods) {
+    foreach (m in mods) {
       request_ugm_manifest(m, EVENT_MOD_VROM_INFO)
     }
   }

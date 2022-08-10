@@ -21,7 +21,7 @@ def private wake_up_phys_on_terraform_impl(pos : float3; radius : float)
       ship_net_phys.phys |> ship_phys_wake_up()
 
 [es(tag=server)]
-def wake_up_phys_on_terraform(evt : CmdTerraform)
+def wake_up_phys_on_terraform(evt : CmdDig)
   wake_up_phys_on_terraform_impl(evt.pos, 2. * evt.radius)
 
 [es(tag=server)]

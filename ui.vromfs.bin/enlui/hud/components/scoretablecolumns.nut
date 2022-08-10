@@ -1,10 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
+import "%dngscripts/ecs.nut" as ecs
 
 let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let { INVALID_USER_ID, INVALID_SESSION_ID } = require("matching.errors")
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
 let { round_by_value } = require("%sqstd/math.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 let { BattleHeroesAward, awardPriority, isSoldierKindAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let contextMenu = require("%ui/components/contextMenu.nut")
 let { setTooltip, withTooltip } = require("%ui/style/cursors.nut")
@@ -13,12 +15,12 @@ let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
 let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
 let complain = require("%ui/complaints/complainWnd.nut")
 let forgive = require("%ui/requestForgiveFriendlyFire.nut")
-let { showUserInfo, canShowUserInfo } = require("%enlSqGlob/showUserInfo.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
+let { SetReplayTarget } = require("dasevents")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 
-let LINE_H = hdpx(40)
+let LINE_H = hdpxi(40)
 let NUM_COL_WIDTH = hdpx(45)
 let SCORE_COL_WIDTH = hdpx(65)
 let TEAM_ICON_SIZE = (0.7 * LINE_H).tointeger()
@@ -28,6 +30,11 @@ let iconSize = (LINE_H - smallPadding).tointeger()
 let tooltipBattleHeroAwardIconSize = [hdpx(70), hdpx(70)]
 
 let canComplain = @(playerData) playerData.sessionId != INVALID_SESSION_ID && !playerData.isLocal
+
+let canShowUserProfile = @(playerData) playerData.player.userid.tointeger() != -1
+  && playerData.sessionId != INVALID_SESSION_ID
+  && !playerData.isLocal
+
 
 let TEAM0_TEXT_COLOR_HOVER = Color(210,220,255,120)
 let TEAM1_TEXT_COLOR_HOVER = Color(255,220,220,120)
@@ -88,9 +95,13 @@ let deserterIcon = @(playerData, sf) {
   padding = [hdpx(2), 0]
 }
 
-let getFramedNick = @(player) frameNick(remap_nick(player.name), player?["decorators__nickFrame"])
+let getFramedNick = @(player)
+  frameNick( //TEMP FIX: Recieve already corrent name from server
+    player?.userid == userInfo.value?.userId ? userInfo.value?.nameorig : remap_nick(player.name),
+    player?.decorators__nickFrame
+  )
 
-let squadMemberIconSize = hdpx(18).tointeger()
+let squadMemberIconSize = hdpxi(18)
 let mkMemberIcon = @(txt, playerData, sf = 0) {
   size = [SIZE_TO_CONTENT, LINE_H]
   halign = ALIGN_CENTER
@@ -113,7 +124,7 @@ let mkMemberIcon = @(txt, playerData, sf = 0) {
   ]
 }
 
-let friendlyFireIconSize = hdpx(18).tointeger()
+let friendlyFireIconSize = hdpxi(18)
 let friendlyFireIcon = {
   size = [SIZE_TO_CONTENT, LINE_H]
   halign = ALIGN_CENTER
@@ -158,9 +169,46 @@ let function mkPlayerRank(playerData, isInteractive) {
   })
 }
 
+let queryPlayerGetSquad = ecs.SqQuery("query_player_get_squad", {
+  comps_ro = [["respawner__squad", ecs.TYPE_EID]]
+})
+
+let querySoldierSquadMembers = ecs.SqQuery("query_soldier_squad_members", {
+  comps_ro = [["squad__allMembers", ecs.TYPE_EID_LIST]]
+})
+
+let queryAliveSoldierName = ecs.SqQuery("query_alive_soldier_name", {
+  comps_ro = [["name", ecs.TYPE_STRING]], comps_no=["deadEntity"]
+})
+
+let function openReplayContextMenu(event, playerData) {
+  let buttons = [{
+    locId = "btn/replay/spectate"
+    action = @() ecs.g_entity_mgr.sendEvent(playerData.eid, SetReplayTarget({}))
+  }]
+
+  let respSquad = queryPlayerGetSquad.perform(playerData.eid, @(_eid, comp) comp.respawner__squad)
+  let allMembers = querySoldierSquadMembers.perform(respSquad, @(_eid, comp) comp.squad__allMembers)
+  if (allMembers.len() > 1)
+    foreach (member in allMembers)
+      queryAliveSoldierName.perform(member, @(eid, comp)
+        buttons.append({
+          text = loc("btn/replay/spectateHuman", { name = comp.name })
+          action = @() ecs.g_entity_mgr.sendEvent(eid, SetReplayTarget({}))
+        })
+      )
+
+  contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
+}
+
 let function openContextMenu(event, playerData, localPlayerEid, params) {
   if (playerData?.player == null)
     return
+
+  if (params?.isReplay) {
+    openReplayContextMenu(event, playerData)
+    return
+  }
 
   let buttons = []
 
@@ -176,11 +224,20 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
     .filter(@(item) item?.mkIsVisible(playerUid.tostring()).value ?? true)
     .map(@(item) item.__merge({action = @() item.action(playerUid.tostring())})))
 
-  if (canShowUserInfo(playerData.player.userid.tointeger(), playerData.player.name) && !playerData.isLocal)
+  if (canShowUserProfile(playerData) && params?.showProfileCb)
     buttons.append({
-    locId = "show_user_live_profile"
-    action = @() showUserInfo(playerData.player.userid)
-  })
+      locId = "show_another_user_profile"
+      action = @() params.showProfileCb({
+        player = {
+          name = playerData.player.name
+          userid = playerUid.tointeger()
+          nickFrame = playerData.player.decorators__nickFrame
+          portrait = playerData.player.decorators__portrait
+          rank = playerData.player?.player_info__military_rank
+          rating = playerData.player?.player_info__rating ?? 0
+        }
+      })
+    })
 
   if (canComplain(playerData))
     buttons.append({
@@ -361,13 +418,13 @@ let COLUMN_CAPTURES = {
 }
 let COLUMN_DEATH = {
   width = NUM_COL_WIDTH
-  headerIcon = "!ui/skin#lb_deaths"
+  headerIcon = "!ui/skin#lb_deaths.png"
   field = "scoring_player__squadDeaths"
   locId = "scoring/deathsSquad"
 }
 let COLUMN_SCORE = {
   width = SCORE_COL_WIDTH
-  headerIcon = "!ui/skin#lb_score"
+  headerIcon = "!ui/skin#lb_score.png"
   field = "score"
   locId = "scoring/total"
 }

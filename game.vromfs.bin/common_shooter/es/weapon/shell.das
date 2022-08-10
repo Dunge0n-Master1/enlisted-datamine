@@ -82,17 +82,17 @@ def shell_expl_es(evt : CmdShellExplode;
                   shell__gun_props_id : int;
                   shell__owner : EntityId;
                   shell__rethrower : EntityId = INVALID_ENTITY_ID;
-                  offenderDesc : Object?)
-
-  using() <| $ [es] (var shellId : ShellPropIds#)
+                  shell_detonate_ignore_owner : Tag?)
+  let ignoreEid = shell_detonate_ignore_owner != null ? shell__owner : INVALID_ENTITY_ID
+  using() <| $(var shellId : ShellPropIds#)
     shellId.shellId = int16(shell__shell_id__shell_id)
     shellId.damageId = int16(shell__shell_id__damage_id)
     shellId.ballisticsId = int16(shell__shell_id__ballistics_id)
 
     let normal = float3()
     detonate_shell_server(eid, shellId, shell__gun_props_id, evt.position,
-                          shell__owner, evt.prevPos, evt.vel, INVALID_ENTITY_ID,
-                          normal, offenderDesc, shell__rethrower)
+                          shell__owner, evt.prevPos, evt.vel, ignoreEid,
+                          normal, shell__rethrower)
 
   // Detect that we exploded in gun
   if shell__owner != INVALID_ENTITY_ID

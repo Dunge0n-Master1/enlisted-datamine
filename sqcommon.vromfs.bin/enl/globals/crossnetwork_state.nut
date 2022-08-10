@@ -79,7 +79,6 @@ else {
 let isCrossnetworkIntercationAvailable = Computed(@()
   isCrossnetworkChatAvailable
   && multiplayerAvailable.value
-  && crossnetworkPlay.value != CrossplayState.OFF
   && crossnetworkChat.value)
 
 let canCrossnetworkChatWithAll = Computed(@()

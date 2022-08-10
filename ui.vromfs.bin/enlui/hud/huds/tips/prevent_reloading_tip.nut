@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
-let {curWeapon} = require("%ui/hud/state/hero_state.nut")
+let {curWeaponFiringMode, curWeaponHasScope, curWeaponAmmo} = require("%ui/hud/state/hero_weapons.nut")
 let {isAiming} = require("%ui/hud/huds/crosshair_state_es.nut")
 let {tipCmp} = require("tipComponent.nut")
 
@@ -14,9 +14,10 @@ let tip = tipCmp({
 let isPreventReloadingVisible = Computed(@()
   isAiming.value
   && !inVehicle.value
-  && (curWeapon.value?.curAmmo ?? 0) > 0
-  && curWeapon.value?.firingMode == "bolt_action"
-  && curWeapon.value?.mods.scope.itemPropsId != null)
+  && curWeaponHasScope.value
+  && curWeaponFiringMode.value == "bolt_action"
+  && curWeaponAmmo.value > 0
+)
 
 return @() {
   watch = isPreventReloadingVisible

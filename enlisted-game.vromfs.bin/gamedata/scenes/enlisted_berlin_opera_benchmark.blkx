@@ -16,26 +16,8 @@ entity{
 
   "level__weatherChoice:object"{
 
-    "content/common/gamedata/weather/weather_clear.blk:object"{
+    "weather_clear_a:object"{
       weight:r=1.0
-
-      "entities:array"{
-
-        "entities:object"{
-          template:t="snow"
-
-          "components:object"{
-            snow__alpha_fade_speed_begin:r=2.0
-            snow__speed:r=0.001
-            snow__density:r=0.005
-            snow__length:r=0.0
-            snow__width:r=0.0225
-            snow__alpha_fade_speed_end:r=10.0
-            snow__alpha:r=6.75
-            snow__wind:r=12.0
-          }
-        }
-      }
     }
   }
 
@@ -105,6 +87,10 @@ entity{
 entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="camera_dust_template"
 }
 
 entity{

@@ -72,7 +72,7 @@ def vehicle_input_init_reset(evt : EventDaInputInit;
 
 [es(tag=input, on_appear, before=vehicle_input_driver_es)]
 def init_vehicle_input_axes(evt : Event; var vehicle_input_axes : FloatList&)
-  for axis in each_enum(EGroundControlAxis GCA_THROTTLE)
+  for _axis in each_enum(EGroundControlAxis GCA_THROTTLE)
     vehicle_input_axes |> push(0.0)
 
 [es(tag=input)]

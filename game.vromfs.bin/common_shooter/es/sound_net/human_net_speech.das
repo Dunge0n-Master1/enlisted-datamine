@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require app
 require EnlistedNet
 require strings
@@ -40,10 +41,10 @@ def is_disable_after_prev_speech(desc : Object; speeches : Array; time : FloatLi
   let comp = desc["disableAfterSpeech"]
   if comp != null
     for it in *get_ecs_array(*comp)
-      let obj = get_ecs_object(it)
+      let obj = it as Object
       let otherName = get_ecs_string((*obj)["name"])
       if otherName != null
-        let otherTime = get_float((*obj)["time"]) ?? 10.
+        let otherTime = (*obj).time ?? 10.
         let otherPhraseIdx = find_desc_idx(string(*otherName), speeches)
         if otherPhraseIdx >= 0 && get_sync_time() < get_speech_time(otherPhraseIdx, time) + otherTime
           return true
@@ -51,8 +52,8 @@ def is_disable_after_prev_speech(desc : Object; speeches : Array; time : FloatLi
 
 def try_speak_impl(phrase_idx : int; desc : Object; var time : FloatList&; team : int; pos : float3; eid : EntityId; importance : float = 1.)
   let phraseType = get_string(desc, "type", "")
-  let teamRange = get_float(desc, "teamRange") ?? 0.
-  let minMaxTime = get_Point2(desc, "minMaxTime") ?? float2(0., 0.)
+  let teamRange = desc.teamRange ?? 0.
+  let minMaxTime = desc.minMaxTime ?? float2(0., 0.)
   let curTime = get_sync_time()
   let speechTime = get_speech_time(phrase_idx, time)
   if curTime < speechTime + minMaxTime.x
@@ -98,13 +99,13 @@ def human_net_speech_request(evt : CmdRequestHumanSpeech;
   if isAlive && (!isDowned || evt.phrase == "coverme")
     let phraseIdx = find_desc_idx(evt.phrase, human_speech__speeches)
     let desc = get_desc(phraseIdx, human_speech__speeches)
-    if desc != null && take_a_chance(get_int(*desc, "chance") ?? 100) && !is_disable_after_prev_speech(*desc, human_speech__speeches, human_net_speech__time)
+    if desc != null && take_a_chance((*desc).chance ?? 100) && !is_disable_after_prev_speech(*desc, human_speech__speeches, human_net_speech__time)
       try_speak_impl(phraseIdx, *desc, human_net_speech__time, team, transform[3], eid, evt.importance)
 
 def try_speak(phrase : string; speeches : Array; var time : FloatList&; team : int; pos : float3; eid : EntityId; importance : float = 1.)
   let phraseIdx = find_desc_idx(phrase, speeches)
   let desc = get_desc(phraseIdx, speeches)
-  if desc != null && take_a_chance(get_int(*desc, "chance") ?? 100) && !is_disable_after_prev_speech(*desc, speeches, time)
+  if desc != null && take_a_chance((*desc).chance ?? 100) && !is_disable_after_prev_speech(*desc, speeches, time)
     try_speak_impl(phraseIdx, *desc, time, team, pos, eid, importance)
   elif desc == null
     sound_debug("can not speak phrase '{phrase}' because no such phrase")
@@ -119,8 +120,8 @@ def human_net_speech_reload(evt : Event; eid : EntityId;
   try_speak("reload", human_speech__speeches, human_net_speech__time, team, transform[3], eid)
 
 
-def is_headshot(dm_parts__type : StringList&; dd : DamageDesc&)
-  return int(dd.collNodeId) >= 0 && string(dm_parts__type[int(dd.collNodeId)]) == "head"
+def is_headshot(dm_parts__type : StringList&; coll_node_id : int)
+  return coll_node_id >= 0 && string(dm_parts__type[coll_node_id]) == "head"
 
 def is_concussed(eid : EntityId)
   return get_bool(eid, "hasConcussedSound") ?? false
@@ -146,7 +147,7 @@ def is_single_shot(human_eid : EntityId)
     if gun__firingModeIndex >= 0 && gun__firingModeIndex < length(gun__firingModes)
       let modeObj = get_ecs_object(gun__firingModes[gun__firingModeIndex])
       if modeObj != null
-        burstSize = get_int(*modeObj, "burstSize") ?? 1
+        burstSize = (*modeObj).burstSize ?? 1
   return burstSize == 1
 */
 
@@ -164,17 +165,17 @@ def human_net_speech_hit(evt : EventOnEntityHit;
   if evt.victim != eid && evt.offender != eid
     return
 
-  if evt.hitResult == HitResult HIT_RES_NONE
+  if evt.hitResult == int(HitResult HIT_RES_NONE)
     return
 
-  assume dd = evt.damageDesc
-  if dd.damageType != DamageType DM_PROJECTILE && dd.damageType != DamageType DM_EXPLOSION && dd.damageType != DamageType DM_MELEE && dd.damageType != DamageType DM_BACKSTAB
+  assume dd = evt
+  if dd.damageType != int(DamageType DM_PROJECTILE) && dd.damageType != int(DamageType DM_EXPLOSION) && dd.damageType != int(DamageType DM_MELEE) && dd.damageType != int(DamageType DM_BACKSTAB)
     return
 
-  let killed = (evt.hitResult == HitResult HIT_RES_KILLED) && !is_concussed(evt.victim)
+  let killed = (evt.hitResult == int(HitResult HIT_RES_KILLED)) && !is_concussed(evt.victim)
 
   if evt.victim == eid
-    if !killed && (dd.damageType == DamageType DM_PROJECTILE || dd.damageType == DamageType DM_EXPLOSION)
+    if !killed && (dd.damageType == int(DamageType DM_PROJECTILE) || dd.damageType == int(DamageType DM_EXPLOSION))
       let importance = saturate(safediv(dd.deltaHp, hitpoints__maxHp))
       sendEvent(evt.victim, [[CmdRequestHumanSpeech phrase="wounded", importance=importance]])
 
@@ -182,15 +183,15 @@ def human_net_speech_hit(evt : EventOnEntityHit;
     query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (hitpoints__maxHp : float; dm_parts__type : StringList&)
       var phrase = "enemyHit"
       if killed
-        if dd.damageType == DamageType DM_EXPLOSION
+        if dd.damageType == int(DamageType DM_EXPLOSION)
           phrase = "enemyKillExplode"
-        elif is_headshot(dm_parts__type, dd)
+        elif is_headshot(dm_parts__type, dd.collNodeId)
           phrase = "enemyHeadshot"
         //elif dd.deltaHp >= hitpoints__maxHp && is_single_shot(evt.offender)
         //  phrase = "enemyKillSingleShot"
         elif length_sq(dd.hitPos - transform[3]) > square(human_net_speech__isFarKillThreshold)
           phrase = "enemyKillFar"
-        elif (dd.damageType == DamageType DM_MELEE)
+        elif (dd.damageType == int(DamageType DM_MELEE))
           phrase = "enemyKillMelee"
         else
           phrase = "enemyKill"

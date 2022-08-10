@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require Gun
 require ecs.common
 require EnlistedNet

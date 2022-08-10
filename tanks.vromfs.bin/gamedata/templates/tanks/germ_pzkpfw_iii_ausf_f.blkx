@@ -119,7 +119,7 @@ germ_pzkpfw_III_ausf_F_driver_cockpit{
 }
 
 germ_pzkpfw_III_ausf_F_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf4.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5d.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="pzkpfw_iii_e_gunner_char"
   cockpit__offset:p3=-0.9, 0.03, 0.12

@@ -11,7 +11,7 @@ let state = {
 
 ecs.register_es("downedTracker",{
   [["onInit", "onChange"]] = function trackDownedState(_eid,comp) {
-      foreach(k,v in state)
+      foreach (k,v in state)
         v(comp[$"hitpoints__{k}"])
     },
   function onDestroy() {

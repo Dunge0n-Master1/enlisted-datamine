@@ -5,7 +5,7 @@ let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
 let { update_profile, get_all_configs } = require("clientApi.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let logPR = require("%sqstd/log.nut")().with_prefix("[profileRefresh] ")
+let logPR = require("%enlSqGlob/library_logs.nut").with_prefix("[profileRefresh] ")
 
 const MAX_CONFIGS_UPDATE_DELAY = 120 //to prevent all users update configs at once.
   //but after the battle user will update configs if needed with profile even before timer.

@@ -1,0 +1,19 @@
+hit_effect_group_6_8mm{
+  gun_hit_fx__default:t="hit_6_8mm_ap_sand_effect"
+}
+
+hit_effect_group_8_12mm{
+  gun_hit_fx__default:t="hit_8_12mm_ap_sand_effect"
+}
+
+hit_effect_group_12_14mm{
+  gun_hit_fx__default:t="hit_12_14mm_ap_sand_effect"
+}
+
+hit_effect_group_14_20mm{
+  gun_hit_fx__default:t="hit_14_20mm_ap_sand_effect"
+}
+
+hit_effect_group_20_60mm{
+  gun_hit_fx__default:t="hit_20_60mm_ap_sand_effect"
+}

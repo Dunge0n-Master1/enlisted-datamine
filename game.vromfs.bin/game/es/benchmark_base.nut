@@ -100,7 +100,7 @@ let function saveAndResetStats(){
       f.writestring(res)
       f.close()
     }
-    foreach(compName, _ in comps){
+    foreach (compName, _ in comps){
       if (compName == "benchmark_name" || compName == "benchmark_runs")
         continue
       if (compName == "currentRun")

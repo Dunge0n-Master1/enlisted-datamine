@@ -8,7 +8,7 @@ require DagorSystem
 
 [es(tag=sound, after=(vehicle_phys_es, sound_control_update))]
 def vehicle_phys_sound_state(info : UpdateStageInfoAct;
-                             sound_control__enabled : bool;
+                             sound_control__shouldPlay : bool;
                              vehicle_net_phys : VehiclePhysActor;
                              var vehicle_sound_state__isOnGround : bool&;
                              var vehicle_sound_state__engineRpm : float&;
@@ -38,7 +38,7 @@ def vehicle_phys_sound_state(info : UpdateStageInfoAct;
   vehicle_sound_state__engineLoad = vehicle_sound_state__isOnGround ? vehicle_net_phys.phys.engineLoad : 0.
   vehicle_sound_state__isEngineStarted = isAlive && vehicle_net_phys.phys.engineReadyness > 0.
 
-  if !sound_control__enabled
+  if !sound_control__shouldPlay
     vehicle_sound_state__prevTransform = transform
     return
 

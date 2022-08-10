@@ -5,7 +5,7 @@ require DagorMath
 require math.base
 require math.linear
 require zones
-require game.es.events
+require enlisted.events_enlisted
 require game.events_game
 require game.utils.team
 require DagorSystem
@@ -86,13 +86,25 @@ def get_vehicle_battle_area_border_width_or(eid : EntityId; default_value : floa
   return get_float(eid, "battle_areas_visitor__noDamageBorderWidth") ?? default_value
 
 [es(tag=server, REQUIRE=battle_area)]
-def battle_area_zone_about_to_deactivate_es(evt : EventEntityAboutToDeactivate; var battle_area__deactivatedAtTime : float&)
+def battle_area_zone_about_to_deactivate_es(evt : EventEntityAboutToDeactivate;
+                                            deactivationDelay : float;
+                                            var battle_area__deactivatedAtTime : float&;
+                                            var battle_area__deactivateEndTime : float&)
   battle_area__deactivatedAtTime = get_sync_time()
+  battle_area__deactivateEndTime = battle_area__deactivatedAtTime + deactivationDelay
+
+[es(tag=server, no_order, REQUIRE=battle_area)]
+def battle_area_deactivation_timer(info : UpdateStageInfoAct; eid : EntityId; var battle_area__deactivateEndTime : float&)
+  if battle_area__deactivateEndTime > 0. && info.curTime > battle_area__deactivateEndTime
+    sendEvent(eid, [[EventEntityActivate activate=false]])
+    battle_area__deactivateEndTime = -1.
 
 [es(tag=server, REQUIRE=battle_area)]
-def battle_area_zone_deactivated_reset_time(evt : EventEntityActivate; var battle_area__deactivatedAtTime : float&)
-  if !evt.activate
-    battle_area__deactivatedAtTime = -1.
+def battle_area_zone_reset_time_on_active_changed(evt : EventEntityActivate;
+                                                  var battle_area__deactivatedAtTime : float&;
+                                                  var battle_area__deactivateEndTime : float&)
+  battle_area__deactivatedAtTime = -1.
+  battle_area__deactivateEndTime = -1.
 
 [es(tag=server, REQUIRE=battle_area)]
 def battle_area_zone_deactivate_es(evt : EventEntityActivate; var zone__keepDead : bool&)

@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {ceil} = require("math")
 let {DM_EFFECT_FIRE, DM_EFFECT_EXPL} = require("dm")
 
-let {EventOnVehicleDamaged, EventOnVehicleDamageEffects} = require("vehicle")
+let {EventOnVehicleDamaged, EventOnVehicleDamageEffects} = require("dasevents")
 
 let victimState = mkWatched(persist, "victimVehicleHp", {
   vehicle = INVALID_ENTITY_ID
@@ -27,10 +27,10 @@ ecs.register_es("ui_vehicle_hp_es", {
   [EventOnVehicleDamaged] = function(evt, _eid, _comp) {
     let state = victimState.value
 
-    let vehicle = evt[1]
-    let damage = evt[2]
-    let hp = evt[3]
-    let maxHp = evt[4]
+    let vehicle = evt.vehicle
+    let damage = evt.damage
+    let hp = evt.hp
+    let maxHp = evt.maxHp
 
     let totalDamage = damage + (vehicle == state.vehicle && state.show ? state.damage : 0)
     let data = {
@@ -47,8 +47,8 @@ ecs.register_es("ui_vehicle_hp_es", {
     victimState.mutate(@(v) v.__update(data))
   },
   [EventOnVehicleDamageEffects] = function(evt, _eid, _comp) {
-    let vehicle = evt[1]
-    let effects = evt[2]
+    let vehicle = evt.vehicle
+    let effects = evt.effects
     let data = {
       show = true
       vehicle = vehicle

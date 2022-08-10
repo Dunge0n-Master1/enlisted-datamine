@@ -33,3 +33,12 @@ spawnMode_oneSpawnPerUnit{
     desc:t="Custom spawn ruleset. Players can only spawn once on each squad/soldier(depending on game mode) they have in battle. Only one custom spawn ruleset can be in mission"
   }
 }
+
+no_loudspeaker_sound_mode{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  "noLoudspeakerSoundMode:tag"{
+    _tags:t="sound"
+  }
+}

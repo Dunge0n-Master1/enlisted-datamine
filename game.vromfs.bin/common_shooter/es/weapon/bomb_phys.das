@@ -10,6 +10,7 @@ require Dacoll
 require Ballistics
 require BallisticsProps
 require EnlistedDm
+require enlisted.events_enlisted
 
 
 [es(on_appear, before=projectile_phys_created_es)]
@@ -103,7 +104,7 @@ def update_bomb_ballistics(bomb_ballistics_props : ShellProps;
 
 
 [es(before=update_projectile_es)]
-def update_bomb_phys_es(info : UpdateStageInfoAct;
+def update_bomb_phys_es(info : ParallelUpdateFrameDelayed;
                         ownerEid : EntityId;
                         bomb_ballistics_props : ShellProps;
                         bomb__launcherVertical : float3;

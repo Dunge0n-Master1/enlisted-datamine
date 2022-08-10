@@ -7,6 +7,12 @@ wallposter_input{
   wallposter_input__cancel:i=0
 }
 
+watched_by_player_item{
+
+  "watchedPlayerItem:tag"{
+  }
+}
+
 personal_bot_order{
   personal_bot_order__inputSwitchBot:i=0
   _tracked:t="personal_bot_order__currentBotEid"
@@ -28,6 +34,16 @@ human_use_bomb_site{
   }
 }
 
+offender_marks{
+  offender_marks__enabled:b=yes
+  offender_marks__showOnlyLast:b=no
+  offender_marks__updateOffenderPos:b=yes
+  offender_marks__showTime:r=5.0
+
+  "offender_marks:array"{
+  }
+}
+
 human_hero_components{
   _extends:t="base_human_hero_components"
   _extends:t="human_look_at_zone"
@@ -45,6 +61,7 @@ human_hero_components{
   _extends:t="binocular_input"
   _extends:t="personal_bot_order"
   _extends:t="human_use_bomb_site"
+  _extends:t="offender_marks"
   heal__continuousInput:b=yes
   _tracked:t="heal__continuousInput"
 

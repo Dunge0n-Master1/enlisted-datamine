@@ -1,16 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { opaqueBgColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { sound_play } = require("sound")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 
 
 let animations = @(leftAppearance) [ leftAppearance
   ? { prop = AnimProp.translate, from = [-sw(50), 0], to = [0, 0],
-      duration = 0.3, play = true, onFinish = sound_play("ui/enlist/notification")
+      duration = 0.3, play = true
     }
   : { prop = AnimProp.translate, from = [sw(50), 0], to = [0, 0],
-      duration = 0.3, play = true, onFinish = sound_play("ui/enlist/notification")
+      duration = 0.3, play = true
     }
   { prop = AnimProp.color, from = Color(150,20,20), to = Color(225,35,35)
     easing = CosineFull, duration = 1, loop = true, play = true
@@ -20,6 +19,8 @@ let animations = @(leftAppearance) [ leftAppearance
 let function serviceMessages(messageTbl, params = {}){
   if (messageTbl.len() <= 0)
     return null
+
+  let isInBattle = params?.isInBattle ?? false
   return {
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
@@ -34,7 +35,7 @@ let function serviceMessages(messageTbl, params = {}){
       padding = fsh(2)
       gap = fsh(1.5)
       children = [
-        {
+        isInBattle ? null : {
           rendObj = ROBJ_IMAGE
           size = [hdpx(40), hdpx(34)]
           hplace = ALIGN_CENTER
@@ -44,8 +45,11 @@ let function serviceMessages(messageTbl, params = {}){
           rendObj = ROBJ_TEXTAREA
           size = [flex(), SIZE_TO_CONTENT]
           behavior = Behaviors.TextArea
+          maxHeight = isInBattle ? fsh(24) : hdpx(400)
+          ellipsis = true
+          textOverflowY = TOVERFLOW_LINE
           text = "\n".join(messageTbl.map(@(n) n.message))
-        }.__update(body_txt)
+        }.__update(isInBattle ? sub_txt : body_txt)
       ]
     }.__update(params)
   }

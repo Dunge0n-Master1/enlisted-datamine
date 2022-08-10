@@ -515,7 +515,7 @@ let calcBonus = @(prevWd, curWd, key)
 
 let function prepareUpgrades(curUpgrades, prevUpgrades, itemData) {
   let res = clone (curUpgrades ?? {})
-  foreach(key, value in prevUpgrades)
+  foreach (key, value in prevUpgrades)
     res[key] <- (res?[key] ?? 0) - value
 
   if ("gun__recoilAmount" in itemData) {

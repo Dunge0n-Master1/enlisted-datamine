@@ -14,7 +14,7 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 
   "level__timeVec:array"{

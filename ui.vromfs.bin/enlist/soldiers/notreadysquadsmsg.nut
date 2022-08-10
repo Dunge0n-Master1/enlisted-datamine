@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { defTxtColor, hoverTxtColor, blurBgColor, bigPadding, defBgColor, activeBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { showNotReadySquads, goToSquadAndClose } = require("model/notReadySquadsState.nut")
 let JB = require("%ui/control/gui_buttons.nut")

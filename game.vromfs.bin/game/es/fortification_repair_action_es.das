@@ -43,14 +43,16 @@ def fortification_repair_process_es(info : UpdateStageInfoAct;
                                     fortification_repair__target : EntityId;
                                     human_use_object__useDist : float;
                                     transform : float3x4;
+                                    enter_vehicle__atTime : float = -1.;
+                                    isInVehicle : bool = false;
                                     var fortification_repair__active : bool&)
   if !fortification_repair__active || !fortification_repair__target
     return
 
   let operatorPos = transform[3]
-  var rejectResupply = false
+  var rejectResupply = isInVehicle || enter_vehicle__atTime > 0.
   query(fortification_repair__target) <| $ [es] (transform : float3x4; object__useDist : float?)
-    rejectResupply = length_sq(transform[3] - operatorPos) > square(object__useDist ?? human_use_object__useDist)
+    rejectResupply ||= length_sq(transform[3] - operatorPos) > square(object__useDist ?? human_use_object__useDist)
 
   if rejectResupply
     sendEvent(eid, [[EventRepairFortificationStop]])

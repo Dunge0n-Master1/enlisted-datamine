@@ -36,4 +36,4 @@ def infantry_squad_wipeout_on_kill(evt : EventEntityDied; squad_member__squad : 
     squad_wipeout__offender = offenderPlayer
     squad_wipeout__firstKillTime = squad_wipeout__firstKillTime >= 0.0 ? squad_wipeout__firstKillTime : time
     if ++squad_wipeout__kills == squad__numMembers
-      send_schemeless_event(offenderPlayer, typeinfo(undecorated_typename type<EventOnPlayerWipedOutInfantrySquad>))
+      sendEvent(offenderPlayer, [[EventOnPlayerWipedOutInfantrySquad]])

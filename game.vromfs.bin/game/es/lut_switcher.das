@@ -5,6 +5,11 @@ require DagorMath
 require game.es.lut_switcher_common
 require DagorSystem
 
+[es(tag=playingReplay, track=isAlive, on_appear, REQUIRE=watchedByPlr)]
+def replay_tonemapper_switcher_death(evt : Event; isAlive : bool)
+  query() <| $ [es] (var color_grading_items : Array; color_grading__death : Object)
+    switch_color_grading(ecs_hash("death"), color_grading_items, color_grading__death, !isAlive)
+
 [es(track=(isAlive, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr))]
 def tonemapper_switcher_death(evt : Event; isAlive : bool; input__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__death : Object)
@@ -20,12 +25,12 @@ def tonemapper_switcher_no_vision(evt : Event; isBlinded : bool; input__enabled 
   query() <| $ [es] (var color_grading_items : Array; color_grading__is_no_vision : Object)
     switch_color_grading(ecs_hash("no_vision"), color_grading_items, color_grading__is_no_vision, isBlinded && input__enabled && isAlive)
 
-[es(track=(burning__isBurning, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr))]
+[es(track=(burning__isBurning, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr), REQUIRE_NOT=deadEntity)]
 def tonemapper_switcher_burning(evt : Event; burning__isBurning : bool; input__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__burning : Object)
     switch_color_grading(ecs_hash("burning"), color_grading_items, color_grading__burning, burning__isBurning && input__enabled)
 
-[es(track=(hasConcussedVision, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr))]
+[es(track=(hasConcussedVision, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr), REQUIRE_NOT=deadEntity)]
 def tonemapper_switcher_concussion(evt : Event; hasConcussedVision : bool; input__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__concussion : Object)
     switch_color_grading(ecs_hash("concussion"), color_grading_items, color_grading__concussion, hasConcussedVision && input__enabled)

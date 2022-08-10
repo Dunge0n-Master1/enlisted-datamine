@@ -109,12 +109,14 @@ let function getBulletType(weapon) {
   ?? BULLET_TYPE.DEFAULT_CANNON //For consistens, show by default any cannon image
 }
 
-return function(weapon, size = [hdpx(100).tointeger(), hdpx(100).tointeger()]) {
+let getBulletImage = memoize(@(icn, w, h) Picture($"ui/skin#{icn}:{w}:{h}:K"))
+
+return function(weapon, size = [hdpxi(100), hdpxi(100)]) {
   let bulletType = getBulletType(weapon)
 
   return {
     icon = bulletType.icon
-    image = Picture($"ui/skin#{bulletType.icon}:{size[0]}:{size[1]}:K")
+    image = getBulletImage(bulletType.icon, size[0], size[1])
     color = bulletType.color(weapon?.isCurrent ?? true)
   }
 }

@@ -3,9 +3,10 @@ require inventory
 require math
 require math.base
 require game.es.events
+require enlisted.events_enlisted
 
 [es(tag=gameClient, REQUIRE=hero, no_order)]
-def automatic_pickup_items_es(info : ecs::UpdateStageInfoAct;
+def automatic_pickup_items_es(info : ParallelUpdateFrameDelayed;
                               eid : EntityId; transform : float3x4;
                               var auto_pickup__lastTime : float&;
                               auto_pickup__delta : float;

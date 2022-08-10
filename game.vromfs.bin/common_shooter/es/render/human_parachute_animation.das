@@ -2,6 +2,7 @@ require ecs
 require DagorSystem
 require AnimV20
 require DagorShaders
+require enlisted.events_enlisted
 require DagorMath
 
 let
@@ -147,7 +148,7 @@ def human_parachute_animation_continuous(info : UpdateStageInfoAct;
 
 
 [es(tag=gameClient, after=human_weap_block_aim_es, REQUIRE=parachuteDeployed)]
-def human_parachute_block_aiming(info : UpdateStageInfoAct;
+def human_parachute_block_aiming(info : ParallelUpdateFrameDelayed;
                                  var human_weap__blockAiming : bool&)
   human_weap__blockAiming = true
 

@@ -4,7 +4,9 @@ require game.es.events
 require common_shooter.events_common_shooter
 require game.events_game
 require game.utils.team
+require EnlistedDm
 require EnlistedNet
+require vehicle
 
 let
   DEF_REVIVINGCOUNT = 0
@@ -37,11 +39,11 @@ def on_death(eid : EntityId;
 
   setOptional(eid, "killer", hitpoints__lastOffender)
   setOptional(eid, "lastDamageType", death_desc__damageType)
-  sendEvent(eid, [[EventEntityDied
+  send_net_event(eid, [[EventEntityDied
     victim=eid, offender=hitpoints__lastOffender,
     damageType=death_desc__damageType, gunPropsId=death_desc__gunPropsId, shellId=death_desc__shellId,
     collNodeId=death_desc__collNodeId, victimTeam=death_desc__victimTeam, offenderTeam=death_desc__offenderTeam]])
-  broadcastEvent([[EventAnyEntityDied
+  broadcast_net_event([[EventAnyEntityDied
     victim=eid, offender=hitpoints__lastOffender, offenderPlayer=hitpoints__lastOffenderPlayer,
     victimPlayer=hitpoints__lastVictimPlayer, damageType=death_desc__damageType, gunPropsId=death_desc__gunPropsId, shellId=death_desc__shellId,
     collNodeId=death_desc__collNodeId, victimTeam=death_desc__victimTeam, offenderTeam=death_desc__offenderTeam]])
@@ -195,3 +197,123 @@ def force_update_hitpoints(evt : CmdUpdateHitpoints;
                         hitpoints__hpRecoverySpd, hitpoints__recoveryTimeThreshold,
                         hitpoints__stoppingPowerRecoveryRate, hitpoints__deathHpThreshold,
                         hitpoints__downedTimer, entity_mods__downedTimerAdd)
+
+
+[es(REQUIRE=hitpoints__maxHp)]
+def hitpoints_apply_damage(evt : CmdApplyDamage;
+                           eid : EntityId;
+                           var death_desc__damageType : int&;
+                           var death_desc__gunPropsId : int&;
+                           var death_desc__shellId : int&;
+                           var death_desc__collNodeId : int&;
+                           var death_desc__victimTeam : int&;
+                           var death_desc__offenderTeam : int&;
+                           var hitpoints__timeFromLastDamage : float&;
+                           var hitpoints__lastOffender : EntityId&;
+                           var hitpoints__lastOffenderPlayer : EntityId&;
+                           var hitpoints__lastVictimPlayer : EntityId&;
+                           var hitpoints__stoppingPower : float&;
+                           var hitpoints__hp : float&;
+                           var hitpoints__lastHitNodeId : int&;
+                           var hitpoints__lastOffenderTime : float&;
+                           hitpoints__clearOffenderTimer : float = 30.;
+                           hitpoints__deathHpThreshold : float = 0.;
+                           hitpoints__dmgMult : float = 1.;
+                           hitpoints__stoppingPowerThreshold : float = 0.;
+                           hitpoints__stoppingPowerToHpMult : float = 1.;
+                           hitpoints__killDownedByMeleeHit : bool = false;
+                           team : int = TEAM_UNASSIGNED)
+  if evt.deltaHp < 0.
+    return
+
+  let victim = eid
+  var offender = evt.offender
+
+  var offenderPlayer = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
+  var lastOffenderTeam = death_desc__offenderTeam
+  let offenderTeam = get_int(offender, "team") ?? get_int(offenderPlayer, "team") ?? TEAM_UNASSIGNED
+  if !offenderPlayer
+    let maxInertialKillTime = 4.
+    let driver = get_last_vehicle_driver_possessed_by_player(offender, maxInertialKillTime)
+    if !!driver
+      offender = driver
+      offenderPlayer = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
+
+  var deltaHp = evt.deltaHp
+
+  let curStoppingPower = hitpoints__stoppingPower
+  let stopPowerThres = hitpoints__stoppingPowerThreshold
+  if curStoppingPower + evt.stoppingPower > stopPowerThres
+    let deltaStopPower = clamp(curStoppingPower + evt.stoppingPower - stopPowerThres, 0., evt.stoppingPower)
+    deltaHp += hitpoints__stoppingPowerToHpMult * deltaStopPower
+  hitpoints__stoppingPower = hitpoints__stoppingPower + evt.stoppingPower
+
+  if victim != offender // ignore spawn immunity in case of suicide
+    deltaHp *= hitpoints__dmgMult
+  let deathHp = hitpoints__deathHpThreshold
+  let wasDowned = hitpoints__hp <= 0.f
+  let wasDead = hitpoints__hp <= deathHp
+
+  if (hitpoints__killDownedByMeleeHit && wasDowned &&
+      (evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)))
+    hitpoints__hp = hitpoints__deathHpThreshold
+  else
+    hitpoints__hp = max(hitpoints__hp - deltaHp, deathHp)
+
+  var hitr : HitResult
+  if wasDead
+    hitr = HitResult HIT_RES_NONE
+  elif hitpoints__hp > 0.
+    hitr = HitResult HIT_RES_NORMAL
+  elif hitpoints__hp > deathHp
+    hitr = wasDowned ? HitResult HIT_RES_NORMAL : HitResult HIT_RES_DOWNED
+  else
+    hitr = HitResult HIT_RES_KILLED
+
+  broadcastEvent([[EventOnEntityHit
+    victim = victim,
+    offender = offender,
+    hitResult = int(hitr),
+    damageType = evt.damageType,
+    shellId = evt.shellId,
+    gunPropsId = evt.gunPropsId,
+    actionPropsId = evt.actionPropsId,
+    collNodeId = evt.collNodeId,
+    deltaHp = evt.deltaHp,
+    blockingDeltaHp = evt.blockingDeltaHp,
+    stoppingPower = evt.stoppingPower,
+    hitPos = evt.hitPos,
+    hitDir = evt.hitDir,
+    hitNorm = evt.hitNorm,
+    dmgMult = evt.dmgMult,
+    armorMult = evt.armorMult
+  ]])
+
+  let isLastOffenderPlayer = hitpoints__lastOffenderPlayer != INVALID_ENTITY_ID && hitpoints__lastOffender != victim
+  let isNewOffenderPlayer = !!offenderPlayer && offender != victim
+  let isLastOffenderTimeIsUp = (hitpoints__lastOffenderTime < 0. ||
+                                get_sync_time() - hitpoints__lastOffenderTime > hitpoints__clearOffenderTimer)
+
+  hitpoints__timeFromLastDamage = 0.
+  if !isLastOffenderPlayer || isNewOffenderPlayer || isLastOffenderTimeIsUp
+    hitpoints__lastOffenderTime = get_sync_time()
+    hitpoints__lastOffender = offender
+    lastOffenderTeam = offenderTeam
+
+    let victimPlayerEid = get_Eid(victim, "possessedByPlr") ?? INVALID_ENTITY_ID
+    if !!victimPlayerEid
+      hitpoints__lastVictimPlayer = victimPlayerEid
+
+    hitpoints__lastOffenderPlayer = offenderPlayer
+  hitpoints__lastHitNodeId = int(evt.collNodeId)
+
+  death_desc__damageType = int(evt.damageType)
+  death_desc__gunPropsId = int(evt.gunPropsId)
+  death_desc__shellId = int(evt.shellId)
+  death_desc__collNodeId = int(evt.collNodeId)
+  death_desc__victimTeam = team
+  death_desc__offenderTeam = lastOffenderTeam
+
+[es(REQUIRE=hitpoints__hp)] // Note: client doesn't have 'hitpoints' component (only attribute)
+def hp_death_es(evt : EventEntityDied; var isAlive : bool&)
+  isAlive = false // This is important on client (where replication is in different channel then net messages)

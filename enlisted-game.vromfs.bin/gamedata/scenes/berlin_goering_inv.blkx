@@ -1,46 +1,5 @@
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="ambient/city_battle"
-    ambient_sound__events:t="ambient/walla_screams"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
 }
 
 entity{
@@ -105,15 +64,7 @@ entity{
 }
 
 entity{
-  _template:t="snow"
-  snow__alpha_fade_speed_end:r=10.0
-  snow__alpha_fade_speed_begin:r=2.0
-  snow__speed:r=0.001
-  snow__width:r=0.0225
-  snow__wind:r=12.0
-  snow__alpha:r=6.75
-  snow__density:r=0.005
-  snow__length:r=0.0
+  _template:t="camera_dust_template"
 }
 
 entity{
@@ -330,7 +281,6 @@ entity{
   ground_effect__grid_cell_size:r=8.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -346,7 +296,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -362,7 +311,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -374,7 +322,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -386,7 +333,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -399,7 +345,6 @@ entity{
   effect_area__effectName:t="background_flash_8s_fx"
   effect_area__isPaused:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-941.109, 3.255, -280.225]]
-  box_zone__scale:p3=600.0, 400.0, 600.0
 }
 
 entity{
@@ -690,7 +635,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_goering_inv"
 
   "loading_images:list<t>"{
@@ -709,7 +653,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=1
-  team__haveScores:b=no
   team__briefing:t="invasion/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
@@ -762,18 +705,18 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[0.0591421, 0.0, 0.99825] [0.0, 1.0, 0.0] [-0.99825, 0.0, 0.0591421] [107.246, 3.06403, -313.28]]
+  transform:m=[[0.958876, 0.0, 0.283828] [0.0, 1.0, -0.0] [-0.300903, 0.0, 1.01656] [111.529, 3.06405, -315.283]]
   groupName:t="sector_1_b"
   capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
-  capzone__caption:t="capzone/artillery_emplacement"
+  capzone__caption:t="capzone/tiergarten"
   capzone__capTime:r=65.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
-  sphere_zone__radius:r=13.0
+  sphere_zone__radius:r=22.0
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
@@ -1699,8 +1642,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1a"
 }
@@ -1774,8 +1715,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2a"
 }
@@ -1849,8 +1788,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1b"
 }
@@ -1924,8 +1861,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2b"
 }
@@ -1999,8 +1934,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="2a_area1"
 }
@@ -2074,8 +2007,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="2a_area2"
 }
@@ -2149,8 +2080,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="2b_area1"
 }
@@ -2224,8 +2153,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="2b_area2"
 }
@@ -2299,8 +2226,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="3_area1"
 }
@@ -2374,8 +2299,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="3_area2"
 }
@@ -2449,8 +2372,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="4a_area1"
 }
@@ -2524,8 +2445,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="4a_area2"
 }
@@ -2615,8 +2534,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="4b_area1"
 }
@@ -2690,8 +2607,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="4b_area2"
 }
@@ -2781,8 +2696,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_5"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="5_area1"
 }
@@ -2864,8 +2777,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_5"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="5_area2"
 }
@@ -2937,8 +2848,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11029.3, 0.0, 2523.85] [0.0, 8000.03, 0.0] [-2524.35, 0.0, 11029.2] [270.153, 240.916, -376.66]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

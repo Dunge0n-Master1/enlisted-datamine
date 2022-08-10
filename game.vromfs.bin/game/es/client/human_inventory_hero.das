@@ -11,6 +11,7 @@ require math.base
 require GridCollision
 require Grid
 require DagorSystem
+require enlisted.events_enlisted
 
 let
   DEFAULT_USEFUL_COLOR = E3DCOLOR(0xFF8A2BE2) // 0xARGB
@@ -23,7 +24,7 @@ def remove_item_outline_on_pickup_es(evt : Event; eid : EntityId)
 
 
 [es(tag=gameClient, after=human_inventory_hero_es, REQUIRE=hero)]
-def item_outline_color_update(info : UpdateStageInfoAct; eid : EntityId; human_inventory__selectedItem : EntityId;
+def item_outline_color_update(info : UpdateStageInfoAct; eid : EntityId; human_inventory__selectedItem : EntityId; //ParallelUpdateFrameDelayed
                               human_item_outline__visibilityRadius : float)
   let camTmComp = get_TMatrix(get_cur_cam_entity(), "transform")
   if camTmComp == null
@@ -81,7 +82,7 @@ def toggle_ui_visible(evt : Event; human_inventory__selectedItem : EntityId)
     addSubTemplate(human_inventory__selectedItem, "ui_visible")
 
 [es(tag=gameClient, after=before_human_inventory_use_update, REQUIRE=hero, REQUIRE_NOT=deadEntity)]
-def human_inventory_hero_es(info : UpdateStageInfoAct;
+def human_inventory_hero_es(info : ParallelUpdateFrameDelayed;
                             eid : EntityId;
                             itemsAround : ecs::Array;
                             human__aimTm : float3x4;

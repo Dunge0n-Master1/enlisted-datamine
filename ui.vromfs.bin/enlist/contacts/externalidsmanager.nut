@@ -7,7 +7,7 @@ let userInfo = require("%enlSqGlob/userInfo.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
 let { updateUids } = require("%enlist/contacts/consoleUidsRemap.nut")
 
-let logExt = require("%sqstd/log.nut")().with_prefix("[EXT IDS MANAGER] ")
+let logExt = require("%enlSqGlob/library_logs.nut").with_prefix("[EXT IDS MANAGER] ")
 
 /* Types from baseTypes.h */
 let EXTERNAL_TYPE_STEAM  = "s"
@@ -57,7 +57,7 @@ let function searchContactByExternalId(extIdsArray, callback = null) {
     function (result) {
       let myUserIdStr = userInfo.value?.userIdStr ?? ""
 
-      foreach(uidStr, data in result)
+      foreach (uidStr, data in result)
         if (uidStr != myUserIdStr && uidStr != "" && data?.nick != null)
           Contact(uidStr, data.nick)
 

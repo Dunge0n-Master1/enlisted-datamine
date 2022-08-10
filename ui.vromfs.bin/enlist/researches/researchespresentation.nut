@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { soldierClasses, getKindCfg, getClassNameWithGlyph
+let { soldierClasses, getClassCfg, getKindCfg, getClassNameWithGlyph
 } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getItemName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
@@ -269,10 +269,11 @@ let function appendSlotUnlock(effect, context) {
 
 let function appendVeteranClass(effect, context) {
   let sClass = getClassByContext(effect, context)
+  let { kind } = getClassCfg(sClass)
   return {
     name = $"research/veteran_class"
     description = "research/veteran_desc"
-    icon_id = $"{sClass}_veteran"
+    icon_id = $"{kind}_veteran"
     params = {
       kind = getClassNameWithGlyph(sClass, context?.armyId)
     }
@@ -324,11 +325,11 @@ local function prepareResearch(research, context) {
   let effect = (research?.effect ?? {})
     .filter(@(val) (val?.len() ?? val ?? 0) != 0)
   research = research.__merge({ effect })
-  foreach (effectId, appender in RESEARCH_DATA_APPENDERS)
-    if (effectId in effect) {
-      research.__update(appender(effect[effectId], context) ?? {})
-      break
-    }
+  let effectId = effect.findindex(@(_) true)
+  if (effectId in effect) {
+    let appender = RESEARCH_DATA_APPENDERS[effectId]
+    research.__update(appender(effect[effectId], context))
+  }
   return research
 }
 

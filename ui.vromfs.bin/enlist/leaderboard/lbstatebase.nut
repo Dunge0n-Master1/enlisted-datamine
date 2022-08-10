@@ -57,7 +57,7 @@ lbHandlers["cln_get_leaderboard_json:self"] <- function(result, selfRequest) {
     return
 
   local newSelfRow = null
-  foreach(data in result)
+  foreach (data in result)
     if (data?._id == userInfo.value?.userId) {
       newSelfRow = data
       newSelfRow.name <- userInfo.value?.nameorig ?? ""
@@ -102,7 +102,7 @@ lbHandlers["cln_get_leaderboard_json"] <- function(result, requestData) {
   let lbTbl = isSuccess ? result : {}
   local selfRow = null
   let newLbData = []
-  foreach(name, data in lbTbl) {
+  foreach (name, data in lbTbl) {
     if (typeof data != "table" || (data?.idx ?? -1) < 0)
       continue
     data.name <- name

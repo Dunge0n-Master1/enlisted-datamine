@@ -3,39 +3,50 @@ require ecs.common
 require vehicle
 require game.es.turrets_common
 require EnlistedWeapon
+require ecs.safe
 
 struct TurretLoaderPerks
-  reloadMult : float = 1.0
+  reloadMult : float = 1e9f
   canChangeShellInReload : bool = false
 
 struct TurretAimerPerks
   pitchMult : float = 0.0
 
-def push_affected_turrets(var vehicle_seats__applyLoaderModsToTurrets : Array;
-                          turret_control__turretInfo : Array;
-                          turret_names : Array const? const&)
-  using() <| $(var arr : Array#)
-    if turret_names != null
-      for turretNameObj in *turret_names
-        let turretName = get_string(turretNameObj, "")
-        let turretInd = find_turret_index_by_name(turret_control__turretInfo, turretName)
-        if turretInd >= 0
-          push(arr, turretInd)
-    push(vehicle_seats__applyLoaderModsToTurrets, arr)
-
-def set_default_perk_values(turret_control__gunEids : EidList)
+def set_default_perk_values(turret_control__gunEids : EidList; turret_control__missingLoaderReloadTimeMult : float)
   let defaultPerks = TurretLoaderPerks()
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es] (var gun__timeBetweenShotMult : float&;
-                             var turret__canChangeShellDuringReload : bool&)
-      gun__timeBetweenShotMult = defaultPerks.reloadMult
+                             var turret__canChangeShellDuringReload : bool&;
+                             turret__hasLoaderSeatInVehicle : bool = false)
+      gun__timeBetweenShotMult = defaultPerks.reloadMult * (turret__hasLoaderSeatInVehicle ? turret_control__missingLoaderReloadTimeMult : 1.0)
+      turret__canChangeShellDuringReload = defaultPerks.canChangeShellInReload
+    query(gunEid) <| $ [es] (gun__reloadTimeBase : float;
+                             turret__hasLoaderSeatInVehicle : bool = false;
+                             var turret__canChangeShellDuringReload : bool&;
+                             var gun__reloadTime : float&)
+      gun__reloadTime = gun__reloadTimeBase * defaultPerks.reloadMult * (turret__hasLoaderSeatInVehicle ? turret_control__missingLoaderReloadTimeMult : 1.0)
       turret__canChangeShellDuringReload = defaultPerks.canChangeShellInReload
 
-def apply_loader_perks(turret_eid : EntityId; perks : TurretLoaderPerks; vehicle_reload_mult : float)
+def apply_loader_perks(turret_eid : EntityId;
+                       perks : TurretLoaderPerks;
+                       vehicle_reload_mult : float;
+                       turret_control__missingLoaderReloadTimeMult : float = 1.0)
   query(turret_eid) <| $ [es] (var gun__timeBetweenShotMult : float&;
-                               var turret__canChangeShellDuringReload : bool&)
-    gun__timeBetweenShotMult = min(gun__timeBetweenShotMult, perks.reloadMult) * vehicle_reload_mult
-    turret__canChangeShellDuringReload ||= perks.canChangeShellInReload
+                               var turret__canChangeShellDuringReload : bool&;
+                               turret__hasLoaderSeatInVehicle : bool = false)
+    let loaderMult = perks.reloadMult * (turret__hasLoaderSeatInVehicle ? turret_control__missingLoaderReloadTimeMult : 1.0) * vehicle_reload_mult
+    if loaderMult <= gun__timeBetweenShotMult
+      gun__timeBetweenShotMult = loaderMult
+      turret__canChangeShellDuringReload = perks.canChangeShellInReload
+  query(turret_eid) <| $ [es] (gun__reloadTimeBase : float;
+                               var gun__reloadTime : float&;
+                               var turret__canChangeShellDuringReload : bool&;
+                               turret__hasLoaderSeatInVehicle : bool = false)
+    let loaderMult = perks.reloadMult * (turret__hasLoaderSeatInVehicle ? turret_control__missingLoaderReloadTimeMult : 1.0) * vehicle_reload_mult
+    let loaderReloadTime = gun__reloadTimeBase * loaderMult
+    if loaderReloadTime <= gun__reloadTime
+      gun__reloadTime = loaderReloadTime
+      turret__canChangeShellDuringReload = perks.canChangeShellInReload
 
 def get_loader_perks(sitter_eid : EntityId) : TurretLoaderPerks
   var perks = TurretLoaderPerks()
@@ -46,25 +57,34 @@ def get_loader_perks(sitter_eid : EntityId) : TurretLoaderPerks
   return perks
 
 def apply_sitter_loader_perks(sitter_eid : EntityId;
-                              affected_turret_ids : Array const? const;
+                              sitter_controls : VehicleControlsState;
+                              affected_turret_ids : IntList;
                               turret_control__gunEids : EidList;
-                              vehicle_reload_mult : float)
-  if affected_turret_ids == null
-    return
-  for turretIndObj in *affected_turret_ids
-    let turretInd = get_int(turretIndObj) ?? -1
-    if turretInd >= 0
-      apply_loader_perks(turret_control__gunEids[turretInd], get_loader_perks(sitter_eid), vehicle_reload_mult)
+                              vehicle_reload_mult : float;
+                              turret_control__missingLoaderReloadTimeMult : float)
+  let loaderPerks = get_loader_perks(sitter_eid)
+  for turretId, turretEid in iter_range(turret_control__gunEids), turret_control__gunEids
+    if can_control_turret(sitter_controls, turretId)
+      apply_loader_perks(turretEid, loaderPerks, vehicle_reload_mult, turret_control__missingLoaderReloadTimeMult)
+
+  for turretInd in affected_turret_ids
+    apply_loader_perks(turret_control__gunEids[turretInd], loaderPerks, vehicle_reload_mult)
 
 def apply_vehicle_reload_perks(vehicle_seats__seatEids : EidList;
-                               vehicle_seats__applyLoaderModsToTurrets : Array;
-                               turret_control__gunEids : EidList)
-  set_default_perk_values(turret_control__gunEids)
-  for seatEid, turretIds in vehicle_seats__seatEids, vehicle_seats__applyLoaderModsToTurrets
-    query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat_perks__vehicleReloadMult : float = 1f)
+                               turret_control__gunEids : EidList;
+                               turret_control__missingLoaderReloadTimeMult : float)
+  set_default_perk_values(turret_control__gunEids, turret_control__missingLoaderReloadTimeMult)
+  for seatEid in vehicle_seats__seatEids
+    query(seatEid) <| $ [es] (seat__ownerEid : EntityId;
+                              seat__availableControls : VehicleControlsState;
+                              seat__isInHatch : bool = false;
+                              seat__canLoadInHatch : bool;
+                              seat__loaderTurretIds : IntList;
+                              seat_perks__vehicleReloadMult : float = 1f)
       let ownerEid = seat__ownerEid
-      if ownerEid != ecs::INVALID_ENTITY_ID && get_bool(ownerEid, "isAlive") ?? true
-        apply_sitter_loader_perks(ownerEid, get_ecs_array(turretIds), turret_control__gunEids, seat_perks__vehicleReloadMult)
+      if !!ownerEid && (seat__canLoadInHatch || !seat__isInHatch) && get_bool(ownerEid, "isAlive") ?? true
+        apply_sitter_loader_perks(ownerEid, seat__availableControls, seat__loaderTurretIds, turret_control__gunEids,
+                                  seat_perks__vehicleReloadMult, turret_control__missingLoaderReloadTimeMult)
 
 def apply_aimer_perks(turret_eid : EntityId; perks : TurretAimerPerks)
   query(turret_eid) <| $ [es] (var turret_guidance__pitchMultWhenAimingYaw : float&)
@@ -99,30 +119,65 @@ def apply_vehicle_aimer_perks(vehicle_seats__seatEids : EidList;
 
 
 [es(tag=server, on_appear)]
-def init_turret_loaders(evt : Event;
-                        [[shared_comp]] turret_control__turretInfo : Array;
-                        [[shared_comp]] vehicle_seats__seats : Array;
-                        var vehicle_seats__applyLoaderModsToTurrets : Array)
-  for seatObj in vehicle_seats__seats
-    let seat = get_ecs_object(seatObj)
-    let turretNames = get_ecs_array(seat, "loaderTurretNames")
-    push_affected_turrets(vehicle_seats__applyLoaderModsToTurrets, turret_control__turretInfo, turretNames)
+def init_loader_seat_turret_ids(evt : Event;
+                                seat__vehicleEid : EntityId;
+                                seat__id : int;
+                                var seat__canLoadInHatch : bool&;
+                                var seat__loaderTurretIds : IntList&)
+  query(seat__vehicleEid) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array;
+                                     [[shared_comp]] vehicle_seats__seats : Array)
+    let seatInfo = vehicle_seats__seats[seat__id] as Object
+    seat__canLoadInHatch = seatInfo?.canLoadInHatch ?? false
+    let turretNames = seatInfo?.loaderTurretNames ?as Array
+    if turretNames != null
+      for turretNameObj in *turretNames
+        let turretName = turretNameObj ?? ""
+        let turretInd = find_turret_index_by_name(turret_control__turretInfo, turretName)
+        if turretInd >= 0
+          seat__loaderTurretIds |> push(turretInd)
 
-[es(tag=server, on_event=EventOnSeatOwnersChanged)]
+[es(tag=server, on_event=EventOnSeatOwnersChanged, REQUIRE=vehicle_seats__applyPerks)]
 def vehicle_apply_sitter_reload_perks(evt : Event;
                                       vehicle_seats__seatEids : EidList;
-                                      vehicle_seats__applyLoaderModsToTurrets : Array;
+                                      turret_control__missingLoaderReloadTimeMult : float = 1.;
                                       turret_control__gunEids : EidList)
-  apply_vehicle_reload_perks(vehicle_seats__seatEids, vehicle_seats__applyLoaderModsToTurrets, turret_control__gunEids)
+  apply_vehicle_reload_perks(vehicle_seats__seatEids, turret_control__gunEids, turret_control__missingLoaderReloadTimeMult)
   apply_vehicle_aimer_perks(vehicle_seats__seatEids, turret_control__gunEids)
 
 [es(tag=server, on_event=EventEntityDied)]
 def vehicle_recalculate_perks_on_sitter_death(evt : Event; human_anim__vehicleSelected : EntityId)
-  query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList;
-                                                vehicle_seats__applyLoaderModsToTurrets : Array;
-                                                turret_control__gunEids : EidList)
-    apply_vehicle_reload_perks(vehicle_seats__seatEids, vehicle_seats__applyLoaderModsToTurrets, turret_control__gunEids)
+  query(human_anim__vehicleSelected) <| $ [es(REQUIRE=vehicle_seats__applyPerks)] (vehicle_seats__seatEids : EidList;
+                                                                                   turret_control__missingLoaderReloadTimeMult : float = 1.;
+                                                                                   turret_control__gunEids : EidList)
+    apply_vehicle_reload_perks(vehicle_seats__seatEids, turret_control__gunEids, turret_control__missingLoaderReloadTimeMult)
     apply_vehicle_aimer_perks(vehicle_seats__seatEids, turret_control__gunEids)
+
+[es(tag=server, track=seat__isInHatch, REQUIRE=seat__isInHatch)]
+def vehicle_recalculate_perks_on_sitter_use_hatch(evt : Event; seat__vehicleEid : EntityId)
+  query(seat__vehicleEid) <| $ [es(REQUIRE=vehicle_seats__applyPerks)] (vehicle_seats__seatEids : EidList;
+                                                                        turret_control__missingLoaderReloadTimeMult : float = 1.;
+                                                                        turret_control__gunEids : EidList)
+    apply_vehicle_reload_perks(vehicle_seats__seatEids, turret_control__gunEids, turret_control__missingLoaderReloadTimeMult)
+    apply_vehicle_aimer_perks(vehicle_seats__seatEids, turret_control__gunEids)
+
+[es(tag=server, on_appear, REQUIRE=resolvedTurret)]
+def sitter_perks_init_turret(evt : Event;
+                             turret__owner : EntityId;
+                             turret__id : int;
+                             var turret__hasLoaderSeatInVehicle : bool&)
+  query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array;
+                                  [[shared_comp]] vehicle_seats__seats : Array)
+    for seat in vehicle_seats__seats
+      let turretNames = (seat as Object)?.loaderTurretNames ?as Array
+      if turretNames != null
+        for turretName in *turretNames
+          if turret__id == find_turret_index_by_name(turret_control__turretInfo, turretName ?? "")
+            turret__hasLoaderSeatInVehicle = true
+            return
+
+[es(tag=server, on_appear)]
+def turret_keep_base_reload_timer(evt : Event; gun__reloadTime : float; var gun__reloadTimeBase : float&)
+  gun__reloadTimeBase = gun__reloadTime
 
 [es(tag=server, track=vehicle_seats__seatEids)]
 def vehicle_seats_perks_init(evt : Event;
@@ -134,5 +189,4 @@ def vehicle_seats_perks_init(evt : Event;
       continue
 
     query(vehicle_seats__seatEids[i]) <| $ [es] (var seat_perks__vehicleReloadMult : float&)
-      let mult = get_float(seat, "vehicleReloadMult") ?? 1f
-      seat_perks__vehicleReloadMult = saturate(2.f - mult)
+      seat_perks__vehicleReloadMult = seat?.vehicleReloadMult ?? 1.

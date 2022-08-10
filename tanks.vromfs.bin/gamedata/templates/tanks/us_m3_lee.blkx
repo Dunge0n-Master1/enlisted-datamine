@@ -143,7 +143,7 @@ us_m3_lee_driver_cockpit{
 }
 
 us_m3_lee_gunner_75mm_hull_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70f.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m21a1.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__minZoom:r=-0.27
@@ -174,7 +174,7 @@ us_m3_lee_gunner_75mm_hull_cockpit{
 }
 
 us_m3_lee_gunner_37mm_turret_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m55.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__minZoom:r=-0.27

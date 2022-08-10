@@ -1,0 +1,78 @@
+shell_fly_sound{
+
+  _group{
+    _tags:t="sound"
+    shell_fly_sound__path:t=""
+
+    "shell_fly_sound__event:SoundEvent"{
+    }
+  }
+}
+
+bullet_projectile_sound{
+  _extends:t="projectile_sound"
+}
+
+rocket_projectile_sound{
+  _extends:t="projectile_sound"
+}
+
+smoke_artillery_projectile_sound{
+  _extends:t="projectile_sound"
+
+  _group{
+    _tags:t="sound"
+    projectile_sound__hit:t=""
+    projectile_sound__explode:t="artillery_smoke"
+  }
+}
+
+bomb_projectile_sound{
+  _extends:t="projectile_sound"
+  _extends:t="shell_fly_sound"
+  shell_fly_sound_speed_to_volume:p4=0.0, 100.0, 0.0, 1.0
+
+  _group{
+    _tags:t="sound"
+    projectile_sound__hit:t="bomb_hit"
+    projectile_sound__explode:t="bomb_explode"
+  }
+
+  _group{
+    _tags:t="sound"
+    shell_fly_sound__path:t="impact/wiz_bomb_mid"
+    shell_fly_sound__loudPath:t="impact/wiz_bomb_player"
+    shell_fly_sound__isLoud:b=no
+    shell_fly_sound__isLoudMaxRadiusMul:r=1.0
+  }
+}
+
+ai_bomb_projectile_sound{
+  _extends:t="bomb_projectile_sound"
+
+  _group{
+    _tags:t="sound"
+    shell_fly_sound__isLoudMaxRadiusMul:r=5.0
+    shell_fly_sound__shouldPlayForAllTeams:b=yes
+  }
+}
+
+projectile_lifetime_sound{
+
+  _group{
+    _tags:t="sound"
+    projectile_lifetime_sound__path:t=""
+
+    "projectile_lifetime_sound__event:SoundEvent"{
+    }
+  }
+}
+
+bomb_projectile_lifetime_sound{
+  _extends:t="projectile_lifetime_sound"
+
+  _group{
+    _tags:t="sound"
+    projectile_lifetime_sound__path:t="impact/bomb_timer"
+  }
+}

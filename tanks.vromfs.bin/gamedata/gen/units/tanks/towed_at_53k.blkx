@@ -13,6 +13,7 @@ VehiclePhys{
   }
 
   tracks{
+    slippingHorizontalSpeedThreshold:r=0.25
     animationMultiplier:r=0.5
     height:r=0.0
     width:r=0.1
@@ -21,7 +22,9 @@ VehiclePhys{
   }
 
   collisionProps{
-    cls_body:t="convex_hull"
+    body_side:t="convex_hull"
+    gun:t="convex_hull"
+    body_front:t="convex_hull"
   }
 
   engine{
@@ -56,13 +59,13 @@ VehiclePhys{
     brokenWheelSteeringDeflection:r=-15.0
     wheel_l_01:r=0.39
     wheel_r_01:r=0.39
-    wheel_l_02:r=0.372
-    wheel_r_02:r=0.372
+    wheel_l_02:r=0.47
+    wheel_r_02:r=0.47
     recalcWtms:b=yes
 
     steeringDeflection{
-      wheel_l_02:r=-85.0
-      wheel_r_02:r=-85.0
+      wheel_l_02:r=-65.0
+      wheel_r_02:r=-65.0
     }
 
     driven{

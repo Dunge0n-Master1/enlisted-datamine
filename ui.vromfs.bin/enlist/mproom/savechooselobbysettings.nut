@@ -9,7 +9,7 @@ let { settings } = require("%enlist/options/onlineSettings.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let {
   addModalWindow, removeModalWindow
-} = require("%darg/components/modalWindows.nut")
+} = require("%ui/components/modalWindows.nut")
 let {
   tinyOffset, smallOffset, smallPadding, defInsideBgColor,
   activeBgColor, idleBgColor, defBgColor, defTxtColor, titleTxtColor

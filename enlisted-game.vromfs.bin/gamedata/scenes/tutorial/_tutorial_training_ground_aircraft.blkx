@@ -1,37 +1,5 @@
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
+import{
+  scene:t="content/enlisted/gamedata/scenes/_common_sounds.blk"
 }
 
 entity{
@@ -44,7 +12,6 @@ entity{
 
 entity{
   _template:t="briefing_tutorial"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="basic_tutorial_mission"
 
   "loading_images:list<t>"{
@@ -68,11 +35,11 @@ entity{
 entity{
   _template:t="level"
   level__blk:t="content/enlisted/levels/tutorial_training_ground_2x2.blk"
-  level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
+    weather_clear_a:r=1.0
+    weather_cloudy_a:r=2.0
+    weather_cloudy_b:r=2.0
   }
 
   "level__timeVec:array"{
@@ -209,7 +176,6 @@ entity{
   team__capturePenalty:r=0.0
   team__score:r=0.0
   team__id:i=2
-  team__haveScores:b=no
   team__spawnBotArmy:t="normandy_axis"
   team__briefing:t="training_ground/goals"
   team__winTitle:t="debriefing/sucesful_tutorial_title"
@@ -317,6 +283,4 @@ entity{
 
 entity{
   _template:t="tutorial_aircraft_begin"
-  tutorial_target__targetId:t="vehicle_target"
-  tutorial_target__active:b=no
 }

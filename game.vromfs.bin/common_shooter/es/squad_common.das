@@ -10,16 +10,17 @@ struct SquadPos
   isValidPt : bool
 
 def find_best_squad_pos_impl(leader_tm : float3x4; offset : float3; min_distance : float; forceSpread; swim) : SquadPos
-  let extends = 0.8
+  let extents = float3(0.8, FLT_MAX, 0.8)
+  let projExtents = float3(0.8, 2.5, 0.8)
   var center = leader_tm[3]
   if !swim
-    pathfinder::project_to_nearest_navmesh_point_no_obstacles(center, extends)
+    pathfinder::project_to_nearest_navmesh_point_no_obstacles(center, projExtents)
 
   var wishPosition = [[SquadPos p=leader_tm * offset, isValidPt=true]]
   var resPos = wishPosition
   if !swim
-    wishPosition.isValidPt = pathfinder::project_to_nearest_navmesh_point_no_obstacles(wishPosition.p, extends)
-    pathfinder::traceray_navmesh(center, wishPosition.p, extends, resPos.p)
+    wishPosition.isValidPt = pathfinder::project_to_nearest_navmesh_point_no_obstacles(wishPosition.p, projExtents)
+    pathfinder::traceray_navmesh(center, wishPosition.p, extents, resPos.p)
     resPos.isValidPt = wishPosition.isValidPt
   if length_sq(offset) < FLT_EPSILON
     return resPos
@@ -34,8 +35,8 @@ def find_best_squad_pos_impl(leader_tm : float3x4; offset : float3; min_distance
     wishPosition.p = leader_tm * currentOffset
     wishPosition.isValidPt = true
     if !swim
-      wishPosition.isValidPt = pathfinder::project_to_nearest_navmesh_point_no_obstacles(wishPosition.p, extends)
-      pathfinder::traceray_navmesh(center, wishPosition.p, extends, resPos.p)
+      wishPosition.isValidPt = pathfinder::project_to_nearest_navmesh_point_no_obstacles(wishPosition.p, projExtents)
+      pathfinder::traceray_navmesh(center, wishPosition.p, extents, resPos.p)
       resPos.isValidPt = wishPosition.isValidPt
     positions[iter + 1] = wishPosition
 
@@ -68,18 +69,18 @@ def find_best_squad_pos(leader : ecs::EntityId; order_type : int; regroup_pos : 
     res.isValidPt = true
   return res;
 
-def get_squad_formation_spread(squad__orderType : int;
-                               squad__formationSpread : int;
+def get_squad_formation_spread(squad__formationSpread : int;
                                squad__spreadAroundOrderPoint : float3;
                                squad__formationSpreadClosest : float3;
                                squad__formationSpreadStandard : float3;
                                squad__formationSpreadWide : float3) : float3
   var res = squad__spreadAroundOrderPoint
-  if squad__orderType == int(SquadOrder ESO_FOLLOW_ME)
-    if squad__formationSpread == int(SquadFormationSpread ESFN_CLOSEST)
-      res = squad__formationSpreadClosest
-    elif squad__formationSpread == int(SquadFormationSpread ESFN_STANDARD)
-      res = squad__formationSpreadStandard
-    elif squad__formationSpread == int(SquadFormationSpread ESFN_WIDE)
-      res = squad__formationSpreadWide
+
+  if squad__formationSpread == int(SquadFormationSpread ESFN_CLOSEST)
+    res = squad__formationSpreadClosest
+  elif squad__formationSpread == int(SquadFormationSpread ESFN_STANDARD)
+    res = squad__formationSpreadStandard
+  elif squad__formationSpread == int(SquadFormationSpread ESFN_WIDE)
+    res = squad__formationSpreadWide
+
   return res

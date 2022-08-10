@@ -3,7 +3,7 @@ from "%darg/laconic.nut" import *
 
 let mkWindow = require("%daeditor/components/window.nut")
 let textButton = require("%daeditor/components/textButton.nut")
-let {checkbox} = require("%darg/components/checkbox.nut")
+let checkbox = require("%ui/components/checkbox.nut")
 let entity_editor = require_optional("entity_editor")
 let {editorIsActive} = require("%ui/editor.nut")
 
@@ -28,9 +28,9 @@ hintWelcomeKeepShowing.subscribe(function(v) {
 let hintWindow = mkWindow({
   id = "editor_hint_window"
   windowStyle = {fillColor = Color(40,40,40,120)}
-  initialSize = [sw(32), sh(24)]
-  minSize     = [sw(32), sh(24)]
-  maxSize     = [sw(32), sh(24)]
+  initialSize = [sw(32), sh(26)]
+  minSize     = [sw(32), sh(26)]
+  maxSize     = [sw(32), sh(26)]
   content = @() {
     flow  = FLOW_VERTICAL
     size = [flex(), SIZE_TO_CONTENT]
@@ -41,7 +41,7 @@ let hintWindow = mkWindow({
       hflow( Gap(hdpx(5)), VACenter, Size(flex(), SIZE_TO_CONTENT), Padding(hdpx(5),hdpx(5)), RendObj(ROBJ_SOLID), Colr(60,60,90),
         txt(!hintWarning.value ? "Sandbox" : "Sandbox Warning"),
         hintStep.value == 1 ? { size = [flex(), SIZE_TO_CONTENT] } : null,
-        hintStep.value == 1 ? checkbox({state = hintWelcomeKeepShowing, text = "Show at startup"}) : null
+        hintStep.value == 1 ? checkbox(hintWelcomeKeepShowing, {text = "Show at startup"}) : null
       )
       {
         size = [sw(30), sh(15)]

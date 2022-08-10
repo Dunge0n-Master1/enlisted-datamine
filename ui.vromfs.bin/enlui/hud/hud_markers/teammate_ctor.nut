@@ -18,8 +18,9 @@ let remap_nick = require("%enlSqGlob/remap_nick.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let engineersInSquad = require("%ui/hud/state/engineers_in_squad.nut")
 let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")
-let { MHS_NEED_HEAL, MHS_NEED_REVIVE } = require("%enlSqGlob/dasenums.nut")
+let { MedicHealState } = require("%enlSqGlob/dasenums.nut")
 let { heroMedicMedpacks } = require("%ui/hud/state/medic_state.nut")
+let { teammatesAvatarsSet, teammatesAvatarsGetWatched } = require("%ui/hud/state/human_teammates.nut")
 
 let defTransform = {}
 let hpIconSize = [fsh(2.5), fsh(2.5)]
@@ -45,7 +46,7 @@ let mkIcon = function(colorInner, colorOuter, sizeFactor) {
   }
 }
 
-let mkSquadmateIcon = @(eid) function() {
+let mkSquadmateIcon = memoize(@(eid) function() {
   let isSelectedBotForOrders = selectedBotForOrderEid.value == eid && isPersonalContextCommandMode.value
   let sizeFactor = isSelectedBotForOrders ? 2.0 : 1.0
   let icon = mkIcon(HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER, sizeFactor)
@@ -61,41 +62,45 @@ let mkSquadmateIcon = @(eid) function() {
         }
       : { key = eid })
   }
-}
+})
 
+let healing_outer_ico = Picture($"ui/skin#healing_icon_outer.svg:{hpIconSize[0]}:{hpIconSize[1]}:K")
+let healing_ico = Picture($"ui/skin#healing_icon.svg:{hpIconSize[0]}:{hpIconSize[1]}:K")
 let mkHpIcon = @(eid, colorInner, colorOuter) {
   key = eid
   rendObj = ROBJ_IMAGE
   color = colorOuter
-  image = Picture($"ui/skin#healing_icon_outer.svg:{hpIconSize[0]}:{hpIconSize[1]}:K")
+  image = healing_outer_ico
   size = hpIconSize
   minDistance = 0.5
 
   children = {
     rendObj = ROBJ_IMAGE
     color = colorInner
-    image = Picture($"ui/skin#healing_icon.svg:{hpIconSize[0]}:{hpIconSize[1]}:K")
+    image = healing_ico
     size = hpIconSize
   }
 }
 
 let ammoBoxIconSize = [fsh(6.0), fsh(6.0)]
-let requestAmmoBoxIcon = {
+let build_ammo_ico = Picture($"ui/skin#building_ammo_box.svg:{ammoBoxIconSize[0]}:{ammoBoxIconSize[1]}:K")
+let requestAmmoBoxIcon = freeze({
   rendObj = ROBJ_IMAGE
   color = Color(255, 255, 255, 255)
-  image = Picture($"ui/skin#building_ammo_box.svg:{ammoBoxIconSize[0]}:{ammoBoxIconSize[1]}:K")
+  image = build_ammo_ico
   size = ammoBoxIconSize
   minDistance = 0.5
-}
+})
 
 let rallyPointIconSize = [fsh(6.0), fsh(6.0)]
-let requestRallyPointIcon = {
+let pic_rally = Picture($"ui/skin#custom_spawn_point.svg:{rallyPointIconSize[0]}:{rallyPointIconSize[1]}:K")
+let requestRallyPointIcon = freeze({
   rendObj = ROBJ_IMAGE
   color = Color(255, 255, 255, 255)
-  image = Picture($"ui/skin#custom_spawn_point.svg:{rallyPointIconSize[0]}:{rallyPointIconSize[1]}:K")
+  image = pic_rally
   size = rallyPointIconSize
   minDistance = 0.5
-}
+})
 
 let teammateIcon = mkIcon(HUD_COLOR_TEAMMATE_INNER, HUD_COLOR_TEAMMATE_OUTER, 1.0)
 let groupmateBotIcon = mkIcon(HUD_COLOR_GROUPMATE_BOT_INNER, HUD_COLOR_GROUPMATE_BOT_OUTER, 1.0)
@@ -106,56 +111,61 @@ let opRangeX = Point2(0.25, 0.35)
 let opRangeY = Point2(0.25, 0.75)
 let opRangeX_hardcore = Point2(0.125, 0.135)
 
-let function unit(eid, info){
-  if (!info.isAlive)
-    return null
-  let squadEid = ecs.obsolete_dbg_get_comp_val(eid, "squad_member__squad") ?? INVALID_ENTITY_ID
-  let groupId = ecs.obsolete_dbg_get_comp_val(localPlayerEid.value, "groupId") ?? INVALID_GROUP_ID
-  let isSquadmate = (squadEid!=INVALID_ENTITY_ID && squadEid >= 0 && squadEid == ecs.obsolete_dbg_get_comp_val(watchedHeroEid.value, "squad_member__squad"))
-  let isBot = (ecs.obsolete_dbg_get_comp_val(eid, "possessedByPlr") ?? INVALID_ENTITY_ID) == INVALID_ENTITY_ID
-  local isGroupmate = false
-  if (!isSquadmate && squadEid != INVALID_ENTITY_ID && groupId != INVALID_ENTITY_ID) {
-    let ownerPlayer = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
-    isGroupmate = groupId == ecs.obsolete_dbg_get_comp_val(ownerPlayer, "groupId")
-  }
+let needShowMed = Computed(@() heroSoldierKind.value == "medic" && heroMedicMedpacks.value > 0)
+let hasEngineers = Computed(@() engineersInSquad.value >0)
 
-  let vehicle = info?["human_anim__vehicleSelected"] ?? INVALID_ENTITY_ID
-  let vehicleNeedDisplayMarker = displayMarkerOverHeadQuery(vehicle, @(_, __) true ) ?? false
+let unit = memoize(function(eid, showMed){
+  let infoState = teammatesAvatarsGetWatched(eid)
+  let watch = [infoState, watchedHeroEid, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, localPlayerEid]
+  return function() {
+    let info = infoState.value
+    if (!info.isAlive || watchedHeroEid.value == eid)
+      return { watch }
+    let vehicle = info?["human_anim__vehicleSelected"] ?? INVALID_ENTITY_ID
+    if (vehicle != INVALID_ENTITY_ID){
+      let vehicleNeedDisplayMarker = displayMarkerOverHeadQuery(vehicle, @(_, __) true ) ?? false
+      if (!vehicleNeedDisplayMarker)
+        return { watch }
+    }
 
-  if (vehicle != INVALID_ENTITY_ID && !vehicleNeedDisplayMarker)
-    return null
+    let squadEid = ecs.obsolete_dbg_get_comp_val(eid, "squad_member__squad") ?? INVALID_ENTITY_ID
+    let groupId = ecs.obsolete_dbg_get_comp_val(localPlayerEid.value, "groupId") ?? INVALID_GROUP_ID
+    let isSquadmate = (squadEid!=INVALID_ENTITY_ID && squadEid >= 0 && squadEid == ecs.obsolete_dbg_get_comp_val(watchedHeroEid.value, "squad_member__squad"))
+    let isBot = (ecs.obsolete_dbg_get_comp_val(eid, "possessedByPlr") ?? INVALID_ENTITY_ID) == INVALID_ENTITY_ID
+    local isGroupmate = false
+    if (!isSquadmate && squadEid != INVALID_ENTITY_ID && groupId != INVALID_ENTITY_ID) {
+      let ownerPlayer = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
+      isGroupmate = groupId == ecs.obsolete_dbg_get_comp_val(ownerPlayer, "groupId")
+    }
 
-  let minHud = forcedMinimalHud.value
-  let showName = info?.name && isGroupmate && !isBot
-  let nameComp = showName
-    ? teammateName(eid, frameNick(remap_nick(info?.name), info?["decorators__nickFrame"]),
-          HUD_COLOR_TEAMMATE_INNER)
-    : null
 
-  let icon = isSquadmate ? mkSquadmateIcon(eid)
-    : isBot && isGroupmate ? groupmateBotIcon
-    : teammateIcon
-  let iconHpColor = info.medic__healState == MHS_NEED_REVIVE ? HUD_COLOR_MEDIC_HP_CRITICAL
-    : info.medic__healState == MHS_NEED_HEAL ? HUD_COLOR_MEDIC_HP_LOW
-    : null
-  let hasEngineerInPlayerSquad = engineersInSquad.value > 0
-  let isRequestAmmoBoxMarkerEnabled = hasEngineerInPlayerSquad
-    && info["human_quickchat__requestAmmoBoxMarkerShowUpTo"] > 0.0
-  let isRequestRallyPointMarkerEnabled = hasEngineerInPlayerSquad
-    && info["human_quickchat__requestRallyPointMarkerShowUpTo"] > 0.0
+    let minHud = forcedMinimalHud.value
+    let showName = info?.name && isGroupmate && !isBot
+    let nameComp = showName
+      ? teammateName(eid, frameNick(remap_nick(info?.name), info?["decorators__nickFrame"]),
+            HUD_COLOR_TEAMMATE_INNER)
+      : null
 
-  let maxHealIconDistance = minHud ? 25 : 30
-  let maxTeammateIconDistance = minHud ? 100 : 1000
+    let icon = isSquadmate ? mkSquadmateIcon(eid)
+      : isBot && isGroupmate ? groupmateBotIcon
+      : teammateIcon
+    let iconHpColor = info.medic__healState == MedicHealState.MHS_NEED_REVIVE ? HUD_COLOR_MEDIC_HP_CRITICAL
+      : info.medic__healState == MedicHealState.MHS_NEED_HEAL ? HUD_COLOR_MEDIC_HP_LOW
+      : null
+    let hasEngineerInPlayerSquad = hasEngineers.value
+    let isRequestAmmoBoxMarkerEnabled = hasEngineerInPlayerSquad
+      && info["human_quickchat__requestAmmoBoxMarkerShowUpTo"] > 0.0
+    let isRequestRallyPointMarkerEnabled = hasEngineerInPlayerSquad
+      && info["human_quickchat__requestRallyPointMarkerShowUpTo"] > 0.0
 
-  let iconCtor = function(minDistance, maxDistance, mainIcon) {
-    if (watchedHeroEid.value==eid)
-      return {watch = watchedHeroEid}
+    let maxHealIconDistance = minHud ? 25 : 30
+    let maxTeammateIconDistance = minHud ? 100 : 1000
 
     return {
       data = {
         eid
-        minDistance
-        maxDistance
+        minDistance = showMed ? 0 : maxHealIconDistance
+        maxDistance = showMed ? maxHealIconDistance : maxTeammateIconDistance
         distScaleFactor = 0.5
         clampToBorder = false
         yOffs = 0.25
@@ -166,9 +176,9 @@ let function unit(eid, info){
         opacityRangeY = showName ? zeroPoint : opRangeY
       }
 
-      key = $"unit_marker_{eid}"
+      key = eid
       sortOrder = eid
-      watch = [watchedHeroEid, heroMedicMedpacks, engineersInSquad, heroSoldierKind]
+      watch
       transform = defTransform
 
       halign = ALIGN_CENTER
@@ -192,21 +202,20 @@ let function unit(eid, info){
             ]
           }
           nameComp
-          mainIcon
+          showMed && needShowMed.value && iconHpColor ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER) : icon
         ]
       }
     }
   }
-
-  return [
-    @() iconCtor(0, maxHealIconDistance,
-      heroSoldierKind.value == "medic" && iconHpColor && heroMedicMedpacks.value > 0
-        ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER)
-        : icon)
-    @() iconCtor(maxHealIconDistance, maxTeammateIconDistance, icon)
-  ]
-}
+})
 
 return {
-  teammate_ctor = unit
+  teammates_markers_ctor = {
+    watch = teammatesAvatarsSet
+    ctor = function() {
+      let res = teammatesAvatarsSet.value.keys().map( @(eid) unit(eid, true))
+      res.extend(teammatesAvatarsSet.value.keys().map( @(eid) unit(eid, false)))
+      return res
+    }
+  }
 }

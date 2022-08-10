@@ -5,25 +5,25 @@ require game.events_game
 
 [es]
 def process_entity_hit_by_player(evt : EventOnEntityHit)
-  if evt.damageDesc.deltaHp != 0.f
+  if evt.deltaHp != 0.f
     let victimPlrEid : EntityId = get_Eid(evt.victim, "possessedByPlr") ?? INVALID_ENTITY_ID
     let offenderPlrEid : EntityId = get_Eid(evt.offender, "possessedByPlr") ?? INVALID_ENTITY_ID
     if offenderPlrEid != INVALID_ENTITY_ID
       sendEvent(offenderPlrEid, [[EventPlayerInjuredEntity
                                   victim=evt.victim,
                                   offender=evt.offender,
-                                  damageDesc_damageTypeId=uint16(uint(evt.damageDesc.damageType)),
-                                  damageDesc_gunPropsId=evt.damageDesc.gunPropsId,
-                                  damageDesc_collNodeId=evt.damageDesc.collNodeId,
-                                  damageDesc_deltaHp=evt.damageDesc.deltaHp,
-                                  damageDesc_armorMult=evt.damageDesc.armorMult,
+                                  damageDesc_damageTypeId=uint16(uint(evt.damageType)),
+                                  damageDesc_gunPropsId=int16(evt.gunPropsId),
+                                  damageDesc_collNodeId=int16(evt.collNodeId),
+                                  damageDesc_deltaHp=evt.deltaHp,
+                                  damageDesc_armorMult=evt.armorMult,
                                   victimPlrEid=victimPlrEid,
                                   offenderPlrEid=offenderPlrEid]])
     if victimPlrEid != INVALID_ENTITY_ID
       sendEvent(offenderPlrEid, [[EventPlayerGotDamage
                                   victimEid=evt.victim,
                                   offenderEid=evt.offender,
-                                  damageDesc_deltaHp=evt.damageDesc.deltaHp,
+                                  damageDesc_deltaHp=evt.deltaHp,
                                   victimPlayerEid=victimPlrEid,
                                   offenderPlayerEid=offenderPlrEid]])
 

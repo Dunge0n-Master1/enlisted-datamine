@@ -50,7 +50,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[11.6168, 0.0, -0.66278] [0.0, 5.30157, 0.0] [0.145696, 0.0, 9.6988] [-313.074, 13.7502, 346.439]]
   capzone__title:t="A"
   capzone__caption:t="capzone/south_wing"
@@ -59,7 +59,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[14.4898, 0.0, -0.789491] [0.0, 9.9818, 0.0] [0.445242, 0.0, 16.2996] [-311.353, 9.60114, 389.491]]
   capzone__title:t="B"
   capzone__caption:t="capzone/central_building"
@@ -68,7 +68,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.11308, 0.0499751, 0.316534] [-0.0742991, 1.40817, 0.0527342] [-0.437454, -0.11201, 0.80419] [-343.162, 4.72486, 484.806]]
   capzone__title:t="C"
   capzone__caption:t="capzone/north_wing"
@@ -148,8 +148,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-398.048, -5.68434e-14, 873.556]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -205,8 +203,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -291,8 +287,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[25814.7, 0.0, 112.793] [0.0, 8000.36, 0.0] [-111.84, 0.0, 25814.3] [-133.617, 240.916, 428.499]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

@@ -36,7 +36,7 @@ let randTeamAvailable = Computed(function () {
   let isAvailable = curUnfinishedBattleTutorial.value == null
     && (!isInSquad.value || isSquadLeader.value)
 
-  if(!isInEventGM.value && isAvailable)
+  if (!isInEventGM.value && isAvailable)
     return isAvailable
 
   let { minCampaignLevelReq = 1 } = selEvent.value
@@ -74,7 +74,6 @@ let function setRandTeamValue(val) {
 
 let randTeamBoxStyle = {
   text = loc("queue/join_any_team")
-  color = Color(255,255,255)
   margin = 0
 }.__update(body_txt)
 

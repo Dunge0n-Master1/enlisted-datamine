@@ -3,16 +3,17 @@ from "%enlSqGlob/ui_library.nut" import *
 let {Point2} = require("dagor.math")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 let {HUD_COLOR_TEAMMATE_OUTER} = require("%enlSqGlob/ui/style/unit_colors.nut")
+let {mine_markers_Set, mine_markers_GetWatched} = require("%ui/hud/state/mine_markers.nut")
+let { mineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 
 let mineIconSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
 let mineTimerSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
-let { mine_markers } = require("%ui/hud/state/mine_markers.nut")
-let { mineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
+let mineIconMemo = memoize(@(typ, size) mineIcon(typ, size), 1)
 
-let function mkTimerIcon(info) {
-  let timerEndtime = Watched(info.blockedToTime)
+let function mkTimerIcon(state) {
+  let timerEndtime = Computed(@() state.value.blockedToTime)
   let countDownTimer = mkCountdownTimer(timerEndtime)
-  let curProgressW = Computed(@() info.installBlockTime > 0 ? countDownTimer.value / info.installBlockTime : 0)
+  let curProgressW = Computed(@() state.value.installBlockTime > 0 ? countDownTimer.value / state.value.installBlockTime : 0)
   let commands = [
     [VECTOR_FILL_COLOR, Color(0, 0, 0, 0)],
     [VECTOR_SECTOR, 50, 50, 50, 50, 0.0, 0.0],
@@ -26,16 +27,20 @@ let function mkTimerIcon(info) {
     color = Color(255, 255, 255)
     fillColor = Color(122, 1, 0, 0)
     rendObj = ROBJ_VECTOR_CANVAS
-    commands = commands
+    commands
   }
 }
 
-let function unit(eid, info){
-  let blockedByTimer = info.blockedToTime >= 0
-  let mineType = info?.type
-  return @(){
+let mine = memoize(function(eid){
+  let watch = mine_markers_GetWatched(eid)
+  let timerIcon = mkTimerIcon(watch)
+  return function(){
+    let blockedByTimer = watch.value.blockedToTime >= 0
+    let mineType = watch.value?.type
+    let mIco = mineIconMemo(mineType, mineIconSize)
+    return {
       data = {
-        eid = eid
+        eid
         minDistance = 0.1
         maxDistance = 10
         distScaleFactor = 0.5
@@ -46,18 +51,19 @@ let function unit(eid, info){
       }
       rendObj = ROBJ_IMAGE
       color = HUD_COLOR_TEAMMATE_OUTER
-      key = $"mine_marker_{eid}"
+      key = eid
       sortOrder = eid
       transform = {}
-      image = blockedByTimer ? null : mineIcon(mineType, mineIconSize)
+      image = blockedByTimer ? null : mIco
       size = blockedByTimer ? mineTimerSize : mineIconSize
-      watch = [mine_markers]
+      watch
 
-      children = blockedByTimer ? mkTimerIcon(info) : null
+      children = blockedByTimer ? timerIcon : null
       markerFlags = MARKER_SHOW_ONLY_IN_VIEWPORT
     }
-}
+  }
+})
 
 return {
-  mine_ctor = unit
+  mine_ctor = {watch = mine_markers_Set, ctor = @() mine_markers_Set.value.keys().map(mine)}
 }

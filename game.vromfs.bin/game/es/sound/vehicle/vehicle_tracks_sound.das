@@ -20,7 +20,7 @@ def vehicle_tracks_sound_reset(evt : Event;
 
 [es(tag=sound, after=(vehicle_phys_sound_state, vehicle_suspension_sound, ship_phys_sound_state))]
 def vehicle_tracks_sound(info : UpdateStageInfoAct;
-                         sound_control__enabled : bool;
+                         sound_control__shouldPlay : bool;
 
                          var vehicle_tracks_sound__event : SoundEvent&;
                          var vehicle_tracks_sound__timer : float&;
@@ -42,7 +42,7 @@ def vehicle_tracks_sound(info : UpdateStageInfoAct;
 
                          transform : float3x4)
 
-  if !sound_control__enabled
+  if !sound_control__shouldPlay
     if vehicle_tracks_sound__event.enabled
       vehicle_tracks_sound__timer = -1.
       vehicle_tracks_sound__event.enabled = false

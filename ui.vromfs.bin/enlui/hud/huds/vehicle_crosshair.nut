@@ -4,7 +4,7 @@ let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {mainTurretAmmo, mainTurretEid, turretsReload} = require("%ui/hud/state/vehicle_turret_state.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 
-let circleProgressImage = Picture("ui/skin#scanner_range")
+let circleProgressImage = Picture("ui/skin#scanner_range.png")
 let aim_color = Color(200, 200, 200, 150)
 let aim_bgcolor = Color(0, 0, 0, 25)
 let overheatFg = Color(160, 0, 0, 180)

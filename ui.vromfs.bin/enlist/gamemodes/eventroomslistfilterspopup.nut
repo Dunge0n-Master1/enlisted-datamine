@@ -6,6 +6,7 @@ let { localGap } = require("eventModeStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let mkOptionRow = require("components/mkOptionRow.nut")
 let faComp = require("%ui/components/faComp.nut")
+let { isModAvailable } = require("sandbox/customMissionState.nut")
 
 let WND_UID = "eventFiltersPopup"
 let isRoomFilterOpened = Watched(false)
@@ -16,6 +17,11 @@ let locOff = loc($"option/off")
 
 let OPTS_LIST = "opts_list"
 
+let modsFilter = {
+  optType = OPTS_LIST
+  innerOption = optModRooms
+}
+
 let roomsCheckboxBlock = [
   {
     locId = "rooms/Rooms"
@@ -24,9 +30,9 @@ let roomsCheckboxBlock = [
   }
   {
     optType = OPTS_LIST
-    innerOption = optModRooms
+    innerOption = optPasswordRooms
   }
-]
+].append(isModAvailable.value ? modsFilter : null )
 
 let columns = [
   [ optMode, optDifficulty ].extend(roomsCheckboxBlock),
@@ -155,7 +161,9 @@ let function mkOptsList(opt) {
 }
 
 let function mkRow(option) {
-  let { optType } = option
+  let { optType = null } = option
+  if (optType == null)
+    return null
   let ctor = {
     [OPTS_LIST] = mkOptsList,
     [OPT_RADIO] = mkSelectSingle,

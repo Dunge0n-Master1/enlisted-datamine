@@ -508,7 +508,7 @@ sandbags_wall_maxim_no_shield{
 builded_stationary_maxim_no_shield_with_autodetach{
   _extends:t="stationary_maxim_no_shield_with_autodetach"
   _extends:t="fortification_builder_info"
-  mounted_gun__horz_limits:p2=-30.0, 50.0
+  mounted_gun__horz_limits:p2=-30.0, 30.0
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -579,7 +579,7 @@ sandbags_wall_mg_34_preview{
 
     "item:object"{
       template:t="stationary_mg_34_building_additive_preview"
-      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.02, 1.29, 0.0]]
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.08, 1.28, 0.0]]
       additiveUp:p3=0.0, 1.0, 0.0
     }
   }
@@ -600,7 +600,7 @@ sandbags_wall_mg_34{
 
     "item:object"{
       template:t="builded_stationary_mg_34_with_autodetach"
-      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.02, 1.29, 0.0]]
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.08, 1.28, 0.0]]
       additiveUp:p3=0.0, 1.0, 0.0
     }
   }
@@ -695,6 +695,7 @@ sandbags_wall_browning_m1919a4{
 builded_stationary_browning_m1919a4_with_autodetach{
   _extends:t="stationary_browning_m1919a4_with_autodetach"
   _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-30.0, 30.0
 
   "disableDestroyWithRi:tag"{
   }
@@ -1071,7 +1072,7 @@ base_rallypoint_preview{
   building_builder__maxUnderwaterDistance:r=0.5
   building_builder__maxTimeToBuild:r=25.0
   buildingCost:r=5.0
-  requiredSpaceAboveObject:r=2.5
+  requiredSpaceAboveObject:r=2.3
   building_menu__text:t="building_tool/rallypoint"
   building_menu__image:t="custom_spawn_point"
 
@@ -1406,9 +1407,6 @@ antipersonnel_mine_activator{
 
   "ownerEid:eid"{
   }
-
-  "offenderDesc:object"{
-  }
 }
 
 antipersonnel_mine{
@@ -1459,9 +1457,6 @@ antitank_mine_activator{
   }
 
   "ownerEid:eid"{
-  }
-
-  "offenderDesc:object"{
   }
 }
 
@@ -1539,26 +1534,26 @@ sandbags_wall_mg_preview_dev{
   _extends:t="sandbags_wall_mg_preview"
   building_builder__maxTimeToBuild:r=2.0
   buildingCost:r=1.0
-  building__requireUnlockId:i=1
+  building__requireUnlockId:i=-1
 }
 
 sandbags_wall_mg_34_preview_dev{
   _extends:t="sandbags_wall_mg_34_preview"
   building_builder__maxTimeToBuild:r=2.0
   buildingCost:r=1.0
-  building__requireUnlockId:i=1
+  building__requireUnlockId:i=-1
 }
 
 sandbags_wall_maxim_no_shield_preview_dev{
   _extends:t="sandbags_wall_maxim_no_shield_preview"
   building_builder__maxTimeToBuild:r=2.0
   buildingCost:r=1.0
-  building__requireUnlockId:i=1
+  building__requireUnlockId:i=-1
 }
 
 sandbags_wall_browning_m1919a4_preview_dev{
   _extends:t="sandbags_wall_browning_m1919a4_preview"
   building_builder__maxTimeToBuild:r=2.0
   buildingCost:r=1.0
-  building__requireUnlockId:i=1
+  building__requireUnlockId:i=-1
 }

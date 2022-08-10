@@ -79,14 +79,14 @@ let function recalcActiveOffers() {
     .filter(@(offer) offer.intervalTs[1] > time)
     .map(@(offer) {
       endTime = offer.intervalTs[1]
-      widgetTxt = loc(offer.shopItem.nameLocId)
-      widgetImg = offer.scheme.baseWidgetImg
-      windowImg = offer.scheme.basePromoImg
-      descLocId = offer.scheme.baseDescLocId
+      widgetTxt = loc(offer.shopItem?.nameLocId ?? "")
+      widgetImg = offer.scheme?.baseWidgetImg
+      windowImg = offer.scheme?.basePromoImg
+      descLocId = offer.scheme?.baseDescLocId
       lifeTime  = offer.scheme.lifeTime
       guid = offer.guid
       shopItem = offer.shopItem
-      discountInPercent = offer.scheme.discountInPercent
+      discountInPercent = offer.discountInPercent
     })
   allActiveOffers(list)
 }

@@ -37,7 +37,6 @@ base_projectile{
   projectile__maxLifeTime:r=0.0
   projectile__stopped:b=no
   projectile__exploded:b=no
-  projectile__explosionDelayed:i=0
   projectile__prevPos:p3=0.0, 0.0, 0.0
   projectile__intersectionCount:i=0
   projectile__maxAllowedSceneIntersectionsForFx:i=3

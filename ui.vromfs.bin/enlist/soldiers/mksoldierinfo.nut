@@ -9,7 +9,9 @@ let soldierEquipUi = require("soldierEquip.ui.nut")
 let soldierPerksUi = require("soldierPerks.ui.nut")
 let mkSoldierCustomisationTab = require("mkSoldierCustomisationTab.nut")
 let soldierLookUi = require("soldierLook.ui.nut")
-let { newPerksIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let {
+  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN
+} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
 let { curUnseenUpgradesBySoldier, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
@@ -20,20 +22,21 @@ let tabsData = {
   weaponry = {
     locId = "soldierWeaponry"
     content = soldierEquipUi
-    childCtor = @(soldier, isSelected) soldier == null ? null
-      : newPerksIcon(isSelected, Computed(function() {
-          let unseenUpgradesCount = !(isUpgradeUsed.value ?? false)
-            ? (curUnseenUpgradesBySoldier.value?[soldier?.guid] ?? 0)
-            : 0
-          return (unseenSoldiersWeaponry.value?[soldier?.guid].len() ?? 0) + unseenUpgradesCount
+    childCtor = @(soldier) soldier == null ? null
+      : mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
+          let weapCount = unseenSoldiersWeaponry.value?[soldier?.guid].len() ?? 0
+          let upgrCount = (isUpgradeUsed.value ?? false) ? 0
+            : (curUnseenUpgradesBySoldier.value?[soldier?.guid] ?? 0)
+          return weapCount + upgrCount > 0
         }))
   }
   perks = {
     locId = "soldierPerks"
     content = soldierPerksUi
-    childCtor = @(soldier, isSelected) soldier == null ? null
-      : newPerksIcon(isSelected, Computed(@()
-          notChoosenPerkSoldiers.value?[soldier.guid] ?? 0))
+    childCtor = @(soldier) soldier == null ? null
+      : mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
+          (notChoosenPerkSoldiers.value?[soldier.guid] ?? 0) > 0
+        ))
   }
   customize = {
     iconId = "pencil"
@@ -89,7 +92,7 @@ let tabsList = @(soldier, availTabs) @() {
             children = [
               textButton(loc(tab.locId), @() curTabId(id),
                 listBtnStyle(isCurrent, idx))
-              tab?.childCtor(soldier.value, isCurrent)
+              tab?.childCtor(soldier.value)
             ]
           }
         : "iconId" in tab ? {

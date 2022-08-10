@@ -1,27 +1,28 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let hudLayoutState = require("%ui/hud/state/hud_layout_state.nut")
 let textButton = require("%ui/components/textButton.nut")
 let console = require("console")
 let camera = require("camera")
 let cursors = require("%ui/style/cursors.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 
+let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
 let { blurBgFillColor, blurBgColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { h2_txt, body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let { replayCurTime, replayPlayTime, replayTimeSpeed, canShowReplayHud } = require("replayState.nut")
+let { h2_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { replayCurTime, replayPlayTime, replayTimeSpeed, canShowReplayHud,
+  isFreeTpsMode } = require("replayState.nut")
 let { format } = require("string")
-let { NextReplayTarget } = require("dasevents")
-let { txt } = require("%enlSqGlob/ui/defcomps.nut")
+let { NextReplayTarget, ReplaySetFpsCamera, ReplaySetFreeTpsCamera, ReplaySetTpsCamera } = require("dasevents")
 let { setInteractiveElement } = require("%ui/hud/state/interactive_state.nut")
 let { localPlayerName } = require("%ui/hud/state/local_player.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
-
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
+let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
 let timeSpeedVariants = [0, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4]
 
 let function timeSpeedInscrese(curTimeSpeed) {
-  foreach(timeSpeed in timeSpeedVariants)
+  foreach (timeSpeed in timeSpeedVariants)
     if (curTimeSpeed < timeSpeed) {
       console.command($"app.timeSpeed {timeSpeed}")
       return
@@ -56,14 +57,14 @@ let replayTimeControl = @() {
     replayTimeSpeed.value <= 0
       ? textButton(fa["play"], @() console.command("app.timeSpeed 1"), fontawesome)
       : textButton(fa["pause"], @() console.command("app.timeSpeed 0"), fontawesome)
-    textButton(fa["fast-backward"], @() timeSpeedDecrese(replayTimeSpeed.value), fontawesome)
+    textButton(fa["minus"], @() timeSpeedDecrese(replayTimeSpeed.value), fontawesome)
     {
       rendObj = ROBJ_TEXT
       text = format("x%.2f", replayTimeSpeed.value)
       padding = [hdpx(20), 0]
       color = Color(255,255,255)
     }.__update(h2_txt)
-    textButton(fa["fast-forward"], @() timeSpeedInscrese(replayTimeSpeed.value), fontawesome)
+    textButton(fa["plus"], @() timeSpeedInscrese(replayTimeSpeed.value), fontawesome)
   ]
 }
 
@@ -87,6 +88,7 @@ let replayCameraControl = @() {
   flow = FLOW_HORIZONTAL
   halign = ALIGN_RIGHT
   size = flex()
+  watch = inVehicle
   children = [
     {
       rendObj = ROBJ_TEXT
@@ -94,9 +96,9 @@ let replayCameraControl = @() {
       padding = [fsh(2), 0]
       color = Color(255,255,255)
     }.__update(h2_txt)
-    textButton("FPS", @() console.command("replay.fps_camera"), {})
-    textButton("TPS", @() console.command("replay.tps_camera"), {})
-    textButton("Free TPS", @() console.command("replay.tps_free_camera"), {})
+    textButton("FPS", @() ecs.g_entity_mgr.broadcastEvent(ReplaySetFpsCamera()), { isEnabled = !inVehicle.value })
+    textButton("TPS", @() ecs.g_entity_mgr.broadcastEvent(ReplaySetTpsCamera()), {})
+    textButton("Free TPS", @() ecs.g_entity_mgr.broadcastEvent(ReplaySetFreeTpsCamera()), {})
   ]
 }
 
@@ -127,6 +129,7 @@ let replayTargetName = @() {
   watch = localPlayerName
   flow = FLOW_HORIZONTAL
   halign = ALIGN_RIGHT
+  padding = hdpx(10)
   size = flex()
   children = [
     {
@@ -147,29 +150,58 @@ let replayBottomPlayMenu = {
   children = replayControl
 }
 
-let replayHideHudHint = {
+let replayHideHudHint = @() {
   flow = FLOW_VERTICAL
-  hplace = ALIGN_CENTER
-  children = txt({
+  hplace = ALIGN_LEFT
+  watch = isFreeTpsMode
+  children = [
+    tipCmp({
       text = loc("F6 disable/enable HUD")
-      color = Color(255,255,255)
-    }.__update(body_txt))
+      inputId = "Replay.DisableHUD"
+      textColor = Color(255,255,255)
+    })
+    tipCmp({
+      text = loc("tips/replay/disableGameHud")
+      inputId = "Replay.DisableGameHUD"
+      textColor = Color(255,255,255)
+    })
+    isFreeTpsMode.value ? tipCmp({
+      text = loc("tips/replay/tpsFreeCamera")
+      inputId = "Replay.ToggleCamera"
+      textColor = Color(255,255,255)
+    }) : null
+  ]
 }
 
-canShowReplayHud.subscribe(@(val) setInteractiveElement("ReplayHud", val))
-
-return function() {
-  setInteractiveElement("ReplayHud", true)
-  hudLayoutState.centerPanelTop([replayHideHudHint])
-  hudLayoutState.centerPanelBottom([replayBottomPlayMenu])
+foreach(s in [isReplay, canShowReplayHud])
+  s.subscribe(@(...) setInteractiveElement("ReplayHud", isReplay.value && canShowReplayHud.value))
 
 
-  hudLayoutState.leftPanelTop([])
-  hudLayoutState.leftPanelMiddle([])
-  hudLayoutState.leftPanelBottom([])
-  hudLayoutState.centerPanelMiddle([])
-  hudLayoutState.rightPanelTop([])
-  hudLayoutState.rightPanelMiddle([])
-  hudLayoutState.rightPanelBottom([replayTargetName])
+return @() {
+  size = flex()
+  flow = FLOW_VERTICAL
+  key = "ReplayHud"
+  behavior = Behaviors.MenuCameraControl
+
+  children = {
+    size = flex()
+    children = [
+      {
+        size=[fsh(40),flex()]
+        padding = hdpx(10)
+        children = replayHideHudHint
+      }
+      {
+        halign = ALIGN_CENTER
+        valign = ALIGN_BOTTOM
+        size = [flex(), flex(1)]
+        children = [
+          replayTargetName
+          replayBottomPlayMenu
+        ]
+      }
+    ]
+  }
+  cursor = cursors.normal
 }
 

@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require app
 require player
 require CollRes
@@ -53,12 +54,23 @@ def tutorial_human_init_es(evt : Event; eid : EntityId)
 
 [es(REQUIRE=tutor_stage__complete, on_appear)]
 def tutorial_complete(evt : Event)
-  broadcastEvent([[EventTeamWon teamId=get_local_player_team()]])
+  broadcastEvent([[EventTeamWon team=get_local_player_team()]])
 
 [es(on_event=EventEntityDestroyed)]
 def tutorial_next_stage_es(evt : Event; tutor_stage__next : string)
   if tutor_stage__next != ""
     createEntity(tutor_stage__next)
+
+[es(on_appear)]
+def tutorial_stage_remove_group_es(evt : Event; tutor_stage__removeStageGroup : StringList)
+  query() <| $ [es] (var tutor_stage__next : das_string&; tutor_stage__group : string)
+    if has_value(tutor_stage__removeStageGroup, tutor_stage__group)
+      tutor_stage__next := ""
+
+[es(on_disappear, REQUIRE=tutor_stage__displayHint)]
+def tutorial_remove_hint_es(evt : Event; tutor_stage__hintGroup : string = "tutorial_hint")
+  using() <| $(var arr : Array#)
+    tutorial_hint(tutor_stage__hintGroup, tutor_stage__hintGroup, "", arr)
 
 [es(on_appear)]
 def tutorial_display_hint_es(evt : Event;
@@ -434,3 +446,35 @@ def tutorial_condition_soldier_in_squad_lte_es(evt : Event)
     query() <| $ [es(REQUIRE_NOT=deadEntity, REQUIRE=heroSquad)] () { squadMemberCount++; }
     if squadMemberCount <= tutor_condition__soldierInSquadLte
       destroyEntity(eid)
+
+[es(track=pve_stage__enemyCount)]
+def tutorial_pve_bot_die_es(evt : Event; pve_stage__name : string; pve_stage__enemyCount : int)
+  if pve_stage__enemyCount <= 0
+    query() <| $ [es] (eid : EntityId; var tutor_condition__botsKilled : StringList&)
+      let idx = find_index(tutor_condition__botsKilled, pve_stage__name)
+      if idx < 0
+        return
+
+      erase(tutor_condition__botsKilled, idx)
+      if length(tutor_condition__botsKilled) == 0
+        destroyEntity(eid)
+
+[es(on_appear)]
+def tutorial_pve_bot_die_init_es(evt : Event; eid : EntityId; var tutor_condition__botsKilled : StringList&)
+  query() <| $ [es(REQUIRE_NOT=pve__active)] (pve_stage__name : string; pve_stage__enemyCount : int)
+    if pve_stage__enemyCount > 0
+      return
+
+    let idx = find_index(tutor_condition__botsKilled, pve_stage__name)
+    if idx < 0
+      return
+    erase(tutor_condition__botsKilled, idx)
+  if length(tutor_condition__botsKilled) == 0
+    destroyEntity(eid)
+
+[es(on_appear)]
+def tutorial_activate_pve_stage(evt : Event; tutor_action__spawnBots : StringList)
+  query() <| $ [es(REQUIRE_NOT=pve__active)] (eid : EntityId; pve_stage__name : string; var pve_stage__enemyCount : int&)
+    if find_index(tutor_action__spawnBots, pve_stage__name) >= 0
+      addSubTemplate(eid, "pve_active")
+      pve_stage__enemyCount = 0

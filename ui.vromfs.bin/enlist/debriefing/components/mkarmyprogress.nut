@@ -9,7 +9,6 @@ let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { mkCurrencyImage, mkCurrencyTooltip } = require("%enlist/shop/currencyComp.nut")
 let { sound_play } = require("sound")
-let promoSmall = require("%enlist/currency/pkgPremiumWidgets.nut")
 let { mkArmyBaseExpTooltip, mkArmyPremiumExpTooltip, mkArmyResultExpTooltip
 } = require("%enlist/debriefing/components/mkArmyExpTooltip.nut")
 let {
@@ -158,7 +157,7 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
         addingSign
         withTooltip(
           mkValueWithIconArmyExp(premiumExp, premiumIcon(xpIconSize, armyId, hasPremiumAccount, hasPremiumSquad))
-          @() mkArmyPremiumExpTooltip(squads, premiumExp, armyId, hasPremiumAccount, hasPremiumSquad))
+          @() mkArmyPremiumExpTooltip(squads, premiumExp, details, armyId, hasPremiumAccount, hasPremiumSquad))
       ])
   let battleResultMultIcon = !hasBattleResultMult ? null
     : horFlow([
@@ -396,11 +395,6 @@ let mkProgress = kwarg(function(
   @() mkArmyResultExpTooltip(squads, armyAddExp, details, isDeserter, armyId))
 })
 
-let promoSquadResearches = promoSmall("debriefing_sections", "debriefing_sections", {
-  size = [pw(100), SIZE_TO_CONTENT]
-  padding = [smallPadding, 20]
-}, "premium/buyForExperience")
-
 let mkBaseAwardAnim = @(animDelay, onFinish) [
   { prop = AnimProp.opacity, from = 0, to = 0, duration = animDelay, play = true,
     easing = InOutCubic, trigger }
@@ -560,7 +554,6 @@ let function mkArmyProgress(
                 onFinish?()
             }
           })
-          promoSquadResearches
           mkAwards(unlockRewards, expToNextLevel, timeForRewards, squadToUnlock == null
             ? onFinish
             : null)

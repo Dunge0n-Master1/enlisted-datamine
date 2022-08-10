@@ -1,6 +1,7 @@
 module sound_player_common shared
 
 require ecs
+require ecs.safe
 require ecs.common
 require soundHash
 require soundSystem
@@ -24,11 +25,11 @@ def set_sound_tag(tag : string; enable : bool; var tags : Object&)
     clear_sound_tag(tag, tags)
 
 def read_sound_tag(tag : string; tags : Object) : bool
-  return get_bool(tags, tag) ?? false
+  return tags[tag] ?? false
 
 
 def get_desc(descs : Object; desc_str : string) : Object const?
-  return desc_str != "" ? get_ecs_object(descs, desc_str) : null
+  return desc_str != "" ? (descs[desc_str] ?as Object) : null
 
 
 def test_tags(opt : Object; all_tags : Object) : bool
@@ -41,13 +42,13 @@ def test_tags(opt : Object; all_tags : Object) : bool
 
 def get_option_path_string(obj : Object const; is_watched : bool; var result : string&) : bool
   if is_watched && has(obj, "hero")
-    result = get_string(obj, "hero", "error")
+    result = obj.hero ?? "error"
     return true
   elif !is_watched && has(obj, "enemy")
-    result = get_string(obj, "enemy", "error")
+    result = obj.enemy ?? "error"
     return true
   elif has(obj, "path")
-    result = get_string(obj, "path", "error")
+    result = obj.path ?? "error"
     return true
   return false
 
@@ -57,10 +58,10 @@ def get_option_path(path : Object; tags : Object; is_watched : bool; var result 
     if test_tags(path, tags)
       return get_option_path_string(path, is_watched, result)
     return false
-  let opts = get_ecs_array(*(path["options"]))
+  let opts = *(path["options"]) as Array
   if opts != null
     for it in *opts
-      let opt = get_ecs_object(it)
+      let opt = it as Object
       if opt != null && test_tags(*opt, tags)
         return get_option_path_string(*opt, is_watched, result)
   return false
@@ -71,11 +72,11 @@ def get_option_path(path : Object const?; tags : Object; is_watched : bool; var 
 
 
 def get_path_by_name(paths : Object; path_name : string)
-  let path = get_ecs_object(paths, path_name)
+  let path = paths[path_name] ?as Object
   return path != null ? path : get_ecs_object(paths, "default")
 
 def get_path_by_desc_nullable(desc : Object; paths : Object)
-  return get_path_by_name(paths, get_string(desc, "path", ""))
+  return get_path_by_name(paths, desc.path ?? "")
 
 
 def is_valid(obj : Object)
@@ -120,7 +121,7 @@ def play_desc_path(desc : Object;
                    var group : SoundEventGroup&)
   reject_sound(group, id)
   if path != "" && is_valid(desc)
-    let name = get_string(desc, "name", "")
+    let name = desc.name ?? ""
     if name != ""
       return play_name_path_impl(name, path, id, pos, group)
   return invalid_sound_event_handle()
@@ -130,7 +131,7 @@ def play_desc_path(desc : Object;
                    pos : float3;
                    is_abandon : bool = true)
   if path != "" && is_valid(desc)
-    let name = get_string(desc, "name", "")
+    let name = desc.name ?? ""
     if name != ""
       return play_name_path_impl(name, path, pos, is_abandon)
   return invalid_sound_event_handle()
@@ -213,7 +214,7 @@ def play(desc_id : string;
     if is_valid(*desc, tags)
       var path = ""
       if get_option_path(path_obj, tags, is_watched_sound, path)
-        let name = get_string(desc, "name", desc_id)
+        let name = (*desc).name ?? desc_id
         return play_name_path(name, path, pos, is_abandon)
     return invalid_sound_event_handle()
   sound_debug("no desc '{desc_id}' exists")
@@ -234,7 +235,7 @@ def play(desc_id : string;
     if is_valid(*desc, tags)
       var path = ""
       if get_option_path(path_obj, tags, is_watched_sound, path)
-        let name = get_string(desc, "name", desc_id)
+        let name = (*desc).name ?? desc_id
         return play_name_path(name, path, id, pos, group)
     return invalid_sound_event_handle()
   sound_debug("no desc '{desc_id}' exists")

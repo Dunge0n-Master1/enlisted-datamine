@@ -391,7 +391,7 @@ let upgradesUpdate = {
 
 let function applyUpgrades(weaponData, upgrades) {
   let res = clone weaponData
-  foreach(key, value in upgrades ?? {})
+  foreach (key, value in upgrades ?? {})
     upgradesUpdate?[key](res, value)
   processWeaponData(res)
   return res

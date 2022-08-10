@@ -2,30 +2,29 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {TEAM_UNASSIGNED} = require("team")
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let aircraft_markers = Watched({})
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid){
-  if (eid in aircraft_markers.value)
-    aircraft_markers.mutate(function(v) {
-      delete v[eid]
-    })
-}
+let {
+  aircraft_markers_Set,
+  aircraft_markers_GetWatched,
+  aircraft_markers_UpdateEid,
+  aircraft_markers_DestroyEid
+} = mkWatchedSetAndStorage("aircraft_markers_")
+
 
 ecs.register_es(
   "aircraft_markers_es",
   {
     [["onInit", "onChange"]] = function(_ect, eid, comp){
       if (!comp.isAlive || comp.team == TEAM_UNASSIGNED || !comp["hud_aircraft_marker__isVisible"])
-        deleteEid(eid)
+        aircraft_markers_DestroyEid(eid)
       else
-        aircraft_markers.mutate(@(v) v[eid] <- {
+        aircraft_markers_UpdateEid(eid, {
           team         = comp.team,
           isIdentified = comp["hud_aircraft_marker__isIdentified"],
-          isFriendly   = localPlayerTeam.value == comp.team
         })
     }
-    onDestroy = @(_evt, eid, _comp ) deleteEid(eid)
+    onDestroy = @(_evt, eid, _comp ) aircraft_markers_DestroyEid(eid)
   },
   {
     comps_rq = ["hud_aircraft_marker"]
@@ -39,5 +38,6 @@ ecs.register_es(
 )
 
 return{
-  aircraft_markers = aircraft_markers
+  aircraft_markers_Set,
+  aircraft_markers_GetWatched,
 }

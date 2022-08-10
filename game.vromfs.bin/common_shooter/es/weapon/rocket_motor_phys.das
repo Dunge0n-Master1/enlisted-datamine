@@ -5,6 +5,7 @@ require Ballistics
 require BallisticsProps
 require DagorMath
 require DagorSystem
+require enlisted.events_enlisted
 
 
 [es(on_appear, after=bomb_phys_created_es)]
@@ -27,7 +28,7 @@ def rocket_motor_phys_created_es(evt : Event;
 
 
 [es(before=update_bomb_phys_es)]
-def update_rocket_motor_phys_es(info : UpdateStageInfoAct;
+def update_rocket_motor_phys_es(info : ParallelUpdateFrameDelayed;
                                 projectile__isBomb : bool = false;
                                 projectile__stopped : bool;
                                 bomb_ballistics_props : ShellProps;

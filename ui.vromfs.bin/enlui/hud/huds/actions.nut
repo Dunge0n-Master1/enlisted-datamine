@@ -17,6 +17,7 @@ let {round_by_value} = require("%sqstd/math.nut")
 let getFramedNickByEid = require("%ui/hud/state/getFramedNickByEid.nut")
 let {sound_play} = require("sound")
 let {is_fast_pickup_item} = require("humaninv")
+let {CmdSetMarkMain} = require("dasevents")
 let {
   ACTION_USE, ACTION_REQUEST_AMMO, ACTION_RECOVER, ACTION_PICK_UP, ACTION_SWITCH_WEAPONS,
   ACTION_OPEN_DOOR, ACTION_CLOSE_DOOR, ACTION_REMOVE_SPRAY, ACTION_DENIED_TOO_MUCH_WEIGHT, ACTION_THROW_BACK,
@@ -202,7 +203,7 @@ let function sendTeamHint(useHintEid, _event){
       return
     }
   }
-  ecs.g_entity_mgr.sendEvent(localPlayerEid.value, ecs.event.CmdSetMarkMain())
+  ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdSetMarkMain())
 }
 
 let function localTeamHint(){

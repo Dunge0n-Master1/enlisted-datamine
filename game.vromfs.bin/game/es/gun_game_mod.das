@@ -9,11 +9,12 @@ require game.utils.sound_utils
 require DagorRandom
 require game.events_game
 require enlisted.events_enlisted
+require ecs.safe
 require EnlistedHuman
 require Grid
 require DagorMath
-require EnlistedNet
 require game.es.awards_common
+require EnlistedNet
 
 [es(tag=server, on_appear, REQUIRE=possessed,
     on_event=EventApplyDevMode, after=(apply_dev_mode, apply_dev_mode_client_only))]
@@ -41,14 +42,15 @@ def init_gun_game_mod(evt : Event;
       let listOfWeap = get_ecs_StringList(*levelObj, "weapons")
       let listOfAmmo = get_ecs_StringList(*levelObj, "ammoTemplates")
 
-      let additionalInfo = get_ecs_array(levelObj, "additionalWeapInfo")
+      let additionalInfo = (levelObj?.additionalWeapInfo)
 
       if listOfWeap != null
         let weaponsCount = length(*listOfWeap)
         let selector = rnd_int(0, weaponsCount - 1)
 
         if additionalInfo != null
-          *levelObj |> set("selectedAdditionalInfo", (*additionalInfo)[selector])
+          let listOfAdditionalInfo = *additionalInfo as Array
+          *levelObj |> set("selectedAdditionalInfo", (*listOfAdditionalInfo)[selector])
 
         let weaponTemplateName = string((*listOfWeap)[selector])
         *levelObj |> set("selectedSessionWeapon", weaponTemplateName)
@@ -60,7 +62,7 @@ def init_gun_game_mod(evt : Event;
             let ammoHolders = getTemplateComponent(*ammoTemplate, "gun__ammoHolders")
             if ammoHolders == null
               continue
-            let holdersArray = get_ecs_array(*ammoHolders)
+            let holdersArray = *ammoHolders as Array
             if holdersArray != null && length(*holdersArray) > 0
               *levelObj |> set("selectedSessionAmmo", (*holdersArray)[0])
 
@@ -74,7 +76,7 @@ def reset_human_weap_info_templates_for_slot(slot_id : int; var weap_templates :
 
   let gunsCount = min(int(HUWeaponSlots EWS_NUM), length(gun_mods_by_slot))
   for i in range(gunsCount)
-    var gunMods = gun_mods_by_slot[i] |> getRW_ecs_object()
+    var gunMods = gun_mods_by_slot[i] as Object
     if gunMods != null
       *gunMods |> clear()
 
@@ -111,16 +113,16 @@ def gun_game_init_level(eid : EntityId;
         return ;
       let level = get_ecs_object(gun_game__levels[gun_game__currentLevel])
       if level != null
-        var weapon := get_string(level, "selectedSessionWeapon", "knife")
+        var weapon = level?.selectedSessionWeapon ?? "knife"
         weapon = add_sub_template_name(weapon, "gun_game_mode_weapon_components")
 
-        let ammo = get_int(level, "numReserveAmmo") ?? 10
-        gun_game__killsForNextLevelRequire = get_int(level, "levelKills") ?? 2
+        let ammo = level?.numReserveAmmo ?? 10
+        gun_game__killsForNextLevelRequire = level?.levelKills ?? 2
         if (gun_game__killsForNextLevel <= 0)
           gun_game__killsForNextLevel = gun_game__killsForNextLevelRequire
-        let ammoTemplate := get_string(level, "selectedSessionAmmo", "")
+        let ammoTemplate = level?.selectedSessionAmmo ?? ""
 
-        let weaponSlotName = get_string(level, "weaponSlot", "primary")
+        let weaponSlotName = level?.weaponSlot ?? "primary"
         let slotId = int(HUWeaponSlots(weaponSlotName))
 
         if gun_game__currentLevelWeapSlot >= 0
@@ -131,9 +133,10 @@ def gun_game_init_level(eid : EntityId;
         if weapInfoSlot != null
           *weapInfoSlot |> set("numReserveAmmo", ammo)
           *weapInfoSlot |> set("reserveAmmoTemplate", ammoTemplate)
-          let additionalInfo = get_ecs_object(level, "selectedAdditionalInfo")
+          let additionalInfo = level?.selectedAdditionalInfo
           if additionalInfo != null
-            for kv in *additionalInfo
+            let additionalInfoObj = *additionalInfo as Object
+            for kv in *additionalInfoObj
               *weapInfoSlot |> set(kv.key, kv.value)
 
         gun_game__levelPropsId = -1
@@ -253,14 +256,12 @@ def gun_game_mode_score(evt : EventAnyEntityDied;
       send_award_stat(offenderInfo.player, offenderInfo.guid, "gunGameLevelup")
 
       if nextGunGameLevel >= gun_game__levelsCount
-        broadcastEvent([[EventTeamWon teamId=team]])
+        broadcastEvent([[EventTeamWon team=team]])
         gun_game__finished = true
         return
 
       gun_game__currentLevel = nextGunGameLevel
       gun_game__levelPropsId = -1
-
-      play_net_sound_from_any_source(offenderEid, "gunGameNextLevel")
 
       if gun_game__currentLevel > gun_game__leaderLevel
         gun_game__leaderLevel = gun_game__currentLevel
@@ -269,6 +270,8 @@ def gun_game_mode_score(evt : EventAnyEntityDied;
           gun_game__leaderPlayerEid = offenderInfo.player
         if gun_game__announceLevelReach |> has_value(gun_game__leaderLevel)
           broadcast_level_reach(gun_game__leaderPlayerEid, gun_game__leaderLevel)
+
+      play_net_sound_from_any_source(offenderEid, "gunGameNextLevel")
 
       find_query() <| $ [es] (team__id : int;
                               var team__gunGameLevel : int&)

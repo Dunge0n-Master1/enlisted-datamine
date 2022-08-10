@@ -67,7 +67,7 @@ showBriefingForTime.subscribe(function(value){
 let showBrief = Computed(@() showGoal.value || showGoalAuto.value)
 
 isAlive.subscribe(function(live){
-  if(live)
+  if (live)
     showGoal(false)
 })
 let lightgray = Color(180,180,180,180)

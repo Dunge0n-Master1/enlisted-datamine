@@ -1,5 +1,6 @@
 options no_aot
 require ecs
+require EcsUtils
 require strings
 require DagorConsole
 require RegExp

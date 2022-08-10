@@ -51,7 +51,8 @@ let weaponKeys = [
   "Human.WeaponNextMain",
   "Human.GrenadeNext",
   "Human.FiringMode",
-  "Inventory.UseFlask"
+  "Inventory.UseFlask",
+  "Human.UseBinocular"
 ]
 
 foreach (key in weaponKeys) {

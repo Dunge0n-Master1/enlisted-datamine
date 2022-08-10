@@ -4,7 +4,7 @@ let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let sessions_players = require("%ui/hud/state/sessions_players.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let scrollbar = require("%darg/components/scrollbar.nut")
+let scrollbar = require("%ui/components/scrollbar.nut")
 let cursors = require("%ui/style/cursors.nut")
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
 

@@ -5,17 +5,14 @@ require strings
 require EcsUtils
 require DagorDataBlock
 require DagorConsole
+require DagorEditor
 
-def editor_select_eid(eid : EntityId; auto_zoom : bool = false)
-  console_command("daEd4.selectEid {eid}")
-  if auto_zoom
-    editor_zoom_selected()
-
-def editor_zoom_selected()
-  console_command("daEd4.zoom")
+def editor_select_eid(eid : EntityId; select = true)
+  entity_object_unselectAll()
+  entity_object_editor_selectEntity(eid, select)
 
 def editor_open(open : bool = true)
-  console_command("daeditor.open {open ? 1 : 0}")
+  console_command("daEd4.open {open ? 1 : 0}")
 
 
 def editor_save_entity(eid : EntityId; var blk : DataBlock implicit; override_template_name : string = "")

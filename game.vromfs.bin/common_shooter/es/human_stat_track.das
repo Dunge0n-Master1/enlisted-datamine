@@ -92,8 +92,8 @@ def human_stat_on_kill(evt : EventAnyEntityDied)
 
 [es(tag=server)]
 def human_stat_on_hit(evt : EventOnEntityHit)
-  let damage = evt.damageDesc.damageType
-  if damage != DamageType DM_COLLISION && damage != DamageType DM_DISCONNECTED
+  let damage = evt.damageType
+  if damage != int(DamageType DM_COLLISION) && damage != int(DamageType DM_DISCONNECTED)
     query(evt.offender) <| $ [es] (isInVehicle : bool; human_weap__gunEids : EidList; human_weap__currentGunEid : EntityId;
                                    var human_stat_tracking__hitsPerWeapon : Object?;
                                    var human_stat_tracking__inVehicleHitsPerWeapon : Object?;
@@ -102,7 +102,7 @@ def human_stat_on_hit(evt : EventOnEntityHit)
                                    var human_stat_tracking__hitsCount, human_stat_tracking__botsHitsCount, human_stat_tracking__inVehicleHitsCount : int&)
       let botTarget = get_int(evt.victim, "human_stat_tracking__ownedBy") ?? -1 == BOT_OWNER
       if human_stat_tracking__hitsPerWeapon != null || human_stat_tracking__botsHitsPerWeapon != null
-        let weaponName = get_weapon_name_by_props_shell_id(human_weap__gunEids, human_weap__currentGunEid, int(evt.damageDesc.gunPropsId), int(evt.damageDesc.shellId))
+        let weaponName = get_weapon_name_by_props_shell_id(human_weap__gunEids, human_weap__currentGunEid, evt.gunPropsId, evt.shellId)
         if !empty(weaponName)
           if isInVehicle
             try_inc_object_value(human_stat_tracking__inVehicleHitsPerWeapon, weaponName)

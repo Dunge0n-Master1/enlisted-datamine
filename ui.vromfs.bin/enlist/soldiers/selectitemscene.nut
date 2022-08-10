@@ -7,13 +7,13 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("model/unseenUpgrades.nut")
 let { defTxtColor, textBgBlurColor, activeTxtColor, blurBgColor, blockedBgColor,
-  blurBgFillColor, unitSize, bigPadding, smallPadding, freemiumDarkColor
+  blurBgFillColor, unitSize, bigPadding, smallPadding, freemiumDarkColor, tinyOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { show } = msgbox
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { Flat, PrimaryFlat, primaryButtonStyle } = require("%ui/components/textButton.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { statusIconCtor } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands, mkItemListDemands } = require("model/mkItemDemands.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
@@ -210,7 +210,7 @@ let function mkDemandHeader(demand) {
   return {
     rendObj = ROBJ_TEXT
     size = [flex(), SIZE_TO_CONTENT]
-    margin = [smallPadding, 0, 0, 0]
+    margin = [tinyOffset, 0, 0, 0]
     text = loc($"itemDemandsHeader/{key}{suffix}", demand)
     color = defTxtColor
   }.__update(sub_txt)
@@ -585,7 +585,7 @@ let infoBlock = {
   halign = ALIGN_RIGHT
   gap = bigPadding
   children = [
-    mkDetailsInfo(viewItem, viewSoldierInfo)
+    mkDetailsInfo(viewItem)
     buttonsUi
   ]
 }
@@ -699,7 +699,7 @@ let selectItemScene = @() {
   flow = FLOW_VERTICAL
   key = "selectItemScene"
   onAttach = function(){
-    if(armoryWndHasBeenOpend.value && isNewbie.value){
+    if (armoryWndHasBeenOpend.value && isNewbie.value){
       openArmoryTutorial()
       markSeenArmoryTutorial()
     }

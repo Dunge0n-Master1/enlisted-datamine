@@ -7,7 +7,7 @@ let function updatePS4Achievements(_) {
   if (unlockProgress.value.len() == 0)
     return
 
-  foreach(unlockDesc in unlocksSorted.value) {
+  foreach (unlockDesc in unlocksSorted.value) {
     local trophy_id = unlockDesc.ps4Id.tointeger()
     if (trophy_id > 0) {// valid gaijin <-> psn mapping
 

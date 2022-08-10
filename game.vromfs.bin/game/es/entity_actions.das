@@ -1,9 +1,10 @@
 require ecs
 require Action
+require enlisted.events_enlisted
 
-[es(no_order)]
+[es]
 def track_active_action_es(
-                           info : UpdateStageInfoAct;
+                           info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            var action__running : bool&)
 

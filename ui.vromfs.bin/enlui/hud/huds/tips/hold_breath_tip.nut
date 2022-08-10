@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {curWeapon} = require("%ui/hud/state/hero_state.nut")
+let {curWeaponAmmo} = require("%ui/hud/state/hero_weapons.nut")
 let {isHoldBreath} = require("%ui/hud/state/breath_state.nut")
 let {isAiming} = require("%ui/hud/huds/crosshair_state_es.nut")
 let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
@@ -16,7 +16,8 @@ let showHoldBrief = Computed(@()
   isAiming.value
   && !isMachinegunner.value
   && !isHoldBreath.value
-  && (curWeapon.value?.curAmmo ?? 0) > 0)
+  && (curWeaponAmmo.value > 0)
+)
 
 return @() {
   watch = showHoldBrief

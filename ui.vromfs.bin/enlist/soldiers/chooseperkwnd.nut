@@ -5,7 +5,7 @@ let { blurBgColor, bigGap, defTxtColor, activeTxtColor, bigPadding,
   isWide, perkBigIconSize, perkIconSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -49,14 +49,14 @@ let perksContentWidth = perkBigIconSize[0] * 5 + cardsGap * 4
 
 let recommendedPerkIds = Computed(function(){
   let tiers = sPerks.value?.tiers ?? []
-  if(tiers.len() == 0)
+  if (tiers.len() == 0)
     return tiers
   let exclude = sPerks.value?.prevPerk
   let res = []
   tiers.each(function(tier) {
     let paramsList = uniteEqualPerks(tier.perks)
-    foreach(perk in paramsList){
-      if(perk.perkId != null && exclude != perk.perkId){
+    foreach (perk in paramsList){
+      if (perk.perkId != null && exclude != perk.perkId){
         res.append(perk.perkId)
         if (res.len() >= RECOMMENDED_PERKS_COUNT)
           break

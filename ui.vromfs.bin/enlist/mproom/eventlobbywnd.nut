@@ -133,7 +133,7 @@ let statusCtor = {
 
 let myArmiesList = Computed(@() (gameProfile.value?.campaigns[myCampaign.value].armies ?? []).map(@(a) a.id))
 
-let teamBlockHeaderHeight = hdpx(68).tointeger()
+let teamBlockHeaderHeight = hdpxi(68)
 let rowHeight = hdpx(28)
 let teamsColors = [Color(157, 38, 38), Color(40, 93, 147)]
 let armyIconSize = hdpx(20)
@@ -189,7 +189,7 @@ let teamBlockHeader = @(sf, team) function(){
 
 let function mkTeamBlockHeader(team){
   let function joinTeam(){
-    if(!canChangeTeam.value)
+    if (!canChangeTeam.value)
       return
 
     setMyTeam(team)
@@ -200,8 +200,8 @@ let function mkTeamBlockHeader(team){
     onClick = @() joinTeam()
     size = [flex(), teamBlockHeaderHeight]
     image = Picture(isMirrored(team)
-      ? $"!ui/gameImage/base_header_bar.svg:{hdpx(150).tointeger()}:{4}:K?Ac"
-      : $"!ui/gameImage/base_header_bar_left.svg:{hdpx(150).tointeger()}:{4}:K?Ac"
+      ? $"!ui/gameImage/base_header_bar.svg:{hdpxi(150)}:{4}:K?Ac"
+      : $"!ui/gameImage/base_header_bar_left.svg:{hdpxi(150)}:{4}:K?Ac"
       )
     padding = bigPadding
     valign = ALIGN_CENTER
@@ -409,7 +409,7 @@ let mkButtonWithActiveBoostersMark = @(button) {
 let function showPenaltyWarn(expTime) {
   let timeText = Computed(function(){
     let time = expTime - serverTime.value
-    if(time <= 0)
+    if (time <= 0)
       return loc("loneFighterNoPenalty")
     return loc("loneFighterPenalty", {
       time = secondsToHoursLoc(time)
@@ -430,7 +430,7 @@ let function showPenaltyWarn(expTime) {
 let mkBattleButton = function(text, onClick){
   local action = onClick
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
-  if(room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
+  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
     action = @() showPenaltyWarn(penaltyExpTime.value)
   }
   return mkButtonWithActiveBoostersMark(textButton(text, action, battleButtonParams))
@@ -448,7 +448,7 @@ let localDedicCheckbox = checkbox(isLocalDedicated,
 
 let readyButton = mkBattleButton(loc("contact/Ready"), function(){
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
-  if(room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
+  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
     showPenaltyWarn(penaltyExpTime.value)
     return
   }
@@ -496,7 +496,7 @@ let backButton = {
 let function startSessionWithMsg() {
   let hasAllReady = roomMembers.value.findvalue(@(m) !(m?.public.isReady ?? false)) == null
   let penaltyExpTime = getPenaltyExpiredTime("USERSTATS", "USERSTATS", "LONE_FIGHTERS") ?? 0
-  if(room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
+  if (room.value?.public.mode == "LONE_FIGHTERS" && penaltyExpTime.value != 0){
     showPenaltyWarn(penaltyExpTime.value)
     return
   }

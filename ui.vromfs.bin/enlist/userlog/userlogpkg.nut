@@ -24,6 +24,7 @@ enum UserLogType {
   PURCH_PREMDAYS = "PURCH_PREMDAYS"
 
   BATTLE_ARMY_EXP = "BATTLE_ARMY_EXP"
+  BATTLE_ACTIVITY = "BATTLE_ACTIVITY"
 }
 
 let USERLOG_WIDTH = fsh(100)
@@ -173,8 +174,17 @@ let mkArmyExpLogRow = @(row) {
   }), defTxtColor)
 }.__update(rowStyle, { gap = smallPadding })
 
+let mkActivityLogRow = @(row) {
+  children = mkRowTextArea(loc("listWithDot", {
+    text = loc("userLogRow/battleActivity", {
+      activity = colorize(accentTitleTxtColor, row.count)
+    })
+  }), defTxtColor)
+}.__update(rowStyle, { gap = smallPadding })
+
 let battleRowView = {
   [UserLogType.BATTLE_ARMY_EXP] = mkArmyExpLogRow,
+  [UserLogType.BATTLE_ACTIVITY] = mkActivityLogRow
 }
 
 let mkBattleLogRows = @(uLogRows) {
@@ -193,7 +203,7 @@ let mkBattleLog = @(uLog, uLogRows) {
       loc("userLog/battle", {
         result = colorize(accentTitleTxtColor,
           loc($"userLog/battleRes/{battleResLoc[uLog?.value ?? 0]}"))
-        missionName = uLog.missionId
+        missionName = loc(uLog.missionId)
       }))
     uLogRows == null ? null : mkBattleLogRows(uLogRows)
   ]

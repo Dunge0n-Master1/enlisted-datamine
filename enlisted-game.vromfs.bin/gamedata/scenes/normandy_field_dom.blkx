@@ -9,8 +9,6 @@ import{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -114,8 +112,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -304,7 +300,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="normandy_field_dom"
 
   "loading_images:list<t>"{
@@ -347,33 +342,30 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [383.852, 69.6431, -119.124]]
   capzone__title:t="A"
   capzone__caption:t="capzone/mill"
   sphere_zone__radius:r=13.0
   decal__height:r=1.0
-  capzone__acivateRespawnGroup:i=3
   capzone__iconOffsetY:r=3.0
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[16.9049, 0.0, 0.0] [0.0, 5.89187, 0.0] [0.0, 0.0, 7.9001] [288.451, 71.6603, -212.708]]
   capzone__title:t="B"
   capzone__caption:t="capzone/farm_house"
   decal__height:r=0.3
-  capzone__acivateRespawnGroup:i=4
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.999898, 0.0142722, -0.00114863] [-0.0142479, 0.99972, 0.0189211] [0.00141835, -0.0189028, 0.99982] [406.809, 71.665, -246.304]]
   capzone__title:t="C"
   capzone__caption:t="capzone/artillery_emplacement"
   sphere_zone__radius:r=20.0
   decal__height:r=2.2
-  capzone__acivateRespawnGroup:i=5
   capzone__iconOffsetY:r=2.0
 }
 
@@ -554,8 +546,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11269.8, 0.0, -1003.34] [0.0, 8000.03, 0.0] [1002.81, 0.0, 11269.8] [347.399, 240.916, -212.351]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

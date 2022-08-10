@@ -46,9 +46,9 @@ def burn_damage(cur_time, dt : float; victim_eid, offender_eid : EntityId; victi
       burning__offenderShellId = shell_id
 
 
-def dmgzone_check_visitor(visitor_eid, offender_eid, burning_offender : EntityId;
+def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
                           curTime, dt, dmgzone_damage, dmgzone_fireAffect, fire_source__startTime : float;
-                          fire_source__gunPropsId, fire_source__shellId, team_to_damage, damage_type_id : int;
+                          gun_props_id, shell_id, team_to_damage, damage_type_id : int;
                           damage_in_vehicle : bool;
                           var eids_in_zone : EidList?)
   ecs::query(visitor_eid) <| $ [es(REQUIRE=dmgzoneVulnerable, REQUIRE_NOT=deadEntity)] (transform : float3x4;
@@ -71,7 +71,9 @@ def dmgzone_check_visitor(visitor_eid, offender_eid, burning_offender : EntityId
 
     if dmgzone_damage > 0.0 && entity_mods__zoneDamageMult > ZERO_MULT
       let damage = dmgzone_damage * dt * entity_mods__zoneDamageMult
-      let ddesc = DamageDesc(DamageType(damage_type_id), damage, transform[3])
+      var ddesc = DamageDesc(DamageType(damage_type_id), damage, transform[3])
+      ddesc.gunPropsId = int16(gun_props_id)
+      ddesc.shellId = int16(shell_id)
       damage_entity(visitor_eid, offender_eid, ddesc)
 
     if dmgzone_fireAffect > 0.0
@@ -82,8 +84,8 @@ def dmgzone_check_visitor(visitor_eid, offender_eid, burning_offender : EntityId
         shouldDamage = dmgzone_fire_resistance__maxTicks < *dmgzone_fire_resistance__currentTicks
 
       if shouldDamage
-        burn_damage(curTime, dt, visitor_eid, burning_offender, team, transform[3],
-                    dmgzone_fireAffect, fire_source__startTime, fire_source__gunPropsId, fire_source__shellId)
+        burn_damage(curTime, dt, visitor_eid, offender_eid, team, transform[3],
+                    dmgzone_fireAffect, fire_source__startTime, gun_props_id, shell_id)
 
 
 [es(tag=server, before=fire_damage)]
@@ -97,11 +99,11 @@ def dmgzone_es(info : UpdateStageInfoAct;
                dmgzone__teamToDamage : int = TEAM_UNASSIGNED;
                dmgzone__damageInVehicle : bool = true;
                dmgzone__fireAffect : float = -1.0;
-               dmgzone__burningOffender : EntityId = INVALID_ENTITY_ID;
+               dmgzone__offender : EntityId?;
                dm__damageTypeId : int = int(DamageType DM_ZONE);
                fire_source__startTime : float = -1.0;
-               fire_source__gunPropsId : int = -1;
-               fire_source__shellId : int = -1;
+               dmgzone__gunPropsId : int = -1;
+               dmgzone__shellId : int = -1;
                sphere_zone__radius : float;
                sphere_zone__inverted : bool = false)
   var dt : float
@@ -116,13 +118,13 @@ def dmgzone_es(info : UpdateStageInfoAct;
 
   if dmgzone__eidsInZone != null
     *dmgzone__eidsInZone |> clear()
-  let offenderEid = eid
+  let offenderEid = dmgzone__offender ?? eid
 
   if !sphere_zone__inverted
     for_each_entity_in_grid(ecs_hash("humans"), BSphere3(transform[3], sphere_zone__radius), GridEntCheck BOUNDING) <| $(visitorEid : EntityId)
-      dmgzone_check_visitor(visitorEid, offenderEid, dmgzone__burningOffender,
+      dmgzone_check_visitor(visitorEid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
-                            fire_source__gunPropsId, fire_source__shellId, dmgzone__teamToDamage, dm__damageTypeId,
+                            dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
                             dmgzone__damageInVehicle, dmgzone__eidsInZone)
   else
     let invTm = inverse(transform)
@@ -130,9 +132,9 @@ def dmgzone_es(info : UpdateStageInfoAct;
     ecs::query() <| $ [es(REQUIRE=dmgzoneVulnerable, REQUIRE_NOT=deadEntity)] (eid : EntityId; transform : float3x4)
       if sphere_zone__inverted == (length_sq(invTm * transform[3]) < zoneRadiusSq)
         return
-      dmgzone_check_visitor(eid, offenderEid, dmgzone__burningOffender,
+      dmgzone_check_visitor(eid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
-                            fire_source__gunPropsId, fire_source__shellId, dmgzone__teamToDamage, dm__damageTypeId,
+                            dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
                             dmgzone__damageInVehicle, dmgzone__eidsInZone)
 
 

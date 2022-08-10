@@ -13,6 +13,7 @@ let {medkitEndTime} = require("%ui/hud/state/entity_use_state.nut")
 let timeState = require("%ui/hud/state/time_state.nut")
 let uiTime = require("%ui/hud/state/ui_time.nut").curTimePerSec
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
+let {hasRepairKit, hasExtinguisher, canMaintainVehicle, isRepairRequired, isExtinguishRequired} = require("%ui/hud/state/vehicle_maintenance_state.nut")
 
 let color0 = Color(200,40,40,110)
 let color1 = Color(200,200,40,180)
@@ -32,10 +33,13 @@ let needUseRevivePerk = Computed(function() {
   return isDowned.value && canSelfReviveByPerk.value && isAlive.value && medkitEndTime.value < ctime && !isBurning.value
 })
 
-let canHeal = Computed(@() !isFreeFall.value && !isParachuteOpened.value)
+let extinguishAvailable = Computed(@() canMaintainVehicle.value && hasExtinguisher.value && isExtinguishRequired.value)
+let repairAvailable = Computed(@() canMaintainVehicle.value && hasRepairKit.value && isRepairRequired.value)
+let canHeal = Computed(@() !extinguishAvailable.value && !repairAvailable.value && !isFreeFall.value && !isParachuteOpened.value)
 let needMedTip = Computed(@() canHeal.value && (needUseMed.value || needUseRevivePerk.value))
 
-let showedMedTipAtTime = persist("showedMedTipAtTime", @()Watched(0))
+let showedMedTipAtTime = mkWatched(persist, "showedMedTipAtTime", 0)
+
 needMedTip.subscribe(function(need) {
   if (need)
     showedMedTipAtTime((get_time_msec()/1000).tointeger())

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let eventbus = require("eventbus")
-let logX = require("%sqstd/log.nut")().with_prefix("[STARTUP] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[STARTUP] ")
 
 let {get_activation_data, get_invited_xuid, register_activation_callback} = require("%xboxLib/activation.nut")
 let {shutdown_user, register_for_user_signout_event} = require("%xboxLib/impl/user.nut")
@@ -11,7 +11,7 @@ let userInfo = require("%enlSqGlob/userInfo.nut")
 let {exit_to_enlist} = require("app")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let {logOut, isLoggedIn} = require("%enlSqGlob/login_state.nut")
-let {currentStage, doAfterLoginOnce, startLogin} = require("%enlist/login/login_chain.nut")
+let {currentStage, doAfterLoginOnce, startLogin, interrupt} = require("%enlist/login/login_chain.nut")
 
 let { isInSquad, leaveSquadSilent, acceptSquadInvite, isLeavingWillDisbandSquad,
   leaveSquad, createSquadAndDo, subsMemberRemovedEvent, isManuallyLeavedSquadOnFullSquad
@@ -137,5 +137,10 @@ eventbus.subscribe("ipc.onBattleExitAccept",  function(_) {
 
 
 register_for_user_signout_event(function() {
+  if (currentStage.value) {
+    logX("Seems like user was logged out from system during login parocess. Interrupting...")
+    interrupt()
+    return
+  }
   logOut()
 })

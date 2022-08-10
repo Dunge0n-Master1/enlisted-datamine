@@ -15,6 +15,7 @@ def human_fpv_cam_lookat(info : UpdateStageInfoAct; transform : float3x4; human_
                          human_cam__rightLeanOffs : float3;
                          human_cam__lookDownOffs : float3;
                          human_cam__lookUpOffs : float3;
+                         human_anim__previousHeight : float;
                          var human_cam__fpvActive : bool&;
                          var human_cam__offsetMult : float&;
                          isInVehicle : bool = false;
@@ -31,8 +32,8 @@ def human_fpv_cam_lookat(info : UpdateStageInfoAct; transform : float3x4; human_
     return
 
   let interpK = get_phys_interpk_clamped(phys, info.curTime)
+  let height = human_anim__previousHeight
 
-  let height = lerp(prevSt.height, curSt.height, interpK)
   let htOffs = (height >= 1.0
       ? human_cam__standPos
       : (height >= 0.0

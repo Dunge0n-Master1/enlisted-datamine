@@ -5,17 +5,25 @@ require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require game.es.vehicle.vehicle_seats_common
+require BehNodes
+require EnlistedBehTree
 
 [es(tag=server)]
 def on_personal_squadmate_use_vehicle_order(evt : RequestPersonalSquadMateOrder;
                                             eid : EntityId;
+                                            isInVehicle : bool;
                                             squad_member__squad : EntityId;
                                             transform : float3x4;
                                             var squad_member__orderType : int&;
                                             var squad_member__orderPosition : float3&;
                                             var squad_member__orderUseEntity : EntityId&;
                                             var squad_member__isPersonalOrder : bool&)
-  if evt.orderType == int(SquadMateOrder ESMO_USE_VEHICLE)
+  var hasSeatInVehicle = false
+  query(evt.orderUseEntity) <| $ [es] (vehicle_seats__seatEids : EidList)
+    hasSeatInVehicle = find_vehicle_seat(vehicle_seats__seatEids) >= 0
+
+  if evt.orderType == int(SquadMateOrder ESMO_USE_VEHICLE) && (isInVehicle || hasSeatInVehicle)
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
       squad_member__orderType = int(SquadMateOrder ESMO_USE_VEHICLE)
       squad_member__orderPosition = evt.orderPosition
@@ -30,3 +38,202 @@ def squad_use_vehicle_order_speech(evt : RequestPersonalSquadMateOrder; eid, squ
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
       sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadUseVehicle", importance=1.]])
       request_squad_member_response(eid, "confirm")
+
+[es(tag=server, no_order)]
+def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
+                                   squad__leader : EntityId;
+                                   squad__allMembers : EidList;
+                                   squad__orderType : int;
+                                   squad__orderUseEntity : EntityId)
+  let leaderIsInVehicle = get_bool(squad__leader, "isInVehicle") ?? false
+
+  if leaderIsInVehicle
+    return
+
+  for squadMemberEid in squad__allMembers
+    if squad__leader == squadMemberEid
+      continue
+
+    query(squadMemberEid) <| $ [es] (isInVehicle : bool;
+                                     human_anim__vehicleSelected : EntityId;
+                                     squad_member__orderType : int;
+                                     squad_member__orderUseEntity : EntityId;
+                                     beh_tree__data__orderReq : string;
+                                     beh_tree__data__useVehicleReq : string;
+                                     beh_tree__data__vehicleBeh : string;
+                                     beh_tree__isInTrainBeh : bool;
+                                     beh_tree__shouldUseVehicle : bool;
+                                     var beh_tree__shouldUseVehicleResetTrigger : bool&;
+                                     var beh_tree__orderIsInVehicle : bool&;
+                                     var beh_tree__orderShouldUseVehicle : bool&;
+                                     var beh_tree__refs__behaviour : das_string&;
+                                     var beh_tree__refs__orderType : das_string&;
+                                     var beh_tree : BehaviourTree&;
+                                     var beh_tree__latencyLoadBlackBoard : Object?)
+      if beh_tree__shouldUseVehicle
+        if squad_member__orderType != int(SquadMateOrder ESMO_USE_VEHICLE)
+          reset_squad_mate_order(squadMemberEid)
+          reset_squad_mate_behaviour(squadMemberEid)
+        else
+          reset_squad_mate_behaviour(squadMemberEid)
+
+      let vehicleEid = squad__orderType == int(SquadOrder ESO_USE_VEHICLE) ? squad__orderUseEntity : squad_member__orderUseEntity
+
+      var hasSeatInVehicle = false
+      query(vehicleEid) <| $ [es] (vehicle_seats__seatEids : EidList)
+        hasSeatInVehicle = find_vehicle_seat(vehicle_seats__seatEids) >= 0
+
+      if ((squad__orderType == int(SquadOrder ESO_USE_VEHICLE) && squad_member__orderType == int(SquadMateOrder ESMO_NO_ORDER)) ||
+           squad_member__orderType == int(SquadMateOrder ESMO_USE_VEHICLE)) && !beh_tree__isInTrainBeh
+        if !isInVehicle && !hasSeatInVehicle
+          return
+
+        if !beh_tree__orderShouldUseVehicle
+          beh_tree__orderShouldUseVehicle  = true
+          beh_tree__shouldUseVehicleResetTrigger = true
+
+          if !isInVehicle
+            beh_tree__refs__behaviour := beh_tree__data__orderReq
+            beh_tree__refs__orderType := beh_tree__data__useVehicleReq
+          else
+            beh_tree__orderIsInVehicle     = true
+            beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+
+          EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+          if beh_tree__latencyLoadBlackBoard != null
+            *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(vehicleEid)))
+          beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(vehicleEid)))
+
+        elif isInVehicle && !beh_tree__orderIsInVehicle
+          beh_tree__orderIsInVehicle     = true
+          beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+
+          EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+
+          if beh_tree__latencyLoadBlackBoard != null
+            *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(vehicleEid)))
+          beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(vehicleEid)))
+      else
+        beh_tree__orderIsInVehicle      = false
+        beh_tree__orderShouldUseVehicle = false
+
+        if isInVehicle
+          query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
+            kick_from_vehicle(squadMemberEid, human_anim__vehicleSelected, vehicle_seats__seatEids)
+
+[es(tag=server, no_order)]
+def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
+                                  squad__leader : EntityId;
+                                  squad__allMembers : EidList;
+                                  squad__orderType : int;
+                                  eid : EntityId)
+  var leaderIsInVehicle = false
+  var leaderVehicleEid  = INVALID_ENTITY_ID
+  query(squad__leader) <| $ [es] (isInVehicle : bool;
+                                  human_anim__vehicleSelected : EntityId)
+    leaderIsInVehicle = isInVehicle
+    leaderVehicleEid  = human_anim__vehicleSelected
+
+  if !leaderIsInVehicle
+    return
+
+  if squad__orderType != int(SquadOrder ESO_FOLLOW_ME)
+    reset_squad_order(eid)
+
+  for squadMemberEid in squad__allMembers
+    if squad__leader == squadMemberEid
+      continue
+
+    query(squadMemberEid) <| $ [es] (squad_member__orderType : int;
+                                     beh_tree__shouldUseVehicle : bool;
+                                     beh_tree__orderShouldUseVehicle : bool)
+      if squad_member__orderType == int(SquadMateOrder ESMO_USE_VEHICLE) && beh_tree__shouldUseVehicle
+        return
+
+      if squad_member__orderType != int(SquadMateOrder ESMO_NO_ORDER) || beh_tree__orderShouldUseVehicle
+        reset_squad_mate_order(squadMemberEid)
+        reset_squad_mate_behaviour(squadMemberEid)
+
+  var hasSeatInVehicle = false
+  query(leaderVehicleEid) <| $ [es] (vehicle_seats__seatEids : EidList)
+    hasSeatInVehicle = find_vehicle_seat(vehicle_seats__seatEids) >= 0
+
+  for squadMemberEid in squad__allMembers
+    if squad__leader == squadMemberEid
+      continue
+
+    query(squadMemberEid) <| $ [es] (isInVehicle : bool;
+                                     beh_tree__data__orderReq : string;
+                                     beh_tree__data__useVehicleReq : string;
+                                     beh_tree__data__vehicleBeh : string;
+                                     beh_tree__isInTrainBeh : bool;
+                                     var beh_tree__isInVehicleResetTrigger : bool&;
+                                     var beh_tree__isInVehicle : bool&;
+                                     var beh_tree__shouldUseVehicleResetTrigger : bool&;
+                                     var beh_tree__shouldUseVehicle : bool&;
+                                     var beh_tree__refs__behaviour : das_string&;
+                                     var beh_tree__refs__orderType : das_string&;
+                                     var beh_tree : BehaviourTree&;
+                                     var beh_tree__latencyLoadBlackBoard : Object?)
+      if (!isInVehicle && !hasSeatInVehicle) || beh_tree__isInTrainBeh
+        return
+
+      if !beh_tree__shouldUseVehicle
+        beh_tree__shouldUseVehicleResetTrigger = true
+        beh_tree__shouldUseVehicle = true
+
+        if !isInVehicle
+          beh_tree__refs__behaviour := beh_tree__data__orderReq
+          beh_tree__refs__orderType := beh_tree__data__useVehicleReq
+        else
+          beh_tree__isInVehicleResetTrigger = true
+          beh_tree__isInVehicle = true
+
+          beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+
+        EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+
+        if beh_tree__latencyLoadBlackBoard != null
+          *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
+        beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(leaderVehicleEid)))
+
+      elif isInVehicle && !beh_tree__isInVehicle
+        beh_tree__isInVehicleResetTrigger = true
+        beh_tree__isInVehicle = true
+
+        beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+
+        EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+        if beh_tree__latencyLoadBlackBoard != null
+          *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
+        beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(leaderVehicleEid)))
+
+[es(tag=server, track=beh_tree__shouldUseVehicleResetTrigger)]
+def on_squad_mate_use_vehicle_es(evt : Event;
+                                 eid : EntityId;
+                                 beh_tree__shouldUseVehicleResetTrigger : bool;
+                                 var beh_tree__isInVehicle : bool&;
+                                 var beh_tree__shouldUseVehicle : bool&)
+  if beh_tree__shouldUseVehicleResetTrigger
+    return
+
+  beh_tree__shouldUseVehicle = false
+  beh_tree__isInVehicle      = false
+
+  reset_squad_mate_order(eid)
+  reset_squad_mate_behaviour(eid)
+
+[es(tag=server, track=beh_tree__isInVehicleResetTrigger)]
+def on_squad_mate_order_use_vehicle_es(evt : Event;
+                                       eid : EntityId;
+                                       beh_tree__isInVehicleResetTrigger : bool;
+                                       var beh_tree__orderIsInVehicle : bool&;
+                                       var beh_tree__orderShouldUseVehicle : bool&)
+  if beh_tree__isInVehicleResetTrigger
+    return
+
+  beh_tree__orderIsInVehicle      = false
+  beh_tree__orderShouldUseVehicle = false
+
+  reset_squad_mate_order(eid)
+  reset_squad_mate_behaviour(eid)

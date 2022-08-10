@@ -18,13 +18,11 @@ require Gun
 
 def detonate_tnt_block(eid : EntityId)
   query(eid) <| $ [es] (transform : float3x4;
-                        offenderDesc : Object;
                         tnt_block__activatorTemplate : string;
                         placeable_item__ownerEid : EntityId)
     print("detonate_tnt_block: eid={eid}, activatorTemplate={tnt_block__activatorTemplate}, placeable_item__ownerEid={placeable_item__ownerEid}")
     createEntity(tnt_block__activatorTemplate) <| $(var init : ComponentsInitializer)
       set(init, "ownerEid", placeable_item__ownerEid)
-      set(init, "offenderDesc", offenderDesc)
       set(init, "transform", transform)
     destroyEntity(eid)
 

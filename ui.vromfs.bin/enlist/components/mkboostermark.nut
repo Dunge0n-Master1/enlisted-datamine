@@ -2,8 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 
-let noInfoHeight = hdpx(35).tointeger()
-let withInfoHeight = hdpx(55).tointeger()
+let noInfoHeight = hdpxi(35)
+let withInfoHeight = hdpxi(55)
 let padding = hdpx(10)
 
 let function mkBoosterMark(expMul, infoText = null, override = {}) {

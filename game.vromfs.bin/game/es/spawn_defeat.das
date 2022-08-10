@@ -2,6 +2,7 @@ require ecs
 require game.es.events
 require game.events_game
 require game.utils.team
+require enlisted.events_enlisted
 
 def has_respawn_by_type(resp_team : int; resp_type : string)
   let hasRespawn = find_query() <| $ [es(REQUIRE=respbase)] (team : int; respawnbaseType : string)

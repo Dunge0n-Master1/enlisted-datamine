@@ -85,3 +85,16 @@ def rotate(vec : float2; angle : float) : float2
   var sc : float2
   sincos(angle, sc.y, sc.x)
   return sum_rotation(vec, sc)
+
+
+[generic]
+def renorm_ang(ang : float;
+               pivot_ang : float)
+  let delta = pivot_ang - ang
+  return abs(delta) > PI ? ang + (delta > 0.0 ? 1.0 : -1.0) * TWOPI : ang
+
+
+[generic]
+def renorm_ang(ang : float2;
+               pivot_ang : float2)
+  return float2(renorm_ang(ang.x, pivot_ang.x), renorm_ang(ang.y, pivot_ang.y))

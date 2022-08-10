@@ -1,26 +1,27 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { TEAM_UNASSIGNED } = require("team")
-let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
+let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
+let { getTeam } = require("get_team.nut")
 
-let active_grenades = Watched({})
-let function deleteGrenade(eid){
-  if (eid in active_grenades.value)
-    delete active_grenades.value[eid]
-}
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let getGrenadeOwnerTeamQuery = ecs.SqQuery("getGrenadeOwnerTeamQuery", {comps_ro = [["team", ecs.TYPE_INT]]})
-let getHeroTeam = @(heroEid) getGrenadeOwnerTeamQuery.perform(heroEid, @(_eid, comp) comp["team"]) ?? TEAM_UNASSIGNED
+let {
+  active_grenades_Set,
+  active_grenades_GetWatched,
+  active_grenades_UpdateEid,
+  active_grenades_DestroyEid
+} = mkWatchedSetAndStorage("active_grenades_")
+
 
 let function getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower) {
   if (grenadeOwner == heroEid && heroEid != INVALID_ENTITY_ID && grenadeOwner != INVALID_ENTITY_ID)
     return true
-  let heroTeam = getHeroTeam(heroEid)
-  if (!is_teams_friendly(heroTeam, getHeroTeam(grenadeOwner)))
+  let heroTeam = watchedTeam.value
+  if (!is_teams_friendly(heroTeam, getTeam(grenadeOwner)))
     return true
-  if (grenadeRethrower != INVALID_ENTITY_ID && !is_teams_friendly(heroTeam, getHeroTeam(grenadeRethrower)))
+  if (grenadeRethrower != INVALID_ENTITY_ID && !is_teams_friendly(heroTeam, getTeam(grenadeRethrower)))
     return true
   return false
 }
@@ -28,23 +29,23 @@ let function getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower) {
 ecs.register_es(
   "active_grenades_hud_es",
   {
-    [["onInit", "onChange"]] = function(eid, comp){
+    [["onInit", "onChange"]] = function(_, eid, comp){
       if (!(comp.active || comp["shell__explTime"] == 0.0))
-        deleteGrenade(eid)
+        active_grenades_DestroyEid(eid)
       else{
-        active_grenades.mutate(function(v) {
-          let grenadeOwner = comp["shell__owner"]
-          let grenadeRethrower = comp["shell__rethrower"]
-          let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
-          v[eid] <- {
-            willDamageHero = getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower)
+        let grenadeOwner = comp["shell__owner"]
+        let grenadeRethrower = comp["shell__rethrower"]
+        let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
+        let willDamageHero = getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower)
+        active_grenades_UpdateEid(eid, {
+            willDamageHero
             maxDistance = comp["hud_marker__max_distance"]
           }
-        })
+       )
       }
     }
-    function onDestroy(eid, _comp){
-      deleteGrenade(eid)
+    function onDestroy(_, eid, _comp){
+      active_grenades_DestroyEid(eid)
     }
   },
   {
@@ -60,5 +61,6 @@ ecs.register_es(
 )
 
 return {
-  active_grenades
+  active_grenades_Set,
+  active_grenades_GetWatched
 }

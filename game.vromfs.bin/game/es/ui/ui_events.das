@@ -1,5 +1,3 @@
-require ecs
 module ui_events shared
-
-[cpp_event(broadcast, with_scheme, cpp_gen=false)]
-struct EventUiShutdown {}
+require ecs
+require danetlibs.native_dasevents.ui.native_ui_events public

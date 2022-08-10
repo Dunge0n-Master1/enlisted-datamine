@@ -38,6 +38,7 @@ sound_effect_2d{
   _group{
     _tags:t="sound"
     sound_effect_2d__path:t=""
+    sound_effect_2d__abandonOnReset:b=yes
 
     "sound_effect_2d__event:SoundEvent"{
     }
@@ -45,6 +46,7 @@ sound_effect_2d{
 }
 
 on_appear_sound{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   _group{
     _tags:t="sound"
@@ -53,6 +55,7 @@ on_appear_sound{
 }
 
 on_disappear_sound{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   _group{
     _tags:t="sound"

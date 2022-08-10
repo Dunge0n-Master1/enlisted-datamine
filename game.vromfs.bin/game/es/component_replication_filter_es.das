@@ -4,6 +4,7 @@ require EnlistedNet
 
 var // these variables keep constant values that don't change at runtime (after set), variables for non constant values are prohibited
   filterPossessed : uint8
+  filterNotPossessed : uint8
   filterPossessedAndSpectated : uint8
   filterPossessedSquadOrSpectatedSquad : uint8
   filterPossessedSpectatedAndAttachables : uint8
@@ -15,6 +16,7 @@ var // these variables keep constant values that don't change at runtime (after 
 [es(tag=server, on_appear, REQUIRE=msg_sink)]
 def filter_creation_track(evt : Event)
   filterPossessed = find_component_filter("filter_possessed")
+  filterNotPossessed = find_component_filter("filter_not_possessed")
   filterPossessedAndSpectated = find_component_filter("filter_possessed_and_spectated")
   filterPossessedSquadOrSpectatedSquad = find_component_filter("filter_possessed_squad_and_spectated_squad")
   filterPossessedSpectatedAndAttachables = find_component_filter("filter_possessed_spectated_and_attachables")
@@ -26,6 +28,7 @@ def filter_creation_track(evt : Event)
 [es(tag=server, track=possessed, REQUIRE=possessed)]
 def on_change_possesed_es(evt : Event)
   update_component_filter_event(filterPossessed)
+  update_component_filter_event(filterNotPossessed)
   update_component_filter_event(filterPossessedAndSpectated)
   update_component_filter_event(filterPossessedSquadOrSpectatedSquad)
   update_component_filter_event(filterPossessedSpectatedAndAttachables)

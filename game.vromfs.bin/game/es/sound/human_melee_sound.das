@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require app
 require soundEvent
@@ -52,13 +53,12 @@ def human_melee_sound_irq(evt : CmdSoundMeleeIrq;
     return
 
   for it in *groups
-    let group = get_ecs_object(it)
-    let weapons = group != null ? get_ecs_object(group, "weapons") : null
-    let weapon = weapons != null ? get_ecs_object(weapons, meleeType) : null
+    let group = it as Object
+    let weapon = (group?.weapons ?as Object)?[meleeType] ?as Object
     if weapon == null
       continue
 
-    let groupId = get_string(*group, "id", "")
+    let groupId = (*group).id ?? ""
 
 /*
     // tweak and debug sound delay
@@ -82,9 +82,9 @@ def human_melee_sound_irq(evt : CmdSoundMeleeIrq;
     continue
 */
 
-    let chance = get_int(*weapon, "chance") ?? 100
+    let chance = (*weapon).chance ?? 100
     if rnd_int(0, 100) <= chance
-      let delayMs = get_int(*weapon, "delay") ?? 0
+      let delayMs = (*weapon).delay ?? 0
       if groupId == "voice_melee"
         play_sound(get_string(*weapon, "name", "hands/whoosh"), human_voice_sound__path, sound_tags, float(delayMs) * 0.001, is_watched_sound, sound_event_group, transform)
       else

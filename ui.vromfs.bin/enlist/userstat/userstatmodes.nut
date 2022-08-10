@@ -27,7 +27,7 @@ let allStatsModes = Computed(function() {
   if (res.len() == 0)
     return []
 
-  foreach(m in lbStatsModes.value)
+  foreach (m in lbStatsModes.value)
     if (!res.contains(m))
       res.append(m)
 

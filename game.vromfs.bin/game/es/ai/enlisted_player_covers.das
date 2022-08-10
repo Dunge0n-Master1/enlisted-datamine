@@ -4,34 +4,8 @@ require CollRes
 require Covers
 require math
 require DagorMath
-require DagorSystem
 
-// when switching soldier, we can get data desync(in other systems)
-// therefore, the array of slots must always be cleaned/filled
-// therefore, using a separate flag to indicate that a cover is busy is pointless
-
-def reset_covers(var covers : CoversComponent&;
-                 var cover_updater__heldCovers : ecs::IPoint2List&)
-  for coverId in cover_updater__heldCovers
-    if --covers.coverDescs[coverId.x].slots[coverId.y].numUsed == 0
-      --covers.coverDescs[coverId.x].numUsedSlots;
-
-    if covers.coverDescs[coverId.x].slots[coverId.y].numUsed < 0
-      logerr("coverDescs numUsed overflow")
-    if covers.coverDescs[coverId.x].numUsedSlots < 0
-      logerr("coverDescs numUsedSlots overflow")
-
-  clear(cover_updater__heldCovers)
-
-
-def fill_cover(id : int;
-               var covers : CoversComponent&;
-               var cover_updater__heldCovers : ecs::IPoint2List&)
-  var slotId = 0
-  for slot in covers.coverDescs[id].slots
-    push(cover_updater__heldCovers, int2(id, slotId++))
-    if ++slot.numUsed == 1
-      ++covers.coverDescs[id].numUsedSlots;
+require enlisted.game.es.enlisted_covers_common
 
 [es(tag=server, REQUIRE=player, before=(beh_tree_update_es))]
 def update_ai_covers(act : UpdateStageInfoAct;

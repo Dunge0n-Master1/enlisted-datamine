@@ -25,18 +25,6 @@ console_register_command(function(weaponSlotName) {choose_weapon(weaponSlotName)
 
 console_register_command(function(){
   let hero = get_controlled_hero()
-  let weapInfo = ecs.obsolete_dbg_get_comp_val(hero, "human_weap__weapInfo")
-
-  foreach (weap in weapInfo)
-    for (local i = 0; i < weap.numReserveAmmo; ++i)
-      ecs.g_entity_mgr.createEntity("{0}".subst(weap.reserveAmmoTemplate), { ["item__lastOwner"] = ecs.EntityId(hero) },
-        function(ammoEid) {
-          ecs.obsolete_dbg_get_comp_val(hero, "itemContainer").append(ecs.EntityId(ammoEid))
-        })
-}, "player.rearm")
-
-console_register_command(function(){
-  let hero = get_controlled_hero()
   let vehicle = ecs.obsolete_dbg_get_comp_val(hero, "human_anim__vehicleSelected")
   if (vehicle == INVALID_ENTITY_ID)
     return

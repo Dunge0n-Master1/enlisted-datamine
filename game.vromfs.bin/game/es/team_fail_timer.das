@@ -2,6 +2,7 @@ require ecs
 require app
 require game.events_game
 require game.utils.team
+require enlisted.events_enlisted
 
 [es(tag=server, on_event=EventTeamRoundResult)]
 def disable_fail_timer_game_ended(evt : Event; var team__isGameFinished : bool&)

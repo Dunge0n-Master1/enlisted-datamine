@@ -214,7 +214,7 @@ def calc_primary_cart_tick_es(info : UpdateStageInfoAct;
 
     var physTick = humanPhys.currentState.atTick
     var lastAppliedControlsForTick = humanPhys.currentState.lastAppliedControlsForTick
-    for tick in range(ctrlTick, upToCtrlTick)
+    for _tick in range(ctrlTick, upToCtrlTick)
       ++physTick
       lastAppliedControlsForTick = ctrlTick
 
@@ -334,7 +334,7 @@ def move_secondary_cart_client_es(info : UpdateStageInfoAct;
 
 
 [es(after=move_train_es)]
-def move_capzone_es(evt : UpdateStageInfoAct;
+def move_capzone_es(evt : ParallelUpdateFrameDelayed;
                     capzone__trainEid : EntityId;
                     capzone__smokeEid : EntityId;
                     capzone__offsetFromTrain : float3;

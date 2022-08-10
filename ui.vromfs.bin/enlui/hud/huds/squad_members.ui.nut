@@ -3,7 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { fabs } = require("math")
 let {
-  watchedHeroSquadMembers, selectedBotForOrderEid, isPersonalContextCommandMode
+  watchedHeroSquadMembers, selectedBotForOrderEid, isPersonalContextCommandMode,
+  watchedHeroSquadMembersGetWatched, watchedHeroSquadMembersOrderedSet
 } = require("%ui/hud/state/squad_members.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
@@ -20,10 +21,10 @@ let cancelContextCommandHint = require("%ui/hud/huds/cancel_context_command_hint
 let { squadFormation } = require("%ui/hud/state/squad_formation.nut")
 let { ESFN_CLOSEST, ESFN_WIDE } = require("ai")
 let { squadBehaviour } = require("%ui/hud/state/squad_behaviour.nut")
-let { ESB_PASSIVE } = require("%enlSqGlob/dasenums.nut")
+let { SquadBehaviour } = require("%enlSqGlob/dasenums.nut")
 
-let sIconSize = hdpx(15).tointeger()
-let iconSize = hdpx(40).tointeger()
+let sIconSize = hdpxi(15)
+let iconSize = hdpxi(40)
 let gap = hdpx(5)
 let smallGap = hdpx(2)
 
@@ -41,11 +42,11 @@ let function updateKillsAnim() {
 updateKillsAnim()
 watchedHeroSquadMembers.subscribe(@(_) updateKillsAnim())
 
-let blurBack = {
+let blurBack = freeze({
   size = flex()
   rendObj = ROBJ_WORLD_BLUR
   color = Color(220, 220, 220, 220)
-}
+})
 
 let function statusIcon(member, isSelf) {
   return {
@@ -58,7 +59,7 @@ let function statusIcon(member, isSelf) {
   }
 }
 
-let function splitOnce(name) {
+let splitOnce = memoize(function(name) {
   local idx = name.indexof(" ")
   local found = null
   local minDist = name.len()
@@ -74,30 +75,34 @@ let function splitOnce(name) {
   return found == null
     ? name
     : $"{name.slice(0, found)}\n{name.slice(found + 1)}"
-}
+})
 
-let memberName = @(member) {
-  size = [SIZE_TO_CONTENT, iconSize]
-  valign = ALIGN_CENTER
-  clipChildren = true
-  children = [
-    blurBack
-    {
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = (member?.callname ?? "") != ""
-        ? splitOnce(member.callname)
-        : splitOnce(member.name)
-      color = SUCCESS_TEXT_COLOR
-      indent = gap
-      transform = {}
-      animations = [
-        { prop = AnimProp.translate, from = [-hdpx(100), 0], to = [0, 0], duration = 0.2, easing = OutCubic, play = true }
-      ]
-    }.__update(tiny_txt)
-  ]
-}
+let memberNameAnimations = freeze([
+  { prop = AnimProp.translate, from = [-hdpx(100), 0], to = [0, 0], duration = 0.2, easing = OutCubic, play = true }
+])
 
+let memberName = function(name) {
+  let nameC = @() {
+     rendObj = ROBJ_TEXTAREA
+     behavior = Behaviors.TextArea
+     text = splitOnce(name.value)
+     color = SUCCESS_TEXT_COLOR
+     indent = gap
+     transform = {}
+     animations = memberNameAnimations
+     watch = name
+   }.__update(tiny_txt)
+
+  return {
+    size = [SIZE_TO_CONTENT, iconSize]
+    valign = ALIGN_CENTER
+    clipChildren = true
+    children = [
+      blurBack
+      nameC
+    ]
+  }
+}
 let equipmentStatusRow = @(member) {
   hplace = ALIGN_RIGHT
   flow = FLOW_HORIZONTAL
@@ -110,18 +115,19 @@ let equipmentStatusRow = @(member) {
 }
 
 let equipmentStatusRowDummy = { size = [sIconSize, sIconSize] }
+let killsIco = freeze({
+  size = [sIconSize, sIconSize]
+  rendObj = ROBJ_IMAGE
+  image = Picture("ui/skin#kills_icon.svg:{0}:{0}:K".subst(sIconSize))
+})
 
-let killRow = @(member) {
-  key = member.eid
+let killRow = @(eid, kills) {
+  key = eid
   hplace = ALIGN_RIGHT
   flow = FLOW_HORIZONTAL
   gap = smallGap
   children = [
-    {
-      size = [sIconSize, sIconSize]
-      rendObj = ROBJ_IMAGE
-      image = Picture("ui/skin#kills_icon.svg:{0}:{0}:K".subst(sIconSize))
-    }
+    killsIco
     {
       children = [
         blurBack
@@ -130,88 +136,105 @@ let killRow = @(member) {
           halign = ALIGN_CENTER
           rendObj = ROBJ_TEXT
           color = DEFAULT_TEXT_COLOR
-          text = member.kills
+          text = kills
 
           animations = [{ prop = AnimProp.color, from = SUCCESS_TEXT_COLOR, to = DEFAULT_TEXT_COLOR,
-            duration = 5, easing = InOutCubic, trigger = $"member_kill_{member.eid}" }]
+            duration = 5, easing = InOutCubic, trigger = $"member_kill_{eid}" }]
         }.__update(tiny_txt)
       ]
     }
   ]
 
   transform = {}
-  animations = [{ prop = AnimProp.scale, from = [1,1], to = [2,2], duration = 0.5, easing = CosineFull,
-      trigger = $"member_kill_{member.eid}" }]
+  animations = [{ prop = AnimProp.scale, from = [1,1], to = [2,2], duration = 0.5, easing = CosineFull, trigger = $"member_kill_{eid}" }]
 }
 
-let selectedBotArrowSize = [hdpx(40), hdpx(14)]
+let selectedBotArrowSize = [hdpxi(40), hdpxi(14)]
 let selectedBotArrow = {
   size = selectedBotArrowSize
   hplace = ALIGN_CENTER
   rendObj = ROBJ_IMAGE
-  image = Picture($"ui/skin#squad_member_selected.svg:{selectedBotArrowSize[0].tointeger()}:{selectedBotArrowSize[1].tointeger()}")
+  image = Picture($"ui/skin#squad_member_selected.svg:{selectedBotArrowSize[0]}:{selectedBotArrowSize[1]}")
   color = SUCCESS_TEXT_COLOR
 }
 
 let selectedBotArrowDummy = {size = selectedBotArrowSize}
 
-let personalOrderMarkerSize = [hdpx(16), hdpx(16)]
+let personalOrderMarkerSize = [hdpxi(16), hdpxi(16)]
 let personalOrderMarker = {
   size = personalOrderMarkerSize
   hplace = ALIGN_CENTER
   rendObj = ROBJ_IMAGE
-  image = Picture($"ui/skin#white_circle.svg:{personalOrderMarkerSize[0].tointeger()}:{personalOrderMarkerSize[1].tointeger()}")
+  image = Picture($"ui/skin#white_circle.svg:{personalOrderMarkerSize[0]}:{personalOrderMarkerSize[1]}")
   color = SUCCESS_TEXT_COLOR
 }
 
-let memberUi = @(member) function() {
-  let isSelf = member.eid == controlledHeroEid.value
-  let isAliveAI = !isSelf && member.isAlive && member.hasAI
-  let isSelectedForOrder = (isAliveAI && member.eid == selectedBotForOrderEid.value)
-  return {
+let memberUi = memoize(function(eid) {
+  let state = watchedHeroSquadMembersGetWatched(eid)
+  let isAliveState = Computed(@() state.value?.isAlive)
+  let name = Computed(@() state.value?.callname ?? state.value?.name ?? "")
+  let nameC = memberName(name)
+  let isPersonalOrder = Computed(@() state.value?.isPersonalOrder)
+
+  let dynamicInf = function(){
+    let member = state.value
+    if (member == null)
+      return {watch = state}
+    let {isAlive, hasAI, kills} = member
+    let isSelf = eid == controlledHeroEid.value
+    let isAliveAI = !isSelf && isAlive && hasAI
+    let isSelectedForOrder = (isAliveAI && eid == selectedBotForOrderEid.value)
+    return {
+      watch = [selectedBotForOrderEid, isPersonalContextCommandMode, state]
+      size = [iconSize, SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      gap = smallGap
+      children = [
+        statusIcon(member, isSelf)
+        killRow(eid, kills)
+        isAliveAI || isSelf ? equipmentStatusRow(member) : equipmentStatusRowDummy
+        !isPersonalContextCommandMode.value
+          ? null
+          : isSelectedForOrder
+            ? selectedBotArrow
+            : selectedBotArrowDummy
+      ]
+    }
+  }
+  let child = function(){
+    return {
+      flow = FLOW_HORIZONTAL
+      watch = [controlledHeroEid, isAliveState]
+      children = [
+        dynamicInf
+        eid==controlledHeroEid.value && isAliveState.value ? nameC : null
+      ]
+    }
+  }
+  return freeze({
     flow = FLOW_VERTICAL
     vplace = ALIGN_BOTTOM
     gap = smallGap
-    watch = [controlledHeroEid, selectedBotForOrderEid, isPersonalContextCommandMode]
-
     children = [
-      member.isPersonalOrder ? personalOrderMarker : null
-      {
-        flow = FLOW_HORIZONTAL
-
-        children = [
-          {
-            size = [iconSize, SIZE_TO_CONTENT]
-            flow = FLOW_VERTICAL
-            gap = smallGap
-            children = [
-              statusIcon(member, isSelf)
-              killRow(member)
-              isAliveAI || isSelf ? equipmentStatusRow(member) : equipmentStatusRowDummy
-              !isPersonalContextCommandMode.value ? null
-                : isSelectedForOrder ? selectedBotArrow
-                : selectedBotArrowDummy
-            ]
-          }
-          isSelf && member.isAlive ? memberName(member) : null
-        ]
-      }
+      @() {watch = isPersonalOrder children = isPersonalOrder.value ? personalOrderMarker : null}
+      child
     ]
-  }
-}
+  })
+})
 
-let squadMembersList = @(squadMembersV) {
+let squadMembersList = @() {
+  watch = watchedHeroSquadMembersOrderedSet
   flow = FLOW_HORIZONTAL
-  gap = gap
-  children = squadMembersV.map(memberUi)
+  gap
+  children = watchedHeroSquadMembersOrderedSet.value.map(memberUi)
 }
 
-let squadStatusIconSize = [hdpx(26), hdpx(26)]
-let mkSquadStatusIcon = @(icon) {
+let squadStatusIconSize = [hdpxi(26), hdpxi(26)]
+let mkSquadStatusIcon = memoize(@(icon) {
   hplace = ALIGN_CENTER
   rendObj = ROBJ_IMAGE
-  image = Picture($"{icon}:{squadStatusIconSize[0].tointeger()}:{squadStatusIconSize[1].tointeger()}")
-}
+  image = Picture($"{icon}:{squadStatusIconSize[0]}:{squadStatusIconSize[1]}")
+})
 
 let squadFormationIcons = {
   [ESFN_CLOSEST] = mkSquadStatusIcon("ui/skin#squad_formation_closest.svg"),
@@ -219,7 +242,7 @@ let squadFormationIcons = {
 }
 
 let squadBehaviourIcons = {
-  [ESB_PASSIVE] = mkSquadStatusIcon("ui/skin#squad_behaviour_passive.svg")
+  [SquadBehaviour.ESB_PASSIVE] = mkSquadStatusIcon("ui/skin#squad_behaviour_passive.svg")
 }
 
 let squadStatus = @() {
@@ -266,25 +289,22 @@ let squadControlHints = @() {
     }
   ]
 }
+let doNotShowMembers = Computed(@() watchedHeroSquadMembers.value.len() <= 1 || canChangeRespawnParams.value || inVehicle.value)
 
 let function members() {
-  let res = {
-    watch = [
-      watchedHeroSquadMembers, canChangeRespawnParams, inVehicle
-    ]
-  }
-  if (watchedHeroSquadMembers.value.len() <= 1 || canChangeRespawnParams.value || inVehicle.value)
-    return res
+  if (doNotShowMembers.value)
+    return {watch = doNotShowMembers}
 
-  return res.__update({
+  return {
     flow = FLOW_VERTICAL
-    gap = gap
+    gap
+    watch = [doNotShowMembers, isSpectatorEnabled]
     children = [
       squadStatus
-      squadMembersList(watchedHeroSquadMembers.value)
+      squadMembersList
       isSpectatorEnabled.value ? null : squadControlHints
     ]
-  })
+  }
 }
 
 console_register_command(function(hitr) {

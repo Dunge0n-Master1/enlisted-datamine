@@ -2,8 +2,9 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let replayState = Watched({})
+let isFreeTpsMode = Watched(false)
 let canShowReplayHud = Watched(true)
-let replayHudDisableByCam = Watched(false)
+let canShowGameHudInReplay = Watched(true)
 
 ecs.register_es("replay_state_time_ui_es", {
     [[ "onInit", "onChange" ]] = @(_evt, _eid, comp) replayState(comp)
@@ -19,16 +20,11 @@ ecs.register_es("replay_state_time_ui_es", {
   }
 )
 
-ecs.register_es("replay_camera_input_ui_es", {
-  [["onInit", "onChange"]] = function(_, comp) {
-    if (!replayHudDisableByCam.value && !canShowReplayHud.value)
-      return
-    canShowReplayHud(!comp.camera__input_enabled)
-    replayHudDisableByCam(comp.camera__input_enabled)
-  }
+ecs.register_es("replay_camera_is_free_tps", {
+  [["onInit", "onChange"]] = @(_, comp) isFreeTpsMode(comp.camera__active)
 }, {
-  comps_track = [["camera__input_enabled", ecs.TYPE_BOOL]]
-  comps_rq = [["replayCamera"]]
+  comps_track = [["camera__active", ecs.TYPE_BOOL], ["camera__target", ecs.TYPE_EID]]
+  comps_rq = [["replay_camera__tpsFree"]]
 }, {tags="playingReplay"})
 
 
@@ -37,5 +33,6 @@ return {
   replayPlayTime = Computed(@() replayState.value?.replay__playTime ?? 0)
   replayTimeSpeed = Computed(@() replayState.value?.replay__speed ?? 0)
   canShowReplayHud
-  replayHudDisableByCam
+  canShowGameHudInReplay
+  isFreeTpsMode
 }

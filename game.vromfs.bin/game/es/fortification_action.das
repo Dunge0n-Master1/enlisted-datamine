@@ -95,7 +95,7 @@ def find_destroyable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
   return previewEid
 
 [es(tag=gameClient, REQUIRE=input__enabled, after=hero_human_use_human_object_es, after=hero_human_use_stationary_gun_object_es, after=hero_human_pre_use_object_es, before=hero_human_final_use_object_sync)]
-def find_bilding_action_target(info : UpdateStageInfoAct;
+def find_bilding_action_target(info : ParallelUpdateFrameDelayed;
                                bindedCamera : EntityId;
                                team : int;
                                human_weap__currentGunEid : EntityId;

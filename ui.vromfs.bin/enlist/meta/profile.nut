@@ -45,15 +45,15 @@ let curArmiesListExt = Computed(function() {
 
 let campaignsByArmy = Computed(function() {
   let res = {}
-  foreach(campaign in gameProfile.value?.campaigns ?? {})
-    foreach(army in campaign?.armies ?? [])
+  foreach (campaign in gameProfile.value?.campaigns ?? {})
+    foreach (army in campaign?.armies ?? [])
       res[army.id] <- campaign
   return res
 })
 
 let function mergeArmiesObjs(objsByArmies, armiesList) {
   let res = {}
-  foreach(armyId in armiesList)
+  foreach (armyId in armiesList)
     res.__update(objsByArmies?[armyId] ?? {})
   return res
 }
@@ -65,8 +65,8 @@ let curCampSquads = Computed(@() mergeArmiesObjs(squadsByArmies.value, curArmies
 let linkIgnore = { army = true, index = true }
 let function remapByLink(objList) {
   let res = {}
-  foreach(obj in objList)
-    foreach(to, linkType in obj.links)
+  foreach (obj in objList)
+    foreach (to, linkType in obj.links)
       if (linkType not in linkIgnore) {
         if (to not in res)
           res[to] <- {}

@@ -7,15 +7,33 @@ require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require EnlistedBehTree
 
 def order_build(squad_mate_eid, squad__leader, target_eid : EntityId; squad__numAliveMembers : int) : bool
   var ordered = false
-  query(squad_mate_eid) <| $ [es] (var squad_member__orderType : int&;
+  query(squad_mate_eid) <| $ [es] (beh_tree__isInTrainBeh : bool;
+                                   beh_tree__data__orderReq : string;
+                                   beh_tree__data__buildReq : string;
+                                   transform : float3x4;
+                                   var squad_member__orderType : int&;
                                    var squad_member__orderPosition : float3&;
                                    var squad_member__orderUseEntity : EntityId&;
                                    var beh_tree : BehaviourTree&;
-                                   transform : float3x4)
+                                   var beh_tree__refs__behaviour : das_string&;
+                                   var beh_tree__refs__orderType : das_string&;
+                                   var beh_tree__latencyLoadBlackBoard : Object?)
+    if beh_tree__isInTrainBeh
+      return
+
+    beh_tree__refs__behaviour := beh_tree__data__orderReq
+    beh_tree__refs__orderType := beh_tree__data__buildReq
+
+    EnlistedBehTree::load_beh_tree_from_ecs(squad_mate_eid)
+
+    if beh_tree__latencyLoadBlackBoard != null
+      *beh_tree__latencyLoadBlackBoard |> set("buildTarget", int(uint(target_eid)))
     beh_tree.blackBoard |> datablock_setInt("buildTarget", int(uint(target_eid)))
+
     squad_member__orderType = int(SquadMateOrder ESMO_BUILD)
     squad_member__orderPosition = float3()
     squad_member__orderUseEntity = target_eid
@@ -34,7 +52,7 @@ def squad_order_build(squad_eid, squad__leader, target_eid : EntityId; squad__nu
     if !isTargetPreview
       return true
     var isSuitableForBuild = false
-    query(eid) <| $ [es] (human_weap__gunEids : ecs::EidList; squad_member__isPersonalOrder : bool)
+    query(eid) <| $ [es] (human_weap__gunEids : EidList; squad_member__isPersonalOrder : bool)
       if !squad_member__isPersonalOrder
         for gun_eid in human_weap__gunEids
           if has(gun_eid, "buildingTool")
@@ -66,6 +84,7 @@ def on_personal_squad_mate_build_order(evt : RequestPersonalSquadMateOrder;
 
 [es(tag=server, no_order)]
 def on_squad_mate_build(act : UpdateStageInfoAct;
+                        eid : EntityId;
                         var beh_tree : BehaviourTree&;
                         var squad_member__orderType : int&;
                         var squad_member__orderPosition : float3&;
@@ -76,6 +95,7 @@ def on_squad_mate_build(act : UpdateStageInfoAct;
     if !doesEntityExist(buildTargetEid) || buildTargetEid != squad_member__orderUseEntity
       beh_tree.blackBoard |> datablock_setInt("buildTarget", 0)
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+      reset_squad_mate_behaviour(eid)
 
 [es(on_event=EventEntityDied, tag=server)]
 def on_build_order_squad_mate_died(evt : Event;

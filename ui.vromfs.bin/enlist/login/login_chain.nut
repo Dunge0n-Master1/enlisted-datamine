@@ -4,10 +4,10 @@ let {get_time_msec} = require("dagor.time")
 let {send_error_log} = require("clientlog")
 let statsd = require("statsd")
 let {get_circuit} = require("app")
-let {language} = require("%enlSqGlob/clientState.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let {yup_version, exe_version} = require("%dngscripts/appInfo.nut")
 let {platformId} = require("%dngscripts/platform.nut")
-let logLogin = require("%sqstd/log.nut")().with_prefix("[LOGIN_CHAIN]")
+let logLogin = require("%enlSqGlob/library_logs.nut").with_prefix("[LOGIN_CHAIN]")
 
 let stagesOrder = persist("stagesOrder", @() [])
 let currentStage = mkWatched(persist, "currentStage", null)
@@ -74,7 +74,7 @@ let function startLogin(params) {
 let function fireAfterLoginOnceActions() {
   let actions = clone afterLoginOnceActions
   afterLoginOnceActions.clear()
-  foreach(action in actions)
+  foreach (action in actions)
     action()
 }
 
@@ -99,7 +99,7 @@ let function onStageResult(result) {
         version = yup_version.value
         exe_version = exe_version.value
         platform = platformId
-        language = language.value
+        language = gameLanguage
         circuit = get_circuit()
       }
     })
@@ -148,7 +148,7 @@ let function makeStages(config) {
   stagesOrder.clear()
   stages.clear()
 
-  foreach(stage in config.stages) {
+  foreach (stage in config.stages) {
     assert(("id" in stage) && ("action" in stage), " login stage must have id and action")
     assert(!(stage.id in stages), " duplicate stage id")
     stages[stage.id] <- makeStage(stage)

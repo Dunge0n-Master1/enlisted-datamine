@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
-let {curWeapon} = require("%ui/hud/state/hero_state.nut")
+let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
 
 let tipCountData = mkOnlineSaveData("ui/hud/lie_down_to_shoot", @() 0)
 let shownTipCount = tipCountData.watch
@@ -30,12 +30,12 @@ ecs.register_es("is_crawling_now",{
   }, {comps_track=[["human_net_phys__isCrawl", ecs.TYPE_BOOL]],
         comps_rq=["watchedByPlr"]})
 
-let needShowTip = Computed(@() curWeapon.value?.weapType == "submachine_gun"
+let needShowTip = Computed(@() curWeaponWeapType.value == "submachine_gun"
                                 && !entityIsCrawling.value && shownTipCount.value < TIP_SHOW_COUNT
                                 && !hasShownCurGame.value)
 
 let function makeShowTipTrue() {
-  if(!needShowTip.value)
+  if (!needShowTip.value)
     return
   showTip(true)
   tipCountData.setValue(shownTipCount.value + 1)
@@ -43,9 +43,9 @@ let function makeShowTipTrue() {
 }
 
  needShowTip.subscribe(function(tip) {
-   if(tip){
+   if (tip){
      entityStopedShooting.subscribe(function(shootingTime) {
-       if(shootingTime >= 10){
+       if (shootingTime >= 10){
          gui_scene.resetTimeout(0.5 , makeShowTipTrue)
        }
      })

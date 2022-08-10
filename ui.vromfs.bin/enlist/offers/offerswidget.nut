@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt, h2_bold_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, offersShortTitle
@@ -8,11 +8,10 @@ let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, off
 let { taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
 let offersWindow = require("offersWindow.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
-let mkCountdownTimer = require("%enlist/components/mkCountdownTimer.nut")
+let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
 let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { mkDiscountIcon } = require("%enlist/shop/shopPkg.nut")
 let { hasBaseEvent, openEventModes, promotedEvent
 } = require("%enlist/gameModes/eventModesState.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
@@ -20,8 +19,17 @@ let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { eventForcedUrl, isPromoteCampaign } = require("%enlist/unlocks/eventsTaskState.nut")
 let openUrl = require("%ui/components/openUrl.nut")
+
+enum WidgetType {
+  FREEMIUM
+  OFFER
+  EVENT_BASE
+  EVENT_SPECIAL
+  URL
+}
 
 const SWITCH_SEC = 8.0
 const defOfferImg = "ui/tunisia_city_inv_01.jpg"
@@ -44,12 +52,15 @@ let mkOfferImage = @(img) {
 }
 
 let discountIconStyle = {
-  hplace = ALIGN_RIGHT
-  pos = [hdpx(11), hdpx(18)]
+  size = [hdpx(76), hdpx(38)]
+  textStyle = h2_bold_txt
+  hplace = ALIGN_LEFT
+  vplace = ALIGN_CENTER
+  pos = [-hdpx(8), 0]
 }
 
 let timerStyle = {
-  hplace = ALIGN_LEFT
+  hplace = ALIGN_RIGHT
   padding = taskSlotPadding
 }
 
@@ -65,14 +76,12 @@ let mkInfo = @(sf, nameTxt, override = {}) {
     behavior = Behaviors.TextArea
     text = nameTxt
     halign = ALIGN_CENTER
-    color = sf & S_HOVER ? accentTitleTxtColor : activeTxtColor
+    color = sf & S_HOVER ? activeTxtColor : accentTitleTxtColor
   }.__update(sub_txt)
 }.__update(override)
 
 let function mkOfferInfo(sf, offer) {
   let { endTime = 0, widgetTxt = "", discountInPercent = 0, shopItem = null } = offer
-  let discountObject = discountInPercent <= 0 ? null
-    : mkDiscountIcon(discountInPercent, discountIconStyle)
   let timerObject = mkCountdownTimer({
     timestamp = endTime
     override = timerStyle
@@ -91,38 +100,29 @@ let function mkOfferInfo(sf, offer) {
     size = flex()
     children = [
       mkInfo(sf, widgetTxt)
-      discountObject
+      mkDiscountWidget(discountInPercent, discountIconStyle)
       timerObject
     ]
   }
 }
 
+let widgetData = {
+  [WidgetType.FREEMIUM] = {
+    ctor = @(campaignId) @(sf) {
+      size = flex()
+      flow = FLOW_VERTICAL
+      halign = ALIGN_CENTER
+      valign = ALIGN_BOTTOM
+      children = mkInfo(sf, loc("freemium/title/full",
+        { name = utf8ToUpper(loc(campaignId)) }))
+    }
+    onClick = @(_) freemiumWnd()
+  },
 
-let widgetList = Computed(function() {
-  let list = []
-
-  if (needFreemiumStatus.value) {
-    let campaignName = loc(gameProfile.value?.campaigns[curCampaign.value].title
-      ?? curCampaign.value)
-    list.append({
-      backImage = "ui/uiskin/offers/freemium_widget.jpg"
-      mkContent = @(sf) {
-        size = flex()
-        flow = FLOW_VERTICAL
-        halign = ALIGN_CENTER
-        valign = ALIGN_BOTTOM
-        children = mkInfo(sf, loc("freemium/title/full",
-          { name = utf8ToUpper(campaignName) }))
-      }
-      onClick = freemiumWnd
-    })
-  }
-
-  list.extend(allActiveOffers.value.map(@(specOffer, idx) {
-    backImage = specOffer?.widgetImg ?? defOfferImg
-    mkContent = @(sf) mkOfferInfo(sf, specOffer)
-    onClick = function() {
-      offersWindow(idx)
+  [WidgetType.OFFER] = {
+    ctor = @(specOffer) @(sf) mkOfferInfo(sf, specOffer)
+    onClick = function(specOffer) {
+      offersWindow(specOffer)
       let { discountInPercent = 0, shopItem = null } = specOffer
       let { guid = "" } = shopItem
       sendBigQueryUIEvent("open_offer", null, {
@@ -130,30 +130,63 @@ let widgetList = Computed(function() {
         discountInPercent
       })
     }
+  },
+
+  [WidgetType.EVENT_BASE] = {
+    ctor = @(_) @(sf)
+      // TODO make simple localization instead of string interpolation
+      mkInfo(sf, utf8ToUpper($"{loc("events")} / {loc("custom_matches")}"))
+    onClick = @(_) openEventModes()
+  },
+
+  [WidgetType.EVENT_SPECIAL] = {
+    ctor = @(title) @(sf) mkInfo(sf, utf8ToUpper(title))
+    onClick = @(_) offersPromoWndOpen()
+  },
+
+  [WidgetType.URL] = {
+    ctor = @(v) @(sf) mkInfo(sf, v.title)
+    onClick = @(v) openUrl(v.url)
+  }
+}
+
+let widgetList = Computed(function() {
+  let list = []
+
+  if (needFreemiumStatus.value)
+    list.append({
+      id = WidgetType.FREEMIUM
+      data = gameProfile.value?.campaigns[curCampaign.value].title
+        ?? curCampaign.value
+      backImage = "ui/uiskin/offers/freemium_widget.jpg"
+    })
+
+  list.extend(allActiveOffers.value.map(@(specOffer) {
+    id = WidgetType.OFFER
+    data = specOffer
+    backImage = specOffer?.widgetImg ?? defOfferImg
   }))
 
   if (hasBaseEvent.value) {
     let { image = null } = promotedEvent.value
     list.append({
+      id = WidgetType.EVENT_BASE
       backImage = image ?? defOfferImg
-      mkContent = @(sf) mkInfo(sf,
-        utf8ToUpper($"{loc("events")} / {loc("custom_matches")}"))
-      onClick = openEventModes
     })
   }
 
   list.extend(eventForcedUrl.value.map(@(v) {
+    id = WidgetType.URL
+    data = v
     backImage = v?.image ?? defExtUrlImg
-    mkContent = @(sf) mkInfo(sf, v.title)
-    onClick = @() openUrl(v.url)
   }))
 
   if (hasSpecialEvent.value && hasEventData.value && isPromoteCampaign.value) {
     let { heading = null } = headingAndDescription.value
     list.append({
+      id = WidgetType.EVENT_SPECIAL
+      data = offersShortTitle.value
       backImage = heading?.v ?? defOfferImg
-      mkContent = @(sf) mkInfo(sf, utf8ToUpper(offersShortTitle.value))
-      onClick = offersPromoWndOpen
     })
   }
 
@@ -178,46 +211,40 @@ let offersPaginator = mkDotPaginator({
 })
 
 let function offersPromoWidget() {
-  let res = { watch = widgetList }
+  let res = { watch = [widgetList, curWidgetIdx] }
   let widgets = widgetList.value
   if (widgets.len() == 0)
     return res
 
+  let { id = null, data = null, backImage = null, } = widgets?[curWidgetIdx.value]
+  let { ctor = null, onClick = null } = widgetData?[id]
+  let content = ctor?(data)
   return res.__update({
     size = [startBtnWidth, SIZE_TO_CONTENT]
-    children = widgets.len() == 0 ? null
-      : [
-          @() {
-            watch = curWidgetIdx
-            size = flex()
-            children = mkOfferImage(widgets?[curWidgetIdx.value].backImage)
-          }
+    children = [
+      mkOfferImage(backImage)
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_VERTICAL
+        children = [
+          watchElemState(@(sf) {
+            size = [flex(), hdpx(125)]
+            behavior = Behaviors.Button
+            onClick = @() onClick?(data)
+            onHover = @(on) paginatorTimer(on ? 0 : SWITCH_SEC)
+            children = content?(sf)
+          })
           {
+            rendObj = ROBJ_SOLID
             size = [flex(), SIZE_TO_CONTENT]
-            flow = FLOW_VERTICAL
-            children = [
-              @() {
-                watch = curWidgetIdx
-                size = [flex(), hdpx(125)]
-                children = watchElemState(@(sf) {
-                  size = flex()
-                  behavior = Behaviors.Button
-                  onClick = widgets?[curWidgetIdx.value].onClick
-                  onHover = @(on) paginatorTimer(on ? 0 : SWITCH_SEC)
-                  children = widgets?[curWidgetIdx.value].mkContent(sf)
-                })
-              }
-              {
-                rendObj = ROBJ_SOLID
-                size = [flex(), SIZE_TO_CONTENT]
-                padding = smallPadding
-                halign = ALIGN_CENTER
-                color = defBgColor
-                children = offersPaginator(widgets.len())
-              }
-            ]
+            padding = smallPadding
+            halign = ALIGN_CENTER
+            color = defBgColor
+            children = offersPaginator(widgets.len())
           }
         ]
+      }
+    ]
   })
 }
 

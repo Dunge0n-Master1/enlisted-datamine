@@ -26,14 +26,14 @@ def process_damage_effects(offender : ecs::EntityId;
                            vehicle_seats__seatEids : EidList)
 
   let player = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
-  sendEvent(offender, [[EventOnVehicleDamageEffects offender=player, vehicle=vehicle, effects=effects]])
+  send_net_event(offender, [[EventOnVehicleDamageEffects offender=player, vehicle=vehicle, effects=effects]])
 
   for seatEid in vehicle_seats__seatEids
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
     let isPlayer = get_bool(seatEid, "seat__isPlayer") ?? false
     let victim = ownerEid
     if victim != offender && isPlayer && victim != INVALID_ENTITY_ID
-      sendEvent(victim, [[CmdShowVehicleDamageEffectsHint offender=offender, vehicle=vehicle, effects=effects]])
+      send_net_event(victim, [[CmdShowVehicleDamageEffectsHint offender=offender, vehicle=vehicle, effects=effects]])
 
 [es(tag=server, REQUIRE=damage_model)]
 def vehicle_hp_on_part_kill_effect_es(evt : EventOnPartKillEffects; eid : EntityId; vehicle_seats__seatEids : EidList)
@@ -58,7 +58,7 @@ def vehicle_hp_on_meta_part_damage_es(evtData : EventOnMetaPartDamage;
   if evtData.damage >= vehicle__sendMsgDamageThreshold && vehicle__hp > 0.0
     let offender = evtData.offender
     let offenderPlayer = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
-    sendEvent(offender, [[EventOnVehicleDamaged offender=offenderPlayer, vehicle=eid, damage=evtData.damage, hp=evtData.hp, maxHp=evtData.maxHp]])
+    send_net_event(offender, [[EventOnVehicleDamaged offender=offenderPlayer, vehicle=eid, damage=evtData.damage, hp=evtData.hp, maxHp=evtData.maxHp]])
 
 [es(tag=server, no_order)]
 def vehicle_hp_es(info : ecs::UpdateStageInfoAct;
@@ -84,4 +84,4 @@ def vehicle_on_explosion_es(evt : Event;
                             lastOffender : EntityId)
   if isExploded && lastOffender != INVALID_ENTITY_ID
     let player = get_Eid(lastOffender, "possessedByPlr") ?? INVALID_ENTITY_ID
-    sendEvent(lastOffender, [[EventOnVehicleDamaged offender=player, vehicle=eid, damage=vehicle__maxHp, hp=vehicle__hp, maxHp=vehicle__maxHp]])
+    send_net_event(lastOffender, [[EventOnVehicleDamaged offender=player, vehicle=eid, damage=vehicle__maxHp, hp=vehicle__hp, maxHp=vehicle__maxHp]])

@@ -8,15 +8,16 @@ require game.es.sound_net.sound_net_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require EnlistedBehTree
 
-def squadmate_attack_order_speech(squadmate_eid : ecs::EntityId; leader_eid : ecs::EntityId; squad_member_response = "confirm")
+def squadmate_attack_order_speech(squadmate_eid : EntityId; leader_eid : EntityId; squad_member_response = "confirm")
   sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadAttackOrder", importance=1.]])
   if squad_member_response != ""
     request_squad_member_response(squadmate_eid, squad_member_response)
 
 def has_antitank_grenade(eid : EntityId) : bool
   var res = false
-  ecs::query(eid) <| $ [es] (itemContainer : EidList; [[shared_comp]] beh_tree__antitankGrenades : StringList)
+  query(eid) <| $ [es] (itemContainer : EidList; [[shared_comp]] beh_tree__antitankGrenades : StringList)
     for itemEid in itemContainer
       let itemGrenadeType = get_string(itemEid, "item__grenadeType", "")
       let typeIdx = find_index(beh_tree__antitankGrenades, itemGrenadeType)
@@ -30,11 +31,29 @@ def is_squadmate_suitable_for_attack(eid : EntityId; is_target_vehicle : bool) :
 
 def order_attack(squadmate_eid, squad__leader, attack_target : EntityId)
   var isOrdered = false
-  query(squadmate_eid) <| $ [es] (var squad_member__orderType : int&;
+  query(squadmate_eid) <| $ [es] (beh_tree__isInTrainBeh : bool;
+                                  beh_tree__data__orderReq : string;
+                                  beh_tree__data__attackReq : string;
+                                  var squad_member__orderType : int&;
                                   var squad_member__orderPosition : float3&;
                                   var squad_member__orderUseEntity : EntityId&;
-                                  var beh_tree : BehaviourTree&)
+                                  var beh_tree : BehaviourTree&;
+                                  var beh_tree__refs__behaviour : das_string&;
+                                  var beh_tree__refs__orderType : das_string&;
+                                  var beh_tree__latencyLoadBlackBoard : Object?)
+    if beh_tree__isInTrainBeh
+      return
+
+    beh_tree__refs__behaviour := beh_tree__data__orderReq
+    beh_tree__refs__orderType := beh_tree__data__attackReq
+
+    EnlistedBehTree::load_beh_tree_from_ecs(squadmate_eid)
+
     beh_tree.blackBoard |> datablock_setInt("attackTarget", int(uint(attack_target)))
+    if beh_tree__latencyLoadBlackBoard != null
+      *beh_tree__latencyLoadBlackBoard |> set("attackTarget", int(uint(attack_target)))
+    beh_tree.blackBoard |> datablock_setInt("attackTarget", int(uint(attack_target)))
+
     squad_member__orderType = int(SquadMateOrder ESMO_ATTACK_TARGET)
     squad_member__orderPosition = float3()
     squad_member__orderUseEntity = attack_target
@@ -73,6 +92,8 @@ def squadmate_reset_attack_order_es(act : UpdateStageInfoAct;
                                     var squad_member__isPersonalOrder : bool&)
   if squad_member__orderType == int(SquadMateOrder ESMO_ATTACK_TARGET) && beh_tree.blackBoard |> datablock_getInt("attackTarget", 0) == 0
     reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+    reset_squad_mate_behaviour(eid)
+
     send_order_cancel_bq(eid, "no_attack_target", "{SquadMateOrder ESMO_ATTACK_TARGET}")
 
 [es(tag = server)]

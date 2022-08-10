@@ -23,16 +23,29 @@ ecs.register_es("medkitUsage",{
 
 let itemUseProgress = Watched(0)
 
+let doCalcTime = Watched(false)
 let function calcitemUseProgress(...){
   local res = 0
-  if (curTime.value <= entityUseEnd.value)
+  if (curTime.value <= entityUseEnd.value) {
     res = lerp(entityUseStart.value, entityUseEnd.value, 0.0, 100.0, curTime.value)
+    if (!doCalcTime.value)
+      doCalcTime(true)
+  }
+  else
+    doCalcTime(false)
+
   itemUseProgress(res)
 }
+doCalcTime.subscribe(function(v) {
+  if (!v)
+    frameUpdateCounter.unsubscribe(calcitemUseProgress)
+  else
+    frameUpdateCounter.subscribe(calcitemUseProgress)
+})
 
 entityUseEnd.subscribe(calcitemUseProgress)
 entityUseStart.subscribe(calcitemUseProgress)
-frameUpdateCounter.subscribe(calcitemUseProgress)
+
 
 return {
   medkitStartTime = entityUseStart

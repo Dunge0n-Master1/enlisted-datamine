@@ -1,0 +1,43 @@
+module profiler
+
+require ecs
+require app
+require daProfiler
+require debugapi
+
+// USAGE:
+// 1. add `require %danetlibs.dascript_base.profiler` line to any dascript file
+// 2. open daProfiler and look for functions that starts with "das:"
+// NOTE: use hotreload to profile only required module,
+//       otherwise will be profiled all scripts loaded after profiler
+
+let
+  PROFILER_AGENT_NAME = "profiler_agent"
+  debugLogs = false
+
+class ProfilerAgent : DapiDebugAgent
+
+  [unused_argument(ctx, fun)] def override onInstrumentFunction(var ctx : Context; fun : SimFunction ?; entering : bool; user_data : uint64) : void
+    if debugLogs
+      print("daProfiler: {user_data} '{fun.name}' {entering ? "entering" : "exiting"}")
+    __builtin_profiler_send_event(ctx, uint(user_data), entering)
+
+  def override onSimulateContext(var ctx : Context) : void
+    if ctx.category.debug_context || ctx.category.debugger_tick
+      return
+    ctx |> instrument_all_functions() <| $ [unused_argument(fn)] (fn, sfn)
+      let desc = get_tls_description("{ctx.name}", /*line*/0, /*flags*/0u, "das:{sfn.name}", uint(sfn.mangledNameHash))
+      if debugLogs
+        print("daProfiler: {desc} => {sfn.name}")
+      return uint64(desc)
+
+
+[export, unused_argument(ctx)]
+def profiler_agent(ctx : Context)
+  install_new_debug_agent(new ProfilerAgent(), PROFILER_AGENT_NAME)
+
+
+[init, export]
+def init()
+  if app::get_game_name() != "aot" && !has_debug_agent_context(PROFILER_AGENT_NAME) && !is_in_aot() && !is_in_debug_agent_creation()
+    fork_debug_agent_context(@@profiler_agent)

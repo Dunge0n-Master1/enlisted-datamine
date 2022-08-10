@@ -14,7 +14,7 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 
   "level__timeVec:array"{
@@ -603,14 +603,6 @@ entity{
 
 entity{
   _template:t="camera_snow_heavy_template"
-  snow__alpha_fade_speed_end:r=10.0
-  snow__alpha_fade_speed_begin:r=2.0
-  snow__speed:r=0.01
-  snow__width:r=0.0125
-  snow__wind:r=7.0
-  snow__alpha:r=0.35
-  snow__density:r=0.15
-  snow__length:r=0.0001
 }
 
 entity{

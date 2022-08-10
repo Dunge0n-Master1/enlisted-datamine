@@ -442,6 +442,20 @@ let soldierClasses = freeze({
     rank = 10
     kind = "engineer"
   }
+  radioman_2_premium_1_ch = {
+    locId = "soldierClass/radioman"
+    getIcon = premiumIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "radioman"
+  }
+  radioman_2_premium_1_engineer_ch = {
+    locId = "soldierClass/engineer"
+    getIcon = premiumIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }
   assault_premium = {
     locId = "soldierClass/assault"
     getIcon = premiumIcon
@@ -505,6 +519,20 @@ let soldierClasses = freeze({
     rank = 10
     kind = "engineer"
   }
+  assault_2_premium_2_ch = {
+    locId = "soldierClass/assault"
+    getIcon = premiumIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "assault"
+  }
+  assault_2_premium_2_engineer_ch = {
+    locId = "soldierClass/engineer"
+    getIcon = premiumIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }
   assault_2_premium_2_event = {
     locId = "soldierClass/assault"
     getIcon = eventIcon
@@ -541,6 +569,13 @@ let soldierClasses = freeze({
     kind = "engineer"
   }
   mgun_premium_1 = {
+    locId = "soldierClass/mgun"
+    getIcon = premiumIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "mgun"
+  }
+  mgun_premium_1_ch = {
     locId = "soldierClass/mgun"
     getIcon = premiumIcon
     getGlyph = @(_) null
@@ -611,6 +646,13 @@ let soldierClasses = freeze({
     kind = "engineer"
   }
   engineer_premium_2 = {
+    locId = "soldierClass/engineer"
+    getIcon = premiumIcon
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }
+  engineer_premium_2_ch = {
     locId = "soldierClass/engineer"
     getIcon = premiumIcon
     getGlyph = @(_) null

@@ -167,7 +167,7 @@ let function leaveQueue(cb = null) {
 
 /************************************* Subscriptions **************************************/
 
-foreach(name, cb in {
+foreach (name, cb in {
   ["enlmm.on_quick_match_queue_leaved"] = function(request) {
     print("onQuickMatchQueueLeaved")
     log(request)
@@ -197,7 +197,7 @@ local prevSquadMembers = {}
 let changeGen = @() squadMembersGeneration(squadMembersGeneration.value+1)
 
 let function onSquadMembersChange(v) {
-  foreach(uid, member in v) {
+  foreach (uid, member in v) {
     if (uid in prevSquadMembers)
       continue
     let isLeader = member?.isLeader

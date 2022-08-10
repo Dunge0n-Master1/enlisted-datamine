@@ -9,11 +9,13 @@ let function delLink(obj, link) {
 }
 
 let function delLinkByType(obj, link_type) {
-  foreach (k,v in obj.links) {
-    if (v == link_type) {
-      delete obj.links[k]
-    }
-  }
+  let keysToDelete = []
+  foreach (k, v in obj.links)
+    if (v == link_type)
+      keysToDelete.append(k)
+
+  foreach (key in keysToDelete)
+    delete obj.links[key]
 }
 
 let hasLinkByType = @(obj, link_type)
@@ -63,7 +65,7 @@ let function getObjectsByLink(where, linked, link_type) {
 let function getObjectsByLinkType(where, link_type) {
   let res = []
   foreach (k,v in where) {
-    foreach(linkType in v) {
+    foreach (linkType in v) {
       if (linkType == link_type) {
         res.append({
           key = k
@@ -80,7 +82,7 @@ let function getObjectsByLinkType(where, link_type) {
 let function getObjectsTableByLinkType(where, link_type) {
   let res = {}
   foreach (v in where)
-    foreach(to,linkType in v.links)
+    foreach (to,linkType in v.links)
       if (linkType == link_type) {
         if (to not in res)
           res[to] <- []
@@ -114,8 +116,15 @@ let function isObjLinkedToAnyOfObjects(obj, objects) {
   return false
 }
 
+let function getFirstLinkedObjectGuid(obj, objects) {
+  foreach (k, _ in obj?.links ?? {})
+    if (k in objects)
+      return k
+  return ""
+}
+
 let function getLinkedSlotData(obj) {
-  foreach(linkVal, linkType in obj.links)
+  foreach (linkVal, linkType in obj.links)
     if (linkType != "index" && linkType != "army")
       return { linkTgt = linkVal, linkSlot = linkType }
   return null
@@ -140,6 +149,7 @@ return {
   changeIndex
   getObjectsByLinkSorted
   isObjLinkedToAnyOfObjects
+  getFirstLinkedObjectGuid
   getLinkedSlotData
   isLinkedTo
   getLinkedArmyName = @(o) getFirstLinkByType(o, "army")

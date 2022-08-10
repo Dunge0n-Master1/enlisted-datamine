@@ -2,11 +2,11 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
-let { curWeapon } = require("%ui/hud/state/hero_state.nut")
+let { curWeaponChargeTime } = require("%ui/hud/state/hero_weapons.nut")
 
 const TIP_SHOW_TIME = 5
 
-let hasToCharge = Computed(@() (curWeapon.value?.chargeTime ?? 0) > 0)
+let hasToCharge = Computed(@() curWeaponChargeTime.value > 0)
 let needToShowTip = Watched(false)
 
 hasToCharge.subscribe(@(v) v ? needToShowTip(true) : needToShowTip(false))

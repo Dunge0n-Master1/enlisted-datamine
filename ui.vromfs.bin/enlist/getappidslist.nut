@@ -1,5 +1,5 @@
 let { get_app_id } = require("app")
-let log = require("%sqstd/log.nut")()
+let {log} = require("%enlSqGlob/library_logs.nut")
 
 let appIdsList = [get_app_id()]
 

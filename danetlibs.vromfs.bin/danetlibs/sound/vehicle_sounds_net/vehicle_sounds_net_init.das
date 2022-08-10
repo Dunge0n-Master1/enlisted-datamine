@@ -13,3 +13,9 @@ def load_vehicle_sounds_net(base_path : string) : bool
     ok = load_sub_folder(base_path, "modules") && ok
 
   return ok
+
+
+[export]
+def test()
+  let ok = load_vehicle_sounds_net("%danetlibs/sound/vehicle_sounds_net")
+  assert(ok)

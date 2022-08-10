@@ -5,6 +5,7 @@ let spinnerList = require("spinnerList.nut")
 let locOn = loc($"option/on")
 let locOff = loc($"option/off")
 let function optionSpinner(opt, group, xmbNode) {
+  let stateFlags = Watched(0)
   let available = opt?.available instanceof Watched
     ? opt.available
     : Watched(opt?.available)
@@ -19,6 +20,7 @@ let function optionSpinner(opt, group, xmbNode) {
       allValues = available.value
       xmbNode
       group
+      stateFlags
     })
   }
   return spinnerElem

@@ -4,10 +4,10 @@ let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { heroMedicMedpacks } = require("%ui/hud/state/medic_state.nut")
 let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")
 
-let medpackIconSize = [hdpx(26), hdpx(26)]
+let medpackIconSize = [hdpxi(26), hdpxi(26)]
 let medpackIcon = {
   rendObj = ROBJ_IMAGE
-  image = Picture($"ui/skin#syringe.svg:{medpackIconSize[0].tointeger()}:{medpackIconSize[1].tointeger()}")
+  image = Picture($"ui/skin#syringe.svg:{medpackIconSize[0]}:{medpackIconSize[1]}")
 }
 
 let medpackCount = @() {

@@ -46,6 +46,13 @@ let function markUnseen(armyId, soldierGuid) {
     })
 }
 
+console_register_command(function() {
+  settings.mutate(function(s) {
+    if (SEEN_ID in s)
+      delete s[SEEN_ID]
+  })
+}, "meta.resetSeenSoldiers")
+
 return {
   unseenSoldiers = unseenCurrent
   markSoldierSeen = markSeen

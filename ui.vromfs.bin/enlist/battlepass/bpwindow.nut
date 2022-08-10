@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt, sub_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let faComp = require("%ui/components/faComp.nut")
 let {
   bigPadding, smallPadding, activeTxtColor, soldierLvlColor, titleTxtColor,
@@ -13,14 +13,14 @@ let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { curSelectedItem } = require("%enlist/showState.nut")
 let {
-  basicProgress, premiumProgress, combinedUnlocks, nextStage, nextUnlock, nextRewardStage,
+  basicProgress, combinedUnlocks, nextUnlock,
   progressCounters, currentProgress, hasReward, receiveNextReward, buyNextStage,
   nextUnlockPrice, buyUnlockInProgress, receiveRewardInProgress, seasonIndex
 } = require("bpState.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 let { premiumStage0Unlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
-let { getOneReward, prepareRewards } = require("rewardsPkg.nut")
+let { prepareRewards } = require("rewardsPkg.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let {
@@ -31,19 +31,20 @@ let eliteBattlePassWnd = require("eliteBattlePassWnd.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let {
-  progressBarHeight, completedProgressLine, acquiredProgresLine,
-  progressContainerCtor, gradientProgressLine, unactiveProgressCtor
+  progressBarHeight, completedProgressLine, acquiredProgressLine,
+  progressContainerCtor, gradientProgressLine, inactiveProgressCtor
 } = require("%enlist/components/mkProgressBar.nut")
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let itemMapping = require("%enlist/items/itemsMapping.nut")
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { isOpened, curItem, RewardState, unlockToShow, combinedRewards } = require("bpWindowState.nut")
 
 
-let progressWidth = hdpx(174).tointeger()
+let progressWidth = hdpxi(174)
 let sizeBlocks    = fsh(40)
 let sizeStar      = hdpx(15)
-let bpLogoSize    = [hdpx(90), hdpx(90)]
+let bpLogoSize    = [hdpxi(90), hdpxi(90)]
 let hugePadding   = bigPadding * 4
 let cardProgressBar = progressContainerCtor(
   $"!ui/uiskin/battlepass/progress_bar_mask.svg:{progressWidth}:{progressBarHeight}:K",
@@ -53,15 +54,8 @@ let cardProgressBar = progressContainerCtor(
 
 let tblScrollHandler = ScrollHandler()
 
-let curItem = mkWatched(persist, "curItem", null)
-let isOpened = mkWatched(persist, "isOpened", false)
-
-let unlockToShow = Computed(@() progressCounters.value.isCompleted
-  ? combinedUnlocks.value
-  : combinedUnlocks.value.slice(0, progressCounters.value.total))
-
 let showingItem = Computed(function() {
-  if(curItem.value == null)
+  if (curItem.value == null)
     return null
 
   let reward = curItem.value.reward
@@ -89,17 +83,6 @@ showingItem.subscribe(function(item) {
     curSelectedItem(item)
 })
 
-let getOneRewardByStageData = @(stageData, mappedItems = {})
-  getOneReward(stageData?.rewards ?? stageData?.currencyRewards ?? {}, mappedItems)
-
-let function setCurItemOnNextUnlock() {
-  let stageIdx = nextRewardStage.value ?? nextStage.value
-  curItem({
-    reward = getOneRewardByStageData(combinedUnlocks.value?[stageIdx])?.reward
-    stageIdx
-  })
-}
-
 let progressTxt = @(text = "") {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_CENTER
@@ -109,17 +92,16 @@ let progressTxt = @(text = "") {
 }.__update(body_txt)
 
 let function scrollToCurrent() {
-  let cardIdx = (nextRewardStage.value ?? nextStage.value) + (premiumStage0Unlock.value?.stages[0].rewards.len() ?? 0)
+  let cardIdx = (curItem.value?.stageIdx ?? "0").tointeger()
+    + (premiumStage0Unlock.value?.stages[0].rewards.len() ?? 0)
   tblScrollHandler.scrollToX((sizeCard[0] + gapCards) * (cardIdx + 0.5) - gapCards
     - safeAreaSize.value[0] / 2)
-  setCurItemOnNextUnlock()
 }
 nextUnlock.subscribe(@(_) scrollToCurrent())
 
 let cardsList = function() {
   let { isFinished = false } = premiumStage0Unlock.value
   let { rewards  = {} } = premiumStage0Unlock.value?.stages[0]
-  let { current, required, interval } = currentProgress.value
 
   let mappedItems = itemMapping.value
   let templates = allItemTemplates.value?[commonArmy.value] ?? {}
@@ -153,38 +135,24 @@ let cardsList = function() {
         }
       ]
     }
-  ]
-  let basicRewarded = basicProgress.value.lastRewardedStage
-  let premiumRewarded = premiumProgress.value.lastRewardedStage
-  children.extend(unlockToShow.value.map(function(stageData, idx) {
-    let { stage, isPremium = false } = stageData
-    let { reward = null, count = 0 } = getOneRewardByStageData(stageData, mappedItems)
-    let isReceived = (isPremium ? premiumRewarded : basicRewarded) > stage
-    local progressObj = null
-      if (idx == nextRewardStage.value)
-        progressObj = completedProgressLine(1, glareAnimation(0.5))
-      else if (idx < nextStage.value)
-        progressObj = isPremium && !hasEliteBattlePass.value
-          ? unactiveProgressCtor()
-          : acquiredProgresLine(1, [], accentColor)
-      else {
-        let progress = idx == nextStage.value && interval != 0
-          ? (current - required + interval).tofloat() / interval
-          : 0
-        progressObj = gradientProgressLine(progress)
-      }
-    return mkCard(reward, count, templates,
-      @() curItem({ reward = reward, stageIdx = idx }),
-      Computed(@() curItem.value?.stageIdx == idx),
-      isReceived,
-      isPremium,
-      cardProgressBar(progressObj, progressTxt(idx + 1))
+  ].extend(combinedRewards.value.map(@(r)
+    mkCard(r.reward, r.count, templates,
+      @() curItem({ reward = r.reward, stageIdx = r.stageIdx }),
+      Computed(@() curItem.value?.stageIdx == r.stageIdx),
+      r.isReceived,
+      r.isPremium,
+      cardProgressBar(
+        r.progressState == RewardState.COMPLETED ? completedProgressLine(1, glareAnimation(0.5))
+          : r.progressState == RewardState.ACQUIRED ? acquiredProgressLine(1, [], accentColor)
+          : r.progressState == RewardState.IN_PROGRESS ? gradientProgressLine(r.progressVal)
+          : inactiveProgressCtor(),
+        progressTxt(r.stageIdx + 1))
     )
-  }))
+  ))
+
   return {
     watch = [
-      unlockToShow, premiumProgress, basicProgress, premiumStage0Unlock,
-      itemMapping, allItemTemplates, commonArmy
+      combinedRewards, premiumStage0Unlock, itemMapping, allItemTemplates, commonArmy
     ]
     flow = FLOW_HORIZONTAL
     gap = gapCards
@@ -331,7 +299,7 @@ let buyPremiumPassHeader = @() {
     {
       rendObj = ROBJ_IMAGE
       size = bpLogoSize
-      image = Picture($"!ui/uiskin/battlepass/bp_logo.svg:{bpLogoSize[0].tointeger()}:{bpLogoSize[1].tointeger()}:K")
+      image = Picture($"!ui/uiskin/battlepass/bp_logo.svg:{bpLogoSize[0]}:{bpLogoSize[1]}:K")
     }
     premiumPassHeader
   ]
@@ -443,7 +411,6 @@ let bpWindow = @(){
 
 let function open() {
   sceneWithCameraAdd(bpWindow, "battle_pass")
-  setCurItemOnNextUnlock()
 }
 
 let function close() {
@@ -456,5 +423,3 @@ if (isOpened.value)
   open()
 
 isOpened.subscribe(@ (v) v ? open() : close())
-
-return @() isOpened(true)

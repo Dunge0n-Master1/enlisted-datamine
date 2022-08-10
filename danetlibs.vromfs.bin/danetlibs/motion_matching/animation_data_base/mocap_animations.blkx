@@ -89,12 +89,6 @@ clips{
   snake_directions_sprint_t2{
   }
 
-  transition_laydown_stand_forward_t3{
-  }
-
-  transition_laydown_walk_forward_t2{
-  }
-
   transition_stand_laydown_forward_t1{
   }
 

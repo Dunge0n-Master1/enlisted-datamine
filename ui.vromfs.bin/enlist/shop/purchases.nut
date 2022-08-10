@@ -16,7 +16,7 @@ let refresh = function() {
     httpRequest.createGuidsRequestParams(purchased.value.keys()),
     function(data) {
       let purchasedUpdate = {}
-      foreach(guid, amount in data?.items ?? {})
+      foreach (guid, amount in data?.items ?? {})
         purchasedUpdate[guid] <- amount
       if (null != purchasedUpdate.findvalue(@(amount, guid) purchased.value?[guid] != amount))
         purchased.mutate(@(v) v.__update(purchasedUpdate))
@@ -25,7 +25,7 @@ let refresh = function() {
 
 let function addGuids(guids) {
   let wasTotal = purchased.value.len()
-  foreach(guid in guids)
+  foreach (guid in guids)
     if (!(guid in purchased.value))
       purchased.value[guid] <- 0
   if (wasTotal != purchased.value.len())

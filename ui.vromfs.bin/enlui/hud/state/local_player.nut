@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { TEAM_UNASSIGNED } = require("team")
 let { INVALID_GROUP_ID } = require("matching.errors")
 let {get_user_id} = require("net")
-let logObs = require("%sqstd/log.nut")().with_prefix("[OBSERVER]")
+let logObs = require("%enlSqGlob/library_logs.nut").with_prefix("[OBSERVER]")
 
 const INVALID_USER_ID = 0
 

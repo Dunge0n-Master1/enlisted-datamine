@@ -6,7 +6,7 @@ let userInfo = require("%enlSqGlob/userInfo.nut")
 let online_storage = require("onlineStorage")
 let { throttle } = require("%sqstd/timers.nut")
 let platform = require("%dngscripts/platform.nut")
-let logOS = require("%sqstd/log.nut")().with_prefix("[ONLINE_SETTINGS] ")
+let logOS = require("%enlSqGlob/library_logs.nut").with_prefix("[ONLINE_SETTINGS] ")
 
 let onlineSettingUpdated = mkWatched(persist, "onlineSettingUpdated", false)
 let onlineSettingsInited = mkWatched(persist, "onlineSettingsInited", false)

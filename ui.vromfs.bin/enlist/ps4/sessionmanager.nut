@@ -5,6 +5,7 @@ let { createPushContext } = require("%sonyLib/notifications.nut")
 let { encodeString, decodeString } = require("base64")
 let supportedPlatforms = require("%enlist/ps4/supportedPlatforms.nut")
 let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
+let logP = require("%enlSqGlob/library_logs.nut").with_prefix("[PSNSESSION] ")
 
 let createSessionData = @(pushContextId, name, customData1) {
   playerSessions = [{
@@ -46,7 +47,7 @@ local currentSessionId = null
 let function createSession(squadId, on_success) {
   // TODO: fix session name
   currentContextId = createPushContext()
-  log($"[PSNSESSION] create with {currentContextId}")
+  logP($"create with {currentContextId}")
   let desc = createSessionData(currentContextId, loc("title/name"), encodeString(squadId.tostring()))
   send(sessionManager.create(desc),
        function(r, e) {
@@ -58,14 +59,14 @@ let function createSession(squadId, on_success) {
 
 let function changeLeader(leaderUid) {
   let accountId = uid2console.value?[leaderUid.tostring()]
-  log($"[PSNSESSION] change leader of {currentSessionId} to {accountId}/{leaderUid}")
+  logP($"change leader of {currentSessionId} to {accountId}/{leaderUid}")
   if (currentSessionId && accountId)
     send(sessionManager.changeLeader(currentSessionId, accountId, "PS5"))
 }
 
 let function invite(uid, on_success) {
   let accountId = uid2console.value?[uid.tostring()]
-  log($"[PSNSESSION] invite {accountId}/{uid} to {currentSessionId}")
+  logP($"invite {accountId}/{uid} to {currentSessionId}")
   if (currentSessionId && accountId)
     send(sessionManager.invite(currentSessionId, [accountId]),
          function(_r, e) { if (e == null) on_success() })
@@ -74,7 +75,7 @@ let function invite(uid, on_success) {
 let function join(session_id, _invitation_id, on_success) {
   currentContextId = createPushContext()
   currentSessionId = session_id
-  log($"[PSNSESSION] join {currentSessionId} with {currentContextId}")
+  logP($"join {currentSessionId} with {currentContextId}")
   let fetchSquadId = function(_r, _e) {
     // Intentionally ignoring error handling, try join our squad anyway
     send(sessionManager.list([session_id]), function(r, __e) {
@@ -87,7 +88,7 @@ let function join(session_id, _invitation_id, on_success) {
 }
 
 let function leave() {
-  log($"[PSNSESSION] leave {currentSessionId}")
+  logP($"leave {currentSessionId}")
   if (currentSessionId != null)
     send(sessionManager.leave(currentSessionId))
   currentSessionId = null

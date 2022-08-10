@@ -120,7 +120,7 @@ let vehicles = Computed(function() {
 
   let armyId = getLinkedArmyName(curSquad.value)
   let items = itemsByArmies.value?[armyId] ?? {}
-  foreach(item in items) {
+  foreach (item in items) {
     if (item?.itemtype != "vehicle"
         || item?.itemsubtype != vehicleType
         || armyId != getLinkedArmyName(item))

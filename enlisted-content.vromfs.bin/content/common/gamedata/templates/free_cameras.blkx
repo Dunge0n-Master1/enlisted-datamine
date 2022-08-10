@@ -1,0 +1,97 @@
+_infoCommonComponents{
+
+  cam_active{
+    desc:t="Whether camera is active"
+  }
+
+  fov_deg{
+    desc:t="Field of view (degrees)"
+    min:r=0.0
+    max:r=180.0
+  }
+}
+
+base_free_cam{
+  editableObj:b=no
+  camera__active:b=no
+  camera__input_enabled:b=yes
+  fov:r=90.0
+  znear:r=0.01
+  zfar:r=50000.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  base_transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  free_cam__move_speed:r=5.0
+  _tracked:t="free_cam__move_speed"
+  _tracked:t="camera__active"
+
+  "camera_view:tag"{
+  }
+
+  input{
+    _tags:t="input"
+  }
+
+  _group{
+    free_cam__mouse:p2=0.0, 0.0
+    _tags:t="gameClient"
+
+    free_cam{
+    }
+  }
+}
+
+free_cam{
+  _extends:t="base_free_cam"
+  free_cam__ang_spd:r=0.001
+}
+
+inertial_free_cam{
+  _extends:t="base_free_cam"
+  free_cam__ang_spd:r=0.001
+  free_cam__move_inertia:r=0.999
+  free_cam__stop_inertia:r=0.999
+}
+
+fast_free_cam{
+  _extends:t="base_free_cam"
+  free_cam__ang_spd:r=0.001
+  free_cam__move_speed:r=50.0
+}
+
+static_cam{
+  znear:r=0.01
+  zfar:r=10000.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  base_transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _extends:t="replicating"
+
+  "camera__active:b"{
+    value:b=no
+    _info:t="cam_active"
+  }
+
+  "fov:r"{
+    value:r=90.0
+    _info:t="fov_deg"
+  }
+
+  "camera_view:tag"{
+  }
+
+  "net__inInitialScope:tag"{
+  }
+
+  "initialCamTag:tag"{
+  }
+
+  _info{
+    desc:t="Static camera for level start"
+  }
+}
+
+airplane_free_cam{
+  _extends:t="base_free_cam"
+  zfar:r=40000.0
+  free_cam__ang_spd:r=0.001
+  free_cam__move_speed:r=150.0
+}

@@ -1,21 +1,23 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let destroyable_ri_markers = Watched({})
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid){
-  if (eid in destroyable_ri_markers.value)
-    destroyable_ri_markers.mutate(@(v) delete v[eid])
-}
+let {
+  destroyable_ri_Set,
+  destroyable_ri_GetWatched,
+  destroyable_ri_UpdateEid,
+  destroyable_ri_DestroyEid
+} = mkWatchedSetAndStorage("destroyable_ri_")
 
 ecs.register_es(
   "destroyable_ri_markers_es",
   {
     [["onInit", "onChange"]] = function(_evt, eid, comp){
       let addScoreTeam = comp["destroyable_ri__addScoreTeam"]
-      destroyable_ri_markers.mutate(@(v) v[eid] <- {addScoreTeam = addScoreTeam})
+      destroyable_ri_UpdateEid(eid, addScoreTeam)
     }
-    onDestroy = @(_evt, eid, _comp) deleteEid(eid)
+    onDestroy = @(_evt, eid, _comp) destroyable_ri_DestroyEid(eid)
   },
   {
     comps_track = [
@@ -25,5 +27,6 @@ ecs.register_es(
 )
 
 return{
-  destroyable_ri_markers
+  destroyable_ri_Set,
+  destroyable_ri_GetWatched
 }

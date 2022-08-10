@@ -1,32 +1,41 @@
-sound_effect_soviet_loudspeaker_a{
-  _extends:t="destroyable_sound_effect"
+base_loudspeaker_sound{
+  _extends:t="sound_control"
+  _extends:t="sound_with_destroyable_ri_extra"
   _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   _group{
     _tags:t="sound"
-    sound_effect__path:t="env_effects/propaganda_de"
+    sound_control__range:r=500.0
   }
 
   _group{
-    sound_control__range:r=500.0
     _tags:t="sound"
+    loudspeaker_sound__path:t=""
+
+    "loudspeaker_sound__event:SoundEvent"{
+    }
+
+    "loudspeakerSound:tag"{
+    }
+  }
+}
+
+sound_effect_soviet_loudspeaker_a{
+  _extends:t="base_loudspeaker_sound"
+
+  _group{
+    _tags:t="sound"
+    loudspeaker_sound__path:t="env_effects/propaganda_de"
   }
 }
 
 sound_effect_soviet_loudspeaker_b{
-  _extends:t="destroyable_sound_effect"
-  _extends:t="replicating"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _extends:t="base_loudspeaker_sound"
 
   _group{
     _tags:t="sound"
-    sound_effect__path:t="env_effects/propaganda_ru"
-  }
-
-  _group{
-    sound_control__range:r=500.0
-    _tags:t="sound"
+    loudspeaker_sound__path:t="env_effects/propaganda_ru"
   }
 }
 
@@ -44,6 +53,9 @@ narrator_sound{
   _singleton:b=yes
 
   "narrator_history:object"{
+  }
+
+  "narrator_queue:array"{
   }
 
   "narrator_sound_event:SoundEvent"{

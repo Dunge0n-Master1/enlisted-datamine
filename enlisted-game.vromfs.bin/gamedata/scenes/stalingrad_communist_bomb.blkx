@@ -733,10 +733,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1_a_2"
 }
@@ -744,10 +742,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1_a_1"
 }
@@ -755,10 +751,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2_a_2"
 }
@@ -766,10 +760,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2_a_1"
 }
@@ -777,10 +769,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area3_a_2"
 }
@@ -788,10 +778,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3_a"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area3_a_1"
 }
@@ -799,8 +787,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11213.3, 0.0, -1509.19] [0.0, 21038.5, 0.0] [1509.57, 0.0, 11213.0] [-24.7594, -70.4969, -113.515]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
 }
 
@@ -840,7 +826,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=40.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
   ground_effect__offset_y:p2=3.0, 1.0
@@ -853,7 +838,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=20.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.35
   ground_effect__fx_radius:r=-1.0
   ground_effect__offset_y:p2=3.0, 1.0
@@ -870,7 +854,6 @@ entity{
   ground_effect__grid_cell_size:r=32.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -886,7 +869,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -902,7 +884,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=35.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -914,7 +895,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=25.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
 }
@@ -1300,17 +1280,16 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="stalingrad_communist_bomb"
 
   "loading_images:list<t>"{
@@ -1361,7 +1340,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="destruction/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_destruction"
   team__loseSubtitle:t="debriefing/lost_invasion_destruction"
@@ -1381,7 +1359,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-3.93395, 0.0, -29.9136] [0.0, 6.8964, 0.0] [22.1253, 0.0, -2.90969] [98.0909, 8.75563, 262.077]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   groupName:t="sector_1_a"
   active:b=no
@@ -1410,7 +1387,6 @@ entity{
   transform:m=[[1.77263, 0.0, -0.255246] [0.0, 1.0, 0.0] [0.199953, 0.0, 1.38863] [48.88, 9.46339, 140.608]]
   groupName:t="sector_1_a"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/repnikova_house"
   capzone__timeToPlant:r=25.0
@@ -1424,7 +1400,6 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   sphere_zone__radius:r=12.4
-  decal__height:r=0.9
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
   capzone__plantingTeam:i=2
@@ -1440,7 +1415,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-3.11903, 0.0, -23.6294] [0.0, 4.97835, 0.0] [30.8985, 0.0, -4.07856] [-26.2497, 8.89209, 271.674]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   groupName:t="sector_2_a"
   active:b=no
@@ -1467,7 +1441,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-27.1762, 7.15877, 164.349]]
   groupName:t="sector_2_a"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/communal_house"
   active:b=no
@@ -1479,7 +1452,6 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=1
   sphere_zone__radius:r=11.0
-  decal__height:r=0.9
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=2
@@ -1495,7 +1467,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-32.2988, 0.0, 4.11572] [0.0, 11.3661, 0.0] [-3.33342, 0.0, -26.1597] [-140.575, 9.07155, 239.446]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   groupName:t="sector_3_a"
   active:b=no
@@ -2298,7 +2269,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.395628, 0.0, -0.918411] [0.0, 1.0, 0.0] [0.918411, 0.0, 0.395628] [-173.768, 6.12495, 130.647]]
+  transform:m=[[0.395628, 0.0, -0.918411] [0.0, 1.0, 0.0] [0.918411, 0.0, 0.395628] [-142.758, 6.12495, 202.849]]
   resupply_zone__team:i=1
   groupName:t="sector_1_a"
   active:b=no
@@ -2306,7 +2277,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.682308, 0.0, 0.731066] [0.0, 1.0, 0.0] [-0.731066, 0.0, -0.682308] [297.511, 5.83493, 141.61]]
+  transform:m=[[-0.682308, 0.0, 0.731066] [0.0, 1.0, 0.0] [-0.731066, 0.0, -0.682308] [244.614, 5.83491, 171.513]]
   resupply_zone__team:i=2
   groupName:t="sector_1_a"
   active:b=no
@@ -2330,7 +2301,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.296612, 0.0, 0.954999] [0.0, 1.0, 0.0] [-0.954999, 0.0, 0.296612] [-70.3683, 5.9899, 111.96]]
+  transform:m=[[0.296612, 0.0, 0.954999] [0.0, 1.0, 0.0] [-0.954999, 0.0, 0.296612] [-28.837, 5.98988, 93.0425]]
   resupply_zone__team:i=2
   groupName:t="sector_3_a"
   active:b=no

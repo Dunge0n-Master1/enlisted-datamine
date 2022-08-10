@@ -39,7 +39,7 @@ let function processObsceneFilter(response, filterCb) {
 }
 
 let function requestObsceneFilter(phraseToFilter, filterCb){
-  if(!hasObsceneFilter){
+  if (!hasObsceneFilter){
     filterCb(phraseToFilter)
     return
   }

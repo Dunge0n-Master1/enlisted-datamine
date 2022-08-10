@@ -80,6 +80,7 @@ def update_movement(dt : float;
                     human_input__sprint : int;
                     human_input__perspWk : float;
                     human_input__forceLookMode : bool;
+                    human_input__blockLookModeCounter : int;
                     aim_offset : float2&;
                     vehicle_input__aim : int?;
                     isInVehicle : bool;
@@ -129,7 +130,7 @@ def update_movement(dt : float;
 
     // Look
     let prevLookAngle = human_input__lookAngle
-    if asLook.bActive || human_input__forceLookMode
+    if (asLook.bActive || human_input__forceLookMode) && human_input__blockLookModeCounter <= 0
       if actor.phys |> human_phys_isAiming() && !human_input__forceLookMode
         ax += double(asLook.x)
         ay += double(asLook.y)
@@ -203,6 +204,7 @@ def fix_changed_hero_input(dt : float;
                            human_input__sprint : int;
                            human_input__perspWk : float;
                            human_input__forceLookMode : bool;
+                           human_input__blockLookModeCounter : int;
                            aim_offset : float2&;
                            vehicle_input__aim : int?;
                            isInVehicle : bool;
@@ -227,6 +229,7 @@ def fix_changed_hero_input(dt : float;
                   human_input__look, human_input__move,
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
+                  human_input__blockLookModeCounter,
                   aim_offset, vehicle_input__aim, isInVehicle,
                   true, true, float2(0.5, 0.5),
                   DEFAULT_VERT_LOOK_ANGLE_LIMIT_RAD, 1.0,
@@ -297,6 +300,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__canShoot : bool = true;
                    human_input__forceAim : bool = false;
                    human_input__blockLeaningCounter : int = 0;
+                   human_input__blockLookModeCounter : int = 0;
                    isTpsView : bool = false;
                    human_input__followVehicleRotationInFirstPerson : bool = true;
                    var human_input__perspWk : float&;
@@ -343,6 +347,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                            human_input__look, human_input__move,
                            human_input__sprint, human_input__perspWk,
                            human_input__forceLookMode,
+                           human_input__blockLookModeCounter,
                            human_input__aimAngleOffset,
                            vehicleInputAim, isInVehicle,
                            human_input__resetSprintMovementThreshold,
@@ -385,6 +390,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                   human_input__look, human_input__move,
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
+                  human_input__blockLookModeCounter,
                   human_input__aimAngleOffset, vehicleInputAim, isInVehicle,
                   shouldUpdateLookDir, shouldUpdateWalkDir, human_input__lookDirClamp / 180.f,
                   deg_to_rad(human_input__currentVertLookAngleLimit), human_input__aimingSensMult,
@@ -402,7 +408,7 @@ def human_input_es(info : UpdateStageUpdateInput;
     // We block shooting right after we drop a weapon, so we'll not shoot with our 'not dropped weapon' on the client, while we
     // still wait for server reply.
     let isShootBlocked = info.curTime - human_input__lastWeaponChangeInput < get_interp_delay_time(human_net_phys)
-    let shoot = (get_digital_action_state(uint16(human_input__shoot)).bState || is_button_pressed(uint16(human_input__shoot)))
+    let shoot = get_digital_action_state(uint16(human_input__shoot)).bState || is_button_pressed(uint16(human_input__shoot)) || phys.producedCT.haveUnenqueuedHctShoot
     let shootFlag = (shoot && !isShootBlocked)
     if shootFlag != phys.producedCT.lastEnqueuedHctShoot
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, shootFlag)
@@ -410,6 +416,7 @@ def human_input_es(info : UpdateStageUpdateInput;
       human_input__lastShootInput = info.curTime
       // Reset sprinting when started shooting
       reset_digital_action_sticky_toggle(uint16(human_input__sprint))
+      phys.producedCT.haveUnenqueuedHctShoot = true
 
   let isSprintAction = (get_digital_action_state(uint16(human_input__sprint)).bState || is_button_pressed(uint16(human_input__sprint)))
   let isSprintingMove = (get_analog_stick_action_state(uint16(human_input__move)).y > human_input__sprintMoveThreshold ||

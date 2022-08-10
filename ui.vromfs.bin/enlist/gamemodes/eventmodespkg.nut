@@ -52,9 +52,9 @@ let mkWindowHeader = @(title, image, addChild = null){
 
 let function sequentialArmySelect(armies, armyId, deltaIdx, onArmySelect) {
   let currentArmieIdx = armies.findindex(@(val) val == armyId)
-  if(currentArmieIdx != null){
+  if (currentArmieIdx != null){
     let newIdx = currentArmieIdx + deltaIdx
-    if(newIdx >= 0 && newIdx < armies.len())
+    if (newIdx >= 0 && newIdx < armies.len())
       onArmySelect(armies[newIdx])
   }
 }

@@ -1,20 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  defTxtColor, detailsHeaderColor, smallPadding, inventoryItemDetailsWidth, unitSize
+let { defTxtColor, detailsHeaderColor, smallPadding, inventoryItemDetailsWidth, unitSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { statusTier, statusHintText, statusIconCtor } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
 let { getItemName, getItemTypeName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { itemTypeIcon } = require("itemTypesData.nut")
 let mkItemLevelData = require("%enlist/soldiers/model/mkItemLevelData.nut")
-let {
-  blur, mkItemDescription, mkVehicleDetails, mkItemDetails, mkUpgrades
+let { blur, mkItemDescription, mkVehicleDetails, mkItemDetails, mkUpgrades
 } = require("itemDetailsPkg.nut")
 let { configs } = require("%enlSqGlob/configs/configs.nut")
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { inventoryItems } = require("%enlist/soldiers/model/selectItemState.nut")
+
 let animations = [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, easing = OutCubic,
     play = true, trigger = "itemDetailsAnim"}
@@ -22,25 +22,27 @@ let animations = [
     play = true, trigger = "itemDetailsAnim"}
 ]
 
-let lockedInfo = function(item, soldierWatch) {
+let lockedInfo = function(item) {
   let demandsWatch = mkItemDemands(item)
-  let watches = [demandsWatch, soldierWatch]
+  let watch = [demandsWatch, inventoryItems]
   return function() {
     let demands = demandsWatch.value
-    if (demands == null)
-      return blur({
-        watch = watches
+    if (demands == null) {
+      let count = inventoryItems.value?[item.basetpl].count ?? 0
+      return count < 1 ? { watch } : blur({
+        watch
         children = {
           size = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
           rendObj = ROBJ_TEXT
           maxWidth = inventoryItemDetailsWidth
           halign = ALIGN_RIGHT
-          text = loc("itemCurrentCount", { count = item?.count ?? 0 })
+          text = loc("itemCurrentCount", { count })
           color = defTxtColor
         }.__update(sub_txt)
       })
+    }
     return blur({
-      watch = watches
+      watch
       size = [inventoryItemDetailsWidth + smallPadding * 2, SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
       children = [
@@ -62,7 +64,7 @@ let mkInfoRow = @(text, value) {
 let mkSlotIncreaseInfo = @(item) function() {
   let res = { watch = configs }
   let incInfo = {}
-  foreach(slotType, tplsList in configs.value?.equip_slot_increase ?? {})
+  foreach (slotType, tplsList in configs.value?.equip_slot_increase ?? {})
     if (item.basetpl in tplsList)
       incInfo[slotType] <- tplsList[item.basetpl]
   if (incInfo.len() == 0)
@@ -108,7 +110,7 @@ let function detailsStatusTier(item, isBlur = false) {
 
 local lastTpl = null
 
-let mkDetailsInfo = @(viewItemWatch, soldierWatch, isLocked = true) function() {
+let mkDetailsInfo = @(viewItemWatch, isLocked = true) function() {
   let res = {
     watch = viewItemWatch
     transform = {}
@@ -154,7 +156,7 @@ let mkDetailsInfo = @(viewItemWatch, soldierWatch, isLocked = true) function() {
         ]
       })
       detailsStatusTier(item, true)
-      isLocked ? lockedInfo(item, soldierWatch) : null
+      isLocked ? lockedInfo(item) : null
       isVehicle ? mkItemDescription(item, size) : mkItemDescription(item)
       mkSlotIncreaseInfo(item)
       mkAmmoIncreaseInfo(item)

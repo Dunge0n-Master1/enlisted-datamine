@@ -39,7 +39,7 @@ let function getPicture(source) {
 let getTMatrixString = @(m)
   "[{0}]".subst(" ".join(array(4).map(@(_, i) $"[{m[i].x}, {m[i].y}, {m[i].z}]")))
 
-let function iconWidget(item, params = iconWidgetDef) {
+let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
   let { children = null } = params
   let { iconName = "", itemName = "" } = item
   if (iconName == "") {
@@ -66,30 +66,13 @@ let function iconWidget(item, params = iconWidgetDef) {
   let objTexReplace = getTexReplaceString(item)
   let objTexSet = getTexSetString(item)
 
+  let haveActiveAttachments = iconAttachments != null
   let attachments = []
-  local haveActiveAttachments = false
-  foreach (i, attachment in item?.iconAttachments ?? []) {
-    let active = attachment?.active ?? false
-    if (shading == "full" && !active) {
-      // Full shading and attachment is inactive, just hide it.
-      continue
-    }
-    haveActiveAttachments = haveActiveAttachments || active
-    let attOutlineColor = active ? outlineColor : outlineColorInactive
-    let attSilhouetteColor = active ? silhouetteColor : silhouetteColorInactive
-    attachments.append($"a{i}")
-    attachments.append("{")
-    attachments.append($"animchar:t={attachment?.animchar};slot:t={attachment?.slot};scale:r={attachment?.scale ?? 1.0};")
-    attachments.append($"outline:c={attOutlineColor};shading:t={shading};silhouette:c={attSilhouetteColor};")
-    attachments.append("}")
+  foreach (i, attachment in iconAttachments ?? []) {
+    attachments.append($"a{i}\{animchar:t={attachment?.animchar};slot:t={attachment?.slot};scale:r={attachment?.scale ?? 1.0};outline:c={outlineColor};shading:t={shading};silhouette:c={silhouetteColor};\}")
   }
   foreach (decorator in item?.decorators ?? []) {
-    attachments.append("a{")
-    attachments.append($"relativeTm:m={getTMatrixString(decorator?.relativeTm)};")
-    attachments.append($"animchar:t={decorator?.animchar};parentNode:t={decorator?.nodeName};")
-    attachments.append("shading:t=same;attachType:t=node;")
-    attachments.append($"swapYZ:b={decorator?.swapYZ ?? true};")
-    attachments.append("}")
+    attachments.append($"a\{relativeTm:m={getTMatrixString(decorator?.relativeTm)};animchar:t={decorator?.animchar};parentNode:t={decorator?.nodeName};shading:t=same;attachType:t=node;swapYZ:b={decorator?.swapYZ ?? true};\}")
   }
 
   let hideNodes = (item?.hideNodes ?? []).map(@(node) $"node:t={node};")

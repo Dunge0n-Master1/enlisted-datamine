@@ -4,7 +4,7 @@ let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let {
-  defBgColor, smallPadding, bigPadding, defTxtColor, activeTxtColor,
+  defBgColor, smallPadding, bigPadding, defTxtColor,
   titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
@@ -13,7 +13,7 @@ let {
 } = require("bpState.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { getOneReward, mkRewardIcon  } = require("rewardsPkg.nut")
-let bpWindow = require("bpWindow.nut")
+let { openBPwindow } = require("bpWindowState.nut")
 let { timeTracker } = require("bpPkg.nut")
 let {
   taskSlotPadding, rewardAnimBg, mkTaskLabel
@@ -24,7 +24,7 @@ let { sound_play } = require("sound")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 
 
-let starSize = hdpx(20).tointeger()
+let starSize = hdpxi(20)
 local visibleStars = null
 
 let showUnseenBPStars = function() {
@@ -168,7 +168,7 @@ let function mkWidgetInfo(sf) {
                     children = [
                       txt({
                         text = loc("bp/battlePassUpper")
-                        color = activeTxtColor
+                        color = sf & S_HOVER ? titleTxtColor : defTxtColor
                       }).__update(h2_txt)
                       rewardProgress
                     ]
@@ -195,7 +195,7 @@ let bpWidgetOpen = @() {
       size = [startBtnWidth, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
-      onClick = @() bpWindow()
+      onClick = @() openBPwindow()
       sound = {
         click  = "ui/enlist/button_click"
         hover  = "ui/enlist/button_highlight"
@@ -205,6 +205,6 @@ let bpWidgetOpen = @() {
   ]
 }
 
-console_register_command(bpWindow, "ui.battlepassWindow")
+console_register_command(@() openBPwindow(), "ui.battlepassWindow")
 
 return bpWidgetOpen

@@ -18,42 +18,44 @@ require game.es.input.input_events
 require common_shooter.es.input.turret_input_common
 require common_shooter.es.weapon.turret_common
 require common_shooter.events_common_shooter
-
-def isValidFirstTurret(eid : EntityId)
-  var res = false
-  query(eid) <| $ [es(REQUIRE=isTurret, REQUIRE_NOT=gun__isLauncher)]
-    res = true
-
-  return res
+require game.es.vehicle.vehicle_seats_common
 
 [es(tag=input, on_appear, on_event=EventOnGunCreated, track=vehicle__localControls)]
 def track_turret_input(evt : Event; vehicle__localControls : VehicleControlsState; turret_control__gunEids : EidList)
   var hasFirstTurret = false
+  var anyFirstTurret = INVALID_ENTITY_ID
   var firstTurret = INVALID_ENTITY_ID
 
   for turretNo, turretEid in iter_range(turret_control__gunEids), turret_control__gunEids
     let canControlTurret = can_control_turret(vehicle__localControls, turretNo)
-    if canControlTurret && firstTurret == INVALID_ENTITY_ID
-      firstTurret = turretEid
-    if canControlTurret && isValidFirstTurret(turretEid)
-      if !has(turretEid, "firstTurretInput")
-        addSubTemplate(turretEid, "first_turret")
-      hasFirstTurret = true
-      break
+    if canControlTurret && anyFirstTurret == INVALID_ENTITY_ID
+      anyFirstTurret = turretEid
+    if canControlTurret
+      query(turretEid) <| $ [es(REQUIRE=isTurret, REQUIRE_NOT=gun__isLauncher)] (firstTurretInput : Tag?)
+        if firstTurretInput == null
+          addSubTemplate(turretEid, "first_turret")
+        hasFirstTurret = true
+        firstTurret = turretEid
+      if hasFirstTurret
+        break
 
-  if (!hasFirstTurret && firstTurret != INVALID_ENTITY_ID)
-    addSubTemplate(firstTurret, "first_turret") <| $(var init)
+  if (!hasFirstTurret && anyFirstTurret != INVALID_ENTITY_ID)
+    addSubTemplate(anyFirstTurret, "first_turret") <| $(var init)
       set(init, "isForestall", false)
+    firstTurret = anyFirstTurret
 
   for turretNo, turretEid in iter_range(turret_control__gunEids), turret_control__gunEids
-    if can_control_turret(vehicle__localControls, turretNo)
-      if !has(turretEid, "turretInput")
-        addSubTemplate(turretEid, "turret_input")
-    else
-      if has(turretEid, "turretInput")
-        removeSubTemplate(turretEid, "turret_input")
-      if has(turretEid, "firstTurretInput")
+    query(turretEid) <| $ [es] (turretInput : Tag?; firstTurretInput : Tag?)
+      if turretEid != firstTurret && firstTurretInput != null
         removeSubTemplate(turretEid, "first_turret")
+      if can_control_turret(vehicle__localControls, turretNo)
+        if turretInput == null
+          addSubTemplate(turretEid, "turret_input")
+      else
+        if turretInput != null
+          removeSubTemplate(turretEid, "turret_input")
+        if firstTurretInput != null
+          removeSubTemplate(turretEid, "first_turret")
 
 [es(tag=input, on_appear)]
 def turret_init_zoom(evt : Event; turret_input__minZoom : float; var turret_input__zoom : float&)
@@ -101,6 +103,28 @@ def turret_camera_look_dir_es(info : UpdateStageInfoAct;
         return
       camera__lookDir = normalize(turret_input__aimPos - camPos)
 
+[es(tag=input, REQUIRE=heroVehicle, before=turret_aim_angles_to_look_dir_es)]
+def human_vehicle_free_look_es(evt : UpdateStageInfoAct;
+                               turret_control__gunEids : EidList;
+                               vehicle_seats__seatEids : EidList;
+                               var turret_control__isInputLocked : bool&;
+                               vehicle_look__lockAllTurrentControll : bool = false)
+  query() <| $ [es(REQUIRE=hero)] (human_input__look : int; human_input__standState : int)
+    let asLook = get_analog_stick_action_state(uint16(human_input__look))
+    let isLocalControlLocked = asLook.bActive && human_input__standState == int(HumanPhysControlType HCT_CROUCH)
+    if turret_control__isInputLocked == isLocalControlLocked
+      return
+
+    turret_control__isInputLocked = isLocalControlLocked
+    let seatNo = vehicle_get_hero_seat_idx(vehicle_seats__seatEids)
+    if seatNo < 0
+      return
+    query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__availableHatchControls : VehicleControlsState)
+      for gunEid in turret_control__gunEids
+        query(gunEid) <| $ [es] (turret__id : int; var turret_input__isLocalControlLocked : bool&)
+          turret_input__isLocalControlLocked = (isLocalControlLocked
+            && (vehicle_look__lockAllTurrentControll || !can_control_turret(seat__availableHatchControls, turret__id)))
+
 [es(tag=input, after=turret_camera_look_dir_es, before=human_look_dir_camera_in_vehicle_es)]
 def turret_aim_angles_to_look_dir_es(info : UpdateStageInfoAct;
                                      turret_control__gunEids : EidList;
@@ -143,6 +167,7 @@ def turret_zoom_es(info : UpdateStageInfoAct;
   let dt = info.dt
   var isMagnificationChanged = false
   var magnification = 1f
+
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret_input__minZoom : float;
                                                                          turret_input__maxZoom : float;
@@ -162,6 +187,7 @@ def turret_zoom_es(info : UpdateStageInfoAct;
     query() <| $ [es] (camera__target : EntityId)
       query(camera__target) <| $ [es] (var camera__magnification : float&)
         camera__magnification = magnification
+
 
 def get_action_state_or(action : uint16; default_value : bool)
   let isTouchPressed = is_button_pressed(action)
@@ -210,11 +236,12 @@ def turret_input_local_es(info : UpdateStageUpdateInput;
     query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__id : int;
                                                      turret_input__shootFlag : bool;
                                                      turret_input__aimPos : float3;
+                                                     turret_input__isLocalControlLocked : bool = false;
                                                      var turret_aim__shootAngles : float2&;
                                                      var turret_aim__shootFlag : bool&)
       let turretNo = turret__id
 
-      if !can_control_turret(vehicle__localControls, turretNo)
+      if !can_control_turret(vehicle__localControls, turretNo) || turret_input__isLocalControlLocked
         return
 
       let wasShooting = turret_aim__shootFlag

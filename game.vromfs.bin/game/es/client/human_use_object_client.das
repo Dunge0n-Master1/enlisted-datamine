@@ -1,7 +1,7 @@
 require ecs
 require game.es.human.human_use_object_common
 require game.es.events
-require game.es.camera_common
+require enlisted.events_enlisted
 require math.base
 require game.utils.team
 require zones
@@ -9,6 +9,7 @@ require AnimV20
 require GeomNodeTree
 require EnlistedWeapon
 require EnlistedHuman
+require EnlistedCamera
 require DagorMath
 require Grid
 require RendInst
@@ -25,8 +26,13 @@ struct DoorData
   lookAt : bool
 
 
+def get_cam_itm()
+  return get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
+
+
+
 [es(REQUIRE=hero, after=(hero_human_use_spray_object_es, hero_human_use_stationary_gun_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
-def hero_human_use_door_object_es(info : UpdateStageInfoAct;
+def hero_human_use_door_object_es(info : ParallelUpdateFrameDelayed;
                                   animchar : AnimcharBaseComponent;
                                   human_use_object__useDoorDist : float = 2.5;
                                   human_use_object__doorLimitCosine : float = 0.8;
@@ -128,7 +134,7 @@ def can_request_ammo_from(squad_eid : EntityId;
 
 
 [es(REQUIRE=hero, after=(hero_human_use_door_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
-def hero_human_use_human_object_es(info : UpdateStageInfoAct;
+def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
                                    animchar : AnimcharBaseComponent;
                                    human_use_object__useDist : float;
@@ -188,7 +194,7 @@ def hero_human_use_human_object_es(info : UpdateStageInfoAct;
 
 
 [es(REQUIRE=hero, after=(hero_human_use_grenade_rethrow_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
-def hero_human_use_downed_human_object_es(info : UpdateStageInfoAct;
+def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
                                           animchar : AnimcharBaseComponent;
                                           team aka team_hero : int;
                                           total_kits__targetRevive : int = 0;

@@ -1,0 +1,7 @@
+cable_renderer{
+  _singleton:b=yes
+  _tags:t="render"
+
+  "cable_trans_framegraph_node:CableTransFramegraphNode"{
+  }
+}

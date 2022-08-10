@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require soundHash
 require soundEvent
@@ -16,13 +17,12 @@ def human_using_item_sound(evt : Event;
   if human_inventory__entityToUse != INVALID_ENTITY_ID && isAlive
     if should_play(transform[3])
       ecs::query(human_inventory__entityToUse) <| $ [es] (item__usingSoundType : string = ""; item__lootSoundType : string)
-        let hash = item__usingSoundType != "" ? sound_hash(item__usingSoundType) : sound_hash("using_{item__lootSoundType}")
-        for it in net_sound__descs
-          if sound_hash(it.key) == hash
-            let objPtr = get_ecs_object(it.value)
-            assume obj = *objPtr
-            let nameRef = is_watched_sound ? (has(obj, "hero") ? obj["hero"] : obj["path"]) : (has(obj, "enemy") ? obj["enemy"] : obj["path"])
-            if nameRef != null
-              let name = get_string(nameRef, "")
-              sound_player_common::play_name_path(name, "", sound_hash("loot"), transform[3], sound_event_group)
-            return
+        let path = item__usingSoundType != "" ? item__usingSoundType : "using_{item__lootSoundType}"
+        let objPtr = net_sound__descs[path] ?as Object
+        if objPtr != null
+          assume obj = *objPtr
+          let nameRef = is_watched_sound ? (has(obj, "hero") ? obj["hero"] : obj["path"]) : (has(obj, "enemy") ? obj["enemy"] : obj["path"])
+          if nameRef != null
+            let name = (*nameRef) ?? ""
+            sound_player_common::play_name_path(name, "", sound_hash("loot"), transform[3], sound_event_group)
+          return

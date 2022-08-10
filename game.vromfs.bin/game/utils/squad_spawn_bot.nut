@@ -11,7 +11,7 @@ let squadSpawn = kwarg(function(teamEid, team, template, transform, potentialPos
   let teamSpawnBotArmy = ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnBotArmy")
   local squad = defaultProfile?[teamSpawnBotArmy].squads[0].squad
   if (!squad)
-    foreach(armyId in teamArmies) {
+    foreach (armyId in teamArmies) {
       squad = defaultProfile?[armyId].squads[0].squad
       if (squad)
         break

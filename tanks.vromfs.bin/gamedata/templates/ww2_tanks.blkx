@@ -15,6 +15,7 @@ import:t="us_cannons.blk"
 import:t="uk_cannon.blk"
 import:t="aa_cars.blk"
 import:t="artillery.blk"
+import:t="ww2_motorcycles.blk"
 
 tankgun_m1_76mm{
   _extends:t="tankgun"
@@ -22,7 +23,6 @@ tankgun_m1_76mm{
   gun__locName:t="76mm gun M1"
   gun__sightsDistance:r=0.05
   gun__shotFreq:r=0.17
-  gun__shotFreqRndK:r=0.1
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.075
   gun_deviation__omegaRange:p2=30.0, 90.0
@@ -54,7 +54,6 @@ tankgun_7_92mm_ZB_VZ37_machinegun_m3a1_stuart{
   gun__locName:t="7.92mm ZB"
   gun__sightsDistance:r=0.05
   gun__shotFreq:r=12.8
-  gun__shotFreqRndK:r=0.1
   gun__automaticReload:b=no
   gun__recoilAmount:r=0.0
   gun_spread__maxDeltaAngle:r=0.075
@@ -101,6 +100,8 @@ destroy_inactive_vehicle{
 
 turret_controls_hit_result_info{
   turretCheckHitResult:i=-1
+  turretCheckHitResultThreadCalc:i=-1
+  turretHitPosThreadCalc:p3=0.0, 0.0, 0.0
   turretCheckHitInterval:r=0.2
   turretCheckHitAtTime:r=0.0
 }
@@ -115,9 +116,9 @@ base_turret_controls{
   net_phys__prevTick:i=0
   turret_state__atTick:i=0
   _replicated:t="turret_control__gunEids"
-  _replicated:t="turret_state__atTick"
   turret_control__bombsSalvoSize:i=2
   turret_control__rocketsSalvoSize:i=2
+  turret_control__isInputLocked:b=no
 
   anim_phys{
   }
@@ -128,7 +129,10 @@ base_turret_controls{
   "turretsInitialComponents:array"{
   }
 
-  "turretGunFx:array"{
+  "turret_gun_fx__fxTemplate:list<t>"{
+  }
+
+  "turret_gun_fx__nodeId:list<i>"{
   }
 
   _group{
@@ -143,10 +147,6 @@ base_turret_controls{
     _tags:t="server"
     turret_aim_sync__interval:r=1.0
     turret_aim_sync__nextSyncAtTime:r=0.0
-  }
-
-  turret_gun_flash_fx{
-    _tags:t="render"
   }
 
   "vehicle_seats_can_acquire_controls:list<i>"{
@@ -265,10 +265,12 @@ tank_mods{
 attached_fire_engine_damage{
   _tags:t="server"
   attached_fire__isEngineAffected:b=no
+  attached_fire__isAnyFireAttached:b=no
   attached_fire__engineAffectRadius:r=1.2
   attached_fire__engineDmgPerSec:r=8.0
   attached_fire__lastUpdate:r=-1.0
   attached_fire__updateInterval:r=1.0
+  _tracked:t="attached_fire__isAnyFireAttached"
 
   "attached_fire__offender:eid"{
   }
@@ -371,6 +373,14 @@ base_tank_without_xray{
   _extends:t="base_tank_without_xray_common"
   vehicle_seats__restrictToTeam:i=-1
   vehicle_seats__autoDetectRestrictToTeam:b=yes
+  vehicle_kill_assist__stat:t="tankKillAssists"
+  vehicle_kill_assist__crewStat:t="tankKillAssistsAsCrew"
+  vehicle_kill_assist__engineerStat:t="builtGunTankKillAssists"
+  vehicle_kill_assist__time:r=20.0
+  vehicle_kill__award:t="tankKill"
+  vehicle_kill__stat:t="tankKills"
+  vehicle_kill__crewStat:t="crewTankKillAssists"
+  vehicle_kill__engineerStat:t="builtGunTankKills"
 
   "isTank:tag"{
   }
@@ -410,6 +420,7 @@ base_tank_without_xray_common{
   repairable__baseRepairTotalTime:r=5.0
   repairable__baseRecoveryRatio:r=0.3
   repairable__recoveryRatio:r=0.3
+  turret_control__missingLoaderReloadTimeMult:r=2.0
 
   _group{
     _replicate:b=yes
@@ -430,11 +441,22 @@ base_tank_without_xray_common{
     repairable__repairTotalTime:r=-1.0
     repairable__repairTime:r=-1.0
     repairable__repairRequired:b=no
+    repairable__extinguishRequired:b=no
   }
 
   _group{
     _tags:t="render"
     animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
+  }
+
+  _group{
+    _tags:t="render"
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
   }
 
   _group{
@@ -516,21 +538,14 @@ base_tank_without_xray_common{
     _tags:t="render"
   }
 
-  engine_fire_fx_states{
-    _tags:t="render"
-  }
-
-  engine_fire_fx{
-    _tags:t="render"
-  }
-
   "maintainable__operator:eid"{
   }
 
   "vehicle_seats_receive_damage_from_dm_part:list<i>"{
   }
 
-  "vehicle_seats__applyLoaderModsToTurrets:array"{
+  "vehicle_seats__applyPerks:tag"{
+    _tags:t="server"
   }
 
   "engine_fire_fx__fx:array"{
@@ -557,32 +572,32 @@ base_tank_without_xray_common{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_engine_fire"
+          name:t="tank_engine_fire_template"
           emitter:t="emtr_fire_engine"
         }
 
         "fx:object"{
-          name:t="tank_engine_fire"
+          name:t="tank_engine_fire_template"
           emitter:t="emtr_fire_engine_01"
         }
 
         "fx:object"{
-          name:t="tank_engine_fire"
+          name:t="tank_engine_fire_template"
           emitter:t="emtr_fire_engine_02"
         }
 
         "fx:object"{
-          name:t="tank_engine_smoke"
+          name:t="tank_engine_smoke_template"
           emitter:t="emtr_fire_engine"
         }
 
         "fx:object"{
-          name:t="tank_engine_smoke"
+          name:t="tank_engine_smoke_template"
           emitter:t="emtr_fire_engine_01"
         }
 
         "fx:object"{
-          name:t="tank_engine_smoke"
+          name:t="tank_engine_smoke_template"
           emitter:t="emtr_fire_engine_02"
         }
       }
@@ -599,172 +614,87 @@ base_tank_without_xray_common{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_big"
-          emitter:t="emtr_smoke_dmg"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_01"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_02"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_03"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_04"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_05"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_06"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_07"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_08"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_09"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_10"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_11"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_12"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_13"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_14"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_15"
-        }
-
-        "fx:object"{
-          name:t="tank_smoke_small"
-          emitter:t="emtr_smoke_small_dmg_16"
-        }
-
-        "fx:object"{
-          name:t="tank_fire_big"
+          name:t="tank_fire_big_template"
           emitter:t="emtr_fire_dmg"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_01"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_02"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_03"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_04"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_05"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_06"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_07"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_08"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_09"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_10"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_11"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_12"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_13"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_14"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_15"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_fire_small_dmg_16"
         }
       }
@@ -778,17 +708,17 @@ base_tank_without_xray_common{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_ammo"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_ammo_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_ammo_02"
         }
       }
@@ -805,57 +735,57 @@ base_tank_without_xray_common{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_01"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_02"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_03"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_04"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_05"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_06"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_07"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_08"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_09"
         }
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_fire_ammo_10"
         }
       }
@@ -872,97 +802,97 @@ base_tank_without_xray_common{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_02"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_03"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_04"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_05"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_06"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_07"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_08"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_09"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_10"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_11"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_12"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_13"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_14"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_15"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_smoke_small_dmg_16"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_fire_ammo"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_fire_ammo_01"
         }
 
         "fx:object"{
-          name:t="tank_smoke_destroyed"
+          name:t="tank_smoke_destroyed_template"
           emitter:t="emtr_fire_ammo_02"
         }
       }
@@ -1185,6 +1115,8 @@ vehicle_seat_commander{
   seats_order__canPlaceManually:b=yes
   seat_anim__upper:t="drive_driver"
   seat_anim__lower:t="drive_driver"
+  seat_anim__fireReadyUpper:t="upper_fireready"
+  seat_anim__fireReadyLower:t="drive_driver"
 
   "commanderSeat:tag"{
   }
@@ -1218,7 +1150,6 @@ base_tankgun_cannon{
   _extends:t="tankgun_cannon_reload_sounds"
   _extends:t="tankgun_cannon_overheat_sound"
   gun__sightsDistance:r=0.05
-  gun__shotFreqRndK:r=0.1
   gun__automaticReload:b=no
   gun__statName:t="launcher"
   gun_spread__maxDeltaAngle:r=0.12
@@ -1231,9 +1162,19 @@ base_tankgun_cannon{
   gun_deviation__extraDeviationTau:r=0.2
   gun_deviation__maxDeviation:r=25.0
   gun__timeBetweenShotMult:r=1.0
+  gun__currentTimeBetweenShotMult:r=1.0
   gun__cameraShakeTrauma:r=0.8
   gun__cameraShakeMaxTrauma:r=0.8
   _replicated:t="gun__timeBetweenShotMult"
+  _tracked:t="gun__timeBetweenShotMult"
+
+  "turret__hasLoaderSeatInVehicle:b"{
+    _tags:t="server"
+    value:b=no
+  }
+
+  "xrayActivator:tag"{
+  }
 
   "gun__timeBetweenShotsIsReload:tag"{
   }
@@ -1246,7 +1187,6 @@ base_tankgun_cannon{
 
 base_machinegun{
   gun__sightsDistance:r=0.05
-  gun__shotFreqRndK:r=0.1
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.12
   gun_deviation__omegaRange:p2=30.0, 90.0
@@ -1276,6 +1216,13 @@ base_tankgun_autocannon{
   _extends:t="camera_shake_on_shooting"
   gun__cameraShakeTrauma:r=0.15
   gun__cameraShakeMaxTrauma:r=0.15
+  gun__reloadTimeBase:r=3.0
+  _replicated:t="gun__reloadTimeBase"
+
+  _group{
+    _tags:t="server"
+    turret__hasLoaderSeatInVehicle:b=no
+  }
 }
 
 base_tankgun_machinegun{
@@ -1401,11 +1348,10 @@ _componentFilters{
   turret_guidance__reductionAtYawAngleDeg:t="filter_possessed_spectated_attachables_and_vehicle"
   turret_guidance__pitchMultWhenAimingYaw:t="filter_possessed_spectated_attachables_and_vehicle"
   turret__canShoot:t="filter_possessed_spectated_attachables_and_vehicle"
-  turret_state:t="filter_vehicle_controlled_by"
-  turret_state__atTick:t="filter_vehicle_controlled_by"
   turret__canChangeShellDuringReload:t="filter_possessed_spectated_attachables_and_vehicle"
   gun__overheat:t="filter_possessed_spectated_attachables_and_vehicle"
   gun__timeBetweenShotMult:t="filter_possessed_and_spectated_vehicle"
+  gun__reloadTimeBase:t="filter_possessed_and_spectated_vehicle"
 }
 
 base_40mm_lva_kan_m36{
@@ -1587,19 +1533,10 @@ base_tank_rocket_item{
   _extends:t="ecs_no_debug"
   animchar__res:t="m8_rocket_char"
   slot_attach__slotName:t=""
-  slot_attach__updateWtm:b=yes
   slot_attach__slotId:i=-1
-  slot_attach__slotWtmValid:b=no
-  slot_attach__attachTmValid:b=no
   _tracked:t="slot_attach__attachedTo"
   _replicated:t="slot_attach__attachedTo"
-  _skipInitialReplication:t="slot_attach__slotId,slot_attach__attachTm,slot_attach__slotWtm"
-
-  slot_attach__slotWtm{
-  }
-
-  slot_attach__attachTm{
-  }
+  _skipInitialReplication:t="slot_attach__slotId"
 
   "slot_attach__attachedTo:eid"{
   }

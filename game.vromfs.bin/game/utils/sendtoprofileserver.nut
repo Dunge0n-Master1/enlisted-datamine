@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 let profile = require("%scripts/game/utils/profile.nut")
 let { INVALID_USER_ID } = require("matching.errors")
-let logS = require("%sqstd/log.nut")().with_prefix("[sendToProfileServer] ")
+let logS = require("%enlSqGlob/library_logs.nut").with_prefix("[sendToProfileServer] ")
 
 
 let playerQuery = ecs.SqQuery("playerQuery", {

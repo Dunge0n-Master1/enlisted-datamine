@@ -38,10 +38,10 @@ let cardSelectAnim    = [ { prop = AnimProp.translate, duration = 0.15, easing =
 let cardStateCommon   = { translate = [0, 0] }
 let cardStateSelected = { translate = [0, -hugePadding] }
 let gapCards          = hdpx(32)
-let lockBPLarge       = [hdpx(540).tointeger(), hdpx(90).tointeger()]
-let bgFree            = [hdpx(180).tointeger(), hdpx(30).tointeger()]
-let logoBP            = [hdpx(240).tointeger(), hdpx(40).tointeger()]
-let lockBPSmall       = [hdpx(240).tointeger(), hdpx(40).tointeger()]
+let lockBPLarge       = [hdpxi(540), hdpxi(90)]
+let bgFree            = [hdpxi(180), hdpxi(30)]
+let logoBP            = [hdpxi(240), hdpxi(40)]
+let lockBPSmall       = [hdpxi(240), hdpxi(40)]
 
 let timeTracker = @() {
   watch = timeLeft
@@ -260,8 +260,8 @@ let mkCardCountCtor = @(size, fontStyle) @(count) {
   }.__update(fontStyle)
 }
 
-let cardCountCircle = mkCardCountCtor(hdpx(43).tointeger(), body_txt)
-let cardCountCircleSmall = mkCardCountCtor(hdpx(30).tointeger(), sub_txt)
+let cardCountCircle = mkCardCountCtor(hdpxi(43), body_txt)
+let cardCountCircleSmall = mkCardCountCtor(hdpxi(30), sub_txt)
 
 let cardBottom = @(count, cardIcon){
   size = [flex(), SIZE_TO_CONTENT]

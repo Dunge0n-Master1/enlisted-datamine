@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let achievements = require("%xboxLib/achievements.nut")
 let loginState = require("%enlSqGlob/login_state.nut")
 let {unlockProgress, unlocksSorted, getUnlockProgress} = require("%enlSqGlob/userstats/unlocksState.nut")
-let logX = require("%sqstd/log.nut")().with_prefix("[XBOX_ACHIEVEMENTS] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX_ACHIEVEMENTS] ")
 
 
 let function update_xbox_achievements(_) {
@@ -15,7 +15,7 @@ let function update_xbox_achievements(_) {
   }
 
   let unlocks = []
-  foreach(unlockDesc in unlocksSorted.value) {
+  foreach (unlockDesc in unlocksSorted.value) {
     let progress = getUnlockProgress(unlockDesc)
     let id = unlockDesc.xboxId
     let name = unlockDesc.name

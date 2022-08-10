@@ -172,23 +172,15 @@ def human_speech_cmd_hero_speech(evt : CmdHeroSpeech;
     sound_debug("There is no human speech desc for phrase '{evt.phrase}'")
 
 
-[es(tag=sound, after=(net_phys_update_es, human_fall_sound_is_falling_update, human_fall_sound_with_spawn_is_falling_update))]
+[es(tag=sound, after=(net_phys_update_es, human_voice_enable))]
 def human_speech_can_speak_update(info : UpdateStageInfoAct;
                                   human_speech__enable : bool;
-                                  human_fall_sound__isFalling : bool;
-                                  human_breath__isUnderWater : bool = false;
                                   var human_speech__canSpeak : bool&;
                                   var sound_event_group : SoundEventGroup&;
-                                  isAlive : bool;
-                                  isDowned : bool = false;
-                                  human_net_phys__isHoldBreath : bool = false;
-                                  burning__isBurning : bool = false)
+                                  human_voice_enable : bool;
+                                  human_voice_effect__type : string)
   if human_speech__enable
     let couldSpeak = human_speech__canSpeak
-    human_speech__canSpeak = isAlive && !(isDowned ||
-                                          human_fall_sound__isFalling ||
-                                          human_net_phys__isHoldBreath ||
-                                          human_breath__isUnderWater ||
-                                          burning__isBurning)
+    human_speech__canSpeak = human_voice_enable && human_voice_effect__type == ""
     if !human_speech__canSpeak && couldSpeak
       reject_sound(sound_event_group, sound_hash("speech"))

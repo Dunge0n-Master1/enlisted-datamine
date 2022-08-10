@@ -4,9 +4,10 @@ require AnimV20
 require GeomNodeTree
 require CollRes
 require DagorMath
+require enlisted.events_enlisted
 
 [es(tag=ui, after=after_animchar_update_sync)]
-def ui_geom_node_pos(info : UpdateStageInfoAct;
+def ui_geom_node_pos(info : ParallelUpdateFrameDelayed;
                      animchar__updatable : bool;
                      ui__geom_node_idx : int;
                      animchar : AnimcharBaseComponent;

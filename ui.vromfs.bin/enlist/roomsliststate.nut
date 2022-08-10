@@ -24,7 +24,7 @@ let function listRoomsCb(response) {
     roomsList.update([])
   } else {
     curError.update(null)
-    roomsList.update(response.digest)
+    roomsList(response.digest)
   }
 }
 
@@ -57,7 +57,7 @@ local wasRefreshEnabled = false
 let function toggleRefresh(val){
   if (!wasRefreshEnabled && val)
     updateListRooms()
-  if(val)
+  if (val)
     gui_scene.setInterval(refreshPeriod.value, updateListRooms)
   else
     gui_scene.clearTimer(updateListRooms)

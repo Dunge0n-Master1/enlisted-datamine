@@ -13,11 +13,12 @@ require daslib/defer
 require danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspectors_common public
 require debugapi public
 
-
+[macro_function]
 def keep_args(var func)
   for arg in func.arguments
     arg.flags |= VariableFlags marked_used
 
+[macro_function]
 def keep_func_and_args(var func)
   func.flags |= FunctionFlags exports
   keep_args(func)

@@ -33,7 +33,6 @@ import:t="#content/tanks/gamedata/gen/templates/tanks/m4a3e2_76w_sherman_jumbo.b
 import:t="#content/tanks/gamedata/gen/templates/tanks/m4a3e2_sherman_jumbo.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/m4a3e8_76w_sherman.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/m5a1_stuart_late.blk"
-import:t="#content/tanks/gamedata/gen/templates/tanks/m8_greyhound.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/m8_scott.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/matilda_iii.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/mk_1_grant.blk"
@@ -103,3 +102,23 @@ import:t="#content/tanks/gamedata/gen/templates/tanks/towed_at_pak38.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/towed_at_pak40.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/valentine_i.blk"
 import:t="#content/tanks/gamedata/gen/templates/tanks/zis_30.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/a13_mk_2_1938.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/a13_mk_2_1939.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/ab_41.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/churchill_3.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/crusader_mk_3.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/daimler_mk_2.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/m13_40_serie_3.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/m14_41.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/m3a1_stuart.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/m41_75_18.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/m41_75_32.blk"
+import:t="#content/tanks/gamedata/gen/templates/tanks/towed_at_17pdr.blk"
+
+daimler_mk_2_turret_02_7_92mm_besa{
+  _override:b=yes
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1350
+  }
+}

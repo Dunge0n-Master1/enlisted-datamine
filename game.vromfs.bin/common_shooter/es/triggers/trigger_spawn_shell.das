@@ -15,7 +15,6 @@ def spawn_shell_impl(eid : EntityId;
                      on_create__setVelocity : float3?;
                      on_create__addShellTemplate : das_string?;
                      on_create__spawnShellTimer : float = -1.0f;
-                     offenderDesc : Object?;
                      ownerEid : EntityId = INVALID_ENTITY_ID)
   using() <| $(var shell_props : ShellPropIds#)
     shell_props.shellId = int16(register_net_props(on_create__spawnActivatedShellBlk, "shell"))
@@ -43,7 +42,7 @@ def spawn_shell_impl(eid : EntityId;
                           /*launchTime*/ get_sync_time(),
                           /*explTime*/ get_sync_time() + timer,
                           /*in_active*/ true,
-                          offenderDesc, /*clientSide*/ false,
+                          /*clientSide*/ false,
                           /*rethrowerEid*/ INVALID_ENTITY_ID)
 
       destroyEntity(eid)
@@ -57,10 +56,9 @@ def spawn_shell_on_create_es(evt : EventEntityCreated;
                              on_create__setVelocity : float3?;
                              on_create__addShellTemplate : das_string?;
                              on_create__spawnShellTimer : float = -1.0f;
-                             offenderDesc : Object?;
                              ownerEid : EntityId = INVALID_ENTITY_ID)
   spawn_shell_impl(eid, transform, on_create__spawnActivatedShellBlk, on_create__setVelocity, on_create__addShellTemplate,
-                   on_create__spawnShellTimer, offenderDesc, ownerEid)
+                   on_create__spawnShellTimer, ownerEid)
 
 [es(tag=server, no_order)]
 def spawn_shell_delayed_spawner_es(info : ecs::UpdateStageInfoAct;
@@ -71,11 +69,10 @@ def spawn_shell_delayed_spawner_es(info : ecs::UpdateStageInfoAct;
                                    on_create__setVelocity : float3?;
                                    on_create__addShellTemplate : das_string?;
                                    on_create__spawnShellTimer : float = -1.0f;
-                                   offenderDesc : Object?;
                                    ownerEid : EntityId = INVALID_ENTITY_ID)
   if activator__spawnShellAtTime > 0.f && activator__spawnShellAtTime < info.curTime
     spawn_shell_impl(eid, transform, on_create__spawnActivatedShellBlk, on_create__setVelocity, on_create__addShellTemplate,
-                     on_create__spawnShellTimer, offenderDesc, ownerEid)
+                     on_create__spawnShellTimer, ownerEid)
 
 [es(on_appear)]
 def delayed_spawn_shell_on_create_init_timer_es(evt : Event;

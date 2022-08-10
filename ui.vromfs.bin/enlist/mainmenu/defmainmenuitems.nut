@@ -40,12 +40,13 @@ let allowUrl = platform.is_pc || platform.is_sony || platform.is_nswitch || plat
 let btnGSS = GSS_URL == "" ? null : {
   id = "Gss"
   name = loc("gss")
-  cb = @() allowUrl ? openUrl(GSS_URL) : qrWindow(GSS_URL, loc("gss"))
+  cb = @() allowUrl ? openUrl(GSS_URL) : qrWindow({url = GSS_URL, header = loc("gss")})
 }
 let btnSupport = gaijinSupportUrl == "" ? null : {
   id = "Support"
   name = loc("support")
-  cb = @() allowUrl ? openUrl(gaijinSupportUrl) : qrWindow(gaijinSupportUrl, loc("support"))
+  cb = @() allowUrl ? openUrl(gaijinSupportUrl)
+    : qrWindow({url = gaijinSupportUrl, header = loc("support")})
 }
 
 let btnBugReport = (bugReportUrl == "" || !platform.is_pc) ? null : {

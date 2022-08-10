@@ -9,7 +9,7 @@ let { updateAllConfigs } = require("%enlSqGlob/configs/configs.nut")
 let { serverTimeUpdate } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
 let { get_time_msec } = require("dagor.time")
 let { logerr } = require("dagor.debug")
-let logApi = require("%sqstd/log.nut")().with_prefix("[ClientApi] ")
+let logApi = require("%enlSqGlob/library_logs.nut").with_prefix("[ClientApi] ")
 
 const MAX_REQUESTS_HISTORY = 20
 const LONG_TIME = 100 // threshold for long requests and calls logging
@@ -212,17 +212,6 @@ return {
       squadSoldiers = squadSoldiers, reserveSoldiers = reserveSoldiers
     }
   }, cb)
-
-  swap_squad_and_reserve_soldiers = @(armyId, fromGuid, toGuid, cb = null) request({
-    method = "swap_squad_and_reserve_soldiers"
-    params = {armyId = armyId, fromGuid = fromGuid, toGuid = toGuid}
-  }, cb)
-
-  move_soldier_to_reserve = @(armyId, soldierGuid, reserveIdx, cb = null) request({
-    method = "move_soldier_to_reserve"
-    params = { armyId = armyId, soldierGuid = soldierGuid, reserveIdx = reserveIdx }
-  }, cb)
-
   dismiss_reserve_soldier = @(armyId, soldierGuid, cb = null) request({
     method = "dismiss_reserve_soldier"
     params = { armyId = armyId, soldierGuid = soldierGuid }
@@ -455,12 +444,14 @@ return {
 
   get_profile_data_jwt = @(armies, cb) request({
     method = "get_profile_data_jwt"
-    params = {armies = armies}
+    params = { armies }
+    timeout_factor = 4.0
   }, cb)
 
   gen_default_profile = @(target, armies, cb) request({
     method = "gen_default_profile"
     params = {target = target, armies = armies}
+    timeout_factor = 4.0
   }, cb)
 
   gen_tutorial_profiles = @(cb) request({

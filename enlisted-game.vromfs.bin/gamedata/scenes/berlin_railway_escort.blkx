@@ -1,60 +1,16 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_railway_sounds.blk"
+}
+
 entity{
   _template:t="box_battle_area"
   transform:m=[[1450.35, 0.0, 0.0] [0.0, 243.881, 0.0] [0.0, 0.0, 402.435] [1084.99, 10.8968, 314.426]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11314.0, 0.0, 95.0636] [0.0, 8000.03, 0.0] [-95.5912, 0.0, 11313.9] [652.401, 240.916, 331.582]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
-}
-
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="ambient/europe_summer_battle"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
 }
 
 entity{
@@ -348,7 +304,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_railway_escort"
 
   "loading_images:list<t>"{
@@ -382,7 +337,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="escort/attackers_goals"
   team__winSubtitle:t="debriefing/escort/won_attack_subtitle"
   team__loseSubtitle:t="debriefing/escort/lost_attack_subtitle"
@@ -402,8 +356,6 @@ entity{
 entity{
   _template:t="train_destination_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-366.684, 10.9087, 319.406]]
-  train__teamOffense:i=2
-  train__teamDefense:i=1
 }
 
 entity{

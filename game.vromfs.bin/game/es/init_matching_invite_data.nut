@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-let logImd = require("%sqstd/log.nut")().with_prefix("[InitMatchingData] ")
+let logImd = require("%enlSqGlob/library_logs.nut").with_prefix("[InitMatchingData] ")
 let dagorsys = require("dagor.system")
 let { get_matching_invite_data, set_matching_invite_data } = require("app")
 let { EventLevelLoaded } = require("gameevents")
@@ -75,7 +75,7 @@ let function initMatchingData() {
 
   if (difficulty == "hardcore") {
     logImd($"Hardcore mode")
-    foreach(tpl in ["forceMinimalHud", "gamemodeFriendlyFire", "gamemodeCapzoneSmoke", "disableTeamkillWeaponDrops"])
+    foreach (tpl in ["forceMinimalHud", "gamemodeFriendlyFire", "gamemodeCapzoneSmoke", "disableTeamkillWeaponDrops"])
       ecs.g_entity_mgr.createEntity(tpl, {})
   }
 
@@ -92,6 +92,9 @@ let function initMatchingData() {
     logImd("ONE_SPAWN_PER_UNIT spawn mode")
     ecs.g_entity_mgr.createEntity("spawnMode_oneSpawnPerUnit", {})
   }
+
+  if (typeof creatorId == "string")
+    creatorId = creatorId.tointeger()
 
   ecs.g_entity_mgr.createEntity("custom_room_info", {
     "custom_room_info__owner": [ creatorId, ecs.TYPE_UINT64 ]

@@ -294,7 +294,7 @@ let mkCustGroup = @(groupName, hasOpened, onClick)
     ]
   })
 
-let iconSize = hdpx(36).tointeger()
+let iconSize = hdpxi(36)
 let btnSize = [hdpx(64), hdpx(64)]
 
 let flipActionIcon = $"!ui/skin#actions/flip_action_icon.svg:{iconSize}:{iconSize}:K"

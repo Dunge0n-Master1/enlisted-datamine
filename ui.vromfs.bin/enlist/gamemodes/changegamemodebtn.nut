@@ -5,7 +5,7 @@ let unseenSignal = require("%ui/components/unseenSignal.nut")(1)
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { TextHover, TextNormal } = require("%ui/components/textButton.style.nut")
-let { openChangeGameModeWnd } = require("changeGameModeWnd.nut")
+let openChangeGameModeWnd = require("changeGameModeWnd.nut")
 let { currentGameModeId, canChangeGameMode, canShowGameMode, allGameModesById,
   hasUnseenGameMode } = require("gameModeState.nut")
 let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")

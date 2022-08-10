@@ -19,9 +19,9 @@ let emptyProgress = {
 let unlockTablesBase = keepref(Computed(function() {
   let stats = userstatStats.value
   let res = {}
-  foreach(name, _value in stats?.stats ?? {})
+  foreach (name, _value in stats?.stats ?? {})
     res[name] <- true
-  foreach(name, _value in stats?.inactiveTables ?? {})
+  foreach (name, _value in stats?.inactiveTables ?? {})
     res[name] <- false
   return res
 }))
@@ -57,7 +57,7 @@ let activeUnlocks = Computed(@() allUnlocks.value.filter(function(ud) {
 let unlocksSorted = Computed( function() {
   let list = activeUnlocks.value
   let res = []
-  foreach(unlock in list)
+  foreach (unlock in list)
     if (!unlock?.meta?.hideOnClient)
       res.append(unlock)
   return res

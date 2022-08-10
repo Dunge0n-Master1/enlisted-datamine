@@ -3,28 +3,44 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { localPlayerEid, localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let { TEAM_UNASSIGNED } = require("team")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
-let user_points = Watched({})
+let {user_points, user_pointsSetKeyVal, user_pointsDeleteKey} = mkFrameIncrementObservable({}, "user_points")
+
+let user_points_by_type = {
+  main_user_point = null
+  enemy_user_point = null
+  item_user_point = null
+  enemy_vehicle_user_point = null
+  enemy_building_user_point = null
+}.map(@(_) mkFrameIncrementObservable({}))
+
+let mkCustomIcon = memoize(@(ico) Picture($"!ui/skin#{ico}.svg"))
 
 ecs.register_es("user_points_ui_es",
   {[["onInit", "onChange"]] = function(eid, comp){
-      user_points.mutate(function(v) {
-        if (comp.team != TEAM_UNASSIGNED && comp.team != localPlayerTeam.value)
-          return
+      if (comp.team != TEAM_UNASSIGNED && comp.team != localPlayerTeam.value)
+        return
+      let typ = comp["hud_marker__type"]
+      if (typ not in user_points_by_type)
+        return
+      let target = comp["target"]
+      let image = ecs.obsolete_dbg_get_comp_val(target, "building_menu__image", "building_wall")
+      let userPointOwner = comp["userPointOwner"]
 
-        let target = comp["target"]
-        let image = ecs.obsolete_dbg_get_comp_val(target, "building_menu__image", "building_wall")
-        let res = {type = comp["hud_marker__type"], image = image, visible_distance = comp["hud_marker__visible_distance"]}
-        if (comp["userPointOwner"]!=INVALID_ENTITY_ID)
-          res.byLocalPlayer <- comp["userPointOwner"]  == localPlayerEid.value
-        if (comp.userPointCustomIcon != "")
-          res.customIcon <- Picture($"ui/skin#{comp.userPointCustomIcon}.svg")
-        v[eid] <- res
-      })
+      let res = {
+        byLocalPlayer = userPointOwner == localPlayerEid.value && userPointOwner != INVALID_ENTITY_ID
+        image,
+        type = typ
+        visible_distance = comp["hud_marker__visible_distance"]
+        customIcon = mkCustomIcon(comp["userPointCustomIcon"])
+      }
+      user_pointsSetKeyVal(eid, res)
+      user_points_by_type[typ].setKeyVal(eid, res)
     },
-    function onDestroy(eid, _comp){
-      if (eid in user_points.value)
-        user_points.mutate(@(v) delete v[eid])
+    function onDestroy(_, eid, comp){
+      user_pointsDeleteKey(eid)
+      user_points_by_type?[comp["hud_marker__type"]].deleteKey(eid)
     }
   },
   {
@@ -40,5 +56,6 @@ ecs.register_es("user_points_ui_es",
 )
 
 return {
+  user_points_by_type = user_points_by_type.map(@(v) v.state)
   user_points
 }

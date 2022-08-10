@@ -85,7 +85,7 @@ let prepareSquad = @(squad, cfg, squadsLevel) squad.__merge({
 
 let preparedSquads = Computed(function() {
   let visOrdered = clone curChoosenSquads.value
-  foreach(squad in curUnlockedSquads.value)
+  foreach (squad in curUnlockedSquads.value)
     if (curChoosenSquads.value.indexof(squad) == null)
       visOrdered.append(squad)
   return visOrdered.map(@(squad) prepareSquad(squad, squadsCfgById.value?[squadsArmy.value][squad.squadId], allSquadsLevels.value))
@@ -121,7 +121,7 @@ let function updateSquadsList() {
     let left = clone byId
     chosen.each(function(s) { if (s != null) delete left[s.squadId] })
     reserve.each(function(s) { if (s.squadId in left) delete left[s.squadId] })
-    foreach(squad in all)
+    foreach (squad in all)
       if (squad.squadId in left)
         reserve.append(squad)
   }

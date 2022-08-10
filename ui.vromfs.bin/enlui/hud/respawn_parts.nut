@@ -1,15 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let cursors = require("%ui/style/cursors.nut")
-let {textarea} = require("%ui/components/textarea.nut")
+let { textarea } = require("%ui/components/textarea.nut")
 let mkTeamIcon = require("%ui/hud/components/teamIcon.nut")
 let textButton = require("%ui/components/textButton.nut")
-let respawnState = require("%ui/hud/state/respawnState.nut")
+let { timeToRespawn, timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber,
+  respRequested } = require("%ui/hud/state/respawnState.nut")
 let armyData = require("%ui/hud/state/armyData.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
-let {localPlayerTeamIcon} = require("%ui/hud/state/teams.nut")
+let { localPlayerTeamIcon } = require("%ui/hud/state/teams.nut")
 
 
 let playerArmyIcon = Computed(function() {
@@ -75,20 +76,18 @@ let squadBlock = @(squadName) textarea("{0} {1}".subst(loc("Squad"), squadName),
     halign = ALIGN_CENTER
   }.__update(sub_txt))
 
-let respawnTimer = @(text, params = {}) function() {
-  let needShow = respawnState.timeToRespawn.value
-  return textarea(
-    needShow ? $"{text}{respawnState.timeToRespawn.value}" : null,
-    {
-      watch = [respawnState.timeToRespawn]
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-    }.__update(params))
-}
+let respawnTimer = @(text, params = {}) @() textarea(
+  timeToRespawn.value ? $"{text}{timeToRespawn.value}" : null,
+  {
+    watch = timeToRespawn
+    size = [flex(), SIZE_TO_CONTENT]
+    halign = ALIGN_CENTER
+  }.__update(params))
 
-let function requestRespawn(){respawnState.respRequested(true)}
-let function cancelRequestRespawn(){respawnState.respRequested(false)}
+let requestRespawn = @() respRequested(true)
+let cancelRequestRespawn = @() respRequested(false)
 let forceSpawnStateFlags = Watched(0)
+
 let spawnButton = @(timeLeft) textButton(
   "{0}{1}".subst(loc("Go!"), timeLeft ? " ({0})".subst(timeLeft) : ""),
   requestRespawn,
@@ -100,21 +99,20 @@ let cancelSpawnButton = @(timeLeft) textButton.Transp(
   { hotkeys = [["^{0} | Esc | @Human.Use".subst(JB.B)]], margin = 0, stateFlags = forceSpawnStateFlags, key = "cancelSpawnButton" })
 
 let forceSpawnButton = @(override = {}) @() {
-  watch = [respawnState.timeToCanRespawn, respawnState.respEndTime, respawnState.canRespawnTime, respawnState.canRespawnWaitNumber, respawnState.respRequested]
+  watch = [timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber, respRequested]
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  children = respawnState.canRespawnWaitNumber.value > 0 ? null
-             : respawnState.respRequested.value ? cancelSpawnButton(respawnState.timeToCanRespawn.value)
-             : respawnState.respEndTime.value <= 0 || respawnState.respEndTime.value - respawnState.canRespawnTime.value > 1
-               ? spawnButton(respawnState.timeToCanRespawn.value)
-               : null
+  children = canRespawnWaitNumber.value > 0 ? null
+    : respRequested.value ? cancelSpawnButton(timeToCanRespawn.value)
+    : respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1 ? null
+    : spawnButton(timeToCanRespawn.value)
 }.__update(override)
 
 return {
-  panel = panel
-  headerBlock = headerBlock
-  squadBlock = squadBlock
-  respawnTimer = respawnTimer
-  forceSpawnButton = forceSpawnButton
+  panel
+  headerBlock
+  squadBlock
+  respawnTimer
+  forceSpawnButton
 }

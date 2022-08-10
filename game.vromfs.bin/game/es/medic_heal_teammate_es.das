@@ -5,6 +5,7 @@ require Grid
 require GridCollision
 require math.base
 require game.es.events
+require enlisted.events_enlisted
 require enlisted.game.es.medic_common
 require game.es.human_use_action_common
 require common_shooter.events_common_shooter
@@ -39,7 +40,7 @@ def medic_heal_teammate_es(evt : CmdUse;
         return
 
 [es(tag=gameClient, REQUIRE=hero, REQUIRE_NOT=deadEntity, before=hero_human_final_use_object_sync, after=(hero_human_use_downed_human_object_es, human_weap_update_es, human_use_action_es))]
-def hero_medic_select_damaged_human_es(info : UpdateStageInfoAct;
+def hero_medic_select_damaged_human_es(info : ParallelUpdateFrameDelayed;
                                        eid : EntityId;
                                        team aka hero_team : int;
                                        human__aimTm : float3x4;

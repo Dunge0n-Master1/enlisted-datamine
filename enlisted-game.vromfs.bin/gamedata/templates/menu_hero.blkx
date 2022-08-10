@@ -20,9 +20,6 @@ common_menu_animchar{
   "animchar__objTexReplace:object"{
   }
 
-  capsule_approximation{
-  }
-
   phys_vars{
   }
 }

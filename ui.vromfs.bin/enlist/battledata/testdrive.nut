@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { gen_testdrive_squad_profile_jwt } = require("%enlist/meta/clientApi.nut")
 let { mkJwtArmiesCbNoRetries, saveJwtResultToJson, setNextBattleData
 } = require("sendSoldiersData.nut")
-let { defTestDrive, testDriveSceneByArmy } = require("%enlist/configs/battleScenes.nut")
+let { getTestDriveScene } = require("%enlist/configs/battleScenes.nut")
 let { startGame } = require("%enlist/gameLauncher.nut")
 
 let isTestDriveProfileInProgress = Watched(false)
@@ -18,7 +18,7 @@ let function startSquadTestDrive(armyId, squadId) {
       if (jwt == "")
         return //we already have logerr in such case, so no need to do anything else
       setNextBattleData(armyId, jwt, data)
-      startGame({ game = "enlisted", scene = testDriveSceneByArmy?[armyId] ?? defTestDrive })
+      startGame({ game = "enlisted", scene = getTestDriveScene(armyId) })
     }))
 }
 

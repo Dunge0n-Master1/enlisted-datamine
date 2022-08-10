@@ -2,14 +2,14 @@ import "%dngscripts/ecs.nut" as ecs
 let {get_setting_by_blk_path} = require("settings")
 let {INVALID_CONNECTION_ID} = require("net")
 let {INVALID_USER_ID} = require("matching.errors")
-let dedicated = require_optional("dedicated")
+let isDedicated = require_optional("dedicated") != null
 let dagorDebug = require("dagor.debug")
 let {register_logerr_monitor, debug, clear_logerr_interceptors} = dagorDebug
 let {DBGLEVEL} = require("dagor.system")
-let {sendLogToClients} = require_optional("utils/dedicated_debug_utils.nut")
+let { sendLogToClients } = require("%scripts/game/utils/dedicated_debug_utils.nut")
 let {isInternalCircuit} = require("%dngscripts/appInfo.nut")
 
-if (dedicated == null){
+if (!isDedicated){
   ecs.register_es("enableLoggerrMsg",
     {
       [["onInit","onChange"]] = function(eid,comp) {
@@ -54,13 +54,3 @@ ecs.register_es("enable_send_logerr_msg_es", {
   },
   {tags = "server"}
 )
-
-/*
-local i=0
-ecs.set_callback_timer(
-  function() {
-    i++
-    dagorDebug.logerr($"logerrnum: {i}")
-  },
-10, true)
-*/

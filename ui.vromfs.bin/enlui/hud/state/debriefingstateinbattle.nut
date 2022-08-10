@@ -1,6 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
-let logD = require("%sqstd/log.nut")().with_prefix("[DEBRIEFING] ")
+let logD = require("%enlSqGlob/library_logs.nut").with_prefix("[DEBRIEFING] ")
 let eventbus = require("eventbus")
 let watchdog = require("watchdog")
 let armyData = require("armyData.nut")
@@ -122,7 +122,7 @@ let function applyRewardOnce() {
 
   let items = {}
   let stats = {}
-  foreach(guid, data in battleStats.value?.stats ?? {}) {
+  foreach (guid, data in battleStats.value?.stats ?? {}) {
     let soldier = soldiersData.value?[guid]
     if (!soldier) {
       logD("Not found soldier {0} in army {1} for reward. Skip. ".subst(guid, armyId))
@@ -166,11 +166,11 @@ let function applyRewardOnce() {
 
   if (sMissionRewardId != null && !isDebugDebriefingMode)
     chargeExp({
-      armyId = armyId
+      armyId
       singleMissionRewardId = sMissionRewardId
       soldiersExp = soldiersExp.map(@(ed) ed.exp)
       squadsExp = squadsExp.map(@(ed) ed.exp)
-      armyExp = armyExp
+      armyExp
     })
 }
 
@@ -210,10 +210,8 @@ let debriefingDataExt = Computed(function(){
       myTeam = localPlayerTeam.value
       teams = teamsData
       armyId = armyData.value?.armyId
-      exitToLobby = true //we no need false in enlisted
       isFinal = debriefingUpdateData.value.len() > 0
-    })
-    .__update(debriefingUpdateData.value)
+    }, debriefingUpdateData.value)
   logD("DebriefingDataExt updated")
   return res
 })

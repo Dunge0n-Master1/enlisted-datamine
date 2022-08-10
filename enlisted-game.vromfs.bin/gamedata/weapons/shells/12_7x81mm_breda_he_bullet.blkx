@@ -5,25 +5,23 @@ Cx:r=0.15
 maxDistance:r=3000.0
 explosiveType:t="petn"
 explosiveMass:r=0.0006
-normalizationPreset:t="heat"
-ricochetPreset:t="he"
-hitPowerMult:r=3.0
-secondaryShattersPreset:t="ap"
-explodeTreshold:r=0.1
+normalizationPreset:t="default"
+modelName:t="tank_bullet_ball"
+ricochetPreset:t="default"
 stabilityThreshold:r=0.05
-explodeHitPower:r=7.5
+hitPowerMult:r=3.0
 stabilityCaliberToArmorThreshold:r=5.0
-explodeArmorPower:r=2.5
+explodeTreshold:r=0.1
 stabilityReductionAfterRicochet:r=0.5
+explodeHitPower:r=7.5
+stabilityReductionAfterPenetration:r=0.3
+explodeArmorPower:r=2.5
+bulletType:t="he_frag_ball"
 explodeRadius:p2=0.03, 0.1
-stabilityReductionAfterPenetration:r=0.15
-bulletType:t="he_frag"
-shutterDamage:b=yes
 slopeEffectPreset:t="ap"
+shutterDamage:b=yes
 shutterDamageRadius:r=0.2
-fresnel:p3=0.23, 0.1, 2.0
 shutterAmount:i=8
-explodeOnRendinst:b=yes
 shutterArmorPower:r=3.0
 shutterHit:r=2.5
 onHitChanceMultFire:r=8.0
@@ -42,10 +40,6 @@ stabilityRicochetModifier{
   mod2:p2=20.0, 0.1
   mod3:p2=30.0, 0.2
   mod3:p2=45.0, 0.3
-}
-
-pressureDamage{
-  damageType:t="pressure"
 }
 
 hitpower{

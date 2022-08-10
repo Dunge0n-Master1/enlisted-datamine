@@ -98,7 +98,8 @@ let function mkClassDescBlock(params = {}){
   let {armyId, newClass, newPerk = null, isPrimeSquad = false, isSmall = false, override = {}} = params
   let descTxt = loc($"squadPromo/{newClass}/shortDesc")
   let primeDesc = loc($"soldierClass/{newClass}/desc")
-  if(newClass == null)
+  let defStats = loc($"squadPromo/{newClass}/longDesc")
+  if (newClass == null)
     return null
 
   return {
@@ -113,6 +114,7 @@ let function mkClassDescBlock(params = {}){
       isPrimeSquad && !isSmall ? mkSquadDescBlock(primeDesc)
         : isSmall ? mkSquadDescBlock(descTxt)
         : null
+      isSmall ? null : mkSquadDescBlock(defStats)
     ]
   }.__update(override)
 }
@@ -342,20 +344,11 @@ let mkPromoSquadIcon = @(icon, isLocked) mkSquadIcon(icon, {
   picSaturate = isLocked ? 0.3 : 1
 })
 
-let function mkDescBlock(newClass, announceLocId) {
-  let leftTxt = loc($"squadPromo/{newClass}/longDesc")
-  let rightTxt = loc(announceLocId)
-  return{
-    size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_HORIZONTAL
-    margin = [0,0,descBlockMargin,0]
-    vplace = ALIGN_BOTTOM
-    gap = hdpx(40)
-    children = [
-      mkSquadDescBlock(leftTxt)
-      mkSquadDescBlock(rightTxt)
-    ]
-  }
+let mkDescBlock = @(announceLocId) {
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = [0,0,descBlockMargin,0]
+  vplace = ALIGN_BOTTOM
+  children = mkSquadDescBlock(loc(announceLocId))
 }
 
 let primeDescTitle = @(titleText, soldierCount, rank,  perksCount, addChild){
@@ -450,7 +443,7 @@ let function soldiersCountDesc(classes){
 let function primeDescBlock(squadCfg){
   let rank = squadCfg.startSoldiers[0].tier
   let perksCount = squadCfg.startSoldiers[0].level - 1
-  let { newClass, announceLocId, vehicleType = "", battleExpBonus = 0.0 } = squadCfg
+  let { announceLocId, vehicleType = "", battleExpBonus = 0.0 } = squadCfg
   let hasVehicle = vehicleType != ""
 
   let soldierClasses = squadCfg.startSoldiers.reduce(function(res, soldier){
@@ -497,7 +490,7 @@ let function primeDescBlock(squadCfg){
             loc("squads/primeMoreExp"))
         ]
       }
-      mkDescBlock(newClass, announceLocId)
+      mkDescBlock(announceLocId)
     ]
   }
 }

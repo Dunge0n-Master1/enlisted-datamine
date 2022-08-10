@@ -14,5 +14,5 @@ def human_hit_cry_sound(evt : EventOnEntityHit; eid : EntityId;
                         sound_tags : Object;
                         is_watched_sound : bool = false)
   if eid == evt.victim
-    if isAlive && !has_sound(sound_event_group, sound_hash("burningCry"))
+    if isAlive && !has_sound(sound_event_group, sound_hash("voiceEffect"))
       sound_player_common::play("hitCry", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)

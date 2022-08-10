@@ -1,23 +1,32 @@
 from "%enlSqGlob/ui_library.nut" import *
+let {logerr} = require("dagor.debug")
 
 require("%ui/ui_config.nut")
 require("%ui/sound_handlers.nut")
-let hud = require("hud.nut")
 let {msgboxes} = require("%ui/msgboxes.nut")
 let {uiDisabled, levelLoaded} = require("%ui/hud/state/appState.nut")
 let {loadingUI, showLoading} = require("%ui/loading/loading.nut")
 let globInput = require("%ui/glob_input.nut")
 let {hotkeysButtonsBar} = require("%ui/hotkeysPanel.nut")
 let speakingList = require("%ui/speaking_list.nut")
-let {modalWindowsComponent} = require("%darg/components/modalWindows.nut")
+let {modalWindowsComponent} = require("%ui/components/modalWindows.nut")
 let {dbgSafeArea} = require("%ui/dbgSafeArea.nut")
 let platform = require("%dngscripts/platform.nut")
 let {editor, showUIinEditor, editorIsActive} = require("%ui/editor.nut")
 let {extraPropPanelCtors = null} = require("%daeditor/state.nut")
 let {serviceInfo} = require("%ui/service_info.nut")
 let {sandboxEditorEnabled, sandboxEditor} = require("sandbox_editor.nut")
-let {canShowReplayHud} = require("%ui/hud/replay/replayState.nut")
+let {canShowReplayHud, canShowGameHudInReplay} = require("%ui/hud/replay/replayState.nut")
 let {isReplay} = require("%ui/hud/state/replay_state.nut")
+
+local hud
+try{
+  hud = require("hud.nut")
+}
+catch(e){
+  log(e)
+  logerr("errr loading hud.nut")
+}
 
 if (extraPropPanelCtors!=null)
   extraPropPanelCtors([require("%ui/editorCustomView.nut")])
@@ -65,7 +74,8 @@ let function root() {
   if (isReplay.value)
     children.append({
       eventHandlers = {
-        ["Replay.DisableHUD"] = @(_event) canShowReplayHud(!canShowReplayHud.value)
+        ["Replay.DisableHUD"] = @(_event) canShowReplayHud(!canShowReplayHud.value),
+        ["Replay.DisableGameHUD"] = @(_event) canShowGameHudInReplay(!canShowGameHudInReplay.value)
       }
     })
 

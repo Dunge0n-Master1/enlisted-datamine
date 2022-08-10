@@ -15,6 +15,7 @@ let handlers = {
         : @() eventbus.send_foreign("webHandlers.removeMsg", { message })
     })
   }
+  replay_start = @(_ev, params) eventbus.send("replay.download", params)
 }
 
 subscribe("web-service", @(ev) handlers?[ev?.func](ev, ev?.params ?? {}))

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let logXbox = require("%sqstd/log.nut")().with_prefix("[XBOX STORE]")
+let logXbox = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX STORE]")
 let app = require("%xboxLib/impl/app.nut")
 let user = require("%xboxLib/impl/user.nut")
 let store = require("%xboxLib/impl/store.nut")

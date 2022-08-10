@@ -185,6 +185,11 @@ local portraits = {
   tunisia_allies_event_marathon_summer_2022 = {
     icon = "ui/portraits/tunisia/allies_tunisia_7.png"
   }
+
+  common_china_portrait_1 = {
+    icon = "ui/portraits/common/china_portrait_1.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
 }
 
 local nickFrames = {
@@ -217,6 +222,7 @@ local nickFrames = {
   nickFrame_100_days_in_row = @(n) $"⌠{n}⌠"
   nickFrame_365_days_in_row = @(n) $"⌋{n}⌊"
   nickFrame_730_days_in_row = @(n) $"⌡{n}⌢"
+  kongzhong_star = @(n) $"␉{n}␉"
 }
 
 local decoratorsPresentation = {

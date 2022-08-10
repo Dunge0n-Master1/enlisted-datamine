@@ -87,7 +87,7 @@ eventbus.subscribe(RECEIVE_FILE_MOD, function(response){
 })
 
 let function requestFilesByHashes(hashes){
-  foreach(hash_ in hashes){
+  foreach (hash_ in hashes){
     let hash = hash_
     if (hash in receivedFiles.value)
       continue

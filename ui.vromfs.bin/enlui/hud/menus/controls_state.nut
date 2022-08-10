@@ -52,7 +52,7 @@ let function gatherByBpath(path) {
 }
 let function lowerCaseSubstringInList(substring, list){
   let lowerCaseSubstring = substring.tolower()
-  foreach(v in list){
+  foreach (v in list){
     let lowerCaseValue = v.tolower()
     if (lowerCaseValue.indexof(lowerCaseSubstring)!=null)
       return true

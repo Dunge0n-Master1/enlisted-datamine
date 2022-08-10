@@ -20,12 +20,12 @@ let {get_scene_filepath} = entity_editor
 let {levelLoaded, levelIsLoading, currentLevelBlk} = require("%ui/hud/state/appState.nut")
 let levelIsNotPresent = Computed(@() (!levelLoaded.value && !levelIsLoading.value))
 
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
 let cursors = require("%daeditor/components/cursors.nut")
 let mkWindow = require("%daeditor/components/window.nut")
 let textButton = require("%daeditor/components/textButton.nut")
-let {makeVertScroll} = require("%darg/components/scrollbar.nut")
+let {makeVertScroll} = require("%ui/components/scrollbar.nut")
 let {editorTimeStop, showPointAction, namePointAction} = require("%daeditor/state.nut")
 
 let {editorIsActive, editorFreeCam, initTemplatesGroups, initRISelect, proceedWithSavingUnsavedChanges, hideDebugButtons} = require("%ui/editor.nut")
@@ -35,12 +35,12 @@ hideDebugButtons()
 
 let {scan_folder, mkdir, find_files, file_exists} = require("dagor.fs")
 let DataBlock = require("DataBlock")
-let textInput = require("%darg/components/textInput.nut")
+let textInput = require("%ui/components/textInput.nut")
 
-let modalWindows = require("%darg/components/modalWindowsMngr.nut")({halign = ALIGN_CENTER valign = ALIGN_CENTER rendObj=ROBJ_WORLD_BLUR})
+let modalWindows = require("%ui/components/modalWindowsMngr.nut")({halign = ALIGN_CENTER valign = ALIGN_CENTER rendObj=ROBJ_WORLD_BLUR})
 let {addModalWindow, removeModalWindow, modalWindowsComponent} = modalWindows
 let {registerPerCompPropEdit} = require("%daeditor/propPanelControls.nut")
-let {msgboxComponent, showMsgbox} = require("%darg/components/mkMsgbox.nut")("sandbox_")
+let {msgboxComponent, showMsgbox} = require("%ui/components/mkMsgbox.nut")("sandbox_")
 let infoBox = @(text) showMsgbox({text})
 
 let {openPlayConfigDialog} = require("sandbox_playconfig.nut")
@@ -158,7 +158,7 @@ let function loadScene(modAndScene) {
   if (modAndScene==null)
     return
   let {mod, scene} = convertToModAndScene(modAndScene)
-  console_command("daeditor.open 0")
+  console_command("daEd4.open 0")
   switch_scene($"?*?{mod}?{scene}", null, null, null, "sandboxEditor")
 }
 let function loadSceneWithSavingUnsavedChanges(modAndScene) {
@@ -208,7 +208,7 @@ const newSceneUID = "new_scene"
 let function mkSimpleBlk(data){
   let blk = DataBlock()
   assert (typeof data != "array", "currently not supported arrays, add if needed")
-  foreach(k, v in data){
+  foreach (k, v in data){
     if (typeof v == "table") {
       blk[k] <- mkSimpleBlk(v)
     }
@@ -356,29 +356,33 @@ let selScenesWindow = mkWindow({
 
 let toolboxBtn = textButton(
     loc("sandboxeditor/toolbox", "Toolbox"),
-    @() toolboxShown(!toolboxShown.value),
-    {hotkeys = [["L.Ctrl F | R.Ctrl F"]], boxStyle = {normal = {fillColor = Color(0,0,0,80)}}})
+    function() { toolboxShown(!toolboxShown.value); cursors.setTooltip(null) },
+    {hotkeys = [["L.Ctrl F | R.Ctrl F"]], boxStyle = {normal = {fillColor = Color(0,0,0,80)}},
+     onHover = @(on) cursors.setTooltip(on && !toolboxShown.value ? "Set of game editing tools (Ctrl+F)" : null)})
 
 let restartBtn = textButton(
     loc("sandboxeditor/restart", "Restart"),
     @() proceedWithSavingUnsavedChanges(showMsgbox, @() loadScene(get_scene_filepath()), "You have unsaved changes. How do you want to restart?",
                                                                                          "Do you want to restart?"),
-    {hotkeys = [["L.Ctrl R | R.Ctrl R"]], boxStyle = {normal = {fillColor = Color(0,0,0,80)}}})
+    {hotkeys = [["L.Ctrl !L.Alt R | R.Ctrl !R.Alt R"]], boxStyle = {normal = {fillColor = Color(0,0,0,80)}},
+     onHover = @(on) cursors.setTooltip(on ? "Restart scene (Ctrl+R)" : null)})
 
 let openScenesToEditBtn = textButton(
     loadSceneLoc,
     @() scenesOpened(!scenesOpened.value),
-    {hotkeys = [["L.Ctrl O | R.Ctrl O"]], boxStyle = {normal = {fillColor = Color(0,0,0,80)}}})
+    {hotkeys = [["L.Ctrl O | R.Ctrl O"]], boxStyle = {normal = {fillColor = Color(0,0,0,80)}},
+     onHover = @(on) cursors.setTooltip(on ? "Load or create new scene (Ctrl+O)" : null)})
 
 let configBtn = textButton(
     fa["wrench"],
     @() openPlayConfigDialog(modalWindows),
-    {hotkeys = [["L.Ctrl G | R.Ctrl G"]], textStyle = {normal = fontawesome}, boxStyle = {normal = {fillColor = Color(0,0,0,80)}}})
+    {hotkeys = [["L.Ctrl G | R.Ctrl G"]], textStyle = {normal = fontawesome}, boxStyle = {normal = {fillColor = Color(0,0,0,80)}},
+     onHover = @(on) cursors.setTooltip(on ? "Sandbox Config (Ctrl+G)" : null)})
 
 let function quitSandboxEditor() {
   proceedWithSavingUnsavedChanges(showMsgbox,
     function() {
-      console_command("daeditor.open 0")
+      console_command("daEd4.open 0")
       if (app_set_offline_mode(false))
         exit_to_enlist()
       else
@@ -391,7 +395,8 @@ let function quitSandboxEditor() {
 let quitBtn = textButton(
     fa["close"],
     @() quitSandboxEditor(),
-    {textStyle = {normal = fontawesome}, boxStyle = {normal = {fillColor = Color(0,0,0,80)}}})
+    {textStyle = {normal = fontawesome}, boxStyle = {normal = {fillColor = Color(0,0,0,80)}},
+     onHover = @(on) cursors.setTooltip(on ? "Quit" : null)})
 
 
 let worldRender = Watched(false)

@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {watchedHeroEid} = require("%ui/hud/state/watched_hero.nut")
 let {inTank, isPassenger} = require("%ui/hud/state/vehicle_state.nut")
 let {get_gun_template_by_props_id} = require("dm")
-let {EventOnSeatOwnersChanged} = require("vehicle")
+let {EventOnSeatOwnersChanged, CmdTrackVehicleWithWatched} = require("dasevents")
 
 let vehicleTurrets = Watched({turrets = []})
 let turretsReload = Watched({})
@@ -30,7 +30,7 @@ let turretQuery = ecs.SqQuery("turretQuery", {
 
 let function get_trigger_mappings(hotkeys) {
   let mappings = {}
-  foreach(mapping in hotkeys) {
+  foreach (mapping in hotkeys) {
     let name = mapping?.name
     let hotkey = mapping?.hotkey
     if (name != null && hotkey != null)
@@ -112,7 +112,7 @@ let function initTurretsState(eid, comp) {
 ecs.register_es("vehicle_turret_state_ui_es",
   {
     [["onInit", "onChange"]] = initTurretsState,
-    [ecs.sqEvents.CmdTrackVehicleWithWatched] = initTurretsState,
+    [CmdTrackVehicleWithWatched] = initTurretsState,
     [EventOnSeatOwnersChanged] = initTurretsState,
     onDestroy = @(...) resetState(),
   },
@@ -180,18 +180,26 @@ ecs.register_es("track_turret_input_disappear_ui_es",
 )
 
 ecs.register_es("turret_state_reload_progress_ui",
-  { onChange = function(eid, comp) {
+  { [["onInit", "onChange"]] = function(eid, comp) {
       turretsReload.mutate(@(t) t[eid] <- {
+        reloadTimeMult = comp.ui_turret_reload_progress__reloadTimeMult
         progressStopped = comp["ui_turret_reload_progress__progressStopped"]
         endTime = comp["ui_turret_reload_progress__finishTime"]
         totalTime = comp["ui_turret_reload_progress__finishTime"] - comp["ui_turret_reload_progress__startTime"]
       })
     },
+    onDestroy = function(eid, _comp) {
+      turretsReload.mutate(function(turrets) {
+        if (eid in turrets)
+          delete turrets[eid]
+      })
+    }
   },
   { comps_track = [
     ["ui_turret_reload_progress__startTime", ecs.TYPE_FLOAT],
     ["ui_turret_reload_progress__finishTime", ecs.TYPE_FLOAT],
     ["ui_turret_reload_progress__progressStopped", ecs.TYPE_FLOAT, -1],
+    ["ui_turret_reload_progress__reloadTimeMult", ecs.TYPE_FLOAT, 1.]
   ],
     comps_rq = ["isTurret", "turretInput"]
   },

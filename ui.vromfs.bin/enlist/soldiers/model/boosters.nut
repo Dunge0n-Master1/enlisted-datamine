@@ -15,8 +15,8 @@ let isBooster = @(item) "bType" in item
 let boosterItems = Computed(function() {
   let res = {}
   let curArmyId = curArmy.value
-  foreach(armyId in [curArmyId, commonArmy.value])
-    foreach(item in itemsByArmies.value?[armyId] ?? {})
+  foreach (armyId in [curArmyId, commonArmy.value])
+    foreach (item in itemsByArmies.value?[armyId] ?? {})
       if (isBooster(item))
         res[item.guid] <- item
   return res
@@ -82,7 +82,7 @@ let curArmyBoosters = Computed(function() {
 let curBoosts = Computed(function() {
   local res = {}
   boostsTypes.each(@(t) res[t] <- 0.0)
-  foreach(booster in curArmyBoosters.value)
+  foreach (booster in curArmyBoosters.value)
     if (booster.bType == globalBoost)
       res = res.map(@(t) t + booster.expMul)
     else if (booster.bType in res)

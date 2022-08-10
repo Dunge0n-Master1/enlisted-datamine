@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let math = require("math")
-let {hudIsInteractive} = require("state/interactive_state.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {horPadding, verPadding} = require("%enlSqGlob/safeArea.nut")
 let {debug_borders,
@@ -120,12 +119,11 @@ let function HudLayout() {
   let desc = {
     size = flex()
     flow = FLOW_VERTICAL
-    watch = [debug_borders, hudIsInteractive, horPadding, verPadding, hudLayoutStateGen]
-    children = children
+    watch = [debug_borders, horPadding, verPadding, hudLayoutStateGen]
+    children
+    cursor = cursors.normalForInteractiveBlocks
   }
 
-  if (hudIsInteractive.value)
-    desc.cursor <- cursors.normal
 
   return desc
 }

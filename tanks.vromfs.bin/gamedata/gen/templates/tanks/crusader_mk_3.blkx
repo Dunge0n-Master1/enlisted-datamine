@@ -1,0 +1,239 @@
+base_crusader_mk_3{
+  _extends:t="base_tank"
+  _extends:t="crusader_mk_3_ammo_stowages"
+  killLogName:t="uk_crusader_mk_3"
+  animchar__res:t="crusader_mk_3_char"
+  collres__res:t="crusader_mk_3_collision"
+  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/crusader_mk_3.blk:VehiclePhys"
+  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="crusader_mk_3_dmg_char"
+  xray_resource__modelName:t="crusader_mk_3"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=1.784
+  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/crusader_mk_3.blk"
+  item__name:t="items/uk_crusader_mk_3"
+  skin__template:t="crusader_mk_3_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_60mm"
+    fx:t="muzzle_ground_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_gun_twin"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="crusader_mk_3_turret_01_57mm_6pdr_qqf_mk_3_l43+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="crusader_mk_3_turret_02_7_92mm_besa"
+      barrelDm:t="gun_barrel_01"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+crusader_mk_3_turret_01_57mm_6pdr_qqf_mk_3_l43{
+  _extends:t="tankgun_57mm_6pdr_qqf_mk_3_l43"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=36.0
+  turret__pitchSpeed:r=10.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-180.0, 180.0, -12.0, 20.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-180.0, -135.0, -1.0, 20.0
+    lim2:p4=-135.0, 135.0, -7.5, 20.0
+    lim3:p4=135.0, 180.0, -1.0, 20.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=13
+    ammo:i=13
+    ammo:i=13
+    ammo:i=13
+    ammo:i=13
+  }
+}
+
+crusader_mk_3_turret_02_7_92mm_besa{
+  _extends:t="tankgun_7_92mm_besa"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1688
+    ammo:i=1687
+  }
+}
+
+crusader_mk_3_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="crusader_mk_3_ammo_stowage_1"
+  }
+}
+
+crusader_mk_3_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="crusader_mk_3_ammo_cluster_1_1"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+crusader_mk_3_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret"
+    part:t="ammo_body_l_02"
+    part:t="ammo_body_r_01"
+    part:t="ammo_body_l_01"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=20
+    count:i=15
+    count:i=15
+    count:i=15
+  }
+}
+
+crusader_mk_3_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_earth_yellow"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_earth_yellow*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_light_mud_blue_black"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_light_mud_blue_black*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_light_mud_slate_grey"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_light_mud_slate_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_light_stone_dark_green"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_light_stone_dark_green*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_light_stone_light_grey_slate_grey"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_light_stone_light_grey_slate_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_light_stone_slate_grey"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_light_stone_slate_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_middle_deep_bronze_greens"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="uk_camo_middle_deep_bronze_greens*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_uk_camo_winter_olive"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="us_camo_winter_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="crusader_mk_3_fr_camo_winter_green_white"
+
+      "objTexReplace:object"{
+        "uk_camo_very_dark_drab*":t="fr_camo_winter_green_white*"
+      }
+    }
+  }
+}

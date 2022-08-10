@@ -5,14 +5,15 @@ let faComp = require("%ui/components/faComp.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let campaignTitle = require("%enlist/campaigns/campaign_title_small.ui.nut")
 let buySquadWindow = require("buySquadWindow.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { Transp } = require("%ui/components/textButton.nut")
 let { borderColor } = require("%ui/style/colors.nut")
 
 let viewShopItemsScene = require("viewShopItemsScene.nut")
-let armySelect = require("%enlist/soldiers/army_select.ui.nut")
+let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { bigPadding, defBgColor, scrollbarParams, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -28,11 +29,10 @@ let { mkShopItemView, mkLevelLockLine, mkShopItemPriceLine, mkProductView
 } = require("shopPkg.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
 let mkNotifier = require("%enlist/components/mkNotifier.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
-let freemiumPromo = require("%enlist/currency/pkgFreemiumWidgets.nut")
+let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 
 
 const SHOP_CONTAINER_WIDTH = 120 // sh
@@ -93,14 +93,16 @@ let contIcon = {
   image = Picture($"!ui/skin#logistics_icon.svg:{CONT_ICON_SIZE}:{CONT_ICON_SIZE}:K")
 }
 
+let mkShopNotifier = @(locId)
+  mkNotifier(locId, { margin = hdpx(3) }, { animations = null })
+
 let function mkShopItemCard(shopItem, armyData) {
-  let { guid, offerContainer = "" } = shopItem
+  let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0} = shopItem
   let squad = shopItem?.squads[0]
   let armyId = armyData?.guid ?? ""
   let currentLevel = armyData?.level ?? 0
   let { armyLevel = 0, isFreemium = false } = shopItem?.requirements
   let isLocked = armyLevel > currentLevel || (isFreemium && needFreemiumStatus.value)
-
   let stateFlags = Watched(0)
   let isGroupContainer = offerContainer != ""
 
@@ -110,8 +112,8 @@ let function mkShopItemCard(shopItem, armyData) {
     let sf = stateFlags.value
     let hasUnseenSignal = curUnseenAvailShopGuids.value?[shopItem.guid] ?? false
     let unseenSignalObj = !hasUnseenSignal ? null
-      : isGroupContainer ? mkNotifier(loc("hint/newShopItemsAvailable"))
-      : unseenSignal()
+      : isGroupContainer ? mkShopNotifier(loc("hint/newShopItemsAvailable"))
+      : mkShopNotifier(loc("hint/newShopItemAvailable"))
     return {
       watch = [stateFlags, curUnseenAvailShopGuids, crateContent, needFreemiumStatus]
       rendObj = ROBJ_SOLID
@@ -122,9 +124,12 @@ let function mkShopItemCard(shopItem, armyData) {
       color = defBgColor
       behavior = Behaviors.Button
       onElemState = @(newSF) stateFlags(newSF)
-      onHover = @(on) setTooltip(on
-        ? makeCrateToolTip(crateContent)
-        : null)
+      onHover = function(on) {
+        setTooltip(on ? makeCrateToolTip(crateContent) : null)
+        if (!isGroupContainer && hasUnseenSignal)
+          hoverHoldAction("markSeenShopItem", { armyId, guid },
+            @(v) markShopItemSeen(v.armyId, v.guid))(on)
+      }
       onClick = function() {
         clickShopItem(shopItem, curArmyData.value?.level ?? 0)
         if (!isGroupContainer && hasUnseenSignal)
@@ -153,6 +158,8 @@ let function mkShopItemCard(shopItem, armyData) {
               unseenSignalObj
               crateContent
               itemTemplates = allItemTemplates
+              showVideo = shopItem?.video && sf
+              showDiscount = (isGroupContainer || curItemCost.len() > 0) && discountInPercent > 0
             })
             isGroupContainer ? null
               : armyLevel > currentLevel ? mkLevelLockLine(armyLevel)
@@ -285,7 +292,7 @@ let mainContent = {
       size = [flex(), SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
       children = [
-        armySelect()
+        armySelectUi
         groupsChainUi
       ]
     }
@@ -312,15 +319,13 @@ return mkLockByCampaignProgress(@() {
           size = flex()
           flow = FLOW_VERTICAL
           halign = ALIGN_CENTER
+          gap = hdpx(10)
           children = [
             mainContent
             @() {
               watch = needFreemiumStatus
               children = needFreemiumStatus.value
-                ? freemiumPromo("shop_section", null, {
-                    size = [hdpx(600), SIZE_TO_CONTENT]
-                    margin = [bigPadding,0,0,0]
-                  })
+                ? freemiumWidget("shop_section")
                 : null
             }
           ]

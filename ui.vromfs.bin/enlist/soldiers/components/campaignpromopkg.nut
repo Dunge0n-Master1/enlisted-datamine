@@ -13,7 +13,7 @@ let mainBgColor = Color(98, 98, 80)
 let primeColor = Color(146, 10, 1)
 let receivedColor = Color(98, 98, 80)
 let unavailableColor = Color(96, 96, 96)
-let progressBarWidth = hdpx(787).tointeger()
+let progressBarWidth = hdpxi(787)
 
 let rewardToScroll = Watched(null)
 
@@ -63,7 +63,7 @@ let function campaignName(params){
           : isFreemium ? freemiumColor
           : hasReceived ? receivedColor
           : unavailableColor
-        image = Picture($"!ui/gameImage/base_header_bar.svg:{hdpx(150).tointeger()}:4:K?Ac")
+        image = Picture($"!ui/gameImage/base_header_bar.svg:{hdpxi(150)}:4:K?Ac")
         children = mkSquadName(nameLocId, titleLocId, sClass, itemType, itemSubType)
       }
       {
@@ -102,7 +102,7 @@ let mkReceivedBanner = @(bgColor) {
   }
 }
 
-let infoBtnSize = hdpx(20).tointeger()
+let infoBtnSize = hdpxi(20)
 let weapInfoBtn =  @(sf) {
   rendObj = ROBJ_IMAGE
   size = [infoBtnSize, infoBtnSize]

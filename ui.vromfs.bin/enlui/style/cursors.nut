@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {isGamepad} = require("%ui/control/active_controls.nut")
+let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let tooltipBox = require("tooltipBox.nut")
 let platform = require("%dngscripts/platform.nut")
@@ -182,7 +183,19 @@ local function mkCursorWithTooltip(children){
 
 cursors.normal <- Cursor(@() mkCursorWithTooltip(cursors.tooltip.cmp))
 
+cursors.normalForInteractiveBlocks <- Cursor(function() {
+  let watch = [hudIsInteractive, showGamepad]
+  if (hudIsInteractive.value) {
+    let desc = mkCursorWithTooltip(cursors.tooltip.cmp)
+    desc.watch <- (desc?.watch ?? []).extend(watch)
+    return desc
+  } else {
+    return { watch }
+  }
+})
+
 cursors.normalTooltipTop <- Cursor(@() mkCursorWithTooltip(cursors.tooltip.cmpTop))
+
 
 cursors.target <- Cursor(function() {
   let children = [cursors.tooltip.cmp]

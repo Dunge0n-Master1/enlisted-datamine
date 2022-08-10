@@ -9,8 +9,8 @@ let {find_human_player_by_connid, find_local_player, get_team_eid} = require("%d
 let {weaponSlotsKeys} = require("%enlSqGlob/weapon_slots.nut")
 let {INVALID_CONNECTION_ID, has_network, get_sync_time} = require("net")
 let {CmdSpawnSquad, EventPlayerProfileChanged} = require("dasevents")
-let debug = require("%sqstd/log.nut")().with_prefix("[CLIENT PROFILE] ")
-let kick_player = require_optional("dedicated")?.kick_player ?? @(...) null
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[CLIENT PROFILE] ")
+let { kick_player = @(...) null } = require_optional("dedicated")
 let {INVALID_USER_ID} = require("matching.errors")
 let {profilePublicKey} = require("%enlSqGlob/data/profile_pubkey.nut")
 let {get_circuit, app_is_offline_mode} = require("app")

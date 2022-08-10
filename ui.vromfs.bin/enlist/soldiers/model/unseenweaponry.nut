@@ -19,11 +19,11 @@ let unseenSoldiersWeaponry = Watched({})
 
 let notEquippedTiers = Computed(function() {
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let itemsList = armoryByArmy.value?[armyId] ?? []
     let byTpl = {} //<basetpl> = <tier>
     let byItemType = {} //<itemtype> = { <basetpl> = <tier> }
-    foreach(item in itemsList) {
+    foreach (item in itemsList) {
       if (item.basetpl in byTpl)
         continue
       let { basetpl, itemtype = "", tier = -1 } = item
@@ -56,16 +56,16 @@ let unseenEquipSlotsTiers = Computed(@()
     if (byTpl.len() == 0)
       return res
 
-    foreach(schemeId, scheme in equipSchemesByArmy.value?[armyId] ?? {}) {
+    foreach (schemeId, scheme in equipSchemesByArmy.value?[armyId] ?? {}) {
       let unseenSlots = {}
-      foreach(slotId in SLOTS) {
+      foreach (slotId in SLOTS) {
         if (slotId not in scheme)
           continue
         let { itemTypes = [], items = [] } = scheme[slotId]
         local maxTier = -1
-        foreach(iType in itemTypes)
+        foreach (iType in itemTypes)
           maxTier = max(maxTier, byItemType?[iType] ?? -1)
-        foreach(tpl in items)
+        foreach (tpl in items)
           maxTier = max(maxTier, byTpl?[tpl] ?? -1)
         if (maxTier >= 0)
           unseenSlots[slotId] <- maxTier
@@ -78,12 +78,12 @@ let unseenEquipSlotsTiers = Computed(@()
 
 let slotsLinkTiers = Computed(function() {
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     res[armyId] <- {}
-    foreach(item in itemsByArmies.value?[armyId] ?? {}) {
+    foreach (item in itemsByArmies.value?[armyId] ?? {}) {
       if ("tier" not in item)
         continue
-      foreach(linkTo, linkSlot in item.links)
+      foreach (linkTo, linkSlot in item.links)
         if (linkSlot in SLOTS_MAP) {
           if (linkTo not in res[armyId])
             res[armyId][linkTo] <- {}
@@ -100,19 +100,19 @@ let function recalcUnseen() {
   let unseenSquads = {}
   let unseenSoldiers = {}
 
-  foreach(armyId, schemes in unseenEquipSlotsTiers.value) {
+  foreach (armyId, schemes in unseenEquipSlotsTiers.value) {
     unseenArmies[armyId] <- 0
     let armyLinkTiers = slotsLinkTiers.value?[armyId]
     let classLocks = classSlotLocksByArmy.value?[armyId]
-    foreach(squad in chosenSquadsByArmy.value?[armyId] ?? []) {
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? []) {
       local unseenSoldiersCount = 0
-      foreach(soldier in soldiersBySquad.value?[squad.guid] ?? []) {
+      foreach (soldier in soldiersBySquad.value?[squad.guid] ?? []) {
         let unseenSlots = schemes?[soldier?.equipSchemeId]
         if (unseenSlots == null)
           continue
 
         let unseenSoldier = {}
-        foreach(slotId, tier in unseenSlots)
+        foreach (slotId, tier in unseenSlots)
           if (tier > (armyLinkTiers?[soldier.guid][slotId] ?? -1)
               && !(classLocks?[soldier?.sClass] ?? []).contains(slotId))
             unseenSoldier[slotId] <- true
@@ -159,7 +159,7 @@ let function markNotFreeWeaponryUnseen() {
 
   local hasChanges = false
   let newSeen = clone seenData
-  foreach(armyId, tiers in notEquippedTiers.value) {
+  foreach (armyId, tiers in notEquippedTiers.value) {
     if (armyId not in newSeen)
       continue
 

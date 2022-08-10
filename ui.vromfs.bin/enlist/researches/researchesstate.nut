@@ -68,11 +68,11 @@ let configResearches = Computed(function() {
 
 let armiesResearches = Computed(function() {
   let res = {}
-  foreach(armyId, armyConfig in configResearches.value) {
+  foreach (armyId, armyConfig in configResearches.value) {
     let researchesMap = {}
-    foreach(squadPages in armyConfig.pages)
-      foreach(page in squadPages)
-        foreach(research in page.tables)
+    foreach (squadPages in armyConfig.pages)
+      foreach (page in squadPages)
+        foreach (research in page.tables)
           if (!hideLockedResearches || !(research?.isLocked ?? false))
             researchesMap[research.research_id] <- research
 
@@ -150,7 +150,7 @@ let function isResearched(research, researched) {
 
 let function calcResearchedGroups(researches, researched) {
   let res = {}
-  foreach(rId, val in researched) {
+  foreach (rId, val in researched) {
     if (!val)
       continue
     let { squad_id = "", page_id = 0, multiresearchGroup = 0 } = researches?[rId]
@@ -171,7 +171,7 @@ let isCampaignLevelLow = @(campLevel, pageId)
 let allResearchStatus = Computed(function() {
   let res = {}
   let campLevel = maxCampaignLevel.value
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let researches = armiesResearches.value?[armyId].researches ?? {}
     let researched = stateResearches.value?[armyId].researched ?? {}
     let squadProgress = stateResearches.value?[armyId].squadProgress
@@ -185,7 +185,7 @@ let allResearchStatus = Computed(function() {
             && (groups?[research.squad_id][research?.page_id ?? 0][research.multiresearchGroup] ?? false)
           ? GROUP_RESEARCHED
         : squads?[research.squad_id] == null || !isOpenResearch(research, researched) ? DEPENDENT
-        : research.price <= (squadProgress?[research.squad_id].points ?? 0) ? CAN_RESEARCH
+        : (research?.price ?? 0) <= (squadProgress?[research.squad_id].points ?? 0) ? CAN_RESEARCH
         : NOT_ENOUGH_EXP)
   }
   return res
@@ -193,7 +193,7 @@ let allResearchStatus = Computed(function() {
 
 let allResearchProgress = Computed(function() {
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let researches = armiesResearches.value?[armyId].researches ?? {}
     let researched = stateResearches.value?[armyId].researched ?? {}
     res[armyId] <- researched.reduce(@(cnt, val, key)
@@ -271,7 +271,7 @@ let function buyChangeResearch(researchFrom, researchTo) {
 
 let closestTargets = Computed(@() armiesResearches.value.map(function(resCfg) {
   let armyTop = {}
-  foreach(r in resCfg.researches) {
+  foreach (r in resCfg.researches) {
     let status = researchStatuses.value?[r.research_id]
     if (status != CAN_RESEARCH && status != NOT_ENOUGH_EXP)
       continue
@@ -311,7 +311,7 @@ let function findAndSelectClosestTarget(...) {
     .values()
     .sort(@(a, b) a.line <=> b.line || a.tier <=> b.tier)
   local isLockedByCampaignLvl = false
-  foreach(val in tableResearches) {
+  foreach (val in tableResearches) {
     let status = researchStatuses.value?[val.research_id]
     if (status == CAN_RESEARCH || status == NOT_ENOUGH_EXP) {
       selectedResearch(val)

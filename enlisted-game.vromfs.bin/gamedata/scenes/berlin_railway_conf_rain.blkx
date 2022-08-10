@@ -677,8 +677,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_1"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -688,8 +686,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_1"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -699,8 +695,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -710,8 +704,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -721,8 +713,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -732,8 +722,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -743,8 +731,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -754,8 +740,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -765,8 +749,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -776,8 +758,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -787,8 +767,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -798,8 +776,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -809,8 +785,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -820,8 +794,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -831,8 +803,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_5"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -842,61 +812,12 @@ entity{
   groupName:t="sector_5"
   battle_area__team:i=2
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[10917.9, 0.0, -2968.94] [0.0, 8000.03, 0.0] [2968.42, 0.0, 10918.0] [-430.604, 240.916, 194.232]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
-}
-
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="ambient/city_battle"
-    ambient_sound__events:t="ambient/walla_screams"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
 }
 
 entity{
@@ -1180,7 +1101,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_railway_conf"
 
   "loading_images:list<t>"{
@@ -2238,21 +2158,21 @@ entity{
       "entities:array"{
 
         "entities:object"{
-          template:t="rain"
+          template:t="camera_rain_heavy_template"
 
           "components:object"{
-            far_rain__speed:r=10.0
+            far_rain__speed:r=1.0
             rain_ripples__size:r=0.04
             drop_splashes__volumetricSplashScale:r=0.5
             far_rain__wind:r=8.0
             far_rain__density:r=10.0
             drop_splashes__spriteSplashScale:r=7.25
             drop_splashes__iterationTime:r=2.0
-            far_rain__length:r=0.3
+            far_rain__length:r=1.0
             wetness__strength:r=0.6
-            far_rain__alpha:r=0.04
+            far_rain__alpha:r=1.0
             puddles__growthLimit:r=0.03
-            far_rain__width:r=0.01
+            far_rain__width:r=1.0
             puddles__growthRate:r=0.2
             far_rain__alpha_fade_speed_begin:r=150.0
             far_rain__alpha_fade_speed_end:r=400.0
@@ -2261,7 +2181,15 @@ entity{
         }
 
         "entity:object"{
-          template:t="lightning"
+          template:t="lightning_animchar_manager"
+        }
+
+        "entity:object"{
+          template:t="lightning_volumetric"
+        }
+
+        "entity:object"{
+          template:t="lightning_panorama"
         }
       }
     }

@@ -17,6 +17,7 @@ import:t="enlisted_artillery.blk"
 import:t="enlisted_affects.blk"
 import:t="enlisted_color_grading_tonemap.blk"
 import:t="bomb_site.blk"
+import:t="bomb_crater.blk"
 import:t="#content/common_shooter/gamedata/templates/squads.blk"
 import:t="#content/common/gamedata/templates/humans.blk"
 import:t="#content/common_shooter/gamedata/templates/burning.blk"
@@ -77,6 +78,7 @@ import:t="#content/common_shooter/gamedata/templates/weapon_items.blk"
 import:t="#content/common/gamedata/templates/ai.blk"
 import:t="#content/common/gamedata/templates/vehicles.blk"
 import:t="#content/enlisted/gamedata/templates/*.pkg.entities.blk"
+import:t="#content/dev/gamedata/templates/*.pkg.entities.blk"
 import:t="#content/enlisted_pkg_dev/gamedata/templates/*.blk"
 import:t="#content/e_normandy/gamedata/templates/e_normandy.pkg.entities.blk"
 import:t="#content/enlisted/gamedata/templates/aircraft.blk"
@@ -86,6 +88,7 @@ import:t="#content/tanks/gamedata/templates/ww2_tanks.blk"
 import:t="#content/tanks/gamedata/templates/ww2_destroyed_tanks.blk"
 import:t="dummy_body_parts.blk"
 import:t="enlisted_guns.blk"
+import:t="#content/enlisted/gamedata/templates/enlisted_guns_hit_fx.blk"
 import:t="enlisted_items.blk"
 import:t="enlisted_sounds.blk"
 import:t="enlisted_buildings.blk"
@@ -143,153 +146,48 @@ rendinsts_removes{
   }
 }
 
-bomb_crater_config_override{
+navmesh_rebuilding{
+  nonCreatableObj:b=yes
+  editableObj:b=no
+  navmesh_rebuilding__startTime:i64=0
+  navmesh_rebuilding__progress:i=0
+  navmesh_rebuilding__errors:i=0
+}
+
+digging_config{
   _extends:t="replicating"
-  bomb_crater_config_override__decalName:t="explosion"
-}
-
-bomb_crater_config{
 
   _group{
-    _tags:t="server"
-    crater_config__maxRIRadiusToRemove:r=2.0
-    bullet_crater_config__innerRadiusScale:r=0.8
-    bullet_crater_config__innerDepthScale:r=0.4
-    bullet_crater_config__outerAltScale:r=0.35
-    bullet_crater_config__outerRadiusScale:r=1.2
-    bullet_crater_config__maxHeightAtLand:r=1.0
-    bomb_crater_config__innerRadiusScale:r=0.8
-    bomb_crater_config__innerDepthScale:r=0.3
-    bomb_crater_config__outerAltScale:r=0.35
-    bomb_crater_config__outerRadiusScale:r=0.8
-    bomb_crater_config__maxHeightAtLand:r=1.0
+    _tags:t="render"
+    digging_config__fxName:t="soil_digging_dirt"
+    digging_config__fxScale:r=1.5
+    digging_config__fxUpDirectionWeight:r=0.25
+    digging_config__removePuddlesRadiusScale:r=2.0
+    digging_config__decalScale:r=1.5
+    digging_config__riGenDamageRadiusScale:r=1.0
 
-    "crater_config__disabledPhysMatNames:list<t>"{
-      name:t="concrete"
-      name:t="stone"
-      name:t="rocks"
-      name:t="gravel"
+    "digging_config__decalNames:list<t>"{
+      name:t="shovel_dig"
+      name:t="shovel_dig"
+      name:t="shovel_dig"
+      name:t="shovel_dig"
+      name:t="shovel_dig"
+      name:t="shovel_dig"
     }
 
-    "crater_config__disabledPhysMatIds:list<i>"{
+    "digging_config__decalIds:list<i>"{
     }
 
-    "crater_config__isRIPoolRemovable:object"{
-      sandbox_3x5_a:b=yes
-      sandbags_wall_high_l4000_a_dmg:b=yes
-      career_stuff_m:b=yes
-      normandy_fence_flat_b_debris_a:b=yes
-      normandy_fence_flat_a_debris_a:b=yes
-      scaffold_decor_base_walls_a:b=yes
-      european_railway_station_ruins_funnel_soil_a:b=no
-      european_railway_station_ruins_funnel_soil_b:b=no
-      sandbags_wall_high_l2000_hard_a:b=no
-      tunisia_ruins_pillar_big_base_a:b=no
-      tunisia_ruins_pillar_big_base_b:b=no
-      tunisia_ruins_pillar_small_base_a:b=no
-      tunisia_ruins_pillar_small_base_b:b=no
+    "digging_config__decalPhysmats:list<t>"{
+      name:t="default"
+      name:t="sand"
+      name:t="sand_slope"
+      name:t="roadSand"
+      name:t="quickSand"
+      name:t="quarrySand"
     }
 
-    "crater_config__unremovableRIPoolsByNamePart:list<t>"{
-      name:t="_door_"
-      name:t="_window_"
-      name:t="_gate_jamb_"
-      name:t="_hull_rendinst"
-      name:t="_turret_rendinst"
-      name:t="_gun_a_rendinst"
-      name:t="_gun_b_rendinst"
-      name:t="_trench_decor_"
-      name:t="scaffold_"
-      name:t="platform_wooden_"
-      name:t="_flag_ring"
-      name:t="_flag_base_"
-    }
-
-    "crater_config__removableRiPoolIds:list<b>"{
-    }
-
-    "bullet_crater_config__explosiveMassToCraterRadius:list<p2>"{
-      p:p2=0.1, 0.35
-      p:p2=0.3, 0.7
-      p:p2=1.0, 1.4
-      p:p2=2.0, 2.4
-      p:p2=4.0, 2.85
-      p:p2=5.0, 3.2
-      p:p2=12.0, 4.0
-    }
-
-    "bomb_crater_config__splashToCraterRadius:list<p2>"{
-      p:p2=1.2, 1.3
-      p:p2=2.0, 2.0
-      p:p2=5.0, 3.5
-      p:p2=12.0, 4.5
-      p:p2=20.0, 7.0
-      p:p2=120.0, 25.0
-    }
-  }
-}
-
-bomb_crater_terraformer{
-
-  _group{
-    _tags:t="server"
-    bomb_crater_terraformer__processPartsPerFrame:i=7
-    bomb_crater_terraformer__gridWidth:i=5
-    bomb_crater_terraformer__railroadHalfWidth:r=3.0
-    bomb_crater_terraformer__processedPartsCount:i=0
-    bomb_crater_terraformer__position:p3=0.0, 0.0, 0.0
-    bomb_crater_terraformer__innerRadius:r=0.0
-    bomb_crater_terraformer__innerDepth:r=0.0
-    bomb_crater_terraformer__outerAlt:r=0.0
-    bomb_crater_terraformer__outerRadius:r=0.0
-    bomb_crater_terraformer__expectedRiHandlesToRemoveCount:i=32
-
-    "bomb_crater_terraformer__availablePartsMask:u64"{
-      value:i64=0
-    }
-
-    "bomb_crater_terraformer__riHandlesToRemove:list<u64>"{
-    }
-  }
-}
-
-bomb_crater{
-  _extends:t="replicating"
-  bomb_crater__removeRiCountPerFrame:i=7
-  bomb_crater__position:p3=0.0, 0.0, 0.0
-  bomb_crater__innerRadius:r=0.0
-  bomb_crater__innerDepth:r=0.0
-  bomb_crater__outerRadius:r=0.0
-  bomb_crater__outerAlt:r=0.0
-  bomb_crater__partRadius:r=0.0
-  bomb_crater__gridWidth:i=0
-  bomb_crater__riHandlesRemovedCount:i=0
-  bomb_crater__isTerraformed:b=no
-
-  "bomb_crater__availablePartsMask:u64"{
-    value:i64=0
-  }
-
-  "bomb_crater__riHandlesToRemove:list<u64>"{
-  }
-}
-
-bomb_crater_applied_client{
-
-  _group{
-    _tags:t="gameClient"
-
-    "bombCraterAppliedClient:tag"{
-    }
-  }
-}
-
-bomb_crater_applied_server{
-
-  _group{
-    _tags:t="server"
-
-    "bombCraterAppliedServer:tag"{
+    "digging_config__decalPhysmatsIds:list<i>"{
     }
   }
 }
@@ -305,6 +203,23 @@ base_human_hero_components{
   _override:b=yes
   selected_vehicle__hasFreeSeat:b=yes
   _tracked:t="selected_vehicle__hasFreeSeat"
+}
+
+vehicle_fx{
+  vehicle_fx__effectType:i=-1
+  vehicle_fx__id:i=-1
+
+  "vehicle_fx_node__fxTemplateName:list<t>"{
+  }
+
+  "vehicle_fx_node__nodeId:list<i>"{
+  }
+
+  "vehicle_fx__dmPartId:list<i>"{
+  }
+
+  "vehicle_fx__ownerVehicleEid:eid"{
+  }
 }
 
 civil_vehicle_templ{
@@ -353,12 +268,14 @@ civil_vehicle_templ{
     value:b=no
   }
 
-  destroyed_fx_states{
+  _group{
     _tags:t="render"
-  }
 
-  destroyed_fx{
-    _tags:t="render"
+    "destroyed_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
   }
 
   "engine_fire_fx__fx:array"{
@@ -372,32 +289,32 @@ civil_vehicle_templ{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_engine_fire"
+          name:t="tank_engine_fire_template"
           emitter:t="emtr_fire_engine"
         }
 
         "fx:object"{
-          name:t="tank_engine_fire"
+          name:t="tank_engine_fire_template"
           emitter:t="emtr_fire_engine_01"
         }
 
         "fx:object"{
-          name:t="tank_engine_fire"
+          name:t="tank_engine_fire_template"
           emitter:t="emtr_fire_engine_02"
         }
 
         "fx:object"{
-          name:t="tank_engine_smoke"
+          name:t="tank_engine_smoke_template"
           emitter:t="emtr_fire_engine"
         }
 
         "fx:object"{
-          name:t="tank_engine_smoke"
+          name:t="tank_engine_smoke_template"
           emitter:t="emtr_fire_engine_01"
         }
 
         "fx:object"{
-          name:t="tank_engine_smoke"
+          name:t="tank_engine_smoke_template"
           emitter:t="emtr_fire_engine_02"
         }
       }
@@ -414,7 +331,7 @@ civil_vehicle_templ{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_fire_engine"
         }
       }
@@ -875,8 +792,27 @@ camera_scenic_place{
   }
 }
 
+dof_settings{
+  dof__on:b=no
+  dof__farDofAmountPercent:r=20.0
+  dof__farDofStart:r=6.0
+  dof__farDofEnd:r=100.0
+  dof__nearDofAmountPercent:r=50.0
+  dof__nearDofStart:r=0.01
+  dof__nearDofEnd:r=2.0
+  dof__is_filmic:b=no
+  dof__focusDistance:r=-1.0
+  dof__fStop:r=1.0
+  dof__sensorHeight:r=0.024
+  dof__focalLength:r=-1.0
+  dof__bokehShape_kernelSize:r=1.0
+  dof__bokehShape_bladesCount:r=3.0
+  dof__minCheckDistance:r=50.0
+}
+
 camera_scenic_place_dof{
   _extends:t="camera_scenic_place"
+  _extends:t="dof_settings"
 }
 
 menu_transform{
@@ -920,6 +856,15 @@ menu_weapon{
   _singleton:b=yes
 
   "menu_weapon_to_control:eid"{
+  }
+}
+
+menu_inv_items{
+  _extends:t="menu_transform"
+  _track:b=yes
+  _singleton:b=yes
+
+  "menu_inv_items_to_control:eid"{
   }
 }
 
@@ -968,6 +913,14 @@ menu_vehicle_respawnbase{
   }
 }
 
+menu_item_respawnbase{
+  priority_order:i=0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "menu_item_respawnbase:tag"{
+  }
+}
+
 background_menu_soldier{
 
   "attaches_list:list<eid>"{
@@ -984,6 +937,12 @@ background_menu_soldier{
 background_menu_vehicle{
 
   "background_menu_vehicle:tag"{
+  }
+}
+
+background_menu_item{
+
+  "background_menu_item:tag"{
   }
 }
 
@@ -1112,8 +1071,8 @@ enlisted_map_user_point_enemy{
 map_user_point_enemy_vehicle{
   _extends:t="map_user_point"
   _extends:t="enlisted_marker_enemy"
-  pointGroup:i=1
-  countPoint:i=3
+  pointGroup:i=2
+  countPoint:i=10
   timer__delta:r=15.0
   _replicated:t="userPointVehicleTargetEid"
 
@@ -1147,8 +1106,8 @@ map_user_point_enemy_point_on_vehicle{
 map_user_point_enemy_building{
   _extends:t="map_user_point"
   _extends:t="enlisted_marker_enemy"
-  pointGroup:i=1
-  countPoint:i=3
+  pointGroup:i=3
+  countPoint:i=10
   timer__delta:r=20.0
 
   _group{
@@ -1203,23 +1162,6 @@ respawn_point_selector{
 auto_respawn_point_selector{
 
   "autoRespawnSelector:tag"{
-  }
-}
-
-user_building_point{
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  "target:eid"{
-  }
-
-  _group{
-    hud_marker__type:t="building_point"
-    _tags:t="ui"
-    hud_marker__is_visible:b=yes
-    hud_marker__visible_distance:r=-1.0
-  }
-
-  "building_user_point:tag"{
   }
 }
 
@@ -1646,6 +1588,12 @@ squad_members_ui{
   }
 }
 
+sequential_kills_awards{
+  sequential_kills__time:r=10.0
+  sequential_kills__lastKillTime:r=0.0
+  sequential_kills__currentCount:i=0
+}
+
 enlisted_player{
   _extends:t="player"
   _extends:t="enlisted_player_user_point_list"
@@ -1653,6 +1601,7 @@ enlisted_player{
   _extends:t="soldier_stats"
   _extends:t="enlisted_userstat_filter"
   _extends:t="capzone_fortification_award"
+  _extends:t="sequential_kills_awards"
   _extends:t="built_structures_count_engineer_awards"
   _extends:t="ammo_box_limit_engineer_awards"
   _extends:t="med_box_limit_awards"
@@ -1772,6 +1721,7 @@ enlisted_player{
     scoring_player__builtRallyPointUses:i=0
     scoring_player__hostedOnSoldierSpawns:i=0
     scoring_player__vehicleRepairs:i=0
+    scoring_player__vehicleExtinguishes:i=0
     scoring_player__reviveAssists:i=0
     scoring_player__healAssists:i=0
     scoring_player__barrageBalloonDestructions:i=0
@@ -2194,6 +2144,13 @@ soldier_info_cache{
   }
 }
 
+shell_info_cache{
+  _tags:t="gameClient"
+
+  "shell_info_cache:object"{
+  }
+}
+
 human_hide_slots_in_scope{
   human__isHidingSlotsInScopeEnabled:b=yes
 
@@ -2372,6 +2329,12 @@ debugUserstats{
   }
 }
 
+disable_round_end_postfx{
+
+  "disableRoundEndPostfx:tag"{
+  }
+}
+
 base_equipable_gun{
   _override:b=yes
 
@@ -2495,6 +2458,29 @@ scenery_remover{
       desc:t="List of scanned level scenery, may be used to fill in   scenery_remove__exclude   list to avoid removal of required scenery elements. Reset it with R button before saving scene."
     }
   }
+
+  _info{
+    desc:t="Special entity to remove baked original level models (RI) at start of level. Use move, rotate and scale tools to setup displayed box. Everything inside box, except for excluded list, will be removed. Please note, that you can also select, remove and copy RI via Toolbox panel at right top corner of editor (RendInsts)."
+  }
+
+  _group{
+    _tags:t="render"
+
+    "depthAwareEditBox:tag"{
+    }
+  }
+}
+
+ai_train_behaviour_property{
+
+  "aiTrainBehaviour:tag"{
+  }
+}
+
+ai_bomb_behaviour_property{
+
+  "aiBombBehaviour:tag"{
+  }
 }
 
 gun_game_mode_player_components{
@@ -2538,7 +2524,7 @@ gun_game_mode_logic{
   _group{
     _tags:t="server"
     gun_game__finished:b=no
-    gun_game__resetSpawnsTimeout:r=15.0
+    gun_game__resetSpawnsTimeout:r=20.0
     gun_game__resetSpawnsAtTime:r=-1.0
     gun_game__leaderLevel:i=0
 
@@ -2551,236 +2537,203 @@ gun_game_mode_logic{
 
     "gun_game__levels:array"{
 
-      "level:object"{
+      "gun_game__levels:object"{
         weaponSlot:t="primary"
-        levelKills:i=2
+        levelKills:i=1
 
         "weapons:list<t>"{
-          w:t="ppd_3438_gun"
-          w:t="mp_40_1_gun"
-          w:t="thompson_m1928a1_box_mag_gun"
+          item:t="mannlicher_m1895_gun"
         }
       }
 
-      "level:object"{
+      "gun_game__levels:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=1
+
+        "weapons:list<t>"{
+          item:t="winchester_model_1912_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="primary"
+        levelKills:i=1
+
+        "weapons:list<t>"{
+          item:t="m1_garand_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
         weaponSlot:t="secondary"
         levelKills:i=2
 
         "weapons:list<t>"{
-          w:t="stg_44_gun"
-          w:t="fedorov_avtomat_gun"
-          w:t="m2a1_carbine_gun"
+          item:t="mp34o_gun"
         }
       }
 
-      "level:object"{
+      "gun_game__levels:object"{
         weaponSlot:t="primary"
         levelKills:i=2
 
         "weapons:list<t>"{
-          w:t="m1_thompson_gun"
-          w:t="pps_42_gun"
-          w:t="suomi_kp_26_gun"
+          item:t="breda_mod_30_gun"
         }
       }
 
-      "level:object"{
+      "gun_game__levels:object"{
         weaponSlot:t="secondary"
         levelKills:i=2
 
         "weapons:list<t>"{
-          w:t="browning_m1918a1_gun"
-          w:t="lewis_lmg_gun"
-          w:t="mg_42_handheld_gun"
-          w:t="dt_29_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="primary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="sniper_avs_36_gun"
-          w:t="sniper_gewehr_43_gun"
-          w:t="sniper_svt_38_gun"
+          item:t="sniper_gewehr_43_gun"
         }
 
         "additionalWeapInfo:array"{
 
-          "info:object"{
-
-            "gunMods:object"{
-              scope:t="scope_avs_36_pe"
-            }
-          }
-
-          "info:object"{
+          "additionalWeapInfo:object"{
 
             "gunMods:object"{
               scope:t="scope_zf4"
             }
           }
+        }
+      }
 
-          "info:object"{
+      "gun_game__levels:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          item:t="m3_greasegun_supressed_oss_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          item:t="m2_carbine_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="primary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          item:t="m1_thompson_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=2
+
+        "weapons:list<t>"{
+          item:t="browning_m1919a6_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="primary"
+        levelKills:i=3
+
+        "weapons:list<t>"{
+          item:t="m9_bazooka_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="primary"
+        levelKills:i=3
+
+        "weapons:list<t>"{
+          item:t="m1903a1_springfield_gun"
+        }
+
+        "additionalWeapInfo:array"{
+
+          "additionalWeapInfo:object"{
 
             "gunMods:object"{
-              scope:t="scope_svt_pu"
+              scope:t="unertl_8x_sight"
             }
           }
         }
-
-        "selectedAdditionalInfo:object"{
-        }
       }
 
-      "level:object"{
+      "gun_game__levels:object"{
         weaponSlot:t="secondary"
-        levelKills:i=2
+        levelKills:i=3
 
         "weapons:list<t>"{
-          w:t="silenced_erma_emp_gun"
-          w:t="ppd_bramit_gun"
-          w:t="m3_greasegun_supressed_oss_gun"
+          item:t="m1_flamethrower_gun"
         }
       }
 
-      "level:object"{
+      "gun_game__levels:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=3
+
+        "weapons:list<t>"{
+          item:t="p08_luger_artillery_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
         weaponSlot:t="primary"
-        levelKills:i=2
+        levelKills:i=3
 
         "weapons:list<t>"{
-          w:t="zh_29_gun"
-          w:t="m1_carbine_gun"
-          w:t="svt_40_gun"
-          w:t="gewehr_41_gun"
+          item:t="delisle_commando_carbine_gun"
         }
       }
 
-      "level:object"{
-        weaponSlot:t="secondary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="rpzb_54_1_panzerschreck_gun"
-          w:t="m1_bazooka_gun"
-          w:t="m9_bazooka_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="primary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="kar98k_with_scope_mount_gun"
-          w:t="carcano_m38_7_35_with_scope_mount_gun"
-          w:t="m1903a3_springfield_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="secondary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="roks_2_gun"
-          w:t="m2_flamethrower_gun"
-          w:t="flammenwerfer_35_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="primary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="kar98k_with_schiessbecher_grenade_launcher_gun"
-          w:t="mosin_1928_grenade_launcher_gun"
-          w:t="m1_carbine_grenade_launcher_gun"
-          w:t="m1_garand_grenade_launcher_m7_gun"
-          w:t="kar98k_with_schiessbecher_grenade_launcher_gun"
-          w:t="kar98k_with_gg_p_40_grenade_launcher_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="secondary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="winchester_model_1912_gun"
-          w:t="ithaca_37_gun"
-          w:t="m30_luftwaffe_drilling_gun"
-          w:t="toz_b_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="primary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="kar98k_kriegsmodell_gun"
-          w:t="armaguerra_mod_39_gun"
-          w:t="lee_enfield_no4_mk1_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="secondary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="ptrs_41_gun"
-          w:t="ptrd_41_gun"
-          w:t="pzb_39_gun"
-          w:t="atr_boys_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="primary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="bren_mk2_gun"
-          w:t="breda_mod_30_gun"
-          w:t="zb_26_gun"
-          w:t="madsen_gun"
-        }
-      }
-
-      "level:object"{
-        weaponSlot:t="secondary"
-        levelKills:i=2
-
-        "weapons:list<t>"{
-          w:t="piat_gun"
-          w:t="grb_39_gun"
-        }
-      }
-
-      "level:object"{
+      "gun_game__levels:object"{
         weaponSlot:t="tertiary"
-        levelKills:i=2
+        levelKills:i=3
 
         "weapons:list<t>"{
-          w:t="mauser_c96_gun"
-          w:t="nagant_m1895_gun"
-          w:t="walther_pp_gun"
-          w:t="tt_33_gun"
-          w:t="colt_new_service_m1909_gun"
+          item:t="m1911a1_colt_nickel_gun"
         }
       }
 
-      "level:object"{
-        weaponSlot:t="melee"
-        levelKills:i=2
+      "gun_game__levels:object"{
+        weaponSlot:t="secondary"
+        levelKills:i=3
 
         "weapons:list<t>"{
-          w:t="us_officer_sword_1902_weapon"
-          w:t="axe_weapon"
+          item:t="sturmpistole_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="melee"
+        levelKills:i=3
+
+        "weapons:list<t>"{
+          item:t="german_officer_sword_weapon"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="tertiary"
+        levelKills:i=3
+
+        "weapons:list<t>"{
+          item:t="colt_new_service_m1909_gun"
+        }
+      }
+
+      "gun_game__levels:object"{
+        weaponSlot:t="melee"
+        levelKills:i=1
+
+        "weapons:list<t>"{
+          item:t="knife_weapon"
         }
       }
     }
@@ -2797,5 +2750,51 @@ gun_game_mode_sounds{
       path:t="ui/academy_training_popup"
       toPlayer:b=yes
     }
+  }
+}
+
+cinematic_mode{
+  _singleton:b=yes
+  cinematic_mode__hasRain:b=no
+  cinematic_mode__hasSnow:b=no
+  cinematic_mode__hasLightning:b=no
+
+  "cinematic_mode_tag:tag"{
+  }
+
+  _group{
+    _track:b=yes
+    cinematic_mode__useCustomSettings:b=no
+    cinematic_mode__fps:i=60
+    cinematic_mode__fname:t="d:/encode.mp4"
+    cinematic_mode__bitrate:i=30000000
+    cinematic_mode__subPixels:i=1
+    cinematic_mode__vignetteStrength:r=0.0
+    cinematic_mode__chromaticAberration:p3=0.01, 0.007, 1.0
+    cinematic_mode__filmGrain:p3=0.0, 1.0, 1.0
+    cinematic_mode__bloomThreshold:r=0.8
+    cinematic_mode__recording:b=no
+    cinematic_mode__weatherPreset:t=""
+    cinematic_mode__rain:b=no
+    cinematic_mode__snow:b=no
+    cinematic_mode__lightning:b=no
+    cinematic_mode__dayTime:r=12.0
+    cinematic_mode__mb_scale:r=0.0
+    cinematic_mode__mb_velocityMultiplier:r=0.005
+    cinematic_mode__mb_maxVelocity:r=0.1
+    cinematic_mode__mb_alphaMulOnApply:r=0.125
+    cinematic_mode__mb_overscanMul:r=0.01
+    cinematic_mode__mb_forwardBlur:r=0.0
+    cinematic_mode__colorGradingSelected:t=""
+
+    "cinematic_mode__graphicsSettings:object"{
+    }
+  }
+
+  "cinematic_mode__weatherPresetList:list<t>"{
+  }
+
+  "cinematic_mode__colorGradingOptions:shared:list<t>"{
+    item:t="postfx_color_grading_tonemap_death_alive_enlisted"
   }
 }

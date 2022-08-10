@@ -13,7 +13,7 @@ def spectator_appear_es(evt : Event; eid : EntityId; var spectator__target : Ent
   else
     set_spectated(eid, spectator__target, find_next_spec_target(spectator__teamId, INVALID_ENTITY_ID, +1), /*initial*/ true)
 
-[es(tag=spectator, on_disappear)]
+[es(REQUIRE=spectator, on_disappear)]
 def spectator_disappear_es(evt : Event; spectator__target : EntityId)
   if spectator__target != INVALID_ENTITY_ID && doesEntityExist(spectator__target)
     removeSubTemplate(spectator__target, "observed_local")
@@ -31,6 +31,8 @@ def spectator_bhv_es(evt : UpdateStageInfoAct;
     camera__lookDir = spectator__dir
 
   let aim = get_analog_stick_action_state(uint16(spectator_input__aim))
+  if !aim.bActive
+    return
   spectator__ang += float2(aim.x * PI, aim.y * PI)
   spectator__ang.y = clamp(spectator__ang.y, -PI / 2. + 1e-3f, PI / 2. - 1e-3f)
   spectator__dir = angles_to_dir(spectator__ang)

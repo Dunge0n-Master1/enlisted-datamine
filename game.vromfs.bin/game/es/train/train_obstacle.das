@@ -42,7 +42,7 @@ def move_train_obstacle_es(evt : UpdateStageInfoAct;
     let len = length((pos - train_obstacle_transform[3]).xz)
     let lenInteger = int(len)
 
-    for i in range(lenInteger)
+    for _i in range(lenInteger)
       if length(train_obstacle__handles) != 0
         tilecache_obstacle_remove(train_obstacle__handles[0])
         erase(train_obstacle__handles, 0)

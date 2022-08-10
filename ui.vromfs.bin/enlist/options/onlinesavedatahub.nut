@@ -17,7 +17,7 @@ eventbus.subscribe("onlineData.init", function(msg) {
 })
 
 let function onChange(_) {
-  foreach(saveId, value in lastValues) {
+  foreach (saveId, value in lastValues) {
     let newValue = getCurValue(saveId)
     if (newValue == value)
       continue

@@ -7,6 +7,7 @@ require Dacoll
 require AnimV20
 require GeomNodeTree
 require DagorSystem
+require enlisted.events_enlisted
 
 def advance(var values : float3&)
   values.z = values.y
@@ -26,7 +27,7 @@ def get_reverb_3d_pos()
   return pos
 
 [es(tag=sound, after=animchar_render_es)]
-def reverb_sound_update(info : UpdateStageInfoAct;
+def reverb_sound_update(info : ParallelUpdateFrameDelayed;
                         var reverb_sound__rayId : int&;
                         var reverb_sound__intensityValues : float3&;
                         var reverb_sound__roomSizeValues : float3&;
@@ -67,11 +68,13 @@ def reverb_sound_update(info : UpdateStageInfoAct;
 
 
 [es(tag=sound, on_appear)]
-def reverb_sound_created(evt : Event;
-                         reverb_sound__path : string;
-                         reverb_sound__intensityVar : string;
-                         var reverb_sound__event : SoundEvent&)
-
+def reverb_sound_appear(evt : Event;
+                        reverb_sound__path : string;
+                        reverb_sound__intensityVar : string;
+                        var reverb_sound__event : SoundEvent&)
+  // master banks containing 'reverb_sound__path' event should be already loaded at this point!
+  // so master banks should be configurated as "async:b=no".
+  // or may track 'sound_bank_preset_state__isValid' to wait and start when all banks are loaded.
   reverb_sound__event |> play(reverb_sound__path, get_reverb_3d_pos())
   set_var_global(reverb_sound__intensityVar, 0.)
 

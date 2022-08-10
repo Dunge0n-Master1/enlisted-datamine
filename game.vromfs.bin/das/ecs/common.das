@@ -15,6 +15,10 @@ def get_string(obj : ecs::ChildComponent; orDefault : string)
   return str != null ? string(*str) : orDefault
 
 [generic]
+def get_string(arr : StringList; index : int; default_value : string) : string
+  return uint(index) < uint(length(arr)) ? string(arr[index]) : default_value
+
+[generic]
 def find_index(arr : ecs::Array; eid : EntityId) : int
   return find_index_if(each(arr)) <| $(elem) : bool
     let tryEid = get_Eid(elem)
@@ -47,48 +51,6 @@ def find_index(arr : StringList; val : string) : int
       return i
   return -1
 
-
-def operator ?[] (t : IntList implicit; idx : int) : int const?#
-  if uint(idx) < uint(length(t))
-    unsafe
-      return reinterpret<int const?#> addr(t.[idx])
-  unsafe
-    return reinterpret<int const?#> null
-
-def operator ?[] (t : FloatList implicit; idx : int) : float const?#
-  if uint(idx) < uint(length(t))
-    unsafe
-      return reinterpret<float const?#> addr(t.[idx])
-  unsafe
-    return reinterpret<float const?#> null
-
-def operator ?[] (t : BoolList implicit; idx : int) : bool const?#
-  if uint(idx) < uint(length(t))
-    unsafe
-      return reinterpret<bool const?#> addr(t.[idx])
-  unsafe
-    return reinterpret<bool const?#> null
-
-def operator ?[] (t : EidList implicit; idx : int) : EntityId const?#
-  if uint(idx) < uint(length(t))
-    unsafe
-      return reinterpret<EntityId const?#> addr(t.[idx])
-  unsafe
-    return reinterpret<EntityId const?#> null
-
-def operator ?[] (t : Point2List implicit; idx : int) : float2 const?#
-  if uint(idx) < uint(length(t))
-    unsafe
-      return reinterpret<float2 const?#> addr(t.[idx])
-  unsafe
-    return reinterpret<float2 const?#> null
-
-def operator ?[] (t : Point3List implicit; idx : int) : float3 const?#
-  if uint(idx) < uint(length(t))
-    unsafe
-      return reinterpret<float3 const?#> addr(t.[idx])
-  unsafe
-    return reinterpret<float3 const?#> null
 
 [generic]
 def is_point_in_poly(pt : float2; points : ecs::Point2List)
@@ -127,3 +89,8 @@ def push_to_initializer(var init : ComponentsInitializer; name : string; b : blo
 
 def split_template(name : string) : array<string>
   return <- split(name, "+")
+
+def reduce(obj : Object implicit; var res : auto(T) implicit; cb : block<(res : T; elem : ChildComponent) : T>) : T
+  for it in obj
+    res = invoke(cb, res, it.value)
+  return res

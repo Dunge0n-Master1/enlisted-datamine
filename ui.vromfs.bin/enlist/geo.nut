@@ -217,8 +217,8 @@ let function getClusterByCode(params={code=null,clusterByRegionMap=clusterByRegi
   local foundCountry = "unlisted"
   local foundRegion="EU"
   local haveFound=false
-  foreach(region, codes in codesByCountries){
-    foreach(country, code in codes){
+  foreach (region, codes in codesByCountries){
+    foreach (country, code in codes){
       if (curcode==code){
         foundRegion=region
         foundCountry=country

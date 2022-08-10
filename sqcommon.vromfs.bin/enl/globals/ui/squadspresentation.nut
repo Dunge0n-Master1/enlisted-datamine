@@ -49,6 +49,7 @@ return freeze({
 //prems
     ussr_berlin_prem_assault_1 = genSquadUssr("ussr_berlin_prem_assault_1")
     ussr_berlin_prem_engineer_1 = genSquadUssr("ussr_berlin_prem_engineer_1")
+    ussr_berlin_prem_engineer_1_ch = genSquadUssr("ussr_berlin_prem_engineer_1")
     ussr_berlin_prem_rifle_1 = genSquadUssr("ussr_berlin_prem_rifle_1")
     ussr_berlin_prem_tank_1 = genSquadUssr("ussr_berlin_prem_tank_1")
     ussr_berlin_prem_tank_2 = genSquadUssr("ussr_berlin_prem_tank_2")
@@ -100,6 +101,7 @@ return freeze({
 //prems
     ger_berlin_prem_assault_1 = genSquadGer("ger_berlin_prem_assault_1")
     ger_berlin_prem_engineer_1 = genSquadGer("ger_berlin_prem_engineer_1")
+    ger_berlin_prem_engineer_1_ch = genSquadGer("ger_berlin_prem_engineer_1")
     ger_berlin_prem_rifle_1 = genSquadGer("ger_berlin_prem_rifle_1")
     ger_berlin_prem_tank_1 = genSquadGer("ger_berlin_prem_tank_1")
     ger_berlin_prem_tank_2 = genSquadGer("ger_berlin_prem_tank_2")
@@ -148,6 +150,7 @@ return freeze({
     ussr_moscow_prem_assault_1 = genSquadUssr("ussr_moscow_prem_assault_1")
     ussr_moscow_prem_assault_1_ch = genSquadUssr("ussr_moscow_prem_assault_1")
     ussr_moscow_prem_mgun_1 = genSquadUssr("ussr_moscow_prem_mgun_1")
+    ussr_moscow_prem_mgun_1_ch = genSquadUssr("ussr_moscow_prem_mgun_1")
     ussr_moscow_prem_mgun_1_legacy = genSquadUssr("ussr_moscow_prem_mgun_1")
     ussr_moscow_prem_assault_2 = genSquadUssr("ussr_moscow_prem_assault_2")
     ussr_moscow_prem_tank_1 = genSquadUssr("ussr_moscow_prem_tank_1")
@@ -194,6 +197,7 @@ return freeze({
     ger_moscow_prem_assault_1 = genSquadGer("ger_moscow_prem_assault_1")
     ger_moscow_prem_assault_1_ch = genSquadGer("ger_moscow_prem_assault_1")
     ger_moscow_prem_mgun_1 = genSquadGer("ger_moscow_prem_mgun_1")
+    ger_moscow_prem_mgun_1_ch = genSquadGer("ger_moscow_prem_mgun_1")
     ger_moscow_prem_mgun_1_legacy = genSquadGer("ger_moscow_prem_mgun_1")
     ger_moscow_prem_tank_1 = genSquadGer("ger_moscow_prem_tank_1")
     ger_moscow_prem_assault_2 = genSquadGer("ger_moscow_prem_assault_2")
@@ -243,8 +247,10 @@ return freeze({
 
 //prems
     usa_normandy_prem_assault_1 = genSquadUsa("usa_normandy_prem_assault_1")
+    usa_normandy_prem_assault_1_ch = genSquadUsa("usa_normandy_prem_assault_1")
     usa_normandy_prem_assault_2 = genSquadUsa("usa_normandy_prem_assault_2")
     usa_normandy_prem_mgun_1 = genSquadUsa("usa_normandy_prem_mgun_1")
+    usa_normandy_prem_mgun_1_ch = genSquadUsa("usa_normandy_prem_mgun_1")
     usa_normandy_prem_pilot_fighter_1 = genSquadUsa("usa_normandy_prem_pilot_fighter_1")
     usa_normandy_prem_engineer_1 = genSquadUsa("usa_normandy_prem_engineer_1")
     usa_normandy_prem_tank_1 = genSquadUsa("usa_normandy_prem_tank_1")
@@ -293,8 +299,10 @@ return freeze({
 
 //prems
     ger_normandy_prem_assault_1 = genSquadGer("ger_normandy_prem_assault_1")
+    ger_normandy_prem_assault_1_ch = genSquadGer("ger_normandy_prem_assault_1")
     ger_normandy_prem_assault_2 = genSquadGer("ger_normandy_prem_assault_2")
     ger_normandy_prem_mgun_1 = genSquadGer("ger_normandy_prem_mgun_1")
+    ger_normandy_prem_mgun_1_ch = genSquadGer("ger_normandy_prem_mgun_1")
     ger_normandy_prem_pilot_fighter_1 = genSquadGer("ger_normandy_prem_pilot_fighter_1")
     ger_normandy_prem_engineer_1 = genSquadGer("ger_normandy_prem_engineer_1")
     ger_normandy_prem_tank_1 = genSquadGer("ger_normandy_prem_tank_1")
@@ -338,6 +346,7 @@ return freeze({
     allies_tunisia_prem_tank_1 = genSquadUsa("allies_tunisia_prem_tank_1")
     allies_tunisia_prem_assault_1 = genSquadUsa("allies_tunisia_prem_assault_1")
     allies_tunisia_prem_radioman_1 = genSquadUsa("allies_tunisia_prem_radioman_1")
+    allies_tunisia_prem_radioman_1_ch = genSquadUsa("allies_tunisia_prem_radioman_1")
     allies_tunisia_prem_pilot_assaulter_1 = genSquadUsa("allies_tunisia_prem_pilot_assaulter_1")
     allies_tunisia_prem_rifle_1 = genSquadUsa("allies_tunisia_prem_rifle_1")
     allies_tunisia_event_mgun_1 = genSquadUsa("allies_tunisia_event_mgun_1", {premIcon = ICON_EVENT})
@@ -379,6 +388,7 @@ return freeze({
     axis_tunisia_prem_tank_1 = genSquadGer("axis_tunisia_prem_tank_1")
     axis_tunisia_prem_assault_1 = genSquadGer("axis_tunisia_prem_assault_1")
     axis_tunisia_prem_radioman_1 = genSquadGer("axis_tunisia_prem_radioman_1")
+    axis_tunisia_prem_radioman_1_ch = genSquadGer("axis_tunisia_prem_radioman_1")
     axis_tunisia_prem_pilot_assaulter_1 = genSquadGer("axis_tunisia_prem_pilot_assaulter_1")
     axis_tunisia_prem_rifle_1 = genSquadGer("axis_tunisia_prem_rifle_1")
     axis_tunisia_prem_tank_2 = genSquadGer("axis_tunisia_prem_tank_2")
@@ -417,6 +427,7 @@ return freeze({
     allies_stalingrad_prem_medic_1 = genSquadUssr("allies_stalingrad_prem_medic_1")
     allies_stalingrad_prem_pilot_assaulter_1 = genSquadUssr("allies_stalingrad_prem_pilot_assaulter_1")
     allies_stalingrad_prem_assault_1 = genSquadUssr("allies_stalingrad_prem_assault_1")
+    allies_stalingrad_prem_assault_1_ch = genSquadUssr("allies_stalingrad_prem_assault_1")
   }
 
 
@@ -450,5 +461,6 @@ return freeze({
     axis_stalingrad_prem_tank_1 = genSquadGer("axis_stalingrad_prem_tank_1")
     axis_stalingrad_prem_medic_1 = genSquadGer("axis_stalingrad_prem_medic_1")
     axis_stalingrad_prem_assault_1 = genSquadGer("axis_stalingrad_prem_assault_1")
+    axis_stalingrad_prem_assault_1_ch = genSquadGer("axis_stalingrad_prem_assault_1")
   }
 })

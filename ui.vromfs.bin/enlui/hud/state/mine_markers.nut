@@ -1,31 +1,34 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
+let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")
+
 let {TEAM_UNASSIGNED} = require("team")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
-let mine_markers = Watched({})
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid){
-  if (eid in mine_markers.value)
-    mine_markers.mutate(@(v) delete v[eid])
-}
+let {
+  mine_markers_Set,
+  mine_markers_GetWatched,
+  mine_markers_UpdateEid,
+  mine_markers_DestroyEid
+} = mkWatchedSetAndStorage("mine_markers_")
 
 ecs.register_es(
   "mine_markers_es",
   {
     [["onInit", "onChange"]] = function(_evt, eid, comp){
-      let isFriendlyMine = is_teams_friendly(comp["placeable_item__ownerTeam"], localPlayerTeam.value)
+      let isFriendlyMine = is_teams_friendly(comp["placeable_item__ownerTeam"], watchedTeam.value)
       if (!isFriendlyMine || !comp["mine__activated"])
-        deleteEid(eid)
+        mine_markers_DestroyEid(eid)
       else
-        mine_markers.mutate(@(v) v[eid] <- {
+        mine_markers_UpdateEid(eid, {
           type = comp.item__mineType ?? comp.item__grenadeLikeType
           blockedToTime = comp["mine__blockedToTime"]
           installBlockTime = comp["mine__installBlockTime"]
         })
     }
-    onDestroy = @(_evt, eid, _comp) deleteEid(eid)
+    onDestroy = @(_evt, eid, _comp) mine_markers_DestroyEid(eid)
   },
   {
     comps_rq = ["transform", "ui__placeableItemMarker"]
@@ -41,5 +44,5 @@ ecs.register_es(
 )
 
 return{
-  mine_markers = mine_markers
+  mine_markers_Set, mine_markers_GetWatched
 }

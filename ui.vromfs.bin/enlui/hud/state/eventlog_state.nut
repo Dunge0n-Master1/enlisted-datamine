@@ -13,7 +13,7 @@ let countNotIgnoreKeys = @(event) event.keys().reduce(@(res, key) equalIgnore?[k
 let function isEventSame(event1, event2) {
   if (countNotIgnoreKeys(event1) != countNotIgnoreKeys(event2))
     return false
-  foreach(key, value in event1)
+  foreach (key, value in event1)
     if (!equalIgnore?[key] && event2?[key] != value)
       return false
   return true
@@ -96,7 +96,7 @@ local EventLogState = class {
   }
 
   function update(dt) {
-    foreach(e in this.events.value)
+    foreach (e in this.events.value)
       e.ttl -= dt
     let newEvents = this.events.value.filter(@(e) e.ttl > 0)
     if (newEvents.len() != this.events.value.len())

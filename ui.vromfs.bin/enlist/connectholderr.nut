@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let matching_api = require("matching.api")
 let matching_errors = require("matching.errors")
-let logM = require("%sqstd/log.nut")().with_prefix("[MATCHING] ")
+let logM = require("%enlSqGlob/library_logs.nut").with_prefix("[MATCHING] ")
 let eventbus = require("eventbus")
 
 let state = persist("state", @() {

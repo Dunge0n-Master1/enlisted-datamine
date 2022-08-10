@@ -8,10 +8,10 @@ def play_projectile_hit_scene_sound(evt : CmdPlayProjectileHitSceneSound;
                                     projectile_sound__hit : string;
                                     projectile_sound__explode : string;
                                     projectile_sound__smallCaliberThreshold = 0.02)
-  var _type = evt.exploded ? projectile_sound__explode : projectile_sound__hit
-  if _type == "auto_select"
-    _type = evt.caliber < projectile_sound__smallCaliberThreshold ? "bullet" : "shell"
-  if _type != ""
+  var typ = evt.exploded ? projectile_sound__explode : projectile_sound__hit
+  if typ == "auto_select"
+    typ = evt.caliber < projectile_sound__smallCaliberThreshold ? "bullet" : "shell"
+  if typ != ""
     let smid = int(get_projectile_sound_material_id(evt.pmid))
-    let path = _type == "bullet" ? "[rico={evt.ricochet};cal={evt.caliber};mat={smid}]impact/{_type}" : "[cal={evt.caliber};mat={smid}]impact/{_type}"
+    let path = typ == "bullet" ? "[rico={evt.ricochet};cal={evt.caliber};mat={smid}]impact/{typ}" : "[cal={evt.caliber};mat={smid}]impact/{typ}"
     oneshot(path, evt.pos)

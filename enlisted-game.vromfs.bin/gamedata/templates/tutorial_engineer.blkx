@@ -313,9 +313,8 @@ tutorial_engineer_about_points_return{
   tutor_stage__buildFortication:t="building_tool/rallypoint"
   tutor_stage__buildForticationAtZone:t="build_respawner_zone_2"
 
-  "tutor_action__destroySingletons:list<t>"{
-    key:t="tutorial_engineer_out_of_resources"
-    key:t="tutorial_engineer_resupply_resources"
+  "tutor_stage__removeStageGroup:list<t>"{
+    key:t="out_of_resources"
   }
 
   "tutor_bq__sendOnBegin:tag"{
@@ -390,9 +389,8 @@ tutorial_engineer_build_ammo_box{
   tutor_stage__activateZoneId:t="ammo_box_zone"
   tutor_stage__buildForticationAtZone:t="ammo_box_zone"
 
-  "tutor_action__createEntity:list<t>"{
-    key:t="tutorial_engineer_out_of_resources"
-    key:t="tutorial_engineer_resupply_resources"
+  "tutor_stage__removeStageGroup:list<t>"{
+    key:t="out_of_resources"
   }
 
   "tutor_action__unlockBuilding:list<t>"{
@@ -505,6 +503,7 @@ tutorial_engineer_out_of_resources{
   tutor_stage__deactivateZoneId:t="resource_ressupply"
   tutor_stage__displayHint:t=""
   tutor_stage__hintGroup:t="sub_tutorial_hint"
+  tutor_stage__group:t="out_of_resources"
 
   "tutor_bq__sendOnBegin:tag"{
   }
@@ -516,6 +515,7 @@ tutorial_engineer_resupply_resources{
   tutor_stage__activateZoneId:t="resource_ressupply"
   tutor_stage__displayHint:t="hint_tutorial_engineer_no_construction_points_left"
   tutor_stage__hintGroup:t="sub_tutorial_hint"
+  tutor_stage__group:t="out_of_resources"
 
   "tutor_bq__sendOnBegin:tag"{
   }

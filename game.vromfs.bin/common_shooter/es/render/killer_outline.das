@@ -1,6 +1,7 @@
 require ecs
 require app
 require DagorMath
+require enlisted.events_enlisted
 require game.events_game
 
 [es(tag=render, REQUIRE=(hero, deadEntity), on_appear, track=death_cam__killer)]
@@ -21,8 +22,8 @@ def killer_outline(evt : Event; death_cam__killer : EntityId)
       outline__always_visible = true
 
 
-[es(tag=render, no_order)]
-def outline_disabler(info : UpdateStageInfoAct;
+[es(tag=render)]
+def outline_disabler(info : ParallelUpdateFrameDelayed;
                      var killer_outline__enabled : bool&;
                      var outline__enabled : bool&;
                      var outline__always_visible : bool&;

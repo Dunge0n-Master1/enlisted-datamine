@@ -16,7 +16,7 @@ let levelsLineHeight = fsh(0.5)
 
 let levelsPointImage = Picture("ui/skin#train/train_point.svg:{0}:{1}:K".subst(levelsPointSize[0], levelsPointSize[1]))
 
-let progressMarkerSize = [hdpx(24).tointeger(), hdpx(30).tointeger()]
+let progressMarkerSize = [hdpxi(24), hdpxi(30)]
 let progressMarkerTextSize = hdpx(10)
 
 let progressMarkerImage = Picture("!ui/skin#teammate_arrow_white.svg:{0}:{1}:K".subst(progressMarkerSize[0], progressMarkerSize[1]))
@@ -114,7 +114,7 @@ let currentLevelKillsInfo = @() {
       }.__update(body_txt)
       {
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/skin#skull_white.svg:{0}:{0}:K".subst(hdpx(32).tointeger()))
+        image = Picture("ui/skin#skull_white.svg:{0}:{0}:K".subst(hdpxi(32)))
         color = Color(150,150,150,100)
         size = [hdpx(32), hdpx(32)]
       }

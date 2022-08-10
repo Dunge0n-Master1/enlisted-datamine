@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require soundEvent
 require soundProps
@@ -15,14 +16,14 @@ def is_armored(parts_armor : FloatList const?; node_id : int; sound_tags : Objec
   return read_sound_tag("armored", sound_tags)
 
 
-def damage_type_to_sound_path(damage_type : DamageType)
-  if damage_type == DamageType DM_PROJECTILE
+def damage_type_to_sound_path(damage_type : int)
+  if damage_type == int(DamageType DM_PROJECTILE)
     return "hit_dmgProjectile"
-  if damage_type == DamageType DM_MELEE || damage_type == DamageType DM_BACKSTAB
+  if damage_type == int(DamageType DM_MELEE) || damage_type == int(DamageType DM_BACKSTAB)
     return "hit_dmgMelee"
-  if damage_type == DamageType DM_EXPLOSION
+  if damage_type == int(DamageType DM_EXPLOSION)
     return "hit_dmgExplosion"
-  if damage_type == DamageType DM_HOLD_BREATH
+  if damage_type == int(DamageType DM_HOLD_BREATH)
     return "hit_dmgAsphyxiation"
   return ""
 
@@ -41,19 +42,19 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
   var name = ""
   var path = ""
 
-  let actionSoundProps = action_sound_try_get_props(int(evt.damageDesc.actionPropsId))
+  let actionSoundProps = action_sound_try_get_props(evt.actionPropsId)
   if actionSoundProps != null
     name = (*actionSoundProps).humanHitSoundName
     path = (*actionSoundProps).humanHitSoundPath
 
   if empty(path)
-    path = damage_type_to_sound_path(evt.damageDesc.damageType)
+    path = damage_type_to_sound_path(evt.damageType)
 
-  var pathObj = path != "" ? get_ecs_object(human_hit_sound__paths, path) : null
+  var pathObj = path != "" ? (human_hit_sound__paths[path] ?as Object) : null
   if pathObj == null
     return
 
-  let collNodeId = int(evt.damageDesc.collNodeId)
+  let collNodeId = evt.collNodeId
   if dm_parts__type != null && uint(collNodeId) < uint(length(*dm_parts__type))
     let part = get_desc(*pathObj, "part_{(*dm_parts__type)[collNodeId]}")
     pathObj = part != null ? part : pathObj
@@ -62,13 +63,13 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
     return
 
   if empty(name)
-    name = get_string(*pathObj, "name", "")
+    name = (*pathObj).name ?? ""
 
-  var handle = play_name_path_impl(name, path, evt.damageDesc.hitPos, false/*is_abandon*/)
+  var handle = play_name_path_impl(name, path, evt.hitPos, false/*is_abandon*/)
 
   //logerr("{path} / {name} handle={handle}")
 
-  if evt.damageDesc.damageType == DamageType DM_PROJECTILE || evt.damageDesc.damageType == DamageType DM_MELEE || evt.damageDesc.damageType == DamageType DM_BACKSTAB
+  if evt.damageType == int(DamageType DM_PROJECTILE) || evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)
     let isArmored = isAlive && is_armored(dm_parts__partsArmor, collNodeId, sound_tags)
     set_var_optional(handle, "armored", isArmored ? 1. : 0.)
 

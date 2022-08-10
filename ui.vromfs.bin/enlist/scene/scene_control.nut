@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { DBGLEVEL } = require("dagor.system")
-let { Point2, Point3 } = require("dagor.math")
+let { Point2, Point3, TMatrix } = require("dagor.math")
 let {
   vehTplInVehiclesScene, vehDataInVehiclesScene,
   itemInArmory, soldierInSoldiers, currentNewItem, scene
@@ -23,6 +23,7 @@ let { viewVehDecorators } = require("%enlist/vehicles/customizeState.nut")
 let { selectVehParams } = require("%enlist/vehicles/vehiclesListState.nut")
 let { soldiersLook } = require("%enlist/meta/servProfile.nut")
 let { allOutfitByArmy } = require("%enlist/soldiers/model/config/outfitConfig.nut")
+let { viewTemplates } = require("%enlist/items/itemCollageState.nut")
 
 
 let composedScene = Computed(@() selectedSquadSoldiers.value ? "squad" : scene.value)
@@ -51,7 +52,26 @@ let setCameraQuery = ecs.SqQuery("setCameraQuery", {
     ["menu_cam__shouldRotateTarget", ecs.TYPE_BOOL],
   ],
   comps_rq = ["camera__active"], comps_no=["scene"]})
-let setDofQuery = ecs.SqQuery("setDofQuery", {comps_rw = [["post_fx", ecs.TYPE_OBJECT]]})
+let setDofQuery = ecs.SqQuery("setDofQuery", {
+  comps_rw = [
+    ["dof__on", ecs.TYPE_BOOL],
+    ["dof__nearDofStart", ecs.TYPE_FLOAT],
+    ["dof__nearDofEnd", ecs.TYPE_FLOAT],
+    ["dof__nearDofAmountPercent", ecs.TYPE_FLOAT],
+    ["dof__farDofStart", ecs.TYPE_FLOAT],
+    ["dof__farDofEnd", ecs.TYPE_FLOAT],
+    ["dof__farDofAmountPercent", ecs.TYPE_FLOAT],
+    ["dof__bokehShape_kernelSize", ecs.TYPE_FLOAT],
+    ["dof__bokehShape_bladesCount", ecs.TYPE_FLOAT],
+    ["dof__minCheckDistance", ecs.TYPE_FLOAT],
+    ["dof__is_filmic", ecs.TYPE_BOOL],
+    ["dof__focusDistance", ecs.TYPE_FLOAT],
+    ["dof__sensorHeight", ecs.TYPE_FLOAT],
+    ["dof__focalLength", ecs.TYPE_FLOAT],
+    ["dof__fStop", ecs.TYPE_FLOAT],
+  ]
+  comps_rq=[["is_dof", ecs.TYPE_TAG]]
+})
 let findScenicCamQuery = ecs.SqQuery("findScenicCamQuery", {
   comps_ro = [
     ["transform", ecs.TYPE_MATRIX],
@@ -73,28 +93,63 @@ let findScenicDofDistQuery = ecs.SqQuery("findScenicDofDistQuery", {comps_ro = [
     ["dof__farDofStart", ecs.TYPE_FLOAT],
     ["dof__farDofEnd", ecs.TYPE_FLOAT],
     ["dof__farDofAmountPercent", ecs.TYPE_FLOAT],
+    ["dof__bokehShape_kernelSize", ecs.TYPE_FLOAT],
+    ["dof__bokehShape_bladesCount", ecs.TYPE_FLOAT],
+    ["dof__minCheckDistance", ecs.TYPE_FLOAT],
+    ["dof__is_filmic", ecs.TYPE_BOOL],
+    ["dof__focusDistance", ecs.TYPE_FLOAT],
+    ["dof__sensorHeight", ecs.TYPE_FLOAT],
+    ["dof__focalLength", ecs.TYPE_FLOAT],
+    ["dof__fStop", ecs.TYPE_FLOAT],
   ]})
 
 let function setDofDist(dof_comp){
   setDofQuery.perform(function(_eid, post_fx_comp){
-    post_fx_comp.post_fx["dof__on"] = dof_comp["dof__on"]
-    post_fx_comp.post_fx["dof__nearDofStart"] = dof_comp["dof__nearDofStart"]
-    post_fx_comp.post_fx["dof__nearDofEnd"] = dof_comp["dof__nearDofEnd"]
-    post_fx_comp.post_fx["dof__nearDofAmountPercent"] = dof_comp["dof__nearDofAmountPercent"]
-    post_fx_comp.post_fx["dof__farDofStart"] = dof_comp["dof__farDofStart"]
-    post_fx_comp.post_fx["dof__farDofEnd"] = dof_comp["dof__farDofEnd"]
-    post_fx_comp.post_fx["dof__farDofAmountPercent"] = dof_comp["dof__farDofAmountPercent"]
+    post_fx_comp.dof__on = dof_comp["dof__on"]
+    post_fx_comp.dof__nearDofStart = dof_comp["dof__nearDofStart"]
+    post_fx_comp.dof__nearDofEnd = dof_comp["dof__nearDofEnd"]
+    post_fx_comp.dof__nearDofAmountPercent = dof_comp["dof__nearDofAmountPercent"]
+    post_fx_comp.dof__farDofStart = dof_comp["dof__farDofStart"]
+    post_fx_comp.dof__farDofEnd = dof_comp["dof__farDofEnd"]
+    post_fx_comp.dof__farDofAmountPercent = dof_comp["dof__farDofAmountPercent"]
+    post_fx_comp.dof__bokehShape_kernelSize = dof_comp["dof__bokehShape_kernelSize"]
+    post_fx_comp.dof__bokehShape_bladesCount = dof_comp["dof__bokehShape_bladesCount"]
+    post_fx_comp.dof__minCheckDistance = dof_comp["dof__minCheckDistance"]
+    post_fx_comp.dof__is_filmic = dof_comp["dof__is_filmic"]
+    post_fx_comp.dof__focusDistance = dof_comp["dof__focusDistance"]
+    post_fx_comp.dof__sensorHeight = dof_comp["dof__sensorHeight"]
+    post_fx_comp.dof__focalLength = dof_comp["dof__focalLength"]
+    post_fx_comp.dof__fStop = dof_comp["dof__fStop"]
   })
 }
 
-let function setCamera(cameraComps){
+let cameraOffset = Watched([0, 0, 0])
+console_register_command(function(x, y, z) {
+  cameraOffset([x, y, z])
+}, "setCameraOffset")
+
+let function mkOffsetTMatrix(tm, offset) {
+  local newTm = TMatrix(tm)
+  newTm[3] = Point3(
+    tm[3].x + offset[0],
+    tm[3].y + offset[1],
+    tm[3].z + offset[2]
+  )
+  return newTm
+}
+
+let function setCamera(cameraComps) {
+  let camOffset = cameraOffset.value
   setCameraQuery.perform(function(_eid, comp){
     foreach (k, v in cameraComps)
-      if (k in comp)
-        comp[k] = v
+      if (k in comp) {
+        if (k == "transform")
+          comp[k] = mkOffsetTMatrix(v, camOffset)
+        else
+          comp[k] = v
+      }
   })
 }
-
 
 //!----- quick and dirty create entities for preview ---
 
@@ -106,7 +161,7 @@ local function createEntity(template, transform, callback = null, extraTemplates
   return INVALID_ENTITY_ID
 }
 
-let logg = DBGLEVEL !=0 ? log_for_user : log.log
+let logg = DBGLEVEL !=0 ? log_for_user : log
 let function makeWeaponTemplate(template){
   if (template == null || template == "")
     return null
@@ -273,6 +328,11 @@ let objectsToObserve = {
     watch = itemInArmory
     shouldResetCameraDirection = Watched(true)
   },
+  inv_items = {
+    compName = "menu_inv_items_to_control"
+    watch = Watched(null)
+    shouldResetCameraDirection = Watched(true)
+  },
   new_items = {
     compName = "menu_new_items_to_control",
     createEntityFunc = @(template, transform, callback=null)
@@ -333,7 +393,8 @@ let function processScene(...) {
   if (cameraNotFound)
     isFadeDone(true)
 }
-composedScene.subscribe(processScene)
+foreach(v in [composedScene, cameraOffset])
+  v.subscribe(processScene)
 
 let gettransforms = @(query) ecs.query_map(query, @(_eid, comp) {
     transform = comp["transform"]
@@ -385,6 +446,16 @@ let vehiclesPlacesQuery = ecs.SqQuery("vehiclePlaces", {
 let menuBackgroundVehiclesQuery = ecs.SqQuery("menuVehiclesPlacesQuery", {
   comps_rq = ["background_menu_vehicle"]
 })
+
+let createdItems = mkWatched(persist, "createdItems", [])
+let itemsPlacesQuery = ecs.SqQuery("itemPlaces", {
+  comps_ro = ["transform", ["priority_order", ecs.TYPE_INT, 0]]
+  comps_rq = ["menu_item_respawnbase"]
+})
+let menuBackgroundItemsQuery = ecs.SqQuery("menuBackgroundItemsQuery", {
+  comps_rq = ["background_menu_item"]
+})
+
 //we duplicate state of created objects by creating with tag and store it in script.
 //While it is enough to have it only in script it is not enough to have it in entities, because createEntity is Async and if state is changed in a one frame twice
 //objects of first change will be not destroyed (they do not have tags). We can replace to createEntitySync, but this is not reponsive enough
@@ -406,7 +477,7 @@ let replaceSoldiers = mkReplaceObjectsFunc(squadPlacesQuery,
   menuBackgroundSoldiersQuery,
   @(object, place) createSoldier({
     guid = object?.guid
-    transform = place.transform
+    transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
     order = place.order
     soldiersLook = soldiersLook.value
     premiumItems = allOutfitByArmy.value
@@ -419,24 +490,38 @@ let replaceVehicles = mkReplaceObjectsFunc(
   menuBackgroundVehiclesQuery,
   @(object, place) createVehicle({
     template = object
-    transform = place.transform
+    transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
     customazation = vehDataInVehiclesScene.value
   }),
   createdVehicles
 )
 
+let replaceInvItems = mkReplaceObjectsFunc(itemsPlacesQuery,
+  menuBackgroundItemsQuery,
+  @(template, place) template == "" ? INVALID_ENTITY_ID
+    : createEntity(makeWeaponTemplate(template), place.transform),
+  createdItems)
+
 registerFadeBlackActions({
-  replace_soldiers = @() replaceSoldiers(currentSquadToPlace.value)
-  replace_vehicles = @() replaceVehicles(vehicleToPlace.value)
+  replace_soldiers  = @() replaceSoldiers(currentSquadToPlace.value)
+  replace_vehicles  = @() replaceVehicles(vehicleToPlace.value)
+  replace_inv_items = @() replaceInvItems(viewTemplates.value)
 })
 
 let currentSquadToPlaceReplace = @(...)
-  doFadeBlack({fadein=0.2, fadeout=0.6, action = "replace_soldiers" })
+  doFadeBlack({ fadein = 0.2, fadeout = 0.6, action = "replace_soldiers" })
 let vehicleToPlaceReplace = @(...)
-  doFadeBlack({fadein=0.2, fadeout=0.3, action = "replace_vehicles" })
+  doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_vehicles" })
+let itemsToPlaceReplace = @(...)
+  doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_inv_items" })
 
-currentSquadToPlace.subscribe(currentSquadToPlaceReplace)
-vehicleToPlace.subscribe(vehicleToPlaceReplace)
+foreach(v in [currentSquadToPlace, cameraOffset])
+  v.subscribe(currentSquadToPlaceReplace)
+
+foreach(v in [vehicleToPlace, cameraOffset])
+  v.subscribe(vehicleToPlaceReplace)
+
+viewTemplates.subscribe(itemsToPlaceReplace)
 
 //trigger on level loaded
 ecs.register_es("setscene_es", {

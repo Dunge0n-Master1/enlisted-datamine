@@ -56,7 +56,7 @@ let transcode = freeze({
 let function transcodeTable(data){
   let res = {}
   foreach (key, val in data){
-    if(key not in transcode || val == null)
+    if (key not in transcode || val == null)
       continue
     if (typeof transcode[key] == "function"){
       let line = transcode[key](val)

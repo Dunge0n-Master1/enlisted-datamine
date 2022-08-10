@@ -81,9 +81,18 @@ def aircraft_dropBomb(bomb_gun_templ : string = "planegun_il_2_1941_fab_50_launc
 def aircraft_dropBombCam(bomb_gun_templ : string = "planegun_il_2_1941_fab_50_launcher_01"; start_vel : float = 50.)
   console_command("gun.shootFromCam {bomb_gun_templ} 0 {start_vel}")
 
+[console_cmd(name="aircraft.dropBombCam250")]
+def aircraft_dropBombCam250(bomb_gun_templ : string = "planegun_ai_ju_188_sc_250_launcher_01"; start_vel : float = 50.)
+  console_command("gun.shootFromCam {bomb_gun_templ} 0 {start_vel}")
+
+[console_cmd(name="aircraft.bombTanks")]
+def aircraft_bombTanks(bomb_gun_templ : string = "planegun_ai_ju_188_sc_250_launcher_01")
+  query() <| $ [es(REQUIRE=isTank)] (transform : float3x4)
+    console_command("gun.shootFromCam {bomb_gun_templ} 0 0.0 1.0 1.0 1.0 {transform[3][0]} {transform[3][1] + 10.} {transform[3][2]}")
+
 [console_cmd(name="spawn.plane_side")]
 def debug_spawn_plane_side(dist : float = 500.0; side_dist : float = 300.0; relative_height : float = 0.0)
-  query() <| $ [es] (possessedByPlr : EntityId; transform : float3x4)
+  query() <| $ [es] (possessedByPlr : EntityId; transform : float3x4; team : int)
     if !possessedByPlr
       return
 
@@ -91,28 +100,36 @@ def debug_spawn_plane_side(dist : float = 500.0; side_dist : float = 300.0; rela
     let pos = transform[3]
     let dir = transform[0]
     let side = transform[2]
-    createEntity("bf_109g_6+plane_spawn_in_air") <| $(var init : ComponentsInitializer)
+    createEntity("bf_109g_6+plane_spawn_in_air+vehicle_with_passenger") <| $(var init : ComponentsInitializer)
+      let enemyTeam = (team % 2) + 1
       var tm = IDENT_TM
       tm[3] = pos + dir * dist - side * side_dist + up * relative_height
       tm[0] = transform[2]
       tm[1] = transform[1]
       tm[2] = transform[0]
       set(init, "transform", tm)
+      set(init, "team", enemyTeam)
+      set(init, "vehicle_with_passenger__humanTemplate", "tutorial_tank_passenger")
+      set(init, "vehicle_with_passenger__team", enemyTeam)
 
 [console_cmd(name="spawn.plane")]
 def debug_spawn_plane(dist : float = 300.0; same_course = true; relative_height : float = 0.0)
-  query() <| $ [es] (possessedByPlr : EntityId; transform : float3x4)
+  query() <| $ [es] (possessedByPlr : EntityId; transform : float3x4; team : int)
     if !possessedByPlr
       return
 
     let up = float3(0, 1, 0)
     let pos = transform[3]
     let dir = transform[0]
-    createEntity("bf_109g_6+plane_spawn_in_air") <| $(var init : ComponentsInitializer)
+    createEntity("bf_109g_6+plane_spawn_in_air+vehicle_with_passenger") <| $(var init : ComponentsInitializer)
+      let enemyTeam = (team % 2) + 1
       var tm = IDENT_TM
       tm[3] = pos + dir * dist + up * relative_height
       tm[0] = transform[0] * (same_course ? 1.0 : -1.0)
       tm[1] = transform[1]
       tm[2] = transform[2]
       set(init, "transform", tm)
+      set(init, "team", enemyTeam)
       set(init, "startRelativeSpeed", 0.3)
+      set(init, "vehicle_with_passenger__humanTemplate", "tutorial_tank_passenger")
+      set(init, "vehicle_with_passenger__team", enemyTeam)

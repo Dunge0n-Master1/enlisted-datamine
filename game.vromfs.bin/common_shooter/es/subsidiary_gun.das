@@ -19,7 +19,7 @@ def subsidiary_gun_phys_es(evt : CmdWeapPhysUpdate; eid, subsidiaryGunEid : ecs:
   query(subsidiaryGunEid) <| $ [es] (gun : Gun; gun__manuallyUnloaded : bool; gun__ammo : int)
     human_gun_update_reload(gun, subsidiaryGunEid, gun__manuallyUnloaded, evt.gctrl.shoot, evt.isForReal, gun__ammo, evt.owner, (evt.atTime - evt.dt))
 
-  let gctrl = [[GunControls() shoot=false, wishShoot=false, boltActionMult = evt.gctrl.boltActionMult]]
+  let gctrl = [[GunControls() shoot=false, wishShoot=false, boltActionMult = evt.gctrl.boltActionMult, timeStep = evt.gctrl.timeStep]]
   sendEventImmediate(eid, [[CmdGunUpdate atTime=evt.atTime, isForReal=evt.isForReal, seed=phys_time_to_seed(evt.atTime), gctrl=gctrl, gloc=evt.gloc]])
 
   // We need to use original evt.gloc.gunShootPos here. It might be tempting to calculate it
@@ -129,7 +129,10 @@ def subsidiary_gun_visibility_es(act : ecs::UpdateStageInfoAct;
                                  gun__owner : EntityId;
                                  weapon_mod__active : bool;
                                  ramrodGun : Tag?;
-                                 var gun__visible : bool&)
+                                 var gun__visible : bool&;
+                                 var animchar_render__enabled : bool&)
   query(gun__owner) <| $ [es] (human_weap__weapModActivateStartTime : float; menuChar : bool = false)
     gun__visible = ramrodGun == null && (
       weapon_mod__active || human_weap__weapModActivateStartTime > 0.0f || menuChar)
+
+    animchar_render__enabled = gun__visible

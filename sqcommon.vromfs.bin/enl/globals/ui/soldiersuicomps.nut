@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let {
   gap, bigGap, defTxtColor, soldierExpColor, soldierLvlColor, soldierGainLvlColor,
@@ -19,19 +19,23 @@ let {
 let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 
 const MAX_LEVEL_SOLDIER = 5
+const PERK_ALERT_SIGN = "caret-square-o-up"
+const ITEM_ALERT_SIGN = "dropbox"
+const REQ_MANAGE_SIGN = "plus-square"
 
-let iconSize = hdpx(26).tointeger()
+let iconSize = hdpxi(26)
 
 let formatIconName = @(icon, width, height = null) icon.slice(-4) == ".svg"
   ? $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:K"
   : $"{icon}?Ac"
 
-let newPerksIcon = @(isSelected, unseenCount) function() {
-  let ret = { watch = unseenCount }
-  if (unseenCount.value > 0)
-    ret.__update(blinkingIcon("arrow-up", unseenCount.value, isSelected))
-  return ret
-}
+let mkAlertIcon = @(icon, unseenWatch = Watched(true), hasBlink = false)
+  function() {
+    let res = { watch = unseenWatch }
+    return res.__update(unseenWatch.value
+      ? blinkingIcon(icon).__update(hasBlink ? {} : { animations = null })
+      : {})
+  }
 
 let mkLevelIcon = @(fontSize = hdpx(10), color = soldierExpColor, fName = "star") {
   rendObj = ROBJ_INSCRIPTION
@@ -266,7 +270,7 @@ let function mkSoldierMedalIcon(soldierInfo, size) {
 }
 
 return {
-  newPerksIcon
+  mkAlertIcon
   levelBlock
   levelBlockWithProgress
   kindIcon
@@ -281,4 +285,8 @@ return {
   experienceTooltip
   mkLevelIcon
   mkSoldierMedalIcon
+
+  PERK_ALERT_SIGN
+  ITEM_ALERT_SIGN
+  REQ_MANAGE_SIGN
 }

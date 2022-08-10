@@ -111,7 +111,7 @@ let function requestCachedFiles(urlAndCacheKeys, useCache = true){
   }
   if (toRequest.len()==0)
     return HTTP_READY
-  foreach(urlAndKey in toRequest)
+  foreach (urlAndKey in toRequest)
     httpGetRequest(urlAndKey.url, urlAndKey.cache_key)
   setDownloadStatusMul(statuses)
   return HTTP_REQUESTED

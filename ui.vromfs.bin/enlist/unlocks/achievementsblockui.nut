@@ -92,7 +92,7 @@ let achievementsBlockUI = {
       })
       flow = FLOW_VERTICAL
       gap = smallPadding
-      margin = [0,0,0,hdpx(18).tointeger()]
+      margin = [0,0,0,hdpxi(18)]
       halign = ALIGN_CENTER
       children = [mkAchievementTitle(achievements, "achievementsTitle")]
         .extend(achievements.map(@(achievement) mkAchievementSlot(achievement)))

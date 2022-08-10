@@ -116,6 +116,13 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
   vehicle_seats_camera_nodes__defaultNode:t="sight"
   animchar__res:t="cannon_germ_20mm_flak38_flakvierling_char"
   collres__res:t="cannon_germ_20mm_flak38_flakvierling_collision"
+  cockpit__cameraDir:p3=1.0, 0.0, 0.0
+  _tracked:t="cockpit__eid"
+  cockpit__zoomOutFov:r=2.0
+  cockpit__zoomInFov:r=4.0
+  vehicle_commander_cam__attachToVehicle:b=yes
+  commanderFpsCamMaxAngle:p2=90.0, 30.0
+  gunnerFpsCamMaxAngle:p2=10.0, 10.0
 
   "phys_vars__skipVisibilityCheck:tag"{
   }
@@ -135,6 +142,19 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
     }
   }
 
+  "cockpit__eid:eid"{
+    _tags:t="gameClient"
+  }
+
+  cockpit_animchar_res_preload{
+    _tags:t="gameClient"
+  }
+
+  "cockpit__isHeroInCockpit:b"{
+    _tags:t="gameClient"
+    value:b=no
+  }
+
   "vehicle_seats__seats:shared:array"{
 
     "seats:object"{
@@ -144,10 +164,20 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
       attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
       seatComponent:t="isDriver"
       ignoreAttachNodeRotation:b=yes
-      cameraType:t="machinegunner_cockpit"
+      cameraType:t="gunner"
       cameraNodeName:t="sight"
       cameraOffset:p3=0.0, 0.5, 0.0
       directTurretControl:b=yes
+      canLoadInHatch:b=yes
+      maxPosWithOpenHatch:r=0.0
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+
+      "hatchTurretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
 
       "turretNames:array"{
         turret:t="turret_01"
@@ -265,22 +295,22 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_big"
+          name:t="tank_smoke_big_template"
           emitter:t="guns"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="guns"
         }
 
         "fx:object"{
-          name:t="tank_fire_big"
+          name:t="tank_fire_big_template"
           emitter:t="guns"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="guns"
         }
       }
@@ -297,7 +327,7 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="guns"
         }
       }
@@ -314,7 +344,7 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="guns"
         }
       }
@@ -340,4 +370,43 @@ cannon_germ_20mm_flak38_flakvierling{
 
 cannon_germ_20mm_flak38_flakvierling_desert{
   _extends:t="cannon_germ_20mm_flak38_flakvierling_without_camo"
+}
+
+germ_20mm_flak38_flakvierling_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_zf_3x8_flak.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__zoomTimeMul:r=3.0
+  cockpit__minZoom:r=0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.9, 0.56, 0.26
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel_dr"
+    node:t="gun_barrel_ur"
+    node:t="gun_barrel_ul"
+    node:t="gun_barrel_dl"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.19
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
 }

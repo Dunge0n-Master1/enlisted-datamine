@@ -13,7 +13,7 @@ let function getCrewCount(template) {
 
 let function collectVehicleData(vehicle, armyId, squadId, country) {
   let res = {}
-  foreach(key in ["guid", "gametemplate"])
+  foreach (key in ["guid", "gametemplate"])
     res[key] <- vehicle[key]
 
   return res.__update({
@@ -32,7 +32,7 @@ let vehicles = Computed(function() {
 
   let armyId = armyData.value.armyId
   let country = armyData.value.country
-  foreach(squad in squadsList) {
+  foreach (squad in squadsList) {
     let vehicle = squad?.curVehicle
     if (vehicle != null)
       res[vehicle.guid] <- collectVehicleData(vehicle, armyId, squad.squadId, country)

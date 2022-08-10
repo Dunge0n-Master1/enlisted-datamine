@@ -1,4 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
+import "%dngscripts/ecs.nut" as ecs
 from "minimap" import MinimapState
 
 let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
@@ -6,8 +7,20 @@ let mmContext = require("minimap_ctx.nut")
 let {isGamepad, isTouch} = require("%ui/control/active_controls.nut")
 let command = require("%ui/hud/send_minimap_mark.nut")
 let {controlHudHint} = require("%ui/components/controlHudHint.nut")
-let { getMmChildrenCtors, mmChildrenCtorsGeneration, minimapDefaultVisibleRadius, regionsColorsUpdate } = require("%ui/hud/huds/minimap/minimap_state.nut")
 let mouseButtons = require("%enlSqGlob/mouse_buttons.nut")
+let {mmChildrenCtors} = require("%ui/hud/minimap_ctors.nut")
+
+let minimapDefaultVisibleRadius = Watched(150)
+
+ecs.register_es("set_minimap_default_visible_radius_es", {
+    function onInit(_eid, comp) {
+      minimapDefaultVisibleRadius.update(comp["level__minimapDefaultVisibleRadius"])
+    }
+  },
+  {
+    comps_rq = ["level"]
+    comps_ro = [["level__minimapDefaultVisibleRadius", ecs.TYPE_INT]]
+  })
 
 let mapSize = [fsh(17), fsh(17)]
 let mapContentMargin = fsh(0.5)//needed because of compass arrows that are out of size
@@ -60,14 +73,6 @@ let blurredWorld = {
 }
 
 
-let regionsGeometry = @() {
-  watch = regionsColorsUpdate
-  size = flex()
-  minimapState = minimapState
-  rendObj = ROBJ_MINIMAP_REGIONS_GEOMETRY
-  behavior = Behaviors.Minimap
-}.__update(regionsColorsUpdate.value)
-
 let visCone = {
   size = flex()
   minimapState = minimapState
@@ -100,7 +105,7 @@ let baseMap = {
   behavior = Behaviors.Minimap
   margin = mapContentMargin
 
-  children = [regionsGeometry, visCone]
+  children = visCone
 }
 
 let commonLayerParams = {
@@ -161,8 +166,7 @@ let interactiveCanvas = @() {
 }
 
 let function makeMinimap(panButton = mouseButtons.LMB, clickOverride = null) {
-  return @() {
-    watch = mmChildrenCtorsGeneration
+  return {
     size = mapSize
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
@@ -172,7 +176,7 @@ let function makeMinimap(panButton = mouseButtons.LMB, clickOverride = null) {
       blurredWorld,
       baseMap,
     ]
-      .extend(getMmChildrenCtors().map(@(c) mkMinimapLayer(c, commonLayerParams)))
+      .extend(mmChildrenCtors.map(@(c) mkMinimapLayer(c, commonLayerParams)))
       .append(
         interactiveCanvas,
         noClipMap(panButton, clickOverride),

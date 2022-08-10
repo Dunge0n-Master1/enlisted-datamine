@@ -12,7 +12,7 @@ let disabledSectionsData = Computed(function() {
   let disabledList = gameProfile.value?.campaigns[campaign].disabledSections ?? []
 
   let res = {}
-  foreach(section in disabledList)
+  foreach (section in disabledList)
     res[section] <- true
 
   return res

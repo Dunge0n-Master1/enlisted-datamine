@@ -51,7 +51,7 @@ let function getValuesByRule(rule, curValues) {
 
     local isFit = true
     local isOverrideDefault = false
-    foreach(fName, fValue in ovr?.applyIf ?? {}) {
+    foreach (fName, fValue in ovr?.applyIf ?? {}) {
       if (fName not in curValues)
         return null //not all values are ready to check filters
       local val = curValues[fName]
@@ -74,7 +74,7 @@ let function getValuesByRule(rule, curValues) {
 }
 
 let function updateValues(toTbl, fromTbl) {
-  foreach(key, list in fromTbl)
+  foreach (key, list in fromTbl)
     if (key in toTbl)
       toTbl[key].extend(list)
     else
@@ -93,7 +93,7 @@ let optionsConfig = Computed(function(prev) {
   let availValues = {}
 
   let modesList = curModes.value.len() > 0 ? curModes.value : allModes.value
-  foreach(mode in modesList) {
+  foreach (mode in modesList) {
     let { rules = {} } = createEventRoomCfg.value?[mode]
     let modeCurValues = {}
     let modeAvailValues = {}
@@ -221,12 +221,15 @@ let optCluster = {
   toggleValue = mkToggleValue(optClusterId, curClusters)
 }
 
+let locOn = loc($"option/on")
+let locOff = loc($"option/off")
+
 let optFullRoomsId = "fullRooms"
 let optFullRooms = {
   id = optFullRoomsId
   optType = OPT_SWITCH
   locId = "rooms/HideFull"
-  valToString = @(v) v ? loc($"option/on") : loc($"option/off")
+  valToString = @(v) v ? locOn : locOff
   curValue = Computed(@() saved.value?[optFullRoomsId] ?? false)
   setValue = mkSave(optFullRoomsId)
 }
@@ -236,9 +239,19 @@ let optModRooms = {
   id = optModRoomsId
   optType = OPT_SWITCH
   locId = "rooms/HideMods"
-  valToString = @(v) v ? loc($"option/on") : loc($"option/off")
+  valToString = @(v) v ? locOn : locOff
   curValue = Computed(@() saved.value?[optModRoomsId] ?? false)
   setValue = mkSave(optModRoomsId)
+}
+
+let optPasswordRoomsId = "PasswordRooms"
+let optPasswordRooms = {
+  id = optPasswordRoomsId
+  optType = OPT_SWITCH
+  locId = "rooms/HidePasswordRooms"
+  valToString = @(v) v ? locOn : locOff
+  curValue = Computed(@() saved.value?[optPasswordRoomsId] ?? false)
+  setValue = mkSave(optPasswordRoomsId)
 }
 
 console_register_command(clearFilters, "customRooms.resetFilter")
@@ -257,4 +270,5 @@ return {
   optCluster
   optFullRooms
   optModRooms
+  optPasswordRooms
 }

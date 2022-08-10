@@ -19,7 +19,7 @@ let combinedUnlocks = Computed(function() {
   local premProgress = 0
   let res = []
   foreach (basicStage, basic in basicRewards) {
-    foreach(stat in basic?.updStats ?? []){
+    foreach (stat in basic?.updStats ?? []){
       premProgress += stat?.name == BP_PREMIUM_STAT ? (stat?.value ?? 0).tointeger() : 0
     }
     res.append(basic.__merge({

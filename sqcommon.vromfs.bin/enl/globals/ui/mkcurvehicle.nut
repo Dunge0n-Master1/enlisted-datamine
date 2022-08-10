@@ -26,7 +26,7 @@ let function mkVehicleImage(gametemplate, skinId) {
   return iconByGameTemplate(gametemplate, override)
 }
 
-let mkVehicleInfo = @(vehicleInfo, sf) {
+let mkVehicleInfo = @(vehicleInfo, soldiersInSquad, sf) {
   vplace = ALIGN_TOP
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
@@ -52,7 +52,7 @@ let mkVehicleInfo = @(vehicleInfo, sf) {
     0 == (vehicleInfo?.crew ?? 0)
       ? null
       : note({
-          text = " ".join([loc("vehicleDetails/crew"), vehicleInfo.crew])
+          text = " ".join([loc("vehicleDetails/crew"), $"{soldiersInSquad}/{vehicleInfo.crew}"])
           color = txtColor(sf)
         })
   ]
@@ -71,10 +71,10 @@ let mkNoVehicle = @(sf) {
 }
 
 let mkCurVehicle = @(
-  openChooseVehicle = null, topRightChild = null,
-  canSpawnOnVehicle = Watched(true), vehicleInfo = Watched(null)
+  vehicleInfo, soldiersList, openChooseVehicle = null, topRightChild = null,
+  canSpawnOnVehicle = Watched(true)
 ) watchElemState(@(sf) {
-    watch = [vehicleInfo, canSpawnOnVehicle]
+    watch = [vehicleInfo, canSpawnOnVehicle, soldiersList]
     size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.Button
     onClick = openChooseVehicle
@@ -92,7 +92,7 @@ let mkCurVehicle = @(
             flow = FLOW_HORIZONTAL
             size = flex()
             children = [
-              mkVehicleInfo(vehicleInfo.value, sf)
+              mkVehicleInfo(vehicleInfo.value, soldiersList.value.len(), sf)
               topRightChild
             ]
           }

@@ -20,7 +20,7 @@ let { mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 120), picSaturate = 0.0 }
 
-let iconDead = Picture("ui/skin#lb_deaths")
+let iconDead = Picture("ui/skin#lb_deaths.png")
 
 let function listSquadColor(flags, selected, isFaded, hasAlertStyle, isDead) {
   if (isDead)
@@ -35,7 +35,7 @@ let function listSquadColor(flags, selected, isFaded, hasAlertStyle, isDead) {
       : add + defBgColor
 }
 
-let sClassIconSize = hdpx(22).tointeger()
+let sClassIconSize = hdpxi(22)
 let makeClassIcon = @(soldier, color, isDead = false) isDead
   ? {
       rendObj = ROBJ_IMAGE

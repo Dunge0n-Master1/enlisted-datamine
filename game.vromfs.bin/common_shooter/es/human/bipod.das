@@ -61,6 +61,7 @@ def bipod_human_act_es(evt : CmdPostPhysUpdate;
                        bipod__anchorPos : float3;
                        bipod__anchorNormal : float3;
                        bipod__isCrawl : bool;
+                       bipod__pitchLimit : float2;
                        human_weap__currentGunEid : EntityId;
                        var bipod__enabled : bool&;
                        var human_net_phys : HumanActor&;
@@ -89,12 +90,13 @@ def bipod_human_act_es(evt : CmdPostPhysUpdate;
 
     var offset = -(humanItm * gunTm * gun__bipodOffset)
 
+    assume walkNormal = human_net_phys.phys.currentState.walkNormal
     let worldOffset = quat(bipod__anchorNormal, aimAngle.x) * offset
-    let d = dot(human_net_phys.phys.currentState.walkNormal, worldOffset)
-    if bipod__isCrawl && d < 0.f
-      offset += -d * bipod__crawlLegsFloat * human_net_phys.phys.currentState.walkNormal
+    let d = dot(walkNormal, worldOffset)
+    if bipod__isCrawl && d < 0.0
+      offset += -d * bipod__crawlLegsFloat * walkNormal
 
-    let wishPos = calc_human_pos(aimAngle.x, bipod__anchorPos, offset, bipod__anchorNormal)
+    var wishPos = calc_human_pos(aimAngle.x, bipod__anchorPos, offset, bipod__anchorNormal)
 
     var gunAngles = float2(-aimAngle.x, 0.f)
     if bipod__isCrawl
@@ -110,10 +112,20 @@ def bipod_human_act_es(evt : CmdPostPhysUpdate;
     let ccdPos = human_net_phys.phys.ccdPos
     let prevWorldCcdPos = ccdTm * ccdPos
 
+    if !bipod__isCrawl
+      wishPos.y = float(human_net_phys.phys.currentState.location.P.y)
+
     human_net_phys.phys.currentState.location.P = DPoint3(wishPos)
     human_net_phys.phys.currentState.velocity = float3(0.f)
     human_net_phys.phys.currentState.breathOffset = float2(0.f)
     human_net_phys.phys.currentState.moveState = HUMoveState EMS_STAND
+
+    assume height = human_net_phys.phys.currentState.height
+    if bipod__isCrawl
+      height = -1.0
+    else
+      let ratio = cvt(aimAngle.y, bipod__pitchLimit.x, bipod__pitchLimit.y, 1.0, 0.0)
+      height = ((height < 0.5) ? 0.1 : 1.0) * ratio
 
     location_toTM(human_net_phys.phys.currentState.location, ccdTm)
 

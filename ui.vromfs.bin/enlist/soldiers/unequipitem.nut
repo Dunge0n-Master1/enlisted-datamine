@@ -1,17 +1,31 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { getLinksByType } = require("%enlSqGlob/ui/metalink.nut")
+let {
+  getLinksByType, getFirstLinkedObjectGuid, getLinkedSquadGuid
+} = require("%enlSqGlob/ui/metalink.nut")
 let {
   getDemandingSlots, getDemandingSlotsInfo, objInfoByGuid
 } = require("%enlist/soldiers/model/state.nut")
 let { equipItem } = require("%enlist/soldiers/model/itemActions.nut")
 let popupsState = require("%enlist/popup/popupsState.nut")
-let { campItemsByLink } = require("%enlist/meta/profile.nut")
+let { campItemsByLink, squads, soldiers } = require("%enlist/meta/profile.nut")
+let { isSquadRented } = require("model/squadInfoState.nut")
+let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 
 
 let function unequip(slotType, slotId, ownerGuid) {
-  let listByDemands = getDemandingSlots(ownerGuid, slotType,
-    objInfoByGuid.value?[ownerGuid], campItemsByLink.value)
+  let owner = objInfoByGuid.value?[ownerGuid]
+  let sList = soldiers.value
+  let soldier = sList?[ownerGuid] ?? sList?[getFirstLinkedObjectGuid(owner, sList)]
+  if (soldier != null) {
+    let squadGuid = getLinkedSquadGuid(soldier)
+    if (squadGuid != null && isSquadRented(squads.value?[squadGuid])) {
+      showRentedSquadLimitsBox()
+      return
+    }
+  }
+
+  let listByDemands = getDemandingSlots(ownerGuid, slotType, owner, campItemsByLink.value)
   if (listByDemands.len() > 0) {
     let equippedCount = listByDemands.filter(@(item) item != null).len()
     if (equippedCount <= 1) {

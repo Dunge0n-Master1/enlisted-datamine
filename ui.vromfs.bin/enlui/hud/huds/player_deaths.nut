@@ -16,7 +16,7 @@ let textStyle = freeze({
 let ffKillMsg = textarea(loc("friendly_fire_kill","You was killed by friendly fire"), textStyle)
 let enemyKillMsg = textarea(loc("enemy_fire_kill", "You was killed by enemy"), textStyle)
 let function deathMessage(item) {
-  let {name=null, inMyTeam=false} = item?.killer
+  let {name=null, inMyTeam=false} = item
   local children
   if (name == null)
     children = inMyTeam ? ffKillMsg : enemyKillMsg

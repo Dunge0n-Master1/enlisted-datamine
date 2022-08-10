@@ -14,13 +14,6 @@ def ai_target_update_last_actions(act : UpdateStageInfoAct; human_weap__lastShot
   if lastShootTime < ai_target.lastShootTimer && (ai_target__handleGrenadesAsShoot || !has(human_weap__lastShotGunEid, "grenade_thrower"))
     ai_target.lastShootTimer = lastShootTime
   ai_target.lastShootTimer += act.dt
-  ai_target.lastKillTimer += act.dt
-
-[es(tag=server, after=ai_target_update_last_actions)]
-def ai_target_track_last_kill(evt : EventAnyEntityDied; eid : EntityId; var ai_target : Target&)
-  if eid == evt.offender
-    ai_target.lastKillTimer = 0.
-    ai_target.lastKillGroupId = int(uint(get_Eid(evt.victim, "squad_member__squad") ?? INVALID_ENTITY_ID))
 
 
 [es(tag=server, no_order)]
@@ -32,22 +25,23 @@ def ai_target_noise_level(act : UpdateStageInfoAct; human_net_phys : HumanActor;
                           ai_target__movingVehicleHornNoiseLevel : float = 1f;
                           ai_target__movingVehicleNoiseLevel : float = 0.75f;
                           ai_target__vehicleSpeedThreshold : float = 0.1;
+                          var ai_target__noiseLevel : float&;
                           var ai_target : Target)
   ai_target.useVehicle = uint(human_anim__vehicleSelected)
-  ai_target.noiseLevel = ai_target__standNoiseLevel
+  ai_target__noiseLevel = ai_target__standNoiseLevel
   if human_anim__vehicleSelected != INVALID_ENTITY_ID
-    ai_target.noiseLevel = ai_target__vehicleNoiseLevel
+    ai_target__noiseLevel = ai_target__vehicleNoiseLevel
     query(human_anim__vehicleSelected) <| $ [es] (net_phys__currentStateVelocity : float3; vehicle_horn_sound__endTime : float)
       if vehicle_horn_sound__endTime > act.curTime
-        ai_target.noiseLevel = ai_target__movingVehicleHornNoiseLevel
+        ai_target__noiseLevel = ai_target__movingVehicleHornNoiseLevel
       elif length_sq(net_phys__currentStateVelocity) > ai_target__vehicleSpeedThreshold
-        ai_target.noiseLevel = ai_target__movingVehicleNoiseLevel
+        ai_target__noiseLevel = ai_target__movingVehicleNoiseLevel
 
   elif human_net_phys.phys.currentState.moveState == HUMoveState EMS_SPRINT
-    ai_target.noiseLevel = ai_target__sprintNoiseLevel
+    ai_target__noiseLevel = ai_target__sprintNoiseLevel
 
   elif human_net_phys.phys.currentState.moveState == HUMoveState EMS_RUN && human_net_phys.phys.currentState.standState == HUStandState ESS_STAND
-    ai_target.noiseLevel = ai_target__standRunNoiseLevel
+    ai_target__noiseLevel = ai_target__standRunNoiseLevel
 
 
 [es(tag=server, no_order)]

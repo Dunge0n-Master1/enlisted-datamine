@@ -4,11 +4,11 @@ from "%enlSqGlob/ui_library.nut" import *
 let { RequestSquadBehaviour, sendNetEvent } = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { save_settings, get_setting_by_blk_path, set_setting_by_blk_path } = require("settings")
-let { ESB_AGRESSIVE } = require("%enlSqGlob/dasenums.nut")
+let { SquadBehaviour } = require("%enlSqGlob/dasenums.nut")
 let { find_local_player } = require("%dngscripts/common_queries.nut")
 
 let savedSquadBehaviours = get_setting_by_blk_path("ai/squadBehaviour") ?? {}
-let DEFAULT_BEHAVIOUR = ESB_AGRESSIVE
+let DEFAULT_BEHAVIOUR = SquadBehaviour.ESB_AGRESSIVE
 let squadBehaviour = Watched(DEFAULT_BEHAVIOUR)
 
 

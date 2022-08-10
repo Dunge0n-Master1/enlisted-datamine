@@ -263,12 +263,12 @@ def camara_shake_perlin_on_shooting(info : UpdateStageInfoAct;
 
 [es(tag=gameClient, REQUIRE=hero)]
 def camara_shake_perlin_punch_on_hit(evt : EventOnEntityHit; isAlive : bool; transform : float3x4)
-  let acceptDamageType = (evt.damageDesc.damageType == DamageType DM_MELEE ||
-                          evt.damageDesc.damageType == DamageType DM_BACKSTAB ||
-                          evt.damageDesc.damageType == DamageType DM_PROJECTILE ||
-                          evt.damageDesc.damageType == DamageType DM_COLLISION)
+  let acceptDamageType = (evt.damageType == int(DamageType DM_MELEE) ||
+                          evt.damageType == int(DamageType DM_BACKSTAB) ||
+                          evt.damageType == int(DamageType DM_PROJECTILE) ||
+                          evt.damageType == int(DamageType DM_COLLISION))
   if has(evt.victim, "hero") && acceptDamageType && isAlive
-    add_punch_by_dir(evt.damageDesc.deltaHp * rotate(inverse(transform), evt.damageDesc.hitDir))
+    add_punch_by_dir(evt.deltaHp * rotate(inverse(transform), evt.hitDir))
 
 [es(tag=gameClient)]
 def camera_shake_perlin_break_window(evt : EventRiExtraDestroyed; isDoor : bool)

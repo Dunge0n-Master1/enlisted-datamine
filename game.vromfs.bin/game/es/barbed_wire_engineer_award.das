@@ -41,11 +41,11 @@ def barbed_wire_award_for_engineer(evt : EventOnEntityHit) // broadcast
                                                        engineer_barbwire_award__updateInterval : float;
                                                        var engineer_barbwire_award__activationCount : int&;
                                                        var engineer_barbwire_award__nextUpdateTime : float&)
-    if evt.damageDesc.damageType == DamageType DM_BARBWIRE && engineer_barbwire_award__activationCount < engineer_barbwire_award__maxActivations
+    if evt.damageType == int(DamageType DM_BARBWIRE) && engineer_barbwire_award__activationCount < engineer_barbwire_award__maxActivations
       let time = get_sync_time()
       if time > engineer_barbwire_award__nextUpdateTime
         let barbwire = find_nearby_barbwire(collres, transform, team)
         if !!barbwire
           engineer_barbwire_award__nextUpdateTime = time + engineer_barbwire_award__updateInterval
-          send_schemeless_event(barbwire, typeinfo(undecorated_typename type<EventOnBarbwireDamageAward>))
+          sendEvent(barbwire, [[EventOnBarbwireDamageAward]])
           engineer_barbwire_award__activationCount ++

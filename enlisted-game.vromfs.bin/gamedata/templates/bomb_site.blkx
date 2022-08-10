@@ -81,6 +81,9 @@ bomb_site_base{
 
     "bomb_site_participants__data:object"{
     }
+
+    "bombSite:tag"{
+    }
   }
 
   _group{

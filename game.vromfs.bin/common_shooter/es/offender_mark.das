@@ -1,6 +1,7 @@
 require ecs
 require app
 require game.es.events
+require enlisted.events_enlisted
 require game.events_game
 require common_shooter.events_common_shooter
 
@@ -28,23 +29,22 @@ def update_offender_mark(var offender_marks : Array; offender : EntityId; showTi
         if offenderMarkObj != null
           *offenderMarkObj := obj
 
-
-[es(tag=gameClient)]
-def offender_mark_on_hit(evt : EventOnEntityHit;
-                         eid : EntityId;
-                         isAlive : bool;
-                         offender_marks__enabled : bool;
-                         offender_marks__showOnlyLast : bool;
-                         offender_marks__showTime : float;
-                         var offender_marks : Array)
+def is_minimalist_hud()
   var isMinimalistHud = false
   find_query() <| $ [es] (minimalistHud : bool)
     isMinimalistHud = minimalistHud
     return true
+  return isMinimalistHud
 
+[es(tag=gameClient, REQUIRE_NOT=deadEntity)]
+def offender_mark_on_hit(evt : EventOnEntityHit;
+                         eid : EntityId;
+                         offender_marks__enabled : bool;
+                         offender_marks__showOnlyLast : bool;
+                         offender_marks__showTime : float;
+                         var offender_marks : Array)
   let isSelfHit = evt.offender == evt.victim
-
-  if evt.victim != eid || !isAlive || isMinimalistHud || !offender_marks__enabled || isSelfHit
+  if evt.victim != eid || !offender_marks__enabled || isSelfHit || is_minimalist_hud()
     return
 
   if offender_marks__showOnlyLast
@@ -58,8 +58,8 @@ def offender_mark_on_died(evt : EventEntityDied;
   offender_marks |> clear()
 
 
-[es(tag=gameClient, no_order)]
-def offender_mark_update_time(act : UpdateStageInfoAct;
+[es(tag=gameClient)]
+def offender_mark_update_time(act : ParallelUpdateFrameDelayed;
                               var offender_marks : Array)
   var reverceIdx = offender_marks |> length() - 1
   while reverceIdx >= 0
@@ -73,7 +73,7 @@ def offender_mark_update_time(act : UpdateStageInfoAct;
 
 
 [es(tag=gameClient, after=offender_mark_update_time)]
-def offender_mark_update_pos(act : UpdateStageInfoAct;
+def offender_mark_update_pos(act : ParallelUpdateFrameDelayed;
                              offender_marks__updateOffenderPos : bool;
                              var offender_marks : Array)
   if !offender_marks__updateOffenderPos

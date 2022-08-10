@@ -74,6 +74,7 @@ def downed_grenade_update(eid : EntityId;
 
     using <| $(var gctrl : GunControls#)
       gctrl.shoot = shoot
+      gctrl.timeStep = 0.01
       let dir = normalize(float3(0.14, -0.99, 0.0)) // approximative down
       send_immediate_weap_phys_update(grenadeSlotEid, eid, at_time, dt, is_for_real, int(HUWeaponSlots EWS_GRENADE), gctrl,
                                       dir, dir, human_net_phys.phys.currentState.velocity, transform, transform)

@@ -15,12 +15,22 @@ def item_box_use_es(evt : CmdUseUsefulBox;
     evt.requesterEid |> push_item_in_cont(useful_box__giveItem)
     return
 
-  query(evt.requesterEid) <| $ [es] (itemContainer : EidList)
+  query(evt.requesterEid) <| $ [es] (itemContainer : EidList;
+                                     human_equipment__slots : Object)
+    var inventoryCapacity = 1
+    let backpack = get_ecs_object(human_equipment__slots, "backpack")
+    if backpack != null
+      let backpackItemEid = get_Eid(*backpack, "item")
+      if backpackItemEid != null
+        inventoryCapacity += get_int(*backpackItemEid, "attachable_backpack__capacity") ?? 0
+    var inventoryItemsCount = 0
     for itemEid in itemContainer
-      if has(itemEid, useful_box__itemExistTag)
-        useful_box__successUse = false
-        return
-    evt.requesterEid |> push_item_in_cont(useful_box__giveItem)
+      if has(itemEid, "backpackPlaceableItem")
+        ++inventoryItemsCount
+    if inventoryItemsCount < inventoryCapacity
+      evt.requesterEid |> push_item_in_cont(useful_box__giveItem)
+    else
+      useful_box__successUse = false
 
 [es(tag=server, after=item_box_use_es, before=useful_box_use_finish_es, REQUIRE=useful_box__giveItem)]
 def item_box_use_finish_es(evt : CmdUseUsefulBox; useful_box__successUse : bool; useful_box__hintItemFull : string)

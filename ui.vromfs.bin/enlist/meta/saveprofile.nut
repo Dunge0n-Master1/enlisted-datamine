@@ -3,9 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let saveload = require("%enlist/soldiers/model/saveload.nut")
 let shutdownHandler = require("%enlist/state/shutdownHandler.nut")
 let get_time_msec = require("dagor.time").get_time_msec
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
 
-let canSaveDefault = sharedWatched("saveProfile.canSave", @() true)
+let canSaveDefault = Watched(true)
 
 let function mkRequestSave(fileName, getSaveData, saveDelayMsec = 10000,
   canSave = canSaveDefault, needSave = Watched(false), saveRequested = Watched(-1)

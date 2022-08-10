@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
-let { addModalWindow, removeModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let {
@@ -162,7 +162,7 @@ let function squadTextTutorial(squadType){
     maxWidth = maxContentWidth
     rendObj = ROBJ_IMAGE
     halign = ALIGN_CENTER
-    image = Picture("ui/squads_tutorial_background")
+    image = Picture("ui/squads_tutorial_background.png")
     keepAspect = KEEP_ASPECT_FILL
     padding = [smallPadding, largePadding]
     clipChildren = true

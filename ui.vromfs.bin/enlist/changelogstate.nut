@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { send_error_log } = require("clientlog")
 let { send_counter } = require("statsd")
 let { mkVersionFromString, versionToInt } = require("%sqstd/version.nut")
-let { language } = require("%enlSqGlob/clientState.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let eventbus = require("eventbus")
 let http = require("dagor.http")
 let json = require("json")
@@ -15,12 +15,16 @@ let { maxVersionInt } = require("%enlSqGlob/client_version.nut")
 
 let changelogDisabled = get_setting_by_blk_path("disableChangelog") ?? false
 
+local extNewsUrl = get_setting_by_blk_path("newsUrl") ?? ""
+if (extNewsUrl == "")
+  extNewsUrl = "https://enlisted.net/news/#!/"
+
 local URL_VERSIONS = get_setting_by_blk_path("versionUrl") ?? ""
-if(URL_VERSIONS == "")
-  URL_VERSIONS = "https://enlisted.net/{0}/patchnotes/?page=1&platform={1}&target=enlisted_game"
+if (URL_VERSIONS == "")
+  URL_VERSIONS = "https://enlisted.net/{0}/patchnotes/?platform={1}&target=enlisted_game"
 
 local URL_PATCHNOTE = get_setting_by_blk_path("patchnoteUrl") ?? ""
-if(URL_PATCHNOTE == "")
+if (URL_PATCHNOTE == "")
   URL_PATCHNOTE = "https://enlisted.net/{0}/patchnotes/patchnote/{2}?platform={1}&target=enlisted_game"
 
 let function logError(event, params = {}) {
@@ -31,7 +35,7 @@ let function logError(event, params = {}) {
     meta = {
       hint = "error"
       exe_version = exe_version.value
-      language = language.value
+      language = gameLanguage
     }.__update(params)
   })
 }
@@ -275,6 +279,7 @@ console_register_command(function() {
 console_register_command(requestPatchnotes, "changelog.requestVersions")
 
 return {
+  extNewsUrl
   changelogDisabled
   curPatchnote
   versions

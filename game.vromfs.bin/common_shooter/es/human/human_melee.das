@@ -4,6 +4,7 @@ require math.base
 require game.utils.hero
 require game.es.events
 require EnlistedNet
+require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.concussion_common
 require PhysVars
@@ -19,7 +20,7 @@ require DaWeaponProps
 require DaWeapons
 require EnlistedDm
 require NetPropsRegistry
-require Action
+require game.es.action_common
 require AnimV20
 
 
@@ -158,7 +159,7 @@ def human_unarmed_reg_es(evt : Event;
 
 
 [es(after=human_anim_weap_es)]
-def human_unarmed_melee_anim_es(evt : UpdateStageInfoAct;
+def human_unarmed_melee_anim_es(evt : ParallelUpdateFrameDelayed;
                                 eid : ecs::EntityId;
                                 human_anim : HumanAnimCtx&;
                                 human_unarmed__active : bool;

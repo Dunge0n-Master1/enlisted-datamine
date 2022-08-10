@@ -229,7 +229,7 @@ let eyeButtonBlock = watchElemState(@(sf) {
 
 let function changeViewMods(idx) {
   let newIdx = curViewModeIdx.value + idx
-  if(newIdx >= 0 && newIdx < mods.len())
+  if (newIdx >= 0 && newIdx < mods.len())
     curViewModeIdx(newIdx)
 }
 

@@ -20,7 +20,7 @@ entity{
   level__month:i=6
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+    weather_clear_a:r=1.0
   }
 
   "level__timeVec:array"{
@@ -111,7 +111,6 @@ entity{
   team__score:r=5000.0
   team__botTemplate:t="ger_npc_summer_soldier_1"
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="invasion/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
@@ -1559,14 +1558,12 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="bot_spawner"
   bot_spawner__maxAlive:i=40
   team:i=1
-  bot_spawner__respTeam:i=1
   bot_spawner__attractDist:r=2.5
   bot_spawner__wavePeriod:r=0.2
   bot_spawner__shouldSpawnSquads:b=yes
@@ -1580,7 +1577,6 @@ entity{
   _template:t="bot_spawner"
   bot_spawner__maxAlive:i=40
   team:i=2
-  bot_spawner__respTeam:i=2
   bot_spawner__attractDist:r=2.5
   bot_spawner__wavePeriod:r=0.2
   bot_spawner__shouldSpawnSquads:b=yes

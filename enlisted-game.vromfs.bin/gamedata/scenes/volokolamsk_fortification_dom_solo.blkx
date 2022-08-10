@@ -5,8 +5,6 @@ import{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -110,8 +108,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -226,8 +222,8 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_light_clouds.blk":r=1.0
-    "content/common/gamedata/weather/weather_overcast.blk":r=1.0
+    weather_cloudy_a:r=1.0
+    weather_overcast_b:r=1.0
   }
 
   "level__timeVec:array"{
@@ -288,12 +284,6 @@ entity{
 
 entity{
   _template:t="camera_snow_heavy_template"
-  snow__speed:r=3.0
-  snow__width:r=0.01
-  snow__wind:r=10.0
-  snow__alpha:r=0.6
-  snow__density:r=10.0
-  snow__length:r=0.01
 }
 
 entity{
@@ -364,7 +354,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_fortification_dom"
 
   "loading_images:list<t>"{
@@ -399,7 +388,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-189.071, 4.9917, 1281.08]]
   sphere_zone__radius:r=12.0
   capzone__title:t="A"
@@ -410,7 +399,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.989838, 0.0784278, 0.118623] [-0.0742484, 0.996468, -0.0392571] [-0.121283, 0.0300506, 0.992163] [2.12333, 6.7919, 1308.71]]
   sphere_zone__radius:r=17.8
   capzone__title:t="B"
@@ -421,7 +410,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-102.423, 4.50598, 1140.7]]
   sphere_zone__radius:r=13.0
   capzone__title:t="C"
@@ -608,8 +597,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[13659.1, 0.0, 59.6812] [0.0, 6175.29, 0.0] [-59.1769, 0.0, 13658.9] [-133.617, 241.569, 428.328]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
 }
 

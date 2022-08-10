@@ -11,7 +11,7 @@ let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut"
 let platform = require("%dngscripts/platform.nut")
 let systemUpdateMsg = platform.is_nswitch ? require("nswitch.network").showSystemUpdateMsgBox : null
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
-
+let isKZVersion = require("chineseKongZhongVersion.nut")
 
 let function onSuccess(state) {
   let authResult = state.stageResult.auth_result
@@ -79,16 +79,19 @@ let function showStageErrorMsgBox(errText, state, mkChildren = @(defChild) defCh
     children = mkChildren(urlObj)
   }
 
-  if (state.stageResult?.quitBtn ?? false) {
+  let closeGameBtn = {
+    text = loc("gamemenu/btnQuit")
+    action = exit_game
+    isCurrent = true
+  }
+  if (isKZVersion)
+    msgboxParams.buttons <- [closeGameBtn]
+  else if (state.stageResult?.quitBtn ?? false) {
     msgboxParams.buttons <- [
       {
         text = loc("mainmenu/btnClose")
       },
-      {
-        text = loc("gamemenu/btnQuit")
-        action = exit_game
-        isCurrent = true
-      }
+      closeGameBtn
     ]
   }
 

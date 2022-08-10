@@ -6,6 +6,7 @@ require game.es.input.input_common
 require DagorInput
 require HumanPhys
 require EnlistedHuman
+require game.es.action_common
 require Action
 
 

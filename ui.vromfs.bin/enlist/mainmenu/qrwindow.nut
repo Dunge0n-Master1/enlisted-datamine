@@ -1,18 +1,21 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { h2_txt, sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {ModalBgTint, TextDefault, WindowBlur} = require("%ui/style/colors.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
-let mkQrCode = require("%darg/components/mkQrCode.nut")
+let mkQrCode = require("%ui/components/mkQrCode.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
 
 
 const WND_UID = "qr_window"
 const URL_REFRESH_SEC = 300 //short token life time is 5 min.
 
-let close = @() removeModalWindow(WND_UID)
+let function close(onCloseCb = null) {
+  onCloseCb?()
+  removeModalWindow(WND_UID)
+}
 
 let waitInfo = {
   flow = FLOW_VERTICAL
@@ -23,7 +26,7 @@ let waitInfo = {
   ]
 }
 
-let function qrWindow(url, header) {
+let qrWindow = kwarg(function (url, header = "", desc = "", needShowRealUrl = true) {
   let realUrl = Watched(null)
   let function receiveRealUrl() {
     openUrl(url, false, false, @(u) realUrl(u))
@@ -47,18 +50,25 @@ let function qrWindow(url, header) {
 
     children = [
       { rendObj = ROBJ_TEXT, text = header }.__update(h2_txt)
-      { rendObj = ROBJ_TEXT, text = url }.__update(sub_txt)
+      desc == "" ? null : {
+        rendObj = ROBJ_TEXTAREA,
+        behavior = Behaviors.TextArea,
+        halign = ALIGN_CENTER
+        text = desc,
+        maxWidth = hdpx(600)
+      }.__update(body_txt)
+      needShowRealUrl ? { rendObj = ROBJ_TEXT, text = url }.__update(sub_txt) : null
       realUrl.value ? mkQrCode({ data = realUrl.value }) : waitInfo
     ]
   }
-}
+})
 
-return @(url, header = "") addModalWindow({
+return @(params, onCloseCb = null) addModalWindow({
   key = WND_UID
   size = [sw(100), sh(100)]
   rendObj = ROBJ_WORLD_BLUR_PANEL
   fillColor = ModalBgTint
-  onClick = close
-  children = qrWindow(url, header)
-  hotkeys = [["^J:B | Esc", { action = close, description = loc("Cancel") }]]
+  onClick = @() close(onCloseCb)
+  children = qrWindow(params)
+  hotkeys = [["^J:B | Esc", { action = @() close(onCloseCb), description = loc("Cancel") }]]
 })

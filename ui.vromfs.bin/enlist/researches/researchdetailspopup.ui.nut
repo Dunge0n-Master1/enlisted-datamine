@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { gap, bigGap, blurBgColor, blurBgFillColor, researchListTabPadding, defBgColor
+let { gap, bigGap, blurBgColor, blurBgFillColor, researchListTabPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {statusIconLocked, statusIconChosen} =  require("%enlSqGlob/ui/style/statusIcon.nut")
 let {TextDefault} = require("%ui/style/colors.nut")
@@ -15,13 +15,13 @@ let { LOCKED, CAN_RESEARCH, DEPENDENT, RESEARCHED, NOT_ENOUGH_EXP, BALANCE_ATTRA
 } = require("researchesState.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { sound_play } = require("sound")
-let promoSmall = require("%enlist/currency/pkgPremiumWidgets.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let multiresearchWarningMsgbox = require("multiresearchWarningMsgbox.nut")
 let changeResearchMsgbox = require("changeResearchMsgbox.nut")
 let { mkGlyphsStyle } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { isFreemiumCampaign } = require("%enlist/campaigns/freemiumState.nut")
+let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 
 
 let priceIconSize = hdpx(30)
@@ -37,7 +37,7 @@ let statusCfg = {
   [DEPENDENT] = @(researchDef) {
     warning = loc("Need to research previous")
     onResearch = function() {
-      foreach(researchId in researchDef.requirements)
+      foreach (researchId in researchDef.requirements)
         if (researchStatuses.value?[researchId] != RESEARCHED)
           hoverImage.attractToImage(researchId)
     }
@@ -57,7 +57,7 @@ let statusCfg = {
         description = loc("buy/squadLevelConfirmForResearch")
         purchase = @() multiresearchWarningMsgbox(researchDef, tableStructure.value.researches,
             @() buySquadLevel(function(isSuccess) {
-              if(!isSuccess)
+              if (!isSuccess)
                 return
               sound_play("ui/purchase_level_squad")
               research(researchDef.research_id)
@@ -121,13 +121,6 @@ let mkResearchBtn = @(onResearch, researchText) @() {
         margin = 0
       })
 }
-
-let promoSquadResearches = promoSmall("research_section", null, {
-  rendObj = ROBJ_SOLID
-  color = defBgColor
-  padding = bigGap
-  margin = [hdpx(3),0,0,0]
-}, "premium/buyForExperience")
 
 let mkResearchFooter = @(researchDef) function() {
   let res = { watch = researchStatuses }
@@ -199,6 +192,7 @@ let function researchInfoView() {
       { prop = AnimProp.scale, from =[0, 1], to =[1, 1], play = true, duration = 0.15, easing = OutQuad }
     ]
     flow = FLOW_VERTICAL
+    halign = ALIGN_CENTER
     children = [
       {
         size = [flex(), SIZE_TO_CONTENT]
@@ -213,7 +207,9 @@ let function researchInfoView() {
         children = makeVertScroll(mkResearchDescription(researchDef), { styling = thinStyle })
       }
       mkResearchFooter(researchDef)
-      promoSquadResearches
+      promoWidget("research_section", null, {
+        margin = [hdpx(40), 0, hdpx(20), 0]
+      })
     ]
   })
 }

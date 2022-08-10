@@ -8,7 +8,7 @@ let { sound_play } = require("sound")
 let { smallPadding, bigPadding, perkIconSize, defTxtColor, titleTxtColor,
   soldierWndWidth, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
-let scrollbar = require("%darg/components/scrollbar.nut")
+let scrollbar = require("%ui/components/scrollbar.nut")
 let { perksData, getPerkPointsInfo, getTierAvailableData,
   getNoAvailPerksText, showPerksChoice, buySoldierLevel, useSoldierLevelupOrders, dropPerk
 } = require("model/soldierPerks.nut")
@@ -23,8 +23,7 @@ let { curArmy, curCampItems, curCampItemsCount } = require("model/state.nut")
 let { perkCardBg, perkCard, tierTitle, mkPerksPointsBlock
 } = require("components/perksPackage.nut")
 let textButton = require("%ui/components/textButton.nut")
-let unseenAmount = require("%enlist/components/unseenAmount.nut")
-let promoSmall = require("%enlist/currency/pkgPremiumWidgets.nut")
+let unseenSignal = require("%ui/components/unseenSignal.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { enlistedGold } = require("%enlist/currency/currenciesList.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
@@ -44,7 +43,8 @@ let { isFreemiumCampaign, curUpgradeDiscount
 
 local slotNumber = 0
 
-let choosePerkIcon = unseenAmount(10).__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER }) //10 to not show amount
+let choosePerkIcon = unseenSignal()
+  .__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER, animations = null })
 
 let mkText = @(txt) {
   rendObj = ROBJ_TEXT
@@ -239,7 +239,7 @@ let function tierContentUi(armyId, tierIdx, tier, perks, onSlotClick) {
     && (perks.availPerks > 0 || (perks?.prevTier ?? -1) == perks.tiers.indexof(tier))
   local hasPurchasePerkInfoSlot = perks.availPerks <= 0 || !tierAvailableData.isSuccess
 
-  foreach(i, p in tier.slots) {
+  foreach (i, p in tier.slots) {
     let perkId = p ?? ""
     if (perkId == "" && !needShowEmpty)
       continue
@@ -544,7 +544,5 @@ return kwarg(@(soldier, canManage = true) {
     }
     canManage ? mkRetrainingPoints(soldier.guid) : null
     scrollbar.makeVertScroll(perksUi(soldier, canManage), { needReservePlace = false })
-    promoSmall("soldier_equip", "soldier_perks", {size = [flex(), SIZE_TO_CONTENT]},
-          "premium/buyForExperience")
   ]
 })

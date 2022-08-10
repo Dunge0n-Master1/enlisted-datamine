@@ -29,7 +29,7 @@ let function getOffsets(total, tierDiff, lineDiff) {
 
 let function recalcMultiResearchPos(pageResearches) {
   let groups = {}
-  foreach(res in pageResearches) {
+  foreach (res in pageResearches) {
     let { multiresearchGroup = 0 } = res
     if (multiresearchGroup > 0) {
       if (multiresearchGroup not in groups)
@@ -38,7 +38,7 @@ let function recalcMultiResearchPos(pageResearches) {
     }
   }
 
-  foreach(g in groups) {
+  foreach (g in groups) {
     let { tier, line, requirements } = g[0]
     let reqResearchId = requirements?[0]
     //recalc pos only when same position, and requirement
@@ -57,7 +57,7 @@ let function recalcMultiResearchPos(pageResearches) {
     let reqLine = reqResearch?.line ?? (line - 1)
 
     let offsets = getOffsets(group.len(), tier - reqTier, line - reqLine)
-    foreach(idx, offs in offsets)
+    foreach (idx, offs in offsets)
       pageResearches[group[idx].research_id] <- group[idx].__merge({ tier = tier + offs.x, line = line + offs.y })
   }
 }

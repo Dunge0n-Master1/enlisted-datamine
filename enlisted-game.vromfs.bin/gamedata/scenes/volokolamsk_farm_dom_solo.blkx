@@ -51,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_farm_dom"
 
   "loading_images:list<t>"{
@@ -336,7 +335,6 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-14.3194, 4.82185, 164.652]]
   capzone__title:t="A"
   capzone__caption:t="capzone/barn"
-  decal__height:r=0.1
   capzone__areaId:t="caparea_a"
   capzone__iconOffsetY:r=1.8
 }

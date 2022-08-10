@@ -1,3 +1,7 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_bridge_sounds.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [209.677, 6.87518, 353.635]]
@@ -923,50 +927,6 @@ entity{
 }
 
 entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="ambient/europe_summer_battle"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
-}
-
-entity{
   _template:t="shaderVars"
 
   "shader_vars__vars:object"{
@@ -1247,7 +1207,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_bridge_inv"
 
   "loading_images:list<t>"{
@@ -1266,7 +1225,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=1
-  team__haveScores:b=no
   team__briefing:t="invasion/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"

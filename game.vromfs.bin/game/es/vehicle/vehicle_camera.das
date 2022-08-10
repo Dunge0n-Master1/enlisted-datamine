@@ -75,12 +75,10 @@ def vehicle_seats_camera_types_init(evt : Event;
       let camera_type = find_index(camera_type_names, cameraTypeName)
       seat__cameraType = camera_type >= 0 ? camera_type : int(VehicleCameraType VEHICLE_CAMERA_NONE)
 
-[es(tag=gameClient, on_appear, on_event=(EventHeroChanged, EventOnSeatOwnersChanged))]
-def vehicle_seats_update_animchar_camera_target(evt : Event;
-                                                eid : EntityId;
-                                                vehicle_seats__seatEids : EidList;
-                                                var animchar_camera_target__nodeIndex : int&;
-                                                var animchar_camera_target__node_offset : float3?)
+def update_animchar_camera_target(eid : EntityId;
+                                  vehicle_seats__seatEids : EidList;
+                                  var animchar_camera_target__nodeIndex : int&;
+                                  var animchar_camera_target__node_offset : float3?)
   let hasCockpit = find_query() <| $ [es] (cockpit__vehicleEid : EntityId)
     return cockpit__vehicleEid == eid
   if hasCockpit
@@ -89,13 +87,29 @@ def vehicle_seats_update_animchar_camera_target(evt : Event;
   let hero = get_controlled_hero()
   if !hero
     return
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__cameraNodeNo : int; seat__cameraOffset : float3)
       if seat__ownerEid != hero
         return
       animchar_camera_target__nodeIndex = seat__cameraNodeNo
       if animchar_camera_target__node_offset != null
         *animchar_camera_target__node_offset = seat__cameraOffset
+
+[es(tag=gameClient, on_appear, on_event=(EventHeroChanged, EventOnSeatOwnersChanged))]
+def vehicle_seats_update_animchar_camera_target(evt : Event;
+                                                eid : EntityId;
+                                                vehicle_seats__seatEids : EidList;
+                                                var animchar_camera_target__nodeIndex : int&;
+                                                var animchar_camera_target__node_offset : float3?)
+  update_animchar_camera_target(eid, vehicle_seats__seatEids, animchar_camera_target__nodeIndex, animchar_camera_target__node_offset)
+
+[es(tag=gameClient, track=vehicleCameraType, REQUIRE=vehicleCameraType)]
+def vehicle_seats_update_animchar_camera_target_type_changed(evt : Event;
+                                                             eid : EntityId;
+                                                             vehicle_seats__seatEids : EidList;
+                                                             var animchar_camera_target__nodeIndex : int&;
+                                                             var animchar_camera_target__node_offset : float3?)
+  update_animchar_camera_target(eid, vehicle_seats__seatEids, animchar_camera_target__nodeIndex, animchar_camera_target__node_offset)
 
 [es(on_event=EventHeroChanged)]
 def vehicle_camera_update(evt : Event; var shooter_cam__alternative_settings : bool&)

@@ -15,7 +15,7 @@ def team_win(teamId : int)
   if teamId == TEAM_SPECTATOR
     logerr("Team is spectator!")
     return
-  broadcastEvent([[EventTeamWon teamId=teamId]])
+  broadcastEvent([[EventTeamWon team=teamId]])
 
 [net_console_cmd(name="team.hero_win")]
 def team_hero_win_cmd([[net_hero]] eid : EntityId)

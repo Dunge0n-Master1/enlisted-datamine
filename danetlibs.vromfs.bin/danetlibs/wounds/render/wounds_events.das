@@ -7,7 +7,7 @@ require EnlistedDm
 struct CmdRestoreEntityHp
   restoreHp : float
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDied
   victim : EntityId
   offender : EntityId
@@ -17,10 +17,3 @@ struct EventEntityDied
   collNodeId : int
   victimTeam : int
   offenderTeam : int
-
-[cpp_event(broadcast)]
-struct EventOnEntityHit
-  victim : ecs::EntityId
-  offender : ecs::EntityId
-  damageDesc : DamageDesc
-  hitResult : HitResult

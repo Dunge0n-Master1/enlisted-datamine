@@ -51,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_river_dom"
 
   "loading_images:list<t>"{
@@ -80,8 +79,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_domination+respawn_creators_team"
   team__id:i=2
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=3000.0
+  team__scoreCap:r=3000.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -111,13 +110,12 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[20.5928, 0.0, 0.502505] [0.0, 11.6237, 0.0] [-0.566292, 0.0, 24.0005] [715.555, 5.52056, 643.335]]
   capzone__title:t="A"
   capzone__caption:t="capzone/headquarters"
   decal__thickness:r=0.2
   decal__height:r=3.0
-  capzone__acivateRespawnGroup:i=3
 }
 
 entity{
@@ -125,10 +123,6 @@ entity{
   transform:m=[[30.5507, 0.0, 15.5196] [0.0, 7.7087, 0.0] [-6.38321, 0.0, 11.8583] [686.975, 7.55474, 536.193]]
   capzone__title:t="B"
   capzone__caption:t="capzone/сathedral"
-  decal__thickness:r=0.2
-  decal__id:i=1
-  decal__height:r=0.1
-  capzone__acivateRespawnGroup:i=4
   capzone__areaId:t="caparea_b"
   capzone__iconOffsetY:r=1.8
 }
@@ -138,9 +132,6 @@ entity{
   transform:m=[[-15.4371, 0.0, -5.53117] [0.0, 6.90298, 0.0] [9.73246, 0.0, -27.4458] [803.127, 6.83844, 526.584]]
   capzone__title:t="C"
   capzone__caption:t="capzone/barn"
-  decal__thickness:r=0.2
-  decal__height:r=0.5
-  capzone__acivateRespawnGroup:i=5
   capzone__areaId:t="caparea_c"
   capzone__iconOffsetY:r=1.5
 }
@@ -248,8 +239,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -369,8 +358,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -482,8 +469,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[8000.25, 0.0, 8000.23] [0.0, 8000.36, 0.0] [-8000.98, 0.0, 8000.68] [661.558, 240.916, 544.731]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

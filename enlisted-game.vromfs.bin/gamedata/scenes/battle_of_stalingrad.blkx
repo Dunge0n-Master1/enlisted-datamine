@@ -1,5 +1,5 @@
 import{
-  scene:t="content/e_stalingrad/gamedata/scenes/_stalingrad_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
 }
 
 entity{
@@ -14,7 +14,7 @@ entity{
   level__timeRange:p2=15.48, 16.49
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 
   "level__timeVec:array"{
@@ -217,7 +217,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [45.955, 6.80953, 289.134]]
   groupName:t="1_capzone_railway_station"
   capzone__capRewardPartCap:r=1.0

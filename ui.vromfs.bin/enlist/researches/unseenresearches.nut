@@ -20,7 +20,7 @@ let function markSeen(armyId, researchesList) {
   let armySaved = saved?[armyId] ?? {}
   //clear all researched from seen in profile
   let armyNewData = armySaved.filter(@(_, id) (allResearchStatus.value?[armyId][id] ?? RESEARCHED) != RESEARCHED)
-  foreach(id in filtered)
+  foreach (id in filtered)
     armyNewData[id] <- true
   settings.mutate(function(s) {
     let newSaved = clone saved

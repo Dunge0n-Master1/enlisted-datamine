@@ -51,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_assault"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_village_bomb"
 
   "loading_images:list<t>"{
@@ -85,7 +84,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="assault/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
@@ -96,10 +94,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_1"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1_2"
 }
@@ -203,10 +199,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_1"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1_1"
 }
@@ -310,10 +304,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_2"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2_2"
 }
@@ -409,10 +401,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_2"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2_1"
 }
@@ -516,10 +506,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area3_2"
 }
@@ -599,10 +587,8 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
   groupName:t="sector_3"
   active:b=no
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area3_1"
 }
@@ -721,7 +707,6 @@ entity{
   transform:m=[[-0.679103, 0.0158374, 0.214746] [-0.0207979, 1.00114, 0.000596561] [-0.330063, -0.0132062, -0.747181] [12.4008, 5.52848, 132.396]]
   groupName:t="sector_1"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/trench_bunker"
   active:b=no
@@ -749,7 +734,6 @@ entity{
   transform:m=[[-0.996594, 0.0, -0.08246] [0.0, 1.0, 0.0] [0.08246, 0.0, -0.996594] [108.281, 6.3567, 150.159]]
   groupName:t="sector_2"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/artillery_emplacement"
   active:b=no
@@ -777,7 +761,6 @@ entity{
   transform:m=[[-0.679103, 0.0158374, 0.214746] [-0.0207979, 1.00114, 0.000596561] [-0.330063, -0.0132062, -0.747181] [99.048, 4.83049, 103.72]]
   groupName:t="sector_2"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/trench_bunker"
   active:b=no
@@ -805,7 +788,6 @@ entity{
   transform:m=[[-0.259902, 0.0, -16.3321] [0.0, 3.68083, 0.0] [25.5044, 0.0, -0.0574053] [245.843, 6.6411, 144.402]]
   groupName:t="sector_3"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/field_headquarters"
   active:b=no
@@ -829,7 +811,6 @@ entity{
   transform:m=[[-1.33242, 0.0, -12.3292] [0.0, 3.68083, 0.0] [26.6239, 0.0, -2.5098] [249.457, 7.08647, 102.308]]
   groupName:t="sector_3"
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/shop"
   active:b=no
@@ -1222,8 +1203,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[9957.0, 0.0, -5373.34] [0.0, 8000.36, 0.0] [5373.62, 0.0, 9956.65] [-172.169, 240.916, 425.828]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

@@ -23,7 +23,7 @@ let function sendBqBattleResult(userId, soldiersStats, expReward, armyData, army
     locked                                    // bool
   })
 
-  foreach(squad in (armyData?.squads ?? [])) {
+  foreach (squad in (armyData?.squads ?? [])) {
     //send squads result
     let squadId = squad?.squadId
     let premSquad = (squad?.battleExpBonus ?? 0) > 0

@@ -58,7 +58,8 @@ def generate_navmesh_path(ai_vehicle_convoy__pathPoints : Array;
 
     let distance = length(previousPoint.pos - currentPoint.pos)
 
-    find_path(previousPoint.pos, currentPoint.pos, distance + ai_vehicle_convoy__extraMaxPathLength, 10.0, 1.0) <| $(path) //TODO: fix magic values when adding navmesh navigation
+    let extents = float3(distance + ai_vehicle_convoy__extraMaxPathLength, FLT_MAX, distance + ai_vehicle_convoy__extraMaxPathLength)
+    find_path(previousPoint.pos, currentPoint.pos, extents, 10.0, 1.0) <| $(path) //TODO: fix magic values when adding navmesh navigation
       for j in range(length(path) - 1)
         push(ai_vehicle_convoy__navmeshPathPoints, path[j])
 

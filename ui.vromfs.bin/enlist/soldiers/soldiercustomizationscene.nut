@@ -2,15 +2,16 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { defTxtColor, soldierWndWidth, bigPadding, titleTxtColor, smallPadding,
-  blurBgColor, blurBgFillColor, maxContentWidth, slotBaseSize
+  blurBgColor, blurBgFillColor, maxContentWidth, slotBaseSize, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { horGap, emptyGap } = require("%enlist/components/commonComps.nut")
 let { curArmyData, curCampItemsCount } = require("model/state.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { isCustomizationWndOpened, itemsPerSlot, saveOutfit, APPEARANCE_ORDER_TPL,
   customizationToApply, totalItemsCost, buyItemsWithCurrency, buyItemsWithTickets,
-  PURCHASE_WND_UID, closePurchaseWnd, currentItemPart, isPurchasing, itemsToBuy, removeItem,
-  removeAndCloseWnd, premiumItemsCount, curSoldierItemsPrice
+  PURCHASE_WND_UID, closePurchaseWnd, isPurchasing, itemsToBuy, removeItem,
+  removeAndCloseWnd, premiumItemsCount, curSoldierItemsPrice, multipleItemsCost,
+  multipleItemsToBuy, isMultiplePurchasing, multipleApplyOutfit
 } = require("soldierCustomizationState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { lookCustomizationBlock, itemBlock, mkPrice
@@ -23,10 +24,11 @@ let { Flat, PrimaryFlat, Purchase, Bordered } = require("%ui/components/textButt
 let { curSoldierInfo } = require("model/squadInfoState.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let { addModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow } = require("%ui/components/modalWindows.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let { multyPurchaseAllowed } = require("%enlist/featureFlags.nut")
 
-let closeButton = closeBtnBase({ onClick = saveOutfit})
+let closeButton = closeBtnBase({ onClick = saveOutfit })
 let purchaseCloseBtn = closeBtnBase({ onClick = closePurchaseWnd })
 let verticalGap = bigPadding * 2
 let purchaseWndWidth = min(sw(40), maxContentWidth) - hdpx(75) * 2
@@ -38,21 +40,6 @@ let leftBlockHeader = {
   color = defTxtColor
 }.__update(body_txt)
 
-let leftCustomisationBlock = @(){
-  watch = curSoldierInfo
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  size = [soldierWndWidth, flex()]
-  color = blurBgColor
-  fillColor = blurBgFillColor
-  flow = FLOW_VERTICAL
-  gap = verticalGap
-  padding = bigPadding
-  children = [
-    mkNameBlock(curSoldierInfo)
-    leftBlockHeader
-    lookCustomizationBlock
-  ]
-}
 
 let customizationCurrency = @(currencyTpl, count) mkItemCurrency({
   currencyTpl
@@ -94,25 +81,32 @@ let purchaseItemWrapParams = {
 }
 
 customizationToApply.subscribe(function(v){
-  if(v.len() <= 0)
+  if (v.len() <= 0)
     closePurchaseWnd()
 })
 
-let purchaseContent = @(item) function(){
-  let removeAction = item == null ? removeItem : removeAndCloseWnd
-  let itemsToShow = item == null ? itemsToBuy.value.values() : [item]
+let purchaseContent = @(items = null) function(){
+  let removeAction = items == null ? removeItem : removeAndCloseWnd
+  local itemsToShow = items == null ? itemsToBuy.value.values() : items
+  if (items != null)
+    itemsToShow = itemsToShow.reduce(@(res, item) res.indexof(item) == null
+      ? res.append(item)//warning disable: -unwanted-modification
+      : res, [])
+
   return {
     watch = itemsToBuy
     size = [purchaseWndWidth, SIZE_TO_CONTENT]
     padding = [verticalGap, 0]
     children = wrap(
-      itemsToShow.map(@(item) itemBlock(item, curSoldierItemsPrice.value, [], removeAction)),
+      itemsToShow.map(@(item) itemBlock(item, curSoldierItemsPrice.value, items, removeAction)),
       purchaseItemWrapParams)
   }
 }
 
 let function purchaseBtnBlock(){
-  let allPrices = totalItemsCost.value
+  let allPrices = isMultiplePurchasing.value
+    ? multipleItemsCost.value
+    : totalItemsCost.value
   let priceList = []
   foreach (key, val in allPrices) {
     if (key == "EnlistedGold")
@@ -147,7 +141,7 @@ let function purchaseBtnBlock(){
   }))
 
   return {
-    watch = [isPurchasing, totalItemsCost]
+    watch = [isPurchasing, totalItemsCost, isMultiplePurchasing, multipleItemsCost]
     size = [flex(), hdpx(100)]
     valign = ALIGN_BOTTOM
     flow = FLOW_HORIZONTAL
@@ -202,7 +196,7 @@ let chooseItemWrapParams = {
 }
 
 let chooseItemBlock = @(){
-  watch = [itemsPerSlot, currentItemPart, premiumItemsCount]
+  watch = [itemsPerSlot, premiumItemsCount]
   size = [slotBaseSize[0], flex()]
   rendObj = ROBJ_WORLD_BLUR_PANEL
   flow = FLOW_VERTICAL
@@ -222,6 +216,45 @@ let chooseItemBlock = @(){
       size = [SIZE_TO_CONTENT, flex()]
       styling = thinStyle
     })
+}
+
+let multyBuyBtn = @(items) Bordered(loc("appearance/multy_buy_apply"),
+  function(){
+    isMultiplePurchasing(true)
+    openPurchaseWnd(items)
+  },
+  {
+    size = [flex(), commonBtnHeight]
+  }
+)
+
+let multyApplyBtn = Bordered(loc("appearance/multy_apply"),
+  multipleApplyOutfit,
+  { size = [flex(), commonBtnHeight] }
+)
+
+
+let function leftCustomisationBlock(){
+  let hasMultyPrice = multipleItemsCost.value.len() > 0
+  let items = multipleItemsToBuy.value
+  return{
+    watch = [curSoldierInfo, multipleItemsCost, multyPurchaseAllowed]
+    rendObj = ROBJ_WORLD_BLUR_PANEL
+    size = [soldierWndWidth, flex()]
+    color = blurBgColor
+    fillColor = blurBgFillColor
+    flow = FLOW_VERTICAL
+    gap = verticalGap
+    padding = bigPadding
+    children = [
+      mkNameBlock(curSoldierInfo)
+      leftBlockHeader
+      lookCustomizationBlock
+      !multyPurchaseAllowed.value ? null
+        : hasMultyPrice ? multyBuyBtn(items)
+        : multyApplyBtn
+    ]
+  }
 }
 
 let rightBtnBlock = {
@@ -270,31 +303,27 @@ let centralBlock = {
   ]
 }
 
-let topBar = {
+let topBar = @() {
+  watch = [curArmyData, curCampItemsCount]
   size = flex()
-  halign = ALIGN_RIGHT
   maxWidth = maxContentWidth
-  children = [
-    @() {
-      watch = [curArmyData, curCampItemsCount]
-      size = flex()
+  children = mkHeader({
+    armyId = curArmyData.value?.guid
+    textLocId = loc("appearance/choose")
+    addToRight = {
+      size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
       children = [
-        mkHeader({
-          armyId = curArmyData.value?.guid
-          textLocId = loc("appearance/choose")
-        })
-        emptyGap
         currenciesWidgetUi
         horGap
         customizationCurrency(APPEARANCE_ORDER_TPL,
           curCampItemsCount.value?[APPEARANCE_ORDER_TPL] ?? 0)
         emptyGap
-        closeButton
       ]
     }
-  ]
+    closeButton
+  })
 }
 
 let wndContent = mkMenuScene(topBar, centralBlock, {size = [flex(), SIZE_TO_CONTENT]})
@@ -310,7 +339,7 @@ let soldierCustomizationScene = {
 
 
 isCustomizationWndOpened.subscribe(function(flag){
-  if(flag)
+  if (flag)
     sceneWithCameraAdd(soldierCustomizationScene, "soldiers")
   else
     sceneWithCameraRemove(soldierCustomizationScene)})

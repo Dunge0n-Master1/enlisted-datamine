@@ -9,9 +9,9 @@ let { statusIconLocked } =  require("%enlSqGlob/ui/style/statusIcon.nut")
 let { ModalBgTint, TextHighlight } = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
 let cursors = require("%ui/style/cursors.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let colorize = require("%ui/components/colorize.nut")
-let armySelect = require("%enlist/soldiers/army_select.ui.nut")
+let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
 let campaignTitle = require("%enlist/campaigns/campaign_title_small.ui.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(72) })
@@ -34,7 +34,6 @@ let { curArmy, curUnlockedSquads, armySquadsById, maxCampaignLevel
 } = require("%enlist/soldiers/model/state.nut")
 let { unseenResearches } = require("unseenResearches.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
-let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
 let { safeAreaSize, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
 let researchIcons = require("%enlSqGlob/ui/researchIcons.nut")
@@ -141,7 +140,7 @@ let getLinesLayer = @(tableHeight, structure) function() {
   let researches = structure.researches
   let bgColor = structure.pages?[selectedTable.value].bg_color ?? ModalBgTint
   let selResearch = selectedResearch.value
-  foreach(toId, research in researches) {
+  foreach (toId, research in researches) {
     let status = researchStatuses.value?[toId] ?? DEPENDENT
     if (status == GROUP_RESEARCHED)
       continue
@@ -152,7 +151,7 @@ let getLinesLayer = @(tableHeight, structure) function() {
     let lineCtor = (to?.multiresearchGroup ?? 0) <= 0 || status == RESEARCHED || toId == selResearch?.research_id ? mkLine
       : selResearch?.multiresearchGroup == to.multiresearchGroup ? mkPointsLine
       : mkDashedLine
-    foreach(fromId in research?.requirements ?? []) {
+    foreach (fromId in research?.requirements ?? []) {
       let from = researches[fromId]
       commands.append([VECTOR_COLOR, curColor])
       commands.append(lineCtor(TSC.cX(from), TSC.cY(from), TSC.cX(to), TSC.cY(to)))
@@ -173,7 +172,7 @@ let itemsLayer = @(tableHeight) function() {
   let armyId = tableStructure.value.armyId
   let children = []
 
-  foreach(tableItem in tableStructure.value.researches) {
+  foreach (tableItem in tableStructure.value.researches) {
     let posX = (TSC.cX(tableItem) / 100) * tableBoxWidth
     let posY = (TSC.cY(tableItem) / 100) * tableHeight
     children.append(tableElement(armyId, tableItem, posX, posY))
@@ -254,7 +253,7 @@ let function buySquadLevelMsg() {
     title = loc("squadLevel", { level = level + 2 })
     description = loc("buy/squadLevelConfirm")
     purchase = @() buySquadLevel(function(isSuccess) {
-      if(isSuccess)
+      if (isSuccess)
         sound_play("ui/purchase_level_squad")
     })
     srcComponent = "buy_researches_level"
@@ -655,27 +654,6 @@ let function researchesTable() {
   })
 }
 
-let armySelectWithMarks = armySelect({
-  function addChild(armyId, _sf) {
-    let count = Computed(function() {
-      let researches = armiesResearches.value?[armyId].researches ?? {}
-      let unseenSquads = {}
-      foreach(id, _ in unseenResearches.value?[armyId] ?? {}) {
-        let squadId = researches?[id].squad_id
-        if (squadId != null)
-          unseenSquads[squadId] <- true
-      }
-      return unseenSquads.len()
-    })
-    return function() {
-      let res = { watch = count, pos = [hdpx(25), 0], key = armyId }
-      if(count.value <= 0)
-        return res
-      return blinkingIcon("arrow-up", count.value, false).__update(res)
-    }
-  }
-})
-
 let mkSquadExp = function(squadId) {
   let exp = Computed(@() allSquadsPoints.value?[squadId] ?? 0)
   return @(sf, selected) @() mkActiveBlock(sf, selected, [
@@ -727,9 +705,8 @@ let researches = {
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
-
       children = [
-        armySelectWithMarks
+        armySelectUi
         wndHeader
         campaignTitle
       ]

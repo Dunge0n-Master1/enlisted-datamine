@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let logRG = require("%sqstd/log.nut")().with_prefix("[RateGame]")
+let logRG = require("%enlSqGlob/library_logs.nut").with_prefix("[RateGame]")
 let platform = require("%dngscripts/platform.nut")
 let onlineSettings = require("%enlist/options/onlineSettings.nut")
 let debriefingState = require("%enlist/debriefing/debriefingStateInMenu.nut")

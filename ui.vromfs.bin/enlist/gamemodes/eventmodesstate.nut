@@ -23,6 +23,7 @@ let eventCurArmyIdx = mkWatched(persist, "eventCurArmyIdx", 0)
 let eventsArmiesList = mkWatched(persist, "eventsArmiesList", [])
 let hasUniqueArmies = mkWatched(persist, "hasUniqueArmies", false)
 
+let curTab = Watched(null)
 curArmy.subscribe(@(_v) eventCurArmyIdx(curArmiesList.value.indexof(curArmy.value)))
 
 let hasBaseEvent = Computed(@() showEventsWidget.value
@@ -55,14 +56,14 @@ let hasChoosedCampaign = Watched(false)
 let isCurCampaignAvailable = Computed(@() eventCampaigns.value.contains(curCampaign.value))
 
 let eventCustomSquads = Computed(function(){
-  if(eventCustomProfile.value == null)
+  if (eventCustomProfile.value == null)
     return null
   local armyId = curArmy.value
-  if(eventCustomProfile.value?[armyId] == null)
+  if (eventCustomProfile.value?[armyId] == null)
     armyId = eventCustomProfile.value.keys()[eventCurArmyIdx.value]
 
   let squads = eventCustomProfile.value?[armyId].squads ?? []
-  if(squads.len() == 0)
+  if (squads.len() == 0)
     return null
   return squads
     .map(function(squad) {
@@ -90,7 +91,7 @@ let eventCustomSquads = Computed(function(){
 
 let function updateEvent() {
   let armyList = curArmiesList.value
-  if(eventCustomProfile.value != null){
+  if (eventCustomProfile.value != null){
     let squads = eventCustomSquads.value
     let uniqueArmyList = eventCustomProfile.value.keys()
     let armiesOfCurCampaign = []
@@ -108,7 +109,7 @@ let function updateEvent() {
 }
 
 let function checkUpdateEvent(_){
-  if(isEventModesOpened.value)
+  if (isEventModesOpened.value)
     updateEvent()
 }
 
@@ -136,6 +137,11 @@ let function openCustomGameMode() {
   isEventModesOpened(true)
 }
 
+let function openEventsGameMode() {
+  customRoomsModeSaved(false)
+  isEventModesOpened(true)
+}
+
 return {
   eventGameModes
   inactiveEventsToShow
@@ -144,13 +150,13 @@ return {
   isEventModesOpened
   isCustomRoomsMode
   hasCustomRooms
-  selCustomRoomsMode = @(val) customRoomsModeSaved(val && hasCustomRooms.value)
   customRoomsModeSaved
   selEvent
   selLbMode
   selectEvent = @(eventId) selEventIdByPlayer(eventId)
   openEventModes = @() isEventModesOpened(true)
   openCustomGameMode
+  openEventsGameMode
   selEventEndTime
   eventCustomSquads
   eventsSquadList
@@ -161,4 +167,5 @@ return {
   hasChoosedCampaign
   isCurCampaignAvailable
   eventCustomProfile
+  curTab
 }

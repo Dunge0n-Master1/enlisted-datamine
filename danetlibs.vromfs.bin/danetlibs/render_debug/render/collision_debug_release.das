@@ -1,62 +1,59 @@
 require ecs
+require strings
 require DagorConsole
 
-let
-  FLT_INACCURACY = 1e-9
 
-[console_cmd(name="app.debug_canopy_collision")]
-def app_debug_canopy_collision()
-  var found = false
-  query() <| $ [es(REQUIRE=collision_canopy_debug)] (eid : EntityId)
-    found = true
-    destroyEntity(eid)
-  if !found
-    createEntity("collision_canopy_debug")
+[console_cmd(name="app.debug_collision", hint="collision_type: /no argument/, all, phys, trace, canopy")]
+def app_debug_collision(collision_type = "default";
+                        collision_render_distance = 200.;
+                        collision_label_distance = 15.)
+  var collType = collision_type
+  let collDistSq = collision_render_distance * collision_render_distance
+  let labelDistSq = collision_label_distance * collision_label_distance
 
+  var drawAll = false
+  var drawCanopy = false
+  var drawCollidable = false
+  var drawTraceable = false
+  if "canopy" |> starts_with(collision_type)
+    drawCanopy = true
+    collType = "canopy"
+  elif "phys" |> starts_with(collision_type)
+    drawCollidable = true
+    collType = "phys"
+  elif "trace" |> starts_with(collision_type)
+    drawTraceable = true
+    collType = "trace"
+  elif "all" |> starts_with(collision_type)
+    drawAll = true
+    collType = "all"
+  elif collision_type == "default"
+    drawAll = true
+  else
+    return
 
-[console_cmd(name="app.debug_collision")]
-def app_debug_collision(coll_dist = 1000.;
-                        label_dist = 20.)
-  var found = false
-  let collDistSq = coll_dist * coll_dist
-  let labelDistSq = label_dist * label_dist
-  let collDistSqTmp = (collDistSq > 0. + FLT_INACCURACY) ? collDistSq : 0.
-  let labelDistSqTmp = (collDistSqTmp - labelDistSq > 0. + FLT_INACCURACY) ? labelDistSq : collDistSqTmp
-  query() <| $ [es(REQUIRE=collision_debug)] (var collision_debug__collMaxDistSq : float&;
-                                              var collision_debug__labelMaxDistSq : float&)
-    collision_debug__collMaxDistSq = collDistSqTmp
-    collision_debug__labelMaxDistSq = labelDistSqTmp
-    found = true
+  console_print("debug_collision {collType}")
+
+  let found = find_query() <| $ [es] (eid : EntityId;
+                                      var collision_debug__collMaxDistSq : float&;
+                                      var collision_debug__labelMaxDistSq : float&;
+                                      var collision_debug__drawCanopy : bool&;
+                                      var collision_debug__drawCollidable : bool&;
+                                      var collision_debug__drawTraceable : bool&)
+    if collision_type == "default"
+      destroyEntity(eid)
+      return true
+    collision_debug__collMaxDistSq = collDistSq
+    collision_debug__labelMaxDistSq = labelDistSq
+    collision_debug__drawCanopy = drawAll || collision_debug__drawCanopy != drawCanopy
+    collision_debug__drawCollidable = drawAll || collision_debug__drawCollidable != drawCollidable
+    collision_debug__drawTraceable = drawAll || collision_debug__drawTraceable != drawTraceable
+    return true
+
   if !found
     createEntity("collision_debug") <| $(init)
-      init |> set("collision_debug__collMaxDistSq", collDistSqTmp)
-      init |> set("collision_debug__labelMaxDistSq", labelDistSqTmp)
-
-[console_cmd(name="app.debug_collision_disable")]
-def app_debug_collision_disable()
-  query() <| $ [es(REQUIRE=collision_debug)] (eid : EntityId)
-    destroyEntity(eid)
-
-
-[console_cmd(name="app.debug_phys_collision")]
-def app_debug_phys_collision(coll_dist = 1000.;
-                             label_dist = 20.)
-  var found = false
-  let collDistSq = coll_dist * coll_dist
-  let labelDistSq = label_dist * label_dist
-  let collDistSqTmp = (collDistSq > 0. + FLT_INACCURACY) ? collDistSq : 0.
-  let labelDistSqTmp = (collDistSqTmp - labelDistSq > 0. + FLT_INACCURACY) ? labelDistSq : collDistSqTmp
-  query() <| $ [es(REQUIRE=collision_phys_debug)] (var collision_debug__collMaxDistSq : float&;
-                                                   var collision_debug__labelMaxDistSq : float&)
-    collision_debug__collMaxDistSq = collDistSqTmp
-    collision_debug__labelMaxDistSq = labelDistSqTmp
-    found = true
-  if !found
-    createEntity("collision_phys_debug") <| $(init)
-      init |> set("collision_debug__collMaxDistSq", collDistSqTmp)
-      init |> set("collision_debug__labelMaxDistSq", labelDistSqTmp)
-
-[console_cmd(name="app.debug_phys_collision_disable")]
-def app_debug_phys_collision_disable()
-  query() <| $ [es(REQUIRE=collision_phys_debug)] (eid : EntityId)
-    destroyEntity(eid)
+      init |> set("collision_debug__drawCanopy", drawAll || drawCanopy)
+      init |> set("collision_debug__drawCollidable", drawAll || drawCollidable)
+      init |> set("collision_debug__drawTraceable", drawAll || drawTraceable)
+      init |> set("collision_debug__collMaxDistSq", collDistSq)
+      init |> set("collision_debug__labelMaxDistSq", labelDistSq)

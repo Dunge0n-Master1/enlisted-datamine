@@ -192,9 +192,9 @@ def ai_danger_trace_targets(act : UpdateStageInfoAct; eid : EntityId; isAlive : 
   reserve(targets, length(agent_dangers.dangers))
   for danger in agent_dangers.dangers
     var found = false
-    query(danger.eid) <| $ [es(REQUIRE=ai_target)] (ai_target : Target?; beh_tree__enabled : bool = false)
+    query(danger.eid) <| $ [es(REQUIRE=ai_target)] (ai_target : Target?; ai_target__noiseLevel = 0.; beh_tree__enabled : bool = false)
       found = true
-      let potentialDangerMeter = calc_danger(act.curTime, agent_dangers__maxDangerDist, danger, *ai_target, beh_tree__enabled,
+      let potentialDangerMeter = calc_danger(act.curTime, agent_dangers__maxDangerDist, danger, *ai_target, ai_target__noiseLevel, beh_tree__enabled,
                                              danger_calc__aiCoef, danger_calc__avoidBulletsNearTime,
                                              danger_calc__lastShootCoef, danger_calc__noiseCoef, danger_calc__lastBulletNearbyCoef)
       targets |> emplace([[auto ai_target, potentialDangerMeter]])

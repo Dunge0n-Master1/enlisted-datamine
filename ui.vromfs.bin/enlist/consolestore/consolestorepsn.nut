@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let logPSN = require("%sqstd/log.nut")().with_prefix("[PSN STORE]")
+let logPSN = require("%enlSqGlob/library_logs.nut").with_prefix("[PSN STORE]")
 let { is_ps4 } = require("%dngscripts/platform.nut")
 let { get_auth_data_async } = require("ps4")
 let psnStore = require("sony.store")

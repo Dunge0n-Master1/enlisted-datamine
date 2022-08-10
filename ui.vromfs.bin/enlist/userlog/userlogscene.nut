@@ -33,7 +33,7 @@ let tabsList = [
 ]
 
 let function switchTab(newIdx){
-  if(tabsList?[newIdx] != null)
+  if (tabsList?[newIdx] != null)
     curTabIdx(newIdx)
 }
 

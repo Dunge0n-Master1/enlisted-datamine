@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let faComp = require("%ui/components/faComp.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(60) })
 let { debounce } = require("%sqstd/timers.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { mkHeaderFlag, casualFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let itemMapping = require("%enlist/items/itemsMapping.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -27,7 +27,7 @@ let {
 } = require("dailyRewardsState.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
 let {
-  progressBarHeight, completedProgressLine, acquiredProgresLine,
+  progressBarHeight, completedProgressLine, acquiredProgressLine,
   progressContainerCtor
 } = require("%enlist/components/mkProgressBar.nut")
 let {
@@ -61,7 +61,7 @@ const HIDE_TASK_BOOST = "hide_task_boost"
 
 let hasRewardsAnim = Watched(false)
 
-let rewardWidth = hdpx(160).tointeger()
+let rewardWidth = hdpxi(160)
 let wndPadding = sh(1).tointeger()
 let wndWidth = REWARDS_IN_LINE * rewardWidth + wndPadding * 2
 let isOpened = mkWatched(persist, "isOpened", false)
@@ -160,7 +160,7 @@ let function mkBoosterToolTip(bName, rewardsBoosters, rewardsItems, curArmyId) {
 
 let function mkProgressBar(idx, todayStage, pastDays, hasStageReward, hasStageCompleted) {
   let progressObj = hasStageReward ? completedProgressLine(1, glareAnimation(3))
-    : hasStageCompleted ? acquiredProgresLine(1)
+    : hasStageCompleted ? acquiredProgressLine(1)
     : null
   let progressText = idx == todayStage - 1 ? loc("today")
     : idx == todayStage ? loc("tomorrow")
@@ -223,7 +223,7 @@ let mkDailyReward = @(idx, progressBar, stageCard) {
 let mkDailyRewardsContent = @(cratesCompWatch)
   function() {
     let res = {watch = [dailyRewardsUnlock, curArmy, cratesCompWatch, itemMapping]}
-    if(dailyRewardsUnlock.value == null)
+    if (dailyRewardsUnlock.value == null)
       return res
     let {
       stage = 0, lastRewardedStage = 0, hasReward = false, stages = [],
@@ -436,7 +436,7 @@ let function mkRewards(receivedRewards) {
 
   let res = itemsList.map(@(itemData, idx)
     mkItemReward(itemData, idx, itemsTotal))
-  foreach(itemTpl, itemData in crateItemsData) {
+  foreach (itemTpl, itemData in crateItemsData) {
     let onEnter = idx == 1 ? @() hasRewardsAnim(true) : null
     let onFinish = idx >= cratesItemsTotal
       ? function() {
@@ -649,7 +649,7 @@ let checkOpenDebounced = debounce(function() {
 }, 0.01)
 
 checkOpenDebounced()
-foreach(v in [canDisplayOffers, dailyRewardsUnlock])
+foreach (v in [canDisplayOffers, dailyRewardsUnlock])
   v.subscribe(@(_) checkOpenDebounced())
 
 isOpened.subscribe(@(v) v ? open() : close())

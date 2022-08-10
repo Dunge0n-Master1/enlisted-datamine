@@ -33,10 +33,10 @@ let function dumpValue(value) {
   local lookup
   let stream = blob()
 
-  let function _foreach(val, decor) {
+  let function _foreach (val, decor) {
     stream.writen(decor[0], 'c')
     let comma = Comma(decor[1])
-    foreach(v in val) {
+    foreach (v in val) {
       comma(stream)
       lookup?[typeof v](v)
     }
@@ -49,9 +49,9 @@ let function dumpValue(value) {
     "float"    : @(v) stream.writestring(v.tostring())
     "bool"     : @(v) stream.writestring(v ? "+" : "-")
     "null"     : @(_) stream.writestring("~")
-    "array"    : @(v) _foreach(v, "[,]")
-    "table"    : @(v) _foreach(v, "{ }")
-    "instance" : @(v) _foreach(v, "< >")
+    "array"    : @(v) _foreach (v, "[,]")
+    "table"    : @(v) _foreach (v, "{ }")
+    "instance" : @(v) _foreach (v, "< >")
   }
 
   lookup?[typeof value](value)
@@ -72,17 +72,17 @@ let function dumpKeyValue(value) {
     stream.writestring(str)
   }
 
-  let function _foreach(key, val, decor, short=false) {
+  let function _foreach (key, val, decor, short=false) {
     stream.writestring(key)
     stream.writen(decor[0], 'c')
     let comma = Comma(decor[1])
     if (short)
-      foreach(v in val) {
+      foreach (v in val) {
         comma(stream)
         lookup?[typeof v]("", v)
       }
     else
-      foreach(k, v in val) {
+      foreach (k, v in val) {
         comma(stream)
         lookup?[typeof v](k, v)
       }
@@ -95,9 +95,9 @@ let function dumpKeyValue(value) {
     "float"    : @(k, v) _elem(k, ":", v.tostring())
     "bool"     : @(k, v) _elem(k, "",  v ? "+" : "-")
     "null"     : @(k, _v) _elem(k, "",  "~")
-    "array"    : @(k, v) _foreach(k, v, "[,]", true)
-    "table"    : @(k, v) _foreach(k, v, "{ }")
-    "instance" : @(k, v) _foreach(k, v, "< >")
+    "array"    : @(k, v) _foreach (k, v, "[,]", true)
+    "table"    : @(k, v) _foreach (k, v, "{ }")
+    "instance" : @(k, v) _foreach (k, v, "< >")
   }
 
   lookup?[typeof value]("", value)

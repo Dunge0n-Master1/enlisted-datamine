@@ -31,11 +31,15 @@ def describe_event_cast_flag(flag : uint16)
 
   return "<n/a>"
 
-def imgui_hint(desc : string)
+def imgui_hint(desc : string implicit)
+  imgui_hint <| $
+    return desc
+
+def imgui_hint(desc : block<() : string implicit>)
   if IsItemHovered()
     BeginTooltip()
     PushTextWrapPos(GetFontSize() * 35.0f)
-    TextUnformatted(desc)
+    TextUnformatted(invoke(desc))
     PopTextWrapPos()
     EndTooltip()
 
@@ -52,6 +56,8 @@ def imgui_click_to_copy(val)
 
 [imgui_window(name="Events db", group="ECS")]
 def event_db_window()
+  if IsWindowCollapsed()
+    return
   let eventsDb & = unsafe(get_events_db())
   let eventsNum = eventsDb |> events_db_getEventsCount()
 
@@ -92,7 +98,8 @@ def event_db_window()
       imgui::TableNextColumn()
       let size = eventsDb |> events_db_getEventSize(id)
       imgui::Text("{int(size)}")
-      imgui_hint("{int(size)} bytes")
+      imgui_hint() <| $()
+        return "{int(size)} bytes"
 
       imgui::TableNextColumn()
       imgui::Text("{castFlag} {extraFlags}")
@@ -127,7 +134,8 @@ def event_db_window()
 
             imgui::TableNextColumn()
             imgui::Text("{int(fieldOffset)}")
-            imgui_hint("offset {int(fieldOffset)} bytes")
+            imgui_hint() <| $()
+              return "offset {int(fieldOffset)} bytes"
 
           imgui::TreePop()
 

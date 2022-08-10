@@ -1,11 +1,15 @@
 require ecs
 require player
 
-[es(tag=gameClient, REQUIRE=(heroSquad, isAlive, isDowned, human_weap__radioEid), track=(isAlive, isDowned, human_weap__radioEid), on_appear, on_disappear)]
+[es(tag=gameClient, REQUIRE=(heroSquad, isAlive, isDowned, human_weap__radioEid, human_net_phys__isSwimming, human_net_phys__isClimbing), track=(isAlive, isDowned, human_weap__radioEid, human_net_phys__isSwimming, human_net_phys__isClimbing), on_appear, on_disappear)]
 def artillery_radio_available(evt : Event)
   query(get_local_player_eid()) <| $ [es] (var artillery__available : bool&)
-    let available = find_query() <| $ [es(REQUIRE=heroSquad)] (human_weap__radioEid : EntityId; isAlive, isDowned : bool)
-      return isAlive && !isDowned && !!human_weap__radioEid
+    let available = find_query() <| $ [es(REQUIRE=heroSquad)] (human_weap__radioEid : EntityId;
+                                                               isAlive : bool;
+                                                               isDowned : bool;
+                                                               human_net_phys__isSwimming : bool;
+                                                               human_net_phys__isClimbing : bool)
+      return isAlive && !isDowned && !!human_weap__radioEid && !human_net_phys__isSwimming && !human_net_phys__isClimbing
     artillery__available = available
 
 def track_artillery_was_available_for_squad()

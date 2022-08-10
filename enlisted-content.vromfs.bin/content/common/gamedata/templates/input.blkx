@@ -1,0 +1,183 @@
+glob_input{
+
+  input{
+    _tags:t="input"
+  }
+
+  "glob_input:tag"{
+    _tags:t="input"
+  }
+
+  "glob_input__inputMode:i"{
+    _tags:t="input"
+  }
+}
+
+vehicle_input_horn{
+  _tags:t="input"
+  vehicle_input_horn:i=0
+  vehicle_input_action:t="Vehicle.Horn"
+}
+
+vehicle_input{
+  _extends:t="vehicle_input_horn"
+  _tags:t="input"
+  vehicle_input__steer:i=0
+  vehicle_input__throttle:i=0
+  vehicle_input__accel:i=0
+  vehicle_input__brake:i=0
+  vehicle_input__handBrake:i=0
+  vehicle_input__horn:i=0
+  vehicle_input__nextGear:i=0
+  vehicle_input__prevGear:i=0
+  vehicle_input__neutralGear:i=0
+  vehicle_input__reverseGear:i=0
+  vehicle_input__automaticTransmission:i=0
+  vehicle_input__prevCockpitView:i=0
+  vehicle_input__nextCockpitView:i=0
+}
+
+ship_input{
+  _extends:t="vehicle_input_horn"
+  _tags:t="input"
+  vehicle_input_action:t="Ship.Horn"
+
+  ship_input{
+    _tags:t="input"
+  }
+}
+
+base_rumble_events{
+  _extends:t="replicating"
+}
+
+human_input_rumble_enabled{
+  ingame_rumble__fallDownMinSpeedSq:r=20.0
+  ingame_rumble__fallDownMaxSpeedSq:r=172.0
+  ingame_rumble__meleeAttackPower:p2=10.0, 50.0
+
+  "human_input__rumbleEnabled:tag"{
+    _tags:t="input"
+  }
+
+  "human_input__rumbleEvents:object"{
+    _tags:t="input"
+  }
+
+  "human_input__rumblePlatformsPresets:object"{
+
+    "ps4+ps5:object"{
+
+      "continuous_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.4
+        durationMsec:i=30
+      }
+
+      "short_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.35
+        durationMsec:i=80
+      }
+
+      "oneshot_weak_lb:object"{
+        isHighBand:b=no
+        freq:r=0.5
+        durationMsec:i=80
+      }
+
+      "oneshot_medium_lb:object"{
+        isHighBand:b=no
+        freq:r=0.8
+        durationMsec:i=80
+      }
+
+      "oneshot_strong_lb:object"{
+        isHighBand:b=no
+        freq:r=1.0
+        durationMsec:i=160
+      }
+    }
+
+    "xboxOne+xboxScarlett+win32+win64:object"{
+
+      "continuous_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.025
+        durationMsec:i=30
+      }
+
+      "short_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.3
+        durationMsec:i=80
+      }
+
+      "oneshot_weak_lb:object"{
+        isHighBand:b=no
+        freq:r=0.3
+        durationMsec:i=80
+      }
+
+      "oneshot_medium_lb:object"{
+        isHighBand:b=no
+        freq:r=0.6
+        durationMsec:i=120
+      }
+
+      "oneshot_strong_lb:object"{
+        isHighBand:b=no
+        freq:r=0.9
+        durationMsec:i=180
+      }
+    }
+  }
+}
+
+common_rumble_events{
+  _extends:t="base_rumble_events"
+
+  "rumbleEvents:object"{
+    _tags:t="input"
+    pickupItem:t="short_hb"
+    fallDownMin:t="oneshot_weak_lb"
+    fallDownMax:t="oneshot_strong_lb"
+    climbingStart:t="oneshot_weak_lb"
+    meleeAttackMin:t="oneshot_weak_lb"
+    meleeAttackMax:t="oneshot_medium_lb"
+  }
+}
+
+damage_rumble_events{
+  _extends:t="base_rumble_events"
+
+  "rumbleEvents:object"{
+    _tags:t="input"
+    meleeDamage:t="oneshot_weak_lb"
+    backstabDamage:t="oneshot_medium_lb"
+    explosionDamage:t="oneshot_medium_lb"
+    holdBreathDamage:t="oneshot_medium_lb"
+    barbwireDamage:t="short_hb"
+    scaledDamageMin:t="oneshot_weak_lb"
+    scaledDamageMax:t="oneshot_strong_lb"
+    combustion:t="continuous_hb"
+  }
+}
+
+turret_rumble_events{
+  _extends:t="base_rumble_events"
+
+  "rumbleEvents:object"{
+    _tags:t="input"
+    mainTurretShot:t="oneshot_strong_lb"
+  }
+}
+
+affect_rumble_events{
+  _extends:t="base_rumble_events"
+
+  "rumbleEvents:object"{
+    _tags:t="input"
+    concussion:t="oneshot_strong_lb"
+  }
+}

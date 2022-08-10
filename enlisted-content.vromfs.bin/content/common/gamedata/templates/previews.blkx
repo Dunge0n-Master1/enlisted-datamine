@@ -1,0 +1,66 @@
+semi_transparent_render{
+  _tracked:t="semi_transparent__visible"
+
+  _group{
+    _tags:t="render"
+    semi_transparent__placingColor:p3=0.0, 0.0, 0.0
+    semi_transparent__visible:b=yes
+  }
+}
+
+base_builder_preview{
+  buildingCost:r=1.0
+  _extends:t="semi_transparent_render"
+  nextCheckGridObjectsTime:r=0.0
+  checkGridObjectsTimeInterval:r=0.3
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  avaliableAngles:p2=-30.0, 30.0
+  buildingDistance:r=3.0
+  avaliableColor:p3=0.0, 0.2, 0.0
+  blockedColor:p3=0.5, 0.0, 0.0
+  warningColor:p3=1.0, 0.55, 0.03
+  additionalHeight:r=0.0
+  buildingBoxMin:p3=0.0, 0.0, 0.0
+  buildingBoxMax:p3=0.0, 0.0, 0.0
+  buildingNorm:p3=0.0, 0.0, 0.0
+  additionalBuildingTemplate:t="base_fortification_build"
+  buildingSoundTag:t="fortification"
+  previewCollobjOffset:r=0.3
+  yawRotationSpeed:r=90.0
+  additionalYawRotation:r=0.0
+  _tracked:t="additionalYawRotation"
+
+  "build_attach__riexHandle:u64"{
+    value:i64=-1
+    _tags:t="server"
+  }
+
+  "builderGunEid:eid"{
+  }
+
+  "builder_preview:tag"{
+  }
+
+  "previewCollobj:CollisionObject"{
+  }
+}
+
+base_animchar_builder_preview{
+  _extends:t="base_builder_preview"
+  _extends:t="animchar"
+  animchar_render__enabled:b=yes
+  animchar__res:t="mortar_rm_40_char"
+
+  "previewCollres:CollisionResource"{
+  }
+}
+
+base_rendinst_builder_preview{
+  _extends:t="base_builder_preview"
+  semi_transparent__resIdx:i=-1
+  ri_preview__name:t="sandbags_wall_medium_rounded_a"
+
+  riSemiTransRender{
+    _tags:t="render"
+  }
+}

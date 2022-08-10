@@ -41,12 +41,12 @@ def control_blackout_effect_inside_vehicle_es(info : UpdateStageInfoBeforeRender
   if seatNo < 0
     return
   var shouldBeBlackouted = true
-  query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seats_hatch_nodes__isValid : bool = false; seats_hatch_nodes__openPos : float = 0.f)
+  query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__allowSmokeScreen : bool = true; seats_hatch_nodes__isValid : bool = false; seats_hatch_nodes__openPos : float = 0.f)
     let hasHatch = seats_hatch_nodes__isValid
     let isHatchClosed = hasHatch && seats_hatch_nodes__openPos <= 0.f
-    shouldBeBlackouted = (!hasHatch || isHatchClosed)
+    shouldBeBlackouted &&= seat__allowSmokeScreen && (!hasHatch || isHatchClosed)
   query(heroId) <| $ [es] (var burning__isBlackouted : bool&; isAlive : bool)
-    shouldBeBlackouted = shouldBeBlackouted && isAlive
+    shouldBeBlackouted &&= isAlive
     if !burning__isBlackouted && shouldBeBlackouted
       if fire_damage__startTime > 0.0
         DagorShaders::set_real(smoke_blackout_effect_time_startVarId, fire_damage__startTime)

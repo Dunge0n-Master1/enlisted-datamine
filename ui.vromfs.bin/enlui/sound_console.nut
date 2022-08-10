@@ -1,9 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sound_set_volume, sound_play} = require_optional("sound")
-
-if (sound_play==null || sound_set_volume==null)
-  return
+let { sound_set_volume, sound_play } = require("sound")
 
 console_register_command(function(name) {sound_play(name)}, "sound.play")
 foreach (opt in ["MASTER","ambient","weapon","effects","voices","interface","music"]) {

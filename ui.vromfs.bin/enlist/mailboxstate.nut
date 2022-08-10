@@ -56,7 +56,7 @@ let function onNotifyRemove(notify) {
 
 let function clearAll() {
   let list = clone inbox.value
-  foreach(notify in list) {
+  foreach (notify in list) {
     let onRemove = subscriptions?[notify.actionsGroup].onRemove
     onRemove?(notify)
   }

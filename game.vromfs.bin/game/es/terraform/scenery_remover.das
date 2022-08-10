@@ -139,6 +139,7 @@ def damage_scenery(transform : float3x4; dist_coef : float)
 
 [ecs_template]
 struct scenery_remover_netclient_finalize
+  nonCreatableObj : bool = true
   scenery_remover_netclient_finalize__eid  : EntityId
   scenery_remover_netclient_finalize__time : float
 

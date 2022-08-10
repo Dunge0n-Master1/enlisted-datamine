@@ -1,42 +1,69 @@
-options no_aot
+require app
 require ecs
-require DagorDebug3D
-require DagorConsole
-require pathfinder
+require Dacoll
+options no_aot
+require PhysMat
 require strings
+require pathfinder
+require DagorConsole
+require DagorDebug3D
 require danetlibs.pathfinder.main.pathfinder_common
 
 
 [console_cmd(name="path.check_path")]
-def path_check_path(sx, sy, sz, ex, ey, ez : float; dist_to_path : float = 10f; horz_threshold : float = -1f; max_vert_dist : float = 10f)
+def path_check_path(sx, sy, sz, ex, ey, ez : float; dist_to_path : float = 10f;
+                    horz_threshold : float = -1f; max_vert_dist : float = 10f; max_jump_up_height : float = FLT_MAX)
   let start = float3(sx, sy, sz)
   let end = float3(ex, ey, ez)
-  let res = check_path(start, end, dist_to_path, horz_threshold, max_vert_dist)
-  draw_debug_sphere_buffered(start, 1f, E3DCOLOR(0xFFFF0000), 12, 2000)
-  draw_debug_sphere_buffered(end, 1f, E3DCOLOR(0xFF00FF00), 12, 2000)
-  console_print("check_path({start}, {end}, {dist_to_path}, {horz_threshold}, {max_vert_dist}) == {res}")
+  let extents = float3(dist_to_path, FLT_MAX, dist_to_path)
+  using(start, end, extents) <| $(var req : FindRequest#)
+    req.includeFlags |= int(PolyFlag POLYFLAG_JUMP)
+    req.maxJumpUpHeight = max_jump_up_height
+    let res = check_path(req, horz_threshold, max_vert_dist)
+    draw_debug_sphere_buffered(start, 1f, E3DCOLOR(0xFFFF0000), 12, 2000)
+    draw_debug_sphere_buffered(end, 1f, E3DCOLOR(0xFF00FF00), 12, 2000)
+    console_print("check_path({start}, {end}, {extents}, {horz_threshold}, {max_vert_dist}, {max_jump_up_height}) == {res}")
+
+
+[console_cmd(name="path.calc_approx_path_length")]
+def path_calc_approx_path_length(sx, sy, sz, ex, ey, ez : float; dist_to_path : float = 10f;
+                                 horz_threshold : float = -1f; max_vert_dist : float = 10f; max_jump_up_height : float = FLT_MAX)
+  let start = float3(sx, sy, sz)
+  let end = float3(ex, ey, ez)
+  let extents = float3(dist_to_path, FLT_MAX, dist_to_path)
+  using(start, end, extents) <| $(var req : FindRequest#)
+    req.includeFlags |= int(PolyFlag POLYFLAG_JUMP)
+    req.maxJumpUpHeight = max_jump_up_height
+    let res = calc_approx_path_length(req, horz_threshold, max_vert_dist)
+    draw_debug_sphere_buffered(start, 1f, E3DCOLOR(0xFFFF0000), 12, 2000)
+    draw_debug_sphere_buffered(end, 1f, E3DCOLOR(0xFF00FF00), 12, 2000)
+    console_print("calc_approx_path_length({start}, {end}, {extents}, {horz_threshold}, {max_vert_dist}, {max_jump_up_height}) == {res}")
 
 
 [console_cmd(name="path.find_path")]
-def path_find_path(sx, sy, sz, ex, ey, ez : float; dist_to_path : float = 10f; step_size : float = 10f; slop : float = 2.5)
+def path_find_path(sx, sy, sz, ex, ey, ez : float; dist_to_path : float = 10f; step_size : float = 10f; slop : float = 2.5; max_jump_up_height = FLT_MAX)
   let start = float3(sx, sy, sz)
   let end = float3(ex, ey, ez)
   draw_debug_sphere_buffered(start, 1f, E3DCOLOR(0xFFFF0000), 12, 2000)
   draw_debug_sphere_buffered(end, 1f, E3DCOLOR(0xFF00FF00), 12, 2000)
-  let res = find_path(start, end, dist_to_path, step_size, slop) <| $(path)
-    console_print("path: len {length(path)}")
-    if length(path) > 1
-      var begin = path[0]
-      print("{begin}")
-      draw_debug_sphere_buffered(begin, 0.1f, E3DCOLOR(0xFF0000FF), 12, 2000)
-      for i in range(1, length(path))
-        let radius = saturate(0.1f + float(i) * 0.1f)
-        draw_debug_sphere_buffered(path[i], radius, E3DCOLOR(0xFF0000FF), 12, 2000)
-        draw_debug_line_buffered(begin, path[i], E3DCOLOR(0xFF0000FF), 2000)
-        begin = path[i]
+  let extents = float3(dist_to_path, FLT_MAX, dist_to_path)
+  using(start, end, extents) <| $(var req : FindRequest#)
+    req.includeFlags |= int(PolyFlag POLYFLAG_JUMP)
+    req.maxJumpUpHeight = max_jump_up_height
+    let res = find_path(req, step_size, slop) <| $(path)
+      console_print("path: len {length(path)}")
+      if length(path) > 1
+        var begin = path[0]
         print("{begin}")
+        draw_debug_sphere_buffered(begin, 0.1f, E3DCOLOR(0xFF0000FF), 12, 2000)
+        for i in range(1, length(path))
+          let radius = saturate(0.1f + float(i) * 0.1f)
+          draw_debug_sphere_buffered(path[i], radius, E3DCOLOR(0xFF0000FF), 12, 2000)
+          draw_debug_line_buffered(begin, path[i], E3DCOLOR(0xFF0000FF), 2000)
+          begin = path[i]
+          print("{begin}")
 
-  console_print("find_path({start}, {end}, {dist_to_path}, {step_size}, {slop}) == {res}")
+    console_print("find_path({start}, {end}, {extents}, {step_size}, {slop}, {max_jump_up_height}) == {res}")
 
 
 [console_cmd(name="path.project_to_nearest_navmesh_point")]
@@ -76,7 +103,11 @@ def path_get_lower_navmesh_pos(sx, sy, sz : float; ex, ey, ez : float; horz_exte
   let start = float3(sx, sy, sz)
   let end = float3(ex, ey, ez)
   let res = get_lower_navmesh_pos(end, horz_extents) <| $(p)
-    return check_path(start, p, dist_to_path, horz_threshold, max_vert_dist)
+    var res = false
+    let extents = float3(dist_to_path, FLT_MAX, dist_to_path)
+    using(start, p, extents) <| $(var req : FindRequest#)
+      res = check_path(req, horz_threshold, max_vert_dist)
+    return res
   draw_debug_sphere_buffered(end, 0.25f, E3DCOLOR(0xFF0000FF), 12, 2000)
   console_print("get_lower_navmesh_pos({start}, {horz_extents}) == {res}, result position = {res}")
   if res is pos
@@ -84,38 +115,42 @@ def path_get_lower_navmesh_pos(sx, sy, sz : float; ex, ey, ez : float; horz_exte
 
 
 [console_cmd(name="corridor.find_path")]
-def corridor_find_path(sx, sy, sz, ex, ey, ez : float; jump_links = true)
+def corridor_find_path(sx, sy, sz, ex, ey, ez : float; maxJumpUpHeight : float = FLT_MAX)
   let start = float3(sx, sy, sz)
   let end = float3(ex, ey, ez)
   using() <| $(var path_corridor : dtPathCorridor#)
     path_corridor |> init_path_corridor()
 
-    let inp = [[CorridorInput() start=start, target=end, distToPath=0.5, includeJumpLinks=jump_links]]
-    let res = path_corridor |> set_path_corridor(inp, null)
+    let extents = float3(.5, FLT_MAX, .5)
+    using(start, end, extents) <| $(var inp : CorridorInput#)
+      if maxJumpUpHeight < FLT_MAX
+        inp.includeFlags |= int(PolyFlag POLYFLAG_JUMP)
+      inp.maxJumpUpHeight = maxJumpUpHeight
+      let res = path_corridor |> set_path_corridor(inp, null)
 
-    draw_debug_sphere_buffered(start, 1f, E3DCOLOR(0xFFFF0000), 12, 2000)
-    draw_debug_sphere_buffered(end, 1f, E3DCOLOR(0xFF00FF00), 12, 2000)
+      draw_debug_sphere_buffered(start, 1f, E3DCOLOR(0xFFFF0000), 12, 2000)
+      draw_debug_sphere_buffered(end, 1f, E3DCOLOR(0xFF00FF00), 12, 2000)
 
-    path_corridor |> corridor_getPath() <| $(list)
-      let line = build_string() <| $(str)
-        for l in list
-          str |> format("%lld", l)
-          str |> write("  ")
-      console_print(line)
+      path_corridor |> corridor_getPath() <| $(list)
+        let line = build_string() <| $(str)
+          for l in list
+            str |> format("%lld", l)
+            str |> write("  ")
+        console_print(line)
 
-    path_corridor |> find_corridor_corners(1000) <| $(corners)
-      console_print("corridor: corners len {length(corners)}")
-      if length(corners) > 0
-        var begin = corners[0]
-        draw_debug_sphere_buffered(begin, 0.1f, E3DCOLOR(0xFF0000FF), 12, 2000)
-        draw_debug_line_buffered(begin, start, E3DCOLOR(0xFF0000FF), 2000)
-        for i in range(1, length(corners))
-          let radius = saturate(0.1f + float(i) * 0.1f)
-          draw_debug_sphere_buffered(corners[i], radius, E3DCOLOR(0xFF0000FF), 12, 2000)
-          draw_debug_line_buffered(begin, corners[i], E3DCOLOR(0xFF0000FF), 2000)
-          begin = corners[i]
+      path_corridor |> find_corridor_corners(1000) <| $(corners)
+        console_print("corridor: corners len {length(corners)}")
+        if length(corners) > 0
+          var begin = corners[0]
+          draw_debug_sphere_buffered(begin, 0.1f, E3DCOLOR(0xFF0000FF), 12, 2000)
+          draw_debug_line_buffered(begin, start, E3DCOLOR(0xFF0000FF), 2000)
+          for i in range(1, length(corners))
+            let radius = saturate(0.1f + float(i) * 0.1f)
+            draw_debug_sphere_buffered(corners[i], radius, E3DCOLOR(0xFF0000FF), 12, 2000)
+            draw_debug_line_buffered(begin, corners[i], E3DCOLOR(0xFF0000FF), 2000)
+            begin = corners[i]
 
-    console_print("corridor({start}, {end}) == {res}")
+      console_print("corridor({start}, {end}) == {res}")
 
 
 [console_cmd(name="path.find_random_point_around_circle")]
@@ -132,18 +167,18 @@ def path_find_random_point(sx, sy, sz, radius : float)
   console_print("find_random_point_around_circle({start}, {radius}) == {res}, result position = {resPos} distance = {distance(start, resPos)}")
 
 
-[console_cmd(name="path.find_random_point_in_radius")]
-def path_find_random_point_in_radius(sx, sy, sz, radius, extends : float)
+[console_cmd(name="path.find_random_point_inside_circle")]
+def path_find_random_point_inside_circle(sx, sy, sz, radius, extents : float)
   let start = float3(sx, sy, sz)
   var resPos : float3
-  let res = find_random_point_in_radius(start, radius, extends, resPos)
+  let res = find_random_point_inside_circle(start, radius, extents, resPos)
 
   draw_debug_sphere_buffered(start, 0.25f, E3DCOLOR(0xFF0000FF), 12, 2000)
   if res
     draw_debug_sphere_buffered(resPos, 0.3f, E3DCOLOR(0xFF00FF00), 12, 2000)
   else
     draw_debug_sphere_buffered(resPos, 0.3f, E3DCOLOR(0xFFFF0000), 12, 2000)
-  console_print("find_random_point_in_radius({start}, {radius}) == {res}, result position = {resPos} distance = {distance(start, resPos)}")
+  console_print("find_random_point_inside_circle({start}, {radius}) == {res}, result position = {resPos} distance = {distance(start, resPos)}")
 
 
 [console_cmd(name="path.draw_poly")]
@@ -166,3 +201,107 @@ def navmesh_find_poly(sx, sy, sz : float; horz_dist : float = 1f)
   draw_debug_line_buffered(res.p1, res.p2, E3DCOLOR(0xFF0000FF), 30)
   draw_debug_line_buffered(res.p2, res.p0, E3DCOLOR(0xFF0000FF), 30)
   console_print("get_triangle_by_pos({start}, {horz_dist}) == {success}, result tri = {res}")
+
+
+[console_cmd(name="path.find_polys_in_circle")]
+def navmesh_find_polys_in_circle(sx, sy, sz : float; radius : float = 3f)
+  var center = float3(sx, sy, sz)
+  let maxRad = 50.f
+  var r = radius
+  if radius > maxRad
+    r = maxRad
+    console_print("too big radius, scaled down to {r}")
+  var success = false
+  if project_to_nearest_navmesh_point(center, 0.1)
+    success = find_polys_in_circle(center, r, 0.2) <| $(polyRefs)
+      console_print("polyRefs: size {length(polyRefs)}")
+      for i in range(0, length(polyRefs))
+        var res : NavMeshTriangle
+        if get_triangle_by_poly(dtPolyRef(polyRefs[i]), res)
+          draw_debug_line_buffered(res.p0, res.p1, E3DCOLOR(0xFF0000FF), 300)
+          draw_debug_line_buffered(res.p1, res.p2, E3DCOLOR(0xFF0000FF), 300)
+          draw_debug_line_buffered(res.p2, res.p0, E3DCOLOR(0xFF0000FF), 300)
+  console_print("find_polys_in_circle({center}, {r}) == {success}")
+
+
+[console_cmd(name="path.set_poly_area")]
+def navmesh_set_poly_area(sx, sy, sz : float; area : uint = 0u; horz_dist : float = 1f)
+  var res : dtPolyRef
+  var pos = float3(sx, sy, sz)
+  let extents = float3(0.1, 2.0, 0.1)
+  var success = false
+  if project_to_nearest_navmesh_point(pos, extents, res)
+    success = set_poly_area(res, uint8(area))
+  console_print("set_poly_area({res}, {uint8(area)}) == {success}")
+
+
+[console_cmd(name="nmesh.poly_info")]
+def draw_poly_info()
+  let found = find_query() <| $ [es(REQUIRE=nmeshPolyDebug)] (eid : EntityId)
+    destroyEntity(eid)
+    return true
+  if !found
+    createEntity("nmesh_poly_debug")
+
+
+[es(tag=render, no_order, REQUIRE=nmeshPolyDebug)]
+def draw_poly_info_es(evt : UpdateStageInfoRenderDebug)
+  var tracePos : float3
+  var traceDir : float3
+
+  let cameraFound = find_query() <| $ [es(REQUIRE=camera_view)] (transform : float3x4; camera__active : bool = true)
+    if camera__active
+      traceDir = transform[2]
+      tracePos = transform[3]
+      return true
+    return false
+
+  if !cameraFound
+    return
+
+  var len = 4000f
+  var norm : float3
+  var color = E3DCOLOR(0xFFFFFFFF)
+  var matId = PHYSMAT_INVALID
+  var riDesc = RendInstDesc()
+  let res = traceray_normalized(tracePos, traceDir, len, matId, norm, ETF_ALL, riDesc, -1)
+  let polyPos = tracePos + traceDir * len
+  var triangle : NavMeshTriangle
+  let polyFound = get_triangle_by_pos(polyPos, 0.5, triangle)
+  var desc = "n/a"
+  if polyFound
+    desc = "polyId : {triangle.polyRef}"
+    var polyArea = uint8(0)
+    get_poly_area(triangle.polyRef, polyArea)
+    desc += " area : {polyArea}"
+    var polyFlags = uint16(0)
+    get_poly_flags(triangle.polyRef, polyFlags)
+    desc += " flags : {polyFlags}"
+
+    color = E3DCOLOR(0xFF00FF00)
+    begin_draw_cached_debug_lines(false, false, false)
+    draw_cached_debug_line(triangle.p0, triangle.p1, E3DCOLOR(0xFF00FF00))
+    draw_cached_debug_line(triangle.p1, triangle.p2, E3DCOLOR(0xFF00FF00))
+    draw_cached_debug_line(triangle.p2, triangle.p0, E3DCOLOR(0xFF00FF00))
+    let PolyCenter = (triangle.p0 + triangle.p1 + triangle.p2) / 3.f
+    draw_cached_debug_line(PolyCenter, triangle.p0, E3DCOLOR(0xFF00FF00))
+    draw_cached_debug_line(PolyCenter, triangle.p1, E3DCOLOR(0xFF00FF00))
+    draw_cached_debug_line(PolyCenter, triangle.p2, E3DCOLOR(0xFF00FF00))
+    end_draw_cached_debug_lines()
+
+  add_debug_text_mark(polyPos, desc, -1, 0., color)
+
+
+[console_cmd(name="nmesh.is_valid_poly_ref")]
+def is_valid_polyref_test(id : uint64)
+  let pos = float3()
+  let extents = float3(0.5)
+  using(pos, pos, extents) <| $(var req : FindRequest#)
+    req.startPoly = id
+    let res = is_valid_poly_ref(req)
+    console_print("is_valid_poly_ref({id}) == {res}")
+
+[console_cmd(name="nmesh.navmesh_is_valid_poly_ref")]
+def navmesh_is_valid_polyref_test(id : uint64)
+  let res = navmesh_is_valid_poly_ref(id)
+  console_print("navmesh_is_valid_poly_ref({id}) == {res}")

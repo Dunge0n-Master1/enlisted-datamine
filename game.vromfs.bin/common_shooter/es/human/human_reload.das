@@ -8,6 +8,7 @@ require game.utils.net_utils
 require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
+require common_shooter.es.human_weap_common
 require EnlistedHuman
 require EnlistedActor
 require EnlistedWeapon
@@ -18,6 +19,7 @@ require DaWeaponProps
 require Gun
 require GunAnim
 require HumanPhys
+require enlisted.events_enlisted
 
 
 def interrupt_reload_immediately_impl(human_weap__reloadStartTime : float;
@@ -118,8 +120,8 @@ def load_ammo_es(evt : CmdLoadAmmo;
   gun__manuallyUnloaded = false
 
 
-[es(no_order)]
-def human_weap_interrupt_single_reload_es(info : ecs::UpdateStageInfoAct;
+[es]
+def human_weap_interrupt_single_reload_es(info : ParallelUpdateFrameDelayed;
                                           human_attached_gun__attachedGunEid : ecs::EntityId;
                                           human_weap__currentGunEid : ecs::EntityId;
                                           entity_mods__reloadMult : float = 1.0;

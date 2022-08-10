@@ -94,7 +94,7 @@ let makeShopItem = @(itemdef) {
 
 let function makeShopItemsList(itemdefList, needHidden) {
   let res = {}
-  foreach(key, itemdef in itemdefList)
+  foreach (key, itemdef in itemdefList)
     if (itemdef.len()>0 && (needHidden || !itemdef?.hidden))
       res[key] <- makeShopItem(itemdef)
   return res
@@ -167,8 +167,8 @@ let function compareExpireAtStr(item1, item2) {
 let bunches_int = Computed(function() {
   let bunchCollection = {}
   let bunches = []
-  foreach(item in inventoryItems.value) {
-    if(!bunchCollection?[item.itemdef.itemdefid]) {
+  foreach (item in inventoryItems.value) {
+    if (!bunchCollection?[item.itemdef.itemdefid]) {
       bunchCollection[item.itemdef.itemdefid] <- {
         itemdef = item.itemdef
         itemid = item.itemid

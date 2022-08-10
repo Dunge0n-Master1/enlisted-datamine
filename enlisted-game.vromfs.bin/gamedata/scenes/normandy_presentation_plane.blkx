@@ -14,10 +14,10 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
-    "content/common/gamedata/weather/weather_poor.blk":r=0.125
-    "content/common/gamedata/weather/weather_clear.blk":r=0.5
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
+    weather_cloudy_a:r=1.0
+    weather_poor_a:r=0.125
+    weather_clear_a:r=0.5
+    weather_clear_b:r=1.0
   }
 
   "level__timeVec:array"{
@@ -992,7 +992,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
@@ -13367,142 +13366,114 @@ entity{
 
 entity{
   _template:t="attachable_wear_gloves_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_tunic_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_gasmask_m7_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_ammo_belt_02_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_flask_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_head_male_17_us_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_pants_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_pants_04_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_pants_02_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_pants_04_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_gloves_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_vest_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_ammo_belt_02_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_gloves_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_vest_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_gasmask_m7_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_ammo_belt_02_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_gloves_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_tunic_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_ammo_belt_02_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_head_male_10_us_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_head_male_17_us_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_backpack_m_28_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_flask_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_backpack_m_28_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_flask_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_backpack_m_28_01_us_summer_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
   _template:t="attachable_wear_head_male_05_us_item+attached_to_parent"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{

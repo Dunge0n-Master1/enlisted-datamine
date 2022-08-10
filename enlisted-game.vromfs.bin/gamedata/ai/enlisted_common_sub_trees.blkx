@@ -1,0 +1,1251 @@
+sequencer{
+  name:t="sub.chooseMaxStance"
+
+  chooseMaxStance{
+  }
+}
+
+sequencer{
+  name:t="sub.deactivateWeapMod"
+
+  deactivateWeapMod{
+  }
+}
+
+sequencer{
+  name:t="sub.checkDowned"
+
+  isDowned{
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.checkBurning"
+
+  isBurning{
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.findCover"
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  getRegroupDistance{
+    minDist:r=8.0
+    distParam:t="regroupDistance"
+  }
+
+  findCover{
+    centerParam:t="regroupPosition"
+    centerRadiusParam:t="regroupDistance"
+    radius:r=8.0
+    dangerRadius:r=0.0
+    dangerMinNoiseLevel:r=0.5
+    coverPosParam:t="coverPos"
+  }
+
+  calcDistance{
+    startPosParam:t="coverPos"
+    endPosParam:t="regroupPosition"
+    distanceParam:t="coverRegroupDistance"
+  }
+
+  checkDistance{
+    posParam:t="coverPos"
+    radiusParam:t="coverRegroupDistance"
+    yRadius:r=2.5
+  }
+
+  copyPoint3Var{
+    from:t="coverPos"
+    to:t="wishPosition"
+  }
+}
+
+sequencer{
+  name:t="sub.checkCover"
+
+  checkCover{
+    dangerRadius:r=0.0
+    dangerMinNoiseLevel:r=0.5
+  }
+
+  getCoverPosition{
+    coverPosParam:t="coverPos"
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  getRegroupDistance{
+    minDist:r=8.0
+    distParam:t="regroupDistance"
+  }
+
+  checkDistance{
+    posParam:t="regroupPosition"
+    otherPosParam:t="coverPos"
+    radiusParam:t="regroupDistance"
+    yRadius:r=2.5
+  }
+
+  checkDistance{
+    posParam:t="coverPos"
+    radiusParam:t="coverRegroupDistance"
+    yRadius:r=2.5
+  }
+
+  calcDistance{
+    startPosParam:t="coverPos"
+    endPosParam:t="regroupPosition"
+    distanceParam:t="coverRegroupDistance"
+  }
+
+  copyPoint3Var{
+    from:t="coverPos"
+    to:t="wishPosition"
+  }
+}
+
+sequencer{
+  name:t="sub.regroupCheck"
+
+  resetCover{
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  not{
+
+    orderedSelector{
+
+      sequencer{
+
+        findDanger{
+          paramName:t="testEnemy"
+          radiusParamName:t="enemyRadius"
+          minDanger:r=-1.0
+          tag:t="human"
+        }
+
+        checkDistance{
+          posParam:t="regroupPosition"
+          otherPosParam:t="storedRegroupPosition"
+          radius:r=2.5
+          yRadius:r=2.5
+        }
+      }
+
+      checkDistance{
+        posParam:t="regroupPosition"
+        otherPosParam:t="storedRegroupPosition"
+        radius:r=8.0
+        yRadius:r=2.5
+      }
+    }
+  }
+
+  copyPoint3Var{
+    from:t="regroupPosition"
+    to:t="storedRegroupPosition"
+  }
+
+  getOrderPosition{
+    posParam:t="regroupPosition"
+    orderPosParam:t="wishPosition"
+  }
+}
+
+sequencer{
+  name:t="sub.changeStanceWhenInTheSquadLeaderAim"
+
+  findDanger{
+    paramName:t="testEnemy"
+    radiusParamName:t="enemyRadius"
+    minDanger:r=-1.0
+    tag:t="human"
+  }
+
+  isInSquadLeaderAim{
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.moveTraceableDangerCheck"
+
+  periodicTimer{
+    timeParam:t="onTraceableDangerTimer"
+    timePeriod:p2=2.0, 4.0
+  }
+
+  findDanger{
+    paramName:t="shootEnemy"
+    radiusParamName:t="enemyRadius"
+    minDanger:r=0.1
+    tag:t="human"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.moveFindDangerCheck"
+
+  periodicTimer{
+    timeParam:t="onFollowPosFindDangerTimer"
+    timePeriod:p2=2.0, 4.0
+  }
+
+  findDanger{
+    paramName:t="shootEnemy"
+    radiusParamName:t="enemyRadius"
+    minDanger:r=0.1
+    tag:t="human"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.findDangerGrenade"
+
+  findDangerGrenade{
+    grenTargetParam:t="dangerLookAt"
+    radius:r=20.0
+    grenExplTime:t="grenExplTime"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.grenadeEscape"
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+    }
+  }
+
+  findDangerGrenade{
+    grenTargetParam:t="dangerLookAt"
+    radius:r=20.0
+    grenExplTime:t="grenExplTime"
+  }
+
+  findSafeFromGrenadePos{
+    posParam:t="grenadeSafePos"
+    grenTargetParam:t="dangerLookAt"
+    radius:r=25.0
+  }
+
+  speak{
+    phrase:t="grenadeAware"
+    timeMinMax:p2=4.0, 10.0
+  }
+
+  setCurrentAiAction{
+    state:t="hide"
+  }
+
+  moveToPos{
+    posParam:t="grenadeSafePos"
+    sprintTimerRange:p2=10.0, 20.0
+    minDistToSprint:r=0.5
+    tryClimbing:b=yes
+    maxStanceParam:t="maxStance"
+    avoidAiObstacles:b=no
+  }
+
+  waitTo{
+    timeParam:t="grenExplTime"
+  }
+
+  wait{
+    range:p2=0.2, 0.4
+    resetable:b=yes
+  }
+}
+
+sequencer{
+  name:t="sub.rethrowGrenade"
+
+  findDangerGrenade{
+    grenTargetParam:t="dangerLookAt"
+    radius:r=2.5
+    grenExplTime:t="grenExplTime"
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
+  }
+
+  parallel{
+
+    throwGrenadeBack{
+      grenTargetParam:t="dangerLookAt"
+      posParam:t="grenadeThrowPos"
+      radius:r=10.0
+      minThrowDistance:r=20.0
+    }
+
+    sequencer{
+
+      moveToPos{
+        posParam:t="grenadeThrowPos"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=0.5
+        tryClimbing:b=yes
+        distThreshold:r=1.0
+        avoidAiObstacles:b=no
+      }
+
+      wait{
+        range:p2=2.0, 2.0
+        resetable:b=yes
+      }
+    }
+  }
+
+  changeStance{
+    stanceName:t="crawl"
+    maxStanceParam:t="maxStance"
+  }
+
+  wait{
+    range:p2=1.0, 2.0
+    resetable:b=yes
+  }
+}
+
+sequencer{
+  name:t="sub.selfHealing"
+
+  isDowned{
+  }
+
+  setCurrentAiAction{
+    state:t="heal"
+  }
+
+  wait{
+    range:p2=0.2, 0.5
+    resetable:b=yes
+  }
+
+  useMedkit{
+  }
+}
+
+sequencer{
+  name:t="sub.findDangerZone"
+
+  findActiveDamageZone{
+    safePosParam:t="dmgZoneEscapePos"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.selfExtinguish"
+
+  isBurning{
+  }
+
+  setCurrentAiAction{
+    state:t="heal"
+  }
+
+  repeat{
+    count:i=1
+
+    sequencer{
+
+      findActiveDamageZone{
+        safePosParam:t="dmgZoneEscapePos"
+      }
+
+      parallel{
+
+        moveToPos{
+          posParam:t="dmgZoneEscapePos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=0.5
+          tryClimbing:b=no
+          distThreshold:r=1.0
+          avoidAiObstacles:b=no
+        }
+
+        extinguish{
+        }
+      }
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerZone"
+        }
+      }
+
+      extinguish{
+      }
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.dmgZoneEscape"
+
+  findActiveDamageZone{
+    safePosParam:t="dmgZoneEscapePos"
+  }
+
+  setCurrentAiAction{
+    state:t="move"
+  }
+
+  moveToPos{
+    posParam:t="dmgZoneEscapePos"
+    sprintTimerRange:p2=10.0, 20.0
+    minDistToSprint:r=0.5
+    tryClimbing:b=no
+    distThreshold:r=1.0
+    avoidAiObstacles:b=no
+  }
+}
+
+sequencer{
+  name:t="sub.swimUpCheck"
+
+  isUnderwater{
+  }
+
+  hasBreath{
+    ratio:r=0.5
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.swimUp"
+
+  reaction{
+    event:t="regularCheck"
+
+    findObstaclesAlongsidePath{
+    }
+  }
+
+  isUnderwater{
+  }
+
+  hasBreath{
+    ratio:r=0.5
+  }
+
+  orderedSelector{
+
+    findSwimUpPos{
+      posParam:t="swimUpPos"
+      swimUpDirParam:t="swimUpDir"
+      radius:r=5.0
+      tries:i=1
+    }
+
+    findSwimUpPos{
+      posParam:t="swimUpPos"
+      swimUpDirParam:t="swimUpDir"
+      radius:r=5.0
+      tries:i=10
+    }
+  }
+
+  setCurrentAiAction{
+    state:t="move"
+  }
+
+  parallel{
+
+    moveToPos{
+      posParam:t="swimUpPos"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=10.0
+      distThreshold:r=1.5
+      avoidAiObstacles:b=yes
+    }
+
+    waitSwimUpPos{
+      delay:r=0.1
+      maxTime:r=4.0
+      swimUpDirParam:t="swimUpDir"
+    }
+  }
+
+  swimUp{
+    swimUpDirParam:t="swimUpDir"
+  }
+}
+
+sequencer{
+  name:t="sub.enemyMelee"
+
+  findDanger{
+    paramName:t="meleeEnemy"
+    radiusParamName:t="enemyMeleeRadius"
+    minDanger:r=0.1
+    tag:t="human"
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
+  }
+
+  moveToTarget{
+    targetUnitParam:t="meleeEnemy"
+    stopDist:r=0.75
+    aimToTarget:b=yes
+    maxStanceParam:t="maxStance"
+  }
+
+  meleeAttack{
+    targetUnitParam:t="meleeEnemy"
+    timeToAttack:r=1.0
+    attackDist:r=1.5
+  }
+
+  wait{
+    range:p2=0.5, 1.0
+    resetable:b=yes
+  }
+}
+
+sequencer{
+  name:t="sub.oneShootAttack"
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerGrenade"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerZone"
+      }
+    }
+  }
+
+  reaction{
+    event:t="onEnemyPlayerNear"
+
+    orderedSelector{
+
+      sequencer{
+
+        findDanger{
+          paramName:t="meleeEnemy"
+          radiusParamName:t="enemyMeleeRadius"
+          minDanger:r=0.5
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.5
+          tag:t="human"
+        }
+
+        orderedSelector{
+
+          isVarsIntEqual{
+            lhs:t="prevShootEnemy"
+            rhs:t="shootEnemy"
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+    }
+  }
+
+  setIntVar{
+    to:t="isInShootState"
+    value:i=0
+  }
+
+  chooseBestWeapon{
+    targetParam:t="shootEnemy"
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
+  }
+
+  getRandomPointNearTarget{
+    targetUnitParam:t="shootEnemy"
+    posParam:t="posNearTarget"
+    useGenerationByY:b=no
+  }
+
+  rotateToPoint{
+    posParam:t="posNearTarget"
+  }
+
+  repeat{
+    count:i=1
+
+    setIntVar{
+      to:t="isInShootState"
+      value:i=1
+    }
+
+    copyIntVar{
+      to:t="prevShootEnemy"
+      from:t="shootEnemy"
+    }
+
+    shootAtUnit{
+      targetUnitParam:t="shootEnemy"
+      minStance:i=0
+      shootCycles:i=1
+      tryToSaveCurrentStance:b=no
+      minStanceChance:r=1.5
+      shootTime:p2=0.2, 1.0
+      cooldownTime:p2=0.1, 0.9
+      minAimTime:p2=0.1, 0.4
+      maxStanceParam:t="maxStance"
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.stayTraceableDangerCheck"
+
+  findDanger{
+    paramName:t="shootEnemy"
+    radiusParamName:t="enemyRadius"
+    minDanger:r=0.1
+    tag:t="human"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.stayFindDangerCheck"
+
+  findDanger{
+    paramName:t="shootEnemy"
+    radiusParamName:t="enemyRadius"
+    minDanger:r=0.1
+    tag:t="human"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.stayFindCover"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.findCover"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.stayRegroupCheck"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.regroupCheck"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.moveToPosition"
+
+  resetCover{
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  getOrderPosition{
+    posParam:t="regroupPosition"
+    orderPosParam:t="wishPosition"
+  }
+
+  orderedSelector{
+
+    moveToPos{
+      posParam:t="wishPosition"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=1.5
+      lookVisc:r=0.1
+      tryClimbing:b=yes
+      maxStanceParam:t="maxStance"
+      stuckDirParam:t="stuckDir"
+      timeToStuck:r=2.5
+      avoidAiObstacles:b=no
+      distToTarget:r=8.0
+      distThreshold:r=1.0
+    }
+
+    moveToPos{
+      posParam:t="wishPosition"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=1.5
+      lookVisc:r=0.1
+      tryClimbing:b=yes
+      maxStanceParam:t="maxStance"
+      stuckDirParam:t="stuckDir"
+      timeToStuck:r=2.5
+      incObstacles:b=no
+      avoidAiObstacles:b=no
+      distToTarget:r=8.0
+      distThreshold:r=1.0
+    }
+
+    exitHandler{
+
+      repeatUntilFail{
+
+        getPointAroundAIPos{
+          dirParam:t="stuckDir"
+          outPosParam:t="outStuckPos"
+          resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
+        }
+
+        not{
+
+          sequencer{
+
+            moveToPos{
+              posParam:t="outStuckPos"
+              sprintTimerRange:p2=10.0, 20.0
+              minDistToSprint:r=1.5
+              lookVisc:r=0.1
+              tryClimbing:b=yes
+              maxStanceParam:t="maxStance"
+              distThreshold:r=1.0
+              timeToStuck:r=2.5
+              avoidAiObstacles:b=no
+            }
+
+            moveToPos{
+              posParam:t="wishPosition"
+              sprintTimerRange:p2=10.0, 20.0
+              minDistToSprint:r=1.5
+              lookVisc:r=0.1
+              tryClimbing:b=yes
+              maxStanceParam:t="maxStance"
+              distThreshold:r=1.0
+              timeToStuck:r=2.5
+              avoidAiObstacles:b=no
+            }
+          }
+        }
+      }
+
+      setIntVar{
+        to:t="resetAIPointsGenerator"
+        value:i=1
+      }
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.stayInCover"
+
+  isInCover{
+  }
+
+  setCurrentAiAction{
+    state:t="in_cover"
+  }
+
+  getCoverPosition{
+    coverPosParam:t="coverPos"
+  }
+
+  chooseMaxStance{
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      findDanger{
+        paramName:t="testEnemy"
+        radiusParamName:t="enemyRadius"
+        minDanger:r=-1.0
+        tag:t="human"
+      }
+
+      selectStanceInCover{
+        maxStanceParam:t="maxStance"
+        stanceParam:t="coverStance"
+        safe:b=yes
+      }
+
+      changeStance{
+        stanceName:t="stand"
+        maxStanceParam:t="coverStance"
+      }
+    }
+
+    sequencer{
+
+      chooseRandomStance{
+        stanceParam:t="standStance"
+        minStance:i=1
+        maxStance:i=2
+      }
+
+      changeStance{
+        stanceName:t="stand"
+        maxStanceParam:t="standStance"
+      }
+    }
+  }
+
+  orderedSelector{
+
+    findPotentialEnemyPos{
+      posParam:t="potentialEnemyPos"
+      minNoiseLevel:r=3.0
+    }
+
+    sequencer{
+
+      periodicTimer{
+        timeParam:t="standInCoverFindDangerAttrationPosTimer"
+        timePeriod:p2=4.0, 6.0
+      }
+
+      findDangerAttractionPos{
+        posParam:t="potentialEnemyPos"
+        radius:r=0.0
+        minNoiseLevel:r=3.0
+      }
+    }
+
+    continue{
+    }
+  }
+
+  findPotentialEnemyDirectionEntryPoint{
+    posParam:t="potentialEnemyPos"
+  }
+
+  parallel{
+
+    wait{
+      range:p2=5.0, 15.0
+      resetable:b=yes
+    }
+
+    wanderLook{
+      posParam:t="potentialEnemyPos"
+      range:p2=0.2, 0.1
+      maxStanceParam:t="coverStance"
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.stayAtPos"
+
+  setCurrentAiAction{
+    state:t="stand"
+  }
+
+  parallel{
+
+    validateStandPosition{
+    }
+
+    wanderLook{
+      posParam:t="potentialEnemyPos"
+      range:p2=0.2, 0.1
+      maxStanceParam:t="maxStance"
+    }
+  }
+
+  parallel{
+
+    wait{
+      range:p2=5.0, 15.0
+      resetable:b=yes
+    }
+
+    wanderLook{
+      posParam:t="potentialEnemyPos"
+      range:p2=0.2, 0.1
+      maxStanceParam:t="maxStance"
+    }
+  }
+
+  parallel{
+
+    validateStandPosition{
+    }
+
+    wanderLook{
+      posParam:t="potentialEnemyPos"
+      range:p2=0.2, 0.1
+      maxStanceParam:t="maxStance"
+    }
+  }
+
+  parallel{
+
+    wait{
+      range:p2=1.5, 2.0
+      resetable:b=yes
+    }
+
+    wanderLook{
+      posParam:t="potentialEnemyPos"
+      range:p2=0.2, 0.1
+      maxStanceParam:t="maxStance"
+    }
+  }
+
+  orderedSelector{
+
+    findPotentialEnemyPos{
+      posParam:t="potentialEnemyPos"
+      minNoiseLevel:r=3.0
+    }
+
+    sequencer{
+
+      periodicTimer{
+        timeParam:t="standFindDangerAttrationPosTimer"
+        timePeriod:p2=4.0, 6.0
+      }
+
+      findDangerAttractionPos{
+        posParam:t="potentialEnemyPos"
+        radius:r=0.0
+        minNoiseLevel:r=3.0
+      }
+    }
+
+    continue{
+    }
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      ignoreChance{
+        chance:r=0.5
+      }
+
+      chooseRandomStance{
+        stanceParam:t="standStance"
+        minStance:i=1
+        maxStance:i=2
+      }
+
+      changeStance{
+        stanceName:t="stand"
+        maxStanceParam:t="standStance"
+      }
+    }
+
+    sequencer{
+
+      ignoreChance{
+        chance:r=0.95
+      }
+
+      chooseRandomStance{
+        stanceParam:t="standStance"
+        minStance:i=0
+        maxStance:i=1
+      }
+
+      changeStance{
+        stanceName:t="stand"
+        maxStanceParam:t="standStance"
+      }
+    }
+
+    continue{
+    }
+  }
+
+  findPotentialEnemyDirectionEntryPoint{
+    posParam:t="potentialEnemyPos"
+  }
+
+  sequencer{
+
+    ignoreChance{
+      chance:r=0.5
+    }
+
+    chooseRandomStance{
+      stanceParam:t="standStance"
+      minStance:i=1
+      maxStance:i=2
+    }
+
+    changeStance{
+      stanceName:t="stand"
+      maxStanceParam:t="standStance"
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.moveToCover"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.tryToSaveOrFindCover"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.moveToCoverNearPosition"
+  }
+}
+
+sequencer{
+  name:t="sub.defendPointMoveToPosition"
+
+  setIntVar{
+    to:t="isOnDefendPoint"
+    value:i=0
+  }
+
+  setIntVar{
+    to:t="isOnDefendPoint"
+    value:i=1
+  }
+
+  subTree{
+    treeName:t="sub.moveToPosition"
+  }
+}
+
+orderedSelector{
+  name:t="sub.tryToOpenDoors"
+
+  findObstaclesAlongsidePath{
+  }
+
+  findDangerAttractionPos{
+    posParam:t="enemyPos"
+    validPosParamName:t="enemyPosValid"
+    radius:r=0.0
+    minNoiseLevel:r=3.0
+  }
+}
+
+orderedSelector{
+  name:t="sub.tryToSaveOrFindCover"
+
+  subTree{
+    name:t=""
+    treeName:t="sub.checkCover"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.findCover"
+  }
+}
+
+orderedSelector{
+  name:t="sub.moveToCoverNearPosition"
+
+  moveToPos{
+    posParam:t="wishPosition"
+    sprintTimerRange:p2=10.0, 20.0
+    minDistToSprint:r=1.5
+    lookVisc:r=0.1
+    tryClimbing:b=yes
+    maxStanceParam:t="maxStance"
+    distThreshold:r=1.0
+    timeToStuck:r=2.5
+    stuckDirParam:t="stuckDir"
+    avoidAiObstacles:b=no
+  }
+
+  moveToPos{
+    posParam:t="wishPosition"
+    sprintTimerRange:p2=10.0, 20.0
+    minDistToSprint:r=1.5
+    lookVisc:r=0.1
+    tryClimbing:b=yes
+    maxStanceParam:t="maxStance"
+    stuckDirParam:t="stuckDir"
+    timeToStuck:r=2.5
+    incObstacles:b=no
+    avoidAiObstacles:b=no
+    distThreshold:r=1.0
+  }
+
+  exitHandler{
+
+    repeatUntilFail{
+
+      getPointAroundAIPos{
+        dirParam:t="stuckDir"
+        outPosParam:t="outStuckPos"
+        resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
+      }
+
+      not{
+
+        sequencer{
+
+          moveToPos{
+            posParam:t="outStuckPos"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=1.5
+            lookVisc:r=0.1
+            tryClimbing:b=yes
+            maxStanceParam:t="maxStance"
+            timeToStuck:r=2.5
+            avoidAiObstacles:b=no
+            distThreshold:r=1.0
+          }
+
+          moveToPos{
+            posParam:t="wishPosition"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=1.5
+            lookVisc:r=0.1
+            tryClimbing:b=yes
+            maxStanceParam:t="maxStance"
+            distThreshold:r=1.0
+            timeToStuck:r=2.5
+            avoidAiObstacles:b=no
+          }
+        }
+      }
+    }
+
+    setIntVar{
+      to:t="resetAIPointsGenerator"
+      value:i=1
+    }
+  }
+}
+
+orderedSelector{
+  name:t="sub.getRegroupPosDefault"
+
+  findPointInCapzone{
+    posParam:t="regroupPosition"
+  }
+
+  findPointNearCapzone{
+    posParam:t="regroupPosition"
+  }
+}
+
+getPointInTrainCapzone{
+  name:t="sub.getRegroupPosTrain"
+  posParam:t="regroupPosition"
+}

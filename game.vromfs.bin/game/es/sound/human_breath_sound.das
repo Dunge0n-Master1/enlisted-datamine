@@ -9,21 +9,21 @@ require math
 require math.base
 require DagorMath
 
+
 [es(tag=sound, track=human_net_phys__isHoldBreath, REQUIRE=humanSound)]
 def human_breath_sound_hold(evt : Event;
                             human_net_phys__isHoldBreath : bool;
-                            human_breath__isUnderWater : bool;
                             human_net_phys : HumanActor;
                             sound_tags : Object;
+                            human_breath_sound__canBreath : bool;
                             human_breath_sound__holdBreathEndDelay : float;
                             var human_breath_sound__breathStart : float&;
                             var sound_event_group : SoundEventGroup&;
                             [[shared_comp]] human_voice_sound__path : Object;
                             [[shared_comp]] human_voice_sound__descs : Object;
                             is_watched_sound : bool;
-                            transform : float3x4;
-                            isAlive : bool)
-  if human_breath__isUnderWater || !isAlive
+                            transform : float3x4)
+  if !human_breath_sound__canBreath
     return
   if human_net_phys__isHoldBreath
     sound_player_common::play("holdBreathStart", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], sound_hash(""), sound_event_group)
@@ -32,14 +32,23 @@ def human_breath_sound_hold(evt : Event;
     set_var_optional(handle, "noairtime", human_net_phys.phys.currentState.breathShortness)
     human_breath_sound__breathStart = get_sync_time() + human_breath_sound__holdBreathEndDelay
 
-[es(tag=sound, REQUIRE=humanSound, after=(update_sound_group_es, animchar_render_es))]
+
+[es(tag=sound, REQUIRE=humanSound, after=(update_sound_group_es, animchar_render_es, human_voice_enable))]
+def human_breath_sound_can_breath_update(info : UpdateStageInfoAct;
+                                         var human_breath_sound__canBreath : bool&;
+                                         human_voice_enable : bool;
+                                         human_voice_effect__type : string)
+  human_breath_sound__canBreath = human_voice_enable && human_voice_effect__type == ""
+
+
+[es(tag=sound, REQUIRE=humanSound, after=human_breath_sound_can_breath_update)]
 def human_breath_sound_update(info : UpdateStageInfoAct;
                               human_net_phys__states : int;
                               human_net_phys : HumanActor;
                               human_net_phys__isHoldBreath : bool;
-                              human_breath__isUnderWater : bool;
                               human_net_phys__curMoveState : int;
 
+                              human_breath_sound__canBreath : bool;
                               human_breath_sound__breathStart : float;
                               var human_breath_sound__isBreath : bool&;
                               var human_breath_sound__breathShortness : float&;
@@ -59,12 +68,11 @@ def human_breath_sound_update(info : UpdateStageInfoAct;
                               [[shared_comp]] human_voice_sound__descs : Object;
                               is_watched_sound : bool;
                               transform : float3x4;
-                              isAlive : bool;
                               isDowned : bool;
                               hitpoints__hp : float;
                               hitpoints__maxHp : float)
 
-  if !isAlive || !is_watched_sound || isDowned || human_net_phys__isHoldBreath || human_breath__isUnderWater || info.curTime < human_breath_sound__breathStart
+  if !is_watched_sound || isDowned || human_net_phys__isHoldBreath || !human_breath_sound__canBreath || info.curTime < human_breath_sound__breathStart
     human_breath_sound__isBreath = false
     release_sound(sound_event_group, sound_hash("breath"))
     release_sound(sound_event_group, sound_hash("inhale"))

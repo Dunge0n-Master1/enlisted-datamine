@@ -15,7 +15,7 @@ let inventoryValidator = require("inventoryValidator.nut")
 let {get_time_msec} = require("dagor.time")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let chardToken = keepref(Computed(@() userInfo.value?.token))
-let { appId, language } = require("%enlSqGlob/clientState.nut")
+let { appId, gameLanguage } = require("%enlSqGlob/clientState.nut")
 
 //when shouldRequestAllItemdefs - request full itemdefs list
 //when !shouldRequestAllItemdefs - request all known itemdefs list
@@ -167,7 +167,7 @@ let function fireRefreshCb() {
 
   let cbs = refreshCbList
   refreshCbList = []
-  foreach(cb in cbs)
+  foreach (cb in cbs)
     cb()
 }
 
@@ -284,7 +284,7 @@ let function updatePendingItemDefRequest(cb, shouldRefreshAll) {
       cbList = [],
       shouldRefreshAll = false,
       fireCb = function() {
-        foreach(cbFunc in cbList)
+        foreach (cbFunc in cbList)
           cbFunc()
       }
     }
@@ -301,7 +301,7 @@ let function addItemDef(itemdef) {
   itemdefs.value[itemdef.itemdefid] <- originalItemDef
 }
 
-requestItemDefsImpl = function _requestItemDefsImpl() {
+requestItemDefsImpl = function() {
   if (isItemdefRequestInProgress() || !pendingItemDefRequest)
     return
   let requestData = pendingItemDefRequest
@@ -313,7 +313,7 @@ requestItemDefsImpl = function _requestItemDefsImpl() {
   let params = {}
   if (!shouldRequestAllItemdefs.value || !requestData.shouldRefreshAll) {
     let itemdefidsRequest = []
-    foreach(itemdefid, value in itemdefs.value) {
+    foreach (itemdefid, value in itemdefs.value) {
       if (!requestData.shouldRefreshAll && (!value.len() || itemdefidsRequested?[itemdefid]))
         continue
 
@@ -330,7 +330,7 @@ requestItemDefsImpl = function _requestItemDefsImpl() {
   }
 
   lastItemdefsRequestTime = get_time_msec()
-  params.internalLanguage <- language.value
+  params.internalLanguage <- gameLanguage
   params.language <- loc("steam/languageName", params.internalLanguage.tolower())
   request("GetItemDefsClient", params, null,
     function(result) {
@@ -342,7 +342,7 @@ requestItemDefsImpl = function _requestItemDefsImpl() {
         stopRepeatUpdateTimer("GetItemDefsClient")
 
       let itemdef_json = getResultData(result, "itemdef_json");
-      if (!itemdef_json || params.internalLanguage != language.value) {
+      if (!itemdef_json || params.internalLanguage != gameLanguage) {
         requestData.fireCb()
         requestItemDefsImpl()
         return
@@ -389,9 +389,7 @@ let function requestItemdefsByIds(itemdefIdsList, cb = null) {
   requestItemDefs(cb)
 }
 
-refreshAllItemDefs = function _refreshAllItemDefs() {
-  requestItemDefs(null, true)
-}
+refreshAllItemDefs = @() requestItemDefs(null, true)
 
 shouldRequestAllItemdefs.subscribe(function(should){
   if (should)
@@ -466,7 +464,7 @@ let function signItems(itemsList, cb) {
 let function markSeen(itemIdsList, cb = null) {
   local hasChanges = false
   let newAllItems = clone itemsInternal.value.allItems
-  foreach(id in itemIdsList)
+  foreach (id in itemIdsList)
     if (id in newAllItems && !(newAllItems[id]?.seenByPlayer ?? false)) {
       hasChanges = true
       newAllItems[id] <- newAllItems[id].__merge({ seenByPlayer = true }) //we no need to wait answer to mark them local
@@ -566,7 +564,6 @@ let function onAppIdOrTokenChanged() {
 
 appId.subscribe(@(_) onAppIdOrTokenChanged())
 chardToken.subscribe(@(_) onAppIdOrTokenChanged())
-language.subscribe(@(_) (chardToken.value && appId.value >= 0) ? refreshAllItemDefs() : null)
 
 if (!areItemsReceived.value || !areItemsItemdefsReceived.value)
   onAppIdOrTokenChanged()
@@ -595,7 +592,7 @@ let function dbgRequestAllPrices(cbOnPrices, currencyId){
     function cb(result){
       let itemPrices = result?.response?.itemPrices ?? []
       let prices = {}
-      foreach(data in itemPrices) {
+      foreach (data in itemPrices) {
         let itemdefid = data?.itemdefid
         if (itemdefid == null)
           continue

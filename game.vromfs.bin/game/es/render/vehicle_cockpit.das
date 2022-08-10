@@ -1,5 +1,6 @@
 require ecs
 require ecs.common
+require ecs.safe
 require math
 require math.base
 require math.easing
@@ -27,7 +28,11 @@ def vehicle_change_cockpit_es(evt : Event;
                               [[shared_comp]] vehicle_seats__seats : Array;
                               vehicle_seats__seatEids : EidList;
                               vehicleCameraType : int;
+                              isTpsView : bool = false;
                               var vehicle_sight__opacity : float&)
+  if isTpsView
+    return
+
   if (vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER) ||
       vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD))
     return
@@ -51,6 +56,8 @@ def vehicle_change_cockpit_es(evt : Event;
   if cockpitTemplate == ""
     return
 
+  let effectors = get_ecs_object(seat, "effectors")
+
   vehicle_sight__opacity = 0.f
 
   createEntitySync(cockpitTemplate) <| $(var init : ComponentsInitializer)
@@ -59,6 +66,8 @@ def vehicle_change_cockpit_es(evt : Event;
     set(init, "cockpit__seatNo", heroSeatIdx)
     set(init, "cockpit__cameraTime", 1.f)
     set(init, "cockpit__zoomTime", 0.f)
+    if effectors != null
+      set(init, "cockpit__effectorsInfo", *effectors)
 
 [es(on_appear)]
 def cockpit_attach_nodes_init(evt : Event;
@@ -126,9 +135,10 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
   ecs::query(cockpit__vehicleEid) <| $ [es] (animchar : AnimcharBaseComponent;
                                              vehicle_seats__seatEids : EidList;
                                              vehicleCameraType : int;
+                                             isTpsView : bool = false;
                                              isAlive, isExploded : bool)
 
-    if !isAlive || isExploded
+    if !isAlive || isExploded || isTpsView
       return
 
     if (vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER) ||

@@ -33,7 +33,7 @@ def unpossess_entity(eid : EntityId) : void
   if !empty(physType)
     let newActorTemplName : string = remove_sub_template_name(eid, "{physType}_hero_components_local")
     if !empty(newActorTemplName) // otherwise entity scheduled to be destroyed?
-      reCreateEntityFrom(eid, remove_sub_template_name(newActorTemplName, "observed"))
+      reCreateEntityFrom(eid, remove_sub_template_name(newActorTemplName, "observed_local"))
   if obj == null
     return
   *obj |> base_phys_actor_resetAAS() // Don't try to process too old AAS when we possess this entity again

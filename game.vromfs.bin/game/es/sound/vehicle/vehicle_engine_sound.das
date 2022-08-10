@@ -15,7 +15,7 @@ def vehicle_engine_sound_reset(evt : Event;
 
 [es(tag=sound, after=(vehicle_phys_sound_state, ship_phys_sound_state))]
 def vehicle_engine_sound(info : UpdateStageInfoAct;
-                         sound_control__enabled : bool;
+                         sound_control__shouldPlay : bool;
                          vehicle_sound_state__speed : float;
                          vehicle_sound_state__engineRpm : float;
                          vehicle_sound_state__engineLoad : float;
@@ -33,7 +33,7 @@ def vehicle_engine_sound(info : UpdateStageInfoAct;
                          var sound_event_group : SoundEventGroup&;
                          transform : float3x4)
 
-  if sound_control__enabled
+  if sound_control__shouldPlay
     let isStarted = vehicle_engine_sound__shouldStart && vehicle_sound_state__isEngineStarted
     if !vehicle_engine_sound__isInited || vehicle_engine_sound__isStarted != isStarted
       reject_sound(sound_event_group, sound_hash("engine"))
@@ -57,6 +57,6 @@ def vehicle_engine_sound(info : UpdateStageInfoAct;
       set_var_optional(handle, "speed", vehicle_sound_state__speed)
       set_var(handle, "load", vehicle_sound_state__engineLoad)
       set_pos(handle, transform[3])
-  elif vehicle_engine_sound__isInited // !sound_control__enabled
+  elif vehicle_engine_sound__isInited // !sound_control__shouldPlay
     vehicle_engine_sound__isInited = false
     reject_sound(sound_event_group, sound_hash("engine"))

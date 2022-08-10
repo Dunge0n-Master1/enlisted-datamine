@@ -16,7 +16,7 @@ let function validate(val) {
   if (safeAreaList.indexof(val) != null)
     return val
   local res = null
-  foreach(v in safeAreaList)
+  foreach (v in safeAreaList)
     if (res == null || fabs(res - val) > fabs(v - val))
       res = v
   return res

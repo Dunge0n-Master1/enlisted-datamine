@@ -2,38 +2,37 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let {CanTerraformCheckResult} = require("%enlSqGlob/dasenums.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
-let {curWeapon} = require("%ui/hud/state/hero_state.nut")
+let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
 let {EventOnDig} = require("dasevents")
 
-let needShowTip = Watched(false)
-let showTip = Computed(
-  @() curWeapon.value?.weapType == "melee" && needShowTip.value
-)
-let hideTip = @() needShowTip(false)
+let lastDigResult = Watched(CanTerraformCheckResult.Successful)
+let hideTip = @() lastDigResult(CanTerraformCheckResult.Successful)
 
 const TIP_SHOW_TIME = 5
 
 ecs.register_es("on_event_dig_es",
   {
     [EventOnDig] = function(evt, _eid, _comp) {
-      if (evt.isSuccessful){
-        needShowTip(false)
-        return
+      if (evt.canTerraformCheckResult != CanTerraformCheckResult.Successful) {
+        gui_scene.resetTimeout(TIP_SHOW_TIME, hideTip)
       }
-
-      gui_scene.resetTimeout(TIP_SHOW_TIME, hideTip)
-      needShowTip(true)
+      lastDigResult(evt.canTerraformCheckResult)
     }
   },
   { comps_rq=["watchedByPlr"] }
 )
 
-let cannotDigAtPosTip = tipCmp({
-  text = loc("hint/cannotDigAtPos")
+let cannotDigAtPosTip = @(lastDigResult) tipCmp({
+  text = loc(lastDigResult == CanTerraformCheckResult.NearByObjects
+             ? "hint/cannotDigAtPosNearByObjects"
+             : "hint/cannotDigAtPos")
 }.__update(body_txt))
 
 return @() {
-  watch = showTip
-  children = showTip.value ? cannotDigAtPosTip : null
+  watch = [curWeaponWeapType, lastDigResult]
+  children = curWeaponWeapType.value == "melee" && lastDigResult.value != CanTerraformCheckResult.Successful
+           ? cannotDigAtPosTip(lastDigResult.value)
+           : null
 }

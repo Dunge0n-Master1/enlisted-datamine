@@ -49,7 +49,7 @@ let function setNextWarnDay(nextWarn) {
 let function showExpiringWarn() {
   let timeText = Computed(function(){
     let timeTillExpiration = premiumActiveTime.value - debugPremiumDays.value * TIME_DAY_IN_SECONDS
-    if(timeTillExpiration <= 0)
+    if (timeTillExpiration <= 0)
       return loc("premium/premiumSuggest")
     return loc("premium/premiumSuggestSoon", { time = secondsToHoursLoc(timeTillExpiration) })
   })
@@ -132,7 +132,7 @@ let function checkExpiration(_) {
 }
 
 let checkExpirationDebounced = debounce(checkExpiration, 0.1)
-foreach(w in [canShow, premiumEndTime, hasPremium, debugPremiumDays])
+foreach (w in [canShow, premiumEndTime, hasPremium, debugPremiumDays])
   w.subscribe(checkExpirationDebounced)
 checkExpirationDebounced(null)
 

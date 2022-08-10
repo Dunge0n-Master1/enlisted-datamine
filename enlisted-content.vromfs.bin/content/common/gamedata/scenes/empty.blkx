@@ -1,0 +1,15 @@
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="__empty__"
+  level__fpsLimit:i=60
+}
+
+entity{
+  _template:t="ui_disabled"
+  ui__disabled:b=yes
+}

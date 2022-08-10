@@ -10,13 +10,6 @@ require game.es.vehicle.vehicle_events
 require common_shooter.events_common_shooter
 require common_shooter.es.repair_common
 
-def find_repair_kit(itemContainer)
-  for itemEid in itemContainer
-    if has(itemEid, "item__isRepairTool")
-      return itemEid
-  return INVALID_ENTITY_ID
-
-
 def set_repairable_state(inProgress; operatorEid; targetEid; repairTimeMult : float  = 1.f; recoveryRatioAdd : float = 0.f)
   query(targetEid) <| $ [es] (var maintainable__operator : EntityId&;
                               var repairable__repairTime : float&;
@@ -39,58 +32,54 @@ def stop_repair(maintenance__target)
 
 
 def use_repair_kit(maintainable__operator)
-  ecs::query(maintainable__operator) <| $ [es] (var repair__active : bool&;
-                                                var repair__repairKit : EntityId&;
-                                                var repair__hasRepairKit : bool&;
-                                                var itemContainer : EidList&;
-                                                entity_mods__vehicleRepairUsagesPerKit = -1;
-                                                possessedByPlr = INVALID_ENTITY_ID)
+  query(maintainable__operator) <| $ [es] (var repair__active : bool&;
+                                           repair__repairKit : EntityId;
+                                           possessedByPlr = INVALID_ENTITY_ID)
     repair__active = false
-    let idx = find_index(itemContainer, repair__repairKit)
-    if idx == -1
-      return
-    var isFullyUsed = false
-    ecs::query(repair__repairKit) <| $ [es] (var repair_kit__useCounter : int&)
-      isFullyUsed = entity_mods__vehicleRepairUsagesPerKit <= ++repair_kit__useCounter
+    query(repair__repairKit) <| $ [es] (var repair_kit__useCounter : int&)
+      repair_kit__useCounter += 1
     sendEvent(maintainable__operator, [[EventOnLootUse itemEid=repair__repairKit]])
     sendEvent(possessedByPlr, [[EventPlayerOnLootUse entityToUse=repair__repairKit]])
-    if !isFullyUsed
-      return
-    destroyEntity(repair__repairKit)
-    erase(itemContainer, idx)
-    repair__repairKit = find_repair_kit(itemContainer)
-    repair__hasRepairKit = !!repair__repairKit
 
-[es(on_appear)]
-def repair_kit_owner_init_es(evt : Event;
-                             itemContainer : EidList;
-                             var repair__hasRepairKit : bool&;
-                             var repair__repairKit : EntityId&)
-  repair__repairKit = find_repair_kit(itemContainer)
+[es(tag=server, track=(extinguisher__usesLeft, repair_kit__useCounter))]
+def remove_used_repair_kit(evt : Event;
+                           eid : EntityId;
+                           item__ownerEid : EntityId;
+                           extinguisher__usesLeft : int;
+                           repair_kit__useCounter : int;
+                           entity_mods__vehicleRepairUsagesPerKit : int = -1)
+  query(item__ownerEid) <| $ [es] (var itemContainer : EidList&)
+    if extinguisher__usesLeft <= 0 && repair_kit__useCounter > 0 && repair_kit__useCounter >= entity_mods__vehicleRepairUsagesPerKit
+      let idx = itemContainer |> find_index(eid)
+      if idx >= 0
+        erase(itemContainer, idx)
+
+def find_repair_kit(item_container : EidList; uses_per_kit : int)
+  for itemEid in item_container
+    let repairUses = get_int(itemEid, "repair_kit__useCounter")
+    if repairUses != null && (*repairUses == 0 || *repairUses < uses_per_kit)
+      return itemEid
+  return INVALID_ENTITY_ID
+
+[es(tag=server, on_appear, track=itemContainer)]
+def check_item_container_has_repair_kit(evt : Event;
+                                        itemContainer : EidList;
+                                        entity_mods__vehicleRepairUsagesPerKit : int = -1;
+                                        var repair__hasRepairKit : bool&;
+                                        var repair__repairKit : EntityId&)
+  repair__repairKit = find_repair_kit(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
   repair__hasRepairKit = !!repair__repairKit
 
-[es]
-def pickup_repair_kit_on_drop_es(evt : EventOnLootDrop;
-                                 itemContainer : EidList;
-                                 var repair__hasRepairKit : bool&;
-                                 var repair__repairKit : ecs::EntityId&)
-  if evt.itemEid == repair__repairKit
-    repair__repairKit = find_repair_kit(itemContainer)
-    repair__hasRepairKit = !!repair__repairKit
-
-[es]
-def pickup_repair_kit_on_pickup_es(evt : EventOnLootPickup;
+[es(tag=server, track=repair_kit__useCounter)]
+def track_repair_kit_uses(evt : Event; eid : EntityId; item__ownerEid : EntityId; repair_kit__useCounter : int)
+  query(item__ownerEid) <| $ [es] (itemContainer : EidList;
+                                   entity_mods__vehicleRepairUsagesPerKit : int = -1;
                                    var repair__hasRepairKit : bool&;
-                                   var repair__repairKit : ecs::EntityId&)
-  if !repair__hasRepairKit && has(evt.itemEid, "item__isRepairTool")
-    repair__hasRepairKit = true
-    repair__repairKit = evt.itemEid
+                                   var repair__repairKit : EntityId&)
+    if repair__repairKit == eid && repair_kit__useCounter > 0 && repair_kit__useCounter >= entity_mods__vehicleRepairUsagesPerKit
+      repair__repairKit = find_repair_kit(itemContainer, entity_mods__vehicleRepairUsagesPerKit)
+      repair__hasRepairKit = !!repair__repairKit
 
-[es(on_event=EventComponentChanged, on_appear, track=item__ownerEid, REQUIRE=item__isRepairTool, tag=server)]
-def repair_kit_init_es(evt : Event; eid : EntityId; item__ownerEid : EntityId)
-  ecs::query(item__ownerEid) <| $ [es] (var repair__hasRepairKit : bool&; var repair__repairKit : EntityId&)
-    repair__hasRepairKit = true
-    repair__repairKit = eid
 
 [es(tag=server)]
 def need_repair_check_on_part_damaged_es(evt : EventOnPartDamaged; var repairable__repairRequired : bool&)
@@ -160,7 +149,7 @@ def repair_external_es(info : UpdateStageInfoAct;
                        var repairable__repairTime : float&;
                        var repairable__inProgress : bool&;
                        var repairable__repairRequired : bool&)
-  if !maintainable__operator || repairable__repairTime < 0.f
+  if !maintainable__operator || !repairable__inProgress || repairable__repairTime < 0.f
     return
   repairable__repairTime = repairable__repairTime - info.dt
   if repairable__repairTime > 0.f

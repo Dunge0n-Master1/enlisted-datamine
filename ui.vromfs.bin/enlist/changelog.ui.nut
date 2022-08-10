@@ -7,8 +7,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let scrollbar = require("%ui/components/scrollbar.nut")
 let {formatText} = require("%enlist/components/formatText.nut")
-let {curPatchnote, requestPatchnote, chosenPatchnote, haveUnseenVersions, chosenPatchnoteContent,
-      chosenPatchnoteTitle, chosenPatchnoteLoaded, versions, patchnotesReceived
+let { curPatchnote, requestPatchnote, chosenPatchnote, haveUnseenVersions, chosenPatchnoteContent,
+chosenPatchnoteTitle, chosenPatchnoteLoaded, versions, patchnotesReceived, extNewsUrl
 } = require("changeLogState.nut")
 let spinner = require("%ui/components/spinner.nut")
 
@@ -74,7 +74,7 @@ patchnotesReceived.subscribe(function(v){
 let seeMoreUrl = {
   t="url"
   platform="pc,ps4"
-  url="https://enlisted.net/news/#!/"
+  url=extNewsUrl
   v=loc("visitGameSite", "See game website for more details")
   margin = [hdpx(50), 0, 0, 0]
 }

@@ -19,7 +19,7 @@ def get_alive_num_in_squad(squad_eid : EntityId) : int
   return get_int(squad_eid, "squad__numAliveMembers") ?? 0
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, no_order)]
-def human_pre_context_command(act : ecs::UpdateStageInfoAct; squad_member__squad : ecs::EntityId; isInVehicle : bool;
+def human_pre_context_command(act : ParallelUpdateFrameDelayed; squad_member__squad : ecs::EntityId; isInVehicle : bool;
                               human_context_command__nextUpdateTime : float;
                               var human_context_command__orderType : int&)
   if act.curTime >= human_context_command__nextUpdateTime
@@ -29,7 +29,7 @@ def human_pre_context_command(act : ecs::UpdateStageInfoAct; squad_member__squad
       human_context_command__orderType = int(ContextCommand ECC_DISABLED)
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, after=human_context_command_defend_point)]
-def human_post_context_command(act : ecs::UpdateStageInfoAct;
+def human_post_context_command(act : ParallelUpdateFrameDelayed;
                                human_context_command__updateInterval : float;
                                var human_context_command__nextUpdateTime : float&)
   if act.curTime >= human_context_command__nextUpdateTime
@@ -37,7 +37,7 @@ def human_post_context_command(act : ecs::UpdateStageInfoAct;
 
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, after=human_pre_context_command)]
-def human_revive_context_command(act : ecs::UpdateStageInfoAct; isDowned, isAlive : bool;
+def human_revive_context_command(act : ParallelUpdateFrameDelayed; isDowned, isAlive : bool;
                                  human_context_command__nextUpdateTime : float;
                                  var human_context_command__orderType : int&)
   if act.curTime >= human_context_command__nextUpdateTime && human_context_command__orderType == int(ContextCommand ECC_NONE)
@@ -46,7 +46,7 @@ def human_revive_context_command(act : ecs::UpdateStageInfoAct; isDowned, isAliv
 
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, after=human_revive_context_command)]
-def human_context_command_control_zone(act : ecs::UpdateStageInfoAct; human__lookAtZone : ecs::EntityId;
+def human_context_command_control_zone(act : ParallelUpdateFrameDelayed; human__lookAtZone : ecs::EntityId;
                                        human_context_command__nextUpdateTime : float;
                                        team : int;
                                        var human_context_command__orderType : int&;
@@ -62,7 +62,7 @@ def is_valid_contruction_command_target(eid : EntityId)
   return has(eid, "buildByPlayer") && (has(eid, "builder_preview") || has(eid, "building_destroy__timeToDestroy"))
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, after=human_context_command_control_zone)]
-def human_context_command_construction(act : ecs::UpdateStageInfoAct;
+def human_context_command_construction(act : ParallelUpdateFrameDelayed;
                                        human_context_command__nextUpdateTime : float;
                                        human_use_object__selectedBuilding : EntityId;
                                        var human_context_command__orderType : int&;
@@ -73,7 +73,7 @@ def human_context_command_construction(act : ecs::UpdateStageInfoAct;
       human_context_command__orderUseEntity = human_use_object__selectedBuilding
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, after=human_context_command_construction, after=human_weap_update_es, REQUIRE=watchedByPlr)]
-def human_context_command_defend_point(act : ecs::UpdateStageInfoAct;
+def human_context_command_defend_point(act : ParallelUpdateFrameDelayed;
                                        human__aimTm : float3x4; team : int;
                                        human_weap__tracerayLen : float;
                                        human_weap__traceIntersectedEid : EntityId;
@@ -115,7 +115,7 @@ def human_context_command_defend_point(act : ecs::UpdateStageInfoAct;
         human_context_command__orderUseEntity = human_weap__traceIntersectedEid
 
 [es(tag=gameClient, REQUIRE=human_context_command_input, before=human_context_command_control_zone, after=human_pre_context_command, REQUIRE=watchedByPlr)]
-def human_context_command_use_bomb(act : UpdateStageInfoAct;
+def human_context_command_use_bomb(act : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
                                    human__aimTm : float3x4;
                                    team : int;

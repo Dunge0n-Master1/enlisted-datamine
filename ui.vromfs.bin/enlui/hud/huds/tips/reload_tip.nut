@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
-let {needReload} = require("%ui/hud/state/hero_state.nut")
+let {needReload} = require("%ui/hud/state/hero_weapons.nut")
 let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
 let {tipCmp} = require("tipComponent.nut")
 

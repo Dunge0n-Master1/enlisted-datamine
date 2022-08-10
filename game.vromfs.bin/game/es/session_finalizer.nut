@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-let dedicated = require_optional("dedicated")
+let isDedicated = require_optional("dedicated") != null
 let {exit_game, exit_to_enlist} = require("app")
 let {EventTeamRoundResult, EventSessionFinished} = require("dasevents")
 
@@ -7,7 +7,7 @@ let function onRoundResult(eid, comp) {
   if (comp["is_session_finalizing"])
     return
 
-  let exitFunc = dedicated!=null ? exit_game : exit_to_enlist
+  let exitFunc = isDedicated ? exit_game : exit_to_enlist
 
   comp["is_session_finalizing"] = true
   ecs.clear_timer({eid=eid, id="session_finalizing"})

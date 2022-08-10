@@ -7,6 +7,7 @@ require math.base
 require DagorConsole
 require DagorSystem
 require EnlistedNet
+require daslib/strings_boost
 
 
 enum CommandArgHintType
@@ -120,7 +121,7 @@ def build_command_up_to_argument(inputs : array<string>;
 def build_args_description(args_description : string;
                            arg_index : int)
   var start = -1
-  for i in range(arg_index + 1)
+  for _ in range(arg_index + 1)
     start = args_description |> find(' ', start + 1)
   if start >= 0 && start < length(args_description)
     return args_description |> chop(start + 1, length(args_description) - start - 1)
@@ -152,12 +153,16 @@ def add_hints_for_argument_template_name(inputs : array<string>;
                                          var hints : ConsoleProcessorHints)
   if length(inputs) != arg_index + 2
     return
-  let argText = inputs[arg_index + 1]
-  let cmdText = build_command_up_to_argument(inputs, arg_index)
+  var argText = inputs[arg_index + 1]
+  var cmdText = build_command_up_to_argument(inputs, arg_index) + " "
   let argsText = build_args_description(args_description, arg_index)
+  let subTemplates <- argText |> split("+")
+  if length(subTemplates) > 1 && subTemplates[length(subTemplates) - 1] != ""
+    argText = subTemplates[length(subTemplates) - 1]
+    cmdText = cmdText + chop(inputs[arg_index + 1], 0, length(inputs[arg_index + 1]) - length(argText))
   let templateNames <- (argText != "") ? find_template_names_sorted(argText) : get_first_template_names(hints_count)
   for i in range(min(length(templateNames), hints_count))
-    hints |> add_hint("{cmdText} {templateNames[i]}",
+    hints |> add_hint("{cmdText}{templateNames[i]}",
                       max(0, min_args - arg_index - 1), max(0, max_args - arg_index - 1), argsText)
 
 def add_hints_for_argument_system_name(inputs : array<string>;

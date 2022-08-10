@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { MY_SQUAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { ESMO_DEFEND_POINT } = require("ai")
-let { makeArrow } = require("%ui/hud/huds/hud_markers/components/hud_markers_components.nut")
+let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
+let { watchedHeroSquadPersonalOrdersSet, watchedHeroSquadPersonalOrdersGetWatched } = require("%ui/hud/state/squad_personal_orders.nut")
 
 let moveToPicSize = [fsh(4), fsh(4)]
 let moveToPicName = $"!ui/skin#moveto.svg:{moveToPicSize[0]}:{moveToPicSize[1]}:K"
@@ -15,7 +16,7 @@ let squadPersonalOrderAnim = [
     duration = 2, play = true, loop = true, easing = CosineFull}
 ]
 
-let squadPersonalOrderIcon = {
+let squadPersonalOrderIcon = freeze({
   transform = {
     scale = [1, 0.5]
   }
@@ -28,7 +29,7 @@ let squadPersonalOrderIcon = {
     animations = squadPersonalOrderAnim
     transform = {}
   }
-}
+})
 
 let squadPersonalOrderArrow = makeArrow(
   { color=MY_SQUAD_TEXT_COLOR, yOffs=fsh(4), anim = squadPersonalOrderAnim }
@@ -36,26 +37,36 @@ let squadPersonalOrderArrow = makeArrow(
 
 let squadPersonalOrderChildren = [squadPersonalOrderIcon, squadPersonalOrderArrow]
 
-let function watchedHeroSquadPersonalOrderCtor(eid, marker) {
-  let {orderPosition, orderType} = marker
-  if (orderType != ESMO_DEFEND_POINT)
-    return null
+let ctor = memoize(function(eid) {
+  let watch = watchedHeroSquadPersonalOrdersGetWatched(eid)
 
-  return {
-    data = {
-      minDistance = 0.5
-      maxDistance = 10000
-      distScaleFactor = 0.3
-      worldPos = orderPosition
+  return function() {
+    let { orderType, orderPosition } = watch.value
+    if ( orderType != ESMO_DEFEND_POINT )
+      return {watch}
+
+    return {
+      watch
+      data = {
+        minDistance = 0.5
+        maxDistance = 10000
+        distScaleFactor = 0.3
+        worldPos = orderPosition
+      }
+      halign = ALIGN_CENTER
+      valign = ALIGN_BOTTOM
+      transform = {}
+      key = eid
+      sortOrder = eid
+
+      children = squadPersonalOrderChildren
     }
-    halign = ALIGN_CENTER
-    valign = ALIGN_BOTTOM
-    transform = {}
-    key = eid
-    sortOrder = eid
+  }
+})
 
-    children = squadPersonalOrderChildren
+return {
+  watched_hero_squad_personal_orders_ctor = {
+    watch = watchedHeroSquadPersonalOrdersSet
+    ctor = @() watchedHeroSquadPersonalOrdersSet.value.keys().map(ctor)
   }
 }
-
-return watchedHeroSquadPersonalOrderCtor

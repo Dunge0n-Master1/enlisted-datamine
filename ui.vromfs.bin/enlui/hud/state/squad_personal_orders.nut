@@ -1,30 +1,32 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {watchedHeroSquadEid} = require("%ui/hud/state/squad_members.nut")
-let watchedHeroSquadPersonalOrders = Watched({})
+let { watchedHeroSquadEid } = require("%ui/hud/state/squad_members.nut")
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid, state){
-  if (eid in state.value && eid != INVALID_ENTITY_ID)
-    state.mutate(@(v) delete v[eid])
-}
+let {
+  watchedHeroSquadPersonalOrdersSet,
+  watchedHeroSquadPersonalOrdersGetWatched,
+  watchedHeroSquadPersonalOrdersUpdateEid,
+  watchedHeroSquadPersonalOrdersDestroyEid
+} = mkWatchedSetAndStorage("watchedHeroSquadPersonalOrders")
+
 ecs.register_es("squad_personal_orders_ui_es",
   {
-    [["onInit", "onChange"]] = function(eid, comp) {
+    [["onInit", "onChange"]] = function(_, eid, comp) {
       if (comp["squad_member__isPersonalOrder"] && comp["squad_member__squad"] == watchedHeroSquadEid.value) {
-        watchedHeroSquadPersonalOrders.mutate(function(value) {
-          value[eid] <- {
+        watchedHeroSquadPersonalOrdersUpdateEid(eid, {
             orderType = comp["squad_member__orderType"]
             orderPosition = comp["squad_member__orderPosition"]
           }
-        })
+        )
       }
       else {
-        deleteEid(eid, watchedHeroSquadPersonalOrders)
+        watchedHeroSquadPersonalOrdersDestroyEid(eid)
       }
     },
-    function onDestroy(eid, _comp) {
-      deleteEid(eid, watchedHeroSquadPersonalOrders)
+    function onDestroy(_, eid, _comp) {
+      watchedHeroSquadPersonalOrdersDestroyEid(eid)
     }
   },
   {
@@ -38,5 +40,5 @@ ecs.register_es("squad_personal_orders_ui_es",
 )
 
 return {
-  watchedHeroSquadPersonalOrders
+  watchedHeroSquadPersonalOrdersSet, watchedHeroSquadPersonalOrdersGetWatched
 }

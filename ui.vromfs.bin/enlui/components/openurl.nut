@@ -9,9 +9,9 @@ let regexp2 = require("regexp2")
 let eventbus = require("eventbus")
 let { get_setting_by_blk_path } = require("settings")
 let { showBrowser } = require("browserWidget.nut")
-let logOU = require("%sqstd/log.nut")().with_prefix("[OPEN_URL] ")
+let logOU = require("%enlSqGlob/library_logs.nut").with_prefix("[OPEN_URL] ")
 let wegame = require("wegame")
-let { getStoreUrl, getEventUrl } = require("%ui/networkedUrls.nut")
+let { getStoreUrl, getEventUrl, getPremiumUrl, getBattlePassUrl, getSquadCashUrl } = require("%ui/networkedUrls.nut")
 
 let openLinksInEmbeddedBrowser = get_setting_by_blk_path("openLinksInEmbeddedBrowser") ?? false
 let useKongZhongOpenUrl = get_setting_by_blk_path("useKongZhongOpenUrl") ?? false
@@ -109,16 +109,25 @@ let urlTypes = [
 ]
 
 let function getUrlTypeByUrl(url) {
-  foreach(urlType in urlTypes) {
+  foreach (urlType in urlTypes) {
     if (!urlType.urlRegexpList)
       return urlType
 
-    foreach(r in urlType.urlRegexpList)
+    foreach (r in urlType.urlRegexpList)
       if (r.match(url))
         return urlType
   }
 
   return null
+}
+
+
+local function isWegameLoginRequiredUrl(url) {
+  if (!wegame.is_running())
+    return false
+
+  return url == getStoreUrl() || url == getEventUrl() || url == getPremiumUrl() ||
+    url == getBattlePassUrl() || url == getSquadCashUrl()
 }
 
 
@@ -166,8 +175,9 @@ local function openUrl(baseUrl, isAlreadyAuthenticated = false, shouldExternalBr
     }
     else
       get_authenticated_url_sso(baseUrl, AUTH_TOKEN_HOST, ssoService, cbEvent)
-  } else {
-    if (wegame.is_running() && (baseUrl == getStoreUrl() || baseUrl == getEventUrl()))
+  }
+  else {
+    if (isWegameLoginRequiredUrl(baseUrl))
       wegame.get_authenticated_url(baseUrl, cbEvent)
     else
       get_kongzhong_authenticated_url(baseUrl, cbEvent)

@@ -51,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_city_dom"
 
   "loading_images:list<t>"{
@@ -80,8 +79,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_domination+respawn_creators_team"
   team__id:i=2
-  team__score:r=3000.0
-  team__scoreCap:r=3000.0
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -96,8 +95,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -185,8 +182,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -304,7 +299,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[-10.48, 0.0, -25.6328] [0.0, 7.62857, 0.0] [22.5765, 0.0, -9.23046] [-1385.64, 4.18219, 683.49]]
   ui_order:i=1
   capzone__title:t="A"
@@ -314,7 +309,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[7.12444, 0.0, -2.99947] [0.0, 3.19991, 0.0] [4.4217, 0.0, 10.9995] [-1359.26, 10.0852, 628.184]]
   ui_order:i=2
   capzone__title:t="B"
@@ -324,7 +319,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[9.17188, 0.0, -4.00841] [0.0, 2.51514, 0.0] [5.62335, 0.0, 13.2754] [-1334.53, 7.15933, 576.672]]
   ui_order:i=3
   capzone__title:t="C"
@@ -768,8 +763,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[8000.0, 0.0, -8000.0] [0.0, 8000.0, 0.0] [8000.0, 0.0, 8000.0] [-1306.4, 240.916, 594.176]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

@@ -1,0 +1,30 @@
+rendinstExtraMaxCnt:i=131072
+rendinstExtraSubstFaceThres:i=0
+disableShadowImpostorForAllLod:b=yes
+
+commonScenes{
+  scene:t="content/common/gamedata/scenes/minimap.blk"
+  scene:t="content/common/gamedata/scenes/level_is_loading.blk"
+  scene:t="content/common/gamedata/scenes/hud.blk"
+  scene:t="content/common/gamedata/scenes/minimap.blk"
+  scene:t="content/common/gamedata/scenes/level_is_loading.blk"
+  scene:t="content/common/gamedata/scenes/loose_grid_scene.blk"
+  scene:t="content/common/gamedata/scenes/server_no_players_timer.blk"
+  scene:t="content/common/gamedata/scenes/server_explosions.blk"
+}
+
+bulletHoles{
+  diff0:t="decal_bullethole_metal_a_tex_d*"
+  norm0:t="decal_bullethole_metal_a_tex_n*"
+  diff1:t="decal_bullethole_soil_a_tex_d*"
+  norm1:t="decal_bullethole_soil_a_tex_n*"
+  diff2:t="decal_bullethole_stone_a_tex_d*"
+  norm2:t="decal_bullethole_stone_a_tex_n*"
+  diff3:t="decal_bullethole_wood_a_tex_d*"
+  norm3:t="decal_bullethole_wood_a_tex_n*"
+}
+
+riDestr{
+  hitPointsToDestrImpulseMult:r=100.0
+  destrImpulseHitPointsMult:r=0.01
+}

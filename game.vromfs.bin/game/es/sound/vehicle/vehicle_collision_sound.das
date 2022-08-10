@@ -69,7 +69,7 @@ def vehicle_collision_sound_on_collision(evt : EventOnCollision;
 
 [es(tag=sound, after=(vehicle_phys_sound_state, ship_phys_sound_state))]
 def vehicle_collision_sound(info : UpdateStageInfoAct;
-                            sound_control__enabled : bool;
+                            sound_control__shouldPlay : bool;
                             vehicle_collision_sound__collRange = float2(20., 22.);
 
                             var vehicle_collision_sound__enabled : bool&;
@@ -95,7 +95,7 @@ def vehicle_collision_sound(info : UpdateStageInfoAct;
 
                             transform : float3x4)
 
-  let enable = sound_control__enabled && (vehicle_collision_sound__enabled ?
+  let enable = sound_control__shouldPlay && (vehicle_collision_sound__enabled ?
     is_watched_sound || length_sq(transform[3] - get_listener_pos()) < square(vehicle_collision_sound__collRange.y) :
     is_watched_sound || length_sq(transform[3] - get_listener_pos()) < square(vehicle_collision_sound__collRange.x))
   assert(vehicle_collision_sound__collRange.y > vehicle_collision_sound__collRange.x)

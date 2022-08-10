@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { playerRank, rankUnlock } = require("%enlist/profile/rankState.nut")
 let { mkSeasonTime } = require("%enlist/battlepass/rewardsPkg.nut")
@@ -89,6 +89,44 @@ let function ranksTable() {
   }
 }
 
+let headerBlock = {
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = [hdpx(15), 0]
+  children = [
+    @() {
+      watch = timeLeft
+      gap = bigPadding
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
+      children = [
+        {
+          rendObj = ROBJ_TEXT
+          text = loc("bp/timeLeft")
+          color = defTxtColor
+        }
+        timeLeft.value > 0 ? mkSeasonTime(timeLeft.value) : null
+      ]
+    }
+    {
+      hplace = ALIGN_RIGHT
+      flow = FLOW_HORIZONTAL
+      children = [
+        {
+          rendObj = ROBJ_TEXT
+          hplace = ALIGN_RIGHT
+          text = loc("rank/playerRating")
+        }
+        @() {
+          rendObj = ROBJ_TEXT
+          watch = playerRank
+          text = $"{(playerRank.value?.rating ?? 0) / 100}"
+          color = accentTitleTxtColor
+        }
+      ]
+    }
+  ]
+}
+
 let rankToolTip = {
   rendObj = ROBJ_SOLID
   color = Color(0, 0, 0, 210)
@@ -105,43 +143,7 @@ let rankToolTip = {
         rendObj = ROBJ_TEXT
         text = loc("rank/title")
       }.__update(h2_txt)
-      {
-        size = [flex(), SIZE_TO_CONTENT]
-        margin = [hdpx(15), 0]
-        children = [
-          @() {
-            watch = timeLeft
-            gap = bigPadding
-            flow = FLOW_HORIZONTAL
-            valign = ALIGN_CENTER
-            children = [
-              {
-                rendObj = ROBJ_TEXT
-                text = loc("bp/timeLeft")
-                color = defTxtColor
-              }
-              timeLeft.value > 0 ? mkSeasonTime(timeLeft.value) : null
-            ]
-          }
-          {
-            hplace = ALIGN_RIGHT
-            flow = FLOW_HORIZONTAL
-            children = [
-              {
-                rendObj = ROBJ_TEXT
-                hplace = ALIGN_RIGHT
-                text = loc("rank/playerRating")
-              }
-              @() {
-                rendObj = ROBJ_TEXT
-                watch = playerRank
-                text = $"{playerRank.value.rating / 100}"
-                color = accentTitleTxtColor
-              }
-            ]
-          }
-        ]
-      }
+      headerBlock
       {
         rendObj = ROBJ_TEXTAREA
         size = [flex(), SIZE_TO_CONTENT]

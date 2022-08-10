@@ -159,7 +159,7 @@ let function getItemTypeName(item) {
   return doesLocTextExist(locId) ? loc(locId) : ""
 }
 
-let defIconSize = hdpx(64).tointeger()
+let defIconSize = hdpxi(64)
 let function mkIcon(presentation, params = {}) {
   let { opacity = 1.0, hplace = null, vplace = null } = params
   let width = (params?.width ?? defIconSize).tointeger()

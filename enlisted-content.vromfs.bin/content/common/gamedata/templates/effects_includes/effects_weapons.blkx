@@ -1,0 +1,165 @@
+flamethrower_fire{
+  _extends:t="fire_source"
+  fire_source__fullForceTime:r=7.0
+  fire_source__fadeTime:r=3.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_spot_2m_cmps_fx"
+  }
+}
+
+flamethrower_flame_stream_effect{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "node_attached__destroyWithParent:tag"{
+  }
+
+  effect{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_flamethrouwer_20m_cmps_fx"
+    effect__distance_scale:r=1.0
+  }
+}
+
+flamethrower_flame_stream_long_effect{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "node_attached__destroyWithParent:tag"{
+  }
+
+  effect{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_flamethrouwer_40m_cmps_fx"
+    effect__distance_scale:r=1.0
+  }
+}
+
+pistol_muzzle_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_6_8mm_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+pistol_silenced_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_6_8mm_no_flash_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+rifle_muzzle_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_8_14mm_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+rifle_rapid_muzzle_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_8_14mm_rapid_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+rifle_silenced_muzzle_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_8_14mm_no_flash_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+high_caliber_muzzle_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_14_20mm_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+high_caliber_rapid_muzzle_flash_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_14_20mm_rapid_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+extractor_smoke_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_extractor_smoke_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+muzzle_side_flash_big_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_side_flash_big_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+muzzle_side_flash_med_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_side_flash_med_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+muzzle_side_flash_small_effect{
+  _extends:t="base_gun_flash_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_side_flash_smoke_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}

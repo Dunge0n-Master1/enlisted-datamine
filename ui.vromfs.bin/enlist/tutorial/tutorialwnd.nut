@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let tutorialWndDefStyle = require("tutorialWndDefStyle.nut")
 let { isTutorialActive, tutorialConfigVersion, getTutorialConfig, stepIdx,
   nextStep, nextStepByDefaultHotkey, skipStep, nextKeyAllowed, skipKeyAllowed, getTimeAfterStepStart
@@ -49,7 +49,7 @@ let function mkArrowLinks(stepData, boxes, style) {
   let { mkLinkArrow } = style
   let linkBoxes = []
   let linkComps = []
-  foreach(link in arrowLinks) {
+  foreach (link in arrowLinks) {
     if (type(link) != "array" || link.len() != 2) {
       logerr($"Bad arrow link in tutorial: {link}. Expected array with length 2.")
       continue
@@ -122,7 +122,7 @@ local function mkArrows(boxes, obstaclesVar, style) {
   let { pointerArrow } = style
   let size = calc_comp_size(pointerArrow)
   let children = []
-  foreach(box in boxes) {
+  foreach (box in boxes) {
     let { pos, rotate } = findGoodArrowPos(box, size, obstaclesVar)
     obstaclesVar.append(sizePosToBox(size, pos))
     children.append(pointerArrow.__merge({ pos, transform = { rotate } }))
@@ -153,7 +153,7 @@ let function tutorialWnd() {
   let boxes = []
   local shouldBeBoxes = false
   local hasValidBoxes = false
-  foreach(idx, objData in stepData?.objects ?? []) {
+  foreach (idx, objData in stepData?.objects ?? []) {
     local { keys = null, sizeIncAdd = 0 } = objData
     shouldBeBoxes = shouldBeBoxes || keys != null
     if (keys instanceof Watched) {

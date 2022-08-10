@@ -48,6 +48,7 @@ let aiActionIcons = {
   [AI_ACTION_DOWNED]  = "heartbeat.svg",
 }
 
+let mkAiImage = memoize(@(image, size) Picture($"ui/skin#{image}:{size}:{size}:K"))
 let function mkAiActionIcon(member, size) {
   let image = aiActionIcons?[member.currentAiAction]
   if (member.eid == controlledHeroEid.value || !member.isAlive || !member.hasAI || !image)
@@ -58,7 +59,7 @@ let function mkAiActionIcon(member, size) {
     vplace = ALIGN_BOTTOM
     size = [size, size]
     rendObj = ROBJ_IMAGE
-    image = Picture("ui/skin#{0}:{1}:{1}:K".subst(image, size))
+    image = mkAiImage(image, size)
     color = member.maxHp > 0 ? calcIconHpColor(member.hp / member.maxHp, 0xFFFFFFFF) : 0xFFFFFFFF
     animations = [
       animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[HIT_RES_NORMAL])
@@ -66,11 +67,16 @@ let function mkAiActionIcon(member, size) {
     ]
   }
 }
+let deaths = freeze({
+        rendObj = ROBJ_IMAGE
+        size = flex()
+        vplace = ALIGN_CENTER
+        image = Picture("ui/skin#lb_deaths.png")
+        tint = DEAD_TEXT_COLOR
+      })
 
 let mkStatusIcon = @(member, size, color=DEFAULT_TEXT_COLOR) {
   size = flex()
-  rendObj = ROBJ_SOLID
-  color = 0
   animations = [
     animByTrigger(Color(200, 0, 0, 200), 1.0, member?.hitTriggers[HIT_RES_NORMAL])
     animByTrigger(Color(200, 100, 0, 200), 3.0, member?.hitTriggers[HIT_RES_DOWNED])
@@ -79,17 +85,8 @@ let mkStatusIcon = @(member, size, color=DEFAULT_TEXT_COLOR) {
     animByTrigger(Color(0, 100, 200, 200), 3.0, member?.hitTriggers[HEAL_RES_REVIVE])
   ]
   children = member.isAlive
-    ? kindIcon(member?.sKind, size, member?.sClassRare).__update({
-        color
-        vplace = ALIGN_CENTER
-      })
-    : {
-        rendObj = ROBJ_IMAGE
-        size = flex()
-        vplace = ALIGN_CENTER
-        image = Picture("ui/skin#lb_deaths")
-        tint = DEAD_TEXT_COLOR
-      }
+    ? kindIcon(member?.sKind, size, member?.sClassRare).__update({color, vplace = ALIGN_CENTER})
+    : deaths
 }
 
 return {

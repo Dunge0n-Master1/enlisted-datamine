@@ -84,7 +84,7 @@ def building_preview_animchar_update_es(info : UpdateStageInfoAct;
                                         var buildingBoxMin : float3&;
                                         transform : float3x4;
                                         var buildingBoxMax : float3&)
-  if  get_sync_time() >= nextCheckGridObjectsTime
+  if get_sync_time() >= nextCheckGridObjectsTime
     set_animchar_preview_box_size(transform, animchar_bbox, buildingBoxMin, buildingBoxMax)
 
 [es(on_appear, before=(build_ability_update_transform_es, building_fortification_building_object))]

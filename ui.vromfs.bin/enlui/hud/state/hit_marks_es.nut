@@ -2,11 +2,11 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
-let {EventOnEntityHit, DmProjectileHitNotification,
+let {DmProjectileHitNotification,
   DM_PROJECTILE, DM_MELEE, DM_BACKSTAB, HIT_RES_DOWNED, HIT_RES_KILLED, HIT_RES_NONE, HIT_RES_NORMAL} = require("dm")
 let {get_time_msec} = require("dagor.time")
 let {EventHeroChanged} = require("gameevents")
-let {EventAnyEntityDied} = require("dasevents")
+let {EventAnyEntityDied,EventOnEntityHit} = require("dasevents")
 let {watchedHeroEid} = require("%ui/hud/state/watched_hero.nut")
 
 let hitTtl = Watched(1.2)//animation is tripple less in duration
@@ -126,19 +126,18 @@ let function onProjectileHit(evt, eid, comp) {
 }
 
 let function onEntityHit(evt, _eid, _comp) {
-  let victimEid = evt[0]
-  let offender = evt[1]
-  let dmgDesc = evt[2]
+  let victimEid = evt.victim
+  let offender = evt.offender
   local victimTeam = TEAM_UNASSIGNED
   getVictimTeamQuery.perform(victimEid, @(_eid, comp) victimTeam = comp["team"])
 
   if (offender != watchedHeroEid.value || victimEid == offender ||
-      victimTeam == TEAM_UNASSIGNED || dmgDesc.deltaHp <= 0)
+      victimTeam == TEAM_UNASSIGNED || evt.deltaHp <= 0)
     return
 
-  let hitRes = evt[3]
+  let hitRes = evt.hitResult
   if (hitRes != HIT_RES_NONE)
-    onHit(victimEid, offender, dmgDesc.hitPos, dmgDesc.damageType, hitRes)
+    onHit(victimEid, offender, evt.hitPos, evt.damageType, hitRes)
 }
 
 let function onEntityDied(evt, _eid, _comp) {

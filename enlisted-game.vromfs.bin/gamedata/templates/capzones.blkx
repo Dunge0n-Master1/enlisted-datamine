@@ -56,10 +56,11 @@ projective_decal{
       desc:t="The height at which the strategic point boundaries decal line will be drawn"
     }
   }
-}
 
-capzone_projdecal{
-  decal__id:i=-1
+  _group{
+    _tags:t="render"
+    decal__id:i=-1
+  }
 }
 
 objective_zone_kill_bonus{
@@ -78,9 +79,19 @@ objective_zone_smoke_signal{
 }
 
 objective_zone_navmesh{
-  capzone__hasNearestNavmeshPos:b=no
-  capzone__nearestNavmeshPos:p3=0.0, 0.0, 0.0
-  capzone__minRadius:r=-1.0
+
+  _group{
+    _tags:t="server"
+    capzone__hasNearestNavmeshPos:b=no
+    capzone__nearestNavmeshPos:p3=0.0, 0.0, 0.0
+    capzone__minRadius:r=-1.0
+
+    "capzone__insideNavmeshPositions:list<p3>"{
+    }
+
+    "capzone__outsideNavmeshPositions:list<p3>"{
+    }
+  }
 }
 
 objective_progress{
@@ -205,7 +216,7 @@ capzone_capture_award{
 capzone_team_presence{
   trackedLastTime:r=0.0
   trackInterval:p2=1.0, 2.0
-  capzone__maxTeamPresence:i=6
+  capzone__maxTeamPresence:i=4
   _tracked:t="capzone__presenceTeamCount"
   _replicated:t="capzone__presenceTeamCount"
 
@@ -235,6 +246,11 @@ base_capzone_without_navmesh{
   _tracked:t="capzone__isMultipleTeamsPresent"
   _replicated:t="capzone__curTeamCapturingZone"
   _replicated:t="capzone__isMultipleTeamsPresent"
+
+  "capzone__nextUpdateTime:r"{
+    value:r=0.0
+    _tags:t="server"
+  }
 
   "capzone__curTeamDominating:i"{
     value:i=-1
@@ -403,6 +419,8 @@ defend_zone{
   capzone__deactivateAfterCap:b=yes
   _tracked:t="capzone__onlyTeamCanCapture"
   _replicated:t="capzone__onlyTeamCanCapture"
+  capzone__capRewardTeam1:r=-1.0
+  capzone__capRewardTeam2:r=-1.0
 
   "capzone__capTime:r"{
     value:r=60.0
@@ -591,6 +609,11 @@ respawnBaseGroupActivator{
   respawn_activator__team:i=-1
 }
 
+respawn_base_timeout{
+  _tags:t="server"
+  respawn_base_timeout__destroyTime:r=-1.0
+}
+
 defend_zone_chained{
   capzone__checkAllZonesInGroup:b=no
   capzone__capRewardPartCap:r=1.0
@@ -622,6 +645,12 @@ defend_zone_chained{
   }
 }
 
+deactivating_capzone{
+  _tags:t="server"
+  capzone__deactivateAtTime:r=-1.0
+  capzone__deactivateTeam:i=-1
+}
+
 zone_bidirectional_chained_base{
   groupName:t="_zone_name_"
   capzone__deactivateAfterCap:b=yes
@@ -630,6 +659,8 @@ zone_bidirectional_chained_base{
   capzone__activateAfterTeam1Cap:t="_another_zone_group_name_"
   capzone__activateAfterTeam2Cap:t="_another_zone_group_name_"
   capzone__capRewardPartCap:r=1.0
+  capzone__capRewardTeam1:r=-1.0
+  capzone__capRewardTeam2:r=-1.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
 
@@ -769,11 +800,18 @@ objective_bomb_plant_award{
   }
 }
 
+ai_bomb_behaviour{
+  walker_agent__aiBombBehaviourEntity:t="ai_bomb_behaviour_property"
+}
+
 objective_bomb{
   _extends:t="objective_progress"
   _extends:t="objective_bomb_plant_award"
+  _extends:t="ai_bomb_behaviour"
   capzone__isBombPlanted:b=no
   capzone__deactivateAfterCap:b=yes
+  capzone__capRewardTeam1:r=-1.0
+  capzone__capRewardTeam2:r=-1.0
   capzone__icon:t="ui/skin#time_bomb.svg"
   capzone__bombTemplate:t="bomb_site"
   capzone__bombTransformLocalPos:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -805,12 +843,14 @@ bomb_site_zone_chained_box{
   _extends:t="objective_zone_box"
   _extends:t="defend_zone_chained"
   _extends:t="objective_bomb"
+  _extends:t="capzone_team_presence"
 }
 
 bomb_site_zone_chained_sphere{
   _extends:t="objective_zone_sphere"
   _extends:t="defend_zone_chained"
   _extends:t="objective_bomb"
+  _extends:t="capzone_team_presence"
 }
 
 ai_domination_box_train_zone{
@@ -851,17 +891,26 @@ objective_train_progress{
   }
 }
 
+ai_train_behaviour{
+  walker_agent__aiTrainBehaviourEntity:t="ai_train_behaviour_property"
+}
+
 objective_train_zone{
   _extends:t="base_objective_zone_without_navmesh"
   _extends:t="defend_zone"
   _extends:t="defend_zone_chained"
   _extends:t="objective_train_progress"
-  capzone__hasNearestNavmeshPos:b=no
+  _extends:t="ai_train_behaviour"
   capzone__deactivateAfterCap:b=yes
   maxDistanceToTrain:r=2.0
   capzone__alwaysHide:b=yes
   capzone_timer__timeLeft:r=-1.0
   capzone__isNextTrainZone:b=no
+
+  _group{
+    _tags:t="server"
+    capzone__hasNearestNavmeshPos:b=no
+  }
 
   "trainTriggerable:tag"{
   }

@@ -8,28 +8,17 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
-    "content/common/gamedata/weather/weather_overcast.blk":r=0.5
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_a:r=1.0
+    weather_overcast_b:r=0.5
+    weather_cloudy_d:r=1.0
 
-    "content/common/gamedata/weather/weather_poor.blk:object"{
+    "weather_poor_a:object"{
       weight:r=0.3
 
       "entities:array"{
 
         "entity:object"{
-          template:t="snow"
-
-          "components:object"{
-            snow__alpha_fade_speed_end:r=10.0
-            snow__alpha_fade_speed_begin:r=2.0
-            snow__speed:r=0.001
-            snow__width:r=0.0225
-            snow__wind:r=12.0
-            snow__alpha:r=6.75
-            snow__density:r=0.005
-            snow__length:r=0.0
-          }
+          template:t="camera_dust_template"
         }
 
         "entity:object"{
@@ -38,9 +27,9 @@ entity{
           "components:object"{
             far_rain__density:r=3.0
             far_rain__wind:r=5.0
-            far_rain__alpha:r=0.02
-            far_rain__length:r=0.15
-            far_rain__speed:r=10.0
+            far_rain__alpha:r=0.5
+            far_rain__length:r=0.5
+            far_rain__speed:r=1.0
             drop_splashes__iterationTime:r=2.0
             drop_splashes__spriteSplashScale:r=5.25
             drop_splashes__volumetricSplashScale:r=0.5

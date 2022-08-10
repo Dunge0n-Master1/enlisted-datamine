@@ -51,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_assault"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_city_bomb"
 
   "loading_images:list<t>"{
@@ -85,7 +84,6 @@ entity{
   team__capturePenalty:r=1001.0
   team__score:r=3000.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="destruction/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_destruction"
   team__loseSubtitle:t="debriefing/lost_defence_destruction"
@@ -96,8 +94,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2_1"
   groupName:t="sector_1"
@@ -163,8 +159,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1_1"
   groupName:t="sector_1"
@@ -238,8 +232,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2_2"
   groupName:t="sector_2"
@@ -345,8 +337,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1_2"
   groupName:t="sector_2"
@@ -404,8 +394,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2_3"
   groupName:t="sector_3"
@@ -463,8 +451,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1_3"
   groupName:t="sector_3"
@@ -588,7 +574,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-7.59746, 0.0, -20.0804] [0.0, 6.19422, 0.0] [18.0428, 0.0, -6.81359] [-1424.75, 6.0098, 562.724]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_1"
   active:b=no
@@ -617,7 +602,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-30.3987, 0.0, 9.78696] [0.0, 6.44105, 0.0] [-4.66785, 0.0, -15.0822] [-1287.42, 10.8011, 518.13]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_1"
   active:b=no
@@ -646,7 +630,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-17.4011, 0.0, 7.0526] [0.0, 4.57708, 0.0] [-4.27099, 0.0, -10.8909] [-1333.2, 7.14656, 612.416]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_2"
   active:b=no
@@ -675,7 +658,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-11.3048, 0.0, 4.19905] [0.0, 4.01286, 0.0] [-6.58956, 0.0, -18.6592] [-1329.18, 6.1774, 703.769]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_3"
   active:b=no
@@ -700,7 +682,6 @@ entity{
   _template:t="bomb_site_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[-15.5181, 0.0, 5.70466] [0.0, 5.88492, 0.0] [-3.5999, 0.0, -10.1452] [-1230.66, 7.40108, 658.085]]
   capzone__capRewardPartCap:r=1.8
-  capzone__curTeamCapturingZone:i=-1
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_3"
   active:b=no
@@ -1037,8 +1018,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[8000.0, 0.0, -8000.0] [0.0, 8000.0, 0.0] [8000.0, 0.0, 8000.0] [-1303.68, 240.916, 576.337]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
 }
 
@@ -1497,8 +1476,8 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
-  moveCameraToHeight:r=100.0
-  respawnSelectorDistanceMult:r=1.5
+  moveCameraToHeight:r=260.0
+  respawnSelectorDistanceMult:r=2.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1458.22, 115.279, 299.204]]
 }
 

@@ -20,9 +20,11 @@ def get_fire_time_left(start_at_time, spread_time, full_force_time, fade_time : 
   return max(0.0, start_at_time + spread_time + full_force_time + fade_time - get_sync_time())
 
 def get_increased_fire_full_force_time(tmplt : string; add_time : float)
-  let fireTemplate = getTemplateByName(tmplt)
+  var fireTemplate = getTemplateByName(tmplt)
   if fireTemplate == null
-    return 0.0
+    fireTemplate = buildTemplateByName(tmplt)
+    if fireTemplate == null
+      return 0.0
   let fullTime = get_float(getTemplateComponent(*fireTemplate, "fire_source__fullForceTime")) ?? 0.0
   let maxFullTime = get_float(getTemplateComponent(*fireTemplate, "fire_source__maxFullForceTime")) ?? fullTime
 
@@ -34,9 +36,9 @@ def create_fire_impl(pos : float3; tmplt : string; shell_info : MolotovShellInfo
     tm[3] = pos
     set(init, "transform", tm)
     set(init, "fire_source__fullForceTime", get_increased_fire_full_force_time(tmplt, add_time))
-    set(init, "dmgzone__burningOffender", shell_info.ownerEid)
-    set(init, "fire_source__gunPropsId", shell_info.gunPropsId)
-    set(init, "fire_source__shellId", shell_info.shellId)
+    set(init, "dmgzone__offender", shell_info.ownerEid)
+    set(init, "dmgzone__gunPropsId", shell_info.gunPropsId)
+    set(init, "dmgzone__shellId", shell_info.shellId)
 
 def absorb_closeby_fires(pos : float3; min_distance_between_sq : float)
   var increasedTime = 0.0

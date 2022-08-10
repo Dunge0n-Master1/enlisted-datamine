@@ -113,8 +113,6 @@ let function onTimer(_evt, _eid, comp) {
   let playerComps = {
     "connid" : [INVALID_CONNECTION_ID, ecs.TYPE_INT],
     "canBeLocal" : [false, ecs.TYPE_BOOL],
-    "scoring_player__killRating" : [rand.rfloat(900.0, 1900.0), ecs.TYPE_FLOAT],
-    "scoring_player__winRating" : [rand.rfloat(900.0, 1900.0), ecs.TYPE_FLOAT],
     "userid" : [INVALID_USER_ID, ecs.TYPE_UINT64],
     "isFirstSpawn" : [false, ecs.TYPE_BOOL],
     "army" : armyId,

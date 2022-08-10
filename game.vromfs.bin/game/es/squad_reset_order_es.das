@@ -36,20 +36,23 @@ def squad_reset_order_far_away_es(act : ecs::UpdateStageInfoAct; eid, squad__lea
     if isMembersTooFar
       sendEvent(squad__leader, [[CmdHeroLogEvent event="squad_order_canceled", text="context_command_canceled/to_far"]])
       reset_squad_order(squad__orderType, squad__orderUseEntity)
+      reset_squad_behaviour_exclude_personal(eid)
       send_order_cancel_bq(squad__leader, "to_far", "{SquadOrder ESO_DEFEND_POINT}")
 
 [es(tag=server, REQUIRE=battle_area, track=active)]
-def squad_reset_order_on_battlearea_deactivation_es(evt : Event; eid : EntityId; active : bool)
+def squad_reset_order_on_battlearea_deactivation_es(evt : Event; eid aka capzone_eid : EntityId; active : bool)
   if active
     return
 
-  query() <| $ [es] (squad__orderPosition : float3 const&;
+  query() <| $ [es] (eid aka squad_eid : EntityId;
+                     squad__orderPosition : float3 const&;
                      squad__leader : EntityId;
                      var squad__orderType : int&;
                      var squad__orderUseEntity : EntityId&)
     let leaderTeam = get_int(squad__leader, "team") ?? TEAM_UNASSIGNED
-    if !has_active_human_battle_area_at(squad__orderPosition, leaderTeam, eid)
+    if !has_active_human_battle_area_at(squad__orderPosition, leaderTeam, capzone_eid)
       reset_squad_order(squad__orderType, squad__orderUseEntity)
+      reset_squad_behaviour_exclude_personal(squad_eid)
       send_order_cancel_bq(squad__leader, "battlearea_deactivation", "{SquadOrder ESO_DEFEND_POINT}")
 
 [es(tag=server, REQUIRE=capzone, track=active)]
@@ -57,10 +60,12 @@ def squad_reset_order_on_capzone_update_es(evt : Event; active : bool)
   if active
     return
 
-  query() <| $ [es] (squad__leader : EntityId;
+  query() <| $ [es] (eid : EntityId;
+                     squad__leader : EntityId;
                      var squad__orderType : int&;
                      var squad__orderUseEntity : EntityId&)
     if squad__orderType == int(SquadOrder ESO_USE_VEHICLE)
       return
     reset_squad_order(squad__orderType, squad__orderUseEntity)
+    reset_squad_behaviour_exclude_personal(eid)
     send_order_cancel_bq(squad__leader, "capzone_update", "{squad__orderType}")

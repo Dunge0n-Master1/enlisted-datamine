@@ -9,7 +9,7 @@ require sound_utils.modules.sound_player_common
 
 [es(tag=sound, after=vehicle_phys_sound_state)]
 def vehicle_brakes_sound(info : UpdateStageInfoAct;
-                         sound_control__enabled : bool;
+                         sound_control__shouldPlay : bool;
                          vehicle_net_phys : VehiclePhysActor;
                          vehicle_sound_state__isOnGround : bool;
                          var vehicle_brakes_sound__brakes : float&;
@@ -29,7 +29,7 @@ def vehicle_brakes_sound(info : UpdateStageInfoAct;
   let brakes = vehicle_sound_state__isOnGround ? saturate(max(abs(currentState.leftSteeringBrake), abs(currentState.rightSteeringBrake))) : 0.
   vehicle_brakes_sound__brakes = max(max(vehicle_brakes_sound__brakes - info.dt, 0.), brakes * speedFadeOut * speedFadeIn)
 
-  if vehicle_brakes_sound__brakes > vehicle_brakes_sound__brakesStart && sound_control__enabled && is_watched_sound
+  if vehicle_brakes_sound__brakes > vehicle_brakes_sound__brakesStart && sound_control__shouldPlay && is_watched_sound
     if !is_playing(get_sound(sound_event_group, sound_hash("brakes")))
       sound_player_common::play_path(vehicle_brakes_sound__path, sound_tags, is_watched_sound, transform[3], sound_hash("brakes"), sound_event_group)
     let handle = get_sound(sound_event_group, sound_hash("brakes"))

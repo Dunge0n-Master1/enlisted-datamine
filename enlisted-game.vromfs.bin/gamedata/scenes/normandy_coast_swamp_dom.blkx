@@ -9,8 +9,6 @@ import{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -90,8 +88,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -189,7 +185,7 @@ entity{
   }
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 }
 
@@ -282,7 +278,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="normandy_coast_swamp_dom"
 
   "loading_images:list<t>"{
@@ -332,7 +327,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.999939, 0.0, -0.0110172] [0.0, 1.0, 0.0] [0.0110172, 0.0, 0.999939] [124.964, 2.63513, -326.173]]
   capzone__caption:t="capzone/farm_house"
   ui_order:i=1
@@ -343,18 +338,18 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
-  transform:m=[[0.999939, 0.0, -0.0110172] [0.0, 1.0, 0.0] [0.0110172, 0.0, 0.999939] [316.953, 1.23733, -286.314]]
+  _template:t="domination_sphere_capzone"
+  transform:m=[[0.991428, 0.0, 0.130648] [0.0, 1.0, -0.0] [-0.141527, 0.0, 1.07398] [316.641, 2.1712, -283.805]]
   capzone__caption:t="capzone/railway_gun"
   ui_order:i=2
-  sphere_zone__radius:r=18.65
+  sphere_zone__radius:r=27.0
   capzone__title:t="B"
-  decal__height:r=0.1
+  decal__height:r=2.0
   capzone__iconOffsetY:r=3.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.501924, 0.0, 0.823301] [0.0, 1.0, 0.0] [-0.943135, 0.0, 0.571154] [200.405, 2.41449, -144.802]]
   capzone__caption:t="capzone/bunker"
   ui_order:i=3
@@ -696,8 +691,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11309.1, 0.0, -345.863] [0.0, 8000.03, 0.0] [345.334, 0.0, 11309.1] [218.476, 240.777, -246.93]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

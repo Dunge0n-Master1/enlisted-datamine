@@ -3,6 +3,11 @@ require app
 require HumanPhys
 require EnlistedHuman
 require game.es.events
+require game.utils.team
+require math.base
+require inventory
+require enlisted.events_enlisted
+require game.es.inventory_common
 
 def can_use_while_moving(eid : EntityId)
   return get_bool(eid, "item__canUseWhileMoving") ?? true
@@ -150,3 +155,125 @@ def interrupt_item_use_es(evt : Event;
   human_inventory__targetToUse = INVALID_ENTITY_ID
   human_inventory__savedUseProgress = -1.0
   human_inventory__usePausedUntilTime = -1.0
+
+
+[es(tag=gameClient, REQUIRE=hero)]
+def human_inventory_interrupt_use_door_es(info : ParallelUpdateFrameDelayed;
+                                          eid : EntityId;
+                                          human__aimTm : float3x4;
+                                          var human_inventory__selectedItem : EntityId&;
+                                          var human_use_object__selectedObject : EntityId&;
+                                          var human_use_object__lookAtSelected : bool&)
+  if !human_inventory__selectedItem || !human_use_object__selectedObject || !can_pickup_item(human_inventory__selectedItem, eid)
+    return
+
+  query(human_use_object__selectedObject) <| $ [es(REQUIRE=isDoor)] (transform : float3x4)
+    let aimDir = human__aimTm[0]
+    let aimPos = human__aimTm[3]
+    let doorWeight = length(transform[3] - aimPos) + (human_use_object__lookAtSelected ? -0.5f : 0.5f)
+    let lootTm = get_TMatrix(human_inventory__selectedItem, "transform") ?? IDENT_TM
+    let lootPos = lootTm[3]
+    let lootWeight = length(lootPos - aimPos) + (1.f - dot(normalize(lootPos - aimPos), aimDir))
+    if lootWeight <= doorWeight
+      human_use_object__selectedObject = INVALID_ENTITY_ID
+      human_use_object__lookAtSelected = false
+    else
+      human_inventory__selectedItem = INVALID_ENTITY_ID
+
+
+[es(tag=gameClient, REQUIRE=hero)]
+def human_inventory_interrupt_item_pickup_es(info : ParallelUpdateFrameDelayed;
+                                             human_use_object__selectedObject : EntityId;
+                                             var human_inventory__selectedItem : EntityId&;
+                                             team aka self_team : int = TEAM_UNASSIGNED)
+  var skipLoot = has(human_use_object__selectedObject, "vehicle_seats__seats") || has(human_use_object__selectedObject, "reviveEntity")
+  if !skipLoot
+    query(human_use_object__selectedObject) <| $ [es] (team : int;
+                                                       isDowned : bool)
+      if !isDowned
+        return
+      skipLoot = is_teams_friendly(team, self_team)
+  if (skipLoot)
+    human_inventory__selectedItem = INVALID_ENTITY_ID
+
+
+[es(tag=server, after=human_inventory_es, before=before_human_inventory_use_update)]
+def temporary_interrupt_self_reviving_es(info : UpdateStageInfoAct;
+                                         human_net_phys : HumanActor;
+                                         human_inventory__entityToUse : EntityId;
+                                         isDowned : bool;
+                                         var hitpoints__revivingCount : int&;
+                                         var human_inventory__entityUseStart : float&;
+                                         var human_inventory__entityUseEnd : float&;
+                                         var human_inventory__savedUseProgress : float&;
+                                         var human_inventory__usePausedUntilTime : float&;
+                                         human_medkit__healingResumeDelay : float = 0.5)
+  if !isDowned
+    return
+
+  var isInterruptAllowed = false
+  query(human_inventory__entityToUse) <| $ [es(REQUIRE_NOT=item__useInterruptDisabled)] (item__reviveAmount : float)
+    isInterruptAllowed = item__reviveAmount > 0.0
+  if !isInterruptAllowed
+    return
+
+  let pauseHealing = human_net_phys.phys.appliedCT.isMoving
+  if pauseHealing && human_inventory__entityUseEnd > info.curTime
+    human_inventory__entityUseEnd = -1.0
+    human_inventory__savedUseProgress = info.curTime - human_inventory__entityUseStart
+    human_inventory__usePausedUntilTime = info.curTime + human_medkit__healingResumeDelay
+    hitpoints__revivingCount--
+  elif human_inventory__savedUseProgress >= 0.0 && info.curTime > human_inventory__usePausedUntilTime
+    let useTime = get_item_use_time(human_inventory__entityToUse, isDowned, /*is_self_targeting*/ true)
+    human_inventory__entityUseStart = info.curTime - human_inventory__savedUseProgress
+    human_inventory__entityUseEnd = human_inventory__entityUseStart + useTime
+    human_inventory__savedUseProgress = -1.0
+    human_inventory__usePausedUntilTime = -1.0
+    hitpoints__revivingCount++
+
+
+[es(tag=server, after=human_inventory_es, before=before_human_inventory_use_update)]
+def human_interrupt_revive_es(info : UpdateStageInfoAct;
+                              eid : EntityId;
+                              human_inventory__targetToUse : EntityId;
+                              human_inventory__entityToUse : EntityId;
+                              human_reviver__maxDistance : float2;
+                              human__aimTm : float3x4)
+  if !human_inventory__targetToUse || human_inventory__targetToUse == eid
+    return
+  let isReviving = get_bool(human_inventory__entityToUse, "item__isCurrentlyUsedForReviveTarget") ?? true;
+  query(human_inventory__targetToUse) <| $ [es(REQUIRE=human)] (isAlive : bool; isDowned : bool;
+                                                                human_inventory__entityToUse : EntityId;
+                                                                transform : float3x4;
+                                                                hitpoints__canSelfReviveByPerk : bool = false)
+    var interruptByPerk = false
+    if hitpoints__canSelfReviveByPerk
+      query(human_inventory__entityToUse) <| $ [es(REQUIRE=item__useInterruptDisabled)] (item__reviveAmount : float)
+        interruptByPerk = item__reviveAmount > 0.0
+    let distSq = length_sq(human__aimTm[3] - transform[3])
+    if !isAlive || interruptByPerk || (isReviving != isDowned) || distSq > square(human_reviver__maxDistance.y)
+      sendEvent(eid, [[EventInterruptItemUse]])
+
+
+[es(tag=server, after=human_inventory_es, before=before_human_inventory_use_update)]
+def human_interrupt_use_entity_to_target_es(info : UpdateStageInfoAct;
+                                            eid : EntityId;
+                                            human_inventory__targetToUse : EntityId;
+                                            human_use_object__useDist : float;
+                                            human__aimTm : float3x4)
+  if !human_inventory__targetToUse || human_inventory__targetToUse == eid
+    return
+
+  query(human_inventory__targetToUse) <| $ [es(REQUIRE_NOT=human)] (transform : float3x4)
+    let distSq = length_sq(human__aimTm[3] - transform[3])
+    if distSq > square(human_use_object__useDist)
+      sendEvent(eid, [[EventInterruptItemUse]])
+
+
+[es(tag=server)]
+def human_inventory_interrupt_item_use_on_drop_es(evt : EventOnLootDrop;
+                                                  eid : EntityId;
+                                                  human_inventory__entityToUse : EntityId)
+  let droppedItemEid = evt.itemEid
+  if droppedItemEid == human_inventory__entityToUse
+    sendEventImmediate(eid, [[EventInterruptItemUse]])

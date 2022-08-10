@@ -31,6 +31,26 @@ struct EventOnVolumetricDamage
   damageEffectsMask : int
   damagedParts : ecs::Array
 
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct EventOnVehicleDamageEffects
+  offender : EntityId
+  vehicle : EntityId
+  effects : int
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdShowVehicleDamageEffectsHint
+  offender : EntityId
+  vehicle : EntityId
+  effects : int
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct EventOnVehicleDamaged
+  offender : EntityId
+  vehicle : EntityId
+  damage : float
+  hp : float
+  maxHp : float
+
 [cpp_event(unicast)]
 struct EventOnCollisionHit
   collNodeId : int
@@ -44,7 +64,7 @@ struct EventOnMetaPartDamage
   hp : float
   maxHp : float
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdUseVehicleOnSpawn
   possessed : ecs::EntityId
   squad : ecs::EntityId
@@ -80,11 +100,11 @@ struct CmdCrashExplosionFatal
 struct EventCrashExplosionFatal
   offender : ecs::EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdActivateExtinguisher
   eid : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdStopExtinguisher
   eid : EntityId
 
@@ -99,19 +119,19 @@ struct RequestStartMaintenance
 struct RequestStopMaintenance
   target : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdStartMaintenance
   target : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdStopMaintenance
   target : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdStartRepair
   target : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdStopRepair
   target : EntityId
 
@@ -156,9 +176,6 @@ struct CmdSetVehicleShootDir
 struct CmdSetGunnerCockpitRequest
   isGunner : bool
 
-[cpp_event(unicast)]
-struct EventOnSeatOwnersChanged{}
-
 [event(unicast)]
 struct CmdTurretStartReloading {}
 
@@ -192,3 +209,13 @@ struct EventEnterVehicle
   vehicle : EntityId
   seat_no : int
   enter : bool
+
+[event(unicast)]
+struct CmdTrackVehicleWithWatched {}
+
+[event(unicast)]
+struct EventOnSeatOwnersChanged {}
+
+[event(unicast)]
+struct EventOnVehicleExtinguished
+  eid : EntityId

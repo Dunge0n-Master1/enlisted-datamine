@@ -1,13 +1,13 @@
 model:t="hs_123a_1"
 fmFile:t="fm/hs_123a_1.blk"
-damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
-damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
-damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
-damagePartsDependencyMapBlk:t="gamedata/units/dm/dm_parts_dependency_map_biplane.blk"
-damagePartsToCollisionPointsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_points_map_biplane.blk"
-damagePartsToWeaponsMapBlk:t="gamedata/units/dm/dm_parts_to_weapons_map_biplane.blk"
-damagePartsToVisualEffectsMapBlk:t="gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
-damagePartsExcludeFromHoleBlk:t="gamedata/units/dm/dm_parts_exclude_from_hole.blk"
+damagePartsToCollisionObjectsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_collision_objects.blk"
+damagePartsToFmPartsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
+damagePartsToHudPartsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
+damagePartsDependencyMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_dependency_map_biplane.blk"
+damagePartsToCollisionPointsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_collision_points_map_biplane.blk"
+damagePartsToWeaponsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_weapons_map_biplane.blk"
+damagePartsToVisualEffectsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
+damagePartsExcludeFromHoleBlk:t="content/enlisted/gamedata/units/dm/dm_parts_exclude_from_hole.blk"
 
 DamagePartsDefault{
 

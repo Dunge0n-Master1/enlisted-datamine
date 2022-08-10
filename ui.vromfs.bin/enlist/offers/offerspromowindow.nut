@@ -1,9 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  sceneWithCameraAdd, sceneWithCameraRemove
-} = require("%enlist/sceneWithCamera.nut")
+let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
@@ -12,8 +10,7 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let {
-  strokeStyle, bigPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
+let { strokeStyle, bigPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkFormatText } = require("%enlist/components/formatText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -97,6 +94,8 @@ let headerTimeLeft = @() {
   })
   vplace = ALIGN_BOTTOM
   margin = bigPadding
+  fontFx = FFT_BLUR
+  fontFxColor = 0x7F000000
 }.__update(body_txt)
 
 let function offersWindowTitle() {

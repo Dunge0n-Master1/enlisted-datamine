@@ -230,7 +230,7 @@ def change_seat(human_eid : EntityId; newSeatNo : int; vehicle_seats__seatEids :
     maxvel = maxVehicleVelocityCanReEnter
   let canChangeRoomNow = maxvel < 0.0 || length_sq(curvel) < maxvel * maxvel
 
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     let oldSeatOwnerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
     let oldRoomSpace = get_int(seatEid, "seat__roomSpace") ?? -1
     if oldSeatOwnerEid == human_eid

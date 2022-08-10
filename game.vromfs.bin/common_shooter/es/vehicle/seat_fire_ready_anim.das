@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require AnimV20
 require game.es.vehicle.vehicle_seats_common
-require debug.log_utils
+require debug.logerr_once
 
 def private set_seat_owner_anim_state(seatEid)
   query(seatEid) <| $ [es] (seat__ownerEid : EntityId;

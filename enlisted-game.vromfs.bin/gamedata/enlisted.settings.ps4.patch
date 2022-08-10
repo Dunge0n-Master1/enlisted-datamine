@@ -63,3 +63,5 @@
 }
 
 "@override:game_das_loading_threads":i=1
+
+motionMatchingPerFrameLimit:i=8//-1 no limit

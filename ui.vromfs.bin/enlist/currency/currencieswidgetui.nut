@@ -17,7 +17,7 @@ let function currencyBalance(currency) {
     behavior = Behaviors.Button
     onElemState = @(sf) stateFlags(sf)
     disableInput = is_pc && (currency?.purchaseUrl ?? "") == ""
-    onClick = @() buyCurrency(currency?.purchaseUrl ?? "")
+    onClick = @() buyCurrency(currency)
     onHover = @(on) setTooltip(on ? mkCurrencyTooltip(currency) : null)
 
     children = mkCurrency({

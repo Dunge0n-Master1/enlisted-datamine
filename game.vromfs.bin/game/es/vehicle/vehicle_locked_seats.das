@@ -1,7 +1,7 @@
 require ecs
 require game.es.vehicle.vehicle_seats_common
 require game.es.vehicle.vehicle_events
-require debug.log_utils
+require debug.logerr_once
 
 [es(tag=server, on_appear)]
 def vehicle_locked_seats_init(evt : Event;

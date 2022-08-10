@@ -15,8 +15,8 @@ let {
 let { isInSquad } = require("%enlist/squad/squadState.nut")
 let { purchasesExt } = require("%enlist/meta/profile.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
-let { language } = require("%enlSqGlob/clientState.nut")
 let { seenGamemodes } = require("seenGameModes.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { maxVersionStr } = require("%enlSqGlob/client_version.nut")
 let { check_version } = require("%sqstd/version_compare.nut")
 let { startsWith } = require("%sqstd/string.nut")
@@ -39,11 +39,11 @@ foreach (v in [curCampaign, savedGameModeIdByCampaign])
 
 let selGameModeId = Computed(@() selGameModeIdByCampaign.value?[curCampaign.value])
 
-let defTutorialImage = "ui/game_mode_moscow_tutorial"
-let defTutorialTankImage = "ui/game_mode_tutorial_tank"
-let defTutorialEngineerImage = "ui/game_mode_tutorial_engineer"
-let defTutorialAircraftImage = "ui/game_mode_tutorial_aircraft"
-let defPracticeImage = "ui/game_mode_moscow_practice"
+let defTutorialImage = "ui/game_mode_moscow_tutorial.jpg"
+let defTutorialTankImage = "ui/game_mode_tutorial_tank.jpg"
+let defTutorialEngineerImage = "ui/game_mode_tutorial_engineer.jpg"
+let defTutorialAircraftImage = "ui/game_mode_tutorial_aircraft.jpg"
+let defPracticeImage = "ui/game_mode_moscow_practice.jpg"
 
 let gameModeDefaults = {
   id = null
@@ -168,7 +168,7 @@ let allGameModes = Computed(function() {
     local modeTitle = loc(gMode?.locId, "")
     if (modeTitle == "") {
       let locTable = gMode?.queue.extraParams.locTable ?? {}
-      modeTitle = locTable?[language.value] ?? locTable?["English"] ?? ""
+      modeTitle = locTable?[gameLanguage] ?? locTable?["English"] ?? ""
     }
     gMode.title <- modeTitle
 
@@ -177,7 +177,7 @@ let allGameModes = Computed(function() {
       gMode.description <- loc(descLocId)
     else {
       let locTable = gMode?.queue.extraParams.descLocTable ?? {}
-      gMode.description <- locTable?[language.value] ?? locTable?["English"] ?? modeTitle
+      gMode.description <- locTable?[gameLanguage] ?? locTable?["English"] ?? modeTitle
     }
   }
   return gameModes

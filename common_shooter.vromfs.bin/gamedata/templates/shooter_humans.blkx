@@ -303,7 +303,6 @@ shooter_human{
     squad_member__orderPosition:p3=0.0, 0.0, 0.0
     squad_member__isPersonalOrder:b=no
     squad_member__kills:i=0
-    squad_member__possessedInfantryKills:i=0
     squad_member__canBeLeader:b=yes
     squad_member__memberIdx:i=0
 

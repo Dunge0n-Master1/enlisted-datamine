@@ -2,6 +2,7 @@ require ecs
 require app
 require math.base
 require game.utils.hero
+require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.concussion_common
 require HumanPhys
@@ -25,7 +26,7 @@ def get_punch_strength(punch : float3&) : float2
   return punch.yz;
 
 [es]
-def human_aim_punch_es(info : UpdateStageInfoAct;
+def human_aim_punch_es(info : ParallelUpdateFrameDelayed;
                        human_aim_punch__queuedEvents : Point3List;
                        var human_net_phys : HumanActor&;
                        var human_aim_punch__curPower : float&;
@@ -59,18 +60,17 @@ def human_aim_punch_events_es(evt : EventOnEntityHit;
                               human_aim_punch__maxStrength : float = 15.0;
                               entity_mods__moreStabilityWhenHitMult : float = 0.0;
                               var human_aim_punch__queuedEvents : Point3List)
-  let damageDesc = evt.damageDesc
   let victim = evt.victim
-  if eid != victim || damageDesc.damageType == DamageType DM_ZONE
+  if eid != victim || evt.damageType == int(DamageType DM_ZONE)
     return
 
   let curTime = get_sync_time()
   let time = curTime + human_aim_punch__timeOffset
   var damageStrength = 0f
-  if damageDesc.deltaHp > 0.0
-    damageStrength = deg_to_rad(min(damageDesc.deltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
+  if evt.deltaHp > 0.0
+    damageStrength = deg_to_rad(min(evt.deltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
   else
-    damageStrength = deg_to_rad(min(damageDesc.blockingDeltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
+    damageStrength = deg_to_rad(min(evt.blockingDeltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
 
   let stabilityStrMult = 1.0 - clamp(entity_mods__moreStabilityWhenHitMult, 0.0, 1.0)
   let strengthFromDamage = damageStrength * stabilityStrMult

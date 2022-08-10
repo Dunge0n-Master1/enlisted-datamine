@@ -2,14 +2,13 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { TextDefault, BtnBdDisabled } = require("%ui/style/colors.nut")
 let { show } = require("%ui/components/msgbox.nut")
-let { addModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow } = require("%ui/components/modalWindows.nut")
 let eventbus = require("eventbus")
 let { exitGameMsgBox } = require("%enlist/mainMsgBoxes.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let circuitConf = require("app").get_circuit_conf()
-let {
-  browser_go, browser_reload_page, can_use_embeded_browser = @() false, browser_go_back = @() null
-} = require_optional("browser")
+let { browser_go, browser_reload_page, can_use_embeded_browser,
+  browser_go_back } = require("browser")
 
 let windowTitle = Watched(null)
 let canGoBack = Watched(false)

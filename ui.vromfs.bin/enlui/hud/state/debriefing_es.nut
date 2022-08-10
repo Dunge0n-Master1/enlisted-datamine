@@ -59,7 +59,6 @@ let function setResult(comp, status) {
     psnMatchId = getPsnMatchId() ?? ""
     playerName = remap_nick(localPlayerName.value)
     playerNamePrefixIcon = localPlayerNamePrefixIcon.value
-    exitToLobby = true
     missionName = loc(missionName.value)
     missionType = missionType.value
 

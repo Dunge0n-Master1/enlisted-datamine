@@ -63,10 +63,17 @@ def plane_target_forestall(info : UpdateStageInfoAct;
                            var target_lock__selectedEntity : EntityId&)
   forestallOpacity = 0.0
   let heroPlaneEid = eid
+  var heroTeam = TEAM_UNASSIGNED
+  var maxDist = forestallMaxDist
+  var gForceBlackout = 0.
   let hero = get_controlled_hero()
-  let heroTeam = get_int(hero, "team") ?? TEAM_UNASSIGNED
-  let maxDistMult = get_float(hero, "entity_mods__aircraftDetectAndIdentifyRangeMult") ?? 1.0
-  let maxDist = forestallMaxDist * maxDistMult
+  query(hero) <| $ [es] (team : int = TEAM_UNASSIGNED;
+                         entity_mods__aircraftDetectAndIdentifyRangeMult : float = 1.0;
+                         g_force__forestallThreshold : float = 0.3;
+                         g_force__visual : float = 0.)
+    heroTeam = team
+    maxDist *= entity_mods__aircraftDetectAndIdentifyRangeMult
+    gForceBlackout = cvt(abs(g_force__visual), 0., g_force__forestallThreshold, 0., 1.)
 
   target_lock__selectedEntity = INVALID_ENTITY_ID
 
@@ -114,5 +121,5 @@ def plane_target_forestall(info : UpdateStageInfoAct;
           if angleToTarget >= 0.0 && angleToTarget <= minForestallAngle && distToTarget <= maxDist
             minForestallAngle = angleToTarget
             target_lock__selectedEntity = eid
-            forestallOpacity = 1.0 - safediv(angleToTarget, forestallCutoffAngle)
+            forestallOpacity = min(1.0 - safediv(angleToTarget, forestallCutoffAngle), 1.0 - gForceBlackout)
             forestallPos = pos

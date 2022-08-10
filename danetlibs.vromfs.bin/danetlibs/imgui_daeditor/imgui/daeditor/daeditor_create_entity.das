@@ -1,4 +1,5 @@
 require ecs
+require EcsUtils
 require math.base
 require strings
 require imgui
@@ -27,6 +28,8 @@ def DasHelpMarker(desc : string)
 
 [imgui_window(name="Create entity", group="Editor", hotkey="Ctrl+Shift+[")]
 def create_entity_daeditor()
+  if IsWindowCollapsed()
+    return
 
   DasHelpMarker("Insert template name here.\nDouble LMB click to paste template name.\nCtrl + double LMB click to append template")
   imgui::SameLine()
@@ -76,15 +79,14 @@ def create_entity_daeditor()
         if imgui::IsMouseDoubleClicked(ImGuiMouseButton Left)
           if !GetIO().KeyCtrl || *templateName |> to_string |> empty()
             *templateName |> clear()
-            *templateName |> make_input_buffer(name, TEMPLATE_MAX_LEN)
+            *templateName |> make_input_buffer(clone_string(name), TEMPLATE_MAX_LEN)
           else
             let prevTempl = to_string(*templateName)
-            let newTempl = empty(prevTempl) ? name : "{prevTempl}+{name}"
-            visual_log(newTempl)
+            let newTempl = empty(prevTempl) ? clone_string(name) : "{prevTempl}+{name}"
             *templateName |> clear()
             *templateName |> make_input_buffer(newTempl, TEMPLATE_MAX_LEN)
-      if selected
-        selectedItem = name
+      if selected && selectedItem != name
+        selectedItem = clone_string(name)
       return true
 
     imgui::EndTable()

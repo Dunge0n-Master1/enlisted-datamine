@@ -4,7 +4,7 @@ let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
   smallPadding, soldierLvlColor, soldierLockedLvlColor, freemiumColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 
 let mkIconBar = @(count, color, fName) count < 1 ? null : {
     rendObj = ROBJ_INSCRIPTION

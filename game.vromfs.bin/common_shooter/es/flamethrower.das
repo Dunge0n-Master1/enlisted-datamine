@@ -99,6 +99,7 @@ def flamethrower_phys(evt : CmdWeapPhysUpdate;
   flamethrower__active = evt.gctrl.shoot && canShoot
   using() <| $(var gctrl : GunControls#)
     gctrl.shoot = flamethrower__active
+    gctrl.timeStep = evt.gctrl.timeStep
     sendEventImmediate(eid, [[CmdGunUpdate atTime=evt.atTime, isForReal=evt.isForReal, seed=phys_time_to_seed(evt.atTime), gctrl := gctrl, gloc=evt.gloc]])
 
 [es(tag=netClient, REQUIRE=flamethrower__fireTemplate)]
@@ -106,6 +107,7 @@ def flamethrower_phys_client(evt : CmdWeapPhysUpdate; eid : EntityId; gun__isOve
   if evt.isForReal
     using() <| $(var gctrl : GunControls#)
       gctrl.shoot = evt.gctrl.shoot && !gun__isOverheat
+      gctrl.timeStep = evt.gctrl.timeStep
       sendEventImmediate(eid, [[CmdGunUpdate atTime=evt.atTime, isForReal=evt.isForReal, seed=phys_time_to_seed(evt.atTime), gctrl := gctrl, gloc=evt.gloc]])
 
 [es(on_appear)]

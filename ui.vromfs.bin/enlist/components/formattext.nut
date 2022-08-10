@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let formatters = require("textFormatters.nut")
-let mkFormatAst = require("%darg/components/mkFormatAst.nut")
+let mkFormatAst = require("%darg/helpers/mkFormatAst.nut")
 let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 let { split } = require("%sqstd/string.nut")
 let { defStyle } = formatters

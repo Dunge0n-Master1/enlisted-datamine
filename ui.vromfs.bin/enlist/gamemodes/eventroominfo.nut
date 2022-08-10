@@ -6,7 +6,7 @@ let { txt, textArea, smallCampaignIcon, lockIcon, iconInBattle, iconPreparingBat
 let getPlayersCountInRoomText = require("getPlayersCountInRoomText.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  defTxtColor, titleTxtColor, smallPadding, bigPadding
+  defTxtColor, titleTxtColor, smallPadding, bigPadding, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { clusterLoc } = require("%enlist/clusterState.nut")
@@ -24,6 +24,18 @@ let textAreaOffset = hdpx(10)
 let infoRowHeight = hdpx(40)
 let headerTxtColor = 0xFF808080
 
+let defTxtStyle = {
+  color = defTxtColor
+}.__update(sub_txt)
+
+let headerTxtStyle = {
+  color = headerTxtColor
+}.__update(sub_txt)
+
+let accentTxtStyle = {
+  color = accentTitleTxtColor
+}.__update(sub_txt)
+
 const SHOW_MISSIONS_WHEN_HIDDEN = 3
 const MAX_LENGTH_SHOW_ALL_MISSION = 5
 
@@ -31,9 +43,8 @@ let optLoc = @(v) v == null ? null : loc($"options/{v}", v)
 let selRoomId = Computed(@() selRoom.value?.roomId)
 let hTxt = @(text) {
     rendObj = ROBJ_TEXT
-    color = headerTxtColor
     text
-  }.__update(sub_txt)
+  }.__update(headerTxtStyle)
 
 let mkInfoTextRow = @(header, text) {
     size = [flex(), SIZE_TO_CONTENT]
@@ -55,9 +66,8 @@ let statusRow = @(icon, text){
     icon
     {
       rendObj = ROBJ_TEXT
-      color = defTxtColor
       text
-    }
+    }.__update(defTxtStyle)
   ]
 }
 
@@ -185,13 +195,35 @@ let modDescription = @(description) {
   )
 }
 
+let mkModHeader = @(name, mode) {
+  flow = FLOW_VERTICAL
+  size = [flex(), SIZE_TO_CONTENT]
+  gap = bigPadding
+  children = [
+    {
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
+      behavior = Behaviors.TextArea
+      halign = ALIGN_CENTER
+      text = name
+    }.__update(accentTxtStyle)
+    {
+      rendObj = ROBJ_TEXT
+      hplace = ALIGN_CENTER
+      text = mode
+    }.__update(defTxtStyle)
+  ]
+}
+
 let function mkRoomInfo(room){
+  let isMod = room?.scene == null
   return @(){
     watch = [crossnetworkPlay, isInRoom, isCrossplayOptionNeeded]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     padding = [0, smallPadding]
     children = [
+      isMod ? mkModHeader(room?.modName,  loc(room?.mode ?? "")) : null
       mkRoomCreateTime(room)
       isInRoom.value ? null : mkRoomStatusRow(room?.launcherState ?? "")
       mkInfoTextRow(loc("rooms/Creator"), remap_nick(room?.creator))
@@ -207,10 +239,9 @@ let function mkRoomInfo(room){
       room?.voteToKick == null ? null
         : mkInfoTextRow(loc("options/voteToKick"), getBoolText(room?.voteToKick))
       mkInfoTextRow(loc("quickMatch/Server"), clusterLoc(room?.cluster ?? ""))
-      room?.modName != null ? mkInfoTextRow(loc("mods/modName"), room?.modName) : null
-      room?.modDescription != null ? modDescription(room.modDescription) : null
+      isMod ? modDescription(room?.modDescription ?? "") : null
       mkExpandedMissions(room?.scenes ?? [])
-      room?.scene == null ? modsXpWarning : reducedXpWarning
+      isMod ? modsXpWarning : reducedXpWarning
     ]
   }
 }

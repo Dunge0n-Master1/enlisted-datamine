@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let colors = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 
 let { squadMembers, isInvitedToSquad, enabledSquad } = require("%enlist/squad/squadState.nut")
 let { getContactNick } = require("contact.nut")

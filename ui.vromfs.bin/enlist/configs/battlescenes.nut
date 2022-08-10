@@ -16,44 +16,17 @@ let tutorialSceneByArmy = {
 
 const defTutorialTank = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
 let tutorialTankSceneByArmy = {
-  berlin_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  berlin_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  moscow_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  moscow_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  normandy_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  normandy_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
-  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
+  // all scenes are equal to default
 }
 
 const defTutorialEngineer = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
 let tutorialEngineerSceneByArmy = {
-  berlin_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  berlin_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  moscow_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  moscow_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  normandy_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  normandy_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
-  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_engineer.blk"
+  // all scenes are equal to default
 }
 
 const defTutorialAircraft = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
 let tutorialAircraftSceneByArmy = {
-  berlin_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  berlin_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  moscow_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  moscow_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  normandy_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  normandy_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  tunisia_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
-  stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_aircraft.blk"
+  // all scenes are equal to default
 }
 
 const defPractice = "content/enlisted/gamedata/scenes/tutorial/_common_training_ground.blk"
@@ -77,15 +50,15 @@ let testDriveSceneByArmy = practiceSceneByArmy
 
 return {
   defTutorial
-  tutorialSceneByArmy
+  getTutorialScene = @(armyId) tutorialSceneByArmy?[armyId] ?? defTutorial
   defTutorialTank
-  tutorialTankSceneByArmy
+  getTutorialTankScene = @(armyId) tutorialTankSceneByArmy?[armyId] ?? defTutorialTank
   defTutorialEngineer
-  tutorialEngineerSceneByArmy
+  getTutorialEngineerScene = @(armyId) tutorialEngineerSceneByArmy?[armyId] ?? defTutorialEngineer
   defTutorialAircraft
-  tutorialAircraftSceneByArmy
+  getTutorialAircraftScene = @(armyId) tutorialAircraftSceneByArmy?[armyId] ?? defTutorialAircraft
   defPractice
-  practiceSceneByArmy
+  getPracticeScene = @(armyId) practiceSceneByArmy?[armyId] ?? defPractice
   defTestDrive
-  testDriveSceneByArmy
+  getTestDriveScene = @(armyId) testDriveSceneByArmy?[armyId] ?? defTestDrive
 }

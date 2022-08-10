@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt, sub_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let colors = require("%ui/style/colors.nut")
 let textButtonTextCtor = require("textButtonTextCtor.nut")
 let defStyle = require("textButton.style.nut")
@@ -70,6 +70,7 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
       valign = ALIGN_CENTER
       clipChildren = true
       borderColor = borderColor(sf, style, isEnabled)
+      onDetach = @() stateFlags(0)
 
       children = [
         bgChild

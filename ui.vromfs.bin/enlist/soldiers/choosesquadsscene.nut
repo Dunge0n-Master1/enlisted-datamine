@@ -42,7 +42,6 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
-let { mkDiscountIcon } = require("%enlist/shop/shopPkg.nut")
 let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
 let { unseenSquadTutorials, markSeenSquadTutorial
 } = require("%enlist/tutorial/unseenSquadTextTutorial.nut")
@@ -50,9 +49,11 @@ let { tutorials } = require("%enlist/tutorial/squadTextTutorialPresentation.nut"
 let {
   isFreemiumCampaign, needFreemiumStatus
 } = require("%enlist/campaigns/freemiumState.nut")
-let freemiumPromo = require("%enlist/currency/pkgFreemiumWidgets.nut")
+let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
+let { isSquadRented, buyRentedSquad } = require("model/squadInfoState.nut")
 
 
 let sentStatsdData = persist("sentStatsdData", @() {})
@@ -62,7 +63,7 @@ let function sendData(key){
     ? $"squad_management_gamepad_{key}"
     : $"squad_management_{key}"
 
-  if(keyToCheck in sentStatsdData)
+  if (keyToCheck in sentStatsdData)
     return
 
   sentStatsdData[keyToCheck] <- 1
@@ -75,11 +76,12 @@ let firstSlotToAnim = Watched(null)
 let secondSlotToAnim = Watched(null)
 let needMoveCursor = Watched(false)
 let hoveredSquad = Watched(null)
+
 let function moveSquad(direction) {
   let squadId = selectedSquadId.value
   if (squadId == null)
     return
-  foreach(watch in [chosenSquads, reserveSquads]) {
+  foreach (watch in [chosenSquads, reserveSquads]) {
     let list = watch.value
     let idx = list.findindex(@(s) s?.squadId == squadId)
     if (idx == null)
@@ -90,31 +92,42 @@ let function moveSquad(direction) {
       markSeenSquads(squadsArmy.value, [squadId])
       needMoveCursor(hoveredSquad.value != null)
       firstSlotToAnim(watch == reserveSquads ? newIdx + chosenSquads.value.len() : newIdx)
-      secondSlotToAnim(watch == reserveSquads ? idx + chosenSquads.value.len() : idx)}
+      secondSlotToAnim(watch == reserveSquads ? idx + chosenSquads.value.len() : idx)
+    }
     break
   }
 }
 
-let moveParams = Computed(function() {
+let moveParams = Computed(function(prev) {
   local watch = null
   local idx = null
   let selId = isGamepad.value
     ? hoveredSquad.value ?? selectedSquadId.value
     : selectedSquadId.value
   if (selId != null)
-    foreach(w in [chosenSquads, reserveSquads]) {
+    foreach (w in [chosenSquads, reserveSquads]) {
       idx = w.value.findindex(@(s) s?.squadId == selId)
       if (idx != null) {
         watch = w
         break
       }
     }
-  return {
+
+  let newValues = {
     canUp = watch != null && idx > 0
     canDown = watch != null && idx < watch.value.len() - 1
     canTake = watch == reserveSquads
     canRemove = watch == chosenSquads
   }
+
+  if (prev == FRP_INITIAL)
+    return newValues
+
+  foreach (k, v in newValues)
+    if (prev[k] != v)
+      return newValues // was updated
+
+  return prev // not updated, stop graph recalc
 })
 
 let buttonClose = textButton.Flat(loc("Close"), applyAndClose,
@@ -141,7 +154,7 @@ let buySquadBtn = @(sf) {
     color = sf & S_HOVER ? activeTxtColor : defTxtColor
     rendObj = ROBJ_IMAGE
     size = [hdpx(30), hdpx(30)]
-    image = Picture("!ui/squads/plus.svg:{0}:{0}:K".subst(hdpx(30).tointeger()))
+    image = Picture("!ui/squads/plus.svg:{0}:{0}:K".subst(hdpxi(30)))
   }
 }
 
@@ -184,7 +197,7 @@ let function manageBlock() {
     gap = bigPadding
     children = [
       textButton.FAButton("arrow-up", function(){
-          if(hoveredSquad.value != null)
+          if (hoveredSquad.value != null)
             selectedSquadId(hoveredSquad.value)
           moveSquad(-1)
           sendData("arrow-up")
@@ -196,7 +209,7 @@ let function manageBlock() {
           hotkeys = [["^J:Y", {description = loc("Move Up")}]]
         })),
       textButton.FAButton("arrow-down", function(){
-          if(hoveredSquad.value != null)
+          if (hoveredSquad.value != null)
             selectedSquadId(hoveredSquad.value)
           moveSquad(1)
           sendData("arrow-down")
@@ -208,7 +221,7 @@ let function manageBlock() {
           hotkeys = [["^J:X", {description = loc("Move Down")}]]
         })),
       canTake ? textButton.FAButton("arrow-left", function(){
-          if(hoveredSquad.value != null)
+          if (hoveredSquad.value != null)
             selectedSquadId(hoveredSquad.value)
           changeList()
           sendData("arrow-left")
@@ -220,7 +233,7 @@ let function manageBlock() {
           hotkeys = [["^J:LB", {description = loc("TakeToBattle")}]]
         }))
         : canRemove ? textButton.FAButton("arrow-right", function(){
-            if(hoveredSquad.value != null)
+            if (hoveredSquad.value != null)
               selectedSquadId(hoveredSquad.value)
             changeList()
             sendData("arrow-right")
@@ -311,7 +324,7 @@ let buyAdditionalSlot = @(num, shopItem) watchElemState(@(sf) {
             text = loc("squad/openNewSlot")
             color = sf & S_HOVER ? activeTxtColor : fadedTxtColor
           }
-          mkDiscountIcon(armySlotDiscount.value,
+          mkDiscountWidget(armySlotDiscount.value,
             { hplace = ALIGN_LEFT, vplace = ALIGN_CENTER, pos = null })
         ]
       }
@@ -335,86 +348,112 @@ let buySquadSlot = @(num) function() {
   })
 }
 
-let squadHorSlot = @(squad, idx, slotsCount) @(){
-  watch = [needMoveCursor, hoveredSquad, firstSlotToAnim, secondSlotToAnim,
-            chosenSquads, unseenSquadTutorials]
-  children = mkHorizontalSlot(
-    squad.__merge({
-      idx = idx
-      onDropCb = function(idxFrom, idxTo){
-        changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
-        sendData("drag_and_drop")
-        foreach (cSquad in chosenSquads.value){
-          let { squadType = null } = cSquad
-          if (squadType in unseenSquadTutorials.value){
-              openSquadTextTutorial(squadType)
-              markSeenSquadTutorial(squadType)
-              break
-            }
-        }
+let function squadHorSlot(squad, idx, fixedSlotsCount) {
+  let group = ElemGroup()
+  let stateFlags = Watched(0)
+
+  let function onDropCb(idxFrom, idxTo){
+    changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
+    sendData("drag_and_drop")
+    foreach (cSquad in chosenSquads.value){
+      let { squadType = null } = cSquad
+      if (squadType in unseenSquadTutorials.value){
+        openSquadTextTutorial(squadType)
+        markSeenSquadTutorial(squadType)
+        break
       }
-      onInfoCb = function(squadId) {
-        let armyId = squadsArmy.value
-        openUnlockSquadScene({
-          armyId
-          squad = armySquadsById.value?[armyId][squadId]
-          squadCfg = squadsCfgById.value?[armyId][squadId]
-          unlockInfo = null
-        })
-        selectedSquadId(null)
+    }
+  }
+
+  let function onInfoCb(squadId) {
+    let armyId = squadsArmy.value
+    if (isSquadRented(squad))
+      buyRentedSquad({ armyId, squadId })
+    else
+      openUnlockSquadScene({
+        armyId
+        squad
+        squadCfg = squadsCfgById.value?[armyId][squadId]
+        unlockInfo = null
+      })
+    selectedSquadId(null)
+  }
+
+  let onClick = @() selectedSquadId(squad.squadId)
+  let isSelected = Computed(@() selectedSquadId.value == squad.squadId)
+
+  let function onHover(on, squadId) {
+    hoveredSquad(on ? squad.squadId : null)
+
+    hoverHoldAction("unseenSquad", squad.squadId,
+      function() {
+        unfocusSquad(squadId)
+        markSeenSquads(squadsArmy.value, [squadId])
       }
-      onClick = @() selectedSquadId(squad.squadId)
-      isSelected = Computed(@() selectedSquadId.value == squad.squadId)
-      override = {
-        onHover = function(on, squadId){
-          if(on)
-             hoveredSquad(squad.squadId)
-          else
-            hoveredSquad(null)
-          hoverHoldAction("unseenSquad", squad.squadId,
-            function() {
-              unfocusSquad(squadId)
-              markSeenSquads(squadsArmy.value, [squadId])
-            })
+    )
+  }
+
+  let thisSlotNeedMoveCursor = Computed(@() hoveredSquad.value == squad.squadId ? needMoveCursor.value : false)
+
+  let watch = [
+    thisSlotNeedMoveCursor,
+    firstSlotToAnim, secondSlotToAnim,
+    chosenSquads, unseenSquadTutorials
+  ]
+
+  return function() {
+    return {
+      watch
+      children = mkHorizontalSlot(
+        squad.__merge({
+          idx
+          onDropCb
+          onInfoCb
+          onClick
+          isSelected
+          override = {
+            onHover
           }
-      }
-      group = ElemGroup()
-      fixedSlots = slotsCount
-      needMoveCursor = hoveredSquad.value == squad.squadId ? needMoveCursor.value : false
-      firstSlotToAnim = firstSlotToAnim.value
-      secondSlotToAnim = secondSlotToAnim.value
-      addChildren = [
-        mkSquadFocused(squad.squadId)
-        squadUnseenMark(squad.squadId)
-      ]
-      needSquadTutorial = squad.squadType in tutorials
-    }),
-    KWARG_NON_STRICT
-  )
+          group
+          stateFlags
+          fixedSlots = fixedSlotsCount
+          needMoveCursor = thisSlotNeedMoveCursor.value
+          firstSlotToAnim = firstSlotToAnim.value
+          secondSlotToAnim = secondSlotToAnim.value
+          addChildren = [
+            mkSquadFocused(squad.squadId)
+            squadUnseenMark(squad.squadId)
+          ]
+          needSquadTutorial = squad.squadType in tutorials
+        }),
+        KWARG_NON_STRICT
+      )
+    }
+  }
 }
 
-let emptyHorSquadSlot = @(idx, slotsCount, isReserveEmpty) mkEmptyHorizontalSlot({
-  idx = idx
+let emptyHorSquadSlot = @(idx, fixedSlotsCount, isReserveEmpty) mkEmptyHorizontalSlot({
+  idx
   onDropCb = function(idxFrom, idxTo){
     changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
     sendData("drag_and_drop")
   }
-  fixedSlots = slotsCount
+  fixedSlots = fixedSlotsCount
   hasBlink = !isReserveEmpty
 })
 
-let mkSquadSlot = @(squad, idx, slotsCount, isReserve, isReserveEmpty = true) {
+let mkSquadSlot = @(squad, idx, fixedSlotsCount, isReserve, isReserveEmpty = true) {
   flow = FLOW_HORIZONTAL
   gap = smallPadding
   children = [
     !isReserve ? squadNumber(idx) : null
     squad != null
-      ? squadHorSlot(squad, idx, slotsCount)
-      : emptyHorSquadSlot(idx, slotsCount, isReserveEmpty)
+      ? squadHorSlot(squad, idx, fixedSlotsCount)
+      : emptyHorSquadSlot(idx, fixedSlotsCount, isReserveEmpty)
     ]
 }
 
-let iconSize = hdpx(30).tointeger()
+let iconSize = hdpxi(30)
 let premiumIcon = premiumImage(iconSize)
 let freemiumIcon = mkFreemiumXpImage(iconSize)
 
@@ -568,33 +607,36 @@ let function leftHeader(){
   ]
 }}
 
-let leftPanel = @() panelBg.__merge({
-  watch = [chosenSquads, reserveSquads]
-  children = {
-    size = [SIZE_TO_CONTENT, flex()]
-    flow = FLOW_VERTICAL
-    gap = bigPadding
-    children = [
-      leftHeader
-      mkChosenSquads(chosenSquads.value, @(squad, idx)
-        mkSquadSlot(squad, idx, chosenSquads.value.len(),
-          false, reserveSquads.value.len() == 0),
-        lockedPrimeSlots(chosenSquads.value.len()),
-        buySquadSlot(chosenSquads.value.len()))
-      is_pc ? squadsManagementHint : null
-      manageBlock
-      {
-        flow = FLOW_HORIZONTAL
-        size = [flex(), SIZE_TO_CONTENT]
-        padding = [hdpx(10), 0]
-        children = [
-          squadsCountHint
-          buttonClose
-        ]
-      }
-    ]
-  }
-})
+
+let function leftPanel() {
+  return panelBg.__merge({
+    watch = [chosenSquads, reserveSquads]
+    children = {
+      size = [SIZE_TO_CONTENT, flex()]
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      children = [
+        leftHeader
+        mkChosenSquads(chosenSquads.value, @(squad, idx)
+          mkSquadSlot(squad, idx, chosenSquads.value.len(),
+            false, reserveSquads.value.len() == 0),
+          lockedPrimeSlots(chosenSquads.value.len()),
+          buySquadSlot(chosenSquads.value.len()))
+        is_pc ? squadsManagementHint : null
+        manageBlock
+        {
+          flow = FLOW_HORIZONTAL
+          size = [flex(), SIZE_TO_CONTENT]
+          padding = [hdpx(10), 0]
+          children = [
+            squadsCountHint
+            buttonClose
+          ]
+        }
+      ]
+    }
+  })
+}
 
 let showLockedSquadMsgbox = function(squadDesc) {
   let { squadId, nameLocId } = squadDesc
@@ -648,7 +690,7 @@ let function dropToReserveContainer() {
       transform = {}
       behavior = Behaviors.DragAndDrop
       onDrop = function(data) {
-        if(data.squadIdx > chosenSquads.value.len() - 1)
+        if (data.squadIdx > chosenSquads.value.len() - 1)
           return
 
         let { guid, squadId } = chosenSquads.value[data.squadIdx]
@@ -699,6 +741,7 @@ let function rightPanel() {
     size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
     gap = smallOffset
+    halign = ALIGN_CENTER
     children = [
       {
         size = [SIZE_TO_CONTENT, flex()]
@@ -713,13 +756,7 @@ let function rightPanel() {
           scrollHandler = scrollHandlerRightPanel
         })
       }
-      @() {
-        watch = needFreemiumStatus
-        size = [flex(), SIZE_TO_CONTENT]
-        children = !needFreemiumStatus.value ? null : freemiumPromo("squads_manage", null, {
-          size = [flex(), SIZE_TO_CONTENT]
-        })
-      }
+      promoWidget("squads_manage")
     ]
   })
 }
@@ -734,28 +771,38 @@ let allSquadsList = {
   ]
 }
 
+let neededSquad = Computed(@() hoveredSquad.value ?? selectedSquadId.value)
+
+let needSquadInfoHotkeys = Computed(@() neededSquad.value != null)
+
+let function squadInfoHotkeyHelper() {
+  return {
+    watch = needSquadInfoHotkeys
+    hotkeys = needSquadInfoHotkeys.value
+    ? [["^J:Start", {description = loc("squads/squadInfo"),
+        action = function() {
+          let armyId = squadsArmy.value
+          openUnlockSquadScene({
+            armyId
+            squad = armySquadsById.value?[armyId][neededSquad.value]
+            squadCfg = squadsCfgById.value?[armyId][neededSquad.value]
+            unlockInfo = null
+          })
+      }}]]
+    : null
+  }
+}
+
 let function chooseSquadsScene(){
-  let neededSquad = hoveredSquad.value ?? selectedSquadId.value
   return  {
-    watch = [squadsArmy, safeAreaBorders, hoveredSquad, selectedSquadId]
+    watch = [squadsArmy, safeAreaBorders]
     size = [sw(100), sh(100)]
     flow = FLOW_VERTICAL
     padding = safeAreaBorders.value
-    hotkeys = neededSquad != null
-      ? [["^J:Start", {description = loc("squads/squadInfo"),
-          action = function() {
-            let armyId = squadsArmy.value
-            openUnlockSquadScene({
-              armyId
-              squad = armySquadsById.value?[armyId][neededSquad]
-              squadCfg = squadsCfgById.value?[armyId][neededSquad]
-              unlockInfo = null
-            })
-        }}]]
-      : null
     onDetach = @() markSeenSquads(squadsArmy.value, (curArmyUnseenSquads.value ?? {}).keys())
 
     children = [
+      squadInfoHotkeyHelper
       mkHeader({
         armyId = squadsArmy.value
         textLocId = "squads/manageTitle"

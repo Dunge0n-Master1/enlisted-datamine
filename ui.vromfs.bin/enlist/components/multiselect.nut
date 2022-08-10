@@ -5,7 +5,7 @@ let faComp = require("%ui/components/faComp.nut")
 let {CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg} = require("%ui/style/colors.nut")
 let { gap, bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 let {sound_play} = require("sound")
-let multiselect = require("%darg/components/multiselect.nut")
+let multiselect = require("%ui/components/multiselect.nut")
 let {stateChangeSounds} = require("%ui/style/sounds.nut")
 
 let {font, fontSize} = body_txt

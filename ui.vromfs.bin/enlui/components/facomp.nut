@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {logerr} = require("dagor.debug")
 let {fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let defParams = {
   rendObj = ROBJ_INSCRIPTION
   validateStaticText = false

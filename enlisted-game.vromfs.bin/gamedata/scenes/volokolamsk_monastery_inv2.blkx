@@ -51,7 +51,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_monastery_inv"
 }
 
@@ -79,7 +78,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="invasion/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
@@ -91,8 +89,6 @@ entity{
   _template:t="box_battle_area"
   transform:m=[[585.254, 0.0, -591.002] [0.0, 84.679, 0.0] [423.3, 0.0, 408.058] [-663.021, 18.0377, -687.756]]
   battle_area__team:i=2
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   groupName:t="1_1"
   active:b=no
 }
@@ -101,8 +97,6 @@ entity{
   _template:t="box_battle_area"
   transform:m=[[607.258, 0.0, -630.131] [0.0, 85.5262, 0.0] [451.165, 0.0, 423.239] [-208.912, 18.0377, -276.389]]
   battle_area__team:i=1
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   groupName:t="2_1"
   active:b=no
 }
@@ -111,8 +105,6 @@ entity{
   _template:t="box_battle_area"
   transform:m=[[587.776, 0.0, -604.0] [0.0, 85.5262, 0.0] [432.51, 0.0, 409.716] [-416.492, 18.0377, -447.587]]
   battle_area__team:i=1
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   groupName:t="1_1"
   active:b=no
 }
@@ -121,8 +113,6 @@ entity{
   _template:t="box_battle_area"
   transform:m=[[756.947, 0.0, -481.292] [0.0, 85.5262, 0.0] [347.385, 0.0, 530.459] [-63.3061, 18.0377, 8.89901]]
   battle_area__team:i=1
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   groupName:t="3_1"
   active:b=no
 }
@@ -131,8 +121,6 @@ entity{
   _template:t="box_battle_area"
   transform:m=[[754.301, 0.0, -340.318] [0.0, 85.5262, 0.0] [247.716, 0.0, 529.928] [-247.7, 18.0377, -299.711]]
   battle_area__team:i=2
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   groupName:t="3_1"
   active:b=no
 }
@@ -178,7 +166,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
   capzone__capRewardPartCap:r=1.7
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
@@ -395,7 +383,6 @@ entity{
   _template:t="respVehicle"
   transform:m=[[-1.0, 0.0, 0.00107173] [0.0, 1.0, 0.0] [-0.00107173, 0.0, -1.0] [-121.567, 18.9853, -36.8055]]
   team:i=1
-  respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
   respTime:i=120
   groupName:t="4_1"
@@ -406,7 +393,6 @@ entity{
   _template:t="respVehicle"
   transform:m=[[0.787201, 0.0, 0.616698] [0.0, 1.0, 0.0] [-0.616698, 0.0, 0.787201] [-303.714, 6.46169, -315.295]]
   team:i=2
-  respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
   respTime:i=120
   groupName:t="4_1"
@@ -417,7 +403,6 @@ entity{
   _template:t="respVehicle"
   transform:m=[[0.99877, 0.0, 0.0495974] [0.0, 1.0, 0.0] [-0.0495974, 0.0, 0.99877] [-214.808, 16.8527, -48.5634]]
   team:i=1
-  respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
   respTime:i=120
   groupName:t="3_1"
@@ -428,7 +413,6 @@ entity{
   _template:t="respVehicle"
   transform:m=[[0.5371, 0.0, 0.84352] [0.0, 1.0, 0.0] [-0.84352, 0.0, 0.5371] [-362.615, 5.99337, -381.212]]
   team:i=2
-  respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
   respTime:i=120
   groupName:t="3_1"
@@ -438,8 +422,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[8000.54, 0.0, -8000.38] [0.0, 8000.36, 0.0] [8000.55, 0.0, 8000.12] [-179.855, 240.916, 422.041]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

@@ -141,3 +141,8 @@ def human_vehicle_seats_shooter_pre_animchar_es(info : UpdateStageInfoAct;
 
   update_transform_from_local_seat_tm(/*is_shooter*/true, human_anim__vehicleSelected, human_weap__blockAiming,
                                       human_net_phys, vehicle__localSeatTm, transform)
+
+[es(tag=server, on_appear, track=seat__isInHatch)]
+def human_vehicle_seat_update_hatch_state(evt : Event; seat__isInHatch : bool; seat__ownerEid : EntityId)
+  query(seat__ownerEid) <| $ [es] (var human_vehicle__isInHatch : bool&)
+    human_vehicle__isInHatch = seat__isInHatch

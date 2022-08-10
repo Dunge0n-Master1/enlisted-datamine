@@ -1,36 +1,33 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
-let useful_box_markers = Watched({})
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function deleteEid(eid){
-  if (eid in useful_box_markers.value)
-    useful_box_markers.mutate(@(v) delete v[eid])
-}
+let {
+  useful_box_markers_Set,
+  useful_box_markers_GetWatched,
+  useful_box_markers_UpdateEid,
+  useful_box_markers_DestroyEid
+} = mkWatchedSetAndStorage("useful_box_markers_")
 
 ecs.register_es(
   "useful_boxes_markers_es",
   {
-    onInit = function(eid, comp){
-      let isFriendly = is_teams_friendly(comp.team, localPlayerTeam.value)
-      if (!isFriendly)
-        deleteEid(eid)
-      else
-        useful_box_markers.mutate(@(v) v[eid] <- {
-          image = comp.hud_icon__image
-          offsetY = comp.hud_icon__offsetY
-          opacityRangeX = comp.hud_icon__opacityRangeX
-          opacityRangeY = comp.hud_icon__opacityRangeY
-          size = comp.hud_icon__size
-          minDistance = comp.hud_icon__minDistance
-          maxDistance = comp.hud_icon__maxDistance
-          opacityCenterRelativeDist = comp.hud_icon__opacityCenterRelativeDist
-          opacityCenterMinMult = comp.hud_icon__opacityCenterMinMult
-        })
+    onInit = function(_, eid, comp){
+      useful_box_markers_UpdateEid(eid, {
+        team = comp.team
+        image = comp.hud_icon__image
+        offsetY = comp.hud_icon__offsetY
+        opacityRangeX = comp.hud_icon__opacityRangeX
+        opacityRangeY = comp.hud_icon__opacityRangeY
+        size = comp.hud_icon__size
+        minDistance = comp.hud_icon__minDistance
+        maxDistance = comp.hud_icon__maxDistance
+        opacityCenterRelativeDist = comp.hud_icon__opacityCenterRelativeDist
+        opacityCenterMinMult = comp.hud_icon__opacityCenterMinMult
+      })
     }
-    onDestroy = @(eid, _) deleteEid(eid)
+    onDestroy = @(_, eid, __) useful_box_markers_DestroyEid(eid)
   },
   {
     comps_rq = ["transform", "buildByPlayer"]
@@ -55,7 +52,7 @@ ecs.register_es(
     onChange = function(eid, comp){
       let isEmpty = comp.useful_box__useCount <= 0
       if (isEmpty)
-        deleteEid(eid)
+        useful_box_markers_DestroyEid(eid)
     }
   },
   {
@@ -64,4 +61,7 @@ ecs.register_es(
   }
 )
 
-return useful_box_markers
+return {
+  useful_box_markers_Set
+  useful_box_markers_GetWatched
+}

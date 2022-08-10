@@ -6,10 +6,11 @@ let { currenciesList } = require("%enlist/currency/currencies.nut")
 
 let function initActions() {
   let actions = {}
-  foreach(currency in currenciesList.value) {
-    let { id, purchaseUrl = "" } = currency
+  foreach (currency in currenciesList.value) {
+    let c = currency
+    let { id, purchaseUrl = "" } = c
     if (purchaseUrl != "")
-      actions[id] <- @() buyCurrency(purchaseUrl)
+      actions[id] <- @() buyCurrency(c)
   }
   setOpenShopFunctions(actions)
 }

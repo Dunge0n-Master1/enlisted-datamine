@@ -180,7 +180,7 @@ def tutorial_soldier_change_lock_es(evt : Event)
   query(get_controlled_hero()) <| $ [es] (var squad_member__squad : EntityId&)
     squad_member__squad = INVALID_ENTITY_ID
 
-[es(REQUIRE=hero, on_appear)]
+[es(REQUIRE=hero, on_appear, after=init_hero_squad_components)]
 def tutorial_reset_hero_squad_es(evt : Event; var squad_member__squad : EntityId&)
   query() <| $ [es(REQUIRE=tutorial_lock_soldier_change)] ()
     squad_member__squad = INVALID_ENTITY_ID

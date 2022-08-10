@@ -232,30 +232,3 @@ germ_pzkpfw_IV_ausf_H_16_pzrgt_premium_skin{
     "pzkpfw_IV_ausf_H_turret_c*":t="pzkpfw_IV_ausf_H_skin_without_zimmerite_turret_c*"
   }
 }
-
-germ_pzkpfw_IV_ausf_H_16_pzrgt_with_zimmerite_premium_skin{
-  _extends:t="germ_pzkpfw_IV_ausf_H_common"
-
-  "animchar__objTexSet:object"{
-
-    "fliegerbeschussgerat_41_c*:object"{
-      "fliegerbeschussgerat_41_skin_pz_4h_c*":t="camo_skin_tex"
-    }
-
-    "pzkpfw_IV_ausf_H_turret_c*:object"{
-      "pzkpfw_IV_ausf_H_skin_turret_c*":t="camo_skin_tex"
-    }
-
-    "pzkpfw_IV_ausf_H_gun_c*:object"{
-      "pzkpfw_IV_ausf_H_skin_gun_c*":t="camo_skin_tex"
-    }
-
-    "pzkpfw_IV_ausf_H_body_c*:object"{
-      "pzkpfw_IV_ausf_H_skin_body_c*":t="camo_skin_tex"
-    }
-
-    "pzkpfw_IV_ausf_H_addarmor_c*:object"{
-      "pzkpfw_IV_ausf_H_skin_addarmor_c*":t="camo_skin_tex"
-    }
-  }
-}

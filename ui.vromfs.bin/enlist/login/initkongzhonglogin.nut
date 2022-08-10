@@ -5,11 +5,11 @@ let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { get_circuit } = require("app")
 let eventbus = require("eventbus")
 let auth = require("auth")
-let { addModalWindow, removeModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let {
   browser_add_window_method = @(_n,_c) null,
   BROWSER_EVENT_INITIALIZED = null
-} = require_optional("browser")
+} = require("browser")
 local isLoginStarted = false
 
 const LOGIN_WND_UID = "login_back_window"
@@ -33,7 +33,7 @@ let function onKongZhongAuthResult(result) {
 }
 
 isLoggedIn.subscribe(function(v){
-  if(v){
+  if (v){
     isLoginStarted = false
     removeModalWindow(LOGIN_WND_UID)
   }

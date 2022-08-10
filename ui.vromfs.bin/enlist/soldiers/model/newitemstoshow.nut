@@ -6,7 +6,7 @@ let { prepareItems, preferenceSort } = require("items_list_lib.nut")
 let { curCampItems, curCampSoldiers, objInfoByGuid } = require("state.nut")
 let { profile } = require("%enlist/meta/profile.nut")
 let { collectSoldierData } = require("collectSoldierData.nut")
-let { hasModalWindows } = require("%darg/components/modalWindows.nut")
+let { hasModalWindows } = require("%ui/components/modalWindows.nut")
 
 let justPurchasedItems = mkWatched(persist, "justPurchasedItems", [])
 
@@ -39,7 +39,7 @@ let newItemsToShow = Computed(function() {
 
 let function markSeenGuids(objs, guids) {
   let res = clone objs
-  foreach(guid in guids)
+  foreach (guid in guids)
     if (guid in objs)
       res[guid] <- objs[guid].__merge({ wasSeen = true })
   return res

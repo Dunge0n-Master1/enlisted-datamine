@@ -64,7 +64,7 @@ let types = {
   }
 }
 
-foreach(id, t in types)
+foreach (id, t in types)
   types[id] = makeType(id, t)
 
 return types

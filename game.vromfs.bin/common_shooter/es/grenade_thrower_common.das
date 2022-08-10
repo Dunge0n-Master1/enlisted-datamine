@@ -127,8 +127,8 @@ def throw_grenade_away(eid : EntityId;
           grenade_thrower__projectileEntity = create_shell_entity(templateName, transform, startVel,
                                                                   newShellOwner, new_shell_props,
                                                                   shell__gun_props_id, /*launch_time*/ get_sync_time(),
-                                                                  shell__explTime, /*in_active*/ true, /*offenderDesc*/ null,
-                                                                  /*clientSide*/ !is_server(), newShellRethrower)
+                                                                  shell__explTime, /*in_active*/ true, /*clientSide*/ !is_server(),
+                                                                  newShellRethrower)
 
           if !is_server()
             query(eid) <| $ [es] (var human_weap__localProjectileEid : EntityId&)

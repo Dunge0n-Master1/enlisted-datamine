@@ -64,7 +64,6 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="volokolamsk_grove_dom"
 
   "loading_images:list<t>"{
@@ -109,8 +108,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area1"
 }
@@ -198,8 +195,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area2"
 }
@@ -294,7 +289,7 @@ entity{
   }
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 }
 
@@ -337,37 +332,34 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.999962, 0.0084932, 0.0017888] [-0.00852864, 0.999747, 0.0208321] [-0.00161142, -0.0208465, 0.999781] [530.272, 5.6898, 1769.39]]
   capzone__title:t="A"
   capzone__caption:t="capzone/headquarters"
   sphere_zone__radius:r=13.5
   decal__height:r=1.5
   decal__thickness:r=0.4
-  capzone__acivateRespawnGroup:i=3
   capzone__iconOffsetY:r=3.0
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 0.995566, -0.0940666] [0.0, 0.0940666, 0.995566] [392.458, 6.62146, 1841.27]]
   sphere_zone__radius:r=15.8
   capzone__title:t="B"
   capzone__caption:t="capzone/trench_bunker"
   decal__height:r=2.0
   decal__thickness:r=0.4
-  capzone__acivateRespawnGroup:i=4
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[0.999962, 0.0084932, 0.0017888] [-0.00852864, 0.999747, 0.0208321] [-0.00161142, -0.0208465, 0.999781] [447.662, 2.5582, 1701.15]]
   capzone__title:t="C"
   capzone__caption:t="capzone/church"
   sphere_zone__radius:r=13.1
   decal__height:r=1.0
   decal__thickness:r=0.4
-  capzone__acivateRespawnGroup:i=5
   capzone__iconOffsetY:r=2.0
 }
 
@@ -440,8 +432,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[8000.38, 0.0, -8000.53] [0.0, 8000.03, 0.0] [8000.12, 0.0, 8000.72] [417.373, 240.916, 1805.53]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 

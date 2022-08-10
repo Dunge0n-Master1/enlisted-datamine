@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { mkRewardImages, mkRewardTooltip } = require("rewardsPkg.nut")
 let {
   rewardsPresentation, rewardBgSizePx

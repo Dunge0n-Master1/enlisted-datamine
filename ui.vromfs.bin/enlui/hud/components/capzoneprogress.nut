@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let { fabs } = require("math")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let { curCapZone } = require("%ui/hud/state/capZones.nut")
 let {TEAM0_COLOR_FG, TEAM1_COLOR_FG} = require("%ui/hud/style.nut")
 let {get_time_msec} = require("dagor.time")
@@ -31,7 +31,7 @@ local charCnt = 0
 let function getPresence(teamPresence, playerTeam){
   local alliesCount = 0
   local enemiesCount = 0
-  foreach(teamId, soldierCount in teamPresence) {
+  foreach (teamId, soldierCount in (teamPresence ?? {})) {
     if (teamId.tointeger() == playerTeam) {
       alliesCount = soldierCount
     } else {
@@ -44,7 +44,7 @@ let function getPresence(teamPresence, playerTeam){
 let function getAdvantageMiddle(weights, playerTeam) {
   local weightFriendly = 0
   local weightSum = 0
-  foreach(teamId, weight in weights) {
+  foreach (teamId, weight in weights) {
     if (teamId.tointeger() == playerTeam)
       weightFriendly = weight.tofloat()
     weightSum += weight.tofloat()
@@ -110,7 +110,7 @@ let function mkChar(charProps){
   charCnt++
 
   return {
-    key = "".concat("charIcon",charCnt)
+    key = charCnt
     rendObj = ROBJ_INSCRIPTION
     text
     color
@@ -185,11 +185,11 @@ let mkCaptureWeights = function(alliesCount, enemiesCount, side, advantageMiddle
 
   let children = [
     {
-    rendObj = ROBJ_VECTOR_CANVAS
-    flow = FLOW_HORIZONTAL
-    size = [selfSize, selfSize]
-    pos = [0, Y_OFFSET]
-    commands = commands
+      rendObj = ROBJ_VECTOR_CANVAS
+      flow = FLOW_HORIZONTAL
+      size = [selfSize, selfSize]
+      pos = [0, Y_OFFSET]
+      commands
     },
     {
       rendObj = ROBJ_VECTOR_CANVAS
@@ -212,61 +212,63 @@ let mkCaptureWeights = function(alliesCount, enemiesCount, side, advantageMiddle
 
   return children
 }
+let capzoneProgress = memoize(function(contSize){
+  return function(){
+    let res = {
+      halign = ALIGN_CENTER
+      key = curCapZone.value?.eid
+      watch = curCapZone
+    }
 
-let function capzoneProgress(contSize){
+    if (curCapZone.value == null || prev == null)
+      return res
 
-  let res = {
-    halign = ALIGN_CENTER
-    key = $"capZoneProg{curCapZone.value?.eid}"
-    watch = curCapZone
-  }
-
-  if (curCapZone.value == null || prev == null)
-    return res
-
-  curContSize = contSize
-  let { alliesCount, enemiesCount } = getPresence(curCapZone.value.presenceTeamCount, curPlayerTeam)
-  let advantageMiddle = getAdvantageMiddle(curCapZone.value?.advantageWeights ?? {}, curPlayerTeam)
-  if (alliesCount == prev.alliesCount && enemiesCount == prev.enemiesCount)
-    return res.__update({children = mkCaptureWeights(alliesCount, enemiesCount, prev.side, advantageMiddle)})
-
-
-  let enemyCame = enemiesCount > 0 && prev.enemiesCount == 0
-  let enemyGone = enemiesCount == 0 && prev.enemiesCount > 0
-  let side = alliesCount > enemiesCount ? 1 : alliesCount < enemiesCount ? -1 : 0
-  let prevSide = prev.alliesCount > prev.enemiesCount ? 1 : prev.alliesCount < prev.enemiesCount ? -1 : 0
-  let ts = get_time_msec()
-  let skipMinor = ts - prev.ts < UPDATE_DELAY
-  if (side == prevSide && !(enemyCame || enemyGone) && skipMinor)
-    return res.__update({children = mkCaptureWeights(alliesCount, enemiesCount, side, advantageMiddle)})
+    curContSize = contSize
+    let { alliesCount, enemiesCount } = getPresence(curCapZone.value.presenceTeamCount, curPlayerTeam)
+    let advantageMiddle = getAdvantageMiddle(curCapZone.value?.advantageWeights ?? {}, curPlayerTeam)
+    if (alliesCount == prev.alliesCount && enemiesCount == prev.enemiesCount)
+      return res.__update({children = mkCaptureWeights(alliesCount, enemiesCount, prev.side, advantageMiddle)})
 
 
-  local charProps
-  let aD = fabs(alliesCount - prev.alliesCount)
-  let eD = fabs(enemiesCount - prev.enemiesCount)
-  let d = (alliesCount - enemiesCount) - (prev.alliesCount - prev.enemiesCount)
-  if (enemyCame){
-    charProps = { side = "enemies", sign = "plus" }
+    let enemyCame = enemiesCount > 0 && prev.enemiesCount == 0
+    let enemyGone = enemiesCount == 0 && prev.enemiesCount > 0
+    let side = alliesCount > enemiesCount ? 1 : alliesCount < enemiesCount ? -1 : 0
+    let prevSide = prev.alliesCount > prev.enemiesCount ? 1 : prev.alliesCount < prev.enemiesCount ? -1 : 0
+    let ts = get_time_msec()
+    let skipMinor = ts - prev.ts < UPDATE_DELAY
+    if (side == prevSide && !(enemyCame || enemyGone) && skipMinor)
+      return res.__update({children = mkCaptureWeights(alliesCount, enemiesCount, side, advantageMiddle)})
 
-  } else if (d > 0) {
-    if (aD > eD)
-      charProps = { side = "allies", sign = "plus" }
-    else
-      charProps = { side = "enemies", sign = "minus" }
 
-  } else {
-    if (aD > eD)
-      charProps = { side = "allies", sign = "minus" }
-    else
+    local charProps
+    let aD = fabs(alliesCount - prev.alliesCount)
+    let eD = fabs(enemiesCount - prev.enemiesCount)
+    let d = (alliesCount - enemiesCount) - (prev.alliesCount - prev.enemiesCount)
+    if (enemyCame){
       charProps = { side = "enemies", sign = "plus" }
+
+    } else if (d > 0) {
+      if (aD > eD)
+        charProps = { side = "allies", sign = "plus" }
+      else
+        charProps = { side = "enemies", sign = "minus" }
+
+    } else {
+      if (aD > eD)
+        charProps = { side = "allies", sign = "minus" }
+      else
+        charProps = { side = "enemies", sign = "plus" }
+    }
+
+    prev.alliesCount = alliesCount
+    prev.enemiesCount = enemiesCount
+    prev.side = side
+    prev.ts = ts
+
+    return res.__update({
+      children = mkCaptureWeights(alliesCount, enemiesCount, side, advantageMiddle, charProps)
+    })
   }
-
-  prev.alliesCount = alliesCount
-  prev.enemiesCount = enemiesCount
-  prev.side = side
-  prev.ts = ts
-
-  return res.__update({children = mkCaptureWeights(alliesCount, enemiesCount, side, advantageMiddle, charProps)})
-}
+})
 
 return capzoneProgress

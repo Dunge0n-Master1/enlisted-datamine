@@ -1,5 +1,13 @@
-import{
-  scene:t="content/enlisted/gamedata/scenes/normandy_landing_base.blk"
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[1.89693, 0.0, 281.458] [0.0, 70.9056, 0.0] [-347.392, 0.0, 8.87967] [-104.056, 58.9518, -260.787]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[5.10135, 0.0, 283.762] [0.0, 70.9056, 0.0] [-354.381, 0.0, 6.29835] [34.5129, 58.9518, -259.076]]
+  battle_area__team:i=2
 }
 
 entity{
@@ -61,7 +69,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal+capzone_respawn_activator"
+  _template:t="domination_box_capzone+capzone_respawn_activator"
   transform:m=[[6.75073, 0.0, -0.0531561] [0.0, 2.51467, 0.0] [0.105327, 0.0, 13.6351] [49.7283, 71.1403, -313.307]]
   ui_order:i=1
   capzone__title:t="A"
@@ -72,7 +80,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal+capzone_respawn_activator"
+  _template:t="domination_sphere_capzone+capzone_respawn_activator"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 0.992751, 0.120185] [0.0, -0.120185, 0.992751] [16.1383, 66.9787, -200.018]]
   sphere_zone__radius:r=11.0
   capzone__title:t="B"
@@ -84,7 +92,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal+capzone_respawn_activator"
+  _template:t="domination_box_capzone+capzone_respawn_activator"
   transform:m=[[29.9186, 0.0, 12.2931] [0.0, 2.08315, 0.0] [-2.08441, 0.0, 5.29924] [-30.1713, 70.8043, -301.436]]
   decal__thickness:r=0.2
   decal__height:r=0.4
@@ -95,7 +103,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal+capzone_respawn_activator"
+  _template:t="domination_sphere_capzone+capzone_respawn_activator"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-80.322, 68.2345, -193.834]]
   sphere_zone__radius:r=5.6
   decal__thickness:r=0.3
@@ -106,7 +114,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal+capzone_respawn_activator"
+  _template:t="domination_box_capzone+capzone_respawn_activator"
   transform:m=[[5.68457, 0.0, 1.22264] [0.0, 2.11032, 0.0] [-3.2717, 0.0, 15.2116] [-116.347, 69.4038, -300.494]]
   ui_order:i=5
   capzone__title:t="E"
@@ -173,22 +181,6 @@ entity{
   maxVehicleOnSpawn:i=2
   respTime:i=120
   respawnBaseGroup:i=2
-}
-
-entity{
-  _template:t="box_battle_area"
-  transform:m=[[1.89693, 0.0, 281.458] [0.0, 70.9056, 0.0] [-347.392, 0.0, 8.87967] [-104.056, 58.9518, -260.787]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
-  battle_area__team:i=1
-}
-
-entity{
-  _template:t="box_battle_area"
-  transform:m=[[5.10135, 0.0, 283.762] [0.0, 70.9056, 0.0] [-354.381, 0.0, 6.29835] [34.5129, 58.9518, -259.076]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
-  battle_area__team:i=2
 }
 
 entity{
@@ -279,4 +271,8 @@ entity{
   _template:t="respawnChooser+respMotorcycle"
   transform:m=[[-0.994693, 0.0854253, -0.0573471] [0.0852838, 0.996345, 0.00491681] [-0.0575587, 0.0, 0.998343] [165.299, 68.3613, -355.912]]
   team:i=2
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/normandy_landing_base.blk"
 }

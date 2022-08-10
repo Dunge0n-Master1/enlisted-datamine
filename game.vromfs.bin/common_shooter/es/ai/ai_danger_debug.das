@@ -97,9 +97,8 @@ def print_danger_or_traceable_ratio(printDanger = true)
       danger.lastTraceTime = atTime - 100f
       using <| $(var target : Target#)
         target.lastShootTimer = atTime //1000f
-        target.noiseLevel = 0.25
         let isAi = false
-        var dangerMeter = calc_danger(atTime, agent_dangers__maxDangerDist, danger, target, isAi)
+        var dangerMeter = calc_danger(atTime, agent_dangers__maxDangerDist, danger, target, /*noise*/0.25, isAi)
         if (dangerMeter < 0.73)
           dangerMeter = 0.0
         print(format("%0.2f", printDanger ? dangerMeter : calc_traceable_ratio(atTime, dangerMeter, danger)))

@@ -21,7 +21,7 @@ let mkUpdatePresences = @(watch, dbId) function(newPresences) {
     return
   }
 
-  foreach(userId, p in newPresences) //faster way when you have 1000+ presences and updated only few of them
+  foreach (userId, p in newPresences) //faster way when you have 1000+ presences and updated only few of them
     if (p == null)
       ndbDelete($"{dbId}/{userId}")
     else
@@ -30,7 +30,7 @@ let mkUpdatePresences = @(watch, dbId) function(newPresences) {
   watch.mutate(function(v) {
     v.__update(newPresences)
     //it much faster than filter when update few presences of 2000 friends
-    foreach(userId, presence in newPresences)
+    foreach (userId, presence in newPresences)
       if (presence == null)
         delete v[userId]
   })

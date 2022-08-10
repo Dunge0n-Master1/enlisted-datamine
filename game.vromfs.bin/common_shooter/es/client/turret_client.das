@@ -20,14 +20,11 @@ def vehicle_input_turret_init_es(info : UpdateStageInfoAct;
 
       let dir = angles_to_dir(turret_input__aimAngles)
       query(get_cur_cam_entity()) <| $ [es] (transform aka camera_transform : float3x4)
-
-        var aimDist = 2000.0
+        var aimDist = 500.0
         var norm = float3()
         traceray_normalized(camera_transform[3], dir, aimDist, norm, ETF_ALL)
-
-        using() <| $(var intersections : IntersectedEntities#)
-          trace_entities_in_grid(ecs_hash("humans"), camera_transform[3], dir, aimDist, INVALID_ENTITY_ID, intersections, SortIntersections NO)
-          trace_entities_in_grid(ecs_hash("vehicles"), camera_transform[3], dir, aimDist, INVALID_ENTITY_ID, intersections, SortIntersections NO)
+        trace_entities_in_grid(ecs_hash("humans"), camera_transform[3], dir, aimDist, INVALID_ENTITY_ID)
+        trace_entities_in_grid(ecs_hash("vehicles"), camera_transform[3], dir, aimDist, INVALID_ENTITY_ID)
 
         turret_input__aimPos = camera_transform[3] + dir * aimDist
         turret__isGunDirInited = true
@@ -76,7 +73,7 @@ def turret_shoot_correction_es(evt : CmdTurretsUpdate;
           let turretDir = turret_state.shoot.dir
           let turretPos = turret_state.shoot.pos
 
-          var t = 2000.0
+          var t = 500.0
           do_turret_trace(camPos, turretDir, t, eid, vehicle_seats__seatEids)
 
           var distToShootRange = 0.0

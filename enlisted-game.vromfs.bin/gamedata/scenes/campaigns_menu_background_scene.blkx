@@ -2,7 +2,6 @@ entity{
   _template:t="menu_camera"
   fov:r=60.0
   transform:m=[[0.868602, 0.0, -0.49551] [-0.00490714, 0.999951, -0.00860195] [0.495485, 0.00990321, 0.86856] [-4.92185, 0.709863, -9.16637]]
-  menuFov:r=60.0
   menuTransform:m=[[0.868602, 0.0, -0.49551] [-0.00490714, 0.999951, -0.00860195] [0.495485, 0.00990321, 0.86856] [-4.92185, 0.709863, -9.16637]]
 }
 
@@ -20,7 +19,7 @@ entity{
   level__fpsLimit:i=60
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_gray_clouds.blk":r=1.0
+    weather_cloudy_d:r=1.0
   }
 
   "level__timeVec:array"{
@@ -29,12 +28,7 @@ entity{
 }
 
 entity{
-  _template:t="ambient_sound"
-  _singleton:b=yes
-
-  "ambient_sound__events:array"{
-    path:t="music/launcher"
-  }
+  _template:t="music_launcher_ambient_sound"
 }
 
 entity{
@@ -113,7 +107,7 @@ entity{
     dof__farDofEnd:r=181.0
     dof__bokehShape_bladesCount:r=3.0
     adaptation__autoExposureScale:r=0.5
-    dof__bokehShape_fNumber:r=2.1
+    dof__bokehShape_kernelSize:r=2.1
     dof__farDofStart:r=9.0
     dof__nearDofStart:r=1.0
     adaptation__minExposure:r=1.5
@@ -123,15 +117,13 @@ entity{
 }
 
 entity{
-  _template:t="us_m3a1_stuart"
+  _template:t="us_m3a1_stuart_bot_convo"
   transform:m=[[-0.83489, -0.0533552, -0.547825] [-0.0806087, 0.996412, 0.0258032] [0.544483, 0.0657023, -0.836195] [-0.169608, 0.0498237, 0.0309824]]
-  active:b=yes
 }
 
 entity{
-  _template:t="us_m3a1_stuart"
+  _template:t="us_m3a1_stuart_bot_convo"
   transform:m=[[-0.844439, 0.0153361, -0.535432] [0.0129469, 0.999882, 0.00822037] [0.535495, 9.43679e-06, -0.844538] [-61.7027, 1.41962, -2.07583]]
-  active:b=yes
 }
 
 entity{

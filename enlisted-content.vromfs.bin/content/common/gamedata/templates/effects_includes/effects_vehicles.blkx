@@ -1,0 +1,113 @@
+vehicle_effect_base{
+  _extends:t="ecs_no_debug"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="vehicle_effect__emitterPos"
+
+  _group{
+    _tags:t="render"
+    vehicle_effect__type:i=-1
+    vehicle_effect__vehicleFxId:i=-1
+    vehicle_effect__emitterLocalPos:p3=0.0, 0.0, 0.0
+    vehicle_effect__nodeId:i=-1
+    vehicle_effect__emitterPos:p3=0.0, 0.0, 0.0
+    vehicle_effect__minDistSqToUpdateEmitterTm:r=0.01
+
+    effect{
+    }
+
+    "vehicle_effect__vehicleEid:eid"{
+    }
+  }
+
+  "vehicleEffect:tag"{
+  }
+
+  "staticEffect:tag"{
+  }
+}
+
+vehicle_effect_base_lifetime{
+  _tags:t="render"
+  gun_flash_fx__timeToDestroy:r=-1.0
+}
+
+pv_broken_exhaust_base_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="pv_broken_exhaust_base"
+  }
+}
+
+tank_engine_fire_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_engine_fire"
+  }
+}
+
+tank_engine_smoke_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_engine_smoke"
+  }
+}
+
+tank_smoke_big_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_smoke_big"
+  }
+}
+
+tank_smoke_small_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_smoke_small"
+  }
+}
+
+tank_fire_big_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_fire_big"
+  }
+}
+
+tank_fire_small_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_fire_small"
+  }
+}
+
+tank_ammo_fire_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_ammo_fire"
+  }
+}
+
+tank_smoke_destroyed_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="tank_smoke_destroyed"
+  }
+}

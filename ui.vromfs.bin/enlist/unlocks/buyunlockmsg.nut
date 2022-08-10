@@ -26,35 +26,44 @@ let mkRewardsCards = @(rewards) {
 }
 
 let function mkRewardsView(task) {
-  let { lastRewardedStage, stages } = task
-  local { rewards = null } = stages?[lastRewardedStage]
-  if (rewards == null)
-    return null
-
-  rewards = prepareRewards(rewards).filter(@(r) r != null)
-  let cards = mkRewardsCards(rewards)
-  if (rewards.len() != 1)
-    return cards
-
-  let mainReward = rewards[0].reward
-  let children = [cards]
-  if ("name" in mainReward)
+  let children = []
+  let { name = "" } = task?.localization
+  if (name != "")
     children.append({
       rendObj = ROBJ_TEXT
-      text = loc(mainReward.name)
-      color = activeTxtColor
-    }.__update(body_txt))
-  if ("description" in mainReward)
-    children.append({
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = loc(mainReward.description)
+      text = name
       color = defTxtColor
     }.__update(sub_txt))
 
-  return {
+  let { lastRewardedStage, stages } = task
+  local { rewards = null } = stages?[lastRewardedStage]
+  if (rewards) {
+    rewards = prepareRewards(rewards).filter(@(r) r != null)
+    let cards = mkRewardsCards(rewards)
+    children.append(cards)
+
+    if (rewards.len() == 1) {
+      let mainReward = rewards[0].reward
+      if ("name" in mainReward)
+        children.append({
+          rendObj = ROBJ_TEXT
+          text = loc(mainReward.name)
+          color = activeTxtColor
+        }.__update(body_txt))
+
+      if ("description" in mainReward)
+        children.append({
+          size = [flex(), SIZE_TO_CONTENT]
+          halign = ALIGN_CENTER
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          text = loc(mainReward.description)
+          color = defTxtColor
+        }.__update(sub_txt))
+    }
+  }
+
+  return children.len() == 0 ? null : {
     size = [flex(), SIZE_TO_CONTENT]
     halign = ALIGN_CENTER
     flow = FLOW_VERTICAL

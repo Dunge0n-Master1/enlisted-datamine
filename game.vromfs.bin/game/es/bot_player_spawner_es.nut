@@ -181,8 +181,6 @@ let function onTimer(_evt, eid, comp) {
           "connid" : [INVALID_CONNECTION_ID, ecs.TYPE_INT],
           "name" : [get_gen_bot_name(ent_eid + time.sec + time.min * 60), ecs.TYPE_STRING],
           "canBeLocal" : [false, ecs.TYPE_BOOL],
-          "scoring_player__killRating" : [rand.rfloat(900.0, 1900.0), ecs.TYPE_FLOAT],
-          "scoring_player__winRating" : [rand.rfloat(900.0, 1900.0), ecs.TYPE_FLOAT],
           "userid" : [INVALID_USER_ID, ecs.TYPE_UINT64],
           "player__metaItems" : [itemslist, ecs.TYPE_ARRAY],
           "possessedTemplate" : [templateToSpawn, ecs.TYPE_STRING]

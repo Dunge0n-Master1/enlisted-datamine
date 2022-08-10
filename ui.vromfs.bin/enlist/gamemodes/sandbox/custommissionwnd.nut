@@ -1,13 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { modPath, receivedModInfos, requestModManifest, deleteMod } = require("customMissionState.nut")
+let { modPath, receivedModInfos, requestModManifest, deleteMod, hasBeenUpdated
+} = require("customMissionState.nut")
 let {
   bigPadding, maxContentWidth, isWide, commonBtnHeight, titleTxtColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { localPadding, localGap, rowHeight } = require("%enlist/gameModes/eventModeStyle.nut")
 let mkOptionRow = require("%enlist/gameModes/components/mkOptionRow.nut")
-let { addModalWindow, removeModalWindow } = require("%darg/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { Bordered, FAButton } = require("%ui/components/textButton.nut")
@@ -237,18 +238,21 @@ let wndContent = {
   ]
 }
 
-let openCustomMissionWnd = @() addModalWindow({
-  key = WND_UID
-  rendObj = ROBJ_IMAGE
-  image = scrollOnlyUp
-  hplace = ALIGN_CENTER
-  vplace = ALIGN_CENTER
-  size = [flex(), hdpx(900)]
-  children =  [
-    wndContent
-    modsDownloadInfo
-  ]
-  onClick = @() null
-})
+let function openCustomMissionWnd() {
+  hasBeenUpdated(true)
+  return addModalWindow({
+    key = WND_UID
+    rendObj = ROBJ_IMAGE
+    image = scrollOnlyUp
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    size = [flex(), hdpx(900)]
+    children =  [
+      wndContent
+      modsDownloadInfo
+    ]
+    onClick = @() null
+  })
+}
 
 return openCustomMissionWnd

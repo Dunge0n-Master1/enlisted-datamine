@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.8)
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let {
   unitSize, gap, bigGap, bigPadding, smallPadding, soldierWndWidth, fadedTxtColor,
@@ -11,7 +10,7 @@ let {
 let listTxtColor = listCtors.txtColor
 let listBgColor = listCtors.bgColor
 let {
-  statusHintText, statusIconCtor, statusIconLocked
+  statusHintText, statusIconCtor, statusIconLocked, statusBadgeWarning
 } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
 let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex,
@@ -34,6 +33,10 @@ let mkAmmo = require("mkAmmo.nut")
 let {getWeaponData} = require("%enlist/soldiers/model/collectWeaponData.nut")
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
+let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
+let { mkAlertIcon, ITEM_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
 
@@ -171,6 +174,10 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
       unequipItem(draggedDropData)
       return false
     }
+    if (isObjGuidBelongToRentedSquad(toOwnerGuid)) {
+      showRentedSquadLimitsBox()
+      return false
+    }
     // equip item from target storage slot:
     equipItem(targetDropData.item.guid, draggedDropData.slotType, draggedDropData.slotId, toOwnerGuid)
     return true
@@ -187,6 +194,10 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
   let parentItemGuid = getItemOwnerGuid(item)
   if (!parentItemGuid) {
     // equip from inventory
+    if (isObjGuidBelongToRentedSquad(toOwnerGuid)) {
+      showRentedSquadLimitsBox()
+      return false
+    }
     equipItem(itemGuid, toSlotType, toSlotId, toOwnerGuid)
     return true
   }
@@ -224,8 +235,14 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
     d.slotType == toSlotType && d.slotId == toSlotId)?.item
   if (toItem != null)
     swapItems(toOwnerGuid, toSlotType, toSlotId, parentItemGuid, slotType, slotId)
-  else
+  else {
+    if (isObjGuidBelongToRentedSquad(toOwnerGuid)) {
+      showRentedSquadLimitsBox()
+      return false
+    }
     equipItem(itemGuid, toSlotType, toSlotId, toOwnerGuid)
+  }
+
   return true
 }
 
@@ -322,11 +339,7 @@ let itemCountRarity = @(item, flags, isSelected) {
   ]
 }
 
-let mkUnseenSign = @(hasUnseenSign) @() {
-  watch = hasUnseenSign
-  hplace = ALIGN_RIGHT
-  children = hasUnseenSign.value ? unseenSignal : null
-}
+let mkUnseenSign = @(hasUnseenSign) mkAlertIcon(ITEM_ALERT_SIGN, hasUnseenSign)
 
 let mkUpgradableSign = @(sf, selected) faComp("gear", {
   size = [hdpx(20), hdpx(20)]
@@ -360,12 +373,13 @@ let mkSigns = @(upgradeData, sf, selected, isNew) @() {
 }
 
 local function mkItem(slotId = null, item = null, slotType = null, itemSize = defItemSize,
-  emptySlotChildren = defSlotnameCtor, scheme = null, itemCtor = defItemCtor, onDropExceptionCb = null,
-  statusCtor = defIconCtor, soldierGuid = null, isInteractive = true, isDisabled = false,
-  canDrag = true, bgStyle = defBgStyle, selectedKey = Watched(null), selectKey = null,
-  isXmb = false, bgColor = defBgColor, pauseTooltip = Watched(false), onClickCb = null,
-  onHoverCb = null, isLocked = false, onDoubleClickCb = null, onResearchClickCb = null,
-  mods = null, hasUnseenSign = Watched(false), isNew = false, isAvailable = null, hideStatus = false
+  emptySlotChildren = defSlotnameCtor, scheme = null, itemCtor = defItemCtor,
+  onDropExceptionCb = null, statusCtor = defIconCtor, soldierGuid = null, isInteractive = true,
+  isDisabled = false, canDrag = true, bgStyle = defBgStyle, selectedKey = Watched(null),
+  selectKey = null, isXmb = false, bgColor = defBgColor, pauseTooltip = Watched(false),
+  onClickCb = null, onHoverCb = null, isLocked = false, onDoubleClickCb = null,
+  onResearchClickCb = null, mods = null, hasUnseenSign = Watched(false), isNew = false,
+  isAvailable = null, hideStatus = false, hasWarningSign = false
 ) {
   if (isDisabled)
     isInteractive = false
@@ -446,6 +460,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
               text = loc("slot/locked")
               opacity = 0.5
             }.__update(tiny_txt)
+            hasWarningSign ? statusBadgeWarning : null
             {
               flow = FLOW_HORIZONTAL
               hplace = ALIGN_RIGHT
@@ -530,7 +545,6 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
 
 return {
   mkItem = kwarg(mkItem)
-  defSlotnameCtor
   amountText
   smallMainColorText
 }

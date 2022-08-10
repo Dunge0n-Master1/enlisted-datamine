@@ -15,7 +15,7 @@ let outMessage = mkWatched(persist, "outMessage", "")
 let sendMode = mkWatched(persist, "sendMode", "team")
 
 let function updateChat(dt) {
-  foreach(rec in lines.value)
+  foreach (rec in lines.value)
     rec.ttl -= dt
   let newLines = lines.value.filter(@(rec) rec.ttl > 0)
   if (newLines.len() != lines.value.len())

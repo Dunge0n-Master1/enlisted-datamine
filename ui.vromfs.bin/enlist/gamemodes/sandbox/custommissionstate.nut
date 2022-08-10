@@ -4,13 +4,15 @@ let eventbus = require("eventbus")
 let {scan_folder, file_exists, mkdir} = require("dagor.fs")
 let { file } = require("io")
 let { request_ugm_manifest } = require("game_load")
-let { language } = require("%enlSqGlob/clientState.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let json = require("json")
 let regexp2 = require("regexp2")
-let logGM = require("%sqstd/log.nut")().with_prefix("[CustomGameMod] ")
+let logGM = require("%enlSqGlob/library_logs.nut").with_prefix("[CustomGameMod] ")
 let { send_counter } = require("statsd")
 let { remove } = require("system")
+let { showModsInCustomRoomCreateWnd } = require("%enlist/featureFlags.nut")
+let { get_setting_by_blk_path } = require("settings")
 
 
 const USER_MODS_FOLDER = "userGameMods"
@@ -27,6 +29,10 @@ let noModInfo = freeze({ NoModeInfo = null })
 let requestedFiles = Watched({})
 let modDownloadShowProgress = Watched(false)
 let modDownloadMessage = Watched("")
+let hasBeenUpdated = Watched(false)
+
+let isModAvailable = Computed(@()(get_setting_by_blk_path("isModAvailable") ?? true)
+  && showModsInCustomRoomCreateWnd.value)
 
 let availDomains = "({0})".subst("|".join([
   "enlisted-sandbox.gaijin.net"
@@ -84,9 +90,16 @@ let requestedManifest = Watched({})
 
 let setHashError = @(hash) requestedFiles.mutate(@(v) v[hash] <- FILE_ERROR)
 
+let function getFileExt(filename) {
+  let extIndex = filename.indexof(".") ?? -1
+  if (extIndex < 0)
+    return ""
+  return filename.slice(extIndex)
+}
+
 eventbus.subscribe(EVENT_RECEIVE_FILE_MOD, function(response){
   logGM("received headers:", response?.headers)
-  let hash = response?.context
+  let { hash, filename = "scene.blk" } = response?.context ?? {}
   if (hash == null) {
     logGM("unknown hash")
     modDownloadMessage("mods/UnknownHash")
@@ -106,7 +119,7 @@ eventbus.subscribe(EVENT_RECEIVE_FILE_MOD, function(response){
     //save to disk
     let body = response?.body
     mkdir(USER_MODS_FOLDER)
-    let fileName = $"{USER_MODS_FOLDER}/{hash}.blk"
+    let fileName = $"{USER_MODS_FOLDER}/{hash}{getFileExt(filename)}"
     let resultFile = file(fileName, "wb+")
     resultFile.writeblob(body)
     resultFile.close()
@@ -125,7 +138,7 @@ eventbus.subscribe(EVENT_RECEIVE_FILE_MOD, function(response){
 })
 
 let function requestFilesByHashes(hashes){
-  foreach(hash in hashes){
+  foreach (hash in hashes){
     if (hash in receivedFiles.value)
       continue
 
@@ -139,10 +152,30 @@ let function requestFilesByHashes(hashes){
       method = "GET"
       url
       respEventId = EVENT_RECEIVE_FILE_MOD
-      context = hash
+      context = {
+        hash = hash
+        filename = "scene.blk"
+      }
     })
   }
 }
+
+let function updateModList() {
+  let mods = scan_folder({  root = USER_MODS_FOLDER,
+                              vromfs = false,
+                              realfs = true,
+                              recursive = false
+                              files_suffix = MODS_EXT })
+  gameMods(mods)
+  foreach (m in mods) {
+    let manifestFile = file(m, "rb")
+    let manifest = jsonSafeParse(manifestFile.readblob(manifestFile.len())?.as_string())
+    manifestFile.close()
+    eventbus.send(EVENT_MOD_VROM_INFO, manifest)
+  }
+}
+
+hasBeenUpdated.subscribe(@(v) v ? updateModList() : null)
 
 eventbus.subscribe(EVENT_RECEIVE_MOD_MANIFEST, function(response) {
   logGM("EVENT_RECEIVE_MOD_MANIFEST headers:", response?.headers)
@@ -171,13 +204,18 @@ eventbus.subscribe(EVENT_RECEIVE_MOD_MANIFEST, function(response) {
   resultFile.writeblob(response?.body)
   resultFile.close()
   eventbus.send(EVENT_MOD_VROM_INFO, manifest)
-  let hash = manifest.content[0].hash
+  let content = manifest.content[0]
+  let hash = content.hash
   http.request({
     method = "GET"
     url = $"https://enlisted-sandbox.gaijin.net/file/{hash}"
     respEventId = EVENT_RECEIVE_FILE_MOD
-    context = hash
+    context = {
+      hash = hash
+      filename = content.file
+    }
   })
+  updateModList()
 })
 
 let function requestModManifest(modId) {
@@ -198,25 +236,12 @@ let function requestModManifest(modId) {
   })
 }
 
-let function updateModList(){
-  let mods = scan_folder({  root = USER_MODS_FOLDER,
-                              vromfs = false,
-                              realfs = true,
-                              recursive = false
-                              files_suffix = MODS_EXT })
-  gameMods(mods)
-  foreach(m in mods) {
-    let manifestFile = file(m, "rb")
-    let manifest = jsonSafeParse(manifestFile.readblob(manifestFile.len())?.as_string())
-    manifestFile.close()
-    eventbus.send(EVENT_MOD_VROM_INFO, manifest)
-  }
-}
 
 eventbus.subscribe(EVENT_MOD_VROM_INFO, function(info) {
   if (info?.id != null){
-    if(info?.title != null)
+    if (info?.title != null)
       info.title = info.title.tostring()
+    modPath(info.id)
     receivedModInfos.mutate(@(v) v[info.id] <- info)
   }
 })
@@ -227,10 +252,13 @@ let function getModInfo(mpath) {
   let {content = {}, contentId = null, manifest = null, modHash = null} = mod
   let titles = manifest?.title_localizations ?? {}
   titles.title <- manifest?.title ?? contentId
-  let title = titles?[language.value] ?? titles.title
+  let title = titles?[gameLanguage] ?? titles.title
   let fname = getFname(mpath).split(".")[0]
+  let ext = getFileExt(content[0].file)
 
-  let pathToStart = $"{USER_MODS_FOLDER}/{content[0].hash}.blk"
+  local pathToStart = $"{USER_MODS_FOLDER}/{content[0].hash}.blk"
+  if (ext == ".vromfs.bin")
+    pathToStart = $"?{USER_MODS_FOLDER}/{content[0].hash}.vromfs.bin?.?scene.blk"
   return {contentId, pathToStart, title, titles, fname, modHash}
 }
 
@@ -278,7 +306,7 @@ let availableCampaigns = Computed(@()
   receivedModInfos.value?[modPath.value].room_params.defaults.public.campaigns ?? [])
 
 return {
-  updateModList
+  hasBeenUpdated
   modPath
   gameMods
   modName
@@ -293,4 +321,5 @@ return {
   deleteMod
   allowChooseCampaign
   availableCampaigns
+  isModAvailable
 }

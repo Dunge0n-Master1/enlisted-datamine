@@ -4,6 +4,7 @@ require EnlistedHumanAnim
 require PhysVars
 require DagorRandom
 require DagorMath
+require enlisted.events_enlisted
 
 def random_p3(mu, sigma : float3) : float3
   return mu + sigma * float3(gauss_rnd(0), gauss_rnd(0), gauss_rnd(0))
@@ -32,7 +33,7 @@ def constraint_movement(var pos : float3&; var vel : float3&; limit : float3)
     pos[i] = clamp(pos[i], -limit[i], limit[i])
 
 [es(no_order, REQUIRE_NOT=deadEntity)]
-def human_anim_weap(info : UpdateStageInfoAct; human_anim : HumanAnimCtx;
+def human_anim_weap(info : UpdateStageInfoAct; human_anim : HumanAnimCtx; //ParallelUpdateFrameDelayed
                     human_net_phys__aimPosition : float;
                     var phys_vars : PhysVars;
                     human_weap__gunEids : EidList;

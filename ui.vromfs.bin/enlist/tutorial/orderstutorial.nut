@@ -62,7 +62,7 @@ let function startTutorialDelayed() {
       return
 
     currencyList = currencyList.keys()
-    if(currencyList.len() > 1) {
+    if (currencyList.len() > 1) {
       currencyList = currencyList.sort(@(a,b)
         getCurrencyPresentation(a).order <=> getCurrencyPresentation(b).order)
     }

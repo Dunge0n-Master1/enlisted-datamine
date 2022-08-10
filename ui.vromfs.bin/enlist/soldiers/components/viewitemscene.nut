@@ -4,7 +4,7 @@ let mkHeader = require("%enlist/components/mkHeader.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
 let { Flat } = require("%ui/components/textButton.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
@@ -99,7 +99,7 @@ let viewItemScene = @(){
           size = SIZE_TO_CONTENT
           hplace = ALIGN_RIGHT
           vplace = ALIGN_BOTTOM
-          children = mkDetailsInfo(itemToShow, Watched(null), false)
+          children = mkDetailsInfo(itemToShow, false)
         }
       ]
     }

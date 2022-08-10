@@ -15,7 +15,7 @@ let onlineSettingsSettings = onlineSettings.settings
 let availableClustersDef = ["EU", "RU", "US", "JP"]
 let debugClusters = dagor_sys.DBGLEVEL != 0 ? ["debug"] : []
 
-let notify = @(...) log.log.acall([null].extend(vargv))
+let notify = @(...) log.acall([null].extend(vargv))
 let eventbus = require("eventbus")
 
 
@@ -44,7 +44,7 @@ let function fetchClustersFromMatching() {
 }
 
 matchingClusters.subscribe(function(v){
-  if(v.len()==0)
+  if (v.len()==0)
     gui_scene.setTimeout(5, fetchClustersFromMatching)
 })
 
@@ -93,7 +93,7 @@ availableClusters.subscribe(function(available) {
 })
 
 let oneOfSelectedClusters = Computed(function() {
-  foreach(c, has in clusters.value)
+  foreach (c, has in clusters.value)
     if (has)
       return c
   return matchingClusters.value?[0] ?? availableClustersDef[0]

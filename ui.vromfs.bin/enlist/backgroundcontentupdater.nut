@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let debug = require("%sqstd/log.nut")().with_prefix("[CPTC] ")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[CPTC] ")
 let contentUpdater = require_optional("contentUpdater")
 if (contentUpdater == null) {
   debug("Not available")

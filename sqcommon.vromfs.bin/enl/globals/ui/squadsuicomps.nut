@@ -1,22 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
+let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { endswith } = require("string")
 let {
-  smallPadding, activeBgColor, hoverBgColor, defBgColor, listCtors,
+  smallPadding, activeBgColor, hoverBgColor, defBgColor, selectedTxtColor,
   defTxtColor, spawnNotReadyColor, multySquadPanelSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkHintRow } = require("%ui/components/uiHotkeysHint.nut")
-let { txtColor } = listCtors
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { soldierKinds } = require("%enlSqGlob/ui/soldierClasses.nut")
+
+let txtColor = @(flags, selected = false)
+  selected || (flags & S_HOVER) ? selectedTxtColor : defTxtColor
 
 const ICON_SCALE = 0.85
 const defaultSquadIcon = "!ui/uiskin/squad_default.svg"
 
-let squadTypeIconSize = hdpx(30).tointeger()
-let premIconSize = hdpx(26).tointeger()
+let squadTypeIconSize = hdpxi(30)
+let premIconSize = hdpxi(26)
 
 let squadTypeSvg = soldierKinds.map(@(c) c.icon)
   .__update({
@@ -68,7 +71,7 @@ let function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier = true) 
   return mkTextArea(loc(descKeyId, { number = readiness }))
 }
 
-let mkSquadSpawnIcon = @(size = hdpx(20).tointeger())
+let mkSquadSpawnIcon = @(size = hdpxi(20))
   {
     rendObj = ROBJ_IMAGE
     margin = smallPadding
@@ -178,7 +181,8 @@ let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
 
 let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
   squadType = null, squadSize = null, level = null, isFaded = false,
-  premIcon = null, onClick = null, addedRightObj = null, mkChild = null
+  premIcon = null, onClick = null, addedRightObj = null, mkChild = null,
+  expireTime = 0
 ) {
   let stateFlags = Watched(0)
   let selected = isSelected.value
@@ -186,6 +190,13 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
 
   return function() {
     let sf = stateFlags.value
+    let timerObj = expireTime == 0 ? null
+      : mkCountdownTimer({
+          timestamp = expireTime
+          color = txtColor(sf, selected)
+          override = { hplace = ALIGN_RIGHT, padding = [0, smallPadding] }
+          isSmall = true
+        })
     return {
       rendObj = ROBJ_SOLID
       size = multySquadPanelSize
@@ -207,6 +218,7 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
         premIcon != null
           ? mkSquadPremIcon(premIcon, { margin = [0, hdpx(6)] })
           : mkSquadLevel(level, sf, selected)
+        timerObj
       ].append(addChild)
     }
   }
@@ -214,6 +226,7 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
 
 
 return {
+  txtColor
   mkSquadCard
   mkKeyboardHint
   mkSquadIcon

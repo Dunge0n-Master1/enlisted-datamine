@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {inspectorRoot} = require("%darg/components/inspector.nut")
+let {inspectorRoot} = require("%darg/helpers/inspector.nut")
 let {lastActiveControlsType} = require("%ui/control/active_controls.nut")
 let {gameHudGen, getGameHud}  = require("%ui/hud/state/gameHuds.nut")
 let {showSettingsMenu, mkSettingsMenuUi} = require("%ui/hud/menus/settings_menu.nut")

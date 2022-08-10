@@ -1,15 +1,13 @@
-require app
 require DagorDataBlock
 require DagorMath
 require DagorRandom
 require DagorSystem
 require DagorTime
-require danetlibs.route_prober.main.net_events
+require %danetlibs.route_prober.main.net_events
 require daslib/algorithm
 require ecs
-require math.base
-require EnlistedNet
-require netstat
+require ClientNet
+require net
 require statsd
 
 let MAIN_HOST_ROUTE_ID : uint = 0u// strong assumption, but currently there is no way to know, which route is the host
@@ -40,11 +38,12 @@ let PERCENT_DIFF_SUM_DECAY_FACTOR : float = 0.95 // so that two routes with a sm
 // The client evaluates the route over ECHO_HISTORY_MAX_LENGTH * DEFAULT_ECHO_PERIOD_SECONDS seconds
 let ECHO_HISTORY_MAX_LENGTH : int = 10
 let DEFAULT_ECHO_PERIOD_SECONDS : float = 1.
+let RTT_MAX : uint = uint(INT_MAX)
 
 // Echo history has timeouts just alongside regular echo responses, meaning the timeout is indistinguishable from high ping (true to life)
 def get_rtt_estimation(echo_history : UInt32List) : uint
   if length(echo_history) == 0 // Happens if the route is unavailable after less than a 1 second of the game (practically impossible)
-    return UINT_MAX
+    return RTT_MAX
   var rttSum : uint = 0u
   for rtt in echo_history
     rttSum += rtt
@@ -72,13 +71,16 @@ def get_circuit_param(param : string; fallback : float) : float
       val = proberBlock |> datablock_getReal(param, fallback)
   return val
 
-def is_route_evaluation_enabled_in_settings() : bool
+def get_settings(param : string; fallback : bool) : bool
   let netBlock = dgs_get_settings() |> datablock_get_block_by_name_const("net")
-  return netBlock |> datablock_getBool("useServerRouteEvaluation", false)
+  return netBlock |> datablock_getBool(param, fallback)
 
-// Enables route evaluation with a params.routeEvaluationChance chance depending on current session id (deterministically)
-def is_route_evaluation_enabled_by_matching(params : MatchingRoomExtraParams) : bool
-  let chance : float = params.routeEvaluationChance// [0, 1]
+def get_settings(param : string; fallback : int) : int
+  let netBlock = dgs_get_settings() |> datablock_get_block_by_name_const("net")
+  return netBlock |> datablock_getInt(param, fallback)
+
+// Enables experiment with a given chance depending on current session id (deterministically)
+def is_matching_experiment_enabled(chance : float) : bool
   let session : uint64 = get_session_id()
   var seed : int = int(session)
   let r : float = _frnd(seed)// [0, 1)
@@ -89,9 +91,9 @@ def get_percent_diff(x : uint; y : uint) : int// [-100, 100]
   let m : int = max(int(x), int(y))
   return (m != 0) ? 100 * (int(x) - int(y)) / m : 0
 
-def try_launch_route_prober() : void
+def try_launch_route_prober(add_rtt : int) : void
   let routeCount : uint = get_server_route_count()
-  print("Route evaluation of {int(routeCount)} routes")
+  print("Route evaluation of {int(routeCount)} routes; add rtt {add_rtt}")
 
   if routeCount < 2u
     return
@@ -101,6 +103,7 @@ def try_launch_route_prober() : void
     init |> set("diff_sum_min", get_circuit_param("diff_sum_min", DEFAULT_PERCENT_DIFF_SUM_MIN))
     init |> set("rtt_sum_threshold", get_circuit_param("rtt_sum_threshold", DEFAULT_PERCENT_RTT_SUM_THRESHOLD))
     init |> set("echo_period_seconds", get_circuit_param("echo_period_seconds", DEFAULT_ECHO_PERIOD_SECONDS))
+    init |> set("add_rtt", uint(add_rtt))
 
   for route_id in urange(routeCount)
     createEntity("route_stats") <| $(var init : ComponentsInitializer&)
@@ -114,8 +117,8 @@ def get_diff_bucket_str(rtt_diff : int) : string
   return "_{buckets[lb]}" // "_" because of grafana bug: https://github.com/grafana/grafana/issues/38993
 
 def report_route_prober_statistics() : void
-  var mainRouteRtt : uint = UINT_MAX
-  var bestFromTheRest : uint = UINT_MAX
+  var mainRouteRtt : uint = RTT_MAX
+  var bestFromTheRest : uint = RTT_MAX
 
   query() <| $ [es(REQUIRE=routeStats)] (route_id : uint; rtt_estimation : uint)
     if route_id == MAIN_HOST_ROUTE_ID
@@ -165,13 +168,14 @@ def report_final_best(initial_best : uint) : void
 
 [es(tag=netClient, no_order)]
 def try_launch_route_prober_from_settings(evt : EventOnConnectedToServer)
-  if is_route_evaluation_enabled_in_settings()
-    try_launch_route_prober()
+  if get_settings("useServerRouteEvaluation", false)
+    try_launch_route_prober(get_settings("addRtt", 0))
 
 [es(tag=netClient, no_order)]
 def try_launch_route_prober_from_matching_params(evt : MatchingRoomExtraParams)
-  if !is_route_evaluation_enabled_in_settings() && is_route_evaluation_enabled_by_matching(evt)
-    try_launch_route_prober()
+  if !get_settings("useServerRouteEvaluation", false) && is_matching_experiment_enabled(evt.routeEvaluationChance)
+    let ddosSimulationEnabled : bool = is_matching_experiment_enabled(evt.ddosSimulationChance)
+    try_launch_route_prober(ddosSimulationEnabled ? evt.ddosSimulationAddRtt : 0)
 
 [es(tag=netClient, no_order, on_disappear, REQUIRE=routeProber)]
 def cleanup_route_prober(evt : Event; initial_best : uint)
@@ -185,17 +189,15 @@ def route_prober_timers(info : UpdateStageInfoAct;
                         var next_evaluation : float&;
                         var next_echo_broadcast : float&)
   if info.curTime > next_echo_broadcast
-    next_echo_broadcast = ((next_echo_broadcast > 0.) ? next_echo_broadcast : info.curTime) + echo_period_seconds
+    next_echo_broadcast = info.curTime + echo_period_seconds
     // Maybe do round-robing instead of broadcasting all at once?
     for route_id in urange(route_count)
       send_echo_msg(route_id)
   if info.curTime > next_evaluation
-    if next_evaluation == 0.
-      next_evaluation = info.curTime + evaluation_period_seconds
+    if next_evaluation != 0.
       // skip the avaluation the first time, because there is not enough echo packets were sent yet
-    else
-      next_evaluation = next_evaluation + evaluation_period_seconds
       broadcastEvent([[ChangeServerRoute currentIsUnresponsive=false]])
+    next_evaluation = info.curTime + evaluation_period_seconds
 
 [es(no_order, REQUIRE=routeStats)]
 def receive_echo_response(response : NetEchoReponse; route_id : uint; var echo_history : UInt32List&)
@@ -213,15 +215,19 @@ def receive_echo_response(response : NetEchoReponse; route_id : uint; var echo_h
 def evaluate_server_route(evt : ChangeServerRoute)
   let hasRouteProber = find_query() <| $ [es(REQUIRE=routeProber)] (diff_sum_min : int;
                                                                     rtt_sum_threshold : int;
+                                                                    add_rtt : uint;
                                                                     var initial_best : uint&;
                                                                     var statistics_reported : bool&)
     let currentRoute : uint = get_current_server_route_id()
-    var currentRttEstimation : uint = UINT_MAX
+    var currentRttEstimation : uint = RTT_MAX
 
     query() <| $ [es(REQUIRE=routeStats)] (route_id : uint;
                                            echo_history : UInt32List;
                                            var rtt_estimation : uint&)
       rtt_estimation = get_rtt_estimation(echo_history)
+      if route_id == MAIN_HOST_ROUTE_ID
+        rtt_estimation += add_rtt
+
       if route_id == currentRoute
         currentRttEstimation = rtt_estimation
 

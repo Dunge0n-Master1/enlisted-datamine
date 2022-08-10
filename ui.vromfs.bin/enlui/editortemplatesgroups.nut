@@ -13,6 +13,7 @@ let function initTemplatesGroups(for_debug) {
 
   add_group_variant("Mission objective zones", "capzone")
   add_group_variext("Mission objective zones", "capzone", "+defend_zone_respawnbase")
+  add_group_variext("Mission objective zones", "capzone", "+separate_cap_decap_time+lockable_capzone")
   add_group_variant("Mission objective zones", "capzone_area_polygon_point__*")
 
   add_group_variant("Mission supplies", "resupplyZone")

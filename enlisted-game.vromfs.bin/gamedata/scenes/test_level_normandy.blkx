@@ -14,10 +14,10 @@ entity{
   level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=0.0
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=0.0
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
-    "content/common/gamedata/weather/weather_poor.blk":r=0.5
+    weather_clear_a:r=0.0
+    weather_clear_b:r=0.0
+    weather_cloudy_a:r=1.0
+    weather_poor_a:r=0.5
   }
 
   "level__timeVec:array"{

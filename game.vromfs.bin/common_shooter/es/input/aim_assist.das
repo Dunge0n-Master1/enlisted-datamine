@@ -4,6 +4,7 @@ require math.base
 require DagorMath
 require DagorMathUtils
 require DagorInput
+require DagorSystem
 require TouchInput
 require Gun
 require HumanPhys
@@ -33,10 +34,13 @@ def aim_assist_init_es(evt : Event;
 
 [es(on_appear)]
 def aim_assist_node_load_es(evt : Event;
+                            eid : EntityId;
                             animchar : AnimcharBaseComponent;
                             aim_assist_target__nodeName : string;
                             var aim_assist_target__nodeIdx : int&)
   aim_assist_target__nodeIdx = geomtree_findNodeIndex(animchar.nodeTree, aim_assist_target__nodeName)
+  if aim_assist_target__nodeIdx < 0
+    logerr("aim_assist_target__nodeName '{aim_assist_target__nodeName}' not found in entity {eid}='{getEntityTemplateName(eid)}'")
 
 
 [es(tag=input, after=(human_input_es, human_input_attached_gun_es), before=after_input_sync)]
@@ -49,8 +53,9 @@ def aim_assist_target_es(info : UpdateStageUpdateInput;
                          team : int;
                          human_input__aimAngle : float2&;
                          aim_assist__enabled : bool;
+                         aim_assist__targetMaxDist : float;
                          aim_assist__targetMaxAngle : float;
-                         aim_assist__targetConeLength : float;
+                         aim_assist__targetConeWidth : float;
                          var aim_assist__targetEid : EntityId&;
                          var aim_assist__targetAngleCos : float&;
                          var aim_assist__targetDist : float&;
@@ -67,55 +72,26 @@ def aim_assist_target_es(info : UpdateStageUpdateInput;
   ecs::query(human_attached_gun__attachedGunEid != INVALID_ENTITY_ID ? human_attached_gun__attachedGunEid : human_weap__currentGunEid) <| $ [es] (gun : Gun)
     shootPos = gun.gunTm[3]
 
-  let wishTag = "human"
-  let myTeam = team
-  var bestScore = -1.0
-  var bestScoreDist = -1.0
-  var maxConeAngleSin, maxConeAngleCos : float
-  sincos(deg_to_rad(aim_assist__targetMaxAngle), maxConeAngleSin, maxConeAngleCos)
-
-  var zoomFactor = 1.0
+  var targetMaxDist = aim_assist__targetMaxDist
   for modEid in human_weap__currentGunModEids
     ecs::query(modEid) <| $ [es(REQUIRE=gunScope)] (gunmod__zoomFactor : float)
-      zoomFactor *= gunmod__zoomFactor * aim_assist__gunmodZoomFactorMult
+      targetMaxDist *= max(gunmod__zoomFactor * aim_assist__gunmodZoomFactorMult, aim_assist__targetMaxDist)
 
-  ecs::query() <| $ [es] (eid : EntityId;
-                          animchar : AnimcharBaseComponent;
-                          agent_dangers__tag : string;
-                          aim_assist_target__nodeIdx : int;
-                          var aim_assist_target__score : float&;
-                          team : int;
-                          isAlive : bool)
-    aim_assist_target__score = 0.0
-    if !isAlive || agent_dangers__tag != wishTag || is_teams_friendly(myTeam, team) || aim_assist_target__nodeIdx < 0
-      return
-    let aimPos = geomtree_getNodeWpos(animchar.nodeTree, aim_assist_target__nodeIdx)
-    var dir = aimPos - shootPos
-    let dist = length(dir)
-    dir *= rcp(dist)
-    let targetAngleCos = dot(dir, shootDir)
-    if targetAngleCos < 0.0
-      return
-    if targetAngleCos < get_min_assist_angle_cos(dist, maxConeAngleCos, aim_assist__targetConeLength * maxConeAngleSin / maxConeAngleCos)
-      return
-    var t = dist
+  var targets <- get_assist_targets(shootPos, shootDir, aim_assist__targetMaxDist, aim_assist__targetConeWidth * 1.5, cos(deg_to_rad(aim_assist__targetMaxAngle)), team)
+  for target in targets
+    var t = target.dist + 0.5
     var norm : float3
-    if traceray_normalized(shootPos, dir, t, norm)
-      return
-    if traceTransparencyRayRIGenNormalized(shootPos, dir, dist, 0.01)
-      return
-    if rayhit_smoke_occluders(shootPos, aimPos)
-      return
-    aim_assist_target__score = cvt(targetAngleCos, maxConeAngleCos, 1.0, 0.0, 1.0)
-    let scoreMult = (bestScoreDist >= 0.0) ? safediv(bestScoreDist, dist) : 1.f
-    aim_assist_target__score *= scoreMult
-    if aim_assist_target__score > bestScore
-      aim_assist__targetEid = eid
-      aim_assist__targetAngleCos = targetAngleCos
-      aim_assist__targetDist = safediv(dist, zoomFactor)
-      aim_assist__targetDir = dir
-      bestScore = aim_assist_target__score
-      bestScoreDist = dist
+    if traceray_normalized(shootPos, target.dir, t, norm)
+      continue
+    if traceTransparencyRayRIGenNormalized(shootPos, target.dir, target.dist, 0.01)
+      continue
+    if rayhit_smoke_occluders(shootPos, target.pos)
+      continue
+    aim_assist__targetEid = target.eid
+    aim_assist__targetAngleCos = target.dp
+    aim_assist__targetDist = target.dist
+    aim_assist__targetDir = target.dir
+    break
 
 
 [es(tag=input, after=aim_assist_target_es, before=after_input_sync)]
@@ -124,7 +100,7 @@ def aim_assist_slowdown_es(info : UpdateStageUpdateInput;
                            aim_assist__targetEid : EntityId;
                            aim_assist__targetAngleCos : float;
                            aim_assist__targetDist : float;
-                           aim_assist__targetConeLength : float;
+                           aim_assist__targetConeWidth : float;
                            aim_assist__slowdownEnabled : bool;
                            aim_assist__slowdownMaxAngle : float;
                            aim_assist__slowdownSensMult : float)
@@ -132,7 +108,7 @@ def aim_assist_slowdown_es(info : UpdateStageUpdateInput;
   if !aim_assist__slowdownEnabled || !aim_assist__targetEid
     return
   let assistProgress = get_assist_angle_progress(aim_assist__targetDist, aim_assist__targetAngleCos,
-                                                 aim_assist__slowdownMaxAngle, aim_assist__targetConeLength)
+                                                 aim_assist__slowdownMaxAngle, aim_assist__targetConeWidth)
   if assistProgress != 0.0
     human_input__aimingSensMult = aim_assist__slowdownSensMult
 
@@ -142,7 +118,7 @@ def aim_assist_on_aim_start_es(info : UpdateStageUpdateInput;
                                human_net_phys : HumanActor;
                                var human_input__aimAngle : float2&;
                                aim_assist__targetEid : EntityId;
-                               aim_assist__targetConeLength : float;
+                               aim_assist__targetConeWidth : float;
                                aim_assist__targetAngleCos : float;
                                aim_assist__targetDist : float;
                                aim_assist__targetDir : float3&;
@@ -158,9 +134,9 @@ def aim_assist_on_aim_start_es(info : UpdateStageUpdateInput;
                            get_phys_interpk_clamped(human_net_phys.phys, info.curTime))
     if human_net_phys.phys.currentState.aimPosition > human_net_phys.phys.previousState.aimPosition && aimProgress > aim_assist__onAimingStartProgress
       let minAngleCheck = get_assist_angle_progress(aim_assist__targetDist, aim_assist__targetAngleCos,
-                                                    aim_assist__onAimingStartAngles.x, aim_assist__targetConeLength)
+                                                    aim_assist__onAimingStartAngles.x, aim_assist__targetConeWidth)
       let maxAngleCheck = get_assist_angle_progress(aim_assist__targetDist, aim_assist__targetAngleCos,
-                                                    aim_assist__onAimingStartAngles.y, aim_assist__targetConeLength)
+                                                    aim_assist__onAimingStartAngles.y, aim_assist__targetConeWidth)
       if (minAngleCheck == 0.0 || aim_assist__onAimingStartProgress > 0.f) && maxAngleCheck != 0.0
         let aimAssist = aimProgress - aim_assist__onAimingStartProgress
         let wishAngle = dir_to_angles(aim_assist__targetDir)
@@ -183,10 +159,11 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
                                human_input__aimAngle : float2;
                                var human_input__aimAngleOffset : float2&;
                                human_input__aim : int;
+                               human_input__touch_aim : float2 = float2();
                                human_weap__currentGunEid : EntityId;
                                human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                                aim_assist__targetEid : EntityId;
-                               aim_assist__targetConeLength : float;
+                               aim_assist__targetConeWidth : float;
                                aim_assist__targetAngleCos : float;
                                aim_assist__targetDist : float;
                                aim_assist__targetDir : float3&;
@@ -200,7 +177,7 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
     return
 
   let aAim = get_analog_stick_action_state(uint16(human_input__aim))
-  let touchAim = get_stick_value(uint16(human_input__aim))
+  let touchAim = float2(human_input__touch_aim.x, human_input__touch_aim.y)
   let isManualAiming = aAim.x != 0.0 || aAim.y != 0.0 || touchAim.x != 0.0 || touchAim.y != 0.0
   if isManualAiming
     ecs::query(aim_assist__targetEid) <| $ [es] (collres : CollisionResource;
@@ -225,7 +202,7 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
     return
 
   let assistProgress = get_assist_angle_progress(aim_assist__targetDist, aim_assist__targetAngleCos,
-                                                 aim_assist__rotationAimMaxAngle, aim_assist__targetConeLength)
+                                                 aim_assist__rotationAimMaxAngle, aim_assist__targetConeWidth)
   if assistProgress != 0.0
     var wishDir = aim_assist__targetDir
     if aim_assist__targetEid != aim_assist__rotationTargetEid
@@ -245,10 +222,7 @@ def aim_assist_rotating_aim_es(info : UpdateStageUpdateInput;
 
     let wishAngle = dir_to_angles(wishDir)
     let wishOffset = angle_diff(human_input__aimAngle, wishAngle)
-    var visc = aim_assist__rotationVisc
-    if aim_assist__targetDist > aim_assist__targetConeLength
-      visc *= aim_assist__targetDist / aim_assist__targetConeLength
-    human_input__aimAngleOffset = approach(human_input__aimAngleOffset, wishOffset, info.dt, visc)
+    human_input__aimAngleOffset = approach(human_input__aimAngleOffset, wishOffset, info.dt, aim_assist__rotationVisc)
   else
     human_input__aimAngleOffset = approach(human_input__aimAngleOffset, float2(0.f, 0.f), info.dt, aim_assist__rotationVisc)
     aim_assist__rotationTargetEid = INVALID_ENTITY_ID

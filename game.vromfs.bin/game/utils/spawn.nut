@@ -3,7 +3,7 @@ require("%scripts/game/es/team.nut")
 
 let {kwarg} = require("%sqstd/functools.nut")
 let { TEAM_UNASSIGNED } = require("team")
-let debug = require("%sqstd/log.nut")().with_prefix("[SPAWN]")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
 let {logerr} = require("dagor.debug")
 let {FLT_MAX, sin, cos, PI} = require("math")
 let {Point3, TMatrix, cvt} = require("dagor.math")
@@ -85,7 +85,8 @@ let function validatePosition(tm, orig_pos, horz_extents = 0.75) {
   local wishPos = tm.getcol(3)
   let rayPos = traceray_navmesh(orig_pos, wishPos, 0.25)
   wishPos = traceSearch(rayPos, 1000.0)
-  let navmeshPos = project_to_nearest_navmesh_point_no_obstacles(wishPos, horz_extents)
+  let projExtents = Point3(horz_extents, FLT_MAX, horz_extents)
+  let navmeshPos = project_to_nearest_navmesh_point_no_obstacles(wishPos, projExtents)
   let resPos = check_path(navmeshPos, wishPos, 0.1, 0.5, 1.5, POLYFLAG_GROUND | POLYFLAG_JUMP) ? navmeshPos : wishPos
   let resTm = TMatrix(tm)
   resTm.orthonormalize()

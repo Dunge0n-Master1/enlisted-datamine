@@ -15,6 +15,7 @@ require GamePhys
 require EnlistedPhys
 require Plane
 require EnlistedPlane
+require EnlistedActor
 require game.es.artillery_aircraft_common
 require game.es.turrets_common
 
@@ -25,7 +26,7 @@ enum AIAircraftState : int
 
 [es(tag=server, no_order, REQUIRE=requested_aircraft)]
 def aircraft_request_distance_lifetime_es(info : UpdateStageInfoAct;
-                                          eid  : EntityId;
+                                          eid : EntityId;
                                           ai_aircraft__state : int;
                                           ai_aircraft__endPos : float3;
                                           ai_aircraft__minDistToHide : float;
@@ -202,7 +203,7 @@ def calc_ballistic_speed_for_dist(dst : float;
 
   let c = dst * gravity()
 
-  return safediv(c, sqrt(2. * cosDir * sinDir * c + 2. * cosDir * cosDir * gravity() * (pos.y - alt)))
+  return safediv(c, sqrt(abs(2. * cosDir * sinDir * c + 2. * cosDir * cosDir * gravity() * (pos.y - alt))))
 
 def turret_shoot(gunEid : EntityId;
                  vel : float3;
@@ -213,6 +214,7 @@ def turret_shoot(gunEid : EntityId;
     using() <| $(var gctr : GunControls#)
       gctr.shoot          = true
       gctr.boltActionMult = gun__timeBetweenShotMult
+      gctr.timeStep       = 1. / float(PHYS_DEFAULT_TICKRATE)
 
       using(dir, dir, vel, pos) <| $(var gloc : GunLocation#)
         sendEventImmediate(gunEid,
@@ -410,7 +412,7 @@ def ai_aircraft_autopilot_es(info : CmdPostPhysUpdate;
   plane_net_phys.phys |> flight_model_setPowerControlAll(powerControll)
 
 [es(tag=gameClient, after=update_projectile_es, REQUIRE=ai_bomb_projectile)]
-def update_bomb_projectile_es(info : UpdateStageInfoAct;
+def update_bomb_projectile_es(info : ParallelUpdateFrameDelayed;
                               projectile__visualPos : float3;
                               launch_desc : LaunchDesc;
                               projectile__stopped : bool;

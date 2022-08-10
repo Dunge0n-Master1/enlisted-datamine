@@ -1,9 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
-let {CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg} = require("%ui/style/colors.nut")
-let {stateChangeSounds} = require("%ui/style/sounds.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let {
+  CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg
+} = require("%ui/style/colors.nut")
+let { stateChangeSounds } = require("%ui/style/sounds.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {sound_play} = require("sound")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 

@@ -1,9 +1,10 @@
 require ecs
 require math
 require math.linear
+require enlisted.events_enlisted
 
-[es(tag=gameClient, REQUIRE=human_input, no_order)]
-def human_look_at_zone_es(act : ecs::UpdateStageInfoAct; isAlive : bool;
+[es(tag=gameClient, REQUIRE=human_input)]
+def human_look_at_zone_es(act : ParallelUpdateFrameDelayed; isAlive : bool;
                           human__aimTm : float3x4; var human__lookAtZone : EntityId&;
                           human__lookAtZoneMinDot : float = 0.97; human__lookAtZoneMinDistance : float = 5.0)
   if !isAlive

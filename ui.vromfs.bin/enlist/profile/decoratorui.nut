@@ -7,14 +7,14 @@ let spinner = require("%ui/components/spinner.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { sub_txt, body_txt, h2_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let {
   mkPortraitFrame, mkPortraitIcon, mkDisabledPortraitIcon,
-  mkNickFrame, mkExpireTime, PORTRAIT_SIZE, NICKFRAME_SIZE
+  mkNickFrame, mkExpireTime, PORTRAIT_SIZE, NICKFRAME_SIZE, mkRatingBlock
 } = require("decoratorPkg.nut")
 let {
   portraitCfgAvailable, nickFramesCfgAvailable, buyDecorator,
@@ -39,9 +39,8 @@ let {
 } = require("unseenProfileState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
-let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { playerRank } = require("%enlist/profile/rankState.nut")
-let openRanksInfoWnd = require("%enlist/profile/ranksInfoWnd.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 
 
 
@@ -366,48 +365,6 @@ let mkChangeNickFrameBtn = @(hasUnseen) watchElemState(@(sf) {
   ]
 })
 
-let ratingBlock = @() function() {
-  if (playerRank.value == null)
-    return null
-
-  let { locId } = getRankConfig(playerRank.value?.rank)
-  return {
-    flow = FLOW_HORIZONTAL
-    gap = hdpx(15)
-    watch = playerRank
-    children = [
-      {
-        flow = FLOW_VERTICAL
-        gap = hdpx(10)
-        children = [
-          txt({
-            text = loc(locId)
-            color = titleTxtColor
-          }).__update(h2_txt)
-          {
-            flow = FLOW_HORIZONTAL
-            halign = ALIGN_RIGHT
-            size = [flex(), SIZE_TO_CONTENT]
-            gap = hdpx(5)
-            children = [
-              {
-                rendObj = ROBJ_IMAGE
-                behavior = Behaviors.Button
-                onClick = openRanksInfoWnd
-                image = Picture($"!ui/skin#info/info_icon.svg:{hdpx(20)}:{hdpx(20)}:K")
-              }
-              txt({
-                text = loc("rank/playerRank", { rating = playerRank.value.rating / 100 })
-              })
-            ]
-          }
-        ]
-      }
-      mkRankImage(playerRank.value.rank, openRanksInfoWnd)
-    ]
-  }
-}
-
 let decoratorBlock = {
   flow = FLOW_HORIZONTAL
   size = [flex(), SIZE_TO_CONTENT]
@@ -450,7 +407,7 @@ let decoratorBlock = {
             color = titleTxtColor
           }).__update(body_txt)
           mkChangeNickFrameBtn(hasUnseen)
-          !is_pc ? null
+          !is_pc || isChineseVersion ? null
             : Bordered(loc("profile/changeNick"), @() openUrl(CHANGE_NICK_URL),
                 {
                   margin = 0
@@ -467,7 +424,7 @@ return {
   flow = FLOW_HORIZONTAL
   children = [
     decoratorBlock
-    ratingBlock()
+    mkRatingBlock(playerRank)
   ]
 }
 

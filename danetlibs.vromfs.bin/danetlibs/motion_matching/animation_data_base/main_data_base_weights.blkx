@@ -26,21 +26,21 @@ trajectory{
   point{
     time:r=0.1
     velocity_weight:r=7.639
-    rotation_weight:r=4.213
+    rotation_weight:r=2.459
     position_weight:r=7.948
   }
 
   point{
     time:r=0.25
-    velocity_weight:r=4.676
-    rotation_weight:r=2.577
+    velocity_weight:r=6.94
+    rotation_weight:r=1.53
     position_weight:r=7.145
   }
 
   point{
     time:r=0.5
-    velocity_weight:r=2.886
-    rotation_weight:r=1.219
+    velocity_weight:r=6.885
+    rotation_weight:r=0.656
     position_weight:r=6.219
   }
 }

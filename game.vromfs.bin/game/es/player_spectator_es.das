@@ -1,6 +1,6 @@
 require app
 require DagorDataBlock
-require debug.log_utils
+require debug.logerr_once
 require ecs
 require game.es.events
 require game.es.player_common

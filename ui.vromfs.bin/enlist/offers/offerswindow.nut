@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let JB = require("%ui/control/gui_buttons.nut")
 let viewShopItemsScene = require("%enlist/shop/viewShopItemsScene.nut")
 let buySquadWindow = require("%enlist/shop/buySquadWindow.nut")
-let mkCountdownTimer = require("%enlist/components/mkCountdownTimer.nut")
+let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let activatePremiumBttn = require("%enlist/shop/activatePremiumBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -159,7 +159,6 @@ let function mkOfferShopItem(personalOffer, ownSquads) {
         children = mkShopItemView({
           shopItem
           crateContent
-          personalOffer
           onCrateViewCb = @() viewShopItemsScene(shopItem)
         })
       }
@@ -278,7 +277,7 @@ allActiveOffers.subscribe(function(list) {
 })
 isSpecOffersOpened.subscribe(@(v) v ? open() : close())
 
-return function(idx) {
-  curOfferIdx(idx)
+return function(specOffer) {
+  curOfferIdx(allActiveOffers.value.indexof(specOffer) ?? 0)
   isSpecOffersOpened(true)
 }

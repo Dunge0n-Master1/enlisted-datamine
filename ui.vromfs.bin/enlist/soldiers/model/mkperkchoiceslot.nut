@@ -19,7 +19,7 @@ let textButton = require("%ui/components/textButton.nut")
 let COST_ICON_PAIR_WIDTH = hdpx(50)
 let BG_HOVER = Color(35, 35, 35, 255)
 let BG_PREV_PERK = Color(55, 55, 55, 255)
-let thumbIconSize = hdpx(35).tointeger()
+let thumbIconSize = hdpxi(35)
 
 let sPerks = Computed(@() perksData.value?[perkChoiceWndParams.value?.soldierGuid])
 

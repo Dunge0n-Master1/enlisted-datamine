@@ -10,14 +10,14 @@ let { fabs } = require("math")
 let { Point2, Point3 } = require("dagor.math")
 
 let activeBattleAreasState = Watched({})
-let deactivatingBattleAreasState = Watched({})
+let nextBattleAreasState = Watched({})
 let battleAreasPolygon = Watched(null)
 let nextBattleAreasPolygon = Watched(null)
 let battleAreaDeactivationTime = Watched(-1)
 
 
 let function checkInSquareZone(battleAreaZones, checkingPoint){ //lines are sorted clockwise
-  foreach(zone in battleAreaZones){
+  foreach (zone in battleAreaZones){
     let D1 = (zone.line1.end.x - zone.line1.start.x) * (checkingPoint.y - zone.line1.start.y) -
                (zone.line1.end.y - zone.line1.start.y) * (checkingPoint.x - zone.line1.start.x)
     let D2 = (zone.line2.end.x - zone.line2.start.x) * (checkingPoint.y - zone.line2.start.y) -
@@ -35,7 +35,7 @@ let function checkInSquareZone(battleAreaZones, checkingPoint){ //lines are sort
 
 let function checkInPolyZone(polyBattleAreaZones, checkingPoint, excludeEids){
   let checkingPoint3 = Point3(checkingPoint.x,0,checkingPoint.y)
-  foreach(zone in polyBattleAreaZones){
+  foreach (zone in polyBattleAreaZones){
     local skipZone = false
     foreach (excludeEid in excludeEids){
       skipZone = zone == excludeEid
@@ -216,7 +216,7 @@ local function clearDuplicates(segments) {
       }
     }
   }
-  segments = segments.filter(@(v) v?.duplicate != true)
+  segments.replace(segments.filter(@(v) v?.duplicate != true))
 }
 
 let isTagsEqual = @(eid, heroTag) heroTag != null && ecs.obsolete_dbg_get_comp_val(eid, heroTag) != null
@@ -319,23 +319,22 @@ let function isEqualAreas(areasA, areasB) {
 let function battleAreaHud(...) {
   let areas = getBattleAreas()
   let areasEids = areas.map(@(...) true)
-  let deactivatingAreasEids = areas.filter(@(area) area.deactivationTime >= 0).map(@(...) true)
+  let nextAreas = areas.filter(@(area) area.deactivationTime < 0)
+  let nextAreasEids = nextAreas.map(@(...) true)
   if (!isEqualAreas(activeBattleAreasState.value, areasEids)) {
     activeBattleAreasState(areasEids)
     battleAreasPolygon(getBattleAreasPolygon(areas))
   }
-  if (!isEqualAreas(deactivatingBattleAreasState.value, deactivatingAreasEids)) {
-    deactivatingBattleAreasState(deactivatingAreasEids)
-    if (deactivatingAreasEids.len() > 0) {
-      let nextAreas = areas.filter(@(area) area.deactivationTime < 0)
-      nextBattleAreasPolygon(getBattleAreasPolygon(nextAreas))
-      let deactivationTimes = areas.map(@(area) area.deactivationTime)
-      let maxDeactivationTime = deactivationTimes.reduce(@(a,b) a > b ? a : b) ?? -1
-      battleAreaDeactivationTime(maxDeactivationTime)
-    } else {
-      nextBattleAreasPolygon(null)
-      battleAreaDeactivationTime(-1)
-    }
+  if (nextAreasEids.len() == areasEids.len()) {
+    nextBattleAreasState({})
+    nextBattleAreasPolygon(null)
+    battleAreaDeactivationTime(-1)
+  } else if (!isEqualAreas(nextBattleAreasState.value, nextAreasEids)) {
+    nextBattleAreasState(nextAreasEids)
+    nextBattleAreasPolygon(getBattleAreasPolygon(nextAreas))
+    let deactivationTimes = areas.map(@(area) area.deactivationTime)
+    let maxDeactivationTime = deactivationTimes.reduce(@(a,b) a > b ? a : b) ?? -1
+    battleAreaDeactivationTime(maxDeactivationTime)
   }
 }
 

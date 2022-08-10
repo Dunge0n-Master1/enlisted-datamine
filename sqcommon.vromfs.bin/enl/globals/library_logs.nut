@@ -62,12 +62,13 @@ let export = {
   isEqual = specifiedIsEqual
   log_for_user = log.dlog //warning disable: -dlog-warn
   dlog = log.dlog //warning disable: -dlog-warn
-  log
+  log = log.log
   dlogsplit = log.dlogsplit
   vlog = log.vlog
   console_print = log.console_print
   wlog = log.wlog
-  wdlog = @(watched, prefix = "") log.wlog(watched, prefix, log.dlog) //disable: -dlog-warn
+  with_prefix = log.with_prefix
+  wdlog = @(watched, prefix = null, transform=null) log.wlog(watched, prefix, transform, log.dlog) //disable: -dlog-warn
   debugTableData = log.debugTableData
 }
 

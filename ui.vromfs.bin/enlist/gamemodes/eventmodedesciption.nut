@@ -12,7 +12,7 @@ let { mkRewardImages, prepareRewards, mkRewardTooltip, rewardWidthToHeight, mkSe
   mkRewardText
 } = require("%enlist/battlepass/rewardsPkg.nut")
 let rewardsItemMapping = require("%enlist/items/itemsMapping.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { eventRewardsUnlocks, lbRewards, lbRewardsTypes } = require("eventRewardsState.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { cardCountCircleSmall } = require("%enlist/battlepass/bpPkg.nut")
@@ -33,22 +33,22 @@ let descritionBlockWidth = Computed(@()
 let isEnded = Computed(@() inactiveEventsToShow.value.contains(selEvent.value) &&
   (selEvent.value?.leaderboardTableIdx ?? curLbIdx.value) < curLbIdx.value )
 
-let participationRewards = Computed(function(){
+let participationRewards = Computed(function() {
   let unlocks = []
   let lbRew = clone lbRewards.value
   let localization = {
     description = "events/endGiven"
   }
   let currentEvent = selLbMode.value
-  lbRew?[currentEvent].each(@(val) val.stages.each(function(v){
-    if(v.progress == 100){
-        val.localization <- localization
-        unlocks.append(val)
-      }
+  lbRew?[currentEvent].each(@(val) val.stages.each(function(v) {
+    if (v.progress == 100) {
+      val.localization <- localization
+      unlocks.append(val)
+    }
   }))
-  if(unlocks.len() == 0)
+  if (unlocks.len() == 0)
     return {}
-  return { [currentEvent] = unlocks}
+  return { [currentEvent] = unlocks }
 })
 
 let shadowParams = {
@@ -58,9 +58,9 @@ let shadowParams = {
   fontFxOffsY = hdpx(0.9)
 }
 
-let function eventsTimer(){
+let function eventsTimer() {
   let res = { watch = [selEventEndTime, serverTime, isEnded] }
-  if(isEnded.value || selEventEndTime.value - serverTime.value <= 0)
+  if (isEnded.value || selEventEndTime.value - serverTime.value <= 0)
     return res
 
   return res.__update({
@@ -106,7 +106,7 @@ let completedRewardSignBottom = completedRewardSign.__merge({
   vplace = ALIGN_BOTTOM
 })
 
-let mkRewardTitle = @(text, isCompleted){
+let mkRewardTitle = @(text, isCompleted) {
   children = [
     isCompleted ? completedRewardSign : null
     {
@@ -119,14 +119,14 @@ let mkRewardTitle = @(text, isCompleted){
   ]
 }
 
-let mkRewardsBlockTitle = @(text){
+let mkRewardsBlockTitle = @(text) {
   rendObj = ROBJ_TEXT
   halign = ALIGN_CENTER
   text
 }.__update(body_txt)
 
-let function temporarySign(){
-  let size = hdpx(24).tointeger()
+let function temporarySign() {
+  let size = hdpxi(24)
   return{
     rendObj = ROBJ_IMAGE
     size = [size, size]
@@ -155,7 +155,7 @@ let function mkReward(rewardData, hasReceived = false) {
   let {count, reward} = rewardData
   local rewardToShow = mkRewardImages(reward, imageSize)
     ?? mkRewardText(reward, hdpx(60), {size = sizeCard})
-  if(rewardData.reward?.stackImages != null){
+  if (rewardData.reward?.stackImages != null) {
     let r = rewardData.reward
     rewardToShow = mkMedalCard(r.bgImage, r.stackImages, hdpx(138))
   }
@@ -172,80 +172,88 @@ let function mkReward(rewardData, hasReceived = false) {
   }
 }
 
+let mkProgress = @(current, required) required <= 1 || current == required ? null : {
+  rendObj = ROBJ_TEXT
+  text = $"{current} / {required}"
+  color = accentTitleTxtColor
+}.__update(sub_txt)
+
 let rewardsWrapParams = {
   width = descritionBlockWidth.value
   vGap = localGap
   hGap = localGap
 }
 
-let mkTasksBlock = @(unlocks, selectedLbMode, rewardType = null,
-  mkChild = @(_) null, rewardExtraObj = null, isLastType = false
-) function() {
-  let rewardsChildren = []
-  local rewardsArr = clone unlocks?[selectedLbMode] ?? []
-  let totalUnlocks = rewardsArr.len()
+let function mkTasksBlock(
+  unlocks, rewardType = null, mkChild = @(_) null, rewardExtraObj = null, isLastType = false
+) {
+  unlocks = unlocks ?? []
+  let totalUnlocks = unlocks.len()
   if (rewardType == null)
-    rewardsArr = rewardsArr
+    unlocks = clone unlocks
       .map(@(v) v.__merge({ maxProgress =
         v.stages.reduce(@(res, val) val.progress > res ? val.progress : res, 0) }))
       .sort(@(a, b) a.maxProgress <=> b.maxProgress)
 
+  return function() {
+    let rewardsChildren = []
+    foreach (uIdx, unlock in unlocks) {
+      let { stages = [], current = 0, required = 0 } = unlock
+      let totalStages = stages.len()
+      foreach (sIdx, stage in stages) {
+        if ((rewardType != null && unlock.name != rewardType)
+          || (rewardType != null && stage.progress == 100))
+          continue
+        let curStageReward = (stage?.rewards.keys()[0] ?? stage?[0].rewards.keys()[0]) ?? ""
+        let curRewardGuid = rewardsItemMapping.value?[curStageReward].medals[0]
+          ?? rewardsItemMapping.value?[curStageReward].decorators[0].guid
 
-  foreach (uIdx, unlock in rewardsArr) {
-    let { stages = [] } = unlock
-    let totalStages = stages.len()
-    foreach (sIdx, stage in stages) {
-      if((rewardType != null && unlock.name != rewardType)
-        || (rewardType != null && stage.progress == 100))
-        continue
-      let curStageReward = (stage?.rewards.keys()[0] ?? stage?[0].rewards.keys()[0]) ?? ""
-      let curRewardGuid = rewardsItemMapping.value?[curStageReward].medals[0]
-        ?? rewardsItemMapping.value?[curStageReward].decorators[0].guid
+        let hasReceived = curRewardGuid in availPortraits.value
+          || medals.value.findindex(@(v) v.id == curRewardGuid) != null
+          || curRewardGuid in availNickFrames.value
 
-      let hasReceived = curRewardGuid in availPortraits.value
-        || medals.value.findindex(@(v) v.id == curRewardGuid) != null
-        || curRewardGuid in availNickFrames.value
-
-      let isLast = isLastType && uIdx == totalUnlocks - 1 - participationRewards.value.len()
-        && sIdx == totalStages - 1
-      let rewards = prepareRewards(stage?.rewards ?? {}, rewardsItemMapping.value)
-        .sort(@(a,b) (b?.reward.medals.len() ?? 0) <=> (a?.reward.medals.len() ?? 0)
-          || (a?.reward.cardText ?? "") <=> (b?.reward.cardText ?? "")
-          || (a?.reward.isTemporary ?? false) <=> (b?.reward.isTemporary ?? false))
-      let rewardCards = rewards.map(@(r) mkReward(r, hasReceived))
-      let rchildren = {
-        flow = FLOW_VERTICAL
-        halign = ALIGN_CENTER
-        gap = bigPadding
-        children = [
-          mkChild?(stage?.progress)
-          {
-            flow = FLOW_HORIZONTAL
-            gap = localGap
-            children = rewardType != null
-              ? wrap(rewardCards, rewardsWrapParams)
-              : rewardCards
-          }
-          unlock?.localization.description != null
-            ? mkRewardTitle(loc(unlock?.localization.description), unlock?.isCompleted ?? false)
-            : null
-          isLast ? null : rewardExtraObj
-        ]
+        let isLast = isLastType && uIdx == totalUnlocks - 1 - participationRewards.value.len()
+          && sIdx == totalStages - 1
+        let rewards = prepareRewards(stage?.rewards ?? {}, rewardsItemMapping.value)
+          .sort(@(a,b) (b?.reward.medals.len() ?? 0) <=> (a?.reward.medals.len() ?? 0)
+            || (a?.reward.cardText ?? "") <=> (b?.reward.cardText ?? "")
+            || (a?.reward.isTemporary ?? false) <=> (b?.reward.isTemporary ?? false))
+        let rewardCards = rewards.map(@(r) mkReward(r, hasReceived))
+        let rchildren = {
+          flow = FLOW_VERTICAL
+          halign = ALIGN_CENTER
+          gap = bigPadding
+          children = [
+            mkChild?(stage?.progress)
+            {
+              flow = FLOW_HORIZONTAL
+              gap = localGap
+              children = rewardType != null
+                ? wrap(rewardCards, rewardsWrapParams)
+                : rewardCards
+            }
+            unlock?.localization.description != null
+              ? mkRewardTitle(loc(unlock?.localization.description), unlock?.isCompleted ?? false)
+              : null
+            isLast ? null : rewardExtraObj
+            mkProgress(current, required)
+          ]
+        }
+        rewardsChildren.append(rchildren)
       }
-      rewardsChildren.append(rchildren)
     }
-  }
 
-  return {
-    watch = [descritionBlockWidth, rewardsItemMapping, participationRewards,
-      availPortraits, medals, availNickFrames]
-    flow = rewardType == null ? FLOW_HORIZONTAL : FLOW_VERTICAL
-    gap = rewardType == null ? localGap : verticalGap
-    children = rewardsChildren
+    return {
+      watch = [descritionBlockWidth, rewardsItemMapping, participationRewards,
+        availPortraits, medals, availNickFrames]
+      flow = rewardType == null ? FLOW_HORIZONTAL : FLOW_VERTICAL
+      gap = rewardType == null ? localGap : verticalGap
+      children = rewardsChildren
+    }
   }
 }
 
-let eventsProgressChild = @(progress, rType){
+let eventsProgressChild = @(progress, rType) {
   rendObj = ROBJ_TEXT
   hplace = ALIGN_LEFT
   text = rType != "tillPercent" ? loc("events/getTop", {progress})
@@ -254,7 +262,7 @@ let eventsProgressChild = @(progress, rType){
 }.__update(body_txt)
 
 
-let function rewardsBlock(){
+let function rewardsBlock() {
   let lbTotal = lbRewardsTypes.len()
   return {
     watch = [participationRewards, eventRewardsUnlocks, lbRewards,
@@ -276,15 +284,15 @@ let function rewardsBlock(){
             flow = FLOW_HORIZONTAL
             gap = localGap
             children = [
-              mkTasksBlock(participationRewards.value, selLbMode.value)
-              mkTasksBlock(eventRewardsUnlocks.value, selLbMode.value)
+              mkTasksBlock(participationRewards.value?[selLbMode.value])
+              mkTasksBlock(eventRewardsUnlocks.value?[selLbMode.value])
             ]
           }
         ]
       }
     ].extend(lbRewardsTypes
       .map(@(rType, idx)
-        mkTasksBlock(lbRewards.value, selLbMode.value, rType,
+        mkTasksBlock(lbRewards.value?[selLbMode.value], rType,
           @(progress) eventsProgressChild(progress, rType),
           extraRewardText, idx == lbTotal - 1)
       ))

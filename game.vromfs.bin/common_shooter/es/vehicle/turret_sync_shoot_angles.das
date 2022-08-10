@@ -5,8 +5,7 @@ require vehicle
 require EnlistedWeapon
 require DagorMathUtils
 require common_shooter.events_common_shooter
-
-let AIM_DISTANCE = 1000.
+require common_shooter.es.weapon.turret_common
 
 // Sync turret angles for special case: the player owns a vehicles connection - the player will receive AAS and not shapshots (turret angles goes by snapshots)
 // Send turret angels for such players

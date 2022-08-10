@@ -10,9 +10,8 @@ let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let { isDowned, isAlive, hp, maxHp } = require("%ui/hud/state/health_state.nut")
 let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
-let { weaponsList } = require("%ui/hud/state/hero_state.nut")
+let { hasPrimaryWeapon } = require("%ui/hud/state/hero_weapons.nut")
 let { isAttachedToGun } = require("%ui/hud/state/attached_gun_state.nut")
-let weaponSlots = require("%enlSqGlob/weapon_slots.nut")
 let { requestAmmoTimeout } = require("state/requestAmmoState.nut")
 let { localPlayerSquadMembers } = require("state/squad_members.nut")
 let { playerEvents } = require("%ui/hud/state/eventlog.nut")
@@ -28,7 +27,7 @@ let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { cmdQuickChat } = require("quickchat_menu.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { ESMO_BRING_AMMO, ESMO_HEAL, ESFN_CLOSEST, ESFN_STANDARD, ESFN_WIDE } = require("ai")
-let { ESB_AGRESSIVE, ESB_PASSIVE } = require("%enlSqGlob/dasenums.nut")
+let { SquadBehaviour } = require("%enlSqGlob/dasenums.nut")
 let { get_setting_by_blk_path } = require("settings")
 
 let { forcedMinimalHud, noBotsModeHud } = require("state/hudGameModes.nut")
@@ -71,13 +70,13 @@ let cmdFollowMe = addTextCtor({
 
 // TODO: move squad behaviour and formation constructors to another file
 let squadBehaviourNames = {
-  [ESB_AGRESSIVE] = loc("squad_orders/behaviour_agressive", "Aggressive"),
-  [ESB_PASSIVE] = loc("squad_orders/behaviour_passive", "Passive")
+  [SquadBehaviour.ESB_AGRESSIVE] = loc("squad_orders/behaviour_agressive", "Aggressive"),
+  [SquadBehaviour.ESB_PASSIVE] = loc("squad_orders/behaviour_passive", "Passive")
 }
 
 let squadBehaviourDescs = {
-  [ESB_AGRESSIVE] = loc("squad_orders/behaviour_agressive/desc"),
-  [ESB_PASSIVE] = loc("squad_orders/behaviour_passive/desc")
+  [SquadBehaviour.ESB_AGRESSIVE] = loc("squad_orders/behaviour_agressive/desc"),
+  [SquadBehaviour.ESB_PASSIVE] = loc("squad_orders/behaviour_passive/desc")
 }
 
 let currentSquadBehaviourText = Computed(@()
@@ -101,8 +100,8 @@ let addSquadBehaviourCtor = @(behaviour) addTextCtor({
 let cmdSquadBehaviour = addTextCtor({
   id = "squadbehaviour_items"
   items = [
-    addSquadBehaviourCtor(ESB_AGRESSIVE),
-    addSquadBehaviourCtor(ESB_PASSIVE),
+    addSquadBehaviourCtor(SquadBehaviour.ESB_AGRESSIVE),
+    addSquadBehaviourCtor(SquadBehaviour.ESB_PASSIVE),
   ]
   text = loc("squad_orders/behaviour", "Behaviour")
   closeOnClick = false
@@ -166,7 +165,7 @@ let requestAmmoReason = Computed(function() {
     return loc("msg/cannotRequestAmmoWhenMounted")
   if (inVehicle.value)
     return loc("msg/cannotRequestAmmoFromVehicle")
-  if (!weaponsList.value?[weaponSlots.EWS_PRIMARY]?.itemPropsId)
+  if (!hasPrimaryWeapon.value)
     return loc("msg/hasNoWeaponForAmmoRequest")
   if (!isCompatibleWeapon.value)
     return loc("msg/cantRequestAmmoForThisWeapon")

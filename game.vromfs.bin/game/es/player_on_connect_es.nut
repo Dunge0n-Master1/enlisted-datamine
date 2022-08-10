@@ -1,6 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let { TEAM_UNASSIGNED } = require("team")
-let debug = require("%sqstd/log.nut")().with_prefix("[PLAYER]")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[PLAYER]")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")
 let assign_team = require("%scripts/game/utils/team.nut")
 let {INVALID_CONNECTION_ID, add_entity_in_net_scope, get_sync_time} = require("net")

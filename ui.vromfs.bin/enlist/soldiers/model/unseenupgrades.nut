@@ -136,7 +136,7 @@ let availableUpgradesEquipsByArmy = Computed(function() {
   let upgradesByArmy = availableUpgradesByArmy.value
 
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let armyRes = {}
     let squadsIndexes = {}
     foreach (idx, squad in armiesSquads?[armyId] ?? [])
@@ -145,7 +145,7 @@ let availableUpgradesEquipsByArmy = Computed(function() {
     let armyUpgrades = upgradesByArmy?[armyId] ?? {}
     let armyItems = armiesItems?[armyId] ?? {}
     let armySoldiers = armiesSoldiers?[armyId] ?? {}
-    foreach(item in armyItems) {
+    foreach (item in armyItems) {
       let tpl = item.basetpl
       if (tpl not in armyUpgrades)
         continue
@@ -165,7 +165,7 @@ let availableUpgradesEquipsByArmy = Computed(function() {
     res[armyId] <- armyRes.map(function(tplData) {
       local bestPriority
       local bestIdx
-      foreach(idx, itemData in tplData)
+      foreach (idx, itemData in tplData)
         if (bestPriority == null || itemData.priority < bestPriority) {
           bestPriority = itemData.priority
           bestIdx = idx
@@ -181,7 +181,7 @@ let unseenAvailableUpgradesByArmy = Computed(function() {
     return {}
 
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let seenData = seen.value?[armyId] ?? {}
     res[armyId] <- (availableUpgradesEquipsByArmy.value?[armyId] ?? {})
       .filter(@(_, tpl) tpl not in seenData)
@@ -194,7 +194,7 @@ let curUnseenAvailableUpgrades = Computed(@()
 
 let curUnseenUpgradesBySoldier = Computed(function() {
   let res = {}
-  foreach(availUpgrade in curUnseenAvailableUpgrades.value) {
+  foreach (availUpgrade in curUnseenAvailableUpgrades.value) {
     let { soldier = null } = availUpgrade
     if (soldier != null)
       res[soldier] <- (res?[soldier] ?? 0) + 1
@@ -204,7 +204,7 @@ let curUnseenUpgradesBySoldier = Computed(function() {
 
 let curUnseenUpgradesBySquad = Computed(function() {
   let res = {}
-  foreach(availUpgrade in curUnseenAvailableUpgrades.value) {
+  foreach (availUpgrade in curUnseenAvailableUpgrades.value) {
     let { squad = null } = availUpgrade
     if (squad != null)
       res[squad] <- (res?[squad] ?? 0) + 1
@@ -214,9 +214,9 @@ let curUnseenUpgradesBySquad = Computed(function() {
 
 let unseenUpgradesByArmy = Computed(function() {
   let res = {}
-  foreach(armyId, armyUpgradesData in unseenAvailableUpgradesByArmy.value) {
+  foreach (armyId, armyUpgradesData in unseenAvailableUpgradesByArmy.value) {
     res[armyId] <- {}
-    foreach(upgradeData in armyUpgradesData) {
+    foreach (upgradeData in armyUpgradesData) {
       let { soldier = null } = upgradeData
       if (soldier not in res[armyId])
         res[armyId][soldier] <- true
@@ -226,7 +226,7 @@ let unseenUpgradesByArmy = Computed(function() {
 })
 
 availableUpgradesEquipsByArmy.subscribe(function(v) {
-  foreach(armyId, data in v)
+  foreach (armyId, data in v)
     updateSeen(armyId, data)
 })
 

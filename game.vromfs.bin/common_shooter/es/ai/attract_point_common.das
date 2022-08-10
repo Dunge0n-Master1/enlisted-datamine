@@ -19,7 +19,7 @@ variant MaybeAttractPos
   pos : AttractPos
   invalid : void?
 
-def get_nearest_attract_point(cur_pos : float3; cur_poly : uint64; radius : float; prev_pos_eid : EntityId; prev_pos_threshold_dist_sq : float; check_path : bool) : MaybeAttractPos
+def get_nearest_attract_point(cur_pos : float3; cur_poly : dtPolyRef; radius : float; prev_pos_eid : EntityId; prev_pos_threshold_dist_sq : float; check_path : bool) : MaybeAttractPos
   var points : array<AttractPos>
   let bsphere = BSphere3(cur_pos, radius)
   var res = [[MaybeAttractPos invalid=null]]
@@ -64,8 +64,11 @@ def get_nearest_attract_point(cur_pos : float3; cur_poly : uint64; radius : floa
     var tries = 2
     for point in points
       var pathSq = 0f
-      let inp = [[CorridorInput() start=cur_pos, target=point.center, distToPath=0.5]]
-      let hasPath = path_corridor |> set_path_corridor(inp, cur_poly)
+      var hasPath = FindPathResult FPR_FAILED
+      let extents = float3(0.5, FLT_MAX, 0.5)
+      using(cur_pos, point.center, extents) <| $(var inp : CorridorInput#)
+        inp.startPoly = cur_poly
+        hasPath = path_corridor |> set_path_corridor(inp, null)
       path_corridor |> find_corridor_corners(5) <| $(path)
         if length(path) > 1
           var begin = path[0]

@@ -2,6 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { ceil } = require("%sqstd/math.nut")
+let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
 let { showMessageWithContent, showMsgbox } = require("%enlist/components/msgbox.nut")
@@ -29,9 +30,8 @@ let { curArmyReserve, curArmyReserveCapacity
 } = require("model/reserve.nut")
 let { gameProfile } = require("model/config/gameProfile.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
-
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { makeVertScroll } = require("%darg/components/scrollbar.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let mkSoldierInfo = require("mkSoldierInfo.nut")
 let squadHeader = require("components/squadHeader.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
@@ -44,9 +44,10 @@ let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { curCanUnequipSoldiersList } = require("model/selectItemState.nut")
 let { RETIRE_ORDER, retireReturn } = require("model/config/soldierRetireConfig.nut")
 let { debounce } = require("%sqstd/timers.nut")
-let freemiumPromo = require("%enlist/currency/pkgFreemiumWidgets.nut")
+let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { needFreemiumStatus, curUpgradeDiscount
 } = require("%enlist/campaigns/freemiumState.nut")
+
 
 const NO_SOLDIER_SLOT_IDX = -1
 
@@ -67,7 +68,7 @@ let moveParams = Computed(function() {
   local idx = null
   let guid = selectedSoldierGuid.value
   if (guid != null)
-    foreach(w in [squadSoldiers, reserveSoldiers]) {
+    foreach (w in [squadSoldiers, reserveSoldiers]) {
       idx = w.value.findindex(@(s) s?.guid == guid)
       if (idx != null) {
         watch = w
@@ -262,8 +263,9 @@ let function mkSoldierSlot(soldier, idx, tgtHighlight, addObjects) {
       onDrop = onDrop
       onClick = @() selectedSoldierGuid(soldier.guid == selectedSoldierGuid.value ? null : soldier.guid)
       onHover = function(on) {
-        if (on)
-          markSoldierSeen(curArmy.value, soldier?.guid)
+        hoverHoldAction("markSeenSoldier",
+          { armyId = curArmy.value, guid = soldier?.guid },
+          @(v) markSoldierSeen(v.armyId, v.guid))(on)
       }
     }
 
@@ -615,10 +617,7 @@ let soldiersContent = {
     }
     @() {
       watch = needFreemiumStatus
-      children = !needFreemiumStatus.value ? null : freemiumPromo("soldiers_manage", null, {
-        vplace = ALIGN_BOTTOM
-        hplace = ALIGN_RIGHT
-      })
+      children = !needFreemiumStatus.value ? null : freemiumWidget("soldiers_manage")
     }
   ]
 }

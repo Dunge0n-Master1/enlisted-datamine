@@ -16,6 +16,9 @@ let { resolutionList, resolutionValue } = require("resolution_state.nut")
 let { DLSS_BLK_PATH, DLSS_OFF, dlssAvailable, dlssValue, dlssToString,
   dlssSetValue, dlssNotAllowLocId
 } = require("dlss_state.nut")
+let { XESS_BLK_PATH, XESS_OFF, xessAvailable, xessValue, xessToString,
+  xessSetValue, xessNotAllowLocId
+} = require("xess_state.nut")
 let { LOW_LATENCY_BLK_PATH, LOW_LATENCY_OFF, LOW_LATENCY_NV_ON,
   LOW_LATENCY_NV_BOOST, lowLatencyAvailable, lowLatencyValue,
   lowLatencySetValue, lowLatencyToString, lowLatencySupported
@@ -394,7 +397,8 @@ enum antiAliasingMode {
   FXAA = 1,
   TAA = 2,
   TSR = 3,
-  DLSS = 4
+  DLSS = 4,
+  XESS = 6
 };
 
 let antiAliasingModeToString = {
@@ -403,6 +407,7 @@ let antiAliasingModeToString = {
   [antiAliasingMode.TAA]  = { optName = "option/taa",  defLocString = "Temporal Anti-aliasing" },
   [antiAliasingMode.TSR]  = { optName = "option/tsr",  defLocString = "Temporal Super Resolution" },
   [antiAliasingMode.DLSS] = { optName = "option/dlss", defLocString = "NVIDIA DLSS" },
+  [antiAliasingMode.XESS] = { optName = "option/xess", defLocString = "Intel XeSS" },
 }
 
 let antiAliasingModeChoosen = Watched(get_setting_by_blk_path("video/antiAliasingMode")
@@ -423,7 +428,8 @@ let optAntiAliasingMode = optionCtor({
                 platform.is_nswitch || isBareMinimum.value ? antiAliasingMode.FXAA : null,
                 !platform.is_nswitch ? antiAliasingMode.TAA : null,
                 !platform.is_nswitch ? antiAliasingMode.TSR : null,
-                dlssNotAllowLocId.value == null ? antiAliasingMode.DLSS : null ].filter(@(q) q != null))
+                dlssNotAllowLocId.value == null ? antiAliasingMode.DLSS : null,
+                xessNotAllowLocId.value == null && isPcDx12 ? antiAliasingMode.XESS : null ].filter(@(q) q != null))
   valToString = @(v) loc(antiAliasingModeToString[v].optName, antiAliasingModeToString[v].defLocString)
   setValue = antiAliasingModeSetValue
 })
@@ -454,6 +460,21 @@ let optDlss = optionCtor({
   setValue = dlssSetValue
   available = dlssAvailable
   valToString = @(v) loc(dlssToString[v])
+})
+
+let optXess = optionCtor({
+  name = loc("options/xessQuality", "Intel XeSS Quality")
+  tab = "Graphics"
+  widgetCtor = mkDisableableCtor(
+    Computed(@() xessNotAllowLocId.value == null ? null : "{0} ({1})".subst(loc("option/off"), loc(xessNotAllowLocId.value))),
+    optionSpinner)
+  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.XESS)
+  blkPath = XESS_BLK_PATH
+  defVal = XESS_OFF
+  var = xessValue
+  setValue = xessSetValue
+  available = xessAvailable
+  valToString = @(v) loc(xessToString[v])
 })
 
 let optTaaMipBias = optionCtor({
@@ -687,6 +708,7 @@ return {
   optScopeImageQuality
   optUncompressedScreenshots
   optDlss
+  optXess
   optTemporalUpsamplingRatio
   optStaticResolutionScale
   optFSR
@@ -722,6 +744,7 @@ return {
     optFXAAQuality,
     optFSR,
     optDlss,
+    optXess,
 
     // Shadows & lighting
     {name = loc("group/shadows_n_lighting", "Shadows & Lighting") isSeparator=true tab="Graphics"},

@@ -32,7 +32,7 @@ def get_all_next_groups(capzones : array<Capzone>; start_groups : Set)
   var visited : Set
   var open := start_groups
 
-  for i in range(length(links))
+  for _i in range(length(links))
     for group in keys(open)
       visited[group] = true
     var nextOpen : Set
@@ -58,11 +58,16 @@ def can_team_increase_score(team : int) : bool
                                       capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED;
                                       capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
                                       capzone__capReward : float = 0.0;
+                                      capzone__capRewardTeam1 : float = -1.0;
+                                      capzone__capRewardTeam2 : float = -1.0;
                                       capzone__activateAfterCap : string = "")
+    let capReward = (team == 1 && capzone__capRewardTeam1 >= 0. ? capzone__capRewardTeam1
+                   : team == 2 && capzone__capRewardTeam2 >= 0. ? capzone__capRewardTeam2
+                   : capzone__capReward)
     if (team == capzone__onlyTeamCanCapture || capzone__mustBeCapturedByTeam == team)
-      capzones |> emplace([[Capzone group=groupName, reward=capzone__capReward, next=capzone__activateAfterCap]])
+      capzones |> emplace([[Capzone group=groupName, reward=capReward, next=capzone__activateAfterCap]])
       if active
-        activeCapzonesReward += capzone__capReward
+        activeCapzonesReward += capReward
         if capzone__activateAfterCap != ""
           groupsAfterCurrent[capzone__activateAfterCap] = true
   if length(groupsAfterCurrent) > 0 && activeCapzonesReward > 0.0

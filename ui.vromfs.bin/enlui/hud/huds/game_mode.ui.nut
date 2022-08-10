@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let style = require("%ui/hud/style.nut")
 let { TEAM_UNASSIGNED } = require("team")
 let {
@@ -133,12 +133,12 @@ let function capZonesBlock() {
     + max(groups.len() - 1, 0) * GAP_RATIO
   let children = []
   local offset = 0.0
-  foreach(idx, zList in groups) {
+  foreach (idx, zList in groups) {
     if (idx != 0) {
       children.append(capzoneGap)
       offset += GAP_RATIO
     }
-    foreach(zoneEid in zList) {
+    foreach (zoneEid in zList) {
       children.append(
         capzoneWidget(zoneEid,
           {
@@ -166,7 +166,7 @@ let trainCapzone = Computed(@() capZones.value?[trainZoneEid.value])
 let escortPointsBlockLength = sw(20)
 let escortPointSize = [fsh(0.8).tointeger(), fsh(0.8).tointeger()]
 let escortLineHeight = fsh(0.8*0.85)
-let trainMarkerSize = [hdpx(74).tointeger(), hdpx(24).tointeger()]
+let trainMarkerSize = [hdpxi(74), hdpxi(24)]
 let INACTIVATED_TRAIN_COLOR = Color(90, 90, 90)
 let PATH_COLOR_BG = Color(50, 50, 50, 150)
 
@@ -262,8 +262,8 @@ let mkEscortStartPoint = @(color) mkEscortZonePoint(0, pathPointStartImage, colo
 
 let trainPathCapzones = Computed(function() {
   let res = []
-  foreach(_idx, zList in visibleZoneGroups.value)
-    foreach(zoneEid in zList)
+  foreach (_idx, zList in visibleZoneGroups.value)
+    foreach (zoneEid in zList)
       if (capZones.value?[zoneEid].trainTriggerable)
         res.append(zoneEid)
   return res
@@ -279,7 +279,7 @@ let function escortBlock() {
   local progressOffset = 0
 
   local isPastCapture = trainPathCapzones.value == INVALID_ENTITY_ID
-  foreach(zoneEid in trainPathCapzones.value) {
+  foreach (zoneEid in trainPathCapzones.value) {
     let offset = index * lineLength
     if (zoneEid == nextTrainCapzoneEid.value) {
       progressOffset = offset - lineLength
@@ -351,7 +351,7 @@ let function attackingTeamPoints() {
     children = [
       {
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/skin#initial_squad_size.svg:{0}:{0}:K".subst(hdpx(32).tointeger()))
+        image = Picture("ui/skin#initial_squad_size.svg:{0}:{0}:K".subst(hdpxi(32)))
         color
         size = [hdpx(32), hdpx(32)]
       }

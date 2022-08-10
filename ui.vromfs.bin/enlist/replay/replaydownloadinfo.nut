@@ -1,0 +1,121 @@
+from "%enlSqGlob/ui_library.nut" import *
+
+let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
+let http = require("dagor.http")
+let { WindowTransparent } = require("%ui/style/colors.nut")
+let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
+let { Bordered } = require("%ui/components/textButton.nut")
+let { defInsideBgColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let {
+  replayDownload, REPLAY_DOWNLOAD_NONE,
+  REPLAY_DOWNLOAD_PROGRESS, REPLAY_DOWNLOAD_FAILED
+} = require("%enlist/replay/replayDownloadState.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
+let { replay_play } = require("app")
+
+let WND_UID = "replayDownloadUi"
+
+let btnStyle = {
+  margin = 0
+  size = [SIZE_TO_CONTENT, commonBtnHeight]
+  hplace = ALIGN_CENTER
+  vplace = ALIGN_BOTTOM
+}
+
+let defaultSize = [hdpx(432), hdpx(324)]
+let replayWndClose = @() removeModalWindow(WND_UID)
+
+let closeButton = Bordered(loc("replay/Close"), replayWndClose, btnStyle)
+
+let playButton = Bordered(loc("replay/Play"), @() replay_play(replayDownload.value.filename, 0), btnStyle)
+
+let abortButton = Bordered(loc("replay/Abort"), @() http.abort(replayDownload.value.downloadRequestId), btnStyle)
+
+let title = noteTextArea({
+  size = [flex(), SIZE_TO_CONTENT]
+  text = loc("replay/Downloading")
+  halign = ALIGN_CENTER
+  color = titleTxtColor
+}).__update(body_txt)
+
+let content = @(message) {
+  rendObj = ROBJ_SOLID
+  fillColor = Color(10,10,10,10)
+  size = flex()
+  flow = FLOW_HORIZONTAL
+  gap = hdpx(10)
+  margin = [hdpx(30), 0]
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  children = txt({
+    text = loc(message)
+    color = titleTxtColor
+  }).__update(body_txt)
+}
+
+let infoContainer = @() {
+  watch = replayDownload
+  size = defaultSize
+  gap = hdpx(20)
+  hplace = ALIGN_CENTER
+  vplace = ALIGN_CENTER
+  flow = FLOW_VERTICAL
+  padding = hdpx(20)
+  fillColor = WindowTransparent
+  borderRadius = hdpx(2)
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  transform = {}
+  animations = [
+    { prop=AnimProp.translate,  from=[0, sh(5)], to=[0,0], duration=0.5, play=true, easing=OutBack }
+    { prop=AnimProp.opacity, from=0.0, to=1.0, duration=0.25, play=true, easing=OutCubic }
+    { prop=AnimProp.translate, from=[0,0], to=[0, sh(30)], duration=0.7, playFadeOut=true, easing=OutCubic }
+    { prop=AnimProp.opacity, from=1.0, to=0.0, duration=0.6, playFadeOut=true, easing=OutCubic }
+  ]
+  children = replayDownload.value.state == REPLAY_DOWNLOAD_PROGRESS
+    ? [
+        title
+        {
+          size = flex()
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          children = spinner
+        }
+        replayDownload.value.downloadRequestId != 0
+          ? abortButton
+          : null
+      ]
+    : [
+        title
+        content(replayDownload.value.stateText)
+        {
+          size = flex()
+          flow = FLOW_HORIZONTAL
+          halign = ALIGN_CENTER
+          gap = hdpx(5)
+          children = [
+              replayDownload.value.state != REPLAY_DOWNLOAD_FAILED
+                ? playButton
+                : null
+              closeButton
+          ]
+        }
+      ]
+}
+
+let open = @() addModalWindow({
+  key = WND_UID
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  fillColor = defInsideBgColor
+  size = flex()
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  stopMouse = true
+  children = infoContainer
+  onClick = @() null
+})
+
+if (replayDownload.value.state != REPLAY_DOWNLOAD_NONE)
+  open()
+
+replayDownload.subscribe(@(v) v.state != REPLAY_DOWNLOAD_NONE ? open() : replayWndClose())

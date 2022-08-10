@@ -305,6 +305,16 @@ actionSets{
       group_tag:t="Weapon"
     }
 
+    Human.Throw4{
+      type:t="digital_button"
+      group_tag:t="Weapon,not_important"
+    }
+
+    Human.Throw5{
+      type:t="digital_button"
+      group_tag:t="Weapon,not_important"
+    }
+
     Human.ThrowBack{
       type:t="digital_button"
       group_tag:t="Weapon"
@@ -646,6 +656,10 @@ actionSets{
     }
 
     Replay.DisableHUD{
+      type:t="digital_button"
+    }
+
+    Replay.DisableGameHUD{
       type:t="digital_button"
     }
 

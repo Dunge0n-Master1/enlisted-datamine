@@ -7,9 +7,9 @@ require DagorMathUtils
 require DagorInput
 require math.ang
 require EnlistedCamera
+require common_shooter.es.weapon.turret_common
 
 def calc_aim_pos(aim_angles : float2)
-  let AIM_DISTANCE = 1000.0
   let camTm = get_TMatrix(get_cur_cam_entity(), "transform")
   let camPos = camTm != null ? (*camTm)[3] : float3()
   return camPos + angles_to_dir(aim_angles) * AIM_DISTANCE

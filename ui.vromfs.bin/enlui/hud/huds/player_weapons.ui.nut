@@ -14,7 +14,7 @@ let {weaponItems} = require("player_info/player_weapon_switch.nut")
 let mkAmmoInfo = require("player_info/player_ammo.ui.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
-let { currentGunEid } = require("%ui/hud/state/hero_weapon_state.nut")
+let { currentGunEid } = require("%ui/hud/state/hero_weapons.nut")
 
 let mainStyles = {
   curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
@@ -74,8 +74,7 @@ let hideAllWeapons = @(...) showAllWeapons(false)
 let function activateShowAllWeapons(...){
   showAllWeapons(true)
   activateShowShortBlock()
-  gui_scene.clearTimer(hideAllWeapons)
-  gui_scene.setTimeout(4, hideAllWeapons)
+  gui_scene.resetTimeout(4, hideAllWeapons)
 }
 activateShowAllWeapons()
 controlledHeroEid.subscribe(activateShowAllWeapons)

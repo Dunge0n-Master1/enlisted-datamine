@@ -5,7 +5,7 @@ let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { curArmiesList } = require("%enlist/soldiers/model/state.nut")
 let contactBlock = require("%enlist/contacts/contactBlock.nut")
 
-let iconHgt = hdpx(32).tointeger()
+let iconHgt = hdpxi(32)
 let diceIcon = {
   rendObj = ROBJ_IMAGE
   image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst((iconHgt*3/4).tointeger()))

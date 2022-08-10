@@ -6,6 +6,7 @@ require EnlistedNet
 require game.es.events
 require game.events_game
 require game.utils.team
+require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.human_attached_gun_common
 require Gun
@@ -146,31 +147,6 @@ def move_to_pos_ccd(var human_net_phys : HumanActor; var pos : float3)
 
   human_net_phys.phys |> human_phys_processCcdOffset(ccdTm, ccdToPos, totalOffset, collRad - ccdRad, speedCollisionHardness, true, ccdPos)
 
-def get_best_possible_pos(possible_positions : float3[];
-                          floor_height : float;
-                          height_delta_down, height_delta_up : float;
-                          var possible_best : float3&;
-                          var vertical_pos : float&)
-  var dh = floor_height
-  for i in range(length(possible_positions))
-    let possiblePos = possible_positions[i]
-    let heightDelta = floor_height - possiblePos.y
-    if (heightDelta >= height_delta_down &&
-        heightDelta <= height_delta_up)
-      possible_best = possiblePos
-      vertical_pos = possible_best.y
-      break
-    elif abs(heightDelta) < abs(dh)
-      dh = heightDelta
-      possible_best = possiblePos
-      possible_best.y += ((dh < 0.0)
-                        ? max(dh, height_delta_down)
-                        : min(dh, height_delta_up))
-      vertical_pos = possible_best.y
-      if ((i == 0 && possible_best.y > floor_height) ||
-          (i > 0 && possible_best.y > floor_height + height_delta_up))
-        possible_best.y = floor_height
-
 
 [es]
 def human_attached_gun_input_es(update : CmdPostPhysUpdate;
@@ -181,8 +157,6 @@ def human_attached_gun_input_es(update : CmdPostPhysUpdate;
                                 human_attached_gun__nodeOffsetCrouch : float3;
                                 human_attached_gun__nodeOffsetCrawl : float3;
                                 human_attached_gun__walkAnimPeriod : float = 0.3;
-                                human_attached_gun__heightDeltaUp : float = 0.1;
-                                human_attached_gun__heightDeltaDown : float = -0.05;
                                 var human_net_phys : HumanActor;
                                 var human_attached_gun__isAttached : bool&;
                                 var human_attached_gun__walkDir : float2&;
@@ -201,7 +175,6 @@ def human_attached_gun_input_es(update : CmdPostPhysUpdate;
         var wtm = IDENT_TM
         let nodeTree = animchar.nodeTree
         nodeTree |> geomtree_getNodeWtmScalar(human_attached_gun__rhandNodeIdx, wtm)
-        let pos = wtm * human_attached_gun__nodeOffset
 
         assume producedCT = human_net_phys.phys.producedCT
 
@@ -227,27 +200,31 @@ def human_attached_gun_input_es(update : CmdPostPhysUpdate;
           horzTransform * human_attached_gun__nodeOffsetCrouch;
           horzTransform * human_attached_gun__nodeOffsetStand]]
 
-        let armsPosition = wtm * float3(human_attached_gun__nodeOffset.x, 0.0, 0.0)
-        var approximateFloorHeight = 2.0;
-        tracedown_normalized_with_mat_id(armsPosition, approximateFloorHeight,
-                                         ETF_DEFAULT, human_net_phys.phys.rayMatId)
-        let height = armsPosition.y - approximateFloorHeight
+        let holdPos = wtm * human_attached_gun__nodeOffset
 
-        var possibleBest = pos
-        var verticalPos = pos.y
-        get_best_possible_pos(possiblePositions, height, human_attached_gun__heightDeltaDown, human_attached_gun__heightDeltaUp, possibleBest, verticalPos)
+        let lowestH = float(human_net_phys.phys.currentState.location.P.y)
+        let dH = holdPos.y - lowestH
+
+        let maxCrawlDH = 0.5
+        let needCrawl = dH < maxCrawlDH
+
+        let ratio = cvt(dH, 1.0, 2.0, 0.0, 1.0)
+        var dest = lerp(possiblePositions[1], possiblePositions[2], float3(ratio))
+        if needCrawl
+          dest = possiblePositions[0]
+        dest.y = lowestH
 
         let beforeCcdPos = float3(human_net_phys.phys.currentState.location.P)
-        human_net_phys |> move_to_pos_ccd(possibleBest)
-
-        human_net_phys.phys.currentState.bodyOrientDir = float2(wtm[0].x, wtm[0].z)
+        human_net_phys |> move_to_pos_ccd(dest)
         let afterCcdPos = float3(human_net_phys.phys.currentState.location.P)
 
+        human_net_phys.phys.currentState.bodyOrientDir = float2(wtm[0].x, wtm[0].z)
 
-        verticalPos = afterCcdPos.y
-        get_best_possible_pos(possiblePositions, afterCcdPos.y, human_attached_gun__heightDeltaDown, human_attached_gun__heightDeltaUp, possibleBest, verticalPos)
-
-        human_net_phys.phys.currentState.height = cvt(verticalPos, possiblePositions[0].y, possiblePositions[2].y, -1.0, 1.0)
+        if needCrawl
+          human_net_phys.phys.currentState.height = -1.0
+        else
+          let crouchToStandLerpHeight = 1.6
+          human_net_phys.phys.currentState.height = cvt(dH, 0.0, crouchToStandLerpHeight, -0.8, 1.0)
 
         human_net_phys.phys.currentState.velocity = float3(0.0, 0.0, 0.0)
         human_net_phys.phys.currentState.moveState = HUMoveState EMS_STAND
@@ -264,6 +241,12 @@ def human_attached_gun_input_es(update : CmdPostPhysUpdate;
           human_net_phys.phys.currentState.moveState = HUMoveState EMS_WALK
         else
           human_attached_gun__walkDir = float2(0.0, 0.0)
+
+        let dHMax = 1.7
+        if dH > dHMax
+          var newP = float3(human_net_phys.phys.currentState.location.P)
+          newP.y += dH - dHMax
+          human_net_phys.phys.currentState.location.P = DPoint3(newP)
 
 
 def interp_dir(prev : float3; cur : float3; interpK : float)
@@ -285,23 +268,25 @@ def human_attached_gun_controls_update_es(info : UpdateStageInfoAct;
                                                        var gun : Gun?;
                                                        var mounted_gun : MountedGun?)
     let netRole = uint(RoleFlags URF_AUTHORITY | RoleFlags URF_LOCAL_CONTROL)
-    if (uint(human_net_phys.role) & netRole) != 0u
-      let interpK = get_phys_interpk_clamped(human_net_phys.phys, info.curTime)
-
-      var gunDir = interp_dir(human_net_phys.phys.previousState.gunDir,
-                              human_net_phys.phys.currentState.gunDir, interpK)
-      var headDir = interp_dir(human_net_phys.phys.previousState.headDir,
-                               human_net_phys.phys.currentState.headDir, interpK)
+    if (uint(human_net_phys.role) & netRole) != 0u && gun != null && mounted_gun != null
+      var gunDir, headDir : float3
+      var shoot : bool
 
       if (uint(human_net_phys.role) & uint(RoleFlags URF_LOCAL_CONTROL)) != 0u
         gunDir = human_net_phys.phys.producedCT.wishShootDir
         headDir = human_net_phys.phys.producedCT.wishLookDir
+        shoot = human_net_phys.phys.producedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && isAlive;
+      else
+        let interpK = get_phys_interpk_clamped(human_net_phys.phys, info.curTime)
+        gunDir = interp_dir(human_net_phys.phys.previousState.gunDir,
+                            human_net_phys.phys.currentState.gunDir, interpK)
+        headDir = interp_dir(human_net_phys.phys.previousState.headDir,
+                             human_net_phys.phys.currentState.headDir, interpK)
+        shoot = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && isAlive;// Not alive by default to detach destroyed entity as well
 
-      let shoot = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && isAlive;// Not alive by default to detach destroyed entity as well
-      if gun != null && mounted_gun != null
-        let offsAngles = float2(human_weap__gunOffsAngles.x, human_weap__gunOffsAngles.y)
-        *mounted_gun |> mounted_gun_setControls(*gun, gunDir, headDir, shoot,
-                                                info.curTime, phys_vars, offsAngles)
+      let offsAngles = float2(human_weap__gunOffsAngles.x, human_weap__gunOffsAngles.y)
+      *mounted_gun |> mounted_gun_setControls(*gun, gunDir, headDir, shoot, human_net_phys.phys.timeStep,
+                                              info.curTime, phys_vars, offsAngles)
 
     if (!isHeroAlive || !isAlive || isDowned)
       detach_from_gun(eid, human_attached_gun__attachedGunEid)
@@ -426,7 +411,7 @@ def human_lock_stationary_gun_use_es(evt : Event;
 
 
 [es(no_order)]
-def human_attached_gun_autodetach_es(info : UpdateStageInfoAct;
+def human_attached_gun_autodetach_es(info : ParallelUpdateFrameDelayed;
                                      eid : EntityId;
                                      human_attached_gun__attachedGunEid : EntityId;
                                      human_net_phys : HumanActor)

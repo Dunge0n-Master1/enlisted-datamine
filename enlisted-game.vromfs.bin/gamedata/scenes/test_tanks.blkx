@@ -18,10 +18,9 @@ entity{
   _template:t="level"
   level__blk:t="content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_winter.blk"
   level__timeRange:p2=5.0, 19.2
-  level__minimapDefaultVisibleRadius:i=100
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=0.5
+    weather_clear_b:r=0.5
   }
 
   "level__timeVec:array"{

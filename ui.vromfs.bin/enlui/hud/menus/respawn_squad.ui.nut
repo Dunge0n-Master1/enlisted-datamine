@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt, h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {spawn_zone_markers} = require("%ui/hud/state/spawn_zones_markers.nut")
+let {spawnZonesState} = require("%ui/hud/state/spawn_zones_markers.nut")
 let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
 let {secondsToTimeSimpleString} = require("%ui/helpers/time.nut")
 let {
@@ -25,7 +25,7 @@ let { mkSquadSpawnIcon, mkSquadSpawnDesc, mkKeyboardHint } = require("%enlSqGlob
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 
 let blocksGap = smallPadding
-let vehicleIconSize = hdpx(28).tointeger()
+let vehicleIconSize = hdpxi(28)
 
 let bgConfig = {
   rendObj = ROBJ_WORLD_BLUR
@@ -89,16 +89,16 @@ let vehicleSpawnInfoBlock = @(squadType) @(){
 let timeToActivateRespawn = Computed(@() respawnBlockedReason?.value.timeToActivate ?? 0.0)
 let timeLeft = mkCountdownTimerPerSec(timeToActivateRespawn)
 
-let availableSpawnZonesCount = Computed(@() spawn_zone_markers.value.values()
-  .filter(@(v)canUseRespawnbaseByType.value == v?.iconType && localPlayerTeam.value == v?.forTeam)
-  .len())
+let availableSpawnZonesCount = Computed(@() spawnZonesState.value
+  .reduce(@(sum, v) canUseRespawnbaseByType.value == v?.iconType
+                    && localPlayerTeam.value == v?.forTeam ? sum + 1 : sum, 0))
 
 let function spawnInfoBlock() {
   let { canSpawn = false, readinessPercent = 0, squadType = null} = curSquadData.value
   let spawnInfo = [
     @() {
       size = [flex(), SIZE_TO_CONTENT]
-      watch = isGamepad
+      watch = [isGamepad, canSpawnCurrentSoldier]
       flow = FLOW_VERTICAL
       gap = bigPadding
       halign = ALIGN_CENTER
@@ -137,12 +137,12 @@ let function spawnInfoBlock() {
       ? [
           respawnTimer(loc("respawn/respawn_squad"), sub_txt)
           isFirstSpawn.value || availableSpawnZonesCount.value <= 1 ||
-          (selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1) >= 0 ?
-            forceSpawnButton({}) :
-            textarea(loc("respawn/choose_respawn_point"), {
-              size = [flex(), SIZE_TO_CONTENT]
-              halign = ALIGN_CENTER
-            }.__update(body_txt))
+          (selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1) >= 0
+            ? forceSpawnButton()
+            : textarea(loc("respawn/choose_respawn_point"), {
+                size = [flex(), SIZE_TO_CONTENT]
+                halign = ALIGN_CENTER
+              }.__update(body_txt))
           spawnsLeftText
         ]
       : [
@@ -154,8 +154,8 @@ let function spawnInfoBlock() {
   children.extend(spawnInfo)
   return {
     watch = [curSquadData, localPlayerTeamSquadsCanSpawn, canSpawnCurrent,
-             canSpawnCurrentSoldier, respawnBlockedReason, timeLeft,
-             isFirstSpawn, selectedRespawnGroupId, availableSpawnZonesCount]
+             respawnBlockedReason, timeLeft, isFirstSpawn, selectedRespawnGroupId,
+             availableSpawnZonesCount]
     minHeight = fontH(370) //timer appears and change size
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL

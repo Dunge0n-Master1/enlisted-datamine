@@ -9,5 +9,5 @@ return {
   localGap = bigPadding * 2
   armieChooseBlockWidth = hdpx(124)
   eventBlockWidth = isWide ? hdpx(280) : hdpx(230)
-  lockIconSize = hdpx(16).tointeger()
+  lockIconSize = hdpxi(16)
 }

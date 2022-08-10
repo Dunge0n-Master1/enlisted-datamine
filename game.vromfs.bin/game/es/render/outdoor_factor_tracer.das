@@ -6,16 +6,18 @@ require DagorShaders
 require Dacoll
 require DagorMathUtils
 require EnlistedCamera
+require enlisted.events_enlisted
 
 let probes_outdoor_factorVarId = get_shader_variable_id("probes_outdoor_factor", true)
 
 
 [es(tag=render, after=shooter_cam_update_tm_es)]
-def outdoor_factor_tracer(info : UpdateStageInfoAct;
+def outdoor_factor_tracer(info : ParallelUpdateFrameDelayed;
+                          outdoor_factor__export : bool;
                           var outdoor_factor__currentTrace : int&;
-                          var outdoor_factor__outdoorMultiplier : float&;
-                          outdoor_factor__export = false;
-                          outdoor_factor__forcedOutdoorFactor = -1f)
+                          var outdoor_factor__outdoorMultiplier : float&)
+  if !outdoor_factor__export
+    return
   query(get_cur_cam_entity()) <| $ [es] (transform : float3x4; camera__posOnlyBaseOffset : DPoint3?)
     let traceStart = float3(0f, 0.5f, 0f) + (camera__posOnlyBaseOffset != null ? float3(*camera__posOnlyBaseOffset) : transform[3])
     let SAMPLES_COUNT = 1000
@@ -28,9 +30,15 @@ def outdoor_factor_tracer(info : UpdateStageInfoAct;
     let dir = rayhit_normalized(traceStart, direction, t, ETF_DEFAULT, -1) ? -1.5f : 0.5f
     outdoor_factor__outdoorMultiplier = clamp(outdoor_factor__outdoorMultiplier + dir * info.dt / 4f, 0f, 1f)
     outdoor_factor__currentTrace = (outdoor_factor__currentTrace + 1) % SAMPLES_COUNT
-    if outdoor_factor__export
-      DagorShaders::set_real(probes_outdoor_factorVarId, outdoor_factor__forcedOutdoorFactor < 0f ?
-        outdoor_factor__outdoorMultiplier : outdoor_factor__forcedOutdoorFactor)
+
+[es(tag=render, after=shooter_cam_update_tm_es)]
+def outdoor_factor_tracer_applyer(info : UpdateStageInfoAct;
+                                  outdoor_factor__export : bool;
+                                  outdoor_factor__outdoorMultiplier : float;
+                                  outdoor_factor__forcedOutdoorFactor = -1f)
+  if outdoor_factor__export
+    DagorShaders::set_real(probes_outdoor_factorVarId, outdoor_factor__forcedOutdoorFactor < 0f ?
+      outdoor_factor__outdoorMultiplier : outdoor_factor__forcedOutdoorFactor)
 
 
 [es(tag=render, track=outdoor_factor__export)]

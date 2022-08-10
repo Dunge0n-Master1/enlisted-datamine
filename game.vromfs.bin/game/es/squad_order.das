@@ -58,6 +58,8 @@ def squad_order_es(
   squad_order_speech(eid, squad__leader, squad__orderType)
   send_squad_member_accept_order_bq(squad__leader, "{squad__orderType}")
 
+  reset_squad_behaviour_exclude_personal(eid)
+
 [es(tag=server)]
 def squad_formation_es(evt : RequestSquadFormation;
                        eid : ecs::EntityId;
@@ -78,29 +80,4 @@ def squad_behaviour_es(evt : RequestSquadBehaviour;
   squad__squadBehaviour = evt.behaviour
   squad_behaviour_speech(eid, squad__leader)
 
-[es(tag=server, REQUIRE=human)]
-def reset_squad_order_on_vehicle_enter(evt : EventEnterVehicle;
-                                       eid : EntityId;
-                                       squad_member__squad : EntityId)
-  if evt.enter
-    query(squad_member__squad) <| $ [es] (squad__allMembers : EidList;
-                                          squad__leader : EntityId)
-      if squad__leader != eid
-        return
-
-      for squarMemberEid in squad__allMembers
-        if squarMemberEid == squad__leader
-          continue
-
-        query(squarMemberEid) <| $ [es(REQUIRE_NOT=deadEntity)] (isInVehicle : bool;
-                                                                 vehicle__lastEid : EntityId;
-                                                                 var squad_member__orderType : int&;
-                                                                 var squad_member__orderPosition : float3&;
-                                                                 var squad_member__orderUseEntity : EntityId&;
-                                                                 var squad_member__isPersonalOrder : bool&)
-          let isBotOrderedToOccupyEnteredVehicle = squad_member__orderType == int(SquadMateOrder ESMO_USE_VEHICLE) && squad_member__orderUseEntity == evt.vehicle
-          if (isInVehicle || isBotOrderedToOccupyEnteredVehicle) && vehicle__lastEid == evt.vehicle
-            squad_member__orderType = int(SquadMateOrder ESMO_NO_ORDER)
-            squad_member__orderPosition = float3()
-            squad_member__orderUseEntity = INVALID_ENTITY_ID
-            squad_member__isPersonalOrder = false
+  reset_squad_behaviour_exclude_personal(eid)

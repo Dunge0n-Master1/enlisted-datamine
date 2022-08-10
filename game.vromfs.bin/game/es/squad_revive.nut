@@ -1,5 +1,5 @@
 import "%dngscripts/ecs.nut" as ecs
-let debug = require("%sqstd/log.nut")().with_prefix("[SPAWN]")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
 let {logerr} = require("dagor.debug")
 let {EventEntityDied, RequestCheckTeamSpawnDefeat} = require("dasevents")
 let {DM_PROJECTILE, DM_MELEE, DM_EXPLOSION, DM_ZONE, DM_COLLISION, DM_HOLD_BREATH, DM_FIRE, DM_BACKSTAB, DM_DISCONNECTED, DM_BARBWIRE} = require("dm")

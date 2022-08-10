@@ -1,0 +1,235 @@
+shell_shatters_sounds{
+  _extends:t="replicating"
+  shell_shatters_sounds__nextTime:r=0.0
+  shell_shatters_sounds__cooldown:r=4.0
+  _singleton:b=yes
+}
+
+plane_engine_sound_instance_stealing{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    plane_engine_sound_instance_stealing__updateInterval:r=1.0
+    plane_engine_sound_instance_stealing__fadeInOutSpeed:r=0.5
+    plane_engine_sound_instance_stealing__targetInstances:i=8
+
+    "plane_engine_sound_instance_stealing__group:SoundInstanceStealingGroup"{
+    }
+  }
+}
+
+reverb_sound{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    reverb_sound__path:t="snapshots/reverb_indoor"
+    reverb_sound__intensityVar:t="reverbIndoor"
+    reverb_sound__intensityMax:r=0.625
+    reverb_sound__roomSizeVar:t="roomSize"
+    reverb_sound__roomSizeMax:r=9.375
+    reverb_sound__rayLength:r=10.0
+    reverb_sound__fadeOutPower:r=10.0
+    reverb_sound__rayId:i=0
+    reverb_sound__intensityValues:p3=0.0, 0.0, 0.0
+    reverb_sound__roomSizeValues:p3=0.0, 0.0, 0.0
+
+    "reverb_sound__event:SoundEvent"{
+    }
+
+    "reverb_sound__rays:list<p3>"{
+      ray:p3=0.9034, 0.0544, -0.4252
+      ray:p3=-0.1907, 0.5076, -0.8402
+      ray:p3=-0.3827, 0.8812, -0.2774
+      ray:p3=-0.8941, 0.0904, 0.4387
+      ray:p3=0.1873, 0.4467, 0.8749
+      ray:p3=0.4949, 0.7792, 0.3847
+      ray:p3=-0.7434, 0.0884, -0.6629
+      ray:p3=-0.4784, 0.4339, 0.7634
+      ray:p3=0.3234, 0.8234, -0.4663
+      ray:p3=0.8209, 0.5661, -0.0749
+      ray:p3=0.4167, 0.1168, -0.9015
+      ray:p3=-0.1942, 0.9248, 0.3273
+      ray:p3=-0.8791, 0.4686, -0.0867
+    }
+  }
+}
+
+scene_net_sounds{
+  _extends:t="net_sound_descs"
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  "net_sound__descs:shared:object"{
+  }
+
+  "sceneNetSounds:tag"{
+  }
+}
+
+oneshot_net_sound{
+
+  _group{
+    _tags:t="server"
+    oneshot_net_sound__onCreate:t=""
+    oneshot_net_sound__onDestroy:t=""
+  }
+}
+
+game_effect_server_sound_appear{
+  game_effect_server_sound__appear:t=""
+}
+
+sandstorm_sound{
+  _extends:t="sound_effect_2d"
+
+  _group{
+    _tags:t="sound"
+    sound_effect_2d__path:t="ambient/sandstorm"
+  }
+}
+
+turret_sound{
+
+  _group{
+    _tags:t="sound"
+    turret_sound__path:t="player/vehicle/tank/common/turret"
+
+    "turret_sound__event:SoundEvent"{
+    }
+  }
+}
+
+turret_sound_group{
+  _extends:t="turret_sound"
+
+  "turret_sound_group:tag"{
+  }
+}
+
+sound_with_destroyable_ri_extra{
+  ri_extra__destroyed:b=no
+
+  ri_extra{
+  }
+
+  "ri_extra__handle:u64"{
+    value:i64=-1
+  }
+}
+
+destroyable_sound_effect{
+  _extends:t="sound_effect"
+  _extends:t="sound_with_destroyable_ri_extra"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+sound_effect_generator{
+  _extends:t="replicating"
+  ri_extra_gen__blk:t=""
+
+  ri_extra_gen{
+    _tags:t="server"
+  }
+}
+
+sound_effect_mill_outside{
+  _extends:t="sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/mill/mill_outside"
+  }
+}
+
+sound_effect_mill_inside{
+  _extends:t="sound_effect"
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/mill/mill_inside"
+  }
+}
+
+sound_effect_is_clock_a{
+  _extends:t="occluded_sound"
+  _extends:t="destroyable_sound_effect"
+  _extends:t="replicating"
+  clock_chime__ringSound:t="events/003/clock_bells"
+  clock_chime__localOffset:p3=0.2, 1.8, 0.0
+  shreddableInDarkZone:b=yes
+
+  "occludedSoundWithSoundControl:tag"{
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/clocks/clock_a"
+    sound_effect__localOffset:p3=0.2, 1.8, 0.0
+  }
+
+  _group{
+    _tags:t="sound"
+    occluded_sound__occlusionToVolume:p4=0.3, 1.0, 2.0, 0.35
+  }
+
+  "clock_chime__event:SoundEvent"{
+    _tags:t="sound"
+  }
+}
+
+geyser_sound{
+  _extends:t="sound_effect"
+  geyser_sound__spawnRateThreshold:r=0.5
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/geyser"
+  }
+}
+
+lava_sound{
+  _extends:t="sound_effect"
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/fire/lava"
+  }
+}
+
+phys_obj_collision_sound{
+
+  _group{
+    _tags:t="sound"
+    phys_obj_collision_sound__path:t=""
+    phys_obj_collision_sound__threshold:p2=5.0, 80.0
+    phys_obj_collision_sound__lifetime:r=1.0
+    phys_obj_collision_sound__time:r=0.0
+    phys_obj_collision_sound__maxImpulse:r=0.0
+
+    "phys_obj_collision_sound__event:SoundEvent"{
+    }
+  }
+}
+
+game_effect_sound{
+  game_effect_sound__hero:t=""
+  game_effect_sound__enemy:t=""
+
+  "game_effect_sound__event:SoundEvent"{
+    _tags:t="sound"
+  }
+}
+
+gun_overheat_speech_enable{
+
+  "gunOverheatSpeechEnable:tag"{
+  }
+}

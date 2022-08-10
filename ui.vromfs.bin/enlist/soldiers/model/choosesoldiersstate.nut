@@ -55,8 +55,8 @@ let squadKindResearches = Computed(function() {
   let armyId = soldiersArmy.value
   let statuses = allResearchStatus.value?[armyId] ?? {}
   let researchesBySKind = {}
-  foreach(research in armiesResearches.value?[armyId].researches ?? {})
-    foreach(sKind, amount in (research?.effect.squad_class_limit[squadId] ?? {}))
+  foreach (research in armiesResearches.value?[armyId].researches ?? {})
+    foreach (sKind, amount in (research?.effect.squad_class_limit[squadId] ?? {}))
       if (amount > 0 && !(ignoreStatuses?[statuses?[research.research_id]] ?? false)) {
         if (sKind not in researchesBySKind)
           researchesBySKind[sKind] <- []
@@ -70,7 +70,7 @@ let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, ki
   let leftClasses = clone maxClasses
 
   let res = {}
-  foreach(soldier in chosen) {
+  foreach (soldier in chosen) {
     if (soldier == null)
       continue
     let { sKind } = soldier
@@ -87,7 +87,7 @@ let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, ki
 
     res[soldier.guid] <- status
   }
-  foreach(soldier in reserve) {
+  foreach (soldier in reserve) {
     let { sKind } = soldier
     local status
     if ((maxClasses?[sKind] ?? 0) <= 0)
@@ -109,7 +109,7 @@ let function updateSoldiersList() {
   let all = (clone curSquadSoldiers.value).extend(curReserveSoldiers.value)
   if (all.len() == 0) {
     squadSoldiers.mutate(@(v) v.clear())
-    reserveSoldiers.mutate(@(v) v. clear())
+    reserveSoldiers.mutate(@(v) v.clear())
     return
   }
   let byGuid = {}
@@ -129,7 +129,7 @@ let function updateSoldiersList() {
     let left = clone byGuid
     chosen.each(function(s) { if (s != null) delete left[s.guid] })
     reserve.each(@(s) delete left[s.guid])
-    foreach(soldier in all)
+    foreach (soldier in all)
       if (soldier.guid in left)
         reserve.append(soldier)
   }
@@ -160,12 +160,11 @@ let function updateSoldiersList() {
   squadSoldiers(chosen)
   reserveSoldiers(reserve)
 }
+
 updateSoldiersList()
 let updateSoldiersListDebounced = debounce(updateSoldiersList, 0.01)
-curSquadSoldiers.subscribe(@(_) updateSoldiersListDebounced())
-curReserveSoldiers.subscribe(@(_) updateSoldiersListDebounced())
-maxSoldiersInBattle.subscribe(@(_) updateSoldiersListDebounced())
-objInfoByGuid.subscribe(@(_) updateSoldiersListDebounced())
+foreach (v in [curSquadSoldiers, curReserveSoldiers, maxSoldiersInBattle, objInfoByGuid])
+  v.subscribe(@(_) updateSoldiersListDebounced())
 
 let function moveIndex(list, idxFrom, idxTo) {
   let res = clone list
@@ -318,7 +317,7 @@ let function moveCurSoldier(direction) {
   let guid = selectedSoldierGuid.value
   if (guid == null)
     return
-  foreach(watch in [squadSoldiers, reserveSoldiers]) {
+  foreach (watch in [squadSoldiers, reserveSoldiers]) {
     let list = watch.value
     let idx = list.findindex(@(s) s?.guid == guid)
     if (idx == null)
@@ -432,6 +431,19 @@ let function applySoldierManageImpl(cb) {
   else if ((curSquadSoldierIdx.value ?? 0) >= newSquadSoldiers.len())
     curSquadSoldierIdx(null)
 
+  if (curSquadSoldiers.value.len() == squadSoldiers.value.len()) {
+    local hasChanges = false
+    foreach (idx, soldier in curSquadSoldiers.value)
+      if (soldier.guid != squadSoldiers.value[idx].guid) {
+        hasChanges = true
+        break
+      }
+    if (!hasChanges) {
+      cb()
+      return
+    }
+  }
+
   log($"manage_squad_soldiers: armyId = {soldiersArmy.value}, squadGuid = {soldiersSquadGuid.value}")
   log($"To squad ({squadSoldiers.value.len()}) = ", squadSoldiers.value.map(@(s) s.guid))
   log($"To reserve ({reserveSoldiers.value.len()}) = ", reserveSoldiers.value.map(@(s) s.guid))
@@ -489,8 +501,8 @@ let function dismissSoldier(armyId, soldierGuid) {
   })
 }
 
-curSection.subscribe(@(_) checkSquadStatus() == null
-  ? applySoldierManageImpl(close)
+curSection.subscribe(@(_) soldiersSquad.value == null ? null
+  : checkSquadStatus() == null ? applySoldierManageImpl(close)
   : close())
 
 return {
@@ -502,7 +514,6 @@ return {
   applySoldierManage
 
   soldiersArmy
-  soldiersSquadGuid
   soldiersSquad
   maxSoldiersInBattle
   soldiersSquadParams

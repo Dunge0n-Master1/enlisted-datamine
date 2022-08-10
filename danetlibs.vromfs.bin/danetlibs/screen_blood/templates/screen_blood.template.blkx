@@ -1,19 +1,65 @@
 blood_on_screen{
   _singleton:b=yes
   _tags:t="render"
-  blood_on_screen__baseDuration:r=0.7
-  blood_on_screen__baseIntensity:r=1.0
-  blood_on_screen__minRelativeDuration:r=0.6
-  blood_on_screen__albedo:p4=0.053, 0.015, 0.013, 0.0
-  blood_on_screen__albedo2:p4=0.014, 0.0, 0.0, 0.0
-  blood_on_screen__sun_refraction:r=0.3
-  blood_on_screen__specular:p4=0.067, 0.004, 0.0, 0.016
-  blood_on_screen__translucency:p4=0.122, 0.008, 0.0, 0.0
-  blood_on_screen__texture:t="liquid_screen_splatter_tile_tex_n"
-  blood_on_screen__roughness:r=0.08
-  blood_on_screen__linearRoughness:r=0.9
-  blood_on_screen__size:r=0.4
+  blood_on_screen__active:b=no
+  bloodOnScreenShader_name:t="blood_on_screen"
+  blurShader_name:t="blur_blood_on_screen"
+  bloodDrops_res:t="liquid_screen_splatter_tile_tex_n"
+  bloodDrops_var:t="blood_on_screen_tex"
+  blood_on_screen__width:i=0
+  blood_on_screen__height:i=0
+  blood_on_screen__baseDuration:r=4.7
+  blood_on_screen__baseIntensity:r=1.5
+  blood_on_screen__minRelativeDuration:r=0.7
+  blood_on_screen_albedo_value:p4=0.053, 0.015, 0.013, 0.0
+  blood_on_screen__albedo2_value:p4=0.014, 0.0, 0.0, 0.0
+  blood_on_screen__sun_refraction_value:r=0.3
+  blood_on_screen_specular_value:p4=0.067, 0.004, 0.0, 0.016
+  blood_on_screen__translucency_value:p4=0.122, 0.008, 0.0, 0.0
+  blood_on_screen_hit_size_value:r=0.4
 
-  "blood_on_screen:BloodOnScreen"{
+  "blood_on_screen_manager:BloodOnScreen"{
+  }
+
+  "bloodOnScreenShader:PostFxRenderer"{
+  }
+
+  "blurShader:PostFxRenderer"{
+  }
+
+  "bloodDrops:SharedTexHolder"{
+  }
+
+  "bloodOnScreenTexture:UniqueTexHolder"{
+  }
+
+  "blurTexture:UniqueTex"{
+  }
+
+  "blood_on_screen_albedo:ShaderVar"{
+  }
+
+  "blood_on_screen_albedo2:ShaderVar"{
+  }
+
+  "blood_on_screen_sun_refraction:ShaderVar"{
+  }
+
+  "blood_on_screen_specular:ShaderVar"{
+  }
+
+  "blood_on_screen_translucency:ShaderVar"{
+  }
+
+  "blood_on_screen_hit_size:ShaderVar"{
+  }
+
+  "blood_texture_blur_data:ShaderVar"{
+  }
+
+  "blood_on_screen:ShaderVar"{
+  }
+
+  "blood_on_screen_hit_data:ShaderVar"{
   }
 }

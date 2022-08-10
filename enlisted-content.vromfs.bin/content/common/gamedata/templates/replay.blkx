@@ -1,0 +1,55 @@
+base_replay_meta{
+  replay__firstHumanSpawnTime:r=0.0
+  replay__startAt:r=0.0
+}
+
+replay_meta_record{
+  _extends:t="base_replay_meta"
+  replay__totalPlayTime:r=-1.0
+  replay__isFinished:b=no
+  replay__firstHumanSpawnTime:r=0.0
+  replay__startAt:r=0.0
+
+  _group{
+    mission__startTime:i64=0
+    replay__isFirstHumanSpawned:b=no
+    _tags:t="recordingReplay"
+  }
+}
+
+replay_meta{
+  _extends:t="base_replay_meta"
+  replay__speed:r=1.0
+  replay__curTime:r=0.0
+  replay__playTime:r=0.0
+  _tracked:t="replay__speed"
+  _tracked:t="replay__curTime"
+  _tags:t="playingReplay"
+
+  "replayIsPlaying:tag"{
+  }
+
+  "replay_cameras:list<t>"{
+    cam:t="replay_camera_tps"
+    cam:t="replay_camera_tps_free"
+  }
+}
+
+replay_input{
+  _tracked:t="input__enabled"
+
+  _group{
+    replay_input__next:i=0
+    replay_input__prev:i=0
+    replay_input__pause:i=0
+    replay_input__speedUp:i=0
+    replay_input__speedDown:i=0
+    replay_input__toggleCamera:i=0
+    _tags:t="input"
+  }
+
+  "input__enabled:b"{
+    _tags:t="gameClient"
+    value:b=yes
+  }
+}

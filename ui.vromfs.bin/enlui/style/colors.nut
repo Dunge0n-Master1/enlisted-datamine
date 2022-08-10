@@ -10,8 +10,8 @@ let colors = {
   UnseenGlow = Color(0, 0, 0, 255)
   Black = Color(0, 0, 0, 255)
 
-  CheckBoxContentDefault = Color(120, 120, 120, 160)
-  CheckBoxContentHover = Color(160, 160, 160, 160)
+  CheckBoxContentDefault = Color(180, 180, 180)
+  CheckBoxContentHover = Color(255, 255, 255)
   CheckBoxContentActive = Color(240, 240, 240, 160)
 
   TextActive    = Color(160, 160, 160, 160)

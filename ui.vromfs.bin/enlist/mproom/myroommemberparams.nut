@@ -169,7 +169,7 @@ let hasPlayedCurSession = Computed(function(){
   })
 
 isInBattleState.subscribe(function(v){
-  if(!v && room.value?.public.sessionId != null && !canOperateRoom.value)
+  if (!v && room.value?.public.sessionId != null && !canOperateRoom.value)
     isReady(false)
 })
 
@@ -229,7 +229,7 @@ let function onRoomChanged() {
   myArmy(armyId ?? roomTeamArmies.value?[curTeam.value][0])
   setRoomArmy(myArmy.value)
 
-  if(!hasBalanceCheckedByEntrance.value)
+  if (!hasBalanceCheckedByEntrance.value)
     teamSelectAfterEntrance()
 
   if (!isFirstConnectToRoom && !canOperateRoom.value && !isCampaignValidForCurRoom)
@@ -240,7 +240,7 @@ let function onRoomChanged() {
 }
 
 let onRoomChangedDebounced = debounce(onRoomChanged, 0.01)
-foreach(w in [room, roomIsLobby, isEventRoom, roomCampaigns, roomTeamArmies])
+foreach (w in [room, roomIsLobby, isEventRoom, roomCampaigns, roomTeamArmies])
   w.subscribe(@(_) onRoomChangedDebounced())
 
 return {

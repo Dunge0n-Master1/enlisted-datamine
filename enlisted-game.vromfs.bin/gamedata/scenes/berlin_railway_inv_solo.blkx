@@ -283,7 +283,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_railway_inv"
 
   "loading_images:list<t>"{
@@ -302,7 +301,6 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=1
-  team__haveScores:b=no
   team__briefing:t="invasion/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
@@ -360,7 +358,7 @@ entity{
   ui_order:i=0
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
-  capzone__caption:t="capzone/farm_house"
+  capzone__caption:t="capzone/barn"
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
@@ -517,7 +515,6 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  sphere_zone__radius:r=21.0
   decal__thickness:r=0.3
   decal__height:r=2.6
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
@@ -546,7 +543,6 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  sphere_zone__radius:r=19.0
   decal__thickness:r=0.3
   decal__height:r=2.6
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
@@ -811,8 +807,6 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[10917.9, 0.0, -2968.94] [0.0, 8000.03, 0.0] [2968.42, 0.0, 10918.0] [-430.604, 240.916, 194.232]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
 }
 
@@ -1043,7 +1037,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.998233, 0.0, -0.059417] [0.0, 1.0, 0.0] [0.059417, 0.0, 0.998233] [1065.39, 9.42307, 359.298]]
+  transform:m=[[0.987264, 0.0, -0.15909] [0.0, 1.0, 0.0] [0.15909, -0.0, 0.987264] [1046.26, 9.72473, 374.135]]
   groupName:t="sector_2_a"
   lastSpawnOnTime:r=-11.0
   maxVehicleOnSpawn:i=2
@@ -1055,7 +1049,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.998233, 0.0, -0.059417] [0.0, 1.0, 0.0] [0.059417, 0.0, 0.998233] [1065.39, 9.42307, 359.298]]
+  transform:m=[[0.987264, 0.0, -0.15909] [0.0, 1.0, 0.0] [0.15909, -0.0, 0.987264] [1046.22, 9.72473, 373.902]]
   team:i=2
   groupName:t="sector_2_a"
 }
@@ -1131,7 +1125,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.998233, 0.0, -0.059417] [0.0, 1.0, 0.0] [0.059417, 0.0, 0.998233] [1065.39, 9.42307, 359.298]]
+  transform:m=[[0.987264, 0.0, -0.15909] [0.0, 1.0, 0.0] [0.15909, -0.0, 0.987264] [1046.26, 9.72473, 374.377]]
   groupName:t="sector_2_b"
   lastSpawnOnTime:r=-11.0
   maxVehicleOnSpawn:i=2
@@ -1143,7 +1137,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.998233, 0.0, -0.059417] [0.0, 1.0, 0.0] [0.059417, 0.0, 0.998233] [1065.39, 9.42307, 359.298]]
+  transform:m=[[0.987264, 0.0, -0.15909] [0.0, 1.0, 0.0] [0.15909, -0.0, 0.987264] [1046.17, 9.72473, 373.607]]
   team:i=2
   groupName:t="sector_2_b"
 }
@@ -1171,7 +1165,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[-0.983494, 0.0, 0.180943] [0.0, 1.0, 0.0] [-0.180943, 0.0, -0.983494] [1464.64, 10.4722, 343.209]]
+  transform:m=[[-0.983494, 0.0, 0.180943] [0.0, 1.0, 0.0] [-0.180943, 0.0, -0.983494] [1466.88, 10.4722, 343.025]]
   team:i=1
   maxVehicleOnSpawn:i=2
   respTime:i=120
@@ -1182,7 +1176,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[-0.983494, 0.0, 0.180943] [0.0, 1.0, 0.0] [-0.180943, 0.0, -0.983494] [1464.64, 10.4722, 343.209]]
+  transform:m=[[-0.983494, 0.0, 0.180943] [0.0, 1.0, 0.0] [-0.180943, 0.0, -0.983494] [1466.96, 10.4722, 343.383]]
   team:i=1
   groupName:t="sector_3"
 }
@@ -1471,6 +1465,7 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [822.679, 14.6273, 284.581]]
   groupName:t="sector_5"
   active:b=no
+  respawnBaseGroup:i=2
 }
 
 entity{
@@ -1478,6 +1473,7 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [827.424, 11.2357, 299.431]]
   groupName:t="sector_5"
   active:b=no
+  respawnBaseGroup:i=2
 }
 
 entity{
@@ -1516,8 +1512,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_1"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1567,8 +1561,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_1"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1610,8 +1602,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1661,8 +1651,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1704,8 +1692,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1771,8 +1757,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1814,8 +1798,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1873,8 +1855,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1924,8 +1904,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1975,8 +1953,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_3"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2026,8 +2002,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2101,8 +2075,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2152,8 +2124,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2203,8 +2173,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2246,8 +2214,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_5"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2305,8 +2271,6 @@ entity{
   groupName:t="sector_5"
   battle_area__team:i=2
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -2393,7 +2357,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.998233, 0.0, -0.059417] [0.0, 1.0, 0.0] [0.059417, 0.0, 0.998233] [1065.39, 9.42307, 359.298]]
+  transform:m=[[0.987264, 0.0, -0.15909] [0.0, 1.0, 0.0] [0.15909, -0.0, 0.987264] [1045.83, 9.72473, 373.949]]
   resupply_zone__team:i=2
   groupName:t="sector_2_a"
   active:b=no
@@ -2409,7 +2373,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.998233, 0.0, -0.059417] [0.0, 1.0, 0.0] [0.059417, 0.0, 0.998233] [1065.39, 9.42307, 359.298]]
+  transform:m=[[0.987264, 0.0, -0.15909] [0.0, 1.0, 0.0] [0.15909, -0.0, 0.987264] [1045.87, 9.72473, 374.229]]
   resupply_zone__team:i=2
   groupName:t="sector_2_b"
   active:b=no
@@ -2417,7 +2381,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.983494, 0.0, 0.180943] [0.0, 1.0, 0.0] [-0.180943, 0.0, -0.983494] [1464.64, 10.4722, 343.209]]
+  transform:m=[[-0.983494, 0.0, 0.180943] [0.0, 1.0, 0.0] [-0.180943, 0.0, -0.983494] [1467.3, 10.4722, 343.097]]
   resupply_zone__team:i=1
   groupName:t="sector_3"
   active:b=no
@@ -2475,6 +2439,13 @@ entity{
   _template:t="resupply_for_ground_vehicle_zone"
   transform:m=[[0.674826, 0.0, -0.737977] [0.0, 1.0, 0.0] [0.737977, 0.0, 0.674826] [748.431, 9.44497, 388.527]]
   resupply_zone__team:i=2
+  groupName:t="sector_5"
+  active:b=no
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[0.999078, 0.0, -0.0429224] [0.0, 1.0, 0.0] [0.0429224, -0.0, 0.999078] [832.394, 13.4191, 343.849]]
   groupName:t="sector_5"
   active:b=no
 }

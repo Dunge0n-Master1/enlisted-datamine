@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let eulaLog = require("%sqstd/log.nut")().with_prefix("[EULA]")
+let eulaLog = require("%enlSqGlob/library_logs.nut").with_prefix("[EULA]")
 let colors = require("%ui/style/colors.nut")
 let platform = require("%dngscripts/platform.nut")
 let msgbox = require("%ui/components/msgbox.nut")
@@ -9,17 +9,17 @@ let {makeVertScroll, thinStyle} = require("%ui/components/scrollbar.nut")
 let {safeAreaSize} = require("%enlist/options/safeAreaState.nut")
 let {read_text_from_file, file_exists} = require("dagor.fs")
 let json = require("%sqstd/json.nut")
-let {language} = require("%enlSqGlob/clientState.nut")
+let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let {hotkeysBarHeight} = require("%ui/hotkeysPanel.nut")
 
 const NO_VERSION = -1
 
-let json_load = @(file) json.load(file, {logger=log.log, load_text_file = read_text_from_file})
+let json_load = @(file) json.load(file, { logger = eulaLog, load_text_file = read_text_from_file})
 
 let function loadConfig(fileName) {
   let config = file_exists(fileName) ? json_load(fileName) : null
-  local curLang = language.value.tolower()
+  local curLang = gameLanguage.tolower()
   if (!(curLang in config))
     curLang = "english"
   return {
@@ -28,10 +28,10 @@ let function loadConfig(fileName) {
   }
 }
 
-let eula = loadConfig("eula/eula.json")
-let nda = loadConfig("nda/nda.json")
+let eula = loadConfig("content/enlisted/eula/eula.json")
+let nda = loadConfig("content/enlisted/nda/nda.json")
 
-eulaLog("language:", language.value)
+eulaLog("language:", gameLanguage)
 eulaLog("eula config:", eula)
 eulaLog("nda config:", nda)
 

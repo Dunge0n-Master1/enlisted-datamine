@@ -38,7 +38,7 @@ let pointer = @(key) {
 
   children = {
     rendObj = ROBJ_IMAGE
-    image = Picture("!ui/skin#target_pointer")
+    image = Picture("!ui/skin#target_pointer.png")
     size = [fsh(4), fsh(4.8)]
     pos = [fsh(0.05), -fsh(0.34)]
     color = Color(200,200,200)

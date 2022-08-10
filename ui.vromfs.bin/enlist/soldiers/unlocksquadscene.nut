@@ -146,7 +146,7 @@ let function unlockSquadWnd() {
   let descBlock = isNewSquad ? newSquadReceivedText
     : isShowcase
       ? primeDescBlock(squadCfg)
-    : mkDescBlock(squadCfg.newClass, squadCfg.announceLocId)
+    : mkDescBlock(squadCfg.announceLocId)
 
   local buttons = null
   if (isNewSquad)

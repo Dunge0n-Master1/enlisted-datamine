@@ -12,6 +12,8 @@ def train_capzone_move_capzone_navmesh_point(act : UpdateStageInfoAct;
                                              capzone__checkPathToLastPosInterval : float = 10.f;
                                              var capzone__lastNavmeshValidatedAtPos : float3&;
                                              var capzone__next_update_time : float&;
+                                             var capzone__insideNavmeshPositions : Point3List&;
+                                             var capzone__outsideNavmeshPositions : Point3List&;
                                              var capzone__hasNearestNavmeshPos : bool&;
                                              var capzone__nearestNavmeshPos : float3&)
   if act.curTime < capzone__next_update_time
@@ -31,3 +33,12 @@ def train_capzone_move_capzone_navmesh_point(act : UpdateStageInfoAct;
   capzone__hasNearestNavmeshPos = true
 
   capzone__lastNavmeshValidatedAtPos = transform[3]
+  if length(capzone__insideNavmeshPositions) == 0
+    push(capzone__insideNavmeshPositions, capzone__nearestNavmeshPos)
+  else
+    capzone__insideNavmeshPositions[0] = capzone__nearestNavmeshPos
+
+  if length(capzone__outsideNavmeshPositions) == 0
+    push(capzone__outsideNavmeshPositions, capzone__nearestNavmeshPos)
+  else
+    capzone__outsideNavmeshPositions[0] = capzone__nearestNavmeshPos

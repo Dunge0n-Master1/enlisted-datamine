@@ -31,7 +31,7 @@ let function requestData(url, params, onSuccess, onFailure=null) {
           return
         }
         let data = json.parse(str)
-        if(data?.status == "OK")
+        if (data?.status == "OK")
           onSuccess(data)
         else
           onFailure?()

@@ -193,10 +193,10 @@ def vehicle_seats_enter_exit_kick_server_es(evt : CmdKickFromVehicle;
   if playerEid == INVALID_ENTITY_ID
     for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
       query(seatEid) <| $ [es] (seat__component : int;
-                                var seat__isPlayer :  bool&;
-                                var seat__ownerEid :  EntityId&;
+                                var seat__isPlayer : bool&;
+                                var seat__ownerEid : EntityId&;
                                 var seat__playerEid : EntityId&;
-                                var seat__squadEid :  EntityId&)
+                                var seat__squadEid : EntityId&)
         if seat__ownerEid != requester
           return
 
@@ -217,10 +217,10 @@ def vehicle_seats_enter_exit_kick_server_es(evt : CmdKickFromVehicle;
     query(seatEid) <| $ [es] (seat__component : int;
                               seat__availableControls : VehicleControlsState;
                               seat__entranceNodeId : int;
-                              var seat__isPlayer :  bool&;
-                              var seat__ownerEid :  EntityId&;
+                              var seat__isPlayer : bool&;
+                              var seat__ownerEid : EntityId&;
                               var seat__playerEid : EntityId&;
-                              var seat__squadEid :  EntityId&)
+                              var seat__squadEid : EntityId&)
       if seat__ownerEid != requester
         return
 

@@ -1,8 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {EventOnSeatOwnersChanged} = require("vehicle")
-let {EventOnStartVehicleChangeSeat} = require("dasevents")
+let {EventOnStartVehicleChangeSeat,EventOnSeatOwnersChanged,CmdTrackVehicleWithWatched} = require("dasevents")
 let {get_sync_time} = require("net")
 let {watchedHeroEid} = require("%ui/hud/state/watched_hero.nut")
 
@@ -143,7 +142,7 @@ ecs.register_es("vehicle_seats_ui_es",
     onChange = trackComponents,
     onInit = trackComponents,
     onDestroy = resetState,
-    [ecs.sqEvents.CmdTrackVehicleWithWatched] = trackComponents,
+    [CmdTrackVehicleWithWatched] = trackComponents,
     [EventOnSeatOwnersChanged] = trackComponents,
   },
   {
@@ -188,18 +187,9 @@ ecs.register_es("vehicle_seats_on_chage_seat_ui_es",
   }
 )
 
-ecs.register_es("vehicle_changed_ui_es", {
-  onInit = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], ecs.event.CmdTrackHeroVehicle()),
-  onChange = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], ecs.event.CmdTrackHeroVehicle()),
-},
-{
-  comps_track = [["human_anim__vehicleSelected", ecs.TYPE_EID]]
-  comps_rq = ["hero"]
-})
-
 ecs.register_es("vehicle_with_watched_changed_ui_es", {
-  onInit = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], ecs.event.CmdTrackVehicleWithWatched()),
-  onChange = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], ecs.event.CmdTrackVehicleWithWatched()),
+  onInit = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], CmdTrackVehicleWithWatched()),
+  onChange = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], CmdTrackVehicleWithWatched()),
 },
 {
   comps_track = [["human_anim__vehicleSelected", ecs.TYPE_EID]]

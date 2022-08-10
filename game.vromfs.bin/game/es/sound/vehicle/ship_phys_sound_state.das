@@ -8,7 +8,7 @@ require CollRes
 
 [es(tag=sound, after=(vehicle_phys_es, sound_control_update))]
 def ship_phys_sound_state(info : UpdateStageInfoAct;
-                          sound_control__enabled : bool;
+                          sound_control__shouldPlay : bool;
                           ship_net_phys : ShipActor;
                           var vehicle_sound_state__engineRpm : float&;
                           var vehicle_sound_state__engineLoad : float&;
@@ -38,7 +38,7 @@ def ship_phys_sound_state(info : UpdateStageInfoAct;
   vehicle_sound_state__isEngineStarted = isAlive && ship_net_phys.phys.engineRPM != 0.
   vehicle_sound_state__slip = length(ship_net_phys.phys.currentState.omega)
 
-  if !sound_control__enabled
+  if !sound_control__shouldPlay
     vehicle_sound_state__prevTransform = transform
     return
 

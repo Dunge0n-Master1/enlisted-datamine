@@ -1,0 +1,79 @@
+europe_summer_beach_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/europe_summer_beach"
+  }
+}
+
+desert_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/desert"
+  }
+}
+
+europe_winter_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/europe_winter"
+  }
+}
+
+europe_summer_battle_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/europe_summer_battle"
+  }
+}
+
+city_battle_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/city_battle"
+  }
+}
+
+walla_screams_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/walla_screams"
+  }
+}
+
+stalingrad_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="ambient/stalingrad"
+  }
+}
+
+music_launcher_ambient_sound{
+  _extends:t="ambient_sound"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    ambient_sound__path:t="music/launcher"
+  }
+}

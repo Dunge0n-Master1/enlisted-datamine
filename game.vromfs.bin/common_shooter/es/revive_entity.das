@@ -1,6 +1,7 @@
 require ecs
 require math
 require math.base
+require enlisted.events_enlisted
 require game.es.events
 require game.utils.hero
 require inventory
@@ -35,7 +36,7 @@ def revive_at_object_used_es(evt : EventOnLootItemUsed; playerItemOwner : Entity
     after=hero_human_pre_use_object_es,
     after=hero_human_use_downed_human_object_es,
     before=hero_human_final_use_object_sync)]
-def hero_human_use_revive_object_es(act : UpdateStageInfoAct;
+def hero_human_use_revive_object_es(act : ParallelUpdateFrameDelayed;
                                     itemContainer : EidList;
                                     var human_use_object__selectedObject : EntityId&;
                                     var human_use_object__lookAtObject : EntityId&;

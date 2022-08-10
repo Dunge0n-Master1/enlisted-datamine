@@ -4,6 +4,7 @@ let remap_nick = require("%enlSqGlob/remap_nick.nut")
 let invalidNickName = "????????"
 let {request_nick_by_uid_batch} = require("%enlist/netUtils.nut")
 let {ndbTryRead, ndbWrite} = require("nestdb")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let function mkGlobalWatched(userIdStr, defVal){
   let key = $"allContacts/{userIdStr}"
@@ -44,7 +45,7 @@ let requestedUids = {}
 //contacts - array or table of contacts
 let function validateNickNames(contactsContainer, finish_cb = null) {
   let requestContacts = []
-  foreach(c in contactsContainer) {
+  foreach (c in contactsContainer) {
     if (!isValidContactNick(c) && !(c.value.uid in requestedUids)) {
       requestContacts.append(c)
       requestedUids[c.value.uid] <- true
@@ -58,7 +59,7 @@ let function validateNickNames(contactsContainer, finish_cb = null) {
 
   request_nick_by_uid_batch(requestContacts.map(@(c) c.value.uid),
     function(result) {
-      foreach(contact in requestContacts) {
+      foreach (contact in requestContacts) {
         let { userId, uid } = contact.value
         let name = result?[userId]
         if (name)
@@ -74,14 +75,19 @@ let function validateNickNames(contactsContainer, finish_cb = null) {
 let nickContactsCache = persist("nickContactsCache", @() {})
 let function getContactNick(contact) {
   let uid = contact?.value.uid ?? contact?.uid
-  if (uid==null)
-    return remap_nick(contact?.value.realnick ?? contact?.realnick)
-  if (uid in nickContactsCache){
-    return nickContactsCache[uid]
-  }
   let nick = contact?.value.realnick ?? contact?.realnick ?? invalidNickName
+
+  if (uid == null) {
+    if (nick == userInfo?.value.name)
+      return userInfo.value.nameorig
+    return remap_nick(nick)
+  }
+
+  if (uid in nickContactsCache)
+    return nickContactsCache[uid]
+
   if (nick != invalidNickName) {
-    nickContactsCache[uid] <- remap_nick(nick)
+    nickContactsCache[uid] <- nick == userInfo?.value.name ? userInfo.value.nameorig : remap_nick(nick)
     return nickContactsCache[uid]
   }
   return invalidNickName

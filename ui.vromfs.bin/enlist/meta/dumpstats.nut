@@ -168,7 +168,7 @@ let aircraftSubitemType = {
 // filter out cloth and other unnecessary items
 let itemTypeWhitelist = {
   medkits = true
-  reapair_kit = true
+  repair_kit = true
   building_tool = true
   grenade = true
   mine = true

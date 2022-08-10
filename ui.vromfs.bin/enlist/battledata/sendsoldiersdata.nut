@@ -37,7 +37,7 @@ let function requestProfileDataJwt(armies, cb, triesCount = 0) {
     return
 
   let armiesToCurSquad = {}
-  foreach(armyId in armies)
+  foreach (armyId in armies)
     armiesToCurSquad[armyId] <- playerSelectedSquads.value?[armyId] ?? ""
 
   local triesLeft = triesCount
@@ -86,15 +86,16 @@ let function requestAndSend(playerEid, teamArmy) {
 }
 
 local function saveJwtResultToJson(jwt, data, fileName) {
-  local file = io.file($"{fileName}.json", "wt+")
+  fileName = $"{fileName}.json"
+  local file = io.file(fileName, "wt+")
   file.writestring(json.to_string(data, true))
   file.close()
-  log($"Saved json payload to {fileName}")
+  console_print($"Saved json payload to {fileName}")
   fileName = $"{fileName}.jwt"
   file = io.file(fileName, "wt+")
   file.writestring(jwt)
   file.close()
-  log($"Saved jwt to {fileName}")
+  console_print($"Saved jwt to {fileName}")
 }
 
 let function saveToFile(teamArmy = null) {
@@ -131,7 +132,7 @@ eventbus.subscribe("requestArmiesData", function(msg) {
       ?? findArmy(armies, allAvailableArmies.value?[curCampaign.value] ?? [])
     log($"[ARMY_DATA] request army data for army {armyId} (selArmy = {selArmyId})")
     if (armyId == null)
-      foreach(list in allAvailableArmies.value) {
+      foreach (list in allAvailableArmies.value) {
         armyId = findArmy(armies, list)
         if (armyId != null)
           break

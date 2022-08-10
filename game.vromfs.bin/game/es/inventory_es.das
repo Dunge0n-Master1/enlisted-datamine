@@ -7,22 +7,8 @@ require EnlistedHuman
 require HumanPhys
 require DagorSystem
 require game.events_game
+require game.es.inventory_common
 
-def private get_item_use_time(item : EntityId; is_downed : bool; is_self_targeting : bool)
-  var useTime = -1f
-  var hasUseTime = false
-  if is_self_targeting
-    query(item) <| $ [es] (item__useTime : float; item__downedTimeMultiplier : float = 1f)
-      useTime = item__useTime  * (is_downed ? item__downedTimeMultiplier : 1f)
-      hasUseTime = true
-  else
-    query(item) <| $ [es] (item__useTimeToTarget : float; item__downedTimeMultiplier : float = 1f)
-      useTime = item__useTimeToTarget * (is_downed ? item__downedTimeMultiplier : 1.f)
-      hasUseTime = true
-  if hasUseTime && useTime < 0f
-    let compName = is_self_targeting ? "useTime" : "useTimeToTarget"
-    logerr("item.{compName} < 0 {getEntityTemplateName(item)}")
-  return useTime
 
 [es(tag=server, REQUIRE=human_inventory)]
 def inventory_use_item_server_es(evt : EventUseItem;

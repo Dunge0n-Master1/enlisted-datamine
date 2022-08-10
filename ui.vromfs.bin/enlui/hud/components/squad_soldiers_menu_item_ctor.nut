@@ -8,8 +8,8 @@ let {
 let { fabs } = require("math")
 let { SUCCESS_TEXT_COLOR, DEFAULT_TEXT_COLOR, DEAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 
-let iconSize = hdpx(40).tointeger()
-let sIconSize = hdpx(15).tointeger()
+let iconSize = hdpxi(40)
+let sIconSize = hdpxi(15)
 
 let function splitOnce(name) {
   local idx = name.indexof(" ")

@@ -27,7 +27,7 @@ let doFadeBlack = kwarg(function(fadein, fadeout=null, color = black, action = n
 })
 
 let function registerFadeBlackActions(actions) {
-  foreach(name, act in actions)
+  foreach (name, act in actions)
     if (name in allActions)
       logerr($"fadeToBlack: Try to register already exist action '{name}'")
     else

@@ -5,7 +5,7 @@ let eventbus = require("eventbus")
 let list = []
 
 eventbus.subscribe("app.shutdown", function(...) {
-  foreach(func in list)
+  foreach (func in list)
     func()
 })
 

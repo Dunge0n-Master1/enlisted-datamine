@@ -69,10 +69,10 @@ let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
       margin = [0,0,fsh(5),0]
       gap = fsh(5)
       children = [
-        taskHeader(unlockDesc, progress, true , {
+        taskHeader(unlockDesc, progress, true, 0, {
           halign = ALIGN_CENTER
         }.__update(body_txt))
-        taskDescription(unlockDesc.localization.description, { halign = ALIGN_CENTER})
+        taskDescription(unlockDesc.localization.description, 0, { halign = ALIGN_CENTER})
         leftRerolls > 0 ? mkRerollText(leftRerolls, totalRerolls) : null
       ]
     }
@@ -186,14 +186,14 @@ let weeklyTasksUi = @() {
         onClick = @() profileScene("weeklyTasks")
         children = [
           mkHoverBar(sf)
-          weeklyTasksTitle
+          weeklyTasksTitle(sf)
           mkUnseenIcon(hasWeeklyTasksAlert)
         ]
       }.__update(widgetStyle))
 }
 
-let btnHeight = hdpx(46).tointeger()
-let btnMinWidth = hdpx(200).tointeger()
+let btnHeight = hdpxi(46)
+let btnMinWidth = hdpxi(200)
 
 let function mkBtnBuyTask(task) {
   let hasBlockedByRequirement = Computed(function() {
@@ -265,11 +265,11 @@ let function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
           : isPurchasable ? mkBtnBuyTask(task)
           : null
         customDescription = !isMain && idx >= lastActiveIdx
-            ? taskDescription(loc("unlocks/blockedByPrevious"), {
+            ? taskDescription(loc("unlocks/blockedByPrevious"), 0, {
                 margin = taskDescPadding
               })
           : isFinished
-            ? taskDescription(utf8ToUpper(loc("finishedTaskText")), {
+            ? taskDescription(utf8ToUpper(loc("finishedTaskText")), 0, {
                 margin = taskDescPadding
               })
           : null

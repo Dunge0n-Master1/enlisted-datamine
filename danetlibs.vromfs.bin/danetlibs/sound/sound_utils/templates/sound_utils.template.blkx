@@ -53,16 +53,27 @@ watched_by_player_sound{
   }
 }
 
+watched_entity_snapshot{
+
+  _group{
+    _tags:t="sound"
+    watched_entity_snapshot__path:t=""
+
+    "watched_entity_snapshot__event:SoundEvent"{
+    }
+  }
+}
+
 sound_control{
   _extends:t="sound_bank_preset_state"
-  _tracked:t="sound_control__enabled"
+  _tracked:t="sound_control__shouldPlay"
 
   _group{
     _tags:t="sound"
     sound_control__range:r=22.0
     sound_control__inRange:b=no
-    sound_control__enabled:b=no
-    sound_control__active:b=yes
+    sound_control__shouldPlay:b=no
+    sound_control__enable:b=yes
   }
 }
 

@@ -1,6 +1,8 @@
 #default:no-func-decl-sugar
 #default:no-class-decl-sugar
 #default:no-root-fallback
+#default:explicit-this
+#default:forbid-root-table
 
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
@@ -27,10 +29,10 @@ let {hotkeysButtonsBar} = require("%ui/hotkeysPanel.nut")
 let platform = require("%dngscripts/platform.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {msgboxGeneration, getCurMsgbox} = require("components/msgbox.nut")
-let {modalWindowsComponent} = require("%darg/components/modalWindows.nut")
+let {modalWindowsComponent} = require("%ui/components/modalWindows.nut")
 let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
 let mainScreen = require("mainScreen.nut")
-let {inspectorRoot} = require("%darg/components/inspector.nut")
+let {inspectorRoot} = require("%darg/helpers/inspector.nut")
 let globInput = require("%ui/glob_input.nut")
 let {DBGLEVEL} = require("dagor.system")
 require("daRg.debug").requireFontSizeSlot(DBGLEVEL>0 && VAR_TRACE_ENABLED) //warning disable: -const-in-bool-expr
@@ -43,12 +45,6 @@ let {getCurrentLoginUi, loginUiVersion} = require("login/currentLoginUi.nut")
 let version_info = require("components/versionInfo.nut")
 let {noServerStatus, saveDataStatus} = require("%enlist/mainMenu/info_icons.nut")
 let speakingList = require("%ui/speaking_list.nut")
-let {onlineSettingUpdated} = require("%enlist/options/onlineSettings.nut")
-let { getCurrentLanguage } = require("dagor.localize")
-let {language} = require("%enlSqGlob/clientState.nut")
-if (platform.is_pc) {
-  onlineSettingUpdated.subscribe(@(...) language(getCurrentLanguage()))
-}
 
 
 let {mkSettingsMenuUi, showSettingsMenu} = require("%ui/hud/menus/settings_menu.nut")

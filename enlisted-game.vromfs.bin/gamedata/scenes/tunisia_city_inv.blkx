@@ -2,6 +2,10 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_tunisia_sounds.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_tunisia_level.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-460.521, 19.5437, 33.2648]]
@@ -825,8 +829,6 @@ entity{
   battleAreaId:t="1a_area1"
   battle_area__team:i=1
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -836,8 +838,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_1_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -847,8 +847,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -858,8 +856,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_1_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -869,8 +865,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_2_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -880,8 +874,6 @@ entity{
   groupName:t="sector_2_a"
   battle_area__team:i=2
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -891,8 +883,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_2_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -902,8 +892,6 @@ entity{
   groupName:t="sector_2_b"
   battle_area__team:i=2
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -913,8 +901,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_3_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -924,8 +910,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_3_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -935,8 +919,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_3_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -946,8 +928,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_3_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -957,8 +937,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -968,8 +946,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_4_a"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -979,8 +955,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -990,8 +964,6 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_4_b"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1001,8 +973,6 @@ entity{
   battle_area__team:i=1
   groupName:t="sector_5"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
@@ -1012,21 +982,16 @@ entity{
   battle_area__team:i=2
   groupName:t="sector_5"
   active:b=no
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
 }
 
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[25256.1, 0.0, 17996.4] [0.0, 8000.03, 0.0] [-17997.5, 0.0, 25255.2] [159.502, 240.916, 10.2786]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=1.0
   battle_area__team:i=-1
 }
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="tunisia_city_inv"
 
   "loading_images:list<t>"{
@@ -1051,31 +1016,6 @@ entity{
 }
 
 entity{
-  _template:t="shaderVars"
-
-  "shader_vars__vars:object"{
-    ocean1:p4=0.267, 0.251, 0.125, 0.0
-    ocean0:p4=0.278, 0.247, 0.129, 0.0
-    ocean_density:r=0.4
-    puddle_hardness:r=33.0
-    puddle_flat_noise_normal_effect:r=0.015
-    puddle_flat_normal_hardness:r=45.0
-    layered_fog_density:r=0.008
-    river1:p4=0.192, 0.373, 0.235, 0.0
-    river0:p4=0.58, 0.592, 0.38, 0.0
-    puddle_flat_hmap_reduce:r=-0.0095
-    leaves_ss_profile:p4=1.0, 1.0, 1.0, 0.0
-    paint_details_tex:t="tunisia_wall_color_tex_palette*"
-    layered_fog_height:r=100.0
-    puddle_increase:r=-0.02
-    water_color_noise_size:r=737.0
-    puddle_flat_noise_height_reduce:r=0.09
-    max_river_width:r=50.0
-    river_density:r=0.4
-  }
-}
-
-entity{
   _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
 }
 
@@ -1086,11 +1026,6 @@ entity{
 entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
-}
-
-entity{
-  _template:t="tunisia_4x4_river_sound"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
@@ -1117,7 +1052,6 @@ entity{
   team__capturePenalty:r=1001.0
   team__score:r=5000.0
   team__id:i=2
-  team__haveScores:b=no
   team__briefing:t="invasion/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
@@ -1140,7 +1074,7 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[19.7203, 0.0, 2.90671] [0.0, 7.44277, 0.0] [-2.06856, 0.0, 17.2727] [-247.071, 24.5187, -134.82]]
   capzone__capRewardPartCap:r=1.125
   capzone__curTeamCapturingZone:i=-1
@@ -1675,7 +1609,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.408462, 0.0, 0.912775] [0.0, 1.0, 0.0] [-0.912775, 0.0, 0.408462] [-315.52, 20.196, -152.253]]
+  transform:m=[[0.408462, 0.0, 0.912775] [0.0, 1.0, 0.0] [-0.912775, 0.0, 0.408462] [-313.785, 20.4013, -156.136]]
   groupName:t="sector_2_a"
   team:i=1
   respTime:i=150
@@ -1786,7 +1720,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.461467, 0.0, 0.887157] [0.0, 1.0, 0.0] [-0.887157, 0.0, 0.461467] [-315.353, 20.817, -152.493]]
+  transform:m=[[0.461467, 0.0, 0.887157] [0.0, 1.0, 0.0] [-0.887157, 0.0, 0.461467] [-313.574, 20.4433, -156.375]]
   active:b=no
   groupName:t="sector_2_b"
   respTime:i=150
@@ -2538,7 +2472,6 @@ entity{
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
   ground_effect__scale_x:p2=1.3, 0.0
@@ -2782,7 +2715,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.408462, 0.0, 0.912775] [0.0, 1.0, 0.0] [-0.912775, 0.0, 0.408462] [-315.52, 20.196, -152.253]]
+  transform:m=[[0.408462, 0.0, 0.912775] [0.0, 1.0, 0.0] [-0.912775, 0.0, 0.408462] [-318.016, 20.196, -155.618]]
   resupply_zone__team:i=1
   groupName:t="sector_2_a"
   active:b=no
@@ -2798,7 +2731,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.461467, 0.0, 0.887157] [0.0, 1.0, 0.0] [-0.887157, 0.0, 0.461467] [-315.353, 20.817, -152.493]]
+  transform:m=[[0.461467, 0.0, 0.887157] [0.0, 1.0, 0.0] [-0.887157, 0.0, 0.461467] [-316.815, 20.817, -155.779]]
   resupply_zone__team:i=1
   groupName:t="sector_2_b"
   active:b=no

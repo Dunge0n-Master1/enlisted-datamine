@@ -39,7 +39,7 @@ let function createHighlight(boxes, lightCtor, darkCtor) {
   local darkBlocks = [{ l = 0, t = 0, r = sw(100), b = sh(100) }]
   let lightBlocks = []
 
-  foreach(box in boxes) {
+  foreach (box in boxes) {
     if ("l" not in box)
       continue
     lightBlocks.append(box)
@@ -59,7 +59,7 @@ let function getBox(keys) {
 
   if (kType == "array") {
     local res = null
-    foreach(key in keys) {
+    foreach (key in keys) {
       let aabb = gui_scene.getCompAABBbyKey(key)
       if (aabb == null)
         continue
@@ -80,7 +80,7 @@ let function getBox(keys) {
 
 let function findDiapason(allowedBox, allowedRange, obstacles) {
   let diapason = [allowedRange]
-  foreach(oData in obstacles) {
+  foreach (oData in obstacles) {
     let { obst, start, end } = oData
     if (!isIntersect(obst, allowedBox))
       continue
@@ -118,7 +118,7 @@ let function getBestPos(diapason, range) { //return null -> not found
   let size = range[1] - range[0]
   local found = false
   local pos = 0
-  foreach(segment in diapason) {
+  foreach (segment in diapason) {
     if (segment[1] - segment[0] < size)
       continue
 
@@ -202,7 +202,7 @@ let arrowPosCalcList = [
 let function findGoodArrowPos(box, size, obstacles) {
   let calcSorted = arrowPosCalcList.map(@(c) { order = c.orderCalc(box), posCalc = c.posCalc })
     .sort(@(a, b) a.order <=> b.order)
-  foreach(calcData in calcSorted) {
+  foreach (calcData in calcSorted) {
     let { pos = null, rotate = 0 } = calcData.posCalc(box, size, obstacles)
     if (pos != null)
       return { pos, rotate }

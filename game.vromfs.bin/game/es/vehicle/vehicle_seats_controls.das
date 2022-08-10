@@ -57,7 +57,7 @@ def determine_controls_for_player(var mode : VehicleControlsState#; current_owne
   query(curret_seat_eid) <| $ [es(REQUIRE=commanderSeat)] ()
     isCommander = true
 
-  for seatNo, seatEid in iter_range(seatEids), seatEids
+  for seatEid in seatEids
     query(seatEid) <| $ [es] (seat__ownerEid, seat__playerEid : EntityId; seat__isPlayer : bool; seat__availableControls : VehicleControlsState;
                               seat__directTurretControl : bool = false;
                               seat__availableHatchControls : VehicleControlsState?; seats_hatch_nodes__openPos : float = 0.0)
@@ -83,7 +83,7 @@ def determine_controls_for_player(var mode : VehicleControlsState#; current_owne
 
 def find_owner_player_for_vehicle(vehicle_seats__seatEids : EidList) : EntityId
   var playerEid = INVALID_ENTITY_ID
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seat__playerEid : EntityId; seat__ownerControls : VehicleControlsState)
       if seat__ownerControls.canControlVehicle
         playerEid = seat__playerEid
@@ -158,7 +158,7 @@ def vehicle_seats_apply_controls(info : UpdateStageInfoAct;
   let hero = get_controlled_hero()
 
   using <| $(var mode : VehicleControlsState#)
-    for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+    for seatEid in vehicle_seats__seatEids
       query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__ownerControls : VehicleControlsState)
         if seat__ownerEid == hero
           mode = seat__ownerControls
@@ -230,9 +230,10 @@ def vehicle_seats_apply_camera_type(info : UpdateStageInfoAct;
                                     vehicle_seats__seatEids : EidList;
                                     var vehicleCameraType : int&;
                                     var isTpsView : bool?)
-  for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
+  for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__isPlayer : bool; seat__cameraType : int; seat__canControlTurrets : bool; seat__isInHatch : bool)
-      if !seat__isPlayer || !has(seat__ownerEid, "hero")
+      let isPlayer = seat__isPlayer || has(seat__ownerEid, "watchedByPlr")
+      if !isPlayer || !has(seat__ownerEid, "hero")
         return
 
       let cameraType = detect_camera_type(seat__ownerEid, seat__cameraType, !cockpit__isHeroInCockpit || seat__isInHatch, seat__canControlTurrets)

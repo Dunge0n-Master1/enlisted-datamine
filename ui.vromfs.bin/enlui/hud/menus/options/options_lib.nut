@@ -13,7 +13,7 @@ let optionHSelect = require("%ui/components/optionHSelect.nut")
 let optionTextArea = require("%ui/components/optionTextArea.nut")
 let optionSpinner = require("%ui/components/optionSpinner.nut")
 
-let getOnlineSaveData = memoize(@(saveId, defValueFunc, validateFunc = @(v) v) mkOnlineSaveData(saveId, defValueFunc, validateFunc))
+let getOnlineSaveData = memoize(@(saveId, defValueFunc, validateFunc = @(v) v) mkOnlineSaveData(saveId, defValueFunc, validateFunc), 1)
 
 let function defCmp(a, b) {
   if (typeof a != "float")

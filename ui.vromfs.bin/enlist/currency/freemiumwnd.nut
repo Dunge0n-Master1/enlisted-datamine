@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let {
@@ -16,7 +16,7 @@ let {
 let { Flat } = require("%ui/components/textButton.nut")
 let { curFreemiumShopItem, freemiumExpBoost
 } = require("%enlist/campaigns/freemiumState.nut")
-let fa = require("%darg/components/fontawesome.map.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let {
   mkHeaderFlag, freemiumFlagStyle
 }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -24,7 +24,7 @@ let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { weapInfoBtn } = require("%enlist/soldiers/components/campaignPromoPkg.nut")
 let { openUnlockSquadScene } = require("%enlist/soldiers/unlockSquadScene.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-
+let { normal } = require("%ui/style/cursors.nut")
 
 const WND_UID = "freemiumWindow"
 local WND_WIDTH = fsh(120)
@@ -328,10 +328,10 @@ local freemiumBlockContent = @() {
   ]
 }
 
-local freemiumInfoBlock = @() {
+local freemiumInfoBlock = {
   size = flex()
   children = [
-    mkImage("ui/gameImage/freemium_bg.png", { keepAspect = true })
+    mkImage("ui/gameImage/freemium_bg.jpg", { keepAspect = true })
     freemiumBlockContent()
   ]
   transform = {}
@@ -352,6 +352,9 @@ local function open() {
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
     color = bgColor
+    stopMouse = true
+    stopHover = true
+    cursor = normal
     children = @() {
       size = flex()
       maxHeight = fsh(100)
@@ -370,7 +373,7 @@ local function open() {
         }
         {
           size = [WND_WIDTH, flex()]
-          children = freemiumInfoBlock()
+          children = freemiumInfoBlock
         }
         {
           size = flex()

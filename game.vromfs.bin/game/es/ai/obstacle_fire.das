@@ -13,6 +13,8 @@ def obstacle_fire_created_es(evt : Event;
                              obstacle__padding : float = 0.0f)
   if obstacle__handle != 0
     return
+  if !tilecache_is_loaded()
+    return
   var radius = sphere_zone__radius
   if fire_source__scale > 0.0f
     radius = fire_source__scale

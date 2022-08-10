@@ -44,7 +44,7 @@ local prevState = state.value
 
 state.subscribe(function(newState) {
   if (newState.inited && prevState.inited && !debriefingShow.value)
-    foreach(id, value in newState.list)
+    foreach (id, value in newState.list)
       if (value != prevState.list[id])
         warningUpdate(id, value)
   prevState = newState

@@ -17,7 +17,7 @@ let text = @(text, sf) {
 
 let campaignInfo = watchElemState(function(sf){
   let res = { watch = [curCampaign, gameProfile, hasCampaignSelection] }
-  if(!hasCampaignSelection.value)
+  if (!hasCampaignSelection.value)
     return res
 
   let campaign = curCampaign.value

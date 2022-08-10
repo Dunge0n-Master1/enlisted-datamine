@@ -43,7 +43,7 @@ let flexTextArea = @(params) {
 }.__update(sub_txt, params)
 
 
-let perkPointIcon = @(pPointCfg, pPointSize = hdpx(32).tointeger()) {
+let perkPointIcon = @(pPointCfg, pPointSize = hdpxi(32)) {
   rendObj = ROBJ_IMAGE
   image = Picture("{0}:{1}:{1}:K".subst(pPointCfg.icon, pPointSize))
   color = pPointCfg.color
@@ -225,7 +225,7 @@ let defIconCtor = @(iconSettings) perkIcon(iconSettings.perk, iconSettings.iconS
 let priceIconCtor = @(iconSettings) mkPerkCostShort(iconSettings.perk,
   iconSettings.isUnavailable, iconSettings.statType, iconSettings?.customStyle)
 
-let thumbIconSize = hdpx(20).tointeger()
+let thumbIconSize = hdpxi(20)
 
 let recommendedPerkIcon = {
   rendObj = ROBJ_IMAGE

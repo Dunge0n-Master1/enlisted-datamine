@@ -14,7 +14,7 @@ let colorize = require("%ui/components/colorize.nut")
 let waitForUnlockReward = Watched({})
 
 unlockRewardsInProgress.subscribe(function(v) {
-  foreach(id, _ in v) {
+  foreach (id, _ in v) {
     let { lastRewardedStage = -1 } = unlockProgress.value?[id]
     if (lastRewardedStage >= 0)
       waitForUnlockReward.mutate(@(v) v[id] <- lastRewardedStage) //warning disable: -iterator-in-lambda
@@ -57,7 +57,7 @@ let function showUnlockRewardMsgBox(id, lastRewardedStage) {
 
 unlockProgress.subscribe(function(v) {
   let idsToRemove = []
-  foreach(id, prevStage in waitForUnlockReward.value) {
+  foreach (id, prevStage in waitForUnlockReward.value) {
     let { lastRewardedStage = -1 } = v?[id]
     if (prevStage >= lastRewardedStage)
       continue

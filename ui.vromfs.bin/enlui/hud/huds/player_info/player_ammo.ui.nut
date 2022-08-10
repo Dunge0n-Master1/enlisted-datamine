@@ -2,10 +2,10 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {mkInputHintBlock} = require("%ui/hud/huds/tips/tipComponent.nut")
-let {
-  hasWeapon, curWeaponIsReloadable, curWeaponAmmo, curWeaponIsDualMag, curWeaponAdditionalAmmo, curWeaponTotalAmmo, curWeaponAltAmmo,
+let { hasWeapon, curWeaponIsReloadable, curWeaponAmmo, curWeaponIsDualMag,
+  curWeaponAdditionalAmmo, curWeaponTotalAmmo, curWeaponAltAmmo,
   curWeaponAltTotalAmmo, curWeaponIsModActive, curWeaponHasAltShot
-} = require("weapons_state.nut")
+} = require("%ui/hud/state/hero_weapons.nut")
 let {blurBack, DEFAULT_TEXT_COLOR} = require("style.nut")
 
 let heightTxt = calc_str_box("auto", body_txt)[1]
@@ -102,41 +102,40 @@ let defSecondaryStyles = {
 let mkAmmoInfo = function(mainStyles = {}, secondaryStyles = {}) {
   mainStyles = defMainStyles.__merge(mainStyles)
   secondaryStyles = defSecondaryStyles.__merge(secondaryStyles)
-  return function(){
+  return function() {
     if (!hasWeapon.value || !curWeaponIsReloadable.value)
-      return { watch = [hasWeapon, curWeaponIsReloadable] size = [0, ammoCmpHgt]}
+      return {
+        watch = [hasWeapon, curWeaponIsReloadable]
+        size = [0, ammoCmpHgt]
+      }
 
-    let res = {
-      watch = [
-        curWeaponHasAltShot, curWeaponAmmo, curWeaponTotalAmmo, curWeaponAltAmmo,
-        curWeaponAltTotalAmmo, curWeaponIsModActive, hasWeapon, curWeaponIsReloadable
-      ]
-      flow = FLOW_HORIZONTAL
-      size = SIZE_TO_CONTENT
-      valign = ALIGN_CENTER
-    }
+    let watch = [
+      hasWeapon, curWeaponIsReloadable, curWeaponAmmo, curWeaponIsDualMag,
+      curWeaponAdditionalAmmo, curWeaponTotalAmmo, curWeaponHasAltShot
+    ]
     let curAmmo = curWeaponAmmo.value
     let additionalAmmo = curWeaponIsDualMag.value ? curWeaponAdditionalAmmo.value : null
     let totalAmmo = curWeaponTotalAmmo.value
     if (!curWeaponHasAltShot.value)
-      return res.__update({
-        children = {
-          flow = FLOW_VERTICAL
-          size = SIZE_TO_CONTENT
-          halign = ALIGN_RIGHT
-          children = ammoCmp(curAmmo, additionalAmmo, totalAmmo, mainStyles)
-        }
-      })
+      return {
+        watch
+        valign = ALIGN_CENTER
+        halign = ALIGN_RIGHT
+        children = ammoCmp(curAmmo, additionalAmmo, totalAmmo, mainStyles)
+      }
 
+    watch.append(curWeaponAltAmmo, curWeaponAltTotalAmmo, curWeaponIsModActive)
     let altCurAmmo = curWeaponAltAmmo.value
     let altTotalAmmo = curWeaponAltTotalAmmo.value
     let isModActive = curWeaponIsModActive.value
-    return res.__update({
+    return {
+      watch
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
       children = [
         weapModToggleTip
         {
           flow = FLOW_VERTICAL
-          size = SIZE_TO_CONTENT
           halign = ALIGN_RIGHT
           children = [
             ammoCmp(curAmmo, additionalAmmo, totalAmmo, mainStyles, isModActive)
@@ -144,7 +143,7 @@ let mkAmmoInfo = function(mainStyles = {}, secondaryStyles = {}) {
           ]
         }
       ]
-    })
+    }
   }
 }
 

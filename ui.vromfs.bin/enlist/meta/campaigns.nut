@@ -9,16 +9,16 @@ let { check_version } = require("%sqstd/version_compare.nut")
 let unlocks = Computed(function() {
   let { shop_items = {}, locked_campaigns = [], locked_progress_campaigns = [] } = configs.value
   let res = { open = {}, progress = {} }
-  foreach(camp in locked_campaigns)
+  foreach (camp in locked_campaigns)
     res.open[camp] <- []
-  foreach(camp in locked_progress_campaigns)
+  foreach (camp in locked_progress_campaigns)
     res.progress[camp] <- []
 
-  foreach(id, item in shop_items) {
-    foreach(camp in item?.campaigns ?? [])
+  foreach (id, item in shop_items) {
+    foreach (camp in item?.campaigns ?? [])
       if (camp in res.open)
         res.open[camp].append(id)
-    foreach(camp in item?.campaignsProgress ?? [])
+    foreach (camp in item?.campaignsProgress ?? [])
       if (camp in res.progress)
         res.progress[camp].append(id)
   }
@@ -48,7 +48,7 @@ let campaignsInfo = Computed(function() {
   let purchases = purchasesCount.value
   let { open, progress } = unlocks.value
 
-  foreach(camp in availableCampaigns) {
+  foreach (camp in availableCampaigns) {
     if (!isUnlocked(open?[camp], purchases))
       locked[camp] <- { reqPurchase = open[camp] }
     else {

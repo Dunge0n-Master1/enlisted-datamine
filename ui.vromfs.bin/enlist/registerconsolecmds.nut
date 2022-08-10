@@ -4,7 +4,7 @@ let { matchingCall } = require("matchingClient.nut")
 let eventbus = require("eventbus")
 let { actionInProgress, controllerDisconnected } = require("%enlSqGlob/uistate.nut")
 let checkReconnect = require("checkReconnect.nut")
-let {inspectorToggle} = require("%darg/components/inspector.nut")
+let {inspectorToggle} = require("%darg/helpers/inspector.nut")
 let msgbox = require("components/msgbox.nut")
 let matching_api = require("matching.api")
 

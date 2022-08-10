@@ -1,0 +1,1419 @@
+attachable_facial_hairs{
+  _extends:t="attachable_wear"
+  animchar__res:t=""
+  collres__res:t=""
+  slot_attach__slotName:t=""
+  animchar_hider__camThreshold:r=0.3
+
+  "slot_attach__attachedTo:eid"{
+  }
+
+  "animchar__actOnDemand:tag"{
+  }
+}
+
+headgen_components{
+
+  _group{
+    headgen__blendFactor:r=0.5
+    headgen__tex0:t=""
+    headgen__tex1:t=""
+    beard_id:i=-1
+    mustache_id:i=-1
+    _track:b=yes
+  }
+
+  _group{
+    _tags:t="render"
+
+    "facial_hairs:list<t>"{
+      node:t="beard"
+      node:t="mustache"
+    }
+
+    "face_gen__animcharRes:list<t>"{
+      res:t="headgenmesh_european_01"
+      res:t="headgenmesh_european_02"
+      res:t="headgenmesh_european_03"
+      res:t="headgenmesh_european_04"
+      res:t="headgenmesh_european_05"
+      res:t="headgenmesh_european_06"
+      res:t="headgenmesh_european_07"
+      res:t="headgenmesh_european_08"
+      res:t="headgenmesh_european_09"
+      res:t="headgenmesh_european_10"
+      res:t="headgenmesh_european_11"
+      res:t="headgenmesh_european_12"
+      res:t="headgenmesh_european_13"
+      res:t="headgenmesh_european_14"
+      res:t="headgenmesh_european_15"
+      res:t="headgenmesh_european_16"
+      res:t="headgenmesh_european_17"
+      res:t="headgenmesh_european_18"
+      res:t="headgenmesh_european_19"
+      res:t="headgenmesh_european_20"
+    }
+
+    "headgen__beards:list<t>"{
+      res:t="beard_01"
+      res:t="beard_02"
+      res:t="beard_03"
+      res:t="beard_04"
+      res:t="beard_06"
+      res:t="beard_07"
+      res:t="beard_08"
+      res:t="beard_09"
+      res:t="beard_10"
+      res:t="beard_11"
+      tex:t="beard_05"
+    }
+
+    "headgen__mustaches:list<t>"{
+      res:t="mustaches_01"
+      res:t="mustaches_02"
+      res:t="mustaches_03"
+      res:t="mustaches_04"
+      tex:t="mustaches_05"
+    }
+
+    "headgen__skins:list<t>"{
+      tex:t="head_european_01_tex"
+      tex:t="head_european_02_tex"
+      tex:t="head_european_03_tex"
+      tex:t="head_european_04_tex"
+      tex:t="head_european_05_tex"
+      tex:t="head_european_06_tex"
+      tex:t="head_european_07_tex"
+      tex:t="head_european_08_tex"
+      tex:t="head_european_09_tex"
+      tex:t="head_european_10_tex"
+      tex:t="head_european_11_tex"
+      tex:t="head_european_12_tex"
+      tex:t="head_european_13_tex"
+      tex:t="head_european_14_tex"
+      tex:t="head_european_15_tex"
+      tex:t="head_european_16_tex"
+      tex:t="head_european_17_tex"
+      tex:t="head_european_18_tex"
+      tex:t="head_european_19_tex"
+      tex:t="head_european_20_tex"
+    }
+
+    "headgen_diffuse0:SharedTex"{
+    }
+
+    "headgen_diffuse1:SharedTex"{
+    }
+
+    "headgen_normal0:SharedTex"{
+    }
+
+    "headgen_normal1:SharedTex"{
+    }
+  }
+}
+
+head_gen_regen_info{
+
+  "head_gen__regenInfo:tag"{
+  }
+}
+
+head_gen_save_info{
+
+  "head_gen__saveInfo:tag"{
+  }
+}
+
+head_gen_animphys{
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+}
+
+head_gen_base{
+  _extends:t="attachable_head_base"
+  _extends:t="replicating"
+  _extends:t="base_local_invis_item"
+  item__uniqueName:t="attachable_wear_head_01_ger_summer_item"
+  item__name:t="Ger Head 01"
+
+  "net__notInInitialScope:tag"{
+  }
+}
+
+head_gen_base_item{
+  _extends:t="head_gen_base"
+  _extends:t="headgen_components"
+  animchar__res:t="headgenmesh_european_01_char"
+  collres__res:t="headgenmesh_european_01_collision"
+
+  "attaches_list:list<eid>"{
+  }
+}
+
+attachable_wear_head_european_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_01_ger_summer_item"
+  animchar__res:t="headgenmesh_european_01_char"
+  collres__res:t="headgenmesh_european_01_collision"
+  item__name:t="Ger Head 01"
+}
+
+scar_preset_0{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_01_tex"
+        uv_offset:p2=-0.05, 0.37
+        uv_rotation:r=0.0
+        uv_scale:r=1.1
+      }
+    }
+  }
+}
+
+scar_preset_1{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_02_tex"
+        uv_offset:p2=0.1, 0.1
+        uv_rotation:r=30.0
+        uv_scale:r=1.1
+      }
+    }
+  }
+}
+
+scar_preset_2{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_04_tex"
+        uv_offset:p2=-0.15, 0.33
+        uv_rotation:r=0.0
+        uv_scale:r=1.0
+      }
+    }
+  }
+}
+
+scar_preset_3{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_05_tex"
+        uv_offset:p2=0.35, 0.65
+        uv_rotation:r=0.0
+        uv_scale:r=1.5
+      }
+    }
+  }
+}
+
+scar_preset_4{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_06_tex"
+        uv_offset:p2=0.0, 0.35
+        uv_rotation:r=0.0
+        uv_scale:r=1.0
+      }
+    }
+  }
+}
+
+scar_preset_5{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_07_tex"
+        uv_offset:p2=0.19, 0.6
+        uv_rotation:r=0.0
+        uv_scale:r=1.1
+      }
+    }
+  }
+}
+
+scar_preset_6{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_02_tex"
+        uv_offset:p2=0.1, 0.1
+        uv_rotation:r=30.0
+        uv_scale:r=1.1
+      }
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_04_tex"
+        uv_offset:p2=-0.15, 0.33
+        uv_rotation:r=0.0
+        uv_scale:r=1.0
+      }
+    }
+  }
+}
+
+scar_preset_7{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_07_tex"
+        uv_offset:p2=0.19, 0.6
+        uv_rotation:r=0.0
+        uv_scale:r=1.1
+      }
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_01_tex"
+        uv_offset:p2=-0.05, 0.37
+        uv_rotation:r=0.0
+        uv_scale:r=1.1
+      }
+    }
+  }
+}
+
+scar_preset_8{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_07_tex"
+        uv_offset:p2=0.19, 0.6
+        uv_rotation:r=0.0
+        uv_scale:r=1.1
+      }
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_02_tex"
+        uv_offset:p2=0.1, 0.1
+        uv_rotation:r=30.0
+        uv_scale:r=1.1
+      }
+    }
+  }
+}
+
+scar_preset_9{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_02_tex"
+        uv_offset:p2=0.1, 0.1
+        uv_rotation:r=30.0
+        uv_scale:r=1.1
+      }
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_05_tex"
+        uv_offset:p2=0.35, 0.65
+        uv_rotation:r=0.0
+        uv_scale:r=1.5
+      }
+    }
+  }
+}
+
+scar_preset_10{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_05_tex"
+        uv_offset:p2=0.35, 0.65
+        uv_rotation:r=0.0
+        uv_scale:r=1.5
+      }
+
+      "dynamic_details_preset:object"{
+        texture:t="scar_04_tex"
+        uv_offset:p2=-0.15, 0.33
+        uv_rotation:r=0.0
+        uv_scale:r=1.0
+      }
+    }
+  }
+}
+
+eye_shader_vars{
+  eye_iris_color_a_from:p4=0.2, 0.27, 0.25, 0.0
+  eye_iris_color_a_to:p4=0.95, 0.95, 0.95, 0.0
+  eye_iris_color_b_from:p4=0.25, 0.25, 0.25, 0.0
+  eye_iris_color_b_to:p4=0.45, 0.25, 0.1, 0.0
+  eye_iris_radius:r=0.03
+  eye_parallax:r=0.2
+  eye_reflectance:r=0.95
+  eye_sclera_color_from:p4=0.62, 0.58, 0.58, 0.0
+  eye_sclera_color_to:p4=0.44, 0.29, 0.29, 0.0
+  eye_smoothness:r=0.97
+}
+
+black_eyes{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.2, 0.2, 0.2, 0.0
+  eye_iris_color_a_to:p4=0.6, 0.6, 0.6, 0.0
+  eye_iris_color_b_from:p4=0.2, 0.2, 0.2, 0.0
+  eye_iris_color_b_to:p4=0.05, 0.05, 0.05, 0.0
+}
+
+blue_eyes_a{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.15, 0.2, 0.25, 0.0
+  eye_iris_color_a_to:p4=0.9, 0.9, 0.9, 0.0
+  eye_iris_color_b_from:p4=0.25, 0.25, 0.3, 0.0
+  eye_iris_color_b_to:p4=0.39, 0.39, 0.36, 0.0
+}
+
+blue_eyes_b{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.05, 0.15, 0.2, 0.0
+  eye_iris_color_a_to:p4=0.2, 0.9, 0.75, 0.0
+  eye_iris_color_b_from:p4=0.15, 0.15, 0.25, 0.0
+  eye_iris_color_b_to:p4=0.19, 0.6, 0.7, 0.0
+}
+
+brown_eyes{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.2, 0.15, 0.15, 0.0
+  eye_iris_color_a_to:p4=0.85, 0.85, 0.5, 0.0
+  eye_iris_color_b_from:p4=0.07, 0.07, 0.07, 0.0
+  eye_iris_color_b_to:p4=0.65, 0.55, 0.55, 0.0
+}
+
+brown_yellow_eyes_a{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.2, 0.21, 0.01, 0.0
+  eye_iris_color_a_to:p4=0.5, 0.63, 0.05, 0.0
+  eye_iris_color_b_from:p4=0.47, 0.19, 0.1, 0.0
+  eye_iris_color_b_to:p4=0.82, 0.55, 0.2, 0.0
+}
+
+brown_yellow_eyes_b{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.4, 0.21, 0.31, 0.0
+  eye_iris_color_a_to:p4=0.9, 0.53, 0.35, 0.0
+  eye_iris_color_b_from:p4=0.17, 0.19, 0.1, 0.0
+  eye_iris_color_b_to:p4=0.52, 0.45, 0.1, 0.0
+}
+
+ligth_gray_eyes{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.55, 0.55, 0.55, 0.0
+  eye_iris_color_a_to:p4=0.01, 0.01, 0.01, 0.0
+  eye_iris_color_b_from:p4=0.25, 0.25, 0.25, 0.0
+  eye_iris_color_b_to:p4=0.55, 0.55, 0.55, 0.0
+}
+
+green_eyes_a{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.2, 0.27, 0.25, 0.0
+  eye_iris_color_a_to:p4=0.95, 0.95, 0.95, 0.0
+  eye_iris_color_b_from:p4=0.25, 0.25, 0.25, 0.0
+  eye_iris_color_b_to:p4=0.45, 0.25, 0.1, 0.0
+}
+
+green_eyes_b{
+  _extends:t="eye_shader_vars"
+  eye_iris_color_a_from:p4=0.4, 0.25, 0.15, 0.0
+  eye_iris_color_a_to:p4=0.65, 0.37, 0.45, 0.0
+  eye_iris_color_b_from:p4=0.15, 0.33, 0.1, 0.0
+  eye_iris_color_b_to:p4=0.4, 0.38, 0.3, 0.0
+}
+
+ussr_gen_head_01{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_0"
+  _extends:t="blue_eyes_a"
+  headgen__tex0:t="head_european_08_tex"
+  headgen__tex1:t="head_european_19_tex"
+  animchar__res:t="headgenmesh_european_08_char"
+  collres__res:t="headgenmesh_european_08_collision"
+  facial_hair__key:i=6
+  headgen__blendFactor:r=0.989
+}
+
+ussr_gen_head_02{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_11_tex"
+  headgen__tex1:t="head_european_12_tex"
+  animchar__res:t="headgenmesh_european_20_char"
+  collres__res:t="headgenmesh_european_20_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.8629
+}
+
+ussr_gen_head_03{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_1"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_19_tex"
+  headgen__tex1:t="head_european_04_tex"
+  animchar__res:t="headgenmesh_european_03_char"
+  collres__res:t="headgenmesh_european_03_collision"
+  facial_hair__key:i=6
+  headgen__blendFactor:r=0.2834
+}
+
+ussr_gen_head_04{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_01_tex"
+  headgen__tex1:t="head_european_07_tex"
+  animchar__res:t="headgenmesh_european_06_char"
+  collres__res:t="headgenmesh_european_06_collision"
+  facial_hair__key:i=1
+  headgen__blendFactor:r=0.9
+}
+
+ussr_gen_head_05{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="green_eyes_b"
+  headgen__tex0:t="head_european_01_tex"
+  headgen__tex1:t="head_european_12_tex"
+  animchar__res:t="headgenmesh_european_11_char"
+  collres__res:t="headgenmesh_european_11_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.9611
+}
+
+ussr_gen_head_06{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_14_tex"
+  headgen__tex1:t="head_european_07_tex"
+  animchar__res:t="headgenmesh_european_20_char"
+  collres__res:t="headgenmesh_european_20_collision"
+  facial_hair__key:i=7
+  headgen__blendFactor:r=0.9614
+}
+
+ussr_gen_head_07{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_3"
+  _extends:t="brown_yellow_eyes_a"
+  headgen__tex0:t="head_european_20_tex"
+  headgen__tex1:t="head_european_07_tex"
+  animchar__res:t="headgenmesh_european_09_char"
+  collres__res:t="headgenmesh_european_09_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.1757
+}
+
+ussr_gen_head_08{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_b"
+  headgen__tex0:t="head_european_03_tex"
+  headgen__tex1:t="head_european_04_tex"
+  animchar__res:t="headgenmesh_european_19_char"
+  collres__res:t="headgenmesh_european_19_collision"
+  facial_hair__key:i=6
+  headgen__blendFactor:r=0.9
+  beard_id:i=5
+  mustache_id:i=-1
+}
+
+ussr_gen_head_09{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_4"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_17_tex"
+  headgen__tex1:t="head_european_16_tex"
+  animchar__res:t="headgenmesh_european_11_char"
+  collres__res:t="headgenmesh_european_11_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.9971
+  beard_id:i=7
+  mustache_id:i=1
+}
+
+ussr_gen_head_10{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_01_tex"
+  headgen__tex1:t="head_european_11_tex"
+  animchar__res:t="headgenmesh_european_19_char"
+  collres__res:t="headgenmesh_european_19_collision"
+  facial_hair__key:i=4
+  headgen__blendFactor:r=0.9
+  beard_id:i=-1
+  mustache_id:i=2
+}
+
+ussr_gen_head_11{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_5"
+  _extends:t="black_eyes"
+  headgen__tex0:t="head_european_09_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_12_char"
+  collres__res:t="headgenmesh_european_12_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.4
+  beard_id:i=-1
+  mustache_id:i=-1
+}
+
+ussr_gen_head_12{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_6"
+  _extends:t="green_eyes_b"
+  headgen__tex0:t="head_european_14_tex"
+  headgen__tex1:t="head_european_05_tex"
+  animchar__res:t="headgenmesh_european_01_char"
+  collres__res:t="headgenmesh_european_01_collision"
+  facial_hair__key:i=1
+  headgen__blendFactor:r=0.0824
+  beard_id:i=-1
+  mustache_id:i=0
+}
+
+ussr_gen_head_13{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="blue_eyes_b"
+  headgen__tex0:t="head_european_11_tex"
+  headgen__tex1:t="head_european_06_tex"
+  animchar__res:t="headgenmesh_european_06_char"
+  collres__res:t="headgenmesh_european_06_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.2885
+  beard_id:i=2
+  mustache_id:i=-1
+}
+
+ussr_gen_head_14{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_7"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_14_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_18_char"
+  collres__res:t="headgenmesh_european_18_collision"
+  facial_hair__key:i=0
+  headgen__blendFactor:r=0.9225
+  beard_id:i=1
+  mustache_id:i=-1
+}
+
+ussr_gen_head_15{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_2"
+  _extends:t="brown_yellow_eyes_a"
+  headgen__tex0:t="head_european_13_tex"
+  headgen__tex1:t="head_european_08_tex"
+  animchar__res:t="headgenmesh_european_20_char"
+  collres__res:t="headgenmesh_european_20_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.0663
+  beard_id:i=1
+  mustache_id:i=-1
+}
+
+ussr_gen_head_16{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_8"
+  _extends:t="black_eyes"
+  headgen__tex0:t="head_european_03_tex"
+  headgen__tex1:t="head_european_20_tex"
+  animchar__res:t="headgenmesh_european_06_char"
+  collres__res:t="headgenmesh_european_06_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.1
+}
+
+ussr_gen_head_17{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="blue_eyes_b"
+  headgen__tex0:t="head_european_05_tex"
+  headgen__tex1:t="head_european_19_tex"
+  animchar__res:t="headgenmesh_european_07_char"
+  collres__res:t="headgenmesh_european_07_collision"
+  facial_hair__key:i=7
+  headgen__blendFactor:r=0.2022
+  beard_id:i=-1
+  mustache_id:i=-1
+}
+
+ussr_gen_head_18{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_9"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_03_tex"
+  headgen__tex1:t="head_european_16_tex"
+  animchar__res:t="headgenmesh_european_18_char"
+  collres__res:t="headgenmesh_european_18_collision"
+  facial_hair__key:i=4
+  headgen__blendFactor:r=0.9
+  beard_id:i=-1
+  mustache_id:i=-1
+}
+
+ussr_gen_head_19{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_16_tex"
+  headgen__tex1:t="head_european_19_tex"
+  animchar__res:t="headgenmesh_european_08_char"
+  collres__res:t="headgenmesh_european_08_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.1
+  beard_id:i=7
+  mustache_id:i=0
+}
+
+ussr_gen_head_20{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_10"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_15_tex"
+  headgen__tex1:t="head_european_14_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.1541
+  beard_id:i=5
+  mustache_id:i=-1
+}
+
+ussr_gen_head_21{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="blue_eyes_a"
+  headgen__tex0:t="head_european_09_tex"
+  headgen__tex1:t="head_european_06_tex"
+  animchar__res:t="headgenmesh_european_01_char"
+  collres__res:t="headgenmesh_european_01_collision"
+  facial_hair__key:i=4
+  headgen__blendFactor:r=0.1
+  beard_id:i=-1
+  mustache_id:i=-1
+}
+
+ussr_gen_head_22{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_0"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_10_tex"
+  headgen__tex1:t="head_european_05_tex"
+  animchar__res:t="headgenmesh_european_09_char"
+  collres__res:t="headgenmesh_european_09_collision"
+  facial_hair__key:i=6
+  headgen__blendFactor:r=0.9
+  beard_id:i=7
+  mustache_id:i=-1
+}
+
+ussr_gen_head_23{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_12_tex"
+  headgen__tex1:t="head_european_17_tex"
+  animchar__res:t="headgenmesh_european_02_char"
+  collres__res:t="headgenmesh_european_02_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.5786
+  beard_id:i=5
+  mustache_id:i=2
+}
+
+ussr_gen_head_24{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_1"
+  _extends:t="green_eyes_b"
+  headgen__tex0:t="head_european_14_tex"
+  headgen__tex1:t="head_european_16_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  facial_hair__key:i=1
+  headgen__blendFactor:r=0.3679
+}
+
+ussr_gen_head_25{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_b"
+  headgen__tex0:t="head_european_14_tex"
+  headgen__tex1:t="head_european_08_tex"
+  animchar__res:t="headgenmesh_european_12_char"
+  collres__res:t="headgenmesh_european_12_collision"
+  facial_hair__key:i=1
+  headgen__blendFactor:r=0.7876
+}
+
+ger_gen_head_01{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_a"
+  headgen__tex0:t="head_european_06_tex"
+  headgen__tex1:t="head_european_11_tex"
+  animchar__res:t="headgenmesh_european_16_char"
+  collres__res:t="headgenmesh_european_16_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.8394
+}
+
+ger_gen_head_02{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_08_tex"
+  headgen__tex1:t="head_european_18_tex"
+  animchar__res:t="headgenmesh_european_12_char"
+  collres__res:t="headgenmesh_european_12_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.1966
+}
+
+ger_gen_head_03{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_3"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_14_tex"
+  headgen__tex1:t="head_european_20_tex"
+  animchar__res:t="headgenmesh_european_06_char"
+  collres__res:t="headgenmesh_european_06_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.6618
+}
+
+ger_gen_head_04{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_1"
+  _extends:t="blue_eyes_a"
+  headgen__tex0:t="head_european_05_tex"
+  headgen__tex1:t="head_european_07_tex"
+  animchar__res:t="headgenmesh_european_11_char"
+  collres__res:t="headgenmesh_european_11_collision"
+  facial_hair__key:i=0
+  headgen__blendFactor:r=0.1195
+}
+
+ger_gen_head_05{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_4"
+  _extends:t="blue_eyes_b"
+  headgen__tex0:t="head_european_04_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_03_char"
+  collres__res:t="headgenmesh_european_03_collision"
+  facial_hair__key:i=6
+  headgen__blendFactor:r=0.6875
+}
+
+ger_gen_head_06{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="green_eyes_b"
+  headgen__tex0:t="head_european_04_tex"
+  headgen__tex1:t="head_european_16_tex"
+  animchar__res:t="headgenmesh_european_17_char"
+  collres__res:t="headgenmesh_european_17_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.2834
+  beard_id:i=-1
+  mustache_id:i=2
+}
+
+ger_gen_head_07{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_5"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_06_tex"
+  headgen__tex1:t="head_european_07_tex"
+  animchar__res:t="headgenmesh_european_12_char"
+  collres__res:t="headgenmesh_european_12_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.7149
+  beard_id:i=2
+  mustache_id:i=0
+}
+
+ger_gen_head_08{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_02_tex"
+  headgen__tex1:t="head_european_13_tex"
+  animchar__res:t="headgenmesh_european_07_char"
+  collres__res:t="headgenmesh_european_07_collision"
+  facial_hair__key:i=0
+  headgen__blendFactor:r=0.9143
+}
+
+ger_gen_head_09{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_6"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_15_tex"
+  headgen__tex1:t="head_european_20_tex"
+  animchar__res:t="headgenmesh_european_08_char"
+  collres__res:t="headgenmesh_european_08_collision"
+  facial_hair__key:i=7
+  headgen__blendFactor:r=0.7861
+  beard_id:i=-1
+  mustache_id:i=2
+}
+
+ger_gen_head_10{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_17_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  facial_hair__key:i=1
+  headgen__blendFactor:r=0.2844
+}
+
+ger_gen_head_11{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_7"
+  _extends:t="brown_yellow_eyes_b"
+  headgen__tex0:t="head_european_19_tex"
+  headgen__tex1:t="head_european_06_tex"
+  animchar__res:t="headgenmesh_european_12_char"
+  collres__res:t="headgenmesh_european_12_collision"
+  facial_hair__key:i=5
+  headgen__blendFactor:r=0.1
+  beard_id:i=2
+  mustache_id:i=4
+}
+
+ger_gen_head_12{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_a"
+  headgen__tex0:t="head_european_06_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_09_char"
+  collres__res:t="headgenmesh_european_09_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.1
+  beard_id:i=-1
+  mustache_id:i=1
+}
+
+ger_gen_head_13{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_8"
+  _extends:t="black_eyes"
+  headgen__tex0:t="head_european_09_tex"
+  headgen__tex1:t="head_european_03_tex"
+  animchar__res:t="headgenmesh_european_13_char"
+  collres__res:t="headgenmesh_european_13_collision"
+  facial_hair__key:i=0
+  headgen__blendFactor:r=0.1
+  beard_id:i=-1
+  mustache_id:i=-1
+}
+
+ger_gen_head_14{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_01_tex"
+  headgen__tex1:t="head_european_11_tex"
+  animchar__res:t="headgenmesh_european_01_char"
+  collres__res:t="headgenmesh_european_01_collision"
+  facial_hair__key:i=2
+  headgen__blendFactor:r=0.7047
+  beard_id:i=6
+  mustache_id:i=1
+}
+
+ger_gen_head_15{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_9"
+  _extends:t="green_eyes_b"
+  headgen__tex0:t="head_european_19_tex"
+  headgen__tex1:t="head_european_16_tex"
+  animchar__res:t="headgenmesh_european_09_char"
+  collres__res:t="headgenmesh_european_09_collision"
+  facial_hair__key:i=7
+  headgen__blendFactor:r=0.2418
+}
+
+ger_gen_head_16{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_2"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_17_tex"
+  headgen__tex1:t="head_european_14_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  facial_hair__key:i=1
+  headgen__blendFactor:r=0.0608
+  beard_id:i=3
+  mustache_id:i=-1
+}
+
+ger_gen_head_17{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_10"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_09_tex"
+  headgen__tex1:t="head_european_13_tex"
+  animchar__res:t="headgenmesh_european_20_char"
+  collres__res:t="headgenmesh_european_20_collision"
+  facial_hair__key:i=5
+  headgen__blendFactor:r=0.2829
+  beard_id:i=-1
+  mustache_id:i=0
+}
+
+ger_gen_head_18{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_12_tex"
+  headgen__tex1:t="head_european_02_tex"
+  animchar__res:t="headgenmesh_european_03_char"
+  collres__res:t="headgenmesh_european_03_collision"
+  facial_hair__key:i=6
+  headgen__blendFactor:r=0.2191
+  beard_id:i=3
+  mustache_id:i=-1
+}
+
+ger_gen_head_19{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_0"
+  _extends:t="black_eyes"
+  headgen__tex0:t="head_european_05_tex"
+  headgen__tex1:t="head_european_09_tex"
+  animchar__res:t="headgenmesh_european_08_char"
+  collres__res:t="headgenmesh_european_08_collision"
+  facial_hair__key:i=5
+  headgen__blendFactor:r=0.9777
+  beard_id:i=10
+  mustache_id:i=2
+}
+
+ger_gen_head_20{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_02_tex"
+  headgen__tex1:t="head_european_07_tex"
+  animchar__res:t="headgenmesh_european_01_char"
+  collres__res:t="headgenmesh_european_01_collision"
+  facial_hair__key:i=3
+  headgen__blendFactor:r=0.3748
+}
+
+ger_gen_head_21{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_b"
+  headgen__tex0:t="head_european_19_tex"
+  headgen__tex1:t="head_european_18_tex"
+  animchar__res:t="headgenmesh_european_17_char"
+  collres__res:t="headgenmesh_european_17_collision"
+  facial_hair__key:i=0
+  headgen__blendFactor:r=0.7903
+  beard_id:i=1
+  mustache_id:i=2
+}
+
+ger_gen_head_22{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_a"
+  headgen__tex0:t="head_european_06_tex"
+  headgen__tex1:t="head_european_16_tex"
+  animchar__res:t="headgenmesh_european_05_char"
+  collres__res:t="headgenmesh_european_05_collision"
+  facial_hair__key:i=5
+  headgen__blendFactor:r=0.9672
+  beard_id:i=10
+  mustache_id:i=0
+}
+
+ger_gen_head_23{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_2"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_06_tex"
+  headgen__tex1:t="head_european_13_tex"
+  animchar__res:t="headgenmesh_european_03_char"
+  collres__res:t="headgenmesh_european_03_collision"
+  facial_hair__key:i=5
+  headgen__blendFactor:r=0.2483
+}
+
+ger_gen_head_24{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="blue_eyes_a"
+  headgen__tex0:t="head_european_20_tex"
+  headgen__tex1:t="head_european_02_tex"
+  animchar__res:t="headgenmesh_european_11_char"
+  collres__res:t="headgenmesh_european_11_collision"
+  facial_hair__key:i=4
+  headgen__blendFactor:r=0.3928
+  beard_id:i=9
+  mustache_id:i=1
+}
+
+ger_gen_head_25{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="scar_preset_3"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_17_tex"
+  headgen__tex1:t="head_european_06_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  facial_hair__key:i=5
+  headgen__blendFactor:r=0.0536
+}
+
+gen_hero_head_01{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="blue_eyes_b"
+  headgen__tex0:t="head_european_16_tex"
+  headgen__tex1:t="head_european_20_tex"
+  animchar__res:t="headgenmesh_european_06_char"
+  collres__res:t="headgenmesh_european_06_collision"
+  beard_id:i=-1
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.261
+}
+
+gen_hero_head_02{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="blue_eyes_a"
+  headgen__tex0:t="head_european_01_tex"
+  headgen__tex1:t="head_european_11_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  beard_id:i=-1
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.9391
+}
+
+gen_hero_head_03{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_07_tex"
+  headgen__tex1:t="head_european_14_tex"
+  animchar__res:t="headgenmesh_european_20_char"
+  collres__res:t="headgenmesh_european_20_collision"
+  beard_id:i=-1
+  mustache_id:i=1
+  headgen__blendFactor:r=0.3369
+}
+
+gen_hero_head_04{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_b"
+  headgen__tex0:t="head_european_05_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_07_char"
+  collres__res:t="headgenmesh_european_07_collision"
+  beard_id:i=4
+  mustache_id:i=2
+  headgen__blendFactor:r=0.3343
+}
+
+gen_hero_head_05{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_yellow_eyes_a"
+  headgen__tex0:t="head_european_08_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_17_char"
+  collres__res:t="headgenmesh_european_17_collision"
+  beard_id:i=6
+  mustache_id:i=3
+  headgen__blendFactor:r=0.3328
+}
+
+gen_hero_head_06{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="black_eyes"
+  headgen__tex0:t="head_european_12_tex"
+  headgen__tex1:t="head_european_15_tex"
+  animchar__res:t="headgenmesh_european_14_char"
+  collres__res:t="headgenmesh_european_14_collision"
+  beard_id:i=-1
+  mustache_id:i=2
+  headgen__blendFactor:r=0.3307
+}
+
+gen_hero_head_07{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="green_eyes_a"
+  headgen__tex0:t="head_european_08_tex"
+  headgen__tex1:t="head_european_09_tex"
+  animchar__res:t="headgenmesh_european_12_char"
+  collres__res:t="headgenmesh_european_12_collision"
+  beard_id:i=-1
+  mustache_id:i=4
+  headgen__blendFactor:r=0.0906
+}
+
+gen_hero_head_08{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="brown_eyes"
+  headgen__tex0:t="head_european_12_tex"
+  headgen__tex1:t="head_european_09_tex"
+  animchar__res:t="headgenmesh_european_02_char"
+  collres__res:t="headgenmesh_european_02_collision"
+  beard_id:i=6
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.571
+}
+
+gen_hero_head_09{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_01_tex"
+  headgen__tex1:t="head_european_10_tex"
+  animchar__res:t="headgenmesh_european_18_char"
+  collres__res:t="headgenmesh_european_18_collision"
+  beard_id:i=-1
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.0465
+}
+
+gen_hero_head_10{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  _extends:t="ligth_gray_eyes"
+  headgen__tex0:t="head_european_04_tex"
+  headgen__tex1:t="head_european_08_tex"
+  animchar__res:t="headgenmesh_european_13_char"
+  collres__res:t="headgenmesh_european_13_collision"
+  beard_id:i=-1
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.1532
+}
+
+gen_hero_head_11{
+  _extends:t="head_gen_base_item"
+  _extends:t="base_collres_vis_item"
+  _extends:t="head_gen_animphys"
+  _extends:t="animchar"
+  headgen__tex0:t="head_european_05_tex"
+  headgen__tex1:t="head_european_04_tex"
+  animchar__res:t="headgenmesh_european_10_char"
+  collres__res:t="headgenmesh_european_10_collision"
+  beard_id:i=-1
+  mustache_id:i=-1
+  headgen__blendFactor:r=0.2314
+}

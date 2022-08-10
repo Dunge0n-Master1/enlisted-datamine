@@ -7,7 +7,7 @@ let { startswith, endswith } = require("string")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let textInput = require("%ui/components/textInput.nut")
 
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let wndWidth = sw(80)
 
 let gap = hdpx(5)
@@ -76,7 +76,7 @@ let function defaultRowFilter(rowData, rowKey, txt) {
     return false
   let dataType = type(rowData)
   if (dataType == "array" || dataType == "table") {
-    foreach(key, value in rowData)
+    foreach (key, value in rowData)
       if (defaultRowFilter(value, key, txt))
         return true
     return false
@@ -90,7 +90,7 @@ let function filterData(data, curLevel, filterLevel, rowFilter, countLeft) {
     return rowFilter(data, "") ? data : null
 
   let res = isArray ? [] : {}
-  foreach(key, rowData in data) {
+  foreach (key, rowData in data) {
     local curData = rowData
     if (filterLevel <= curLevel) {
       let isVisible = countLeft.value >= 0 && rowFilter(rowData, key)
@@ -119,9 +119,9 @@ let function filterData(data, curLevel, filterLevel, rowFilter, countLeft) {
 
 let mkFilter = @(rowFilterBase, filterArr) filterArr.len() == 0 ? @(_rowData, _key) true
   : function(rowData, key) {
-      foreach(anyList in filterArr) {
+      foreach (anyList in filterArr) {
         local res = true
-        foreach(andText in anyList)
+        foreach (andText in anyList)
           if (!rowFilterBase(rowData, key, andText)) {
             res = false
             break

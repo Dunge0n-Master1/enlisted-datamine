@@ -984,6 +984,11 @@ Replay.DisableHUD{
   btn:i=64
 }
 
+Replay.DisableGameHUD{
+  dev:i=1
+  btn:i=66
+}
+
 Human.Seat01{
   dev:i=1
   btn:i=2

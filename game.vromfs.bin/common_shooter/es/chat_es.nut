@@ -5,27 +5,22 @@ let console = require("console")
 let { TEAM_UNASSIGNED } = require("team")
 let {INVALID_USER_ID} = require("matching.errors")
 let {find_local_player, find_human_player_by_connid} = require("%dngscripts/common_queries.nut")
-let {has_network, add_entity_in_net_scope, INVALID_CONNECTION_ID} = require("net")
-let {CmdAttachMapUserPoint, sendNetEvent} = require("dasevents")
+let {has_network, INVALID_CONNECTION_ID} = require("net")
 let {startswith} = require("string")
 let {sendLogToClients} = require("%scripts/game/utils/dedicated_debug_utils.nut")
 let {hasDedicatedPermission} = require("%scripts/game/es/dedicated_permission_es.nut")
 let {CmdRequestHumanSpeech} = require("speechevents")
 let {put_to_mq_raw=null} = require_optional("message_queue")
 let {get_arg_value_by_name} = require("dagor.system")
-let dedicated = require_optional("dedicated")
+let isDedicated = require_optional("dedicated") != null
 let {get_local_unixtime} = require("dagor.time")
 let {get_session_id} = require("app")
 
 let filtered_by_team_query = ecs.SqQuery("filtered_by_team_query", {comps_ro=[["team", ecs.TYPE_INT], ["connid",ecs.TYPE_INT]], comps_rq=["player"], comps_no=["playerIsBot"]})
 let notfiltered_byteam_query = {comps_ro=[["connid",ecs.TYPE_INT]], comps_rq=["player"], comps_no=["playerIsBot"]}
-let item_hint_type_query = ecs.SqQuery("item_hint_type_query", {comps_ro=[
-  ["map_user_point__type",ecs.TYPE_STRING, "item"],
-  ["hintToSelf",ecs.TYPE_TAG, null]
-]})
 
 let chat_log_tube_name = get_arg_value_by_name("chat_log_tube") ?? ""
-if (dedicated != null)
+if (isDedicated)
   print($"chat_log_tube: {chat_log_tube_name}")
 
 let getPlayerPossessedQuery = ecs.SqQuery("getPlayerPossessedQuery", { comps_ro=[["possessed", ecs.TYPE_EID]] })
@@ -45,7 +40,7 @@ let function find_connids_to_send(team_filter=null){
   return connids
 }
 
-let log_chat_message = (dedicated == null || put_to_mq_raw == null || chat_log_tube_name == "")
+let log_chat_message = (!isDedicated || put_to_mq_raw == null || chat_log_tube_name == "")
   ? @(_data, _mode) null
   : @(data, mode) put_to_mq_raw(chat_log_tube_name, {
       timestamp = get_local_unixtime(),
@@ -102,19 +97,10 @@ let function sendMessage(evt){
   }
 
   data.__update({ text = evt?.text ?? "", qmsg = evt?.qmsg })
-  let itemEid = evt?.eid ?? INVALID_ENTITY_ID
   let event = ecs.event.EventSqChatMessage(data)
   let sound = evt?.sound ?? ""
 
   let connids = (mode == "team" || mode == "qteam")? find_connids_to_send(senderTeam) : null
-  if (itemEid != INVALID_ENTITY_ID) {
-    item_hint_type_query.perform(itemEid, function(_eid, comp) {
-      connids.map(@(connid) add_entity_in_net_scope(itemEid, connid))
-      sendNetEvent(senderEid, CmdAttachMapUserPoint({itemEid, pointType=comp["map_user_point__type"], silent=false}))
-      let hintConnids = comp["hintToSelf"] != null ? connids : connids.filter(@(connid) evt?.fromconnid != connid)
-    ecs.server_send_event(itemEid, ecs.event.EventTeamItemHint(), hintConnids)
-    })
-  }
   if (sound != "")
     ecs.g_entity_mgr.sendEvent(hero, CmdRequestHumanSpeech(sound, 1.))
   ecs.server_msg_sink(event, connids)

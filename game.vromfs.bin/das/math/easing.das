@@ -96,7 +96,7 @@ def inOutQuintic(p : float)
     return 16.f * p * p * p * p * p
   else
     let f = ((2.f * p) - 2.f)
-  return  0.5f * f * f * f * f * f + 1.f
+  return 0.5f * f * f * f * f * f + 1.f
   //return (6.f * p * p - 15.f * p + 10) * p * p * p //originally in gameMath/easing
 
 

@@ -4,7 +4,6 @@ require ecs.ecs_template
 require math.base
 require DagorConsole
 require DagorSystem
-require game.utils.hero
 require ecs.templates_common
 require strings
 require daslib/strings_boost
@@ -402,3 +401,14 @@ def who_can_change_component_of_template_cproc(args : array<string>;
   //else actuall processing of this command happens in c++
 
   return false
+
+
+[console_cmd(name="update_from_das_templates")]
+def update_from_das_templates()
+  console_command("ecs.reload_templates")
+  visual_log("ECS templates was reloaded. See console output to get more info")
+
+
+[init]
+def init_ecs_inspector_shortcut()
+  console_command("consoleKeybindings.bind ctrl+shift+r update_from_das_templates")

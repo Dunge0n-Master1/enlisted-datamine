@@ -7,6 +7,7 @@ entity{
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="researches"
   fov:r=90.0
   transform:m=[[0.0110471, 0.0, -0.999939] [-0.0133532, 0.999911, -0.000147523] [0.99985, 0.013354, 0.0110461] [15.2017, 21.3988, 48.7237]]
   dof__on:b=yes
@@ -14,15 +15,14 @@ entity{
   dof__farDofStart:r=6.0
   dof__farDofEnd:r=300.0
   dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="researches"
+  dof__bokehShape_kernelSize:r=2.8
 }
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="squad"
   fov:r=65.0
   transform:m=[[0.17715, 0.0, 0.984184] [3.06845e-06, 1.0, -5.52308e-07] [-0.984184, 3.11776e-06, 0.17715] [-14.9102, 10.0449, -71.8244]]
-  scene:t="squad"
   dof__on:b=yes
   dof__farDofAmountPercent:r=0.0
   dof__farDofStart:r=6.0
@@ -30,13 +30,37 @@ entity{
   dof__nearDofAmountPercent:r=0.0
   dof__nearDofStart:r=1.01
   dof__nearDofEnd:r=2.0
-  dof__bokehShape_fNumber:r=2.8
+  dof__bokehShape_kernelSize:r=2.8
   dof__bokehShape_bladesCount:r=6.0
   dof__minCheckDistance:r=50.0
 }
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="armory"
+  fov:r=90.0
+  transform:m=[[0.10212, 0.0, 0.994772] [-0.0219319, 0.999757, 0.00225146] [-0.99453, -0.0220472, 0.102095] [-4.03666, 3.62289, 94.8231]]
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=-80.0, 80.0
+  menu_cam__shouldRotateTarget:b=yes
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=18.0
+  dof__focusDistance:r=0.85
+  dof__farDofAmountPercent:r=0.0027
+  dof__farDofEnd:r=20.0
+  dof__farDofStart:r=2.0
+  dof__nearDofAmountPercent:r=0.02
+  dof__nearDofEnd:r=0.5
+  dof__nearDofStart:r=0.01
+  dof__minCheckDistance:r=0.05
+  dof__bokehShape_bladesCount:r=5.2
+  dof__bokehShape_kernelSize:r=6.8
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="inv_items"
   fov:r=90.0
   transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-4.0589, 3.62321, 94.8539]]
   menu_cam__limitYaw:p2=-180.0, 180.0
@@ -47,31 +71,47 @@ entity{
   dof__farDofStart:r=1.2
   dof__farDofEnd:r=300.0
   dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="armory"
+  dof__bokehShape_kernelSize:r=2.8
+}
+
+entity{
+  _template:t="menu_weapon"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+}
+
+entity{
+  _template:t="menu_inv_items"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
 }
 
 entity{
   _template:t="camera_scenic_place_dof"
-  fov:r=50.0
-  transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
-  menu_cam__offset:p3=-0.5, 1.07, -3.5
-  menu_cam__offsetMult:p3=1.0, 1.0, 1.0
+  scene:t="new_items"
+  fov:r=90.0
+  transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-3.6589, 3.42321, 94.95]]
   menu_cam__limitYaw:p2=-180.0, 180.0
-  menu_cam__limitPitch:p2=0.0, 0.0
-  menu_cam__shouldRotateTarget:b=no
+  menu_cam__limitPitch:p2=-30.0, 30.0
+  menu_cam__shouldRotateTarget:b=yes
   dof__on:b=yes
-  dof__farDofAmountPercent:r=0.1
-  dof__farDofStart:r=7.0
-  dof__farDofEnd:r=300.0
-  dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
+  dof__farDofAmountPercent:r=0.001
+  dof__farDofEnd:r=200.0
+  dof__farDofStart:r=2.0
+  dof__nearDofAmountPercent:r=0.02
+  dof__nearDofEnd:r=0.5
+  dof__nearDofStart:r=0.01
+  dof__minCheckDistance:r=0.05
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="menu_new_items"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.54919, 94.883]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
   scene:t="soldiers"
-  dof__bokehShape_bladesCount:r=9.0
-}
-
-entity{
-  _template:t="camera_scenic_place_dof"
   fov:r=50.0
   transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
   menu_cam__offset:p3=-0.5, 1.07, -3.5
@@ -84,13 +124,37 @@ entity{
   dof__farDofStart:r=7.0
   dof__farDofEnd:r=300.0
   dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="soldier_customization"
+  dof__bokehShape_kernelSize:r=2.8
   dof__bokehShape_bladesCount:r=9.0
 }
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="soldier_customization"
+  fov:r=50.0
+  transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
+  menu_cam__offset:p3=-0.5, 1.07, -3.5
+  menu_cam__offsetMult:p3=1.0, 1.0, 1.0
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 0.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.1
+  dof__farDofStart:r=7.0
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="menu_soldier"
+  transform:m=[[0.418354, 0.0, -0.908284] [0.0, 1.0, 0.0] [0.908284, 0.0, 0.418354] [-38.0752, 9.05538, -50.2697]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="soldier_in_middle"
   fov:r=50.0
   transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
   menu_cam__offset:p3=0.0, 1.07, -5.0
@@ -103,13 +167,13 @@ entity{
   dof__farDofStart:r=7.0
   dof__farDofEnd:r=300.0
   dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="soldier_in_middle"
+  dof__bokehShape_kernelSize:r=2.8
   dof__bokehShape_bladesCount:r=9.0
 }
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="events"
   fov:r=50.0
   transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-40.0, 10.0, -53.867]]
   menu_cam__offset:p3=0.0, 1.07, -5.0
@@ -122,13 +186,43 @@ entity{
   dof__farDofStart:r=7.0
   dof__farDofEnd:r=300.0
   dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="events"
+  dof__bokehShape_kernelSize:r=2.8
   dof__bokehShape_bladesCount:r=9.0
 }
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="vehicles"
+  fov:r=60.0
+  transform:m=[[0.831956, 0.0, 0.554842] [-0.0588492, 0.994359, 0.0882411] [-0.551713, -0.106065, 0.827263] [4.24383, 3.77421, 87.4661]]
+  menu_cam__offset:p3=-1.0, 1.2, -5.3
+  menu_cam__offsetMult:p3=1.4, 1.0, 1.6
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 33.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=1.8
+  dof__focusDistance:r=6.5
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofEnd:r=400.0
+  dof__farDofStart:r=11.5
+  dof__nearDofAmountPercent:r=0.0
+  dof__nearDofEnd:r=6.0
+  dof__nearDofStart:r=1.5
+  dof__minCheckDistance:r=0.5
+  dof__bokehShape_bladesCount:r=6.0
+  dof__bokehShape_kernelSize:r=18.0
+}
+
+entity{
+  _template:t="menu_vehicle"
+  transform:m=[[0.0376859, 0.0, -0.99929] [0.0, 1.0, 0.0] [0.99929, 0.0, 0.0376859] [0.707208, 1.72756, 94.5714]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="aircrafts"
   fov:r=60.0
   transform:m=[[0.107925, 0.0, 0.994159] [-0.0238863, 0.999711, 0.00259308] [-0.993872, -0.0240266, 0.107894] [90.4424, 9.80657, 12.3539]]
   menu_cam__offset:p3=-1.0, 0.2, -7.8
@@ -137,47 +231,23 @@ entity{
   menu_cam__limitPitch:p2=0.0, 28.0
   menu_cam__shouldRotateTarget:b=no
   dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=1.4
+  dof__focusDistance:r=10.0
   dof__farDofAmountPercent:r=0.0
-  dof__nearDofAmountPercent:r=1.0
-  dof__nearDofStart:r=0.05
-  dof__nearDofEnd:r=55.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="aircrafts"
-  dof__bokehShape_bladesCount:r=3.0
+  dof__farDofEnd:r=400.0
+  dof__farDofStart:r=18.0
+  dof__nearDofAmountPercent:r=0.002
+  dof__nearDofEnd:r=6.0
+  dof__nearDofStart:r=1.5
+  dof__minCheckDistance:r=0.5
+  dof__bokehShape_bladesCount:r=6.0
+  dof__bokehShape_kernelSize:r=18.0
 }
 
 entity{
-  _template:t="camera_scenic_place_dof"
-  fov:r=60.0
-  transform:m=[[0.758767, 0.0, 0.651362] [-0.01565, 0.999711, 0.0182306] [-0.651174, -0.0240266, 0.758548] [4.07001, 2.96749, 88.2482]]
-  menu_cam__offset:p3=-1.0, 1.2, -5.3
-  menu_cam__offsetMult:p3=1.4, 1.0, 1.6
-  menu_cam__limitYaw:p2=-180.0, 180.0
-  menu_cam__limitPitch:p2=0.0, 33.0
-  menu_cam__shouldRotateTarget:b=no
-  dof__on:b=yes
-  dof__farDofAmountPercent:r=0.05
-  dof__farDofStart:r=15.0
-  dof__farDofEnd:r=300.0
-  dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="vehicles"
-}
-
-entity{
-  _template:t="camera_scenic_place_dof"
-  fov:r=90.0
-  transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-3.6589, 3.42321, 94.95]]
-  menu_cam__limitYaw:p2=-180.0, 180.0
-  menu_cam__limitPitch:p2=-30.0, 30.0
-  menu_cam__shouldRotateTarget:b=yes
-  dof__on:b=yes
-  dof__farDofAmountPercent:r=0.29
-  dof__farDofStart:r=1.2
-  dof__farDofEnd:r=300.0
-  dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
-  scene:t="new_items"
+  _template:t="menu_aircraft"
+  transform:m=[[0.488671, 0.0, -0.872468] [0.0, 1.0, 0.0] [0.872468, 0.0, 0.488671] [83.6676, 8.61241, 14.621]]
 }
 
 entity{
@@ -192,23 +262,8 @@ entity{
   dof__farDofStart:r=1.5
   dof__farDofEnd:r=300.0
   dof__nearDofAmountPercent:r=0.0
-  dof__bokehShape_fNumber:r=2.8
+  dof__bokehShape_kernelSize:r=2.8
   scene:t="battle_pass"
-}
-
-entity{
-  _template:t="menu_soldier"
-  transform:m=[[0.418354, 0.0, -0.908284] [0.0, 1.0, 0.0] [0.908284, 0.0, 0.418354] [-38.0752, 9.05538, -50.2697]]
-}
-
-entity{
-  _template:t="menu_weapon"
-  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
-}
-
-entity{
-  _template:t="menu_new_items"
-  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.54919, 94.883]]
 }
 
 entity{
@@ -217,40 +272,74 @@ entity{
 }
 
 entity{
-  _template:t="menu_vehicle"
-  transform:m=[[0.0376859, 0.0, -0.99929] [0.0, 1.0, 0.0] [0.99929, 0.0, 0.0376859] [0.707208, 1.72756, 94.5714]]
-}
-
-entity{
-  _template:t="menu_aircraft"
-  transform:m=[[0.488671, 0.0, -0.872468] [0.0, 1.0, 0.0] [0.872468, 0.0, 0.488671] [83.6676, 8.61241, 14.621]]
-}
-
-entity{
   _template:t="ui_disabled"
   ui__disabled:b=yes
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=0
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=1
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=2
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=3
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=4
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=5
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=6
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=7
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=8
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.921371, 0.0, -0.388686] [0.0, 1.0, 0.0] [0.388686, 0.0, 0.921371] [-17.7045, 9.08918, -70.8761]]
   priority_order:i=0
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_06_weapon"
-    upper:t="enlisted_action_idle_06_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.945866, -0.000925899, -0.324555] [0.0, 0.999996, -0.00285281] [0.324556, 0.00269838, 0.945862] [-18.5497, 9.0457, -71.1862]]
   priority_order:i=1
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_07_weapon"
-    upper:t="enlisted_action_idle_07_weapon"
-  }
 }
 
 entity{
@@ -261,77 +350,42 @@ entity{
   _template:t="menu_soldier_respawnbase"
   priority_order:i=2
   transform:m=[[0.996628, 0.0, -0.0820486] [0.0, 1.0, 0.0] [0.0820486, 0.0, 0.996628] [-18.1449, 9.09886, -70.2728]]
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_03_weapon"
-    upper:t="enlisted_action_idle_03_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.962976, 0.0, -0.269588] [0.0, 1.0, 0.0] [0.269588, 0.0, 0.962976] [-19.4346, 9.05521, -71.408]]
   priority_order:i=3
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_07_weapon"
-    upper:t="enlisted_action_idle_07_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.809663, 0.0, 0.586896] [0.0, 1.0, 0.0] [-0.586896, 0.0, 0.809663] [-19.7114, 9.05521, -72.0807]]
   priority_order:i=6
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_05_weapon"
-    upper:t="enlisted_action_idle_05_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.998129, 0.0, -0.0611288] [0.0, 1.0, 0.0] [0.0611288, 0.0, 0.998129] [-20.3704, 9.05521, -71.8109]]
   priority_order:i=5
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_04_weapon"
-    upper:t="enlisted_action_idle_04_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.918355, 0.0, 0.395758] [0.0, 1.0, 0.0] [-0.395758, 0.0, 0.918355] [-18.9886, 9.05521, -72.1934]]
   priority_order:i=4
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_02_weapon"
-    upper:t="enlisted_action_idle_02_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.988558, 0.0, -0.15084] [0.0, 1.0, 0.0] [0.15084, 0.0, 0.988558] [-17.4295, 9.05521, -71.5054]]
   priority_order:i=7
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_23_weapon"
-    upper:t="enlisted_action_idle_23_weapon"
-  }
 }
 
 entity{
   _template:t="menu_soldier_respawnbase"
   transform:m=[[0.999954, 0.0, -0.00948151] [0.0, 1.0, 0.0] [0.00948151, 0.0, 0.999954] [-18.2446, 9.05521, -71.9229]]
   priority_order:i=8
-
-  "animchar__animStateNames:object"{
-    lower:t="enlisted_action_idle_24_weapon"
-    upper:t="enlisted_action_idle_24_weapon"
-  }
 }
 
 entity{
@@ -346,8 +400,14 @@ entity{
   level__month:i=7
   level__fpsLimit:i=60
 
+  "level__renderFeaturesOverrides:object"{
+    microdetails:b=yes
+    clusteredLights:b=yes
+    fullDeferred:b=yes
+  }
+
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
+    weather_clear_b:r=1.0
   }
 
   "level__timeVec:array"{
@@ -356,11 +416,7 @@ entity{
 }
 
 entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="music/launcher"
-  }
+  _template:t="music_launcher_ambient_sound"
 }
 
 entity{
@@ -396,10 +452,7 @@ entity{
 
 entity{
   _template:t="postfx_roundctrl"
-  damage_indicator__duration:r=0.0
-  damage_indicator__minLife:r=1.0
   damage_indicator__startTime:r=0.0
-  damage_indicator__threshold:r=0.5
 
   "post_fx:object"{
     adaptation__autoExposureScale:r=0.5
@@ -534,12 +587,9 @@ entity{
   _template:t="omni_light_huge"
   transform:m=[[-2.76686, -1.68897, -14.2549] [2.88726, 14.155, -2.23756] [14.0613, -3.23891, -2.34556] [-25.0512, 11.4441, -67.6187]]
   light__brightness:r=700.0
-  spot_light__inner_attenuation:r=0.1
   light__max_radius:r=7.0
   light__max_radius:r=7.0
   light__color:c=255, 255, 255, 255
-  spot_light__dynamic_obj_shadows:b=no
-  spot_light__shadows:b=no
   light__affect_volumes:b=yes
 }
 

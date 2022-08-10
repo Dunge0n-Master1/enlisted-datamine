@@ -1,26 +1,28 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let fortificationPreviewForwardArrows = Watched({})
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 
-let function trackComponents(eid, comp) {
-  if (comp["semi_transparent__visible"] == true) {
-    fortificationPreviewForwardArrows.mutate(@(v) v[eid] <- comp["additionalYawRotation"])
-  }
-  else if (fortificationPreviewForwardArrows.value?[eid] != null) {
-    fortificationPreviewForwardArrows.mutate(@(v) delete v[eid])
-  }
-}
+let {
+  fortificationPreviewForwardArrowsSet,
+  fortificationPreviewForwardArrowsGetWatched,
+  fortificationPreviewForwardArrowsUpdateEid,
+  fortificationPreviewForwardArrowsDestroyEid
+} = mkWatchedSetAndStorage("fortificationPreviewForwardArrows")
+
 
 ecs.register_es(
   "fortification_preview_forward_marker_hud_es",
   {
-    onInit = trackComponents
-    onChange = trackComponents
-    onDestroy = function(eid, _comp) {
-      if (fortificationPreviewForwardArrows.value?[eid] != null) {
-        fortificationPreviewForwardArrows.mutate(@(v) delete v[eid])
+    [["onInit", "onChange"]] = function(_, eid, comp){
+      if (comp["semi_transparent__visible"] == true) {
+        fortificationPreviewForwardArrowsUpdateEid(eid, comp["additionalYawRotation"])
       }
+      else
+        fortificationPreviewForwardArrowsDestroyEid(eid)
+    }
+    onDestroy = function(_, eid, _comp) {
+      fortificationPreviewForwardArrowsDestroyEid(eid)
     }
   },
   {
@@ -34,5 +36,6 @@ ecs.register_es(
 )
 
 return {
-  fortificationPreviewForwardArrows
+  fortificationPreviewForwardArrowsSet
+  fortificationPreviewForwardArrowsGetWatched
 }

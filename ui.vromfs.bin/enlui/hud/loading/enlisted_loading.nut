@@ -21,7 +21,7 @@ local lastAddedTipIdx = 0
 
 for(local idx = 1; idx - lastAddedTipIdx < 3 ; idx++){
   let newKey = $"{hintsKey}{idx}"
-  if(doesLocTextExist(newKey)){
+  if (doesLocTextExist(newKey)){
     hintsToChange.append(newKey)
     lastAddedTipIdx = idx
   }

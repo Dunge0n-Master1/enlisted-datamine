@@ -14,6 +14,7 @@ require level
 require matching
 require EnlistedNet
 require player
+require danetlibs.native_dasevents.main.native_events
 
 def player_allow_reconnect(plr_eid : EntityId; oldPossessed : EntityId; var specTarget : EntityId&; team : int;
                            clientNetFlags : int) : bool

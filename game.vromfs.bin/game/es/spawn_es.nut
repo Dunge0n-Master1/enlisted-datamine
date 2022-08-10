@@ -1,6 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let { TEAM_UNASSIGNED } = require("team")
-let debug = require("%sqstd/log.nut")().with_prefix("[SPAWN]")
+let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
 let {CmdSpawnEntityForPlayer} = require("dasevents")
 let {get_sync_time} = require("net")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")

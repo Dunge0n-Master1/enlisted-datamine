@@ -1,7 +1,6 @@
 options no_aot = true//since this is merely loader
 require ecs
 require ecs.fs
-require game.game
 require common_shooter.common_shooter
 require app
 require ECSGlobalTags
@@ -12,16 +11,21 @@ require sound_utils.sound_utils_init
 require sound_utils_net.sound_utils_net_init
 require common_sounds.common_sounds_init
 require environment_sounds.environment_sounds_init
+require door_sounds.door_sounds_init
 require vehicle_sounds.vehicle_sounds_init
 require vehicle_sounds_net.vehicle_sounds_net_init
 require weapon_sounds.weapon_sounds_init
+require common_human_sounds.common_human_sounds_init
+require shooter_human_sounds.shooter_human_sounds_init
 require danetlibs.wounds.wounds_init
 require danetlibs.render_debug.render_debug_init
 require danetlibs.imgui_daeditor.imgui_daeditor_init
 require danetlibs.route_prober.route_prober_init
 require danetlibs.motion_matching.motion_matching_init
 require danetlibs.console_commands.console_commands_init
+require danetlibs.native_dasevents.native_dasevents_init
 require danetlibs.hero_cockpit.hero_cockpit_init
+require danetlibs.verify_ecs.verify_ecs_init
 
 
 def private sound_override_voices_locale() : bool
@@ -35,13 +39,21 @@ def private load_sound() : bool
   ok = load_sound_utils("%danetlibs/sound/sound_utils") && ok
   ok = load_common_sounds("%danetlibs/sound/common_sounds") && ok
   ok = load_environment_sounds("%danetlibs/sound/environment_sounds") && ok
+  ok = load_door_sounds("%danetlibs/sound/door_sounds") && ok
   ok = load_vehicle_sounds("%danetlibs/sound/vehicle_sounds") && ok
   ok = load_vehicle_sounds_net("%danetlibs/sound/vehicle_sounds_net") && ok
   ok = load_weapon_sounds("%danetlibs/sound/weapon_sounds") && ok
+  ok = load_common_human_sounds("%danetlibs/sound/common_human_sounds") && ok
+  ok = load_shooter_human_sounds("%danetlibs/sound/shooter_human_sounds") && ok
 
   if ecs_has_tag("sound") || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/game/es/sound") && ok
+    ok = load_folder("%scripts/game/es/sound/vehicle") && ok
     if sound_override_voices_locale() || app::get_game_name() == "aot"
       ok = load_das("%scripts/game/es/sound/optional/human_voice_override.das") && ok
+
+  if ecs_has_tag("soundNet") || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/game/es/sound_net") && ok
   return ok
 
 
@@ -60,11 +72,27 @@ def private load_editor() : bool
   return ok
 
 
+def private load_ui() : bool
+  var ok = true
+  if ecs_has_tag("ui") || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/game/es/ui") && ok
+  return ok
+
+
+def private load_client() : bool
+  var ok = true
+  if ecs_has_tag("input") || app::get_game_name() == "aot" // check input as real game client tag, netClient is unset on game start
+    ok = load_folder("%scripts/game/es/client") && ok
+    ok = load_folder("%scripts/game/es/player/client") && ok
+  return ok
+
+
 def private load_input() : bool
   var ok = true
   if ecs_has_tag("input") || app::get_game_name() == "aot"
     ok = load_folder("%scripts/game/es/input") && ok
   return ok
+
 
 def private load_tutorial() : bool
   var ok = true
@@ -72,11 +100,20 @@ def private load_tutorial() : bool
     ok = load_folder("%scripts/tutorial") && ok
   return ok
 
+
+def private load_dedicated() : bool
+  var ok = true
+  if (ecs_has_tag("server") && !ecs_has_tag("gameClient")) || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/game/es/dedicated") && ok
+  return ok
+
+
 def private load_dev() : bool
   var ok = true
   if ecs_has_tag("dev") || app::get_game_name() == "aot"
     ok = load_optional_folder("%enlisted_pkg_dev/game/es") && ok
   return ok
+
 
 def private load_imgui() : bool
   var ok = true
@@ -85,9 +122,29 @@ def private load_imgui() : bool
 
   return ok
 
+
+def private load_replay() : bool
+  var ok = true
+  if ecs_has_tag("input") || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/game/es/replay") && ok
+  return ok
+
+
+def private load_sandbox() : bool
+  var ok = true
+  if get_app_offline_mode() || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/sandbox/es") && ok
+  return ok
+
+
 [init]
 def load
   var ok = true
+  if ecs_has_tag("dasDebug") || app::get_game_name() == "aot"
+    load_optional_folder("%dngdas/das/remote/es")
+    if typeinfo(builtin_module_exists EnlistedWalkerai)
+      load_optional_folder("%dngdas/das/remote/es/ai")
+
   ok = load_folder("%scripts/game/es") && ok
   ok = load_folder("%scripts/game/es/ai") && ok
   ok = load_folder("%scripts/game/es/aircraft") && ok
@@ -105,8 +162,13 @@ def load
   ok = load_input() && ok
   ok = load_sound() && ok
   ok = load_tutorial() && ok
+  ok = load_ui() && ok
+  ok = load_client() && ok
+  ok = load_dedicated() && ok
+  ok = load_replay() && ok
   ok = load_dev() && ok
   ok = load_imgui() && ok
+  ok = load_sandbox() && ok
 
   ok = load_pathfinder("%danetlibs/pathfinder") && ok
   ok = load_wounds("%danetlibs/wounds") && ok
@@ -115,7 +177,9 @@ def load
   ok = load_imgui_daeditor("%danetlibs/imgui_daeditor") && ok
   ok = load_motion_matching("%danetlibs/motion_matching") && ok
   ok = load_console_commands("%danetlibs/console_commands") && ok
+  ok = load_native_dasevents("%danetlibs/native_dasevents") && ok
   ok = load_hero_cockpit("%danetlibs/hero_cockpit") && ok
+  ok = load_verify_ecs("%danetlibs/verify_ecs") && ok
 
   if app::get_game_name() == "aot"
     assert(ok)

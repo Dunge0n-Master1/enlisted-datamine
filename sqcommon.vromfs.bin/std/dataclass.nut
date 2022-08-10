@@ -82,10 +82,7 @@ let function mkClassFields(fields){
   return fields.map(@(v) _cfield(v[0], valToStr(v[1]))).reduce(addNewline1)
 }
 
-local function mkPosFieldInit(fieldname, def){
-  def = valToStr(def)
-  return $"this.{fieldname} = {fieldname}"
-}
+local mkPosFieldInit = @(fieldname, def) $"this.{fieldname} = {valToStr(def)}"
 
 local function mkTableFieldInit(fieldname, firstarg, def){
   def = valToStr(def)

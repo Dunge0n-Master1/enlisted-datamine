@@ -16,10 +16,10 @@ let unseenSquadsVehicle = Watched({})
 
 let notEquippedTiers = Computed(function() {
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let itemsList = armoryByArmy.value?[armyId] ?? []
     let armyTpls = {}
-    foreach(item in itemsList)
+    foreach (item in itemsList)
       if (item?.itemtype == "vehicle")
         armyTpls[item.basetpl] <- item?.tier ?? -1
     res[armyId] <- armyTpls
@@ -35,9 +35,9 @@ let unseenTiers = Computed(@() !onlineSettingUpdated.value ? {}
 
 let chosenSquadsTiers = Computed(function() {
   let res = {}
-  foreach(armyId in curArmiesList.value) {
+  foreach (armyId in curArmiesList.value) {
     let armyVehicles = {}
-    foreach(squad in chosenSquadsByArmy.value?[armyId] ?? []) {
+    foreach (squad in chosenSquadsByArmy.value?[armyId] ?? []) {
       let { vehicleType = "" } = squad
       if (vehicleType != "")
         armyVehicles[squad.guid] <- {
@@ -54,9 +54,9 @@ let function recalcUnseen() {
   let unseenArmies = {}
   let unseenSquads = {}
 
-  foreach(armyId, tiers in unseenTiers.value) {
+  foreach (armyId, tiers in unseenTiers.value) {
     unseenArmies[armyId] <- 0
-    foreach(squadGuid, tierData in chosenSquadsTiers.value?[armyId] ?? []) {
+    foreach (squadGuid, tierData in chosenSquadsTiers.value?[armyId] ?? []) {
       let { squadId, tier } = tierData
       let unseenVehicles = (allowedVehicles.value?[armyId][squadId] ?? {})
         .filter(@(isUsable, vehicleTpl) isUsable && tier < (tiers?[vehicleTpl] ?? -1))
@@ -97,7 +97,7 @@ let function markNotFreeVehiclesUnseen() {
 
   local hasChanges = false
   let newSeen = clone seenData
-  foreach(armyId, curArmySeen in seenData) {
+  foreach (armyId, curArmySeen in seenData) {
     let counts = itemCountByArmy.value?[armyId] ?? {}
     if (counts.len() == 0)
       continue

@@ -1,23 +1,7 @@
 require ecs
-require DagorRandom
 require game.es.capzones_common
 require game.utils.team
 require game.events_game
-
-
-def select_random(object : Object)
-  var totalWeight = 0.
-  for it in object
-    totalWeight += get_float(it.value) ?? 0.
-  if totalWeight == 0.
-    return ""
-  let rnd = rnd_float(0., totalWeight)
-  var curWeight = 0.
-  for it in object
-    curWeight += get_float(it.value) ?? 0.
-    if rnd < curWeight
-      return it.key
-  return ""
 
 
 def two_chains_capzone_init(var nextGroupFound : bool&;
@@ -36,7 +20,7 @@ def two_chains_capzone_init(var nextGroupFound : bool&;
   capzone__alwaysShow = true
   if !capzone__activateChoice.empty
     nextGroupFound = true
-    nextGroup = select_random(capzone__activateChoice)
+    nextGroup = select_random_choice(capzone__activateChoice)
   else
     capzone__lastZoneForTeam = team
   capzone__prevActivate := prevGroupName
@@ -64,7 +48,7 @@ def init_next_choice(currentGroupName : string;
     capzone__alwaysShow = true
     if !capzone__activateChoice.empty
       nextGroupFound = true
-      nextGroup = select_random(capzone__activateChoice)
+      nextGroup = select_random_choice(capzone__activateChoice)
     capzone__activateAfterCap := nextGroup
     ui_order = current_ui_order
   if nextGroupFound && nextGroup != currentGroupName
@@ -169,11 +153,11 @@ def init_next_choice_bidirectional_two_chaines(currentGroupName : string)
     capzone__alwaysShow = true
     if !capzone__activateChoiceTeam2.empty
       nextGroupTeam2Found = true
-      nextGroupTeam2 = select_random(capzone__activateChoiceTeam2)
+      nextGroupTeam2 = select_random_choice(capzone__activateChoiceTeam2)
     capzone__activateAfterTeam2Cap := nextGroupTeam2
     if !capzone__activateChoiceTeam1.empty
       nextGroupTeam1Found = true
-      nextGroupTeam1 = select_random(capzone__activateChoiceTeam1)
+      nextGroupTeam1 = select_random_choice(capzone__activateChoiceTeam1)
     capzone__activateAfterTeam1Cap := nextGroupTeam1
     capzoneEid = eid
   var numChoices = 0
@@ -205,7 +189,7 @@ def init_next_choice_bidirectional_one_chain(prevGroupName : string;
     capzone__alwaysShow = true
     if !capzone__activateBidirectionalChoice.empty
       nextGroupFound = true
-      nextGroup = select_random(capzone__activateBidirectionalChoice)
+      nextGroup = select_random_choice(capzone__activateBidirectionalChoice)
     capzone__activateAfterTeam1Cap := nextGroup
     capzone__activateAfterTeam2Cap := prevGroupName
     ui_order = current_ui_order
@@ -230,7 +214,7 @@ def reset_active_for_activatable_on_level_loaded_es(evt : Event)
     if groupName != "" && active
       active = false
 
-[es(tag=server, on_event=EventLevelLoaded)]
+[es(tag=server, on_event=EventLevelLoaded, before=session_stated_es)]
 def init_choice_es(evt : Event;
                    activator__enabled : bool;
                    activator__initialLength : int;
@@ -238,7 +222,7 @@ def init_choice_es(evt : Event;
   if !activator__enabled
     return
   if !activator__activateChoice.empty
-    let initialGroup = select_random(activator__activateChoice)
+    let initialGroup = select_random_choice(activator__activateChoice)
     activate_group(initialGroup)
     let numChoices = (init_next_choice(initialGroup, 0) +
                       init_next_choice_bidirectional_two_chaines(initialGroup))
@@ -259,7 +243,7 @@ def init_choice_bidirectional_two_chains_es(evt : Event;
   if !activator__enabled
     return
   if !activator__activateBidirectionalChoice.empty
-    let initialGroup = select_random(activator__activateBidirectionalChoice)
+    let initialGroup = select_random_choice(activator__activateBidirectionalChoice)
     activate_group(initialGroup)
     let numChoices = init_next_choice_bidirectional_one_chain("", initialGroup, 0)
     let mult = activator__initialLength > 0 ? float(numChoices) / float(activator__initialLength) : 1.

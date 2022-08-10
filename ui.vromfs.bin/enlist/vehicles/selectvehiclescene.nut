@@ -12,7 +12,7 @@ let {
   smallPadding, bigPadding, blurBgColor, blurBgFillColor, vehicleListCardSize, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let scrollbar = require("%darg/components/scrollbar.nut")
+let scrollbar = require("%ui/components/scrollbar.nut")
 let vehiclesListCard = require("vehiclesListCard.ui.nut")
 let vehicleDetails = require("vehicleDetails.ui.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -20,8 +20,8 @@ let mkHeader = require("%enlist/components/mkHeader.nut")
 let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi } = require("%enlist/vehicles/dmViewer.nut")
-let freemiumPromo  = require("%enlist/currency/pkgFreemiumWidgets.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 
 
 let showNotAvailable = Watched(false)
@@ -146,11 +146,7 @@ let selectVehicleContent = {
           children = [
             @() {
               watch = needFreemiumStatus
-              children = !needFreemiumStatus.value ? null : freemiumPromo("select_vehicle", null, {
-                size = [hdpx(600), SIZE_TO_CONTENT]
-                rendObj = ROBJ_WORLD_BLUR_PANEL
-                hplace = ALIGN_RIGHT
-              })
+              children = !needFreemiumStatus.value ? null : freemiumWidget("select_vehicle")
             }
             vehicleDetails
           ]

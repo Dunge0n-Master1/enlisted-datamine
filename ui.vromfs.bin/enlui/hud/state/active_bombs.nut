@@ -1,44 +1,29 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {isFriendlyFireMode} = require("%enlSqGlob/missionType.nut")
-let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
-let {TEAM_UNASSIGNED} = require("team")
-let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
+let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
+let {
+  active_bombs_Set,
+  active_bombs_GetWatched,
+  active_bombs_UpdateEid,
+  active_bombs_DestroyEid
+} = mkWatchedSetAndStorage("active_bombs_")
 
-let getBombOwnerTeamQuery = ecs.SqQuery("getBombOwnerTeamQuery", {comps_ro = [["team", ecs.TYPE_INT]]})
-let getHeroTeam = @(heroEid) getBombOwnerTeamQuery.perform(heroEid, @(_eid, comp) comp["team"]) ?? TEAM_UNASSIGNED
-
-let active_bombs = Watched({})
-
-let function deleteBomb(eid) {
-  if (eid in active_bombs.value)
-    active_bombs.mutate(@(v) delete v[eid])
-}
 
 ecs.register_es(
   "active_bombs_hud_es",
   {
-    [["onInit", "onChange"]] = function(eid, comp) {
+    [["onInit", "onChange"]] = function(_, eid, comp) {
       if (comp["projectile__exploded"]) {
-        deleteBomb(eid)
+        active_bombs_DestroyEid(eid)
         return
       }
-      let bombOwnerEid = comp["ownerEid"]
-      let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
-      let showBombIndicatorToBombOwner =
-        bombOwnerEid == heroEid
-        && bombOwnerEid != INVALID_ENTITY_ID
-        && heroEid != INVALID_ENTITY_ID
-      let showBombIndicatorToPlayer = isFriendlyFireMode()
-        || !is_teams_friendly(getHeroTeam(heroEid), getHeroTeam(bombOwnerEid))
-
-      let showBombIndicator = showBombIndicatorToBombOwner || showBombIndicatorToPlayer
-      if (showBombIndicator && comp["projectile__stopped"])
-        active_bombs.mutate(@(v) v[eid] <- {maxDistance = comp["hud_marker__max_distance"]})
+      if (!comp["projectile__stopped"])
+        return
+      active_bombs_UpdateEid(eid, {maxDistance = comp["hud_marker__max_distance"], bombOwnerEid = comp["ownerEid"]})
     }
-    function onDestroy(eid, _comp) {
-      deleteBomb(eid)
+    function onDestroy(_, eid, __) {
+      active_bombs_DestroyEid(eid)
     }
   },
   {
@@ -55,5 +40,5 @@ ecs.register_es(
 )
 
 return {
-  active_bombs
+  active_bombs_Set, active_bombs_GetWatched
 }

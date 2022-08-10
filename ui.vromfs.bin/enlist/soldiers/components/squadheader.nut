@@ -25,7 +25,7 @@ let mkSClassLimitsComp = @(curSquad, curSquadParams, soldiersList, soldiersStatu
 
   let soldierStatus = soldiersStatuses.value
   let usedClasses = {}
-  foreach(soldier in soldiersList.value) {
+  foreach (soldier in soldiersList.value) {
     if (soldierStatus?[soldier.guid] != READY)
       continue
     let sKind = soldier?.sKind ?? ""
@@ -33,7 +33,7 @@ let mkSClassLimitsComp = @(curSquad, curSquadParams, soldiersList, soldiersStatu
   }
 
   let fillerClass = curSquad.value?.fillerClass
-  foreach(sKind, total in maxClasses)
+  foreach (sKind, total in maxClasses)
     res.append({
       sKind = sKind
       total = total

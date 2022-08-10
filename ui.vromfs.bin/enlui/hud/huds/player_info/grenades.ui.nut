@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {weaponsList} = require("%ui/hud/state/hero_state.nut")
-let { grenades } = require("%ui/hud/state/inventory_grenades_es.nut")
+let { curHeroGrenadeEid } = require("%ui/hud/state/hero_weapons.nut")
+let { grenades, grenadesEids } = require("%ui/hud/state/inventory_grenades_es.nut")
 let {blurBack, notSelectedItemColor, HUD_ITEMS_COLOR, iconSize, itemAppearing} = require("style.nut")
 let { grenadeIcon } = require("grenadeIcon.nut")
 
@@ -22,10 +22,10 @@ let small_count = @(count, color) {
 }.__update(tiny_txt)
 
 
-let currentGrenade = Computed(@() weaponsList.value.filter(@(weapon) weapon?.currentWeaponSlotName == "grenade")?[0]?.grenadeType)
+let currentGrenadeType = Computed(@() grenadesEids.value?[curHeroGrenadeEid.value])
 let playerGrenadesBelt = Computed(function(){
   let allGrenades=grenades.value
-  let curGrenadeType=currentGrenade.value
+  let curGrenadeType=currentGrenadeType.value
   let res = []
   let grenadesCopy = clone allGrenades
   local curGrenade = []

@@ -14,51 +14,48 @@ let {
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { maxCampaignLevel } = require("%enlist/soldiers/model/state.nut")
 let {
-  shadowStyle, activeTitleTxtColor, hoverTitleTxtColor, titleTxtColor
+  shadowStyle, titleTxtColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 
-
-let mkStateFlagsColor = @(sf)
-  sf & S_ACTIVE ? activeTitleTxtColor
-    : sf & S_HOVER ? hoverTitleTxtColor
-    : titleTxtColor
-
-let text = @(text, sfColor, customStyle = {}) {
+let text = @(text, stateFlags, customStyle = {}) @() {
+  watch = stateFlags
   rendObj = ROBJ_TEXT
-  color = sfColor
+  color = stateFlags.value & S_HOVER ? titleTxtColor : defTxtColor
   text
 }.__update(sub_txt, shadowStyle, customStyle)
 
 let needNotifier = Computed(@() maxCampaignLevel.value >= 4
                                     && unseenCampaigns.value.len() > 0)
 
-let chooseCampaignLabel = @(sf) {
-  hplace = ALIGN_RIGHT
-  children = [
-    text(loc("btn/changeCampaign"), mkStateFlagsColor(sf), sub_txt)
-    {
-      rendObj = ROBJ_FRAME
-      size = flex()
-      borderWidth = [0, 0, hdpx(1), 0]
-      color = mkStateFlagsColor(sf)
-    }
-  ]
+let function chooseCampaignLabel(stateFlags) {
+  let children = text(loc("btn/changeCampaign"), stateFlags, sub_txt)
+  return @() {
+    watch = stateFlags
+    hplace = ALIGN_RIGHT
+    rendObj = ROBJ_BOX
+    borderWidth = [0, 0, hdpx(1), 0]
+    borderColor = stateFlags.value & S_HOVER ? titleTxtColor : defTxtColor
+    children
+  }
 }
 
-let mkChooseCampaignBtn = @(stateFlags) @() {
-  watch = [stateFlags, needNotifier]
-  size = [flex(), SIZE_TO_CONTENT]
-  minWidth = SIZE_TO_CONTENT
-  flow = FLOW_VERTICAL
-  children = [
-    needNotifier.value
-      ? mkNotifier(loc("hint/newCampaignAvailable"), {
-        size = [flex(), SIZE_TO_CONTENT]
-        minWidth = SIZE_TO_CONTENT
-      })
-      : null
-    chooseCampaignLabel(stateFlags.value)
-  ]
+let function mkChooseCampaignBtn(stateFlags) {
+  let campaignLabel = chooseCampaignLabel(stateFlags)
+  return @() {
+    watch = needNotifier
+    size = [flex(), SIZE_TO_CONTENT]
+    minWidth = SIZE_TO_CONTENT
+    flow = FLOW_VERTICAL
+    children = [
+      needNotifier.value
+        ? mkNotifier(loc("hint/newCampaignAvailable"), {
+          size = [flex(), SIZE_TO_CONTENT]
+          minWidth = SIZE_TO_CONTENT
+        })
+        : null
+      campaignLabel
+    ]
+  }
 }
 
 let function campaignInfo() {
@@ -80,8 +77,8 @@ let function campaignInfo() {
     watch = [hasCampaignSelection, gameProfile, curCampaign, curArmyLevel, curArmyExp, curArmyLevels]
     flow = FLOW_VERTICAL
     children = [
-      text(loc(gameProfile.value?.campaigns[campaign].title ?? campaign), titleTxtColor, h2_txt)
-      text(loc("levelInfo", { level = curLevel }), titleTxtColor)
+      text(loc(gameProfile.value?.campaigns[campaign].title ?? campaign), stateFlags, h2_txt)
+      text(loc("levelInfo", { level = curLevel }), stateFlags)
       progressBar({ value = percent, color = titleTxtColor })
       hasCampaignSelection.value ? mkChooseCampaignBtn(stateFlags) : null
     ]

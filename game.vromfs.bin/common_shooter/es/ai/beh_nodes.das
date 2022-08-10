@@ -3,16 +3,15 @@ require ecs
 require app
 require strings
 require BehNodes
-require Action
+require game.es.action_common
 require EnlistedWalkerai
 require DagorDataBlock
 require DagorConsole
 require DagorRandom
 require DagorSystem
 require DagorDebug3D
-require common_shooter.es.ai.beh_node_common
 require game.es.ai.walker_common
-require debug.log_utils
+require debug.logerr_once
 
 
 [beh_node(name="log")]

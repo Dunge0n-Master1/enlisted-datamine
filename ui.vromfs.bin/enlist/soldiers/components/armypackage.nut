@@ -32,24 +32,8 @@ let mkArmyName = @(armyId, isSelected = false, sf = 0) {
   vplace = ALIGN_CENTER
 }.__update(h2_txt, strokeStyle)
 
-let mkArmyBack = @(armyId) {
-  rendObj = ROBJ_SOLID
-  size = [pw(100), pw(75)]
-  padding = hdpx(2)
-  color = Color(0,0,0)
-  children = {
-    rendObj = ROBJ_IMAGE
-    size = flex()
-    keepAspect = true
-    imageValign = ALIGN_TOP
-    image = Picture(armiesPresentation?[armyId].promoImage ?? $"ui/soldiers/{armyId}.jpg")
-    fallbackImage = Picture("ui/soldiers/army_default.jpg")
-  }
-}
-
 return {
   mkArmySimpleIcon
   mkArmyIcon
   mkArmyName
-  mkArmyBack
 }

@@ -42,7 +42,7 @@ def allow_next_and_disallow_prev_zone(team : int;
 def capture_bidirectional_capzone(zone_eid : EntityId; capture_team : int)
   query(zone_eid) <| $ [es(REQUIRE=capzoneTwoChains)] (capzone__lastZoneForTeam : int)
     if capzone__lastZoneForTeam == capture_team
-      broadcastEvent([[EventTeamWon teamId=capture_team]])
+      broadcastEvent([[EventTeamWon team=capture_team]])
 
 [es(tag=server)]
 def bidirectional_capzone_two_chains_captured_es(evt : EventZoneCaptured)

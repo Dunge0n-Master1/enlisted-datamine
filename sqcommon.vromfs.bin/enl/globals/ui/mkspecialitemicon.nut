@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 
-let defIconSize = hdpx(22).tointeger()
+let defIconSize = hdpxi(22)
 
 let premiumIcon = @(armyId) armiesPresentation?[armyId].premIcon
 let eventIcon = @(_armyId) "!ui/squads/event_squad_icon.svg"

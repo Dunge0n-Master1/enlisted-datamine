@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let textInput = require("%ui/components/textInput.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let wndWidth = sw(80)
 
 const WND_UID = "fontsDebugWnd"
@@ -22,7 +22,7 @@ let inputBlock = textInput.NoFrame(textInputWatch, {
   onEscape = @() textInputWatch("")
 })
 
-let btnUpperCase = watchElemState(@(_sf){
+let btnUpperCase = @() {
   watch = isUpperCaseModeOne
   rendObj = ROBJ_BOX
   borderWidth = hdpx(1)
@@ -35,7 +35,7 @@ let btnUpperCase = watchElemState(@(_sf){
     rendObj = ROBJ_TEXT
     text = isUpperCaseModeOne.value ? "Uppercase Mode: ON" : "Uppercase Mode: OFF"
   }
-})
+}
 
 let topBlock = {
   size = [hdpx(900), SIZE_TO_CONTENT]

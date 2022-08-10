@@ -20,7 +20,7 @@ def confusion_timer(info : UpdateStageInfoAct;
 
 [es(tag=server, REQUIRE=human)]
 def on_zone_damage_apply_concussion(evt : EventOnEntityHit; eid : EntityId; isAlive : bool)
-  if evt.victim == eid && evt.damageDesc.damageType == DamageType DM_ZONE && isAlive
+  if evt.victim == eid && evt.damageType == int(DamageType DM_ZONE) && isAlive
     enable_confusion_affect(eid)
 
 [es(tag=server, track=isAlive)]
@@ -33,8 +33,8 @@ def on_death_disable_confusion(evt : Event; eid : EntityId; isAlive : bool)
 def on_hit_confusion(evt : EventOnEntityHit; eid : EntityId; isAlive : bool)
   if evt.victim != eid || !isAlive
     return
-  if evt.damageDesc.damageType == DamageType DM_MELEE || evt.damageDesc.damageType == DamageType DM_BACKSTAB
-    let actionPropId = int(evt.damageDesc.actionPropsId)
+  if evt.damageType == int(DamageType DM_MELEE) || evt.damageType == int(DamageType DM_BACKSTAB)
+    let actionPropId = evt.actionPropsId
     if actionPropId >= 0
       melee_get_props(actionPropId) <| $(meleeProps : MeleeProps)
         if meleeProps.confusion

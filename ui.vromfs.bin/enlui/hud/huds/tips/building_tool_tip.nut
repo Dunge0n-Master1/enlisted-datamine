@@ -4,7 +4,7 @@ let { isBuildingToolMenuAvailable, selectedBuildingName, selectedDestroyableObje
   buildingRepairText, buildingPreviewId, buildingAllowRecreates, canInteractWithDeadBuilding,
   availableBuildings, selectedBuildingAllowRepair } = require("%ui/hud/state/building_tool_state.nut")
 let {isRadioMode} = require("%ui/hud/state/enlisted_hero_state.nut")
-let {isMortarMode} = require("%ui/_packages/common_shooter/hud/state/mortar.nut")
+let {isMortarMode} = require("%ui/hud/state/mortar.nut")
 let {isAlive, isDowned} = require("%ui/hud/state/health_state.nut")
 let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
 let { showBuildingToolMenu } = require("%ui/hud/state/building_tool_menu_state.nut")

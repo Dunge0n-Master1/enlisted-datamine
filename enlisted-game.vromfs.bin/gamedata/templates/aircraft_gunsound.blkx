@@ -203,6 +203,15 @@ gunsound_12_7mm_browning50_m2_late_aircraft{
   }
 }
 
+gunsound_12_7mm_ubk_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/12_7mm_browning50"
+  }
+}
+
 gunsound_12_7mm_bredasafat127_aircraft{
   _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
 
@@ -249,6 +258,15 @@ gunsound_20mm_an_m2_aircraft{
 }
 
 gunsound_20mm_hispanomkii_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_mgun/20mm_hispanomkii"
+  }
+}
+
+gunsound_20mm_hispanomkv_aircraft{
   _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
 
   "gun_sound__shotPath:shared:object"{
@@ -387,6 +405,20 @@ gunsound_37mm_bk37_underwing_aircraft{
   }
 }
 
+gunsound_45mm_ns45_aircraft{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_cannon/30mm_mk108"
+  }
+}
+
 gunsound_50mm_bk5_aircraft{
 
   _group{
@@ -485,6 +517,10 @@ gunsound_hvar_launcher_aircraft{
   _extends:t="gunsound_base_rocket_launcher_aircraft"
 }
 
+gunsound_100kg_t_launcher_aircraft{
+  _extends:t="gunsound_base_bomb_launcher_aircraft"
+}
+
 gunsound_200kg_launcher_aircraft{
   _extends:t="gunsound_base_bomb_launcher_aircraft"
 }
@@ -558,6 +594,15 @@ gunsound_20mm_mgff_turret_aircraft{
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/aircraft_turret/20mm_mgffm"
+  }
+}
+
+gunsound_20mm_mg15120_turret_aircraft{
+  _extends:t="gunsound_aircraft_start_loop_with_zero_oneshots"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/aircraft_turret/20mm_mg15120"
   }
 }
 

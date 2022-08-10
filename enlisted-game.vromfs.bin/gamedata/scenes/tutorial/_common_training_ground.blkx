@@ -18,13 +18,18 @@ entity{
 }
 
 entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+}
+
+entity{
   _template:t="level"
   level__blk:t="content/enlisted/levels/tutorial_training_ground_2x2.blk"
-  level__timeRange:p2=5.0, 19.2
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_small_overcast.blk":r=1.0
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
+    weather_clear_a:r=1.0
+    weather_cloudy_a:r=2.0
+    weather_cloudy_b:r=2.0
   }
 
   "level__timeVec:array"{

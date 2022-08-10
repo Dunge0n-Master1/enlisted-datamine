@@ -1,5 +1,5 @@
 let mpa = require("%xboxLib/mpa.nut")
-let logX = require("%sqstd/log.nut")().with_prefix("[SESSION_MANAGER] ")
+let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[SESSION_MANAGER] ")
 let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
 let { isInSquad, squadId, squadMembers, subsMemberAddedEvent, subsMemberRemovedEvent
 } = require("%enlist/squad/squadState.nut")

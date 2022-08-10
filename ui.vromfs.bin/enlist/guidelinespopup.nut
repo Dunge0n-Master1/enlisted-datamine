@@ -48,6 +48,6 @@ let function showGuidelines() {
 }
 
 isLoggedIn.subscribe(function(logged) {
-  if(logged)
+  if (logged)
     showGuidelines()
 })

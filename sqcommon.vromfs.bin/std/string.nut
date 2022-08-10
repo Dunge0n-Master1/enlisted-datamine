@@ -316,7 +316,7 @@ local function tostring_r(input, params=defTostringParams) {
       arrInd=indent
     local out = []
     local li = 0
-    local maxind = (input?.len() ?? 0) - 1
+    local maxind = (type(input?.len) == "function" ? input.len() : 0) - 1
     foreach (key, value in input) {
       local typ = type(value)
       local isArray = typ=="array"

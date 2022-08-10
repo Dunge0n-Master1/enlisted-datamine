@@ -1,6 +1,7 @@
 module sound_utils shared
 
 require ecs
+require ecs.safe
 require app
 require game.utils.net_utils
 require game.utils.team
@@ -11,7 +12,7 @@ require sound_utils_net.modules.sound_utils_net_events
 
 
 def private get_desc(name : string; descs : Object; should_exist : bool) : Object const?
-  let desc = get_ecs_object(descs, name)
+  let desc = descs[name] ?as Object
   if should_exist && desc == null
     sound_debug("net_sound: sound '{name}' not found in net_sound.descs {descs}")
   return desc
@@ -29,11 +30,11 @@ def scene_net_sound_rcptf(pos : float3; search_range : float = 100.) : array<ICo
 def net_sound_rcptf(target : EntityId; pos : float3; name : string; descs : Object; filter_possessd : bool; should_exist : bool) : array<IConnection?>
   let desc = get_desc(name, descs, should_exist)
   if is_valid(desc)
-    let toPlayer : bool = *desc |> get_bool("toPlayer") ?? false
+    let toPlayer = (*desc).toPlayer ?? false
     if toPlayer
       return <- target_entity_conn(target)
     else
-      let toTeam : bool = *desc |> get_bool("toTeam") ?? false
+      let toTeam : bool = (*desc).toTeam ?? false
       let searchRange : float = *desc |> get_float("range") ?? 0.f
       let team : int = toTeam ? target |> get_int("team") ?? TEAM_UNASSIGNED : TEAM_UNASSIGNED;
       if !toTeam || team != TEAM_UNASSIGNED

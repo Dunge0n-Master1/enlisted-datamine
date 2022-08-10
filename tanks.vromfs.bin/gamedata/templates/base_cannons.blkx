@@ -80,6 +80,10 @@ base_cannon_no_phys{
     _tags:t="render"
   }
 
+  "vehicle_seats__applyPerks:tag"{
+    _tags:t="server"
+  }
+
   grid_obj{
   }
 
@@ -198,22 +202,22 @@ base_cannon_no_phys{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_big"
+          name:t="tank_smoke_big_template"
           emitter:t="emtr_explosion_center"
         }
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_explosion_center"
         }
 
         "fx:object"{
-          name:t="tank_fire_big"
+          name:t="tank_fire_big_template"
           emitter:t="emtr_explosion_center"
         }
 
         "fx:object"{
-          name:t="tank_fire_small"
+          name:t="tank_fire_small_template"
           emitter:t="emtr_explosion_center"
         }
       }
@@ -230,7 +234,7 @@ base_cannon_no_phys{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_ammo_fire"
+          name:t="tank_ammo_fire_template"
           emitter:t="emtr_explosion_center"
         }
       }
@@ -247,7 +251,7 @@ base_cannon_no_phys{
       "fx:array"{
 
         "fx:object"{
-          name:t="tank_smoke_small"
+          name:t="tank_smoke_small_template"
           emitter:t="emtr_explosion_center"
         }
       }
@@ -279,6 +283,11 @@ movable_cannon_seat_gunner{
   seats_order__canPlaceManually:b=yes
 }
 
+movable_cannon_seat_loader{
+  _extends:t="movable_cannon_seat_default_sit"
+  seat_perks__vehicleReloadMult:r=1.0
+}
+
 movable_cannon_seat_driver{
   _extends:t="movable_cannon_seat_marching"
   seats_order__canPlaceManually:b=yes
@@ -290,7 +299,7 @@ movable_cannon_seat_templates{
     default:t="movable_cannon_seat_default_sit"
     driver:t="movable_cannon_seat_driver"
     main_gunner:t="movable_cannon_seat_gunner"
-    loader:t="movable_cannon_seat_default_sit"
+    loader:t="movable_cannon_seat_loader"
     loader_marching:t="movable_cannon_seat_marching"
   }
 }
@@ -304,6 +313,7 @@ base_movable_cannon{
   _tracked:t="cockpit__eid"
   pair_collision__tag:t="collidableToVehicle"
   commanderFpsCamMaxAngle:p2=70.0, 60.0
+  ai_target__noiseLevel:r=0.0
 
   "cockpit__eid:eid"{
     _tags:t="gameClient"
@@ -352,6 +362,10 @@ base_movable_cannon{
 
   "movableCannon:tag"{
   }
+
+  ai_target{
+    _tags:t="server"
+  }
 }
 
 anti_tank_cannon_common{
@@ -362,6 +376,7 @@ anti_tank_cannon_common{
 anti_aircraft_cannon_common{
   _extends:t="forestall"
   vehicle__mapIcon:t="map_icon_cannon_aa"
+  vehicle_look__lockAllTurrentControll:b=yes
 
   "turretHitAlwaysEffective:tag"{
     _tags:t="gameClient"

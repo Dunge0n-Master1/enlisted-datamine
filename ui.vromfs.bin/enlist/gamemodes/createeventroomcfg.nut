@@ -13,7 +13,7 @@ const MODDED_CONFIG_POSTFIX = "_MODDED"
 
 let createEventRoomCfg = Computed(function() {
   let cfg = {}
-  foreach(tpl in allRoomCfg.value) {
+  foreach (tpl in allRoomCfg.value) {
     let id = tpl?["template-id"]
     if (id != null && ("rules" in tpl))
       cfg[id] <- tpl

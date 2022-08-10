@@ -29,10 +29,7 @@ let isLastSectorForTeam = @(teamId) !(findCapzoneQuery(function(_, comps) {
     return true
 }) ?? false)
 
-let function capZonesGroupMustChanged(checkAllZonesInGroup, eid, teamId, mustBeCapturedByTeam, groupName){
-  return (checkAllZonesInGroup && allZonesInGroupCapturedByTeam(eid, teamId, groupName) && teamId == mustBeCapturedByTeam) || !checkAllZonesInGroup
+return {
+  allZonesInGroupCapturedByTeam,
+  isLastSectorForTeam
 }
-
-return {allZonesInGroupCapturedByTeam = allZonesInGroupCapturedByTeam,
-        isLastSectorForTeam,
-        capZonesGroupMustChanged = capZonesGroupMustChanged}

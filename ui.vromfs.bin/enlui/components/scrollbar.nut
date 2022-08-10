@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let baseScrollbar = require("%darg/components/scrollbar.nut")
+let baseScrollbar = require("%ui/components/base_scrollbar.nut")
 let {Interactive, Active, HoverItemBg} = require("%ui/style/colors.nut")
 
 let styling = {

@@ -1,6 +1,5 @@
 maxDeltaAngle:r=0.075
 shotFreq:r=12.8
-shotFreqRndK:r=0.1
 recoilAmount:r=0.1
 selWeaponVar:t="76mm_gun_m1"
 automaticReload:b=no

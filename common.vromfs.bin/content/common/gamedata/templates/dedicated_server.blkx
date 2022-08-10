@@ -6,14 +6,3 @@ server_no_players_timer{
     _tags:t="server"
   }
 }
-
-server_explosions{
-  _singleton:b=yes
-
-  _group{
-    _tags:t="server"
-    server_explosions__projectilesCounter:i=0
-    server_explosions__maxProjectilesCount:i=1
-    server_explosions__maxDelayedFramesCounter:i=10
-  }
-}

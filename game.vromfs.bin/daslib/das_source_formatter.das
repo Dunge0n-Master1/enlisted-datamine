@@ -501,6 +501,11 @@ def mark_token_context(var ctx: FormatterCtx)
                 if ctx |> eq(j, "=")
                     ctx.tokens[j].dontAddSpacesAround = true
 
+    let macroEscapes <- {{ /*ident*/"i"; /*value*/"v"; /*expr*/"e"; /*call*/"c"; /*type*/"t"; /*field*/"f"; /*block*/"b"; /*array*/"a" }}
+    for i in range(1, length(ctx.tokens))
+        if !new_line_before(ctx, i) && ctx |> eq(i - 1, "$") && key_exists(macroEscapes, ctx.tokens[i].str)
+            ctx.tokens[i - 1].dontAddSpacesAround = true
+
 
 def fmt_function_arguments(var ctx: FormatterCtx)
     // function arguments
@@ -605,8 +610,7 @@ def need_space_only_before(ctx: FormatterCtx; index: int): bool
 def add_space_before(var ctx: FormatterCtx; i)
     if (ctx.tokens[i].dontFormat || ctx.tokens[i - 1].dontFormat) || ctx |> new_line_before(i)
         return
-    if ctx.tokens[i].spaces == 0
-        ctx.tokens[i].spaces = 1
+    ctx.tokens[i].spaces = 1
 
 
 def remove_space_before(var ctx: FormatterCtx; i)
@@ -616,7 +620,7 @@ def remove_space_before(var ctx: FormatterCtx; i)
 
 
 let tokens_before_unary <- [[auto "("; "["; "?["; "\{"; "auto"; "int"; "float"; "int16"; "int32"; "int8"; ";"; ",";
-    "if"; "while"; "switch"; "return"; "yield"; "in"; "="
+    "if"; "while"; "switch"; "return"; "yield"; "in"; "="; "!"
     ]]
 
 def is_unary(ctx: FormatterCtx; index: int): bool
@@ -733,6 +737,12 @@ def fmt_remove_space_inside_parens(var ctx: FormatterCtx)
             ctx |> remove_space_before(i)
 
 
+def fmt_remove_space_before_as(var ctx: FormatterCtx)
+    for i in range(1, length(ctx.tokens))
+        if !new_line_before(ctx, i) && ctx |> eq(i, "as") && ctx |> eq(i - 1, "?")
+            ctx |> remove_space_before(i)
+
+
 let type_specifiers = [[string "-"; "?"; "&"; "#"]]
 
 def fmt_glue_type_specifiers(var ctx: FormatterCtx)
@@ -771,6 +781,7 @@ def do_format(var ctx: FormatterCtx)
     ctx |> fmt_remove_space_before_comma()
     ctx |> fmt_remove_space_before_semicolon()
     ctx |> fmt_remove_space_inside_parens()
+    ctx |> fmt_remove_space_before_as()
     ctx |> fmt_glue_type_specifiers()
     ctx |> fmt_space_after_keyword()
     ctx |> fmt_space_after_paren()

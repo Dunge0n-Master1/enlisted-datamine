@@ -1,0 +1,610 @@
+hit_effect_base{
+  _extends:t="ecs_no_debug"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  paint_from_biome:b=no
+  paint_color:p4=1.0, 1.0, 1.0, 0.5
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_metal_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=3.5
+
+    effect{
+    }
+  }
+
+  "staticEffect:tag"{
+  }
+}
+
+hit_6_8mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_6_8mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_6_8mm_ap_mud_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_mud_cmps_fx"
+  }
+}
+
+hit_6_8mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_6_8mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_6_8mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_6_8mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_8_12mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_8_12mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_8_12mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_8_12mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_8_12mm_ap_mud_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_8_12mm_ap_mud_cmps_fx"
+  }
+}
+
+hit_8_12mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_8_12mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_8_12mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_8_12mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_8_12mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_8_12mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_12_14mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_12_14mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_12_14mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_12_14mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_12_14mm_ap_mud_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_12_14mm_ap_mud_cmps_fx"
+  }
+}
+
+hit_12_14mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_12_14mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_12_14mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_12_14mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_12_14mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_12_14mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_14_20mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_14_20mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_14_20mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_14_20mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_14_20mm_ap_mud_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_14_20mm_ap_mud_cmps_fx"
+  }
+}
+
+hit_14_20mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_14_20mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_14_20mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_14_20mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_14_20mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_14_20mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_20_60mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_20_60mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_20_60mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_20_60mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_20_60mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_20_60mm_he_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_he_metal_cmps_fx"
+  }
+}
+
+hit_20_60mm_he_sand_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_he_sand_cmps_fx"
+  }
+}
+
+hit_20_60mm_he_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_he_snow_cmps_fx"
+  }
+}
+
+hit_20_60mm_he_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_he_stone_cmps_fx"
+  }
+}
+
+hit_20_60mm_he_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_20_60mm_he_wood_cmps_fx"
+  }
+}
+
+hit_60_100mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_60_100mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_60_100mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_60_100mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_60_100mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_60_100mm_he_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_he_metal_cmps_fx"
+  }
+}
+
+hit_60_100mm_he_sand_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_he_sand_cmps_fx"
+  }
+}
+
+hit_60_100mm_he_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_he_snow_cmps_fx"
+  }
+}
+
+hit_60_100mm_he_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_he_stone_cmps_fx"
+  }
+}
+
+hit_60_100mm_he_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_60_100mm_he_wood_cmps_fx"
+  }
+}
+
+hit_100_150mm_ap_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_ap_metal_cmps_fx"
+  }
+}
+
+hit_100_150mm_ap_sand_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_ap_sand_cmps_fx"
+  }
+}
+
+hit_100_150mm_ap_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_ap_snow_cmps_fx"
+  }
+}
+
+hit_100_150mm_ap_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_ap_stone_cmps_fx"
+  }
+}
+
+hit_100_150mm_ap_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_ap_wood_cmps_fx"
+  }
+}
+
+hit_100_150mm_he_metal_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_he_metal_cmps_fx"
+  }
+}
+
+hit_100_150mm_he_sand_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_he_sand_cmps_fx"
+  }
+}
+
+hit_100_150mm_he_snow_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_he_snow_cmps_fx"
+  }
+}
+
+hit_100_150mm_he_stone_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_he_stone_cmps_fx"
+  }
+}
+
+hit_100_150mm_he_wood_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_100_150mm_he_wood_cmps_fx"
+  }
+}
+
+hit_footstep_dirt_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_dirt_cmps_fx"
+  }
+}
+
+hit_footstep_mud_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_mud_cmps_fx"
+  }
+}
+
+hit_footstep_sand_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_sand_cmps_fx"
+  }
+}
+
+hit_footstep_snow_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_snow_cmps_fx"
+  }
+}
+
+hit_footstep_stone_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_stone_cmps_fx"
+  }
+}
+
+hit_blood_entry_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_blood_entry_cmps_fx"
+  }
+}
+
+hit_blood_exit_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_blood_exit_cmps_fx"
+  }
+}
+
+hit_blood_flow_heavy_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_blood_flow_heavy_cmps_fx"
+  }
+}
+
+hit_blood_flow_light_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_blood_flow_light_cmps_fx"
+  }
+}
+
+hit_blood_ground_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_blood_ground_cmps_fx"
+  }
+}
+
+hit_footstep_group{
+}

@@ -10,7 +10,6 @@ entity{
   team__capturePenalty:r=0.0
   team__score:r=0.0
   team__id:i=2
-  team__haveScores:b=no
   team__spawnBotArmy:t="stalingrad_axis"
   team__briefing:t="practice_mode/goals"
   team__winTitle:t="debriefing/sucesful_tutorial_title"

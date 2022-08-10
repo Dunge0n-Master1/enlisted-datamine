@@ -16,7 +16,7 @@ let { searchContactByExternalId } = require("%enlist/contacts/externalIdsManager
 let { psnApprovedUids, psnBlockedUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { console2uid, updateUids } = require("%enlist/contacts/consoleUidsRemap.nut")
 
-let logpsn = require("%sqstd/log.nut")().with_prefix("[PSN CONTACTS] ")
+let logpsn = require("%enlSqGlob/library_logs.nut").with_prefix("[PSN CONTACTS] ")
 
 let gameAppId = get_setting_by_blk_path("authGameId") ?? "cr"
 
@@ -100,7 +100,7 @@ let function onGetBlockedUsers(users) {
     foreach (uid in knownUids)
       bl[uid] <- true
 
-    foreach(uidStr, _ in res)
+    foreach (uidStr, _ in res)
       bl[uidStr] <- true
 
     psnBlockedUids(bl)

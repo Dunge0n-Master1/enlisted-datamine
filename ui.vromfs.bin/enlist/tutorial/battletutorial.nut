@@ -5,9 +5,9 @@ let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings
 let { curCampaign, curArmy } = require("%enlist/soldiers/model/state.nut")
 let debriefingState = require("%enlist/debriefing/debriefingStateInMenu.nut")
 let { lastGame } = require("%enlist/gameLauncher.nut")
-let { defTutorial, tutorialSceneByArmy, defTutorialTank, tutorialTankSceneByArmy,
-  defTutorialEngineer, tutorialEngineerSceneByArmy, defTutorialAircraft, tutorialAircraftSceneByArmy,
-  defPractice, practiceSceneByArmy } = require("%enlist/configs/battleScenes.nut")
+let { defTutorial, getTutorialScene, defTutorialTank, getTutorialTankScene,
+  defTutorialEngineer, getTutorialEngineerScene, defTutorialAircraft, getTutorialAircraftScene,
+  defPractice, getPracticeScene } = require("%enlist/configs/battleScenes.nut")
 
 let SAVE_FOLDER = "battleTutorial"
 
@@ -31,11 +31,11 @@ let curTutorialGroup = Computed(function() {
   return {
     id = groupId
     version = group?.version ?? 1
-    tutorialScene = tutorialSceneByArmy?[curArmy.value] ?? defTutorial
-    tutorialTankScene = tutorialTankSceneByArmy?[curArmy.value] ?? defTutorialTank
-    tutorialEngineerScene = tutorialEngineerSceneByArmy?[curArmy.value] ?? defTutorialEngineer
-    tutorialAircraftScene = tutorialAircraftSceneByArmy?[curArmy.value] ?? defTutorialAircraft
-    practiceScene = practiceSceneByArmy?[curArmy.value] ?? defPractice
+    tutorialScene = getTutorialScene(curArmy.value)
+    tutorialTankScene = getTutorialTankScene(curArmy.value)
+    tutorialEngineerScene = getTutorialEngineerScene(curArmy.value)
+    tutorialAircraftScene = getTutorialAircraftScene(curArmy.value)
+    practiceScene = getPracticeScene(curArmy.value)
   }
 })
 

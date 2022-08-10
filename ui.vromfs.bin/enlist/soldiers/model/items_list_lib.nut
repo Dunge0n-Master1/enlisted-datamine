@@ -7,7 +7,7 @@ let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let equalIgnore = { ctime = true, guid = true, guids = true, count = true, links = true, linkedItems = true }
 let function countParamsToCompare(item) {
   local res = item.len()
-  foreach(key, _ in equalIgnore)
+  foreach (key, _ in equalIgnore)
     if (key in item)
       res--
   return res
@@ -15,7 +15,7 @@ let function countParamsToCompare(item) {
 
 let function getLinkedItemsData(guid) {
   let res = {}
-  foreach(data in getSoldierItemSlots(guid, campItemsByLink.value)) {
+  foreach (data in getSoldierItemSlots(guid, campItemsByLink.value)) {
     let tpl = data.item?.basetpl
     if (!(data.slotType in res))
       res[data.slotType] <- {}
@@ -27,7 +27,7 @@ let function getLinkedItemsData(guid) {
 let function mergeItems(item1, item2) {
   if (countParamsToCompare(item1) != countParamsToCompare(item2))
     return null
-  foreach(key, val in item1)
+  foreach (key, val in item1)
     if (!equalIgnore?[key]
         && (!(key in item2) || !isEqual(val, item2[key])))
       return null
@@ -50,22 +50,26 @@ let function mergeItems(item1, item2) {
 
 let itemWeights = {
   // vehicle
-  vehicle = 71,
+  vehicle = 81,
+  // explosives and mines
+  explosion_pack = 79, grenade = 78, impact_grenade = 77, molotov = 75,
+  tnt_block_exploder = 74, smoke_grenade = 73, antipersonnel_mine = 72, antitank_mine = 71
   // special
   flamethrower = 62, mortar = 61,
   // heavy
-  infantry_launcher = 53, launcher = 52, antitank_rifle = 51,
+  launcher = 54, grenade_launcher = 53, infantry_launcher = 52, antitank_rifle = 51,
   // assault
   mgun = 44, assault_rifle = 43, assault_rifle_stl = 42, semiauto = 41, submgun = 40,
   // rifle and shotgun
   rifle_grenade_launcher = 37, shotgun = 36, boltaction_noscope = 34,
   carbine = 33, semiauto_sniper = 32, boltaction = 31,
   // pistol
-  sideweapon = 29,
+  sideweapon = 29, flaregun = 28,
   // melee and equipment
-  radio = 27, melee = 26, grenade = 25, scope = 24, medkits = 23, reapair_kit = 22
+  flask_usable = 19, binoculars_usable = 18, backpack = 17, radio = 16, melee = 15,
+  bayonet = 14, scope = 13, medic_medkits = 12, medkits = 11, repair_kit = 10
   // soldier
-  soldier = 11,
+  soldier = 4,
   //booster
   booster = 3,
   // ticket
@@ -82,11 +86,10 @@ local function prepareItems(items, objByGuid = {}) {
       return item
     })
     .filter(@(v) v != null)
-
-  items.sort(@(a, b) (a?.basetpl ?? "") <=> (b?.basetpl ?? ""))
+    .sort(@(a, b) (a?.basetpl ?? "") <=> (b?.basetpl ?? ""))
 
   let res = []
-  foreach(item in items) {
+  foreach (item in items) {
     local isMerged = false
     let tpl = item?.basetpl
     for(local i = res.len() - 1; i >= 0; i--) {
@@ -112,11 +115,11 @@ let mkShopItem = @(templateId, template, armyId)
 
 let function addShopItems(items, armyId, templateFilter = @(_templateId, _template) true) {
   let usedTemplates = {}
-  foreach(item in items)
+  foreach (item in items)
     if (item?.basetpl)
       usedTemplates[item.basetpl] <- true
 
-  foreach(templateId, template in (allItemTemplates.value?[armyId] ?? {})) {
+  foreach (templateId, template in (allItemTemplates.value?[armyId] ?? {})) {
     if (usedTemplates?[templateId]
         || (template?.isZeroHidden ?? false)
         || (("armies" in template) && template.armies.indexof(armyId) == null)
@@ -140,7 +143,7 @@ let preferenceSort = @(a, b) (b?.tier ?? 0) <=> (a?.tier ?? 0)
   || (a?.basetpl ?? "") <=> (b?.basetpl ?? "")
 
 let function findItemByGuid(items, guid) {
-  foreach(it in items)
+  foreach (it in items)
     if ("guids" in it ? it.guids.indexof(guid) != null : it?.guid == guid)
       return it
   return null

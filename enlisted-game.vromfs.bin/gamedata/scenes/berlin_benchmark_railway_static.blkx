@@ -1,3 +1,7 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_berlin_city_battle_sounds.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1151.14, 8.53424, 150.947]]
@@ -98,51 +102,6 @@ entity{
   active:b=yes
   battle_area__timeToDamage:r=5.0
   battle_area__damage:r=3.0
-}
-
-entity{
-  _template:t="sound_occlusion"
-}
-
-entity{
-  _template:t="distant_delayable_sounds"
-}
-
-entity{
-  _template:t="shell_shatters_sounds"
-}
-
-entity{
-  _template:t="plane_engine_sound_instance_stealing"
-}
-
-entity{
-  _template:t="reverb_sound"
-}
-
-entity{
-  _template:t="sound_step_settings"
-}
-
-entity{
-  _template:t="projectile_sound_physmat"
-}
-
-entity{
-  _template:t="narrator_sound"
-}
-
-entity{
-  _template:t="ambient_sound"
-
-  "ambient_sound__events:array"{
-    ambient_sound__events:t="ambient/city_battle"
-    ambient_sound__events:t="ambient/walla_screams"
-  }
-}
-
-entity{
-  _template:t="enlisted_net_sounds"
 }
 
 entity{
@@ -431,7 +390,6 @@ entity{
 
 entity{
   _template:t="briefing_invasion"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="berlin_railway_inv"
 
   "loading_images:list<t>"{
@@ -486,7 +444,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+capzone_projdecal"
+  _template:t="domination_sphere_capzone"
   transform:m=[[1.26003, 0.0, 0.0] [0.0, 0.730635, 0.0] [0.0, 0.0, 1.01335] [1211.87, 8.48725, 297.639]]
   sphere_zone__radius:r=23.0
   capzone__title:t="B"
@@ -574,7 +532,7 @@ entity{
   level__month:i=6
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_clear.blk":r=1.0
+    weather_clear_a:r=1.0
   }
 
   "level__timeVec:array"{

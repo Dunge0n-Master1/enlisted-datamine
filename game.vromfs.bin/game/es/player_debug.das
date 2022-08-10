@@ -3,12 +3,28 @@ require ecs
 require DagorConsole
 require DagorDebug3D
 require strings
+require game.es.net_console_macro
 
 [console_cmd(name="player.findByName")]
 def console_player_find(playerName : string)
   createEntity("player_with_name_debug") <| $(var init : ComponentsInitializer)
     set(init, "name", playerName)
 
+[net_console_cmd(name="player.rearm", hint="Restore soldier gun's ammo")]
+def player_rearm_cmd([[net_hero]] hero : EntityId)
+  query(hero) <| $ [es] (human_weap__weapInfo : Array)
+    for weap in human_weap__weapInfo
+      let weapObj = get_ecs_object(weap)
+      if weapObj == null
+        return
+      let numReserveAmmo = get_int(weapObj, "numReserveAmmo") ?? 0
+      let reserveAmmoTemplate = get_string(weapObj, "reserveAmmoTemplate", "")
+      if reserveAmmoTemplate == ""
+        continue
+      for _i in range(numReserveAmmo)
+        createEntity(reserveAmmoTemplate) <| $(var init)
+          init |> set("item__lastOwner", hero)
+          init |> set("item__ownerEid", hero)
 
 [es(tag=render, no_order, REQUIRE=player_with_name_debug)]
 def draw_founded_player(evt : UpdateStageInfoRenderDebug;

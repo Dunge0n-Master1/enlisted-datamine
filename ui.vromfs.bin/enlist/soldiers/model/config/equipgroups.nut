@@ -27,9 +27,9 @@ let equipGroups = [
 ]
 
 let slotTypeToEquipGroup = {}
-foreach(idx, eg in equipGroups) {
+foreach (idx, eg in equipGroups) {
   eg.idx <- idx
-  foreach(slot in eg.slots) {
+  foreach (slot in eg.slots) {
     assert(!(slot in slotTypeToEquipGroup), $"Duplicate slot {slot}")
     slotTypeToEquipGroup[slot] <- eg
   }

@@ -1,6 +1,7 @@
 require ecs
 require EnlistedHuman
 require DagorMath
+require enlisted.events_enlisted
 
 def hands_shake_fade_impl(cur_time : float;
                           concussion__isActive : bool;
@@ -20,7 +21,7 @@ def hands_shake_fade_impl(cur_time : float;
   human_net_phys.phys.currentState.handsShakeMagnitude = max(hands_shake__magnitude, concussion__handsShakeMagnitude * fadeMult)
 
 [es(tag=netClient, REQUIRE=watchedByPlr, no_order)]
-def hands_shake_client(info : UpdateStageInfoAct;
+def hands_shake_client(info : ParallelUpdateFrameDelayed;
                        concussion__isActive : bool;
                        concussion__endTime : float;
                        concussion__handsShakeFadeTime : float;
@@ -34,7 +35,7 @@ def hands_shake_client(info : UpdateStageInfoAct;
                         hands_shake__speedMult, hands_shake__magnitude, human_net_phys)
 
 [es(tag=server, no_order)]
-def hands_shake_server(info : UpdateStageInfoAct;
+def hands_shake_server(info : ParallelUpdateFrameDelayed;
                        concussion__isActive : bool;
                        concussion__endTime : float;
                        concussion__handsShakeFadeTime : float;

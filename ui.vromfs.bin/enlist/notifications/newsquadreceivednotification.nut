@@ -35,13 +35,13 @@ let function updatePromoSquads(_) {
   let promoTime = lastPromoTime.value
   let promoTimeUpdate = {}
   let newSquadsToPromo = {} //armyId = { squad, ctime, armyId, squadCfg }
-  foreach(armyId, list in squadsByArmies.value) {
+  foreach (armyId, list in squadsByArmies.value) {
     let lastTime = promoTime?[armyId] ?? 0
 
     local hasCoreSquads = false
     local isAllSquadsNew = true
     let promoSquads = []
-    foreach(squad in list) {
+    foreach (squad in list) {
       let ctime = squad.ctime.tointeger()
       let squadCfg = squadsCfgById.value?[armyId][squad.squadId]
       hasCoreSquads = hasCoreSquads || (squadCfg?.unlockCost ?? 0) <= 0
@@ -64,7 +64,7 @@ let function updatePromoSquads(_) {
 }
 
 let updatePromoSquadsDebounced = debounce(updatePromoSquads, 0.1)
-foreach(w in [onlineSettingUpdated, squadsCfgById, lastPromoTime, squadsByArmies])
+foreach (w in [onlineSettingUpdated, squadsCfgById, lastPromoTime, squadsByArmies])
   w.subscribe(updatePromoSquadsDebounced)
 updatePromoSquadsDebounced(null)
 
@@ -101,5 +101,5 @@ let function markVisibleSquadPromoViewed(_) {
     settings.mutate(@(s) s[LAST_PROMO_ID] <- lastPromoTime.value.__merge(seenData))
 }
 
-foreach(w in [isUnlockSquadSceneVisible, hasSquadsPromoOpened, squadsToPromo])
+foreach (w in [isUnlockSquadSceneVisible, hasSquadsPromoOpened, squadsToPromo])
   w.subscribe(markVisibleSquadPromoViewed)

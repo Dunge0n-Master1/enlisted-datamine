@@ -10,6 +10,7 @@ require GridCollision
 require PhysMat
 require Dacoll
 require HumanPhys
+require EnlistedHuman
 require math
 require math.base
 require game.utils.hero
@@ -18,12 +19,13 @@ require DagorSystem
 
 
 def watch_step(cur_eid : EntityId; pos : float3; offset, max_len : float;
-               var in_out_mat_id : int&; var out_water_depth : float&)
+               var in_out_mat_id : int&; var out_water_depth : float&;
+               human_net_phys : HumanActor)
 
   let from = float3(pos.x, pos.y + offset, pos.z)
   var len = max_len
   var matId = PHYSMAT_INVALID
-  if !tracedown_normalized(from, len, matId, ETF_DEFAULT)
+  if !tracedown_normalized(from, len, matId, ETF_DEFAULT, human_net_phys.phys.traceHandle)
     len = max_len
     matId = PHYSMAT_INVALID
 
@@ -69,7 +71,8 @@ def play_footstep(desc : Object const?;
                   _biomeOverridesWater : bool;
                   _puddleDepth : float;
                   var _matId : int&;
-                  var _waterDepth : float&)
+                  var _waterDepth : float&;
+                  human_net_phys : HumanActor)
   if desc == null
     return
   let nodePos = transform[3]
@@ -77,7 +80,7 @@ def play_footstep(desc : Object const?;
   let volume = (!is_watched_sound && is_teams_friendly(team, (get_int(get_controlled_hero(), "team") ?? TEAM_UNASSIGNED))) ? _friendVolume : 1.
 
   if is_watched_sound || !isLeftStep
-    watch_step(eid, nodePos, _traceStepOffsetLen.x, _traceStepOffsetLen.y, _matId, _waterDepth)
+    watch_step(eid, nodePos, _traceStepOffsetLen.x, _traceStepOffsetLen.y, _matId, _waterDepth, human_net_phys)
 
   var pmid = PHYSMAT_INVALID
   let isOnLMesh = is_on_lmesh(transform[3])
@@ -130,7 +133,8 @@ def human_steps_sound_irq(evt : CmdSoundStepIrq;
                           var human_steps_sound__matId : int&;
                           var human_steps_sound__waterDepth : float&;
                           human_net_phys__states : int?;
-                          human_net_phys__isClimbing : bool = false)
+                          human_net_phys__isClimbing : bool = false;
+                          human_net_phys : HumanActor)
 
   if is_faraway(is_watched_sound, transform[3], human_steps_sound__farawayThreshold)
     return
@@ -152,7 +156,8 @@ def human_steps_sound_irq(evt : CmdSoundStepIrq;
                 human_step_sound_queries__biomeOverridesWater,
                 human_step_sound_queries__puddleDepth,
                 human_steps_sound__matId,
-                human_steps_sound__waterDepth)
+                human_steps_sound__waterDepth,
+                human_net_phys)
 
   if human_net_phys__states != null
     let isRun = read_flag(StateFlag ST_SPRINT, *human_net_phys__states) && !read_flag(StateFlag ST_WALK, *human_net_phys__states)
@@ -179,7 +184,8 @@ def human_steps_sound_update(info : UpdateStageInfoAct;
                              var human_steps_sound__matId : int&;
                              var human_steps_sound__waterDepth : float&;
                              var human_steps_sound__physStates : int&;
-                             var human_steps_sound__lastTimeOnGround : float&)
+                             var human_steps_sound__lastTimeOnGround : float&;
+                             human_net_phys : HumanActor)
 
   if human_steps_sound__physStates == -1
     human_steps_sound__physStates = human_net_phys__states
@@ -233,7 +239,8 @@ def human_steps_sound_update(info : UpdateStageInfoAct;
                   human_step_sound_queries__biomeOverridesWater,
                   human_step_sound_queries__puddleDepth,
                   human_steps_sound__matId,
-                  human_steps_sound__waterDepth)
+                  human_steps_sound__waterDepth,
+                  human_net_phys)
 
 
 

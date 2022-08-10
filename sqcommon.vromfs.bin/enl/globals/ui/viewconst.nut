@@ -24,7 +24,7 @@ let unitSize = hdpx(45) //unit, 1920x1080 - 45x24)
 let researchListTabBorder = hdpx(4)
 
 let multySquadPanelSize = [(unitSize * 2.4).tointeger(), (unitSize * 2.4).tointeger()]
-let squadSlotHorSize = [hdpx(660).tointeger(), hdpx(72).tointeger()]
+let squadSlotHorSize = [hdpxi(660), hdpxi(72)]
 
 let soldierWndWidth = unitSize * 11
 let squadPanelWidth = unitSize * 6
@@ -136,7 +136,7 @@ return {
   soldierWndWidth
   squadPanelWidth
   perkIconSize = (unitSize * 1.5 - 2 * smallPadding).tointeger()
-  perkBigIconSize = [hdpx(315).tointeger(), hdpx(430).tointeger()]
+  perkBigIconSize = [hdpxi(315), hdpxi(430)]
   awardIconSize = (unitSize * 2).tointeger()
   awardIconSpacing = 2 * bigPadding
 
@@ -146,6 +146,11 @@ return {
 
   taskProgressColor = Color(251, 189, 64)
   taskDefColor = Color(125, 125, 125)
+
+  // Premium
+
+  bgPremiumColor = Color(11, 11, 19)
+  basePremiumColor  = Color(112, 112, 112)
 
   // Freemium
   freemiumColor = 0xFF584AA3

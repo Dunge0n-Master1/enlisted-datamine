@@ -1,0 +1,44 @@
+maxDeltaAngle:r=0.075
+shotFreq:r=0.17
+recoilAmount:r=0.1
+selWeaponVar:t="76mm_gun_m1"
+automaticReload:b=no
+sightsDistance:r=0.05
+
+shotDeviation{
+  onShotDeviationChange:r=0.0
+  omegaRange:p2=30.0, 90.0
+  omegaDevInc:p2=0.07, 0.5
+  extraDeviationTau:r=0.2
+  maxDeviation:r=25.0
+  movementRange:p2=3.0, 5.0
+  movementDevInc:p2=0.0, 6.0
+}
+
+gunFlash{
+
+  gunFx_main{
+    fx:t="muzzle_flash"
+    scale:r=0.04
+  }
+
+  gunFx_add_1{
+    fx:t="side_muzzle_flash"
+    scale:r=0.02
+  }
+
+  gunFx_add_2{
+    fx:t="side_muzzle_flash"
+    scale:r=0.02
+  }
+
+  gunFx_add_3{
+    fx:t="side_muzzle_flash"
+    scale:r=0.02
+  }
+
+  gunFx_add_bolt{
+    fx:t="side_muzzle_flash"
+    scale:r=0.01
+  }
+}

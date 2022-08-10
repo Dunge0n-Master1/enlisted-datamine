@@ -2,9 +2,12 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_tunisia_sounds.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_tunisia_level.blk"
+}
+
 entity{
   _template:t="briefing_domination"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   mission_name:t="tunisia_oasis_dom"
 
   "loading_images:list<t>"{
@@ -49,38 +52,12 @@ entity{
 }
 
 entity{
-  _template:t="shaderVars"
-
-  "shader_vars__vars:object"{
-    ocean1:p4=0.267, 0.251, 0.125, 0.0
-    ocean0:p4=0.278, 0.247, 0.129, 0.0
-    ocean_density:r=0.4
-    puddle_hardness:r=33.0
-    puddle_flat_noise_normal_effect:r=0.015
-    puddle_flat_normal_hardness:r=45.0
-    layered_fog_density:r=0.008
-    river1:p4=0.192, 0.373, 0.235, 0.0
-    river0:p4=0.58, 0.592, 0.38, 0.0
-    puddle_flat_hmap_reduce:r=-0.0095
-    leaves_ss_profile:p4=1.0, 1.0, 1.0, 0.0
-    paint_details_tex:t="tunisia_wall_color_tex_palette*"
-    layered_fog_height:r=100.0
-    puddle_increase:r=-0.02
-    water_color_noise_size:r=737.0
-    puddle_flat_noise_height_reduce:r=0.09
-    max_river_width:r=50.0
-    river_density:r=0.4
-  }
-}
-
-entity{
   _template:t="ground_effect"
   ground_effect__fx_name:t="land_haze"
   ground_effect__biome_group_name:t="dune"
   ground_effect__grid_cell_size:r=16.0
   ground_effect__grid_world_origin:p2=0.0, 0.0
   ground_effect__vis_radius:r=50.0
-  ground_effect__random_offset_scale:r=0.0
   ground_effect__biome_weight_for_active_thr:r=0.25
   ground_effect__fx_radius:r=-1.0
   ground_effect__scale_x:p2=1.3, 0.0
@@ -112,11 +89,6 @@ entity{
 entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
-}
-
-entity{
-  _template:t="tunisia_4x4_river_sound"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 
 entity{
@@ -159,8 +131,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=2
   battleAreaId:t="area1"
 }
@@ -208,8 +178,6 @@ entity{
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  battle_area__timeToDamage:r=5.0
-  battle_area__damage:r=3.0
   battle_area__team:i=1
   battleAreaId:t="area2"
 }
@@ -262,8 +230,8 @@ entity{
   level__month:i=6
 
   "level__weatherChoice:object"{
-    "content/common/gamedata/weather/weather_almost_clear.blk":r=1.0
-    "content/common/gamedata/weather/weather_clear.blk":r=0.5
+    weather_clear_a:r=1.0
+    weather_clear_b:r=1.0
   }
 
   "level__timeVec:array"{
@@ -384,13 +352,11 @@ entity{
 entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[18586.6, 0.0, -24824.9] [0.0, 8000.03, 0.0] [24824.0, 0.0, 18587.7] [-1302.15, 240.916, -830.517]]
-  battle_area__timeToDamage:r=30.0
-  battle_area__damage:r=3.0
   battle_area__team:i=-1
 }
 
 entity{
-  _template:t="domination_sphere_capzone+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="domination_sphere_capzone+defend_zone_respawnbase"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1165.72, 7.49273, -689.259]]
   capzone__title:t="A"
   capzone__caption:t="capzone/village_house"
@@ -399,7 +365,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_box_capzone+capzone_projdecal"
+  _template:t="domination_box_capzone"
   transform:m=[[9.85508, 0.0, -28.075] [0.0, 4.96595, 0.0] [23.2992, 0.0, 8.18195] [-1122.91, 7.68371, -576.905]]
   decal__height:r=0.9
   capzone__title:t="B"
@@ -408,7 +374,7 @@ entity{
 }
 
 entity{
-  _template:t="domination_sphere_capzone+defend_zone_respawnbase+capzone_projdecal"
+  _template:t="domination_sphere_capzone+defend_zone_respawnbase"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-980.977, 1.0417, -535.769]]
   capzone__title:t="C"
   capzone__caption:t="capzone/camp"

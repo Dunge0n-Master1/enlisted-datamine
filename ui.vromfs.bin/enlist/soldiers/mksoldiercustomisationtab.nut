@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let textInput = require("%darg/components/textInput.nut")
+let textInput = require("%ui/components/textInput.nut")
 let { defTxtColor, commonBtnHeight } = require("%enlSqGlob/ui/viewConst.nut")
 let { curCampItems, curCampItemsCount } = require("model/state.nut")
 let { configs } = require("%enlSqGlob/configs/configs.nut")
@@ -97,12 +97,12 @@ let soldierNameColorized = function(soldier, callname){
 }
 
 let function filterAndSetCallname(callNameToSet, soldier, prevCallname){
-  if(isWaitingObsceneFilter.value)
+  if (isWaitingObsceneFilter.value)
     return
   isWaitingObsceneFilter(true)
   obsceneFilter(callNameToSet, function(filteredCallName){
     isWaitingObsceneFilter(false)
-    if(filteredCallName != callNameToSet){
+    if (filteredCallName != callNameToSet){
       return popupsState.addPopup({
         id = "prohibited_callname"
         text = loc("prohibitedCallname")

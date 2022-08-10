@@ -11,7 +11,7 @@ let { mkItemCurrency } = require("currencyComp.nut")
 let {
   mkCurrency, mkCurrencyCount, oldPriceLine
 } = require("%enlist/currency/currenciesComp.nut")
-
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 
 let function hasItemsToBarter(curItemCost, campItems) {
   if (curItemCost.len() == 0)
@@ -28,7 +28,7 @@ let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
   { price }, $"{price}{currencyId}")
 
 let mkItemPurchaseInfo = kwarg(
-  function(curItemCost, campItems, curShopItemPrice, currencies,
+  function(curItemCost, campItems, curShopItemPrice, currencies, discountInPercent,
     shop_price_curr = "", shop_price = 0, shop_price_full = 0
   ) {
 
@@ -53,6 +53,7 @@ let mkItemPurchaseInfo = kwarg(
             text = loc("mainmenu/buyFor")
             color = activeTxtColor
           }.__update(sub_txt))
+          mkDiscountWidget(discountInPercent)
           mkCurrency({
             currency
             price
@@ -115,9 +116,7 @@ let mkItemBarterInfo = kwarg(function(guid, curItemCost, campItems) {
 
 let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
   showGoldPrice = true, styleOverride = {}
-) function() {
-    if (shopItem?.isPriceHidden ?? false)
-      return null
+) shopItem?.isPriceHidden ?? false ? null : function() {
     let children = []
     foreach (itemTpl, value in shopItem.curItemCost)
       children.append(mkItemCurrency({
@@ -158,15 +157,14 @@ let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
   }
 
 local function mkShopItemPrice(shopItem, personalOffer = null) {
-  let {
+  local {
     guid, curItemCost, curShopItemPrice, shop_price_curr = "",
-    shop_price = 0, shop_price_full = 0
+    shop_price = 0, shop_price_full = 0, discountInPercent = 0
   } = shopItem
-
   let shopItemPrice = clone curShopItemPrice
   if (personalOffer != null) {
     let { fullPrice } = shopItemPrice
-    let { discountInPercent = 0 } = personalOffer
+    discountInPercent = personalOffer?.discountInPercent ?? 0
     shopItemPrice.price = fullPrice - fullPrice * discountInPercent / 100
   }
 
@@ -189,6 +187,7 @@ local function mkShopItemPrice(shopItem, personalOffer = null) {
         shop_price_full
         campItems = curCampItemsCount.value
         currencies = currenciesList.value
+        discountInPercent
       })
     ]
   }

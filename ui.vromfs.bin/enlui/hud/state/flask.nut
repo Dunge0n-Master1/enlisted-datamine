@@ -1,16 +1,26 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let hasHeroFlask = Watched(false)
+let { anyItemComps, mkItemDescFromComp } = require("items.nut")
+let heroFlaskEid = Watched(INVALID_ENTITY_ID)
+let heroFlaskInfo = Watched()
+let hasHeroFlask = Computed(@() heroFlaskEid.value!=INVALID_ENTITY_ID)
 let flaskAffectApplied = Watched(false)
+let memoizedDesc = memoize(@(_name, eid, comp) mkItemDescFromComp(eid, comp), 1)
 
 ecs.register_es("flask_hero_state", {
-  [["onInit", "onChange"]] = @(_evt, _eid, comp) hasHeroFlask(comp.hasFlask)
-  onDestroy = @(...) hasHeroFlask(false)
+  onInit = function(_, eid, comp) {
+    heroFlaskEid(eid)
+    heroFlaskInfo(memoizedDesc(comp["item__name"], eid, comp))
+  }
+  onDestroy = function(...) {
+    heroFlaskEid(INVALID_ENTITY_ID)
+    heroFlaskInfo(null)
+  }
 },
 {
-  comps_track=[["hasFlask", ecs.TYPE_BOOL]],
-  comps_rq=["hero"]
+  comps_rq=["flask","watchedPlayerItem"]
+  comps_ro = anyItemComps.comps_ro
 })
 
 ecs.register_es("has_hero_flask_affect", {
@@ -19,10 +29,12 @@ ecs.register_es("has_hero_flask_affect", {
 },
 {
   comps_track=[["flask__affectEid", ecs.TYPE_EID]],
-  comps_rq=["hero"]
+  comps_rq=[["watchedByPlr", ecs.TYPE_EID]]
 })
 
 return {
   hasHeroFlask
+  heroFlaskEid
   flaskAffectApplied
+  heroFlaskInfo
 }

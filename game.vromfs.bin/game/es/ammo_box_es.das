@@ -12,9 +12,30 @@ struct MagazinesCount
   current : int
   partial : int
 
-struct ResupplyMagazinePrice
-  count : int
-  price : int
+
+struct ResupplyGunPrice
+  magazines : int
+  boxUses : int
+
+
+struct ResupplyGunResult
+  emptyMagazinesRefilled : int
+  partialMagazinesRefilled : int
+  boxUses : int
+
+
+enum RefillAmmoStatus
+  SUCCESS
+  FAIL_INCOMPATIBLE_FRIENDLY_GUN
+  FAIL_INCOMPATIBLE_ENEMY_GUN
+  FAIL_AMMO_FULL
+  FAIL_EMPTY_BOX
+
+
+struct RefillAmmoResult
+  boxUses : int
+  status : RefillAmmoStatus
+
 
 def is_ammo_for_gun(ammo_template; ammo_holders_templates)
   for ammo_holder_template in ammo_holders_templates
@@ -25,7 +46,7 @@ def is_ammo_for_gun(ammo_template; ammo_holders_templates)
 
 
 def refill_ammo(requester; count; ammoTemplate)
-  for i in range(0, count)
+  for _i in range(0, count)
     push_item_in_cont(requester, ammoTemplate)
   return count > 0
 
@@ -45,54 +66,81 @@ def private get_magazines_count(ammo_holders; ammo_in_gun; max_ammo_in_magazine;
 
   return magazines
 
-def private ammo_resupply_price(max_magazines; requires_refill_count; refill_count; max_refill_count)
-  let relativeRequiredResupplies = float(requires_refill_count) * float(refill_count) / float(max_magazines)
-  let require_price = ceili(relativeRequiredResupplies)
-  if max_refill_count < require_price
-    return [[ResupplyMagazinePrice
-      count=ceili(float(refill_count) * (float(refill_count) / float(requires_refill_count))),
-      price=require_price
-    ]]
 
-  return [[ResupplyMagazinePrice
-    count=refill_count,
-    price=require_price
+def private calculate_resupply_gun_price(max_magazines : int;
+                                         requires_refill_count : int;
+                                         wanted_magazines : int;
+                                         box_use_count : int)
+  let tolerance = 0.0001 //in ceili operations we want a number like 123.0000045 to turn into 123, not 124
+  let boxUsesPerMag = safediv(float(requires_refill_count), float(max_magazines))
+  var ret = [[ResupplyGunPrice
+    magazines = wanted_magazines,
+    boxUses   = ceili(boxUsesPerMag * float(wanted_magazines) - tolerance)
   ]]
 
-def resupply_magazines(requester;
-                       var itemContainer &;
-                       box_use_count;
-                       requires_refill_count;
-                       holder_ammo_count;
-                       gun__ammo_holders : Array;
-                       gun__ammo : int;
-                       gun__num_reserve_ammo : int;
-                       gun__reserve_ammo_template : string)
-  var requiredResupplies = 0
-  let magazines = get_magazines_count(gun__ammo_holders, gun__ammo, holder_ammo_count, itemContainer)
-  var possibleResupply = ammo_resupply_price(gun__num_reserve_ammo, requires_refill_count, max(gun__num_reserve_ammo - magazines.current, 0), box_use_count)
-  if possibleResupply.count > 0
-    requiredResupplies += possibleResupply.price
-    refill_ammo(requester, possibleResupply.count, gun__reserve_ammo_template)
+  if box_use_count < ret.boxUses
+    //if box_use_count is less than what we want, our weapon gets only partially resupplied
+    let coeff = safediv(float(box_use_count), float(ret.boxUses))
+    ret.magazines = ceili(coeff * float(ret.magazines) - tolerance)
+    ret.boxUses   = box_use_count
 
-  // Refill partial magazines(not full)
-  possibleResupply = ammo_resupply_price(gun__num_reserve_ammo, requires_refill_count, magazines.partial, box_use_count)
-  if possibleResupply.count > 0
-    requiredResupplies += possibleResupply.price
-    refill_ammo(requester, possibleResupply.count, gun__reserve_ammo_template)
-    // remove magazines from inventory
-    var i = length(itemContainer) - 1
-    while i >= 0
-      if possibleResupply.count <= 0
-        break
-      query(itemContainer[i]) <| $ [es] (item__template : das_string; ammo_holder__ammoCount : int)
-        if !is_ammo_for_gun(string(item__template), gun__ammo_holders) || ammo_holder__ammoCount >= holder_ammo_count
-          return
-        destroyEntity(itemContainer[i])
-        itemContainer |> erase(i)
-        --possibleResupply.count
-      --i
-  return requiredResupplies
+  return ret
+
+
+def resupply_gun_check(box_use_count : int;
+                       requires_refill_count : int;
+                       holder_ammo_count : int;
+                       ammo_holders : Array;
+                       ammo_in_gun : int;
+                       max_magazines : int;
+                       item_container : EidList)
+  let magazines = get_magazines_count(ammo_holders, ammo_in_gun, holder_ammo_count, item_container)
+
+  if magazines.current > max_magazines
+    return [[ResupplyGunResult
+      partialMagazinesRefilled = 0,
+      emptyMagazinesRefilled = 0,
+      boxUses = 0
+    ]]
+
+  let emptyMagazines = max_magazines - magazines.current
+  let price = calculate_resupply_gun_price(max_magazines, requires_refill_count, emptyMagazines + magazines.partial, box_use_count)
+  let partialMagsRefilled = max(price.magazines - emptyMagazines, 0)
+
+  return [[ResupplyGunResult
+    partialMagazinesRefilled = partialMagsRefilled,
+    emptyMagazinesRefilled = price.magazines - partialMagsRefilled,
+    boxUses = price.boxUses
+  ]]
+
+
+def resupply_gun(resupply_result : ResupplyGunResult;
+                 requester : EntityId;
+                 holder_ammo_count : int;
+                 ammo_holders : Array;
+                 reserve_ammo_template : string;
+                 var item_container : EidList&)
+  let magazinesRefilled = resupply_result.emptyMagazinesRefilled + resupply_result.partialMagazinesRefilled
+  if magazinesRefilled <= 0
+    return
+
+  refill_ammo(requester, magazinesRefilled, reserve_ammo_template)
+
+  // remove partial magazines from inventory which were replaced by full magazines from the box
+  var i = length(item_container) - 1
+  var numPartialMagsToBeRemoved = resupply_result.partialMagazinesRefilled
+
+  while i >= 0
+    if numPartialMagsToBeRemoved <= 0
+      break
+    query(item_container[i]) <| $ [es] (item__template : das_string; ammo_holder__ammoCount : int)
+      if !is_ammo_for_gun(string(item__template), ammo_holders) || ammo_holder__ammoCount >= holder_ammo_count
+        return
+      destroyEntity(item_container[i])
+      item_container |> erase(i)
+      --numPartialMagsToBeRemoved
+    --i
+
 
 def has_grenade(itemContainer)
   for item in itemContainer
@@ -122,19 +170,28 @@ def has_ammo_holder(gun_eid; item_template)
 
 
 def try_to_refill_ammo(requester; box_use_count; box_team)
-  var hasStoledWeapon = false
-  var spentResources = 0
+  var newBoxUseCount = box_use_count
   var isFriendlyBox = false
-  query(requester) <| $ [es] (var itemContainer : EidList&; human_weap__gunEids : ecs::EidList; team : int)
-    isFriendlyBox = is_teams_friendly(team, box_team)
+  var incompatibleGunFailed = false
+  var ret = [[RefillAmmoResult
+    boxUses = 0,
+    status = RefillAmmoStatus SUCCESS
+  ]]
+
+  query(requester) <| $ [es] (var itemContainer : EidList&; human_weap__gunEids : ecs::EidList; team aka requester_team : int)
+    isFriendlyBox = is_teams_friendly(requester_team, box_team)
+
     for slotId in [[HUWeaponSlots HUWeaponSlots EWS_PRIMARY; HUWeaponSlots EWS_SECONDARY; HUWeaponSlots EWS_TERTIARY]]
+      if newBoxUseCount <= 0
+        break
+
       query(human_weap__gunEids[int(slotId)]) <| $ [es(REQUIRE_NOT=itemInWeaponSlot)] (gun__ammoHolders : Array;
                                                                                        item__ownedByTeam : int;
                                                                                        gun__ammo : int;
                                                                                        gun__numReserveAmmo : int;
                                                                                        gun__reserveAmmoTemplate : string)
         if item__ownedByTeam != box_team
-          hasStoledWeapon = true
+          incompatibleGunFailed = true
           return
 
         if gun__numReserveAmmo <= 0
@@ -151,16 +208,33 @@ def try_to_refill_ammo(requester; box_use_count; box_team)
           return
 
         let ammoRefillsCount = max(1, get_int(getTemplateComponent(*ammoTplComp, "requiresAmmoRefillsCount")) ?? 1)
-        spentResources += resupply_magazines(requester, itemContainer, box_use_count, ammoRefillsCount, holderAmmoCount,
-          gun__ammoHolders, gun__ammo, gun__numReserveAmmo, gun__reserveAmmoTemplate)
 
-  if hasStoledWeapon
-    let text = isFriendlyBox ? "resupply/cant_refill_picked_weapon" : "resupply/cant_refill_friendly_weapon_from_enemy_box"
-    sendEvent(requester, [[CmdHeroLogEvent event="cant_refill_picked_weapon", text=text]])
-  elif spentResources <= 0
-    sendEvent(requester, [[CmdHeroLogEvent event="ammo_full", text="resupply/ammo_full"]])
+        let resupplyResult = resupply_gun_check(newBoxUseCount,
+                                                ammoRefillsCount,
+                                                holderAmmoCount,
+                                                gun__ammoHolders,
+                                                gun__ammo,
+                                                gun__numReserveAmmo,
+                                                itemContainer)
+        newBoxUseCount -= resupplyResult.boxUses
+        resupply_gun(resupplyResult,
+                     requester,
+                     holderAmmoCount,
+                     gun__ammoHolders,
+                     gun__reserveAmmoTemplate,
+                     itemContainer)
 
-  return spentResources
+  ret.boxUses = box_use_count - newBoxUseCount
+
+  if box_use_count <= 0
+    ret.status = RefillAmmoStatus FAIL_EMPTY_BOX
+  elif ret.boxUses <= 0
+    if incompatibleGunFailed
+      ret.status = isFriendlyBox ? RefillAmmoStatus FAIL_INCOMPATIBLE_ENEMY_GUN : RefillAmmoStatus FAIL_INCOMPATIBLE_FRIENDLY_GUN
+    else
+      ret.status = RefillAmmoStatus FAIL_AMMO_FULL
+
+  return ret
 
 [es(tag=server, track=useful_box__useCount, REQUIRE=ammunitionBox)]
 def ammo_box_on_refill_es(evt : Event;
@@ -174,11 +248,20 @@ def ammo_box_on_refill_es(evt : Event;
 [es(tag=server, before=useful_box_use_finish_es, REQUIRE=ammunitionBox)]
 def ammo_box_resupply_ammo_es(evt : CmdUseUsefulBox;
                               useful_box__useCount : int;
-                              team : int;
+                              team aka box_team : int;
                               var useful_box__requiredUseCount : int&;
                               var useful_box__successUse : bool&)
-  useful_box__requiredUseCount = try_to_refill_ammo(evt.requesterEid, useful_box__useCount, team)
-  useful_box__successUse ||= useful_box__requiredUseCount > 0
+  let refillAmmoResult = try_to_refill_ammo(evt.requesterEid, useful_box__useCount, box_team)
+
+  useful_box__requiredUseCount = refillAmmoResult.boxUses
+  useful_box__successUse ||= refillAmmoResult.status == RefillAmmoStatus SUCCESS
+
+  if refillAmmoResult.status == RefillAmmoStatus FAIL_AMMO_FULL
+    sendEvent(evt.requesterEid, [[CmdHeroLogEvent event="ammo_full", text="resupply/ammo_full"]])
+  elif refillAmmoResult.status == RefillAmmoStatus FAIL_INCOMPATIBLE_FRIENDLY_GUN
+    sendEvent(evt.requesterEid, [[CmdHeroLogEvent event="cant_refill_picked_weapon", text="resupply/cant_refill_friendly_weapon_from_enemy_box"]])
+  elif refillAmmoResult.status == RefillAmmoStatus FAIL_INCOMPATIBLE_ENEMY_GUN
+    sendEvent(evt.requesterEid, [[CmdHeroLogEvent event="cant_refill_picked_weapon", text="resupply/cant_refill_picked_weapon"]])
 
 [es(tag=server, before=useful_box_use_finish_es, REQUIRE=ammunitionBox)]
 def ammo_box_resupply_grenade_es(evt : CmdUseUsefulBox;

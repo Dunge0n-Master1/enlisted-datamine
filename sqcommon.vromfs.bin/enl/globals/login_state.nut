@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let {hideAllModalWindows} = require("%darg/components/modalWindows.nut")
+let {hideAllModalWindows} = require("%ui/components/modalWindows.nut")
 let steam = require("steam")
 let epic = require("epic")
 let auth = require("auth")

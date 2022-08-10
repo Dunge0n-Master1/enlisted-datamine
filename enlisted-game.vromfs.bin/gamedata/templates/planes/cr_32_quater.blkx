@@ -1,0 +1,151 @@
+cr_32_quater{
+  _extends:t="cr_32_quater_base"
+  _extends:t="squad_controlled_plane"
+  item__name:t="items/cr_32_quater"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.695, 0.564, 0.053
+      cockpitTemplate:t="cr_32_quater_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_cr_32_quater_12_7mm_bredasafat127_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="main_turrets"
+      trigger:t="machine_guns"
+      gun:t="planegun_cr_32_quater_12_7mm_bredasafat127_02"
+    }
+  }
+}
+
+base_cr_32_quater_12_7mm_bredasafat127{
+  item__name:t="guns/gunbredasafat127"
+  gun__blk:t="content/enlisted/gamedata/weapons/cr_32_quater/12_7mm_bredasafat127.blk"
+  gun__shotFreq:r=11.6667
+  gun__locName:t="gunbredasafat127"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=350
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=350
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
+        name:t="tracer"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
+        name:t="incendiary"
+        type:t="i_ball"
+      }
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
+        name:t="ap"
+        type:t="ap_ball"
+      }
+    }
+  }
+}
+
+planegun_cr_32_quater_12_7mm_bredasafat127_01{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_cr_32_quater_12_7mm_bredasafat127"
+  _extends:t="gunsound_12_7mm_bredasafat127_aircraft"
+  gun__shootNodeName:t="flare1"
+  gun__maxAmmo:i=350
+}
+
+planegun_cr_32_quater_12_7mm_bredasafat127_02{
+  _extends:t="tankgun"
+  _extends:t="base_plane_machinegun"
+  _extends:t="base_cr_32_quater_12_7mm_bredasafat127"
+  _extends:t="gunsound_12_7mm_bredasafat127_aircraft"
+  gun__shootNodeName:t="flare2"
+  gun__maxAmmo:i=350
+}
+
+cr_32_quater_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="cr_32_quater_cockpit_char"
+  plane_anim__blk:t="content/enlisted/gamedata/units/cr_32_quater.blk"
+  plane_sight__blk:t="content/enlisted/gamedata/units/cr_32_quater.blk"
+}

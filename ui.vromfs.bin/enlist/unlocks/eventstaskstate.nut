@@ -24,7 +24,6 @@ console_register_command(@() console_print("interval:", unlockOfferTime.value), 
 let getNextUnlock = @(unlockName, unlocks)
   unlocks.findvalue(@(u) (u?.requirement ?? "") == unlockName)
 
-
 let unlocksMeta = Computed(function() {
   let res = {
     forcedUrl = []

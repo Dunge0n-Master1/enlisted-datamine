@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {MenuBgOverlay} = require("%ui/style/colors.nut")
-let {addModalWindow, removeModalWindow} = require("%darg/components/modalWindows.nut")
+let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { actionInProgress } = require("%enlSqGlob/uistate.nut")
 let spinner = require("%ui/components/spinner.nut")()
 

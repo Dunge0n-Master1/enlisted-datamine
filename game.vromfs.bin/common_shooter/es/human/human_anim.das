@@ -11,6 +11,7 @@ require HumanPhys
 require HumanAnim
 require DagorMath
 require EnlistedWeapon
+require game.es.events
 
 def private calc_head_pitch_yaw(state : HumanPhysState)
   let localGunDir = inverse(state.location.O.quat) * state.gunDir
@@ -123,6 +124,38 @@ def human_head_anim_es(info : UpdateStageInfoAct;
   phys_vars |> setVar(human_anim.headPitchVarId, rad_to_deg(headPitch))
   phys_vars |> setVar(human_anim.headYawVarId, newHeadYawVar)
 
+[es(on_appear)]
+def init_to_crawl_transition_anim_id(evt : Event;
+                                     animchar : AnimcharBaseComponent;
+                                     human_anim__toCrawlTransitionAnim : string;
+                                     human_anim__toCrawlTransitionVar : string;
+                                     var phys_vars : PhysVars;
+                                     var human_anim__toCrawlTransitionAnimId : int&;
+                                     var human_anim__toCrawlTransitionVarId : int&)
+  if animchar.animGraph != null
+    human_anim__toCrawlTransitionAnimId = *animchar.animGraph |> anim_graph_getStateIdx(human_anim__toCrawlTransitionAnim)
+    human_anim__toCrawlTransitionVarId = phys_vars |> registerVar(human_anim__toCrawlTransitionVar, 0.)
+
+[es(on_appear)]
+def init_from_crawl_transition_anim_id(evt : Event;
+                                       animchar : AnimcharBaseComponent;
+                                       human_anim__fromCrawlTransitionAnim : string;
+                                       human_anim__fromCrawlTransitionVar : string;
+                                       var phys_vars : PhysVars;
+                                       var human_anim__fromCrawlTransitionAnimId : int&;
+                                       var human_anim__fromCrawlTransitionVarId : int&)
+  if animchar.animGraph != null
+    human_anim__fromCrawlTransitionAnimId = *animchar.animGraph |> anim_graph_getStateIdx(human_anim__fromCrawlTransitionAnim)
+    human_anim__fromCrawlTransitionVarId = phys_vars |> registerVar(human_anim__fromCrawlTransitionVar, 0.)
+
+[es]
+def human_anim_keep_jump_start_time(update : CmdPostPhysUpdate;
+                                    human_net_phys : HumanActor;
+                                    var human_anim__jumpStartTime : float&)
+  assume jumpStartTime = human_net_phys.phys.currentState.jumpStartTime
+  if jumpStartTime > 0.
+    human_anim__jumpStartTime = jumpStartTime
+
 [es(REQUIRE_NOT=animchar__actOnDemand, no_order)]
 def human_anim_es(info : UpdateStageInfoAct;
                   ragdoll : PhysRagdoll?;
@@ -131,6 +164,7 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_net_phys__climbToPos : float3 = float3();
                   transform : float3x4;
                   human_net_phys : HumanActor;
+                  human_phys__jumpEndTime : float;
                   eid : EntityId;
                   isAlive : bool;
                   stunTimer : float;
@@ -159,6 +193,7 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_anim__vertVelVisc : float = 0.2;
                   human_anim__considerFwdStopped : float = 0.1;
                   human_anim__considerFallingCoef : float = 2.0;
+                  human_anim__jumpUpperStateId : int = -1;
                   burning__isPuttingOut : bool = false;
                   burning__animPutOutEnum : int = -1;
                   bipod__enabled : bool = false;
@@ -166,9 +201,24 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_vehicle_anim__lowerId : int = -1;
                   human_vehicle_anim__fireReadyUpperId : int = -1;
                   human_vehicle_anim__fireReadyLowerId : int = -1;
+                  human_vehicle_anim__healUpperId : int = -1;
+                  human_vehicle_anim__healLowerId : int = -1;
                   human_vehicle_anim__maxStandHeight : float = 1.;
+                  human_anim__crawlThreshold : float = -0.1;
+                  human_anim__toCrawlTransitionAnimId : int;
+                  human_anim__toCrawlTransitionVarId : int;
+                  human_anim__fromCrawlTransitionAnimId : int;
+                  human_anim__fromCrawlTransitionVarId : int;
                   animchar__updatable : bool;
                   animchar__visible : bool = true;
+                  human_anim__jumpStartStateRange : float2;
+                  human_anim__jumpEndStateRange : float2;
+                  human_anim__jumpStartTime : float;
+                  human_phys__beforeJumpDelay : float;
+                  human_phys__beforeJumpCrouchHeight : float;
+                  human_phys__afterJumpCrouchHeight : float;
+                  human_anim__heightViscosity : float = 0.1;
+                  var human_anim__previousHeight : float&;
                   var human_anim : HumanAnimCtx;
                   var phys_vars : PhysVars;
                   var animchar__animSpeed : float&;
@@ -202,13 +252,21 @@ def human_anim_es(info : UpdateStageInfoAct;
                       phys.currentState.velocity - phys.currentState.standingVelocity, float3(interpK))
   var spd = length(velDelta.xz)
   var isClimbing = human_net_phys__isClimbing
+  var animHeight = lerp(phys.previousState.height, phys.currentState.height, interpK)
+
+  if human_phys__beforeJumpDelay > 0.f && phys.currentState.jumpStartTime >= 0. && curTime > phys.currentState.jumpStartTime
+    animHeight = curTime < phys.currentState.jumpStartTime + human_phys__beforeJumpDelay ? human_phys__beforeJumpCrouchHeight : 1.
+  if curTime < phys.currentState.afterJumpDampingEndTime
+    animHeight = min(animHeight, human_phys__afterJumpCrouchHeight)
+
+  animHeight = approach(human_anim__previousHeight, animHeight, dt, human_anim__heightViscosity)
 
   phys_vars |> setVar(human_anim.gunPitchVarId, rad_to_deg(pitch))
   phys_vars |> setVar(human_anim.walkDirVarId, walkYaw + 90.0)
   phys_vars |> setVar(human_anim.bodyDirVarId, bodyYaw + 90.0)
 
   phys_vars |> setVar(human_anim.leanVarId, lerp(phys.previousState.leanPosition, phys.currentState.leanPosition, interpK))
-  phys_vars |> setVar(human_anim.standHeightVarId, lerp(phys.previousState.height, phys.currentState.height, interpK))
+  phys_vars |> setVar(human_anim.standHeightVarId, clamp(animHeight, 0., 1.))
   phys_vars |> setVar(human_anim.hitPartsSelectedVarId, float(animHitPartId))
 
   var dir = unitTm[0]
@@ -374,14 +432,36 @@ def human_anim_es(info : UpdateStageInfoAct;
 
   var state = HumanAnimStateResult(-1, -1)
   if isInVehicle
-    state = (!human_weap__blockAiming && phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM) ?
-      HumanAnimStateResult(human_vehicle_anim__fireReadyUpperId, human_vehicle_anim__fireReadyLowerId) :
-      HumanAnimStateResult(human_vehicle_anim__upperId, human_vehicle_anim__lowerId))
+    let isAiming = !human_weap__blockAiming && phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
+    let isHealing = stateUpperBody == HumanStateUpperBody E_HEAL
+    let upperVehicleState = ((isHealing && human_vehicle_anim__healUpperId >= 0) ? human_vehicle_anim__healUpperId
+      : isAiming ? human_vehicle_anim__fireReadyUpperId
+      : human_vehicle_anim__upperId)
+    let lowerVehicleState = ((isHealing && human_vehicle_anim__healLowerId >= 0) ? human_vehicle_anim__healLowerId
+      : isAiming ? human_vehicle_anim__fireReadyLowerId
+      : human_vehicle_anim__lowerId)
+    state = HumanAnimStateResult(upperVehicleState, lowerVehicleState)
     if phys.currentState.height > human_vehicle_anim__maxStandHeight
       phys_vars |> setVar(human_anim.standHeightVarId, human_vehicle_anim__maxStandHeight)
   else
     state = human_anim.animState |> updateState(statePos, stateMove, stateJump, stateUpperBody, state_flags)
+    if human_anim__jumpUpperStateId > 0 && ((curTime > human_anim__jumpStartTime + human_anim__jumpStartStateRange.x && curTime < human_anim__jumpStartTime + human_anim__jumpStartStateRange.y) ||
+                                            (curTime > human_phys__jumpEndTime + human_anim__jumpEndStateRange.x && curTime < human_phys__jumpEndTime + human_anim__jumpEndStateRange.y))
+      state.upper = human_anim__jumpUpperStateId
 
+    let isToCrawlTransition = animHeight < human_anim__previousHeight && phys.currentState.height < human_anim__crawlThreshold && phys.currentState.height > -1.
+    let isFromCrawlTransition = animHeight > human_anim__previousHeight && phys.currentState.height < human_anim__crawlThreshold
+    if human_anim__toCrawlTransitionAnimId >= 0 && isToCrawlTransition
+      state.upper = human_anim__toCrawlTransitionAnimId
+      state.lower = human_anim__toCrawlTransitionAnimId
+      if human_anim__toCrawlTransitionVarId >= 0
+        setVar(phys_vars, human_anim__toCrawlTransitionVarId, cvt(animHeight, 0., -1., 0., 1.))
+    if human_anim__fromCrawlTransitionAnimId >= 0 && isFromCrawlTransition
+      state.upper = human_anim__fromCrawlTransitionAnimId
+      state.lower = human_anim__fromCrawlTransitionAnimId
+      if human_anim__fromCrawlTransitionVarId >= 0
+        setVar(phys_vars, human_anim__fromCrawlTransitionVarId, cvt(animHeight, 0., -1., 1., 0.))
   send_change_anim_state_event(eid, "lower", ecs_hash("lower"), state.lower)
   send_change_anim_state_event(eid, "upper", ecs_hash("upper"), state.upper)
   animchar__animSpeed = spd * safeinv(animchar__scale)
+  human_anim__previousHeight = animHeight

@@ -123,7 +123,7 @@ def tutorial_hero_squad_remove_infinity_hp_es(evt : Event; eid : EntityId)
 
 [es(tag=input, on_appear)]
 def tutorial_press_key_init_es(evt : Event; tutor_condition__pressKey : StringList; var tutor_condition__pressKeyCode : IntList&)
-  for key in tutor_condition__pressKey
+  for _ in tutor_condition__pressKey
     tutor_condition__pressKeyCode |> push(int(get_action_handle("Vehicle.NextBulletType", TYPEGRP_DIGITAL)))
 
 [es(tag=input)]

@@ -5,8 +5,8 @@ let { accentColor } = require("%enlSqGlob/ui/viewConst.nut")
 
 let pbColorAcquired = accentColor
 let pbColorCompleted = Color(255, 168, 0, 225)
-let progressBarHeight = hdpx(40).tointeger()
-let gradientWidth = hdpx(18).tointeger()
+let progressBarHeight = hdpxi(40)
+let gradientWidth = hdpxi(18)
 let offs = [0, (0.8 * gradientWidth).tointeger(), 0, 0]
 
 let function progressContainerCtor(mask, borderImg, size) {
@@ -56,7 +56,7 @@ let imageProgressCtor = @(image) {
   image = Picture(image)
 }
 
-let unactiveProgressCtor = @() {
+let inactiveProgressCtor = @() {
   rendObj = ROBJ_SOLID
   size = [pw(100), flex()]
   color = Color(112, 112, 112)
@@ -81,6 +81,6 @@ return {
   imageProgressCtor
   gradientProgressLine
   completedProgressLine = solidProgressCtor("animated_progress_bar")
-  acquiredProgresLine = solidProgressCtor()
-  unactiveProgressCtor
+  acquiredProgressLine = solidProgressCtor()
+  inactiveProgressCtor
 }

@@ -51,6 +51,7 @@ let ServerLauncherState = {
 }
 
 let room = mkWatched(persist, "room", null)
+let roomPasswordToJoin = mkWatched(persist, "roomPasswordToJoin", {})
 let roomInvites = mkWatched(persist, "roomInvites", [])
 let roomMembers = mkWatched(persist, "roomMembers", [])
 let roomIsLobby = mkWatched(persist, "roomIsLobby", false)
@@ -75,13 +76,13 @@ let lobbyStatus = Computed(function() {
   if (isWaitForDedicatedStart.value)
     return LobbyStatus.WaitForDedicatedStart
   let launcherState = lobbyLauncherState.value
-  if(launcherState == LobbyStatus.NotEnoughPlayers)
+  if (launcherState == LobbyStatus.NotEnoughPlayers)
     return LobbyStatus.NotEnoughPlayers
-  if(launcherState == LobbyStatus.WaitingBeforeLauch)
+  if (launcherState == LobbyStatus.WaitingBeforeLauch)
     return LobbyStatus.WaitingBeforeLauch
-  if(launcherState == LobbyStatus.TeamsDisbalanced)
+  if (launcherState == LobbyStatus.TeamsDisbalanced)
     return LobbyStatus.TeamsDisbalanced
-  if(launcherState == LobbyStatus.SceneLoadFailure)
+  if (launcherState == LobbyStatus.SceneLoadFailure)
     return LobbyStatus.SceneLoadFailure
   if (launcherState == ServerLauncherState.Launching
       || launcherState == ServerLauncherState.WaitingForHost)
@@ -411,7 +412,11 @@ let function onConnectedToServer() {
     return
   }
   let extraParams = room.value?.public?.extraParams
-  ecs.g_entity_mgr.broadcastEvent(MatchingRoomExtraParams({routeEvaluationChance=extraParams?.routeEvaluationChance ?? 0.0}));
+  ecs.g_entity_mgr.broadcastEvent(MatchingRoomExtraParams({
+      routeEvaluationChance = extraParams?.routeEvaluationChance ?? 0.0,
+      ddosSimulationChance = extraParams?.ddosSimulationChance ?? 0.0,
+      ddosSimulationAddRtt = extraParams?.ddosSimulationAddRtt ?? 0,
+  }));
 }
 
 ecs.register_es("enlist_disconnected_from_server_es", {
@@ -542,8 +547,13 @@ subscribeGroup(INVITE_ACTION_ID, {
     buttons = [
       { text = loc("Yes"), isCurrent = true,
         function action() {
+          if (room.value != null)
+            return
+          let roomId = notify.roomId.tointeger()
           let { userId = null } = userInfo.value
-          let params = { roomId = notify.roomId.tointeger() }
+          let params = { roomId }
+          if (roomId in roomPasswordToJoin.value)
+            params.password <- roomPasswordToJoin.value[roomId]
           joinRoom(params, true, joinCb)
           notify.send_resp({ accept = true, user_id = userId })
           joinedRoomWithInvite(true)
@@ -563,23 +573,26 @@ subscribeGroup(INVITE_ACTION_ID, {
 })
 
 room.subscribe(function(v){
-  if(v == null)
+  if (v == null)
     joinedRoomWithInvite(false)
 })
 
 let function onRoomInvite(reqctx) {
   let request = reqctx.request
+  let roomId = request.roomId
   roomInvites.mutate(@(i) i.append({
-    roomId = request.roomId
+    roomId
     senderId = request.invite_data.senderId
     senderName = request.invite_data.senderName
     send_resp = @(resp) matching_api.send_response(reqctx, resp)
   }))
+  if (request.invite_data?.password != null)
+    roomPasswordToJoin.mutate(@(v) v[roomId] <- request.invite_data.password)
 
   log("got room invite from", request.invite_data.senderName)
 
   pushNotification({
-    roomId = request.roomId
+    roomId
     inviterUid = request.invite_data.senderId
     styleId = "toBattle"
     text = loc("room/invite", {playername = request.invite_data.senderName})
@@ -591,18 +604,23 @@ let function onRoomInvite(reqctx) {
 
 
 let function inviteToRoom(user_id){
-  if(isInMyRoom(user_id) || !canInviteToRoom.value){
+  if (isInMyRoom(user_id) || !canInviteToRoom.value){
     log("Player can not be invited to lobby")
     return
   }
   playersWaitingResponseFor.mutate(@(v) v[user_id] <- true)
+  let sendingData = { userId = user_id }
+  let roomId = room.value.roomId
+  if (roomId in roomPasswordToJoin.value)
+    sendingData.password <- roomPasswordToJoin.value[roomId]
+
   matchingCall("mrooms.invite_player",
     function(player){
       playersWaitingResponseFor.mutate(@(v) player?.user_id in v
         ? delete v[player.user_id]
         : null)
     },
-    { userId = user_id })
+    sendingData)
 }
 
 let function onMatchInvite(reqctx) {
@@ -658,6 +676,7 @@ return {
   lobbyStatus
   lastRoomResult
   chatId
+  roomPasswordToJoin
 
   setMemberAttributes
   myInfoUpdateInProgress

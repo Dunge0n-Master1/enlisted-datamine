@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require soundEvent
 require Ballistics
 require DagorMath
@@ -43,11 +44,10 @@ def shell_fly_sound_with_ballistics(info : UpdateStageInfoAct;
   update_shell_fly_sound(active && !projectile__stopped, shell_fly_sound__event, shell_fly_sound__path, projectile_ballistics.state.pos)
 
 
-def is_loud(launch_desc : LaunchDesc; pos : float3; radius_mul : float; owner_eid : EntityId; offender_desc : Object?; shouldPlayForAllTeams : bool)
-  let offenderTeam = offender_desc != null ? (get_int(*offender_desc, "team") ?? TEAM_UNASSIGNED) : TEAM_UNASSIGNED
+def is_loud(launch_desc : LaunchDesc; pos : float3; radius_mul : float; owner_eid : EntityId; shouldPlayForAllTeams : bool)
   let maxRadius = radius_mul * get_shell_max_radius(int(launch_desc.shellId.shellId), int(launch_desc.shellId.damageId), int(launch_desc.shellId.ballisticsId))
   //logerr("pos={pos}, maxRadius={maxRadius}, dist={length(get_listener_pos().xz - pos.xz)}, offenderTeam={offenderTeam} {owner_eid}")
-  return maxRadius > 0. && length_sq(get_listener_pos().xz - pos.xz) < square(maxRadius) && (shouldPlayForAllTeams || should_shell_damage(get_watched_entity(), owner_eid, offenderTeam))
+  return maxRadius > 0. && length_sq(get_listener_pos().xz - pos.xz) < square(maxRadius) && (shouldPlayForAllTeams || should_shell_damage(get_watched_entity(), owner_eid, TEAM_UNASSIGNED))
 
 [es(tag=sound, after=animchar_render_es)]
 def loud_shell_fly_sound_update(info : UpdateStageInfoAct;
@@ -61,11 +61,10 @@ def loud_shell_fly_sound_update(info : UpdateStageInfoAct;
                                 projectile_ballistics : ProjectileBallistics;
                                 projectile__stopped : bool = false;
                                 ownerEid = INVALID_ENTITY_ID;
-                                offenderDesc : Object? = null;
                                 shell_fly_sound__shouldPlayForAllTeams : bool = false)
   let enable = active && !projectile__stopped
   if enable && !shell_fly_sound__isLoud && is_loud(launch_desc, projectile_ballistics.state.pos,
-                                                   shell_fly_sound__isLoudMaxRadiusMul, ownerEid, offenderDesc, shell_fly_sound__shouldPlayForAllTeams)
+                                                   shell_fly_sound__isLoudMaxRadiusMul, ownerEid, shell_fly_sound__shouldPlayForAllTeams)
     shell_fly_sound__isLoud = true
     shell_fly_sound__event.enabled = false
     release(shell_fly_sound__event.handle)

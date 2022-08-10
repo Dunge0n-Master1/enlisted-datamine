@@ -17,8 +17,8 @@ var error_logged_default = false
 var error_logged_grid = false
 var error_logged_runtime = false
 
-let NET_SCOPE_LOOT_FIXED_RADIUS = 200f
-let NET_SCOPE_DOORS_FIXED_RADIUS = 450f
+let NET_SCOPE_LOOT_FIXED_RADIUS = 50f
+let NET_SCOPE_DOORS_FIXED_RADIUS = 330f
 let ENTITY_BEHIND_DIST_MULT = 8u
 // All entities that doesn't have transform component (and doesn't have parent/owner) assume to be this meters away from POI
 let NON_POS_ENTITIES_DIST_SQ = 10000u
@@ -67,10 +67,10 @@ def push(var entdist : array<EntDistRec>&; var replication : NetObject?; distSq 
   entdist |> push() <| [[EntDistRec obj=replication, cmp=cmp]]
 
 def push(var entdist : array<EntDistRec>&; var replication : NetObject?; ent_pos : float3;
-         view_pos : float3; view_fwd : float3; scope_dist_sq : float? = null)
+         view_pos : float3; view_fwd : float3; scope_dist_sq : float = FLT_MAX)
   let dirToEnt = ent_pos - view_pos
   let distToEntSq = length_sq(dirToEnt)
-  if scope_dist_sq != null && distToEntSq > *scope_dist_sq
+  if distToEntSq > scope_dist_sq
     return
   var distSq = uint(distToEntSq)
   if dot(view_fwd, dirToEnt) < 0f // entities behind viewer has lower priority
@@ -88,12 +88,6 @@ def add_initial_entities_in_net_scope(evt : CmdAddInitialEntitiesInNetScope)
   query() <| $ [es(REQUIRE=replication, REQUIRE_NOT=(transform, net__notInInitialScope))] (var replication : NetObject?)
     entdist |> push(replication)
   ordered_add_entities_in_net_scope("add_initial_entities_in_net_scope", conn, entdist, error_logged_initial, reft)
-
-def get_transform(eid : EntityId) : float3x4?
-  var result : float3x4? = null
-  query(eid) <| $ [es(REQUIRE=transform)] (transform : float3x4?)
-    result = transform
-  return result
 
 [es(tag=(server, net))]
 def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
@@ -115,11 +109,11 @@ def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
 
   query() <| $ [es(REQUIRE_NOT=(net__scopeDistanceSq, transform),
                    REQUIRE=replication)] (var replication : NetObject?; slot_attach__attachedTo : EntityId)
-    var attachTransform : float3x4? = get_transform(slot_attach__attachedTo)
+    var attachTransform = get_TMatrix(slot_attach__attachedTo, "transform")
     if attachTransform == null
       // Assume that two levels of nesting is enough (e.g. scope -> gun -> human)
-      query(slot_attach__attachedTo) <| $ [es] (slot_attach__attachedTo : EntityId)
-        attachTransform = get_transform(slot_attach__attachedTo)
+      let attachedTo = get_Eid(slot_attach__attachedTo, "slot_attach__attachedTo") ?? INVALID_ENTITY_ID
+      attachTransform = get_TMatrix(attachedTo, "transform")
 
     if attachTransform != null
       entdist |> push(replication, (*attachTransform)[3], view_pos, view_fwd)
@@ -131,11 +125,11 @@ def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
                                           item__ownerEid : EntityId = INVALID_ENTITY_ID;
                                           gun__owner : EntityId = INVALID_ENTITY_ID;
                                           turret__owner : EntityId = INVALID_ENTITY_ID)
-    var ownerTransform : float3x4? = get_transform(item__ownerEid)
+    var ownerTransform = get_TMatrix(item__ownerEid, "transform")
     if ownerTransform == null
-      ownerTransform = get_transform(gun__owner)
+      ownerTransform = get_TMatrix(gun__owner, "transform")
     if ownerTransform == null
-      ownerTransform = get_transform(turret__owner)
+      ownerTransform = get_TMatrix(turret__owner, "transform")
     if ownerTransform != null
       entdist |> push(replication, (*ownerTransform)[3], view_pos, view_fwd)
     elif !connection_isEntityInScope(*conn, replication.eid) // Assume that most of non pos entities should be already added in initial step
@@ -146,8 +140,8 @@ def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
       // doors are added with max distance anyway, so don't waste cpu cycles onto check net__scopeDistanceSq
       entdist |> push(replication, pos, view_pos, view_fwd)
 
-  for_each_entity_in_grid(ecs_hash("loot"), BSphere3(view_pos, NET_SCOPE_LOOT_FIXED_RADIUS), GridEntCheck POS) <| $(eid : EntityId; pos : float3) // It's actually 50% of this radius
-    query(eid) <| $ [es(REQUIRE=(replication, net__scopeDistanceSq))] (var replication : NetObject?; net__scopeDistanceSq : float?)
+  for_each_entity_in_grid(ecs_hash("loot"), BSphere3(view_pos, NET_SCOPE_LOOT_FIXED_RADIUS / 2f), GridEntCheck POS) <| $(eid : EntityId; pos : float3)
+    query(eid) <| $ [es(REQUIRE=(replication))] (var replication : NetObject?; net__scopeDistanceSq : float)
       entdist |> push(replication, pos, view_pos, view_fwd, net__scopeDistanceSq)
 
   // Note: this query is only needed because entities *bag_item's (like large_cuisine_bag_item) always have
@@ -156,7 +150,7 @@ def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
   query() <| $ [es(REQUIRE=(replication, net__scopeDistanceSq),
                    REQUIRE_NOT=transform)] (var replication : NetObject?;
                                             slot_attach__attachedTo : EntityId = INVALID_ENTITY_ID)
-    var attachTransform : float3x4? = get_transform(slot_attach__attachedTo)
+    var attachTransform = get_TMatrix(slot_attach__attachedTo, "transform")
     if attachTransform != null
       entdist |> push(replication, (*attachTransform)[3], view_pos, view_fwd)
     else
@@ -166,6 +160,12 @@ def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
 
 // Monotonically increasing counter used to infer a connections, being processed in current frame
 var netScopeGridAdderCounter = 0u
+
+def add_grid_entity_if_close_enough(lat : float3; var conn : IConnection?; eid : EntityId; var replication : NetObject&; transform : float3x4; net__scopeDistanceSq : float)
+  if !connection_isEntityInScope(*conn, eid)
+    let distToPosSqX = length_sq(lat - transform[3])
+    if distToPosSqX < net__scopeDistanceSq
+      do_add_entity_in_net_scope(conn, replication, error_logged_grid)
 
 def add_grid_entity_if_close_enough(lat : float3; var conn : IConnection?; eid : EntityId)
   if !connection_isEntityInScope(*conn, eid)
@@ -207,8 +207,8 @@ def net_scope_grid_adder_es(info : UpdateStageInfoAct)
         if doReplicate == false
           return
         if connIdX2 < uint(NET_MAX_PLAYERS)
-          for_each_entity_in_grid(ecs_hash("doors"), BSphere3(*lat, NET_SCOPE_DOORS_FIXED_RADIUS), GridEntCheck POS) <| $(eid : EntityId)
-            add_grid_entity_if_close_enough(*lat, conn, eid)
+          ecs::query() <| $ [es(REQUIRE=isDoor)] (eid : EntityId; var replication : NetObject&; transform : float3x4; net__scopeDistanceSq : float)
+            add_grid_entity_if_close_enough(*lat, conn, eid, replication, transform, net__scopeDistanceSq)
         for_each_entity_in_grid(ecs_hash("loot"), BSphere3(*lat, NET_SCOPE_LOOT_FIXED_RADIUS), GridEntCheck POS) <| $(eid : EntityId)
           add_grid_entity_if_close_enough(*lat, conn, eid)
 

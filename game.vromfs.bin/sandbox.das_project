@@ -1,0 +1,92 @@
+options indenting = 2
+require strings
+require %daslib/strings_boost
+
+var
+  DAS_PAK_ROOT = "."
+
+let dngDasmount = [[auto[] "daslib"; "imgui"; "debug"; "remote"]]
+
+let allowedModules = [[string[] "$"; //builtin
+                                "ecs.fs"; // TODO: ugm.ecs.fs
+                                "DagorSystem";
+                                "DagorRandom";
+                                "ecs"; "ECSGlobalTags"; "ecs.common";
+                                "math"; "math.base"; "base";
+                                "DagorMath"; "DagorMathUtils";
+                                "game.es.events"; "game.es.player_events"; "events"; "game.events_game"; "events_game";
+                                "common_shooter.events_common_shooter"; "events_common_shooter";
+                                "game.es.input.input_events"; "input_events";
+
+                                "level"; "Dacoll"; "EnlistedPhysObj"; "PhysObj"; "RendInst"; "dm"; "EnlistedDm"; "DaWeapons"; "DaWeaponProps"; "Gun";
+                                "game.es.events"; "game.events_game";
+                                "DagorInput"; "TouchInput"; "game.es.input.input_events"
+                    ]]
+
+let allowedDependencies = [[tuple<string; string>[]
+                              "DagorFindFiles", "%dasGameLibs/ecs/fs.das";
+                              "EnlistedNet", "%scripts/game/es/events.das";
+                              "EnlistedNet", "%scripts/game/es/player_events.das";
+                              "EnlistedNet", "%scripts/common_shooter/events_common_shooter.das"
+                          ]]
+
+def private is_module_allowed(mod, from: string implicit): bool
+  if allowedModules |> has_value(mod)
+    return true
+
+  for it in allowedDependencies
+    if it._0 == mod && it._1 == from
+      return true
+  return false
+
+let
+  mountPointPrefixes <- {{
+    "ecs" => "%dasGameLibs/ecs";
+    "math" => "%dasGameLibs/math";
+    "common_shooter" => "%scripts/common_shooter";
+    "game" => "%scripts/game"
+  }}
+
+[export]
+def module_get(req, from:string): tuple<string;string;string> const
+  print("das_sandbox: get module `{req}` from {from}")
+
+  var rs <- split_by_chars(req,"./")
+  if rs[0] == "daslib"
+    return module_get("%" + req, from)
+
+  if !is_module_allowed(join(rs, "."), from)
+    return [[auto "", "", ""]]
+
+  let mod_name = rs[length(rs)-1]
+  let path_name = join(rs,"/") + ".das"
+
+  if starts_with(req, "%")
+    return [[auto mod_name, path_name, ""]]
+
+  if starts_with(req, "%")
+    return [[auto mod_name, path_name, ""]]
+
+  if dngDasmount |> find_index(rs[0]) >= 0
+    return [[auto mod_name, "%dngdas/das/{path_name}", ""]]
+
+  let alias_name = rs[length(rs)-1]
+  let prefix = mountPointPrefixes |> find(rs[0])
+  rs |> erase(0)
+  if prefix == null
+    return [[auto mod_name, "{DAS_PAK_ROOT}{join(rs,"/")}.das", alias_name]]
+
+  return [[auto mod_name, "%{*prefix}/{join(rs,"/")}.das", alias_name]]
+
+
+[export]
+def include_get(inc,from:string) : string
+  // print("das_sandbox: include `{inc}` from `{from}`")
+  return ""  // no includes, no problems
+  // return starts_with(inc, "%") ? inc : "{DAS_PAK_ROOT}{inc}"
+
+
+[export]
+def module_allowed(mod:string#; fname:string#)
+  print("das_sandbox: req module `{mod}` from `{fname}`\n")
+  return is_module_allowed(mod, fname)

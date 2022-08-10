@@ -5,7 +5,8 @@ let {userstatsAdd} = require("%scripts/game/utils/userstats.nut")
 let {get_gun_stat_type_by_props_id, DM_MELEE, DM_PROJECTILE, DM_BACKSTAB} = require("dm")
 let getSoldierInfoFromCache = require("%scripts/game/es/soldier_info_cache.nut")
 let {
-  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventOnPlayerMineVehicleKill, EventOnPlayerMineInfantryKill
+  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventOnPlayerMineVehicleKill, EventOnPlayerMineInfantryKill,
+  EventPlayerSquadFinishedCapturing, EventOnPlayerWipedOutInfantrySquad
 } = require("dasevents")
 
 let playerCurrentWeaponKillStreakQuery = ecs.SqQuery("playerCurrentWeaponKillStreakQuery", {
@@ -136,7 +137,7 @@ ecs.register_es("userstats_player_squad_spawn_reset_killstreak",
   {tags = "server"})
 
 ecs.register_es("userstats_player_squad_full_capture_es",
-  {[ecs.sqEvents.EventPlayerSquadFinishedCapturing] = @(_, comp) userstatsAdd(comp.userstats, null, "points_captured", null) },
+  {[EventPlayerSquadFinishedCapturing] = @(_, comp) userstatsAdd(comp.userstats, null, "points_captured", null) },
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})
 
@@ -161,7 +162,7 @@ ecs.register_es("userstats_player_fortification_built_es",
   {tags="server", before="send_userstats_es"})
 
 ecs.register_es("userstats_player_squad_wipeout_es",
-  {[ecs.sqEvents.EventOnPlayerWipedOutInfantrySquad] = @(_, comp) userstatsAdd(comp.userstats, null, "infantry_squad_wipeout", null) },
+  {[EventOnPlayerWipedOutInfantrySquad] = @(_, comp) userstatsAdd(comp.userstats, null, "infantry_squad_wipeout", null) },
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})
 

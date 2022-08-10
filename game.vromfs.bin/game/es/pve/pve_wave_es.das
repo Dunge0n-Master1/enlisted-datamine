@@ -9,7 +9,7 @@ def pve_wave_init_finish_es(evt : Event;
                             pve__waves : StringList;
                             var pve__waveDelayTimer : float&)
   if uint(pve__currentWaveId) >= uint(length(pve__waves))
-    broadcastEvent([[EventTeamWon teamId=1]])
+    broadcastEvent([[EventTeamWon team=1]])
     return
 
   pve__waveDelayTimer = pve__waveDelay

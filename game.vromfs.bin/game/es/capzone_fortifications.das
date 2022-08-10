@@ -27,7 +27,7 @@ def try_send_award(fortification_eid : EntityId; time : float)
     query(buildByPlayer) <| $ [es] (capzone_fortification__awardCooldown : float; var capzone_fortification__nextAwardAvailableAtTime : float&)
       if time >= capzone_fortification__nextAwardAvailableAtTime
         capzone_fortification__nextAwardAvailableAtTime = time + capzone_fortification__awardCooldown
-        send_schemeless_event(fortification_eid, typeinfo(undecorated_typename type<EventOnCapzoneFortificationAward>))
+        sendEvent(fortification_eid, [[EventOnCapzoneFortificationAward]])
         ++capzone_fortification__awardCount
         if capzone_fortification__awardCount >= capzone_fortification__awardCountLimit
           removeSubTemplate(fortification_eid, "active_capzone_fortification")

@@ -16,7 +16,7 @@ let mkNextPathItem = @(item) {
 
 let curPieMenuItems = Computed(function() {
   local list = pieMenuItems.value
-  foreach(id in path.value) {
+  foreach (id in path.value) {
     list = list.findvalue(@(p) p?.id == id)?.items
     if (type(list) != "array")
       return [] //no items by path

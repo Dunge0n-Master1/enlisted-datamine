@@ -98,7 +98,7 @@ def hit_reaction_impl(eid : EntityId;
                       hit_reaction__animNodeIdxs : IntList&;
                       hit_reaction__repeatNodeIdxs : int2;
                       transform : float3x4&;
-                      damageType : DamageType;
+                      damageType : int;
                       hit_dir : float3;
                       collNodeId : int)
   var animGraph = animchar.animGraph
@@ -106,7 +106,7 @@ def hit_reaction_impl(eid : EntityId;
     let animNodesCount = length(hit_reaction__animNodeIdxs)
     let animDirsCount = length(ANIM_DIR_KEYS)
 
-    let isDamageTypeValid = (damageType == DamageType DM_PROJECTILE || damageType == DamageType DM_MELEE || damageType == DamageType DM_BACKSTAB)
+    let isDamageTypeValid = (damageType == int(DamageType DM_PROJECTILE) || damageType == int(DamageType DM_MELEE) || damageType == int(DamageType DM_BACKSTAB))
     let isCollNodeValid = (collNodeId >= 0 && collNodeId * animDirsCount + (animDirsCount - 1) < animNodesCount)
     let isEidValid = (!has(eid, "hero"))
 
@@ -173,7 +173,7 @@ def human_hit_reaction_projectile_client_es(evt : EventOnProjectileHitClient;
     hit_reaction_impl(
       eid, animchar, human_net_phys__isCrawl, hit_reaction__fifoNodeIdx,
       hit_reaction__animNodeIdxs, hit_reaction__repeatNodeIdxs,
-      transform, DamageType DM_PROJECTILE, hitInfo.dir, hitInfo.isect.collNodeId)
+      transform, int(DamageType DM_PROJECTILE), hitInfo.dir, hitInfo.isect.collNodeId)
 
 
 [es(tag=render, tag=gameClient)]
@@ -191,7 +191,7 @@ def human_hit_reaction_melee_client_es(evt : EventOnMeleeHitClient;
     hit_reaction_impl(
       eid, animchar, human_net_phys__isCrawl, hit_reaction__fifoNodeIdx,
       hit_reaction__animNodeIdxs, hit_reaction__repeatNodeIdxs,
-      transform, damageDesc.damageType, damageDesc.hitDir, int(damageDesc.collNodeId))
+      transform, int(damageDesc.damageType), damageDesc.hitDir, int(damageDesc.collNodeId))
 
 
 [es(tag=render, tag=server)]
@@ -205,10 +205,9 @@ def human_hit_reaction_local_es(evt : EventOnEntityHit;
                                 transform : float3x4;
                                 human_hit_reaction__use : bool)
   if human_hit_reaction__use
-    let damageDesc = evt.damageDesc
     let victim = evt.victim
     if eid == victim
       hit_reaction_impl(
         eid, animchar, human_net_phys__isCrawl, hit_reaction__fifoNodeIdx,
         hit_reaction__animNodeIdxs, hit_reaction__repeatNodeIdxs,
-        transform, damageDesc.damageType, damageDesc.hitDir, int(damageDesc.collNodeId))
+        transform, evt.damageType, evt.hitDir, evt.collNodeId)
