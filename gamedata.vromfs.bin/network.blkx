@@ -345,6 +345,76 @@ sun{
   }
 }
 
+stable{
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  trustClientStreamingMode:b=yes
+  disableVromsAutoUpdate:b=no
+  alwaysReloadScriptsOnUpdate:b=yes
+  marketplaceURL:t="https://trade.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    shouldPatchVromsWithRemoteVersion:b=yes
+  }
+
+  matching{
+    server:t="match-stable-sv-lx-01.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.warthunder.com"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contacts-stable-01.gaijin.net:9443/char"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-stable-01.gaijin.net:8443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-stable-01.gaijin.net:11443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-stable-01.gaijin.net:10443/json-rpc"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-stable-01.gaijin.net:13443/char"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+
+  kaosRoyale{
+    gssServer:t="https://xaos-dev.crsed.net"
+    enabled:b=no
+  }
+}
+
 enceladus{
   disableVisualLog:b=yes
   disableVromsAutoUpdate:b=no

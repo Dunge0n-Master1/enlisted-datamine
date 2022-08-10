@@ -12,9 +12,9 @@ const UPGRADE_TEMPLATE_SUFFIX = "_upgrade_"
 
 let ITEM_DETAILS = [
   { key = "caliber", measure = "mm", mult = 1000, precision = 0.01 }
-  { key = "hitPowerMult", precision = 0.1 }
+  { key = "hitPowerTotal", precision = 0.1 }
   { key = "explodeHitPower", precision = 0.1 }
-  { key = "hitpower", measure = "meters", precision = 0.1, baseKey = "hitPowerMult" }
+  { key = "hitpower", measure = "meters", precision = 0.1, baseKey = "hitPowerTotal" }
   { key = "armorpower", measure = "meters", altMeasure = "mm", precision = 0.1 }
   { key = "speed", measure = "m/sec" }
   { key = "rateOfFire", measure = "shots/min" }

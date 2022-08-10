@@ -11,7 +11,7 @@ let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut"
 let platform = require("%dngscripts/platform.nut")
 let systemUpdateMsg = platform.is_nswitch ? require("nswitch.network").showSystemUpdateMsgBox : null
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
-let isKZVersion = require("chineseKongZhongVersion.nut")
+let { isKZVersion } = require("chineseKongZhongVersion.nut")
 
 let function onSuccess(state) {
   let authResult = state.stageResult.auth_result

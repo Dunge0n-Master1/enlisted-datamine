@@ -203,64 +203,69 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
                          var human_weap__lastShotAtTime : float?)
   assume launchDesc = evt.launchDesc
   let gunEid = evt.gunEid
+  if (length_sq(launchDesc.tm[3]) < 1e10)
+    query(gunEid) <| $ [es] (gun__projectileTemplate : string;
+                             gun__projectileDebugTemplate : string = "";
+                             gun__projectileDebug : bool = false;
+                             gun__chokeSpread : float = 1.0;
+                             gun__projectileRayMatId : int = -1)
+      let projectileTemplate = gun__projectileDebug ? gun__projectileDebugTemplate : gun__projectileTemplate
+      let spawnProps = shell_spawn_try_get_props(int(launchDesc.shellId.shellId))
+      if human_weap__lastShotAtTime != null
+        *human_weap__lastShotAtTime = get_sync_time()
+      if human_weap__lastShotGunEid != null
+        *human_weap__lastShotGunEid = gunEid
+      let ownerEid = redirectProjectileOffender != INVALID_ENTITY_ID ? redirectProjectileOffender : eid
+      if spawnProps == null
+        createEntitySync(projectileTemplate) <| $(var init : ComponentsInitializer)
+          init |> set("ownerEid", ownerEid)
+          init |> set("gunEid", gunEid)
+          init |> set("launch_desc", launchDesc)
+          init |> set("shell__shell_id__shell_id", int(launchDesc.shellId.shellId))
+          init |> set("shell__shell_id__damage_id", int(launchDesc.shellId.damageId))
+          init |> set("shell__shell_id__ballistics_id", int(launchDesc.shellId.ballisticsId))
+          init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
+      else
+        let localVel = float3(
+          dot(launchDesc.tm[0], launchDesc.vel),
+          dot(launchDesc.tm[1], launchDesc.vel),
+          dot(launchDesc.tm[2], launchDesc.vel))
 
-  query(gunEid) <| $ [es] (gun__projectileTemplate : string;
-                           gun__projectileDebugTemplate : string = "";
-                           gun__projectileDebug : bool = false;
-                           gun__chokeSpread : float = 1.0;
-                           gun__projectileRayMatId : int = -1)
-    let projectileTemplate = gun__projectileDebug ? gun__projectileDebugTemplate : gun__projectileTemplate
-    let spawnProps = shell_spawn_try_get_props(int(launchDesc.shellId.shellId))
-    if human_weap__lastShotAtTime != null
-      *human_weap__lastShotAtTime = get_sync_time()
-    if human_weap__lastShotGunEid != null
-      *human_weap__lastShotGunEid = gunEid
-    let ownerEid = redirectProjectileOffender != INVALID_ENTITY_ID ? redirectProjectileOffender : eid
-    if spawnProps == null
-      createEntitySync(projectileTemplate) <| $(var init : ComponentsInitializer)
-        init |> set("ownerEid", ownerEid)
-        init |> set("gunEid", gunEid)
-        init |> set("launch_desc", launchDesc)
-        init |> set("shell__shell_id__shell_id", int(launchDesc.shellId.shellId))
-        init |> set("shell__shell_id__damage_id", int(launchDesc.shellId.damageId))
-        init |> set("shell__shell_id__ballistics_id", int(launchDesc.shellId.ballisticsId))
-        init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
-    else
-      let localVel = float3(
-        dot(launchDesc.tm[0], launchDesc.vel),
-        dot(launchDesc.tm[1], launchDesc.vel),
-        dot(launchDesc.tm[2], launchDesc.vel))
+        var seed = phys_time_to_seed(launchDesc.atTime)
+        let count = _rnd_int(seed, spawnProps.minCount, spawnProps.maxCount)
+        let chokeSpread = deg_to_rad(gun__chokeSpread)
+        for _i in range(count)
+          var sin = 0.0
+          var cos = 0.0
+          sincos(chokeSpread * _gauss_rnd(seed, 0), sin, cos)
+          var newVel = float3(localVel.x * cos - localVel.y * sin, localVel.x * sin + localVel.y * cos, localVel.z)
+          sincos(chokeSpread * _gauss_rnd(seed, 0), sin, cos)
+          newVel = float3(newVel.x * cos + newVel.z * sin, newVel.y, -newVel.x * sin + newVel.z * cos)
 
-      var seed = phys_time_to_seed(launchDesc.atTime)
-      let count = _rnd_int(seed, spawnProps.minCount, spawnProps.maxCount)
-      let chokeSpread = deg_to_rad(gun__chokeSpread)
-      for _i in range(count)
-        var sin = 0.0
-        var cos = 0.0
-        sincos(chokeSpread * _gauss_rnd(seed, 0), sin, cos)
-        var newVel = float3(localVel.x * cos - localVel.y * sin, localVel.x * sin + localVel.y * cos, localVel.z)
-        sincos(chokeSpread * _gauss_rnd(seed, 0), sin, cos)
-        newVel = float3(newVel.x * cos + newVel.z * sin, newVel.y, -newVel.x * sin + newVel.z * cos)
+          let vel = rotate(launchDesc.tm, newVel)
+          using() <| $(var ldesc : LaunchDesc#)
+            ldesc.shellId = launchDesc.shellId
+            ldesc.gunPropsId = launchDesc.gunPropsId
+            ldesc.atTime = launchDesc.atTime
+            ldesc.initialLifeTime = launchDesc.initialLifeTime
+            ldesc.tm = launchDesc.tm
+            ldesc.vel = vel
+            ldesc.firingMode = 0u
+            ldesc.bombBayHeight = 0.0
 
-        let vel = rotate(launchDesc.tm, newVel)
-        using() <| $(var ldesc : LaunchDesc#)
-          ldesc.shellId = launchDesc.shellId
-          ldesc.gunPropsId = launchDesc.gunPropsId
-          ldesc.atTime = launchDesc.atTime
-          ldesc.initialLifeTime = launchDesc.initialLifeTime
-          ldesc.tm = launchDesc.tm
-          ldesc.vel = vel
-          ldesc.firingMode = 0u
-          ldesc.bombBayHeight = 0.0
-
-          createEntitySync(projectileTemplate) <| $(var init : ComponentsInitializer)
-            init |> set("ownerEid", ownerEid)
-            init |> set("gunEid", gunEid)
-            init |> set("launch_desc", ldesc)
-            init |> set("shell__shell_id__shell_id", int(launchDesc.shellId.shellId))
-            init |> set("shell__shell_id__damage_id", int(launchDesc.shellId.damageId))
-            init |> set("shell__shell_id__ballistics_id", int(launchDesc.shellId.ballisticsId))
-            init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
+            createEntitySync(projectileTemplate) <| $(var init : ComponentsInitializer)
+              init |> set("ownerEid", ownerEid)
+              init |> set("gunEid", gunEid)
+              init |> set("launch_desc", ldesc)
+              init |> set("shell__shell_id__shell_id", int(launchDesc.shellId.shellId))
+              init |> set("shell__shell_id__damage_id", int(launchDesc.shellId.damageId))
+              init |> set("shell__shell_id__ballistics_id", int(launchDesc.shellId.ballisticsId))
+              init |> set("projectile__traceRayMatId", gun__projectileRayMatId)
+  else
+    logerr("invalid Launch projectile options for eid {eid}<{getEntityTemplateName(eid)}> {launchDesc.tm[3]}
+            for gun {gunEid}<{getEntityTemplateName(gunEid)}>")
+    destroyEntity(eid)
+    return
 
 
 def projectile_trace_scene(eid : EntityId;
@@ -319,19 +324,24 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
     projectile_trace_info__dir = offset * safeinv(projectile_trace_info__len)
     projectile_trace_info__prevProjectileDistance = dm_projectile_state.distance - projectile_trace_info__len
 
-    using() <| $(var riDesc : RendInstDesc#)
-      projectile_trace_info__sceneIntersected = projectile_trace_scene(eid, projectile__traceRayMatId,
-                                                                       prevPos, projectile_trace_info__dir,
-                                                                       info.curTime, riDesc,
-                                                                       projectile_trace_info__len,
-                                                                       projectile_trace_info__pmid,
-                                                                       projectile_trace_info__norm,
-                                                                       projectile_trace_info__waterLen)
-      projectile_trace_info__riDescCellIdx = riDesc.cellIdx
-      projectile_trace_info__riDescIdx = riDesc.idx
-      projectile_trace_info__riDescPool = riDesc.pool
-      projectile_trace_info__riDescOffs = riDesc.offs
-      projectile_trace_info__riDescLayer = riDesc.layer
+    if (length_sq(prevPos) < 1e10 && length_sq(projectile_trace_info__dir) < 1e10)
+      using() <| $(var riDesc : RendInstDesc#)
+        projectile_trace_info__sceneIntersected = projectile_trace_scene(eid, projectile__traceRayMatId,
+                                                                         prevPos, projectile_trace_info__dir,
+                                                                         info.curTime, riDesc,
+                                                                         projectile_trace_info__len,
+                                                                         projectile_trace_info__pmid,
+                                                                         projectile_trace_info__norm,
+                                                                         projectile_trace_info__waterLen)
+        projectile_trace_info__riDescCellIdx = riDesc.cellIdx
+        projectile_trace_info__riDescIdx = riDesc.idx
+        projectile_trace_info__riDescPool = riDesc.pool
+        projectile_trace_info__riDescOffs = riDesc.offs
+        projectile_trace_info__riDescLayer = riDesc.layer
+    else
+      logerr("invalid data in projectile info {projectile__prevPos} {projectile_ballistics.state.pos} {eid} {getEntityTemplateName(eid)} {projectile__stopped}")
+      destroyEntity(eid)
+      return
 
 
 def is_ri_extra_can_be_damaged_by_team(ri_handle : uint64;

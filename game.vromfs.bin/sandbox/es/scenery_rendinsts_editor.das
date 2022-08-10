@@ -150,6 +150,9 @@ def scenery_rendinsts_rebake_rendinst_es(evt : CmdRIToolRebakeRendInst;
 def scenery_rendinsts_remove_rendinst_es(evt : CmdRIToolRemoveRendInst;
                                          var rirmv : Array&)
   if evt.eid != INVALID_ENTITY_ID
+    if has(evt.eid, "gameRendInstTag")
+      destroyEntity(evt.eid)
+      return
     if has(evt.eid, "unbakedRendInstTag")
       destroyEntity(evt.eid)
       return

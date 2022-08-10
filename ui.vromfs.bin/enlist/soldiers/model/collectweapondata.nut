@@ -224,9 +224,13 @@ let function processShotFreq(itemData) {
 let function processHitPower(itemData) {
   if (itemData == null)
     return
-  let hitPowerMult = (itemData?.hitPowerMult ?? 0.0) * (itemData?.spawn.maxCount ?? 1.0)
-  if (hitPowerMult > 0)
+  let hitPowerMult = itemData?.hitPowerMult ?? 0.0
+  if (hitPowerMult > 0) {
     itemData.hitPowerMult <- hitPowerMult
+    itemData.hitPowerTotal <- hitPowerMult
+      * (itemData?.gun__kineticDamageMult ?? 1.0)
+      * (itemData?.spawn.maxCount ?? 1.0)
+  }
 }
 
 let function processRecoil(itemData) {
