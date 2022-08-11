@@ -4,7 +4,10 @@ let { localPlayerEid, localPlayerTeam } = require("%ui/hud/state/local_player.nu
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 let { engineer_buildings_markers_Set, engineer_buildings_markers_GetWatched, is_engineer } = require("%ui/hud/state/engineer_map_markers.nut")
 let iconSz = hdpxi(18)
-let mkSvg = memoize(@(img) $"!ui/uiskin/{img}.svg:{iconSz}:{iconSz}:K")
+let mkSvg = memoize(function(img) {
+  log($"loading engineer buildings map marker image: '{img}'")
+  return $"!ui/uiskin/{img}.svg:{iconSz}:{iconSz}:K"
+})
 
 let size = [iconSz, iconSz]
 let mkBuildingMapMarker = memoize(function(eid, transform) {

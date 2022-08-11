@@ -171,6 +171,11 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
       canLoadInHatch:b=yes
       maxPosWithOpenHatch:r=0.0
       hatchRotationAxis:p3=0.0, 0.0, 0.0
+      displayHintAboutHatch:b=no
+
+      "hatchNodes:array"{
+        node:t="scope"
+      }
 
       "hatchTurretNames:array"{
         turret:t="turret_01"
@@ -349,6 +354,9 @@ cannon_germ_20mm_flak38_flakvierling_without_camo{
         }
       }
     }
+  }
+
+  "antiAircraftCannon:tag"{
   }
 }
 

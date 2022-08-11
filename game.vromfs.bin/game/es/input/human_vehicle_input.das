@@ -110,6 +110,7 @@ def human_vehicle_maintenance_stop_input_es(evt : EventDaInputActionTerminated;
 def human_vehicle_toggle_hatch_input_es(evt : EventDaInputActionTriggered;
                                         input__enabled : bool;
                                         human_input__toggleHatch : int;
+                                        human_anim__vehicleSelected : EntityId;
                                         var human_input__standState : int&)
-  if input__enabled  && int(evt.action) == human_input__toggleHatch
+  if input__enabled  && int(evt.action) == human_input__toggleHatch && !has(human_anim__vehicleSelected, "antiAircraftCannon")
     human_input__standState = human_input__standState == int(HumanPhysControlType HCT_CROUCH) ? 0 : int(HumanPhysControlType HCT_CROUCH)

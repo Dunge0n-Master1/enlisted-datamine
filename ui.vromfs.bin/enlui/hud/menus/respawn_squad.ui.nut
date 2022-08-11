@@ -47,11 +47,13 @@ let function spawnsLeftText() {
   }
 }
 
-let vehicleIcon = @(squadType){
-  rendObj = ROBJ_IMAGE
-  size = [vehicleIconSize, vehicleIconSize]
-  image = Picture($"ui/skin#{squadType}_icon.svg:{vehicleIconSize}:{vehicleIconSize}:K")
-}
+let vehicleIcon = memoize(function(squadType) {
+  return freeze({
+    rendObj = ROBJ_IMAGE
+    size = [vehicleIconSize, vehicleIconSize]
+    image = Picture($"ui/skin#{squadType}_icon.svg:{vehicleIconSize}:{vehicleIconSize}:K")
+  })
+})
 
 let curVehicle = Computed(@() curSquadData.value?.vehicle)
 let maxSpawnVehiclesOnPoint = Computed(@() vehicleRespawnsBySquad.value?[squadIndexForSpawn.value].maxSpawnVehiclesOnPoint ?? -1)

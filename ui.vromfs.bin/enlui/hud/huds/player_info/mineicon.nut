@@ -12,8 +12,11 @@ let MINES_ORDER = {
   tnt_block_exploder = 2
 }
 
-let mineIcon = memoize(@(gType, size) Picture("ui/skin#{0}:{1}:{2}:K"
-  .subst(mineIconNames?[gType] ?? mineIconNames.antitank_mine, size[0], size[1])))
+let mineIcon = memoize(function(gType, size) {
+  log("laoding mineIcon")
+  return Picture("ui/skin#{0}:{1}:{2}:K"
+    .subst(mineIconNames?[gType] ?? mineIconNames.antitank_mine, size[0], size[1]))
+})
 
 let mkMineIcon = memoize(@(mineType, size) mineType == null ? null : {
   rendObj = ROBJ_IMAGE

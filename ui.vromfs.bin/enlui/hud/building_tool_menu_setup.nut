@@ -19,7 +19,10 @@ let function selectBuildingType(index) {
   ecs.client_send_event(weapEid, ecs.event.CmdSelectBuildingType({index=index}))
 }
 
-let svg = @(img) "!ui/uiskin/{0}.svg:{1}:{1}:K".subst(img, elemSize.value[1])
+let svg = memoize(function(img) {
+  log("loading building tool image", img)
+  return "!ui/uiskin/{0}.svg:{1}:{1}:K".subst(img, elemSize.value[1])
+})
 
 let updateBuildingsPie = function (templates) {
   buildingToolMenuItems(templates.map(function (templateName, index) {

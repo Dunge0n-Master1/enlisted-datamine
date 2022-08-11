@@ -7,7 +7,10 @@ let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 
 let mkSize =  @(x,y) [fsh(x), fsh(y)].map(@(v) v.tointeger())
 let defaultIconSize = mkSize(3.5, 3.5)
-let mkSvg = @(img, size) $"!ui/uiskin/{img}.svg:{size[0]}:{size[1]}:K"
+let mkSvg = memoize(function(img, size) {
+  log("loading simple marker image", img)
+  return $"!ui/uiskin/{img}.svg:{size[0]}:{size[1]}:K"
+})
 
 let mkIco = memoize(function(image, size) {
   return {

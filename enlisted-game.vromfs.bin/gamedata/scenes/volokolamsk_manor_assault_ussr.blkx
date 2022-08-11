@@ -511,7 +511,7 @@ entity{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   groupName:t="sector_3"
   active:b=no
-  battle_area__team:i=2
+  battle_area__team:i=1
   battleAreaId:t="area3_2"
 }
 
@@ -519,7 +519,7 @@ entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-308.615, 4.33833, 654.918]]
   battleAreaId:t="area1_2"
-  battle_area__team:i=2
+  battle_area__team:i=1
   groupName:t="sector_1"
   active:b=no
 }
@@ -528,7 +528,7 @@ entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-306.957, 4.33833, 655.178]]
   battleAreaId:t="area1_1"
-  battle_area__team:i=1
+  battle_area__team:i=2
   groupName:t="sector_1"
   active:b=no
 }
@@ -537,7 +537,7 @@ entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-578.856, 6.01919, 590.144]]
   battleAreaId:t="area2_2"
-  battle_area__team:i=2
+  battle_area__team:i=1
   groupName:t="sector_2"
   active:b=no
 }
@@ -546,7 +546,7 @@ entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-579.394, 6.01919, 591.053]]
   battleAreaId:t="area2_1"
-  battle_area__team:i=1
+  battle_area__team:i=2
   groupName:t="sector_2"
   active:b=no
 }
@@ -555,7 +555,7 @@ entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-603.019, 5.03276, 464.25]]
   battleAreaId:t="area3_1"
-  battle_area__team:i=1
+  battle_area__team:i=2
   groupName:t="sector_3"
   active:b=no
 }

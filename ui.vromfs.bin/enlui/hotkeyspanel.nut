@@ -126,17 +126,19 @@ let joyAHint = Computed(function() {
   return getJoyAHintText(navState.value, makeFilterFunc(isGamepad.value))
 })
 
-let function svgImg(image){
+let svgImg = memoize(function(image){
   let h = gamepadImgByKey.getBtnImageHeight(image, height)
-  return {
+  log("loading svg image for hotkeys")
+  return freeze({
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
     image = Picture("!ui/skin#{0}.svg:{1}:{1}:K".subst(image, h.tointeger()))
     keepAspect = true
     size = [h, h]
-  }
-}
+  })
+})
+
 let function manualHint(images, text=""){
   return {
     flow = FLOW_HORIZONTAL

@@ -64,23 +64,26 @@ let shopBottomLine = {
   size = [flex(), PRICE_HEIGHT]
   padding = [0, fsh(2)]
   color = Color(40,40,40,255)
+  valign = ALIGN_CENTER
 }
 
-let mkLevelLockLine = @(level) shopBottomLine.__update({
-  flow = FLOW_HORIZONTAL
-  valign = ALIGN_CENTER
+let lockIcon = faComp("lock", { fontSize = hdpx(20), color = defTxtColor })
+
+let mkLevelLockLine = @(level) shopBottomLine.__merge({
   children = [
-    faComp("lock", {fontSize = hdpx(20), color = defTxtColor})
-    { size = flex() }
-    txt({
+    lockIcon
+    {
+      rendObj = ROBJ_TEXT
+      hplace = ALIGN_RIGHT
+      color = defTxtColor
       text = loc("levelInfo", { level })
-    }.__update(sub_txt))
+    }.__update(sub_txt)
   ]
 })
 
 let mkShopItemPriceLine = @(shopItem, personalOffer = null)
   shopItem?.isPriceHidden ?? false ? null
-    : shopBottomLine.__update({
+    : shopBottomLine.__merge({
         children = mkShopItemPrice(shopItem, personalOffer)
       })
 

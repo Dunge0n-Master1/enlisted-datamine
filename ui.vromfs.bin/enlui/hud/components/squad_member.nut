@@ -48,7 +48,11 @@ let aiActionIcons = {
   [AI_ACTION_DOWNED]  = "heartbeat.svg",
 }
 
-let mkAiImage = memoize(@(image, size) Picture($"ui/skin#{image}:{size}:{size}:K"))
+let mkAiImage = memoize(function(image, size) {
+  log("making AI image")
+  return Picture($"ui/skin#{image}:{size}:{size}:K")
+})
+
 let function mkAiActionIcon(member, size) {
   let image = aiActionIcons?[member.currentAiAction]
   if (member.eid == controlledHeroEid.value || !member.isAlive || !member.hasAI || !image)

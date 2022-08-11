@@ -12,16 +12,19 @@ let activatorAnim = [{
 }]
 let arrow = makeArrow({color = colorRed, anim = activatorAnim, yOffs = 0, pos = [0, -fsh(1.8)]})
 let size = [fsh(4.), fsh(4.)]
-let getIcon = memoize(@(ico) {
-  size
-  halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
-  hplace = ALIGN_CENTER
-  vplace = ALIGN_CENTER
-  rendObj = ROBJ_IMAGE
-  color = colorRed
-  image = Picture($"!ui/skin#{ico}")
-  animations = activatorAnim
+let getIcon = memoize(function(ico) {
+  log("making icon for shell activator")
+  return freeze({
+    size
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    rendObj = ROBJ_IMAGE
+    color = colorRed
+    image = Picture($"!ui/skin#{ico}")
+    animations = activatorAnim
+  })
 })
 
 let activatorMarker = memoize(function(eid) {

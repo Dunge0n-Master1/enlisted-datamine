@@ -22,7 +22,7 @@ let canHatch = Computed(function() {
     return false
   let ownerEid = controlledHeroEid.value
   let seat = vehicleSeats.value.data.findvalue(@(s) s?.owner.eid == ownerEid)
-  return (seat?.seat.hatchNodes.len() ?? 0) > 0
+  return (seat?.seat.hatchNodes.len() ?? 0) > 0 && (seat?.seat.displayHintAboutHatch ?? true)
 })
 
 let function exitVehicleAlone() {

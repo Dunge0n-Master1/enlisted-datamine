@@ -19,8 +19,11 @@ let GRENADES_ORDER = {
   smoke = 5
 }
 
-let grenadeIcon = memoize(@(gType, size) Picture("ui/skin#{0}:{1}:{2}:K"
-  .subst(grenadeIconNames?[gType] ?? grenadeIconNames.fougasse, size[0], size[1])))
+let grenadeIcon = memoize(function(gType, size) {
+  log("loading grenadeIcon")
+  return Picture("ui/skin#{0}:{1}:{2}:K"
+    .subst(grenadeIconNames?[gType] ?? grenadeIconNames.fougasse, size[0], size[1]))
+})
 
 let mkGrenadeIcon = memoize(@(grenadeType, size) grenadeType == null ? null : {
   rendObj = ROBJ_IMAGE

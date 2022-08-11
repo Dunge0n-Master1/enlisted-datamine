@@ -37,10 +37,12 @@ let damageTypeIcons = {
   [DM_BARBWIRE]    = null
 }
 
-let getPicture = memoize(@(name) name!=null
-  ? Picture("!ui/skin#{0}:{1}:{1}:K".subst(name, killIconHeight))
-  : null
-)
+let getPicture = memoize(function(name) {
+  log("getting picture for kill log")
+  return name!=null
+    ? Picture("!ui/skin#{0}:{1}:{1}:K".subst(name, killIconHeight))
+    : null
+})
 
 let xtext = freeze({
   rendObj = ROBJ_TEXT
