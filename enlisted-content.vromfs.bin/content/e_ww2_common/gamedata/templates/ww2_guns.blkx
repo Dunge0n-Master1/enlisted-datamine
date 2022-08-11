@@ -10468,7 +10468,7 @@ m1_garand_gun{
   gun__recoilAmount:r=0.138
   gun__recoilDirAmount:r=0.76
   gun__recoilDir:r=0.35
-  gun__visualRecoilMult:r=0.9
+  gun__visualRecoilMult:r=0.7
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.75
   meleeSoundType:t="rifle"
@@ -10691,7 +10691,7 @@ m1_carbine_gun{
   gun__recoilAmount:r=0.074
   gun__recoilDirAmount:r=0.76
   gun__recoilDir:r=0.3
-  gun__visualRecoilMult:r=1.1
+  gun__visualRecoilMult:r=0.7
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=1.0
   meleeSoundType:t="rifle"
@@ -10791,7 +10791,7 @@ m1a1_carbine_gun{
   gun__recoilAmount:r=0.079
   gun__recoilDirAmount:r=0.72
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.1
+  gun__visualRecoilMult:r=0.7
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=1.1
   meleeSoundType:t="rifle"
@@ -10895,7 +10895,7 @@ m1a2_carbine_gun{
   gun__recoilAmount:r=0.079
   gun__recoilDirAmount:r=0.72
   gun__recoilDir:r=0.3
-  gun__visualRecoilMult:r=0.8
+  gun__visualRecoilMult:r=0.7
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=1.0
   meleeSoundType:t="rifle"
@@ -11009,13 +11009,13 @@ m2_carbine_gun{
   gun__recoilAmount:r=0.071
   gun__recoilDirAmount:r=0.76
   gun__recoilDir:r=0.3
-  gun__visualRecoilMult:r=0.35
+  gun__visualRecoilMult:r=0.25
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.9
   meleeSoundType:t="rifle"
   gun__recoilControlMult:r=0.3
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -11125,11 +11125,12 @@ m2a1_carbine_gun{
   gun__recoilAmount:r=0.07
   gun__recoilDirAmount:r=0.72
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=0.35
+  gun__visualRecoilMult:r=0.25
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=1.1
   meleeSoundType:t="rifle"
   gun__recoilControlMult:r=0.45
+  gun__rotationSpringMult:p3=1.5, 0.9, 0.9
 
   "gun_mods__slots:object"{
 
@@ -11622,7 +11623,7 @@ m1941_johnson_gun{
   gun__recoilAmount:r=0.138
   gun__recoilDirAmount:r=0.8
   gun__recoilDir:r=0.35
-  gun__visualRecoilMult:r=1.3
+  gun__visualRecoilMult:r=0.7
   gun_attach__slot:t="weapon"
   meleeSoundType:t="rifle"
 
@@ -12563,14 +12564,14 @@ m3_submachine_gun_gun{
   gun__recoilAmount:r=0.04
   gun__recoilDirAmount:r=0.58
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__moveOffsetMult:r=0.6
   gun__spreadOffsetMult:r=0.3
   nearDofEnd:r=10.0
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -12669,14 +12670,14 @@ m3a1_grease_gun_gun{
   gun__recoilAmount:r=0.04
   gun__recoilDirAmount:r=0.58
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__moveOffsetMult:r=0.6
   gun__spreadOffsetMult:r=0.3
   nearDofEnd:r=10.0
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -12775,14 +12776,14 @@ m3a1_field_repair_gun{
   gun__recoilAmount:r=0.043
   gun__recoilDirAmount:r=0.5
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__moveOffsetMult:r=0.6
   gun__spreadOffsetMult:r=0.3
   nearDofEnd:r=10.0
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -12832,9 +12833,6 @@ m3_greasegun_supressed_oss_gun{
   _extends:t="m3_greasegun_supressed_oss"
   _extends:t="mgun_gun_aim_sound"
   gun__projectileTemplate:t="bullet_silenced_projectile"
-  gun__recoilControlMult:r=0.4
-  gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -12932,13 +12930,13 @@ m1_thompson_gun{
   gun__recoilAmount:r=0.052
   gun__recoilDirAmount:r=0.72
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=0.8
   gun__adsSpeedMult:r=0.72
   meleeSoundType:t="mgun"
   gun__crawlRecoilMult:r=0.8
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=10.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -13036,13 +13034,13 @@ m1a1_thompson_gun{
   gun__recoilAmount:r=0.055
   gun__recoilDirAmount:r=0.72
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__adsSpeedMult:r=0.72
   meleeSoundType:t="mgun"
   gun__crawlRecoilMult:r=0.8
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -13139,7 +13137,7 @@ thompson_m1928a1_box_mag_gun{
   gun__recoilAmount:r=0.033
   gun__recoilDirAmount:r=0.5
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__adsSpeedMult:r=0.72
   meleeSoundType:t="mgun"
 
@@ -13238,12 +13236,12 @@ thompson_m1928a1_50_drum_gun{
   gun__recoilAmount:r=0.043
   gun__recoilDirAmount:r=0.5
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__adsSpeedMult:r=0.68
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -13539,12 +13537,12 @@ thompson_bsa_1929_gun{
   gun__recoilAmount:r=0.049
   gun__recoilDirAmount:r=0.78
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__adsSpeedMult:r=0.72
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -13641,11 +13639,11 @@ m2_hyde_gun{
   gun__recoilAmount:r=0.039
   gun__recoilDirAmount:r=0.4
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -13744,11 +13742,11 @@ hyde_model_35_gun{
   gun__recoilAmount:r=0.052
   gun__recoilDirAmount:r=0.71
   gun__recoilDir:r=0.4
-  gun__visualRecoilMult:r=1.5
+  gun__visualRecoilMult:r=1.2
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -13845,7 +13843,7 @@ ud_m42_gun{
   gun__recoilAmount:r=0.03
   gun__recoilDirAmount:r=0.67
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.2
   gun__adsSpeedMult:r=0.82
   meleeSoundType:t="mgun"
 

@@ -709,7 +709,7 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/posters.png"
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
-  ["264"] = {
+  ["265"] = {
     name = loc("items/normandy_allies_hero_airborne_day_2022")
     description = "items/normandy_allies_hero_airborne_day_2022/desc"
     icon = "ui/squads/usa/usa_hero_medal_1_icon.svg"

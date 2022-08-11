@@ -122,6 +122,8 @@ let function kindIcon(sKind, iSize, sClassRare = null, forceColor = null) {
 
   let { icon = "", iconsByRare = null, colorsByRare = null } = getKindCfg(sKind)
   let sKindImg = iconsByRare?[sClassRare] ?? icon
+  if (sKindImg == "")
+    return mkUnknownClassIcon(iSize)
   let sClassColor = forceColor ?? colorsByRare?[sClassRare] ?? defTxtColor
   return {
     rendObj = ROBJ_IMAGE

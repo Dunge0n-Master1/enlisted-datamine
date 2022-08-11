@@ -384,12 +384,13 @@ let mkShopItemView = kwarg(@(
     size = flex()
     halign = ALIGN_RIGHT
     children = [
-      showVideo ? mkShopItemVideo(shopItem.video) : mkShopItemImg(shopItem?.image ?? "", {
+      mkShopItemImg(shopItem?.image ?? "", {
           keepAspect = KEEP_ASPECT_FILL
           imageHalign = ALIGN_CENTER
           imageValign = ALIGN_TOP
           picSaturate = isLocked ? 0.1 : 1
         })
+      showVideo ? mkShopItemVideo(shopItem.video) : null
       mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount)
       containerIcon
       purchasingItem == null ? null : mkPurchaseSpinner(shopItem, purchasingItem)
