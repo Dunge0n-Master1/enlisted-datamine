@@ -15,9 +15,9 @@ let horGap = {
 let ICON_IN_CIRCLE_DEFAULTS = { fontSize = hdpx(20) }
 
 local function iconInCircle(iconParams = ICON_IN_CIRCLE_DEFAULTS) {
+  iconParams = ICON_IN_CIRCLE_DEFAULTS.__merge(iconParams)
   let children = iconParams?.faIcon ? faComp(iconParams?.faIcon, iconParams) : faComp(iconParams)
   let fontSize = iconParams?.fontSize ?? calc_comp_size(children).reduce(@(a,b) max(a,b))
-  iconParams = ICON_IN_CIRCLE_DEFAULTS.__merge(iconParams)
   return faComp("circle", {
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER

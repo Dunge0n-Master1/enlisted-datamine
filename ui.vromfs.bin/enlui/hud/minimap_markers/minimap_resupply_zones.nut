@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {logerr} = require("dagor.debug")
 let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hud/state/resupplyZones.nut")
-let { endswith } = require("string")
 
 let markerSize = fsh(2)
 let iconSize = markerSize/1.5
@@ -13,7 +12,7 @@ let getPicture = memoize(function getPicture(name) {
 
   local imagename = null
   if (name.indexof("/") != null) {
-    imagename = endswith(name,".svg") ? "{0}:{1}:{1}:K".subst(name, iconSize.tointeger()) : name
+    imagename = name.endswith(".svg") ? "{0}:{1}:{1}:K".subst(name, iconSize.tointeger()) : name
   }
 
   if (!imagename) {

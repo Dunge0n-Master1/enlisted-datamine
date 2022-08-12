@@ -25,9 +25,13 @@ const REQ_MANAGE_SIGN = "plus-square"
 
 let iconSize = hdpxi(26)
 
-let formatIconName = @(icon, width, height = null) icon.slice(-4) == ".svg"
-  ? $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:K"
-  : $"{icon}?Ac"
+let formatIconName = memoize(function(icon, width, height = null) {
+  if (icon.endswith(".svg")) {
+    log("getting svg icon for soldiers")
+    return $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:K"
+  }
+  return $"{icon}?Ac"
+})
 
 let mkAlertIcon = @(icon, unseenWatch = Watched(true), hasBlink = false)
   function() {
@@ -116,6 +120,9 @@ let mkUnknownClassIcon = @(iSize) {
   color = defTxtColor
 }.__update(body_txt)
 
+let getKindIcon = memoize(@(img, sz) Picture("ui/skin#{0}:{1}:{1}:K".subst(img, sz.tointeger())))
+let getClassIcon = memoize(@(img, sz) Picture("{0}:{1}:{1}:K".subst(img, sz.tointeger())))
+
 let function kindIcon(sKind, iSize, sClassRare = null, forceColor = null) {
   if (sKind == null)
     return mkUnknownClassIcon(iSize)
@@ -129,7 +136,7 @@ let function kindIcon(sKind, iSize, sClassRare = null, forceColor = null) {
     rendObj = ROBJ_IMAGE
     size = [iSize, iSize]
     color = sClassColor
-    image = Picture("ui/skin#{0}:{1}:{1}:K".subst(sKindImg, iSize.tointeger()))
+    image = getKindIcon(sKindImg, iSize)
   }
 }
 
@@ -143,7 +150,7 @@ let function classIcon(armyId, sClass, iSize, override = {}) {
     rendObj = ROBJ_IMAGE
     size = [iSize, iSize]
     keepAspect = true
-    image = PictureImmediate("{0}:{1}:{1}:K".subst(icon, iSize.tointeger())) // use with caution
+    image = getClassIcon(icon, iSize)
   }.__update(override)
 }
 

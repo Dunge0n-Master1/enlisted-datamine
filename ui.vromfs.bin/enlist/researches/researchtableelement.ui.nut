@@ -144,7 +144,7 @@ let mkImageByIcon = kwarg(function(
   let size = min(width, height)
   let resized = size * (iconOverride?.scale ?? 1.0)
   let pos = iconOverride?.pos ?? [0, 0]
-  let imageName = image.slice(-4) == ".svg"
+  let imageName = image.endswith(".svg")
     ? $"!{image}:{(size * 1.2).tointeger()}:{(size * 1.2).tointeger()}:K"
     : $"{image}?Ac"
   return hoverImage.create({

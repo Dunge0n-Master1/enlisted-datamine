@@ -58,9 +58,9 @@ let function getAttachmentParams(template) {
   return res
 }
 
-local function mkSoldierPhotoName(soldierTemplate, equipment, animation, isLarge = false) {
+local function mkSoldierPhotoName(soldierTemplate, equipment_, animation, isLarge = false) {
   // Sort by slot so that similar soldiers would end up using the same picture.
-  equipment = equipment.sort(@(a, b) a.slot <=> b.slot)
+  let equipment = [].extend(equipment_).sort(@(a, b) a.slot <=> b.slot)
   animation = "enlisted_idle_01" // Always force the same animation to make soldiers look straight ahead.
   soldierTemplate = soldierTemplate ?? "usa_base_soldier"
 

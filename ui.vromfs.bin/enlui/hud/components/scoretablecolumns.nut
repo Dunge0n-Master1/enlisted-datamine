@@ -79,11 +79,14 @@ let rowText = @(txt, w, playerData, sf = 0) {
     }.__update(sub_txt)
 }
 
-let mkHeaderIcon = @(image) {
-  size = [iconSize, iconSize]
-  rendObj = ROBJ_IMAGE
-  image = Picture(image.slice(-4) == ".svg" ? $"!{image}:{iconSize}:{iconSize}:K" : image)
-}
+let mkHeaderIcon = memoize(function(image) {
+  log("making header image")
+  return freeze({
+    size = [iconSize, iconSize]
+    rendObj = ROBJ_IMAGE
+    image = Picture(image.endswith(".svg") ? $"!{image}:{iconSize}:{iconSize}:K" : image)
+  })
+})
 
 let deserterIcon = @(playerData, sf) {
   vplace = ALIGN_CENTER

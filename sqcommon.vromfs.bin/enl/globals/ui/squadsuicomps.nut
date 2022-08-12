@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
-let { endswith } = require("string")
 let {
   smallPadding, activeBgColor, hoverBgColor, defBgColor, selectedTxtColor,
   defTxtColor, spawnNotReadyColor, multySquadPanelSize
@@ -89,7 +88,7 @@ local function mkSquadIcon(img, override = {}) {
       borderWidth = hdpx(1)
       size = flex()
     }
-  if (endswith(img, "svg") && "size" in override) {
+  if (img.endswith(".svg") && "size" in override) {
     let size = override.size
     if (typeof size == "array")
       img = $"{img}:{size[0].tointeger()}:{size[1].tointeger()}:K"

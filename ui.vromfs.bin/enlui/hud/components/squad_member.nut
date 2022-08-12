@@ -49,7 +49,6 @@ let aiActionIcons = {
 }
 
 let mkAiImage = memoize(function(image, size) {
-  log("making AI image")
   return Picture($"ui/skin#{image}:{size}:{size}:K")
 })
 

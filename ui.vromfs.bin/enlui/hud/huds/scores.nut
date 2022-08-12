@@ -178,7 +178,7 @@ let function mkContextMenuButton(playerData) {
   if (canKick)
     buttons.append({
       text = loc("btn/vote_to_kick")
-      action = function () {
+      action = function(_playerUid) {
         showScores(false)
         sendNetEvent(localPlayerEid.value, CmdVoteToKick({
           voteYes=true

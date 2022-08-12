@@ -1,10 +1,7 @@
-let { DBGLEVEL } = require("dagor.system")
-let { startswith } = require("string")
-
 // TODO probably presentation should contain only localization and images,
 // but game type and army have to be extracted from blk itself
 
-let defImage = DBGLEVEL != 0 ? "!ui/skin#moveto.svg" : "ui/berlin_opera_inv_03.jpg"
+const defImage = "!ui/skin#moveto.svg"
 
 enum MissionType {
   INVASION = 0
@@ -996,7 +993,7 @@ let getImagesFromMissions = @() missions.values()
   let getMissionPresentation = @(id) missions?[id]
   // FIXME better not use overrides by ids; instead all necessary mission types should be described
   ?? missions.reduce(@(res, m)
-    startswith(id, m.id) && (res?.id.len() ?? 0) < m.id.len() ? m : res, null)
+    id.startswith(m.id) && (res?.id.len() ?? 0) < m.id.len() ? m : res, null)
   ?? mkMission({}, id)
 
 return {

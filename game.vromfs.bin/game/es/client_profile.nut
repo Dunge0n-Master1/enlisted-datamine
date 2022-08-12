@@ -796,10 +796,16 @@ ecs.register_es("soldier_revive_points_init_es", {
   [[ecs.EventEntityCreated, ecs.EventComponentsAppear]] = onRevivePointsInit
 }, soldierReviveComps, {tags = "server"})
 
-let function stopTimer(eid, reason, printCb = debug) {
-  printCb($"Stop wait profile timer: {reason}")
+
+let function stopTimerInt(eid, reason, do_logerr=false) {
+  debug($"Stop wait profile timer: {reason}")
   ecs.recreateEntityWithTemplates({eid, removeTemplates=["wait_profile_timer"]})
+  if (do_logerr)
+    logerr("Stop wait profile timer")
 }
+
+let stopTimer = @(eid, reason) stopTimerInt(eid, reason)
+let stopTimerLogerr = @(eid, reason) stopTimerInt(eid, reason, true)
 
 let function checkProfile(_dt, eid, comp) {
   let connectedAtTime = comp.connectedAtTime
@@ -820,7 +826,7 @@ let function checkProfile(_dt, eid, comp) {
 
   if (curWaitTime > profileWaitTimeout) {
     kick_player(comp.userid, $"The profile is not received during time {curWaitTime}")
-    stopTimer(eid, $"The profile is missed for player {eid} ({comp.userid}) by timeout!", logerr)
+    stopTimerLogerr(eid, $"The profile is missed for player {eid} ({comp.userid}) by timeout!")
   }
 }
 

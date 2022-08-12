@@ -5,7 +5,6 @@ let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hu
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let { logerr } = require("dagor.debug")
-let { endswith } = require("string")
 
 let ZONE_ICON_COLOR = Color(200,200,200,200)
 
@@ -28,7 +27,7 @@ let getPicture = memoize(function getPicture(name, iconSz) {
 
   local imagename = null
   if (name.indexof("/") != null) {
-    imagename = endswith(name,".svg") ? "{0}:{1}:{1}:K".subst(name, iconSz.tointeger()) : name
+    imagename = name.endswith(".svg") ? "{0}:{1}:{1}:K".subst(name, iconSz.tointeger()) : name
   }
 
   if (!imagename) {

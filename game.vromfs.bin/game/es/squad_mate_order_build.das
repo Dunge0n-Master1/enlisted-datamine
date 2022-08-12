@@ -52,8 +52,10 @@ def squad_order_build(squad_eid, squad__leader, target_eid : EntityId; squad__nu
     if !isTargetPreview
       return true
     var isSuitableForBuild = false
-    query(eid) <| $ [es] (human_weap__gunEids : EidList; squad_member__isPersonalOrder : bool)
-      if !squad_member__isPersonalOrder
+    query(eid) <| $ [es] (human_weap__gunEids : EidList;
+                          squad_member__orderType : int;
+                          squad_member__isPersonalOrder : bool)
+      if !squad_member__isPersonalOrder && squad_member__orderType == int(SquadMateOrder ESMO_NO_ORDER)
         for gun_eid in human_weap__gunEids
           if has(gun_eid, "buildingTool")
             isSuitableForBuild = true

@@ -13,7 +13,7 @@ let function container(children, params={}){
     children = {
       speed = [60,800]
       delay = 0.3
-      children = children
+      children
       flow = FLOW_HORIZONTAL
       gap = hdpx(3)
       behavior = [Behaviors.Marquee]
@@ -36,6 +36,13 @@ local function controlHudHint(params, _group = null) {
   let color = params?.color ?? HUD_TIPS_HOTKEY_FG
   let width = params?.width ?? SIZE_TO_CONTENT
   let height = params?.height ?? fontH(100)
+  let frameC = freeze({
+    rendObj = ROBJ_FRAME
+    color
+    size = flex()
+    opacity = 0.3
+    borderWidth = hdpx(1)
+  })
 
   let function makeControlText(text) {
     return {
@@ -66,16 +73,11 @@ local function controlHudHint(params, _group = null) {
       font
       fontSize
       clipChildren = width != SIZE_TO_CONTENT
+      rendObj = ROBJ_FRAME
       children = [
         elems
         frame && !disableFrame
-          ? {
-              rendObj = ROBJ_FRAME
-              color
-              size = flex()
-              opacity = 0.3
-              borderWidth = hdpx(1)
-            }
+          ? frameC
           : null
       ]
       watch = [isGamepad, hasBinding, generation, keysImagesMap]

@@ -88,6 +88,11 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
         if !isInVehicle && !hasSeatInVehicle
           return
 
+        if isInVehicle && vehicleEid != human_anim__vehicleSelected
+          query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
+            kick_from_vehicle(squadMemberEid, human_anim__vehicleSelected, vehicle_seats__seatEids)
+          return
+
         if !beh_tree__orderShouldUseVehicle
           beh_tree__orderShouldUseVehicle  = true
           beh_tree__shouldUseVehicleResetTrigger = true
@@ -125,8 +130,8 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
 def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
                                   squad__leader : EntityId;
                                   squad__allMembers : EidList;
-                                  squad__orderType : int;
-                                  eid : EntityId)
+                                  squad__orderUseEntity : EntityId;
+                                  squad__orderType : int)
   var leaderIsInVehicle = false
   var leaderVehicleEid  = INVALID_ENTITY_ID
   query(squad__leader) <| $ [es] (isInVehicle : bool;
@@ -137,20 +142,23 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
   if !leaderIsInVehicle
     return
 
-  if squad__orderType != int(SquadOrder ESO_FOLLOW_ME)
-    reset_squad_order(eid)
+  if squad__orderType == int(SquadOrder ESO_DEFEND_POINT)
+    return
 
   for squadMemberEid in squad__allMembers
     if squad__leader == squadMemberEid
       continue
 
     query(squadMemberEid) <| $ [es] (squad_member__orderType : int;
-                                     beh_tree__shouldUseVehicle : bool;
-                                     beh_tree__orderShouldUseVehicle : bool)
+                                     beh_tree__shouldUseVehicle : bool)
       if squad_member__orderType == int(SquadMateOrder ESMO_USE_VEHICLE) && beh_tree__shouldUseVehicle
         return
 
-      if squad_member__orderType != int(SquadMateOrder ESMO_NO_ORDER) || beh_tree__orderShouldUseVehicle
+      let isInResetableOrder = (squad_member__orderType != int(SquadMateOrder ESMO_NO_ORDER) &&
+                                squad_member__orderType != int(SquadMateOrder ESMO_DEFEND_POINT) &&
+                                squad_member__orderType != int(SquadMateOrder ESMO_USE_VEHICLE))
+
+      if isInResetableOrder
         reset_squad_mate_order(squadMemberEid)
         reset_squad_mate_behaviour(squadMemberEid)
 
@@ -163,10 +171,13 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
       continue
 
     query(squadMemberEid) <| $ [es] (isInVehicle : bool;
+                                     human_anim__vehicleSelected : EntityId;
                                      beh_tree__data__orderReq : string;
                                      beh_tree__data__useVehicleReq : string;
                                      beh_tree__data__vehicleBeh : string;
                                      beh_tree__isInTrainBeh : bool;
+                                     squad_member__orderType : int;
+                                     squad_member__orderUseEntity : EntityId;
                                      var beh_tree__isInVehicleResetTrigger : bool&;
                                      var beh_tree__isInVehicle : bool&;
                                      var beh_tree__shouldUseVehicleResetTrigger : bool&;
@@ -175,16 +186,33 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
                                      var beh_tree__refs__orderType : das_string&;
                                      var beh_tree : BehaviourTree&;
                                      var beh_tree__latencyLoadBlackBoard : Object?)
-      if (!isInVehicle && !hasSeatInVehicle) || beh_tree__isInTrainBeh
+      if squad_member__orderType != int(SquadMateOrder ESMO_NO_ORDER)
+        return
+
+      let isInLeaderVehicle = isInVehicle && human_anim__vehicleSelected == leaderVehicleEid
+      let vehicleEid = squad__orderType == int(SquadOrder ESO_USE_VEHICLE) ? squad__orderUseEntity : squad_member__orderUseEntity
+
+      if !isInLeaderVehicle && (isInVehicle && vehicleEid != human_anim__vehicleSelected)
+        query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
+          kick_from_vehicle(squadMemberEid, human_anim__vehicleSelected, vehicle_seats__seatEids)
+        return
+
+      if (!isInLeaderVehicle && !hasSeatInVehicle) || beh_tree__isInTrainBeh
         return
 
       if !beh_tree__shouldUseVehicle
         beh_tree__shouldUseVehicleResetTrigger = true
         beh_tree__shouldUseVehicle = true
 
-        if !isInVehicle
-          beh_tree__refs__behaviour := beh_tree__data__orderReq
-          beh_tree__refs__orderType := beh_tree__data__useVehicleReq
+        if !isInLeaderVehicle
+          if isInVehicle && vehicleEid == human_anim__vehicleSelected
+            beh_tree__isInVehicleResetTrigger = true
+            beh_tree__isInVehicle = true
+
+            beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+          else
+            beh_tree__refs__behaviour := beh_tree__data__orderReq
+            beh_tree__refs__orderType := beh_tree__data__useVehicleReq
         else
           beh_tree__isInVehicleResetTrigger = true
           beh_tree__isInVehicle = true
@@ -197,7 +225,7 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
           *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
         beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(leaderVehicleEid)))
 
-      elif isInVehicle && !beh_tree__isInVehicle
+      elif isInLeaderVehicle && !beh_tree__isInVehicle
         beh_tree__isInVehicleResetTrigger = true
         beh_tree__isInVehicle = true
 

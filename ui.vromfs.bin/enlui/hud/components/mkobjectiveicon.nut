@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {h1_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
 let { logerr } = require("dagor.debug")
-let { endswith } = require("string")
 let {TEAM0_COLOR_FG, TEAM1_COLOR_FG} = require("%ui/hud/style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let capzone_images = require("capzone_images.nut")
@@ -66,7 +65,7 @@ let getPicture = memoize(function getPicture(name, iconSz) {
 
   local imagename = null
   if (name.indexof("/") != null) {
-    imagename = endswith(name,".svg") ? "{0}:{1}:{1}:K".subst(name, iconSz.tointeger()) : name
+    imagename = name.endswith(".svg") ? "{0}:{1}:{1}:K".subst(name, iconSz.tointeger()) : name
   } else if (name in capzone_images) {
     imagename = "{0}:{1}:{1}:K".subst(capzone_images[name], iconSz.tointeger())
   }

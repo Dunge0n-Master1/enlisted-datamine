@@ -15,7 +15,10 @@ let user_points_by_type = {
   enemy_building_user_point = null
 }.map(@(_) mkFrameIncrementObservable({}))
 
-let mkCustomIcon = memoize(@(ico) Picture($"!ui/skin#{ico}.svg"))
+let mkCustomIcon = memoize(function(ico) {
+  log("loading custom user pointer icon")
+  return Picture($"!ui/skin#{ico}.svg")
+})
 
 ecs.register_es("user_points_ui_es",
   {[["onInit", "onChange"]] = function(eid, comp){

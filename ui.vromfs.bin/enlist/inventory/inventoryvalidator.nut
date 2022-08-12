@@ -149,8 +149,6 @@ let function validate(data, name) {
   }
 
   if (!wasAssert && (itemsBroken.len() || keysMissing.len() || keysWrongType.len())) {
-    itemsBroken = implode(itemsBroken, ";")
-    keysMissing = implode(keysMissing.keys(), ";")
     keysWrongType = function() {
       local ret = ""
       foreach (k,v in keysWrongType)

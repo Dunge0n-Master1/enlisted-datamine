@@ -160,6 +160,15 @@ let function getItemTypeName(item) {
 }
 
 let defIconSize = hdpxi(64)
+let getPicture = memoize(function(icon, width, height){
+  if (icon.endswith(".svg")) {
+    log("getting svg for item")
+    return Picture($"{icon}:{width}:{height}:K")
+  }
+  else
+    return Picture($"{icon}?Ac")
+})
+
 let function mkIcon(presentation, params = {}) {
   let { opacity = 1.0, hplace = null, vplace = null } = params
   let width = (params?.width ?? defIconSize).tointeger()
@@ -169,7 +178,7 @@ let function mkIcon(presentation, params = {}) {
     rendObj = ROBJ_IMAGE
     size = [width, height]
     keepAspect = true
-    image = Picture(icon.slice(-4) == ".svg" ? $"{icon}:{width}:{height}:K" : $"{icon}?Ac")
+    image = getPicture(icon, width, height)
     hplace
     vplace
     opacity

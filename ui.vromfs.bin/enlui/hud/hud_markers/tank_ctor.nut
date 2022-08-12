@@ -4,7 +4,7 @@ let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 
 let {Point2} = require("dagor.math")
 let {controlledVehicleEid, inPlane} = require("%ui/hud/state/vehicle_state.nut")
-let {tank_markers_Set, tank_markers_GetWatched} = require("%ui/hud/state//vehicle_markers.nut")
+let {tank_markers_Set, tank_markers_GetWatched} = require("%ui/hud/state/vehicle_markers.nut")
 
 let teammateName = require("%ui/hud/components/teammateName.nut")
 let {hasRepairKit} = require("%ui/hud/state/vehicle_maintenance_state.nut")

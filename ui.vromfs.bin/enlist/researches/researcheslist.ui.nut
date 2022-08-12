@@ -442,7 +442,7 @@ let mkImageByTemplate = kwarg(function(width, templateId, templateOverride = nul
 })
 
 let getSquarePicture = @(image, size) (image ?? "") == "" ? null
-  : Picture(image.slice(-4) == ".svg" ? $"!{image}:{size.tointeger()}:{size.tointeger()}:K" : $"{image}?Ac")
+  : Picture(image.endswith(".svg") ? $"!{image}:{size.tointeger()}:{size.tointeger()}:K" : $"{image}?Ac")
 
 let mkImageByIcon = kwarg(function(width, height, iconPath, iconOverride = null) {
   let iconSize = min(width, height)

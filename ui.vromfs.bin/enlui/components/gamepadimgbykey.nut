@@ -225,6 +225,7 @@ let function getBtnImageHeight(imageName, aHeight) {
 }
 
 let defHeight = calc_str_box("A", body_txt)[1].tointeger()
+let pic = memoize( @(text, hgt) Picture("ui/input#{0}.svg:{1}:{1}:K".subst(text, hgt)))
 
 local function mkImageComp(text, params = defHeight){
   if (text==null || text=="")
@@ -237,7 +238,7 @@ local function mkImageComp(text, params = defHeight){
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
-    image = Picture("ui/input#{0}.svg:{1}:{1}:K".subst(text, height.tointeger())) // TODO: consider make a cache for pictures
+    image = pic(text, height.tointeger())
     keepAspect = true
     size = [height, height]
   }.__update(params)
