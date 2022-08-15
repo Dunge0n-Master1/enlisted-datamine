@@ -26,11 +26,11 @@ let sector = commands[1]
 let indicatorSize = [hdpx(80), hdpx(80)]
 let iconSz = hdpx(60)
 
-let icon = {
+let icon = freeze({
   rendObj = ROBJ_IMAGE
   image = Picture("ui/skin#time_bomb.svg:{0}:{0}:K".subst(iconSz.tointeger()))
   size = [iconSz, iconSz]
-}
+})
 
 let mkIndicator = @(fill = true) {
   halign = ALIGN_CENTER

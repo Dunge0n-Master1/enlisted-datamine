@@ -38,10 +38,32 @@ let makeTurretControlTip = @(hotkey) function(){
 }
 
 let reloadProgressSize = fsh(4.0)
+let reloadImg = Picture("ui/skin#round_border.svg:{0}:{0}:K".subst(reloadProgressSize.tointeger()))
+let reloadMoreOne = freeze({
+  size = [fontH(100), SIZE_TO_CONTENT]
+  rendObj = ROBJ_INSCRIPTION
+  font = fontawesome.font
+  color = Color(255, 86, 86)
+  text = fa["arrow-down"]
+  fontSize = hdpx(10)
+  vplace = ALIGN_CENTER
+  hplace = ALIGN_CENTER
+})
+let reloadLessOne = freeze({
+  size = [fontH(100), SIZE_TO_CONTENT]
+  rendObj = ROBJ_INSCRIPTION
+  font = fontawesome.font
+  color = Color(86, 255, 86)
+  text = fa["arrow-up"]
+  fontSize = hdpx(10)
+  vplace = ALIGN_CENTER
+  hplace = ALIGN_CENTER
+})
+
 let mkReloadProgress = @(from, to, duration, key, mult) {
   margin = [0, 0, 0, hdpx(10)]
   rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("ui/skin#round_border.svg:{0}:{0}:K".subst(reloadProgressSize.tointeger()))
+  image = reloadImg
   imageHalign = ALIGN_CENTER
   imageValign = ALIGN_CENTER
   vplace = ALIGN_CENTER
@@ -50,27 +72,9 @@ let mkReloadProgress = @(from, to, duration, key, mult) {
   fValue = 0
   key
   children = [
-    mult > 1. ? {
-      size = [fontH(100), SIZE_TO_CONTENT]
-      rendObj = ROBJ_INSCRIPTION
-      font = fontawesome.font
-      color = Color(255, 86, 86)
-      text = fa["arrow-down"]
-      fontSize = hdpx(10)
-      vplace = ALIGN_CENTER
-      hplace = ALIGN_CENTER
-    }
-    : mult < 1. ? {
-      size = [fontH(100), SIZE_TO_CONTENT]
-      rendObj = ROBJ_INSCRIPTION
-      font = fontawesome.font
-      color = Color(86, 255, 86)
-      text = fa["arrow-up"]
-      fontSize = hdpx(10)
-      vplace = ALIGN_CENTER
-      hplace = ALIGN_CENTER
-    }
-    : null
+    mult > 1.
+      ? reloadMoreOne
+      : mult < 1. ? reloadLessOne : null
   ]
   animations = [
     { prop = AnimProp.fValue, from, to, duration, play = true}

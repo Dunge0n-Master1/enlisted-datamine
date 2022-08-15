@@ -268,8 +268,7 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
     return
 
 
-def projectile_trace_scene(eid : EntityId;
-                           bullet_mat_id : int;
+def projectile_trace_scene(bullet_mat_id : int;
                            prev_pos : float3;
                            dir : float3;
                            cur_time : float;
@@ -279,7 +278,7 @@ def projectile_trace_scene(eid : EntityId;
                            var norm : float3&;
                            var water_len : float&)
   if bullet_mat_id < 0
-    logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
+    // logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
     return false
   var sceneIntersected = traceray_normalized(prev_pos, dir, len, pmid, norm,
                                              ETF_ALL, ri_desc, bullet_mat_id)
@@ -326,7 +325,7 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
 
     if (length_sq(prevPos) < 1e10 && length_sq(projectile_trace_info__dir) < 1e10)
       using() <| $(var riDesc : RendInstDesc#)
-        projectile_trace_info__sceneIntersected = projectile_trace_scene(eid, projectile__traceRayMatId,
+        projectile_trace_info__sceneIntersected = projectile_trace_scene(projectile__traceRayMatId,
                                                                          prevPos, projectile_trace_info__dir,
                                                                          info.curTime, riDesc,
                                                                          projectile_trace_info__len,

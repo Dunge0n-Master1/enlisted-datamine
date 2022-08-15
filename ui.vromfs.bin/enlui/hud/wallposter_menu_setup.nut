@@ -10,7 +10,6 @@ let { CmdWallposterPreview } = require("wallposterevents")
 let mkPieItemCtor = require("%ui/hud/components/wallposter_menu_item_ctor.nut")
 
 let svg = memoize(function(img) {
-  log("loading image for wallposter image", img)
   return "!ui/uiskin/{0}.svg:{1}:{1}:K".subst(img, elemSize.value[1])
 })
 let wallPosterPreview = @(index)

@@ -115,7 +115,7 @@ def navmesh_rebuild_step_es(info : UpdateStageInfoAct;
 
     let sceneFilePath = entity_obj_editor_getSceneFilePath()
     if starts_with(sceneFilePath, "userGameMods/") && ends_with(sceneFilePath, "/scene.blk")
-      let navMeshFileName = "patchNavMesh.bin"
+      let navMeshFileName = "patch_nav_mesh.bin"
       let navMeshFilePath = "{slice(sceneFilePath, 0, length(sceneFilePath)-10)}/{navMeshFileName}"
       if rebuildNavMesh_saveToFile(navMeshFilePath)
         console_print("navmesh_rebuild: saved to file {navMeshFilePath}")

@@ -236,11 +236,12 @@ def human_gun_phys_vars_es(info : UpdateStageInfoAct;
                         gun_tps_anim_var__reyeOffsetFwd0 : float = 0.;
                         gun_tps_anim_var__gunOffsetAlong : float = -0.1;
                         gun_tps_anim_var__gunOffsetAcross : float = 0.05;
-                        gun_tps_anim_var__gunOffsetUp : float = -0.2)
+                        gun_tps_anim_var__gunOffsetUp : float = -0.2;
+                        gunAnimOffsetAlwaysInAim : Tag?)
     assume isAim = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_AIM)
     assume isCrouch = human_net_phys__isCrouch
     assume isCrawl = human_net_phys__isCrawl
-    if !isAim && !(isCrouch || isCrawl) && hero == null && !bipod__enabled
+    if !isAim && !(isCrouch || isCrawl) && hero == null && !bipod__enabled && gunAnimOffsetAlwaysInAim == null
       assume fwd0 = approach(getVar(phys_vars, reye_offset__fwd0Id), gun_tps_anim_var__reyeOffsetFwd0, info.dt, gun_offset__tau)
       assume across = approach(getVar(phys_vars, gun_offset__acrossId), gun_tps_anim_var__gunOffsetAcross, info.dt, gun_offset__tau)
       assume up = approach(getVar(phys_vars, gun_offset__upId), gun_tps_anim_var__gunOffsetUp, info.dt, gun_offset__tau)

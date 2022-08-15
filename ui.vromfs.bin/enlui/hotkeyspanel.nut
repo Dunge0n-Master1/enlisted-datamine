@@ -128,7 +128,6 @@ let joyAHint = Computed(function() {
 
 let svgImg = memoize(function(image){
   let h = gamepadImgByKey.getBtnImageHeight(image, height)
-  log("loading svg image for hotkeys")
   return freeze({
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER

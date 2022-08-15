@@ -99,14 +99,14 @@ let function mkLevelsAndProgressBlock() {
   }
 }
 
-let currentLevelKillsInfo = @() {
-    watch = [gunGameLevelKillsDone, gunGameLevelKillsRequire]
+let currentLevelKillsInfo = {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     halign = ALIGN_RIGHT
     size = [0, SIZE_TO_CONTENT]
     children = [
-      {
+      @() {
+        watch = [gunGameLevelKillsDone, gunGameLevelKillsRequire]
         rendObj = ROBJ_TEXT
         size = [hdpx(55), SIZE_TO_CONTENT]
         text = $"{gunGameLevelKillsDone.value} / {gunGameLevelKillsRequire.value}"

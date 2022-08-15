@@ -93,13 +93,14 @@ let function mkmkDefCtor(elemSize) {
   }
 }
 
+let pic = memoize(@(sz) Picture("ui/uiskin/white_circle.svg:{0}:{0}:K".subst(sz.tointeger())))
 
 let function mkBlurBack(radius) {
   let size = array(2, 2 * radius * 1.02)
   return {
     size
     rendObj = ROBJ_MASK
-    image = Picture("ui/uiskin/white_circle.svg:{0}:{0}:K".subst(size[0].tointeger()))
+    image = pic(size[0])
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     children = {

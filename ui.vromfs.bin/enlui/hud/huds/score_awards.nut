@@ -57,15 +57,16 @@ let mkMainAwardAnimations = @(_normidx, opacity) [
   { prop=AnimProp.opacity, from=0, to=1, duration=0.2, play=true }
 ]
 
+let awardImg = Picture($"ui/skin#skull.svg:{awardHgt}:{awardHgt}:K")
 let awardIconsByType = {
   kill = @(key){
     rendObj = ROBJ_IMAGE
-    image = Picture($"ui/skin#skull.svg:{awardHgt}:{awardHgt}:K")
+    image = awardImg
     size = [awardHgt, awardHgt]
     transform = {}
-    key = key
+    key
     opacity = 1
-    color = color
+    color
     animations = [
       { prop=AnimProp.scale, from=[2,2], to=[1,1], duration=0.5, play=true, easing=InOutQuintic}
       { prop=AnimProp.opacity, from=0, to=1, duration=0.4, play=true, easing=InOutQuintic }

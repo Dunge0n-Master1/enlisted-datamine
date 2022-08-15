@@ -46,14 +46,14 @@ let ammoText = @(txt, styles) {
   animations = ammoNumAnim
 }.__update(styles)
 
-let rifleGrenadeImage = @(size){
+let rifleGrenadeImage = memoize(@(size) freeze({
   rendObj = ROBJ_IMAGE
   size = [size,size]
   image = Picture("!ui/uiskin/item_rifle_grenade.svg:{1}:{1}:K".subst(size.tointeger()))
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
   margin = hdpx(5)
-}
+}))
 
 let ammoCmp = @(curAmmo, additionalAmmo, totalAmmo, styles, isAlt = false, isSecondary = false){
   size = SIZE_TO_CONTENT

@@ -91,6 +91,9 @@ tnt_block_exploder{
 
   "disableMelee:tag"{
   }
+
+  "gunAnimOffsetAlwaysInAim:tag"{
+  }
 }
 
 tnt_block_shell{

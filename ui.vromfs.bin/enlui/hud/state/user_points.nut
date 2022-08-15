@@ -15,10 +15,7 @@ let user_points_by_type = {
   enemy_building_user_point = null
 }.map(@(_) mkFrameIncrementObservable({}))
 
-let mkCustomIcon = memoize(function(ico) {
-  log("loading custom user pointer icon")
-  return Picture($"!ui/skin#{ico}.svg")
-})
+let mkCustomIcon = memoize(@(ico) ico == "" ? null :Picture($"!ui/skin#{ico}.svg"))
 
 ecs.register_es("user_points_ui_es",
   {[["onInit", "onChange"]] = function(eid, comp){
@@ -30,7 +27,6 @@ ecs.register_es("user_points_ui_es",
       let target = comp["target"]
       let image = ecs.obsolete_dbg_get_comp_val(target, "building_menu__image", "building_wall")
       let userPointOwner = comp["userPointOwner"]
-
       let res = {
         byLocalPlayer = userPointOwner == localPlayerEid.value && userPointOwner != INVALID_ENTITY_ID
         image,

@@ -20,7 +20,6 @@ let function selectBuildingType(index) {
 }
 
 let svg = memoize(function(img) {
-  log("loading building tool image", img)
   return "!ui/uiskin/{0}.svg:{1}:{1}:K".subst(img, elemSize.value[1])
 })
 

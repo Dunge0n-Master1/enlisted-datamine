@@ -20,7 +20,6 @@ let GRENADES_ORDER = {
 }
 
 let grenadeIcon = memoize(function(gType, size) {
-  log("loading grenadeIcon")
   return Picture("ui/skin#{0}:{1}:{2}:K"
     .subst(grenadeIconNames?[gType] ?? grenadeIconNames.fougasse, size[0], size[1]))
 })

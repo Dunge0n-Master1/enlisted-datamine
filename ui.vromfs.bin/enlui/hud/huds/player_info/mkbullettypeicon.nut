@@ -110,7 +110,6 @@ let function getBulletType(weapon) {
 }
 
 let getBulletImage = memoize(function(icn, w, h) {
-  log("loading getBullet icon")
   return Picture($"ui/skin#{icn}:{w}:{h}:K")
 })
 

@@ -13,7 +13,6 @@ let MINES_ORDER = {
 }
 
 let mineIcon = memoize(function(gType, size) {
-  log("laoding mineIcon")
   return Picture("ui/skin#{0}:{1}:{2}:K"
     .subst(mineIconNames?[gType] ?? mineIconNames.antitank_mine, size[0], size[1]))
 })

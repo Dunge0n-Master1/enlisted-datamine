@@ -38,7 +38,6 @@ let damageTypeIcons = {
 }
 
 let getPicture = memoize(function(name) {
-  log("getting picture for kill log")
   return name!=null
     ? Picture("!ui/skin#{0}:{1}:{1}:K".subst(name, killIconHeight))
     : null

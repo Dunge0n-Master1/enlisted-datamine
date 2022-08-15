@@ -135,7 +135,7 @@ let function toolboxCmd_BuildModVROM() {
     return
   }
   console_print($"Building mod VROM... {MODS_TO_EDIT_FOLDER}/{modName}.vromfs.bin")
-  system?($"@start modsPacker.bat {modName}")
+  system?($"@start modsPacker.bat \"{modName}\"")
 }
 
 let toolboxButtonStyle    = {boxStyle  = {normal = {fillColor = Color(0,0,0,120)}}}
@@ -191,7 +191,7 @@ const TOOLTIP_GROUPS    = "Toggles list to activate and deactivate Groups for te
 const TOOLTIP_REFRESHGR = "Updates list of displayed Groups"
 const TOOLTIP_COMMANDS  = "Toggles list of build commands"
 
-const TOOLTIP_REBUILD_NAVMESH = "Generates NavMesh for modified terrain and placed RI, which then saved to patchNavMesh.bin file in mod directory"
+const TOOLTIP_REBUILD_NAVMESH = "Generates NavMesh for modified terrain and placed RI, which then saved to patch_nav_mesh.bin file in mod directory"
 const TOOLTIP_BUILD_MOD_VROM  = "Packages contents of mod directory to <mod_name>.vromfs.bin file placed to userGameMods/ folder, which then could be uploaded to mods portal"
 
 const TOOLTIP_RI_UNBAKE   = "Convert selected baked RI to unbaked RI entities"

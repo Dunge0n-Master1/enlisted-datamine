@@ -13,7 +13,6 @@ let activatorAnim = [{
 let arrow = makeArrow({color = colorRed, anim = activatorAnim, yOffs = 0, pos = [0, -fsh(1.8)]})
 let size = [fsh(4.), fsh(4.)]
 let getIcon = memoize(function(ico) {
-  log("making icon for shell activator")
   return freeze({
     size
     halign = ALIGN_CENTER

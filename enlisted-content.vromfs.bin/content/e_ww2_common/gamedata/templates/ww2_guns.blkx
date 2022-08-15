@@ -313,6 +313,12 @@ main_weap_slots{
   }
 }
 
+gun_anim_offset_always_in_aim{
+
+  "gunAnimOffsetAlwaysInAim:tag"{
+  }
+}
+
 reload_wait_bolt_action_finished{
   reload__waitBoltActionFinished:b=yes
 }
@@ -15150,6 +15156,7 @@ an_m2_stinger_gun{
 m1_bazooka{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="m1_bazooka_char"
   gun__blk:t="content/enlisted/gamedata/weapons_enlisted/m1_bazooka.blk"
   item__template:t="m1_bazooka_gun_item"
@@ -15265,6 +15272,7 @@ m1_bazooka_gun{
 m1a1_bazooka{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="m1a1_bazooka_char"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/m1a1_bazooka.blk"
   item__template:t="m1a1_bazooka_gun_item"
@@ -15373,6 +15381,7 @@ m1a1_bazooka_gun{
 m9_bazooka{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="m9_bazooka_char"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/m9_bazooka.blk"
   item__template:t="m9_bazooka_gun_item"
@@ -15511,6 +15520,7 @@ piat{
   _extends:t="main_weap_slots"
   _extends:t="reload_not_empty_single_bullet"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   reload__singleReloadMaxAmmo:i=1
   animchar__res:t="piat_char"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/piat.blk"
@@ -26060,6 +26070,7 @@ gross_panzergranate_61_phys{
 rpzb_54_1_panzerschreck{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="rpzb_54_1_panzerschreck_char"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/rpzb_54_1_panzerschreck.blk"
   item__template:t="rpzb_54_1_panzerschreck_gun_item"
@@ -26145,6 +26156,7 @@ rpzb_54_1_panzerschreck_gun{
 rpzb_43_ofenrohr{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="rpzb_43_ofenrohr_char"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/rpzb_43_ofenrohr.blk"
   item__template:t="rpzb_43_ofenrohr_gun_item"
@@ -26230,6 +26242,7 @@ rpzb_43_ofenrohr_gun{
 panzerschreck{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_launchers"
+  _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="panzerschreck_char"
   gun__blk:t="content/enlisted/gamedata/weapons_enlisted/panzerschreck.blk"
   item__template:t="panzerschreck_gun_item"

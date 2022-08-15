@@ -80,7 +80,6 @@ let rowText = @(txt, w, playerData, sf = 0) {
 }
 
 let mkHeaderIcon = memoize(function(image) {
-  log("making header image")
   return freeze({
     size = [iconSize, iconSize]
     rendObj = ROBJ_IMAGE
