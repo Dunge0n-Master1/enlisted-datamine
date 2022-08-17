@@ -8,6 +8,7 @@ let auth = require("auth")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { check_purchases } = require("%enlist/meta/clientApi.nut")
 let { subscribe } = require("eventbus")
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 
 
 let ENLISTED_SERVICE_LABEL = is_ps4 ? 0 : 1
@@ -15,9 +16,9 @@ let ENLISTED_SERVICE_LABEL = is_ps4 ? 0 : 1
 let updateCb = @(_status) check_purchases()
 subscribe("psn_update_purchases_on_store_return", updateCb)
 
-let function updatePurchases(purchased) {
-  logPSN($"updatePurchases: result: {purchased}, is logged in: {userInfo.value != null}")
-  if (!purchased || userInfo.value == null)
+let function updatePurchases() {
+  logPSN($"updatePurchases: is in battle: {isInBattleState.value}, is logged in: {userInfo.value != null}")
+  if (userInfo.value == null || isInBattleState.value)
     return
 
   get_auth_data_async(function(auth_data) {
@@ -28,7 +29,7 @@ let function updatePurchases(purchased) {
   })
 }
 
-subscribe("psnStoreClosed", @(res) updatePurchases(res.result.action == psnStore.Action.PURCHASED))
+subscribe("psnStoreClosed", @(_) updatePurchases())
 
 return {
   show_category = @(cat) psnStore.open_category(

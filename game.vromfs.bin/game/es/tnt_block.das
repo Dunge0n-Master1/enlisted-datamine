@@ -73,8 +73,8 @@ def tnt_block_exploder_remove_exploder(evt : Event;
   if tntBlockIdx > -1
     return
 
-  let hasInstalledTnt = find_query() <| $ [es(REQUIRE=tntBlock)] (item__ownerEid : EntityId)
-    return item__ownerEid == eid
+  let hasInstalledTnt = find_query() <| $ [es(REQUIRE=tntBlock)] (placeable_item__ownerEid : EntityId)
+    return placeable_item__ownerEid == eid
   if hasInstalledTnt
     return
 

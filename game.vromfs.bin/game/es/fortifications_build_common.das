@@ -85,7 +85,7 @@ def is_conflict_with_objects_in_grid(tm, box; exclude_eid : EntityId = INVALID_E
       let colBoxMax = colBox.bmax.xyz
       let colBbox3 = BBox3(colBoxMin, colBoxMax)
       objectFound = check_bbox3_intersection(box, tm, colBbox3, transform)
-      if objectFound && base_collres != null
+      if objectFound && base_collres != null && !has(foundEid, "building__simplifiedCollisionCheck")
         var intersectPoint : float3
         objectFound = test_collres_intersection(collres, transform, *base_collres, tm, intersectPoint, intersectPoint)
     return objectFound

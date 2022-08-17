@@ -678,6 +678,55 @@ plane_minimal_view{
   plane_view__lights_cockpit:b=no
 }
 
+plane_view_engine{
+  plane_view_engine__nextUpdate:r=0.0
+  plane_view_engine__updateInterval:r=1.0
+
+  "plane_view_engine__warnPoints:list<i>"{
+    time:i=900
+    time:i=300
+    time:i=120
+    time:i=60
+  }
+
+  _group{
+    _track:b=yes
+
+    "plane_view_engine__engineWarnLevel:list<i>"{
+    }
+
+    "plane_view_engine__waterWarnLevel:list<i>"{
+    }
+
+    "plane_view_engine__oilWarnLevel:list<i>"{
+    }
+
+    "plane_view_engine__isWaterLeaking:list<b>"{
+    }
+
+    "plane_view_engine__isOilLeaking:list<b>"{
+    }
+
+    "plane_view_engine__isWaterLow:list<b>"{
+    }
+
+    "plane_view_engine__isOilLow:list<b>"{
+    }
+
+    "plane_view_engine__isEngineDead:list<b>"{
+    }
+
+    "plane_view_engine__waterTemp:list<i>"{
+    }
+
+    "plane_view_engine__oilTemp:list<i>"{
+    }
+
+    "plane_view_engine__headTemp:list<i>"{
+    }
+  }
+}
+
 squad_controlled_plane{
   _extends:t="replicating"
   isAlive:b=yes
@@ -701,6 +750,7 @@ plane_base{
   _extends:t="contrail_effects"
   _extends:t="plane_damage_effects"
   _extends:t="plane_minimal_view"
+  _extends:t="plane_view_engine"
   _extends:t="capturer"
   _extends:t="plane_inertial_cam"
   _extends:t="vehicle_enter_accessibility"
@@ -829,7 +879,7 @@ plane_base{
   _group{
     _tags:t="server"
 
-    "killCrewOnPlayerDeath:tag"{
+    "kickCrewOnPlayerDeath:tag"{
     }
   }
 

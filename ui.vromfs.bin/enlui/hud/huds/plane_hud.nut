@@ -126,19 +126,18 @@ let state = [
     transformFunc = transformPercentsWithAutoFlagFunc}
   {comp = "plane_view.engine_air_cooled",    watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, mkIndicator = mkHide }
   {comp = "plane_view.engine_water_cooled",  watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, mkIndicator = mkHide }
-  {comp = "plane_view.engine_water_temperature", watch = Watched(),
-    compShow = "plane_view.engine_water_cooled", watchShow = Watched(false),
-    locId="WATER", typ = ecs.TYPE_FLOAT}
-  {comp = "plane_view.engine_head_temperature",  watch = Watched(),
-    compShow = "plane_view.engine_air_cooled",   watchShow = Watched(false),
-    locId="HEAD",  typ = ecs.TYPE_FLOAT}
-  {comp = "plane_view.engine_oil_temperature",   watch = Watched(),
-    locId="OIL",  typ = ecs.TYPE_FLOAT}
   {comp = "flight_angles_enabled", watch=Watched(), locId = "AIM CONTROL",   typ = ecs.TYPE_BOOL, mkIndicator = mkExistIndicator}
 */
 ]
 state.each(@(obj) obj.isActiveWatch <- Watched(false))
 //state.each(@(watch, key) watch.subscribe(@(v) log_for_user(key, v)))
+
+local enginesState = [ // NOTE for now we do not need more that 4 engine states
+  { active = Watched(false), engineTemp = Watched(0), headState = Watched({warn=0,dead=false}), waterTemp = Watched(0), waterState = Watched({leak=false,low=false,warn=0}), oilTemp = Watched(0), oilState = Watched({leak=false,low=false,warn=0}) }
+  { active = Watched(false), engineTemp = Watched(0), headState = Watched({warn=0,dead=false}), waterTemp = Watched(0), waterState = Watched({leak=false,low=false,warn=0}), oilTemp = Watched(0), oilState = Watched({leak=false,low=false,warn=0}) }
+  { active = Watched(false), engineTemp = Watched(0), headState = Watched({warn=0,dead=false}), waterTemp = Watched(0), waterState = Watched({leak=false,low=false,warn=0}), oilTemp = Watched(0), oilState = Watched({leak=false,low=false,warn=0}) }
+  { active = Watched(false), engineTemp = Watched(0), headState = Watched({warn=0,dead=false}), waterTemp = Watched(0), waterState = Watched({leak=false,low=false,warn=0}), oilTemp = Watched(0), oilState = Watched({leak=false,low=false,warn=0}) }
+]
 
 ecs.register_es("plane_basic_hud_es",
   {
@@ -170,6 +169,123 @@ ecs.register_es("plane_basic_hud_es",
   { tags="gameClient", after="*", before="*" }
 )
 
+ecs.register_es("plane_view_engines_temp_hud_es",
+  {
+    onInit = function(_eid, comps) {
+      enginesState.each(@(state) state.active(false))
+      foreach (i, _ in comps.plane_view_engine__headTemp)
+        enginesState[i].active(true)
+    }
+    onChange = function(_eid, comps) {
+      foreach (i, engineTemp in comps.plane_view_engine__headTemp) {
+        enginesState[i].engineTemp(engineTemp)
+        enginesState[i].waterTemp(comps.plane_view_engine__waterTemp[i])
+        enginesState[i].oilTemp(comps.plane_view_engine__oilTemp[i])
+      }
+    }
+    onDestroy = function(_eid, _comps) {
+      enginesState.each(@(state) state.active(false))
+    }
+  },
+  {
+    comps_track = [
+      ["plane_view_engine__waterTemp", ecs.TYPE_INT_LIST],
+      ["plane_view_engine__oilTemp", ecs.TYPE_INT_LIST],
+      ["plane_view_engine__headTemp", ecs.TYPE_INT_LIST]
+    ]
+    comps_rq = ["vehicleWithWatched"]
+    comps_no = ["deadEntity"]
+  },
+  { tags="ui", updateInterval = 1.0, after="*", before="*" }
+)
+
+ecs.register_es("plane_view_engines_status_hud_es",
+  {
+    [["onInit","onChange"]] = function(_eid, comps){
+      foreach (i, leak in comps.plane_view_engine__isWaterLeaking) {
+        let low = comps.plane_view_engine__isWaterLow[i]
+        let warn = comps.plane_view_engine__waterWarnLevel[i]
+        enginesState[i].waterState({leak, low, warn})
+      }
+      foreach (i, leak in comps.plane_view_engine__isOilLeaking) {
+        let low = comps.plane_view_engine__isOilLow[i]
+        let warn = comps.plane_view_engine__oilWarnLevel[i]
+        enginesState[i].oilState({leak, low, warn})
+      }
+      foreach (i, warn in comps.plane_view_engine__engineWarnLevel) {
+        let dead = comps.plane_view_engine__isEngineDead[i]
+        enginesState[i].headState({warn, dead})
+      }
+    }
+  },
+  {
+    comps_track = [
+      ["plane_view_engine__isWaterLeaking", ecs.TYPE_BOOL_LIST],
+      ["plane_view_engine__isWaterLow", ecs.TYPE_BOOL_LIST],
+      ["plane_view_engine__isOilLeaking", ecs.TYPE_BOOL_LIST],
+      ["plane_view_engine__isOilLow", ecs.TYPE_BOOL_LIST],
+      ["plane_view_engine__isEngineDead", ecs.TYPE_BOOL_LIST],
+      ["plane_view_engine__engineWarnLevel", ecs.TYPE_INT_LIST],
+      ["plane_view_engine__waterWarnLevel", ecs.TYPE_INT_LIST],
+      ["plane_view_engine__oilWarnLevel", ecs.TYPE_INT_LIST]
+    ]
+    comps_rq = ["vehicleWithWatched"]
+    comps_no = ["deadEntity"]
+  },
+  { tags="ui" }
+)
+
+let warnColors = [
+  Color(255, 255, 255)
+  Color(255, 180, 0)
+  Color(255, 90,  0)
+  Color(255, 0,   0)
+]
+
+let warnStyle = defStyle.__merge({color = Color(255, 90, 0)})
+let warnColor = @(level)
+  warnColors[clamp(level, 0, warnColors.len() - 1)]
+
+let function mkEngineValue(temperature, engineState) {
+  return function() {
+    let temperatureVal = round_by_value(temperature.value, 1)
+    let warn = engineState.value?.dead ? loc("plane_hud/EngineDead")
+      : engineState.value?.low ? loc("plane_hud/WaterOilLow")
+      : engineState.value?.leak ? loc("plane_hud/WaterOilLeak")
+      : ""
+    return {
+      children = (engineState.value?.warn ?? 0) > 0 ? [
+        dtext(loc("plane_hud/ValueCelsius", temperatureVal.tostring(), {val=temperatureVal}), defStyle.__merge({color = warnColor(engineState.value?.warn ?? 0)}))
+        dtext(warn, warnStyle)
+      ] : []
+      flow = FLOW_HORIZONTAL
+      gap = hdpx(10)
+      watch = [temperature, engineState]
+    }
+  }
+}
+
+let function mkEngineCaption(text, engineState) {
+  return @() {
+    watch = [engineState]
+  }.__update(
+    (engineState.value?.warn ?? 0) > 0
+      ? {
+          children = [dtext(text, defStyle), dtext(":",defStyle)]
+          flow = FLOW_HORIZONTAL
+        }
+      : {}
+  )
+}
+
+let function addEngineCaptionValues(captions, values, engines, locId, stateTemp, stateWarn) {
+  let hasManyEngines = engines.len() > 1
+  engines.each(function(engine, i) {
+    captions.append(mkEngineCaption(loc(locId, {i = hasManyEngines ? i + 1 : ""}), engine[stateWarn]))
+    values.append(mkEngineValue(engine[stateTemp], engine[stateWarn]))
+  })
+}
+
 let planeState = state.filter(@(obj) "watch" in obj).reduce(function(memo, obj) {memo[obj.comp] <- obj.watch; return memo;}, {})
 return {
   planeState
@@ -184,7 +300,11 @@ return {
         values.append(obj?.mkValue(obj) ?? mkValue(obj))
       }
     }
-    let watches = state.filter(@(obj) "isActiveWatch" in obj).map(@(obj) obj.isActiveWatch)
+    let activeEngines = enginesState.filter(@(engine) engine.active.value)
+    addEngineCaptionValues(captions, values, activeEngines, "plane_hud/EngineTemp", "engineTemp", "headState")
+    addEngineCaptionValues(captions, values, activeEngines, "plane_hud/Water", "waterTemp", "waterState")
+    addEngineCaptionValues(captions, values, activeEngines, "plane_hud/Oil", "oilTemp", "oilState")
+    let watches = state.filter(@(obj) "isActiveWatch" in obj).map(@(obj) obj.isActiveWatch).extend(enginesState.map(@(engine) engine.active))
     return {
       flow = FLOW_HORIZONTAL
       gap = hdpx(5)

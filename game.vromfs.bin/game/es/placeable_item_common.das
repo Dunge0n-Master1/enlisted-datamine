@@ -21,6 +21,8 @@ def init_placeable_item_components(var init; tm; eid; team)
   set(init, "transform", tm)
   set(init, "gun__visible", true)
   set(init, "placeable_item__ownerEid", eid)
+  set(init, "gun__owner", INVALID_ENTITY_ID)
+  set(init, "item__ownerEid", INVALID_ENTITY_ID)
   set(init, "placeable_item__ownerTeam", team)
   set(init, "item__visible", true)
 

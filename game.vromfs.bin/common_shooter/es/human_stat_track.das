@@ -152,7 +152,7 @@ def human_stat_create_track(evt : Event; var human_stat_tracking__ownedBy : int&
   human_stat_tracking__ownerTime = human_stat_tracking__spawnTime
   human_stat_tracking__ownedBy = BOT_OWNER
 
-[es(tag=server, track=possessedByPlr)]
+[es(tag=server, track=possessedByPlr, after=switch_ai_on_possess_unpossess)]
 def human_stat_hero_change(evt : Event; eid : EntityId; possessedByPlr : EntityId; isAlive : bool; beh_tree__enabled : bool;
                            var human_stat_tracking__spawnTime, human_stat_tracking__ownerTime : float&;
                            var human_stat_tracking__ownedBy : int&)

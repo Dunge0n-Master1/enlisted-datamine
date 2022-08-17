@@ -61,7 +61,6 @@ def bipod_human_act_es(evt : CmdPostPhysUpdate;
                        bipod__anchorPos : float3;
                        bipod__anchorNormal : float3;
                        bipod__isCrawl : bool;
-                       bipod__pitchLimit : float2;
                        human_weap__currentGunEid : EntityId;
                        var bipod__enabled : bool&;
                        var human_net_phys : HumanActor&;
@@ -124,8 +123,17 @@ def bipod_human_act_es(evt : CmdPostPhysUpdate;
     if bipod__isCrawl
       height = -1.0
     else
-      let ratio = cvt(aimAngle.y, bipod__pitchLimit.x, bipod__pitchLimit.y, 1.0, 0.0)
-      height = ((height < 0.5) ? 0.1 : 1.0) * ratio
+      let humanHt = 1.6
+      let zeroHt = humanHt * 0.45
+      let htDelta = (bipod__anchorPos.y - wishPos.y) - zeroHt
+      if htDelta > 0.0
+        height = clamp(htDelta / (humanHt - zeroHt), 0.0, 1.0)
+        height = 1.0 - square(1.0 - height)
+      else
+        height = clamp(htDelta / zeroHt, -0.1, 0.0)
+        height = -(height * height * 10.0)
+      let pitchHt = 1.1
+      height = clamp(height - sin(aimAngle.y) * pitchHt, -0.1, 1.0)
 
     location_toTM(human_net_phys.phys.currentState.location, ccdTm)
 

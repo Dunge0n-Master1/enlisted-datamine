@@ -60,6 +60,8 @@ base_gun{
   gun__recoilOriMultInAim:p3=0.3, 0.3, 0.1
   gun__rotationSpringMult:p3=1.0, 1.0, 1.0
   weapon_sight__minDistFrom:r=0.02
+  gun__maxSightOffset:r=0.03
+  gun__sightOffsetToAimPositionPower:r=3.0
   gun__wishAmmoItemType:i=0
   gun__totalAmmo:i=0
   _tracked:t="gun__firingModeName"

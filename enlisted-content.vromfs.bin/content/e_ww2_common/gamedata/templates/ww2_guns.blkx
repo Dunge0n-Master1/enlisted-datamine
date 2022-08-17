@@ -238,6 +238,7 @@ pistol_ww2_preset{
   gun__rotInertia:p3=0.1, 0.1, 0.1
   gun__mass:r=1.5
   gun__adsSpeedMult:r=1.44
+  gun__maxSightOffset:r=0.1
 }
 
 launchers_ww2_preset{

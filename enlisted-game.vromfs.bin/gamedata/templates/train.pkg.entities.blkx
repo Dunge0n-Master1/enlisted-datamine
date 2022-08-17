@@ -293,6 +293,9 @@ base_wagen{
 
   "train:tag"{
   }
+
+  "building__simplifiedCollisionCheck:tag"{
+  }
 }
 
 train_obstacle{

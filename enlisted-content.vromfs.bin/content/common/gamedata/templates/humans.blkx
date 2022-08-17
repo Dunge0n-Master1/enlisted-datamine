@@ -1035,6 +1035,9 @@ human_cam{
   human_cam__camNodeId:i=-1
   human_cam__offsetMult:r=0.0
   human_cam__fpvActive:b=no
+  camera__aimPosition:r=0.0
+  camera__sightOffsetToAimPositionPower:r=3.0
+  camera__maxSightOffset:r=0.03
   camera__gunAimOffset:p2=0.0, 0.0
   camera__lookDir:p3=1.0, 0.0, 0.0
   camera__prevLookDir:p3=1.0, 0.0, 0.0
