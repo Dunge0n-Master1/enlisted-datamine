@@ -21,9 +21,8 @@ let featuredModsRoomsList = Watched([])
 let needOpenModsList = Watched(false)
 let urlData = "cdn_uris=true&clean_description=true&no_file=true&only_preview=true&charset=UTF-8&content-type=application/x-www-form-urlencoded"
 let isFeaturedAvailable = is_pc
-let isFeaturedRequestNeeded = Computed(@() isFeaturedAvailable && isEventModesOpened.value
-  && featuredMods.value.len() == 0)
-
+let isFeaturedRequestNeeded = keepref(Computed(@() isFeaturedAvailable && isEventModesOpened.value
+  && featuredMods.value.len() == 0))
 
 const FEATURED_MODS_TAB_ID = "featured_mod"
 const URL = "https://sandbox.enlisted.net/api/feed/get_featured/"
