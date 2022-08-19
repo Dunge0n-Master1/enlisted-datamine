@@ -47,8 +47,8 @@ entity{
 entity{
   _template:t="team_tunisia_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
+  team__scoreCap:r=1750.0
+  team__score:r=1750.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -587,7 +587,7 @@ entity{
   capzone__timeToPlant:r=30.0
   active:b=no
   ui_order:i=2
-  capzone__capReward:r=300.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/farm_house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -616,7 +616,7 @@ entity{
   active:b=no
   ui_order:i=1
   capzone__owningTeam:i=2
-  capzone__capReward:r=300.0
+  capzone__capReward:r=500.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

@@ -800,7 +800,7 @@ entity{
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__capTime:r=110.0
@@ -829,7 +829,7 @@ entity{
   capzone__caption:t="capzone/station_restaurant"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=100.0
   capzone__capTeam:i=-1
@@ -855,7 +855,7 @@ entity{
   capzone__caption:t="capzone/canteen"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=100.0
   capzone__capTeam:i=-1

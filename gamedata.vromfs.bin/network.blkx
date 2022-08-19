@@ -372,7 +372,7 @@ stable{
   char{
 
     servers{
-      url:t="https://contacts-stable-01.gaijin.net:9443/char"
+      url:t="https://contacts-stable-01.gaijin.net:9443/json"
     }
   }
 

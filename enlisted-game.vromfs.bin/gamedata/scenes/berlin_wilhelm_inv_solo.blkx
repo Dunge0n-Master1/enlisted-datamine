@@ -667,10 +667,10 @@ entity{
   groupName:t="sector_1"
   capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/artillery_emplacement"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -695,7 +695,7 @@ entity{
   groupName:t="sector_2"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/headquarters"
   capzone__capTime:r=35.0
@@ -720,7 +720,7 @@ entity{
   groupName:t="sector_2_b"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/cafe"
   capzone__capTime:r=35.0
@@ -745,7 +745,7 @@ entity{
   groupName:t="sector_3"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/old_reich_chancellery"
   capzone__capTime:r=35.0
@@ -769,7 +769,7 @@ entity{
   groupName:t="sector_3_b"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartments"
   capzone__capTime:r=35.0
@@ -838,7 +838,7 @@ entity{
   transform:m=[[-24.9725, 0.0, -4.60479] [0.0, 4.81688, 0.0] [2.19389, 0.0, -12.7532] [377.598, 8.66509, -623.881]]
   groupName:t="sector_5"
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hitlers_office"
   capzone__capTime:r=30.0

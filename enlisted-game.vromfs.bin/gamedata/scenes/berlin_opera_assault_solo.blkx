@@ -734,7 +734,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/ministry"
   capzone__checkAllZonesInGroup:b=yes
@@ -767,7 +767,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/artillery_emplacement"
   sphere_zone__radius:r=10.0
@@ -802,7 +802,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="C"
   capzone__caption:t="capzone/artillery_emplacement"
   sphere_zone__radius:r=10.0
@@ -837,7 +837,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="D"
   capzone__caption:t="capzone/monument"
   capzone__checkAllZonesInGroup:b=yes
@@ -867,7 +867,7 @@ entity{
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="E"
   capzone__caption:t="capzone/main_hall"
   capzone__checkAllZonesInGroup:b=yes

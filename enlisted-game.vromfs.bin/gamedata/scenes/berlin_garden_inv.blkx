@@ -683,7 +683,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/american_embassy"
-  capzone__capTime:r=95.0
+  capzone__capTime:r=85.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -759,10 +759,10 @@ entity{
   groupName:t="sector_3_a"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/ministry_gardens"
-  capzone__capTime:r=95.0
+  capzone__capTime:r=85.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -785,7 +785,7 @@ entity{
   groupName:t="sector_3_b"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
   capzone__capTime:r=95.0

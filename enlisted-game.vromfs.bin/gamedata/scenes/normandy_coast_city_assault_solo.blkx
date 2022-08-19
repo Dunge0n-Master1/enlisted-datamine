@@ -694,7 +694,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/radar"
   capzone__checkAllZonesInGroup:b=yes
@@ -725,7 +725,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/church"
   capzone__checkAllZonesInGroup:b=yes
@@ -756,7 +756,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="C"
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
@@ -786,7 +786,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="D"
   capzone__caption:t="capzone/farm_house"
   capzone__checkAllZonesInGroup:b=yes
@@ -817,7 +817,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=5
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="E"
   capzone__caption:t="capzone/chateau"
   capzone__checkAllZonesInGroup:b=yes

@@ -119,6 +119,8 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=35.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05"
   capzone__bombTransformLocalPos:m=[[-0.690213, 0.0, 0.723605] [0.0, 1.0, 0.0] [-0.723605, 0.0, -0.690213] [-0.0852661, -2.43271, -0.0609131]]
 
@@ -145,6 +147,8 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02"
   capzone__bombTransformLocalPos:m=[[0.995589, 0.0, 0.0938223] [0.0, 1.0, 0.0] [-0.0938223, 0.0, 0.995589] [0.233307, -2.21736, -0.161682]]
 
@@ -173,6 +177,8 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.725936, 0.0, -0.687764] [0.0, 1.0, 0.0] [0.687764, 0.0, 0.725936] [-0.266724, -1.99732, -0.177734]]
 
@@ -199,6 +205,8 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.952593, 0.0, 0.304247] [0.0, 1.0, 0.0] [-0.304247, 0.0, 0.952593] [-0.00549316, -1.87948, -0.0338135]]
 }
@@ -221,6 +229,8 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=35.0
+  capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"
   capzone__bombTransformLocalPos:m=[[-0.785295, 0.0, 0.619121] [0.0, 1.0, 0.0] [-0.619121, 0.0, -0.785295] [0.0115356, -2.10729, 0.121399]]
 }

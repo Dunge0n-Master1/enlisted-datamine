@@ -684,7 +684,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/goering_strasse"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -712,7 +712,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/tiergarten"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -791,7 +791,7 @@ entity{
   groupName:t="sector_3"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/garage"
   capzone__capTime:r=85.0

@@ -454,7 +454,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_7"
-  capzone__capReward:r=750.0
+  capzone__capReward:r=500.0
   capzone__capRewardPartCap:r=1.375
   capzone__alwaysHide:b=no
   capzone_timer__timeLeft:r=2700.0

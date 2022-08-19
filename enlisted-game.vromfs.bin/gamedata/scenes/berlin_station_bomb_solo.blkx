@@ -685,8 +685,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=4000.0
-  team__score:r=4000.0
+  team__scoreCap:r=3750.0
+  team__score:r=3750.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -730,6 +730,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=10.0
   capzone__timeToExplosion:r=35.0
   sphere_zone__radius:r=14.0
   capzone__createdRespawnBaseGroup:i=4
@@ -758,6 +759,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=10.0
   capzone__timeToExplosion:r=35.0
   capzone__createdRespawnBaseGroup:i=4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
@@ -784,7 +786,8 @@ entity{
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=10.0
   capzone__timeToExplosion:r=35.0
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
@@ -811,7 +814,8 @@ entity{
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=10.0
   capzone__timeToExplosion:r=35.0
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
@@ -838,7 +842,8 @@ entity{
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=35.0
   capzone__createRespawnBaseForTeam:i=2
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=15.0
   capzone__timeToExplosion:r=40.0
   sphere_zone__radius:r=12.0
   capzone__createdRespawnBaseGroup:i=6

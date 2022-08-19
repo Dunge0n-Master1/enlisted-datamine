@@ -1334,8 +1334,8 @@ entity{
 entity{
   _template:t="team_stalingrad_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1800.0
+  team__score:r=1800.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1363,7 +1363,7 @@ entity{
   groupName:t="sector_1_a"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/canteen"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1392,7 +1392,7 @@ entity{
   active:b=no
   ui_order:i=2
   capzone__owningTeam:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -1486,6 +1486,8 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_04_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.998506, 0.0, 0.0546247] [0.0, 1.0, 0.0] [-0.0546247, 0.0, -0.998506] [-0.338547, -1.95302, -0.357742]]
+  capzone__timeToPlant:r=30.0
+  capzone__timeToDefuse:r=10.0
 }
 
 entity{

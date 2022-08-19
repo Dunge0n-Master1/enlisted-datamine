@@ -1285,8 +1285,8 @@ entity{
 entity{
   _template:t="team_tunisia_axis+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2300.0
+  team__score:r=2300.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -1443,9 +1443,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=60.0
+  capzone__capTimeTeam2:r=50.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=30.0
+  capzone__decapTimeTeam2:r=25.0
   capzone__capTeam:i=-1
   transform:m=[[1.89432, 0.0, 1.83405] [0.0, 0.896783, 0.0] [-2.09994, 0.0, 2.16891] [1264.93, 2.3834, 857.693]]
   sphere_zone__radius:r=15.0

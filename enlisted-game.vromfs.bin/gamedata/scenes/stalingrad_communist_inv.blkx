@@ -4134,13 +4134,13 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=50.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-21.9831, 5.50829, 166.822]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/canteen"
   capzone__iconOffsetY:r=3.0
@@ -4164,13 +4164,13 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=50.0
   capzone__capTeam:i=-1
   transform:m=[[-2.46655, 0.0, -18.6909] [0.0, 6.8964, 0.0] [32.2703, 0.0, -4.25858] [100.982, 10.0291, 282.346]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/waiting_room"
   capzone__deactivateAfterTimeout:r=25.0
@@ -4261,7 +4261,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/offices"
   capzone__deactivateAfterTimeout:r=25.0
@@ -4291,7 +4291,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/communal_house"
   capzone__iconOffsetY:r=3.0
@@ -4320,7 +4320,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/communal_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -4349,7 +4349,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartment_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -4378,7 +4378,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartment_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -4400,7 +4400,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[-2.60111, 0.0, -65.4699] [0.0, 6.65669, 0.0] [26.039, 0.0, -1.03455] [-201.151, 9.31195, 90.3614]]
   active:b=no
@@ -4428,7 +4428,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[-2.21245, 0.0, -25.2205] [0.0, 5.70147, 0.0] [26.0962, 0.0, -2.28922] [-197.903, 9.77044, 182.961]]
   active:b=no

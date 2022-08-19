@@ -481,7 +481,7 @@ entity{
   active:b=no
   capzone__decapTime:r=20.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__checkAllZonesInGroup:b=yes
@@ -504,7 +504,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=1
@@ -513,7 +513,7 @@ entity{
   active:b=no
   capzone__decapTime:r=15.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/food_storehouse"
   capzone__checkAllZonesInGroup:b=yes
@@ -536,7 +536,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=1
@@ -545,7 +545,7 @@ entity{
   active:b=no
   capzone__decapTime:r=15.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="C"
   capzone__caption:t="capzone/field_hospital"
   capzone__checkAllZonesInGroup:b=yes

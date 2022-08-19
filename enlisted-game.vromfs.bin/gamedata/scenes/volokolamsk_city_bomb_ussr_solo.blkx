@@ -588,7 +588,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"
   capzone__bombTransformLocalPos:m=[[-0.937601, 0.0, -0.347711] [0.0, 1.0, 0.0] [0.347711, 0.0, -0.937601] [0.0551758, -1.85853, 0.0323486]]
@@ -616,7 +616,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02"
   capzone__bombTransformLocalPos:m=[[-0.943324, 0.0, 0.331871] [0.0, 1.0, 0.0] [-0.331871, 0.0, -0.943324] [-0.0400391, -2.13861, -0.399414]]
@@ -644,7 +644,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=20.0
+  capzone__timeToPlant:r=25.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_04_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.381027, 0.0, -0.924563] [0.0, 1.0, 0.0] [0.924563, 0.0, -0.381027] [0.200806, -1.94024, -0.441589]]
@@ -672,7 +672,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=6
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03"
   capzone__bombTransformLocalPos:m=[[-0.338803, 0.0, -0.940857] [0.0, 1.0, 0.0] [0.940857, 0.0, -0.338803] [-0.17334, -1.64264, -0.524597]]
@@ -696,7 +696,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=15.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_04"
   capzone__bombTransformLocalPos:m=[[-0.409413, 0.0, -0.912349] [0.0, 1.0, 0.0] [0.912349, 0.0, -0.409413] [0.201416, -1.8705, -0.448425]]

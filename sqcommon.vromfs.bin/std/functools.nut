@@ -491,6 +491,31 @@ local function breakable_reduce(obj, func, memo=MemoNotInited()) {
 */
 let combine = @(...) @() vargv.each(@(v) v.call(null))
 
+
+//creates function that will do map 'set' ({key:key}) to table with provided function
+//function result will be cached for each key, until key disappears, than cache result for this key would be cleaned
+
+let function mkMemoizedMapSet(func){
+  let cache = {}
+  let funcParams = func.getfuncinfos().parameters.len()-1
+  return function memoizedMapSet(set){
+    foreach (k, v in set){
+      if (k in cache)
+        continue
+      cache[k] <- funcParams == 1 ? func(k) : func(k, v)
+    }
+    let toDelete = []
+    foreach(k, _ in cache) {
+      if (k not in set)
+        toDelete.append(k)
+    }
+    foreach(k in toDelete)
+      delete cache[k]
+    return cache
+  }
+}
+
+
 return {
   partial
   pipe
@@ -508,4 +533,5 @@ return {
 //  BreakValue
   combine
   tryCatch
+  mkMemoizedMapSet
 }

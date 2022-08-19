@@ -581,9 +581,9 @@ entity{
   ui_order:i=0
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/artillery_emplacement"
-  capzone__timeToPlant:r=25.0
   capzone__timeToPlant:r=35.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -609,9 +609,9 @@ entity{
   ui_order:i=1
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/stable"
-  capzone__timeToPlant:r=25.0
   capzone__timeToPlant:r=35.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -637,9 +637,9 @@ entity{
   ui_order:i=2
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/shop"
-  capzone__timeToPlant:r=35.0
   capzone__timeToPlant:r=40.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=50.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -665,9 +665,9 @@ entity{
   ui_order:i=4
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/canteen"
-  capzone__timeToPlant:r=25.0
   capzone__timeToPlant:r=35.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -689,9 +689,9 @@ entity{
   ui_order:i=5
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/garage"
-  capzone__timeToPlant:r=25.0
   capzone__timeToPlant:r=35.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

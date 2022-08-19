@@ -810,10 +810,11 @@ entity{
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[40.5713, 0.0, 0.986974] [0.0, 8.79186, 0.0] [-1.10393, 0.0, 44.6994] [0.713022, 7.75268, 176.412]]
+  capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -837,7 +838,7 @@ entity{
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-141.909, 1.03529, 179.674]]
-  capzone__capRewardPartCap:r=1.5
+  capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
@@ -867,7 +868,7 @@ entity{
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[0.885815, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-67.8056, 3.47001, 268.459]]
-  capzone__capRewardPartCap:r=1.5
+  capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
@@ -901,7 +902,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -928,11 +929,11 @@ entity{
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[35.4462, 0.0, -0.999877] [0.0, 11.1732, 0.0] [0.986714, 0.0, 35.52] [-311.066, 8.55304, 398.957]]
-  capzone__capRewardPartCap:r=1.25
+  capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -956,11 +957,11 @@ entity{
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[18.9375, 0.0, 21.9933] [0.0, 11.1732, 0.0] [-14.0241, 0.0, 12.065] [-272.198, 8.55304, 491.22]]
-  capzone__capRewardPartCap:r=1.25
+  capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -984,11 +985,11 @@ entity{
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[42.376, 0.0, -34.4335] [0.0, 7.76617, 0.0] [12.3776, 0.0, 15.2915] [-393.03, 6.07927, 558.383]]
-  capzone__capRewardPartCap:r=1.125
+  capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
