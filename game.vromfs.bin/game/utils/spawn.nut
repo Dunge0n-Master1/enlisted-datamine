@@ -154,20 +154,6 @@ let function createInventory(inventory) {
   return [ itemContainer, ecs.TYPE_EID_LIST ]
 }
 
-let function createEquipment(attrs, equipment) {
-  let initialEquip = {}
-  let initialEquipComponents = {}
-
-  if (equipment != null)
-    foreach (slot, equip in equipment) {
-      initialEquip[equip.gametemplate] <- slot
-      initialEquipComponents[equip.gametemplate] <- { }
-    }
-
-  attrs["human_equipment__initialEquip"] <- [ initialEquip, ecs.TYPE_OBJECT ]
-  attrs["human_equipment__initialEquipComponents"] <- [ initialEquipComponents, ecs.TYPE_OBJECT ]
-}
-
 let function initItemContainer(eid) {
   let itemContainer = ecs.obsolete_dbg_get_comp_val(eid, "itemContainer")?.getAll() ?? []
   foreach (itemEid in itemContainer)
@@ -323,17 +309,16 @@ let function spawnSoldier(team, playerEid, possessed = INVALID_ENTITY_ID, spawnP
 
 return {
   spawnSoldier = kwarg(spawnSoldier)
-  validatePosition = validatePosition
-  validateTm = validateTm
-  mkSpawnParamsByTeam = mkSpawnParamsByTeam
+  validatePosition
+  validateTm
+  mkSpawnParamsByTeam
   mkVehicleSpawnParamsByTeam = @(team) mkSpawnParamsByTeamImpl(team, find_vehicle_respawn_base)
   mkSpawnParamsByTeamEx = mkSpawnParamsByTeamImpl
-  getTeamWeaponPresetTemplateName = getTeamWeaponPresetTemplateName
-  getTeamUnitTemplateName = getTeamUnitTemplateName
-  createInventory = createInventory
-  createEquipment = createEquipment
-  initItemContainer = initItemContainer
-  rebalance = rebalance
-  calcNewbieArmor = calcNewbieArmor
-  gatherParamsFromEntity = gatherParamsFromEntity
+  getTeamWeaponPresetTemplateName
+  getTeamUnitTemplateName
+  createInventory
+  initItemContainer
+  rebalance
+  calcNewbieArmor
+  gatherParamsFromEntity
 }

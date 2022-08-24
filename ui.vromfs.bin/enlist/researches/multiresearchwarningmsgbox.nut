@@ -23,7 +23,7 @@ let textarea = @(text, color) {
 }.__update(body_txt)
 
 let function multiresearchWarningMsgbox(research, pageResearches, unlockAction) {
-  let { multiresearchGroup = 0, research_id, name, params = {} } = research
+  let { multiresearchGroup = 0, research_id, name = "", params = {} } = research
   if (dontShowAgain.value || multiresearchGroup <= 0) {
     unlockAction()
     return

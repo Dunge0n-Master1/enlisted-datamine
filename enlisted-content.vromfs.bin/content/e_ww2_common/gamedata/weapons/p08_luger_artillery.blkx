@@ -1,4 +1,4 @@
-stat_name:t="pistol"
+stat_name:t="semiauto"
 selWeaponVar:t="p08_artillery_luger"
 
 ownerAnimVars{

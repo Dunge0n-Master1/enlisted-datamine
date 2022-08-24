@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let allowChangeSquad = mkWatched(persist, "allowChangeSquad", false)
+let allowChangeSquad = Watched(false)
 let armyData = require("%ui/hud/state/armyData.nut")
 
 ecs.register_es("allow_squad_change_state_es", {

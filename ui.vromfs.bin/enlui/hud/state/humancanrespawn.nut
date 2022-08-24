@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let state = mkWatched(persist, "humanCanRespawn", true)
+let state = Watched(true)
 
 ecs.register_es("human_can_respawn_ui_es",
   {

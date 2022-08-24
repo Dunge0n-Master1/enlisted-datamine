@@ -18,24 +18,20 @@ let templatesCombined = Computed(function() {
 })
 
 let equipSchemesByArmy = Computed(function() {
+  let tblDisabled = freeze({ isDisabled = true })
+  let emptyArray = freeze([])
   let schemesAll = {}
   let equipSchemes = configs.value?.equip_schemes ?? {}
   foreach (armyId, armyTemplates in templatesCombined.value) {
+    let templatesTypes = {}
+    foreach(tpl in armyTemplates)
+      templatesTypes[tpl.itemtype] <- true
+
     schemesAll[armyId] <- equipSchemes.map(@(scheme) scheme.map(function(slot) {
-      local isDisabled = true
-      let { items = [], itemTypes = [] } = slot
-      foreach (itemTpl in items)
-        if (itemTpl in armyTemplates) {
-          isDisabled = false
-          break
-        }
-      if (isDisabled)
-        foreach (itemtype in itemTypes)
-          if (armyTemplates.findvalue(@(tpl) tpl.itemtype == itemtype) != null) {
-            isDisabled = false
-            break
-          }
-      return (clone slot).__update({ isDisabled })
+      let { items = emptyArray, itemTypes = emptyArray } = slot
+      local availItemOrType = items.findvalue(@(itemTpl) itemTpl in armyTemplates)
+        ?? itemTypes.findvalue(@(it) it in templatesTypes)
+      return availItemOrType == null ? slot.__merge(tblDisabled) : slot
     }))
   }
   return schemesAll

@@ -13,6 +13,7 @@ let { mkXpBooster, mkBoosterInfo, mkBoosterLimits, boosterWidthToHeight
 } = require("%enlist/components/mkXpBooster.nut")
 let { rewardBgSizePx } = require("%enlist/items/itemsPresentation.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
 
 
 let itemSizeShort = [3.4 * unitSize, 1.8 * unitSize]
@@ -87,7 +88,7 @@ let mkItemByTypeMap = {
     let soldierInfo = p.item
     let stateFlags = Watched(0)
     return @() {
-      watch = [stateFlags, needFreemiumStatus]
+      watch = [stateFlags, needFreemiumStatus, perkLevelsGrid]
       group = group
       behavior = Behaviors.Button
       onElemState = @(sf) stateFlags(sf)
@@ -96,6 +97,7 @@ let mkItemByTypeMap = {
       children = mkSoldierCard({
         soldierInfo = soldierInfo
         squadInfo = squadsCfgById.value?[soldierInfo?.armyId ?? ""][soldierInfo?.squadId ?? ""]
+        expToLevel = perkLevelsGrid.value?.expToLevel
         size = itemSizeLong
         group = group
         sf = stateFlags.value

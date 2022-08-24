@@ -31,7 +31,7 @@ let function mkTimerIcon(state) {
   }
 }
 
-let mine = memoize(function(eid){
+let function mine(eid){
   let watch = mine_markers_GetWatched(eid)
   let timerIcon = mkTimerIcon(watch)
   return function(){
@@ -62,8 +62,10 @@ let mine = memoize(function(eid){
       markerFlags = MARKER_SHOW_ONLY_IN_VIEWPORT
     }
   }
-})
+}
+
+let memoizedMap = mkMemoizedMapSet(mine)
 
 return {
-  mine_ctor = {watch = mine_markers_Set, ctor = @() mine_markers_Set.value.keys().map(mine)}
+  mine_ctor = {watch = mine_markers_Set, ctor = @() memoizedMap(mine_markers_Set.value).values()}
 }

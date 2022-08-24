@@ -228,23 +228,20 @@ let function is_vehicle_spawn_allowed_by_limit(team, respawnbaseType) {
 }
 
 return {
-  find_human_respawn_base = find_human_respawn_base
-  find_vehicle_respawn_base = find_vehicle_respawn_base
+  find_human_respawn_base
+  find_vehicle_respawn_base
 
-  find_respawn_base_for_team = find_respawn_base_for_team
-  find_safest_respawn_base_for_team = find_safest_respawn_base_for_team
+  find_respawn_base_for_team
+  find_safest_respawn_base_for_team
 
-  find_vehicle_respawn_base_for_team = find_vehicle_respawn_base_for_team
-  find_vehicle_safest_respawn_base_for_team = find_vehicle_safest_respawn_base_for_team
-
-  get_random_respawn_base = get_random_respawn_base
+  get_random_respawn_base
 
   find_respawn_base_for_team_with_type = @(team, respType)
     get_random_respawn_base(find_all_respawn_bases_for_team_with_type(team, respType))
 
-  find_all_respawn_bases_for_team_with_type = find_all_respawn_bases_for_team_with_type
+  find_all_respawn_bases_for_team_with_type
 
-  count_vehicles_of_type = count_vehicles_of_type
+  count_vehicles_of_type
 
-  is_vehicle_spawn_allowed_by_limit = is_vehicle_spawn_allowed_by_limit
+  is_vehicle_spawn_allowed_by_limit
 }

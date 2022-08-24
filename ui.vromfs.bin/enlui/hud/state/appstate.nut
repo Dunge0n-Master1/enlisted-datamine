@@ -26,7 +26,7 @@ ecs.register_es("level_is_loading_ui_es",
   {comps_track = [["level_is_loading", ecs.TYPE_BOOL]]}
 )
 
-let currentLevelBlk = mkWatched(persist, "currentLevelBlk")
+let currentLevelBlk = Watched()
 ecs.register_es("level_blk_name_ui_es",
   {
     [["onInit"]] = @(_eid, comp) currentLevelBlk(comp["level__blk"])
@@ -35,7 +35,7 @@ ecs.register_es("level_blk_name_ui_es",
   {comps_ro = [["level__blk", ecs.TYPE_STRING]]}
 )
 
-let uiDisabled = mkWatched(persist, "uiDisabled", false)
+let uiDisabled = Watched(false)
 ecs.register_es("ui_disabled_ui_es",
   {
     [["onChange","onInit"]] = @(_eid, comp) uiDisabled.update(comp["ui__disabled"])

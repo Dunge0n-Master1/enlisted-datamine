@@ -56,9 +56,7 @@ let tabIconBlockSize = researchHeaderIconHeight + bigPadding * 3
 let researchesTableHeight = Computed(@() safeAreaSize.value[1] - hdpx(250)) // FIXME magic summ of sections, armies and squads bar heights
 let tblScrollHandler = ScrollHandler()
 
-let closestResearchByPages = Computed(@()
-  closestTargets.value?[viewArmy.value][viewSquadId.value] ?? {})
-let closestCurrentResearch = Computed(@() closestResearchByPages.value?[selectedTable.value])
+let closestCurrentResearch = Computed(@() closestTargets.value?[selectedTable.value])
 let isResearchListVisible = Watched(false)
 let needScrollClosest = Watched(true)
 
@@ -518,7 +516,7 @@ let mkPageInfoText = @(page, isSelected) {
 let function upgradePageTab(page, pageId) {
   let stateFlags = Watched(0)
   let unseenIcon = unseenInPageIcon(page.squad_id, pageId)
-  let closestResearchDef = Computed(@() closestResearchByPages.value?[pageId])
+  let closestResearchDef = Computed(@() closestTargets.value?[pageId])
 
   return function() {
     let isSelected = selectedTable.value == pageId

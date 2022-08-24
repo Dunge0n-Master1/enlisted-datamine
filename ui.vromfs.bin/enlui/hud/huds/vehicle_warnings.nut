@@ -7,6 +7,7 @@ let {vehicleEngineBroken, vehicleTransmissionBroken, vehicleTracksBroken, vehicl
 } = require("%ui/hud/state/vehicle_damage_state.nut")
 let {inVehicle, isVehicleAlive,
   isHighSpeedWarningEnabled} = require("%ui/hud/state/vehicle_state.nut")
+  let { isAlive } = require("%ui/hud/state/health_state.nut")
 let {implode} = require("%sqstd/string.nut")
 
 let vehicleCantMoveWarnings = [
@@ -21,7 +22,9 @@ let vehicleTurretDriveWarnings = [
   {state = vehicleTurretVerDriveBroken, text = @() loc("hud/turret_ver_drive_broken", "vertical drive broken")}
 ]
 
-let watch = [ inVehicle, vehiclePartDamaged, isVehicleAlive, isHighSpeedWarningEnabled ]
+let showVehicleWarnings = Computed(@() inVehicle.value && isVehicleAlive.value && isAlive.value)
+
+let watch = [ showVehicleWarnings, vehiclePartDamaged, isHighSpeedWarningEnabled ]
   .extend(vehicleCantMoveWarnings.map(@(w) w.state), vehicleTurretDriveWarnings.map(@(w) w.state))
 
 let function mkTip(warnings, msgKey, msgDefVal) {
@@ -36,7 +39,7 @@ let function mkTip(warnings, msgKey, msgDefVal) {
 return function () {
   let children = []
 
-  if (inVehicle.value && isVehicleAlive.value) {
+  if (showVehicleWarnings.value) {
     children.append(mkTip(vehicleCantMoveWarnings, "hud/vehicle_cant_move", "Vehicle can't move: {reason}")) //warning disable: -forgot-subst
     children.append(mkTip(vehicleTurretDriveWarnings, "hud/vehicle_turret_cant_move", "Vehicle turret can't move: {reason}")) //warning disable: -forgot-subst
     children.append(tipCmp({

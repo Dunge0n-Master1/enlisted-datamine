@@ -1,37 +1,30 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let state = {
-  downedEndTime = Watched(-1.0)
-  alwaysAllowRevive = Watched(false)
-  canBeRevivedByTeammates = Watched(false)
-  canSelfReviveByHealing = Watched(false)
-  canSelfReviveByPerk = Watched(false)
-}
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let defValue = freeze({
+  downedEndTime = -1.0
+  canSelfReviveByHealing = false
+  canSelfReviveByPerk = false
+})
+let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
+let { downedEndTime, canSelfReviveByPerk, canSelfReviveByHealing } = watchedTable2TableOfWatched({state, defValue})
 
 ecs.register_es("downedTracker",{
-  [["onInit", "onChange"]] = function trackDownedState(_eid,comp) {
-      foreach (k,v in state)
-        v(comp[$"hitpoints__{k}"])
+  [["onInit", "onChange"]] = function trackDownedState(_, _eid, comp) {
+      stateSetValue(defValue.map(@(_, k) comp[$"hitpoints__{k}"]))
     },
-  function onDestroy() {
-    state.downedEndTime(-1.0)
-    state.alwaysAllowRevive(false)
-    state.canBeRevivedByTeammates(false)
-    state.canSelfReviveByHealing(false)
-    state.canSelfReviveByPerk(false)
-  }
+  onDestroy = @() stateSetValue(defValue)
 },
 {
   comps_track = [
     ["hitpoints__downedEndTime",ecs.TYPE_FLOAT, -1],
     ["hitpoints__canSelfReviveByHealing", ecs.TYPE_BOOL, false],
     ["hitpoints__canSelfReviveByPerk", ecs.TYPE_BOOL, false],
-    ["hitpoints__canBeRevivedByTeammates", ecs.TYPE_BOOL, false],
-    ["hitpoints__alwaysAllowRevive", ecs.TYPE_BOOL, false],
   ],
   comps_rq=["watchedByPlr","isDowned"]
 })
 
-return state
+return {downedEndTime, canSelfReviveByPerk, canSelfReviveByHealing}
 

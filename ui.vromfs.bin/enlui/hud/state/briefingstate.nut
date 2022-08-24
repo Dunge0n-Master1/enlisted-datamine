@@ -16,7 +16,7 @@ let components = {
 }
 
 let mkDefState = @() components.map(@(v) v?[1])
-let briefingState = mkWatched(persist, "state", mkDefState)
+let briefingState = Watched(mkDefState())
 let setState = @(_, comp) briefingState.update(components.map(@(defVal, name) comp?[name] ?? defVal?[1]))
 
 let comps_track = []
@@ -25,7 +25,7 @@ foreach (name, defVal in components)
 
 ecs.register_es("es_ui_briefing", {
     [["onInit", "onChange"]] = setState,
-    onDestroy = @(eid, _comp) setState(eid, {})
+    onDestroy = @() setState(null, {})
   },
   {comps_track}
 )

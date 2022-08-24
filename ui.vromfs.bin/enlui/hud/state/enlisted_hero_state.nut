@@ -1,8 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let isRadioMode = mkWatched(persist, "isRadioMode", false)
-let isThrowDistanceIncreased = mkWatched(persist, "isThrowDistanceIncreased", false)
+let isRadioMode = Watched(false)
+let isThrowDistanceIncreased = Watched(false)
 
 ecs.register_es("hero_state_radio_mode_es",
   {

@@ -27,7 +27,8 @@ let function mkMortarMarker(eid){
   }
 }
 
+let memoizedMap = mkMemoizedMapSet(mkMortarMarker)
 return {
   watch = mortarMarkersSet
-  ctor = @(_) mortarMarkersSet.value.keys().map(mkMortarMarker)
+  ctor = @(_) memoizedMap(mortarMarkersSet.value).values()
 }

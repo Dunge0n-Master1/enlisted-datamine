@@ -20,7 +20,7 @@ let defData = freeze({
   opacityRangeY = Point2(0.15, 0.15)
 })
 
-let destroyable_ri_ctor = memoize(function(eid){
+let function destroyable_ri_ctor(eid){
   let markerState = destroyable_ri_GetWatched(eid)
   let data = defData.__merge({eid})
   return function(){
@@ -45,8 +45,13 @@ let destroyable_ri_ctor = memoize(function(eid){
       watch = [localPlayerTeam, markerState]
     }
   }
-})
+}
+
+let memoizedMap = mkMemoizedMapSet(destroyable_ri_ctor)
 
 return {
-  destroyable_ri_ctor = {watch = destroyable_ri_Set, ctor = @() destroyable_ri_Set.value.keys().map(destroyable_ri_ctor)}
+  destroyable_ri_ctor = {
+    watch = destroyable_ri_Set
+    ctor = @() memoizedMap(destroyable_ri_Set.value).values()
+  }
 }

@@ -1,27 +1,31 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
-let stamina = Watched(null)
-let lowStamina  = Watched(false)
-let scaleStamina = Watched(0)
-let staminaCanAim = Watched(true)
-let staminaUseFlask = Watched(false)
+let defValue = freeze({
+  stamina = null
+  scaleStamina = 0
+  staminaCanAim = true
+  staminaUseFlask = false
+  lowStamina = false
+})
+let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
+let { stamina, scaleStamina, staminaCanAim, staminaUseFlask, lowStamina } = watchedTable2TableOfWatched({state, defValue})
 
 ecs.register_es("hud_stamina_state_es",
   {
-    [["onInit","onChange"]] = function(_eid, comp){
-      stamina(comp["view_stamina"])
-      lowStamina(comp["view_lowStamina"])
-      staminaCanAim(comp.human_weap__staminaCanAim)
-      scaleStamina(comp["entity_mods__staminaBoostMult"])
-      staminaUseFlask(comp.view_stamina < comp.ui__flaskUseTipMinStamina)
+    [["onInit","onChange"]] = function(_, _eid, comp){
+      stateSetValue({
+        stamina = comp["view_stamina"]
+        staminaCanAim = comp.human_weap__staminaCanAim
+        lowStamina = comp["view_lowStamina"]
+        scaleStamina = comp["entity_mods__staminaBoostMult"]
+        staminaUseFlask = comp.view_stamina < comp.ui__flaskUseTipMinStamina
+      })
     },
     function onDestroy(){
-      stamina(null)
-      lowStamina(null)
-      staminaCanAim(true)
-      scaleStamina(0)
-      staminaUseFlask(false)
+      stateSetValue(defValue)
     }
   },
   {
@@ -47,9 +51,6 @@ lowStamina.subscribe(function(is_low) {
   }
 })
 
-console_register_command(@(value) stamina(value), $"hud.stamina")
-
-
 return {
-  stamina, lowStamina, staminaAnimTrigger, scaleStamina, staminaCanAim, staminaUseFlask
+  stamina, staminaAnimTrigger, scaleStamina, staminaCanAim, staminaUseFlask
 }

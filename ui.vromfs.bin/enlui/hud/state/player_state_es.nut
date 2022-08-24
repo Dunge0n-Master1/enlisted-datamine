@@ -8,27 +8,24 @@ from "%enlSqGlob/ui_library.nut" import *
 */
 
 ///=========player scores=====
-let state = {
-  localPlayersBattlesPlayed = mkWatched(persist, "localPlayersBattlesPlayed", -1)
-  localPlayerNamePrefixIcon = mkWatched(persist, "localPlayerNamePrefixIcon", "")
-}
+let localPlayerNamePrefixIcon = Watched("")
 
-let function trackScores(_eid,comp){
-  if (comp["is_local"]) {
-    state.localPlayersBattlesPlayed.update(comp["scoring_player__battlesPlayed"])
-    state.localPlayerNamePrefixIcon(comp["namePrefixIcon"])
-  }
-}
 ecs.register_es("local_player_scores_ui_es",
-  { onChange = trackScores onInit = trackScores},
+  { [["onChange", "onInit"]] = function(_, __, comp){
+    if (comp["is_local"]) {
+      localPlayerNamePrefixIcon(comp["namePrefixIcon"])
+    }
+  }
+},
   {
     comps_track = [
       ["is_local", ecs.TYPE_BOOL],
-      ["scoring_player__battlesPlayed", ecs.TYPE_INT, 0],
       ["namePrefixIcon", ecs.TYPE_STRING, ""],
     ],
     comps_rq = ["player"],
   }
 )
 
-return state
+return {
+  localPlayerNamePrefixIcon
+}

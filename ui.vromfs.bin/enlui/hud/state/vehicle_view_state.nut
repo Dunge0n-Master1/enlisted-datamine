@@ -1,5 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
 let comps = freeze([
   {comp = "vehicle_view__isAutomaticTransmission", typ = ecs.TYPE_BOOL,def=false,name="isAutomaticTransmission"}
@@ -10,18 +12,23 @@ let comps = freeze([
   {comp = "vehicle_view__speed",                   typ = ecs.TYPE_INT, def=0,    name="speed"}
 ])
 
-let state = comps.reduce(function(a,b) {
-  a[b.name]<-Watched(b.def)
-  return a
-}, {})
+let defValue = freeze(comps.reduce(function(res, b){
+  res[b.name] <- b.def
+  return res
+} ,{}))
+
+let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
+let { exportState } = watchedTable2TableOfWatched({state, defValue, plainOut=false})
 
 ecs.register_es("ui_vehicle_view_state",
   {
     [["onInit","onChange"]] = function(_, comp){
-      comps.each(@(v) state[v.name](comp[v.comp]))
+      let res = {}
+      comps.each(@(v) res[v.name] <- comp[v.comp])
+      stateSetValue(res)
     }
     function onDestroy(_, __){
-      comps.each(@(v) state[v.name](v.def))
+      stateSetValue(defValue)
     }
   },
   {
@@ -32,4 +39,4 @@ ecs.register_es("ui_vehicle_view_state",
   { tags="ui" }
 )
 
-return state
+return exportState

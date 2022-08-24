@@ -1,39 +1,47 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
-let squadEid = mkWatched(persist, "squadEid", INVALID_ENTITY_ID)
-let numAliveMembers = mkWatched(persist, "numAliveMembers", -1)
-let orderType = mkWatched(persist, "orderType", 0)
-let hasPersonalOrder = mkWatched(persist, "hasPersonalOrder", false)
-let isLeaderNeedsAmmo = mkWatched(persist, "isLeaderNeedsAmmo", false)
-let hasSpaceForMagazine = mkWatched(persist, "hasSpaceForMagazine", false)
-let isCompatibleWeapon = mkWatched(persist, "isCompatibleWeapon", false)
-let canChangeSquadMember = mkWatched(persist, "canChangeSquadMember", true)
 
-let function updateSquadEid(_eid, comp) {
-  squadEid(comp["squad_member__squad"])
-  local alive = -1
-  if (squadEid.value != INVALID_ENTITY_ID)
-    alive = ecs.obsolete_dbg_get_comp_val(squadEid.value, "squad__numAliveMembers", -1)
-  numAliveMembers(alive)
-}
+/*
 
-let function updateSquadParams(eid, comp) {
-  if (eid != squadEid.value && eid != INVALID_ENTITY_ID)
-    return
-  numAliveMembers(comp["squad__numAliveMembers"])
-  orderType(comp["squad__orderType"])
-  hasPersonalOrder.update(comp["squad__hasPersonalOrder"])
-  isLeaderNeedsAmmo.update(comp["squad__isLeaderNeedsAmmo"])
-  hasSpaceForMagazine.update(comp["order_ammo__hasSpaceForMagazine"])
-  isCompatibleWeapon.update(comp["order_ammo__isCompatibleWeapon"])
-  canChangeSquadMember(comp["squad__canChangeMember"])
-}
 
+      THIS SHOULD BE CHANGED!
+
+      We need only watched hero squad query (by some tag)
+
+      Otherwise code is both slower and incorrect!
+
+
+*/
+
+let defSquadState = freeze({
+  heroSquadOrderType = 0
+  hasPersonalOrder = false
+  isLeaderNeedsAmmo = false
+  hasSpaceForMagazine = false
+  isCompatibleWeapon = false
+  canChangeSquadMember = true
+})
+let {squadState, squadStateSetValue} = mkFrameIncrementObservable(defSquadState, "squadState")
+let {heroSquadOrderType, hasPersonalOrder, isLeaderNeedsAmmo,
+  hasSpaceForMagazine, isCompatibleWeapon, canChangeSquadMember
+} = watchedTable2TableOfWatched({state = squadState})
+
+let squadEid = Watched(INVALID_ENTITY_ID)
+let heroSquadNumAliveMembers = Watched(-1)
 ecs.register_es("hero_squad_eid_es",
   {
-    [["onInit", "onChange"]] = updateSquadEid,
+    [["onInit", "onChange"]] = function(_, _eid, comp) {
+      let sEid = comp["squad_member__squad"]
+      squadEid.update(sEid)
+      let alive = squadEid.value != INVALID_ENTITY_ID
+        ? ecs.obsolete_dbg_get_comp_val(sEid, "squad__numAliveMembers", -1)
+        : -1
+      heroSquadNumAliveMembers(alive)
+    },
   },
   { comps_track = [["squad_member__squad", ecs.TYPE_EID],]
     comps_rq = ["human_input"]
@@ -41,7 +49,19 @@ ecs.register_es("hero_squad_eid_es",
 
 ecs.register_es("hero_squad_es",
   {
-    [["onInit", "onChange"]] = updateSquadParams,
+    [["onInit", "onChange"]] = function(_, eid, comp) {
+      if (eid != squadEid.value && eid != INVALID_ENTITY_ID)
+        return
+      heroSquadNumAliveMembers(comp["squad__numAliveMembers"])
+      squadStateSetValue({
+        heroSquadOrderType = comp["squad__orderType"]
+        hasPersonalOrder = comp["squad__hasPersonalOrder"]
+        isLeaderNeedsAmmo = comp["squad__isLeaderNeedsAmmo"]
+        hasSpaceForMagazine = comp["order_ammo__hasSpaceForMagazine"]
+        isCompatibleWeapon = comp["order_ammo__isCompatibleWeapon"]
+        canChangeSquadMember = comp["squad__canChangeMember"]
+      })
+    }
   },
   {
     comps_track = [
@@ -57,8 +77,8 @@ ecs.register_es("hero_squad_es",
 
 return {
   squadEid
-  heroSquadNumAliveMembers = numAliveMembers
-  heroSquadOrderType = orderType
+  heroSquadNumAliveMembers
+  heroSquadOrderType
   hasPersonalOrder
   isLeaderNeedsAmmo
   hasSpaceForMagazine

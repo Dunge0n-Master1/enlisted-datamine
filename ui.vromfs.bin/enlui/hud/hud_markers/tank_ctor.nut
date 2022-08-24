@@ -83,7 +83,7 @@ let opRangeX_hardcore = Point2(0.125, 0.145)
 let zeroPoint = Point2(0, 0)
 let sz = [0,0]
 
-let tank = memoize(function(eid, repairMarker){
+let tank = function(eid, repairMarker){
   let infoState = tank_markers_GetWatched(eid)
   let watch = [infoState, forcedMinimalHud, controlledVehicleEid, inPlane, hasRepairKit]
   return function(){
@@ -124,13 +124,17 @@ let tank = memoize(function(eid, repairMarker){
       children = [namesComp, ico]
     }
   }
-})
+}
+
+let memoizedMapRepair = mkMemoizedMapSet(@(eid) tank(eid, true))
+let memoizedMap = mkMemoizedMapSet(@(eid) tank(eid, false))
+
 return {
   tank_ctor = freeze({
-    watch = tank_markers_Set, ctor = function() {
-      let res = tank_markers_Set.value.keys().map( @(eid) tank(eid, false))
-      res.extend(tank_markers_Set.value.keys().map( @(eid) tank(eid, true)))
-      return res
+    watch = tank_markers_Set
+    ctor = function() {
+      let v = tank_markers_Set.value
+      return memoizedMap(v).values().extend(memoizedMapRepair(v).values())
     }
   })
 }

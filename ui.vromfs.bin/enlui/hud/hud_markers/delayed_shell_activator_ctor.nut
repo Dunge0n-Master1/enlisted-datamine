@@ -26,7 +26,7 @@ let getIcon = memoize(function(ico) {
   })
 })
 
-let activatorMarker = memoize(function(eid) {
+let function activatorMarker(eid) {
   let state = shell_activators_GetWatched(eid)
   return @() {
     watch = state
@@ -47,8 +47,12 @@ let activatorMarker = memoize(function(eid) {
     sortOrder = eid
     children = [ getIcon(state.value.icon) arrow ]
   }
-})
+}
 
+let memoizedMap = mkMemoizedMapSet(activatorMarker)
 return {
-  activator_ctor = {watch = shell_activators_Set, ctor = @() shell_activators_Set.value.keys().map(activatorMarker)}
+  activator_ctor = {
+    watch = shell_activators_Set
+    ctor = @() memoizedMap(shell_activators_Set.value).values()
+  }
 }

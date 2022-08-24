@@ -1,8 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let canOpenParachute = mkWatched(persist, "canOpenParachute", false)
-let isParachuteOpened = mkWatched(persist, "isParachuteOpened", false)
+let canOpenParachute = Watched(false)
+let isParachuteOpened = Watched(false)
 
 ecs.register_es("human_parachute_track_openable_es",
   {

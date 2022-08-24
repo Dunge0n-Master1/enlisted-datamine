@@ -93,7 +93,7 @@ let function calculate_crosshairs(turrets, vehicleEid) {
 let crosshair = @() {
   watch = [controlledVehicleEid, vehicleTurrets]
   size = [sw(100), sh(100)]
-  children = calculate_crosshairs(vehicleTurrets.value?.turrets ?? [], controlledVehicleEid.value)
+  children = calculate_crosshairs(vehicleTurrets.value ?? [], controlledVehicleEid.value)
 }
 
 return crosshair

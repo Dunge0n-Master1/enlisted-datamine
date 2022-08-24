@@ -46,6 +46,7 @@ ecs.register_es("human_teammates_stats_ui_es",
       foreach (i in heroesTrackComps)
         res[i[0]] <- comp[i[0]]
       res.isAlive <- comp.isAlive
+      res.eid <- eid
       teammatePlayerInfoQuery(comp.possessedByPlr, @(_, playerComp) res.__update(playerComp))
 
       teammatesAvatarsUpdateEid(eid, res)

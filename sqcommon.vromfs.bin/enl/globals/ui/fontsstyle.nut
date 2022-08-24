@@ -2,27 +2,27 @@ from "%darg/ui_imports.nut" import *
 
 let fontXXSmall = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.111)
+  fontSize = fsh(1.111) // 12px
 })
 
 let fontXSmall = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.296)
+  fontSize = fsh(1.296) // 14px
 })
 
 let fontSmall = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.481)
+  fontSize = fsh(1.481) // 16px
 })
 
 let fontMedium = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.666)
+  fontSize = fsh(1.666) // 18px
 })
 
 let fontLarge = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(2.037)
+  fontSize = fsh(2.037) // 22px
 })
 
 let fontTactical = freeze({
@@ -32,17 +32,17 @@ let fontTactical = freeze({
 
 let fontXLarge = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(2.407)
+  fontSize = fsh(2.407) // 26px
 })
 
 let fontXXLarge = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(3.240)
+  fontSize = fsh(3.240) // 35px
 })
 
 let fontGiant = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(4.629)
+  fontSize = fsh(4.629) // 50px
 })
 
 let fontLargeBold = freeze({

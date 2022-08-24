@@ -45,7 +45,7 @@ orderedSelector{
 
       findDanger{
         paramName:t="shootEnemy"
-        radiusParamName:t="enemyNearRadius"
+        radiusParamName:t="enemyDefendRadius"
         minDanger:r=0.1
         tag:t="human"
       }
@@ -110,12 +110,12 @@ orderedSelector{
 
             subTree{
               name:t=""
-              treeName:t="sub.checkCover"
+              refId:t="checkCoverRef"
             }
 
             subTree{
               name:t=""
-              treeName:t="sub.findCover"
+              refId:t="findCoverRef"
             }
           }
 
@@ -168,7 +168,7 @@ orderedSelector{
 
       findDanger{
         paramName:t="shootEnemy"
-        radiusParamName:t="enemyNearRadius"
+        radiusParamName:t="enemyDefendRadius"
         minDanger:r=0.1
         tag:t="human"
       }
@@ -243,7 +243,7 @@ orderedSelector{
 
             subTree{
               name:t=""
-              treeName:t="sub.checkCover"
+              refId:t="checkCoverRef"
             }
 
             subTree{
@@ -325,6 +325,20 @@ repeat{
 
     sequencer{
 
+      findDanger{
+        paramName:t="shootEnemy"
+        radiusParamName:t="enemyDefendRadius"
+        minDanger:r=0.1
+        tag:t="human"
+      }
+
+      subTree{
+        treeName:t="sub.oneShootAttack"
+      }
+    }
+
+    sequencer{
+
       orderedSelector{
 
         isVarsIntEqual{
@@ -337,49 +351,52 @@ repeat{
         }
       }
 
-      sequencer{
+      orderedSelector{
 
-        findDanger{
-          paramName:t="shootEnemy"
-          radiusParamName:t="enemyNearRadius"
-          minDanger:r=0.1
-          tag:t="human"
-        }
+        sequencer{
 
-        subTree{
-          treeName:t="sub.oneShootAttack"
-        }
-      }
-
-      sequencer{
-
-        findDanger{
-          paramName:t="shootEnemy"
-          radiusParamName:t="enemyRadius"
-          minDanger:r=0.1
-          tag:t="human"
-        }
-
-        subTree{
-          treeName:t="sub.oneShootAttack"
-        }
-
-        setPosFromEntity{
-          to:t="potentialEnemyPos"
-          from:t="shootEnemy"
-        }
-
-        parallel{
-
-          wait{
-            range:p2=0.5, 1.0
-            resetable:b=yes
+          findDanger{
+            paramName:t="shootEnemy"
+            radiusParamName:t="enemyNearRadius"
+            minDanger:r=0.1
+            tag:t="human"
           }
 
-          wanderLook{
-            posParam:t="potentialEnemyPos"
-            range:p2=0.2, 0.1
-            maxStanceParam:t="coverStance"
+          subTree{
+            treeName:t="sub.oneShootAttack"
+          }
+        }
+
+        sequencer{
+
+          findDanger{
+            paramName:t="shootEnemy"
+            radiusParamName:t="enemyRadius"
+            minDanger:r=0.1
+            tag:t="human"
+          }
+
+          subTree{
+            treeName:t="sub.oneShootAttack"
+          }
+
+          setPosFromEntity{
+            to:t="potentialEnemyPos"
+            from:t="shootEnemy"
+          }
+
+          parallel{
+
+            wait{
+              range:p2=0.5, 1.0
+              resetable:b=yes
+            }
+
+            wanderLook{
+              posParam:t="potentialEnemyPos"
+              range:p2=0.2, 0.1
+              maxStanceParam:t="coverStance"
+            }
           }
         }
       }

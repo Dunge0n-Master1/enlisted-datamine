@@ -763,7 +763,7 @@ beh_tree_regular_check{
 beh_tree_enemy_player_in_radius{
   beh_tree__enemyPlayerInRadiusAt:r=0.0
   beh_tree__enemyPlayerInRadiusPeriod:r=0.1
-  beh_tree__enemyPlayerInRadiusDist:r=10.0
+  beh_tree__enemyPlayerInRadiusDist:r=16.0
 }
 
 beh_tree_agent_in_train_zone{

@@ -47,19 +47,9 @@ let configResearches = Computed(function() {
     }
     foreach (squadId, pageList in armyConfig?.pages ?? {})
       armyPages[squadId] <- pageList.map(function(page, idx) {
-        let pageContext = {
-          armyId
-          squadId
-          squadsCfg = squadsCfgById.value
-          alltemplates = allItemTemplates.value
-        }
         page = (page ?? {}).__merge(presentList?[idx] ?? {})
-        let prepared = (page?.tables ?? {}).values()
-          .sort(@(a, b) a.line <=> b.line || a.tier <=> b.tier)
-          .map(@(research) prepareResearch(research, pageContext))
-        page.tables <- {}
-        foreach (research in prepared)
-          page.tables[research.research_id] <- research
+        if ("tables" not in page)
+          page.tables <- {}
         return page
       })
   }
@@ -102,6 +92,40 @@ let GROUP_RESEARCHED = 4
 let CAN_RESEARCH = 5
 let RESEARCHED = 6
 
+let squadResearches = Computed(function() {
+  let armyId = curArmy.value
+  local { researches = null } = armiesResearches.value?[armyId]
+  if (!researches)
+    return null
+
+  let squadId = viewSquadId.value
+  return researches
+    .filter(@(r) r.squad_id == squadId)
+    .reduce(function(res, r) {
+      let { page_id = 0 } = r
+      while (res.len() <= page_id)
+        res.append([])
+      res[page_id].append(r)
+      return res
+    }, [])
+    .map(function(lst) {
+      let pageContext = {
+        armyId
+        squadId
+        squadsCfg = squadsCfgById.value
+        alltemplates = allItemTemplates.value
+      }
+      lst.sort(@(a, b) a.line <=> b.line || a.tier <=> b.tier)
+      lst = lst
+        .map(@(research) prepareResearch(research, pageContext))
+        .reduce(function(res, r) {
+          res[r.research_id] <- r
+          return res
+        }, {})
+      recalcMultiResearchPos(lst)
+      return lst
+    })
+})
 
 let tableStructure = Computed(function() {
   let armyId = curArmy.value
@@ -125,19 +149,18 @@ let tableStructure = Computed(function() {
     return ret
 
   ret.pages = pages
-  ret.researches = curResearches.researches.filter(
-    @(research) research.squad_id == squadId && (research?.page_id ?? 0) == selectedTable.value)
-  recalcMultiResearchPos(ret.researches)
+  ret.researches = squadResearches.value?[selectedTable.value] ?? {}
 
-  local minTier = 10
+  local minTier = -1
   local maxTier = -1
+  local rowsTotal = 0
   foreach (def in ret.researches) {
     let tier = round_by_value(def.tier, 1)
-    minTier = min(tier, minTier)
+    minTier = minTier < 0 ? tier : min(tier, minTier)
     maxTier = max(tier, maxTier)
-    ret.rowsTotal = max(def.line, ret.rowsTotal)
+    rowsTotal = max(def.line, rowsTotal)
   }
-  ret.__update({minTier, tiersTotal = maxTier - minTier + 1})
+  ret.__update({ minTier, tiersTotal = maxTier - minTier + 1, rowsTotal })
   return ret
 })
 
@@ -269,25 +292,25 @@ let function buyChangeResearch(researchFrom, researchTo) {
     @(_) isResearchInProgress(false))
 }
 
-let closestTargets = Computed(@() armiesResearches.value.map(function(resCfg) {
-  let armyTop = {}
-  foreach (r in resCfg.researches) {
-    let status = researchStatuses.value?[r.research_id]
-    if (status != CAN_RESEARCH && status != NOT_ENOUGH_EXP)
-      continue
+let closestTargets = Computed(function() {
+  let list = squadResearches.value
+  if (!list)
+    return null
 
-    let { squad_id, page_id = 0, line, tier } = r
-    let top = armyTop?[squad_id][page_id]
-    if (top == null
-        || line < top.line
-        || (line == top.line && tier < top.tier)) {
-      if (squad_id not in armyTop)
-        armyTop[squad_id] <- {}
-      armyTop[squad_id][page_id] <- r
+  return list.map(function(researches) {
+    local pageTop = null
+    foreach (r in researches) {
+      let status = researchStatuses.value?[r.research_id]
+      if (status != CAN_RESEARCH && status != NOT_ENOUGH_EXP)
+        continue
+
+      let { line, tier } = r
+      if (pageTop == null || line < pageTop.line || (line == pageTop.line && tier < pageTop.tier))
+        pageTop = r
     }
-  }
-  return armyTop
-}))
+    return pageTop
+  })
+})
 
 let function buySquadLevel(cb = null) {
   if (isBuyLevelInProgress.value)

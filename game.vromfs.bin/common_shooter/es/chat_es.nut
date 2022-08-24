@@ -56,20 +56,21 @@ const SERVERCMD_PREFIX = "/servercmd"
 const AUTOREPLACE_HERO = ":hero:"
 const AUTOREPLACE_PLAYER = ":player:"
 
-let function sendMessage(evt){
+let function sendMessage(evtData){
   let net = has_network()
-  let senderEid = net ? find_human_player_by_connid(evt?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
+  let senderEid = net ? find_human_player_by_connid(evtData?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
   let senderTeam = ecs.obsolete_dbg_get_comp_val(senderEid, "team", TEAM_UNASSIGNED)
   let senderName = ecs.obsolete_dbg_get_comp_val(senderEid, "name", "")
   let hero = getPlayerPossessedQuery.perform(senderEid, @(_, comp) comp["possessed"]) ?? INVALID_ENTITY_ID
   let senderBanStatus = ecs.obsolete_dbg_get_comp_val(senderEid, "ban_status", "")
-  let mode = evt?.mode ?? "team"
+  let mode = evtData?.mode ?? "team"
   let senderUserId = ecs.obsolete_dbg_get_comp_val(senderEid, "userid", INVALID_USER_ID)
-  if (startswith(evt?.text ?? "", SERVERCMD_PREFIX) && hasDedicatedPermission(senderUserId, "send_server_commands")){
-    local text = evt.text.slice(SERVERCMD_PREFIX.len())
+  if (startswith(evtData?.text ?? "", SERVERCMD_PREFIX) &&
+      hasDedicatedPermission(senderUserId, "send_server_commands")){
+    local text = evtData.text.slice(SERVERCMD_PREFIX.len())
     text = text.replace(AUTOREPLACE_HERO, $"{hero}")
     text = text.replace(AUTOREPLACE_PLAYER, $"{senderEid}")
-    console.command($"net.set_console_connection_id {evt?.fromconnid ?? -1}")
+    console.command($"net.set_console_connection_id {evtData?.fromconnid ?? -1}")
     sendLogToClients(text)
     console.command(text)
     log($"console command '{text}' received userid:{senderUserId}")
@@ -96,9 +97,9 @@ let function sendMessage(evt){
     return
   }
 
-  data.__update({ text = evt?.text ?? "", qmsg = evt?.qmsg })
+  data.__update({ text = evtData?.text ?? "", qmsg = evtData?.qmsg })
   let event = ecs.event.EventSqChatMessage(data)
-  let sound = evt?.sound ?? ""
+  let sound = evtData?.sound ?? ""
 
   let connids = (mode == "team" || mode == "qteam")? find_connids_to_send(senderTeam) : null
   if (sound != "")

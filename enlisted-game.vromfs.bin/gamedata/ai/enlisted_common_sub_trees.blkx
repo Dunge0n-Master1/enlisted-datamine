@@ -72,6 +72,37 @@ sequencer{
 }
 
 sequencer{
+  name:t="sub.findCoverAroundPoint"
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  getRegroupDistance{
+    minDist:r=8.0
+    distParam:t="regroupDistance"
+  }
+
+  findCoverAroundPoint{
+    centerParam:t="regroupPosition"
+    radius:r=8.0
+    coverPosParam:t="coverPos"
+  }
+
+  checkDistance{
+    posParam:t="regroupPosition"
+    otherPosParam:t="coverPos"
+    radiusParam:t="regroupDistance"
+    yRadius:r=2.5
+  }
+
+  copyPoint3Var{
+    from:t="coverPos"
+    to:t="wishPosition"
+  }
+}
+
+sequencer{
   name:t="sub.checkCover"
 
   checkCover{
@@ -109,6 +140,35 @@ sequencer{
     startPosParam:t="coverPos"
     endPosParam:t="regroupPosition"
     distanceParam:t="coverRegroupDistance"
+  }
+
+  copyPoint3Var{
+    from:t="coverPos"
+    to:t="wishPosition"
+  }
+}
+
+sequencer{
+  name:t="sub.checkCoverAroundPoint"
+
+  getCoverPosition{
+    coverPosParam:t="coverPos"
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  getRegroupDistance{
+    minDist:r=8.0
+    distParam:t="regroupDistance"
+  }
+
+  checkDistance{
+    posParam:t="regroupPosition"
+    otherPosParam:t="coverPos"
+    radiusParam:t="regroupDistance"
+    yRadius:r=2.5
   }
 
   copyPoint3Var{
@@ -733,7 +793,7 @@ sequencer{
 
   subTree{
     name:t=""
-    treeName:t="sub.findCover"
+    refId:t="findCoverRef"
   }
 
   recalculateTree{
@@ -1127,6 +1187,50 @@ sequencer{
   }
 }
 
+sequencer{
+  name:t="sub.getRegroupPosDefault"
+
+  orderedSelector{
+
+    sequencer{
+
+      findDanger{
+        paramName:t="testEnemy"
+        radiusParamName:t="enemyNearRadius"
+        minDanger:r=-1.0
+        tag:t="human"
+      }
+
+      periodicTimer{
+        timeParam:t="onChangeLeaderFollowPos"
+        timePeriod:p2=10.0, 12.5
+      }
+    }
+
+    periodicTimer{
+      timeParam:t="onChangeLeaderFollowPos"
+      timePeriod:p2=30.0, 40.0
+    }
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      findPointInCapzone{
+        posParam:t="regroupPosition"
+      }
+
+      resetNearCapzone{
+      }
+    }
+
+    findPointNearCapzone{
+      posParam:t="regroupPosition"
+    }
+  }
+}
+
 orderedSelector{
   name:t="sub.tryToOpenDoors"
 
@@ -1146,12 +1250,12 @@ orderedSelector{
 
   subTree{
     name:t=""
-    treeName:t="sub.checkCover"
+    refId:t="checkCoverRef"
   }
 
   subTree{
     name:t=""
-    treeName:t="sub.findCover"
+    refId:t="findCoverRef"
   }
 }
 
@@ -1230,18 +1334,6 @@ orderedSelector{
       to:t="resetAIPointsGenerator"
       value:i=1
     }
-  }
-}
-
-orderedSelector{
-  name:t="sub.getRegroupPosDefault"
-
-  findPointInCapzone{
-    posParam:t="regroupPosition"
-  }
-
-  findPointNearCapzone{
-    posParam:t="regroupPosition"
   }
 }
 

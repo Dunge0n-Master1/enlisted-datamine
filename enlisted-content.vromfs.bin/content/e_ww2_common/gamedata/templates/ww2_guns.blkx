@@ -239,6 +239,9 @@ pistol_ww2_preset{
   gun__mass:r=1.5
   gun__adsSpeedMult:r=1.44
   gun__maxSightOffset:r=0.1
+  gun_tps_anim_var__gunOffsetAlong:r=0.2
+  gun_tps_anim_var__gunOffsetAcross:r=0.0
+  gun_tps_anim_var__gunOffsetUp:r=-0.09
 }
 
 launchers_ww2_preset{
@@ -7977,6 +7980,9 @@ ptrs_41_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.0
   meleeSoundType:t="rifle"
+  gun_tps_anim_var__gunOffsetAlong:r=0.06
+  gun_tps_anim_var__gunOffsetAcross:r=0.03
+  gun_tps_anim_var__gunOffsetUp:r=-0.12
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -25447,6 +25453,9 @@ pzb_39_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.0
   meleeSoundType:t="rifle"
+  gun_tps_anim_var__gunOffsetAlong:r=0.07
+  gun_tps_anim_var__gunOffsetAcross:r=0.03
+  gun_tps_anim_var__gunOffsetUp:r=-0.12
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -25600,6 +25609,9 @@ pzb_39_with_two_magazines_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.0
   meleeSoundType:t="rifle"
+  gun_tps_anim_var__gunOffsetAlong:r=0.07
+  gun_tps_anim_var__gunOffsetAcross:r=0.03
+  gun_tps_anim_var__gunOffsetUp:r=-0.12
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -25743,6 +25755,9 @@ pzb_38_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.0
   meleeSoundType:t="rifle"
+  gun_tps_anim_var__gunOffsetAlong:r=0.07
+  gun_tps_anim_var__gunOffsetAcross:r=0.03
+  gun_tps_anim_var__gunOffsetUp:r=-0.12
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -25989,6 +26004,9 @@ grb_39_gun{
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
   meleeSoundType:t="rifle"
+  gun_tps_anim_var__gunOffsetAlong:r=0.07
+  gun_tps_anim_var__gunOffsetAcross:r=0.03
+  gun_tps_anim_var__gunOffsetUp:r=-0.08
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -26419,6 +26437,7 @@ panzerfaust_100_gun{
   _extends:t="reload_wait_bolt_action_finished"
   _extends:t="panzerfaust_100"
   _extends:t="antivehicle_gun_aim_sound"
+  _extends:t="gun_anim_offset_always_in_aim"
   weap__sprintLerpFactor:r=1.0
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -26529,6 +26548,7 @@ panzerfaust_60_gun{
   _extends:t="reload_wait_bolt_action_finished"
   _extends:t="panzerfaust_60"
   _extends:t="antivehicle_gun_aim_sound"
+  _extends:t="gun_anim_offset_always_in_aim"
   weap__sprintLerpFactor:r=1.0
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -27036,6 +27056,7 @@ sturmpistole_gun{
   _extends:t="equipable_gun"
   _extends:t="launchers_ww2_preset"
   _extends:t="sturmpistole"
+  _extends:t="gun_anim_offset_always_in_aim"
   weap__sprintLerpFactor:r=1.0
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25

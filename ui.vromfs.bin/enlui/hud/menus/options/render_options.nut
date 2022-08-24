@@ -34,8 +34,9 @@ let {isBareMinimum} = require("quality_preset_common.nut")
 
 let resolutionToString = @(v) typeof v == "string" ? v : $"{v[0]} x {v[1]}"
 
-let gammaCorrectionSave = getOnlineSaveData("graphics/gamma_correction",
-  @() 1.0,
+let gammaBlkPath = "graphics/gamma_correction"
+let gammaCorrectionSave = getOnlineSaveData(gammaBlkPath,
+  @() get_setting_by_blk_path(gammaBlkPath) ?? 1.0,
   @(p) clamp(p, 0.5, 1.5)
 )
 

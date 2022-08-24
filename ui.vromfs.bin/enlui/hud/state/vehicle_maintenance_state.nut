@@ -3,18 +3,24 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {get_sync_time} = require("net")
 
-let state = {
-  isExtinguishing = Watched(false)
-  isRepairing = Watched(false)
-  maintenanceTime = Watched(0.0)
-  maintenanceTotalTime = Watched(0.0)
-  vehicleRepairTime = Watched(null)
-  isRepairRequired = Watched(false)
-  isExtinguishRequired = Watched(false)
-  hasRepairKit = Watched(false)
-  hasExtinguisher = Watched(false)
-  canMaintainVehicle = Watched(false)
-}
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let defValue = freeze({
+  isExtinguishing = false
+  isRepairing = false
+  maintenanceTime = 0.0
+  maintenanceTotalTime = 0.0
+  vehicleRepairTime = null
+  isRepairRequired = false
+  isExtinguishRequired = false
+  hasRepairKit = false
+  hasExtinguisher = false
+  canMaintainVehicle = false
+})
+
+let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
+let { exportState } = watchedTable2TableOfWatched({state, defValue, plainOut=false})
+
 
 let maintenanceTargetQuery = ecs.SqQuery("maintenanceTargetQuery", {
   comps_ro = [
@@ -32,45 +38,43 @@ ecs.register_es("ui_maintenance_es",
       let isHeroExtinguishing = comp["extinguisher__active"]
       let isHeroRepairing = comp["repair__active"]
       let mntTgtEid = comp["maintenance__target"]
-
-      state.isExtinguishing(isHeroExtinguishing)
-      state.isRepairing(isHeroRepairing)
-      state.hasRepairKit(comp.repair__hasRepairKit)
-      state.hasExtinguisher(comp.extinguisher__hasExtinguisher)
-      state.canMaintainVehicle(comp.maintenance__canMaintainVehicle)
+      let res = {
+        isExtinguishing = isHeroExtinguishing
+        isRepairing = isHeroRepairing
+        hasRepairKit = comp.repair__hasRepairKit
+        hasExtinguisher = comp.extinguisher__hasExtinguisher
+        canMaintainVehicle = comp.maintenance__canMaintainVehicle
+      }
       if (mntTgtEid != INVALID_ENTITY_ID){
-        state.isRepairRequired(comp.maintenance__targetNeedsRepair)
-        state.isExtinguishRequired(comp.maintenance__targetNeedsExtinguishing)
+        res.isRepairRequired <- comp.maintenance__targetNeedsRepair
+        res.isExtinguishRequired <- comp.maintenance__targetNeedsExtinguishing
         maintenanceTargetQuery.perform(mntTgtEid, function(_eid, comp){
-          state.vehicleRepairTime((comp["repairable__inProgress"] && isHeroRepairing) ? comp["repairable__repairTime"] : null)
+          res.vehicleRepairTime <- ((comp["repairable__inProgress"] && isHeroRepairing) ? comp["repairable__repairTime"] : null)
           if (comp["extinguishable__inProgress"] && isHeroExtinguishing) {
-            state.maintenanceTime(comp["extinguishable__extinguishTime"] + get_sync_time())
-            state.maintenanceTotalTime(comp["extinguishable__extinguishTotalTime"])
-          } else if (comp["repairable__inProgress"] && isHeroRepairing) {
-            state.maintenanceTime(comp["repairable__repairTime"] + get_sync_time())
-            state.maintenanceTotalTime(comp["repairable__repairTotalTime"])
-          } else {
-            state.maintenanceTime(0.0)
-            state.maintenanceTotalTime(0.0)
+            res.maintenanceTime <- comp["extinguishable__extinguishTime"] + get_sync_time()
+            res.maintenanceTotalTime <- comp["extinguishable__extinguishTotalTime"]
+          }
+          else if (comp["repairable__inProgress"] && isHeroRepairing) {
+            res.maintenanceTime <- comp["repairable__repairTime"] + get_sync_time()
+            res.maintenanceTotalTime <- comp["repairable__repairTotalTime"]
+          }
+          else {
+            res.maintenanceTime <- 0.0
+            res.maintenanceTotalTime <- 0.0
           }
         })
-      } else {
-        state.isRepairRequired(false)
-        state.isExtinguishRequired(false)
-        state.vehicleRepairTime(null)
-        state.maintenanceTime(0.0)
-        state.maintenanceTotalTime(0.0)
       }
+      else {
+        res.isRepairRequired <- false
+        res.isExtinguishRequired <- false
+        res.vehicleRepairTime <- null
+        res.maintenanceTime <- 0.0
+        res.maintenanceTotalTime <- 0.0
+      }
+      stateSetValue(res)
     },
     function onDestroy(...){
-      state.vehicleRepairTime(null)
-      state.maintenanceTime(0.0)
-      state.isRepairing(false)
-      state.isExtinguishing(false)
-      state.isRepairRequired(false)
-      state.isExtinguishRequired(false)
-      state.hasRepairKit(false)
-      state.canMaintainVehicle(false)
+      stateSetValue(defValue)
     }
   },
   {
@@ -88,4 +92,4 @@ ecs.register_es("ui_maintenance_es",
   }
 )
 
-return state
+return exportState

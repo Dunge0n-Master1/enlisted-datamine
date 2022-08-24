@@ -4,6 +4,7 @@ let {isInternalCircuit} = require("%dngscripts/appInfo.nut")
 let {readPermissions} = require("%enlSqGlob/permission_utils.nut")
 let {has_network, INVALID_CONNECTION_ID} = require("net")
 let {find_human_player_by_connid, find_local_player} = require("%dngscripts/common_queries.nut")
+let {debug} = require("dagor.debug")
 
 const LOCAL_PERM = "local."
 
@@ -24,26 +25,34 @@ ecs.register_es("read_dedicated_permissions",
   {
     [ecs.sqEvents.EventSqDedicatedPermissions] = function(evt,eid,comp){
       let senderEid = has_network()
-          ? find_human_player_by_connid(evt?.fromconnid ?? INVALID_CONNECTION_ID)
+          ? find_human_player_by_connid(evt.data?.fromconnid ?? INVALID_CONNECTION_ID)
           : find_local_player()
 
       if (senderEid!=eid)
         return
 
-      if (comp.userid > 0)
-        permissions[comp.userid] <- readPermissions(evt.data.jwt, comp.userid)
-      }
+      if (comp.userid <= 0)
+        return
+
+      let userPermissions = readPermissions(evt.data.jwt, comp.userid)
+      let userPermissionsStr = ", ".join(userPermissions.value)
+      debug($"Read dedicated permissions: [{userPermissionsStr}] for user {comp.userid}")
+      permissions[comp.userid] <- userPermissions
+    }
   },
-  {comps_rq=["player"], comps_ro = [["userid", ecs.TYPE_UINT64]]}
+  {
+    comps_rq=["player"],
+    comps_ro = [["userid", ecs.TYPE_UINT64]]
+  },
+  {tags = "server"}
 )
 
 
 if (!isDedicated) { //we need code only on client in both offline and network mode
   let userInfo = require("%enlSqGlob/userInfo.nut")
-  let {EventLevelLoaded} = require("gameevents")
   ecs.register_es("send_dedicated_permissions",
     {
-      [EventLevelLoaded] = function(eid, comp) {
+      [["onInit", "onChange"]] = function(eid, comp) {
         if (!comp.is_local)
           return
 
@@ -51,10 +60,15 @@ if (!isDedicated) { //we need code only on client in both offline and network mo
         if (dedicatedPermJwt==null)
           return
 
+        debug($"Send dedicated permissions for user: {userInfo.value.userId}")
         ecs.client_send_event(eid, ecs.event.EventSqDedicatedPermissions({jwt = dedicatedPermJwt}))
       }
     },
-    {comps_rq=["player"], comps_ro=[["is_local", ecs.TYPE_BOOL]]}
+    {
+      comps_rq=["player"],
+      comps_track = [["connid",ecs.TYPE_INT], ["is_local", ecs.TYPE_BOOL]]
+    },
+    {tags = "gameClient"}
   )
 }
 

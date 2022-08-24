@@ -9,31 +9,46 @@ let {TEAM_UNASSIGNED} = require("team")
   player can change heros and avatars (by respawn or something). Avatar can be dead and than ressurrect. Player is USER. Avatar is game changeable entity.
   One avatar\hero is controlled by one player (most likely), but player can have NO Avatars for example at all.
 */
+let oldWatchedHero = persist("oldWatchedHero" @(){eid=INVALID_ENTITY_ID, team = TEAM_UNASSIGNED})
+let oldWatchedHeroPlayer = persist("oldWatchedHeroPlayer" @(){v=INVALID_ENTITY_ID})
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+
+let whDefValue = freeze({
+  watchedHeroEid = oldWatchedHero.eid
+  watchedHeroTeam = oldWatchedHero.team
+})
+let { whState, whStateSetValue } = mkFrameIncrementObservable(whDefValue, "whState")
+let { watchedHeroEid, watchedHeroTeam} = watchedTable2TableOfWatched({state=whState, defValue=whDefValue})
+
+let { watchedHeroPlayerEid, watchedHeroPlayerEidSetValue } = mkFrameIncrementObservable(oldWatchedHeroPlayer.v, "watchedHeroPlayerEid")
 
 
-let watchedHeroEid = Watched(INVALID_ENTITY_ID)//watchedHeroEidmkWatched(persist, "watchedHeroEid", INVALID_ENTITY_ID)
-let watchedHeroTeam = Watched(TEAM_UNASSIGNED)//mkWatched(persist, "watchedHeroTeam", TEAM_UNASSIGNED)
-let watchedHeroPlayerEid = Watched(INVALID_ENTITY_ID)//mkWatched(persist, "watchedHeroPlayerEid", INVALID_ENTITY_ID)
 let watchedTeam = Computed(@() watchedHeroEid.value != INVALID_ENTITY_ID ? watchedHeroTeam.value : localPlayerTeam.value)
 
 ecs.register_es("watched_hero_player_eid_es", {
-  onInit = function(_eid, comp){ watchedHeroPlayerEid.update(comp["possessedByPlr"] ?? INVALID_ENTITY_ID) }
-  onChange = function(_eid, comp){ watchedHeroPlayerEid.update(comp["possessedByPlr"] ?? INVALID_ENTITY_ID)}
-  onDestroy = @() watchedHeroPlayerEid(INVALID_ENTITY_ID)
+  [["onInit","onChange"]] = function(_, _eid, comp){
+    let w = comp["possessedByPlr"] ?? INVALID_ENTITY_ID
+    watchedHeroPlayerEidSetValue(w)
+    oldWatchedHeroPlayer.v=w
+  }
+  onDestroy = @() watchedHeroPlayerEidSetValue(INVALID_ENTITY_ID)
 }, {comps_track=[["possessedByPlr", ecs.TYPE_EID]],comps_rq=[["watchedByPlr", ecs.TYPE_EID]]})
 
 
 ecs.register_es("watched_hero_eid_es", {
   onInit = function(_, eid, comp) {
     log("watchedHeroEid:" eid)
-    watchedHeroEid.update(eid)
-    watchedHeroTeam(comp.team)
+    oldWatchedHero.eid = eid
+    oldWatchedHero.team = comp.team
+    whStateSetValue({
+      watchedHeroEid = eid
+      watchedHeroTeam = comp.team
+    })
   }
-  onDestroy = function(eid, _comp) {
-    if (watchedHeroEid.value == eid) {
-      watchedHeroEid.update(INVALID_ENTITY_ID)
-      watchedHeroTeam(TEAM_UNASSIGNED)
-    }
+  onDestroy = function(_, eid, _comp) {
+    if (watchedHeroEid.value == eid)
+      whStateSetValue(whDefValue)
   }
 }, {comps_rq=[["watchedByPlr", ecs.TYPE_EID]], comps_ro = [["team", ecs.TYPE_INT, TEAM_UNASSIGNED]]})
 

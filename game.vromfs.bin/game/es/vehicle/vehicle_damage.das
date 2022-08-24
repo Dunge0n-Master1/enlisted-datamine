@@ -48,11 +48,11 @@ def process_damage_to_part(partId : int;
 def vehicle_damage_part_type_damaged_es(evt : EventOnVehiclePartTypeDamaged;
                                         vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
-    let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-    let isPlayer = get_bool(seatEid, "seat__isPlayer") ?? false
-    if isPlayer
+    query(seatEid) <| $ [es] (seat__isPlayer : bool; seat__ownerEid : EntityId)
+      if !seat__isPlayer || has(seat__ownerEid, "deadEntity")
+        return
       let msgLocId = evt.isDestroyed ? "{evt.partType}DamageDestroyed" : "{evt.partType}Damage"
-      sendEvent(ownerEid, [[CmdHeroLogEvent event="vehicle_part_damaged", text="vehicle/{msgLocId}", ttl=5]])
+      sendEvent(seat__ownerEid, [[CmdHeroLogEvent event="vehicle_part_damaged", text="vehicle/{msgLocId}", ttl=5]])
 
 def gather_part_ids(gunEids; var horDriveDmList, verDriveDmList, barrelAndBreechDmList : array<int>)
   for turretEid in gunEids

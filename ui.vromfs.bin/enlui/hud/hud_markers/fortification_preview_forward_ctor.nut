@@ -16,7 +16,7 @@ let defScale = freeze({
 })
 let deftransform = {}
 
-let ctor = memoize(function(eid) {
+let function ctor(eid) {
   let yawRotation = fortificationPreviewForwardArrowsGetWatched(eid)
   return @(){
     data = { eid }
@@ -32,11 +32,12 @@ let ctor = memoize(function(eid) {
       }
     }
   }
-})
+}
 
+let memoizedMap = mkMemoizedMapSet(ctor)
 return {
   fortification_preview_forward_ctor = {
     watch =  fortificationPreviewForwardArrowsSet
-    ctor = @() fortificationPreviewForwardArrowsSet.value.keys().map(ctor)
+    ctor = @() memoizedMap(fortificationPreviewForwardArrowsSet.value).values()
   }
 }

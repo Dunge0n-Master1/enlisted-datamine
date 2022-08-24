@@ -16,12 +16,13 @@ let victimState = mkWatched(persist, "victimVehicleHp", {
   effects = 0
 })
 
-let heroState = mkWatched(persist, "heroVehicleHp", {
+let defHeroState = {
   vehicle = INVALID_ENTITY_ID
   hp = 0.0
   maxHp = 0.0
   isBurn = false
-})
+}
+let heroState = Watched(defHeroState)
 
 ecs.register_es("ui_vehicle_hp_es", {
   [EventOnVehicleDamaged] = function(evt, _eid, _comp) {
@@ -67,27 +68,18 @@ ecs.register_es("ui_vehicle_hp_es", {
 {comps_rq=["hero"]})
 
 let function trackHeroVehicle(eid, comp) {
-  heroState.mutate(function(v) {
-    v.vehicle = eid
-    v.hp = ceil(comp["vehicle__hp"]).tointeger()
-    v.maxHp = ceil(comp["vehicle__maxHp"]).tointeger()
-    v.isBurn = comp["fire_damage__isBurn"]
+  heroState.update({
+    vehicle = eid
+    hp = ceil(comp["vehicle__hp"]).tointeger()
+    maxHp = ceil(comp["vehicle__maxHp"]).tointeger()
+    isBurn = comp["fire_damage__isBurn"]
   })
 }
-
-let resetHeroVehicle = @()
-  heroState.update({
-    vehicle = INVALID_ENTITY_ID
-    hp = 0.0
-    maxHp = 0.0
-    isBurn = false
-  })
-
+let resetHeroVehicle = @(...) heroState.update(defHeroState)
 ecs.register_es("ui_hero_vehicle_hp_es", {
   onInit = trackHeroVehicle,
   onChange = trackHeroVehicle,
   onDestroy = resetHeroVehicle,
-  [ecs.EventComponentsDisappear] = resetHeroVehicle,
 },
 {
   comps_ro=[

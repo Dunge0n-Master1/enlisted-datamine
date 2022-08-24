@@ -37,6 +37,10 @@ let itemTypesData = {
     svg = "semiauto_rifle.svg"
     isWeapon = true
   }
+  carbine_pistol = {
+    svg = "semiauto_rifle.svg"
+    isWeapon = true
+  }
 
   boltaction = {
     svg = "sniper_rifle.svg"

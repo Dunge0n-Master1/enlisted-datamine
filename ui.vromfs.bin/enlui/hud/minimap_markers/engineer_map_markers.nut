@@ -9,7 +9,7 @@ let customSpawnColor = Color(255, 255, 255)
 let missionSpawnColor = Color(86,131,212,250)
 
 let size = [iconSz, iconSz]
-let mkRespawnMapMarker = memoize(function(eid, transform) {
+let mkRespawnMapMarker = function(eid, transform) {
   let data = freeze({
     eid
     minDistance = 0.7
@@ -35,12 +35,10 @@ let mkRespawnMapMarker = memoize(function(eid, transform) {
       } : null
     }
   }
-})
+}
 
+let memoizedMapByTransform = memoize(@(transform) mkMemoizedMapSet(@(eid) mkRespawnMapMarker(eid, transform)))
 return {
   watch = respawn_markers_Set
-  ctor = function(p) {
-    let transform = p?.transform
-    return respawn_markers_Set.value.keys().map(@(eid) mkRespawnMapMarker(eid, transform))
-  }
+  ctor = @(p) memoizedMapByTransform(p?.transform)(respawn_markers_Set.value).values()
 }

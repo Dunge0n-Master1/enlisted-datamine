@@ -7,11 +7,11 @@ let {get_user_id} = require("net")
 let logObs = require("%enlSqGlob/library_logs.nut").with_prefix("[OBSERVER]")
 
 const INVALID_USER_ID = 0
+const UNDEFINEDNAME = "?????"
 
 let localPlayerUserId = mkWatched(persist, "localPlayerUserId", INVALID_USER_ID)
 let localPlayerEid = mkWatched(persist, "localPlayerEid", INVALID_ENTITY_ID)
 let localPlayerSpecTarget = mkWatched(persist, "localPlayerSpecTarget", INVALID_ENTITY_ID)
-const UNDEFINEDNAME = "?????"
 let localPlayerName = mkWatched(persist, "localPlayerName", UNDEFINEDNAME)
 let localPlayerTeam = mkWatched(persist, "localPlayerTeam", TEAM_UNASSIGNED)
 let localPlayerGroupId = mkWatched(persist, "localPlayerGroupId", INVALID_GROUP_ID)

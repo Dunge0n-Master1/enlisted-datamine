@@ -50,7 +50,7 @@ let mkBlinkAnimation = @(trigger) {
     animations = [{ prop=AnimProp.color, from=Color(200,50,50,250), to=Color(255,200,200), duration=0.5, trigger, loop=true, easing=Blink }]
 }
 
-let map_unit_ctor = memoize(function(eid, showHero=false) {
+let map_unit_ctor = function(eid, showHero=false) {
   let data = {
     eid
     dirRotate = true
@@ -101,9 +101,9 @@ let map_unit_ctor = memoize(function(eid, showHero=false) {
       watch
     }
   }
-})
+}
 
-let groupmate_number_ctor = memoize(function(eid) {
+let groupmate_number_ctor = function(eid) {
   let markerState = groupmatesAvatarsGetWatched(eid)
   let watch = [markerState, hudMarkerEnable]
   let data = { eid, dirRotate = false}
@@ -120,9 +120,9 @@ let groupmate_number_ctor = memoize(function(eid) {
       children = mkTextPlayerGroupmate((ecs.obsolete_dbg_get_comp_val(markerState.value?.possessedByPlr, "player_group__memberIndex") ?? 0) + 1)
     }
   }
-})
+}
 
-let groupmate_marker_ctor = memoize(function(eid) {
+let function groupmate_marker_ctor(eid) {
   let markerState = groupmatesAvatarsGetWatched(eid)
   let watch = [markerState, hudMarkerEnable]
   let data = {eid, dirRotate = true}
@@ -142,19 +142,25 @@ let groupmate_marker_ctor = memoize(function(eid) {
       children
     }
   }
-})
+}
 
+let memoizedMapNumbers = mkMemoizedMapSet(groupmate_number_ctor)
+let memoizedMapMarkers = mkMemoizedMapSet(groupmate_marker_ctor)
+let memoizedMapShowHero = mkMemoizedMapSet(@(eid) map_unit_ctor(eid, true))
+let memoizedMapNoHero = mkMemoizedMapSet(@(eid) map_unit_ctor(eid, false))
 return {
   groupmatesNumbers = {
     watch = groupmatesAvatarsSet
-    ctor = @(_) groupmatesAvatarsSet.value.keys().map(groupmate_number_ctor)
+    ctor = @(_) memoizedMapNumbers(groupmatesAvatarsSet.value).values()
   }
   groupmatesMarkers = {
     watch = groupmatesAvatarsSet
-    ctor = @(_) groupmatesAvatarsSet.value.keys().map(groupmate_marker_ctor)
+    ctor = @(_) memoizedMapMarkers(groupmatesAvatarsSet.value).values()
   }
   teammatesMarkers = {
     watch = teammatesAvatarsNotGroupmatesSet
-    ctor = @(p) teammatesAvatarsNotGroupmatesSet.value.keys().map(@(eid) map_unit_ctor(eid, p?.showHero))
+    ctor = @(p) p?.showHero
+      ? memoizedMapShowHero(teammatesAvatarsNotGroupmatesSet.value).values()
+      : memoizedMapNoHero(teammatesAvatarsNotGroupmatesSet.value).values()
   }
 }

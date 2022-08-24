@@ -8,6 +8,7 @@ let colorize = require("%ui/components/colorize.nut")
 let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
 let { curArmy, curSquadId, curSquad, curSquadParams, curVehicle, objInfoByGuid
 } = require("model/state.nut")
+let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
 let { curArmyReserve, needSoldiersManageBySquad } = require("model/reserve.nut")
 let { mkSoldiersDataList } = require("model/collectSoldierData.nut")
 let { notChoosenPerkSoldiers, perksData } = require("model/soldierPerks.nut")
@@ -176,6 +177,7 @@ return function() {
     size = [SIZE_TO_CONTENT, flex()]
     children = mkMainSoldiersBlock({
       soldiersListWatch = squadListWatch
+      expToLevelWatch = Computed(@() perkLevelsGrid.value?.expToLevel)
       hasVehicleWatch = Computed(@() hasSquadVehicle(curSquad.value))
       seatsOrderWatch
       curSoldierIdxWatch = curSoldierIdx

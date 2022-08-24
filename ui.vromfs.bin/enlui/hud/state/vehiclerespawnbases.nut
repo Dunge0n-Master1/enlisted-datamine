@@ -1,8 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let state = mkWatched(persist, "vehicleRespawnBases", {eids=[] byType={}})
-let trackRespawnBases = mkWatched(persist, "trackRespawnBases", [])
+let state = Watched({eids=[] byType={}})
+let trackRespawnBases = Watched([])
 
 let function doTrack() {
   state.mutate(function (st) {

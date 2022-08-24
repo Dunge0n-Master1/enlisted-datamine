@@ -138,6 +138,12 @@ let Mutator = class{
     this.val = v
   }
 }
+let Modifier = class{
+  mod = null
+  constructor(v){
+    this.mod = v
+  }
+}
 let DeleteKey = class{
   key = null
   constructor(k){
@@ -162,6 +168,9 @@ let function mkFrameIncrementObservable(defValue = null, name = null){
       }
       else if (klass == Mutator) {
         newVal.val(newResVal)
+      }
+      else if (klass == Modifier) {
+        newResVal = newVal.mod(newResVal)
       }
       else
         newResVal = newVal
@@ -191,9 +200,18 @@ let function mkFrameIncrementObservable(defValue = null, name = null){
     valsToSet.append(Mutator(val))
     frameUpdateCounter.subscribe(updateFunc)
   }
+  let function modify(val){
+    valsToSet.append(Modifier(val))
+    frameUpdateCounter.subscribe(updateFunc)
+  }
   if (name==null)
-    return {state = res, setValue, setKeyVal, deleteKey, mutate}
-  return {[name] = res, [$"{name}SetValue"]=setValue, [$"{name}SetKeyVal"] = setKeyVal, [$"{name}DeleteKey"] = deleteKey, [$"{name}Mutate"]=mutate}
+    return {state = res, setValue, setKeyVal, deleteKey, mutate, modify}
+  return {
+    [name] = res,
+    [$"{name}SetValue"]=setValue, [$"{name}SetKeyVal"] = setKeyVal,
+    [$"{name}DeleteKey"] = deleteKey, [$"{name}Mutate"] = mutate,
+    [$"{name}Modify"] = modify
+  }
 }
 
 return {

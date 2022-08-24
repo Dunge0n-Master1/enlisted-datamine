@@ -4,7 +4,7 @@ let faComp = require("%ui/components/faComp.nut")
 let {body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
 let {HUD_TIPS_HOTKEY_FG, FAIL_TEXT_COLOR, DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let heroVehicleState = require("%ui/hud/state/vehicle_hp.nut").hero
-let {vehicleTurrets, turretsReload, turretsAmmo, showVehicleWeapons, mainTurretAmmoSets} = require("%ui/hud/state/vehicle_turret_state.nut")
+let {vehicleTurrets, turretsReload, turretsAmmo, showVehicleWeapons} = require("%ui/hud/state/vehicle_turret_state.nut")
 let { generation } = require("%ui/hud/menus/controls_state.nut")
 let vehicleWeaponWidget = require("vehicle_weapon_widget.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -182,7 +182,7 @@ let function vehicleTurretBlock(turret, idx) {
       })
     })
     return {
-      watch = [mainTurretAmmoSets, isGamepad]
+      watch = [isGamepad]
       size = SIZE_TO_CONTENT
       flow = FLOW_VERTICAL
       gap = gap
@@ -243,7 +243,7 @@ return function() {
   let turrets = showVehicleWeapons.value ? {
     flow = FLOW_VERTICAL
     gap = gap
-    children = vehicleTurrets.value.turrets.map(vehicleTurretBlock)
+    children = vehicleTurrets.value.map(vehicleTurretBlock)
   } : null
 
   return {

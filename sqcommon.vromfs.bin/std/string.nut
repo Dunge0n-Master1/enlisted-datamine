@@ -894,6 +894,7 @@ return {
   floatToStringRounded
   isStringInteger
   isStringFloat
+  isStringLatin = @(str) regexp(@"[a-z,A-Z]*").match(str)
   intToUtf8Char
   toUpper
   toLower

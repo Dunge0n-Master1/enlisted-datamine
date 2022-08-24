@@ -13,7 +13,7 @@ local netstats = {
 }
 */
 
-let connectivity = mkWatched(persist, "connectivity", CONNECTIVITY_OK)
+let connectivity = Watched(CONNECTIVITY_OK)
 
 ecs.register_es("hud_network_ui_es", {
   [["onChange", "onInit"]] = function(_eid, comp) {

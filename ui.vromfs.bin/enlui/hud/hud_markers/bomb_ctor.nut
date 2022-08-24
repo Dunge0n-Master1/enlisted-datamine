@@ -31,7 +31,7 @@ let children = [
   makeArrow({color = colorRed, anim = bombAnim, yOffs = 0, pos = [0, -fsh(1.8)]})
 ]
 
-let bombMarker= memoize(function(eid) {
+let function bombMarker(eid) {
   let state = active_bombs_GetWatched(eid)
   let watch = [watchedHeroEid, state]
   return function() {
@@ -65,8 +65,11 @@ let bombMarker= memoize(function(eid) {
       children
     }
   }
-})
-
+}
+let memoizedMap = mkMemoizedMapSet(bombMarker)
 return {
-  bomb_ctor = {watch = active_bombs_Set, ctor = @() active_bombs_Set.value.keys().map(bombMarker)}
+  bomb_ctor = {
+    watch = active_bombs_Set
+    ctor = @() memoizedMap(active_bombs_Set.value).values()
+  }
 }

@@ -47,7 +47,8 @@ let function mkMarker(eid) {
   }
 }
 
+let memoizedMap = mkMemoizedMapSet(mkMarker)
 return {
   watch = vehicle_markers_Set
-  ctor = @(_) vehicle_markers_Set.value.keys().map(mkMarker)
+  ctor = @(_) memoizedMap(vehicle_markers_Set.value).values()
 }

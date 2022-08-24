@@ -5,6 +5,7 @@ let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
 let {
   soldiersList, curSoldierIdx, canSpawnOnVehicleBySquad, vehicleInfo, squadIndexForSpawn
 } = require("%ui/hud/state/respawnState.nut")
+let armyData = require("%ui/hud/state/armyData.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
@@ -35,6 +36,7 @@ let function addCardChild(soldier, _isSelected) {
 
 return mkMainSoldiersBlock({
   soldiersListWatch = soldiersList
+  expToLevelWatch = Computed(@() armyData.value?.expToLevel)
   seatsOrderWatch
   hasVehicleWatch = Computed(@() vehicleInfo.value != null)
   curSoldierIdxWatch = curSoldierIdx

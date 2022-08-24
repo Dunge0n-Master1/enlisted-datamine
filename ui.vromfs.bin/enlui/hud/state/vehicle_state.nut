@@ -1,56 +1,58 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
 /*
 //tag heroVehicle exists in vehicle controlled by players
 //human_anim.vehicleSelected is eid in controlled human that shows vehicle that player is seated in
 */
+let inVehicleDefValue = freeze({
+  inTank = false
+  inPlane = false
+  inShip = false
+  inGroundVehicle = false
+  isVehicleAlive = false
+  controlledVehicleEid = INVALID_ENTITY_ID
+})
 
-let inTank = Watched(false)
-let inPlane = Watched(false)
-let inShip = Watched(false)
-let inGroundVehicle = Watched(false)
-let isVehicleAlive = Watched(false)
+let { inVehicleState, inVehicleStateSetValue } = mkFrameIncrementObservable(inVehicleDefValue, "inVehicleState")
+let {
+  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, controlledVehicleEid
+} = watchedTable2TableOfWatched({state=inVehicleState, defValue=inVehicleDefValue})
 
-let state = {
-  isDriver = Watched(false)
-  isGunner = Watched(false)
-  isPassenger = Watched(false)
-  isPlayerCanEnter = Watched(true)
-  isPlayerCanExit = Watched(true)
-  isSafeToExit = Watched(true)
-  isHighSpeedWarningEnabled = Watched(false)
+let rolesDefValue = freeze({
+  isDriver = false
+  isGunner = false
+  isPassenger = false
+})
 
-  controlledVehicleEid = Watched(INVALID_ENTITY_ID)
-  inGroundVehicle = inGroundVehicle
-  inPlane = inPlane
-  inTank = inTank
-  inShip = inShip
-  isVehicleAlive = isVehicleAlive
-}
-state.inVehicle <- Computed(@() inGroundVehicle.value || inPlane.value)
+let { rolesState, rolesStateSetValue } = mkFrameIncrementObservable(rolesDefValue, "rolesState")
+let { rolesExport } = watchedTable2TableOfWatched({state=rolesState, defValue=rolesDefValue, plainOut=false, name="rolesExport"})
+
+let actionsDefValue = freeze({
+  isPlayerCanEnter = true
+  isPlayerCanExit = true
+  isSafeToExit = true
+  isHighSpeedWarningEnabled = false
+})
+let { actionsState, actionsStateSetValue } = mkFrameIncrementObservable(actionsDefValue, "actionsState")
+let { actionsExport } = watchedTable2TableOfWatched({state=actionsState, defValue=actionsDefValue, plainOut=false, name="actionsExport"})
 
 ecs.register_es("ui_in_vehicle_eid_es",
   {
     [["onChange", "onInit"]] = function (eid, comp) {
-      state.controlledVehicleEid(eid)
       let inPlaneC = comp["airplane"] != null
       let inTankC = comp["isTank"] != null
       let inShipC = comp["ship"] != null
-      state.inPlane(inPlaneC)
-      state.inGroundVehicle(!inPlaneC)
-      state.inTank(inTankC)
-      state.inShip(inShipC)
-
-      state.isVehicleAlive(comp["isAlive"])
+      inVehicleStateSetValue({
+        inPlane=inPlaneC, inTank = inTankC, inShip=inShipC, inGroundVehicle=!inPlaneC,
+        isVehicleAlive = comp["isAlive"]
+        controlledVehicleEid = eid
+      })
     },
     function onDestroy(){
-      state.inPlane(false)
-      state.inGroundVehicle(false)
-      state.inTank(false)
-      state.inShip(false)
-      state.controlledVehicleEid(INVALID_ENTITY_ID)
-      state.isVehicleAlive(false)
+      inVehicleStateSetValue(inVehicleDefValue)
     }
   },
   {
@@ -69,14 +71,18 @@ ecs.register_es("ui_in_vehicle_eid_es",
 ecs.register_es("ui_vehicle_role_es",
   {
     [["onChange", "onInit"]] = function (_eid, comp) {
-      state.isDriver(comp["isDriver"] && comp["isInVehicle"])
-      state.isGunner(comp["isGunner"] && comp["isInVehicle"])
-      state.isPassenger(comp["isPassenger"] && comp["isInVehicle"])
+      if (comp["isInVehicle"])
+        rolesStateSetValue({
+          isDriver = comp["isDriver"]
+          isGunner = comp["isGunner"]
+          isPassenger = comp["isPassenger"]
+        })
+      else
+        rolesStateSetValue(rolesDefValue)
+
     },
     function onDestroy() {
-      state.isDriver(false)
-      state.isGunner(false)
-      state.isPassenger(false)
+      rolesStateSetValue(rolesDefValue)
     }
   },
   {
@@ -101,17 +107,16 @@ ecs.register_es("ui_vehicle_state_es",
   {
     [["onChange", "onInit", "onUpdate"]] = function (_, comp) {
       findUseEntityQuery(comp.useActionEid, function(_, vehicleComp) {
-        state.isPlayerCanEnter(vehicleComp["vehicle__isPlayerCanEnter"])
-        state.isPlayerCanExit(vehicleComp["vehicle__isPlayerCanExit"])
-        state.isSafeToExit(vehicleComp["plane_view__tas"] < 1.0)
-        state.isHighSpeedWarningEnabled(vehicleComp.vehicle__isHighSpeedWarningEnabled)
+        actionsStateSetValue({
+          isPlayerCanEnter = vehicleComp["vehicle__isPlayerCanEnter"]
+          isPlayerCanExit = vehicleComp["vehicle__isPlayerCanExit"]
+          isSafeToExit = vehicleComp["plane_view__tas"] < 1.0
+          isHighSpeedWarningEnabled = vehicleComp["vehicle__isHighSpeedWarningEnabled"]
+        })
       })
     },
     function onDestroy() {
-      state.isPlayerCanEnter(true)
-      state.isPlayerCanExit(true)
-      state.isSafeToExit(true)
-      state.isHighSpeedWarningEnabled(false)
+      actionsStateSetValue(actionsDefValue)
     }
   },
   {
@@ -123,4 +128,7 @@ ecs.register_es("ui_vehicle_state_es",
   { updateInterval = 0.5, before="*", after="*" }
 )
 
-return state
+return rolesExport.__merge(actionsExport, {
+  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, controlledVehicleEid
+  inVehicle = Computed(@() inGroundVehicle.value || inPlane.value)
+})

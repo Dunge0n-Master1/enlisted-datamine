@@ -1,73 +1,77 @@
 from "%enlSqGlob/ui_library.nut" import *
-
 let {
-  unlocksSorted, emptyProgress, unlockProgress, allUnlocks, DAILY_TASK_KEY
+  unlocksSorted, emptyProgress, unlockProgress, DAILY_TASK_KEY
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let statsInGame = require("%ui/hud/state/userstatStateInBattle.nut")
 
-let isEvent = Computed(@() statsInGame.value?.modes.contains("endgame_events") ?? false)
-
-let isActiveWeeklyTask = @(u) (u?.meta.weekly_unlock ?? false)
-  && !(u?.isFinished ?? false)
-
-let getTaskFilter = @(u) (u?.meta.isVisibleInBattle ?? true) && isEvent.value
-  ? (u?.meta.event_unlock ?? false)
-  : u.table == DAILY_TASK_KEY || isActiveWeeklyTask(u)
-
-let unlockProgressInBattle = Computed(function() {
-  return unlockProgress.value.map(function(progress, name) {
-    let { stat = null, mode = null } = allUnlocks.value?[name].meta
-    if (mode != null && statsInGame.value?.modes.contains(mode)) {
-      let statToCheck = typeof stat == "array" ? stat : [stat]
-      let inGameStat = statToCheck.reduce(@(res, s) (statsInGame.value?[s] ?? 0) + res, 0)
-      let current = min((progress?.current ?? 0) + inGameStat, progress.required)
-      return progress.__merge({current, isCompleted = current >= progress.required})
-    }
-    return progress
-  })
+let inGameModes = Computed(function(prev) {
+  let res = {}
+  foreach(mode in statsInGame.value?.modes ?? [])
+    res[mode] <- true
+  return isEqual(prev, res) ? prev : res
 })
+let isEvent = Computed(@() inGameModes.value?.endgame_events ?? false)
 
-let getNextUnlock = @(unlockName, unlocks)
-  unlocks.findvalue(@(u) (u?.requirement ?? "") == unlockName)
+let function appendAllSteps(res, unlockName, step, byRequirement) {
+  if (unlockName not in byRequirement)
+    return step - 1
+  local totalSteps = step
+  foreach(unlock in byRequirement[unlockName]) {
+    let curTotal = appendAllSteps(res, unlock.name, step + 1, byRequirement)
+    res.append(unlock.__merge({ step, totalSteps = curTotal }))
+    totalSteps = max(totalSteps, curTotal)
+  }
+  return totalSteps
+}
 
-let eventUnlocks = Computed(function() {
-  let progresses = unlockProgress.value
-  let unlocks = unlocksSorted.value.filter(@(u) u?.meta.event_unlock ?? false)
-  let startUnlocks = unlocks.filter(@(u) (u?.requirement ?? "") == "")
-    .sort(@(a,b) a?.meta.taskListPlace == null ? 1
-      : b?.meta.taskListPlace == null ? -1
-      : a.meta.taskListPlace <=> b.meta.taskListPlace)
+let battleUnlocks = Computed(function() {
+  let filterFunc = isEvent.value ? @(u) u?.meta.event_unlock ?? false
+    : @(u) (u?.meta.isVisibleInBattle ?? true) && (u.table == DAILY_TASK_KEY || (u?.meta.weekly_unlock ?? false))
+  let unlocks = unlocksSorted.value.filter(filterFunc)
+  if (!isEvent.value)
+    return unlocks
+
+  let byRequirement = {}
+  foreach(u in unlocks) {
+    let requirement = u?.requirement ?? ""
+    if (requirement not in byRequirement)
+      byRequirement[requirement] <- []
+    byRequirement[requirement].append(u)
+  }
+
   let res = []
-  foreach (unlock in startUnlocks) {
-    local step = 1
-    res.append(unlock.__merge({ step }, progresses?[unlock.name] ?? emptyProgress))
-    local nextUnlock = getNextUnlock(unlock.name, unlocks)
-    while (nextUnlock != null) {
-      step++
-      res.append(nextUnlock.__merge({ step }, progresses?[nextUnlock.name] ?? emptyProgress))
-      nextUnlock = getNextUnlock(nextUnlock.name, unlocks)
-    }
-  }
-
-  local totalSteps = 1
-  for (local i = res.len() - 1; i >= 0; i--) {
-    let { step } = res[i]
-    totalSteps = max(totalSteps, step)
-    res[i].totalSteps <- totalSteps
-    if (step == 1)
-      totalSteps = 1
-  }
+  appendAllSteps(res, "", 1, byRequirement)
   return res
 })
 
-return Computed(@() (isEvent.value ? eventUnlocks.value : unlocksSorted.value)
-  .map(@(u) u.__merge(unlockProgressInBattle.value?[u.name] ?? emptyProgress))
-  .filter(@(u) getTaskFilter(u))
-  .sort(function(a, b) {
-    return a.isFinished <=> b.isFinished
-      || b.hasReward <=> a.hasReward
+let battleProgressBase = Computed(function() {
+  let res = {}
+  foreach(unlock in battleUnlocks.value)
+    res[unlock.name] <- unlockProgress.value?[unlock.name] ?? emptyProgress
+  return res
+})
+
+let battleUnlocksWithProgress = Computed(function() {
+  let stats = statsInGame.value
+  let modes = inGameModes.value
+  return battleUnlocks.value.map(function(unlock) {
+    let progress = battleProgressBase.value?[unlock.name] ?? emptyProgress
+    let { stat = null, mode = null } = unlock?.meta
+    if (!(modes?[mode] ?? false))
+      return unlock.__merge(progress)
+
+    local { current = 0, required = 1 } = progress
+    let statToCheck = typeof stat == "array" ? stat : [stat]
+    let inGameStat = statToCheck.reduce(@(res, s) (stats?[s] ?? 0) + res, 0)
+    current = min(current + inGameStat, required)
+    return unlock.__merge(progress, { current, isCompleted = current >= required })
+  })
+})
+
+return Computed(@() battleUnlocksWithProgress.value
+  .filter(@(u) !(u?.isFinished ?? false))
+  .sort(@(a, b) b.hasReward <=> a.hasReward
       || (a?.meta?.taskListPlace ?? -1) <=> (b?.meta?.taskListPlace ?? -1)
       || (a?.stages?[0]?.progress ?? 0) <=> (b?.stages?[0]?.progress ?? 0)
-      || b.name <=> a.name
-  })
+      || b.name <=> a.name)
 )

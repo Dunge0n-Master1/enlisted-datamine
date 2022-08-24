@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let heroSoldierKind = mkWatched(persist, "heroSoldierKind", "")
+let heroSoldierKind = Watched("")
 
 ecs.register_es("ui_hero_soldier_class",
   {

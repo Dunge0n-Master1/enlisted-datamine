@@ -1,22 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
-from "string" import regexp, split_by_chars
+from "string" import split_by_chars
 
 let colors = require("%ui/style/colors.nut")
+let { isStringInteger, isStringFloat, isStringLatin } = require("%sqstd/string.nut")
 
-let rexInt = regexp(@"[\+\-]?[0-9]+")
-let function isStringInt(str){
-  return rexInt.match(str) //better use one from string.nut
-}
-
-let rexFloat = regexp(@"(\+|-)?([0-9]+\.?[0-9]*|\.[0-9]+)([eE](\+|-)?[0-9]+)?")
-let function isStringFloat(str){
-  return rexFloat.match(str) //better use one from string.nut
-}
-
-let rexEng = regexp(@"[a-z,A-Z]*")
-let function isStringEng(str){
-  return rexEng.match(str)
-}
 let function isStringLikelyEmail(str, _verbose=true) {
 // this check is not rfc fully compatible. We check that @ exist and correctly used, and that let and domain parts exist and they are correct length.
 // Domain part also have at least one period and main domain at least 2 symbols
@@ -71,13 +58,13 @@ let function isValidStrByType(str, inputType) {
   if (inputType=="mail")
      return isStringLikelyEmail(str)
   if (inputType=="num")
-     return isStringInt(str) || isStringFloat(str)
+     return isStringInteger(str) || isStringFloat(str)
   if (inputType=="integer")
-     return isStringInt(str)
+     return isStringInteger(str)
   if (inputType=="float")
      return isStringFloat(str)
   if (inputType=="lat")
-     return isStringEng(str)
+     return isStringLatin(str)
   return true
 }
 

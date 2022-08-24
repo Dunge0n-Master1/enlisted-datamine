@@ -26,7 +26,7 @@ let mkGrenadeImage = memoize(@(willDamageHero) {
 })
 
 
-let grenadeMarker = memoize(function(eid) {
+let function grenadeMarker(eid) {
   let watch = active_grenades_GetWatched(eid)
 
   return @(){
@@ -49,9 +49,10 @@ let grenadeMarker = memoize(function(eid) {
       arrow
     ]
   }
-})
+}
 
+let memoizedMap = mkMemoizedMapSet(grenadeMarker)
 
 return {
-  grenade_ctor = {watch = active_grenades_Set, ctor = @() active_grenades_Set.value.keys().map(grenadeMarker)}
+  grenade_ctor = {watch = active_grenades_Set, ctor = @() memoizedMap(active_grenades_Set.value).values()}
 }

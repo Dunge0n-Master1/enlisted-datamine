@@ -1,18 +1,19 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {watchedHeroEid} = require("%ui/hud/state/watched_hero.nut")
 let {inTank, isPassenger} = require("%ui/hud/state/vehicle_state.nut")
 let {get_gun_template_by_props_id} = require("dm")
 let {EventOnSeatOwnersChanged, CmdTrackVehicleWithWatched} = require("dasevents")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let { vehicleTurrets, vehicleTurretsSetValue } = mkFrameIncrementObservable([], "vehicleTurrets")
 
-let vehicleTurrets = Watched({turrets = []})
-let turretsReload = Watched({})
-let turretsAmmo = Watched({})
+let { turretsReload, turretsReloadSetKeyVal, turretsReloadDeleteKey } = mkFrameIncrementObservable({}, "turretsReload")
+let { turretsAmmo, turretsAmmoSetValue, turretsAmmoModify } = mkFrameIncrementObservable({}, "turretsAmmo")
+let { mainTurretEid, mainTurretEidSetValue } = mkFrameIncrementObservable(INVALID_ENTITY_ID, "mainTurretEid")
+let { currentMainTurretEid, currentMainTurretEidSetValue } = mkFrameIncrementObservable(INVALID_ENTITY_ID, "currentMainTurretEid")
+const MACHINE_GUN_TRIGGER = 2
 
-let function resetState() {
-  vehicleTurrets.update({turrets = []})
-}
+let resetState = @() vehicleTurretsSetValue([])
 
 let turretQuery = ecs.SqQuery("turretQuery", {
   comps_ro=[
@@ -38,17 +39,11 @@ let function get_trigger_mappings(hotkeys) {
   }
   return mappings
 }
-
+let getGunTmpl = memoize(@(propsId) ecs.g_entity_mgr.getTemplateDB().getTemplateByName(get_gun_template_by_props_id(propsId) ?? ""))
 let getAmmoSets = @(_, comp)
   (comp["gun__ammoSetsInfo"]?.getAll() ?? []).map(@(set, setInd) { name=set?[0]?.name ?? "", type=set?[0]?.type ?? "", maxAmmo = comp["gun__shellsAmmo"]?[setInd] ?? 0 })
 
-let function initTurretsState(eid, comp) {
-  let hero = watchedHeroEid.value
-  if (eid != ecs.obsolete_dbg_get_comp_val(hero, "human_anim__vehicleSelected")) {
-    resetState()
-    return
-  }
-
+let function initTurretsState(_eid, comp) {
   let turretsByGroup = {}
 
   let triggerMappingComp = comp["turret_control__triggerMapping"]?.getAll() ?? []
@@ -57,14 +52,12 @@ let function initTurretsState(eid, comp) {
 
   foreach (gunIndex, gunEid in comp["turret_control__gunEids"]) turretQuery.perform(gunEid, function(v,gunComp) {
     let gunPropsId = gunComp["gun__propsId"]
-    let gunTplName = get_gun_template_by_props_id(gunPropsId)
-    let gunTpl = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(gunTplName ?? "")
+    let gunTpl = getGunTmpl(gunPropsId)
     let trigger = turretInfo?[gunIndex]?.trigger
 
     let turret = {
-      isMain = false
-      gunEid = gunEid
-      gunPropsId = gunPropsId
+      gunEid
+      gunPropsId
       name = gunTpl?.getCompValNullable("item__name")
       currentAmmoSetId = gunComp["currentBulletId"]
       nextAmmoSetId = gunComp["nextBulletId"]
@@ -85,9 +78,6 @@ let function initTurretsState(eid, comp) {
     turretsByGroup[groupName].append(turret)
   })
 
-  if (turretsByGroup?[""][0].isMain != null)
-    turretsByGroup[""][0].isMain = true
-
   let turrets = []
   foreach (group, turretsInGroup in turretsByGroup)
     if (group != "") {
@@ -99,21 +89,22 @@ let function initTurretsState(eid, comp) {
     } else
       turrets.extend(turretsInGroup)
 
-  vehicleTurrets.update({
-    turrets = turrets
-  })
+  let mainTurretEidValue = (turretsByGroup?[""][0] ?? turrets[0]).gunEid ?? INVALID_ENTITY_ID
+  mainTurretEidSetValue(mainTurretEidValue)
+  currentMainTurretEidSetValue(
+    turretsByGroup?[""].findvalue(@(turret) turret.isControlled && turret.triggerGroup != MACHINE_GUN_TRIGGER)?.gunEid ?? mainTurretEidValue)
+
+  vehicleTurretsSetValue(turrets)
   let ammoState = comp["ui_turrets_state__ammo"]
   let turretEids = turrets.reduce(function(res, turret) { res[turret.gunEid] <- null; return res }, {})
   let turretGroups = turretsByGroup.map(@(_) null).filter(@(_, group) group != "")
   let ammoKeys = turretEids.__merge(turretGroups)
-  turretsAmmo(ammoKeys.map(@(_, key) ammoState?[key.tostring()].getAll() ?? {}))
+  turretsAmmoSetValue(ammoKeys.map(@(_, key) ammoState?[key.tostring()].getAll() ?? {}))
 }
 
 ecs.register_es("vehicle_turret_state_ui_es",
   {
-    [["onInit", "onChange"]] = initTurretsState,
-    [CmdTrackVehicleWithWatched] = initTurretsState,
-    [EventOnSeatOwnersChanged] = initTurretsState,
+    [["onInit", "onChange", CmdTrackVehicleWithWatched, EventOnSeatOwnersChanged]] = initTurretsState,
     onDestroy = @(...) resetState(),
   },
   {
@@ -132,9 +123,8 @@ ecs.register_es("vehicle_turret_state_ui_es",
 
 ecs.register_es("turret_ammo_ui_es",
   { [["onInit", "onChange"]] = function(_, comp) {
-      let res = turretsAmmo.value.map(@(_, key)
-        comp["ui_turrets_state__ammo"]?[key.tostring()].getAll())
-      turretsAmmo(res)
+      let turrets_state = comp["ui_turrets_state__ammo"].getAll()
+      turretsAmmoModify(@(prevVal) prevVal.map(@(_, key) turrets_state?[key.tostring()]))
     }
   },
   {
@@ -180,20 +170,15 @@ ecs.register_es("track_turret_input_disappear_ui_es",
 )
 
 ecs.register_es("turret_state_reload_progress_ui",
-  { [["onInit", "onChange"]] = function(eid, comp) {
-      turretsReload.mutate(@(t) t[eid] <- {
+  { [["onInit", "onChange"]] = function(_, eid, comp) {
+      turretsReloadSetKeyVal(eid, {
         reloadTimeMult = comp.ui_turret_reload_progress__reloadTimeMult
         progressStopped = comp["ui_turret_reload_progress__progressStopped"]
         endTime = comp["ui_turret_reload_progress__finishTime"]
         totalTime = comp["ui_turret_reload_progress__finishTime"] - comp["ui_turret_reload_progress__startTime"]
       })
     },
-    onDestroy = function(eid, _comp) {
-      turretsReload.mutate(function(turrets) {
-        if (eid in turrets)
-          delete turrets[eid]
-      })
-    }
+    onDestroy = @(_, eid, _comp) turretsReloadDeleteKey(eid)
   },
   { comps_track = [
     ["ui_turret_reload_progress__startTime", ecs.TYPE_FLOAT],
@@ -206,23 +191,20 @@ ecs.register_es("turret_state_reload_progress_ui",
   {tags="ui"}
 )
 
-let showVehicleWeapons = Computed(@() inTank.value ? (vehicleTurrets.value?.turrets?.len() ?? 0) > 0 && !isPassenger.value : (vehicleTurrets.value?.turrets?.len() ?? 0) > 0)
+let showVehicleWeapons = Computed(function() {
+  let haveTurrets = (vehicleTurrets.value?.len() ?? 0) > 0
+  return inTank.value ? haveTurrets && !isPassenger.value : haveTurrets
+})
 
-let turrets       = Computed(@() vehicleTurrets.value?.turrets ?? [])
-let mainTurret    = Computed(@() turrets.value.findvalue(@(v) v?.isMain ?? false) ?? turrets.value?[0])
-let mainTurretEid = Computed(@() mainTurret.value?.gunEid ?? INVALID_ENTITY_ID)
-
-let turretAmmoSetsQuery = ecs.SqQuery("turretAmmoSetsQuery", { comps_ro=[["gun__ammoSetsInfo", ecs.TYPE_SHARED_ARRAY, null], ["gun__shellsAmmo", ecs.TYPE_ARRAY]] })
-
-let mainTurretAmmoSets = Computed(@() turretAmmoSetsQuery.perform(mainTurretEid.value, getAmmoSets) ?? [])
 let mainTurretAmmo = Computed(@() turretsAmmo.value?[mainTurretEid.value])
+let currentMainTurretAmmo = Computed(@() turretsAmmo.value?[currentMainTurretEid.value])
 
 return {
-  vehicleTurrets = vehicleTurrets
-  showVehicleWeapons = showVehicleWeapons
-  mainTurret = mainTurret
-  mainTurretEid = mainTurretEid
-  mainTurretAmmoSets = mainTurretAmmoSets
+  vehicleTurrets
+  showVehicleWeapons
+  mainTurretEid
+  currentMainTurretEid
+  currentMainTurretAmmo
   turretsReload
   turretsAmmo
   mainTurretAmmo

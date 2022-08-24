@@ -112,7 +112,8 @@ squad_member_ai{
   walker_agent__crawlShootLocalPos:p3=0.76, 0.26, -0.18
   beh_tree__blackboard__preferedWeapon:i=0
   beh_tree__blackboard__enemyRadius:r=60.0
-  beh_tree__blackboard__enemyNearRadius:r=10.0
+  beh_tree__blackboard__enemyNearRadius:r=16.0
+  beh_tree__blackboard__enemyDefendRadius:r=32.0
   beh_tree__blackboard__enemyMeleeRadius:r=2.0
   beh_tree__data__defendPoint:t="sub.defendPoint"
   beh_tree__data__personalOrder:t="sub.personalOrder"
@@ -136,7 +137,13 @@ squad_member_ai{
   beh_tree__data__attackReq:t="sub.attackReq"
   beh_tree__data__useVehicleReq:t="sub.useVehicleReq"
   beh_tree__data__vehicleBeh:t="sub.vehicleBeh"
+  beh_tree__data__findCoverBeh:t="sub.findCover"
+  beh_tree__data__checkCoverBeh:t="sub.checkCover"
+  beh_tree__data__findCoverAroundPointBeh:t="sub.findCoverAroundPoint"
+  beh_tree__data__checkCoverAroundPointBeh:t="sub.checkCoverAroundPoint"
   beh_tree__refs__behaviour:t="sub.agressiveBeh"
+  beh_tree__refs__findCoverRef:t="sub.findCover"
+  beh_tree__refs__checkCoverRef:t="sub.checkCover"
   beh_tree__refs__orderType:t=""
   beh_tree__refs__passiveStayReaction:t="sub.passiveStayReactionDefault"
   beh_tree__refs__passiveMoveReaction:t="sub.passiveMoveReactionDefault"

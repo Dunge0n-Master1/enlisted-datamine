@@ -38,7 +38,7 @@ let spawnSquadLocId = Computed(function() {
   return squad?.locId
 })
 
-let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid) {
+let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, expToLevel) {
   let items = []
   foreach (memberIter in membersList) {
     let member = memberIter
@@ -55,9 +55,10 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid) {
         behavior = (member.isAlive && member.canBeLeader) ? Behaviors.Button : null
         group = group
         children = mkSoldierCard({
-          soldierInfo = soldierInfo
-          sf = sf
-          group = group
+          soldierInfo
+          expToLevel
+          sf
+          group
           isSelected = isCurrent
           isDead = !member.isAlive
           isFaded = !member.canBeLeader
@@ -100,14 +101,14 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid) {
 }
 
 let memberSpawnList = @() {
-  watch = [localPlayerSquadMembers, respawnSelection, soldiersData]
+  watch = [localPlayerSquadMembers, respawnSelection, soldiersData, armyData]
   size = [flex(), SIZE_TO_CONTENT]
   minHeight = fsh(40)
   halign = ALIGN_CENTER
   gap = fsh(1)
   flow = FLOW_VERTICAL
   children = localPlayerSquadMembers.value
-    ? currentSquadButtons(localPlayerSquadMembers.value, respawnSelection.value, soldiersData.value)
+    ? currentSquadButtons(localPlayerSquadMembers.value, respawnSelection.value, soldiersData.value, armyData.value?.expToLevel)
     : null
 }
 

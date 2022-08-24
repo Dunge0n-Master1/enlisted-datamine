@@ -7,7 +7,7 @@ let {warningUpdate, WARNING_PRIORITIES, addWarnings} = require("%ui/hud/state/wa
 let { debounce } = require("%sqstd/timers.nut")
 let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
 
-let scoresByTeams = mkWatched(persist, "scoresByTeamsWatched", {})
+let scoresByTeams = Watched({})
 
 let myTeamCanFailByTime = mkWatched(persist, "myTeamCanFailByTime", false)
 let canIncreaseScore = mkWatched(persist, "canIncreaseScore", false)
@@ -23,14 +23,12 @@ let failTimerShowTime = 180
 
 let myScore = Watched(0)
 let myTeamFailTime = Watched(0)
-let myRoundScore = Watched(0)
 let myScoreBleed = Watched(0)
 let myScoreBleedFast = Watched(0)
 let myTeamCanLoseByScore = Watched(false)
 
 let enemyScore = Watched(0)
 let enemyTeamFailTime = Watched(0)
-let enemyRoundScore = Watched(0)
 let enemyScoreBleed = Watched(0)
 let enemyScoreBleedFast = Watched(0)
 let enemyTeamCanLoseByScore = Watched(false)
@@ -44,14 +42,12 @@ let failEndTime = Computed(@()
 let paramsBySideMap = {
   my = {
     score      = myScore
-    roundScore = myRoundScore
     bleed      = myScoreBleed
     bleedFast  = myScoreBleedFast
     canLoseByScore = myTeamCanLoseByScore
   }
   enemy = {
     score      = enemyScore
-    roundScore = enemyRoundScore
     bleed      = enemyScoreBleed
     bleedFast  = enemyScoreBleedFast
     canLoseByScore = enemyTeamCanLoseByScore
@@ -80,7 +76,6 @@ let function setScoreParams(teamScores, side) {
   local normScore
   normScore = teamScores["team__scoreCap"] > 0 ? teamScores["team__score"] / teamScores["team__scoreCap"].tofloat() : null
   paramsBySideMap[side].score(normScore)
-  paramsBySideMap[side].roundScore(teamScores["team__roundScore"])
   paramsBySideMap[side].canLoseByScore(teamScores["team__squadSpawnCost"] > 0 || teamScores["score_bleed__domBleed"] > 0)
 
   if (teamScores["team__scoreCap"] > 0 && teamScores["team__squadSpawnCost"] > 0 && side == "my") {
@@ -137,7 +132,6 @@ let teamComps = {
     ["team__squadSpawnCost", ecs.TYPE_INT, 0],
     ["team__failEndTime", ecs.TYPE_FLOAT, 0.0],
     ["team__capzoneTimerEndTime", ecs.TYPE_FLOAT, -1.0],
-    ["team__roundScore", ecs.TYPE_INT, 0],
     ["team__scoreCap", ecs.TYPE_FLOAT],
     ["team__haveScores", ecs.TYPE_BOOL, true],
     ["score_bleed__domBleed", ecs.TYPE_FLOAT, 0.0],
@@ -177,16 +171,13 @@ ecs.register_es("team_game_mode_scores_ui_es", {
 }, teamComps)
 
 return {
-  anyTeamFailEndTime = failEndTime
   anyTeamFailTimer = mkCountdownTimerPerSec(failEndTime)
   failTimerShowTime
   myScore
-  myRoundScore
   myScoreBleed
   myScoreBleedFast
   myTeamCanLoseByScore
   enemyScore
-  enemyRoundScore
   enemyScoreBleed
   enemyScoreBleedFast
   enemyTeamCanLoseByScore

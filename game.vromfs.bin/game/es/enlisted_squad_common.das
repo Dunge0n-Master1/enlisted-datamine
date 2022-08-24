@@ -51,16 +51,24 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                resetIfOnTrain : bool = false)
   query(squadMemberEid) <| $ [es] (squad_member__squad : EntityId;
                                    beh_tree__isInTrainBeh : bool;
+                                   beh_tree__data__findCoverBeh : string;
+                                   beh_tree__data__checkCoverBeh : string;
+                                   beh_tree__data__findCoverAroundPointBeh : string;
+                                   beh_tree__data__checkCoverAroundPointBeh : string;
                                    beh_tree__data__agressiveBeh : string;
                                    beh_tree__data__passiveBeh : string;
                                    beh_tree__data__defendPoint : string;
-                                   var beh_tree__refs__behaviour : das_string&)
+                                   var beh_tree__refs__behaviour : das_string&;
+                                   var beh_tree__refs__findCoverRef : das_string&;
+                                   var beh_tree__refs__checkCoverRef : das_string&)
     if beh_tree__isInTrainBeh && !resetIfOnTrain
       return
 
     query(squad_member__squad) <| $ [es] (squad__squadBehaviour : int;
                                           squad__orderType : int)
       if squad__orderType == int(SquadOrder ESO_FOLLOW_ME)
+        beh_tree__refs__findCoverRef := beh_tree__data__findCoverBeh
+        beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverBeh
         if squad__squadBehaviour == int(SquadBehaviour ESB_AGRESSIVE)
           reset_squad_mate_behaviour(squadMemberEid,
                                      beh_tree__data__agressiveBeh,
@@ -70,10 +78,14 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                      beh_tree__data__passiveBeh,
                                      beh_tree__refs__behaviour)
       elif squad__orderType == int(SquadOrder ESO_DEFEND_POINT)
+        beh_tree__refs__findCoverRef := beh_tree__data__findCoverAroundPointBeh
+        beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverAroundPointBeh
         reset_squad_mate_behaviour(squadMemberEid,
                                    beh_tree__data__defendPoint,
                                    beh_tree__refs__behaviour)
       elif squad__orderType == int(SquadOrder ESO_USE_VEHICLE)
+        beh_tree__refs__findCoverRef := beh_tree__data__findCoverAroundPointBeh
+        beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverAroundPointBeh
         reset_squad_mate_behaviour(squadMemberEid,
                                    beh_tree__data__defendPoint,
                                    beh_tree__refs__behaviour)

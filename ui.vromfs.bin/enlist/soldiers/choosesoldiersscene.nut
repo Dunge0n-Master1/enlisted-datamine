@@ -47,6 +47,7 @@ let { debounce } = require("%sqstd/timers.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { needFreemiumStatus, curUpgradeDiscount
 } = require("%enlist/campaigns/freemiumState.nut")
+let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
 
 
 const NO_SOLDIER_SLOT_IDX = -1
@@ -272,10 +273,11 @@ let function mkSoldierSlot(soldier, idx, tgtHighlight, addObjects) {
     let chContent = {
       padding = [0, bigPadding, 0, 0]
       children = @() {
-        watch = needFreemiumStatus
+        watch = [needFreemiumStatus, perkLevelsGrid]
         children = [
           mkSoldierCard({
             soldierInfo = soldier
+            expToLevel = perkLevelsGrid.value?.expToLevel
             size = slotBaseSize
             group = group
             sf = sf

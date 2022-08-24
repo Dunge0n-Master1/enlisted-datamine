@@ -41,10 +41,8 @@ let minimapCapZone = function(eid, transform){
   }
 }
 
+let memoizedMapByTransform = memoize(@(transform) mkMemoizedMapSet(@(eid) minimapCapZone(eid, transform)))
 return {
   watch = visibleCurrentCapZonesEids
-  ctor = function(o) {
-    let transform = o?.transform ?? {}
-    return visibleCurrentCapZonesEids.value.keys().map(@(eid) minimapCapZone(eid, transform))
-  }
+  ctor = @(o) memoizedMapByTransform(o?.transform ?? {})(visibleCurrentCapZonesEids.value).values()
 }

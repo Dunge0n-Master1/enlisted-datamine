@@ -56,12 +56,12 @@ repeat{
 
         subTree{
           name:t=""
-          treeName:t="sub.checkCover"
+          refId:t="checkCoverRef"
         }
 
         subTree{
           name:t=""
-          treeName:t="sub.findCover"
+          refId:t="findCoverRef"
         }
       }
 
@@ -135,12 +135,12 @@ repeat{
 
         subTree{
           name:t=""
-          treeName:t="sub.checkCover"
+          refId:t="checkCoverRef"
         }
 
         subTree{
           name:t=""
-          treeName:t="sub.findCover"
+          refId:t="findCoverRef"
         }
       }
 
@@ -215,7 +215,7 @@ repeat{
 
         subTree{
           name:t=""
-          treeName:t="sub.checkCover"
+          refId:t="checkCoverRef"
         }
 
         subTree{
@@ -255,7 +255,7 @@ repeat{
 
         subTree{
           name:t=""
-          treeName:t="sub.checkCover"
+          refId:t="checkCoverRef"
         }
 
         subTree{

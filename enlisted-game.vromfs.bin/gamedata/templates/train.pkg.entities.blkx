@@ -654,6 +654,7 @@ moving_car_artillerie_flak_wagen{
 
   _group{
     _tags:t="server"
+    train_cart__roofHeight:r=3.0
     train_cart__minHeight:r=1.25
     train_cart__maxHeight:r=8.0
     train_cart__offsetXZ:r=0.5

@@ -21,7 +21,7 @@ let blockWithHeader = @(header, content, size) {
 let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
   canDeselect = true, addCardChild = null, isFreemiumMode = false,
   soldiersReadyWatch = Watched(null), defSoldierGuidWatch = Watched(null),
-  seatsOrderWatch = Watched([])
+  seatsOrderWatch = Watched([]), expToLevelWatch = Watched([])
 ) {
   let isSelectedWatch = Computed(function() {
     if (curSoldierIdxWatch.value == idx)
@@ -45,6 +45,7 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
       padding = [smallPadding, 0]
       children = mkSoldierCard({
         soldierInfo = soldier
+        expToLevel = expToLevelWatch.value
         size = slotBaseSize
         group = group
         sf = sf
@@ -59,7 +60,7 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
     }
 
     return {
-      watch = [soldiersReadyWatch, isSelectedWatch, seatsOrderWatch]
+      watch = [soldiersReadyWatch, isSelectedWatch, seatsOrderWatch, expToLevelWatch]
       group = group
       key = $"slot{soldier?.guid}{idx}"
       flow = FLOW_VERTICAL

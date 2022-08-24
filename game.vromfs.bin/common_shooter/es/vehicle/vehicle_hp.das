@@ -29,11 +29,10 @@ def process_damage_effects(offender : ecs::EntityId;
   send_net_event(offender, [[EventOnVehicleDamageEffects offender=player, vehicle=vehicle, effects=effects]])
 
   for seatEid in vehicle_seats__seatEids
-    let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-    let isPlayer = get_bool(seatEid, "seat__isPlayer") ?? false
-    let victim = ownerEid
-    if victim != offender && isPlayer && victim != INVALID_ENTITY_ID
-      send_net_event(victim, [[CmdShowVehicleDamageEffectsHint offender=offender, vehicle=vehicle, effects=effects]])
+    query(seatEid) <| $ [es] (seat__isPlayer : bool; seat__ownerEid : EntityId)
+      if !seat__isPlayer || seat__ownerEid == offender || has(seat__ownerEid, "deadEntity")
+        return
+      send_net_event(seat__ownerEid, [[CmdShowVehicleDamageEffectsHint offender=offender, vehicle=vehicle, effects=effects]])
 
 [es(tag=server, REQUIRE=damage_model)]
 def vehicle_hp_on_part_kill_effect_es(evt : EventOnPartKillEffects; eid : EntityId; vehicle_seats__seatEids : EidList)

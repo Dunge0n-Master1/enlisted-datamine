@@ -18,14 +18,15 @@ let mkMarker = memoize(@(transform) freeze({
   transform
 }))
 
-let function mkDestoyableRiMarker(eid, markerState, options = null) {
+let function mkDestoyableRiMarker(eid, transform = null) {
+  let markerState = destroyable_ri_GetWatched(eid)
   let data = freeze({
     eid
     minDistance = 0.7
     maxDistance = 2000
     clampToBorder = true
   })
-  let marker = mkMarker(options?.transform)
+  let marker = mkMarker(transform)
   let watch = [markerState localPlayerTeam]
 
   return function() {
@@ -40,7 +41,9 @@ let function mkDestoyableRiMarker(eid, markerState, options = null) {
 }
 
 let watchState = Computed(@() inPlane.value ? destroyable_ri_Set.value : null)
+let memoizedMapByTransform = memoize(@(transform) mkMemoizedMapSet(@(eid) mkDestoyableRiMarker(eid, transform)))
+
 return {
   watch = watchState
-  ctor = @(p) (watchState.value ?? {}).keys().map( @(eid) mkDestoyableRiMarker(eid, destroyable_ri_GetWatched(eid), p))
+  ctor = @(p) memoizedMapByTransform(p?.transform)(watchState.value ?? {}).values()
 }

@@ -24,7 +24,7 @@ let mkIco = memoize(function(image, size) {
 })
 
 let opx = Point2(0.2, 0.2)
-let ctor = memoize(function(eid) {
+let ctor = function(eid) {
   let state = useful_box_markers_GetWatched(eid)
   let watch = [watchedTeam, state]
   return function() {
@@ -58,11 +58,12 @@ let ctor = memoize(function(eid) {
       children = mkIco(info.image, iconSize)
     }
   }
-})
+}
 
+let memoizedMap = mkMemoizedMapSet(ctor)
 return {
    useful_boxes_marker_ctor = {
-     watch = useful_box_markers_Set,
-     ctor = @() useful_box_markers_Set.value.keys().map( @(eid) ctor(eid))
+     watch = useful_box_markers_Set
+     ctor = @() memoizedMap(useful_box_markers_Set.value).values()
    }
 }

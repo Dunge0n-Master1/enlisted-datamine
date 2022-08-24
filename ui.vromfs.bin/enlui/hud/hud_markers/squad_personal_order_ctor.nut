@@ -37,7 +37,7 @@ let squadPersonalOrderArrow = makeArrow(
 
 let squadPersonalOrderChildren = [squadPersonalOrderIcon, squadPersonalOrderArrow]
 
-let ctor = memoize(function(eid) {
+let ctor = function(eid) {
   let watch = watchedHeroSquadPersonalOrdersGetWatched(eid)
 
   return function() {
@@ -62,11 +62,12 @@ let ctor = memoize(function(eid) {
       children = squadPersonalOrderChildren
     }
   }
-})
+}
 
+let memoizedMap = mkMemoizedMapSet(ctor)
 return {
   watched_hero_squad_personal_orders_ctor = {
     watch = watchedHeroSquadPersonalOrdersSet
-    ctor = @() watchedHeroSquadPersonalOrdersSet.value.keys().map(ctor)
+    ctor = @() memoizedMap(watchedHeroSquadPersonalOrdersSet.value).values()
   }
 }

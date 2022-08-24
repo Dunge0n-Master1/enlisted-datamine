@@ -82,7 +82,7 @@ let function doChangeResearch(researchFrom, researchTo) {
 }
 
 let function changeResearchMsgbox(newResearch) {
-  let { multiresearchGroup = 0, research_id, name, params = {} } = newResearch
+  let { multiresearchGroup = 0, research_id, name = "", params = {} } = newResearch
   let curResearch = tableStructure.value.researches.findvalue(
     @(r) r?.multiresearchGroup == multiresearchGroup
       && r.research_id != research_id

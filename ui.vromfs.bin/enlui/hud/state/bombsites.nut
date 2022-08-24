@@ -1,41 +1,32 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let bombSites = mkWatched(persist, "bombSites", {})
-
-let function trackBombSite(eid, comp) {
-  let bombSite = {
-    eid
-    active = comp["active"]
-    isBombPlanted = comp["bomb_site__isBombPlanted"]
-    operator = comp["bomb_site__operator"]
-    timeToPlant = comp["bomb_site__timeToPlant"]
-    timeToResetPlant = comp["bomb_site__timeToResetPlant"]
-    timeToDefuse = comp["bomb_site__timeToDefuse"]
-    timeToExplosion = comp["bomb_site.timeToExplosion"]
-    plantedTimeEnd = comp["bomb_site__plantedTimeEnd"]
-    resetTimeEnd = comp["bomb_site__resetTimeEnd"]
-    defusedTimeEnd = comp["bomb_site__defusedTimeEnd"]
-    plantingTeam = comp["bomb_site.plantingTeam"]
-    explosionTimeEnd = comp["bomb_site.explosionTimeEnd"]
-    plantProgressPausedAt = comp["bomb_site.plantProgressPausedAt"]
-    defuseProgressPausedAt = comp["bomb_site.defuseProgressPausedAt"]
-    explosionTimerPausedAtTime = comp["bomb_site.explosionTimerPausedAtTime"]
-    icon = comp["bomb_site.icon"]
-    iconOffsetY = comp["bomb_site.iconOffsetY"]
-  }
-  bombSites[eid] <- bombSite
-}
-
-let function onBombSiteDestroy(_evt, eid, _comp) {
-  if (eid in bombSites.value)
-    bombSites.mutate(@(v) delete v[eid])
-}
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let {bombSites, bombSitesSetKeyVal, bombSitesDeleteKey} = mkFrameIncrementObservable({}, "bombSites")
 
 ecs.register_es("bomb_sites_ui_state_es",
   {
-    [["onInit", "onChange"]] = trackBombSite,
-    onDestroy = onBombSiteDestroy,
+    [["onInit", "onChange"]] = @(_, eid, comp) bombSitesSetKeyVal(eid, {
+        eid
+        active = comp["active"]
+        isBombPlanted = comp["bomb_site__isBombPlanted"]
+        operator = comp["bomb_site__operator"]
+        timeToPlant = comp["bomb_site__timeToPlant"]
+        timeToResetPlant = comp["bomb_site__timeToResetPlant"]
+        timeToDefuse = comp["bomb_site__timeToDefuse"]
+        timeToExplosion = comp["bomb_site.timeToExplosion"]
+        plantedTimeEnd = comp["bomb_site__plantedTimeEnd"]
+        resetTimeEnd = comp["bomb_site__resetTimeEnd"]
+        defusedTimeEnd = comp["bomb_site__defusedTimeEnd"]
+        plantingTeam = comp["bomb_site.plantingTeam"]
+        explosionTimeEnd = comp["bomb_site.explosionTimeEnd"]
+        plantProgressPausedAt = comp["bomb_site.plantProgressPausedAt"]
+        defuseProgressPausedAt = comp["bomb_site.defuseProgressPausedAt"]
+        explosionTimerPausedAtTime = comp["bomb_site.explosionTimerPausedAtTime"]
+        icon = comp["bomb_site.icon"]
+        iconOffsetY = comp["bomb_site.iconOffsetY"]
+      }),
+    onDestroy = @(_, eid, __) bombSitesDeleteKey(eid)
   },
   {
     comps_ro = [

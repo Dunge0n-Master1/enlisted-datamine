@@ -33,10 +33,6 @@ let function resetState() {
   vehicleSeats(DEFAULT_SEATS.__merge({ vehicle = INVALID_ENTITY_ID }))
 }
 
-let getSelfVehicle = ecs.SqQuery("vehicle_seats_self_query", {
-  comps_ro = [["human_anim__vehicleSelected"]]
-})
-
 let getChangeSeatsTime = ecs.SqQuery("vehicle_seats_change_query", {
   comps_ro = [["entity_mods__vehicleChangeSeatTimeMult"]]
 })
@@ -62,18 +58,7 @@ let getVehicleSquad = ecs.SqQuery("vehicle_seats_squad_query", {
   ]
 })
 
-let function trackComponents(eid, comp) {
-  let vehicleWithWatched = getSelfVehicle(watchedHeroEid.value, @(_, comp)
-    comp["human_anim__vehicleSelected"])
-
-  if (vehicleWithWatched == INVALID_ENTITY_ID) {
-    resetState()
-    return
-  }
-
-  if (eid != vehicleWithWatched)
-    return
-
+let function trackComponents(_eid, comp) {
   let seatEids = comp["vehicle_seats__seatEids"].getAll() ?? []
   let seats = comp["vehicle_seats__seats"].getAll() ?? []
   let isSeatsSorted = comp["vehicle_seats__seatsProvideOrder"] != null

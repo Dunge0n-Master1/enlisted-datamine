@@ -4,9 +4,8 @@ let {configs} = require("%enlSqGlob/configs/configs.nut")
 
 let perkLevelsGrid = Computed(@() configs.value?.perk_levels_grid)
 
-let getExpToNextLevel = @(level, maxLevel, lvlsCfg) lvlsCfg == null ? 0
-  : level < (maxLevel ?? lvlsCfg.MAX_LEVEL) ? (lvlsCfg.expToLevel?[level] ?? 0)
-  : 0
+let getExpToNextLevel = @(level, maxLevel, expToLevel)
+  level < maxLevel ? (expToLevel?[level] ?? 0) : 0
 
 let getGoldToNextLevel = @(level, maxLevel, lvlsCfg) lvlsCfg == null ? 0
   : level < (maxLevel ?? lvlsCfg.MAX_LEVEL) ? (lvlsCfg.goldToLevel?[level] ?? lvlsCfg.goldToPerkOnMaxLevel)
@@ -22,7 +21,7 @@ let getOrdersToNextLevel = kwarg(function(level, maxLvl, cfg) {
 })
 
 let getNextLevelData = kwarg(function(level, maxLevel, exp, lvlsCfg) {
-  let expToLevel = getExpToNextLevel(level, maxLevel, lvlsCfg)
+  let expToLevel = getExpToNextLevel(level, maxLevel, lvlsCfg.expToLevel)
   let goldToLevel = getGoldToNextLevel(level, maxLevel, lvlsCfg)
   if (expToLevel <= 0 || goldToLevel <= 0)
     return null

@@ -77,7 +77,7 @@ let function collectSoldierDataImpl(
 
   let armyId = getLinkedArmyName(soldier)
   let perks = perksDataV?[guid]
-  let { level = 1, maxLevel = 1 } = perks
+  let { level = 1, maxLevel = 1, exp = 0 } = perks
   let perksCount = getPerksCount(perks)
 
   let { kind = soldier.sClass } = classesCfgV?[soldier.sClass] //kind by default is sClass to compatibility with 16.02.2021 pserver version
@@ -87,9 +87,10 @@ let function collectSoldierDataImpl(
       ?? getSoldierItem(guid, "side", campItemsV)
     country = armiesV?[armyId].country
     level = min(level, maxLevel)
-    maxLevel = maxLevel
-    perksCount = perksCount
-    armyId = armyId
+    maxLevel
+    exp
+    perksCount
+    armyId
     squadId = curCampSquadsV?[getLinkedSquadGuid(soldier)].squadId
     sKind = kind
   }), soldiersOutfit, soldiersPremiumItems)

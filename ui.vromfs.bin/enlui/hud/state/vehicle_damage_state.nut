@@ -1,17 +1,24 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let state = {
-  vehicleEngineBroken = Watched(false)
-  vehicleTracksBroken = Watched(false)
-  vehicleWheelsBroken = Watched(false)
-  vehicleTransmissionBroken = Watched(false)
-  vehicleTurretHorDriveBroken = Watched(false)
-  vehicleTurretVerDriveBroken = Watched(false)
-  vehiclePartDamaged = Watched(true)
-}
+let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
-local function partDamagedIndicate(partState, parts, dmState, partDestroyedCount = 0) {
+let defValue = freeze({
+  vehicleEngineBroken = false
+  vehicleTracksBroken = false
+  vehicleWheelsBroken = false
+  vehicleTransmissionBroken = false
+  vehicleTurretHorDriveBroken = false
+  vehicleTurretVerDriveBroken = false
+  vehiclePartDamaged = true
+})
+
+let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
+
+let {exportState} = watchedTable2TableOfWatched({state, defValue, plainOut=false})
+
+local function partDamagedIndicate(parts, dmState, partDestroyedCount = 0) {
   local isDamaged = false
   foreach (idx in (parts ?? [])) {
     if (dmState?[idx] == 0) {
@@ -22,7 +29,7 @@ local function partDamagedIndicate(partState, parts, dmState, partDestroyedCount
       }
     }
   }
-  partState(isDamaged)
+  return isDamaged
 }
 
 let turretHorDriveDmPartQuery = ecs.SqQuery("turretHorDriveDmPartQuery", {
@@ -37,29 +44,24 @@ let getTurretVerDriveDmPart = @(eid) turretVerDriveDmPartQuery.perform(eid, @(_,
 
 ecs.register_es("ui_vehicle_damage_state",
   {
-    [["onChange", "onInit"]] = function (_eid, comp) {
+    [["onChange", "onInit"]] = function (_, _eid, comp) {
       let wheelDestroyedCount = comp["vehicle__destroyedWheelsCountWarn"]
 
       let turretEids = comp["turret_control__gunEids"]?.getAll() ?? []
       let turretHorDriveParts = turretEids.map(getTurretHorDriveDmPart).filter(@(v) v != null)
       let turretVerDriveParts = turretEids.map(getTurretVerDriveDmPart).filter(@(v) v != null)
-      partDamagedIndicate(state.vehicleEngineBroken, comp["dm_phys_parts__enginePartIds"]?.getAll(), comp.dm_state)
-      partDamagedIndicate(state.vehicleTransmissionBroken, comp["dm_phys_parts__transmissionPartIds"]?.getAll(), comp.dm_state)
-      partDamagedIndicate(state.vehicleTracksBroken, comp["dm_phys_parts__tracksPartIds"]?.getAll(), comp.dm_state)
-      partDamagedIndicate(state.vehicleWheelsBroken, comp["dm_phys_parts__wheelsPartIds"]?.getAll(), comp.dm_state, wheelDestroyedCount)
-      partDamagedIndicate(state.vehicleTurretHorDriveBroken, turretHorDriveParts, comp.dm_state)
-      partDamagedIndicate(state.vehicleTurretVerDriveBroken, turretVerDriveParts, comp.dm_state)
-
-      state.vehiclePartDamaged(comp["repairable__repairRequired"])
+      stateSetValue({
+        vehicleEngineBroken = partDamagedIndicate(comp["dm_phys_parts__enginePartIds"]?.getAll(), comp.dm_state)
+        vehicleTransmissionBroken = partDamagedIndicate(comp["dm_phys_parts__transmissionPartIds"]?.getAll(), comp.dm_state)
+        vehicleTracksBroken = partDamagedIndicate(comp["dm_phys_parts__tracksPartIds"]?.getAll(), comp.dm_state)
+        vehicleWheelsBroken = partDamagedIndicate(comp["dm_phys_parts__wheelsPartIds"]?.getAll(), comp.dm_state, wheelDestroyedCount)
+        vehicleTurretHorDriveBroken = partDamagedIndicate(turretHorDriveParts, comp.dm_state)
+        vehicleTurretVerDriveBroken = partDamagedIndicate(turretVerDriveParts, comp.dm_state)
+        vehiclePartDamaged = comp["repairable__repairRequired"]
+      })
     },
     function onDestroy(){
-      state.vehicleTracksBroken(false)
-      state.vehicleWheelsBroken(false)
-      state.vehiclePartDamaged(true)
-      state.vehicleTransmissionBroken(false)
-      state.vehicleEngineBroken(false)
-      state.vehicleTurretHorDriveBroken(false)
-      state.vehicleTurretVerDriveBroken(false)
+      stateSetValue(defValue)
     }
   },
   {
@@ -79,4 +81,4 @@ ecs.register_es("ui_vehicle_damage_state",
   }
 )
 
-return state
+return exportState

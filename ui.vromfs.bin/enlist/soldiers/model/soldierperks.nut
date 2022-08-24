@@ -27,8 +27,7 @@ let perkChoiceWndParams = mkWatched(persist, "perkChoiceWndParams")
 let getNoAvailPerksText = @(soldier)
   loc("get_more_exp_to_add_perk", {
     value = colorize(titleTxtColor,
-      getExpToNextLevel(soldier.level, soldier.maxLevel,
-        perkLevelsGrid.value) - soldier.exp)
+      getExpToNextLevel(soldier.level, soldier.maxLevel, perkLevelsGrid.value.expToLevel) - soldier.exp)
   })
 
 let perksData = Computed(function() {

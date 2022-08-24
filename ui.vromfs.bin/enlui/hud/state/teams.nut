@@ -1,10 +1,9 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {makeEcsHandlers} = require("%ui/mk_ecshandlers.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-
-let teams = mkWatched(persist, "teams", {})
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let {teams, teamsSetKeyVal, teamsDeleteKey} = mkFrameIncrementObservable({}, "teams")
 
 let localPlayerTeamInfo = Computed(function(){
   foreach (team in teams.value) {
@@ -13,7 +12,6 @@ let localPlayerTeamInfo = Computed(function(){
   }
   return null
 })
-let localPlayerTeamMemberCount = Computed(@() localPlayerTeamInfo.value?["team__memberCount"])
 let localPlayerTeamIcon = Computed(@() localPlayerTeamInfo.value?["team__icon"])
 let localPlayerTeamSquadsCanSpawn = Computed(@() localPlayerTeamInfo.value?["team__squadsCanSpawn"] ?? true)
 let localPlayerTeamArmies = Computed(function(prev) {
@@ -21,14 +19,6 @@ let localPlayerTeamArmies = Computed(function(prev) {
   return prev != FRP_INITIAL && isEqual(res, prev) ? prev : res
 })
 
-let teamsState = {
-  teams
-  localPlayerTeamIcon
-  localPlayerTeamMemberCount
-  localPlayerTeamInfo
-  localPlayerTeamSquadsCanSpawn
-  localPlayerTeamArmies
-}
 
 let teams_comps = {
   comps_ro = [
@@ -46,10 +36,25 @@ let teams_comps = {
     ["team__eachSquadMaxSpawns", ecs.TYPE_INT, 0],
   ]
 }
+let fullCompsList = [].extend(teams_comps.comps_ro, teams_comps.comps_track)
 
 ecs.register_es("teams_ui_state_es",
-  makeEcsHandlers(teams, teams_comps),
+  {
+    [["onInit", "onChange"]] = function(_, eid, comp){
+      let entry = {}
+      foreach (v in fullCompsList)
+        entry[v[0]] <- comp?[v[0]]?.getAll() ?? comp[v[0]]
+      teamsSetKeyVal(eid, entry)
+    },
+    onDestroy = @(_, eid, __) teamsDeleteKey(eid)
+  },
   teams_comps
 )
 
-return teamsState
+return {
+  teams
+  localPlayerTeamIcon
+  localPlayerTeamInfo
+  localPlayerTeamSquadsCanSpawn
+  localPlayerTeamArmies
+}

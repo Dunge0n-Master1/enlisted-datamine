@@ -12,7 +12,6 @@ let {
   kindIcon, classIcon, levelBlock, tierText, classTooltip, rankingTooltip,
   calcExperienceData, experienceTooltip, mkSoldierMedalIcon
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
 let {
   getItemLocIdByTemplate, getObjectName
 } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -125,7 +124,7 @@ let function soldierName(soldierInfo, nameColor, group) {
   }
 }
 
-let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFreemiumMode) {
+let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFreemiumMode, expToLevel) {
   let {
     guid = "", perksCount = 0, level = 1, maxLevel = 1, tier = 1
   } = soldierInfo
@@ -148,7 +147,7 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFr
           isFreemiumMode = isFreemiumMode
           tier = tier
         }).__update({ margin = [gap, 0] }),
-        @() experienceTooltip(calcExperienceData(soldierInfo, perkLevelsGrid.value)))
+        @() experienceTooltip(calcExperienceData(soldierInfo, expToLevel)))
     ]
   }
 }
@@ -156,7 +155,7 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFr
 let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
   isFaded = false, isDead = false, size = slotBaseSize, isClassRestricted = false,
   hasAlertStyle = false, hasWeaponWarning = false, addChild = null, squadInfo = null, updStyle = {},
-  isDisarmed = false, isFreemiumMode = false
+  isDisarmed = false, isFreemiumMode = false, expToLevel = []
 ) {
   let canSpawn = soldierInfo?.canSpawn ?? true
   let isBlocked = isDead || !canSpawn
@@ -215,7 +214,8 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
                 nameColor(sf, isSelected),
                 weaponRow,
                 group,
-                isFreemiumMode
+                isFreemiumMode,
+                expToLevel
               )
             : mkDropSoldierInfoBlock(
                 soldierInfo,

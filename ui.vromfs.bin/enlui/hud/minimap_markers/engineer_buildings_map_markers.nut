@@ -9,7 +9,7 @@ let mkSvg = memoize(function(img) {
 })
 
 let size = [iconSz, iconSz]
-let mkBuildingMapMarker = memoize(function(eid, transform) {
+let mkBuildingMapMarker = function(eid, transform) {
   let data = freeze({
     eid
     minDistance = 0.7
@@ -38,12 +38,9 @@ let mkBuildingMapMarker = memoize(function(eid, transform) {
       } : null
     }
   }
-})
-
+}
+let memoizedMapByTransform = memoize(@(transform) mkMemoizedMapSet(@(eid) mkBuildingMapMarker(eid, transform)))
 return {
   watch = engineer_buildings_markers_Set
-  ctor = function(p) {
-    let transform = p?.transform
-    return engineer_buildings_markers_Set.value.keys().map(@(eid) mkBuildingMapMarker(eid, transform))
-  }
+  ctor = @(p) memoizedMapByTransform(p?.transform)(engineer_buildings_markers_Set.value).values()
 }

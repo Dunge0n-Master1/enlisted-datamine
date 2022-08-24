@@ -1,11 +1,11 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let localPlayerEid = mkWatched(persist, "localPlayerEid", INVALID_ENTITY_ID)
-let wallPostersMaxCount = mkWatched(persist, "wallPostersMaxCount", 0)
-let wallPostersCurCount = mkWatched(persist, "wallPostersCurCount", 0)
-let wallPosterPreview = mkWatched(persist, "wallPosterPreview", false)
-let wallPosters = mkWatched(persist, "wallPosters", [])
+let localPlayerEid = Watched(INVALID_ENTITY_ID)
+let wallPostersMaxCount = Watched(0)
+let wallPostersCurCount = Watched(0)
+let wallPosterPreview = Watched(false)
+let wallPosters = Watched([])
 
 let function resetData() {
   localPlayerEid(INVALID_ENTITY_ID)

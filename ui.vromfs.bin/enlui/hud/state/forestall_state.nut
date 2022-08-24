@@ -3,9 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let Point3 = require("dagor.math").Point3
 
-let forestallMarkActive = mkWatched(persist, "forestallMarkActive", false)
-let forestallMarkPos = mkWatched(persist, "forestallMarkPos", Point3(0, 0, 0))
-let forestallMarkOpacity = mkWatched(persist, "forestallMarkOpacity", 1.0)
+let forestallMarkActive = Watched(false)
+let forestallMarkPos = Watched(Point3(0, 0, 0))
+let forestallMarkOpacity = Watched(1.0)
 
 let function updateForestallPos(_eid, comp) {
   forestallMarkActive.update(comp["target_lock__selectedEntity"] != INVALID_ENTITY_ID)

@@ -666,212 +666,6 @@ orderedSelector{
 }
 
 orderedSelector{
-  name:t="sub.buildReq"
-
-  sequencer{
-
-    reaction{
-      event:t="onEnemyPlayerNear"
-
-      sequencer{
-
-        findDanger{
-          paramName:t="shootEnemy"
-          radiusParamName:t="enemyNearRadius"
-          minDanger:r=0.1
-          tag:t="human"
-        }
-
-        recalculateTree{
-        }
-      }
-    }
-
-    reaction{
-      event:t="regularCheck"
-
-      repeat{
-        count:i=1
-
-        subTree{
-          name:t=""
-          treeName:t="sub.chooseMaxStance"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.deactivateWeapMod"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.checkDowned"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.checkBurning"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.swimUpCheck"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.findDangerZone"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.tryToOpenDoors"
-        }
-
-        subTree{
-          name:t=""
-          treeName:t="sub.findDangerGrenade"
-        }
-      }
-    }
-
-    checkTarget{
-      targetUnitParam:t="buildTarget"
-      ignoreDead:b=no
-    }
-
-    orderedSelector{
-
-      isVarsIntEqual{
-        lhs:t="buildPositionFounded"
-        rhs_value:i=1
-      }
-
-      findPointNearTarget{
-        posParam:t="buildPosition"
-        dist:p2=2.0, 2.5
-        targetParam:t="buildTarget"
-        traceTarget:b=no
-        reusePrevPos:b=no
-      }
-    }
-
-    setIntVar{
-      to:t="buildPositionFounded"
-      value:i=1
-    }
-
-    setIntVar{
-      to:t="buildTarget"
-      value:i=0
-    }
-
-    setCurrentAiAction{
-      state:t="move"
-    }
-
-    moveToPos{
-      posParam:t="buildPosition"
-      sprintTimerRange:p2=10.0, 20.0
-      minDistToSprint:r=4.0
-      distThreshold:r=0.5
-      avoidAiObstacles:b=no
-      incObstacles:b=no
-    }
-
-    findWeaponSlotWithTag{
-      tag:t="buildingTool"
-      toParam:t="buildToolSlot"
-    }
-
-    changeWeapon{
-      param:t="buildToolSlot"
-    }
-
-    parallel{
-
-      reaction{
-        event:t="regularCheck"
-
-        repeat{
-          count:i=1
-
-          subTree{
-            name:t=""
-            treeName:t="sub.chooseMaxStance"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.deactivateWeapMod"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.checkDowned"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.checkBurning"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.swimUpCheck"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.tryToOpenDoors"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.findDangerZone"
-          }
-
-          subTree{
-            name:t=""
-            treeName:t="sub.findDangerGrenade"
-          }
-
-          sequencer{
-
-            not{
-
-              checkDistance{
-                posParam:t="buildPosition"
-                radius:r=1.5
-                yRadius:r=1.0
-              }
-            }
-
-            recalculateTree{
-            }
-          }
-        }
-      }
-
-      lookAtTarget{
-        targetUnitParam:t="buildTarget"
-        rotateBody:b=yes
-        allowDead:b=yes
-      }
-
-      interactWithBuildingTarget{
-        targetUnitParam:t="buildTarget"
-      }
-    }
-  }
-
-  setIntVar{
-    to:t="buildTarget"
-    value:i=0
-  }
-}
-
-orderedSelector{
   name:t="sub.attackReq"
 
   sequencer{
@@ -1083,5 +877,229 @@ orderedSelector{
       resetShoulUseVehicleTrigger{
       }
     }
+  }
+}
+
+exitHandler{
+  name:t="sub.buildReq"
+
+  orderedSelector{
+
+    sequencer{
+
+      reaction{
+        event:t="onEnemyPlayerNear"
+
+        sequencer{
+
+          findDanger{
+            paramName:t="shootEnemy"
+            radiusParamName:t="enemyNearRadius"
+            minDanger:r=0.1
+            tag:t="human"
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+
+      reaction{
+        event:t="regularCheck"
+
+        repeat{
+          count:i=1
+
+          subTree{
+            name:t=""
+            treeName:t="sub.chooseMaxStance"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.deactivateWeapMod"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkDowned"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkBurning"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.swimUpCheck"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerZone"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.tryToOpenDoors"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerGrenade"
+          }
+        }
+      }
+
+      checkTarget{
+        targetUnitParam:t="buildTarget"
+        ignoreDead:b=no
+      }
+
+      orderedSelector{
+
+        isVarsIntEqual{
+          lhs:t="buildPositionFounded"
+          rhs_value:i=1
+        }
+
+        findPointNearTarget{
+          posParam:t="buildPosition"
+          dist:p2=2.0, 2.5
+          targetParam:t="buildTarget"
+          traceTarget:b=no
+          reusePrevPos:b=no
+        }
+      }
+
+      setIntVar{
+        to:t="buildPositionFounded"
+        value:i=1
+      }
+
+      setIntVar{
+        to:t="buildTarget"
+        value:i=0
+      }
+
+      setCurrentAiAction{
+        state:t="move"
+      }
+
+      moveToPos{
+        posParam:t="buildPosition"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=4.0
+        distThreshold:r=0.5
+        avoidAiObstacles:b=no
+        incObstacles:b=no
+      }
+
+      findWeaponSlotWithTag{
+        tag:t="buildingTool"
+        toParam:t="buildToolSlot"
+      }
+
+      changeWeapon{
+        param:t="buildToolSlot"
+      }
+
+      parallel{
+
+        reaction{
+          event:t="regularCheck"
+
+          repeat{
+            count:i=1
+
+            subTree{
+              name:t=""
+              treeName:t="sub.chooseMaxStance"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.deactivateWeapMod"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.checkDowned"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.checkBurning"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.swimUpCheck"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.tryToOpenDoors"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.findDangerZone"
+            }
+
+            subTree{
+              name:t=""
+              treeName:t="sub.findDangerGrenade"
+            }
+
+            sequencer{
+
+              not{
+
+                checkDistance{
+                  posParam:t="buildPosition"
+                  radius:r=1.5
+                  yRadius:r=1.0
+                }
+              }
+
+              recalculateTree{
+              }
+            }
+          }
+        }
+
+        lookAtTarget{
+          targetUnitParam:t="buildTarget"
+          rotateBody:b=yes
+          allowDead:b=yes
+        }
+
+        interactWithBuildingTarget{
+          targetUnitParam:t="buildTarget"
+        }
+      }
+
+      chooseBestWeapon{
+        targetParam:t="shootEnemy"
+      }
+    }
+
+    sequencer{
+
+      setIntVar{
+        to:t="buildTarget"
+        value:i=0
+      }
+
+      chooseBestWeapon{
+        targetParam:t="shootEnemy"
+      }
+    }
+  }
+
+  chooseBestWeapon{
+    targetParam:t="shootEnemy"
   }
 }

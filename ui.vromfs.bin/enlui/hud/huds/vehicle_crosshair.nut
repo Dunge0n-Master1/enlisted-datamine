@@ -1,7 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
-let {mainTurretAmmo, mainTurretEid, turretsReload} = require("%ui/hud/state/vehicle_turret_state.nut")
+let {
+  currentMainTurretAmmo, currentMainTurretEid, turretsReload
+} = require("%ui/hud/state/vehicle_turret_state.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 
 let circleProgressImage = Picture("ui/skin#scanner_range.png")
@@ -11,8 +13,8 @@ let overheatFg = Color(160, 0, 0, 180)
 let overheatBg = Color(0, 0, 0, 0)
 let overheat = require("%ui/hud/state/vehicle_turret_overheat_state.nut")
 
-let hasAmmo = Computed(@() (mainTurretAmmo.value?.curAmmo ?? 0) + (mainTurretAmmo.value?.totalAmmo ?? 0) > 0)
-let mainTurretReload = Computed(@() turretsReload.value?[mainTurretEid.value] ?? {})
+let hasAmmo = Computed(@() (currentMainTurretAmmo.value?.curAmmo ?? 0) + (currentMainTurretAmmo.value?.totalAmmo ?? 0) > 0)
+let mainTurretReload = Computed(@() turretsReload.value?[currentMainTurretEid.value] ?? {})
 let reloadEndTime = Computed(@() mainTurretReload.value?.endTime ?? -1)
 
 let reloadTimer = mkCountdownTimer(reloadEndTime)

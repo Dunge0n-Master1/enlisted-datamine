@@ -21,7 +21,7 @@ let function registerScriptProfiler(prefix) {
       local ret
       if (newVal == isProfileOn.value)
         ret = "already"
-      isProfileOn(!isProfileOn.value)
+      isProfileOn(newVal ?? !isProfileOn.value)
       if (isProfileOn.value)
         ret = "on"
       else

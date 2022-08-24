@@ -13,7 +13,6 @@ let activeBattleAreasState = Watched({})
 let nextBattleAreasState = Watched({})
 let battleAreasPolygon = Watched(null)
 let nextBattleAreasPolygon = Watched(null)
-let battleAreaDeactivationTime = Watched(-1)
 
 
 let function checkInSquareZone(battleAreaZones, checkingPoint){ //lines are sorted clockwise
@@ -328,13 +327,9 @@ let function battleAreaHud(...) {
   if (nextAreasEids.len() == areasEids.len()) {
     nextBattleAreasState({})
     nextBattleAreasPolygon(null)
-    battleAreaDeactivationTime(-1)
   } else if (!isEqualAreas(nextBattleAreasState.value, nextAreasEids)) {
     nextBattleAreasState(nextAreasEids)
     nextBattleAreasPolygon(getBattleAreasPolygon(nextAreas))
-    let deactivationTimes = areas.map(@(area) area.deactivationTime)
-    let maxDeactivationTime = deactivationTimes.reduce(@(a,b) a > b ? a : b) ?? -1
-    battleAreaDeactivationTime(maxDeactivationTime)
   }
 }
 
@@ -347,5 +342,4 @@ ecs.register_es("battle_areas_ui_state", {
 return {
   battleAreasPolygon
   nextBattleAreasPolygon
-  battleAreaDeactivationTime
 }

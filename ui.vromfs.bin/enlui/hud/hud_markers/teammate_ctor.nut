@@ -66,20 +66,27 @@ let mkSquadmateIcon = memoize(@(eid) function() {
 
 let healing_outer_ico = Picture($"ui/skin#healing_icon_outer.svg:{hpIconSize[0]}:{hpIconSize[1]}:K")
 let healing_ico = Picture($"ui/skin#healing_icon.svg:{hpIconSize[0]}:{hpIconSize[1]}:K")
-let mkHpIcon = @(eid, colorInner, colorOuter) {
-  key = eid
+let innerMedIco = memoize(@(colorInner) freeze({
+  rendObj = ROBJ_IMAGE
+  color = colorInner
+  image = healing_ico
+  size = hpIconSize
+}))
+let outerMedIco = memoize(@(colorOuter) freeze({
   rendObj = ROBJ_IMAGE
   color = colorOuter
   image = healing_outer_ico
   size = hpIconSize
-  minDistance = 0.5
+}))
 
-  children = {
-    rendObj = ROBJ_IMAGE
-    color = colorInner
-    image = healing_ico
-    size = hpIconSize
-  }
+let mkHpIcon = @(eid, colorInner, colorOuter) {
+  key = eid
+  size = hpIconSize
+  minDistance = 0.5
+  children = [
+    outerMedIco(colorOuter)
+    innerMedIco(colorInner)
+  ]
 }
 
 let ammoBoxIconSize = [fsh(6.0), fsh(6.0)]
@@ -114,12 +121,12 @@ let opRangeX_hardcore = Point2(0.125, 0.135)
 let needShowMed = Computed(@() heroSoldierKind.value == "medic" && heroMedicMedpacks.value > 0)
 let hasEngineers = Computed(@() engineersInSquad.value >0)
 
-let unit = memoize(function(eid, showMed){
+let unit = function(eid, showMed){
   let infoState = teammatesAvatarsGetWatched(eid)
   let watch = [infoState, watchedHeroEid, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, localPlayerEid]
   return function() {
     let info = infoState.value
-    if (!info.isAlive || watchedHeroEid.value == eid)
+    if (!info.isAlive )
       return { watch }
     let vehicle = info?["human_anim__vehicleSelected"] ?? INVALID_ENTITY_ID
     if (vehicle != INVALID_ENTITY_ID){
@@ -176,7 +183,7 @@ let unit = memoize(function(eid, showMed){
         opacityRangeY = showName ? zeroPoint : opRangeY
       }
 
-      key = eid
+      key = {}
       sortOrder = eid
       watch
       transform = defTransform
@@ -207,15 +214,16 @@ let unit = memoize(function(eid, showMed){
       }
     }
   }
-})
+}
+let mapAvatarsMed = mkMemoizedMapSet(@(eid) unit(eid, true))
+let mapAvatars = mkMemoizedMapSet(@(eid) unit(eid, false))
 
 return {
   teammates_markers_ctor = {
     watch = teammatesAvatarsSet
     ctor = function() {
-      let res = teammatesAvatarsSet.value.keys().map( @(eid) unit(eid, true))
-      res.extend(teammatesAvatarsSet.value.keys().map( @(eid) unit(eid, false)))
-      return res
+      let v = teammatesAvatarsSet.value
+      return mapAvatarsMed(v).values().extend(mapAvatars(v).values())
     }
   }
 }

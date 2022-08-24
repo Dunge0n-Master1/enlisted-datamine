@@ -10,12 +10,8 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 let soldiersPresentation = require("%enlSqGlob/ui/soldiersPresentation.nut")
-let { withTooltip } = require("%ui/style/cursors.nut")
 let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
-let {
-  getExpToNextLevel, perkLevelsGrid
-} = require("%enlSqGlob/configs/perks/perksExp.nut")
 let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 
 const MAX_LEVEL_SOLDIER = 5
@@ -177,9 +173,9 @@ let tierText = @(tier) defcomps.note({
     color = soldierLvlColor
   }.__update(sub_txt))
 
-let function calcExperienceData(soldier, levelsGrid) {
+let function calcExperienceData(soldier, expToLevel) {
   let { perksCount = 0, level = 1, maxLevel = 1, exp = 0 } = soldier
-  let expToNextLevel = getExpToNextLevel(level, maxLevel, levelsGrid) || 1
+  let expToNextLevel = max(1, level < maxLevel ? (expToLevel?[level] ?? 0) : 0)
   let perksLevel = min(level, maxLevel)
   return { level, maxLevel, exp, expToNextLevel, perksCount, perksLevel }
 }
@@ -227,45 +223,6 @@ let experienceTooltip = kwarg(function(
   })
 })
 
-let levelBlockWithProgress = @(soldierWatch, perksWatch, isFreemiumMode = false, override = {}) function() {
-  let res = { watch = [soldierWatch, perksWatch, perkLevelsGrid] }
-  let { guid = null, tier = 1 } = soldierWatch.value
-  if (guid == null)
-    return res
-  let levelData = calcExperienceData(soldierWatch.value.__merge(perksWatch.value ?? {}), perkLevelsGrid.value)
-  let { maxLevel, exp, expToNextLevel, perksCount, perksLevel } = levelData
-  let expProgress = expToNextLevel > 0 ? 100.0 * exp / expToNextLevel : 0
-  let isMaxed = perksLevel == maxLevel
-  return withTooltip(res.__update({
-      key = guid
-      size = SIZE_TO_CONTENT
-      flow = FLOW_VERTICAL
-      halign = ALIGN_CENTER
-      gap = gap
-      children = [
-        levelBlock({
-          curLevel = perksCount
-          leftLevel = max(perksLevel - perksCount, 0)
-          lockedLevel = max(maxLevel - perksLevel, 0)
-          hasLeftLevelBlink = true
-          guid = guid
-          fontSize = isMaxed ? hdpx(16) : hdpx(12)
-          isFreemiumMode = isFreemiumMode
-          tier = tier
-        }).__update({minWidth = hdpx(120), halign = ALIGN_CENTER})
-        isMaxed ? null : {
-          size = [flex(), hdpx(5)]
-          minWidth = hdpx(120)
-          children = [
-            { size = flex(), rendObj = ROBJ_SOLID,  color = Color(154, 158, 177) }
-            { size = [pw(expProgress), flex()], rendObj = ROBJ_SOLID,  color = Color(47, 137, 211) }
-          ]
-        }
-      ]
-    }).__update(override),
-    @() experienceTooltip(levelData))
-}
-
 let function mkSoldierMedalIcon(soldierInfo, size) {
   let { heroTpl = null, armyId = null } = soldierInfo
   let { heroIcon = null } = soldiersPresentation?[armyId]
@@ -281,7 +238,6 @@ let function mkSoldierMedalIcon(soldierInfo, size) {
 return {
   mkAlertIcon
   levelBlock
-  levelBlockWithProgress
   kindIcon
   kindName
   classIcon

@@ -1,19 +1,12 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let burningState = mkWatched(persist, "putOutFireState", {
+let def = {
   isPuttingOut = false
   force = 0.0
   maxForce = 0.0
-})
-
-let function resetState() {
-  burningState({
-    isPuttingOut = false
-    force = 0.0
-    maxForce = 0.0
-  })
 }
+let burningState = Watched(def)
 
 let function trackComponents(_eid, comp) {
   burningState({
@@ -26,7 +19,7 @@ let function trackComponents(_eid, comp) {
 ecs.register_es("burning_state_ui_es",
   {
     [["onInit", "onChange"]] = trackComponents
-    onDestroy = @(...) resetState(),
+    onDestroy = @(...) burningState(def),
   },
   {
     comps_ro = [

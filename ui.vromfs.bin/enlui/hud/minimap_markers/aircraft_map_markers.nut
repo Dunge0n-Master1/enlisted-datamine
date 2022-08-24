@@ -49,7 +49,8 @@ let function mkAircraftMapMarker(eid) {
   }
 }
 
+let memoizedMap = mkMemoizedMapSet(mkAircraftMapMarker)
 return {
   watch = aircraft_markers_Set
-  ctor = @(_) aircraft_markers_Set.value.keys().map( mkAircraftMapMarker)
+  ctor = @(_) memoizedMap(aircraft_markers_Set.value).values()
 }

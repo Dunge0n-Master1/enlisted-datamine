@@ -51,7 +51,7 @@ let mkData = memoize(@(minHud, inplane) {
   opacityRangeY = minHud ? opRange_hardcore : zeroPoint
 })
 
-let aircraft = memoize(function(eid) {
+let function aircraft(eid) {
   let state = aircraft_markers_GetWatched(eid)
   let watch = [state, inPlane, localPlayerTeam, forcedMinimalHud]
 
@@ -80,8 +80,12 @@ let aircraft = memoize(function(eid) {
       children = [icon, mkArrow(color)]
     }
   }
-})
+}
 
+let memoizedMap = mkMemoizedMapSet(aircraft)
 return {
-  aircraft_ctor = { watch = aircraft_markers_Set, ctor = @() aircraft_markers_Set.value.keys().map(aircraft)}
+  aircraft_ctor = {
+    watch = aircraft_markers_Set
+    ctor = @() memoizedMap(aircraft_markers_Set.value).values()
+  }
 }

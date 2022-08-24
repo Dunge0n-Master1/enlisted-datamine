@@ -227,17 +227,20 @@ let mkGroupBtn = @(groupItem, isLast, hasHotkey) isLast
       color = titleTxtColor
     }.__update(body_txt))
   : Transp(loc(groupItem?.nameLocId ?? "shopMainMenu"),
-    @() setCurArmyShopFolder(groupItem?.offerContainer),
-    {
-      margin = 0
-      textMargin = fsh(1)
-      borderWidth = [0,0,hdpx(1),0]
-      hotkeys = !hasHotkey ? null
-        : [["^{0} | Esc".subst(JB.B), {
-            action = @() setCurArmyShopFolder(groupItem?.offerContainer)
-            description = { skip = true }
-          }]]
-    })
+      function() {
+        setCurArmyShopFolder(groupItem?.offerContainer)
+        shopScroll.scrollToY(0)
+      },
+      {
+        margin = 0
+        textMargin = fsh(1)
+        borderWidth = [0,0,hdpx(1),0]
+        hotkeys = !hasHotkey ? null
+          : [["^{0} | Esc".subst(JB.B), {
+              action = @() setCurArmyShopFolder(groupItem?.offerContainer)
+              description = { skip = true }
+            }]]
+      })
 
 let rightArrow = faComp("caret-right", {padding = fsh(1)})
 

@@ -1,19 +1,17 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let contextCommandState = {
-  orderType = mkWatched(persist, "orderType", 0)
-  orderUseEntity = mkWatched(persist, "orderUseEntity", INVALID_ENTITY_ID)
-}
-
-let function updateContextCommand(_evt, _eid, comp) {
-  contextCommandState.orderType(comp["human_context_command__orderType"])
-  contextCommandState.orderUseEntity(comp["human_context_command__orderUseEntity"])
-}
+let state = Watched({
+  orderType = 0
+  orderUseEntity = INVALID_ENTITY_ID
+})
 
 ecs.register_es("human_context_command_state_es",
   {
-    [["onInit", "onChange"]] = updateContextCommand
+    [["onInit", "onChange"]] = @(_evt, _eid, comp) state({
+      orderType = comp["human_context_command__orderType"]
+      orderUseEntity = comp["human_context_command__orderUseEntity"]
+    })
   },
   {
     comps_rq = ["human_context_command_input"]
@@ -25,4 +23,7 @@ ecs.register_es("human_context_command_state_es",
   { tags="gameClient" }
 )
 
-return contextCommandState
+return {
+  orderType = Computed(@() state.value.orderType)
+  orderUseEntity = Computed(@() state.value.orderUseEntity)
+}

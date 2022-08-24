@@ -1,4 +1,4 @@
-stat_name:t="submachine_gun"
+stat_name:t="semiauto"
 selWeaponVar:t="kb_p_135"
 
 ownerAnimVars{

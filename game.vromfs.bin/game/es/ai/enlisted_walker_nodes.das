@@ -39,7 +39,7 @@ require common_shooter.events_common_shooter
 require common_shooter.events_common_shooter
 require enlisted.game.es.bomb_site_common
 require walkerai
-
+require math.linear
 
 [beh_node(name="isInConcussion")]
 class IsInConcussion : BehNodeAdapter
@@ -374,13 +374,14 @@ class FindPointInCapzone : BehNodeAdapter
 
           query(elem.eid) <| $ [es] (teamPresence : Object;
                                      capzone__maxTeamPresence : int;
-                                     capzone__nearestNavmeshPos : float3;
+                                     capzone__insideNavmeshPositions : Point3List;
                                      transform aka capzone_transform : float3x4)
             let myTeamInZone = teamPresence[teamHash] != null ? get_ecs_array(teamPresence[teamHash]) : null
 
             if myTeamInZone == null
               owner.blackBoard |> datablock_setInt(targetEidParam, int(uint(elem.eid)))
-              owner.blackBoard |> datablock_setPoint3(posParam, capzone__nearestNavmeshPos)
+              owner.blackBoard |> datablock_setPoint3(posParam,
+                capzone__insideNavmeshPositions[rnd_int(0, length(capzone__insideNavmeshPositions) - 1)])
 
               res = EBehResult ER_SUCCESS
               return
@@ -393,6 +394,10 @@ class FindPointInCapzone : BehNodeAdapter
             let alreadyOnRoute = uniqueTeams |> key_exists(uint(squad_member__squad))
 
             if alreadyOnRoute
+              owner.blackBoard |> datablock_setInt(targetEidParam, int(uint(elem.eid)))
+              owner.blackBoard |> datablock_setPoint3(posParam,
+                capzone__insideNavmeshPositions[rnd_int(0, length(capzone__insideNavmeshPositions) - 1)])
+
               res = EBehResult ER_SUCCESS
               return
 
@@ -404,11 +409,20 @@ class FindPointInCapzone : BehNodeAdapter
               return
 
             owner.blackBoard |> datablock_setInt(targetEidParam, int(uint(elem.eid)))
-            owner.blackBoard |> datablock_setPoint3(posParam, capzone__nearestNavmeshPos)
+            owner.blackBoard |> datablock_setPoint3(posParam,
+              capzone__insideNavmeshPositions[rnd_int(0, length(capzone__insideNavmeshPositions) - 1)])
 
             res = EBehResult ER_SUCCESS
 
     return res
+
+[beh_node(name="resetNearCapzone")]
+class ResetNearCapzone : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid(owner)) <| $ [es] (var beh_tree__capzoneOfInterest : EntityId&)
+      beh_tree__capzoneOfInterest = INVALID_ENTITY_ID
+
+    return EBehResult ER_SUCCESS
 
 [beh_node(name="findPointNearCapzone")]
 class FindPointNearCapzone : BehNodeAdapter
@@ -2284,3 +2298,83 @@ class ResetUseBombTrigger : BehNodeAdapter
       beh_tree__useBombResetTrigger = false
 
     return EBehResult ER_SUCCESS
+
+[beh_node(name="findCoverAroundPoint")]
+class FindCoverAroundPoint : BehNodeAdapter
+  centerParam   : int = -1
+  coverPosParam : int = -1
+
+  radius      : float = 25.
+  wallOffset  : float = 0.5
+  possibleCosAngle : float = 0.5
+  coverSideThreshold : float = 0.1
+
+  def override loadFromBlk(var data : DataBlock) : void
+    let agent = beh_tree_entity_agent(*owner)
+    centerParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "centerParam", ""), agent.pos)
+    coverPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "coverPosParam", ""), agent.pos)
+
+    coverSideThreshold = datablock_getReal(data, "coverSideThreshold", 0.1)
+    radius = datablock_getReal(data, "radius", 5.)
+    wallOffset = datablock_getReal(data, "wallOffset", 0.5)
+    let possibleAngle = datablock_getReal(data, "possibleAngle", 90.)
+    possibleCosAngle  = cos(deg_to_rad(possibleAngle))
+
+  def override update(dt : float) : EBehResult
+    var res = EBehResult ER_FAILED
+    query() <| $ [es] (var covers : CoversComponent&)
+      query(beh_tree_eid(owner)) <| $ [es] (walker_agent : EntityAgent;
+                                            var cover_updater__heldCovers : ecs::IPoint2List&)
+        let pos = owner.blackBoard |> datablock_getPoint3(centerParam)
+        let shootHeightOffset = entity_agent_getShootFromPos(walker_agent, STANCE_STAND).y
+
+        var box : bbox3f
+
+        box.bmin.xyz = pos - float3(radius, shootHeightOffset, radius)
+        box.bmax.xyz = pos + float3(radius, shootHeightOffset, radius)
+
+        var minDistSq = FLT_MAX
+        var minCoverId = int2(-1, 0)
+        covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
+                                                                 tm : mat44f#)
+
+          assume cover     = covers.list[id]
+          assume coverDesc = covers.coverDescs[id]
+
+          if coverDesc.numUsedSlots >= length(coverDesc.slots)
+            return
+
+          if abs(cover.groundLeft.y - cover.groundRight.y) > coverSideThreshold
+            return
+
+          var coverId = int2(id, 0)
+
+          for i in range(0, length(coverDesc.slots))
+            if coverDesc.slots[i].numUsed == 0
+              coverId.y = i
+              break
+
+          let coverPos = (cover.groundLeft + cover.groundRight) * 0.5
+          let angle    = dot(cover.dir, normalize(coverPos - pos))
+
+          let distSq = distance_sq_to_seg(pos, cover.groundLeft, cover.groundRight)
+
+          if possibleCosAngle < angle && distSq < minDistSq
+            minDistSq = distSq
+            minCoverId = coverId
+
+        if minCoverId.x != -1
+          assume cover     = covers.list[minCoverId.x]
+          assume coverDesc = covers.coverDescs[minCoverId.x]
+
+          push(cover_updater__heldCovers, minCoverId)
+          coverDesc.slots[minCoverId.y].numUsed += 1
+          if coverDesc.slots[minCoverId.y].numUsed == 1
+            coverDesc.numUsedSlots += 1
+
+          let coverAIPos = coverDesc.slots[minCoverId.y].pos - cover.dir * wallOffset
+          owner.blackBoard |> datablock_setPoint3(coverPosParam, coverAIPos)
+
+          res = EBehResult ER_SUCCESS
+
+    return res
