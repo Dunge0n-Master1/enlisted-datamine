@@ -27613,6 +27613,21 @@ stationary_mg42_without_shell_ejection{
       dmgMult:r=1.0
       armor:r=0.0
     }
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_2:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+
+    "volumeBox_3:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
   }
 
   "killer:eid"{

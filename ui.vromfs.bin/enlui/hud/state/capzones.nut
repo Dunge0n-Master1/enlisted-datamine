@@ -43,7 +43,7 @@ let visibleCurrentCapZonesEids = Computed(function(prev) {
       throw null
     return state
   })
-  if (prev==FRP_INITIAL || !isEqual(eids, prev))
+  if (!isEqual(eids, prev))
     return eids
   return prev
 })
@@ -68,7 +68,7 @@ let visibleZoneGroups = Computed(function(prev){
   groupsSorted.each(@(g) g.zones.sort(zoneComparator))
   groupsSorted = groupsSorted.map(@(g) g.zones.map(@(z) z.eid))
 
-  if (prev==FRP_INITIAL || !isEqual(groupsSorted, prev))
+  if (!isEqual(groupsSorted, prev))
     return groupsSorted
   return prev
 })

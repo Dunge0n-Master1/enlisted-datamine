@@ -32,6 +32,7 @@ let animActive = [
   { prop=AnimProp.opacity, from=0.0, to=1.0, duration=0.25, play=true}
 ]
 
+
 let capzonBlurback = memoize(@(height) {
     size = [height, height]
     rendObj = ROBJ_MASK
@@ -151,7 +152,7 @@ let function capzoneCtor(zoneWatch, params={}) {
       margin = [0, margin]
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
-      key = eid
+      key = {}
 
       zoneData = { zoneEid = eid }
       children = innerZone

@@ -742,8 +742,13 @@ let function onAcceptMembership(newContact) {
 let function onApplicationNotify(params) {
   let applicant = params?.applicant
   let uid = applicant?.id
-  let newContact = Contact(uid?.tostring())
-  validateNickNames([newContact], @() onAcceptMembership(newContact))
+  let contactUid = uid?.tostring()
+  if (uid) {
+    let newContact = Contact(contactUid)
+    validateNickNames([newContact], @() onAcceptMembership(newContact))
+  }
+  else
+    println($"incorrect uid on contact creation, {uid}")
 }
 
 

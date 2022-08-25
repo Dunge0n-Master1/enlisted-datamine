@@ -11,14 +11,20 @@ let { capzoneWidget } = require("%ui/hud/components/capzone.nut")
 let capzoneSettings = {canHighlight=false}
 
 let visibleZoneEids = Computed(function(prev) {
-  let n = visibleCurrentCapZonesEids.value.filter(@(_, eid) capZones.value?[eid]?.heroInsideEid != watchedHeroEid.value)
+  let capzones = capZones.value
+  let watchedhero = watchedHeroEid.value
+  let n = visibleCurrentCapZonesEids.value.filter(@(_, eid)
+      capzones?[eid].heroInsideEid != watchedhero
+      || watchedhero == INVALID_ENTITY_ID
+      || watchedhero == null
+    )
   if (!isEqual(n, prev))
     return n
   return prev
 })
 
-let function distanceText(eid) {
-  return {
+let distanceText = memoize(function(eid) {
+  return freeze({
     rendObj = ROBJ_TEXT
     color = DEFAULT_TEXT_COLOR
     hplace = ALIGN_CENTER
@@ -29,8 +35,8 @@ let function distanceText(eid) {
     behavior = Behaviors.DistToEntity
     targetEid = eid
     minDistance = 3.0
-  }
-}
+  })
+})
 
 let pointerColor = Color(200,200,200)
 let iconSz =[hdpxi(32), hdpxi(24)]
@@ -74,6 +80,7 @@ let mkZonePointer = function(eid) {
   let zoneWatch = getZoneWatch(eid)
   let {title=null, icon=null, iconOffsetY=0.0} = zoneWatch.value
   let watch = [watchedTeam, zoneWatch]
+  let distance = distanceText(eid)
   let childData = {
     eid
     priorityOffset = 10000
@@ -84,6 +91,8 @@ let mkZonePointer = function(eid) {
     zoneEid = eid
     yOffs = iconOffsetY
   }
+  let capturingKey = {}
+  let nkey = {}
   return function() {
     let zone = zoneWatch.value
     if (zone == null)
@@ -100,7 +109,7 @@ let mkZonePointer = function(eid) {
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
       size
-      key = showCapturing ? $"i{eid}" : eid
+      key = showCapturing ? capturingKey : nkey
       data
       transform = {}
       children = {
@@ -119,7 +128,7 @@ let mkZonePointer = function(eid) {
           }
           capzone
           zoneIcon
-          distanceText(eid)
+          distance
         ]
       }
 
@@ -129,10 +138,11 @@ let mkZonePointer = function(eid) {
 }
 
 let zonePointersWatch = [visibleZoneEids, safeAreaHorPadding, safeAreaVerPadding]
+let memoizedMap = mkMemoizedMapSet(mkZonePointer)
 
 let function zonePointers() {
 
-  let children = visibleZoneEids.value.keys().map(mkZonePointer)
+  let children = memoizedMap(visibleZoneEids.value).values()
 
   return {
     watch = zonePointersWatch

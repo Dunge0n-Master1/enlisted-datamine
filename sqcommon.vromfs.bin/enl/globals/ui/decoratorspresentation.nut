@@ -123,6 +123,18 @@ local portraits = {
   normandy_axis_event_marathon_summer_2022 = {
     icon = "ui/portraits/normandy/ger_normandy_5.png"
   }
+  normandy_axis_lb_event_summer_2022_t1 = {
+    icon = "ui/portraits/normandy/ger_normandy_lb_1.png"
+  }
+  normandy_axis_lb_event_summer_2022_t2 = {
+    icon = "ui/portraits/normandy/ger_normandy_lb_2.png"
+  }
+  normandy_axis_lb_event_summer_2022_t3 = {
+    icon = "ui/portraits/normandy/ger_normandy_lb_3.png"
+  }
+  normandy_axis_lb_event_summer_2022_t4 = {
+    icon = "ui/portraits/normandy/ger_normandy_lb_4.png"
+  }
 
   normandy_allies_t1_1 = {
     icon = "ui/portraits/normandy/usa_normandy_3.png"
