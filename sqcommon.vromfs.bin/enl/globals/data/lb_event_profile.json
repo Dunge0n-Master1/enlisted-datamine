@@ -21643,7 +21643,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -21655,7 +21655,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -21781,7 +21781,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -21797,7 +21797,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -21923,7 +21923,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -21939,7 +21939,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -22065,7 +22065,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22077,7 +22077,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -22198,7 +22198,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22214,7 +22214,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -22354,7 +22354,7 @@
                         "slot" : "backpack"
                      },
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22382,7 +22382,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -22488,7 +22488,7 @@
                         "slot" : "backpack"
                      },
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22516,7 +22516,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -22618,7 +22618,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22654,7 +22654,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -22756,7 +22756,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22784,7 +22784,7 @@
                         "slot" : "radio"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -22886,7 +22886,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -22918,7 +22918,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -23019,7 +23019,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23051,7 +23051,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -23152,7 +23152,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23180,7 +23180,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -23297,7 +23297,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23309,7 +23309,7 @@
                         "slot" : "flask_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -23438,7 +23438,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23446,7 +23446,7 @@
                         "slot" : "face"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -23575,7 +23575,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23587,7 +23587,7 @@
                         "slot" : "flask_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -23716,7 +23716,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23732,7 +23732,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -23853,7 +23853,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -23861,7 +23861,7 @@
                         "slot" : "face"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -23990,7 +23990,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -24002,7 +24002,7 @@
                         "slot" : "front_belt_r"
                      },
                      "gasmask" : {
-                        "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
                         "slot" : "gasmask"
                      },
                      "gloves" : {
@@ -43705,7 +43705,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -43733,7 +43733,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -43832,7 +43832,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -43864,7 +43864,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -43963,7 +43963,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -43987,7 +43987,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -44086,7 +44086,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -44118,7 +44118,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -44217,7 +44217,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -44249,7 +44249,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45036,7 +45036,7 @@
                         "slot" : "backpack"
                      },
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45060,7 +45060,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45166,7 +45166,7 @@
                         "slot" : "backpack"
                      },
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45190,7 +45190,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45292,7 +45292,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45320,7 +45320,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45419,7 +45419,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45443,7 +45443,7 @@
                         "slot" : "radio"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45542,7 +45542,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45570,7 +45570,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45669,7 +45669,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45701,7 +45701,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
@@ -45800,7 +45800,7 @@
                   "callname" : "",
                   "equipment" : {
                      "belt_1" : {
-                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
                         "slot" : "belt_1"
                      },
                      "face" : {
@@ -45828,7 +45828,7 @@
                         "slot" : "pants"
                      },
                      "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "gametemplate" : "attachable_wear_jacket_m43_item",
                         "slot" : "tunic"
                      }
                   },
