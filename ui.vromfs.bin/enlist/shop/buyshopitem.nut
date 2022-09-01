@@ -12,9 +12,11 @@ let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut
 let { sound_play } = require("sound")
 let { HighlightFailure, MsgMarkedText, TextActive, TextHighlight, textColor
 } = require("%ui/style/colors.nut")
-let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { viewShopInfoBtnStyle, DISCOUNT_WARN_TIME } = require("shopPkg.nut")
-let { barterShopItem, buyItemByGuid, getBuyRequirementError, buyItemByStoreId, buyShopItem
+let {
+  barterShopItem, buyItemByGuid, getBuyRequirementError, buyItemByStoreId, buyShopItem,
+  viewCurrencies, shopItemContentCtor, buyShopOffer
 } = require("armyShopState.nut")
 let { shopItems } = require("shopItems.nut")
 let openUrl = require("%ui/components/openUrl.nut")
@@ -26,7 +28,6 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
 let { priceWidget } = require("%enlist/components/priceWidget.nut")
-let { viewCurrencies, shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
@@ -150,7 +151,7 @@ let mkBarterCurrency = @(barterTpl){
   ]
 }
 
-let btnWithCurrImageComp = @(text, currImgs, sf) {
+let btnWithCurrImageComp = @(text, currImgs, price, sf, countWatched, shopItemPriceInc) {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   margin = [hdpx(10), hdpx(20), hdpx(10), hdpx(50)]
@@ -161,7 +162,15 @@ let btnWithCurrImageComp = @(text, currImgs, sf) {
       color = textColor(sf, false, TextActive)
       text
     }.__update(body_txt)
-  ].extend(currImgs)
+    currImgs
+    @() {
+      rendObj = ROBJ_TEXT
+      watch = countWatched
+      color = textColor(sf, false, TextActive)
+      text = countWatched.value * price
+        + shopItemPriceInc * countWatched.value * (countWatched.value - 1) / 2
+    }.__update(body_txt)
+  ]
 }
 
 let notEnoughMoneyInfo = @(price, currencyId) {
@@ -217,10 +226,28 @@ let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState
   discountState(newState)
 }
 
+let notEnoughMsg = @() msgbox.showMessageWithContent({
+  content = {
+    size = [sw(90), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    gap = fsh(5)
+    halign = ALIGN_CENTER
+    children = {
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      color = defTxtColor
+      text = (loc("dontHaveEnoughOrders"))
+    }.__update(body_txt)
+  }
+  buttons = [{ text = loc("Ok"), isCancel = true, isCurrent = true }]
+})
+
 let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
 
 let function buyItem(shopItem, productView = null, viewBtnCb = null,
-  activatePremiumBttn = null, description = null, pOfferGuid = null
+  activatePremiumBttn = null, description = null, pOfferGuid = null, countWatched = Watched(1)
 ) {
   // no free space for soldier:
   let requiredInfo = getBuyRequirementError(shopItem)
@@ -235,7 +262,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     return msgbox.show({ text = requiredInfo.text, buttons = buttons })
   }
 
-  let { curItemCost = {}, referralLink = "", discountIntervalTs = [] } = shopItem
+  let {
+    curItemCost = {}, referralLink = "", discountIntervalTs = [], shopItemPriceInc = 0
+  } = shopItem
   let hasBarter = curItemCost.len() > 0
   let barterInfo = Computed(@() getPayItemsData(curItemCost, curCampItems.value))
 
@@ -279,10 +308,6 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
   let hasBuy = Computed(@() price.value > 0)
   let hasOfferExpired = Computed(@() pOfferGuid != null
     && discountState.value == DISCOUNT_STATE.ENDED)
-
-  let notEnoughMoney = currency == null
-    ? Watched(false)
-    : Computed(@() (balance.value?[currencyId] ?? 0) < price.value)
 
   let hasSquads = (shopItem?.squads.len() ?? 0) > 0
   let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
@@ -343,7 +368,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
         fullPrice = fullPrice.value
         iconSize = hdpx(20)
       })
-      if (notEnoughMoney.value)
+      if ((balance.value?[currencyId] ?? 0) < price.value)
         notEnoughCurrencyInfo = notEnoughMoneyInfo(price.value, currencyId)
     }
 
@@ -351,7 +376,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
       mkDiscountInfo(discountState.value))
 
     return {
-      watch = [ price, fullPrice, notEnoughMoney, barterInfo, hasBuy, discountState ]
+      watch = [ price, fullPrice, balance, barterInfo, hasBuy, discountState ]
       size = [fsh(80), SIZE_TO_CONTENT]
       margin = [defGap, 0, 0, 0]
       flow = FLOW_VERTICAL
@@ -392,23 +417,33 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
   let buttons = Computed(function(){
     let btns = []
     let purchaseCurrency = openShopByCurrencyId?[currencyId]
-    let purchase = @() buyShopItem(shopItem, currencyId, price.value, buyCb, pOfferGuid)
-
     if (hasBarter)
       if (barterInfo.value) {
-        let barterCurrImgs = curItemCost.keys().map(@(tpl)
-          mkCurrencyImage(getCurrencyPresentation(tpl)?.icon))
-        let buyInfo = barterInfo.value
+        let [itemTpl = null, priceBarter = 0] = curItemCost.topairs()?[0]
+        let buyInfo = getPayItemsData(curItemCost, curCampItems.value, countWatched.value)
+        let barterCurrImgs = mkCurrencyImage(getCurrencyPresentation(itemTpl)?.icon)
         btns.append({
-          action = @() barterShopItem(shopItem, buyInfo)
+          action = function() {
+            let isDisable = (viewCurrencies.value?[itemTpl] ?? 0) < priceBarter * countWatched.value
+            if (isDisable)
+              notEnoughMsg()
+            else
+              barterShopItem(shopItem, buyInfo, countWatched.value)
+          }
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
-              textComp = btnWithCurrImageComp(loc("btn/buy"), barterCurrImgs, sf)
+              textComp = btnWithCurrImageComp(
+                loc("btn/buy"),
+                barterCurrImgs,
+                priceBarter,
+                sf,
+                countWatched,
+                shopItemPriceInc)
               params = h2_txt
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
             hotkeys = [[ "^J:Y | Enter | Space", { description = {skip = true}} ]]
-          }.__merge(primaryFlatButtonStyle)
+          }.__update(primaryFlatButtonStyle)
         })
       }
       else if (referralLink != "") {
@@ -417,18 +452,29 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
           action = @() openUrl(referralLink, false, true)
         })
       }
-
     if (hasBuy.value && !hasOfferExpired.value) {
-      if (!notEnoughMoney.value)
+      let currencyBalance = balance.value?[currencyId] ?? 0
+      if (currencyBalance >= price.value * countWatched.value)
         btns.append({
           text = loc("btn/buy")
           action = function() {
-            purchase()
-            sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
+            if (pOfferGuid == null) {
+              buyShopItem(shopItem, currencyId, price.value, buyCb, countWatched.value)
+              sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
+            } else {
+              buyShopOffer(shopItem, currencyId, price.value, buyCb, pOfferGuid)
+              sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
+            }
           }
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
-              textComp = btnWithCurrImageComp(loc("btn/buy"), [currencyImage(currency)], sf)
+              textComp = btnWithCurrImageComp(
+                loc("btn/buy"),
+                currencyImage(currency),
+                price.value,
+                sf,
+                countWatched,
+                shopItemPriceInc)
               params = h2_txt
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }

@@ -145,25 +145,22 @@ let function mkMsgbox(id, defStyling = require("msgbox.style.nut")){
             curBtnIdx.update(idx)
             conHover?()
           }
-          let onRecalcLayout = (initialBtnIdx==idx)
-            ? function(initial, elem) {
-                if (initial && styling?.moveMouseCursor.value)
-                  move_mouse_cursor(elem)
-              }
+          let onAttach = (initialBtnIdx==idx && styling?.moveMouseCursor.value)
+            ? @(elem) move_mouse_cursor(elem)
             : null
-          local behaviors = desc?.customStyle?.behavior ?? desc?.customStyle?.behavior
-          behaviors = type(behaviors) == "array" ? behaviors : [behaviors]
-          behaviors.append(Behaviors.RecalcHandler, Behaviors.Button)
+          local behavior = desc?.customStyle?.behavior ?? desc?.customStyle?.behavior
+          behavior = type(behavior) == "array" ? behavior : [behavior]
+          behavior.append(Behaviors.Button)
           let customStyle = (desc?.customStyle ?? {}).__merge({
-            onHover = onHover
-            behavior = behaviors
-            onRecalcLayout = onRecalcLayout
+            onHover
+            behavior
+            onAttach
           })
           let function onClick() {
             log($"[MSGBOX] clicked '{desc?.text}' button: text = '{params?.text}'")
             handleButton(desc?.action)
           }
-          return styling.button(desc.__merge({customStyle = customStyle, key=desc}), onClick)
+          return styling.button(desc.__merge({customStyle, key=desc}), onClick)
         })
 
         hotkeys = [

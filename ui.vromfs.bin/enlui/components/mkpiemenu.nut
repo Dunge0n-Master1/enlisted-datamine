@@ -343,10 +343,8 @@ let function mkPieMenu(actions, curIdx = Watched(null), showPieMenu = Watched(fa
         hotkeysStubs == null ? null
           : { key = hotkeysStubs, hotkeys = [[hotkeysStubs, @() null]] }
       ]
-      behavior = Behaviors.RecalcHandler
-      function onRecalcLayout(initial, elem) {
-        if (initial)
-          move_mouse_cursor(elem)
+      function onAttach(elem) {
+        move_mouse_cursor(elem)
       }
     })
   }

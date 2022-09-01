@@ -107,7 +107,7 @@ let function mkMsgbox(id, defStyling = require("msgbox.style.nut")){
       btnsDesc = Watched(btnsDesc, FRP_DONT_CHECK_NESTED)
 
     local defCancel = null
-    local initialBtnIdx = 0
+    local initialBtnIdx = null
 
     foreach (idx, bd in btnsDesc.value) {
       if (bd?.isCurrent)
@@ -116,7 +116,7 @@ let function mkMsgbox(id, defStyling = require("msgbox.style.nut")){
         defCancel = bd
     }
 
-    let curBtnIdx = Watched(initialBtnIdx)
+    let curBtnIdx = Watched(initialBtnIdx ?? 0)
 
     let function moveBtnFocus(dir) {
       curBtnIdx.update((curBtnIdx.value + dir + btnsDesc.value.len()) % btnsDesc.value.len())
@@ -145,19 +145,17 @@ let function mkMsgbox(id, defStyling = require("msgbox.style.nut")){
             curBtnIdx.update(idx)
             conHover?()
           }
-          let onRecalcLayout = (initialBtnIdx==idx)
-            ? function(initial, elem) {
-                if (initial && styling?.moveMouseCursor.value)
-                  move_mouse_cursor(elem)
-              }
+          let onAttach = (initialBtnIdx != null && initialBtnIdx==idx
+            && styling?.moveMouseCursor.value)
+            ? @(elem) move_mouse_cursor(elem)
             : null
-          local behaviors = desc?.customStyle?.behavior ?? desc?.customStyle?.behavior
-          behaviors = type(behaviors) == "array" ? behaviors : [behaviors]
-          behaviors.append(Behaviors.RecalcHandler, Behaviors.Button)
+          local behavior = desc?.customStyle?.behavior ?? desc?.customStyle?.behavior
+          behavior = type(behavior) == "array" ? behavior : [behavior]
+          behavior.append(Behaviors.Button)
           let customStyle = (desc?.customStyle ?? {}).__merge({
-            onHover = onHover
-            behavior = behaviors
-            onRecalcLayout = onRecalcLayout
+            onHover
+            behavior
+            onAttach
           })
           let function onClick() {
             log($"[MSGBOX] clicked '{desc?.text}' button: text = '{params?.text}'")

@@ -313,18 +313,14 @@ return {
     params = { armyId = armyId, unlockGuid = unlockGuid }
   }, cb)
 
-  barter_shop_item = @(armyId, shopItemGuid, payItems, cb = null) request({
-    method = "barter_shop_item"
-    params = {
-      armyId = armyId
-      shopItemGuid = shopItemGuid
-      payItems = payItems
-    }
+  barter_shop_items = @(armyId, shopItemGuid, payItems, count, cb = null) request({
+    method = "barter_shop_items"
+    params = { armyId, shopItemGuid, payItems, count }
   }, cb)
 
-  buy_shop_item = @(armyId, shopItemGuid, currencyId, price, cb = null) request({
-    method = "buy_shop_item"
-    params = { armyId, shopItemGuid, currencyId, price }
+  buy_shop_items = @(armyId, shopItemGuid, currencyId, price, count, cb = null) request({
+    method = "buy_shop_items"
+    params = { armyId, shopItemGuid, currencyId, price, count }
   }, cb)
 
   buy_shop_offer = @(armyId, shopItemGuid, currencyId, price, offerGuid = "", cb = null) request({

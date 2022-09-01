@@ -20,7 +20,7 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
   let { squads = [] } = shopItem
   let squad = squads.findvalue(@(s) s.armyId == guid) ?? squads?[0]
   let isBuyingWithGold = shopItem?.curShopItemPrice.currencyId == "EnlistedGold"
-
+  let countWatched = Watched(1)
   let crateContent = shopItemContentCtor(shopItem)
   let hasItemContent = crateContent == null ? false
     : (crateContent.value?.content.items ?? {}).len() > 0
@@ -32,7 +32,11 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
     shopItemLockedMsgBox(armyLevel)
   else if (purchaseIsPossible.value) {
     let description = mkShopItemUsage(crateContent, allItemTemplates)
-    let productView = mkDynamicProductView(shopItem.guid, allItemTemplates, crateContent)
+    let productView = mkDynamicProductView(
+      shopItem.guid,
+      allItemTemplates,
+      countWatched,
+      crateContent)
     if (squad != null && isBuyingWithGold)
       buySquadWindow({
         shopItem
@@ -49,6 +53,7 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
         description
         viewBtnCb = hasItemContent ? @() viewShopItemsScene(shopItem) : null
         pOfferGuid = personalOffer?.guid
+        countWatched
       })
       checkLootRestriction(
           buyItemAction,

@@ -14,7 +14,7 @@ let { scrollToCampaignLvl, curArmySquadsUnlocks
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
-let { defBgColor, bigPadding, smallPadding, defTxtColor, warningColor
+let { defBgColor, bigPadding, smallPadding, defTxtColor, warningColor, idleBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { TextHover, TextNormal, textMargin
@@ -23,10 +23,12 @@ let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { armySquadsById, lockedArmySquadsById } = require("%enlist/soldiers/model/state.nut")
 let allowedVehicles = require("%enlist/vehicles/allowedVehicles.nut")
 let { shopItems } = require("shopItems.nut")
-let { BtnBdNormal } = require("%ui/style/colors.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
+let { mkCounter } = require("%enlist/shop/mkCounter.nut")
+let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
+let { curArmyReserve, curArmyReserveCapacity } = require("%enlist/soldiers/model/reserve.nut")
 
 const MAX_CLASSES_USAGE = 4
 let PRICE_HEIGHT = hdpx(44)
@@ -279,7 +281,19 @@ let function mkTitle(text, itemAmount, idx, isBundle) {
   }
 }
 
-let function mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount) {
+let function getMaxCount(shopItem) {
+  let { limit = 0, premiumDays = 0, squads = [] } = shopItem
+  let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
+  return limit > 0 ? 1
+    : premiumDays > 0 ? 1
+    : squads.len() > 0 ? 1
+    : isSoldier ? min(99, max(curArmyReserveCapacity.value - curArmyReserve.value.len(), 0))
+    : 99
+}
+
+let function mkShopItemTitle(
+  shopItem, crateContent, itemTemplates, showDiscount, countWatched = null
+) {
   let { armyId = null, content = {} } = crateContent?.value
   local shopIcon
 
@@ -302,6 +316,7 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount
     minAmount = itemMinAmount
     maxAmount = itemMaxAmount
   }
+  let maxCount = getMaxCount(shopItem)
   return  {
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
@@ -327,6 +342,7 @@ let function mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount
             children = titleList.map(@(text, idx)
               mkTitle(text, itemAmount, idx, isBundle))
           }
+          maxCount <= 1 || countWatched == null ? null : mkCounter(maxCount, countWatched)
         ]
       }
     ]
@@ -377,10 +393,9 @@ let debugTag = {
 }
 
 let mkShopItemView = kwarg(@(
-    shopItem, purchasingItem = null, unseenSignalObj = null, onCrateViewCb = null,
-    onInfoCb = null, isLocked = false, containerIcon = null, crateContent = null,
-    itemTemplates = null, showVideo = null, showDiscount = false
-  ) {
+  shopItem, purchasingItem = null, unseenSignalObj = null, onCrateViewCb = null,
+  onInfoCb = null, isLocked = false, containerIcon = null, crateContent = null,
+  itemTemplates = null, showVideo = null, showDiscount = false) {
     size = flex()
     halign = ALIGN_RIGHT
     children = [
@@ -413,15 +428,36 @@ let mkProductView = @(shopItem, itemTemplates, crateContent = null) {
   rendObj = ROBJ_SOLID
   size = shopItem?.squads[0] != null ? cardSquadPreviewSize : cardPreviewSize
   padding = hdpx(1)
-  color = BtnBdNormal
+  color = idleBgColor
   clipChildren = true
   children = mkShopItemView({ shopItem, crateContent, itemTemplates })
 }
 
-let mkDynamicProductView = @(itemGuid, itemTemplates, crateContent = null) function(){
-  let shopItem = shopItems.value?[itemGuid]
-  return mkProductView(shopItem, itemTemplates, crateContent).__update({ watch = shopItems })
+let mkMsgBoxView = @(shopItem, itemTemplates, crateContent, countWatched, showDiscount = false) {
+  rendObj = ROBJ_SOLID
+  size = shopItem?.squads[0] != null ? cardSquadPreviewSize : cardPreviewSize
+  padding = hdpx(1)
+  color = idleBgColor
+  clipChildren = true
+  children = {
+    size = flex()
+    halign = ALIGN_RIGHT
+    children = [
+      mkShopItemImg(shopItem.image, {
+        keepAspect = KEEP_ASPECT_FILL
+        imageHalign = ALIGN_CENTER
+        imageValign = ALIGN_TOP
+        picSaturate = 1
+      })
+      mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount, countWatched)
+      shopItem?.isShowDebugOnly ?? false ? debugTag : null
+      itemHighlight(shopItem.guid)
+    ]
+  }
 }
+
+let mkDynamicProductView = @(itemGuid, itemTemplates, countWatched, crateContent = null) @()
+  mkMsgBoxView(shopItems.value?[itemGuid], itemTemplates, crateContent, countWatched)
 
 let shopItemLockedMsgBox = @(level, cb = @() null)
   msgbox.show({

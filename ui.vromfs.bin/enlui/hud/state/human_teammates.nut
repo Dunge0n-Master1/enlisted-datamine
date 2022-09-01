@@ -11,6 +11,7 @@ let heroesTrackComps = [
   ["possessedByPlr", ecs.TYPE_EID],
   ["human_anim__vehicleSelected", ecs.TYPE_EID],
   ["squad_member__squad", ecs.TYPE_EID],
+  ["squad_member__playerEid", ecs.TYPE_EID],
   ["human_quickchat__requestAmmoBoxMarkerShowUpTo", ecs.TYPE_FLOAT],
   ["human_quickchat__requestRallyPointMarkerShowUpTo", ecs.TYPE_FLOAT],
   ["medic__healState", ecs.TYPE_INT],

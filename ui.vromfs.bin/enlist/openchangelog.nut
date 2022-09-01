@@ -31,9 +31,8 @@ let function nextButton(){
     children = curPatchnoteIdx.value != 0 ? btnNext : btnClose
     watch = [curPatchnoteIdx]
     hplace = ALIGN_RIGHT
-    behavior = Behaviors.RecalcHandler
-    function onRecalcLayout(initial, elem) {
-      if (initial && isGamepad.value) {
+    function onAttach(elem) {
+      if (isGamepad.value) {
         move_mouse_cursor(elem, false)
       }
     }

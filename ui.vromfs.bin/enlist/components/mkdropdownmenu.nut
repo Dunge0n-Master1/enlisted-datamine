@@ -38,11 +38,10 @@ let mkButton = @(btn, needMoveCursor) (btn?.len() ?? 0) > 0
       minWidth = SIZE_TO_CONTENT
       margin = 0
     }.__update(needMoveCursor ? {
-        behavior = [Behaviors.Button, Behaviors.RecalcHandler]
+        behavior = Behaviors.Button
         key = "selected_menu_elem"
-        function onRecalcLayout(initial) {
-          if (initial)
-            move_mouse_cursor("selected_menu_elem", false)
+        function onAttach() {
+          move_mouse_cursor("selected_menu_elem", false)
         }
       } : {}))
   : {

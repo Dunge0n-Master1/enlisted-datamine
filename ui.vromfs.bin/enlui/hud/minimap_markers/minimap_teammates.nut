@@ -3,11 +3,11 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {ceil} = require("math")
-let {localPlayerTeam, localPlayerGroupId} = require("%ui/hud/state/local_player.nut")
+let {localPlayerTeam, localPlayerGroupMembers} = require("%ui/hud/state/local_player.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
+let {watchedHeroSquadEid} = require("%ui/hud/state/squad_members.nut")
 let {teammatesAvatarsGetWatched, groupmatesAvatarsSet, groupmatesAvatarsGetWatched, teammatesAvatarsNotGroupmatesSet} = require("%ui/hud/state/human_teammates.nut")
 let { TEAM_UNASSIGNED } = require("team")
-let { INVALID_GROUP_ID } = require("matching.errors")
 let {MAP_COLOR_SQUADMATE, MAP_COLOR_GROUPMATE, MAP_COLOR_TEAMMATE} = require("%enlSqGlob/ui/style/unit_colors.nut")
 let {hudMarkerEnable} = require("%ui/hud/state/hudOptionsState.nut")
 let unitArrowSz = [fsh(0.7), fsh(1.4)]
@@ -56,10 +56,16 @@ let map_unit_ctor = function(eid, showHero=false) {
     dirRotate = true
   }
   let markerState = teammatesAvatarsGetWatched(eid)
-  let watch = [localPlayerTeam, watchedHeroEid, markerState, localPlayerGroupId, hudMarkerEnable]
+  let watch = [localPlayerTeam, watchedHeroEid, watchedHeroSquadEid, markerState, localPlayerGroupMembers, hudMarkerEnable]
   let blinkAnimation = mkBlinkAnimation(eid)
   return function() {
-    let {isAlive=true, human_anim__vehicleSelected=INVALID_ENTITY_ID} = markerState.value
+    let {
+      isAlive = true,
+      team = TEAM_UNASSIGNED,
+      human_anim__vehicleSelected = INVALID_ENTITY_ID,
+      squad_member__playerEid = INVALID_ENTITY_ID,
+      squad_member__squad = INVALID_ENTITY_ID
+    } = markerState.value
     let hideMarker = !isAlive
       || !hudMarkerEnable.value
       || (showHero && watchedHeroEid.value==eid)
@@ -67,19 +73,10 @@ let map_unit_ctor = function(eid, showHero=false) {
     if (hideMarker)
       return {watch}
 
-    let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
-    let heroTeam = localPlayerTeam.value ?? TEAM_UNASSIGNED
-    let groupId = localPlayerGroupId.value ?? INVALID_GROUP_ID
-    let squadEid = markerState.value?.squad_member__squad ?? INVALID_ENTITY_ID
     local fillColor = Color(0, 0, 0)
-    let isSquadmate = (squadEid!=INVALID_ENTITY_ID && squadEid >= 0 && squadEid == ecs.obsolete_dbg_get_comp_val(heroEid, "squad_member__squad"))
-    let isTeammate = (markerState.value?.team ?? -1) == heroTeam
-    local isGroupmate = false
-    if (!isSquadmate && squadEid != INVALID_ENTITY_ID && groupId != INVALID_GROUP_ID) {
-      let ownerPlayer = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer", INVALID_ENTITY_ID)
-      if (ownerPlayer != INVALID_ENTITY_ID)
-        isGroupmate = groupId == ecs.obsolete_dbg_get_comp_val(ownerPlayer, "groupId", INVALID_GROUP_ID)
-    }
+    let isSquadmate = squad_member__squad != INVALID_ENTITY_ID && squad_member__squad == watchedHeroSquadEid.value
+    let isTeammate = team == localPlayerTeam.value
+    let isGroupmate = !isSquadmate && squad_member__playerEid in localPlayerGroupMembers.value
 
     if (isSquadmate) {
       fillColor = MAP_COLOR_SQUADMATE

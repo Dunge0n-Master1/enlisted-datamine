@@ -3,11 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let {Point2} = require("dagor.math")
-let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
-let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let {selectedBotForOrderEid, isPersonalContextCommandMode} = require("%ui/hud/state/squad_members.nut")
+let { localPlayerGroupMembers } = require("%ui/hud/state/local_player.nut")
+let {selectedBotForOrderEid, isPersonalContextCommandMode, watchedHeroSquadEid} = require("%ui/hud/state/squad_members.nut")
 let teammateName = require("%ui/hud/components/teammateName.nut")
-let { INVALID_GROUP_ID } = require("matching.errors")
 let {
   HUD_COLOR_TEAMMATE_INNER, HUD_COLOR_TEAMMATE_OUTER,
   HUD_COLOR_GROUPMATE_BOT_INNER, HUD_COLOR_GROUPMATE_BOT_OUTER,
@@ -123,7 +121,7 @@ let hasEngineers = Computed(@() engineersInSquad.value >0)
 
 let unit = function(eid, showMed){
   let infoState = teammatesAvatarsGetWatched(eid)
-  let watch = [infoState, watchedHeroEid, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, localPlayerEid]
+  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, localPlayerGroupMembers]
   return function() {
     let info = infoState.value
     if (!info.isAlive )
@@ -135,16 +133,9 @@ let unit = function(eid, showMed){
         return { watch }
     }
 
-    let squadEid = ecs.obsolete_dbg_get_comp_val(eid, "squad_member__squad") ?? INVALID_ENTITY_ID
-    let groupId = ecs.obsolete_dbg_get_comp_val(localPlayerEid.value, "groupId") ?? INVALID_GROUP_ID
-    let isSquadmate = (squadEid!=INVALID_ENTITY_ID && squadEid >= 0 && squadEid == ecs.obsolete_dbg_get_comp_val(watchedHeroEid.value, "squad_member__squad"))
-    let isBot = (ecs.obsolete_dbg_get_comp_val(eid, "possessedByPlr") ?? INVALID_ENTITY_ID) == INVALID_ENTITY_ID
-    local isGroupmate = false
-    if (!isSquadmate && squadEid != INVALID_ENTITY_ID && groupId != INVALID_ENTITY_ID) {
-      let ownerPlayer = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
-      isGroupmate = groupId == ecs.obsolete_dbg_get_comp_val(ownerPlayer, "groupId")
-    }
-
+    let isSquadmate = info.squad_member__squad != INVALID_ENTITY_ID && info.squad_member__squad == watchedHeroSquadEid.value
+    let isBot = info.possessedByPlr == INVALID_ENTITY_ID
+    let isGroupmate = !isSquadmate && info.squad_member__playerEid in localPlayerGroupMembers.value
 
     let minHud = forcedMinimalHud.value
     let showName = info?.name && isGroupmate && !isBot

@@ -18,7 +18,7 @@ let { curArmyData, curArmy, curCampItemsCount, armySquadsById, armyItemCountByTp
 } = require("%enlist/soldiers/model/state.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { hasCurArmyReserve } = require("%enlist/soldiers/model/reserve.nut")
-let { buy_shop_item, buy_shop_offer, barter_shop_item, check_purchases
+let { buy_shop_items, buy_shop_offer, barter_shop_items, check_purchases
 } = require("%enlist/meta/clientApi.nut")
 let { purchasesCount, curArmiesList } = require("%enlist/meta/profile.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
@@ -467,34 +467,43 @@ let premiumProducts = Computed(@()
   .sort(@(a, b) (a?.premiumDays ?? 0) <=> (b?.premiumDays ?? 0))
 )
 
-let function barterShopItem(shopItem, payData) {
+let function barterShopItem(shopItem, payData, count = 1) {
   if (purchaseInProgress.value != null)
     return
 
   purchaseInProgress(shopItem)
   shopItemToShow(shopItem)
-  barter_shop_item(curArmy.value, shopItem.guid, payData, function(_) {
+  barter_shop_items(curArmy.value, shopItem.guid, payData, count, function(_) {
     purchaseInProgress(null)
     shopOrdersUsedActivate()
     seenCurrencies()
   })
 }
 
-let function buyShopItem(shopItem, currencyId, price, cb = null, pOfferGuid = "") {
+let function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
   if (purchaseInProgress.value != null)
     return
 
   purchaseInProgress(shopItem)
   shopItemToShow(shopItem)
 
-  let buyCb = function(res) {
+  buy_shop_items(curArmy.value, shopItem.guid, currencyId, price, count, function(res) {
     purchaseInProgress(null)
     cb?(res?.error == null)
-  }
-  if (pOfferGuid == "")
-    buy_shop_item(curArmy.value, shopItem.guid, currencyId, price, buyCb)
-  else
-    buy_shop_offer(curArmy.value, shopItem.guid, currencyId, price, pOfferGuid, buyCb)
+  })
+}
+
+let function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = null) {
+  if (purchaseInProgress.value != null)
+    return
+
+  purchaseInProgress(shopItem)
+  shopItemToShow(shopItem)
+
+  buy_shop_offer(curArmy.value, shopItem.guid, currencyId, price, pOfferGuid, function(res) {
+    purchaseInProgress(null)
+    cb?(res?.error == null)
+  })
 }
 
 let function openPurchaseUrl(url) {
@@ -677,6 +686,7 @@ return {
   shopItemsToHighlight
   purchaseIsPossible
   buyShopItem
+  buyShopOffer
   barterShopItem
   buyItemByGuid
   buyItemByStoreId

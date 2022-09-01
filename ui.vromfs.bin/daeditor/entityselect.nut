@@ -236,11 +236,8 @@ let function entitySelectRoot() {
     scrollHandler
     rootBase = class {
       size = flex()
-      behavior = Behaviors.RecalcHandler
-      function onRecalcLayout(initial) {
-        if (initial) {
-          scrollBySelection()
-        }
+      function onAttach() {
+        scrollBySelection()
       }
     }
   })
