@@ -26,15 +26,15 @@ let allBoostersBase = Computed(function() {
   let aBoosters = activeBoosters.value
   let campByArmy = campaignsByArmy.value
   return boosterItems.value.values().map(function(item) {
-    let {
-      guid, bType, ctime, expMul = 0.0, battles = 0, lifeTime = 0, armyLimit = []
-    } = item
+    let { guid, bType, ctime, expMul = 0.0, battles = 0, lifeTime = 0, armyLimit = [] } = item
     let leftBattles = battles - (aBoosters?[item.guid].battles ?? 0)
     let expireTime = lifeTime > 0 ? ctime + lifeTime : 0
     let campaignLimit = {}
     foreach (armyId in armyLimit)
-      if (armyId in campByArmy)
-        campaignLimit[campByArmy[armyId].id] <- campByArmy[armyId]
+      if (armyId in campByArmy) {
+        let army = campByArmy[armyId]
+        campaignLimit[army.id] <- army
+      }
 
     return {
       guid, bType, expMul, armyLimit, leftBattles, expireTime, battles, lifeTime, ctime,
@@ -51,16 +51,18 @@ let function recalcActiveBosters() {
   let time = serverTime.value
   let allBaseBoosters = allBoostersBase.value
   let boosters = allBaseBoosters.filter(@(b) b.expireTime <= 0 || b.expireTime > time)
-  allBoosters(freeze(boosters))
+  allBoosters(boosters)
 
   // FIXME: This is for debug info. Should be removed
-  let hiddenBoosters = allBaseBoosters.filter(@(b) b.expireTime > 0 && b.expireTime <= time)
-  log($"recalcActiveBosters hides {hiddenBoosters.len()} boosters of {allBaseBoosters.len()} | time: {time}")
-  foreach (b in hiddenBoosters) {
+  log($"recalcActiveBosters time: {time}")
+  foreach (b in allBaseBoosters) {
     let { guid, ctime, lifeTime, expireTime, battles, leftBattles } = b
-    log($"expireTime: {expireTime} = {ctime} + {lifeTime}, battles: {leftBattles}/{battles}, guid: {guid}")
+    let isHidden = b.expireTime > 0 && b.expireTime < time
+    log($"* time: {expireTime} = {ctime} + {lifeTime}, battles: {leftBattles}/{battles}, guid: {guid}{isHidden ? ", HIDDEN" : ""}")
   }
+  log($"active {boosters.len()} boosters of {allBaseBoosters.len()}")
 }
+allBoosters.whiteListMutatorClosure(recalcActiveBosters)
 
 nextExpireTime.subscribe(function(v) {
   let timeLeft = v - serverTime.value

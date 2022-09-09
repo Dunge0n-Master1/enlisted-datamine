@@ -198,8 +198,40 @@ local portraits = {
     icon = "ui/portraits/tunisia/allies_tunisia_7.png"
   }
 
+  pacific_allies_preorder_2022 = {
+    icon = "ui/portraits/pacific/pacific_allies_preorder_2022.png"
+  }
+
   common_china_portrait_1 = {
     icon = "ui/portraits/common/china_portrait_1.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_2 = {
+    icon = "ui/portraits/common/china_portrait_2.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_3 = {
+    icon = "ui/portraits/common/china_portrait_3.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_4 = {
+    icon = "ui/portraits/common/china_portrait_4.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_5 = {
+    icon = "ui/portraits/common/china_portrait_5.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_6 = {
+    icon = "ui/portraits/common/china_portrait_6.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_7 = {
+    icon = "ui/portraits/common/china_portrait_7.png"
+    bgimg = "ui/portraits/back_t1.png"
+  }
+  common_china_portrait_8 = {
+    icon = "ui/portraits/common/china_portrait_8.png"
     bgimg = "ui/portraits/back_t1.png"
   }
 }
@@ -235,6 +267,34 @@ local nickFrames = {
   nickFrame_365_days_in_row = @(n) $"⌋{n}⌊"
   nickFrame_730_days_in_row = @(n) $"⌡{n}⌢"
   kongzhong_star = @(n) $"␉{n}␉"
+  pacific_nickFrame_6 = @(n) $"␅{n}␆"
+  kongzhong_nickFrame_1 = @(n) $"␛{n}␛"
+  kongzhong_nickFrame_2 = @(n) $"␜{n}␜"
+  kongzhong_nickFrame_3 = @(n) $"␝{n}␝"
+  kongzhong_nickFrame_4 = @(n) $"␞{n}␞"
+  kongzhong_nickFrame_5 = @(n) $"␟{n}␠"
+  pacific_nickFrame_1 = @(n) $"␡{n}␡"
+  pacific_nickFrame_2 = @(n) $"␣{n}␢"
+  pacific_nickFrame_3 = @(n) $"␤{n}─"
+  pacific_nickFrame_4 = @(n) $"━{n}│"
+  pacific_nickFrame_5 = @(n) $"┃{n}┃"
+  nickFrame_hammer = @(n) $"⌣{n}␀"
+  nickFrame_wrench = @(n) $"␁{n}␁"
+  nickFrame_gear = @(n) $"␂{n}␂"
+  nickFrame_bomb_1 = @(n) $"␃{n}␃"
+  nickFrame_bomb_2 = @(n) $"␌{n}␌"
+  nickFrame_tnt = @(n) $"␄{n}␄"
+  nickFrame_rocket = @(n) $"␇{n}␈"
+  nickFrame_bullet = @(n) $"␊{n}␊"
+  nickFrame_target = @(n) $"␋{n}␋"
+  nickFrame_aim = @(n) $"␎{n}␎"
+  nickFrame_ribbon_1 = @(n) $"␏{n}␐"
+  nickFrame_parachute = @(n) $"␑{n}␑"
+  nickFrame_lines_5 = @(n) $"␒{n}␒"
+  nickFrame_lines_6 = @(n) $"␓{n}␔"
+  nickFrame_lines_7 = @(n) $"␕{n}␖"
+  nickFrame_lines_8 = @(n) $"␗{n}␘"
+  nickFrame_lines_9 = @(n) $"␙{n}␚"
 }
 
 local decoratorsPresentation = {
