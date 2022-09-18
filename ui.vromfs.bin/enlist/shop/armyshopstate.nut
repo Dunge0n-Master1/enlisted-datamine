@@ -22,7 +22,7 @@ let { buy_shop_items, buy_shop_offer, barter_shop_items, check_purchases
 } = require("%enlist/meta/clientApi.nut")
 let { purchasesCount, curArmiesList } = require("%enlist/meta/profile.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
-let { is_pc } = require("%dngscripts/platform.nut")
+let { is_pc, is_sony } = require("%dngscripts/platform.nut")
 let { openConsumable, openBundle, openBundles
 } = require("%enlist/consoleStore/consoleStore.nut")
 let { needNewItemsWindow } = require("%enlist/soldiers/model/newItemsToShow.nut")
@@ -38,6 +38,7 @@ let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
 let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
 let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileCountry.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
+let { PSNAllowShowQRCodeStore } = require("%enlist/featureFlags.nut")
 
 
 let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
@@ -536,7 +537,7 @@ let function buyCurrency(currency) {
     return
   }
 
-  if (isPlayerRecommendedEmailRegistration() && gameLanguage == "Russian") {
+  if ((!is_sony || PSNAllowShowQRCodeStore.value) && isPlayerRecommendedEmailRegistration() && gameLanguage == "Russian") {
     qrWindow({
         header = currency?.locId ? loc(currency.locId) : ""
         url = currency?.qrConsoleUrl ?? "",

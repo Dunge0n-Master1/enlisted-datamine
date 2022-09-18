@@ -18,6 +18,7 @@ let showReplayTabInProfile = mkWatched(persist, "showReplayTabInProfile", DBGLEV
 let useNewDesign = mkWatched(persist, "useNewDesign", false)
 let showUserProfile = mkWatched(persist, "showUserProfile", DBGLEVEL > 0)
 let multyPurchaseAllowed = mkWatched(persist, "multyPurchaseAllowed", DBGLEVEL > 0)
+let PSNAllowShowQRCodeStore = mkWatched(persist, "PSNAllowShowQRCodeStore", false)
 
 let features = {
   hasProfileCard
@@ -34,6 +35,7 @@ let features = {
   useNewDesign
   showUserProfile
   multyPurchaseAllowed
+  PSNAllowShowQRCodeStore
 }
 
 foreach (featureId, featureFlag in features)
