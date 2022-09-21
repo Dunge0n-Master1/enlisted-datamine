@@ -102,6 +102,39 @@ yak_7b{
       gun:t="planegun_yak_7b_20mm_shvak_01"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="flare1"
+    node:t="flare3"
+    node:t="flare2"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_rocket1"
+    part:t="pylon_rocket2"
+    part:t="pylon_rocket3"
+    part:t="pylon_rocket4"
+    part:t="pylon_rocket6"
+    part:t="pylon_rocket5"
+  }
 }
 
 base_yak_7b_fab_50_launcher{

@@ -46,8 +46,8 @@ let { RETIRE_ORDER, retireReturn } = require("model/config/soldierRetireConfig.n
 let { debounce } = require("%sqstd/timers.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { needFreemiumStatus, curUpgradeDiscount
-} = require("%enlist/campaigns/freemiumState.nut")
-let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
+} = require("%enlist/campaigns/campaignConfig.nut")
+let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 
 const NO_SOLDIER_SLOT_IDX = -1

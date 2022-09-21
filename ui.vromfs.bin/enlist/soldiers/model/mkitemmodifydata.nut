@@ -10,7 +10,7 @@ let { maxCampaignLevel, armyItemCountByTpl } = require("state.nut")
 let { allItemTemplates, findItemTemplate } = require("all_items_templates.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { curUpgradeDiscount } = require("%enlist/campaigns/freemiumState.nut")
+let { curUpgradeDiscount } = require("%enlist/campaigns/campaignConfig.nut")
 
 const MODIFY_ITEM_REQ_LVL = 3
 
@@ -78,8 +78,8 @@ let mkItemUpgradeData = function(item){
 }
 
 let canDispose = @(item) (item?.guid ?? "") != ""
-  && !(item?.isEvent ?? false)
-  && !(item?.isPremium ?? false)
+  && !(item?.isFixed ?? false)
+  && (item?.sign ?? 0) == 0
   && (item?.upgradesId ?? "") != ""
 
 let mkItemDisposeData = function(item) {

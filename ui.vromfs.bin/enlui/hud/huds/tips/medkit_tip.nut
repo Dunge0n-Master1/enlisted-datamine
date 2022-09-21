@@ -5,7 +5,7 @@ let {selfHealMedkits, selfReviveMedkits} = require("%ui/hud/state/total_medkits.
 let {hp, maxHp, isAlive, isDowned, isHealContinuousInput} = require("%ui/hud/state/health_state.nut")
 let {isUnderWater, isSwimming} = require("%ui/hud/state/hero_water_state.nut")
 let {isBurning} = require("%ui/hud/state/burning_state_es.nut")
-let {canSelfReviveByHealing, canSelfReviveByPerk} = require("%ui/hud/state/downed_state.nut")
+let {canSelfReviveByHealing} = require("%ui/hud/state/downed_state.nut")
 let isFreeFall = require("%ui/hud/state/free_fall_state.nut")
 let {isParachuteOpened} = require("%ui/hud/state/parachute_state.nut")
 let {get_time_msec} = require("dagor.time")
@@ -28,15 +28,10 @@ let needUseMed = Computed(function() {
     (needSelfHeal || needSelfRevive) && isAlive.value && (medkitEndTime.value < ctime) && !isBurning.value
 })
 
-let needUseRevivePerk = Computed(function() {
-  let ctime = timeState.curTime.value
-  return isDowned.value && canSelfReviveByPerk.value && isAlive.value && medkitEndTime.value < ctime && !isBurning.value
-})
-
 let extinguishAvailable = Computed(@() canMaintainVehicle.value && hasExtinguisher.value && isExtinguishRequired.value)
 let repairAvailable = Computed(@() canMaintainVehicle.value && hasRepairKit.value && isRepairRequired.value)
 let canHeal = Computed(@() !extinguishAvailable.value && !repairAvailable.value && !isFreeFall.value && !isParachuteOpened.value)
-let needMedTip = Computed(@() canHeal.value && (needUseMed.value || needUseRevivePerk.value))
+let needMedTip = Computed(@() canHeal.value && needUseMed.value)
 
 let showedMedTipAtTime = mkWatched(persist, "showedMedTipAtTime", 0)
 

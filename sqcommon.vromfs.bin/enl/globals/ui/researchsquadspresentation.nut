@@ -7,6 +7,7 @@ let SQUAD_UPGRADES = {
 let SQUAD_UPGRADES_USSR = SQUAD_UPGRADES.__merge({ icon_id = "squad_ussr" })
 let SQUAD_UPGRADES_GER  = SQUAD_UPGRADES.__merge({ icon_id = "squad_germany" })
 let SQUAD_UPGRADES_USA  = SQUAD_UPGRADES.__merge({ icon_id = "squad_usa" })
+let SQUAD_UPGRADES_JAP  = SQUAD_UPGRADES.__merge({ icon_id = "squad_japan" })
 
 let PERSONELL_UPGRADES = {
   name = "research/personell_upgrades"
@@ -17,6 +18,7 @@ let PERSONELL_UPGRADES = {
 let PERSONELL_UPGRADES_USSR = PERSONELL_UPGRADES.__merge({ icon_id = "squad_ussr" })
 let PERSONELL_UPGRADES_GER  = PERSONELL_UPGRADES.__merge({ icon_id = "squad_germany" })
 let PERSONELL_UPGRADES_USA  = PERSONELL_UPGRADES.__merge({ icon_id = "squad_usa" })
+let PERSONELL_UPGRADES_JAP  = PERSONELL_UPGRADES.__merge({ icon_id = "squad_japan" })
 
 let WORKSHOP_UPGRADES = {
   name = "research/army_workshop_upgrades"
@@ -27,6 +29,7 @@ let WORKSHOP_UPGRADES = {
 let WORKSHOP_UPGRADES_USSR = WORKSHOP_UPGRADES.__merge({ icon_id = "squad_ussr" })
 let WORKSHOP_UPGRADES_GER  = WORKSHOP_UPGRADES.__merge({ icon_id = "squad_germany" })
 let WORKSHOP_UPGRADES_USA  = WORKSHOP_UPGRADES.__merge({ icon_id = "squad_usa" })
+let WORKSHOP_UPGRADES_JAP  = WORKSHOP_UPGRADES.__merge({ icon_id = "squad_japan" })
 
 return freeze({
   berlin_allies = [
@@ -78,5 +81,15 @@ return freeze({
     SQUAD_UPGRADES_GER
     PERSONELL_UPGRADES_GER
     WORKSHOP_UPGRADES_GER
+  ]
+  pacific_allies = [
+    SQUAD_UPGRADES_USA
+    PERSONELL_UPGRADES_USA
+    WORKSHOP_UPGRADES_USA
+  ]
+  pacific_axis = [
+    SQUAD_UPGRADES_JAP
+    PERSONELL_UPGRADES_JAP
+    WORKSHOP_UPGRADES_JAP
   ]
 })

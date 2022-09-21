@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path, set_setting_by_blk_path} = require("settings")
-let {violenceState, forcedViolenceState} = require("%enlSqGlob/violenceState.nut")
+let {violenceState, violenceStateUpdate, forcedViolenceState} = require("%enlSqGlob/violenceState.nut")
 let {getOnlineSaveData, optionCheckBox, optionCtor} = require("%ui/hud/menus/options/options_lib.nut")
 let { ps4RegionName, SCE_REGION } = require("%dngscripts/platform.nut")
 
@@ -35,14 +35,14 @@ let isOptionsAvailable = @() ecs.g_entity_mgr.getTemplateDB().getTemplateByName(
 let violenceOptions = []
 if (isOptionsAvailable()) {
   if (forcedViolenceState.isBloodEnabled == null)
-    violenceOptions.append(mkOption(loc("gameplay/violence_blood"), "violence_blood", @(enabled) violenceState.mutate(@(state) state.isBloodEnabled = enabled)))
+    violenceOptions.append(mkOption(loc("gameplay/violence_blood"), "violence_blood", @(enabled) violenceStateUpdate(violenceState.value.__merge({isBloodEnabled = enabled}))))
 
   if (forcedViolenceState.isGoreEnabled == null)
     // Don't show in option for sony japan and force turn off in case if it was on
     if (ps4RegionName != SCE_REGION.SCEJ)
-      violenceOptions.append(mkOption(loc("gameplay/violence_gore"),  "violence_gore",  @(enabled) violenceState.mutate(@(state) state.isGoreEnabled = enabled)))
+      violenceOptions.append(mkOption(loc("gameplay/violence_gore"),  "violence_gore",  @(enabled) violenceStateUpdate(violenceState.value.__merge({isGoreEnabled = enabled}))))
     else {
-      violenceState.mutate(@(state) state.isGoreEnabled = false)
+      violenceStateUpdate(violenceState.value.__merge({isGoreEnabled = false}))
       set_setting_by_blk_path("gameplay/violence_gore", false)
     }
 }

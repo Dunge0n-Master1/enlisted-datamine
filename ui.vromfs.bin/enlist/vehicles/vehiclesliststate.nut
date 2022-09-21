@@ -96,7 +96,7 @@ let function calcVehicleStatus(vehicle, curSquadAllowedVehicles, armyRewards, ar
     })
   else if (flags & AVAILABLE_AT_CAMPAIGN)
     res.__update({
-      levelLimit = levelCampaign,
+      levelLimit = levelCampaign
       statusText = loc("hint/receiveVehicleByCampaignRewards", { level = levelCampaign })
       statusTextShort = loc($"itemDemandsHeader/canObtainInCampaign")
     })

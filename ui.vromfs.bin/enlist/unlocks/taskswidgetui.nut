@@ -9,7 +9,8 @@ let { dailyTasksByDifficulty, receiveTaskRewards, getTotalRerolls, getLeftReroll
   isRerollInProgress, canTakeDailyTaskReward, doRerollUnlock
 } = require("taskListState.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
-let { weeklyTasks, hasWeeklyTasksAlert } = require("weeklyUnlocksState.nut")
+let { weeklyTasks } = require("weeklyUnlocksState.nut")
+let { hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks } = require("unseenUnlocksState.nut")
 let { taskHeader, taskDescription, taskDescPadding, mkTaskLabel, weeklyTasksTitle
 } = require("%enlSqGlob/ui/taskPkg.nut")
 let { mkUnlockSlot, mkHideTrigger } = require("mkUnlockSlot.nut")
@@ -23,8 +24,8 @@ let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
 let { unlockPrices, purchaseInProgress } = require("taskRewardsState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("sound")
-let unseenSignal = require("%ui/components/unseenSignal.nut")()
 let profileScene = require("%enlist/profile/profileScene.nut")
+let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 
 
 let mkRerollText = @(leftRerolls, totalRerolls) {
@@ -170,12 +171,14 @@ let mkHoverBar = @(sf) sf & S_HOVER
     }
   : null
 
-let mkUnseenIcon = @(unseenWatched) @() {
-  watch = unseenWatched
-  padding = bigPadding
+let weeklyUnseenSign = @() {
+  watch = [hasUnseenWeeklyTasks, hasUnopenedWeeklyTasks]
+  margin = bigPadding
   hplace = ALIGN_RIGHT
   vplace = ALIGN_CENTER
-  children = unseenWatched.value ? unseenSignal : null
+  children = !hasUnseenWeeklyTasks.value ? null
+    : hasUnopenedWeeklyTasks.value ? smallUnseenBlink
+    : smallUnseenNoBlink
 }
 
 let weeklyTasksUi = @() {
@@ -187,7 +190,7 @@ let weeklyTasksUi = @() {
         children = [
           mkHoverBar(sf)
           weeklyTasksTitle(sf)
-          mkUnseenIcon(hasWeeklyTasksAlert)
+          weeklyUnseenSign
         ]
       }.__update(widgetStyle))
 }

@@ -26,7 +26,7 @@ def get_reverb_3d_pos()
       pos = geomtree_getNodeWpos(animchar.nodeTree, human_reverb_sound__nodeId) + float3(0., 0.1, 0.)
   return pos
 
-[es(tag=sound, after=animchar_render_es)]
+[es(tag=sound, after=(animchar_render_es, start_async_phys_sim_es))] // after start_async_phys_sim_es to start phys sim job earlier
 def reverb_sound_update(info : ParallelUpdateFrameDelayed;
                         var reverb_sound__rayId : int&;
                         var reverb_sound__intensityValues : float3&;

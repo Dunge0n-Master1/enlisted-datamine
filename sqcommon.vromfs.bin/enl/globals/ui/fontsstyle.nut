@@ -1,48 +1,44 @@
 from "%darg/ui_imports.nut" import *
+let { colPart } = require("%enlSqGlob/ui/designConst.nut")
 
 let fontXXSmall = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.111) // 12px
+  fontSize = colPart(0.193) // 12px
 })
 
 let fontXSmall = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.296) // 14px
+  fontSize = colPart(0.225) // 14px
 })
 
 let fontSmall = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.481) // 16px
+  fontSize = colPart(0.258) // 16px
 })
 
 let fontMedium = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.666) // 18px
+  fontSize = colPart(0.29) // 18px
 })
 
 let fontLarge = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(2.037) // 22px
-})
-
-let fontTactical = freeze({
-  font = Fonts.tactical
-  fontSize = fontLarge.fontSize
+  fontSize = colPart(0.354) // 22px
 })
 
 let fontXLarge = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(2.407) // 26px
+  fontSize = colPart(0.42) // 26px
 })
 
 let fontXXLarge = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(3.240) // 35px
+  fontSize = colPart(0.564) // 35px
 })
 
 let fontGiant = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(4.629) // 50px
+  fontSize = colPart(0.806) // 50px
 })
 
 let fontLargeBold = freeze({
@@ -65,9 +61,20 @@ let fontGiantBold = freeze({
   fontSize = fontGiant.fontSize
 })
 
+let fontFontawesome = freeze({
+  font = Fonts.fontawesome
+  fontSize = colPart(0.338)
+})
+
+
+let fontTactical = freeze({
+  font = Fonts.tactical
+  fontSize = fontLarge.fontSize
+})
+
 
 return {
   fontXXSmall, fontXSmall, fontSmall, fontMedium, fontLarge, fontXLarge,
   fontXXLarge, fontGiant, fontLargeBold, fontXLargeBold, fontXXLargeBold,
-  fontGiantBold, fontTactical
+  fontGiantBold, fontTactical, fontFontawesome
 }

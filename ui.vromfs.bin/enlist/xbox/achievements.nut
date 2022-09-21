@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let achievements = require("%xboxLib/achievements.nut")
-let loginState = require("%enlSqGlob/login_state.nut")
 let {unlockProgress, unlocksSorted, getUnlockProgress} = require("%enlSqGlob/userstats/unlocksState.nut")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX_ACHIEVEMENTS] ")
 
@@ -30,9 +29,3 @@ let function update_xbox_achievements(_) {
 unlockProgress.subscribe(update_xbox_achievements)
 unlocksSorted.subscribe(update_xbox_achievements)
 achievements.cachedAchievements.subscribe(update_xbox_achievements)
-
-
-loginState.isLoggedIn.subscribe(function(v) {
-  if (v)
-    achievements.populate_achievements_list()
-})

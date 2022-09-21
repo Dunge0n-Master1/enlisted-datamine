@@ -18,6 +18,10 @@ let SOLDIER_ITALY = {
   heroIcon = "ui/squads/germany/italy_hero_medal_1_icon.svg"
 }
 
+let SOLDIER_JAPAN = {
+  heroIcon = "ui/squads/japan/jap_hero_medal_1_icon.svg"
+}
+
 return freeze({
   normandy_allies = SOLDIER_USA
   normandy_axis   = SOLDIER_GERMANY
@@ -29,4 +33,6 @@ return freeze({
   tunisia_axis    = SOLDIER_ITALY
   stalingrad_allies   = SOLDIER_USSR
   stalingrad_axis     = SOLDIER_GERMANY
+  pacific_allies   = SOLDIER_USA
+  pacific_axis     = SOLDIER_JAPAN
 })

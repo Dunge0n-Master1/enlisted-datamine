@@ -27,7 +27,7 @@ class UseMedkit : BehNodeAdapter
     waitTime = 0f
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
 
     if !eventWasSent
       eventWasSent = true
@@ -35,7 +35,7 @@ class UseMedkit : BehNodeAdapter
       waitTime = syncDelayExtraTime
     else
       query(eid) <| $ [es] (human_inventory__entityToUse : EntityId; human_inventory__entityUseEnd : float)
-        if has(human_inventory__entityToUse, "item__healAmount") || has(human_inventory__entityToUse, "item__restoreHpAmount")
+        if has(human_inventory__entityToUse, "item__healAmount")
           waitTime = human_inventory__entityUseEnd - get_sync_time() + syncDelayExtraTime
 
     waitTime -= dt
@@ -89,7 +89,7 @@ class Extinguish : BehNodeAdapter
     eventSent = false
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     if !eventSent
       eventSent = true
       send_net_event(eid, [[CmdPutOutFireStart]])
@@ -104,12 +104,11 @@ class Reviving : BehNodeAdapter
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_SUCCESS
-    query(beh_tree_eid(owner)) <| $ [es] (eid : EntityId;
-                                          hitpoints__revivingCount : int = 0;
-                                          hitpoints__canSelfReviveByPerk : bool = false;
-                                          human_inventory__savedUseProgress : float = 0.;
-                                          human_inventory__entityUseEnd : float = -1.;
-                                          total_kits__selfRevive : int = 0)
+    query(beh_tree_eid()) <| $ [es] (eid : EntityId;
+                                     hitpoints__revivingCount : int = 0;
+                                     human_inventory__savedUseProgress : float = 0.;
+                                     human_inventory__entityUseEnd : float = -1.;
+                                     total_kits__selfRevive : int = 0)
       if hitpoints__revivingCount != 0 || human_inventory__savedUseProgress > 0.
         res = EBehResult ER_RUNNING
         return
@@ -120,8 +119,7 @@ class Reviving : BehNodeAdapter
         res = EBehResult ER_RUNNING
         return
 
-      let reviveKits = total_kits__selfRevive
-      if reviveKits > 0 || hitpoints__canSelfReviveByPerk
+      if total_kits__selfRevive > 0
         startTime = curTime;
         sendEvent(eid, [[CmdMedkitUse]])
         res = EBehResult ER_RUNNING

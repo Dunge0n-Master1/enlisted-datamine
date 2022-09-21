@@ -1,3 +1,7 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_menu_sounds.blk"
+}
+
 entity{
   _template:t="menu_camera"
   fov:r=60.0
@@ -25,10 +29,6 @@ entity{
   "level__timeVec:array"{
     level_timeVec:r=18.072
   }
-}
-
-entity{
-  _template:t="music_launcher_ambient_sound"
 }
 
 entity{

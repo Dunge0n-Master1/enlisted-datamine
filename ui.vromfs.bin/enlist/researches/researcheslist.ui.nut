@@ -32,7 +32,7 @@ let researchDetailsPopup = require("researchDetailsPopup.ui.nut")
 let tableElement = require("researchTableElement.ui.nut")
 let { curArmy, curUnlockedSquads, armySquadsById, maxCampaignLevel
 } = require("%enlist/soldiers/model/state.nut")
-let { unseenResearches } = require("unseenResearches.nut")
+let { seenResearches } = require("unseenResearches.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
 let { safeAreaSize, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -45,7 +45,7 @@ let { mkDisabledSectionBlock } = require("%enlist/mainMenu/disabledSections.nut"
 let { sound_play } = require("sound")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
-let { isFreemiumCampaign } = require("%enlist/campaigns/freemiumState.nut")
+let { disableSquadExp } = require("%enlist/campaigns/campaignConfig.nut")
 
 let colorBranchAvailable = Color(205, 205, 220)
 let levelAndExpColor = Color(255, 178, 0)
@@ -286,7 +286,7 @@ let function getProgressTooltip(curLvl, maxLvl, curExp, expToNextLvl, accColor){
 }
 
 let function squadProgressBlock() {
-  let res = { watch = [curSquadData, curSquadProgress, squadResearchesInfo, isFreemiumCampaign] }
+  let res = { watch = [curSquadData, curSquadProgress, squadResearchesInfo, disableSquadExp] }
   if ((curSquadData.value?.battleExpBonus ?? 0) > 0)
     return res
   let { level, maxLevel, exp, nextLevelExp } = curSquadProgress.value
@@ -312,7 +312,7 @@ let function squadProgressBlock() {
       }).__merge({ margin = hdpx(5) })
       mkSkillPoints(hasCompleted)
       !hasCompleted ? iconSquadPoints : null
-      !hasCompleted && !isFreemiumCampaign.value
+      !hasCompleted && !disableSquadExp.value
         ? buyLevelBtn
         : null
     ]
@@ -415,7 +415,7 @@ let currentTableResearchCounter = @(idx, bgColor) function() {
 let function unseenInPageIcon(squadId, pageId) {
   let hasUnseen = Computed(function() {
     let researches = armiesResearches.value?[viewArmy.value].researches ?? {}
-    let unseen = unseenResearches.value?[viewArmy.value]
+    let unseen = seenResearches.value?.unseen[viewArmy.value]
     return researches.findindex(@(r)
       r.research_id in unseen && r.squad_id == squadId && (r?.page_id ?? 0) == pageId) != null
   })
@@ -667,7 +667,7 @@ let mkSquadExp = function(squadId) {
 let function unseenInSquadIcon(squadId) {
   let hasUnseen = Computed(function() {
     let researches = armiesResearches.value?[viewArmy.value].researches ?? {}
-    let unseen = unseenResearches.value?[viewArmy.value]
+    let unseen = seenResearches.value?.unseen[viewArmy.value]
     return researches.findindex(@(r) r.research_id in unseen && r.squad_id == squadId) != null
   })
   return @() {

@@ -1,8 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-require("%enlist/soldiers/model/onlyInEnlistVm.nut")("squadsConfig")
-
-let serverConfigs = require("%enlSqGlob/configs/configs.nut").configs
+let serverConfigs = require("%enlist/meta/configs.nut").configs
 
 let sClassesCfg = Computed(function() {
   let baseClasses = serverConfigs.value?.soldier_classes ?? {}

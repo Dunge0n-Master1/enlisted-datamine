@@ -145,9 +145,14 @@ base_net_phys{
   net_phys__role:i=0
 }
 
+base_nav_object{
+  check_path__horzThreshold:r=2.0
+  check_path__maxVertDist:r=2.0
+}
+
 base_vehicle{
   _extends:t="base_net_phys"
-  battle_area__timeToDamageType:t="vehicle"
+  _extends:t="base_nav_object"
   net__controlsTickDelta:i=0
   phys__maxMassRatioForPushOnCollision:r=4.0
   collision_damage__canBeOffender:b=yes
@@ -160,9 +165,6 @@ base_vehicle{
   }
 
   "vehicle:tag"{
-  }
-
-  "blockTerraform:tag"{
   }
 }
 
@@ -248,6 +250,7 @@ base_vehicle_seat{
   seats_attach_nodes__nodeItm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   seats_order__seatNo:i=-1
   seats_order__canPlaceManually:b=no
+  seat__allowSmokeScreen:b=yes
 
   "seat__lockSeats:list<i>"{
     _tags:t="server"

@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let {
   soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsByArmy,
@@ -91,7 +92,7 @@ let preparedSquads = Computed(function() {
   return visOrdered.map(@(squad) prepareSquad(squad, squadsCfgById.value?[squadsArmy.value][squad.squadId], allSquadsLevels.value))
 })
 
-let function updateSquadsList() {
+let function updateSquadsList(_ = null) {
   let all = preparedSquads.value
   if (all.len() == 0) {
     chosenSquads.mutate(@(v) v.clear())
@@ -126,15 +127,14 @@ let function updateSquadsList() {
         reserve.append(squad)
   }
 
-  if (chosen.len() < maxSquadsInBattle.value)
+  if (chosen.len() != maxSquadsInBattle.value)
     chosen.resize(maxSquadsInBattle.value)
 
   chosenSquads(chosen)
   reserveSquads(reserve)
 }
 updateSquadsList()
-preparedSquads.subscribe(@(_) updateSquadsList())
-maxSquadsInBattle.subscribe(@(_) updateSquadsList())
+foreach (v in [preparedSquads, maxSquadsInBattle]) v.subscribe(updateSquadsList)
 
 preparedSquads.subscribe(function(uSquads) {
   if (uSquads.findvalue(@(s) s.squadId == selectedSquadId.value) != null)
@@ -150,7 +150,10 @@ let function moveIndex(list, idxFrom, idxTo) {
 }
 
 let function getCantTakeReason(squad, squadsList, idxTo) {
-  let { vehicleType = "" } = squad
+  let { expireTime = 0, vehicleType = "" } = squad
+  if (expireTime > 0 && expireTime < serverTime.value)
+    return loc("msg/cantTakeExpiredSquad")
+
   let typeKey = vehicleType == "bike" ? "maxBikeSquads"
     : vehicleType != "" ? "maxVehicleSquads"
     : "maxInfantrySquads"

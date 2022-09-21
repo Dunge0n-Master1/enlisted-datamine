@@ -1,4 +1,5 @@
 require ecs
+require EnlistedNet
 require game.es.events
 require game.events_game
 require game.es.vehicle.vehicle_events
@@ -21,7 +22,7 @@ def dettach_from_vehicle_on_teleport(evt : Event;
   isPassenger = false
 
   if human_anim__vehicleSelected != INVALID_ENTITY_ID
-    sendEvent(human_anim__vehicleSelected, [[RequestKickFromVehicle requester=eid]])
+    send_net_event(human_anim__vehicleSelected, [[RequestKickFromVehicle requester=eid]])
     sendEvent(eid, [[GainVehicleVelocity vehicleEid=human_anim__vehicleSelected]])
     human_anim__vehicleSelected = INVALID_ENTITY_ID
 

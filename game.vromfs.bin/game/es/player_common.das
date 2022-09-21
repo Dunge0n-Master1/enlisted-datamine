@@ -82,13 +82,8 @@ def player_respawn_in_world_common(eid : EntityId)
         net_disconnect(*conn, DisconnectionCause DC_CONNECTION_CLOSED)
 
 def game_params_get_timer(timerName : string; fallback : float) : float
-  let timersBlock : DataBlock const? = dgs_get_game_params() |> datablock_get_block_by_name_const("timers");
-  if timersBlock == null
-    return fallback
-  return timersBlock |> datablock_getReal(timerName, fallback)
+  return dgs_get_game_params() |> datablock_get_block_by_name("timers") |> datablock_getReal(timerName, fallback)
+
 
 def settings_get_timer(timerName : string; fallback : float) : float
-  let timersBlock : DataBlock const? = dgs_get_settings() |> datablock_get_block_by_name_const("timers");
-  if timersBlock == null
-    return fallback
-  return timersBlock |> datablock_getReal(timerName, fallback)
+  return dgs_get_settings() |> datablock_get_block_by_name("timers") |> datablock_getReal(timerName, fallback)

@@ -22,7 +22,7 @@ base_tgdgb_m40_lv{
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
-    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_40mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{

@@ -21,15 +21,21 @@ def vehicle_seats_enter_exit_seat_request_es(evt : RequestVehicleSeat;
   sendEvent(eid, [[CmdAcquireVehicleSeat requester=evt.requester, seat_no=evt.seat_no]])
 
 
-def private attach_human_to_seat(eid : EntityId; vehicleEid : EntityId; seat__component : int; should_hide : bool = false)
+def private attach_human_to_seat(eid : EntityId;
+                                 vehicleEid : EntityId;
+                                 seat__component : int;
+                                 seatEid : EntityId;
+                                 should_hide : bool = false)
   let hasVehicle = vehicleEid != INVALID_ENTITY_ID
 
   query(eid) <| $ [es] (var isInVehicle : bool&;
                         var isInVehicleHidden : bool&;
-                        var human_anim__vehicleSelected : EntityId&)
+                        var human_anim__vehicleSelected : EntityId&;
+                        var human_vehicle__occupiedSeatEid : EntityId&)
     isInVehicle = hasVehicle
     isInVehicleHidden = should_hide && hasVehicle
     human_anim__vehicleSelected = vehicleEid
+    human_vehicle__occupiedSeatEid = seatEid
 
   setOptional(eid, "", uint(seat__component), hasVehicle)
 
@@ -92,7 +98,7 @@ def vehicle_seats_enter_exit_seat_server_es(evt : CmdAcquireVehicleSeat;
     seat__squadEid  = get_Eid(requester, "squad_member__squad") ?? INVALID_ENTITY_ID
     seat__playerEid = !!playerEid ? playerEid : get_Eid(seat__squadEid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
 
-    attach_human_to_seat(requester, eid, seat__component, vehicle_seats_hide_owner[ requestSeatNo ])
+    attach_human_to_seat(requester, eid, seat__component, reqSeatEid, vehicle_seats_hide_owner[ requestSeatNo ])
 
     if !!playerEid
       query(requester) <| $ [es] (var human_net_phys : HumanActor&)

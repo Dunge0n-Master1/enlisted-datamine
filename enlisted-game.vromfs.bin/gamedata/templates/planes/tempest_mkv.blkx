@@ -116,6 +116,33 @@ tempest_mkv{
       gun:t="planegun_tempest_mkv_20mm_hispanomkv_04"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_tempest_mkv_20mm_hispanomkv{
@@ -230,6 +257,7 @@ planegun_tempest_mkv_20mm_hispanomkv_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  _extends:t="gunsound_20mm_hispanomkv_aircraft"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=200
 }
@@ -238,6 +266,7 @@ planegun_tempest_mkv_20mm_hispanomkv_02{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  _extends:t="gunsound_20mm_hispanomkv_aircraft"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=200
 }
@@ -246,6 +275,7 @@ planegun_tempest_mkv_20mm_hispanomkv_03{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  _extends:t="gunsound_20mm_hispanomkv_aircraft"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=200
 }
@@ -254,6 +284,7 @@ planegun_tempest_mkv_20mm_hispanomkv_04{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_tempest_mkv_20mm_hispanomkv"
+  _extends:t="gunsound_20mm_hispanomkv_aircraft"
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=200
 }

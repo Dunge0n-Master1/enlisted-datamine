@@ -1,44 +1,20 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {EventOnStartVehicleChangeSeat,EventOnSeatOwnersChanged,CmdTrackVehicleWithWatched} = require("dasevents")
-let {get_sync_time} = require("net")
-let {watchedHeroEid} = require("%ui/hud/state/watched_hero.nut")
+let {EventOnSeatOwnersChanged} = require("dasevents")
 
-let DEFAULT_SEATS = {
-  owners = []
-  controls = []
-  order = []
-  seats = []
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+
+let mkDefaultSeats = @() {
   data = []
-  switchSeatsTime = 0.0
-  switchSeatsTotalTime = 0.0
 }
 
-local seatsOrder = null
+let { vehicleSeats, vehicleSeatsSetValue, vehicleSeatsModify } = mkFrameIncrementObservable(mkDefaultSeats(), "vehicleSeats")
 
-let function getSeatsOrder() {
-  if (seatsOrder)
-    return seatsOrder
-
+let getSeatsOrder = memoize(function() {
   let seatsOrderTpl = ecs.g_entity_mgr.getTemplateDB().getTemplateByName("vehicle_seats_order")
-  seatsOrder = (seatsOrderTpl?.getCompValNullable("vehicleSeatsOrder").getAll() ?? [])
+  return (seatsOrderTpl?.getCompValNullable("vehicleSeatsOrder").getAll() ?? [])
     .map(@(seat) seat?.name)
-  return seatsOrder
-}
-
-let vehicleSeats = mkWatched(persist, "vehicleSeats", clone DEFAULT_SEATS)
-
-let function resetState() {
-  vehicleSeats(DEFAULT_SEATS.__merge({ vehicle = INVALID_ENTITY_ID }))
-}
-
-let getChangeSeatsTime = ecs.SqQuery("vehicle_seats_change_query", {
-  comps_ro = [["entity_mods__vehicleChangeSeatTimeMult"]]
-})
-
-let getVehicleControls = ecs.SqQuery("vehicle_seats_controls_query", {
-  comps_ro = [["seat__availableControls"]]
 })
 
 let getVehicleManualPlace = ecs.SqQuery("vehicle_seats_manual_query", {
@@ -78,23 +54,15 @@ let function trackComponents(_eid, comp) {
     remap = ordered.extend(remap)
   }
 
-  let controls = []
-  let order = []
-  let owners = []
   let data = []
   foreach (i, idx in remap) {
     let seatEid = seatEids[idx]
-
-    let controlsDesc = getVehicleControls(seatEid, @(_, comp)
-      comp["seat__availableControls"]?.getAll()) ?? {}
-    controls.append(controlsDesc)
 
     let orderDesc = {
       seatNo = i
       canPlaceManually = getVehicleManualPlace(seatEid, @(_, comp)
         comp["seats_order__canPlaceManually"])
     }
-    order.append(orderDesc)
 
     let ownerDesc = getVehicleSquad(seatEid, @(_, comp) {
       eid      = comp["seat__ownerEid"]
@@ -102,33 +70,24 @@ let function trackComponents(_eid, comp) {
       squad    = comp["seat__squadEid"]
       isPlayer = comp["seat__isPlayer"]
     })
-    owners.append(ownerDesc)
 
     data.append({
       seatNo = i
       owner = ownerDesc
-      controls = controlsDesc
       order = orderDesc
       seat = seats[idx]
     })
   }
 
-  vehicleSeats.mutate(function(v) {
-    v.owners = owners
-    v.controls = controls
-    v.order = order
-    v.seats = seats
+  vehicleSeatsModify(function(v) {
     v.data = data
+    return v
   })
 }
-
 ecs.register_es("vehicle_seats_ui_es",
   {
-    onChange = trackComponents,
-    onInit = trackComponents,
-    onDestroy = resetState,
-    [CmdTrackVehicleWithWatched] = trackComponents,
-    [EventOnSeatOwnersChanged] = trackComponents,
+    [[EventOnSeatOwnersChanged, "onChange", "onInit"]] = trackComponents,
+    onDestroy = @() vehicleSeatsSetValue(mkDefaultSeats())
   },
   {
     comps_track = [
@@ -142,55 +101,17 @@ ecs.register_es("vehicle_seats_ui_es",
   }
 )
 
-ecs.register_es("vehicle_seats_on_chage_seat_ui_es",
-  {
-    [EventOnStartVehicleChangeSeat] = function(_eid, comp) {
-      let curTime = get_sync_time()
-      let timeMult = getChangeSeatsTime(watchedHeroEid.value, @(_, comp)
-        comp["entity_mods__vehicleChangeSeatTimeMult"]) ?? 1.0
-      let totalTime = comp["vehicle_seats_switch_time__totalSwitchTime"] * timeMult
-      let deltaTime = curTime - vehicleSeats.value.switchSeatsTime
-      if (deltaTime < totalTime)
-        return;
-      vehicleSeats.mutate(function(v) {
-        v.switchSeatsTime = curTime
-        v.switchSeatsTotalTime = totalTime
-      })
-    },
-    [EventOnSeatOwnersChanged] = function() {
-      vehicleSeats.mutate(function(v) {
-        v.switchSeatsTime = 0
-        v.switchSeatsTotalTime = 0
-      })
-    }
-  },
-  {
-    comps_ro = [
-      ["vehicle_seats_switch_time__totalSwitchTime", ecs.TYPE_FLOAT],
-    ]
-    comps_rq = ["heroVehicle"]
-  }
-)
-
-ecs.register_es("vehicle_with_watched_changed_ui_es", {
-  onInit = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], CmdTrackVehicleWithWatched()),
-  onChange = @(_eid, comp) ecs.g_entity_mgr.sendEvent(comp["human_anim__vehicleSelected"], CmdTrackVehicleWithWatched()),
-},
-{
-  comps_track = [["human_anim__vehicleSelected", ecs.TYPE_EID]]
-  comps_rq = ["watchedByPlr"]
-})
-
 ecs.register_es("vehicle_seat_can_seat_changed_ui_es", {
   onChange = function (_eid, comp) {
     let isHeroVehicle = isHeroVehicleQuery(comp["seat__vehicleEid"], @(...) true) ?? false
     if (!isHeroVehicle)
       return
 
-    vehicleSeats.mutate(function(v) {
-      let seatId = comp["seat__id"]
-      v.order[seatId].canPlaceManually = comp["seats_order__canPlaceManually"]
-      v.data[seatId].order.canPlaceManually = comp["seats_order__canPlaceManually"]
+    let seatId = comp["seat__id"]
+    let canPlaceManually = comp["seats_order__canPlaceManually"]
+    vehicleSeatsModify(function(v) {
+      v.data[seatId].order.canPlaceManually = canPlaceManually
+      return v
     })
   }
 },

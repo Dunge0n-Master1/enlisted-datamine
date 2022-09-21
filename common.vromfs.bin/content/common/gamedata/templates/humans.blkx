@@ -820,7 +820,6 @@ base_human{
   boltActionProgress:r=-1.0
   prevVisualBoltActionProgress:r=-1.0
   isGunManualLoadMode:b=no
-  player_activity__enabled:b=no
   agent_dangers__tag:t="human"
   underground_teleporter__timeToCheck:r=0.5
   underground_teleporter__timeBetweenChecks:r=0.5
@@ -850,6 +849,10 @@ base_human{
   human_sec_anim__hideWeapon:b=no
   human_sec_anim__interruptsMovement:b=no
   human_sec_anim__hideMelee:b=no
+  reye_offset__fwd0Id:i=-1
+  gun_offset__acrossId:i=-1
+  gun_offset__upId:i=-1
+  gun_offset__alongId:i=-1
 
   "human:tag"{
   }
@@ -1177,6 +1180,8 @@ human_vehicle_anim{
   human_vehicle_anim__lowerId:i=-1
   human_vehicle_anim__fireReadyUpperId:i=-1
   human_vehicle_anim__fireReadyLowerId:i=-1
+  human_vehicle_anim__healUpperId:i=-1
+  human_vehicle_anim__healLowerId:i=-1
   human_vehicle_anim__maxStandHeight:r=1.0
 }
 

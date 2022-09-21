@@ -34,12 +34,6 @@ struct EventAnyEntityDied
 [cpp_event(broadcast)]
 struct EventEntityManagerBeforeClear {}
 
-[cpp_event(broadcast)]
-struct RenderEventBeforeUI
-  viewTm : TMatrix
-  viewItm : TMatrix
-  globtm : mat44f
-
 [event(unicast)]
 struct EventLutSwitcherAliveState {}
 
@@ -63,10 +57,6 @@ struct CmdCollisionDamage
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityResurrected {}
 
-[cpp_event(broadcast)]
-struct EventAnyEntityResurrected
-  eid : EntityId
-
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityRevived {}
 
@@ -76,6 +66,14 @@ struct CmdLogEvent
   text : string
   sound : string
   ttl : int
+
+[event(broadcast)]
+struct CmdShowHint
+  event : string
+  text : string
+  hotkey : string
+  unique : string
+  ttl : float
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdHumanQuickChatSpeech
@@ -215,10 +213,6 @@ struct EventPlayerPossessedEntityDied
   victimPlayerEid : EntityId
   killerPlayerEid : EntityId
 
-[event(unicast)]
-struct ChangeReplayTarget
-  newReplayTarget : EntityId
-
 [event(broadcast)]
 struct ReplaySetTpsCamera {}
 
@@ -297,3 +291,11 @@ struct RunActionCmd
   overrideTime : float
   overrideAt : float
   actionPeriod : float
+  progress : float
+  timeMult : float
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct AFKShowDisconnectWarning {}
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct AFKShowWarning {}

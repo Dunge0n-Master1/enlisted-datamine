@@ -140,7 +140,7 @@ def tester_beh_tree_controll(info : ecs::UpdateStageInfoAct;
                              animation_tester__moveTarget : float3;
                              var beh_tree : BehaviourTree&)
   beh_tree.blackBoard |> get_or_create("wishPos", animation_tester__moveTarget)
-  beh_tree.blackBoard |> datablock_setPoint3("wishPos", animation_tester__moveTarget)
+  beh_tree.blackBoard |> set("wishPos", animation_tester__moveTarget)
   let color = E3DCOLOR(0xFFFFFF00)
   draw_debug_sphere_buffered(animation_tester__moveTarget, 0.1, color, 12, 10)
 

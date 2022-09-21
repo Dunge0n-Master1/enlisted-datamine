@@ -4,6 +4,7 @@ require pathfinder
 require EnlistedWalkerai
 require math
 require math.base
+require game.es.squad_order_common
 
 struct SquadPos
   p : float3

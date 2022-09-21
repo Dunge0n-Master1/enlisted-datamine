@@ -7,7 +7,7 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("model/unseenUpgrades.nut")
 let { defTxtColor, textBgBlurColor, activeTxtColor, blurBgColor, blockedBgColor,
-  blurBgFillColor, unitSize, bigPadding, smallPadding, freemiumDarkColor, tinyOffset
+  blurBgFillColor, unitSize, bigPadding, smallPadding, tinyOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { show } = msgbox
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
@@ -19,9 +19,9 @@ let { mkItemDemands, mkItemListDemands } = require("model/mkItemDemands.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { itemTypesInSlots } = require("model/all_items_templates.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { mkDetailsInfo } = require("components/itemDetailsComp.nut")
+let { mkDetailsInfo, lockedInfo } = require("components/itemDetailsComp.nut")
 let { blur } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
-let { curUpgradeDiscount } = require("%enlist/campaigns/freemiumState.nut")
+let { curUpgradeDiscount, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let spinner = require("%ui/components/spinner.nut")({height = hdpx(50)})
 let mkHeader = require("%enlist/components/mkHeader.nut")
@@ -37,13 +37,13 @@ let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { curHoveredItem } = require("%enlist/showState.nut")
-let { focusResearch, findResearchUpgradeUnlock
+let { focusResearch, findResearchUpgradeUnlock, findResearchSlotUnlock
 } = require("%enlist/researches/researchesFocus.nut")
 let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
 let { slotItems, otherSlotItems, prevItems, selectParams, curEquippedItem,
   viewItem, viewSoldierInfo, paramsForPrevItems,
   openSelectItem, trySelectNext, curInventoryItem, checkSelectItem, selectItem, itemClear,
-  selectNextSlot, selectPreviousSlot, unseenViewSlotTpls, viewItemMoveVariants
+  selectNextSlot, selectPreviousSlot, unseenViewSlotTpls, viewItemMoveVariants, ItemCheckResult
 } = require("model/selectItemState.nut")
 let { markWeaponrySeen } = require("model/unseenWeaponry.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
@@ -60,6 +60,13 @@ let openArmoryTutorial = require("%enlist/tutorial/armoryTutorial.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 let { isItemTransferEnabled } = require("%enlist/featureFlags.nut")
 let itemsTransferConfig = require("model/config/itemsTransferConfig.nut")
+local { isDetailsFull, detailsModeCheckbox } = require("%enlist/items/detailsMode.nut")
+let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
+let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
+
+
+local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let armoryWndOpenFlag = mkOnlinePersistentFlag("armoryWndOpenFlag")
 let armoryWndHasBeenOpend = armoryWndOpenFlag.flag
@@ -93,11 +100,6 @@ let function txt(text) {
   return blur({ children })
 }
 
-let freemiumBack = {
-  rendObj = ROBJ_SOLID
-  color = freemiumDarkColor
-}
-
 let activeItemParams = {
   statusCtor = defStatusCtor
 }
@@ -128,23 +130,58 @@ let prevItemParams = {
   canEquip = false
   onDoubleClickCb = unequipItem
 }
-let function showMessage(checkInfo) {
+
+let function showMessage(item, checkInfo) {
+  let { result, soldier = null, slotType = null, soldierClass = null, level = null } = checkInfo
   let buttons = [{ text = loc("Ok"), isCancel = true }]
-  if (checkInfo?.resolveCb != null)
-    buttons.append({ text = checkInfo.resolveText,
-      action = checkInfo.resolveCb,
+  local text = ""
+  if (result == ItemCheckResult.NEED_RESEARCH){
+    text = loc("slotClassResearch", { soldierClass })
+    buttons.append({
+      text = loc("GoToResearch")
+      action = function() {
+        focusResearch(findResearchSlotUnlock(soldier, slotType))
+      }
       isCurrent = true })
-  return msgbox.show({ text = checkInfo.text, buttons = buttons })
+
+  } else if (result == ItemCheckResult.WRONG_CLASS){
+    text = loc("Not available for class", { soldierClass })
+
+  } else if (result == ItemCheckResult.NEED_LEVEL){
+    text = loc("obtainAtLevel", { level })
+    buttons.append({
+      text = loc("GoToArmyLeveling")
+      action = function() {
+        scrollToCampaignLvl(level)
+        setCurSection("SQUADS")
+      }
+      isCurrent = true })
+
+  } else if (result == ItemCheckResult.IN_SHOP) {
+    text = loc("itemObtainInShop")
+    let shopItemsCmp = getShopItemsCmp(item.basetpl)
+    buttons.append({
+      text = loc("GoToShop")
+      watch = [shopItemsCmp, curArmyShopItems]
+      action = function() {
+        openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value)
+      }
+      isCurrent = true })
+  }
+  return msgbox.show({ text, buttons })
 }
 
 let mkDropExceptionCb = @(currentItem) function(dropItem) {
-  let checkDropItem = checkSelectItem(dropItem)
   let checkCurrentItem = checkSelectItem(currentItem)
-  let msgItem = checkDropItem ?? checkCurrentItem
-  if (msgItem != null) {
-    showMessage(msgItem)
+  if (checkCurrentItem) {
+    showMessage(currentItem, checkCurrentItem)
+    return
   }
+  let checkDropItem = checkSelectItem(dropItem)
+  if (checkDropItem)
+    showMessage(dropItem, checkDropItem)
 }
+
 let mkStdCtorData = @(size) {
   size = size
   itemsInRow = 1
@@ -167,6 +204,11 @@ let mkStdCtorData = @(size) {
     onDoubleClickCb = function(data) {
       if (data.item != item)
         return
+      let checkSelectInfo = checkSelectItem(item)
+      if (checkSelectInfo){
+        showMessage(item, checkSelectInfo)
+        return
+      }
       selectItem(item)
       trySelectNext()
     }
@@ -441,7 +483,8 @@ let function mkUpgradeBtn(item) {
   let upgradeDataWatch = mkItemUpgradeData(item)
   return function() {
     let res = {
-      watch = [upgradeDataWatch, curUnseenAvailableUpgrades, isUpgradeUsed, curUpgradeDiscount]
+      watch = [upgradeDataWatch, curUnseenAvailableUpgrades, isUpgradeUsed,
+        curUpgradeDiscount, campPresentation]
     }
     let upgradeData = upgradeDataWatch.value
     if (!upgradeData.isUpgradable)
@@ -464,7 +507,10 @@ let function mkUpgradeBtn(item) {
     let upgradeMultInfo = discount <= 0 ? null : txt({
       text = loc("upgradeDiscount", { discount })
       color = activeTxtColor
-    }).__update(curUpgradeDiscount.value > 0.0 ? freemiumBack : {})
+    }).__update(curUpgradeDiscount.value > 0.0 ? {
+      rendObj = ROBJ_SOLID
+      color = campPresentation.value?.darkColor
+    } : {})
     return res.__update({
       flow = FLOW_VERTICAL
       gap = bigPadding
@@ -474,7 +520,13 @@ let function mkUpgradeBtn(item) {
         {
           children = [
             bCtor(loc("btn/upgrade"),
-              @() openUpgradeItemMsg(item, upgradeData), {
+              function() {
+                if (isObjGuidBelongToRentedSquad(item?.guid))
+                  showRentedSquadLimitsBox()
+                else
+                  openUpgradeItemMsg(item, upgradeData)
+              },
+              {
                 margin = 0
                 cursor = normalTooltipTop
                 onHover = function(on) {
@@ -578,17 +630,34 @@ let buttonsUi = @() {
       : [moveButtonUi, obtainButtonUi, upgradeBtnUi, disposeBtnUi, chooseButtonUi])
 }
 
-let infoBlock = {
-  size = [SIZE_TO_CONTENT, flex()]
+let function mkDemandsInfo(item) {
+  if (item == null)
+    return null
+
+  let demandsWatch = mkItemDemands(item)
+  return @() {
+    watch = demandsWatch
+    size = [flex(), SIZE_TO_CONTENT]
+    padding = smallPadding
+    children = lockedInfo(demandsWatch.value)
+  }
+}
+
+
+let infoBlock = @() {
+  watch = viewItem
   flow = FLOW_VERTICAL
   valign = ALIGN_BOTTOM
   halign = ALIGN_RIGHT
   gap = bigPadding
   children = [
-    mkDetailsInfo(viewItem)
+    mkDetailsInfo(viewItem, isDetailsFull)
+    mkDemandsInfo(viewItem.value)
+    detailsModeCheckbox
     buttonsUi
   ]
 }
+
 
 let animations = [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true, easing = OutCubic }
@@ -649,6 +718,11 @@ let quickEquipHotkeys = function() {
           hotkeys = [["^J:Y", {
             description = loc("equip/quickEquip")
             action = function() {
+              let checkSelectInfo = checkSelectItem(item)
+              if (checkSelectInfo){
+                showMessage(item, checkSelectInfo)
+                return
+              }
               selectItem(item)
             }
           }]]
@@ -677,6 +751,7 @@ let itemsContent = [
       itemsListBlock
       {
         size = flex()
+        valign = ALIGN_BOTTOM
         halign = ALIGN_RIGHT
         children = infoBlock
         behavior = Behaviors.DragAndDrop

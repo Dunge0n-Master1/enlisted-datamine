@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let campaignSelectWnd = require("campaign_select_wnd.nut")
-let mkNotifier = require("%enlist/components/mkNotifier.nut")
+let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 let { progressBar } = require("%enlSqGlob/ui/defcomps.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign, canChangeCampaign } = require("%enlist/meta/curCampaign.nut")
@@ -48,7 +48,7 @@ let function mkChooseCampaignBtn(stateFlags) {
     flow = FLOW_VERTICAL
     children = [
       needNotifier.value
-        ? mkNotifier(loc("hint/newCampaignAvailable"), {
+        ? mkNotifierBlink(loc("hint/newCampaignAvailable"), {
           size = [flex(), SIZE_TO_CONTENT]
           minWidth = SIZE_TO_CONTENT
         })

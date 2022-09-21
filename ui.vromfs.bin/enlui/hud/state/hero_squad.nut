@@ -28,7 +28,7 @@ let defSquadState = freeze({
 let {squadState, squadStateSetValue} = mkFrameIncrementObservable(defSquadState, "squadState")
 let {heroSquadOrderType, hasPersonalOrder, isLeaderNeedsAmmo,
   hasSpaceForMagazine, isCompatibleWeapon, canChangeSquadMember
-} = watchedTable2TableOfWatched({state = squadState})
+} = watchedTable2TableOfWatched(squadState)
 
 let squadEid = Watched(INVALID_ENTITY_ID)
 let heroSquadNumAliveMembers = Watched(-1)

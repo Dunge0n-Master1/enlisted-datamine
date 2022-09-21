@@ -12,7 +12,7 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { getWeaponData, getVehicleData
 } = require("%enlist/soldiers/model/collectWeaponData.nut")
 let { vehicleSpecsDB, requireVehicleSpec } = require("%enlist/vehicles/physSpecs.nut")
-let { ITEM_DETAILS, PLANE_DETAILS, TANK_DETAILS, ARMOR_ORDER, getArmaments
+let { getItemDetails, PLANE_DETAILS, TANK_DETAILS, ARMOR_ORDER, getArmaments
 } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { round_by_value } = require("%sqstd/math.nut")
 let { floatToStringRounded } = require("%sqstd/string.nut")
@@ -116,7 +116,7 @@ let ITEMS_TEXT_CONSTRUCTORS = {
   "gun__firingModeNames" : @(data, _) data.len() == 0 ? null
     : "; ".join(data.map(@(name) loc($"firing_mode/{name}")))
   "rateOfFire" : arrayCtor
-  "armorpower" : tableCtor
+  "kineticArmorPower" : tableCtor
   "hitpower" : tableCtor
 }
 
@@ -176,6 +176,16 @@ let itemTypeWhitelist = {
   bayonet = true
   radio = true
   melee = true
+  shovel_weapon = true
+  molotov = true
+  lunge_mine = true
+  antitank_mine = true
+  antipersonnel_mine = true
+  explosion_pack = true
+  smoke_grenade = true
+  impact_grenade = true
+  flask_usable = true
+  binoculars_usable = true
 }
 
 let function dumpStats() {
@@ -187,8 +197,6 @@ let function dumpStats() {
     let items = {}
 
     armyItems.each(function(v) {
-      if (v?.isZeroHidden)
-        return
       if (v?.itemtype == "vehicle") {
         requireVehicleSpec(v.gametemplate)
         if (v?.itemsubtype in aircraftSubitemType)
@@ -208,7 +216,7 @@ let function dumpStats() {
     if (planes.len() != 0)
       saveStatsToFile(armyId, "_planes.csv", PLANE_DETAILS, planes, getVehicleStats)
     if (items.len() != 0)
-      saveStatsToFile(armyId, "_items.csv", ITEM_DETAILS, items, getItemStats)
+      saveStatsToFile(armyId, "_items.csv", getItemDetails(true), items, getItemStats)
   }
 }
 

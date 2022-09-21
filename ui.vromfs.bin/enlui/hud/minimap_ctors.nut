@@ -6,6 +6,7 @@ let minimapCaptureZones = require("%ui/hud/minimap_markers/minimap_cap_zones.nut
 let artilleryZones = require("%ui/hud/minimap_markers/minimap_artillery_zones.nut")
 let battleAreas = require("%ui/hud/minimap_markers/minimap_battle_areas.nut")
 let resupplyZones = require("%ui/hud/minimap_markers/minimap_resupply_zones.nut")
+let landingZones = require("%ui/hud/minimap_markers/minimap_landing_zones.nut")
 let minimapSquadOrders = require("%ui/hud/minimap_markers/minimap_squad_orders.nut")
 let {
   enemy_building_user_point_markers,
@@ -27,6 +28,7 @@ let mmChildrenCtors = freeze([
   battleAreas //optimize
   artilleryZones //optimize
   resupplyZones
+  landingZones
   minimapCaptureZones //optimize
   minimapSquadOrders
   mortarMarkers

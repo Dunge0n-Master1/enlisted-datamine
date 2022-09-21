@@ -1190,6 +1190,21 @@ entity{
 }
 
 entity{
+  _template:t="normandy_level"
+  level__blk:t="content/enlisted/levels/normandy_urban_area_2x2.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.27
+}
+
+entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[0.795212, -0.000291186, 0.60633] [-0.0791216, 0.991399, 0.104246] [-0.601145, -0.130872, 0.78835] [16.227, 19.5177, -583.662]]
@@ -1265,7 +1280,7 @@ entity{
   groupName:t="sector_1"
   capzone__capTime:r=40.0
   capzone__capTeam:i=-1
-  transform:m=[[22.7347, 0.0, -8.0706] [0.0, 10.2359, 0.0] [17.6411, 0.0, 49.6948] [161.532, 15.0631, -599.075]]
+  transform:m=[[22.7347, 0.0, -8.0706] [0.0, 10.2359, 0.0] [17.6411, 0.0, 49.6948] [161.532, 14.7341, -599.075]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -1318,6 +1333,36 @@ entity{
 }
 
 entity{
+  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.25
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_2_b"
+  capzone__capTime:r=35.0
+  capzone__capTeam:i=-1
+  transform:m=[[0.913243, 0.0, 0.407414] [0.0, 1.0, 0.0] [-0.364887, 0.0, 0.817915] [37.6899, 10.3628, -664.366]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=1
+  capzone__capReward:r=500.0
+  capzone__icon:t="AAA"
+  capzone__caption:t="capzone/warehouse"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  decal__thickness:r=0.4
+  decal__height:r=0.9
+  sphere_zone__radius:r=18.5
+  capzone__createRespawnBase:t="respawnBaseGroupActivator"
+  capzone__createdRespawnBaseGroup:i=8
+  capzone__iconOffsetY:r=2.0
+
+  "capzone__activateChoice:object"{
+    sector_3_b:r=1.0
+  }
+}
+
+entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
@@ -1325,7 +1370,7 @@ entity{
   groupName:t="sector_3"
   capzone__capTime:r=45.0
   capzone__capTeam:i=-1
-  transform:m=[[30.4327, 0.0, 14.416] [0.0, 7.7708, 0.0] [-23.662, 0.0, 49.9514] [-17.221, 13.6284, -519.356]]
+  transform:m=[[30.4327, 0.0, 14.416] [0.0, 7.7708, 0.0] [-23.662, 0.0, 49.9514] [-17.221, 13.4805, -519.356]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
@@ -1339,6 +1384,34 @@ entity{
   decal__height:r=0.6
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
+
+  "capzone__activateChoice:object"{
+    sector_4:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.375
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_3_b"
+  capzone__capTime:r=45.0
+  capzone__capTeam:i=-1
+  transform:m=[[-9.00896, 0.0, 19.5403] [0.0, 7.7708, 0.0] [-38.7424, 0.0, -17.862] [-120.606, 13.4468, -592.268]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=1
+  capzone__capReward:r=500.0
+  capzone__icon:t="AAA"
+  capzone__caption:t="capzone/hangar"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  decal__thickness:r=0.4
+  decal__height:r=0.6
+  capzone__createRespawnBase:t="respawnBaseGroupActivator"
+  capzone__createdRespawnBaseGroup:i=9
 
   "capzone__activateChoice:object"{
     sector_4:r=1.0
@@ -1713,26 +1786,6 @@ entity{
 }
 
 entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[-0.412341, -0.00311918, -0.911024] [2.22026e-05, 0.999994, -0.00343384] [0.911029, -0.00143614, -0.412339] [-11.2638, 9.97318, -559.845]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.411724, 0.0252727, -0.910958] [0.0329761, 0.998548, 0.0426068] [0.910712, -0.0475821, 0.410293] [77.7871, 10.0387, -556.958]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.472073, -0.00108796, -0.881559] [-0.00677022, 0.999965, -0.00485952] [0.881534, 0.00826239, 0.472049] [83.2545, 9.98505, -559.262]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.431626, 6.21922e-05, -0.902053] [-0.00277703, 0.999995, -0.00125984] [0.902049, 0.00304881, 0.431624] [88.201, 10.0004, -561.495]]
-}
-
-entity{
   _template:t="resupply_in_air_zone"
   transform:m=[[0.303808, 0.0, 0.952732] [0.0, 1.0, 0.0] [-0.952732, 0.0, 0.303808] [2392.64, 1000.0, -3261.18]]
   resupply_zone__team:i=1
@@ -1814,21 +1867,6 @@ entity{
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
-}
-
-entity{
-  _template:t="normandy_level"
-  level__blk:t="content/enlisted/levels/normandy_urban_area_2x2.blk"
-}
-
-entity{
-  _template:t="clouds_hole_target"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=0.27
 }
 
 entity{
@@ -2761,36 +2799,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.25
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_2_b"
-  capzone__capTime:r=35.0
-  capzone__capTeam:i=-1
-  transform:m=[[0.913243, 0.0, 0.407414] [0.0, 1.0, 0.0] [-0.364887, 0.0, 0.817915] [37.6899, 10.3628, -664.366]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=1
-  capzone__capReward:r=500.0
-  capzone__icon:t="AAA"
-  capzone__caption:t="capzone/warehouse"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
-  decal__height:r=0.9
-  sphere_zone__radius:r=18.5
-  capzone__createRespawnBase:t="respawnBaseGroupActivator"
-  capzone__createdRespawnBaseGroup:i=8
-  capzone__iconOffsetY:r=2.0
-
-  "capzone__activateChoice:object"{
-    sector_3_b:r=1.0
-  }
-}
-
-entity{
   _template:t="respawnChooser+respTeam1"
   transform:m=[[-0.837226, 0.0854253, 0.540146] [0.0717828, 0.996345, -0.0463112] [0.542126, 0.0, 0.840297] [149.714, 11.0241, -698.758]]
   groupName:t="sector_2_b"
@@ -2848,34 +2856,6 @@ entity{
   team:i=2
   maxVehicleOnSpawn:i=2
   active:b=no
-}
-
-entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.375
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_3_b"
-  capzone__capTime:r=45.0
-  capzone__capTeam:i=-1
-  transform:m=[[-9.00896, 0.0, 19.5403] [0.0, 7.7708, 0.0] [-38.7424, 0.0, -17.862] [-120.606, 13.6116, -592.268]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=1
-  capzone__capReward:r=500.0
-  capzone__icon:t="AAA"
-  capzone__caption:t="capzone/hangar"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
-  decal__height:r=0.6
-  capzone__createRespawnBase:t="respawnBaseGroupActivator"
-  capzone__createdRespawnBaseGroup:i=9
-
-  "capzone__activateChoice:object"{
-    sector_4:r=1.0
-  }
 }
 
 entity{
@@ -3292,7 +3272,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.260751, 0.0, 0.965407] [0.0, 1.0, 0.0] [-0.965407, 0.0, 0.260751] [154.385, 12.0057, -726.283]]
+  transform:m=[[0.260751, 0.0, 0.965407] [0.0, 1.0, 0.0] [-0.965407, 0.0, 0.260751] [118.751, 12.0057, -625.239]]
   resupply_zone__team:i=1
   groupName:t="sector_3_b"
   active:b=no
@@ -3300,8 +3280,28 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.0391256, 0.0, -0.999233] [0.0, 1.0, 0.0] [0.999233, 0.0, -0.0391256] [-163.533, 11.5035, -385.611]]
+  transform:m=[[-0.0391256, 0.0, -0.999233] [0.0, 1.0, 0.0] [0.999233, 0.0, -0.0391256] [-322.261, 11.5035, -573.679]]
   resupply_zone__team:i=2
   groupName:t="sector_3_b"
   active:b=no
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[-0.412341, -0.00311918, -0.911024] [2.22026e-05, 0.999994, -0.00343384] [0.911029, -0.00143614, -0.412339] [-11.2638, 9.97318, -559.845]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.411724, 0.0252727, -0.910958] [0.0329761, 0.998548, 0.0426068] [0.910712, -0.0475821, 0.410293] [77.7871, 10.0387, -556.958]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.472073, -0.00108796, -0.881559] [-0.00677022, 0.999965, -0.00485952] [0.881534, 0.00826239, 0.472049] [83.2545, 9.98505, -559.262]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.431626, 6.21922e-05, -0.902053] [-0.00277703, 0.999995, -0.00125984] [0.902049, 0.00304881, 0.431624] [88.201, 10.0004, -561.495]]
 }

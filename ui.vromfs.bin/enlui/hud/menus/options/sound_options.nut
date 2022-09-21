@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {get_setting_by_blk_path} = require("settings")
 let { sound_set_volume } = require("sound")
 let {is_pc} = require("%dngscripts/platform.nut")
-let {outputDevicesList, outputDevice} = require("%enlSqGlob/sound_state.nut")
+let {soundOutputDevicesList, soundOutputDevice, soundOutputDeviceUpdate} = require("%enlSqGlob/sound_state.nut")
 let {
   getOnlineSaveData, optionSpinner, optionCtor, optionPercentTextSliderCtor
 } = require("options_lib.nut")
@@ -29,9 +29,9 @@ let function soundOption(title, field) {
     tab = "Sound"
     widgetCtor = optionVolSliderCtor
     var = watch
-    setValue = setValue
+    setValue
     defVal = 1.0
-    blkPath = blkPath
+    blkPath
     busName = field
   })
 }
@@ -48,10 +48,11 @@ let optOutputDevice = optionCtor({
   tab = "Sound"
   widgetCtor = optionSpinner
   blkPath = "sound/output_device"
-  isAvailableWatched = Computed(@() is_pc && outputDevicesList.value.len() > 0)
+  isAvailableWatched = Computed(@() is_pc && soundOutputDevicesList.value.len() > 0)
   changeVarOnListUpdate = false
-  var = outputDevice
-  available = outputDevicesList
+  var = soundOutputDevice
+  setValue = soundOutputDeviceUpdate
+  available = soundOutputDevicesList
   valToString = @(v) v?.name ?? ""
   isEqual = @(a,b) (a?.name ?? "")==(b?.name ?? "")
 })

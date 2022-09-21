@@ -21,9 +21,8 @@ let function trackComponents(eid, comp) {
     wallPostersMaxCount(comp["wallPosters__maxCount"])
     wallPostersCurCount(comp["wallPosters__curCount"])
     wallPosterPreview(comp["wallPoster__preview"])
-    let posters = {}
-    comp["wallPosters"].getAll().each(@(p) posters[p.template] <- true)
-    wallPosters(posters.keys().sort())
+    let posters = comp["wallPosters"].getAll().map(@(p) p.template)
+    wallPosters(posters)
   } else if (localPlayerEid.value == eid) {
     resetData()
   }

@@ -14,7 +14,7 @@ let { setTutorialConfig, finishTutorial, goToStep, isTutorialActive, nextStep, g
 let { mkSizeTable, mkMessageCtorWithGamepadIcons, messageCtor, defMsgPadding
 } = require("%enlist/tutorial/tutorialWndDefStyle.nut")
 let { curArmyNextUnlockLevel, isArmyUnlocksStateVisible, readyToUnlockSquadId, unlockSquad,
-  hasCampaignSection, hasCurArmyUnlockAlert, levelWidth, squadGap
+  hasCampaignSection, levelWidth, squadGap
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let { isUnlockSquadSceneVisible, closeUnlockSquadScene, unlockSquadViewData
@@ -29,6 +29,8 @@ let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isInSquad } = require("%enlist/squad/squadManager.nut")
+let { seenArmyProgress } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
+
 
 const LEVEL_TO_SHOW = 2
 
@@ -44,7 +46,7 @@ let needTutorial = Computed(function() {
 let canShowTutorialFromMainMenu = Computed(@() canDisplayOffers.value
   && hasCampaignSection.value
   && isCurCampaignProgressUnlocked.value
-  && hasCurArmyUnlockAlert.value)
+  && curArmy.value in seenArmyProgress.value?.unseen)
 
 let showTutorial = keepref(Computed(@() needTutorial.value
   && (isArmyUnlocksStateVisible.value || canShowTutorialFromMainMenu.value)))

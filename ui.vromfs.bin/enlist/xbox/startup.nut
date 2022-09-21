@@ -2,13 +2,13 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let eventbus = require("eventbus")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[STARTUP] ")
+let {login, logout, subscribe_to_logout} = require("%xboxLib/loginState.nut")
 
 let {get_activation_data, get_invited_xuid, register_activation_callback} = require("%xboxLib/activation.nut")
-let {shutdown_user, register_for_user_signout_event} = require("%xboxLib/impl/user.nut")
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
-let {exit_to_enlist} = require("app")
+let {switch_to_menu_scene} = require("app")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let {logOut, isLoggedIn} = require("%enlSqGlob/login_state.nut")
 let {currentStage, doAfterLoginOnce, startLogin, interrupt} = require("%enlist/login/login_chain.nut")
@@ -38,13 +38,17 @@ let function updateSquadState(curGameMode = null) {
     createSquadAndDo()
 }
 
+
 isLoggedIn.subscribe(function(v) {
   if (!v) {
     if (isInBattleState.value)
-      exit_to_enlist()
-    shutdown_user()
+      switch_to_menu_scene()
+    logout()
+  } else {
+    login()
   }
 })
+
 
 let function try_leave_squad(cb = null) {
   logX($"try_leave_squad, isInSquad.value {isInSquad.value}")
@@ -54,6 +58,7 @@ let function try_leave_squad(cb = null) {
   else
     cb?()
 }
+
 
 let function join_internal(squadId) {
   needCheckInvite(false)
@@ -67,6 +72,7 @@ let function join_internal(squadId) {
     requestMembership(squadId.tointeger())
   }
 }
+
 
 let function complete_activation() {
   let squadId = get_activation_data()
@@ -106,6 +112,7 @@ let function activation_handler() {
 
 register_activation_callback(activation_handler)
 
+
 subsMemberRemovedEvent(function(user_id) {
   logX($"On removed member event: {user_id}, {currentGameMode.value?.id}, {currentGameMode.value?.maxGroupSize}, {isGameModeChangedManually.value}")
   if (isGameModeChangedManually.value || needCheckInvite.value)
@@ -115,6 +122,7 @@ subsMemberRemovedEvent(function(user_id) {
     createSquadAndDo()
 })
 
+
 isManuallyLeavedSquadOnFullSquad.subscribe(function(v) {
   if (!v || isInSquad.value || needCheckInvite.value)
     return
@@ -122,7 +130,9 @@ isManuallyLeavedSquadOnFullSquad.subscribe(function(v) {
   createSquadAndDo()
 })
 
+
 isInSquad.subscribe(@(v) v? isManuallyLeavedSquadOnFullSquad(false) : null)
+
 
 currentGameMode.subscribe(function(v) {
   logX($"Update squad state on currentGameMode subscription {v?.id}, {needCheckInvite.value}")
@@ -130,13 +140,14 @@ currentGameMode.subscribe(function(v) {
     updateSquadState(v)
 })
 
+
 eventbus.subscribe("ipc.onBattleExitAccept",  function(_) {
-  defer(exit_to_enlist)
+  defer(switch_to_menu_scene)
   complete_activation()
 })
 
 
-register_for_user_signout_event(function() {
+subscribe_to_logout(function() {
   if (currentStage.value) {
     logX("Seems like user was logged out from system during login parocess. Interrupting...")
     interrupt()

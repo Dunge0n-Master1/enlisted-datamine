@@ -13,6 +13,7 @@ us_m3a1_stuart_pacific{
 us_m3a1_stuart_common{
   _extends:t="base_m3a1_stuart"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0
 
   "vehicle_seats__seats:shared:array"{
@@ -65,6 +66,7 @@ us_m3a1_stuart_common{
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="us_m3a1_stuart_commander_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"

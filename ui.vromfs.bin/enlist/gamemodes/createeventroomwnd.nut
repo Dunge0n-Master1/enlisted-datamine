@@ -155,7 +155,7 @@ let optionCtor = {
     ? mkValueText(opt.curValue, @(v) v, opt?.optDummy)
     : textInput(opt?.savedValue ?? opt.curValue,
       { maxChars = cfg?.maxChars, placeholder = opt?.placeholder, setValue = opt.setValue,
-        textmargin = [hdpx(6), hdpx(2)], password = opt?.password, charMask = opt?.charMask})
+        textmargin = [hdpx(6), hdpx(2)], password = opt?.password, charMaskTypes = opt?.charMaskTypes})
 }
 
 let optionRequirement = mkOptionRow(

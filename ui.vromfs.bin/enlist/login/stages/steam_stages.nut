@@ -20,6 +20,7 @@ return [
       else
         cb({})
     }
+    actionOnReload = @(_state, cb) eventbus.subscribe_onehit(AUTH_STEAM, ah.status_cb(cb))
   }
   {
     id = go_login.id
@@ -29,7 +30,7 @@ return [
       else
         cb({})
     }
-    actionOnReload = @(_state, _cb) null
+    actionOnReload = @(state, cb) linkSteamAccount.value ? go_login.actionOnReload(state, cb) : null
   }
   {
     id = STEAM_LINK
@@ -41,5 +42,6 @@ return [
       else
         cb({})
     }
+    actionOnReload = @(_state, cb) eventbus.subscribe_onehit(STEAM_LINK, ah.status_cb(cb))
   }
 ]

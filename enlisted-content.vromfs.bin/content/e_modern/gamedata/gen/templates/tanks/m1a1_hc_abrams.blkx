@@ -123,8 +123,6 @@ base_m1a1_hc_abrams{
       turretName:t="turret_02"
       gun:t="m1a1_hc_abrams_turret_02_12_7mm_m2_hb"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -132,8 +130,6 @@ base_m1a1_hc_abrams{
       turretName:t="turret_03"
       gun:t="m1a1_hc_abrams_turret_03_7_62mm_m240"
       barrelDm:t="gun_barrel_03"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -141,8 +137,6 @@ base_m1a1_hc_abrams{
       turretName:t="turret_04"
       gun:t="m1a1_hc_abrams_turret_04_7_62mm_m240"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

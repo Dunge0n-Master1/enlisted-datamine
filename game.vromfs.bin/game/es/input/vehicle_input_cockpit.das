@@ -61,11 +61,17 @@ def vehicle_cockpit_view_input_es(evt : EventDaInputActionTerminated;
 def vehicle_input_commander_cockpit_es(info : UpdateStageInfoAct;
                                        input__enabled : bool;
                                        eid : EntityId;
+                                       vehicle_input__zoomToggle : int;
                                        vehicle_input__zoom : int)
   if !input__enabled
     return
   find_query <| $ [es] (cockpit__vehicleEid : EntityId; cockpit__cameraTime : float; var cockpit__isZoom : bool&)
     if eid != cockpit__vehicleEid || cockpit__cameraTime < 1.0
       return false
-    cockpit__isZoom = get_digital_action_state(uint16(vehicle_input__zoom)).bActive && get_digital_action_state(uint16(vehicle_input__zoom)).bState
+
+    let zoomToggleState = get_digital_action_state(uint16(vehicle_input__zoomToggle))
+    let zoomState = get_digital_action_state(uint16(vehicle_input__zoom))
+    let zoomToggle = zoomToggleState.bActive && zoomToggleState.bState
+    let zoom = zoomState.bActive && zoomState.bState
+    cockpit__isZoom = zoomToggle || zoom
     return true

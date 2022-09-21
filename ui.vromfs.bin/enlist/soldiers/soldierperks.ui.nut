@@ -17,7 +17,7 @@ let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let getPayItemsData = require("model/getPayItemsData.nut")
 let confirmBarterMsgBox = require("%enlist/shop/confirmBarterMsgBox.nut")
 let { perkLevelsGrid, getNextLevelData, getOrdersToNextLevel
-} = require("%enlSqGlob/configs/perks/perksExp.nut")
+} = require("%enlist/meta/perks/perksExp.nut")
 let { openAvailablePerks } = require("availablePerksWnd.nut")
 let { curArmy, curCampItems, curCampItemsCount } = require("model/state.nut")
 let { perkCardBg, perkCard, tierTitle, mkPerksPointsBlock
@@ -37,9 +37,7 @@ let { mkCurrencyButton } = require("%enlist/soldiers/components/currencyButton.n
 let { focusResearch, findResearchTrainClass, hasResearchSquad
 } = require("%enlist/researches/researchesFocus.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { isFreemiumCampaign, curUpgradeDiscount
-} = require("%enlist/campaigns/freemiumState.nut")
-
+let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
 
 local slotNumber = 0
 
@@ -209,10 +207,10 @@ let mkNextLevelBlock = kwarg(@(perks, tier, tierAvailableData, onSlotClick) func
   let barterData = orderTpl != null
     ? getPayItemsData({ [orderTpl] = ordersRequire }, curCampItems.value)
     : null
-  let isUnavailable = !isSuccess || (!barterData && isFreemiumCampaign.value)
+  let isUnavailable = !isSuccess || (!barterData && disablePerkReroll.value)
   let onPressCb = isUnavailable ? null : @() onBuyLevel(perks, tier, onSlotClick)
   return {
-    watch = [isCurCampaignProgressUnlocked, perkLevelsGrid, curCampItems, isFreemiumCampaign]
+    watch = [isCurCampaignProgressUnlocked, perkLevelsGrid, curCampItems, disablePerkReroll]
     size = [flex(), SIZE_TO_CONTENT]
     children = perkCardBg(slotNumber++, onPressCb, {
         children = [

@@ -18,7 +18,7 @@ let defValue = freeze(comps.reduce(function(res, b){
 } ,{}))
 
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
-let { exportState } = watchedTable2TableOfWatched({state, defValue, plainOut=false})
+let exportState = watchedTable2TableOfWatched(state)
 
 ecs.register_es("ui_vehicle_view_state",
   {

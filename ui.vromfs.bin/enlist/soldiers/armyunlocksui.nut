@@ -23,8 +23,8 @@ let { mkBackWithImage, mkUnlockInfo, mkSquadBodyBottomSmall
 let { ModalBgTint, borderColor } = require("%ui/style/colors.nut")
 let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { shadowStyle, bigGap, bigPadding, defBgColor, darkBgColor, freemiumColor, accentColor,
-  freemiumDarkColor, commonBtnHeight, smallPadding
+let { shadowStyle, bigGap, bigPadding, defBgColor, darkBgColor, accentColor,
+  commonBtnHeight, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { curArmyData, armySquadsById, curUnlockedSquads } = require("model/state.nut")
 let { curArmyLevels, curArmyExp, hasArmyUnlocks, allArmyUnlocks, uType,
@@ -48,9 +48,14 @@ let { weapInfoBtn, btnSizeSmall, progressBarWidth, rewardToScroll,
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let mkBuyArmyLevel = require("mkBuyArmyLevel.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { needFreemiumStatus, isFreemiumCampaign, isFreemiumBought
-} = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, needFreemiumStatus, isConfigurableCampaign, isCampaignBought, disableArmyExp,
+  campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
+let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
+
+
+local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let tblScrollHandler = ScrollHandler()
 
@@ -74,11 +79,12 @@ let unlockLocTxt = loc("squads/receive")
 let mkUnlockCardButton = @(unlockInfo) function() {
   let { unlockText = null, unlockCb = null, isShowcase = false,
     lvlToBuy = null, cost = null, costFull = null, discount = null, isNextToBuyExp = false,
-    isNextSquadUnlock = false, hasReceived = false, hasDiscount = false, isFreemium = false
+    isNextSquadUnlock = false, hasReceived = false, hasDiscount = false, campaignGroup = CAMPAIGN_NONE
   } = unlockInfo
+  let isFreemium = campaignGroup != CAMPAIGN_NONE
   local children = []
   if (isNextToBuyExp) {
-    if (!isFreemiumCampaign.value)
+    if (!disableArmyExp.value )
       children.append(mkBuyArmyLevel(lvlToBuy, cost, costFull))
     if (hasDiscount)
       children.append(mkDiscountWidget(discount, { pos = [hdpx(30), hdpx(7)] }))
@@ -86,7 +92,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.append(mkUnlockInfo(unlockText))
   else if (!hasReceived
       && unlockCb != null
-      && (!isFreemium || (isFreemiumCampaign.value && isFreemiumBought.value))) {
+      && (!isFreemium || (isConfigurableCampaign.value && isCampaignBought.value))) {
     let buttonCtor = isShowcase ? Purchase : PrimaryFlat
     children.append(buttonCtor(unlockText ?? unlockLocTxt,
       unlockCb,
@@ -102,7 +108,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.insert(0, freemiumPromoLink)
 
   return {
-    watch = [isFreemiumCampaign, isFreemiumBought, needFreemiumStatus]
+    watch = [isConfigurableCampaign, isCampaignBought, needFreemiumStatus]
     vplace = ALIGN_BOTTOM
     minWidth = btnSizeSmall[0]
     hplace = ALIGN_RIGHT
@@ -120,9 +126,9 @@ let mkSquadSmallCard = kwarg(function(squadCfg, armyId, unlockInfo, squad = null
       progressWatch = Watched(null)) {
   let isLocked = squad == null
   let { image = null, icon = null } = squadCfg
-  let { hasReceived = false, isFreemium = false } = unlockInfo
+  let { hasReceived = false, campaignGroup = CAMPAIGN_NONE } = unlockInfo
   let squadData = squadCfg.__merge({
-    armyId, isLocked, isPrimeSquad, squadCfg, unlockInfo, hasReceived, isFreemium
+    armyId, isLocked, isPrimeSquad, squadCfg, unlockInfo, hasReceived, campaignGroup
   })
 
   let controlBlock = @(){
@@ -171,7 +177,7 @@ let mkSquadSmallCard = kwarg(function(squadCfg, armyId, unlockInfo, squad = null
         picSaturate = isLocked ? 0.3 : 1
       })
       !hasReceived ? null
-        : isFreemium ? receivedFreemium
+        : campaignGroup != CAMPAIGN_NONE ? receivedFreemium(campaignGroup)
         : receivedCommon
       weapInfoBtn(sf)
     ]
@@ -186,7 +192,7 @@ let mkLevelFrame = @(children) {
   children = children
 }
 
-let mkEmptyLevelUnlock = {
+let emptyLevelUnlock = {
   behavior = Behaviors.Button
   xmbNode = XmbNode()
   children = mkLevelFrame(txt({
@@ -197,15 +203,17 @@ let mkEmptyLevelUnlock = {
 }
 
 let mkSquadBlockByUnlock = @(unlock, armyData) function() {
-  let { level, unlockId, isFreemium = false, exp = 0 } = unlock
+  let { level, unlockId, campaignGroup = CAMPAIGN_NONE, exp = 0 } = unlock
+  let isFreemium = campaignGroup != CAMPAIGN_NONE
   let armyId = armyData.guid
   let squadCfg = squadsCfgById.value?[armyId][unlockId]
   let squad = armySquadsById.value?[armyId][unlockId]
+  let hasReceived = squad != null && !isSquadRented(squad)
   let unlockInfo = {
-    hasReceived = squad != null
+    hasReceived
     unlockUid = unlock.uid
   }
-  if (squad == null) {
+  if (!hasReceived) {
     let isActive = !isFreemium || !needFreemiumStatus.value
     let isNext = curArmyNextUnlockLevel.value == level
     let canUnlock = armyData.level >= level && armyData.exp >= exp
@@ -218,18 +226,18 @@ let mkSquadBlockByUnlock = @(unlock, armyData) function() {
         ? @() unlockSquad(unlockId)
         : null
       isNextSquadUnlock = isNext && canUnlock
-      isNextToBuyExp = isNext && !canUnlock && !isFreemiumCampaign.value
+      isNextToBuyExp = isNext && !canUnlock && !disableArmyExp.value
       lvlToBuy = curArmyLevel.value
       cost = curBuyLevelData.value?.cost
       costFull = curBuyLevelData.value?.costFull
       hasDiscount = curBuyLevelData.value?.hasDiscount
       discount = curBuyLevelData.value?.discount
-      isFreemium
+      campaignGroup
     })
   }
   return {
     watch = [squadsCfgById, armySquadsById, curArmyNextUnlockLevel, curArmyLevel,
-      curBuyLevelData, isFreemiumCampaign, needFreemiumStatus]
+      curBuyLevelData, disableArmyExp, needFreemiumStatus]
     children = squadCfg == null ? null
       : mkLevelFrame(
           mkSquadSmallCard({ squad, armyId, unlockInfo, squadCfg,
@@ -239,10 +247,11 @@ let mkSquadBlockByUnlock = @(unlock, armyData) function() {
 }
 
 let mkLevelRewardCard = @(unlock, armyData) function() {
-  let { level, isFreemium = false, exp = 0 } = unlock
+  let { level, campaignGroup = CAMPAIGN_NONE, exp = 0 } = unlock
+  let isFreemium = campaignGroup != CAMPAIGN_NONE
   local unlockInfo = {
     unlockUid = unlock.uid
-    isFreemium
+    campaignGroup
   }
   if (unlock.unlockGuid not in receivedUnlocks.value) {
     let isActive = !isFreemium || !needFreemiumStatus.value
@@ -256,7 +265,7 @@ let mkLevelRewardCard = @(unlock, armyData) function() {
       unlockCb = isNext && canUnlock && isActive
         ? @() get_army_level_reward(armyData.guid, unlock.unlockGuid)
         : null
-      isNextToBuyExp = isNext && !canUnlock && !isFreemiumCampaign.value
+      isNextToBuyExp = isNext && !canUnlock && !disableArmyExp.value
       lvlToBuy = curArmyLevel.value
       cost = curBuyLevelData.value?.cost
       costFull = curBuyLevelData.value?.costFull
@@ -264,7 +273,7 @@ let mkLevelRewardCard = @(unlock, armyData) function() {
   }
   return {
     watch = [receivedUnlocks, curArmyNextUnlockLevel, curArmyLevel, curBuyLevelData,
-      isFreemiumCampaign, needFreemiumStatus]
+      disableArmyExp, needFreemiumStatus]
     behavior = Behaviors.Button
     xmbNode = XmbNode()
     children = mkLevelFrame(
@@ -326,8 +335,6 @@ let function mkShowcaseItem(shopItemGuid, uid) {
     unlockUid = uid
   }
 
-  let isPrimeSquad = unlockInfo?.isShowcase != null && unlockInfo.isShowcase
-
   let summary = mkPrice({
     shopItem,
     bgParams = {
@@ -341,7 +348,7 @@ let function mkShowcaseItem(shopItemGuid, uid) {
     onClick = openBuySquadScene
     children = mkLevelFrame(
       squadCfg == null ? null
-        : mkSquadSmallCard({ squad, armyId, squadCfg, unlockInfo, summary, isPrimeSquad,
+        : mkSquadSmallCard({ squad, armyId, squadCfg, unlockInfo, summary, isPrimeSquad = true,
             onClick = function() {
               rewardToScroll(uid)
               openBuySquadScene()
@@ -368,13 +375,14 @@ let progressTxt = @(leftTxt = "", rightTxt = ""){
   ]
 }
 
-let function freemiumProgressBar(nextUnlockLvl, level, expCur,
-  expToReceive, progress, hasNotReceivedReward, hasFreemium
-){
+let function freemiumProgressBar(
+  nextUnlockLvl, level, expCur, expToReceive, progress, hasNotReceivedReward, hasFreemium,
+  color, darkColor
+) {
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward && hasFreemium)
-    return completedProgressLine(1, glareAnimation(2), freemiumColor, freemiumDarkColor)
+    return completedProgressLine(1, glareAnimation(2), color, darkColor)
   else if (nextUnlockLvl > level && expCur >= expToReceive)
-    return acquiredProgressLine(1, [], freemiumColor, freemiumColor)
+    return acquiredProgressLine(1, [], color, color)
 
   progress = expToReceive > 0
     ? 1.0 - (expToReceive - expCur) / expToReceive.tofloat()
@@ -397,11 +405,13 @@ let function progressBarVariation(nextUnlockLvl, level, expCur,
 
 
 let levelsUnlocks = function() {
+  let { color = null, darkColor = null } = campPresentation.value
   let army = curArmyData.value
   local hasNotReceivedReward = false
   let children = allArmyUnlocks.value.map(function(unlock) {
-    local unlockObj = mkEmptyLevelUnlock
-    let { unlockType, level = 0, isFreemium = false } = unlock
+    local unlockObj = emptyLevelUnlock
+    let { unlockType, level = 0, campaignGroup = CAMPAIGN_NONE } = unlock
+    let isFreemium = campaignGroup != CAMPAIGN_NONE
 
     if (unlockType == uType.SQUAD) {
       unlockObj = mkSquadBlockByUnlock(unlock, army)
@@ -433,7 +443,7 @@ let levelsUnlocks = function() {
     else if (unlockType != uType.EMPTY) {
       let progressObj = isFreemium
         ? freemiumProgressBar(curArmyNextUnlockLevel.value, level, expCur,
-          expToReceive, progress, hasNotReceivedReward, isFreemiumBought.value)
+            expToReceive, progress, hasNotReceivedReward, isCampaignBought.value, color, darkColor)
         : progressBarVariation(curArmyNextUnlockLevel.value, level, expCur,
             expToReceive, progress, hasNotReceivedReward)
       let progressChild = progressTxt($"{loc("level")} {level}", $"{expCur}/{expToReceive}")
@@ -455,7 +465,7 @@ let levelsUnlocks = function() {
   return {
     watch = [
       curArmyData, curArmyExp, allArmyUnlocks, curArmyNextUnlockLevel, curUnlockedSquads,
-      receivedUnlocks, curArmyLevels, curArmyLevel, isFreemiumBought
+      receivedUnlocks, curArmyLevels, curArmyLevel, isCampaignBought, campPresentation
     ]
     flow = FLOW_HORIZONTAL
     gap = squadGap

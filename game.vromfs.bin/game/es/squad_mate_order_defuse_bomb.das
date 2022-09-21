@@ -9,6 +9,7 @@ require game.es.sound_net.sound_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require enlisted.game.es.bomb_site_common
 require EnlistedBehTree
+require game.es.squad_order_common
 
 def order_defuse(squadmate_eid : EntityId;
                  squad__leader : EntityId;
@@ -38,8 +39,8 @@ def order_defuse(squadmate_eid : EntityId;
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("bombSiteEid", int(uint(order_use_entity)))
       *beh_tree__latencyLoadBlackBoard |> set("bombSitePos", order_position)
-    beh_tree.blackBoard |> datablock_setInt("bombSiteEid", int(uint(order_use_entity)))
-    beh_tree.blackBoard |> datablock_setPoint3("bombSitePos", order_position)
+    beh_tree.blackBoard |> set("bombSiteEid", int(uint(order_use_entity)))
+    beh_tree.blackBoard |> set("bombSitePos", order_position)
 
     squad_member__orderType = int(SquadMateOrder ESMO_DEFUSE_BOMB)
     squad_member__orderPosition = order_position
@@ -106,7 +107,7 @@ def on_squadmate_defuse(act : UpdateStageInfoAct;
   if squad_member__orderType == int(SquadMateOrder ESMO_DEFUSE_BOMB)
     let bombSiteEid = EntityId(uint(beh_tree.blackBoard |> datablock_getInt("bombSiteEid", 0)))
     if bombSiteEid != squad_member__orderUseEntity || !can_defuse_bomb(bombSiteEid, eid)
-      beh_tree.blackBoard |> datablock_setInt("bombSiteEid", 0)
+      beh_tree.blackBoard |> set("bombSiteEid", 0)
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
       reset_squad_mate_behaviour(eid)
 

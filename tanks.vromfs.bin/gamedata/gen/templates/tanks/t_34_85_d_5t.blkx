@@ -11,7 +11,7 @@ base_t_34_85_d_5t{
   cockpit__zoomOutFov:r=5.8197
   cockpit__zoomInFov:r=6.1402
   cockpit__sightName:t="sight_model/tsh_15"
-  cockpit__sightFov:r=15.0
+  cockpit__sightFov:r=9.75
   drowningHeight:r=2.16
   damage_model__blk:t="gamedata/gen/units/tanks/t_34_85_d_5t.blk"
   item__name:t="items/ussr_t_34_85_d_5t"
@@ -80,8 +80,6 @@ base_t_34_85_d_5t{
       turretName:t="turret_02"
       gun:t="t_34_85_d_5t_turret_02_7_62mm_dt"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }
@@ -96,13 +94,13 @@ t_34_85_d_5t_turret_01_85mm_d5t{
   turret__limit:p4=-180.0, 180.0, -5.0, 28.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=13
-    ammo:i=7
-    ammo:i=7
-    ammo:i=7
-    ammo:i=7
-    ammo:i=7
-    ammo:i=7
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
+    ammo:i=8
   }
 }
 
@@ -130,6 +128,7 @@ t_34_85_d_5t_ammo_stowage_1{
 
   "ammo_stowage__clusterTemplates:shared:list<t>"{
     cluster:t="t_34_85_d_5t_ammo_cluster_1_1"
+    cluster:t="t_34_85_d_5t_ammo_cluster_1_2"
   }
 
   "ammo_stowage__turretNames:shared:list<t>"{
@@ -142,14 +141,46 @@ t_34_85_d_5t_ammo_cluster_1_1{
   ammo_cluster__isShell:b=yes
 
   "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret_06"
+    part:t="ammo_turret_07"
+    part:t="ammo_turret_08"
+    part:t="ammo_turret_09"
+    part:t="ammo_turret_10"
+    part:t="ammo_turret_11"
+    part:t="ammo_turret_12"
+    part:t="ammo_turret_13"
+    part:t="ammo_turret_14"
+    part:t="ammo_turret_15"
+    part:t="ammo_turret_16"
+    part:t="ammo_turret_17"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+  }
+}
+
+t_34_85_d_5t_ammo_cluster_1_2{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
     part:t="ammo_turret_01"
     part:t="ammo_turret_02"
     part:t="ammo_turret_03"
     part:t="ammo_turret_04"
     part:t="ammo_turret_05"
-    part:t="ammo_turret_06"
-    part:t="ammo_turret_07"
-    part:t="ammo_turret_08"
     part:t="ammo_body_01"
     part:t="ammo_body_02"
     part:t="ammo_body_03"
@@ -170,37 +201,72 @@ t_34_85_d_5t_ammo_cluster_1_1{
     part:t="ammo_body_18"
     part:t="ammo_body_19"
     part:t="ammo_body_20"
+    part:t="ammo_body_21"
+    part:t="ammo_body_22"
+    part:t="ammo_body_23"
+    part:t="ammo_body_24"
+    part:t="ammo_body_25"
+    part:t="ammo_body_26"
+    part:t="ammo_body_27"
+    part:t="ammo_body_28"
+    part:t="ammo_body_29"
+    part:t="ammo_body_30"
+    part:t="ammo_body_31"
+    part:t="ammo_body_32"
+    part:t="ammo_body_33"
+    part:t="ammo_body_34"
+    part:t="ammo_body_35"
+    part:t="ammo_body_36"
+    part:t="ammo_body_37"
+    part:t="ammo_body_38"
+    part:t="ammo_body_39"
   }
 
   "ammo_cluster__slotsMaxAmmo:list<i>"{
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
     count:i=1
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
-    count:i=2
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
+    count:i=1
   }
 }
 

@@ -8,6 +8,8 @@ let defValue = freeze({
   useActionAvailable = false
   lookAtEid = INVALID_ENTITY_ID
   lookAtVehicle = false
+  lookAtShip = false
+  lookAtPushableObject = false
   pickupItemEid = INVALID_ENTITY_ID
   pickupItemName = null
   customUsePrompt = null
@@ -15,19 +17,37 @@ let defValue = freeze({
 
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
 
-let {exportState} = watchedTable2TableOfWatched({state, defValue, plainOut=false})
+let exportState = watchedTable2TableOfWatched(state)
+
+let vehicleQuery = ecs.SqQuery("vehicleQuery", {
+  comps_ro=[
+    ["vehicle", ecs.TYPE_TAG, null],
+    ["ship", ecs.TYPE_TAG, null],
+    ["push_object__energyScale", ecs.TYPE_FLOAT, -1.0],
+  ]
+})
 
 ecs.register_es("hero_state_hud_state_ui_es", {
   [["onInit", "onChange"]] = function(_eid,comp) {
-    stateSetValue({
+    local newState = {
       useActionEid = comp.useActionEid
       useActionAvailable = comp.useActionAvailable
       lookAtEid = comp.lookAtEid
-      lookAtVehicle = ecs.obsolete_dbg_get_comp_val(comp.useActionEid, "vehicle") != null
+      lookAtVehicle = false
+      lookAtShip = false
+      lookAtPushableObject = false
       pickupItemEid = comp.pickupItemEid
       pickupItemName = comp.pickupItemName
       customUsePrompt = comp.customUsePrompt
+    }
+
+    vehicleQuery(comp.useActionEid, function(_, comp) {
+      newState.lookAtVehicle = comp.vehicle != null
+      newState.lookAtShip = comp.ship != null
+      newState.lookAtPushableObject = comp.push_object__energyScale > 0.0
     })
+
+    stateSetValue(newState)
   }
   function onDestroy() {
     stateSetValue(defValue)

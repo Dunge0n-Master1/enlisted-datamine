@@ -6,12 +6,14 @@ let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { wpCfgFiltered, wpIdSelected } = require("wallpostersState.nut")
 let { mkWallposter, makeBigWpImage } = require("wallpostersPkg.nut")
-let { unseenWallposters, markSeenWallposter } = require("unseenProfileState.nut")
+let {
+  seenWallposters, markSeenWallposter, markWallpostersOpened
+} = require("unseenProfileState.nut")
 
 
 let function mkWallposterBlock(wallposter, unseenList) {
   let { id } = wallposter
-  let isUnseen = unseenList.findindex(@(wp) wp.tpl == id) != null
+  let isUnseen = id in unseenList
   return watchElemState(@(sf) {
     size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.Button
@@ -32,9 +34,9 @@ let function mkWallposterBlock(wallposter, unseenList) {
 let wallpostersListUi = function() {
   let wpFiltered = wpCfgFiltered.value
   let selectedId = wpIdSelected.value
-  let unseenList = unseenWallposters.value
+  let { unseen = {}, unopened = {} } = seenWallposters.value
   return {
-    watch = [wpCfgFiltered, wpIdSelected, unseenWallposters]
+    watch = [wpCfgFiltered, wpIdSelected, seenWallposters]
     rendObj = ROBJ_BOX
     borderWidth = hdpx(1)
     size = flex()
@@ -42,6 +44,7 @@ let wallpostersListUi = function() {
     gap = bigPadding
     padding = smallPadding
     borderColor = borderColor(0)
+    onDetach = @() markWallpostersOpened(unopened.keys())
     children = selectedId == null
       ? makeVertScroll({
           xmbNode = XmbContainer({
@@ -52,7 +55,7 @@ let wallpostersListUi = function() {
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_VERTICAL
           gap = bigPadding
-          children = wpFiltered.map(@(wallposter) mkWallposterBlock(wallposter, unseenList))
+          children = wpFiltered.map(@(wallposter) mkWallposterBlock(wallposter, unseen))
         }, {
           styling = thinStyle
         })

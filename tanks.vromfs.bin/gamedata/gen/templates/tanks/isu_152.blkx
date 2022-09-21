@@ -93,8 +93,6 @@ base_isu_152{
       turretName:t="turret_02"
       gun:t="isu_152_turret_02_12_7mm_dshk"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

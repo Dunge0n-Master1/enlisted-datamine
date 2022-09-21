@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { openDebugWnd } = require("%enlist/components/debugWnd.nut")
-let {configs} = require("%enlSqGlob/configs/configs.nut")
+let {configs} = require("%enlist/meta/configs.nut")
 
 let overrides = {
   items_templates = { recursionLevel = 1 }

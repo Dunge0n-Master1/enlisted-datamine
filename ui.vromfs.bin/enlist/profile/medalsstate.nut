@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { medals } = require("%enlist/meta/profile.nut")
 let { add_medal } = require("%enlist/meta/clientApi.nut")
 let { medalsPresentation } = require("medalsPresentation.nut")

@@ -1,5 +1,4 @@
 options no_aot
-options no_unused_function_arguments = false
 module net_console_macro shared
 
 require daslib/ast_boost
@@ -23,7 +22,7 @@ def get_controlled_player_eid(possible_eid : uint)
 
 [function_macro(name="net_console_cmd")]
 class NetConsoleCommandAnnotation : AstFunctionAnnotation
-  def override patch(var func : FunctionPtr; var group : ModuleGroup; args, progArgs : AnnotationArgumentList; var errors : das_string; var astChanged : bool&) : bool
+  [unused_argument(group, progArgs)] def override patch(var func : FunctionPtr; var group : ModuleGroup; args, progArgs : AnnotationArgumentList; var errors : das_string; var astChanged : bool &) : bool
     if (func.flags & FunctionFlags exports) == FunctionFlags exports
       return true
 

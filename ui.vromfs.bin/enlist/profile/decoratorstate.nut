@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { decorators } = require("%enlist/meta/profile.nut")
 let {
   decoratorsPresentation

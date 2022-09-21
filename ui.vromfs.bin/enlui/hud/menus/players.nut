@@ -6,7 +6,6 @@ let fontIconButton = require("%ui/components/fontIconButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let cursors = require("%ui/style/cursors.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
 
 let showPlayersMenu = mkWatched(persist, "showPlayersMenu", false)
 
@@ -22,13 +21,14 @@ let closebutton = fontIconButton("close", {
   padding = 0
 })
 
-let function mkPlayer(name){
-  return {
-    rendObj = ROBJ_TEXT
-    text = remap_nick(name)
-  }.__update(body_txt)
-}
-let header = {rendObj = ROBJ_TEXT text=loc("Players in session") margin = hdpx(8) color = Color(120,120,120,120)}.__update(body_txt)
+let mkPlayer = @(text) { rendObj = ROBJ_TEXT, text }.__update(body_txt)
+
+let header = {
+  rendObj = ROBJ_TEXT
+  text = loc("Players in session")
+  margin = hdpx(8)
+  color = Color(120,120,120,120)
+}.__update(body_txt)
 
 let function menu(){
   return {
@@ -64,7 +64,7 @@ return {
     watch = [showPlayersMenu]
     cursor = showPlayersMenu.value ? cursors.normal : null
     children = showPlayersMenu.value ? menu : null
-    hooks = HOOK_ATTACH
+    behavior = Behaviors.ActivateActionSet
     actionSet = "StopInput"
   }
 }

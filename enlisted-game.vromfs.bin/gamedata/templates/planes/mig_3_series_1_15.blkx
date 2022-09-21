@@ -60,6 +60,21 @@ mig_3_series_1_15{
       gun:t="planegun_mig_3_series_1_15_20mm_shvaks_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_mig_3_series_1_15_20mm_shvaks{

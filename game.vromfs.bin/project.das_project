@@ -5,6 +5,7 @@ let
     "game" => "%scripts/game";
     "enlisted" => "%scripts";
     "enlisted_pkg_dev" => "%enlisted_pkg_dev";
+    "modern_conflict" => "%modern_conflict";
     "common_shooter" => "%scripts/common_shooter";
     "danetlibs" => "%danetlibs";
     "sound_utils" => "%danetlibs/sound/sound_utils";

@@ -69,15 +69,19 @@ refreshPeriod.subscribe(@(_) toggleRefresh(refreshEnabled.value))
 
 let function switchDebugMode() {
   let function debugRooms() {
-    let list = array(100).map(@(_) {
-        roomId = math.rand()
-        membersCnt = 2 + math.rand() % 25
+    let list = array(100).map(function(_) {
+      let rnd = math.rand()
+      let creator = $"%Username%{rnd%11}"
+      return {
+        roomId = rnd
+        membersCnt = 2 + rnd % 25
         public = {
-          creator = "%Username%{0}".subst(math.rand()%11)
-          hasPassword = !(math.rand()%3)
+          creator
+          creatorText = creator
+          hasPassword = !(rnd % 3)
         }
       }
-    )
+    })
     roomsList.update(list)
   }
   debugMode.update(!debugMode.value)

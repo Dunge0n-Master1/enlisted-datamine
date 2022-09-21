@@ -42,6 +42,7 @@ base_human_steps_sound{
   _group{
     _tags:t="sound"
     human_steps_sound__tag:t=""
+    human_steps_sound__irqObjIdx:i=-1
 
     "human_steps_sound__path:shared:object"{
     }
@@ -49,7 +50,7 @@ base_human_steps_sound{
     "human_steps_sound__descs:shared:object"{
     }
 
-    "human_steps_sound__irqs:shared:object"{
+    "human_steps_sound__irqs:shared:array"{
     }
 
     "human_steps_sound__jumpFx:shared:object"{
@@ -132,6 +133,16 @@ human_voice_effect_burning{
   _extends:t="base_human_voice_effect"
 }
 
+human_voice_effect_coughing{
+  _extends:t="base_human_voice_effect"
+
+  _group{
+    _tags:t="sound"
+    human_voice_effect__endCoughingAt:r=0.0
+    human_voice_effect__coughingDuration:r=3.0
+  }
+}
+
 human_voice_effect_fallcry{
   _extends:t="base_human_voice_effect"
   human_voice_effect_fallcry__enabled:b=yes
@@ -160,6 +171,7 @@ base_human_sound{
   _extends:t="base_human_hit_cry_sound"
   _extends:t="human_voice_effect_drinking"
   _extends:t="human_voice_effect_burning"
+  _extends:t="human_voice_effect_coughing"
   _extends:t="human_voice_effect_fallcry"
   _replicated:t="human_sound_net_tags__equipmentList"
   _tracked:t="human_sound_net_tags__equipmentList"
@@ -169,6 +181,7 @@ base_human_sound{
     effect:t="drink"
     effect:t="burn"
     effect:t="fallcry"
+    effect:t="cough"
   }
 
   "humanSound:tag"{
@@ -224,7 +237,7 @@ human_steps_sound{
     human_steps_sound__lastTimeOnGround:r=0.0
     human_steps_sound__traceStepOffsetLen:p2=1.0, 2.0
     human_steps_sound__friendVolume:r=0.2
-    human_steps_sound__farawayThreshold:r=30.0
+    human_steps_sound__farawayThresholdSq:r=900.0
     human_steps_sound__matId:i=-1
     human_steps_sound__waterDepth:r=0.0
     human_steps_sound__physStates:i=-1
@@ -253,9 +266,10 @@ human_breath_sound{
     _tags:t="sound"
     human_breath_sound__isBreath:b=no
     human_breath_sound__canBreath:b=no
-    human_breath_sound__breathShortness:r=0.0
+    human_breath_sound__prevBreathShortness:r=0.0
     human_breath_sound__goodBreathNextTime:r=0.0
     human_breath_sound__breathStart:r=0.0
+    human_breath_sound__breathShortness:r=0.0
     human_breath_sound__goodBreathDelay:r=0.5
     human_breath_sound__jumpDelay:r=1.5
     human_breath_sound__loHealthRel:r=0.2
@@ -263,7 +277,7 @@ human_breath_sound{
     human_breath_sound__breathoutThreshold:r=0.7
     human_breath_sound__inhaleThreshold:r=0.6
     human_breath_sound__holdBreathEndDelay:r=2.0
-    human_breath_sound__minBreathShortness:r=0.0
+    human_breath_sound__baseBreathShortness:r=0.0
   }
 }
 
@@ -381,6 +395,10 @@ human_sound_paths{
   "sound_irqs:shared:object"{
     _tags:t="sound"
 
+    "grenade_take:object"{
+      type:t="grenadeActivate"
+    }
+
     "weaponChangeStart:object"{
       hero:t="player/walker/ww2_soldier/foley_mov/common/wpn_change_start"
     }
@@ -419,12 +437,6 @@ human_sound_paths{
       name:t="bullet_body"
       hero:t="player/walker/ww2_soldier/hit"
       enemy:t="enemy/walker/ww2_soldier/hit"
-
-      "part_head:object"{
-        name:t=""
-        hero:t="ui/helmet_hit"
-        enemy:t="enemy/walker/ww2_soldier/hit/bullet_body"
-      }
     }
 
     "hit_dmgExplosion:object"{
@@ -483,76 +495,76 @@ human_sound_paths{
     }
   }
 
-  "human_steps_sound__irqs:shared:object"{
+  "human_steps_sound__irqs:shared:array"{
     _tags:t="sound"
 
-    "left_sprint:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_sprint"
       name:t="sprint"
     }
 
-    "right_sprint:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_sprint"
       name:t="sprint"
     }
 
-    "left_run:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_run"
       name:t="run"
     }
 
-    "right_run:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_run"
       name:t="run"
     }
 
-    "left_walk:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_walk"
       name:t="run"
     }
 
-    "right_walk:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_walk"
       name:t="run"
     }
 
-    "left_turnOnSpot:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_turnOnSpot"
       name:t="step"
     }
 
-    "right_turnOnSpot:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_turnOnSpot"
       name:t="step"
     }
 
-    "left_crawl:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_crawl"
       name:t="crawl"
     }
 
-    "right_crawl:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_crawl"
       name:t="crawl"
     }
 
-    "left_crouchWalk:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_crouchWalk"
       name:t="step"
     }
 
-    "right_crouchWalk:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_crouchWalk"
       name:t="step"
     }
 
-    "left_crouchTurnOnSpot:object"{
-      type:t="leftStep"
+    "irq:object"{
+      irq:t="left_crouchTurnOnSpot"
       name:t="step"
     }
 
-    "right_crouchTurnOnSpot:object"{
-      type:t="rightStep"
+    "irq:object"{
+      irq:t="right_crouchTurnOnSpot"
       name:t="step"
     }
   }
@@ -659,6 +671,10 @@ human_sound_paths{
       name:t="burning"
     }
 
+    "cough:object"{
+      name:t="cough"
+    }
+
     "fallcry:object"{
       name:t="fall"
     }
@@ -713,6 +729,10 @@ human_sound_paths{
               path:t="/weapon/melee/axe/whoosh"
             }
 
+            "lungeMine:object"{
+              path:t="/weapon/melee/lunge_mine/whoosh"
+            }
+
             "sword:object"{
               name:t="sword/whoosh"
               path:t="/weapon/melee/sword/whoosh"
@@ -762,6 +782,12 @@ human_sound_paths{
               chance:i=33
             }
 
+            "lungeMine:object"{
+              name:t="melee"
+              delay:i=100
+              chance:i=33
+            }
+
             "sword:object"{
               name:t="melee"
               delay:i=100
@@ -781,7 +807,6 @@ human_sound_paths{
 
 human_speech{
   _extends:t="human_voice_enable"
-  human_net_speech__decaptureZoneScale:r=5.0
 
   _group{
     _tags:t="sound"
@@ -861,6 +886,14 @@ human_speech{
       chance:i=100
       type:t="possessed"
       minMaxTime:p2=5.0, 30.0
+    }
+
+    "speech:object"{
+      id:t="friendlyFireHit"
+      name:t="friendly_fire"
+      chance:i=100
+      type:t="team"
+      minMaxTime:p2=5.0, 20.0
     }
 
     "speech:object"{
@@ -959,6 +992,13 @@ human_speech{
     }
 
     "speech:object"{
+      id:t="squadBringAmmoResponse"
+      name:t="ammo_giving"
+      type:t="squad"
+      replace:b=yes
+    }
+
+    "speech:object"{
       id:t="squadUseVehicle"
       name:t="squad_into_vehicle"
       type:t="squad"
@@ -982,6 +1022,20 @@ human_speech{
     "speech:object"{
       id:t="squadWideFormationOrder"
       name:t="squad_formation_far"
+      type:t="squad"
+      replace:b=yes
+    }
+
+    "speech:object"{
+      id:t="squadBehaviourAggressiveOrder"
+      name:t="squad_behavior_aggressive"
+      type:t="squad"
+      replace:b=yes
+    }
+
+    "speech:object"{
+      id:t="squadBehaviourPassiveOrder"
+      name:t="squad_behavior_passive"
       type:t="squad"
       replace:b=yes
     }
@@ -1198,6 +1252,20 @@ human_speech{
     "speech:object"{
       id:t="hooray"
       name:t="hooray"
+      type:t="team"
+      replace:b=yes
+    }
+
+    "speech:object"{
+      id:t="meleeCharge"
+      name:t="melee_charge"
+      type:t="team"
+      replace:b=yes
+    }
+
+    "speech:object"{
+      id:t="phosphorusThrow"
+      name:t="phosphorus_throw"
       type:t="team"
       replace:b=yes
     }

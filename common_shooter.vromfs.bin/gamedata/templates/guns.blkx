@@ -40,9 +40,17 @@ gun_without_bipod{
   }
 }
 
+gun_anim_vars{
+  gun_anim_var__reyeOffsetFwd0:r=-0.0
+  gun_anim_var__gunOffsetAlong:r=0.0
+  gun_anim_var__gunOffsetAcross:r=0.0
+  gun_anim_var__gunOffsetUp:r=0.0
+}
+
 base_gun{
   _extends:t="replicating"
   _extends:t="ecs_no_debug"
+  _extends:t="gun_anim_vars"
   gun__inertialMass:r=3.0
   gun__rotInertia:p3=0.1, 1.0, 1.0
   gun__recoilOffsetMean:p3=-10.0, 1.0, 0.0
@@ -559,6 +567,7 @@ melee_weapon{
   _extends:t="slot_attachable"
   _extends:t="ecs_no_debug"
   _extends:t="disable_update"
+  _extends:t="gun_anim_vars"
   _extends:t="replicating"
   animchar__updatable:b=no
   gun__itemPropsId:i=-1

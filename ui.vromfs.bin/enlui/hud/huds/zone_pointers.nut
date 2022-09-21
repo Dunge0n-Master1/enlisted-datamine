@@ -3,11 +3,13 @@ from "%enlSqGlob/ui_library.nut" import *
 let { getZoneWatch, visibleCurrentCapZonesEids, capZones } = require("%ui/hud/state/capZones.nut")
 let { TEAM1_COLOR_FG, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let {safeAreaHorPadding, safeAreaVerPadding} = require("%enlSqGlob/safeArea.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 
 let { watchedHeroEid, watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 
 let { capzoneWidget } = require("%ui/hud/components/capzone.nut")
+let { canShowGameHudInReplay } = require("%ui/hud/replay/replayState.nut")
 let capzoneSettings = {canHighlight=false}
 
 let visibleZoneEids = Computed(function(prev) {
@@ -22,6 +24,8 @@ let visibleZoneEids = Computed(function(prev) {
     return n
   return prev
 })
+
+let isZonesInReplayHidden = Computed(@() isReplay.value && !canShowGameHudInReplay.value)
 
 let distanceText = memoize(function(eid) {
   return freeze({
@@ -137,12 +141,13 @@ let mkZonePointer = function(eid) {
   }
 }
 
-let zonePointersWatch = [visibleZoneEids, safeAreaHorPadding, safeAreaVerPadding]
+let zonePointersWatch = [visibleZoneEids, safeAreaHorPadding, isZonesInReplayHidden,
+  isZonesInReplayHidden]
 let memoizedMap = mkMemoizedMapSet(mkZonePointer)
 
 let function zonePointers() {
 
-  let children = memoizedMap(visibleZoneEids.value).values()
+  let children = isZonesInReplayHidden.value ? null : memoizedMap(visibleZoneEids.value).values()
 
   return {
     watch = zonePointersWatch

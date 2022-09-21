@@ -3,11 +3,18 @@ require ecs
 require EnlistedWalkerai
 require common_shooter.events_common_shooter
 require enlisted.game.es.medic_common
+require game.es.squad_order_common
+require EnlistedWeapon
 
 [cpp_event(broadcast)]
 struct ParallelUpdateFrameDelayed
   curTime : float
   dt : float
+
+[cpp_event(unicast)]
+struct EventOnApplyTornWound
+  animchar_eid : EntityId
+  bone_break_params_id : uint
 
 [event(broadcast)]
 struct EventRequestedAircraftShootAllBombs
@@ -35,19 +42,19 @@ struct faceGenInfoUpdated {}
 struct faceGenSaveInfo
   initialSave : bool
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestSquadOrder
   orderType : SquadOrder
   orderPosition : float3
   orderUseEntity : ecs::EntityId
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestSquadMateOrder
   orderType : SquadMateOrder
   orderPosition : float3
   orderUseEntity : ecs::EntityId
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestSquadFormation
   spread : SquadFormationSpread
 
@@ -111,15 +118,15 @@ struct EventOnDestroyBuilding {}
 struct EventEngineerBuildingBroken
   offender : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdWallposterPreview
   enable : bool
   wallPosterId : int
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdWallposterPlace {}
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct WallposterRequestPlace
   wallPosterId : int
   wallPostersCurCount : int
@@ -158,10 +165,12 @@ struct EventPlayerSquadFinishedCapturing {}
 struct EventOnBarbwireDamageAward {}
 
 [event(unicast)]
-struct EventOnPlayerMineVehicleKill {}
+struct EventOnPlayerShellVehicleKill
+  stat : string
 
 [event(unicast)]
-struct EventOnPlayerMineInfantryKill {}
+struct EventOnPlayerShellInfantryKill
+  stat : string
 
 [event(unicast)]
 struct EventOnCapzoneFortificationAward {}
@@ -211,9 +220,27 @@ struct CmdSwitchSquad {}
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdResupplyVehicle {}
 
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdResetupVehicle
+  setupOnWater : bool
+  tm : float3x4
+  speed : float
+
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct RequestNextRespawnEntity
   memberEid : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdRequestRespawn
+  squadId : int
+  memberId : int
+  spawnGroup : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdCancelRequestRespawn
+  squadId : int
+  memberId : int
+  spawnGroup : int
 
 [event(unicast)]
 struct RqPersonalContextCommand{}
@@ -296,12 +323,14 @@ struct CmdStartArtilleryStrikeAtPos
   typeIndex : int
   posEnd : float3
 
-[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
-struct RequestArtilleryOverOrder
-  active : bool
+[event(unicast)]
+struct CmdStartArtilleryOverOrder
   targetPos : float3
   typeIndex : int
   posEnd : float3
+
+[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
+struct RequestStopArtilleryOverOrder {}
 
 [event(unicast)]
 struct CmdSpawnSquad
@@ -426,6 +455,7 @@ struct CmdRIToolCreateRendInst
   tm : float3x4
   name : string
   eid : EntityId
+  undo : bool
 
 [event(broadcast)]
 struct CmdRIToolRestoreRendInst {}
@@ -444,9 +474,10 @@ struct EventBombCraterTerraformed
   outerRadius : float
   availablePartsMask : uint64
   partsGridWidth : int
+  mainPhysmatId : int
 
 [event(broadcast)]
-struct CmdUpdateBombCraterRemovableRiList {}
+struct CmdUpdateBombCraterRiPoolFlags {}
 
 [event(broadcast)]
 struct CmdStartNarrator
@@ -564,12 +595,129 @@ struct CmdSwitchBinocularCockpit
 struct EventSquadMembersStats
   data : Object
 
-[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventGunGameNewLeader
   oldLeaderPlayerEid : EntityId
   newLeaderPlayerEid : EntityId
 
-[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventGunGameLevelReached
   playerEid : EntityId
   level : int
+
+[event(broadcast)]
+struct SaveVehicleDecor {}
+
+[event(unicast)]
+struct SetVehicleDecor
+  relativeTm : float3x4
+  slotId : int
+  nodeName : string
+  templateName : string
+
+[event(broadcast)]
+struct CmdSetCameraFov
+  fov : float
+
+[event(broadcast)]
+struct CmdSetCameraDofEnabled
+  enabled : bool
+
+[cpp_event(unicast, with_scheme, cpp_gen=false)]
+struct OnShellHitEntityFx
+  shellId : int
+  pos : float3
+  dir : float3
+  pmid : int
+  norm : float3
+  bloodSplash : HitBloodType
+  nodeCollId : int
+  withSound : bool
+  victimEid : EntityId
+
+[event(broadcast)]
+struct CmdSetCinematicModeEnabled
+  enabled : bool
+
+[event(broadcast)]
+struct CmdSetMotionBlurScale
+  scale : float
+
+[event(broadcast)]
+struct CmdSetBloomThreshold
+  threshold : float
+
+[event(broadcast)]
+struct CmdSetChromaticAberrationOffset
+  offset : float
+
+[event(broadcast)]
+struct CmdSetFilmGrain
+  strength : float
+
+[event(broadcast)]
+struct CmdSetVignetteStrength
+  strength : float
+
+[event(broadcast)]
+struct CmdSetDofIsFilmic
+  isFilmic : bool
+
+[event(broadcast)]
+struct CmdSetDofFocusDistance
+  focusDistance : float
+
+[event(broadcast)]
+struct CmdSetDofFocalLength
+  focalLength : float
+
+[event(broadcast)]
+struct CmdSetDofFStop
+  fStop : float
+
+[event(broadcast)]
+struct CmdSetDofBokehCorners
+  bokehCorners : float
+
+[event(broadcast)]
+struct CmdSetDofBokehSize
+  bokehSize : float
+
+[event(broadcast)]
+struct CmdChangeTimeOfDay
+  timeOfDay : float
+
+[event(broadcast)]
+struct CmdWeather
+  preset : string
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdPushObject
+  target : EntityId
+
+[event(unicast)]
+struct ReplayPossessEntity
+  prevEid : EntityId
+
+[event(broadcast)]
+struct ReplayToggleFreeCamera {}
+
+[event(broadcast)]
+struct CmdSetRain
+  enabled : bool
+
+[event(broadcast)]
+struct CmdSetSnow
+  enabled : bool
+
+[event(broadcast)]
+struct CmdSetLightning
+  enabled : bool
+
+[event(broadcast)]
+struct CmdSetFreeTpsCameraSpeed
+  speed : float
+
+[event(broadcast)]
+struct CmdSetLenseFlareIntensity
+  intensity : float

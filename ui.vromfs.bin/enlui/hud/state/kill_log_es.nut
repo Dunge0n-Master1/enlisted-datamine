@@ -12,6 +12,7 @@ let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
 let getFramedNickByEid = require("%ui/hud/state/getFramedNickByEid.nut")
 let remap_nick = require("%enlSqGlob/remap_nick.nut")
 let {EventKillReport} = require("dasevents")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let showKillLog = Computed (@() !minimalistHud.value && !forcedMinimalHud.value)
 
@@ -77,6 +78,7 @@ let function onReportKill(evt, _eid, _comp) {
     isHero = evt.victim == heroEid
     name = evt.isVictimVehicle ? loc(evt.victimName, "")
       : !victimInMySquad && evt.victimPlayer != INVALID_ENTITY_ID ? getFramedNickByEid(evt.victimPlayer)
+      : evt.victimName == userInfo.value?.name ? userInfo.value.nameorig
       : remap_nick(evt.victimName)
     rank = evt.victimRank
   }
@@ -89,6 +91,7 @@ let function onReportKill(evt, _eid, _comp) {
     inMyGroup = evt.killerPlayer != locPlayer && evt.killerPlayer in localPlayerGroupMembers.value
     isHero = evt.killer == heroEid
     name = evt.killerPlayer != INVALID_ENTITY_ID ? getFramedNickByEid(evt.killerPlayer)
+      : evt.killerName == userInfo.value?.name ? userInfo.value.nameorig
       : remap_nick(evt.killerName)
     rank = evt.killerRank
   }

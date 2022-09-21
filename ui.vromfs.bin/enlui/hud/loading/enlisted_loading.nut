@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt, h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { missionName } = require("%enlSqGlob/missionParams.nut")
+let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let {set_fully_covering} = require("loading")
 let {levelIsLoading} = require("%ui/hud/state/appState.nut")
 let {mkParallaxBkg, mkAnimatedEllipsis} = require("%ui/loading/loadingComponents.nut")
@@ -207,9 +207,9 @@ let bottomBlock = @(){
 }
 
 let missionTitle = @(){
-  watch = missionName
+  watch = [missionName, missionType]
   rendObj = ROBJ_TEXT
-  text = loc(missionName.value)
+  text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
   margin = [verPadding.value + sh(5), horPadding.value + sw(7)]
   color
   fontFxColor = Color(0,0,0,190)

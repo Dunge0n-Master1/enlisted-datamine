@@ -1,0 +1,35 @@
+base_120mm_navy_short_gun{
+  item__name:t="guns/120mm_navy_short_gun"
+  gun__blk:t="gamedata/gen/weapons/120mm_navy_short_gun.blk"
+  gun__shotFreq:r=0.1
+  gun__locName:t="120mm_navy_short_gun"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/120mm_navy_short_gun_defaultset.blk"
+        name:t="120mm_type88_mod4_fuze"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "120mm_type88_mod4_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/120mm_navy_short_gun_120mm_type88_mod4_he.blk"
+        name:t="120mm_type88_mod4_fuze"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+tankgun_120mm_navy_short_gun{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_120mm_navy_short_gun"
+  _extends:t="gunsound_120mm_navy_short_gun"
+  turret__triggerGroup:i=0
+}

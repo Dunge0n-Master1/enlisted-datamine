@@ -35,5 +35,5 @@ ridmg{
 }
 
 actionSound{
-  humanHitSoundName:t="melee_axe"
+  humanHitSoundName:t="melee_japan_katana"
 }

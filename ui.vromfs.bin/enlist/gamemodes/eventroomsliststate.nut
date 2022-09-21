@@ -13,6 +13,8 @@ let {get_setting_by_blk_path} = require("settings")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_state.nut")
 let { featuredMods, featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
+let remap_nick = require("%enlSqGlob/remap_nick.nut")
 
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
 
@@ -21,7 +23,7 @@ const REFRESH_PERIOD = 5.0
 let isDebugMode = mkWatched(persist, "isDebugMode", false)
 let isRequestInProgress = Watched(false)
 let isRefreshEnabled = mkWatched(persist, "isRefreshEnabled", false)
-let lastResult = mkWatched(persist, "lastResult", [])
+let lastResult = mkWatched(persist, "lastResult", {})
 let roomsListError = Computed(@() lastResult.value?.error ? error_string(lastResult.value.error) : null)
 let hideFullRooms = optFullRooms.curValue
 let hideModsRooms = optModRooms.curValue
@@ -33,6 +35,13 @@ let roomsList = Computed(function() {
   local res = lastResult.value?.digest ?? []
   if (!isModsAvailable.value)
     res = res.filter(@(v) v?.scene != null)
+
+  foreach (idx, room in res)
+    if ((room?.creator ?? "") != "")
+      res[idx].creatorText <- room.creator == userInfo.value?.name
+        ? userInfo.value.nameorig
+        : remap_nick(room.creator)
+
   if (sortFunc == null)
     return res
 

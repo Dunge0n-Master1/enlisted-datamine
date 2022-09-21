@@ -23,7 +23,6 @@ def inventory_use_item_server_es(evt : EventUseItem;
                                  entity_mods__targetUseTimeMult : float = 1f;
                                  human_inventory__canUseItems : bool = true;
                                  hitpoints__canSelfReviveByHealing : bool = false;
-                                 hitpoints__canSelfReviveByPerk : bool = false;
                                  isDowned : bool = false;
                                  var human_inventory__entityToUse : EntityId&)// todo: optional
   let item = evt.item
@@ -41,7 +40,7 @@ def inventory_use_item_server_es(evt : EventUseItem;
     sendEventImmediate(eid, [[EventInterruptItemUse]])
     return
 
-  if !human_inventory__canUseItems || (isDowned && !hitpoints__canSelfReviveByHealing && !hitpoints__canSelfReviveByPerk)
+  if !human_inventory__canUseItems || (isDowned && !hitpoints__canSelfReviveByHealing)
     sendEvent(eid, [[EventOnActionDisabled action="use_locked"]])
     return
 
@@ -71,7 +70,6 @@ def inventory_use_item_server_es(evt : EventUseItem;
 [es(tag=netClient, REQUIRE=human_inventory)]
 def inventory_use_item_client_es(evt : EventUseItem;
                                  eid : EntityId;
-                                 hitpoints__canSelfReviveByPerk : bool = false;
                                  human_inventory__canUseItems : bool = true;
                                  human_inventory__entityToUse : EntityId) // todo: optional
   let item = evt.item
@@ -82,7 +80,7 @@ def inventory_use_item_client_es(evt : EventUseItem;
     sendEventImmediate(eid, [[EventInterruptItemUse]])
     return
 
-  if human_inventory__canUseItems || hitpoints__canSelfReviveByPerk
+  if human_inventory__canUseItems
     send_net_event(eid, [[HumanUseItemRequest item=item, target=evt.target]])
     return
   sendEvent(eid, [[EventOnActionDisabled action="use_locked"]])

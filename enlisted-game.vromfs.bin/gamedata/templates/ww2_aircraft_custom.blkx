@@ -1,0 +1,508 @@
+i_153_m62{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.15
+}
+
+i_16_type_24{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+yak_1_early{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+yak_7b{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+pe_3{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.3
+}
+
+pe_2_31{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.3
+}
+
+sb_2m_105{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+mig_3_series_1_15{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.12, 0.12
+}
+
+il_2_1941{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+lagg_3_34{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+yak_3{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+hs_123a_1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.235, 0.17
+}
+
+fw_189a1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.25
+}
+
+bf_109e_7{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.215, 0.126
+}
+
+bf_109f_1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.185, 0.126
+}
+
+bf_109f_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.185, 0.126
+}
+
+bf_109f_4_trop{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.15
+}
+
+bf_109g_10{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.172, 0.12
+}
+
+bf_109g_10_red19_30mm_underwing_premium{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.172, 0.12
+}
+
+bf_109g_14{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.09
+}
+
+bf_109g_14_30mm_underwing_premium{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.09
+}
+
+bf_109g_2_trop{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.215, 0.126
+}
+
+bf_109g_6{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.185, 0.12
+}
+
+bf_109k_4{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.176, 0.11
+}
+
+bf_110c_6{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.26, 0.26
+}
+
+bf_110c_7{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.26, 0.26
+}
+
+bf_110f_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.26, 0.26
+}
+
+bf_110g_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.26, 0.26
+}
+
+ju_87b_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.2
+}
+
+ju_87d_3{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.2
+}
+
+ju_87d_5{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.2
+}
+
+ju_87r_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.2
+}
+
+do_17z_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.12, 0.3
+}
+
+ju_88a_4{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.12, 0.15
+}
+
+a_20g{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.12, 0.12
+}
+
+boston_mk3_utk1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.12, 0.12
+}
+
+tempest_mkv{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+fw_190d_9{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.17, 0.09
+}
+
+p_51d_5{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+typhoon_mk1b_late{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.18
+}
+
+p_47d_28{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.18
+}
+
+p_47n_15{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.18
+}
+
+p_47d_22_re{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.22, 0.12
+}
+
+ju_188{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.12
+}
+
+fw_190a_4{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.166, 0.09
+}
+
+fw_190a_5{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.09
+}
+
+fw_190a_8{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.09
+}
+
+me_410a_1_u2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.22
+}
+
+me_410a_1_u4{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.22
+}
+
+me_410b_1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.225
+}
+
+he_111h_6{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.12
+}
+
+mosquito_fb_mk6{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.26, 0.1
+}
+
+beaufighter_mk6c{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.3
+}
+
+beaufighter_mkx{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.3
+}
+
+p_40e_1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.16, 0.16
+}
+
+p_40e_ussr{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.16, 0.16
+}
+
+hs_129b_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.12
+}
+
+c_202_ec{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.105
+}
+
+fw_190a_1{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.16, 0.082
+}
+
+fw_190d_12{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.164, 0.082
+}
+
+re_2000_int{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.09, 0.04
+}
+
+il_2_37_1943{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.15
+}
+
+il_2m_type3_1945{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.15
+}
+
+la_5fn{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+yak_9t{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+yak_9k{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+la_7{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.07, 0.07
+}
+
+po_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.3, 0.3
+}
+
+iar_81c{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.12, 0.12
+}
+
+su_2_m82{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.15, 0.15
+}
+
+ar_2{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.2, 0.2
+}
+
+wellington_mk1c{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.3
+}
+
+er_2_m105_tat{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.16
+}
+
+il_4{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.25, 0.25
+}
+
+b_34{
+  _override:b=yes
+  camera__lookAroundOffsetRange:p2=0.18, 0.2
+}
+
+a5m4{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.18, 0.18
+  plane_carrier_assist__windForce:r=15.0
+}
+
+a6m2_mod11{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.145, 0.08
+}
+
+a6m3{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.145, 0.08
+}
+
+a6m5{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.145, 0.08
+}
+
+b5n2{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.16, 0.16
+}
+
+ki_44_2{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.1, 0.1
+}
+
+ki_61_1a_hei{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.1, 0.1
+}
+
+soc_1{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.17, 0.17
+
+  "canUseRespawnbaseSubtypes:list<t>"{
+    subtype:t="air"
+    subtype:t="water"
+  }
+}
+
+f4u_1d{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.16, 0.16
+}
+
+f4u_1c{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.16, 0.16
+}
+
+sb2c_1c{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.18, 0.18
+}
+
+boomerang_mkii{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.24, 0.24
+}
+
+firefly_mki{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  camera__lookAroundOffsetRange:p2=0.18, 0.18
+}
+
+f2a3_driver_cockpit{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    part:t="gear_l1"
+    part:t="gear_r1"
+  }
+}
+
+e13a1{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+
+  "canUseRespawnbaseSubtypes:list<t>"{
+    subtype:t="air"
+    subtype:t="water"
+  }
+}
+
+sbd_3_pacific{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+  plane_carrier_assist__forwardForce:r=5.0
+}
+
+d3a1{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+}
+
+d4y1{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+}
+
+f2a3{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+}
+
+p_400{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+}
+
+seafire_mk3{
+  _override:b=yes
+  _extends:t="plane_increased_damage"
+}

@@ -1,3 +1,10 @@
+attachable_wear_ussr_padded_pants_feltb_fem_medic_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_ussr_padded_pants_feltb_fem_medic_item"
+  animchar__res:t="ussr_padded_pants_feltb_fem_medic_char"
+  collres__res:t="ussr_padded_pants_feltb_fem_medic_collision"
+}
+
 attachable_wear_pilot_fur_boots_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_pilot_fur_boots_item"
@@ -412,7 +419,6 @@ attachable_wear_tankers_overall_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tankers_overall_01_ussr_winter_item"
   animchar__res:t="tankers_overall_01_ussr_winter_char"
   collres__res:t="tankers_overall_01_ussr_winter_collision"
-  item__name:t="USSR Tankers Overall 1"
 }
 
 attachable_wear_pilot_overal_ussr_female_summer_item{
@@ -420,7 +426,20 @@ attachable_wear_pilot_overal_ussr_female_summer_item{
   item__uniqueName:t="attachable_wear_pilot_overal_ussr_female_summer_item"
   animchar__res:t="pilot_overal_ussr_female_summer_char"
   collres__res:t="pilot_overal_ussr_female_summer_collision"
-  item__name:t="USSR Pilot Overall"
+}
+
+attachable_wear_ussr_female_padded_jacket_medic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ussr_female_padded_jacket_medic_item"
+  animchar__res:t="ussr_female_padded_jacket_medic_char"
+  collres__res:t="ussr_female_padded_jacket_medic_collision"
+}
+
+attachable_wear_ussr_female_padded_jacket_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ussr_female_padded_jacket_item"
+  animchar__res:t="ussr_female_padded_jacket_char"
+  collres__res:t="ussr_female_padded_jacket_collision"
 }
 
 attachable_wear_pilot_overall_ussr_winter_item{
@@ -456,7 +475,6 @@ attachable_wear_tunic_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_01_ussr_summer_item"
   animchar__res:t="tunic_01_ussr_summer_char"
   collres__res:t="tunic_01_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 01"
 }
 
 attachable_wear_tunic_01_1_ussr_summer_item{
@@ -474,7 +492,6 @@ attachable_wear_martial_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_martial_01_ussr_summer_item"
   animchar__res:t="martial_01_ussr_summer_char"
   collres__res:t="martial_01_ussr_summer_collision"
-  item__name:t="USSR Summer Martial Tunic 01"
   animchar_fast_phys__res:t="martial_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -499,6 +516,35 @@ attachable_wear_martial_01_lightgr_ussr_summer_item{
   "animchar__objTexReplace:object"{
     "ussr_blouse_43ch_tex_d*":t="ussr_blouse_43ch_light_gr_tex_d*"
     "ussr_martial_cloak_tex_d*":t="ussr_martial_cloak_light_tex_d*"
+  }
+}
+
+attachable_wear_ameba_poncho_01_ussr_summer_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ameba_poncho_01_ussr_summer_item"
+  animchar__res:t="ameba_poncho_01_ussr_summer_char"
+  collres__res:t="ameba_poncho_01_ussr_summer_collision"
+  animchar_fast_phys__res:t="ameba_poncho_01_ussr_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  animchar_node_collapser{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+
+    "animchar_node_collapser__nodes:object"{
+      "Bip01 Neck":t=""
+      "Bip01 Head":t=""
+    }
+  }
+
+  "hides:array"{
+    hides:t="helmet"
   }
 }
 
@@ -2121,6 +2167,7 @@ attachable_wear_backpack_01_ussr_summer_item{
   collres__res:t="backpack_01_ussr_summer_collision"
   item__name:t="items/big_bag"
   animchar_fast_phys__res:t="backpack_01_ussr_summer_fastphys"
+  attachable_backpack__capacity:i=3
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2236,6 +2283,19 @@ attachable_wear_first_aid_backpack_medic_squad_item{
   collres__res:t="first_aid_backpack_medic_squad_collision"
   item__name:t="items/medpack"
   animchar_fast_phys__res:t="first_aid_backpack_medic_squad_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_first_aid_backpack_fem_medic_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_first_aid_backpack_fem_medic_item"
+  animchar__res:t="first_aid_backpack_fem_medic_char"
+  collres__res:t="first_aid_backpack_fem_medic_collision"
+  item__name:t="items/medpack"
+  animchar_fast_phys__res:t="first_aid_backpack_fem_medic_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2978,6 +3038,7 @@ attachable_wear_kitbag_01_ussr_summer_item{
   collres__res:t="kitbag_01_ussr_summer_collision"
   item__name:t="items/small_bag"
   animchar_fast_phys__res:t="kitbag_02_ussr_summer_fastphys"
+  attachable_backpack__capacity:i=1
 
   animchar_fast_phys{
     _tags:t="gameClient"

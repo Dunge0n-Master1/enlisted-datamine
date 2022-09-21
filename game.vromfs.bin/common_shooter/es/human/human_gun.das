@@ -23,6 +23,10 @@ require PhysVars
 require AnimatedPhys
 require DaWeapons
 require EnlistedHuman
+require DagorMath
+require math.base
+require ecs.safe
+require strings
 
 [es(on_appear)]
 def gun_attach__mainSlotId_init(evt : Event;
@@ -89,32 +93,18 @@ def human_gun_es(evt : CmdWeapPhysUpdate;
     gctr.timeStep = evt.gctrl.timeStep
     sendEventImmediate(eid, [[CmdGunUpdate atTime=atTime, isForReal=isForReal, seed=rndSeed, gctrl := gctr, gloc=gloc]])
 
-
-[es(REQUIRE=(animchar_render__enabled, gun))]
-def human_gun_parent_loaded_es(evt : EventOnParentLoaded;
-                               human_gun_attached : bool;
-                               var gun__animVarsGen : int&)
-  if !human_gun_attached
-    return
-
-  ++gun__animVarsGen
-
-
-[es(track=(human_weap__currentGunEid, human_weap__currentGunModEids), REQUIRE=human_weap__currentGunModEids)]
-def human_gun_mods_changed_es(evt : Event;
-                              human_weap__currentGunEid : EntityId)
-  query(human_weap__currentGunEid) <| $ [es(REQUIRE=animchar_render__enabled)] (human_gun_attached : bool;
-                                                                                var gun__animVarsGen : int&)
-    if !human_gun_attached
-      return
-
-    ++gun__animVarsGen
-
+[es(on_appear, REQUIRE=specialItem__attachToHolster, track=gun__owner)]
+def special_item_attach_to_holster(evt : Event; eid : EntityId; gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId)
+    sendEvent(eid, [[CmdWeapAttach slotId = int(HUWeaponSlots EWS_SPECIAL), toEid=gun__owner, isAttached=(human_weap__currentGunEid == eid)]])
 
 [es(no_order, REQUIRE=animchar_render__enabled)]
 def human_gun_attach_es(evt : CmdWeapAttach;
                         gun_attach__mainSlotId : int;
                         gun_attach__holsterSlotsIds : IntList?;
+                        gun_attach__holsterSlots : Array?;
+                        gun_attach__holsterSlotsOffsets : Object?;
+                        var slot_attach__rotOffset : float3?;
                         var human_gun_attached : bool&;
                         var slot_attach__slotId : int&;
                         var slot_attach__attachedTo : EntityId&;
@@ -128,6 +118,7 @@ def human_gun_attach_es(evt : CmdWeapAttach;
   let weaponHolster = (gun_attach__holsterSlotsIds != null
                       ? ((*gun_attach__holsterSlotsIds)[slotId] >= 0)
                       : false)
+  var holsetOffset = float3()
 
   gun__visible = (attachFlag || weaponHolster)
   if attachFlag
@@ -136,11 +127,17 @@ def human_gun_attach_es(evt : CmdWeapAttach;
   elif weaponHolster
     slot_attach__attachedTo = ownerEid
     slot_attach__slotId = (*gun_attach__holsterSlotsIds)[slotId]
+    if gun_attach__holsterSlotsOffsets != null && gun_attach__holsterSlots != null
+      let holsterName = (*gun_attach__holsterSlots)[slotId] ?? ""
+      if !empty(holsterName)
+        holsetOffset = (*gun_attach__holsterSlotsOffsets)[holsterName] ?? float3()
   else
     slot_attach__attachedTo = INVALID_ENTITY_ID
     slot_attach__slotId = -1
 
   human_gun_attached = attachFlag
+  if slot_attach__rotOffset != null
+    *slot_attach__rotOffset = holsetOffset
 
 
 [es(tag=render)]
@@ -223,6 +220,7 @@ def human_gun_phys_vars_es(info : UpdateStageInfoAct;
                            human_net_phys__isCrouch : bool;
                            human_net_phys__isCrawl : bool;
                            bipod__enabled : bool = false;
+                           isTpsView : bool = false;
                            hero : Tag?;
                            var phys_vars : PhysVars&)
   if !animchar__visible
@@ -241,7 +239,7 @@ def human_gun_phys_vars_es(info : UpdateStageInfoAct;
     assume isAim = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_AIM)
     assume isCrouch = human_net_phys__isCrouch
     assume isCrawl = human_net_phys__isCrawl
-    if !isAim && !(isCrouch || isCrawl) && hero == null && !bipod__enabled && gunAnimOffsetAlwaysInAim == null
+    if !isAim && !(isCrouch || isCrawl) && (hero == null || isTpsView) && !bipod__enabled && gunAnimOffsetAlwaysInAim == null
       assume fwd0 = approach(getVar(phys_vars, reye_offset__fwd0Id), gun_tps_anim_var__reyeOffsetFwd0, info.dt, gun_offset__tau)
       assume across = approach(getVar(phys_vars, gun_offset__acrossId), gun_tps_anim_var__gunOffsetAcross, info.dt, gun_offset__tau)
       assume up = approach(getVar(phys_vars, gun_offset__upId), gun_tps_anim_var__gunOffsetUp, info.dt, gun_offset__tau)
@@ -263,11 +261,12 @@ def human_gun_phys_vars_es(info : UpdateStageInfoAct;
     setVar(phys_vars, gun_offset__upId, up)
     setVar(phys_vars, gun_offset__alongId, along)
 
-[es(tag=gameClient)]
-def human_gun_update_firing_mode_es(info : ParallelUpdateFrameDelayed;
-                                    gun : Gun;
-                                    var gun__firingModeIndex : int&)
-  gun__firingModeIndex = int(gun.firingModeIndex)
+
+[es(tag=(gameClient, net), track=gun__firingModeIndex)]
+def human_gun_update_firing_mode_client_es(evt : Event;
+                                           var gun : Gun;
+                                           gun__firingModeIndex : int)
+  gun |> gun_setFiringModeIndex(uint8(gun__firingModeIndex))
 
 
 [es(tag=gameClient, on_appear, track=(gun__firingModeNames, gun__firingModeIndex))]
@@ -312,3 +311,10 @@ def human_gun_offset_var_init(evt : Event;
   gun_offset__acrossId  = phys_vars |> registerVar("gun_offset_across", 0.)
   gun_offset__upId      = phys_vars |> registerVar("gun_offset_up", 0.)
   gun_offset__alongId   = phys_vars |> registerVar("gun_offset_along", 0.)
+
+[es(tag=gameClient, track=slot_attach__rotOffset, on_appear)]
+def set_slot_attach__rotation_tm(evt : Event; slot_attach__rotOffset : float3; var slot_attach__rotTm : float3x4&)
+  var q : quat
+  let offset = deg_to_rad(slot_attach__rotOffset)
+  euler_to_quat(offset.x, offset.y, offset.z, q)
+  make_tm(q, float3(), slot_attach__rotTm)

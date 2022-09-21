@@ -197,6 +197,7 @@ base_shooter_cam{
   isCockpitCam:b=yes
   _tracked:t="camera__target"
   _tracked:t="camera__active"
+  _tracked:t="fovSettings"
   shooter_camera__stabTau:r=0.0
   camera__offset:p3=0.0, 0.0, 0.0
   camera__prevOffset:p3=0.0, 0.0, 0.0
@@ -358,14 +359,14 @@ base_replay_camera{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   isTpsView:b=no
   isCockpitCam:b=yes
+  bindToVehicle:b=no
   camera__active:b=no
+  fovSettings:r=90.0
+  _tracked:t="fovSettings"
   _tracked:t="camera__target"
   _tracked:t="camera__active"
 
   "replayCamera:tag"{
-  }
-
-  "replay__overrideTargetSelect:tag"{
   }
 
   camera__accuratePos{
@@ -501,6 +502,9 @@ plane_fps_cam{
   shooter_camera__forceStabilized:b=no
   shooter_cam__tau_on_change:r=0.0
   isCockpitCam:b=yes
+
+  "plane_fps_cam__applyLookAroundOffset:tag"{
+  }
 
   _group{
     _tags:t="sound"

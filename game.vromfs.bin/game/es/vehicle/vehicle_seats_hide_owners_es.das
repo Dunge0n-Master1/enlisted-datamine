@@ -4,6 +4,7 @@ require vehicle
 require PhysVars
 require game.utils.hero
 require game.es.vehicle.vehicle_seats_common
+require ecs.safe
 
 [es(on_appear)]
 def vehicle_seats_hide_owner_init_es(evt : Event;
@@ -32,3 +33,24 @@ def vehicle_seats_hide_owners_es(info : UpdateStageInfoAct;
       let isPlayer = seat__isPlayer
       let canHide = !isPlayer || !hasHatch || isHatchClosed
       isInVehicleHidden = canHide && vehicle_seats_hide_owner[seatNo]
+
+[es(tag=render, REQUIRE=hero, on_appear, track=vehicleCameraType)]
+def vehicle_seats_hide_owners_local(evt : Event;
+                                    eid : EntityId;
+                                    vehicleCameraType : int;
+                                    human_anim__vehicleSelected : EntityId;
+                                    var isInVehicleHiddenLocal : bool&)
+  isInVehicleHiddenLocal = false
+  if (vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER) ||
+      vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD))
+    return
+  query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList; [[shared_comp]] vehicle_seats__seats : Array)
+    let seatNo = find_seat_with_owner(eid, vehicle_seats__seatEids)
+    if seatNo < 0
+      return
+
+    isInVehicleHiddenLocal = (vehicle_seats__seats?[seatNo] ?as Object)?.hideHeroAnimcharLocal ?? false
+
+[es(tag=render, REQUIRE=hero, on_disappear)]
+def vehicle_seats_show_owners_local_on_disapper(evt : Event; var isInVehicleHiddenLocal : bool&)
+  isInVehicleHiddenLocal = false

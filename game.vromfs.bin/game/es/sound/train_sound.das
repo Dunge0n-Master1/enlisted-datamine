@@ -3,6 +3,7 @@ require DagorMath
 require math.base
 require soundEvent
 require soundSystem
+require enlisted.events_enlisted
 
 def get_cart_pos(eid : EntityId; def_pos : float3)
   var pos = def_pos
@@ -28,7 +29,7 @@ def get_train_pos(train__cartEids : EidList)
   return pos
 
 [es(tag=sound, after=animchar_render_es)]
-def train_sound_speed(info : UpdateStageInfoAct;
+def train_sound_speed(info : ParallelUpdateFrameDelayed;
                       var train_sound_speed__inited : bool&;
                       var train_sound_speed__pos : float2&;
                       var train_sound_speed__speedSummarySq : float&;
@@ -72,7 +73,7 @@ def train_sound_speed(info : UpdateStageInfoAct;
 
 
 [es(tag=sound, after=train_sound_speed)]
-def train_sound(info : UpdateStageInfoAct;
+def train_sound(info : ParallelUpdateFrameDelayed;
                 train_sound_speed__speed : float;
                 train_sound_speed__accel : float;
                 train_sound__path : string;

@@ -3,6 +3,8 @@ return {
       "berlin_allies" : {
          "armyId" : "berlin_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_berlin_pilot_fighter_1",
@@ -19,7 +21,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -28,7 +29,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -37,7 +37,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -46,47 +45,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -99,7 +61,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "la_5fn",
-                  "guid" : "la_5fn_1073",
+                  "guid" : "la_5fn_1086",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -146,19 +108,20 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 5362,
+                     "appearance__rndSeed" : 4527,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9960820078849792,
-                        "width" : 1.025679469108582
+                        "height" : 1.008179545402527,
+                        "width" : 1.000617742538452
                      },
                      "callname" : "",
                      "equipment" : {
                         "backpack" : {
-                           "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                           "gametemplate" : "attachable_wear_lp1_parachute_pilot_ussr_item",
                            "slot" : "backpack"
                         },
                         "belt_1" : {
@@ -166,16 +129,12 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "gametemplate" : "attachable_wear_head_male_26_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
-                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "flight_helmet_01_ussr_summer_item",
@@ -188,7 +147,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_pilot_fighter_1056",
+                     "guid" : "ussr_berlin_soldier_pilot_fighter_1071",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -234,10 +193,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Eremey",
+                     "name" : "Trofim",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 9,
+                        "speed" : 6,
+                        "vitality" : 8,
                         "weapon" : 7
                      },
                      "perks" : [
@@ -254,7 +213,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Gusev",
+                     "surname" : "Sorokin",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -271,6 +230,8 @@ return {
       "berlin_axis" : {
          "armyId" : "berlin_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_berlin_pilot_fighter_1",
@@ -287,7 +248,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -296,7 +256,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -305,7 +264,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -314,47 +272,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -367,7 +288,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "bf_109g_6",
-                  "guid" : "bf_109g_6_1054",
+                  "guid" : "bf_109g_6_1069",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -414,14 +335,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 5259,
+                     "appearance__rndSeed" : 5932,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.014282107353210,
-                        "width" : 1.042977333068848
+                        "height" : 0.9973699450492859,
+                        "width" : 1.039073467254639
                      },
                      "callname" : "",
                      "equipment" : {
@@ -430,16 +352,12 @@ return {
                            "slot" : "backpack"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_02_ger_summer_item",
+                           "gametemplate" : "attachable_wear_head_male_12_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ger_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_ger_summer_item",
-                           "slot" : "hair"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_pants_pilot_ger_summer_item",
@@ -456,7 +374,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_pilot_fighter_1037",
+                     "guid" : "ger_berlin_soldier_pilot_fighter_1053",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -502,271 +420,7 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Bernhard",
-                     "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 8,
-                        "weapon" : 8
-                     },
-                     "perks" : [
-                        {
-                           "name" : "starter_pilot_fighter",
-                           "stats" : [
-                              {
-                                 "statKey" : "pilot_stamina_regeneration",
-                                 "statValue" : 0.05000000074505806
-                              }
-                           ]
-                        }
-                     ],
-                     "perksCount" : 1,
-                     "sClass" : "pilot_fighter",
-                     "sKind" : "pilot_fighter",
-                     "surname" : "Dietz",
-                     "tier" : 3,
-                     "weaponPreset" : ""
-                  }
-               ],
-               "squadId" : "ger_berlin_pilot_fighter_1",
-               "squadType" : "aircraft",
-               "toLevelExp" : 2210,
-               "vehicleType" : "fighter_aircraft"
-            }
-         ],
-         "wallPosters" : [],
-         "wallPostersCount" : 3
-      },
-      "moscow_allies" : {
-         "armyId" : "moscow_allies",
-         "boosters" : [],
-         "classBonus" : {},
-         "country" : "ussr",
-         "curSquadId" : "ussr_moscow_pilot_fighter_1",
-         "exp" : 0,
-         "expLimits" : {
-            "minArmyExp" : 500,
-            "minSoldiersLvlUp" : 0
-         },
-         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
-         "freemiumExpMult" : 1.0,
-         "globalData" : {
-            "globalGifts" : {},
-            "globalGiftsCfg" : [
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : false,
-                  "loopCount" : 1,
-                  "loopExp" : 6000,
-                  "startCount" : 1,
-                  "startExp" : 3000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : false,
-                  "loopCount" : 1,
-                  "loopExp" : 3000,
-                  "startCount" : 1,
-                  "startExp" : 1500
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
-                  "loopCount" : 1,
-                  "loopExp" : 25000,
-                  "startCount" : 1,
-                  "startExp" : 12500
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
-                  "loopCount" : 1,
-                  "loopExp" : 50000,
-                  "startCount" : 1,
-                  "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
-               }
-            ]
-         },
-         "isArmyProgressLocked" : false,
-         "isFakeSquads" : true,
-         "level" : 1,
-         "squads" : [
-            {
-               "artilleryCooldownMul" : 1.0,
-               "artilleryTypeUnlocks" : [],
-               "curVehicle" : {
-                  "gametemplate" : "i_153_m62",
-                  "guid" : "i_153_m62_1174",
-                  "mods" : [
-                     {
-                        "statKey" : "mulCdminFusel",
-                        "statValue" : 0.8333333134651184
-                     },
-                     {
-                        "statKey" : "mulCompressorMaxP",
-                        "statValue" : 0.9300000071525574
-                     },
-                     {
-                        "statKey" : "cutProbabilityMult",
-                        "statValue" : 1.0
-                     },
-                     {
-                        "statKey" : "damageReceivedMult",
-                        "statValue" : 1.0
-                     },
-                     {
-                        "statKey" : "mulMass",
-                        "statValue" : 0.9478673338890076
-                     },
-                     {
-                        "statKey" : "mulCdminTail",
-                        "statValue" : 0.9345793724060059
-                     },
-                     {
-                        "statKey" : "radiatorEffMul",
-                        "statValue" : 0.9499999880790710
-                     },
-                     {
-                        "statKey" : "mulOswEffNumber",
-                        "statValue" : 0.8999999761581421
-                     },
-                     {
-                        "statKey" : "mulHorsePowers",
-                        "statValue" : 0.8999999761581421
-                     },
-                     {
-                        "statKey" : "mulCdmin",
-                        "statValue" : 0.875656783580780
-                     }
-                  ]
-               },
-               "engineerUnlocks" : [],
-               "exp" : 0,
-               "expBonus" : 0.0,
-               "level" : 0,
-               "squad" : [
-                  {
-                     "appearance__rndSeed" : 29864,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 1.000617027282715,
-                        "width" : 1.069797039031982
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "backpack" : {
-                           "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
-                           "slot" : "backpack"
-                        },
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_officer_pilot_ussr_winter_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_17_us_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
-                           "slot" : "gloves"
-                        },
-                        "head" : {
-                           "gametemplate" : "flight_helmet_01_ussr_summer_item",
-                           "slot" : "head"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_pilot_fighter_1158",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 7,
-                           "reserveAmmoTemplate" : "nagant_m1895_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "",
-                        "secondary" : "",
-                        "tertiary" : "nagant_m1895_gun"
-                     },
-                     "id" : 0,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "ussr_medkit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 1,
-                     "maxLevel" : 4,
-                     "name" : "Daniil",
+                     "name" : "Mauritz",
                      "perkPoints" : {
                         "speed" : 8,
                         "vitality" : 10,
@@ -786,26 +440,28 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Nikulin",
+                     "surname" : "Koester",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
                ],
-               "squadId" : "ussr_moscow_pilot_fighter_1",
+               "squadId" : "ger_berlin_pilot_fighter_1",
                "squadType" : "aircraft",
-               "toLevelExp" : 2320,
+               "toLevelExp" : 2210,
                "vehicleType" : "fighter_aircraft"
             }
          ],
          "wallPosters" : [],
          "wallPostersCount" : 3
       },
-      "moscow_axis" : {
-         "armyId" : "moscow_axis",
+      "moscow_allies" : {
+         "armyId" : "moscow_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
-         "country" : "germany",
-         "curSquadId" : "ger_moscow_pilot_fighter_1",
+         "country" : "ussr",
+         "curSquadId" : "ussr_moscow_pilot_fighter_1",
          "exp" : 0,
          "expLimits" : {
             "minArmyExp" : 500,
@@ -819,7 +475,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -828,7 +483,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -837,7 +491,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -846,47 +499,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -898,8 +514,8 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "hs_123a_1",
-                  "guid" : "hs_123a_1_1140",
+                  "gametemplate" : "i_153_m62",
+                  "guid" : "i_153_m62_1205",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -946,14 +562,246 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 14907,
+                     "appearance__rndSeed" : 3935,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.016229152679443,
-                        "width" : 1.038956284523010
+                        "height" : 0.9921829700469971,
+                        "width" : 1.062345623970032
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "backpack" : {
+                           "gametemplate" : "attachable_wear_lp1_parachute_pilot_ussr_item",
+                           "slot" : "backpack"
+                        },
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_officer_pilot_ussr_winter_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "flight_helmet_01_ussr_summer_item",
+                           "slot" : "head"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_pilot_overall_ussr_winter_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "ussr_base_soldier",
+                     "guid" : "ussr_moscow_soldier_pilot_fighter_1188",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 7,
+                           "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "nagant_m1895_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "ussr_medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Maksim",
+                     "perkPoints" : {
+                        "speed" : 7,
+                        "vitality" : 9,
+                        "weapon" : 7
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_pilot_fighter",
+                           "stats" : [
+                              {
+                                 "statKey" : "pilot_stamina_regeneration",
+                                 "statValue" : 0.05000000074505806
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "pilot_fighter",
+                     "sKind" : "pilot_fighter",
+                     "surname" : "Ostrovskij",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "ussr_moscow_pilot_fighter_1",
+               "squadType" : "aircraft",
+               "toLevelExp" : 2320,
+               "vehicleType" : "fighter_aircraft"
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
+      "moscow_axis" : {
+         "armyId" : "moscow_axis",
+         "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
+         "classBonus" : {},
+         "country" : "germany",
+         "curSquadId" : "ger_moscow_pilot_fighter_1",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : {
+                  "gametemplate" : "hs_123a_1",
+                  "guid" : "hs_123a_1_1154",
+                  "mods" : [
+                     {
+                        "statKey" : "mulCdminFusel",
+                        "statValue" : 0.8333333134651184
+                     },
+                     {
+                        "statKey" : "mulCompressorMaxP",
+                        "statValue" : 0.9300000071525574
+                     },
+                     {
+                        "statKey" : "cutProbabilityMult",
+                        "statValue" : 1.0
+                     },
+                     {
+                        "statKey" : "damageReceivedMult",
+                        "statValue" : 1.0
+                     },
+                     {
+                        "statKey" : "mulMass",
+                        "statValue" : 0.9478673338890076
+                     },
+                     {
+                        "statKey" : "mulCdminTail",
+                        "statValue" : 0.9345793724060059
+                     },
+                     {
+                        "statKey" : "radiatorEffMul",
+                        "statValue" : 0.9499999880790710
+                     },
+                     {
+                        "statKey" : "mulOswEffNumber",
+                        "statValue" : 0.8999999761581421
+                     },
+                     {
+                        "statKey" : "mulHorsePowers",
+                        "statValue" : 0.8999999761581421
+                     },
+                     {
+                        "statKey" : "mulCdmin",
+                        "statValue" : 0.875656783580780
+                     }
+                  ]
+               },
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 21841,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9839137196540833,
+                        "width" : 1.034119725227356
                      },
                      "callname" : "",
                      "equipment" : {
@@ -962,12 +810,16 @@ return {
                            "slot" : "backpack"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_47_ussr_item",
+                           "gametemplate" : "attachable_wear_head_02_ger_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
                            "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "skined_helmet" : {
                            "gametemplate" : "flight_helmet_01_ger_summer_item",
@@ -980,7 +832,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_pilot_fighter_1127",
+                     "guid" : "ger_moscow_soldier_pilot_fighter_1139",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -1026,11 +878,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Hellmut",
+                     "name" : "Justin",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 10,
-                        "weapon" : 8
+                        "speed" : 6,
+                        "vitality" : 8,
+                        "weapon" : 7
                      },
                      "perks" : [
                         {
@@ -1046,7 +898,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Stein",
+                     "surname" : "Noller",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -1063,6 +915,8 @@ return {
       "normandy_allies" : {
          "armyId" : "normandy_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "usa_normandy_pilot_fighter_2",
@@ -1079,7 +933,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -1088,7 +941,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -1097,7 +949,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -1106,47 +957,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -1159,7 +973,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "p_51c_10",
-                  "guid" : "p_51c_10_1125",
+                  "guid" : "p_51c_10_1137",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -1206,32 +1020,29 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 30270,
+                     "appearance__rndSeed" : 14907,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9870607852935791,
-                        "width" : 1.025037407875061
+                        "height" : 1.016229152679443,
+                        "width" : 1.038956284523010
                      },
                      "callname" : "",
                      "equipment" : {
                         "backpack" : {
-                           "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                           "gametemplate" : "attachable_wear_parachute_tanker_jacket_item",
                            "slot" : "backpack"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_07_ussr_item",
+                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
-                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "pilot_helmet_us_item",
@@ -1248,7 +1059,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_pilot_fighter_1110",
+                     "guid" : "usa_normandy_soldier_pilot_fighter_1123",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -1290,10 +1101,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Jeffery",
+                     "name" : "Eldon",
                      "perkPoints" : {
-                        "speed" : 8,
-                        "vitality" : 10,
+                        "speed" : 7,
+                        "vitality" : 9,
                         "weapon" : 8
                      },
                      "perks" : [
@@ -1310,7 +1121,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter_2",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Meyers",
+                     "surname" : "Ruiz",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -1327,6 +1138,8 @@ return {
       "normandy_axis" : {
          "armyId" : "normandy_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_normandy_pilot_fighter_1",
@@ -1343,7 +1156,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -1352,7 +1164,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -1361,7 +1172,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -1370,47 +1180,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -1423,7 +1196,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "bf_109g_6",
-                  "guid" : "bf_109g_6_1090",
+                  "guid" : "bf_109g_6_1103",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -1470,14 +1243,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 24822,
+                     "appearance__rndSeed" : 25070,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.007387280464172,
-                        "width" : 1.059962749481201
+                        "height" : 0.9946415424346924,
+                        "width" : 1.032608389854431
                      },
                      "callname" : "",
                      "equipment" : {
@@ -1486,7 +1260,7 @@ return {
                            "slot" : "backpack"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_47_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_11_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -1508,7 +1282,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_pilot_fighter_1075",
+                     "guid" : "ger_normandy_soldier_pilot_fighter_1088",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -1550,7 +1324,453 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Ferdinand",
+                     "name" : "Erik",
+                     "perkPoints" : {
+                        "speed" : 6,
+                        "vitality" : 8,
+                        "weapon" : 7
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_pilot_fighter",
+                           "stats" : [
+                              {
+                                 "statKey" : "pilot_stamina_regeneration",
+                                 "statValue" : 0.05000000074505806
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "pilot_fighter",
+                     "sKind" : "pilot_fighter",
+                     "surname" : "Froelich",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "ger_normandy_pilot_fighter_1",
+               "squadType" : "aircraft",
+               "toLevelExp" : 5880,
+               "vehicleType" : "fighter_aircraft"
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
+      "pacific_allies" : {
+         "armyId" : "pacific_allies",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "usa",
+         "curSquadId" : "allies_pacific_pilot_fighter_1",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : {
+                  "gametemplate" : "f2a3",
+                  "guid" : "f2a3_1033",
+                  "mods" : [
+                     {
+                        "statKey" : "mulCdminFusel",
+                        "statValue" : 0.8333333134651184
+                     },
+                     {
+                        "statKey" : "mulCompressorMaxP",
+                        "statValue" : 0.9300000071525574
+                     },
+                     {
+                        "statKey" : "cutProbabilityMult",
+                        "statValue" : 1.0
+                     },
+                     {
+                        "statKey" : "damageReceivedMult",
+                        "statValue" : 1.0
+                     },
+                     {
+                        "statKey" : "mulMass",
+                        "statValue" : 0.9478673338890076
+                     },
+                     {
+                        "statKey" : "mulCdminTail",
+                        "statValue" : 0.9345793724060059
+                     },
+                     {
+                        "statKey" : "radiatorEffMul",
+                        "statValue" : 0.9499999880790710
+                     },
+                     {
+                        "statKey" : "mulOswEffNumber",
+                        "statValue" : 0.8999999761581421
+                     },
+                     {
+                        "statKey" : "mulHorsePowers",
+                        "statValue" : 0.8999999761581421
+                     },
+                     {
+                        "statKey" : "mulCdmin",
+                        "statValue" : 0.875656783580780
+                     }
+                  ]
+               },
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 2251,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9801294207572937,
+                        "width" : 1.008645296096802
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "backpack" : {
+                           "gametemplate" : "attachable_wear_parachute_a2_jacket_item",
+                           "slot" : "backpack"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_07",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "pilot_helmet_us_item",
+                           "slot" : "head"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pilot_pants_us_item",
+                           "slot" : "pants"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_pilot_a2_jacket_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_pilot_fighter_1020",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "colt_new_service_m1909_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Michael",
+                     "perkPoints" : {
+                        "speed" : 6,
+                        "vitality" : 8,
+                        "weapon" : 8
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_pilot_fighter",
+                           "stats" : [
+                              {
+                                 "statKey" : "pilot_stamina_regeneration",
+                                 "statValue" : 0.05000000074505806
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "pilot_fighter",
+                     "sKind" : "pilot_fighter",
+                     "surname" : "Pierce",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "allies_pacific_pilot_fighter_1",
+               "squadType" : "aircraft",
+               "toLevelExp" : 7570,
+               "vehicleType" : "fighter_aircraft"
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
+      "pacific_axis" : {
+         "armyId" : "pacific_axis",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "japan",
+         "curSquadId" : "axis_pacific_pilot_fighter_1",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : {
+                  "gametemplate" : "a5m4",
+                  "guid" : "a5m4_1186",
+                  "mods" : [
+                     {
+                        "statKey" : "mulCdminFusel",
+                        "statValue" : 0.8333333134651184
+                     },
+                     {
+                        "statKey" : "mulCompressorMaxP",
+                        "statValue" : 0.9300000071525574
+                     },
+                     {
+                        "statKey" : "cutProbabilityMult",
+                        "statValue" : 1.0
+                     },
+                     {
+                        "statKey" : "damageReceivedMult",
+                        "statValue" : 1.0
+                     },
+                     {
+                        "statKey" : "mulMass",
+                        "statValue" : 0.9478673338890076
+                     },
+                     {
+                        "statKey" : "mulCdminTail",
+                        "statValue" : 0.9345793724060059
+                     },
+                     {
+                        "statKey" : "radiatorEffMul",
+                        "statValue" : 0.9499999880790710
+                     },
+                     {
+                        "statKey" : "mulOswEffNumber",
+                        "statValue" : 0.8999999761581421
+                     },
+                     {
+                        "statKey" : "mulHorsePowers",
+                        "statValue" : 0.8999999761581421
+                     },
+                     {
+                        "statKey" : "mulCdmin",
+                        "statValue" : 0.875656783580780
+                     }
+                  ]
+               },
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 9548,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9472172856330872,
+                        "width" : 0.9613113403320312
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "backpack" : {
+                           "gametemplate" : "attachable_wear_jap_pilot_coverall_parachute_item",
+                           "slot" : "backpack"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_07",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_jap_pilot_gloves_coverall_item",
+                           "slot" : "gloves"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_jap_pilot_type30_helmet_goggles_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_pilot_sum_coverall_vest_gloves_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_pilot_fighter_1173",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "nambu_type_94_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "nambu_type_94_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Yuu",
                      "perkPoints" : {
                         "speed" : 8,
                         "vitality" : 10,
@@ -1570,14 +1790,14 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Klatt",
+                     "surname" : "Sakai",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
                ],
-               "squadId" : "ger_normandy_pilot_fighter_1",
+               "squadId" : "axis_pacific_pilot_fighter_1",
                "squadType" : "aircraft",
-               "toLevelExp" : 5880,
+               "toLevelExp" : 7570,
                "vehicleType" : "fighter_aircraft"
             }
          ],
@@ -1587,6 +1807,8 @@ return {
       "stalingrad_allies" : {
          "armyId" : "stalingrad_allies",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "allies_stalingrad_pilot_fighter_1",
@@ -1603,7 +1825,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -1612,7 +1833,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -1621,7 +1841,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -1630,47 +1849,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -1730,6 +1912,7 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
@@ -1742,7 +1925,7 @@ return {
                      "callname" : "",
                      "equipment" : {
                         "backpack" : {
-                           "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                           "gametemplate" : "attachable_wear_lp1_parachute_pilot_ussr_item",
                            "slot" : "backpack"
                         },
                         "belt_1" : {
@@ -1750,11 +1933,11 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_05_us_item",
+                           "gametemplate" : "ussr_gen_head_05",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
                         "hair" : {
@@ -1820,9 +2003,9 @@ return {
                      "maxLevel" : 4,
                      "name" : "Aleksandr",
                      "perkPoints" : {
-                        "speed" : 7,
+                        "speed" : 8,
                         "vitality" : 9,
-                        "weapon" : 8
+                        "weapon" : 9
                      },
                      "perks" : [
                         {
@@ -1838,7 +2021,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Zaharov",
+                     "surname" : "Solovev",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -1855,6 +2038,8 @@ return {
       "stalingrad_axis" : {
          "armyId" : "stalingrad_axis",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "axis_stalingrad_pilot_fighter_1",
@@ -1871,7 +2056,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -1880,7 +2064,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -1889,7 +2072,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -1898,47 +2080,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -1951,7 +2096,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "bf_109e_7",
-                  "guid" : "bf_109e_7_1156",
+                  "guid" : "bf_109e_7_1171",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -1998,14 +2143,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 27669,
+                     "appearance__rndSeed" : 13302,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9902627468109131,
-                        "width" : 1.057767868041992
+                        "height" : 1.018954992294312,
+                        "width" : 1.035779953002930
                      },
                      "callname" : "",
                      "equipment" : {
@@ -2014,12 +2160,16 @@ return {
                            "slot" : "backpack"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_26_us_item",
+                           "gametemplate" : "attachable_wear_head_male_43_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "skined_helmet" : {
                            "gametemplate" : "flight_helmet_01_ger_summer_item",
@@ -2032,7 +2182,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_pilot_fighter_1142",
+                     "guid" : "axis_stalingrad_soldier_pilot_fighter_1156",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -2078,10 +2228,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Jonas",
+                     "name" : "Gerd",
                      "perkPoints" : {
-                        "speed" : 8,
-                        "vitality" : 10,
+                        "speed" : 7,
+                        "vitality" : 9,
                         "weapon" : 7
                      },
                      "perks" : [
@@ -2098,7 +2248,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Hocke",
+                     "surname" : "Harden",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -2115,6 +2265,8 @@ return {
       "tunisia_allies" : {
          "armyId" : "tunisia_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "allies_tunisia_pilot_fighter_1",
@@ -2131,7 +2283,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -2140,7 +2291,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -2149,7 +2299,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -2158,47 +2307,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -2211,7 +2323,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "hurricane_mk2b",
-                  "guid" : "hurricane_mk2b_1035",
+                  "guid" : "hurricane_mk2b_1051",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -2258,19 +2370,20 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 14324,
+                     "appearance__rndSeed" : 27976,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.015718817710876,
-                        "width" : 1.054137349128723
+                        "height" : 1.015685915946960,
+                        "width" : 1.025906562805176
                      },
                      "callname" : "",
                      "equipment" : {
                         "backpack" : {
-                           "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                           "gametemplate" : "attachable_wear_parachute_serge_dress_pilot_uk_item",
                            "slot" : "backpack"
                         },
                         "belt_1" : {
@@ -2278,7 +2391,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_10_uk_item",
+                           "gametemplate" : "attachable_wear_head_07_uk_item",
                            "slot" : "face"
                         },
                         "hair" : {
@@ -2300,7 +2413,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_pilot_fighter_uk_1020",
+                     "guid" : "allies_tunisia_soldier_pilot_fighter_uk_1035",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -2342,11 +2455,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Elliot",
+                     "name" : "Charles",
                      "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 8,
-                        "weapon" : 8
+                        "speed" : 7,
+                        "vitality" : 10,
+                        "weapon" : 9
                      },
                      "perks" : [
                         {
@@ -2362,7 +2475,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Berrycloth",
+                     "surname" : "Quill",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -2379,6 +2492,8 @@ return {
       "tunisia_axis" : {
          "armyId" : "tunisia_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "axis_tunisia_pilot_fighter_1",
@@ -2395,7 +2510,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -2404,7 +2518,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -2413,7 +2526,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -2422,47 +2534,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -2475,7 +2550,7 @@ return {
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
                   "gametemplate" : "re_2000_int",
-                  "guid" : "re_2000_int_1108",
+                  "guid" : "re_2000_int_1121",
                   "mods" : [
                      {
                         "statKey" : "mulCdminFusel",
@@ -2522,23 +2597,24 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 2577,
+                     "appearance__rndSeed" : 4509,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9879994988441467,
-                        "width" : 1.051483511924744
+                        "height" : 1.004380583763123,
+                        "width" : 1.029656648635864
                      },
                      "callname" : "",
                      "equipment" : {
                         "backpack" : {
-                           "gametemplate" : "attachable_wear_fliegerkombi_parachute_ger_item",
+                           "gametemplate" : "attachable_wear_ita_pilot_jacket_parachute_item",
                            "slot" : "backpack"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_09_it_item",
+                           "gametemplate" : "attachable_wear_head_10_it_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -2564,7 +2640,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_pilot_fighter_it_1092",
+                     "guid" : "axis_tunisia_soldier_pilot_fighter_it_1105",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -2606,10 +2682,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Adriano",
+                     "name" : "Giuliano",
                      "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 8,
+                        "speed" : 7,
+                        "vitality" : 9,
                         "weapon" : 7
                      },
                      "perks" : [
@@ -2626,7 +2702,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "pilot_fighter",
                      "sKind" : "pilot_fighter",
-                     "surname" : "Sarto",
+                     "surname" : "Quattroki",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -2645,6 +2721,8 @@ return {
       "berlin_allies" : {
          "armyId" : "berlin_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_berlin_tutorial_def",
@@ -2661,7 +2739,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -2670,7 +2747,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -2679,7 +2755,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -2688,47 +2763,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -2743,23 +2781,20 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 28739,
+                     "appearance__rndSeed" : 222,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9991558790206909,
-                        "width" : 1.078334927558899
+                        "height" : 0.9835633635520935,
+                        "width" : 1.032430171966553
                      },
                      "callname" : "",
                      "equipment" : {
-                        "bag_l" : {
-                           "gametemplate" : "attachable_wear_gasmask_01_ussr_summer_item",
-                           "slot" : "bag_l"
-                        },
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_01_ussr_summer_item",
+                           "gametemplate" : "attachable_wear_belt_1_03_ussr_summer_item",
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
@@ -2767,7 +2802,7 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
+                           "gametemplate" : "attachable_wear_head_male_17_us_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
@@ -2778,12 +2813,16 @@ return {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
                         "head" : {
-                           "gametemplate" : "helmet_05_ussr_summer_item",
+                           "gametemplate" : "helmet_02_ussr_summer_item",
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_02_1_ussr_summer_item",
+                           "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
                         "tunic" : {
@@ -2793,7 +2832,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_rifle_1150",
+                     "guid" : "ussr_berlin_soldier_rifle_1174",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -2819,7 +2858,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "f1_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -2845,7 +2884,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Leonid",
+                     "name" : "Melentiy",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -2855,16 +2894,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Erofeev",
+                     "surname" : "Lukin",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 10686,
+                     "appearance__rndSeed" : 24150,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9985369443893433,
-                        "width" : 1.027464270591736
+                        "height" : 0.9993060231208801,
+                        "width" : 1.026284933090210
                      },
                      "callname" : "",
                      "equipment" : {
@@ -2876,9 +2915,9 @@ return {
                            "gametemplate" : "attachable_wear_belt_1_01_ussr_summer_item",
                            "slot" : "belt_1"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_binoculars_01_ussr_winter_item",
-                           "slot" : "chest"
+                        "belt_2" : {
+                           "gametemplate" : "attachable_wear_belt_2_01_ussr_summer_item",
+                           "slot" : "belt_2"
                         },
                         "face" : {
                            "gametemplate" : "attachable_wear_head_male_26_us_item",
@@ -2893,7 +2932,7 @@ return {
                            "slot" : "gloves"
                         },
                         "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
+                           "gametemplate" : "hair_01_us_summer_item",
                            "slot" : "hair"
                         },
                         "head" : {
@@ -2901,7 +2940,7 @@ return {
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_2_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
                         "tunic" : {
@@ -2911,7 +2950,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_mgun_1175",
+                     "guid" : "ussr_berlin_soldier_mgun_1198",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -2937,7 +2976,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "f1_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -2960,11 +2999,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Daniil",
+                     "name" : "Ilya",
                      "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 8,
-                        "weapon" : 11
+                        "speed" : 8,
+                        "vitality" : 7,
+                        "weapon" : 10
                      },
                      "perks" : [
                         {
@@ -2980,7 +3019,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Kovalev",
+                     "surname" : "Ivanov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -2996,6 +3035,8 @@ return {
       "berlin_axis" : {
          "armyId" : "berlin_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_berlin_tutorial_def",
@@ -3012,7 +3053,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -3021,7 +3061,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -3030,7 +3069,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -3039,47 +3077,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -3094,14 +3095,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 30114,
+                     "appearance__rndSeed" : 12147,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9982488751411438,
-                        "width" : 1.043927073478699
+                        "height" : 0.9847365021705627,
+                        "width" : 1.046505331993103
                      },
                      "callname" : "",
                      "equipment" : {
@@ -3110,24 +3112,16 @@ return {
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "gametemplate" : "attachable_wear_head_male_40_ger_item",
                            "slot" : "face"
-                        },
-                        "front_belt_r" : {
-                           "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                           "slot" : "front_belt_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_01_ger_summer_item",
-                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "helmet_06_ger_summer_item",
@@ -3146,13 +3140,13 @@ return {
                            "slot" : "shovel"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_01_volkssturm_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tunic_01_brown_volkssturm_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_rifle_1094",
+                     "guid" : "ger_berlin_soldier_rifle_1126",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -3178,7 +3172,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -3204,7 +3198,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Kurd",
+                     "name" : "Elimar",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -3214,16 +3208,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Suhr",
+                     "surname" : "Behrend",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 3911,
+                     "appearance__rndSeed" : 11943,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9863478541374207,
-                        "width" : 1.060902714729309
+                        "height" : 1.016409754753113,
+                        "width" : 1.044347047805786
                      },
                      "callname" : "",
                      "equipment" : {
@@ -3235,21 +3229,17 @@ return {
                            "gametemplate" : "attachable_wear_belt_2_01_ger_summer_item",
                            "slot" : "belt_2"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_gas_cape_pouch_01_ger_summer_item",
-                           "slot" : "chest"
-                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_40_ger_item",
+                           "gametemplate" : "attachable_wear_head_male_10_us_item",
                            "slot" : "face"
-                        },
-                        "front_belt_r" : {
-                           "gametemplate" : "attachable_wear_map_case_01_ger_summer_item",
-                           "slot" : "front_belt_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "helmet_06_ger_summer_item",
@@ -3259,14 +3249,6 @@ return {
                            "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
                            "slot" : "pants"
                         },
-                        "roll" : {
-                           "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
-                           "slot" : "roll"
-                        },
-                        "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
-                           "slot" : "shovel"
-                        },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_tunic_01_volkssturm_ger_summer_item",
                            "slot" : "tunic"
@@ -3274,7 +3256,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_mgun_1122",
+                     "guid" : "ger_berlin_soldier_mgun_1151",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -3300,7 +3282,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -3323,7 +3305,7 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Jurgen",
+                     "name" : "Gerd",
                      "perkPoints" : {
                         "speed" : 6,
                         "vitality" : 6,
@@ -3343,7 +3325,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Axtmann",
+                     "surname" : "Hentschel",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -3359,6 +3341,8 @@ return {
       "moscow_allies" : {
          "armyId" : "moscow_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_moscow_tutorial_def",
@@ -3375,7 +3359,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -3384,7 +3367,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -3393,7 +3375,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -3402,47 +3383,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -3457,14 +3401,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 7040,
+                     "appearance__rndSeed" : 17958,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9800610542297363,
-                        "width" : 1.042464733123779
+                        "height" : 1.002984046936035,
+                        "width" : 1.011267423629761
                      },
                      "callname" : "",
                      "equipment" : {
@@ -3476,21 +3421,21 @@ return {
                            "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
                            "slot" : "belt_1"
                         },
-                        "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_01_ussr_winter_item",
-                           "slot" : "belt_2"
-                        },
                         "chest" : {
-                           "gametemplate" : "attachable_wear_bandolier_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_binoculars_01_ussr_winter_item",
                            "slot" : "chest"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_31_us_item",
+                           "gametemplate" : "attachable_wear_head_male_36_ussr_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
                            "gametemplate" : "attachable_wear_flask_01_ussr_winter_item",
                            "slot" : "flask_r"
+                        },
+                        "front_belt_r" : {
+                           "gametemplate" : "attachable_wear_nagan_holster_r_01_ussr_winter_item",
+                           "slot" : "front_belt_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
@@ -3501,25 +3446,21 @@ return {
                            "slot" : "hair"
                         },
                         "head" : {
-                           "gametemplate" : "helmet_05_ussr_summer_item",
+                           "gametemplate" : "helmet_07_ussr_winter_item",
                            "slot" : "head"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_pants_01_3_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
-                        "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_officer_tablet_01_ussr_winter_item",
-                           "slot" : "rear_belt_l"
-                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_overcoat_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_overcoat_01_2_ussr_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_rifle_1435",
+                     "guid" : "ussr_moscow_soldier_rifle_1480",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -3547,7 +3488,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "f1_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -3573,7 +3514,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Nikita",
+                     "name" : "Dmitriy",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -3583,29 +3524,29 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Malyshev",
+                     "surname" : "Bykov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 32147,
+                     "appearance__rndSeed" : 13072,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9946415424346924,
-                        "width" : 1.036243796348572
+                        "height" : 1.005702733993530,
+                        "width" : 1.028953552246094
                      },
                      "callname" : "",
                      "equipment" : {
+                        "bag_l" : {
+                           "gametemplate" : "attachable_wear_gasmask_01_ussr_winter_item",
+                           "slot" : "bag_l"
+                        },
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_04_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
                            "slot" : "belt_1"
                         },
-                        "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_01_ussr_winter_item",
-                           "slot" : "belt_2"
-                        },
                         "chest" : {
-                           "gametemplate" : "attachable_wear_bandolier_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_binoculars_01_ussr_winter_item",
                            "slot" : "chest"
                         },
                         "face" : {
@@ -3615,6 +3556,10 @@ return {
                         "flask_r" : {
                            "gametemplate" : "attachable_wear_flask_01_ussr_winter_item",
                            "slot" : "flask_r"
+                        },
+                        "front_belt_r" : {
+                           "gametemplate" : "attachable_wear_nagan_holster_r_01_ussr_winter_item",
+                           "slot" : "front_belt_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
@@ -3629,17 +3574,17 @@ return {
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_6_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_overcoat_01_2_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_overcoat_01_ussr_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_mgun_1463",
+                     "guid" : "ussr_moscow_soldier_mgun_1509",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -3665,7 +3610,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "f1_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -3688,10 +3633,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Konstantin",
+                     "name" : "Roman",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 6,
+                        "speed" : 6,
+                        "vitality" : 8,
                         "weapon" : 11
                      },
                      "perks" : [
@@ -3708,7 +3653,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Malcev",
+                     "surname" : "Arhipov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -3724,6 +3669,8 @@ return {
       "moscow_axis" : {
          "armyId" : "moscow_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_moscow_tutorial_def",
@@ -3740,7 +3687,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -3749,7 +3695,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -3758,7 +3703,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -3767,47 +3711,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -3822,14 +3729,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 27807,
+                     "appearance__rndSeed" : 17566,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.009162306785583,
-                        "width" : 1.055353283882141
+                        "height" : 1.016876101493835,
+                        "width" : 1.029832482337952
                      },
                      "callname" : "",
                      "equipment" : {
@@ -3838,36 +3746,24 @@ return {
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
                            "slot" : "belt_2"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_gas_cape_pouch_01_ger_summer_item",
-                           "slot" : "chest"
-                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_head_01_ger_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_ger_summer_item",
-                           "slot" : "hair"
+                        "head" : {
+                           "gametemplate" : "helmet_03_s_ger_winter_item",
+                           "slot" : "head"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
                            "slot" : "pants"
-                        },
-                        "roll" : {
-                           "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
-                           "slot" : "roll"
-                        },
-                        "skined_helmet" : {
-                           "gametemplate" : "helmet_03_ger_winter_item",
-                           "slot" : "skined_helmet"
                         },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_tunic_07_ger_summer_item",
@@ -3876,7 +3772,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_rifle_1341",
+                     "guid" : "ger_moscow_soldier_rifle_1368",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -3904,7 +3800,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -3930,7 +3826,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Hellmut",
+                     "name" : "Hartwich",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -3940,16 +3836,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Seiler",
+                     "surname" : "Schuenemann",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 9790,
+                     "appearance__rndSeed" : 11985,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9809814691543579,
-                        "width" : 1.065724611282349
+                        "height" : 0.9876088500022888,
+                        "width" : 1.014580488204956
                      },
                      "callname" : "",
                      "equipment" : {
@@ -3961,8 +3857,12 @@ return {
                            "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
                            "slot" : "belt_2"
                         },
+                        "chest" : {
+                           "gametemplate" : "attachable_wear_gas_cape_pouch_01_ger_summer_item",
+                           "slot" : "chest"
+                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "gametemplate" : "attachable_wear_head_male_05_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -3977,22 +3877,18 @@ return {
                            "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
                            "slot" : "roll"
                         },
-                        "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
-                           "slot" : "shovel"
-                        },
                         "skined_helmet" : {
-                           "gametemplate" : "helmet_04_ger_winter_item",
+                           "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tunic_07_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_mgun_1367",
+                     "guid" : "ger_moscow_soldier_mgun_1390",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -4018,7 +3914,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -4041,11 +3937,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Conrad",
+                     "name" : "Gunter",
                      "perkPoints" : {
                         "speed" : 7,
-                        "vitality" : 8,
-                        "weapon" : 9
+                        "vitality" : 6,
+                        "weapon" : 11
                      },
                      "perks" : [
                         {
@@ -4061,7 +3957,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Keiner",
+                     "surname" : "Strackeljahn",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -4077,6 +3973,8 @@ return {
       "normandy_allies" : {
          "armyId" : "normandy_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "usa_normandy_tutorial_def",
@@ -4093,7 +3991,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -4102,7 +3999,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -4111,7 +4007,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -4120,47 +4015,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -4175,24 +4033,29 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 10717,
+                     "appearance__rndSeed" : 6749,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9896951317787170,
-                        "width" : 1.001630902290344
+                        "height" : 1.003529787063599,
+                        "width" : 1.024383068084717
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_m36_03_us_summer_item",
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_30_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
                            "slot" : "face"
+                        },
+                        "gasmask" : {
+                           "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
+                           "slot" : "gasmask"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
@@ -4203,25 +4066,25 @@ return {
                            "slot" : "head"
                         },
                         "helmet_deco" : {
-                           "gametemplate" : "m44_goggles_01_item",
+                           "gametemplate" : "cigarette_lighter_01_item",
                            "slot" : "helmet_deco"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                           "gametemplate" : "attachable_wear_pants_02_us_summer_item",
                            "slot" : "pants"
                         },
                         "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_m43_entrenching_tool_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_m43_entrenching_tool_m41_jacket_item",
                            "slot" : "rear_belt_l"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_03_us_summer_1inf_item",
+                           "gametemplate" : "attachable_wear_jacket_m41_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_rifle_1291",
+                     "guid" : "usa_normandy_soldier_rifle_1318",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -4247,7 +4110,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "mk2_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -4273,7 +4136,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Stephen",
+                     "name" : "William",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -4283,63 +4146,63 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "West",
+                     "surname" : "Carpenter",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 13829,
+                     "appearance__rndSeed" : 11703,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9983476996421814,
-                        "width" : 1.006067037582397
+                        "height" : 1.011943101882935,
+                        "width" : 1.003781795501709
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_m36_03_us_summer_item",
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_36_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_35_ussr_item",
                            "slot" : "face"
                         },
+                        "flask_r" : {
+                           "gametemplate" : "attachable_wear_flask_m41_jacket_item",
+                           "slot" : "flask_r"
+                        },
                         "gasmask" : {
-                           "gametemplate" : "attachable_wear_gasmask_m7_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_us_gasbag_m7_jacket_m41_item",
                            "slot" : "gasmask"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
                         "head" : {
-                           "gametemplate" : "helmet_01_us_summer_item",
+                           "gametemplate" : "helmet_03_us_summer_item",
                            "slot" : "head"
                         },
                         "helmet_deco" : {
-                           "gametemplate" : "cigarette_lighter_01_item",
+                           "gametemplate" : "m1_garand_clip_01_item",
                            "slot" : "helmet_deco"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_pants_04_us_summer_item",
                            "slot" : "pants"
                         },
                         "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_m43_entrenching_tool_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_m43_entrenching_tool_m41_jacket_item",
                            "slot" : "rear_belt_l"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_03_us_summer_1inf_item",
+                           "gametemplate" : "attachable_wear_jacket_m41_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_mgun_1314",
+                     "guid" : "usa_normandy_soldier_mgun_1342",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -4365,7 +4228,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "mk2_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -4388,7 +4251,7 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Kenneth",
+                     "name" : "Gene",
                      "perkPoints" : {
                         "speed" : 6,
                         "vitality" : 6,
@@ -4408,7 +4271,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Williams",
+                     "surname" : "Wilkinson",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -4424,6 +4287,8 @@ return {
       "normandy_axis" : {
          "armyId" : "normandy_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_normandy_tutorial_def",
@@ -4440,7 +4305,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -4449,7 +4313,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -4458,7 +4321,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -4467,47 +4329,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -4522,14 +4347,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 22098,
+                     "appearance__rndSeed" : 32662,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.009529709815979,
-                        "width" : 1.069701790809631
+                        "height" : 1.012048125267029,
+                        "width" : 1.020183682441711
                      },
                      "callname" : "",
                      "equipment" : {
@@ -4546,7 +4372,7 @@ return {
                            "slot" : "chest"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_12_ger_item",
+                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -4561,12 +4387,12 @@ return {
                            "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
                            "slot" : "pants"
                         },
-                        "roll" : {
-                           "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
-                           "slot" : "roll"
+                        "pot" : {
+                           "gametemplate" : "attachable_wear_pot_01_ger_summer_item",
+                           "slot" : "pot"
                         },
                         "shovel" : {
-                           "gametemplate" : "attachable_wear_engineer_cutters_item",
+                           "gametemplate" : "attachable_wear_shovel_m44_ger_summer_item",
                            "slot" : "shovel"
                         },
                         "tunic" : {
@@ -4576,7 +4402,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_rifle_1200",
+                     "guid" : "ger_normandy_soldier_rifle_1224",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -4602,7 +4428,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -4628,7 +4454,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Rupert",
+                     "name" : "Engelhard",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -4638,16 +4464,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Duewell",
+                     "surname" : "Rueckteschell",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 29711,
+                     "appearance__rndSeed" : 16180,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9878860116004944,
-                        "width" : 1.028201580047607
+                        "height" : 0.9873708486557007,
+                        "width" : 1.000664114952087
                      },
                      "callname" : "",
                      "equipment" : {
@@ -4660,7 +4486,7 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "gametemplate" : "attachable_wear_head_male_40_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -4675,8 +4501,12 @@ return {
                            "gametemplate" : "attachable_wear_pants_01_ger_summer_item",
                            "slot" : "pants"
                         },
+                        "roll" : {
+                           "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
+                           "slot" : "roll"
+                        },
                         "shovel" : {
-                           "gametemplate" : "attachable_wear_engineer_cutters_item",
+                           "gametemplate" : "attachable_wear_shovel_m44_ger_summer_item",
                            "slot" : "shovel"
                         },
                         "tunic" : {
@@ -4686,7 +4516,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_mgun_1226",
+                     "guid" : "ger_normandy_soldier_mgun_1250",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -4712,7 +4542,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -4735,11 +4565,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Rupprecht",
+                     "name" : "Kaspar",
                      "perkPoints" : {
                         "speed" : 6,
                         "vitality" : 6,
-                        "weapon" : 9
+                        "weapon" : 10
                      },
                      "perks" : [
                         {
@@ -4755,7 +4585,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Tietzen",
+                     "surname" : "Woehl",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -4768,9 +4598,607 @@ return {
          "wallPosters" : [],
          "wallPostersCount" : 3
       },
+      "pacific_allies" : {
+         "armyId" : "pacific_allies",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "usa",
+         "curSquadId" : "allies_pacific_tutorial_def",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : null,
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 29411,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9815491437911987,
+                        "width" : 1.032972216606140
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_04",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                           "slot" : "pants"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_rifle_1035",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {
+                              "bayonet" : "m1905_bayonet_item"
+                           },
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "m1903a1_springfield_usmc_gun",
+                        "secondary" : "",
+                        "tertiary" : ""
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "medkit_item"
+                        },
+                        {
+                           "gametemplate" : "mk2_grenade_item"
+                        },
+                        {
+                           "gametemplate" : "mk2_grenade_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Gregory",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_rifle",
+                     "sKind" : "rifle",
+                     "surname" : "Welch",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 13091,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9898464679718018,
+                        "width" : 1.051808238029480
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_02",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                           "slot" : "pants"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_mgun_1056",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "browning_m1918_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "browning_m1918_gun",
+                        "secondary" : "",
+                        "tertiary" : ""
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "medkit_item"
+                        },
+                        {
+                           "gametemplate" : "m_15_incendiary_grenade_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Warren",
+                     "perkPoints" : {
+                        "speed" : 8,
+                        "vitality" : 8,
+                        "weapon" : 10
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_mgun",
+                           "stats" : [
+                              {
+                                 "statKey" : "run_speed",
+                                 "statValue" : 0.03500000014901161
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "mgun",
+                     "sKind" : "mgun",
+                     "surname" : "Young",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "allies_pacific_tutorial_def",
+               "squadType" : "rifle",
+               "vehicleType" : ""
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
+      "pacific_axis" : {
+         "armyId" : "pacific_axis",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "japan",
+         "curSquadId" : "axis_pacific_tutorial_def",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : null,
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 11070,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9427054524421692,
+                        "width" : 0.9540796875953674
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "bag_l" : {
+                           "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                           "slot" : "bag_l"
+                        },
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_07",
+                           "slot" : "face"
+                        },
+                        "front_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                           "slot" : "front_belt_l"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                           "slot" : "pants"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_field_cap_rifle_squad_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_rifle_1450",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {
+                              "bayonet" : "type_30_bayonet_item"
+                           },
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "arisaka_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "arisaka_type_38_gun",
+                        "secondary" : "",
+                        "tertiary" : ""
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "jap_medkit_item"
+                        },
+                        {
+                           "gametemplate" : "type_97_grenade_item"
+                        },
+                        {
+                           "gametemplate" : "type_97_grenade_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Shou",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_rifle",
+                     "sKind" : "rifle",
+                     "surname" : "Yamashita",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 10820,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9544074535369873,
+                        "width" : 0.9820859432220459
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "bag_l" : {
+                           "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                           "slot" : "bag_l"
+                        },
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_02",
+                           "slot" : "face"
+                        },
+                        "front_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                           "slot" : "front_belt_l"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                           "slot" : "pants"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_field_cap_w_cover_rifle_squad_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_mgun_1466",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 4,
+                           "reserveAmmoTemplate" : "type_11_lmg_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "type_11_lmg_gun",
+                        "secondary" : "",
+                        "tertiary" : ""
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "jap_medkit_item"
+                        },
+                        {
+                           "gametemplate" : "type_91_incendiary_grenade_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Rokurou",
+                     "perkPoints" : {
+                        "speed" : 6,
+                        "vitality" : 6,
+                        "weapon" : 10
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_mgun",
+                           "stats" : [
+                              {
+                                 "statKey" : "run_speed",
+                                 "statValue" : 0.03500000014901161
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "mgun",
+                     "sKind" : "mgun",
+                     "surname" : "Takahashi",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "axis_pacific_tutorial_def",
+               "squadType" : "rifle",
+               "vehicleType" : ""
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
       "stalingrad_allies" : {
          "armyId" : "stalingrad_allies",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_stalingrad_tutorial_def",
@@ -4787,7 +5215,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -4796,7 +5223,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -4805,7 +5231,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -4814,47 +5239,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -4869,6 +5257,7 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
@@ -4889,19 +5278,15 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_05_us_item",
+                           "gametemplate" : "attachable_wear_head_male_07_ussr_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
-                           "slot" : "hair"
-                        },
                         "head" : {
-                           "gametemplate" : "helmet_sh39_ussr_05s_item",
+                           "gametemplate" : "helmet_05_ussr_summer_item",
                            "slot" : "head"
                         },
                         "pants" : {
@@ -4943,7 +5328,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "f1_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -4979,16 +5364,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Ermakov",
+                     "surname" : "Gorbunov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 11114,
+                     "appearance__rndSeed" : 28392,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9966130256652832,
-                        "width" : 1.040296673774719
+                        "height" : 0.9934037327766418,
+                        "width" : 1.044105291366577
                      },
                      "callname" : "",
                      "equipment" : {
@@ -5001,24 +5386,20 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_07_ussr_item",
+                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
-                        "head" : {
-                           "gametemplate" : "helmet_sh39_ussr_05s_item",
-                           "slot" : "head"
-                        },
                         "pants" : {
                            "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
                            "slot" : "pants"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_balaclava_helm_sh40_ussr_medic_item",
+                           "slot" : "skined_helmet"
                         },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_overcoat_01_ussr_winter_item",
@@ -5027,7 +5408,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "allies_stalingrad_soldier_mgun_1024",
+                     "guid" : "allies_stalingrad_soldier_mgun_1018",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -5053,7 +5434,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "f1_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -5076,11 +5457,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Vladislav",
+                     "name" : "Ivan",
                      "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 6,
-                        "weapon" : 9
+                        "speed" : 7,
+                        "vitality" : 8,
+                        "weapon" : 11
                      },
                      "perks" : [
                         {
@@ -5096,7 +5477,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Agafonov",
+                     "surname" : "Belyaev",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -5112,6 +5493,8 @@ return {
       "stalingrad_axis" : {
          "armyId" : "stalingrad_axis",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_stalingrad_tutorial_def",
@@ -5128,7 +5511,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -5137,7 +5519,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -5146,7 +5527,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -5155,47 +5535,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -5210,27 +5553,28 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 9061,
+                     "appearance__rndSeed" : 19520,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.010323166847229,
-                        "width" : 1.068593382835388
+                        "height" : 1.005447506904602,
+                        "width" : 1.045106410980225
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_1_01_ger_winter_item",
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_2_02_ger_winter_item",
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_26_us_item",
+                           "gametemplate" : "attachable_wear_head_male_43_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -5246,17 +5590,17 @@ return {
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "helmet_03_ger_winter_item",
+                           "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_07_ger_summer_item",
+                           "gametemplate" : "attachable_wear_overcoat_01_ger_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_rifle_1392",
+                     "guid" : "axis_stalingrad_soldier_rifle_1415",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -5284,7 +5628,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -5310,7 +5654,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Gerrit",
+                     "name" : "Volkhad",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -5320,29 +5664,29 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Neumeier",
+                     "surname" : "Jaehde",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 26343,
+                     "appearance__rndSeed" : 26707,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9890347123146057,
-                        "width" : 1.060585379600525
+                        "height" : 1.002333402633667,
+                        "width" : 1.046307563781738
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_1_01_ger_winter_item",
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_2_02_ger_winter_item",
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_23_ger_item",
+                           "gametemplate" : "ger_gen_head_02",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -5354,17 +5698,17 @@ return {
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "helmet_03_ger_winter_item",
+                           "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_07_ger_summer_item",
+                           "gametemplate" : "attachable_wear_overcoat_01_ger_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_mgun_1414",
+                     "guid" : "axis_stalingrad_soldier_mgun_1433",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -5390,7 +5734,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -5413,10 +5757,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Hanns",
+                     "name" : "Ulrich",
                      "perkPoints" : {
                         "speed" : 8,
-                        "vitality" : 6,
+                        "vitality" : 8,
                         "weapon" : 11
                      },
                      "perks" : [
@@ -5433,7 +5777,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Wrona",
+                     "surname" : "Faulhaber",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -5449,6 +5793,8 @@ return {
       "tunisia_allies" : {
          "armyId" : "tunisia_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "allies_tunisia_tutorial_def",
@@ -5465,7 +5811,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -5474,7 +5819,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -5483,7 +5827,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -5492,47 +5835,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -5547,53 +5853,62 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 21480,
+                     "appearance__rndSeed" : 3037,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9905374050140381,
-                        "width" : 1.067970871925354
+                        "height" : 0.9802526831626892,
+                        "width" : 1.063842296600342
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_m36_03_us_summer_item",
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_03_uk_item",
+                           "gametemplate" : "attachable_wear_head_02_uk_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
-                           "gametemplate" : "attachable_wear_flask_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_flask_m41_jacket_item",
                            "slot" : "flask_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
                         "head" : {
-                           "gametemplate" : "helmet_01_us_summer_item",
+                           "gametemplate" : "helmet_03_us_summer_item",
                            "slot" : "head"
+                        },
+                        "helmet_deco" : {
+                           "gametemplate" : "cigarette_lighter_01_item",
+                           "slot" : "helmet_deco"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_pants_m43_tankers_jacket_item",
                            "slot" : "pants"
                         },
                         "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_m43_entrenching_tool_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_m43_entrenching_tool_m41_jacket_item",
                            "slot" : "rear_belt_l"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_03_us_summer_1inf_item",
+                           "gametemplate" : "attachable_wear_jacket_m41_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "usa_base_soldier",
-                     "guid" : "allies_tunisia_soldier_rifle_usa_1046",
+                     "guid" : "allies_tunisia_soldier_rifle_usa_1075",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -5619,7 +5934,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "mk2_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -5645,7 +5960,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Michael",
+                     "name" : "Glenn",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -5655,21 +5970,21 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Harrington",
+                     "surname" : "Warner",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 16779,
+                     "appearance__rndSeed" : 16673,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9817309975624084,
-                        "width" : 1.014358401298523
+                        "height" : 0.9952067732810974,
+                        "width" : 1.047774910926819
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_m36_03_us_summer_item",
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
                            "slot" : "belt_1"
                         },
                         "face" : {
@@ -5677,15 +5992,19 @@ return {
                            "slot" : "face"
                         },
                         "flask_r" : {
-                           "gametemplate" : "attachable_wear_flask_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_flask_m41_jacket_item",
                            "slot" : "flask_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_02_us_summer_item",
+                           "slot" : "hair"
+                        },
                         "head" : {
-                           "gametemplate" : "helmet_02_us_summer_item",
+                           "gametemplate" : "helmet_01_us_summer_item",
                            "slot" : "head"
                         },
                         "helmet_deco" : {
@@ -5697,17 +6016,17 @@ return {
                            "slot" : "pants"
                         },
                         "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_m43_entrenching_tool_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_m43_entrenching_tool_m41_jacket_item",
                            "slot" : "rear_belt_l"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_03_us_summer_1inf_item",
+                           "gametemplate" : "attachable_wear_jacket_m41_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_mgun_uk_1069",
+                     "guid" : "allies_tunisia_soldier_mgun_uk_1101",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -5733,7 +6052,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "mk2_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -5756,10 +6075,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Adam",
+                     "name" : "Blake",
                      "perkPoints" : {
-                        "speed" : 8,
-                        "vitality" : 7,
+                        "speed" : 7,
+                        "vitality" : 8,
                         "weapon" : 11
                      },
                      "perks" : [
@@ -5776,7 +6095,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Armstrong",
+                     "surname" : "Palmer",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -5792,6 +6111,8 @@ return {
       "tunisia_axis" : {
          "armyId" : "tunisia_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "axis_tunisia_tutorial_def",
@@ -5808,7 +6129,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -5817,7 +6137,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -5826,7 +6145,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -5835,47 +6153,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -5890,14 +6171,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 4402,
+                     "appearance__rndSeed" : 26849,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.018592476844788,
-                        "width" : 1.015752434730530
+                        "height" : 1.018968462944031,
+                        "width" : 1.051134347915649
                      },
                      "callname" : "",
                      "equipment" : {
@@ -5910,12 +6192,16 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_06_it_item",
+                           "gametemplate" : "attachable_wear_head_11_it_item",
                            "slot" : "face"
                         },
                         "front_belt_r" : {
                            "gametemplate" : "attachable_wear_case_01_ger_tropic_item",
                            "slot" : "front_belt_r"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "helmet_01_ger_tropic_item",
@@ -5926,7 +6212,7 @@ return {
                            "slot" : "pants"
                         },
                         "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_m44_ger_summer_item",
+                           "gametemplate" : "attachable_wear_engineer_cutters_item",
                            "slot" : "shovel"
                         },
                         "tunic" : {
@@ -5936,7 +6222,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_tunisia_soldier_rifle_ger_1249",
+                     "guid" : "axis_tunisia_soldier_rifle_ger_1273",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -5962,7 +6248,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -5988,7 +6274,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Winfried",
+                     "name" : "Vinzenz",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -5998,16 +6284,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_rifle",
                      "sKind" : "rifle",
-                     "surname" : "Jenisch",
+                     "surname" : "Deutschlaender",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 6243,
+                     "appearance__rndSeed" : 31158,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.000349760055542,
-                        "width" : 1.048285126686096
+                        "height" : 1.008592128753662,
+                        "width" : 1.024358630180359
                      },
                      "callname" : "",
                      "equipment" : {
@@ -6020,7 +6306,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_10_it_item",
+                           "gametemplate" : "attachable_wear_head_01_it_item",
                            "slot" : "face"
                         },
                         "front_belt_r" : {
@@ -6032,11 +6318,11 @@ return {
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_dak_brown_01_ger_tropic_item",
+                           "gametemplate" : "attachable_wear_pants_01_ger_tropic_item",
                            "slot" : "pants"
                         },
                         "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_m44_ger_summer_item",
+                           "gametemplate" : "attachable_wear_engineer_cutters_item",
                            "slot" : "shovel"
                         },
                         "tunic" : {
@@ -6046,7 +6332,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_mgun_it_1270",
+                     "guid" : "axis_tunisia_soldier_mgun_it_1296",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -6072,7 +6358,7 @@ return {
                         {
                            "gunSlots" : {},
                            "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : "m24_grenade_item"
+                           "reserveAmmoTemplate" : ""
                         }
                      ],
                      "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
@@ -6095,10 +6381,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Gianluca",
+                     "name" : "Massimiliano",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 7,
+                        "speed" : 8,
+                        "vitality" : 8,
                         "weapon" : 11
                      },
                      "perks" : [
@@ -6115,7 +6401,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "mgun",
                      "sKind" : "mgun",
-                     "surname" : "Ferraro",
+                     "surname" : "Quattroki",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -6133,6 +6419,8 @@ return {
       "berlin_allies" : {
          "armyId" : "berlin_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_berlin_tutorial_engineer",
@@ -6149,7 +6437,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -6158,7 +6445,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -6167,7 +6453,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -6176,47 +6461,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -6231,27 +6479,28 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 6599,
+                     "appearance__rndSeed" : 13283,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.004214644432068,
-                        "width" : 1.045570254325867
+                        "height" : 1.008936405181885,
+                        "width" : 1.078959941864014
                      },
                      "callname" : "",
                      "equipment" : {
-                        "bag_l" : {
-                           "gametemplate" : "attachable_wear_gasmask_01_ussr_summer_item",
-                           "slot" : "bag_l"
-                        },
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_03_ussr_summer_item",
+                           "gametemplate" : "attachable_wear_belt_1_01_ussr_summer_item",
                            "slot" : "belt_1"
                         },
+                        "belt_2" : {
+                           "gametemplate" : "attachable_wear_belt_2_01_ussr_summer_item",
+                           "slot" : "belt_2"
+                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_17_us_item",
+                           "gametemplate" : "attachable_wear_head_male_26_us_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
@@ -6261,6 +6510,114 @@ return {
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
+                        },
+                        "head" : {
+                           "gametemplate" : "helmet_02_ussr_summer_item",
+                           "slot" : "head"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pants_01_4_windings_ussr_winter_item",
+                           "slot" : "pants"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tunic_05_1_ussr_summer_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "ussr_base_soldier",
+                     "guid" : "ussr_berlin_soldier_engineer_1167",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "mosin_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "mosin_m91_30_gun",
+                        "secondary" : "ussr_berlin_building_tool_gun",
+                        "tertiary" : ""
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "ussr_medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Maksim",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_engineer",
+                     "sKind" : "engineer",
+                     "surname" : "Borodin",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 10766,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9808422923088074,
+                        "width" : 1.032825708389282
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "bag_l" : {
+                           "gametemplate" : "attachable_wear_gasmask_01_ussr_summer_item",
+                           "slot" : "bag_l"
+                        },
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_1_06_ussr_summer_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "slot" : "face"
+                        },
+                        "flask_r" : {
+                           "gametemplate" : "attachable_wear_flask_01_ussr_summer_item",
+                           "slot" : "flask_r"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "helmet_05_ussr_summer_item",
@@ -6277,115 +6634,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_engineer_1130",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 5,
-                           "reserveAmmoTemplate" : "mosin_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "mosin_m91_30_gun",
-                        "secondary" : "ussr_berlin_building_tool_gun",
-                        "tertiary" : ""
-                     },
-                     "id" : 0,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "ussr_medkit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 0,
-                     "maxLevel" : 4,
-                     "name" : "Ivan",
-                     "perkPoints" : {
-                        "speed" : 0,
-                        "vitality" : 0,
-                        "weapon" : 0
-                     },
-                     "perks" : [],
-                     "perksCount" : 0,
-                     "sClass" : "tutorial_engineer",
-                     "sKind" : "engineer",
-                     "surname" : "Makarov",
-                     "tier" : 3,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 10711,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 0.9815369248390198,
-                        "width" : 1.023946046829224
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_06_ussr_summer_item",
-                           "slot" : "belt_1"
-                        },
-                        "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_01_ussr_summer_item",
-                           "slot" : "belt_2"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_30_ussr_item",
-                           "slot" : "face"
-                        },
-                        "flask_r" : {
-                           "gametemplate" : "attachable_wear_flask_01_ussr_summer_item",
-                           "slot" : "flask_r"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                           "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
-                           "slot" : "hair"
-                        },
-                        "head" : {
-                           "gametemplate" : "helmet_05_ussr_summer_item",
-                           "slot" : "head"
-                        },
-                        "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
-                           "slot" : "pants"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_05_ussr_summer_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_engineer_1151",
+                     "guid" : "ussr_berlin_soldier_engineer_1190",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -6431,7 +6680,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Mihail",
+                     "name" : "Evstafiy",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -6441,7 +6690,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Denisov",
+                     "surname" : "Panasyuk",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -6457,6 +6706,8 @@ return {
       "berlin_axis" : {
          "armyId" : "berlin_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_berlin_tutorial_engineer",
@@ -6473,7 +6724,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -6482,7 +6732,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -6491,7 +6740,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -6500,47 +6748,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -6555,36 +6766,37 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 25070,
+                     "appearance__rndSeed" : 28288,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.008339524269104,
-                        "width" : 1.032608389854431
+                        "height" : 1.018365383148193,
+                        "width" : 1.028548240661621
                      },
                      "callname" : "",
                      "equipment" : {
+                        "bag_l" : {
+                           "gametemplate" : "attachable_bag_w_flask_zeltbahn_03_ger_summer_item",
+                           "slot" : "bag_l"
+                        },
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_03_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_zeltbahn_03_ger_summer_item",
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_03_ger_summer_item",
+                           "gametemplate" : "attachable_wear_sholder_belt_zeltbahn_03_ger_summer_item",
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_head_male_40_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_ger_summer_item",
-                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "helmet_03_ger_summer_splittertarnung_camo_item",
@@ -6594,14 +6806,18 @@ return {
                            "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
                            "slot" : "pants"
                         },
+                        "shovel" : {
+                           "gametemplate" : "attachable_wear_shovel_zeltbahn_03_ger_summer_item",
+                           "slot" : "shovel"
+                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_03_ger_summer_item",
+                           "gametemplate" : "attachable_wear_zeltbahn_03_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_engineer_1088",
+                     "guid" : "ger_berlin_soldier_engineer_1124",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -6647,7 +6863,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Domenikus",
+                     "name" : "Hansjoerg",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -6657,34 +6873,34 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Galow",
+                     "surname" : "Trojer",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 19694,
+                     "appearance__rndSeed" : 30919,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.015878796577454,
-                        "width" : 1.073903560638428
+                        "height" : 1.003615260124207,
+                        "width" : 1.029158592224121
                      },
                      "callname" : "",
                      "equipment" : {
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_03_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_zeltbahn_03_ger_summer_item",
                            "slot" : "belt_1"
                         },
+                        "belt_2" : {
+                           "gametemplate" : "attachable_wear_sholder_belt_zeltbahn_03_ger_summer_item",
+                           "slot" : "belt_2"
+                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_26_us_item",
+                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_01_ger_summer_item",
-                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "helmet_03_ger_summer_splittertarnung_camo_item",
@@ -6694,14 +6910,18 @@ return {
                            "gametemplate" : "attachable_wear_pants_02_ger_winter_item",
                            "slot" : "pants"
                         },
+                        "shovel" : {
+                           "gametemplate" : "attachable_wear_shovel_zeltbahn_03_ger_summer_item",
+                           "slot" : "shovel"
+                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tunic_03_ger_summer_item",
+                           "gametemplate" : "attachable_wear_zeltbahn_03_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_engineer_1109",
+                     "guid" : "ger_berlin_soldier_engineer_1146",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -6747,7 +6967,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Degenhard",
+                     "name" : "Arno",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -6757,7 +6977,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Kirn",
+                     "surname" : "Brogsitter",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -6773,6 +6993,8 @@ return {
       "moscow_allies" : {
          "armyId" : "moscow_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_moscow_tutorial_engineer",
@@ -6789,7 +7011,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -6798,7 +7019,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -6807,7 +7027,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -6816,47 +7035,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -6871,14 +7053,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 14753,
+                     "appearance__rndSeed" : 7293,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9805371165275574,
-                        "width" : 1.017188072204590
+                        "height" : 0.9983611702919006,
+                        "width" : 1.056571602821350
                      },
                      "callname" : "",
                      "equipment" : {
@@ -6894,42 +7077,46 @@ return {
                            "gametemplate" : "attachable_wear_belt_2_01_ussr_winter_item",
                            "slot" : "belt_2"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_bandolier_01_ussr_winter_item",
-                           "slot" : "chest"
-                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_07_ussr_item",
+                           "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
                            "gametemplate" : "attachable_wear_flask_01_ussr_winter_item",
                            "slot" : "flask_r"
                         },
+                        "front_belt_l" : {
+                           "gametemplate" : "attachable_wear_nagan_holster_l_01_ussr_winter_item",
+                           "slot" : "front_belt_l"
+                        },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                            "slot" : "gloves"
                         },
                         "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
+                           "gametemplate" : "hair_02_us_summer_item",
                            "slot" : "hair"
                         },
                         "head" : {
-                           "gametemplate" : "helmet_01_ussr_winter_item",
+                           "gametemplate" : "helmet_05_ussr_summer_item",
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_3_windings_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_2_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
+                        "rear_belt_l" : {
+                           "gametemplate" : "attachable_wear_officer_tablet_01_ussr_winter_item",
+                           "slot" : "rear_belt_l"
+                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_engineers_overcoat_2_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_engineers_overcoat_ussr_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_engineer_1408",
+                     "guid" : "ussr_moscow_soldier_engineer_1489",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -6977,7 +7164,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Igor",
+                     "name" : "Arseniy",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -6987,25 +7174,29 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Klimov",
+                     "surname" : "Eremin",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 30720,
+                     "appearance__rndSeed" : 23066,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.004390358924866,
-                        "width" : 1.037300944328308
+                        "height" : 1.011937022209167,
+                        "width" : 1.006428360939026
                      },
                      "callname" : "",
                      "equipment" : {
+                        "bag_l" : {
+                           "gametemplate" : "attachable_wear_gasmask_01_ussr_winter_item",
+                           "slot" : "bag_l"
+                        },
                         "belt_1" : {
                            "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_31_us_item",
+                           "gametemplate" : "attachable_wear_head_male_35_ussr_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
@@ -7016,26 +7207,26 @@ return {
                            "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
                         "head" : {
                            "gametemplate" : "helmet_05_ussr_summer_item",
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_8_windings_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_9_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
+                        "rear_belt_l" : {
+                           "gametemplate" : "attachable_wear_axe_pouch_01_ussr_winter_item",
+                           "slot" : "rear_belt_l"
+                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_engineers_overcoat_2_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_engineers_overcoat_ussr_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_engineer_1434",
+                     "guid" : "ussr_moscow_soldier_engineer_1517",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -7083,7 +7274,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Mihail",
+                     "name" : "Maksim",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -7093,7 +7284,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Orlov",
+                     "surname" : "Golovanov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -7109,6 +7300,8 @@ return {
       "moscow_axis" : {
          "armyId" : "moscow_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_moscow_tutorial_engineer",
@@ -7125,7 +7318,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -7134,7 +7326,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -7143,7 +7334,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -7152,47 +7342,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -7207,14 +7360,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 27807,
+                     "appearance__rndSeed" : 6163,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.009162306785583,
-                        "width" : 1.055353283882141
+                        "height" : 0.9929435253143311,
+                        "width" : 1.060539007186890
                      },
                      "callname" : "",
                      "equipment" : {
@@ -7226,12 +7380,8 @@ return {
                            "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
                            "slot" : "belt_2"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_gas_cape_pouch_01_ger_summer_item",
-                           "slot" : "chest"
-                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_26_us_item",
+                           "gametemplate" : "attachable_wear_head_male_10_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -7250,6 +7400,10 @@ return {
                            "gametemplate" : "attachable_wear_engineer_pants_01_ger_summer_item",
                            "slot" : "pants"
                         },
+                        "shovel" : {
+                           "gametemplate" : "attachable_wear_engineer_cutters_item",
+                           "slot" : "shovel"
+                        },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_engineer_tunic_01_ger_summer_item",
                            "slot" : "tunic"
@@ -7257,7 +7411,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_engineer_1312",
+                     "guid" : "ger_moscow_soldier_engineer_1352",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -7305,7 +7459,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Helmuth",
+                     "name" : "Alois",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -7315,16 +7469,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Doergens",
+                     "surname" : "Heldt",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 32611,
+                     "appearance__rndSeed" : 9293,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9894790649414062,
-                        "width" : 1.042152166366577
+                        "height" : 1.005448818206787,
+                        "width" : 1.004282355308533
                      },
                      "callname" : "",
                      "equipment" : {
@@ -7333,7 +7487,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_2_01_ger_summer_item",
                            "slot" : "belt_2"
                         },
                         "chest" : {
@@ -7341,12 +7495,20 @@ return {
                            "slot" : "chest"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_21_us_item",
+                           "gametemplate" : "attachable_wear_head_male_12_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
                            "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "helmet_03_s_ger_winter_item",
+                           "slot" : "head"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_engineer_pants_01_ger_summer_item",
@@ -7356,10 +7518,6 @@ return {
                            "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
                            "slot" : "shovel"
                         },
-                        "skined_helmet" : {
-                           "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
-                           "slot" : "skined_helmet"
-                        },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_engineer_tunic_01_ger_summer_item",
                            "slot" : "tunic"
@@ -7367,7 +7525,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_engineer_1337",
+                     "guid" : "ger_moscow_soldier_engineer_1375",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -7415,7 +7573,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Simon",
+                     "name" : "Ignatz",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -7425,7 +7583,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Masemann",
+                     "surname" : "Herwig",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -7441,6 +7599,8 @@ return {
       "normandy_allies" : {
          "armyId" : "normandy_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "usa_normandy_tutorial_engineer",
@@ -7457,7 +7617,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -7466,7 +7625,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -7475,7 +7633,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -7484,47 +7641,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -7539,14 +7659,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 25025,
+                     "appearance__rndSeed" : 10944,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.015009641647339,
-                        "width" : 1.041944622993469
+                        "height" : 0.9990935921669006,
+                        "width" : 1.073339581489563
                      },
                      "callname" : "",
                      "equipment" : {
@@ -7555,7 +7676,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_36_ussr_item",
+                           "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -7563,113 +7684,7 @@ return {
                            "slot" : "gloves"
                         },
                         "head" : {
-                           "gametemplate" : "helmet_02_us_summer_item",
-                           "slot" : "head"
-                        },
-                        "helmet_deco" : {
-                           "gametemplate" : "cigarette_matches_01_item",
-                           "slot" : "helmet_deco"
-                        },
-                        "pants" : {
-                           "gametemplate" : "attachable_wear_pants_04_us_summer_item",
-                           "slot" : "pants"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_jacket_m43_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_engineer_1272",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {
-                              "bayonet" : "no4_mk2_bayonet"
-                           },
-                           "numReserveAmmo" : 3,
-                           "reserveAmmoTemplate" : "lee_enfield_no4_mk1_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "lee_enfield_no4_mk1_gun",
-                        "secondary" : "usa_building_tool_gun",
-                        "tertiary" : ""
-                     },
-                     "id" : 0,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "medkit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 0,
-                     "maxLevel" : 4,
-                     "name" : "Phillip",
-                     "perkPoints" : {
-                        "speed" : 0,
-                        "vitality" : 0,
-                        "weapon" : 0
-                     },
-                     "perks" : [],
-                     "perksCount" : 0,
-                     "sClass" : "tutorial_engineer",
-                     "sKind" : "engineer",
-                     "surname" : "Mcbride",
-                     "tier" : 3,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 716,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 0.9894778132438660,
-                        "width" : 1.042247414588928
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_35_ussr_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                           "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
-                        "head" : {
-                           "gametemplate" : "helmet_02_us_summer_item",
+                           "gametemplate" : "helmet_03_us_summer_item",
                            "slot" : "head"
                         },
                         "helmet_deco" : {
@@ -7687,7 +7702,109 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_engineer_1291",
+                     "guid" : "usa_normandy_soldier_engineer_1311",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {
+                              "bayonet" : "no4_mk2_bayonet"
+                           },
+                           "numReserveAmmo" : 3,
+                           "reserveAmmoTemplate" : "lee_enfield_no4_mk1_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "lee_enfield_no4_mk1_gun",
+                        "secondary" : "usa_building_tool_gun",
+                        "tertiary" : ""
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Michael",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_engineer",
+                     "sKind" : "engineer",
+                     "surname" : "Bates",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 11469,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.006365537643433,
+                        "width" : 1.070321917533875
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_17_us_item",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_us_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "helmet_03_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                           "slot" : "pants"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jacket_m43_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "usa_normandy_soldier_engineer_1331",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -7735,7 +7852,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Todd",
+                     "name" : "Christopher",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -7745,7 +7862,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Carter",
+                     "surname" : "Riley",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -7761,6 +7878,8 @@ return {
       "normandy_axis" : {
          "armyId" : "normandy_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_normandy_tutorial_engineer",
@@ -7777,7 +7896,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -7786,7 +7904,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -7795,7 +7912,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -7804,47 +7920,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -7859,14 +7938,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 9548,
+                     "appearance__rndSeed" : 3416,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.015240311622620,
-                        "width" : 1.011311411857605
+                        "height" : 0.9921829700469971,
+                        "width" : 1.005483508110046
                      },
                      "callname" : "",
                      "equipment" : {
@@ -7879,19 +7959,15 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_ger_summer_item",
-                           "slot" : "hair"
-                        },
                         "head" : {
-                           "gametemplate" : "helmet_01_ger_summer_item",
+                           "gametemplate" : "helmet_01_ger_summer_2_item",
                            "slot" : "head"
                         },
                         "helmet_deco" : {
@@ -7906,9 +7982,9 @@ return {
                            "gametemplate" : "attachable_wear_pot_01_ger_summer_item",
                            "slot" : "pot"
                         },
-                        "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_m44_ger_summer_item",
-                           "slot" : "shovel"
+                        "roll" : {
+                           "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
+                           "slot" : "roll"
                         },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_tunic_m44_ger_summer_item",
@@ -7917,7 +7993,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_engineer_1175",
+                     "guid" : "ger_normandy_soldier_engineer_1213",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -7963,7 +8039,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Degenhard",
+                     "name" : "Matthias",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -7973,16 +8049,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Kreuzinger",
+                     "surname" : "Bogert",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 8475,
+                     "appearance__rndSeed" : 18139,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9880764484405518,
-                        "width" : 1.050401926040649
+                        "height" : 0.9987176060676575,
+                        "width" : 1.077780723571777
                      },
                      "callname" : "",
                      "equipment" : {
@@ -7994,8 +8070,12 @@ return {
                            "gametemplate" : "attachable_wear_belt_2_m44_ger_summer_item",
                            "slot" : "belt_2"
                         },
+                        "chest" : {
+                           "gametemplate" : "attachable_wear_gas_cape_pouch_m44_ger_summer_item",
+                           "slot" : "chest"
+                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_40_ger_item",
+                           "gametemplate" : "attachable_wear_head_male_43_ger_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -8003,7 +8083,7 @@ return {
                            "slot" : "gloves"
                         },
                         "hair" : {
-                           "gametemplate" : "hair_02_ger_summer_item",
+                           "gametemplate" : "hair_01_ger_summer_item",
                            "slot" : "hair"
                         },
                         "head" : {
@@ -8022,6 +8102,14 @@ return {
                            "gametemplate" : "attachable_wear_pot_01_ger_summer_item",
                            "slot" : "pot"
                         },
+                        "roll" : {
+                           "gametemplate" : "attachable_wear_roll_01_ger_summer_item",
+                           "slot" : "roll"
+                        },
+                        "shovel" : {
+                           "gametemplate" : "attachable_wear_engineer_cutters_item",
+                           "slot" : "shovel"
+                        },
                         "tunic" : {
                            "gametemplate" : "attachable_wear_tunic_m44_ger_summer_item",
                            "slot" : "tunic"
@@ -8029,7 +8117,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_engineer_1203",
+                     "guid" : "ger_normandy_soldier_engineer_1241",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -8075,7 +8163,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Willibald",
+                     "name" : "Dieter",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -8085,7 +8173,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Bohn",
+                     "surname" : "Weiser",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -8098,9 +8186,581 @@ return {
          "wallPosters" : [],
          "wallPostersCount" : 3
       },
+      "pacific_allies" : {
+         "armyId" : "pacific_allies",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "usa",
+         "curSquadId" : "allies_pacific_tutorial_engineer",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : null,
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 6435,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9911746382713318,
+                        "width" : 1.052443027496338
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_06",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "helmet_04_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                           "slot" : "pants"
+                        },
+                        "rear_belt_r" : {
+                           "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                           "slot" : "rear_belt_r"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jacket_m41_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_engineer_1043",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "enfield_p14_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "enfield_p14_gun",
+                        "secondary" : "usa_building_tool_gun",
+                        "tertiary" : ""
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Tom",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_engineer",
+                     "sKind" : "engineer",
+                     "surname" : "Glover",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 6642,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.013825535774231,
+                        "width" : 1.068781375885010
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_02",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "head" : {
+                           "gametemplate" : "helmet_04_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                           "slot" : "pants"
+                        },
+                        "rear_belt_r" : {
+                           "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                           "slot" : "rear_belt_r"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jacket_m41_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_engineer_1063",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "enfield_p14_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "enfield_p14_gun",
+                        "secondary" : "usa_building_tool_gun",
+                        "tertiary" : ""
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "William",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_engineer",
+                     "sKind" : "engineer",
+                     "surname" : "Weaver",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "allies_pacific_tutorial_engineer",
+               "squadType" : "engineer",
+               "vehicleType" : ""
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
+      "pacific_axis" : {
+         "armyId" : "pacific_axis",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "japan",
+         "curSquadId" : "axis_pacific_tutorial_engineer",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : null,
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 10765,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9342420697212219,
+                        "width" : 0.9559254646301270
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_06",
+                           "slot" : "face"
+                        },
+                        "front_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                           "slot" : "front_belt_l"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                           "slot" : "pants"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_engineer_1442",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {
+                              "bayonet" : "type_30_bayonet_item"
+                           },
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "arisaka_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "japanese_type_i_carcano_gun",
+                        "secondary" : "jp_building_tool_gun",
+                        "tertiary" : ""
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "jap_medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Ren",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_engineer",
+                     "sKind" : "engineer",
+                     "surname" : "Ito",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 16896,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9699475169181824,
+                        "width" : 0.9902404546737671
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_07",
+                           "slot" : "face"
+                        },
+                        "front_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                           "slot" : "front_belt_l"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                           "slot" : "pants"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_engineer_1466",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {
+                              "bayonet" : "type_30_bayonet_item"
+                           },
+                           "numReserveAmmo" : 5,
+                           "reserveAmmoTemplate" : "arisaka_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "japanese_type_i_carcano_gun",
+                        "secondary" : "jp_building_tool_gun",
+                        "tertiary" : ""
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "jap_medkit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 0,
+                     "maxLevel" : 4,
+                     "name" : "Shinobu",
+                     "perkPoints" : {
+                        "speed" : 0,
+                        "vitality" : 0,
+                        "weapon" : 0
+                     },
+                     "perks" : [],
+                     "perksCount" : 0,
+                     "sClass" : "tutorial_engineer",
+                     "sKind" : "engineer",
+                     "surname" : "Sato",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "axis_pacific_tutorial_engineer",
+               "squadType" : "engineer",
+               "vehicleType" : ""
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
       "stalingrad_allies" : {
          "armyId" : "stalingrad_allies",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_stalingrad_tutorial_engineer",
@@ -8117,7 +8777,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -8126,7 +8785,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -8135,7 +8793,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -8144,47 +8801,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -8199,6 +8819,7 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
@@ -8210,44 +8831,36 @@ return {
                      },
                      "callname" : "",
                      "equipment" : {
-                        "bag_l" : {
-                           "gametemplate" : "attachable_wear_gasmask_01_ussr_winter_item",
-                           "slot" : "bag_l"
-                        },
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_belt_1_02_ussr_winter_item",
                            "slot" : "belt_1"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_bandolier_01_ussr_winter_item",
-                           "slot" : "chest"
+                        "belt_2" : {
+                           "gametemplate" : "attachable_wear_belt_2_02_ussr_winter_item",
+                           "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_36_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_07_ussr_item",
                            "slot" : "face"
                         },
-                        "flask_r" : {
-                           "gametemplate" : "attachable_wear_flask_01_ussr_winter_item",
-                           "slot" : "flask_r"
-                        },
-                        "front_belt_l" : {
-                           "gametemplate" : "attachable_wear_nagan_holster_l_01_ussr_winter_item",
-                           "slot" : "front_belt_l"
-                        },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
                         "head" : {
-                           "gametemplate" : "helmet_05_ussr_summer_item",
+                           "gametemplate" : "earflaps_closed_07_ussr_winter_item",
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_1_windings_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_engineers_overcoat_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_tunic_02_ussr_winter_item",
                            "slot" : "tunic"
                         }
                      },
@@ -8309,67 +8922,55 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Zaharov",
+                     "surname" : "Solovev",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 8757,
+                     "appearance__rndSeed" : 11737,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.010518550872803,
-                        "width" : 1.039757013320923
+                        "height" : 0.9844776988029480,
+                        "width" : 1.027134656906128
                      },
                      "callname" : "",
                      "equipment" : {
-                        "bag_l" : {
-                           "gametemplate" : "attachable_wear_gasmask_01_ussr_winter_item",
-                           "slot" : "bag_l"
-                        },
                         "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_belt_1_02_ussr_winter_item",
                            "slot" : "belt_1"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_bandolier_01_ussr_winter_item",
-                           "slot" : "chest"
+                        "belt_2" : {
+                           "gametemplate" : "attachable_wear_belt_2_02_ussr_winter_item",
+                           "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_35_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_47_ussr_item",
                            "slot" : "face"
                         },
-                        "flask_r" : {
-                           "gametemplate" : "attachable_wear_flask_01_ussr_winter_item",
-                           "slot" : "flask_r"
-                        },
-                        "front_belt_l" : {
-                           "gametemplate" : "attachable_wear_nagan_holster_l_01_ussr_winter_item",
-                           "slot" : "front_belt_l"
-                        },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_02_us_summer_item",
+                           "slot" : "hair"
+                        },
                         "head" : {
-                           "gametemplate" : "helmet_05_ussr_summer_item",
+                           "gametemplate" : "earflaps_closed_07_ussr_winter_item",
                            "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_01_9_windings_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_windings_ussr_winter_item",
                            "slot" : "pants"
                         },
-                        "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_officer_tablet_01_ussr_winter_item",
-                           "slot" : "rear_belt_l"
-                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_engineers_overcoat_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_tunic_02_ussr_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "allies_stalingrad_soldier_engineer_1024",
+                     "guid" : "allies_stalingrad_soldier_engineer_1022",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -8415,7 +9016,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Roman",
+                     "name" : "Bogdan",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -8425,7 +9026,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Fokin",
+                     "surname" : "Vlasov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -8441,6 +9042,8 @@ return {
       "stalingrad_axis" : {
          "armyId" : "stalingrad_axis",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_stalingrad_tutorial_engineer",
@@ -8457,7 +9060,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -8466,7 +9068,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -8475,7 +9076,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -8484,47 +9084,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -8539,14 +9102,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 31075,
+                     "appearance__rndSeed" : 19027,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.014499306678772,
-                        "width" : 1.072973370552063
+                        "height" : 0.9812170863151550,
+                        "width" : 1.031375527381897
                      },
                      "callname" : "",
                      "equipment" : {
@@ -8555,37 +9119,37 @@ return {
                            "slot" : "belt_1"
                         },
                         "belt_2" : {
-                           "gametemplate" : "attachable_wear_belt_2_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_belt_2_04_ger_summer_item",
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_23_ger_item",
+                           "gametemplate" : "attachable_wear_head_male_21_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "helmet_01_ger_summer_item",
+                           "slot" : "head"
+                        },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_engineer_pants_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
                            "slot" : "pants"
                         },
-                        "shovel" : {
-                           "gametemplate" : "attachable_wear_engineer_cutters_item",
-                           "slot" : "shovel"
-                        },
-                        "skined_helmet" : {
-                           "gametemplate" : "attachable_wear_balaclava_01_ger_winter_item",
-                           "slot" : "skined_helmet"
-                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_engineer_tunic_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tunic_07_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_engineer_1362",
+                     "guid" : "axis_stalingrad_soldier_engineer_1401",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -8631,7 +9195,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Helwig",
+                     "name" : "Ferdinand",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -8641,16 +9205,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Baumgartner",
+                     "surname" : "Winnerl",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 13390,
+                     "appearance__rndSeed" : 22354,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.006663441658020,
-                        "width" : 1.031980991363525
+                        "height" : 1.018225073814392,
+                        "width" : 1.038524150848389
                      },
                      "callname" : "",
                      "equipment" : {
@@ -8663,37 +9227,29 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_47_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_02_ger_summer_item",
-                           "slot" : "hair"
+                        "head" : {
+                           "gametemplate" : "helmet_01_ger_summer_item",
+                           "slot" : "head"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_engineer_pants_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_pants_02_ger_summer_item",
                            "slot" : "pants"
                         },
-                        "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_01_ger_summer_item",
-                           "slot" : "shovel"
-                        },
-                        "skined_helmet" : {
-                           "gametemplate" : "helmet_04_ger_winter_item",
-                           "slot" : "skined_helmet"
-                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_engineer_tunic_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tunic_07_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_engineer_1384",
+                     "guid" : "axis_stalingrad_soldier_engineer_1422",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -8739,7 +9295,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Wolfgang",
+                     "name" : "Kurd",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -8749,7 +9305,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Stuckmann",
+                     "surname" : "Lippe",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -8765,6 +9321,8 @@ return {
       "tunisia_allies" : {
          "armyId" : "tunisia_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "allies_tunisia_tutorial_engineer",
@@ -8781,7 +9339,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -8790,7 +9347,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -8799,7 +9355,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -8808,47 +9363,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -8863,14 +9381,15 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 12804,
+                     "appearance__rndSeed" : 26149,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.017447471618652,
-                        "width" : 1.031961441040039
+                        "height" : 0.9914395809173584,
+                        "width" : 1.063224554061890
                      },
                      "callname" : "",
                      "equipment" : {
@@ -8883,7 +9402,7 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_06_uk_item",
+                           "gametemplate" : "attachable_wear_head_12_uk_item",
                            "slot" : "face"
                         },
                         "hair" : {
@@ -8905,7 +9424,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_engineer_uk_1050",
+                     "guid" : "allies_tunisia_soldier_engineer_uk_1084",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -8941,7 +9460,7 @@ return {
                         "grenade" : "grenade_thrower",
                         "melee" : "knife_weapon",
                         "primary" : "lee_enfield_no4_mk1_gun",
-                        "secondary" : "usa_building_tool_gun",
+                        "secondary" : "uk_building_tool_gun",
                         "tertiary" : ""
                      },
                      "id" : 0,
@@ -8953,7 +9472,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Luke",
+                     "name" : "Frederick",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -8963,16 +9482,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Davies",
+                     "surname" : "Cornish",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 671,
+                     "appearance__rndSeed" : 16067,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9832471609115601,
-                        "width" : 1.078591227531433
+                        "height" : 0.9869936108589172,
+                        "width" : 1.003432750701904
                      },
                      "callname" : "",
                      "equipment" : {
@@ -8985,8 +9504,12 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_03_uk_item",
+                           "gametemplate" : "attachable_wear_head_05_uk_item",
                            "slot" : "face"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "brodie_helmet_01_uk_summer_item",
@@ -9003,7 +9526,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_engineer_uk_1069",
+                     "guid" : "allies_tunisia_soldier_engineer_uk_1103",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -9039,7 +9562,7 @@ return {
                         "grenade" : "grenade_thrower",
                         "melee" : "knife_weapon",
                         "primary" : "lee_enfield_no4_mk1_gun",
-                        "secondary" : "usa_building_tool_gun",
+                        "secondary" : "uk_building_tool_gun",
                         "tertiary" : ""
                      },
                      "id" : 1,
@@ -9051,7 +9574,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Luca",
+                     "name" : "Charles",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -9061,7 +9584,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Young",
+                     "surname" : "Turner",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -9077,6 +9600,8 @@ return {
       "tunisia_axis" : {
          "armyId" : "tunisia_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "axis_tunisia_tutorial_engineer",
@@ -9093,7 +9618,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -9102,7 +9626,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -9111,7 +9634,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -9120,47 +9642,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -9175,27 +9660,24 @@ return {
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 4419,
+                     "appearance__rndSeed" : 5677,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.001590013504028,
-                        "width" : 1.035567522048950
+                        "height" : 1.011424303054810,
+                        "width" : 1.078666925430298
                      },
                      "callname" : "",
                      "equipment" : {
-                        "bag_l" : {
-                           "gametemplate" : "attachable_wear_ita_gasmask_bag_summer_01_item",
-                           "slot" : "bag_l"
-                        },
                         "belt_1" : {
                            "gametemplate" : "attachable_wear_ita_webbing_belt_summer_01_item",
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_02_it_item",
+                           "gametemplate" : "attachable_wear_head_09_it_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -9217,7 +9699,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_engineer_it_1230",
+                     "guid" : "axis_tunisia_soldier_engineer_it_1270",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -9265,7 +9747,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Bernardo",
+                     "name" : "Pellegrino",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -9275,16 +9757,16 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Cavalli",
+                     "surname" : "Rossi",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 1316,
+                     "appearance__rndSeed" : 11419,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.018726825714111,
-                        "width" : 1.069416165351868
+                        "height" : 0.9824561476707458,
+                        "width" : 1.011555552482605
                      },
                      "callname" : "",
                      "equipment" : {
@@ -9316,18 +9798,14 @@ return {
                            "gametemplate" : "attachable_wear_sahariani_trousers_dak_01_ita_tropic_item",
                            "slot" : "pants"
                         },
-                        "shovel" : {
-                           "gametemplate" : "attachable_wear_shovel_01_ger_winter_item",
-                           "slot" : "shovel"
-                        },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_sahariani_tunic_dakl_01_ita_tropic_item",
+                           "gametemplate" : "attachable_wear_sahariani_tunic_dak_01_ita_tropic_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_engineer_it_1250",
+                     "guid" : "axis_tunisia_soldier_engineer_it_1289",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -9375,7 +9853,7 @@ return {
                      "isPremium" : false,
                      "level" : 0,
                      "maxLevel" : 4,
-                     "name" : "Uberto",
+                     "name" : "Adolfo",
                      "perkPoints" : {
                         "speed" : 0,
                         "vitality" : 0,
@@ -9385,7 +9863,7 @@ return {
                      "perksCount" : 0,
                      "sClass" : "tutorial_engineer",
                      "sKind" : "engineer",
-                     "surname" : "Ferari",
+                     "surname" : "Fumagalli",
                      "tier" : 3,
                      "weaponPreset" : ""
                   }
@@ -9403,6 +9881,8 @@ return {
       "berlin_allies" : {
          "armyId" : "berlin_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_berlin_tutorial_tank",
@@ -9419,7 +9899,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -9428,7 +9907,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -9437,7 +9915,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -9446,47 +9923,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -9498,20 +9938,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1221"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1255"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 17305,
+                     "appearance__rndSeed" : 20644,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.015009641647339,
-                        "width" : 1.026150703430176
+                        "height" : 1.019998788833618,
+                        "width" : 1.037403464317322
                      },
                      "callname" : "",
                      "equipment" : {
@@ -9524,19 +9965,19 @@ return {
                            "slot" : "belt_2"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_36_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_10_us_item",
                            "slot" : "face"
-                        },
-                        "flask_r" : {
-                           "gametemplate" : "attachable_wear_flask_01_ussr_summer_item",
-                           "slot" : "flask_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_tankers_gloves_01_ussr_winter_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
                         "head" : {
-                           "gametemplate" : "tanker_helmet_gls_01_ussr_winter_item",
+                           "gametemplate" : "helmet_07_ussr_summer_item",
                            "slot" : "head"
                         },
                         "pants" : {
@@ -9550,7 +9991,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_tanker_1152",
+                     "guid" : "ussr_berlin_soldier_tanker_1192",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -9596,10 +10037,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Vasiliy",
+                     "name" : "Aleksey",
                      "perkPoints" : {
-                        "speed" : 9,
-                        "vitality" : 4,
+                        "speed" : 10,
+                        "vitality" : 6,
                         "weapon" : 10
                      },
                      "perks" : [
@@ -9608,7 +10049,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -9616,16 +10057,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Uvarov",
+                     "surname" : "Mesheryakov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 4778,
+                     "appearance__rndSeed" : 12874,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.000274062156677,
-                        "width" : 1.004311680793762
+                        "height" : 0.9826624393463135,
+                        "width" : 1.073549628257751
                      },
                      "callname" : "",
                      "equipment" : {
@@ -9637,12 +10078,8 @@ return {
                            "gametemplate" : "attachable_wear_belt_2_01_ussr_summer_item",
                            "slot" : "belt_2"
                         },
-                        "chest" : {
-                           "gametemplate" : "attachable_wear_binoculars_tanker_01_ussr_winter_item",
-                           "slot" : "chest"
-                        },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_05_us_item",
+                           "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
@@ -9654,11 +10091,11 @@ return {
                            "slot" : "gloves"
                         },
                         "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
+                           "gametemplate" : "hair_02_us_summer_item",
                            "slot" : "hair"
                         },
                         "head" : {
-                           "gametemplate" : "helmet_07_ussr_summer_item",
+                           "gametemplate" : "tanker_helmet_gls_01_ussr_winter_item",
                            "slot" : "head"
                         },
                         "pants" : {
@@ -9672,7 +10109,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_tanker_1174",
+                     "guid" : "ussr_berlin_soldier_tanker_1212",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -9718,11 +10155,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Veniamin",
+                     "name" : "Varlam",
                      "perkPoints" : {
-                        "speed" : 5,
-                        "vitality" : 0,
-                        "weapon" : 5
+                        "speed" : 7,
+                        "vitality" : 1,
+                        "weapon" : 6
                      },
                      "perks" : [
                         {
@@ -9730,7 +10167,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -9738,16 +10175,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Gusev",
+                     "surname" : "Lisovskij",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 11881,
+                     "appearance__rndSeed" : 19529,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9961614012718201,
-                        "width" : 1.009607195854187
+                        "height" : 1.018968462944031,
+                        "width" : 1.068310141563416
                      },
                      "callname" : "",
                      "equipment" : {
@@ -9764,7 +10201,7 @@ return {
                            "slot" : "chest"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
+                           "gametemplate" : "attachable_wear_head_male_21_us_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
@@ -9775,12 +10212,8 @@ return {
                            "gametemplate" : "attachable_wear_tankers_gloves_01_ussr_winter_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
                         "head" : {
-                           "gametemplate" : "helmet_07_ussr_summer_item",
+                           "gametemplate" : "tanker_helmet_gls_01_ussr_winter_item",
                            "slot" : "head"
                         },
                         "pants" : {
@@ -9794,7 +10227,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_berlin_soldier_tanker_1198",
+                     "guid" : "ussr_berlin_soldier_tanker_1233",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -9840,11 +10273,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Nikita",
+                     "name" : "Dobrynya",
                      "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 1,
-                        "weapon" : 5
+                        "speed" : 7,
+                        "vitality" : 2,
+                        "weapon" : 6
                      },
                      "perks" : [
                         {
@@ -9852,7 +10285,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -9860,7 +10293,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Kozlov",
+                     "surname" : "Akimov",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -9876,6 +10309,8 @@ return {
       "berlin_axis" : {
          "armyId" : "berlin_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "berlin",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_berlin_tutorial_tank",
@@ -9892,7 +10327,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -9901,7 +10335,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -9910,7 +10343,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -9919,47 +10351,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -9971,232 +10366,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1150"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1190"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 5873,
+                     "appearance__rndSeed" : 10711,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.006089687347412,
-                        "width" : 1.069064617156982
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_tanker_ger_summer_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_47_ussr_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                           "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_01_ger_summer_item",
-                           "slot" : "hair"
-                        },
-                        "skined_helmet" : {
-                           "gametemplate" : "tanker_ger_officer_cap_hp_summer_item",
-                           "slot" : "skined_helmet"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_overall_ger_summer_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_tanker_1105",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 7,
-                           "reserveAmmoTemplate" : "walther_ppk_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "",
-                        "secondary" : "",
-                        "tertiary" : "walther_ppk_gun"
-                     },
-                     "id" : 0,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "repair_kit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 1,
-                     "maxLevel" : 4,
-                     "name" : "Elmershaus",
-                     "perkPoints" : {
-                        "speed" : 10,
-                        "vitality" : 4,
-                        "weapon" : 9
-                     },
-                     "perks" : [
-                        {
-                           "name" : "starter_tanker",
-                           "stats" : [
-                              {
-                                 "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
-                              }
-                           ]
-                        }
-                     ],
-                     "perksCount" : 1,
-                     "sClass" : "tanker",
-                     "sKind" : "tanker",
-                     "surname" : "Radusch",
-                     "tier" : 3,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 24022,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 0.9841322302818298,
-                        "width" : 1.003698825836182
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_1_tanker_ger_summer_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_02_ger_summer_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                           "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_ger_summer_item",
-                           "slot" : "hair"
-                        },
-                        "skined_helmet" : {
-                           "gametemplate" : "tanker_ger_cap_summer_item",
-                           "slot" : "skined_helmet"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_overall_ger_summer_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_tanker_1120",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 7,
-                           "reserveAmmoTemplate" : "walther_ppk_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "",
-                        "secondary" : "",
-                        "tertiary" : "walther_ppk_gun"
-                     },
-                     "id" : 1,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "repair_kit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 1,
-                     "maxLevel" : 2,
-                     "name" : "Christoph",
-                     "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 2,
-                        "weapon" : 6
-                     },
-                     "perks" : [
-                        {
-                           "name" : "starter_tanker",
-                           "stats" : [
-                              {
-                                 "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
-                              }
-                           ]
-                        }
-                     ],
-                     "perksCount" : 1,
-                     "sClass" : "tanker",
-                     "sKind" : "tanker",
-                     "surname" : "Diergarten",
-                     "tier" : 1,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 6675,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 0.9854371547698975,
-                        "width" : 1.063952088356018
+                        "height" : 0.9841443896293640,
+                        "width" : 1.023946046829224
                      },
                      "callname" : "",
                      "equipment" : {
@@ -10223,7 +10407,215 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_berlin_soldier_tanker_1136",
+                     "guid" : "ger_berlin_soldier_tanker_1146",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 7,
+                           "reserveAmmoTemplate" : "walther_ppk_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "walther_ppk_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Arnold",
+                     "perkPoints" : {
+                        "speed" : 10,
+                        "vitality" : 6,
+                        "weapon" : 8
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Fuhrmann",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 17023,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.006629228591919,
+                        "width" : 1.018521070480347
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_1_tanker_ger_summer_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_01_ger_summer_item",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "tanker_ger_cap_summer_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_ger_summer_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "ger_base_soldier",
+                     "guid" : "ger_berlin_soldier_tanker_1161",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 7,
+                           "reserveAmmoTemplate" : "walther_ppk_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "walther_ppk_gun"
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "August",
+                     "perkPoints" : {
+                        "speed" : 5,
+                        "vitality" : 1,
+                        "weapon" : 4
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Welzel",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 13062,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9886135458946228,
+                        "width" : 1.069113492965698
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_1_tanker_ger_summer_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_10_us_item",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "tanker_ger_cap_hp_summer_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_ger_summer_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "ger_base_soldier",
+                     "guid" : "ger_berlin_soldier_tanker_1176",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -10269,11 +10661,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Julius",
+                     "name" : "Ralph",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 2,
-                        "weapon" : 5
+                        "speed" : 6,
+                        "vitality" : 1,
+                        "weapon" : 6
                      },
                      "perks" : [
                         {
@@ -10281,7 +10673,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -10289,7 +10681,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Frantz",
+                     "surname" : "Kahle",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -10305,6 +10697,8 @@ return {
       "moscow_allies" : {
          "armyId" : "moscow_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_moscow_tutorial_tank",
@@ -10321,7 +10715,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -10330,7 +10723,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -10339,7 +10731,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -10348,47 +10739,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -10400,20 +10754,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1534"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1619"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 13201,
+                     "appearance__rndSeed" : 8585,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9937577247619629,
-                        "width" : 1.016038060188293
+                        "height" : 0.9858974218368530,
+                        "width" : 1.014607429504395
                      },
                      "callname" : "",
                      "equipment" : {
@@ -10422,7 +10777,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_05_us_item",
+                           "gametemplate" : "attachable_wear_head_male_26_us_item",
                            "slot" : "face"
                         },
                         "front_belt_r" : {
@@ -10448,7 +10803,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_tanker_1477",
+                     "guid" : "ussr_moscow_soldier_tanker_1563",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -10494,11 +10849,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Sergey",
+                     "name" : "Timofey",
                      "perkPoints" : {
-                        "speed" : 10,
-                        "vitality" : 4,
-                        "weapon" : 9
+                        "speed" : 11,
+                        "vitality" : 6,
+                        "weapon" : 10
                      },
                      "perks" : [
                         {
@@ -10506,7 +10861,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -10514,16 +10869,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Lebedev",
+                     "surname" : "Ilin",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 31286,
+                     "appearance__rndSeed" : 28857,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9834364056587219,
-                        "width" : 1.062482357025146
+                        "height" : 1.012463092803955,
+                        "width" : 1.026839256286621
                      },
                      "callname" : "",
                      "equipment" : {
@@ -10532,20 +10887,28 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_30_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_17_us_item",
                            "slot" : "face"
+                        },
+                        "front_belt_r" : {
+                           "gametemplate" : "attachable_wear_nagan_holster_09_ussr_winter_item",
+                           "slot" : "front_belt_r"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
                            "slot" : "gloves"
                         },
                         "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
+                           "gametemplate" : "hair_01_us_summer_item",
                            "slot" : "hair"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_04_2_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_04_ussr_winter_item",
                            "slot" : "pants"
+                        },
+                        "rear_belt_l" : {
+                           "gametemplate" : "attachable_wear_officer_tablet_09_ussr_winter_item",
+                           "slot" : "rear_belt_l"
                         },
                         "skined_helmet" : {
                            "gametemplate" : "attachable_wear_tanker_helmet_09_ussr_winter_item",
@@ -10558,7 +10921,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_tanker_1496",
+                     "guid" : "ussr_moscow_soldier_tanker_1581",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -10604,11 +10967,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Andrey",
+                     "name" : "Vladislav",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 2,
-                        "weapon" : 6
+                        "speed" : 5,
+                        "vitality" : 0,
+                        "weapon" : 4
                      },
                      "perks" : [
                         {
@@ -10616,7 +10979,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -10624,16 +10987,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Chernyj",
+                     "surname" : "Druzhinin",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 2302,
+                     "appearance__rndSeed" : 15417,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.005708813667297,
-                        "width" : 1.033497095108032
+                        "height" : 1.017963767051697,
+                        "width" : 1.070863962173462
                      },
                      "callname" : "",
                      "equipment" : {
@@ -10642,7 +11005,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_42_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
                            "slot" : "face"
                         },
                         "front_belt_r" : {
@@ -10654,7 +11017,7 @@ return {
                            "slot" : "gloves"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_04_2_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_04_ussr_winter_item",
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
@@ -10668,7 +11031,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "ussr_moscow_soldier_tanker_1516",
+                     "guid" : "ussr_moscow_soldier_tanker_1601",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -10714,10 +11077,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Aleksandr",
+                     "name" : "Konstantin",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 2,
+                        "speed" : 5,
+                        "vitality" : 0,
                         "weapon" : 4
                      },
                      "perks" : [
@@ -10726,7 +11089,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -10734,7 +11097,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Davydov",
+                     "surname" : "Agafonov",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -10750,6 +11113,8 @@ return {
       "moscow_axis" : {
          "armyId" : "moscow_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "moscow",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_moscow_tutorial_tank",
@@ -10766,7 +11131,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -10775,7 +11139,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -10784,7 +11147,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -10793,47 +11155,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -10845,20 +11170,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1423"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1456"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 32583,
+                     "appearance__rndSeed" : 7293,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.005011796951294,
-                        "width" : 1.051661729812622
+                        "height" : 1.017701387405396,
+                        "width" : 1.056571602821350
                      },
                      "callname" : "",
                      "equipment" : {
@@ -10867,7 +11193,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_26_us_item",
+                           "gametemplate" : "attachable_wear_head_male_21_us_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -10889,7 +11215,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_tanker_1372",
+                     "guid" : "ger_moscow_soldier_tanker_1407",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -10935,11 +11261,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Ekhard",
+                     "name" : "Otmar",
                      "perkPoints" : {
-                        "speed" : 11,
-                        "vitality" : 6,
-                        "weapon" : 10
+                        "speed" : 9,
+                        "vitality" : 4,
+                        "weapon" : 8
                      },
                      "perks" : [
                         {
@@ -10947,7 +11273,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -10955,16 +11281,122 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Lempp",
+                     "surname" : "Hoerl",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 4293,
+                     "appearance__rndSeed" : 587,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9809729456901550,
-                        "width" : 1.026282548904419
+                        "height" : 0.9979583024978638,
+                        "width" : 1.051803350448608
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_47_ussr_item",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "slot" : "gloves"
+                        },
+                        "pants" : {
+                           "gametemplate" : "attachable_wear_tanker_pants_03_ger_summer_item",
+                           "slot" : "pants"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "tanker_helmet_03_ger_summer_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_tunic_01_ger_summer_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "ger_base_soldier",
+                     "guid" : "ger_moscow_soldier_tanker_1424",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 7,
+                           "reserveAmmoTemplate" : "walther_ppk_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "walther_ppk_gun"
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "Gunnar",
+                     "perkPoints" : {
+                        "speed" : 5,
+                        "vitality" : 1,
+                        "weapon" : 5
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Gratz",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 15086,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9906961321830750,
+                        "width" : 1.053209662437439
                      },
                      "callname" : "",
                      "equipment" : {
@@ -10995,117 +11427,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_tanker_1389",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 7,
-                           "reserveAmmoTemplate" : "walther_ppk_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "",
-                        "secondary" : "",
-                        "tertiary" : "walther_ppk_gun"
-                     },
-                     "id" : 1,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "repair_kit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 1,
-                     "maxLevel" : 2,
-                     "name" : "Gerrit",
-                     "perkPoints" : {
-                        "speed" : 5,
-                        "vitality" : 1,
-                        "weapon" : 4
-                     },
-                     "perks" : [
-                        {
-                           "name" : "starter_tanker",
-                           "stats" : [
-                              {
-                                 "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
-                              }
-                           ]
-                        }
-                     ],
-                     "perksCount" : 1,
-                     "sClass" : "tanker",
-                     "sKind" : "tanker",
-                     "surname" : "Peitsmeyer",
-                     "tier" : 1,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 25961,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 1.015511393547058,
-                        "width" : 1.075002312660217
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_23_ger_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
-                           "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_ger_summer_item",
-                           "slot" : "hair"
-                        },
-                        "pants" : {
-                           "gametemplate" : "attachable_wear_tanker_pants_03_ger_summer_item",
-                           "slot" : "pants"
-                        },
-                        "skined_helmet" : {
-                           "gametemplate" : "tanker_helmet_01_ger_summer_item",
-                           "slot" : "skined_helmet"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_tunic_01_ger_winter_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_moscow_soldier_tanker_1406",
+                     "guid" : "ger_moscow_soldier_tanker_1440",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -11151,7 +11473,7 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Ercih",
+                     "name" : "Hein",
                      "perkPoints" : {
                         "speed" : 5,
                         "vitality" : 0,
@@ -11163,7 +11485,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -11171,7 +11493,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Bochentin",
+                     "surname" : "Hengstler",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -11187,6 +11509,8 @@ return {
       "normandy_allies" : {
          "armyId" : "normandy_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "usa_normandy_tutorial_tank",
@@ -11203,7 +11527,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -11212,7 +11535,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -11221,7 +11543,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -11230,47 +11551,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -11282,20 +11566,127 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1370"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1405"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 7092,
+                     "appearance__rndSeed" : 15413,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.003701925277710,
-                        "width" : 1.001647949218750
+                        "height" : 1.006874561309814,
+                        "width" : 1.064315915107727
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_26_us_item",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "tanker_helmet_01_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "usa_normandy_soldier_tanker_1356",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "colt_new_service_m1909_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Sean",
+                     "perkPoints" : {
+                        "speed" : 10,
+                        "vitality" : 4,
+                        "weapon" : 9
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Walker",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 28634,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.017911314964294,
+                        "width" : 1.062941431999207
                      },
                      "callname" : "",
                      "equipment" : {
@@ -11304,7 +11695,117 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_17_us_item",
+                           "gametemplate" : "attachable_wear_head_male_35_ussr_item",
+                           "slot" : "face"
+                        },
+                        "flask_r" : {
+                           "gametemplate" : "attachable_wear_flask_tanker_overall_item",
+                           "slot" : "flask_r"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_us_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "tanker_helmet_01_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "usa_normandy_soldier_tanker_1372",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "colt_new_service_m1909_gun"
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "Brian",
+                     "perkPoints" : {
+                        "speed" : 7,
+                        "vitality" : 0,
+                        "weapon" : 4
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Gallagher",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 15278,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.013816952705383,
+                        "width" : 1.054759979248047
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_tanker_overall_m36_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "attachable_wear_head_male_31_us_item",
                            "slot" : "face"
                         },
                         "flask_r" : {
@@ -11330,215 +11831,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_tanker_1321",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 8,
-                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "",
-                        "secondary" : "",
-                        "tertiary" : "colt_new_service_m1909_gun"
-                     },
-                     "id" : 0,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "repair_kit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 1,
-                     "maxLevel" : 4,
-                     "name" : "James",
-                     "perkPoints" : {
-                        "speed" : 11,
-                        "vitality" : 4,
-                        "weapon" : 8
-                     },
-                     "perks" : [
-                        {
-                           "name" : "starter_tanker",
-                           "stats" : [
-                              {
-                                 "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
-                              }
-                           ]
-                        }
-                     ],
-                     "perksCount" : 1,
-                     "sClass" : "tanker",
-                     "sKind" : "tanker",
-                     "surname" : "Hayes",
-                     "tier" : 3,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 18819,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 0.9829944968223572,
-                        "width" : 1.042887091636658
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_tanker_overall_m36_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_30_ussr_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                           "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
-                        "head" : {
-                           "gametemplate" : "tanker_helmet_01_us_summer_item",
-                           "slot" : "head"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_tanker_1338",
-                     "heroTpl" : "",
-                     "human_weap__weapInfo" : [
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 8,
-                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        },
-                        {
-                           "gunSlots" : {},
-                           "numReserveAmmo" : 0,
-                           "reserveAmmoTemplate" : ""
-                        }
-                     ],
-                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                     "human_weap__weapTemplates" : {
-                        "grenade" : "grenade_thrower",
-                        "melee" : "knife_weapon",
-                        "primary" : "",
-                        "secondary" : "",
-                        "tertiary" : "colt_new_service_m1909_gun"
-                     },
-                     "id" : 1,
-                     "inventory" : [
-                        {
-                           "gametemplate" : "repair_kit_item"
-                        }
-                     ],
-                     "isPremium" : false,
-                     "level" : 1,
-                     "maxLevel" : 2,
-                     "name" : "James",
-                     "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 1,
-                        "weapon" : 4
-                     },
-                     "perks" : [
-                        {
-                           "name" : "starter_tanker",
-                           "stats" : [
-                              {
-                                 "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
-                              }
-                           ]
-                        }
-                     ],
-                     "perksCount" : 1,
-                     "sClass" : "tanker",
-                     "sKind" : "tanker",
-                     "surname" : "Ortiz",
-                     "tier" : 1,
-                     "weaponPreset" : ""
-                  },
-                  {
-                     "appearance__rndSeed" : 30833,
-                     "availPerks" : 0,
-                     "bodyScale" : {
-                        "height" : 1.003029227256775,
-                        "width" : 1.029380798339844
-                     },
-                     "callname" : "",
-                     "equipment" : {
-                        "belt_1" : {
-                           "gametemplate" : "attachable_wear_belt_tanker_overall_m36_item",
-                           "slot" : "belt_1"
-                        },
-                        "face" : {
-                           "gametemplate" : "attachable_wear_head_male_05_us_item",
-                           "slot" : "face"
-                        },
-                        "gloves" : {
-                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                           "slot" : "gloves"
-                        },
-                        "head" : {
-                           "gametemplate" : "tanker_helmet_01_us_summer_item",
-                           "slot" : "head"
-                        },
-                        "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
-                           "slot" : "tunic"
-                        }
-                     },
-                     "exp" : 0,
-                     "gametemplate" : "usa_base_soldier",
-                     "guid" : "usa_normandy_soldier_tanker_1354",
+                     "guid" : "usa_normandy_soldier_tanker_1389",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -11584,11 +11877,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Jimmy",
+                     "name" : "Bill",
                      "perkPoints" : {
-                        "speed" : 5,
-                        "vitality" : 0,
-                        "weapon" : 4
+                        "speed" : 7,
+                        "vitality" : 2,
+                        "weapon" : 5
                      },
                      "perks" : [
                         {
@@ -11596,7 +11889,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -11604,7 +11897,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Miles",
+                     "surname" : "Garcia",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -11620,6 +11913,8 @@ return {
       "normandy_axis" : {
          "armyId" : "normandy_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "normandy",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_normandy_tutorial_tank",
@@ -11636,7 +11931,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -11645,7 +11939,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -11654,7 +11947,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -11663,47 +11955,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -11715,20 +11970,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1267"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1303"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 9710,
+                     "appearance__rndSeed" : 28695,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.011679410934448,
-                        "width" : 1.047391533851624
+                        "height" : 1.001338481903076,
+                        "width" : 1.076071619987488
                      },
                      "callname" : "",
                      "equipment" : {
@@ -11737,8 +11993,12 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_40_ger_item",
+                           "gametemplate" : "attachable_wear_head_male_11_ger_item",
                            "slot" : "face"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_tanker_pants_01_ger_summer_item",
@@ -11749,13 +12009,13 @@ return {
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_tunic_01h_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tanker_shirt_ger_summer_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_tanker_1223",
+                     "guid" : "ger_normandy_soldier_tanker_1257",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -11801,11 +12061,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Benno",
+                     "name" : "Rolf",
                      "perkPoints" : {
-                        "speed" : 11,
-                        "vitality" : 5,
-                        "weapon" : 9
+                        "speed" : 10,
+                        "vitality" : 4,
+                        "weapon" : 10
                      },
                      "perks" : [
                         {
@@ -11813,7 +12073,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -11821,16 +12081,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Stather",
+                     "surname" : "Zwipf",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 12019,
+                     "appearance__rndSeed" : 21627,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9916324615478516,
-                        "width" : 1.047511219978333
+                        "height" : 1.007973313331604,
+                        "width" : 1.033763289451599
                      },
                      "callname" : "",
                      "equipment" : {
@@ -11839,15 +12099,19 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
                            "slot" : "face"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_tanker_pants_01_ger_summer_item",
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "tanker_ger_officer_cap_shirt_summer_item",
+                           "gametemplate" : "tanker_ger_cap_summer_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
@@ -11857,7 +12121,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_tanker_1238",
+                     "guid" : "ger_normandy_soldier_tanker_1273",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -11903,11 +12167,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Babo",
+                     "name" : "Gustav",
                      "perkPoints" : {
-                        "speed" : 5,
-                        "vitality" : 0,
-                        "weapon" : 4
+                        "speed" : 7,
+                        "vitality" : 2,
+                        "weapon" : 6
                      },
                      "perks" : [
                         {
@@ -11915,7 +12179,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -11923,16 +12187,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Rotter",
+                     "surname" : "von Schellendorff",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 13551,
+                     "appearance__rndSeed" : 10993,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9877346158027649,
-                        "width" : 1.065790534019470
+                        "height" : 1.014891147613525,
+                        "width" : 1.026277661323547
                      },
                      "callname" : "",
                      "equipment" : {
@@ -11941,7 +12205,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_18b_us_item",
+                           "gametemplate" : "attachable_wear_head_male_05_us_item",
                            "slot" : "face"
                         },
                         "pants" : {
@@ -11949,7 +12213,7 @@ return {
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "tanker_ger_cap_summer_item",
+                           "gametemplate" : "tanker_ger_cap_shirt_summer_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
@@ -11959,7 +12223,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "ger_normandy_soldier_tanker_1252",
+                     "guid" : "ger_normandy_soldier_tanker_1289",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -12005,11 +12269,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Valentin",
+                     "name" : "Derk",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 0,
-                        "weapon" : 6
+                        "speed" : 5,
+                        "vitality" : 1,
+                        "weapon" : 4
                      },
                      "perks" : [
                         {
@@ -12017,7 +12281,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12025,7 +12289,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Teige",
+                     "surname" : "Hackl",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -12038,9 +12302,815 @@ return {
          "wallPosters" : [],
          "wallPostersCount" : 3
       },
+      "pacific_allies" : {
+         "armyId" : "pacific_allies",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "usa",
+         "curSquadId" : "allies_pacific_tutorial_tank",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : {
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1105"
+               },
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 28172,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.017447471618652,
+                        "width" : 1.040916800498962
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_04",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "head" : {
+                           "gametemplate" : "tanker_helmet_01_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_tanker_1054",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "colt_new_service_m1909_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Jerry",
+                     "perkPoints" : {
+                        "speed" : 9,
+                        "vitality" : 5,
+                        "weapon" : 8
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Johnson",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 2651,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9888003468513489,
+                        "width" : 1.007414817810059
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_02",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_02_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "head" : {
+                           "gametemplate" : "tanker_helmet_01_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_tanker_1071",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "colt_new_service_m1909_gun"
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "Vernon",
+                     "perkPoints" : {
+                        "speed" : 6,
+                        "vitality" : 2,
+                        "weapon" : 6
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Smith",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 20684,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 1.000132441520691,
+                        "width" : 1.018794536590576
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "usa_gen_head_07",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                           "slot" : "gloves"
+                        },
+                        "head" : {
+                           "gametemplate" : "tanker_helmet_01_us_summer_item",
+                           "slot" : "head"
+                        },
+                        "side_belt_r" : {
+                           "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
+                           "slot" : "side_belt_r"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "usa_base_soldier",
+                     "guid" : "allies_pacific_soldier_tanker_1089",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "colt_new_service_m1909_gun"
+                     },
+                     "id" : 2,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "James",
+                     "perkPoints" : {
+                        "speed" : 5,
+                        "vitality" : 1,
+                        "weapon" : 5
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Powers",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "allies_pacific_tutorial_tank",
+               "squadType" : "tank",
+               "vehicleType" : "tank"
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
+      "pacific_axis" : {
+         "armyId" : "pacific_axis",
+         "boosters" : [],
+         "campaignGroup" : "2",
+         "campaignId" : "pacific",
+         "classBonus" : {},
+         "country" : "japan",
+         "curSquadId" : "axis_pacific_tutorial_tank",
+         "exp" : 0,
+         "expLimits" : {
+            "minArmyExp" : 500,
+            "minSoldiersLvlUp" : 0
+         },
+         "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+         "freemiumExpMult" : 1.0,
+         "globalData" : {
+            "globalGifts" : {},
+            "globalGiftsCfg" : [
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order",
+                  "loopCount" : 1,
+                  "loopExp" : 6000,
+                  "startCount" : 1,
+                  "startExp" : 3000
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order",
+                  "loopCount" : 1,
+                  "loopExp" : 3000,
+                  "startCount" : 1,
+                  "startExp" : 1500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "weapon_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 25000,
+                  "startCount" : 1,
+                  "startExp" : 12500
+               },
+               {
+                  "army" : "common_army",
+                  "basetpl" : "soldier_order_silver",
+                  "loopCount" : 1,
+                  "loopExp" : 50000,
+                  "startCount" : 1,
+                  "startExp" : 25000
+               }
+            ]
+         },
+         "isArmyProgressLocked" : false,
+         "isFakeSquads" : true,
+         "level" : 1,
+         "squads" : [
+            {
+               "artilleryCooldownMul" : 1.0,
+               "artilleryTypeUnlocks" : [],
+               "curVehicle" : {
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1561"
+               },
+               "engineerUnlocks" : [],
+               "exp" : 0,
+               "expBonus" : 0.0,
+               "isRented" : false,
+               "level" : 0,
+               "squad" : [
+                  {
+                     "appearance__rndSeed" : 27491,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9340394139289856,
+                        "width" : 0.9868199825286865
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tanker_coverall_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_02",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_jap_gloves_tanker_coverall_item",
+                           "slot" : "gloves"
+                        },
+                        "side_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_sheath_tanker_coverall_item",
+                           "slot" : "side_belt_l"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_jap_tanker_helmet_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_tanker_coverall_br_w_legings_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_tanker_1510",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "nambu_type_94_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "nambu_type_94_gun"
+                     },
+                     "id" : 0,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 4,
+                     "name" : "Yoshi",
+                     "perkPoints" : {
+                        "speed" : 11,
+                        "vitality" : 6,
+                        "weapon" : 10
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Masuda",
+                     "tier" : 3,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 30846,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9693432450294495,
+                        "width" : 0.9930506348609924
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tanker_coverall_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_04",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_jap_gloves_tanker_coverall_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "side_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_sheath_tanker_coverall_item",
+                           "slot" : "side_belt_l"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_jap_tanker_helmet_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_tanker_coverall_br_w_legings_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_tanker_1526",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "nambu_type_94_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "nambu_type_94_gun"
+                     },
+                     "id" : 1,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "Gorou",
+                     "perkPoints" : {
+                        "speed" : 6,
+                        "vitality" : 1,
+                        "weapon" : 5
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Suzuki",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  },
+                  {
+                     "appearance__rndSeed" : 23086,
+                     "availPerks" : 0,
+                     "bodyScale" : {
+                        "height" : 0.9371510744094849,
+                        "width" : 1.007052540779114
+                     },
+                     "callname" : "",
+                     "equipment" : {
+                        "belt_1" : {
+                           "gametemplate" : "attachable_wear_jap_belt_tanker_coverall_item",
+                           "slot" : "belt_1"
+                        },
+                        "face" : {
+                           "gametemplate" : "jap_gen_head_09",
+                           "slot" : "face"
+                        },
+                        "gloves" : {
+                           "gametemplate" : "attachable_wear_jap_gloves_tanker_coverall_item",
+                           "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
+                        "side_belt_l" : {
+                           "gametemplate" : "attachable_wear_jap_sheath_tanker_coverall_item",
+                           "slot" : "side_belt_l"
+                        },
+                        "skined_helmet" : {
+                           "gametemplate" : "attachable_wear_jap_tanker_helmet_item",
+                           "slot" : "skined_helmet"
+                        },
+                        "tunic" : {
+                           "gametemplate" : "attachable_wear_jap_tanker_coverall_br_w_legings_item",
+                           "slot" : "tunic"
+                        }
+                     },
+                     "exp" : 0,
+                     "gametemplate" : "jap_base_soldier",
+                     "guid" : "axis_pacific_soldier_tanker_1543",
+                     "heroTpl" : "",
+                     "human_weap__weapInfo" : [
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 8,
+                           "reserveAmmoTemplate" : "nambu_type_94_magazine"
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        },
+                        {
+                           "gunSlots" : {},
+                           "numReserveAmmo" : 0,
+                           "reserveAmmoTemplate" : ""
+                        }
+                     ],
+                     "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                     "human_weap__weapTemplates" : {
+                        "grenade" : "grenade_thrower",
+                        "melee" : "knife_weapon",
+                        "primary" : "",
+                        "secondary" : "",
+                        "tertiary" : "nambu_type_94_gun"
+                     },
+                     "id" : 2,
+                     "inventory" : [
+                        {
+                           "gametemplate" : "repair_kit_item"
+                        }
+                     ],
+                     "isPremium" : false,
+                     "level" : 1,
+                     "maxLevel" : 2,
+                     "name" : "Kichirou",
+                     "perkPoints" : {
+                        "speed" : 5,
+                        "vitality" : 0,
+                        "weapon" : 5
+                     },
+                     "perks" : [
+                        {
+                           "name" : "starter_tanker",
+                           "stats" : [
+                              {
+                                 "statKey" : "seat_change_speed",
+                                 "statValue" : 0.09959999471902847
+                              }
+                           ]
+                        }
+                     ],
+                     "perksCount" : 1,
+                     "sClass" : "tanker",
+                     "sKind" : "tanker",
+                     "surname" : "Kimura",
+                     "tier" : 1,
+                     "weaponPreset" : ""
+                  }
+               ],
+               "squadId" : "axis_pacific_tutorial_tank",
+               "squadType" : "tank",
+               "vehicleType" : "tank"
+            }
+         ],
+         "wallPosters" : [],
+         "wallPostersCount" : 3
+      },
       "stalingrad_allies" : {
          "armyId" : "stalingrad_allies",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "ussr",
          "curSquadId" : "ussr_stalingrad_tutorial_tank",
@@ -12057,7 +13127,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -12066,7 +13135,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -12075,7 +13143,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -12084,47 +13151,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -12136,12 +13166,13 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1060"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1052"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
@@ -12158,20 +13189,12 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_07_ussr_item",
+                           "gametemplate" : "attachable_wear_head_male_10_us_item",
                            "slot" : "face"
                         },
-                        "front_belt_r" : {
-                           "gametemplate" : "attachable_wear_nagan_holster_09_ussr_winter_item",
-                           "slot" : "front_belt_r"
-                        },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_02_us_summer_item",
-                           "slot" : "hair"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_pants_01_2_ussr_winter_item",
@@ -12236,9 +13259,9 @@ return {
                      "maxLevel" : 4,
                      "name" : "Aleksandr",
                      "perkPoints" : {
-                        "speed" : 11,
-                        "vitality" : 5,
-                        "weapon" : 10
+                        "speed" : 9,
+                        "vitality" : 6,
+                        "weapon" : 9
                      },
                      "perks" : [
                         {
@@ -12246,7 +13269,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12254,16 +13277,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Kotov",
+                     "surname" : "Kasyanov",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 14324,
+                     "appearance__rndSeed" : 11737,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.015718817710876,
-                        "width" : 1.054137349128723
+                        "height" : 0.9844776988029480,
+                        "width" : 1.027134656906128
                      },
                      "callname" : "",
                      "equipment" : {
@@ -12272,27 +13295,19 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_31_us_item",
+                           "gametemplate" : "attachable_wear_head_male_36_ussr_item_no_facegen",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
-                        },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_04_3_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_2_ussr_winter_item",
                            "slot" : "pants"
                         },
-                        "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_officer_tablet_09_ussr_winter_item",
-                           "slot" : "rear_belt_l"
-                        },
                         "skined_helmet" : {
-                           "gametemplate" : "attachable_wear_tanker_helmet_gls_09_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_tanker_helmet_09_ussr_winter_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
@@ -12302,7 +13317,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "allies_stalingrad_soldier_tanker_1021",
+                     "guid" : "allies_stalingrad_soldier_tanker_1018",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -12348,11 +13363,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Aleksandr",
+                     "name" : "Ilya",
                      "perkPoints" : {
-                        "speed" : 6,
-                        "vitality" : 0,
-                        "weapon" : 4
+                        "speed" : 7,
+                        "vitality" : 2,
+                        "weapon" : 6
                      },
                      "perks" : [
                         {
@@ -12360,7 +13375,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12368,16 +13383,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Semenov",
+                     "surname" : "Savickij",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 10611,
+                     "appearance__rndSeed" : 29263,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9968889355659485,
-                        "width" : 1.057492017745972
+                        "height" : 1.017380237579346,
+                        "width" : 1.015710949897766
                      },
                      "callname" : "",
                      "equipment" : {
@@ -12386,24 +13401,16 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
+                           "gametemplate" : "ussr_gen_head_04",
                            "slot" : "face"
                         },
-                        "front_belt_r" : {
-                           "gametemplate" : "attachable_wear_nagan_holster_09_ussr_winter_item",
-                           "slot" : "front_belt_r"
-                        },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
                         "pants" : {
-                           "gametemplate" : "attachable_wear_pants_04_3_ussr_winter_item",
+                           "gametemplate" : "attachable_wear_pants_01_2_ussr_winter_item",
                            "slot" : "pants"
-                        },
-                        "rear_belt_l" : {
-                           "gametemplate" : "attachable_wear_officer_tablet_09_ussr_winter_item",
-                           "slot" : "rear_belt_l"
                         },
                         "skined_helmet" : {
                            "gametemplate" : "attachable_wear_tanker_helmet_09_ussr_winter_item",
@@ -12416,7 +13423,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ussr_base_soldier",
-                     "guid" : "allies_stalingrad_soldier_tanker_1040",
+                     "guid" : "allies_stalingrad_soldier_tanker_1035",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -12462,7 +13469,7 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Pavel",
+                     "name" : "Egor",
                      "perkPoints" : {
                         "speed" : 5,
                         "vitality" : 0,
@@ -12474,7 +13481,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12482,7 +13489,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Kirillov",
+                     "surname" : "Muhin",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -12498,6 +13505,8 @@ return {
       "stalingrad_axis" : {
          "armyId" : "stalingrad_axis",
          "boosters" : [],
+         "campaignGroup" : "1",
+         "campaignId" : "stalingrad",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "ger_stalingrad_tutorial_tank",
@@ -12514,7 +13523,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -12523,7 +13531,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -12532,7 +13539,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -12541,47 +13547,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -12593,20 +13562,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1475"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1508"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 32262,
+                     "appearance__rndSeed" : 29144,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.016639351844788,
-                        "width" : 1.053050994873047
+                        "height" : 1.012914776802063,
+                        "width" : 1.028890013694763
                      },
                      "callname" : "",
                      "equipment" : {
@@ -12615,12 +13585,16 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_us_summer_item",
+                           "gametemplate" : "attachable_wear_head_01_ger_summer_item",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
+                        },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
                         },
                         "pants" : {
                            "gametemplate" : "attachable_wear_tanker_pants_03_ger_summer_item",
@@ -12631,13 +13605,13 @@ return {
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_tunic_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tanker_tunic_01_ger_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_tanker_1425",
+                     "guid" : "axis_stalingrad_soldier_tanker_1458",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -12683,11 +13657,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Gunther",
+                     "name" : "Ehrenfried",
                      "perkPoints" : {
                         "speed" : 11,
                         "vitality" : 6,
-                        "weapon" : 9
+                        "weapon" : 10
                      },
                      "perks" : [
                         {
@@ -12695,7 +13669,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12703,16 +13677,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Brandenberger",
+                     "surname" : "Haeussler",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 27688,
+                     "appearance__rndSeed" : 17302,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9991229176521301,
-                        "width" : 1.038384914398193
+                        "height" : 1.004389166831970,
+                        "width" : 1.029229402542114
                      },
                      "callname" : "",
                      "equipment" : {
@@ -12721,11 +13695,11 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_male_05_us_item",
+                           "gametemplate" : "ger_gen_head_02",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
                         "pants" : {
@@ -12743,7 +13717,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_tanker_1442",
+                     "guid" : "axis_stalingrad_soldier_tanker_1475",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -12789,9 +13763,9 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Albin",
+                     "name" : "Schubert",
                      "perkPoints" : {
-                        "speed" : 6,
+                        "speed" : 5,
                         "vitality" : 0,
                         "weapon" : 4
                      },
@@ -12801,7 +13775,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12809,16 +13783,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Graebsch",
+                     "surname" : "Ditter",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 9132,
+                     "appearance__rndSeed" : 134,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.013183355331421,
-                        "width" : 1.062904715538025
+                        "height" : 1.004606485366821,
+                        "width" : 1.077988266944885
                      },
                      "callname" : "",
                      "equipment" : {
@@ -12827,11 +13801,11 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_01_ger_summer_item",
+                           "gametemplate" : "ger_gen_head_01",
                            "slot" : "face"
                         },
                         "gloves" : {
-                           "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
+                           "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
                         },
                         "pants" : {
@@ -12843,13 +13817,13 @@ return {
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
-                           "gametemplate" : "attachable_wear_tanker_tunic_01_ger_summer_item",
+                           "gametemplate" : "attachable_wear_tanker_tunic_01_ger_winter_item",
                            "slot" : "tunic"
                         }
                      },
                      "exp" : 0,
                      "gametemplate" : "ger_base_soldier",
-                     "guid" : "axis_stalingrad_soldier_tanker_1459",
+                     "guid" : "axis_stalingrad_soldier_tanker_1491",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -12895,11 +13869,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Markus",
+                     "name" : "Luitpold",
                      "perkPoints" : {
                         "speed" : 6,
                         "vitality" : 1,
-                        "weapon" : 5
+                        "weapon" : 4
                      },
                      "perks" : [
                         {
@@ -12907,7 +13881,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -12915,7 +13889,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker",
                      "sKind" : "tanker",
-                     "surname" : "Fackler",
+                     "surname" : "Heesen",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }
@@ -12931,6 +13905,8 @@ return {
       "tunisia_allies" : {
          "armyId" : "tunisia_allies",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "usa",
          "curSquadId" : "allies_tunisia_tutorial_tank",
@@ -12947,7 +13923,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -12956,7 +13931,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -12965,7 +13939,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -12974,47 +13947,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -13026,25 +13962,26 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1103"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1144"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 28426,
+                     "appearance__rndSeed" : 3911,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9947490096092224,
-                        "width" : 1.003703713417053
+                        "height" : 0.9852882623672485,
+                        "width" : 1.060902714729309
                      },
                      "callname" : "",
                      "equipment" : {
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_10_uk_item",
+                           "gametemplate" : "attachable_wear_head_08_uk_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -13066,7 +14003,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_tanker_uk_1062",
+                     "guid" : "allies_tunisia_soldier_tanker_uk_1107",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -13112,10 +14049,10 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Max",
+                     "name" : "Hugo",
                      "perkPoints" : {
                         "speed" : 10,
-                        "vitality" : 6,
+                        "vitality" : 5,
                         "weapon" : 9
                      },
                      "perks" : [
@@ -13124,7 +14061,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -13132,21 +14069,21 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker_uk",
                      "sKind" : "tanker",
-                     "surname" : "Fletcher",
+                     "surname" : "Zelly",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 7401,
+                     "appearance__rndSeed" : 32036,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.014473676681519,
-                        "width" : 1.049476623535156
+                        "height" : 1.007179737091064,
+                        "width" : 1.077617168426514
                      },
                      "callname" : "",
                      "equipment" : {
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_08_uk_item",
+                           "gametemplate" : "attachable_wear_head_02_uk_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -13164,7 +14101,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_tanker_uk_1076",
+                     "guid" : "allies_tunisia_soldier_tanker_uk_1120",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -13213,7 +14150,7 @@ return {
                      "name" : "Jaxon",
                      "perkPoints" : {
                         "speed" : 7,
-                        "vitality" : 0,
+                        "vitality" : 2,
                         "weapon" : 6
                      },
                      "perks" : [
@@ -13222,7 +14159,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -13230,30 +14167,26 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker_uk",
                      "sKind" : "tanker",
-                     "surname" : "Zelly",
+                     "surname" : "Yates",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 2577,
+                     "appearance__rndSeed" : 8632,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9879994988441467,
-                        "width" : 1.051483511924744
+                        "height" : 0.9829419851303101,
+                        "width" : 1.039383530616760
                      },
                      "callname" : "",
                      "equipment" : {
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_03_uk_item",
+                           "gametemplate" : "attachable_wear_head_11_uk_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
                            "slot" : "gloves"
-                        },
-                        "hair" : {
-                           "gametemplate" : "hair_01_us_summer_item",
-                           "slot" : "hair"
                         },
                         "head" : {
                            "gametemplate" : "khaki_beret_black_01_uk_summer_item",
@@ -13266,7 +14199,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "uk_base_soldier",
-                     "guid" : "allies_tunisia_soldier_tanker_uk_1089",
+                     "guid" : "allies_tunisia_soldier_tanker_uk_1132",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -13312,11 +14245,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Mason",
+                     "name" : "Riley",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 2,
-                        "weapon" : 6
+                        "speed" : 6,
+                        "vitality" : 1,
+                        "weapon" : 5
                      },
                      "perks" : [
                         {
@@ -13324,7 +14257,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -13348,6 +14281,8 @@ return {
       "tunisia_axis" : {
          "armyId" : "tunisia_axis",
          "boosters" : [],
+         "campaignGroup" : "0",
+         "campaignId" : "tunisia",
          "classBonus" : {},
          "country" : "germany",
          "curSquadId" : "axis_tunisia_tutorial_tank",
@@ -13364,7 +14299,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 6000,
                   "startCount" : 1,
@@ -13373,7 +14307,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 3000,
                   "startCount" : 1,
@@ -13382,7 +14315,6 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "weapon_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 25000,
                   "startCount" : 1,
@@ -13391,47 +14323,10 @@ return {
                {
                   "army" : "common_army",
                   "basetpl" : "soldier_order_silver",
-                  "isFreemium" : false,
                   "loopCount" : 1,
                   "loopExp" : 50000,
                   "startCount" : 1,
                   "startExp" : 25000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 24000,
-                  "startCount" : 1,
-                  "startExp" : 12000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 12000,
-                  "startCount" : 1,
-                  "startExp" : 6000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "weapon_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 100000,
-                  "startCount" : 1,
-                  "startExp" : 50000
-               },
-               {
-                  "army" : "common_army",
-                  "basetpl" : "soldier_order_silver",
-                  "isFreemium" : true,
-                  "loopCount" : 1,
-                  "loopExp" : 200000,
-                  "startCount" : 1,
-                  "startExp" : 200000
                }
             ]
          },
@@ -13443,20 +14338,21 @@ return {
                "artilleryCooldownMul" : 1.0,
                "artilleryTypeUnlocks" : [],
                "curVehicle" : {
-                  "gametemplate" : "ussr_t_34_85_d_5t_tutorial",
-                  "guid" : "tutorial_tank_1319"
+                  "gametemplate" : "ussr_t_34_85_zis_53_tutorial",
+                  "guid" : "tutorial_tank_1354"
                },
                "engineerUnlocks" : [],
                "exp" : 0,
                "expBonus" : 0.0,
+               "isRented" : false,
                "level" : 0,
                "squad" : [
                   {
-                     "appearance__rndSeed" : 9977,
+                     "appearance__rndSeed" : 7092,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.004647970199585,
-                        "width" : 1.056727766990662
+                        "height" : 1.003701925277710,
+                        "width" : 1.001647949218750
                      },
                      "callname" : "",
                      "equipment" : {
@@ -13465,7 +14361,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_06_it_item",
+                           "gametemplate" : "attachable_wear_head_08_it_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -13477,7 +14373,7 @@ return {
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "tanker_ger_cap_shirt_gray_summer_item",
+                           "gametemplate" : "tanker_ger_cap_gray_summer_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
@@ -13487,7 +14383,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_tanker_it_1269",
+                     "guid" : "axis_tunisia_soldier_tanker_it_1305",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -13533,11 +14429,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 4,
-                     "name" : "Dino",
+                     "name" : "Marcello",
                      "perkPoints" : {
-                        "speed" : 9,
-                        "vitality" : 5,
-                        "weapon" : 10
+                        "speed" : 10,
+                        "vitality" : 6,
+                        "weapon" : 8
                      },
                      "perks" : [
                         {
@@ -13545,7 +14441,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -13553,16 +14449,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker_it",
                      "sKind" : "tanker",
-                     "surname" : "Sarto",
+                     "surname" : "Russo",
                      "tier" : 3,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 2485,
+                     "appearance__rndSeed" : 4742,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 0.9804199337959290,
-                        "width" : 1.054203271865845
+                        "height" : 0.9891701936721802,
+                        "width" : 1.021682739257812
                      },
                      "callname" : "",
                      "equipment" : {
@@ -13571,7 +14467,7 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_11_it_item",
+                           "gametemplate" : "attachable_wear_head_06_it_item",
                            "slot" : "face"
                         },
                         "gloves" : {
@@ -13583,7 +14479,7 @@ return {
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "tanker_helmet_gray_02_ger_summer_item",
+                           "gametemplate" : "tanker_ger_cap_gray_summer_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
@@ -13593,7 +14489,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_tanker_it_1285",
+                     "guid" : "axis_tunisia_soldier_tanker_it_1321",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -13639,11 +14535,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Cecilio",
+                     "name" : "Nazario",
                      "perkPoints" : {
-                        "speed" : 5,
-                        "vitality" : 2,
-                        "weapon" : 5
+                        "speed" : 6,
+                        "vitality" : 0,
+                        "weapon" : 4
                      },
                      "perks" : [
                         {
@@ -13651,7 +14547,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -13659,16 +14555,16 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker_it",
                      "sKind" : "tanker",
-                     "surname" : "Squarchalupi",
+                     "surname" : "Pellegrini",
                      "tier" : 1,
                      "weaponPreset" : ""
                   },
                   {
-                     "appearance__rndSeed" : 18516,
+                     "appearance__rndSeed" : 28095,
                      "availPerks" : 0,
                      "bodyScale" : {
-                        "height" : 1.016469597816467,
-                        "width" : 1.046598076820374
+                        "height" : 0.9840784668922424,
+                        "width" : 1.031834483146667
                      },
                      "callname" : "",
                      "equipment" : {
@@ -13677,19 +14573,23 @@ return {
                            "slot" : "belt_1"
                         },
                         "face" : {
-                           "gametemplate" : "attachable_wear_head_10_it_item",
+                           "gametemplate" : "attachable_wear_head_09_it_item",
                            "slot" : "face"
                         },
                         "gloves" : {
                            "gametemplate" : "attachable_wear_gloves_01_ger_winter_item",
                            "slot" : "gloves"
                         },
+                        "hair" : {
+                           "gametemplate" : "hair_01_ger_summer_item",
+                           "slot" : "hair"
+                        },
                         "pants" : {
                            "gametemplate" : "attachable_wear_tanker_pants_gray_item",
                            "slot" : "pants"
                         },
                         "skined_helmet" : {
-                           "gametemplate" : "tanker_ger_cap_gray_summer_item",
+                           "gametemplate" : "tanker_helmet_gray_02_ger_summer_item",
                            "slot" : "skined_helmet"
                         },
                         "tunic" : {
@@ -13699,7 +14599,7 @@ return {
                      },
                      "exp" : 0,
                      "gametemplate" : "it_base_soldier",
-                     "guid" : "axis_tunisia_soldier_tanker_it_1302",
+                     "guid" : "axis_tunisia_soldier_tanker_it_1337",
                      "heroTpl" : "",
                      "human_weap__weapInfo" : [
                         {
@@ -13745,11 +14645,11 @@ return {
                      "isPremium" : false,
                      "level" : 1,
                      "maxLevel" : 2,
-                     "name" : "Prospero",
+                     "name" : "Gianni",
                      "perkPoints" : {
-                        "speed" : 7,
-                        "vitality" : 2,
-                        "weapon" : 6
+                        "speed" : 6,
+                        "vitality" : 0,
+                        "weapon" : 5
                      },
                      "perks" : [
                         {
@@ -13757,7 +14657,7 @@ return {
                            "stats" : [
                               {
                                  "statKey" : "seat_change_speed",
-                                 "statValue" : 0.09960000216960907
+                                 "statValue" : 0.09959999471902847
                               }
                            ]
                         }
@@ -13765,7 +14665,7 @@ return {
                      "perksCount" : 1,
                      "sClass" : "tanker_it",
                      "sKind" : "tanker",
-                     "surname" : "Torregrossa",
+                     "surname" : "Fumagalli",
                      "tier" : 1,
                      "weaponPreset" : ""
                   }

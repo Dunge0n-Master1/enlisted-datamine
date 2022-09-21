@@ -5,6 +5,7 @@ germ_panzerjager_IV_L_48{
 germ_panzerjager_IV_L_48_common{
   _extends:t="base_panzerjager_iv_l_48"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
   gunnerFpsCamMaxAngle:p2=8.0, 5.0
 
   "vehicle_seats__seats:shared:array"{
@@ -186,6 +187,9 @@ germ_panzerjager_IV_L_48_berlin_premium{
     part:t="track_r_01"
   }
 
+  "attach_decorators__entities:list<eid>"{
+  }
+
   "attach_decorators__templates:array"{
 
     "templates:object"{
@@ -322,13 +326,13 @@ germ_panzerjager_IV_L_48_berlin_premium{
 
     "templates:object"{
       relativeTm:m=[[0.0207532, -0.0127591, 0.999728] [-0.313744, -0.94994, -0.00560863] [0.949459, -0.313453, -0.0236991] [-2.29207, 1.49034, 0.0509888]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.0271144, -0.88238, -0.470258] [0.99816, -0.0524667, 0.0408436] [-0.0606672, -0.468212, 0.881684] [-0.986649, 1.56343, -1.37089]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
   }

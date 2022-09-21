@@ -4,10 +4,10 @@ require soundSystem
 require strings
 require level
 require Dacoll
+require enlisted.events_enlisted
 
-
-[es(tag=sound, no_order)]
-def rain_global_sound_var_update(info : UpdateStageInfoAct;
+[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+def rain_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                  rain_global_sound_var__name : string;
                                  rain_global_sound_var__mult : float)
   var rain = 0.
@@ -16,8 +16,8 @@ def rain_global_sound_var_update(info : UpdateStageInfoAct;
   set_var_global(rain_global_sound_var__name, rain * rain_global_sound_var__mult)
 
 
-[es(tag=sound, no_order)]
-def daytime_global_sound_var_update(info : UpdateStageInfoAct;
+[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+def daytime_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                     daytime_global_sound_var__name : string)
   var timeOfDay = 0.
   query() <| $ [es] (level__timeOfDay : float)
@@ -25,8 +25,8 @@ def daytime_global_sound_var_update(info : UpdateStageInfoAct;
   set_var_global(daytime_global_sound_var__name, timeOfDay)
 
 
-[es(tag=sound, no_order)]
-def altitude_global_sound_var_update(info : UpdateStageInfoAct;
+[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+def altitude_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                      altitude_global_sound_var__name : string;
                                      altitude_global_sound_var__interval : float;
                                      var altitude_global_sound_var__nextTime : float&)
@@ -44,8 +44,8 @@ def altitude_global_sound_var_update(info : UpdateStageInfoAct;
     set_var_global(altitude_global_sound_var__name, altitude)
 
 
-[es(tag=sound, no_order)]
-def region_global_sound_var_update(info : UpdateStageInfoAct;
+[es(tag=sound, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+def region_global_sound_var_update(info : ParallelUpdateFrameDelayed;
                                    region_global_sound_var__updateInterval : float;
                                    var region_global_sound_var__curNextTime : float2&;
                                    var region_global_sound_var__values : float2&;

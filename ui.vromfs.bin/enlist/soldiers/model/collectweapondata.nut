@@ -68,6 +68,9 @@ let SHELLS_DATA_FIELDS = {
     HitPower600m = TYPE_POINT2, HitPower650m = TYPE_POINT2, HitPower1000m = TYPE_POINT2,
     HitPower1500m = TYPE_POINT2
   }
+  cumulativeDamage = {
+    armorPower = TYPE_FLOAT
+  }
 }
 
 let MODEL_DATA_FIELDS = {
@@ -233,6 +236,17 @@ let function processHitPower(itemData) {
   }
 }
 
+let function processArmorPower(itemData) {
+  let cumulativeArmorPower = itemData?.cumulativeDamage.armorPower ?? 0
+  if (cumulativeArmorPower > 0)
+    itemData.cumulativeArmorPower <- cumulativeArmorPower
+  else if ("armorpower" in itemData) {
+    itemData.kineticArmorPower <- itemData.armorpower
+    itemData.kineticArmorPowerMax <- itemData.armorpower
+      .reduce(@(res, val) max(res, val.x), 0)
+  }
+}
+
 let function processRecoil(itemData) {
   if (itemData == null)
     return
@@ -245,6 +259,7 @@ let function processRecoil(itemData) {
 let function processWeaponData(weaponData) {
   processShotFreq(weaponData)
   processHitPower(weaponData)
+  processArmorPower(weaponData)
   processRecoil(weaponData)
 }
 

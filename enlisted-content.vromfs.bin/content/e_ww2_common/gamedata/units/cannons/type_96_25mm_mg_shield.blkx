@@ -1,0 +1,25 @@
+mass:r=50000.0
+momentOfInertia:p3=0.6, 0.3, 0.6
+centerOfMass:p3=0.0, 0.0, 0.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+addToWorld:b=yes
+gravityMult:r=0.0
+ignoreCollision:b=yes
+shouldTraceGround:b=no
+boundingRadius:r=0.1
+
+collisionResource{
+
+  props{
+    cls_turret:t="convex_hull"
+    cls_turret_01:t="convex_hull"
+    cls_body:t="convex_hull"
+    cls_gun:t="convex_hull"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.2, 0.0, 0.15
+}

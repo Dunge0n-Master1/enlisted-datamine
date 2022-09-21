@@ -89,6 +89,27 @@ hurricane_mk4{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_50mm"
+    fx:t="muzzle_air_50mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="rocket_pylon"
     part:t="rocket_pylon1"
@@ -107,7 +128,7 @@ hurricane_mk4{
 
 base_hurricane_mk4_40mm_vickers_s_underwing{
   item__name:t="guns/cannonvickers_s_underwing"
-  gun__blk:t="content/enlisted/gamedata/weapons/hurricane_mk4/40mm_vickers_s_underwing.blk"
+  gun__blk:t="gamedata/weapons/hurricane_mk4/40mm_vickers_s_underwing.blk"
   gun__shotFreq:r=1.666
   gun__locName:t="cannonvickers_s_underwing"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -133,13 +154,13 @@ base_hurricane_mk4_40mm_vickers_s_underwing{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/40mm_vickerss_apt_shot_bullet.blk"
+        blk:t="gamedata/weapons/shells/40mm_vickerss_apt_shot_bullet.blk"
         name:t="shot"
         type:t="ap_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/40mm_vickerss_he_bullet.blk"
+        blk:t="gamedata/weapons/shells/40mm_vickerss_he_bullet.blk"
         name:t="he"
         type:t="he_frag_i_t"
       }
@@ -149,7 +170,7 @@ base_hurricane_mk4_40mm_vickers_s_underwing{
 
 base_hurricane_mk4_7_7mm_browning303_raf{
   item__name:t="guns/gunbrowning303_raf"
-  gun__blk:t="content/enlisted/gamedata/weapons/hurricane_mk4/7_7mm_browning303_raf.blk"
+  gun__blk:t="gamedata/weapons/hurricane_mk4/7_7mm_browning303_raf.blk"
   gun__shotFreq:r=16.6667
   gun__locName:t="gunbrowning303_raf"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -175,31 +196,31 @@ base_hurricane_mk4_7_7mm_browning303_raf{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
         name:t="api"
         type:t="ap_i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
@@ -249,6 +270,6 @@ hurricane_mk4_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="hurricane_mk4_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/hurricane_mk4.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/hurricane_mk4.blk"
+  plane_anim__blk:t="gamedata/units/hurricane_mk4.blk"
+  plane_sight__blk:t="gamedata/units/hurricane_mk4.blk"
 }

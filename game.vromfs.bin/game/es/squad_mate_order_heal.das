@@ -11,6 +11,7 @@ require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
+require game.es.squad_order_common
 
 def order_heal(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int) : bool
   let isLeaderDowned = get_bool(squad__leader, "isDowned") ?? false
@@ -41,7 +42,7 @@ def order_heal(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("healRequester", int(uint(squad__leader)))
-    beh_tree.blackBoard |> datablock_setInt("healRequester", int(uint(squad__leader)))
+    beh_tree.blackBoard |> set("healRequester", int(uint(squad__leader)))
 
     squad_member__orderType = int(SquadMateOrder ESMO_HEAL)
     squad_member__orderPosition = float3()
@@ -87,7 +88,7 @@ def on_squad_mate_heal(act : UpdateStageInfoAct;
   if squad_member__orderType == int(SquadMateOrder ESMO_HEAL)
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
       if beh_tree.blackBoard |> datablock_getInt("healRequester", 0) != int(uint(squad__leader))
-        beh_tree.blackBoard |> datablock_setInt("healRequester", 0)
+        beh_tree.blackBoard |> set("healRequester", 0)
         reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
         reset_squad_mate_behaviour(eid)
 
@@ -113,6 +114,6 @@ def squad_mate_order_heal_interrupted(evt : Event;
   if squad_member__orderType == int(SquadMateOrder ESMO_HEAL)
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
       if !human_inventory__entityToUse || human_inventory__targetToUse != squad__leader
-        beh_tree.blackBoard |> datablock_setInt("healRequester", 0)
+        beh_tree.blackBoard |> set("healRequester", 0)
         reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
         reset_squad_mate_behaviour(eid)

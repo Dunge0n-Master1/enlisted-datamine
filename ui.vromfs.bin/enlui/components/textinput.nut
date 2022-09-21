@@ -3,6 +3,44 @@ from "string" import split_by_chars
 
 let colors = require("%ui/style/colors.nut")
 let { isStringInteger, isStringFloat, isStringLatin } = require("%sqstd/string.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { setTooltip } = require("%ui/style/cursors.nut")
+let tooltipBox = require("%ui/style/tooltipBox.nut")
+let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let colorize = require("%ui/components/colorize.nut")
+
+let logPrefix = "[TextInput] "
+let { logerr } = require("dagor.debug")
+
+let CHAR_MASK_TYPES = {
+  lat = {
+    regMask = "a-z,A-Z"
+    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  }
+  integer = {
+    regMask = "0-9"
+    chars = "0123456789"
+  }
+  symbol = {
+    regMask = "!#$%&'*+-/=?^_`{|}~"
+    chars = "!#$%&'*+-/=?^_`{|}~"
+  }
+}
+
+let function getCharMaskTypes(reqTypes) {
+  if (typeof reqTypes != "string")
+    return []
+
+  let types = []
+  reqTypes.split("; ").each(function(t) {
+    if (t in CHAR_MASK_TYPES)
+      types.append(CHAR_MASK_TYPES[t])
+    else
+      logerr($"{logPrefix}wrong char mask type {t}")
+  })
+
+  return types
+}
 
 let function isStringLikelyEmail(str, _verbose=true) {
 // this check is not rfc fully compatible. We check that @ exist and correctly used, and that let and domain parts exist and they are correct length.
@@ -94,7 +132,7 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
     title = null, font = null, fontSize = null, hotkeys = null,
     size = [flex(), fontH(100)], textmargin = [sh(1), sh(0.5)], valignText = ALIGN_BOTTOM,
     margin = [sh(1), 0], padding = 0, borderRadius = hdpx(3), valign = ALIGN_CENTER,
-    xmbNode = null, imeOpenJoyBtn = null, charMask = null,
+    xmbNode = null, imeOpenJoyBtn = null, charMaskTypes = null,
 
     //handlers
     onBlur = null, onReturn = null,
@@ -103,42 +141,75 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
   } = options
 
   local {
-    isValidResult = null, isValidChange = null
+    isValidResult = null, isValidChange = null, hintText = ""
   } = options
 
   let rcolors = defaultColors.__merge(options?.colors ?? {})
+  let cmTypes = getCharMaskTypes(charMaskTypes)
 
-  isValidResult = isValidResult ?? @(new_value) isValidStrByType(new_value, inputType)
-  isValidChange = isValidChange
-    ?? @(new_value) interactiveValidTypes.indexof(inputType) == null
-      || isValidStrByType(new_value, inputType)
+  local cmRegExp = ", ".join(cmTypes.map(@(t) t.regMask), true)
+  local charMask = "".join(cmTypes.map(@(t) t.chars))
 
   let stateFlags = Watched(0)
 
+  let function isValidChangeExt(new_val) {
+    return isValidChange?(new_val)
+      || interactiveValidTypes.indexof(inputType) == null
+      || isValidStrByType(new_val, inputType)
+  }
+
+  let function isValidResultExt(new_val) {
+    return isValidResult?(new_val)
+      || isValidStrByType(new_val, inputType)
+  }
+
   let function onBlurExt() {
-    if (!isValidResult(text_state.value))
+    if (!isValidResultExt(text_state.value))
       anim_start(text_state)
     onBlur?()
   }
 
-  let function onReturnExt(){
-    if (!isValidResult(text_state.value))
+  let function onReturnExt() {
+    if (!isValidResultExt(text_state.value))
       anim_start(text_state)
     onReturn?()
   }
 
-  let function onEscapeExt(){
-    if (!isValidResult(text_state.value))
+  let function onEscapeExt() {
+    if (!isValidResultExt(text_state.value))
       anim_start(text_state)
     onEscape()
   }
 
   let function onChangeExt(new_val) {
     onChange?(new_val)
-    if (!isValidChange(new_val))
+    if (!isValidChangeExt(new_val))
       anim_start(text_state)
     else
       setValue(new_val)
+  }
+
+  let function onWrongInput() {
+    anim_start(text_state)
+  }
+
+  let function onHoverExt(on) {
+    if (onHover) {
+      onHover(on)
+      return
+    }
+
+    let charMaskHint = cmRegExp == "" ? "" : loc("options/password/charMaskHint", { symbols = colorize(activeTxtColor, cmRegExp) })
+    let hint = hintText == "" ? charMaskHint : "\n".concat(charMaskHint, hintText)
+
+    setTooltip(on && hint != ""
+      ? tooltipBox({
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          color = defTxtColor
+          text = hint
+        }.__update(sub_txt))
+      : null)
   }
 
   local placeholderObj = null
@@ -189,8 +260,9 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
     onAttach
     onReturn = onReturnExt
     onEscape = onEscapeExt
-    onHover
+    onHover = onHoverExt
     onImeFinish
+    onWrongInput
     xmbNode
     imeOpenJoyBtn
 

@@ -1,8 +1,9 @@
 require ecs
 require soundEvent
+require enlisted.events_enlisted
 
 [es(tag=sound, before=burst_fx_player)]
-def burst_fx_sound(act : UpdateStageInfoAct;
+def burst_fx_sound(act : ParallelUpdateFrameDelayed;
                    burst_fx__soundPath : string;
                    transform, burst_fx__transform : float3x4;
                    burst_fx__nextUpdate : float)

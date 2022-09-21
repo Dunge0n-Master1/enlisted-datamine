@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let healthBar = require("mk_health_bar.nut")
-let {hp, maxHp, hpRestoreAmount, scaleHp} = require("%ui/hud/state/health_state.nut")
+let {hp, maxHp, scaleHp} = require("%ui/hud/state/health_state.nut")
 let {hitAnimTrigger} = require("%ui/hud/state/hit_anim_trigger_es.nut")
 let {barHeight, barWidth} = require("style.nut")
 
@@ -13,12 +13,12 @@ maxHp.subscribe(function(maxHpValue) {
 })
 let maxHpTrigger = {}
 let health = @() {
-  watch = [hp, maxHp, scaleHp, hpRestoreAmount]
+  watch = [hp, maxHp, scaleHp]
   size = [barWidth, barHeight]
   valign = ALIGN_BOTTOM
   flow = FLOW_VERTICAL
   children = healthBar({hp = hp.value, maxHp = maxHp.value,
-    scaleHp = scaleHp.value, hitTrigger=hitAnimTrigger, maxHpTrigger, hpRestoreAmount = hpRestoreAmount.value
+    scaleHp = scaleHp.value, hitTrigger=hitAnimTrigger, maxHpTrigger
   })
 }
 return health

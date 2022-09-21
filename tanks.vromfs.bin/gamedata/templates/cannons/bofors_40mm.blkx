@@ -1,0 +1,280 @@
+bofors_40mm_quadruple_go{
+  _extends:t="base_ai_gunner_turret"
+  animchar__res:t="bofors_40mm_quadruple_char"
+  collres__res:t="bofors_40mm_quadruple_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/bofors_40mm_quadruple.blk"
+  killLogName:t="aircraft_carrier/defence_turret"
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      gunRecoilParamName:t="gun_01_recoil"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      gunRecoilParamName:t="gun_02_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      gunRecoilParamName:t="gun_03_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      gunRecoilParamName:t="gun_04_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      gun:t="bofors_40mm_turret_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="main_turrets"
+      gun:t="bofors_40mm_turret_02"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="main_turrets"
+      gun:t="bofors_40mm_turret_03"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="main_turrets"
+      gun:t="bofors_40mm_turret_04"
+      salt:i=1
+    }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame_01"
+    node:t="emtr_gun_flame_02"
+    node:t="emtr_gun_flame_03"
+    node:t="emtr_gun_flame_04"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_40mm_slow"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="emtr_gun_flame_01"
+    node:t="emtr_gun_flame_02"
+    node:t="emtr_gun_flame_03"
+    node:t="emtr_gun_flame_04"
+  }
+}
+
+bofors_40mm_twin_go{
+  _extends:t="base_ai_gunner_turret"
+  animchar__res:t="bofors_40mm_twin_char"
+  collres__res:t="bofors_40mm_twin_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/bofors_40mm_twin.blk"
+  killLogName:t="aircraft_carrier/defence_turret"
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      gunRecoilParamName:t="gun_01_recoil"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      gunRecoilParamName:t="gun_02_recoil"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      gun:t="bofors_40mm_turret_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="main_turrets"
+      gun:t="bofors_40mm_turret_02"
+      salt:i=1
+    }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame_01"
+    node:t="emtr_gun_flame_02"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_40mm_slow"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="emtr_gun_flame_01"
+    node:t="emtr_gun_flame_02"
+  }
+}
+
+bofors_40mm_turret_01{
+  _extends:t="turret_ai_bofors_40mm_main"
+  gun__shootNodeName:t="bone_gun_barrel_01"
+}
+
+bofors_40mm_turret_02{
+  _extends:t="turret_ai_bofors_40mm"
+  gun__shootNodeName:t="bone_gun_barrel_02"
+}
+
+bofors_40mm_turret_03{
+  _extends:t="turret_ai_bofors_40mm"
+  gun__shootNodeName:t="bone_gun_barrel_03"
+}
+
+bofors_40mm_turret_04{
+  _extends:t="turret_ai_bofors_40mm"
+  gun__shootNodeName:t="bone_gun_barrel_04"
+}
+
+turret_ai_bofors_40mm_main{
+  _extends:t="turret_ai_bofors_40mm"
+  _extends:t="controlled_by_ai_gunner"
+  turret_ai__shootAngleCos:r=0.984
+  turret_ai__minWindow:p2=-0.0, -0.0
+  turret_ai__maxWindow:p2=0.0, 0.0
+  turret_ai__amplitude:p2=3.0, 3.0
+  turret_ai__period:p2=1.5, 3.7
+  turret_ai__distrTimer:r=10.0
+  turret_ai__attackTimerr:r=3.0
+  turret_ai__sleepTimer:r=1.0
+  turret_ai__pauseTimer:r=0.25
+  turret_ai__atackDist:r=1500.0
+  turret_ai__limitAngles:p4=-120.0, 120.0, -15.0, 85.0
+
+  "turret_ai__atackMinDist:r"{
+    _tags:t="server"
+    value:r=300.0
+  }
+}
+
+turret_ai_bofors_40mm{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_bofors_40mm"
+  _extends:t="gunsound_45mm_20k"
+  turret__triggerGroup:i=0
+  gun__shootNodeName:t="bone_gun"
+  turret__aimNodeName:t="bone_turret"
+  turret__yawSpeed:r=30.0
+  turret__pitchSpeed:r=24.0
+  turret__limit:p4=-180.0, 180.0, -10.0, 90.0
+
+  "turret_ai__automatic:tag"{
+    _tags:t="server"
+  }
+
+  "turret_serverAim:tag"{
+    _tags:t="server"
+  }
+}
+
+base_bofors_40mm{
+  gun__blk:t="gamedata/gen/weapons/40mm_bofors.blk"
+  gun__locName:t="40mm_bofors"
+  item__name:t="guns/40mm_bofors"
+  gun__shotFreq:r=2.6
+  gun__reloadTime:r=0.375
+  gun__maxAmmo:i=4
+  gun__overheatPerShot:r=0.0
+  gun_spread__maxDeltaAngle:r=0.05
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=3.0, 5.0
+  gun_deviation__movementDevInc:p2=0.0, 6.0
+  gun_deviation__onShotDeviationChange:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=900000
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/bofors_40mm_hei_bullet.blk"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}

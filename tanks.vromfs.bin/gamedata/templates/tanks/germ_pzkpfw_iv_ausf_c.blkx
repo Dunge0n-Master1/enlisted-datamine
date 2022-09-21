@@ -1,6 +1,7 @@
 germ_pzkpfw_IV_ausf_C{
   _extends:t="base_pzkpfw_iv_ausf_c"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "vehicle_seats__seats:shared:array"{
 

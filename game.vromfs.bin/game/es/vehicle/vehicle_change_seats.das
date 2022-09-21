@@ -101,12 +101,12 @@ def vehicle_seats_switch_seat_place(evt : CmdVehiclePlaceSeat;
                                     vehicle_seats__canReplaceOwnBots : bool = false;
                                     vehicle_seats__canReplaceGroupBots : bool = true)
   let sitterEid = evt.eid
-  if !has(sitterEid, "hero")
-    return
-  let seatOrderNo = evt.seat
-  if can_change_seat_to(sitterEid, seatOrderNo, vehicle_seats__seatEids, vehicle_seats__canReplaceOwnBots, vehicle_seats__canReplaceBots, vehicle_seats__canReplaceGroupBots)
-    broadcastEvent([[EventOnStartVehicleChangeSeat eid=sitterEid, seat=(get_int(vehicle_seats__seatEids[seatOrderNo], "seats_order__seatNo") ?? -1)]])
-    request_seat_switch(sitterEid, seatOrderNo, vehicle_seats__seatEids, vehicle_seats_switch_time__totalSwitchTime)
+  query(sitterEid) <| $ [es(REQUIRE=hero)] (entity_mods__vehicleChangeSeatTimeMult : float = 1.0)
+    let seatOrderNo = evt.seat
+    if can_change_seat_to(sitterEid, seatOrderNo, vehicle_seats__seatEids, vehicle_seats__canReplaceOwnBots, vehicle_seats__canReplaceBots, vehicle_seats__canReplaceGroupBots)
+      let endTime = get_sync_time() + vehicle_seats_switch_time__totalSwitchTime * entity_mods__vehicleChangeSeatTimeMult
+      broadcastEvent([[EventOnStartVehicleChangeSeat endTime=endTime]])
+      request_seat_switch(sitterEid, seatOrderNo, vehicle_seats__seatEids, vehicle_seats_switch_time__totalSwitchTime)
 
 def get_vehicle_control_seat(seat_eids)
   for seatNo, seatEid in iter_range(seat_eids), seat_eids
@@ -143,16 +143,17 @@ def send_change_seat_net_msg(vehicle_eid : EntityId;
 def vehicle_seats_switch_seat_requester(evt : CmdVehiclePlaceSeat;
                                         eid : EntityId;
                                         vehicle_seats__seatEids : EidList;
+                                        vehicle_seats_switch_time__totalSwitchTime : float;
                                         vehicle_seats__canReplaceBots : bool = true;
                                         vehicle_seats__canReplaceOwnBots : bool = false;
                                         vehicle_seats__canReplaceGroupBots : bool = true)
   let sitterEid = evt.eid
-  if !has(sitterEid, "hero")
-    return
-  let seatOrderNo = evt.seat
-  if can_change_seat_to(sitterEid, seatOrderNo, vehicle_seats__seatEids, vehicle_seats__canReplaceOwnBots, vehicle_seats__canReplaceBots, vehicle_seats__canReplaceGroupBots)
-    broadcastEvent([[EventOnStartVehicleChangeSeat eid=sitterEid, seat=(get_int(vehicle_seats__seatEids[seatOrderNo], "seats_order__seatNo") ?? -1)]])
-    send_change_seat_net_msg(eid, sitterEid, seatOrderNo, vehicle_seats__seatEids)
+  query(sitterEid) <| $ [es(REQUIRE=hero)] (entity_mods__vehicleChangeSeatTimeMult : float = 1.0)
+    let seatOrderNo = evt.seat
+    if can_change_seat_to(sitterEid, seatOrderNo, vehicle_seats__seatEids, vehicle_seats__canReplaceOwnBots, vehicle_seats__canReplaceBots, vehicle_seats__canReplaceGroupBots)
+      let endTime = get_sync_time() + vehicle_seats_switch_time__totalSwitchTime * entity_mods__vehicleChangeSeatTimeMult
+      broadcastEvent([[EventOnStartVehicleChangeSeat endTime = endTime]])
+      send_change_seat_net_msg(eid, sitterEid, seatOrderNo, vehicle_seats__seatEids)
 
 [es(tag=netClient)]
 def vehicle_seats_request_driver_seat(evt : CmdVehiclePlaceDriverSeat; eid : EntityId; vehicle_seats__seatEids : EidList)
@@ -210,6 +211,11 @@ def swap_seats(seat1, seat2 : EntityId)
       swap(seat__squadEid_1, seat__squadEid)
       swap(seat__playerEid_1, seat__playerEid)
       swap(seat__isPlayer_1, seat__isPlayer)
+
+      query(wasSeat1OwnerEid) <| $ [es] (var human_vehicle__occupiedSeatEid : EntityId&)
+        human_vehicle__occupiedSeatEid = seat2
+      query(wasSeat2OwnerEid) <| $ [es] (var human_vehicle__occupiedSeatEid : EntityId&)
+        human_vehicle__occupiedSeatEid = seat1
 
       if has(wasSeat1OwnerEid, "", seatComponent1) && has(wasSeat1OwnerEid, "", uint(seat__component))
         set(wasSeat1OwnerEid, "", seatComponent1, false)

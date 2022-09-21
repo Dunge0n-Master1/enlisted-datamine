@@ -21,6 +21,8 @@ us_m10_wolverine{
 us_m10_wolverine_common{
   _extends:t="base_m10_wolverine"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_m10_engine_sound"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.1
 
   "vehicle_seats__seats:shared:array"{
@@ -65,11 +67,21 @@ us_m10_wolverine_common{
       attachNode:t="commander"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.35, 0.15, 0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.42, -0.1, 0.03]]
+      maxPosWithOpenHatch:r=0.3
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
+      cockpitTemplate:t="us_m10_wolverine_commander_cockpit"
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
+      isHoldGunModeAllowed:b=no
 
-      "turretNames:array"{
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
+      }
+
+      "hatchTurretNames:array"{
         turret:t="turret_02"
       }
     }
@@ -212,5 +224,40 @@ us_m10_wolverine_2d_ad_epervier_battlepass_premium{
     part:t="ex_decor_l_02"
     part:t="ex_decor_l_04"
     part:t="ex_decor_02"
+  }
+}
+
+us_m10_wolverine_commander_cockpit{
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__zoomTimeMul:r=3.0
+  cockpit__minZoom:r=0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=0.170111, 0.870775, -0.339313
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_turret"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.23
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
   }
 }

@@ -139,6 +139,11 @@ human_vehicle_input{
     _hide:b=yes
   }
 
+  "human_input__toggleHoldGunMode:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
   "human_input__exitVehicleAlone:i"{
     value:i=0
     _hide:b=yes
@@ -386,11 +391,20 @@ human_locomotion{
   locomotion__runMult:r=0.0
 }
 
+human_push_object_input{
+
+  "human_input__pushObject:i"{
+    value:i=0
+    _hide:b=yes
+  }
+}
+
 base_human_hero_components{
   _extends:t="human_vehicle_input"
   _extends:t="human_common_input"
   _extends:t="human_inventory_input"
   _extends:t="human_input_aim_assist"
+  _extends:t="human_push_object_input"
   _tracked:t="input__enabled"
   _tracked:t="medic__canHealSelectedSoldier"
   medic__canHealSelectedSoldier:b=no
@@ -776,6 +790,7 @@ base_human{
   _tracked:t="human__visible"
   _tracked:t="killer"
   _tracked:t="possessedByPlr"
+  _tracked:t="isInVehicleHiddenLocal"
   _tracked:t="medic__healState"
   _tracked:t="human__confusionScreenEffect"
   _tracked:t="human_effect__colorGrading"
@@ -790,6 +805,7 @@ base_human{
   slot_attach__calcAnim:b=yes
   isInVehicle:b=no
   isInVehicleHidden:b=no
+  isInVehicleHiddenLocal:b=no
   maxVehicleVelocityCanReEnter:r=1.0
   human__visible:b=yes
   vehicle__localSeatTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -878,6 +894,8 @@ base_human{
   gun_offset__acrossId:i=-1
   gun_offset__upId:i=-1
   gun_offset__alongId:i=-1
+  human__totalMaxStamina:r=0.0
+  human_stamina_regen_affect__mult:r=1.0
 
   "human:tag"{
   }
@@ -988,6 +1006,7 @@ human_hit_tagging{
   human_hit_tagging__tagStart:r=-1.0
   human_hit_tagging__tagEnd:r=-1.0
   human_hit_tagging__currentTagPower:r=1.0
+  human_hit_tagging__mult:r=1.0
 }
 
 base_dm_parts{
@@ -1036,13 +1055,12 @@ human_cam{
   human_cam__offsetMult:r=0.0
   human_cam__fpvActive:b=no
   camera__aimPosition:r=0.0
-  camera__sightOffsetToAimPositionPower:r=3.0
-  camera__maxSightOffset:r=0.03
   camera__gunAimOffset:p2=0.0, 0.0
   camera__lookDir:p3=1.0, 0.0, 0.0
   camera__prevLookDir:p3=1.0, 0.0, 0.0
   camera__shootOffsetTau:r=0.01
   camera__magnification:r=1.0
+  camera__zoomPos:r=0.0
   human__cameraMagnificationOnHoldBreath:r=1.2
   camera__breathMagnificationSpeed:r=2.0
   camera__breathMagnificationProgress:r=0.0
@@ -1073,6 +1091,11 @@ base_human_net_phys{
   _tracked:t="human_net_phys__isCrouch"
   _tracked:t="human_net_phys__standState"
   _tracked:t="human_net_phys__isInAir"
+  _tracked:t="human_net_phys__isHctAim"
+  _tracked:t="human_net_phys__isHoldGunModeBit"
+  _tracked:t="human_net_phys__maxStamina"
+  _tracked:t="human_net_phys__maxStaminaMult"
+  _tracked:t="human_net_phys__staminaBoostMult"
   deform_bbox__bmin:p3=0.0, 0.0, 0.0
   deform_bbox__bmax:p3=0.0, 0.0, 0.0
   human_net_phys__blk:t="content/e_ww2_common/gamedata/units/walkers/usa_soldier.blk"
@@ -1098,6 +1121,11 @@ base_human_net_phys{
   human_net_phys__velocity:p3=0.0, 0.0, 0.0
   human_net_phys__curMoveState:i=0
   human_net_phys__isInAir:b=no
+  human_net_phys__isHctAim:b=no
+  human_net_phys__isHoldGunModeBit:b=no
+  human_net_phys__maxStamina:r=0.0
+  human_net_phys__maxStaminaMult:r=0.0
+  human_net_phys__staminaBoostMult:r=0.0
   human_phys__crawlTransitionFrictionMult:r=0.0
   human_phys__changePoseSpeedCrawl:r=2.5
   human_phys__changePoseSpeed:r=5.0
@@ -1300,6 +1328,14 @@ human_vehicle_maintenance{
   }
 
   _group{
+    _tags:t="server"
+    repair__animationTemplate:t="vehicle_repair_animation"
+
+    "repair__animationEntity:eid"{
+    }
+  }
+
+  _group{
     _track:b=yes
     _replicate:b=yes
     extinguisher__active:b=no
@@ -1312,7 +1348,36 @@ human_vehicle_maintenance{
 
 human_vehicle{
   human_vehicle__isInHatch:b=no
+  human_vehicle__canHoldWeapon:b=no
+  human_vehicle__isHoldingGunPassenger:b=no
+  human_vehicle__isHoldGunMode:b=no
+  _tracked:t="human_vehicle__isInHatch"
+  _tracked:t="human_vehicle__canHoldWeapon"
+  _tracked:t="human_vehicle__isHoldGunMode"
+  _tracked:t="human_vehicle__isHoldingGunPassenger"
+  _tracked:t="human_vehicle__occupiedSeatEid"
   _replicated:t="human_vehicle__isInHatch"
+  _replicated:t="human_vehicle__isHoldGunMode"
+  _replicated:t="human_vehicle__occupiedSeatEid"
+
+  _group{
+    _tags:t="input"
+    human_vehicle__isShootingPassenger:b=no
+  }
+
+  "human_vehicle__occupiedSeatEid:eid"{
+  }
+}
+
+push_object_soldier{
+  push_object__canPush:b=no
+  push_object__canPushRadius:r=4.0
+  push_object__pushDelay:r=0.05
+  push_object__nextPushTime:r=0.0
+  _tracked:t="push_object__canPush"
+
+  "push_object__target:eid"{
+  }
 }
 
 human{
@@ -1332,6 +1397,8 @@ human{
   _extends:t="simple_damage_model"
   _extends:t="human_vehicle_maintenance"
   _extends:t="human_vehicle"
+  _extends:t="hit_footstep_group"
+  _extends:t="push_object_soldier"
   _replicated:t="human_equipment__slots"
   _replicated:t="itemContainer"
   _replicated:t="human_aim_punch__queuedEvents"
@@ -1365,6 +1432,8 @@ human{
   _tracked:t="human_inventory__selectedItem"
   _tracked:t="building_action__target"
   _tracked:t="human_use_object__selectedObject"
+  _tracked:t="vehicleCameraType"
+  _tracked:t="isPassenger"
   _tracked:t="isGunner"
   _tracked:t="current_region__name"
   total_kits__selfHeal:i=0
@@ -2015,6 +2084,22 @@ base_human_weap{
   human_weap__cameraTransitionOnActionProgress:r=0.0
   human_weap__cameraTransitionOnActionTime:r=0.5
   human_weap__blockAiming:b=no
+  _tracked:t="human_weap__blockAiming"
+  _tracked:t="human_weap__lastShotAtTime"
+  _tracked:t="human_weap__currentGunSlot"
+  _tracked:t="human_weap__gunEids"
+  _tracked:t="human_weap__gunMods"
+  _tracked:t="human_weap__salt"
+  _tracked:t="human_weap__currentGunEid"
+  _tracked:t="human_weap__currentGunModEids"
+  _tracked:t="human_weap__throwMode"
+  _tracked:t="human_weap__radioMode"
+  _tracked:t="human_weap__radioEid"
+  _tracked:t="radioMode__startTime"
+  _tracked:t="radioMode__endTime"
+  _tracked:t="human_weap__mortarMode"
+  _tracked:t="inventoryGunsItemsEids"
+  _tracked:t="currentInventoryGunIdx"
   _replicated:t="human_weap__gunModsBySlot"
   _replicated:t="human_weap__weapTemplates"
   _replicated:t="human_weap__reloadAtTime"
@@ -2041,21 +2126,6 @@ base_human_weap{
   _replicated:t="human_weap__reserveAmmoPropIds"
   _replicated:t="inventoryGunsItemsEids"
   _replicated:t="currentInventoryGunIdx"
-  _tracked:t="human_weap__lastShotAtTime"
-  _tracked:t="human_weap__currentGunSlot"
-  _tracked:t="human_weap__gunEids"
-  _tracked:t="human_weap__gunMods"
-  _tracked:t="human_weap__salt"
-  _tracked:t="human_weap__currentGunEid"
-  _tracked:t="human_weap__currentGunModEids"
-  _tracked:t="human_weap__throwMode"
-  _tracked:t="human_weap__radioMode"
-  _tracked:t="human_weap__radioEid"
-  _tracked:t="radioMode__startTime"
-  _tracked:t="radioMode__endTime"
-  _tracked:t="human_weap__mortarMode"
-  _tracked:t="inventoryGunsItemsEids"
-  _tracked:t="currentInventoryGunIdx"
   human_inventory__capacity:r=25.0
   team:i=1
   beh_tree__enabled:b=no

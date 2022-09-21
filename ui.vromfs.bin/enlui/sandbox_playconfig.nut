@@ -13,6 +13,15 @@ let {
   save_settings = null, get_setting_by_blk_path = null, set_setting_by_blk_path = null
 } = require_optional("settings")
 
+let backupSaveEnabled = Watched(true)
+const SETTING_EDITOR_BACKUPSAVE_ENABLED = "daEditor4/sandboxBackupSaveEnabled"
+backupSaveEnabled(get_setting_by_blk_path?(SETTING_EDITOR_BACKUPSAVE_ENABLED) ?? true)
+backupSaveEnabled.subscribe(function(v) {
+  set_setting_by_blk_path?(SETTING_EDITOR_BACKUPSAVE_ENABLED, v)
+  save_settings?()
+})
+let backupSaveEnabledOption = Watched(backupSaveEnabled.value)
+
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let function getAllSquads() {
   local squads = [""]
@@ -128,6 +137,7 @@ let function openPlayConfigDialogInternal(modalWindows) {
       }
     }
     hintWelcomeKeepShowing(showHintAtStartup.value)
+    backupSaveEnabled(backupSaveEnabledOption.value)
     modalWindows.removeModalWindow(key)
   }
 
@@ -150,7 +160,7 @@ let function openPlayConfigDialogInternal(modalWindows) {
     children = {
       cursor = cursors.normal
       behavior = Behaviors.Button
-      size = [hdpx(390), hdpx(380)]
+      size = [hdpx(390), hdpx(410)]
       hplace = ALIGN_CENTER
       vplace = ALIGN_CENTER
       rendObj = ROBJ_SOLID
@@ -171,13 +181,20 @@ let function openPlayConfigDialogInternal(modalWindows) {
         // FIXME, not working for now (REQUIRED VALID sandbox_profile.nut) ==> hflow(Flex() txt("Squad",       txtStyle1) optionButton("squad"))
         gap(hdpx(2))
         hflow(
-          Size(flex(), SIZE_TO_CONTENT) {
+          Size(flex(), hdpx(20)) {
             pos = [0, hdpx(6)], children = checkbox(showHintAtStartup, {
             text = "Show hint window at startup"
             textStyle = {fontSize = hdpx(13)}})
           }
         )
-        gap(hdpx(2))
+        hflow(
+          Size(flex(), hdpx(20)) {
+            pos = [0, hdpx(6)], children = checkbox(backupSaveEnabledOption, {
+            text = "Backup scene every 5 minutes"
+            textStyle = {fontSize = hdpx(13)}})
+          }
+        )
+        gap(hdpx(20))
         hflow(
           Size(flex(), SIZE_TO_CONTENT)
           comp(Flex())
@@ -196,7 +213,9 @@ let function openPlayConfigDialog(modalWindows) {
 
   showHintAtStartup(hintWelcomeKeepShowing.value)
 
+  backupSaveEnabledOption(backupSaveEnabled.value)
+
   openPlayConfigDialogInternal(modalWindows)
 }
 
-return { playConfig, openPlayConfigDialog }
+return { playConfig, openPlayConfigDialog, backupSaveEnabled }

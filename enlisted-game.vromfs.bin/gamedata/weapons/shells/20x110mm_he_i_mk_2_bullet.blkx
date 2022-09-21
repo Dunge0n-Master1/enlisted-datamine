@@ -6,14 +6,15 @@ normalizationPreset:t="heat"
 recoilMultiplier:r=0.35
 ricochetPreset:t="he"
 secondaryShattersPreset:t="ap"
-explosiveType:t="s_r_379"
+explosiveType:t="tetryl"
 stabilityThreshold:r=0.05
-explosiveMass:r=0.0113
+explosiveMass:r=0.0064
 stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=1.0
 stabilityReductionAfterPenetration:r=0.15
 onHitChanceMultFire:r=2.5
+bulletType:t="he_i"
 slopeEffectPreset:t="ap"
 effectiveDistance:r=700.0
 fresnel:p3=0.23, 0.1, 2.0
@@ -66,29 +67,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

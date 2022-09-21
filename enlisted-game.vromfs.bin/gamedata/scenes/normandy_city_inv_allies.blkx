@@ -1470,6 +1470,22 @@ entity{
 }
 
 entity{
+  _template:t="normandy_level"
+  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=3.0
+  water__max_tessellation:i=0
+}
+
+entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[-0.0804047, -0.000173257, 0.996764] [-0.133118, 0.991044, -0.010566] [-0.987835, -0.133536, -0.079708] [55.3846, 95.7052, -309.187]]
@@ -1544,7 +1560,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[16.9049, 0.0, 0.0] [0.0, 5.89187, 0.0] [0.0, 0.0, 7.9001] [288.451, 71.6603, -212.708]]
   active:b=no
@@ -2415,22 +2431,6 @@ entity{
 }
 
 entity{
-  _template:t="normandy_level"
-  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
-}
-
-entity{
-  _template:t="clouds_hole_target"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=3.0
-  water__max_tessellation:i=0
-}
-
-entity{
   _template:t="88mm_flak_36_canon_b"
   transform:m=[[0.686771, 0.0, 0.726874] [0.0, 1.0, 0.0] [-0.726874, 0.0, 0.686771] [201.475, 67.6684, -232.356]]
 }
@@ -2471,7 +2471,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [287.103, 68.4722, -164.062]]
   active:b=no
@@ -2597,7 +2597,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_c"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[0.108447, 0.0, -12.2381] [0.0, 5.89187, 0.0] [8.36959, 0.0, 0.074166] [309.739, 71.3655, -230.126]]
   active:b=no

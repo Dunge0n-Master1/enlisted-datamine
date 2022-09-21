@@ -59,6 +59,7 @@ it_m14_41_common{
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret_01"
       cockpitTemplate:t="it_m14_41_commander_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{
         node:t="hatch_01"

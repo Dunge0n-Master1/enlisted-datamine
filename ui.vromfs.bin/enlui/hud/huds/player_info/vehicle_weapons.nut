@@ -11,6 +11,7 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let mkBulletTypeIcon = require("mkBulletTypeIcon.nut")
 let {get_sync_time} = require("net")
 let fa = require("%ui/components/fontawesome.map.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 let healthBar = require("mk_health_bar.nut")
 let { textListFromAction, buildElems } = require("%ui/control/formatInputBinding.nut")
@@ -139,7 +140,7 @@ let function turretIconCtor(weapon, _baseWidth, baseHeight) {
 }
 
 let function vehicleTurretBlock(turret, idx) {
-  if (!turret.isControlled)
+  if (!turret.isControlled && !isReplay.value)
     return null
 
   if (!turret.isWithSeveralShells)

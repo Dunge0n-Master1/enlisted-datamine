@@ -2,6 +2,7 @@ require ecs
 require AnimV20
 require GeomNodeTree
 require DagorSystem
+require math.base
 
 [es(tag=render, on_appear)]
 def gun_flash_fx_init(evt : Event;
@@ -41,6 +42,12 @@ def gun_flash_fx_on_shot(evt : Event;
       init |> set("transform", tm)
       init |> set("gun_flash_fx__gunEid", eid)
       init |> set("gun_flash_fx__nodeId", nodeId)
+
+[es(on_appear, tag=render, REQUIRE=effect__name)]
+def gun_flash_fx_init_es(evt : Event;
+                         var transform : float3x4&;
+                         gun_flash_fx__scaleMultiplier : float)
+  transform = transform * scale_tm(gun_flash_fx__scaleMultiplier)
 
 [es(tag=render, after=after_animchar_update_sync, before=effect_attached_es)]
 def gun_flash_fx_update(info : UpdateStageInfoAct;

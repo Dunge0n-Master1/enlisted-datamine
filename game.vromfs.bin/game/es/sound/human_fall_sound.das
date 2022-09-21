@@ -1,8 +1,8 @@
 require ecs
-
+require enlisted.events_enlisted
 
 [es(tag=sound, after=human_sound_es, REQUIRE_NOT=human_spawn_sound__inSpawn)]
-def human_fall_sound_is_falling_update(info : UpdateStageInfoAct;
+def human_fall_sound_is_falling_update(info : ParallelUpdateFrameDelayed;
                                        human_net_phys__isUnderwater : bool;
                                        human_net_phys__deltaVelIgnoreAmount : float;
                                        human_net_phys__velocity : float3 const&;
@@ -14,7 +14,7 @@ def human_fall_sound_is_falling_update(info : UpdateStageInfoAct;
 
 
 [es(tag=sound, after=human_sound_es)]
-def human_fall_sound_with_spawn_is_falling_update(info : UpdateStageInfoAct;
+def human_fall_sound_with_spawn_is_falling_update(info : ParallelUpdateFrameDelayed;
                                                   human_net_phys__isUnderwater : bool;
                                                   human_net_phys__deltaVelIgnoreAmount : float;
                                                   human_net_phys__velocity : float3 const&;

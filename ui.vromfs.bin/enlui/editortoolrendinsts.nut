@@ -3,7 +3,7 @@ import "%dngscripts/ecs.nut" as ecs
 
 let {showPointAction, namePointAction, setPointActionMode, resetPointActionMode,
      addEntityCreatedCallback, addEntityRemovedCallback, addEntityMovedCallback,
-     editorUnpause} = require("%daeditor/state.nut")
+     editorUnpause, selectedEntities, wantOpenRISelect} = require("%daeditor/state.nut")
 
 let {CmdRIToolAddSelected, CmdRIToolClearSelected, CmdRIToolRemoveRendInst,
      CmdRIToolUnbakeRendInst, CmdRIToolEnbakeRendInst, CmdRIToolRebakeRendInst,
@@ -80,8 +80,29 @@ let function rebakeRIToolSelected() {
 let function instanceRIToolSelected() {
   entity_editor?.get_instance()?.selectEntities([])
   foreach (ri in riToolSelected.value)
-    ecs.g_entity_mgr.broadcastEvent(CmdRIToolCreateRendInst({tpl = "game_rendinst", tm = ri.mat, name = ri.name, eid = ri.eid}))
+    ecs.g_entity_mgr.broadcastEvent(CmdRIToolCreateRendInst({tpl = "game_rendinst", tm = ri.mat, name = ri.name, eid = ri.eid, undo = true}))
   gui_scene.resetTimeout(0.5, saveRIToolData)
+  clearRIToolSelected()
+  if (setEditMode)
+    setEditMode(DE4_MODE_SELECT)
+}
+
+let function spawnNewRIEntity(tplName) {
+  local tm = entity_editor?.make_cam_spawn_tm()
+  if (tm == null)
+    return
+  if (tm[0].x == 0.0 && tm[0].y == 0.0 && tm[0].z == 0.0)
+    return
+  if (tplName == "scenery_remover") {
+    tm[0] *= 5.0
+    tm[1] *= 5.0
+    tm[2] *= 5.0
+    local pos = tm[3]
+    pos["y"] += 0.5
+    tm[3] = pos
+  }
+  wantOpenRISelect(true)
+  ecs.g_entity_mgr.broadcastEvent(CmdRIToolCreateRendInst({tpl = tplName, tm = tm, name = "sandbags_wall_medium_rounded_a", eid = INVALID_ENTITY_ID, undo = true}))
   clearRIToolSelected()
   if (setEditMode)
     setEditMode(DE4_MODE_SELECT)
@@ -120,34 +141,40 @@ let function getRIKind(eid) {
   return 2
 }
 
+let function addRIToSelected(ri_add) {
+  foreach (riLst in riToolSelected.value)
+    if (ri_add.name == riLst.name && isSameMatrix(ri_add.mtx, riLst.mat))
+      return
+  if (!isRISelectable(ri_add.eid))
+    return
+  let kind = getRIKind(ri_add.eid)
+  riToolSelected.value.append({
+    name = ri_add.name
+    mat  = ri_add.mtx
+    eid  = ri_add.eid
+    sph  = ri_add.sph
+    kind = kind
+  })
+  riToolSelected.trigger()
+  ecs.g_entity_mgr.broadcastEvent(CmdRIToolAddSelected({tm = ri_add.mtx, name = ri_add.name, bsph = ri_add.sph, action = "multiselect", kind = kind}))
+}
+
 let function selectRIToolInside() {
   let riTestList = clone riToolSelected.value
   foreach (riTest in riTestList) {
     let riAddList = entity_editor?.gather_ri_by_sphere(riTest.sph.x, riTest.sph.y, riTest.sph.z, riTest.sph.w)
     if (riAddList == null)
       continue
-    foreach (riAdd in riAddList) {
-      local alreadyInList = false
-      foreach (riLst in riToolSelected.value) {
-        if (riAdd.name == riLst.name && isSameMatrix(riAdd.mtx, riLst.mat)) {
-          alreadyInList = true
-          break
-        }
-      }
-      if (!alreadyInList && isRISelectable(riAdd.eid)) {
-        let kind = getRIKind(riAdd.eid)
-        riToolSelected.value.append({
-          name = riAdd.name
-          mat  = riAdd.mtx
-          eid  = riAdd.eid
-          sph  = riAdd.sph
-          kind = kind
-        })
-        riToolSelected.trigger()
-        ecs.g_entity_mgr.broadcastEvent(CmdRIToolAddSelected({tm = riAdd.mtx, name = riAdd.name, bsph = riAdd.sph, action = "multiselect", kind = kind}))
-      }
-    }
+    foreach (riAdd in riAddList)
+      addRIToSelected(riAdd)
   }
+}
+
+let function selectRIFromEntity(eid) {
+  let riAdd = entity_editor?.get_ri_from_entity(eid)
+  if (riAdd == null)
+    return
+  addRIToSelected(riAdd)
 }
 
 let function onRIToolAction(action) {
@@ -217,6 +244,9 @@ let function beginRIToolMode(toggle=false) {
   if (!showPointAction.value || (!toggle && namePointAction.value != POINTACTION_MODE_RI_TOOL)) {
     saveRIToolData()
     setPointActionMode("pick_action", POINTACTION_MODE_RI_TOOL, onRIToolAction)
+
+    foreach (eid,_v in selectedEntities.value)
+      selectRIFromEntity(eid.tointeger())
   }
   else
     resetPointActionMode()
@@ -288,5 +318,6 @@ return {
   rebakeRIToolSelected
   instanceRIToolSelected
   restoreRemovedByRITool
+  spawnNewRIEntity
   selectRIToolInside
 }

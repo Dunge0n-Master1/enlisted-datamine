@@ -1,8 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let colorize = require("%ui/components/colorize.nut")
 let faComp = require("%ui/components/faComp.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
+let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -11,8 +13,8 @@ let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { FAButton } = require("%ui/components/textButton.nut")
 let {
   defBgColor, activeBgColor, defTxtColor, accentTitleTxtColor,
-  activeTxtColor, smallPadding, bigPadding, titleTxtColor, smallOffset,
-  tinyOffset
+  activeTxtColor, smallPadding, bigPadding, titleTxtColor, tinyOffset,
+  bonusColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {
   BdActive, BdHover, BdNormal, BgHover, BgNormal, TextHover, TextNormal
@@ -98,6 +100,22 @@ let mkSkinImage = @(img, sf, isSelected) {
   }
 }
 
+let defDecorSize = hdpx(95)
+
+let function mkDecorImage(cfg, override = {}) {
+  let { guid = "" } = cfg
+  if (guid == "")
+    return null
+
+  let iconSize = override?.iconSize ?? defDecorSize
+  let decorImg = iconByGameTemplate(guid, {
+    width = iconSize
+    height = iconSize
+  })
+
+  return decorImg == null ? decorImg : decorImg.__update(override)
+}
+
 let mkDecalImage = @(cfg, override = {}) {
   rendObj = ROBJ_IMAGE
   size = flex()
@@ -156,8 +174,10 @@ let showNeedPremiumBox = @() showMsgbox({
 })
 
 
-let mkDecorSlot = @(decorator, isSelected, hasLocked, onClick, onRemove = null)
-  watchElemState(@(sf) {
+let function mkDecorSlot(decorator, isSelected, hasLocked, onClick, onRemove = null) {
+  let { cType = "" } = decorator?.cfg
+  let iconCtor = cType == "vehDecorator" ? mkDecorImage : mkDecalImage
+  return watchElemState(@(sf) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     size = slotSize
     halign = ALIGN_CENTER
@@ -167,13 +187,13 @@ let mkDecorSlot = @(decorator, isSelected, hasLocked, onClick, onRemove = null)
     children = [
       mkSlotBox(sf, isSelected)
       hasLocked && decorator == null ? mkLockedIcon(sf, isSelected, hdpx(TXT_ICON_SIZE))
-        : hasLocked && decorator != null ? mkDecalImage(decorator.cfg, {
+        : hasLocked && decorator != null ? iconCtor(decorator.cfg, {
             key = $"decal_{decorator.cfg.guid}"
             picSaturate = 0.0
             opacity = 0.3
           })
         : decorator == null ? mkApplyIcon(sf, isSelected)
-        : mkDecalImage(decorator.cfg)
+        : iconCtor(decorator.cfg)
       isSelected ? animFrame : null
       onRemove == null ? null
         : FAButton("times", onRemove, {
@@ -184,11 +204,14 @@ let mkDecorSlot = @(decorator, isSelected, hasLocked, onClick, onRemove = null)
           })
     ]
   })
+}
 
 let mkDecorIcon = kwarg(function(cfg,
   availableCount = 0, currencies = null, onClick = null, override = {}
 ) {
-  let { price = 0, currencyId = "" } = cfg?.buyData
+  let iconSize = override?.size[0]
+  let { cType = null, buyData = null } = cfg
+  let { price = 0, currencyId = "" } = buyData
   let hasPrice = availableCount == 0 && currencies != null
     && price > 0 && currencyId != ""
   let countObject = availableCount == 0 ? null
@@ -199,6 +222,7 @@ let mkDecorIcon = kwarg(function(cfg,
         vplace = ALIGN_TOP
         color = accentTitleTxtColor
       }).__update(sub_txt)
+  let locTypeId = cType == "vehDecorator" ? "decorators" : "decals"
   return watchElemState(@(sf) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     size = slotSize
@@ -206,11 +230,13 @@ let mkDecorIcon = kwarg(function(cfg,
     behavior = onClick != null ? Behaviors.Button : null
     onClick
     onHover = @(on) setTooltip(on
-      ? tooltipBox(txt(loc($"decals/{cfg?.guid}")))
+      ? tooltipBox(txt(loc($"{locTypeId}/{cfg?.guid}")))
       : null)
     children = [
       mkSlotBox(sf)
-      mkDecalImage(cfg)
+      cType == "vehDecorator"
+        ? mkDecorImage(cfg, { iconSize })
+        : mkDecalImage(cfg)
       countObject ?? {
         rendObj = ROBJ_SOLID
         size = [flex(), SIZE_TO_CONTENT]
@@ -265,8 +291,17 @@ let function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
   })
 }
 
-let mkCustGroup = @(groupName, hasOpened, onClick)
-  watchElemState(@(sf) {
+let function mkCustGroup(groupName, hasOpened, onClick, availCount, limit, count) {
+  local limitTxtObj = null
+  if (limit > 0) {
+    let limitColor = count < limit ? bonusColor : warningColor
+    limitTxtObj = mkTextarea(colorize(limitColor, $"{count}/{limit}"), {
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_RIGHT
+      margin = [0, smallPadding]
+    })
+  }
+  return watchElemState(@(sf) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.Button
@@ -289,10 +324,18 @@ let mkCustGroup = @(groupName, hasOpened, onClick)
             text = loc($"decals/category/{groupName}")
             color = txtColor(sf, hasOpened)
           }).__update(sub_txt)
+          availCount <= 0 ? null
+            : txt({
+                text = loc("shop/item/count", { count = availCount, itemName = "" })
+                color = accentTitleTxtColor
+                margin = [0, smallPadding]
+              }).__update(sub_txt)
+          limitTxtObj
         ]
       }
     ]
   })
+}
 
 let iconSize = hdpxi(36)
 let btnSize = [hdpx(64), hdpx(64)]
@@ -414,40 +457,59 @@ let mkSelectBox = @(sideParams, twoSideIdx, hotkeys, gpadHotkey)
     }
   }
 
-let scaleRotationHint = @() {
-  watch = isGamepad
+let mkDecorHints = @(children) {
+  size = [hdpx(400), btnSize[1]]
+  flow = FLOW_VERTICAL
+  padding = [smallPadding, bigPadding]
+  valign = ALIGN_CENTER
   rendObj = ROBJ_SOLID
   color = defBgColor
-  size = [SIZE_TO_CONTENT, btnSize[1]]
+  children
+}
+
+let decorRotationHint = @() {
+  watch = isGamepad
+  size = [flex(), SIZE_TO_CONTENT]
+  valign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
   gap = smallPadding
-  padding = [0, smallOffset]
-  valign = ALIGN_CENTER
   children = [
-    isGamepad.value
-      ? {
-          flow = FLOW_VERTICAL
-          children = [
-            {
-              flow = FLOW_HORIZONTAL
-              gap = smallPadding
-              children = [
-                mkImageCompByDargKey("J:LT")
-                mkImageCompByDargKey("J:RT")
-              ]
-            }
-            {
-              flow = FLOW_HORIZONTAL
-              gap = smallPadding
-              children = [
-                mkImageCompByDargKey("J:LB")
-                mkImageCompByDargKey("J:RB")
-              ]
-            }
+    {
+      size = [pw(55), SIZE_TO_CONTENT]
+      halign = isGamepad.value ? ALIGN_CENTER : ALIGN_RIGHT
+      flow = FLOW_HORIZONTAL
+      gap = smallPadding
+      children = isGamepad.value
+        ? [
+            mkImageCompByDargKey("J:LT")
+            mkImageCompByDargKey("J:RT")
           ]
-        }
-      : mkTextarea(loc("useDecalHintLeft"), { halign = ALIGN_RIGHT })
-    mkTextarea(loc("useDecalHintRight"), { color = accentTitleTxtColor })
+        : mkTextarea(loc("vehDecorRotationHintLeft"))
+    }
+    mkTextarea(loc("vehDecorRotationHintRight"), { color = accentTitleTxtColor })
+  ]
+}
+
+let decorScaleHint = @() {
+  watch = isGamepad
+  size = [flex(), SIZE_TO_CONTENT]
+  valign = ALIGN_CENTER
+  flow = FLOW_HORIZONTAL
+  gap = smallPadding
+  children = [
+    {
+      size = [pw(55), SIZE_TO_CONTENT]
+      halign = isGamepad.value ? ALIGN_CENTER : ALIGN_RIGHT
+      flow = FLOW_HORIZONTAL
+      gap = smallPadding
+      children = isGamepad.value
+        ? [
+            mkImageCompByDargKey("J:LB")
+            mkImageCompByDargKey("J:RB")
+          ]
+        : mkTextarea(loc("vehDecorScaleHintLeft"))
+    }
+    mkTextarea(loc("vehDecorScaleHintRight"), { color = accentTitleTxtColor })
   ]
 }
 
@@ -463,6 +525,8 @@ return {
   slotSize
   slotBigSize
   closeActionIcon
-  scaleRotationHint
+  mkDecorHints
+  decorScaleHint
+  decorRotationHint
   slotNormalColor
 }

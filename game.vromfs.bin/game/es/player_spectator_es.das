@@ -90,7 +90,7 @@ def start_spectator_timer(hero : EntityId; possessedByPlr : EntityId) : void
             send_enable_spectator_for_player(possessedByPlr)
       game_timer_set(spectatecb, spectateTime) // Fire & forget timer
 
-[es(tag=server, on_event=EventComponentChanged, track=respawner__spectatorEnabled)]
+[es(tag=server, track=respawner__spectatorEnabled)]
 def player_spectator_activated_es(evt : Event; eid : EntityId; possessed : EntityId;
                                   respawner__enabled : bool; respawner__spectatorEnabled : bool)
   if respawner__enabled && respawner__spectatorEnabled

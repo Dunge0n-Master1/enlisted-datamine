@@ -24,7 +24,6 @@ require WeapHelpers
 require Gun
 require AnimV20
 require GamePhys
-require Action
 require GridCollision
 
 
@@ -483,7 +482,7 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
                             eid : EntityId;
                             transform : float3x4;
                             isInVehicle : bool;
-                            humap_weap__useGrenadeInVehicle : bool = false;
+                            human_vehicle__isHoldingGunPassenger : bool;
                             human_weap__lockedGrenadeThrowingCounter : int = 0;
                             human_weap__jumpDeviation : float = 0.;
                             human_weap__changePosDeviationCanAim : float = 0.;
@@ -520,7 +519,7 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
       isForReal=isForReal,
       eid=eid,
       isDowned=isDowned,
-      isThrowingAllowed=human_weap__lockedGrenadeThrowingCounter == 0 && (humap_weap__useGrenadeInVehicle || !isInVehicle),
+      isThrowingAllowed=human_weap__lockedGrenadeThrowingCounter == 0 && (human_vehicle__isHoldingGunPassenger || !isInVehicle),
       shotDeviationMult=entity_mods__shotDeviationMult,
       rotationShotSpreadDecrMult=entity_mods__rotationShotSpreadDecrMult,
       aimingAfterFireMult=entity_mods__aimingAfterFireMult,
@@ -608,16 +607,15 @@ def human_weap_es_impl(var human_weap__currentGunSlot : int&;
                        human_inventory__entityToUse : EntityId;
                        action__running : bool;
                        isInVehicle : bool;
-                       isPassenger : bool;
                        isInVehicleHidden : bool;
                        isDowned : bool;
+                       human_vehicle__isHoldingGunPassenger : bool;
                        human_sec_anim__hideWeapon : bool;
                        human_sec_anim__hideMelee : bool;
                        human_sec_anim__play : bool;
                        human_unarmed__hiddenWeapon : bool;
                        human_weap__lockWeaponSwitch : bool;
                        burning__isPuttingOut : bool;
-                       human_weap__blockAiming : bool;
                        human_weap__radioMode : bool = false;
                        human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID)
   let curSlot = determine_current_slot(cur_time, human_net_phys, human_inventory__entityToUse,
@@ -625,10 +623,7 @@ def human_weap_es_impl(var human_weap__currentGunSlot : int&;
     human_sec_anim__play, human_unarmed__hiddenWeapon, action__running, burning__isPuttingOut,
     human_weap__radioMode, human_attached_gun__attachedGunEid)
 
-  let shootingPassenger = (isPassenger && human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
-                          && !human_weap__blockAiming && curSlot < int(HUWeaponSlots EWS_MELEE))
-
-  let animSlot = isInVehicle && !isInVehicleHidden && !shootingPassenger && !action__running ? -1 : curSlot
+  let animSlot = isInVehicle && !isInVehicleHidden && !human_vehicle__isHoldingGunPassenger && !action__running ? -1 : curSlot
 
   if human_weap__currentGunSlot != curSlot || (animSlot < 0 && has_any_attached_gun(human_weap__gunEids))
     set_current_gun(eid, human_weap__gunEids, animSlot, human_weap__currentGunSlot)
@@ -646,16 +641,15 @@ def human_weap_es(evt : CmdPostPhysUpdate;
                   human_inventory__entityToUse : EntityId;
                   action__running : bool = false;
                   isInVehicle : bool = false;
-                  isPassenger : bool = false;
                   isInVehicleHidden : bool = false;
                   isDowned : bool = false;
+                  human_vehicle__isHoldingGunPassenger : bool = false;
                   human_sec_anim__hideWeapon : bool = false;
                   human_sec_anim__hideMelee : bool = false;
                   human_sec_anim__play : bool = false;
                   human_unarmed__hiddenWeapon : bool = false;
                   human_weap__lockWeaponSwitch : bool = false;
                   burning__isPuttingOut : bool = false;
-                  human_weap__blockAiming : bool = false;
                   human_weap__radioMode : bool = false;
                   isAlive : bool;
                   human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
@@ -664,9 +658,10 @@ def human_weap_es(evt : CmdPostPhysUpdate;
     human_weap_es_impl(
       human_weap__currentGunSlot, get_sync_time(), eid, human_weap__gunEids,
       human_net_phys, human_inventory__entityToUse, action__running,
-      isInVehicle, isPassenger, isInVehicleHidden, isDowned, human_sec_anim__hideWeapon, human_sec_anim__hideMelee,
+      isInVehicle, isInVehicleHidden, isDowned, human_vehicle__isHoldingGunPassenger,
+      human_sec_anim__hideWeapon, human_sec_anim__hideMelee,
       human_sec_anim__play, human_unarmed__hiddenWeapon, human_weap__lockWeaponSwitch, burning__isPuttingOut,
-      human_weap__blockAiming, human_weap__radioMode, human_attached_gun__attachedGunEid)
+      human_weap__radioMode, human_attached_gun__attachedGunEid)
 
 
 [es(tag=netClient, after=(human_phys_es, before_human_inventory_use_update), before=human_weap_update_es)]
@@ -677,16 +672,15 @@ def human_weap_client_es(info : UpdateStageInfoAct;
                          human_inventory__entityToUse : EntityId;
                          action__running : bool = false;
                          isInVehicle : bool = false;
-                         isPassenger : bool = false;
                          isInVehicleHidden : bool = false;
                          isDowned : bool = false;
+                         human_vehicle__isHoldingGunPassenger : bool = false;
                          human_sec_anim__hideWeapon : bool = false;
                          human_sec_anim__hideMelee : bool = false;
                          human_sec_anim__play : bool = false;
                          human_unarmed__hiddenWeapon : bool = false;
                          human_weap__lockWeaponSwitch : bool = false;
                          burning__isPuttingOut : bool = false;
-                         human_weap__blockAiming : bool = false;
                          human_weap__radioMode : bool = false;
                          isAlive : bool;
                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
@@ -695,9 +689,10 @@ def human_weap_client_es(info : UpdateStageInfoAct;
     human_weap_es_impl(
       human_weap__currentGunSlot, info.curTime, eid, human_weap__gunEids,
       human_net_phys, human_inventory__entityToUse, action__running,
-      isInVehicle, isPassenger, isInVehicleHidden, isDowned, human_sec_anim__hideWeapon, human_sec_anim__hideMelee,
+      isInVehicle, isInVehicleHidden, isDowned, human_vehicle__isHoldingGunPassenger,
+      human_sec_anim__hideWeapon, human_sec_anim__hideMelee,
       human_sec_anim__play, human_unarmed__hiddenWeapon, human_weap__lockWeaponSwitch, burning__isPuttingOut,
-      human_weap__blockAiming, human_weap__radioMode, human_attached_gun__attachedGunEid)
+      human_weap__radioMode, human_attached_gun__attachedGunEid)
 
 
 [es(track=(isAlive, isDowned), on_event=EventEntityDied, before=destroy_nonlootable_weapons)]
@@ -793,31 +788,18 @@ def human_weap_dead_es(evt : Event;
       on_detach_all_guns(eid, human_weap__gunEids, human_weap__currentGunSlot)
 
 
-[es]
+[es(tag=server)]
 def human_weap_req_switch_firing_mode_es(evt : HumanWeapRequestSwitchFiringMode;
                                          human_weap__gunEids : EidList)
   let slotId = int(evt.slotId)
-  let nodeId = int(evt.nodeId)
+  let modeId = int(evt.modeId)
   if slotId >= length(human_weap__gunEids)
     return
 
-  query(human_weap__gunEids[slotId]) <| $ [es] (var gun : Gun)
-    if gun |> gun_checkFiringModeIndex(nodeId)
-      gun |> gun_setFiringModeIndex(evt.nodeId)
-
-
-[es(tag=server)]
-def human_weap_restore_ammo_msg_es(evt : RestoreAmmoMsg;
-                                   eid : EntityId;
-                                   human_weap__gunEids : EidList)
-  restore_ammo_impl(eid, human_weap__gunEids)
-
-
-[es(tag=server)]
-def human_weap_restore_ammo_in_slot_es(evt : RestoreAmmoInSlotMsg;
-                                       eid : EntityId;
-                                       human_weap__gunEids : EidList)
-  restore_ammo_impl(eid, human_weap__gunEids, evt.gunSlotId)
+  query(human_weap__gunEids[slotId]) <| $ [es] (var gun : Gun; var gun__firingModeIndex : int&)
+    if gun |> gun_checkFiringModeIndex(modeId)
+      gun |> gun_setFiringModeIndex(evt.modeId)
+      gun__firingModeIndex = modeId
 
 
 [es(tag=netClient)]

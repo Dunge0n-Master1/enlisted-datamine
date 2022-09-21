@@ -49,126 +49,71 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[7.31169, 0.0, 0.0] [0.0, 7.31169, 0.0] [0.0, 0.0, 7.31169] [-82.5219, 4.1, -179.475]]
+  _template:t="envir_smoke_bg_massive_effect"
+  transform:m=[[1.06808, 0.0, 0.390871] [0.0, 1.13735, 0.0] [-0.390871, 0.0, 1.06808] [-1422.33, 3.31363, -2008.51]]
 }
 
 entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[8.27775, 0.0, 0.0] [0.0, 8.27775, 0.0] [0.0, 0.0, 8.27775] [67.5261, 5.71874, -160.941]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[7.43085, 0.0, 0.0] [0.0, 7.43085, 0.0] [0.0, 0.0, 7.43085] [-209.856, 4.33035, -93.8473]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[6.26009, 0.0, 0.0] [0.0, 6.26009, 0.0] [0.0, 0.0, 6.26009] [-199.467, 5.07427, -228.733]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[7.88855, 0.0, 0.0] [0.0, 7.88855, 0.0] [0.0, 0.0, 7.88855] [-285.05, 4.21535, -187.0]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[8.27775, 0.0, 0.0] [0.0, 8.27775, 0.0] [0.0, 0.0, 8.27775] [-401.602, 4.8113, -110.129]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[3.73685, 0.0, 0.0] [0.0, 3.73685, 0.0] [0.0, 0.0, 3.73685] [-295.1, 5.97197, -62.75]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[6.26009, 0.0, 0.0] [0.0, 6.26009, 0.0] [0.0, 0.0, 6.26009] [-452.435, 4.47992, -209.171]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[6.26009, 0.0, 0.0] [0.0, 6.26009, 0.0] [0.0, 0.0, 6.26009] [-479.245, 4.10004, -96.7859]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[4.49451, 0.0, 0.0] [0.0, 4.49451, 0.0] [0.0, 0.0, 4.49451] [-324.1, 5.58152, -108.05]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[13.2547, 0.0, 0.0] [0.0, 13.2547, 0.0] [0.0, 0.0, 13.2547] [-669.089, 5.0316, -266.409]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[13.2547, 0.0, 0.0] [0.0, 13.2547, 0.0] [0.0, 0.0, 13.2547] [-421.001, 6.5694, -382.475]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[6.26009, 0.0, 0.0] [0.0, 6.26009, 0.0] [0.0, 0.0, 6.26009] [-344.422, 5.92063, -360.141]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[6.26009, 0.0, 0.0] [0.0, 6.26009, 0.0] [0.0, 0.0, 6.26009] [-212.818, 4.10004, -415.946]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[4.49451, 0.0, 0.0] [0.0, 4.49451, 0.0] [0.0, 0.0, 4.49451] [-425.107, 6.68348, -239.016]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[5.35146, 0.0, 0.0] [0.0, 5.35146, 0.0] [0.0, 0.0, 5.35146] [-493.568, 4.94438, -216.176]]
-}
-
-entity{
-  _template:t="bonfire_effect_big_background"
-  transform:m=[[3.73685, 0.0, 0.0] [0.0, 3.73685, 0.0] [0.0, 0.0, 3.73685] [-708.266, 6.2087, 7.94341]]
-}
-
-entity{
-  _template:t="bonfire_effect_volcano_smoke"
-  transform:m=[[0.651268, 0.0, 0.238336] [0.0, 0.693508, 0.0] [-0.238336, 0.0, 0.651268] [-1422.33, 3.31363, -2008.51]]
-}
-
-entity{
-  _template:t="bonfire_effect_volcano_smoke"
+  _template:t="envir_smoke_bg_massive_effect"
   transform:m=[[1.04756, 0.0, 0.102767] [0.0, 1.05258, 0.0] [-0.102767, 0.0, 1.04756] [-2594.46, 3.31412, -2883.46]]
 }
 
 entity{
-  _template:t="bonfire_effect_volcano_smoke"
-  transform:m=[[0.459994, 0.0, 1.03735] [0.0, 1.13476, 0.0] [-1.03735, 0.0, 0.459994] [748.515, 3.41519, -1897.58]]
+  _template:t="envir_smoke_bg_massive_effect"
+  transform:m=[[0.997428, 0.0, 2.24934] [0.0, 2.46056, 0.0] [-2.24934, 0.0, 0.997428] [748.515, 3.41519, -1897.58]]
 }
 
 entity{
-  _template:t="bonfire_effect_volcano_smoke"
-  transform:m=[[1.05317, 0.0, 0.808127] [0.0, 1.32749, 0.0] [-0.808127, 0.0, 1.05317] [1275.77, 3.51234, -1447.33]]
+  _template:t="envir_smoke_bg_massive_effect"
+  transform:m=[[1.97641, 0.0, 1.51656] [0.0, 2.49121, 0.0] [-1.51656, 0.0, 1.97641] [1275.77, 3.51234, -1447.33]]
 }
 
 entity{
-  _template:t="bonfire_effect_volcano_smoke"
-  transform:m=[[0.329894, 0.0, 0.924001] [0.0, 0.981123, 0.0] [-0.924001, 0.0, 0.329894] [2304.96, -4.98208, 1116.67]]
+  _template:t="envir_smoke_bg_massive_effect"
+  transform:m=[[0.525631, 0.0, 1.47224] [0.0, 1.56326, 0.0] [-1.47224, 0.0, 0.525631] [2304.96, -4.98208, 1116.67]]
 }
 
 entity{
-  _template:t="bonfire_effect_volcano_smoke"
-  transform:m=[[0.5016, 0.0, 0.453116] [0.0, 0.675959, 0.0] [-0.453116, 0.0, 0.5016] [-553.462, -3.11774, 1632.67]]
+  _template:t="envir_smoke_bg_massive_effect"
+  transform:m=[[0.889278, 0.0, 0.803321] [0.0, 1.1984, 0.0] [-0.803321, 0.0, 0.889278] [-553.462, -3.11774, 1632.67]]
 }
 
 entity{
-  _template:t="bonfire_effect_volcano_smoke"
+  _template:t="envir_smoke_bg_massive_effect"
   transform:m=[[0.589822, 0.0, 0.532811] [0.0, 0.794848, 0.0] [-0.532811, 0.0, 0.589822] [56.6985, 3.17503, 2317.45]]
 }
 
 entity{
-  _template:t="bonfire_effect_volcano_smoke"
-  transform:m=[[0.589822, 0.0, 0.532811] [0.0, 0.794848, 0.0] [-0.532811, 0.0, 0.589822] [-2117.65, 3.28224, 2203.81]]
+  _template:t="envir_smoke_bg_massive_effect"
+  transform:m=[[0.969007, 0.0, 0.875345] [0.0, 1.30584, 0.0] [-0.875345, 0.0, 0.969007] [-2117.65, 3.28224, 2203.81]]
+}
+
+entity{
+  _template:t="envir_fire_background_effect"
+  transform:m=[[-0.00783075, 0.0, 0.642602] [0.0, 0.64265, 0.0] [-0.642602, 0.0, -0.00783075] [-90.5895, 5.7375, -206.72]]
+}
+
+entity{
+  _template:t="envir_fire_background_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-245.345, 5.44182, -347.445]]
+}
+
+entity{
+  _template:t="envir_fire_background_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-113.63, 5.76023, -293.0]]
+}
+
+entity{
+  _template:t="envir_fire_background_effect"
+  transform:m=[[0.0585098, 0.0, 0.998287] [0.0, 1.0, -0.0] [-0.998287, 0.0, 0.0585098] [-367.501, 6.87853, -225.538]]
+}
+
+entity{
+  _template:t="envir_fire_background_effect"
+  transform:m=[[0.664973, 0.0, 0.746868] [0.0, 1.0, -0.0] [-0.746868, 0.0, 0.664973] [-112.188, 5.95768, -523.122]]
+}
+
+entity{
+  _template:t="envir_fire_background_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-318.404, 6.06755, -220.99]]
 }

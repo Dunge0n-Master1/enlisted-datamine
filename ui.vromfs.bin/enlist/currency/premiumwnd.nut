@@ -3,10 +3,11 @@ from "%enlSqGlob/ui_library.nut" import *
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
+let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let {
-  giant_txt, h0_txt, h1_txt, h2_txt, body_txt
+  giant_txt, h0_txt, h1_txt, h2_txt, body_txt, sub_txt
 } = require("%enlSqGlob/ui/fonts_style.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
@@ -17,8 +18,9 @@ let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
 let {
-  bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor, selectedTxtColor, activeTxtColor,
-  bgPremiumColor, basePremiumColor
+  bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
+  selectedTxtColor, activeTxtColor, smallPadding, bgPremiumColor,
+  basePremiumColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let openUrl = require("%ui/components/openUrl.nut")
@@ -26,6 +28,8 @@ let { mkHeaderFlag, primeFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { normal } = require("%ui/style/cursors.nut")
 let { premiumUrl = null } = require("app").get_circuit_conf()
+let { allActiveOffers } = require("%enlist/offers/offersState.nut")
+
 
 const WND_UID = "premiumWindow"
 let WND_WIDTH = fsh(120)
@@ -133,9 +137,10 @@ let function premiumDescBlock() {
   }
 }
 
-let function onPurchase(shopItem, premItemView) {
+let function onPurchase(shopItem, premItemView, offer = null) {
   buyShopItem({
     shopItem
+    pOfferGuid = offer?.guid
     productView = {
       margin = [0,0,fsh(3),0]
       halign = ALIGN_CENTER
@@ -162,7 +167,24 @@ let saveValueBlock = @(selected, percents) {
   }
 }
 
-let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
+let mkOffer = @(offer) offer == null ? null
+  : {
+      pos = [-hdpx(10), -hdpx(38)]
+      children = mkHeaderFlag({
+        flow = FLOW_VERTICAL
+        gap = smallPadding
+        padding = [bigPadding, fsh(3), bigPadding, bigPadding]
+        children = [
+          {
+            rendObj = ROBJ_TEXT
+            text = utf8ToUpper(loc("specialOfferShort"))
+          }.__update(sub_txt)
+          mkCountdownTimer({ timestamp = offer.endTime })
+        ]
+      }, primeFlagStyle.__merge({ offset = hdpx(0) }))
+    }
+
+let mkPremItemView = @(selected, size, days, saveVal, offer = null, sf = 0) {
   rendObj = ROBJ_BOX
   size
   borderWidth = hdpx(1)
@@ -186,6 +208,7 @@ let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
         }.__update(h2_txt))
       ]
     }
+    mkOffer(offer)
   ]
 }
 
@@ -203,7 +226,7 @@ let backgroundImageBlock = {
 }
 
 let mkPremItem = kwarg(
-  function(shopItem, idx, premSize, maxDayPrice, currencies, curSelectedDaysWatch) {
+  function(shopItem, idx, premSize, maxDayPrice, offer, currencies, curSelectedDaysWatch) {
     let { premiumDays = 0, discountInPercent = 0, curShopItemPrice = {} } = shopItem
     local { currencyId = "", price = 0, fullPrice = 0 } = curShopItemPrice
 
@@ -215,14 +238,14 @@ let mkPremItem = kwarg(
       return null
 
     let isSelected = curSelectedDaysWatch.value == premiumDays
-    fullPrice = discountInPercent == 0 ? price : fullPrice
     let saveVal = premiumDays <= 0 || maxDayPrice <= 0 ? 0
-      : 100 - 100 * (fullPrice / premiumDays) / maxDayPrice
+      : 100 - 100 * (price / premiumDays) / maxDayPrice
     let cellSize = [premSize, premSize]
+
     return watchElemState(@(sf) {
       behavior = Behaviors.Button
       onClick = @() isSelected
-        ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal))
+        ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal), offer)
         : curSelectedDaysWatch(premiumDays)
       children = [
         isSelected ? backgroundImageBlock : null
@@ -232,7 +255,7 @@ let mkPremItem = kwarg(
           size = [premSize + hdpx(20), SIZE_TO_CONTENT]
           padding = [hdpx(8), 0,0,0]
           children = [
-            mkPremItemView(isSelected, cellSize, premiumDays, saveVal, sf)
+            mkPremItemView(isSelected, cellSize, premiumDays, saveVal, offer, sf)
               .__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
             {
               size =[premSize, hdpx(68)]
@@ -256,16 +279,27 @@ let mkPremItem = kwarg(
             }
             !isSelected ? null :
               purchaseButton(@() onPurchase(shopItem,
-                mkPremItemView(true, cellSize,  premiumDays, saveVal)))
+                mkPremItemView(true, cellSize,  premiumDays, saveVal), offer))
           ]
         }
       ]
     }.__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5)))
   })
 
+let offersByPremItem = Computed(function() {
+  let offers = allActiveOffers.value
+  let res = {}
+  foreach (shopItem in premiumProducts.value) {
+    let offer = offers.findvalue(@(o) o?.shopItem.guid == shopItem.guid)
+    if (offer != null)
+      res[shopItem.guid] <- offer
+  }
+  return res
+})
+
 let function premiumBuyBlockUi() {
   let res = {
-    watch = [premiumProducts, currenciesList, curSelectedDays]
+    watch = [premiumProducts, currenciesList, curSelectedDays, offersByPremItem]
   }
   let premiumShopItems = premiumProducts.value
   if (premiumShopItems.len() == 0)
@@ -277,15 +311,19 @@ let function premiumBuyBlockUi() {
     return max(price, maxPrice)
   }, 0)
   let premSize = min((WND_WIDTH / premiumShopItems.len()) - hdpx(20), hdpx(220))
+  let offers = offersByPremItem.value
   return res.__update({
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = { size = flex() }
-    children = premiumShopItems.map(@(shopItem, idx) mkPremItem({
-      shopItem, idx, premSize, maxDayPrice,
-      currencies = currenciesList.value,
-      curSelectedDaysWatch = curSelectedDays
-    }))
+    children = premiumShopItems.map(function(shopItem, idx) {
+      let offer = offers?[shopItem.guid]
+      return mkPremItem({
+        shopItem, idx, premSize, maxDayPrice, offer,
+        currencies = currenciesList.value,
+        curSelectedDaysWatch = curSelectedDays
+      })
+    })
   })
 }
 

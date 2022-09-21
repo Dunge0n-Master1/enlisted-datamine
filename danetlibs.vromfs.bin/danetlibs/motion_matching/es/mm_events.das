@@ -6,3 +6,6 @@ require ecs
 struct ParallelUpdateFrameDelayed
   curTime : float
   dt : float
+
+[cpp_event(broadcast)]
+struct InvalidateAnimationDataBase {}

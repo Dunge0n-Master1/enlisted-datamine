@@ -4,6 +4,7 @@ require Dacoll
 require CollRes
 require RendInst
 require PhysMat
+require EnlistedNet
 require enlisted.events_enlisted
 require game.es.events
 require game.utils.hero
@@ -152,7 +153,7 @@ def wallposter_place_client_es(evt : CmdWallposterPlace;
   if collBb == null
     return
   ecs::find_query() <| $ [es(REQUIRE=hero)] (eid : EntityId; human__aimTm : float3x4)
-    sendEvent(eid, [[WallposterRequestPlace wallPosterId=wallPoster__currentId,
+    send_net_event(eid, [[WallposterRequestPlace wallPosterId=wallPoster__currentId,
       wallPostersCurCount=wallPosters__curCount, tm=human__aimTm, bmin=(*collBb).bmin.xyz, bmax=(*collBb).bmax.xyz]])
     return true
 

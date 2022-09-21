@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h0_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { respawnsInBot, canUseRespawnbaseByType, needSpawnMenu, selectedRespawnGroupId, isFirstSpawn } = require("%ui/hud/state/respawnState.nut")
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
+let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let {
   spawnZonesState,
   spawnZonesGetWatched,
@@ -59,13 +60,14 @@ let mkRespawnPoint = @(eid, isSelected, spawnIconInfo, selectedGroup, isActive, 
     targetEid = eid
     transform = defTransform
     behavior = Behaviors.RotateRelativeToDir
-    children = {
+    children = @() {
+      watch = isReplay
       rendObj = ROBJ_IMAGE
       size = spawnIconInfo.size(isSelected)
       color = spawnIconInfo.color(isActive)
       image = spawnIconInfo.icon(isSelected)
       pos = [0, -spawnIconInfo.size(isSelected)[0]*0.1]
-      behavior = Behaviors.Button
+      behavior = isReplay.value ? null : Behaviors.Button
       onClick = @() selectedRespawnGroupId.mutate(@(v) v[iconType] <- selectedGroup)
     }
   }
@@ -90,7 +92,8 @@ let mk_respawn_point = memoize(function(eid) {
     clampToBorder = true
   }
   let markerState = spawnZonesGetWatched(eid)
-  let watch = [selectedRespawnGroupId, canUseRespawnbaseByType, isAllZonesHidden, localPlayerTeam, markerState]
+  let watch = [selectedRespawnGroupId, canUseRespawnbaseByType, isAllZonesHidden, localPlayerTeam,
+    markerState, isReplay]
 
   return function() {
     let {selectedGroup, iconType, iconIndex, forTeam, isCustom, isPlayerSpawn, isActive, additiveAngle} = markerState.value
@@ -100,9 +103,10 @@ let mk_respawn_point = memoize(function(eid) {
     else if (isCustom)
       spawnIconInfo = customSpawnPointInfo
 
-    let isHidden = isAllZonesHidden.value
-        || forTeam != localPlayerTeam.value
-        || iconType != canUseRespawnbaseByType.value
+    let isHidden = isReplay.value
+      || isAllZonesHidden.value
+      || forTeam != localPlayerTeam.value
+      || iconType != canUseRespawnbaseByType.value
     let isSelected = (selectedRespawnGroupId.value?[iconType] ?? -1) == selectedGroup
     return {
       data
@@ -125,5 +129,6 @@ let mk_respawn_point = memoize(function(eid) {
 })
 
 return {
-   spawn_zone_ctor = {watch = spawnZonesState, ctor = @() spawnZonesState.value.keys().map(mk_respawn_point)},
+  spawn_zone_ctor = { watch = spawnZonesState,
+    ctor = @() spawnZonesState.value.keys().map(mk_respawn_point) },
 }

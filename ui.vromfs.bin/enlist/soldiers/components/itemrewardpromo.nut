@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { bigPadding, lockedSquadBgColor, activeTxtColor, defTxtColor, freemiumColor, titleTxtColor,
+let { bigPadding, lockedSquadBgColor, activeTxtColor, defTxtColor, titleTxtColor,
   smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let viewItemScene = require("viewItemScene.nut")
@@ -16,23 +16,31 @@ let { campaignName, btnSizeSmall, receivedCommon, receivedFreemium, weapInfoBtn,
 } = require("campaignPromoPkg.nut")
 let mkBuyArmyLevel = require("%enlist/soldiers/mkBuyArmyLevel.nut")
 let { animChildren, glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
-let { isFreemiumCampaign, isFreemiumBought
-} = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, isConfigurableCampaign, isCampaignBought, campaignConfigGroup
+} = require("%enlist/campaigns/campaignConfig.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 
-let freemiumPromoLink = {
-  rendObj = ROBJ_FRAME
-  hplace = ALIGN_CENTER
-  color = freemiumColor
-  borderWidth = [0, 0, smallPadding, 0]
-  padding = [bigPadding, 0]
-  behavior = Behaviors.Button
-  onClick = @() freemiumWnd()
-  pos = [0, -hdpx(50)]
-  children = {
-    rendObj = ROBJ_TEXT
-    text = loc("squads/unlockFreemium")
-    color = titleTxtColor
+
+local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
+
+let function freemiumPromoLink() {
+  let { color = null } = campPresentation.value
+  return {
+    rendObj = ROBJ_FRAME
+    watch = campPresentation
+    hplace = ALIGN_CENTER
+    color
+    borderWidth = [0, 0, smallPadding, 0]
+    padding = [bigPadding, 0]
+    behavior = Behaviors.Button
+    onClick = @() freemiumWnd()
+    pos = [0, -hdpx(50)]
+    children = {
+      rendObj = ROBJ_TEXT
+      text = loc("squads/unlockFreemium")
+      color = titleTxtColor
+    }
   }
 }
 
@@ -80,9 +88,10 @@ let function mkUnlockBlock(unlockInfo) {
     return null
 
   return function() {
-    local children = []
-    local { unlockCb = null } = unlockInfo
-    if (unlockInfo?.isNextToBuyExp)
+    let children = []
+    local { unlockCb = null, campaignGroup = CAMPAIGN_NONE, isNextToBuyExp = false,
+      unlockText = null } = unlockInfo
+    if (isNextToBuyExp)
       children.append(mkBuyArmyLevel(unlockInfo.lvlToBuy, unlockInfo.cost, unlockInfo.costFull))
     else if (unlockCb != null)
       children.append(PrimaryFlat(unlockLocTxt, unlockCb, {
@@ -92,15 +101,15 @@ let function mkUnlockBlock(unlockInfo) {
         addChild = animChildren(glareAnimation())
         hotkeys = [["^J:X", { action = unlockCb, description = unlockLocTxt }]]
       }))
-    else
-      children.append(mkUnlockInfo(unlockInfo?.unlockText))
-    if (!!unlockInfo?.isFreemium
-        && isFreemiumCampaign.value
-        && !isFreemiumBought.value)
+    else if (unlockText != null)
+      children.append(mkUnlockInfo(unlockText))
+    if (campaignGroup != CAMPAIGN_NONE
+        && isConfigurableCampaign.value
+        && !isCampaignBought.value)
       children.insert(0, freemiumPromoLink)
 
     return {
-      watch = [isFreemiumCampaign, isFreemiumBought]
+      watch = [isConfigurableCampaign, isCampaignBought]
       size = [SIZE_TO_CONTENT, btnSizeSmall[1]]
       minWidth = btnSizeSmall[0]
       padding = bigPadding
@@ -142,12 +151,12 @@ let itemCardBottom = @(item, unlockInfo){
   gap = bigPadding
   children = [
     campaignName({
-      nameLocId = getItemTypeName(item),
-      titleLocId = getItemName(item),
-      hasReceived = unlockInfo == null,
-      itemType = item.itemtype,
-      itemSubType = item.itemsubtype
-      isFreemium = unlockInfo.isFreemium
+      nameLocId = getItemTypeName(item)
+      titleLocId = getItemName(item)
+      hasReceived = unlockInfo == null
+      itemType = item.itemtype
+      itemSubType = item?.itemsubtype
+      campaignGroup = unlockInfo?.campaignGroup ?? CAMPAIGN_NONE
     })
     {
       size = flex()
@@ -167,7 +176,7 @@ let mkItemPromo = kwarg(function(armyId, itemTpl, presentation, unlockInfo) {
   let itemToView = mkShopItem(itemTpl, item, armyId)
 
   return watchElemState(@(sf) {
-    watch = [isFreemiumCampaign, isFreemiumBought]
+    watch = campaignConfigGroup
     size = flex()
     behavior = Behaviors.Button
     onClick = function(){
@@ -186,7 +195,7 @@ let mkItemPromo = kwarg(function(armyId, itemTpl, presentation, unlockInfo) {
             halign = ALIGN_RIGHT
             children = [
               unlockInfo != null ? null
-                : isFreemiumCampaign.value ? receivedFreemium
+                : campaignConfigGroup.value != CAMPAIGN_NONE ? receivedFreemium(campaignConfigGroup.value)
                 : receivedCommon
               weapInfoBtn(sf)
             ]

@@ -53,6 +53,7 @@ perf_stats{
     ui_perf_stats__packet_loss_warn:i=0
     ui_perf_stats__latency_variation_warn:i=0
     ui_perf_stats__server_tick_warn:i=0
+    ui_perf_stats__low_tickrate_warn:i=0
   }
 
   _group{

@@ -59,8 +59,6 @@ def clone_door(eid, tm, name)
 
   entity_object_editor_addEntity(createdEid)
 
-  // TODO copy door parameters from src door to new door (how to do it right?)
-
   entity_obj_editor_saveComponent(createdEid, "transform")
   entity_obj_editor_saveComponent(createdEid, "ri_extra__name")
 
@@ -103,7 +101,7 @@ def scenery_rendinsts_unbake_rendinst_es(evt : CmdRIToolUnbakeRendInst;
     obj |> set("name", evt.name)
     riunb |> push(obj)
 
-  broadcastEventImmediate([[CmdRIToolCreateRendInst tpl="unbaked_rendinst", tm=evt.tm, name=evt.name, eid=INVALID_ENTITY_ID]])
+  broadcastEventImmediate([[CmdRIToolCreateRendInst tpl="unbaked_rendinst", tm=evt.tm, name=evt.name, eid=INVALID_ENTITY_ID, undo=false]])
 
 [es(tag=gameClient)]
 def scenery_rendinsts_enbake_rendinst_es(evt : CmdRIToolEnbakeRendInst)
@@ -141,7 +139,7 @@ def scenery_rendinsts_rebake_rendinst_es(evt : CmdRIToolRebakeRendInst;
       continue
     if !is_nearly_same_ri_tm(*tm, *rebakeTm)
       continue
-    broadcastEventImmediate([[CmdRIToolCreateRendInst tpl="rebaked_rendinst", tm=*rebakeTm, name=rebakeName, eid=INVALID_ENTITY_ID]])
+    broadcastEventImmediate([[CmdRIToolCreateRendInst tpl="rebaked_rendinst", tm=*rebakeTm, name=rebakeName, eid=INVALID_ENTITY_ID, undo=false]])
     destroyEntity(evt.eid)
     riunb |> erase(idx)
     break
@@ -202,29 +200,34 @@ def scenery_rendinsts_restore_rendinst_es(evt : CmdRIToolRestoreRendInst;
         radius = riex_getBsphRad(uint(pool_id))
         break
     console_command("daEd4.zoom {pos.x} {pos.y+radius*0.618} {pos.z} {radius}")
-    broadcastEventImmediate([[CmdRIToolCreateRendInst tpl="rebaked_rendinst", tm=*rebakeTm, name=rebakeName, eid=INVALID_ENTITY_ID]])
+    broadcastEventImmediate([[CmdRIToolCreateRendInst tpl="rebaked_rendinst", tm=*rebakeTm, name=rebakeName, eid=INVALID_ENTITY_ID, undo=false]])
     rirmv |> erase(idx)
     break
 
 
 [es(tag=gameClient)]
 def scenery_rendinsts_create_rendinst_es(evt : CmdRIToolCreateRendInst)
+  var tpl = evt.tpl
   if evt.eid != INVALID_ENTITY_ID
     if has(evt.eid, "isDoor")
       clone_door(evt.eid, evt.tm, evt.name)
-    return
-  let createdEid = entity_object_editor_createEntityDirectRIExtra(evt.tpl, evt.tm, evt.name)
+    if tpl == "game_rendinst" && getEntityTemplateName(evt.eid) == "game_rendinst_decor"
+      tpl = "game_rendinst_decor"
+  let createdEid = entity_object_editor_createEntityDirectRIExtra(tpl, evt.tm, evt.name)
   if createdEid == INVALID_ENTITY_ID
     return
-  if evt.tpl == "rebaked_rendinst"
+  if tpl == "rebaked_rendinst"
     return
 
-  entity_object_editor_addEntity(createdEid)
+  if !evt.undo
+    entity_object_editor_addEntity(createdEid)
+  else
+    entity_object_editor_addEntityWithUndo(createdEid)
 
   entity_obj_editor_saveComponent(createdEid, "transform")
   entity_obj_editor_saveComponent(createdEid, "ri_extra__name")
 
-  if evt.tpl == "unbaked_rendinst"
+  if tpl == "unbaked_rendinst"
     set(createdEid, "rebake__tm", evt.tm)
     set(createdEid, "rebake__name", evt.name)
     entity_obj_editor_saveComponent(createdEid, "rebake__tm")

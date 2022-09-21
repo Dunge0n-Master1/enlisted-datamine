@@ -18,6 +18,7 @@ germ_stug_iii_ausf_a_moscow_premium{
 germ_stug_III_ausf_A{
   _extends:t="base_stug_iii_ausf_a"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

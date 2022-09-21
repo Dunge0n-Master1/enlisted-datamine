@@ -11,6 +11,8 @@ require game.es.server_debug_common
 require game.es.vehicle.vehicle_seats_common
 require game.es.net_console_macro
 require enlisted.events_enlisted
+require danetlibs.console_commands.main.console_common
+require daslib/strings_boost
 
 [console_cmd(name="vehicle.explosion")]
 def vehicle_explosion()
@@ -43,3 +45,16 @@ def vehicle_spawn_debug(vehicleTempl : string; [[net_hero]] hero_eid : EntityId;
 def debug_plane_resupply([[net_hero]] eid : EntityId)
   query(eid) <| $ [es] (human_anim__vehicleSelected : EntityId)
     send_net_event(human_anim__vehicleSelected, [[CmdResupplyVehicle]])
+
+
+[console_processor]
+def vehicle_spawn_debug_cmd_processor(args : array<string>;
+                                      collect : bool;
+                                      var hints : ConsoleProcessorHints)
+  let cmd = "vehicle.spawnInVehicle"
+  if collect
+    let inputs <- args[0] |> split(" ")
+    if length(inputs) >= 2
+      add_hints([[auto[] [[CommandArgDesc name="vehicleTempl", hintType=CommandArgHintType TemplateName]] ]],
+                cmd, inputs, /*hints_count*/ 20, /*threshold_cam_distance_sq*/ 2500.0, hints)
+  return false

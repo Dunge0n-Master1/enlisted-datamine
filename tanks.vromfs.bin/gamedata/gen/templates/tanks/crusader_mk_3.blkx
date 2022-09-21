@@ -80,8 +80,6 @@ base_crusader_mk_3{
       turretName:t="turret_02"
       gun:t="crusader_mk_3_turret_02_7_92mm_besa"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

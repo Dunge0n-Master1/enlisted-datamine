@@ -72,31 +72,34 @@ let itemTypesData = {
     isWeapon = true
   }
 
+  sideweapon = { svg = "item_pistol.svg" }
+  melee = { svg = "melee.svg" }
+
+  explosion_pack = { svg = "explosion_pack_icon.svg" }
+  grenade = { svg = "item_grenade.svg" }
+  impact_grenade = { svg = "impact_grenade_icon.svg" }
+  incendiary_grenade = { svg = "grenade_incendiary_icon.svg" }
+  molotov = { svg = "grenade_flame_icon.svg" }
+  lunge_mine = { svg = "ni_05_lunge_mine.svg" }
+  tnt_block_exploder = { svg = "item_tnt_block_exploder.svg" }
+  tnt_block = { svg = "tnt_charge_icon.svg" }
+  smoke_grenade = { svg = "grenade_smoke_icon.svg" }
+  mine = { svg = "item_antitank_mine.svg" }
+  antipersonnel_mine = { svg = "item_antipersonnel_mine.svg" }
+  antitank_mine = { svg = "item_antitank_mine.svg" }
+
+  medkits = { svg = "item_medkit.svg" }
+  repair_kit = { svg = "item_repair_kit.svg" }
+  flask_usable = { svg = "flask_icon.svg" }
+  binoculars_usable = { svg = "binoculars_icon.svg" }
+  backpack = { svg = "item_backpack.svg" }
+
   vehicle = { svg = "tank_icon.svg" }
   tank = { svg = "tank_icon.svg" }
   bike = { svg = "bike_icon.svg" }
   aircraft = { svg = "aircraft_icon.svg" }
   assault_aircraft = { svg = "aircraft_icon.svg" }
   fighter_aircraft = { svg = "aircraft_icon.svg" }
-
-  melee = { svg = "melee.svg" }
-  medkits = { svg = "item_medkit.svg" }
-  flask_usable = { svg = "flask_icon.svg" }
-  grenade = { svg = "item_grenade.svg" }
-  molotov = { svg = "grenade_flame_icon.svg" }
-  smoke_grenade = { svg = "grenade_smoke_icon.svg" }
-  explosion_pack = { svg = "explosion_pack_icon.svg" }
-  impact_grenade = { svg = "impact_grenade_icon.svg" }
-  mine = { svg = "item_antitank_mine.svg" }
-  antipersonnel_mine = { svg = "item_antipersonnel_mine.svg" }
-  antitank_mine = { svg = "item_antitank_mine.svg" }
-  tnt_block = { svg = "item_tnt_block_exploder.svg" }
-  tnt_block_exploder = { svg = "item_tnt_block_exploder.svg" }
-  sideweapon = { svg = "item_pistol.svg" }
-  repair_kit = { svg = "item_repair_kit.svg" }
-  flaregun = { svg = "launcher.svg" }
-  backpack = { svg = "item_backpack.svg" }
-  binoculars_usable = { svg = "binoculars_icon.svg" }
 }
 
 let function itemTypeIcon(iType, iSubType = null, override = {}) {

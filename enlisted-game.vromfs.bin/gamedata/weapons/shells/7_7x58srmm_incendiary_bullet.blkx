@@ -13,6 +13,7 @@ stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=2.5
 stabilityReductionAfterPenetration:r=0.3
 onHitChanceMultFire:r=4.0
+bulletType:t="i_ball"
 slopeEffectPreset:t="ap"
 effectiveDistance:r=400.0
 relativeVelHitShift:p2=300.0, 1000.0
@@ -54,29 +55,6 @@ armorpower{
   ArmorPower1000m:p2=3.0, 1000.0
   ArmorPower1450m:p2=0.1, 1450.0
   ArmorPower1500m:p2=0.0, 1500.0
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_8_11mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

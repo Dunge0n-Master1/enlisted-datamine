@@ -16,7 +16,7 @@ require DagorSystem
 require Gun
 require HumanPhys
 require AnimV20
-
+require common_shooter.es.human.human_gun_common
 
 def attach_projectile(owner_eid : EntityId;
                       gun_eid : EntityId;

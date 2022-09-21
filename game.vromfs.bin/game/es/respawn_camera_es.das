@@ -6,6 +6,8 @@ require math
 require math.base
 require app
 require player
+require replay
+require DagorSystem
 
 [es(track=respawner__respStartTime, after=respawn_camera_apply_target_es)]
 def respawn_camera_delay_change_target_es(evt : Event;
@@ -13,10 +15,13 @@ def respawn_camera_delay_change_target_es(evt : Event;
                                           team : int;
                                           var respawner__changeCameraAtTime : float&)
   if respawner__respStartTime <= 0.0
+    print("respawn camera: reset camera timer {respawner__changeCameraAtTime}")
+    respawner__changeCameraAtTime = 0.0
     return
   ecs::query() <| $ [es] (respawnCameraForTeam : int; respawnCamera__showDelay : float)
     if is_teams_friendly(team, respawnCameraForTeam) || respawnCameraForTeam == TEAM_UNASSIGNED
       respawner__changeCameraAtTime = get_sync_time() + respawnCamera__showDelay
+      print("respawn camera: init respawn camera timer. Camera will be init at {respawner__changeCameraAtTime}")
 
 [es(on_appear, REQUIRE=respawnCameraForTeam)]
 def reset_respawn_camera_rotation(evt : Event; var transform : float3x4)
@@ -64,6 +69,7 @@ def respawn_camera_apply_target(team : int; var respawner__changeCameraAtTime : 
       ecs::find_query() <| $ [es(REQUIRE=color_grading)] (eid : EntityId)
         sendEvent(eid, [[EventLutSwitcherAliveState]])
         return true
+  print("respawn camera: Respawn camera apply target complete. {respawner__changeCameraAtTime}")
   respawner__changeCameraAtTime = 0.0
 
 [es(tag=gameClient, after=lut_switcher_on_vehicle_gain_input_es, REQUIRE=player)]
@@ -72,9 +78,9 @@ def respawn_camera_apply_target_respawner_es(info : UpdateStageInfoAct;
                                              is_local : bool;
                                              respawner__squad : EntityId = INVALID_ENTITY_ID;
                                              var respawner__changeCameraAtTime : float&)
-  if !is_local
+  if !is_local || is_replay_playing()
     return
-  var shouldEnableCam = true
+  var shouldEnableCam = !respawner__squad
   query(respawner__squad) <| $ [es] (squad__numAliveMembers : int = 0)
     shouldEnableCam = squad__numAliveMembers <= 0
   if shouldEnableCam
@@ -185,3 +191,9 @@ def respawn_camera_update(info : UpdateStageInfoAct;
 
   if length(respawnCameraLookFrom - transform[3]) < 0.01 && length(respawn_camera__lookAtCurrent - respawn_camera__lookAt) < 0.01
     removeSubTemplate(eid, "respawn_camera_update_transform")
+
+[es(tag=(server, dev), on_event=EventLevelLoaded)]
+def check_respawn_camera_team_set(evt : Event; eid : EntityId; respawnCameraForTeam : int)
+  if respawnCameraForTeam == TEAM_UNASSIGNED
+    let templateName = getEntityTemplateName(eid)
+    logerr("Respawn camera eid: {eid} template: {templateName} has no team assigned")

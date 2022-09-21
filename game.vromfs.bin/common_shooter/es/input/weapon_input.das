@@ -4,6 +4,7 @@ require ecs
 require Gun
 require game.es.events
 require game.es.input.input_events
+require game.es.vehicle.vehicle_seats_common
 require DagorInput
 require TouchInput
 require EnlistedHuman
@@ -145,6 +146,7 @@ def human_weapon_input_es(evt : EventDaInputInit;
 [es(tag=input)]
 def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
                                  eid : EntityId;
+                                 human_vehicle__isHoldingGunPassenger : bool;
                                  human_weap__weapModActivateFinishTime : float;
                                  human_weap__gunEids : EidList;
                                  human_input__lastShootInput : float;
@@ -174,10 +176,10 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
     return
   if time <= human_weap__weapModActivateFinishTime
     return
-  if !isInVehicle
+  if !isInVehicle || human_vehicle__isHoldingGunPassenger
     for i in range(0, human_input__weaponSlotCount)
       let weapon = human_weap__gunEids[i]
-      if !!weapon && action == human_input__weapons[i]
+      if !!weapon && action == human_input__weapons[i] && (!human_vehicle__isHoldingGunPassenger || is_gun_slot_allowed_to_hold_gun_in_hatch(i))
         set_weapon_slot(time, weapon, HUWeaponSlots(i), ct, last_change_time)
         return
 
@@ -242,11 +244,7 @@ def human_input_weapon_action_triggered_es(evt : EventDaInputActionTriggered;
       return
 
     let weaponEid = human_weap__gunEids[human_weap__currentGunSlot]
-    query(weaponEid) <| $ [es] (var gun : Gun&)
-      if !switchNextFiringMode(gun)
-        return
-
+    query(weaponEid) <| $ [es] (gun : Gun)
       let currentGunSlot = uint8(human_weap__currentGunSlot)
-      let wishModeId = gun.firingModeIndex
-      sendEvent(weaponEid, [[CmdGunSoundSwitchFiringMode]])
-      sendEvent(eid, [[HumanWeapRequestSwitchFiringMode slotId=currentGunSlot, nodeId=wishModeId]])
+      let wishModeId = gun |> gun_getNextFiringModeIndex()
+      send_net_event(eid, [[HumanWeapRequestSwitchFiringMode slotId=currentGunSlot, modeId=wishModeId]])

@@ -6,14 +6,14 @@ let {
 } = require("%ui/hud/state/wallposter_menu.nut")
 let { wallPosters } = require("%ui/hud/state/wallposter.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let { CmdWallposterPreview } = require("wallposterevents")
+let { CmdWallposterPreview } = require("dasevents")
 let mkPieItemCtor = require("%ui/hud/components/wallposter_menu_item_ctor.nut")
 
 let svg = memoize(function(img) {
   return "!ui/uiskin/{0}.svg:{1}:{1}:K".subst(img, elemSize.value[1])
 })
 let wallPosterPreview = @(index)
-  ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdWallposterPreview(true, index))
+  ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdWallposterPreview({enable=true, wallPosterId=index}))
 
 wallPosters.subscribe(function(posters) {
   wallposterMenuItems(posters.map(function(poster, index) {

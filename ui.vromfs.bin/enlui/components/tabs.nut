@@ -2,6 +2,10 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {ControlBgOpaque, BtnTextHover, BtnTextActive, BtnTextHilite, BtnTextNormal, BtnBgNormal, BtnBgHover, BtnBgActive} = require("%ui/style/colors.nut")
+let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
+let { safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
+
+let saSize = Computed(@() sw(100)-2*safeAreaHorPadding.value)
 
 let function tabCtor(tab, is_current, handler) {
   let grp = ElemGroup()
@@ -57,10 +61,11 @@ let function tabCtor(tab, is_current, handler) {
   }
 }
 
+
 let function tabsHolder(_params, children) {
-  return {
+  let width = min(sw(90), saSize.value)
+  return makeHorizScroll({
     rendObj = ROBJ_BOX
-    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     padding = [0, hdpx(3)]
     gap = hdpx(3)
@@ -69,7 +74,14 @@ let function tabsHolder(_params, children) {
     fillColor = ControlBgOpaque
     borderColor = Color(100, 100, 100, 120)
     borderWidth = [0, 0, hdpx(1), 0]
-  }
+  }, {
+    size = [width, SIZE_TO_CONTENT]
+    root = {
+      key = "settingsHeaderRoot"
+      behavior = Behaviors.Pannable
+      wheelStep = 1
+    }
+  })
 }
 
 

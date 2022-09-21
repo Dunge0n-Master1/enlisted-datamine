@@ -1,11 +1,11 @@
 require ecs
 require ecs.common
 require game.es.human_use_action_common
+require game.es.action_common
 require game.utils.team
 require HumanPhys
 require EnlistedHuman
 require inventory
-require Action
 require enlisted.events_enlisted
 
 

@@ -1,22 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let grenadeIconNames = {
-  fougasse = "grenade_fougasse_icon.svg"
   antitank = "grenade_antitank_icon.svg"
-  flame = "grenade_flame_icon.svg"
-  flash = "grenade_flash_icon.svg"
-  smoke = "grenade_smoke_icon.svg"
+  fougasse = "grenade_fougasse_icon.svg"
   impact = "impact_grenade_icon.svg"
+  incendiary = "grenade_incendiary_icon.svg"
+  flame = "grenade_flame_icon.svg"
+  lunge_mine = "ni_05_lunge_mine.svg"
   tnt_block = "item_tnt_block_exploder.svg"
+  smoke = "grenade_smoke_icon.svg"
 }
 
 let GRENADES_ORDER = {
   antitank = 0
   tnt_block = 1
-  impact = 2
-  fougasse = 3
-  flame = 4
-  smoke = 5
+  lunge_mine = 2
+  impact = 3
+  incendiary = 4
+  fougasse = 5
+  flame = 6
+  smoke = 7
 }
 
 let grenadeIcon = memoize(function(gType, size) {

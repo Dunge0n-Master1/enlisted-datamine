@@ -14,12 +14,22 @@ def explode_shell(eid : EntityId;
                   var shell__active : bool&;
                   var shell__launchTime : float&;
                   shell__fuseTime : float;
-                  shell__cleanupTime : float)
+                  shell__cleanupTime : float;
+                  shell__minPrevPosToContactDistance : float = 0.1;
+                  shell__minContactDirDeviationCos : float = 0.999)
   shell__active = false
   if curTime >= shell__launchTime + shell__fuseTime
-    let prevPos = float3(phys_obj_net_phys.phys.previousState.location.P)
+    var prevPos = float3(phys_obj_net_phys.phys.previousState.location.P)
+    let contact = phys_obj_net_phys.phys.currentState.contactPoint
     let vel = phys_obj_net_phys.phys.currentState.velocity
-    sendEvent(eid, [[CmdShellExplode position=phys_obj_net_phys.phys.currentState.contactPoint, prevPos=prevPos, vel=vel]])
+
+    // if prevPos and contact point are very close, we may have wrong direction prevPos -> contact
+    if distance_sq(contact, prevPos) < square(shell__minPrevPosToContactDistance)
+      let contactDir = normalize(contact - prevPos)
+      let shellDir = normalize(vel)
+      if dot(contactDir, shellDir) < shell__minContactDirDeviationCos
+        prevPos = contact - shellDir * shell__minPrevPosToContactDistance
+    sendEvent(eid, [[CmdShellExplode position=contact, prevPos=prevPos, vel=vel]])
   else
     sendEvent(eid, [[CmdBodyCleanup time=shell__cleanupTime]])
 
@@ -68,3 +78,9 @@ def explode_on_speed_drop_shell_contact(evt : CmdPostPhysUpdate;
       return
 
     explode_shell(eid, curTime, phys_obj_net_phys, shell__active, shell__launchTime, shell__fuseTime, shell__cleanupTime)
+
+[es(tag=server, REQUIRE=shell_trigger__requireContact)]
+def shell_trigger_require_contact(evt : CmdPostPhysUpdate;
+                                  phys_obj_net_phys : PhysObjActor;
+                                  var shell_trigger__active : bool&)
+  shell_trigger__active = phys_obj_net_phys.phys.currentState.hadContact

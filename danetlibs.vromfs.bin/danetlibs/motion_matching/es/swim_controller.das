@@ -21,10 +21,12 @@ def remove_tag(var tags : StringList; tag : string)
   if idx != -1
     tags |> erase(idx)
 
-[es(tag=gameClient, track=human_net_phys__isSwimming)]
+[es(tag=gameClient, track=(human_net_phys__isSwimming, human_net_phys__isUnderwater))]
 def motion_matching_watch_swim(event : Event;
                                var motion_matching__goalTags : StringList;
+                               var motion_matching__optionalTags : StringList;
                                human_net_phys__isSwimming : bool;
+                               human_net_phys__isUnderwater : bool;
                                var motion_matching__enabled : bool&)
 
   motion_matching__enabled = human_net_phys__isSwimming
@@ -32,6 +34,10 @@ def motion_matching_watch_swim(event : Event;
     add_tag(motion_matching__goalTags, "swim")
   else
     remove_tag(motion_matching__goalTags, "swim")
+  if human_net_phys__isUnderwater
+    add_tag(motion_matching__optionalTags, "swim_underwater")
+  else
+    remove_tag(motion_matching__optionalTags, "swim_underwater")
 
 
 [es(tag=gameClient, before=motion_matching_job_es)]

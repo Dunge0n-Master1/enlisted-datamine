@@ -1,16 +1,15 @@
-let {settings, activation_modes, setRecordingEnabled} = require("%enlSqGlob/voice_settings.nut")
-let {activationMode, recordingEnable} = settings
+let {voiceActivationMode, voiceRecordingEnable, voice_activation_modes, setRecordingEnabled} = require("%enlSqGlob/voice_settings.nut")
 
 return {
   eventHandlers = {
     ["VoiceChat.Record"] = function(_event) {
-      if (activationMode.value == activation_modes.pushToTalk)
+      if (voiceActivationMode.value == voice_activation_modes.pushToTalk)
         setRecordingEnabled(true)
-      else if (activationMode.value == activation_modes.toggle)
-        setRecordingEnabled(!recordingEnable.value)
+      else if (voiceActivationMode.value == voice_activation_modes.toggle)
+        setRecordingEnabled(!voiceRecordingEnable.value)
     },
     ["VoiceChat.Record:end"] = function(_event) {
-      if (activationMode.value == activation_modes.pushToTalk)
+      if (voiceActivationMode.value == voice_activation_modes.pushToTalk)
         setRecordingEnabled(false)
     }
   }

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {configs} = require("%enlSqGlob/configs/configs.nut")
+let {configs} = require("%enlist/meta/configs.nut")
 
 let gameProfile = Computed(@() configs.value?.gameProfile ?? {})
 let allArmiesInfo = Computed(function() {

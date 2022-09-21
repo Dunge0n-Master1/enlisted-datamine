@@ -132,6 +132,36 @@ bf_109f_1{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb2"
+    node:t="bomb3"
+    node:t="bomb4"
+    node:t="bomb5"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="pylon_bomb1"
     part:t="pylon_cannon_l"
@@ -155,7 +185,7 @@ bf_109f_1{
 
 base_bf_109f_1_7_92mm_mg17{
   item__name:t="guns/gunmg17"
-  gun__blk:t="content/enlisted/gamedata/weapons/bf_109f_1/7_92mm_mg17.blk"
+  gun__blk:t="gamedata/weapons/bf_109f_1/7_92mm_mg17.blk"
   gun__shotFreq:r=16.66
   gun__locName:t="gunmg17"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -219,7 +249,7 @@ base_bf_109f_1_20mm_mgffm{
   gun__shotFreq:r=8.66
   gun__locName:t="cannonmgffm"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=60
+  gun__maxAmmo:i=90
 
   "gun__firingModes:array"{
 
@@ -233,7 +263,7 @@ base_bf_109f_1_20mm_mgffm{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=60
+    ammo:i=90
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -357,7 +387,7 @@ planegun_bf_109f_1_20mm_mgffm_01{
   _extends:t="base_bf_109f_1_20mm_mgffm"
   _extends:t="gunsound_20mm_mgffm_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=60
+  gun__maxAmmo:i=90
 }
 
 bf_109f_1_driver_cockpit{

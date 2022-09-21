@@ -1,6 +1,8 @@
 germ_pzkpfw_V_ausf_g_panther{
   _extends:t="base_pzkpfw_v_ausf_g_panther"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
 
   "animchar__objTexReplace:object"{
     "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
@@ -229,23 +231,26 @@ germ_pzkpfw_V_ausf_g_panther_kurmark_pzrgt_premium_skin{
     }
   }
 
+  "attach_decorators__entities:list<eid>"{
+  }
+
   "attach_decorators__templates:array"{
 
     "templates:object"{
       relativeTm:m=[[0.0226721, -0.398418, 0.916533] [0.992739, -0.0966134, -0.0665622] [0.115098, 0.911633, 0.393507] [0.81778, 0.78175, 0.705411]]
-      template:t="gazmask_decor"
+      template:t="gazmask"
       nodeName:t="bone_turret"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.0107909, -0.954145, -0.298303] [-0.996711, 0.0318033, -0.0654749] [0.0721752, 0.296917, -0.951097] [-0.255386, 0.673753, -0.869678]]
-      template:t="ger_ammunition_wwii_decor"
+      template:t="ger_ammunition_wwii"
       nodeName:t="bone_turret"
     }
 
     "templates:object"{
       relativeTm:m=[[0.999749, -5.24678e-05, -0.000292428] [-5.54563e-05, 0.933759, -0.35705] [0.000291949, 0.357036, 0.933767] [0.666145, 0.757857, 0.765371]]
-      template:t="german_tank_helmet_decor"
+      template:t="german_tank_helmet"
       nodeName:t="bone_turret"
     }
 
@@ -257,37 +262,37 @@ germ_pzkpfw_V_ausf_g_panther_kurmark_pzrgt_premium_skin{
 
     "templates:object"{
       relativeTm:m=[[0.905049, 0.0150227, 0.424293] [0.418065, 0.142194, -0.896701] [-0.0738254, 0.989301, 0.12243] [0.75209, 0.824808, -0.621518]]
-      template:t="german_tank_helmet_decor"
+      template:t="german_tank_helmet"
       nodeName:t="bone_turret"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.00762608, -0.896142, 0.443103] [0.997654, -0.0344323, -0.0524141] [0.0622412, 0.441827, 0.894581] [-0.0230408, 0.760777, 0.835961]]
-      template:t="grenades_decor"
+      template:t="grenades"
       nodeName:t="bone_turret"
     }
 
     "templates:object"{
       relativeTm:m=[[0.522844, -0.0181315, 0.851611] [0.849136, -0.0731694, -0.522315] [0.0718246, 0.99674, -0.0228732] [-2.80041, 1.82706, -0.894369]]
-      template:t="ger_mp_40_decor"
+      template:t="decor_ger_mp_40"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[0.0575063, -0.904301, 0.421683] [0.997446, 0.0651748, 0.00378257] [-0.0309234, 0.420617, 0.906374] [-2.73032, 1.6629, 1.50478]]
-      template:t="ger_ammunition_wwii_decor"
+      template:t="ger_ammunition_wwii"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.0334596, -0.919628, 0.389904] [0.998666, -0.0335009, 0.00674714] [0.00686178, 0.389885, 0.919917] [-1.70264, 1.67954, 1.51946]]
-      template:t="ger_ammunition_wwii_decor"
+      template:t="ger_ammunition_wwii"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[0.00254244, -0.905615, -0.42264] [-0.999648, -0.00752345, 0.0101009] [-0.0123426, 0.422647, -0.905909] [-2.10139, 1.65913, -1.53233]]
-      template:t="ger_ammunition_wwii_decor"
+      template:t="ger_ammunition_wwii"
       nodeName:t="root"
     }
 

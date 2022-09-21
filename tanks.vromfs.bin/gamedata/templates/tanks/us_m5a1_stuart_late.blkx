@@ -1,6 +1,7 @@
 us_m5a1_stuart_late{
   _extends:t="base_m5a1_stuart_late"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.2
 
   "turrets__initAmmoDistribution:array"{
@@ -217,6 +218,9 @@ us_m5a1_stuart_rhino_event_premium{
     "us_camo_olive*":t="us_camo_olive_drab_olive*"
   }
 
+  "attach_decorators__entities:list<eid>"{
+  }
+
   "attach_decorators__templates:array"{
 
     "templates:object"{
@@ -245,19 +249,19 @@ us_m5a1_stuart_rhino_event_premium{
 
     "templates:object"{
       relativeTm:m=[[-0.00866748, -0.999361, 0.0260854] [-0.951828, 0.000280402, -0.305962] [0.305797, -0.0275586, -0.951357] [0.251968, 0.351185, -0.665359]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="bone_turret"
     }
 
     "templates:object"{
       relativeTm:m=[[0.620894, -0.771249, -0.139307] [-0.774172, -0.631292, 0.0443747] [-0.1221, 0.0802378, -0.989112] [-0.229767, 0.386086, -0.659877]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="bone_turret"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.240849, -0.969471, -0.033729] [0.953247, -0.24298, 0.177519] [-0.180337, 0.0105662, 0.982994] [-0.220718, 0.415194, 0.808027]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="bone_turret"
     }
 
@@ -275,43 +279,43 @@ us_m5a1_stuart_rhino_event_premium{
 
     "templates:object"{
       relativeTm:m=[[-0.213823, -0.0468106, -0.975375] [0.976436, -0.0232703, -0.212919] [-0.0127504, -0.998002, 0.050621] [-0.530319, -1.13052, 1.38022]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.340813, 0.0292078, -0.939059] [0.93817, -0.0456875, -0.341792] [-0.0529374, -0.997867, -0.0118925] [-1.13173, 1.28331, 1.515]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.100149, 0.0430056, -0.993561] [-0.99429, 0.0219444, 0.101154] [0.0261573, 0.998267, 0.0404993] [-1.65085, 1.11956, 1.52541]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[0.75435, 0.00972326, -0.65526] [0.00695331, 0.999264, 0.0228454] [0.655789, -0.0217987, 0.753668] [1.44865, -0.0916288, 1.28878]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[0.183214, 0.980291, 0.0688211] [-0.725476, 0.087709, 0.681954] [0.662798, -0.174853, 0.72747] [1.4278, 0.642531, 1.32414]]
-      template:t="us_helmet_m1_decor"
+      template:t="helmet_m1"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.804296, -0.149742, 0.574114] [0.135504, -0.98812, -0.0677854] [0.577794, 0.0232946, 0.814945] [1.20572, 0.803776, 1.53902]]
-      template:t="us_helmet_m1_decor"
+      template:t="helmet_m1"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.467384, 0.73639, 0.487188] [0.532014, 0.674738, -0.509383] [-0.704846, 0.0212021, -0.707491] [1.43228, -0.470418, 1.41043]]
-      template:t="m1_carabine_decor"
+      template:t="decor_m1_carabine"
       nodeName:t="root"
     }
 

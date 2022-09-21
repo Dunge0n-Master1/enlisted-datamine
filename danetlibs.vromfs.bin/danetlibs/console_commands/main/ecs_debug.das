@@ -402,6 +402,20 @@ def who_can_change_component_of_template_cproc(args : array<string>;
 
   return false
 
+[console_processor]
+def who_can_access_component_of_template_cproc(args : array<string>;
+                                               collect : bool;
+                                               var hints : ConsoleProcessorHints)
+  let cmd = "ecs.who_can_access_component_of_template"
+  if collect
+    let inputs <- args[0] |> split(" ")
+    add_hints([[auto[] [[CommandArgDesc name="component", hintType=CommandArgHintType Default]];
+                       [[CommandArgDesc name="template", hintType=CommandArgHintType TemplateName]] ]],
+              cmd, inputs, /*hints_count*/ 20, /*threshold_cam_distance_sq*/ square(0.0), hints)
+  //else actuall processing of this command happens in c++
+
+  return false
+
 
 [console_cmd(name="update_from_das_templates")]
 def update_from_das_templates()

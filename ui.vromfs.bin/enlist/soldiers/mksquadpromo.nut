@@ -17,9 +17,10 @@ let colorize = require("%ui/components/colorize.nut")
 let { getClassNameWithGlyph } = require("%enlSqGlob/ui/soldierClasses.nut")
 let viewItemScene = require("components/viewItemScene.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
-let perksList = require("%enlSqGlob/configs/perks/perksList.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
 let { campaignName, btnSizeSmall, btnSizeBig, weapInfoBtn
 } = require("components/campaignPromoPkg.nut")
+let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
 
 let mainBgColor = Color(98, 98, 80)
 let localGap = bigPadding * 2
@@ -180,7 +181,7 @@ let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0) {
 }
 
 let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon,
-  hasReceived, nameLocId, titleLocId, isPrimeSquad = false, isFreemium = false
+  hasReceived, nameLocId, titleLocId, isPrimeSquad = false, campaignGroup = CAMPAIGN_NONE
 ) {
     return {
       size = [flex(), ph(60)]
@@ -190,7 +191,7 @@ let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon
       valign = ALIGN_TOP
       children = [
         campaignName({
-          nameLocId, titleLocId, isPrimeSquad, hasReceived, sClass = newClass, isFreemium
+          nameLocId, titleLocId, isPrimeSquad, hasReceived, sClass = newClass, campaignGroup
         })
         {
           flow = FLOW_HORIZONTAL

@@ -1,7 +1,7 @@
 require ecs
 require app
 require PhysVars
-require EnlistedDeviceAnim
+require game.es.device_state_common
 require AnimV20
 require AnimatedPhys
 require game.es.device_animation_common
@@ -14,6 +14,7 @@ def radio_animation(act : ParallelUpdateFrameDelayed;
                     device_anim__states aka human_device_anim__states : IntList;
                     human_weap__radioEid : EntityId;
                     isTpsView : bool = false;
+                    watchedByPlr : EntityId = INVALID_ENTITY_ID;
                     human_weap__radioMode : bool;
                     var device_anim__state aka human_device_anim__state : int&;
                     var device_anim__progress aka human_device_anim__progress : float&;
@@ -48,7 +49,8 @@ def radio_animation(act : ParallelUpdateFrameDelayed;
                      human_device_anim__progressVarId, human_device_anim__states, state, progress)
     set_device_state(phys_vars, device_anim__state, device_anim__progress, device_anim__stateVarId, device_anim__progressVarId, device_anim__states, state, progress)
     if device_anim__isFpvVarId >= 0
-      setVar(phys_vars, device_anim__isFpvVarId, isTpsView ? 0.0 : 1.0)
+      let isViewedFromFPS = watchedByPlr != INVALID_ENTITY_ID && !isTpsView
+      setVar(phys_vars, device_anim__isFpvVarId, isViewedFromFPS ? 1.0 : 0.0)
 
 
 [es(tag=gameClient, track=human_weap__radioMode)]

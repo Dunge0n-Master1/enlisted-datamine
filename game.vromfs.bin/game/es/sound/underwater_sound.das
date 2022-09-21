@@ -2,9 +2,10 @@ require ecs
 require soundEvent
 require soundSystem
 require Dacoll
+require enlisted.events_enlisted
 
 [es(tag=sound, no_order)]
-def underwater_sound(info : UpdateStageInfoAct;
+def underwater_sound(info : ParallelUpdateFrameDelayed;
                      underwater_sound__path : string;
                      var underwater_sound__event : SoundEvent&;
                      var underwater_sound__frame : int&;

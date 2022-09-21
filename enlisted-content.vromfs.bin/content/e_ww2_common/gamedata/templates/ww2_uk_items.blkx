@@ -800,6 +800,7 @@ attachable_wear_backpack_01_uk_tropic_item{
   item__name:t="items/big_bag"
   item__uniqueName:t="attachable_wear_backpack_01_uk_tropic_item"
   animchar_fast_phys__res:t="backpack_01_uk_tropic_fastphys"
+  attachable_backpack__capacity:i=3
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -837,6 +838,7 @@ attachable_wear_small_pack_m37_01_uk_summer_item{
   item__name:t="items/small_bag"
   item__uniqueName:t="attachable_wear_small_pack_m37_01_uk_summer_item"
   animchar_fast_phys__res:t="small_pack_m37_01_uk_summer_fastphys"
+  attachable_backpack__capacity:i=1
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -879,6 +881,18 @@ attachable_wear_parachute_serge_dress_pilot_uk_item{
     "parachute_backpack__canopyEid:eid"{
     }
   }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_uk_lifebuoy_rack_flammiere_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_uk_lifebuoy_rack_flammiere_item"
+  animchar__res:t="uk_lifebuoy_rack_flammiere_char"
+  collres__res:t="uk_lifebuoy_rack_flammiere_collision"
+  animchar_fast_phys__res:t="uk_lifebuoy_rack_flammiere_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"

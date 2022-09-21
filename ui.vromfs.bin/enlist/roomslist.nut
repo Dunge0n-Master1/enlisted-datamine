@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {receivedFiles, requestedFiles, requestFilesByHashes} = require("modFiles.nut")
 let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
-let {showCreateRoom} = require("%enlSqGlob/uistate.nut")
+let {showCreateRoom} = require("mpRoom/showCreateRoom.nut")
 let roomsListState = require("roomsListState.nut")
 let roomState = require("state/roomState.nut")
 let textButton = require("%ui/components/textButton.nut")

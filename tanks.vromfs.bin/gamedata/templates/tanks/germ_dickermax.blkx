@@ -5,6 +5,7 @@ germ_dickermax_stalingrad_premium{
 germ_dickermax_common{
   _extends:t="base_dickermax"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

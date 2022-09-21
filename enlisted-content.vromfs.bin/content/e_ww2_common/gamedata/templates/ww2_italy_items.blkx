@@ -116,12 +116,18 @@ attachable_wear_head_hero_6_it_item{
   _extends:t="dynamic_details_hero_preset_6"
 }
 
+attachable_wear_ita_flammiere_pants_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_ita_flammiere_pants_item"
+  animchar__res:t="ita_flammiere_pants_char"
+  collres__res:t="ita_flammiere_pants_collision"
+}
+
 attachable_wear_sahariani_trousers_01_ita_tropic_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_sahariani_trousers_01_ita_tropic_item"
   animchar__res:t="sahariani_trousers_01_ita_tropic_char"
   collres__res:t="sahariani_trousers_01_ita_tropic_collision"
-  item__name:t="Italy Tropical Sahariani trousers m40"
 }
 
 attachable_wear_sahariani_trousers_ita_mar_item{
@@ -129,7 +135,6 @@ attachable_wear_sahariani_trousers_ita_mar_item{
   item__uniqueName:t="attachable_wear_sahariani_trousers_ita_mar_item"
   animchar__res:t="sahariani_trousers_ita_mar_char"
   collres__res:t="sahariani_trousers_ita_mar_collision"
-  item__name:t="Italy Tropical Sahariani trousers m40"
 }
 
 attachable_wear_sahariani_trousers_ita_windings_green_item{
@@ -144,7 +149,6 @@ attachable_wear_pilot_pants_ita_tropic_item{
   item__uniqueName:t="attachable_wear_pilot_pants_ita_tropic_item"
   animchar__res:t="pilot_pants_ita_tropic_char"
   collres__res:t="pilot_pants_ita_tropic_collision"
-  item__name:t="Italy Tropic Pilot Pants"
 }
 
 attachable_wear_pilot_pants_boots_ita_tropic_item{
@@ -185,7 +189,6 @@ attachable_wear_m41_tunic_02_ita_tropic_item{
   item__uniqueName:t="attachable_wear_m41_tunic_02_ita_tropic_item"
   animchar__res:t="m41_tunic_02_ita_tropic_char"
   collres__res:t="m41_tunic_02_ita_tropic_collision"
-  item__name:t="Italy Tropical tunic m41"
   animchar_fast_phys__res:t="m41_tunic_02_ita_tropic_fastphys"
 
   animchar_fast_phys{
@@ -198,7 +201,6 @@ attachable_wear_m41_mar_tunic_item{
   item__uniqueName:t="attachable_wear_m41_mar_tunic_item"
   animchar__res:t="m41_mar_tunic_char"
   collres__res:t="m41_mar_tunic_collision"
-  item__name:t="Italy Tropical tunic m41"
 }
 
 attachable_wear_ita_pilot_jacket_tropic_item{
@@ -206,7 +208,13 @@ attachable_wear_ita_pilot_jacket_tropic_item{
   item__uniqueName:t="attachable_wear_ita_pilot_jacket_tropic_item"
   animchar__res:t="ita_pilot_jacket_tropic_char"
   collres__res:t="ita_pilot_jacket_tropic_collision"
-  item__name:t="Italy Pilot Tunic"
+}
+
+attachable_wear_ita_flammiere_jacket_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ita_flammiere_jacket_item"
+  animchar__res:t="ita_flammiere_jacket_char"
+  collres__res:t="ita_flammiere_jacket_collision"
 }
 
 attachable_wear_ita_tanker_leather_jacket_item{
@@ -214,7 +222,6 @@ attachable_wear_ita_tanker_leather_jacket_item{
   item__uniqueName:t="attachable_wear_ita_tanker_leather_jacket_item"
   animchar__res:t="ita_tanker_leather_jacket_char"
   collres__res:t="ita_tanker_leather_jacket_collision"
-  item__name:t="Italy Tanker Jacket"
 }
 
 attachable_wear_sahariani_tunic_dak_01_ita_tropic_item{
@@ -262,31 +269,13 @@ attachable_wear_ita_pilot_gloves_tropic_item{
   item__uniqueName:t="attachable_wear_ita_pilot_gloves_tropic_item"
   animchar__res:t="ita_pilot_gloves_tropic_char"
   collres__res:t="ita_pilot_gloves_tropic_collision"
-  item__name:t="Ita Tropic Pilot Gloves"
 }
 
-hair_01_us_summer_item{
-  _extends:t="attachable_hair"
-  item__uniqueName:t="hair_01_us_summer_item"
-  animchar__res:t="hair_01_us_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="USA Hair 01"
-
-  "hideFlags:array"{
-    hideFlag:t="hair"
-  }
-}
-
-hair_02_us_summer_item{
-  _extends:t="attachable_hair"
-  item__uniqueName:t="hair_02_us_summer_item"
-  animchar__res:t="hair_02_us_summer_char"
-  collres__res:t="medkit_collision"
-  item__name:t="USA Hair 02"
-
-  "hideFlags:array"{
-    hideFlag:t="hair"
-  }
+attachable_wear_ita_flammiere_gloves_item{
+  _extends:t="attachable_gloves"
+  item__uniqueName:t="attachable_wear_ita_flammiere_gloves_item"
+  animchar__res:t="ita_flammiere_gloves_char"
+  collres__res:t="ita_flammiere_gloves_collision"
 }
 
 bustina_field_cap_m42_01_ita_tropic_item{
@@ -428,7 +417,13 @@ attachable_wear_belt_01_ita_tropic_item{
   item__uniqueName:t="attachable_wear_belt_01_ita_tropic_item"
   animchar__res:t="belt_01_ita_tropic_char"
   collres__res:t="belt_01_ita_tropic_collision"
-  item__name:t="UK Tropic Belt"
+}
+
+attachable_wear_ita_belt_flammiere_jacket_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_ita_belt_flammiere_jacket_item"
+  animchar__res:t="ita_belt_flammiere_jacket_char"
+  collres__res:t="ita_belt_flammiere_jacket_collision"
 }
 
 attachable_wear_belt_radioman_ita_tropic_item{
@@ -436,7 +431,6 @@ attachable_wear_belt_radioman_ita_tropic_item{
   item__uniqueName:t="attachable_wear_belt_radioman_ita_tropic_item"
   animchar__res:t="belt_radioman_ita_tropic_char"
   collres__res:t="belt_radioman_ita_tropic_collision"
-  item__name:t="UK Tropic Belt"
 }
 
 attachable_wear_belt_01_ita_tropic_02_item{
@@ -444,7 +438,6 @@ attachable_wear_belt_01_ita_tropic_02_item{
   item__uniqueName:t="attachable_wear_belt_01_ita_tropic_02_item"
   animchar__res:t="belt_01_ita_tropic_02_char"
   collres__res:t="belt_01_ita_tropic_02_collision"
-  item__name:t="UK Tropic Belt"
 }
 
 attachable_wear_ita_webbing_belt_summer_01_item{
@@ -452,7 +445,6 @@ attachable_wear_ita_webbing_belt_summer_01_item{
   item__uniqueName:t="attachable_wear_ita_webbing_belt_summer_01_item"
   animchar__res:t="ita_webbing_belt_summer_01_char"
   collres__res:t="ita_webbing_belt_summer_01_collision"
-  item__name:t="Italy webbing belt"
 }
 
 attachable_wear_ita_gasmask_bag_summer_01_item{
@@ -460,7 +452,6 @@ attachable_wear_ita_gasmask_bag_summer_01_item{
   item__uniqueName:t="attachable_wear_ita_gasmask_bag_summer_01_item"
   animchar__res:t="ita_gasmask_bag_summer_01_char"
   collres__res:t="ita_gasmask_bag_summer_01_collision"
-  item__name:t="Italy gasmask bag"
   animchar_fast_phys__res:t="ita_gasmask_bag_summer_01_fastphys"
 
   animchar_fast_phys{
@@ -522,7 +513,6 @@ attachable_wear_pioniersturmgepack_01_ita_summer_item{
   item__uniqueName:t="attachable_wear_pioniersturmgepack_01_ita_summer_item"
   animchar__res:t="pioniersturmgepack_01_ita_summer_char"
   collres__res:t="pioniersturmgepack_01_ita_summer_collision"
-  item__name:t="items/big_bag"
   animchar_fast_phys__res:t="pioniersturmgepack_01_ita_summer_fastphys"
 
   animchar_fast_phys{
@@ -535,8 +525,8 @@ attachable_wear_m39_inf_rucksack_01_ita_summer_item{
   item__uniqueName:t="attachable_wear_m39_inf_rucksack_01_ita_summer_item"
   animchar__res:t="m39_inf_rucksack_01_ita_summer_char"
   collres__res:t="m39_inf_rucksack_01_ita_summer_collision"
-  item__name:t="items/big_bag"
   animchar_fast_phys__res:t="m39_inf_rucksack_01_ita_summer_fastphys"
+  attachable_backpack__capacity:i=3
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -548,7 +538,6 @@ attachable_wear_borsa_tattica_bag_ita_01_summer_item{
   item__uniqueName:t="attachable_wear_borsa_tattica_bag_ita_01_summer_item"
   animchar__res:t="borsa_tattica_bag_ita_01_summer_char"
   collres__res:t="borsa_tattica_bag_ita_01_summer_collision"
-  item__name:t="items/big_bag"
   animchar_fast_phys__res:t="borsa_tattica_bag_ita_01_summer_fastphys"
 
   animchar_fast_phys{

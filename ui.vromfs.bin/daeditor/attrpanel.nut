@@ -6,7 +6,7 @@ let { Point2, Point3, Point4 } = require("dagor.math")
 
 let {endswith} = require("string")
 let {getValFromObj, isCompReadOnly, updateComp} = require("components/attrUtil.nut")
-let {filterString, propPanelVisible, propPanelClosed, selectedCompName, extraPropPanelCtors, selectedEntity, selectedEntities, de4workMode} = require("state.nut")
+let {filterString, propPanelVisible, propPanelClosed, selectedCompName, extraPropPanelCtors, selectedEntity, selectedEntities, de4workMode, wantOpenRISelect} = require("state.nut")
 let {colors, gridHeight} = require("components/style.nut")
 
 let selectedCompComp = Watched(null)
@@ -33,7 +33,7 @@ let scrollbar = require("%daeditor/components/scrollbar.nut")
 let fieldReadOnly = require("components/apFieldReadOnly.nut")
 let compNameFilter = require("components/apNameFilter.nut")(filterString, selectedCompName)
 
-let {riSelectShown, riSelectWindow} = require("riSelect.nut")
+let {riSelectShown, riSelectWindow, openRISelectForEntity} = require("riSelect.nut")
 
 let combobox = require("%daeditor/components/combobox.nut")
 
@@ -127,7 +127,7 @@ let function panelRowColorC(comp_fullname, stateFlags, selectedCompNameVal, isOd
   if (comp_fullname == selectedCompNameVal) {
     color = colors.Active
   } else {
-    color = (stateFlags & S_HOVER) ? colors.GridRowHover : isOdd ? colors.GridBg[0] : colors.GridBg[1]
+    color = (stateFlags & S_TOP_HOVER) ? colors.GridRowHover : isOdd ? colors.GridBg[0] : colors.GridBg[1]
   }
   return color
 }
@@ -215,7 +215,7 @@ let function panelCompRow(params={}) {
       }
       onHover = @(on) cursors.setTooltip(on ? mkCompTooltip(metaInfo) : null)
       eventPassThrough = true
-      onElemState = @(sf) stateFlags.update(sf & S_HOVER)
+      onElemState = @(sf) stateFlags.update(sf & S_TOP_HOVER)
       group = group
 
       children = [
@@ -357,6 +357,12 @@ let function panelCaption(text, tpl_name) {
     eventPassThrough = true
     behavior = [Behaviors.Marquee, Behaviors.Button]
     onHover = @(on) templateTooltip(on && tpl_name ? mkTemplateTooltip(tpl_name) : null)
+    onClick = function() {
+      if (selectedEntities.value.len() > 1) {
+        selectedEntity(INVALID_ENTITY_ID)
+        entity_editor?.get_instance()?.setFocusedEntity(INVALID_ENTITY_ID)
+      }
+    }
 
     children = {
       halign = ALIGN_CENTER
@@ -396,6 +402,7 @@ let function panelButtons() {
     borderWidth = hdpx(1)
     padding = [0,hdpx(5)]
     eventPassThrough = true
+    watch = [selectedCompComp, selectedCompPath]
     children = {
       flow = FLOW_HORIZONTAL
       hplace = ALIGN_RIGHT
@@ -414,7 +421,7 @@ let function panelButtons() {
 }
 
 let autoOpenClosePropPanel = function(_) {
-  local show = selectedEntity.value != INVALID_ENTITY_ID && selectedEntities.value.len() == 1
+  local show = selectedEntity.value != INVALID_ENTITY_ID || selectedEntities.value.len() > 0
   if (show && propPanelClosed.value)
     return
   propPanelVisible(show)
@@ -1024,8 +1031,15 @@ let getCurComps = @() (selectedEntity.value ?? INVALID_ENTITY_ID) == INVALID_ENT
 let curEntityComponents = Watched(getCurComps())
 let setCurComps = @() curEntityComponents(getCurComps())
 
-selectedEntity.subscribe(function(_eid){
+selectedEntity.subscribe(function(eid){
   gui_scene.resetTimeout(0.1, setCurComps)
+
+  if (wantOpenRISelect.value) {
+    wantOpenRISelect(false)
+    gui_scene.resetTimeout(0.1, function() {
+      openRISelectForEntity(eid)
+    })
+  }
 })
 
 let isCurEntityComponents = Computed(@() curEntityComponents.value.len()>0)
@@ -1045,6 +1059,57 @@ let filteredCurComponents = Computed(function(){
   return res
 })
 
+
+let function mkEntityRow(eid,_v,is_odd) {
+  let group = ElemGroup()
+  let stateFlags = Watched(0)
+
+  let riExtraName = obsolete_dbg_get_comp_val(eid, "ri_extra__name")
+  let extra = (riExtraName != null) ? $"/ {riExtraName}" : ""
+
+  local tplName = g_entity_mgr.getEntityTemplateName(eid) ?? ""
+  let name = removeSelectedByEditorTemplate(tplName)
+  let div = (tplName != name) ? "•" : "|"
+
+  return {
+    size = [flex(), gridHeight]
+    behavior = Behaviors.Button
+
+    onClick = function() {
+      if (selectedEntities.value.len() > 1) {
+        selectedEntity(eid)
+        entity_editor?.get_instance()?.setFocusedEntity(eid)
+      }
+    }
+    onHover = @(_on) null
+    eventPassThrough = true
+    onElemState = @(sf) stateFlags.update(sf & S_TOP_HOVER)
+    group = group
+
+    children = [
+      @(){
+        size = [flex(), gridHeight]
+        rendObj = ROBJ_SOLID
+        watch = stateFlags
+        color = panelRowColorC(name, stateFlags.value, "", is_odd)
+        group
+      }
+      @(){
+        rendObj = ROBJ_TEXT
+        text = $"{eid}  {div}  {name} {extra}"
+        size = [flex(), fontH(100)]
+        margin = fsh(0.5)
+        group = group
+        behavior = Behaviors.Marquee
+        scrollOnHover = true
+        delay = 1.0
+        speed = 50
+      }
+    ]
+  }
+}
+
+
 let function compPanel() {
 
   if (!propPanelVisible.value) {
@@ -1056,6 +1121,9 @@ let function compPanel() {
     updateModComps()
 
     toggleBg = makeBgToggle() // achtung!: implicit state reset - better pass it via arguments
+
+    let showComps = !riSelectShown.value && selectedEntity.value != INVALID_ENTITY_ID
+    let showList  = !riSelectShown.value && !showComps && selectedEntities.value.len() > 1
 
     let eid = selectedEntity.value
     let rows = filteredCurComponents.value.map(function(v) {
@@ -1076,13 +1144,36 @@ let function compPanel() {
     }
 
     let nonSceneEntity = isNonSceneEntity()
-    let captionPrefix =  nonSceneEntity ? "[generated] " : ""
+    local captionPrefix = nonSceneEntity ? "[generated] " : ""
+    if (eid!=INVALID_ENTITY_ID && selectedEntities.value.len() > 1)
+      captionPrefix = $"<- {selectedEntities.value.len()} entities | {captionPrefix}"
 
-    let templName = eid!=INVALID_ENTITY_ID ? removeSelectedByEditorTemplate(g_entity_mgr.getEntityTemplateName(eid)) : null
+    let templName = eid!=INVALID_ENTITY_ID ? removeSelectedByEditorTemplate(g_entity_mgr.getEntityTemplateName(eid) ?? "") : null
     let uiTemplName = eid!=INVALID_ENTITY_ID ? entity_editor.get_template_name_for_ui(eid) : null
     let captionText = eid!=INVALID_ENTITY_ID ? "{0}{1}: {2}".subst(captionPrefix, eid, uiTemplName) :
       selectedEntities.value.len() == 0 ? "No entity selected"
       : $"{selectedEntities.value.len()} entities selected"
+
+    local listRows = []
+    if (showList) {
+      local odd = true
+      foreach (k,v in selectedEntities.value) {
+        listRows.append(mkEntityRow(k,v,odd))
+        odd = !odd
+      }
+    }
+    let scrolledList = {
+      size = flex()
+      rendObj = ROBJ_SOLID
+      color = Color(50,50,50,100)
+      children = scrollbar.makeVertScroll(listRows, {
+        rootBase = class {
+          size = flex()
+          flow = FLOW_VERTICAL
+          behavior = Behaviors.Pannable
+        }
+      })
+    }
 
     return {
       watch = [
@@ -1121,9 +1212,10 @@ let function compPanel() {
               children = [
                 panelCaption(captionText, templName)
                 nonSceneEntity ? warningGenerated() : null
-                !riSelectShown.value && isCurEntityComponents.value ? compNameFilter : null
-                !riSelectShown.value ? scrolledGrid : null
-                !riSelectShown.value ? panelButtons : null
+                showComps && isCurEntityComponents.value ? compNameFilter : null
+                showComps ? scrolledGrid : null
+                showComps ? panelButtons : null
+                showList  ? scrolledList : null
               ]
             }
             riSelectShown.value ? riSelectWindow : null

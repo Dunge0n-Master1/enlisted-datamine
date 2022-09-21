@@ -132,6 +132,14 @@ respawnBase{
     _info:t="resp_type"
   }
 
+  "respawnbaseSubtype:t"{
+    value:t=""
+
+    _info{
+      desc:t="Filter subtypes of vehicle or squad that can use this respawn"
+    }
+  }
+
   "respbase:tag"{
     _tags:t="server"
   }
@@ -300,8 +308,76 @@ respAircraft{
   }
 }
 
+aircraft_repair_respawn{
+  _extends:t="replicating"
+  sphere_zone__radius:r=250.0
+  team:i=-1
+  respawnbaseSubtype:t="land"
+  landing_zone__maxSpeed:r=10.0
+  landing_zone__respawnAfterTime:r=5.0
+  zone__icon:t="!ui/skin#engineer.svg"
+
+  "landingZone:tag"{
+  }
+
+  "landing_zone__isAvailable:b"{
+    _tags:t="ui"
+    value:b=no
+    _track:b=yes
+  }
+}
+
+aircraft_carrier_take_off_assist{
+  _extends:t="replicating"
+  sphere_zone__radius:r=250.0
+
+  "aircraft_carrier__takeOffAssistZone:tag"{
+  }
+}
+
+plane_spawn_on_carrier{
+  setupOnGround:b=yes
+}
+
+plane_spawn_on_water{
+  setupOnGround:b=yes
+}
+
+carrierDefenseTurrets{
+  _tags:t="server"
+
+  "zone_assignAiTurretsTeam:tag"{
+  }
+}
+
+respAircraftOnCarrier{
+  _extends:t="respAircraft"
+  _extends:t="aircraft_repair_respawn"
+  _extends:t="aircraft_carrier_take_off_assist"
+  _extends:t="carrierDefenseTurrets"
+  respawnbaseSubtype:t="land"
+  respbase__firstSpawnDelay:r=0.0
+  respbase__validated:b=yes
+  respbase__shouldValidateTm:b=no
+  respbase__startVelDir:p3=1.0, 0.0, 0.0
+  respbase__startRelativeSpeed:r=0.0
+
+  "respbase__addTemplatesOnSpawn:list<t>"{
+    _info:t="vehicle_added_templates"
+    add:t="plane_spawn_on_carrier"
+    add:t="destroy_inactive_vehicle"
+    add:t="vehicle_spawn_restriction"
+  }
+
+  _info{
+    desc:t="Player aircraft squads appear on carrier at this zone. Aircrafts cannot spawn in a mission if there is no active spawn point"
+    category:t="respawns"
+  }
+}
+
 respAircraftInAir{
   _extends:t="respAircraft"
+  respawnbaseSubtype:t="air"
   respbase__validated:b=yes
   respbase__shouldValidateTm:b=no
   respbase__startVelDir:p3=1.0, 0.0, 0.0
@@ -317,6 +393,33 @@ respAircraftInAir{
 
   _info{
     desc:t="Player aircraft squads appear in air at this zone. Aircrafts cannot spawn in a mission if there is no active spawn point"
+    category:t="respawns"
+  }
+}
+
+respAircraftOnWater{
+  _extends:t="respAircraft"
+  _extends:t="aircraft_repair_respawn"
+  respawnbaseSubtype:t="water"
+  respbase__validated:b=yes
+  respbase__shouldValidateTm:b=no
+  respbase__firstSpawnDelay:r=0.0
+  respbase__startVelDir:p3=1.0, 0.0, 0.0
+  respbase__startRelativeSpeed:r=0.0
+
+  "landing_zone__isWater:tag"{
+  }
+
+  "respbase__addTemplatesOnSpawn:list<t>"{
+    _info:t="vehicle_added_templates"
+    add:t="destroy_inactive_vehicle"
+    add:t="plane_spawn_on_water"
+    add:t="aircraft_spawn_validation"
+    add:t="vehicle_spawn_restriction"
+  }
+
+  _info{
+    desc:t="Player aircraft squads appear on water at this zone. Aircrafts cannot spawn in a mission if there is no active spawn point"
     category:t="respawns"
   }
 }

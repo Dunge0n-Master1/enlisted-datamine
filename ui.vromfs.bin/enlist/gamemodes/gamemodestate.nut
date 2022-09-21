@@ -229,7 +229,10 @@ let allGameModesById = Computed(function() {
 })
 
 let hasUnseenGameMode = Computed(@() mainGameModes.value
-  .findvalue(@(gMode) gMode.id not in seenGamemodes.value))
+  .findvalue(@(gMode) gMode.id not in seenGamemodes.value?.seen))
+
+let hasUnopenedGameMode = Computed(@() mainGameModes.value
+  .findvalue(@(gMode) gMode.id not in seenGamemodes.value?.opened))
 
 let currentGameMode = Computed(function() {
   let id = selGameModeId.value
@@ -271,6 +274,7 @@ return {
   canChangeGameMode
   canShowGameMode
   hasUnseenGameMode
+  hasUnopenedGameMode
   TANK_TUTORIAL_ID
   ENGINEER_TUTORIAL_ID
   AIRCRAFT_TUTORIAL_ID

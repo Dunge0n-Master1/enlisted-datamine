@@ -49,3 +49,33 @@ bomb_site_defuse_animation{
   game_effect_sound__hero:t="env_effects/bomb_site/deactivate_action"
   game_effect_sound__enemy:t="env_effects/bomb_site/deactivate_action"
 }
+
+game_effect_attached_animchar{
+  _extends:t="slot_attachable_no_slotname"
+  _extends:t="animchar"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  animchar__res:t=""
+  slot_attach__slotName:t=""
+
+  "slot_attach__followEffectAttach:tag"{
+  }
+}
+
+vehicle_repair_animation{
+  _extends:t="replicated_game_effect"
+  _extends:t="game_effect_sound"
+  _extends:t="game_effect_attached_animchar"
+  game_effect__forceAnimUpperNonCrawlState:t="upper_wrench_use"
+  game_effect__forceAnimUpperNonCrawlStateId:i=-1
+  game_effect__forceAnimUpperCrawlState:t="upper_wrench_use"
+  game_effect__forceAnimUpperCrawlStateId:i=-1
+  game_effect_sound__hero:t="env_effects/bomb_site/activate_action"
+  game_effect_sound__enemy:t="env_effects/bomb_site/activate_action"
+  animchar__res:t="wrench_13_b_char"
+  slot_attach__slotName:t="weapon"
+  slot_attach__rotOffset:p3=-90.0, 10.0, 0.0
+  slot_attach__rotTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "game_effect__hiddenWeapon:tag"{
+  }
+}

@@ -7,7 +7,7 @@ require daslib/safe_addr
 
 
 [unused_argument(level)]
-def draw_float4_as_color(eid : EntityId; name, typeName : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_float4_as_color(eid : array<EntityId> const#; name, typeName : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   var val : float4?
   unsafe
     val = reinterpret<float4?> ref.rawData
@@ -23,10 +23,10 @@ def draw_float4_as_color(eid : EntityId; name, typeName : string; ref : EntityCo
 
 
 [ecs_inspector(type_name="Point4", tag="color_grading")]
-def draw_postfx_vectors(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_postfx_vectors(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   draw_float4_as_color(eid, name, "Point4", ref, level, changed, sub_menu)
 
 
 [ecs_inspector(type_name="Point4", tag="edit_color_grading")]
-def draw_edit_color_grading_vectors(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_edit_color_grading_vectors(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   draw_float4_as_color(eid, name, "Point4", ref, level, changed, sub_menu)

@@ -47,6 +47,10 @@ explSound{
   explSoundPath:t="impact/grenade"
 }
 
+shellSound{
+  activatePath:t="/weapon/explosive/activate"
+}
+
 splashDamage{
   radius:p2=1.0, 10.0
   penetration:p2=15.0, 2.0

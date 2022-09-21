@@ -9,16 +9,22 @@ require DagorConsole
 require DagorDebug3D
 require CollRes
 require Grid
+require ecs.ecs_template
 
+
+[ecs_template]
+struct double_doors_debug
+  draw_double_doors : bool
+
+[ecs_template]
+struct unpaired_doors_debug
+  draw_unpaired_doors : bool
 
 [console_cmd(name="double_doors_debug")]
 def debug_double_doors(draw_double_doors : bool = true)
-  let tmpl = "double_doors_debug"
-  ecs::createTemplate(tmpl, "", false) <| $(var cmp : ecs::ComponentsMap)
-    set(cmp, "draw_double_doors", false)
   ecs::query() <| $ [es] (eid : EntityId; camera__active : bool)
     if camera__active
-      addSubTemplate(eid, tmpl) <| $(var init)
+      addSubTemplate(eid, "double_doors_debug") <| $(var init)
         set(init, "draw_double_doors", draw_double_doors)
 
 
@@ -59,12 +65,9 @@ def debug_double_doors_es(evt : UpdateStageInfoRenderDebug; camera__active, draw
 
 [console_cmd(name="unpaired_doors_debug")]
 def debug_unpaired_doors(draw_unpaired_doors : bool = true)
-  let tmpl = "unpaired_doors_debug"
-  ecs::createTemplate(tmpl, "", false) <| $(var cmp : ecs::ComponentsMap)
-    set(cmp, "draw_unpaired_doors", false)
   ecs::query() <| $ [es] (eid : EntityId; camera__active : bool)
     if camera__active
-      addSubTemplate(eid, tmpl) <| $(var init)
+      addSubTemplate(eid, "unpaired_doors_debug") <| $(var init)
         set(init, "draw_unpaired_doors", draw_unpaired_doors)
 
 

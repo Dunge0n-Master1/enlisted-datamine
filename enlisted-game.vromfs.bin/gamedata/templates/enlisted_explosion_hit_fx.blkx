@@ -1,0 +1,149 @@
+hit_effect_group_grenade_explosion{
+  _extends:t="shell_explosion_fx_info"
+  shell_explosion_fx__default:t="explosion_grenades_air_effect"
+  shell_explosion_fx__traceLength:r=1.5
+
+  "shell_explosion_fx__info:object"{
+
+    "soil:object"{
+      fx:t="explosion_grenades_dirt_effect"
+    }
+
+    "dirt:object"{
+      fx:t="explosion_grenades_dirt_effect"
+    }
+
+    "mud:object"{
+      fx:t="explosion_grenades_dirt_effect"
+    }
+
+    "concrete:object"{
+      fx:t="explosion_grenades_stone_effect"
+    }
+
+    "sand:object"{
+      fx:t="explosion_grenades_sand_effect"
+    }
+
+    "snow:object"{
+      fx:t="explosion_grenades_snow_effect"
+    }
+
+    "ice:object"{
+      fx:t="explosion_grenades_snow_effect"
+    }
+
+    "water:object"{
+      fx:t="explosion_grenades_air_effect"
+    }
+
+    "stone:object"{
+      fx:t="explosion_grenades_stone_effect"
+    }
+
+    "ceramic:object"{
+      fx:t="explosion_grenades_stone_effect"
+    }
+
+    "glass:object"{
+      fx:t="explosion_grenades_air_effect"
+    }
+
+    "flesh:object"{
+      fx:t="explosion_grenades_air_effect"
+    }
+
+    "fabric:object"{
+      fx:t="explosion_grenades_air_effect"
+    }
+  }
+}
+
+hit_effect_group_smoke_grenade_explosion{
+  _extends:t="shell_explosion_fx_info"
+  shell_explosion_fx__default:t="explosion_grenades_smoke_effect"
+  shell_explosion_fx__traceLength:r=1.5
+}
+
+hit_effect_group_explosion_packet_explosion{
+  _extends:t="shell_explosion_fx_info"
+  shell_explosion_fx__default:t="explosion_packet_air_effect"
+  shell_explosion_fx__traceLength:r=1.5
+
+  "shell_explosion_fx__info:object"{
+
+    "soil:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "dirt:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "mud:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "concrete:object"{
+      fx:t="explosion_packet_stone_effect"
+    }
+
+    "sand:object"{
+      fx:t="explosion_packet_sand_effect"
+    }
+
+    "snow:object"{
+      fx:t="explosion_packet_snow_effect"
+    }
+
+    "ice:object"{
+      fx:t="explosion_packet_snow_effect"
+    }
+
+    "water:object"{
+      fx:t="explosion_packet_air_effect"
+    }
+
+    "stone:object"{
+      fx:t="explosion_packet_stone_effect"
+    }
+
+    "ceramic:object"{
+      fx:t="explosion_packet_stone_effect"
+    }
+
+    "glass:object"{
+      fx:t="explosion_packet_stone_effect"
+    }
+
+    "flesh:object"{
+      fx:t="explosion_packet_air_effect"
+    }
+
+    "fabric:object"{
+      fx:t="explosion_packet_air_effect"
+    }
+  }
+}
+
+hit_effect_group_phosphorus_grenade_explosion{
+  _extends:t="shell_explosion_fx_info"
+  shell_explosion_fx__default:t="explosion_grenades_phosphorus_effect"
+  shell_explosion_fx__traceLength:r=1.5
+}
+
+hit_effect_group_mortar_shell_explosion{
+  _extends:t="hit_effect_group_explosion_packet_explosion"
+}
+
+hit_effect_group_antitank_rocket_explosion{
+  _extends:t="hit_effect_group_explosion_packet_explosion"
+}
+
+hit_effect_group_antipersonel_mine_explosion{
+  _extends:t="hit_effect_group_grenade_explosion"
+}
+
+hit_effect_group_antitank_mine_explosion{
+  _extends:t="hit_effect_group_explosion_packet_explosion"
+}

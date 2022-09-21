@@ -152,27 +152,57 @@ def is_distance_to_capture_points_valid(pos; min_distance)
     let halfDiag = length(transform[0] + transform[2]) * 0.5
     return distanceSq < square(min_distance + halfDiag)
 
-def is_in_building_restricted_zone_sector(pos : float3; zone_transform : float3x4; zone_min_distance : float; zone_max_angle : float)
+def is_in_building_restricted_zone_sector(pos : float3;
+                                          zone_transform : float3x4;
+                                          zone_max_angle : float;
+                                          zone_min_distance : float)
+  if zone_min_distance < 0.0 || zone_max_angle <= 0.0
+    return false
+
   let offset = pos - zone_transform[3]
 
   if length_sq(offset) >= square(zone_min_distance)
-    let dir = normalize(offset)
-    let cosAngle = dot(dir, -zone_transform[0]) / length(zone_transform[0])
+    let cosAngle = safediv(dot(offset, -zone_transform[0]), length(offset) * length(zone_transform[0]))
 
     if cosAngle > cos(deg_to_rad(zone_max_angle))
       return true
   return false
 
-def is_in_building_restricted_zone(pos : float3)
+def is_in_building_restricted_zone_sector(pos : float3;
+                                          builder_team : int;
+                                          zone_transform : float3x4;
+                                          zone_max_angle : float;
+                                          zone_min_distance_for_team_offense : float;
+                                          zone_min_distance_for_team_defense : float;
+                                          offense_team : int)
+  if builder_team < 0
+    return false
+
+  var minDist : float
+  if offense_team == builder_team
+    minDist = zone_min_distance_for_team_offense
+  else
+    minDist = zone_min_distance_for_team_defense
+  return is_in_building_restricted_zone_sector(pos,
+                                               zone_transform,
+                                               zone_max_angle,
+                                               minDist)
+
+def is_in_building_restricted_zone(pos : float3; builder_team : int)
   return find_query() <| $ [es(REQUIRE=buildingRestrictedZone)] (eid : EntityId;
                                                                  transform aka restricted_zone_transform : float3x4;
                                                                  building_restricted_zone__maxAngle : float;
-                                                                 building_restricted_zone__minDistance : float)
+                                                                 building_restricted_zone__minDistanceForTeamOffense : float;
+                                                                 building_restricted_zone__minDistanceForTeamDefense : float;
+                                                                 capzone__trainOffenseTeam : int)
     return (is_point_in_capzone(pos, eid, 1.) ||
             is_in_building_restricted_zone_sector(pos,
+                                                  builder_team,
                                                   restricted_zone_transform,
-                                                  building_restricted_zone__minDistance,
-                                                  building_restricted_zone__maxAngle))
+                                                  building_restricted_zone__maxAngle,
+                                                  building_restricted_zone__minDistanceForTeamOffense,
+                                                  building_restricted_zone__minDistanceForTeamDefense,
+                                                  capzone__trainOffenseTeam))
 
 def get_player_eid_interacting_building(building_eid, exclude_eid = INVALID_ENTITY_ID)
   var player_eid = INVALID_ENTITY_ID

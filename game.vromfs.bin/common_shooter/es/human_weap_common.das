@@ -3,20 +3,111 @@ require ecs
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require game.es.events
+require game.es.action_common
 require game.events_game
+require game.utils.net_utils
 require game.utils.animchar
 require inventory
 require HumanPhys
 require DaWeaponProps
 require DaWeapons
 require DagorSystem
-require Action
 require EnlistedWeapon
 require EnlistedHuman
 require EnlistedNet
 require Gun
 require AnimV20
 require DagorMath
+require DagorMathUtils
+
+
+def is_human_allowed_shooting(eid : EntityId; attached_gun_eid : EntityId; human_net_phys : HumanActor) : bool
+  assume currentState = human_net_phys.phys.currentState
+  let isSprinting = currentState.moveState == HUMoveState EMS_SPRINT
+  let isMelee = currentState.weapEquipState.curSlot == HUWeaponSlots EWS_MELEE
+  let isGunEquiped = currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPED || attached_gun_eid != INVALID_ENTITY_ID
+  let isMoving = currentState.moveState != HUMoveState EMS_STAND
+  var res = (!(isSprinting && !isMelee) &&
+            !currentState |> human_phys_state_get_is_swimming() && isGunEquiped &&
+            currentState |> human_phys_state_get_canShoot() &&
+            !(currentState.isCrawl && isMoving))
+  if !res
+    return false
+  query(eid) <| $ [es] (isInVehicle : bool = false; isShootingAllowed : bool = true;
+                        human_weap__blockAiming : bool = false; human_vehicle__isHoldingGunPassenger : bool = false)
+    res = (isShootingAllowed && !human_weap__blockAiming &&
+          (!isInVehicle || human_vehicle__isHoldingGunPassenger))
+  return res
+
+
+def is_human_allowed_shooting(eid : EntityId)
+  var res = false
+  query(eid) <| $ [es] (human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
+                        human_net_phys : HumanActor)
+    res = is_human_allowed_shooting(eid, human_attached_gun__attachedGunEid, human_net_phys)
+  return res
+
+
+def apply_gun_angle_offsets(phys : HumanPhys; at_time : float; var angles : float2&)
+  assume prevState = phys.previousState
+  assume curState  = phys.currentState
+  let prevOffset = prevState.breathOffset + prevState.handsShakeOffset + prevState.gunAimOffset
+  let curOffset = curState.breathOffset + curState.handsShakeOffset + curState.gunAimOffset
+  let interpK = get_phys_interpk_clamped(phys, at_time)
+
+  angles += lerp(prevOffset, curOffset, float2(interpK))
+  let interpQuat = slerp(prevState.location.O.quat, curState.location.O.quat, interpK)
+  angles.y = phys |> human_phys_clampVertAimAngle(angles.y, interpQuat)
+
+
+def human_weap_get_shoot_tm(eid : EntityId; at_time : float; var out_tm : float3x4&) : bool
+  let gun = get_human_gun(eid)
+  if gun == null || !is_human_allowed_shooting(eid)
+    return false
+  var isOk = false
+  query(eid) <| $ [es] (human_net_phys : HumanActor)
+    isOk = true
+    human_gun_get_shoot_tm(*gun, human_net_phys.phys, at_time, out_tm)
+  return isOk
+
+
+def human_weap_get_aim_tm_impl(human_net_phys : HumanActor; at_time : float; apply_offsets : bool) : float3x4
+  var gunDir = human_net_phys.phys.producedCT.wishShootDir
+  var gunAngles = dir_to_angles(gunDir)
+  if apply_offsets
+    apply_gun_angle_offsets(human_net_phys.phys, at_time, gunAngles)
+  gunDir = angles_to_dir(gunAngles)
+  var camPos : float3
+
+  find_query() <| $ [es] (camera__active : bool; transform : float3x4)
+    if camera__active
+      camPos = transform[3]
+    return camera__active
+
+  var outTm : float3x4
+  outTm[3] = camPos
+  outTm[0] = gunDir
+  outTm[2] = normalize(cross(gunDir, float3(0.0, 1.0, 0.0)))
+  outTm[1] = normalize(cross(outTm[2], gunDir))
+  return outTm
+
+
+def human_weap_get_aim_tm(eid : EntityId; at_time : float; var out_tm : float3x4&) : bool
+  if !has(eid, "watchedByPlr")
+    return human_weap_get_shoot_tm(eid, at_time, out_tm)
+
+  if !is_human_allowed_shooting(eid)
+    return false
+
+  var isOk = false
+  query(eid) <| $ [es] (human_net_phys : HumanActor;
+                        human_weap__mortarMode : bool = false;
+                        human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID)
+    isOk = true
+    let applyOffsets = !human_attached_gun__attachedGunEid && !human_weap__mortarMode
+    out_tm = human_weap_get_aim_tm_impl(human_net_phys, at_time, applyOffsets)
+  return isOk
+
 
 def human_weap_switch_to_slot(eid : EntityId;
                               gun_eid : EntityId;
@@ -154,7 +245,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
     if grenadeEid != INVALID_ENTITY_ID
       human_weap__throwMode = throw_grenade_away(ctx.eid, grenadeEid, human_weap__gunEids)
       if is_server() && !human_weap__throwMode
-        send_net_event(ctx.eid, [[HumanWeapThrowBackAbort]])
+        send_net_event(ctx.eid, [[HumanWeapThrowBackAbort]], target_entity_conn(ctx.eid))
 
   var reloadGrenade = false
   var isFastThrow = false
@@ -200,9 +291,11 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
   let gunEid = human_weap__gunEids[int(curGun)]
   // overrideGunEid is gun eid or subsidiary gun, if activated.
   var overrideGunEid = gunEid
-  query(gunEid) <| $ [es] (subsidiaryGunEid : EntityId?)
+  var isLungeMine = false
+  query(gunEid) <| $ [es] (subsidiaryGunEid : EntityId?; lunge_mine : Tag?)
     if subsidiaryGunEid != null
       overrideGunEid = *subsidiaryGunEid
+    isLungeMine = lunge_mine != null
 
   var wgun : Gun? = null
   var gunDev : GunDeviation? = null
@@ -210,7 +303,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
   var jumpDeviation = human_weap__jumpDeviation
   var grenadeThrower : GrenadeThrower? = null
   var defaultInit = false
-  if curGun == HUWeaponSlots EWS_MELEE
+  if curGun == HUWeaponSlots EWS_MELEE || isLungeMine
     if !has(gunEid, "melee_weapon__propsId")
       return
   elif curGun == HUWeaponSlots EWS_GRENADE
@@ -286,7 +379,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
         if blockShoot && wgun != null && !wgun.appliedControls.wishShoot
           broadcastEvent([[EventOnGunBlocksShoot reason=blockShootReason]])
         shoot = !blockShoot && shoot
-      let isMeleeWeapon = (curGun == HUWeaponSlots EWS_MELEE) || human_unarmed__active
+      let isMeleeWeapon = (curGun == HUWeaponSlots EWS_MELEE) || human_unarmed__active || isLungeMine
       let buildingAction = building_action__target != INVALID_ENTITY_ID
       let isBuildingToolGun = has(gunEid, "previewEid") && buildingAction
       let itemGuninstallationInProgress = get_bool(gunEid, "placeable_item__inProgress") ?? false

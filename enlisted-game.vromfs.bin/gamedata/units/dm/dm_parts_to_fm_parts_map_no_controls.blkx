@@ -350,6 +350,11 @@ fm{
   dm:t="transmission2_dm"
 }
 
+fm{
+  fm:t="cockpit_door"
+  dm:t="blister1_dm"
+}
+
 enginesAutoConfiguration{
   engine:t="engine%d_dm"
 }

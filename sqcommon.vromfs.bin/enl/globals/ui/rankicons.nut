@@ -36,6 +36,8 @@ let rankIcons = {
   tunisia_axis    = GERMANY_ICONS
   stalingrad_allies   = USSR_ICONS
   stalingrad_axis     = GERMANY_ICONS
+  pacific_allies   = USA_ICONS
+  pacific_axis     = GERMANY_ICONS
 }
 
 // ■□▢▣▤
@@ -64,6 +66,8 @@ let rankGlyphs = {
   tunisia_axis    = GERMANY_GLYPHS
   stalingrad_allies   = USSR_GLYPHS
   stalingrad_axis     = GERMANY_GLYPHS
+  pacific_allies   = USA_GLYPHS
+  pacific_axis     = GERMANY_GLYPHS
 }
 
 return {

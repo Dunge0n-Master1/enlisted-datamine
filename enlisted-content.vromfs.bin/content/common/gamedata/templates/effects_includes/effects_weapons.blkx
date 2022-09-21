@@ -120,6 +120,28 @@ high_caliber_rapid_muzzle_flash_effect{
   }
 }
 
+smoke_burst_small_effect{
+  _extends:t="base_gun_flash_unattached_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_smoke_burst_small_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
+smoke_burst_big_effect{
+  _extends:t="base_gun_flash_unattached_fx"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_smoke_burst_big_cmps_fx"
+    gun_flash_fx__timeToDestroy:r=0.3
+    effect__distance_scale:r=1.0
+  }
+}
+
 extractor_smoke_effect{
   _extends:t="base_gun_flash_fx"
 

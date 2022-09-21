@@ -11,6 +11,7 @@ let { mkAchievementTitle, mkTaskEmblem, taskHeader, taskDescription, taskDescPad
 } = require("%enlSqGlob/ui/taskPkg.nut")
 let { mkTaskRewards } = require("mkUnlockSlot.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
+let { seenUnlocks, markUnlocksOpened } = require("%enlist/unlocks/unseenUnlocksState.nut")
 
 
 let mkTaskContent = @(task)
@@ -77,6 +78,7 @@ let achievementsBlockUI = {
   vplace = ALIGN_CENTER
   hplace = ALIGN_CENTER
   padding = [fsh(2),0,0,0]
+  onDetach = @() markUnlocksOpened((seenUnlocks.value?.unopenedAchievements ?? {}).keys())
   children = scrollbar.makeVertScroll(function() {
     let achieveByTypes = achievementsByTypes.value
     let { achievements = [], challenges = [] } = achieveByTypes

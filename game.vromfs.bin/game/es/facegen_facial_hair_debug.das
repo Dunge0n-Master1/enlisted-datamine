@@ -113,7 +113,15 @@ def reload_head_entity_anim(head_eid : EntityId; template_name : string; save_me
   var templ = clone_string(template_name)
   let cb <- @ <| [[ <- templ]] (reid : EntityId)
     reCreateEntityFrom(reid, templ)
-  reCreateEntityFrom(head_eid, save_mesh_res ? "head_gen_base_item" : "head_gen_base", cb) <| $ [unused_argument(init)] (var init) {}
+
+  var headBaseItemTemplate = "head_gen_base_item"
+  var headBaseTemplate = "head_gen_base"
+  query() <| $ [es(REQUIRE=nft_equip__seed)] (nft__head_gen_base_item_template : string;
+                                              nft_head_gen_base_template : string)
+    headBaseItemTemplate := nft__head_gen_base_item_template
+    headBaseTemplate := nft_head_gen_base_template
+  let recreateTo = save_mesh_res ? headBaseItemTemplate : headBaseTemplate
+  reCreateEntityFrom(head_eid, recreateTo, cb) <| $ [unused_argument(init)] (var init) {}
 
 [console_cmd(name="faceGen2.editFaceTemplate")]
 def facegen_edit_template(template_name : string)
@@ -169,8 +177,9 @@ def facegen_create_new_template(template_name : string)
     if datablock_get_block_by_name(blk, template_name) != null
       logerr("template name {template_name} already exist")
       return
-    var new_template = blk |> datablock_add_new_block(template_name)
-    new_template |> datablock_setStr("_extends", "head_gen_base_item")
+
+    blk |> datablock_add_new_block(template_name) <| $(new_template)
+      new_template |> set("_extends", "head_gen_base_item")
     datablock_save_to_text_file(blk, templatePath)
 
     console_command("ecs.reload_templates")
@@ -181,6 +190,18 @@ def save_info_for_new_facegen_template(evt : Event;
                                        eid : EntityId)
   removeSubTemplate(eid, "head_gen_regen_info")
   sendEvent(eid, [[faceGenSaveInfo initialSave = true]])
+
+[es(on_appear, REQUIRE=animchar, tag=render)]
+def init_additive_templates_for_nft_template(evt : Event;
+                                             eid : EntityId;
+                                             additive_eyes_tampletes_list : StringList;
+                                             additive_scar_tampletes_list : StringList)
+  query() <| $ [es] (nft_equip__seed : int)
+    var resSeed = nft_equip__seed
+    let eyesTemplId = _rnd_int(resSeed, 0, length(additive_eyes_tampletes_list) - 1)
+    let scarTemplId = _rnd_int(resSeed, 0, length(additive_scar_tampletes_list) - 1)
+    addSubTemplate(eid, string(additive_eyes_tampletes_list[eyesTemplId]))
+    addSubTemplate(eid, string(additive_scar_tampletes_list[scarTemplId]))
 
 [es(tag=render)]
 def save_info_for_facegen(evt : faceGenSaveInfo;
@@ -201,19 +222,17 @@ def save_info_for_facegen(evt : faceGenSaveInfo;
     return
   using <| $(var blk : DataBlock#)
     datablock_load(blk, templatePath)
-    var originTemplate = datablock_get_block_by_name(blk, baseTemplate)
-    if originTemplate == null
-      return
-    if evt.initialSave
-      *originTemplate |> datablock_addStr("_extends", "base_collres_vis_item")
-      *originTemplate |> datablock_addStr("_extends", "head_gen_animphys")
-      *originTemplate |> datablock_addStr("_extends", "animchar")
-    *originTemplate |> datablock_setStr("headgen__tex0", headgen__tex0)
-    *originTemplate |> datablock_setStr("headgen__tex1", headgen__tex1)
-    *originTemplate |> datablock_setStr("animchar__res", animchar__res)
-    *originTemplate |> datablock_setStr("collres__res", collres__res)
-    *originTemplate |> datablock_setInt("beard_id", beard_id)
-    *originTemplate |> datablock_setInt("mustache_id", mustache_id)
-    *originTemplate |> datablock_setReal("headgen__blendFactor", headgen__blendFactor)
-    datablock_save_to_text_file(blk, templatePath)
+    datablock_get_block(blk, baseTemplate) <| $(originTemplate)
+      if evt.initialSave
+        originTemplate |> add("_extends", "base_collres_vis_item")
+        originTemplate |> add("_extends", "head_gen_animphys")
+        originTemplate |> add("_extends", "animchar")
+      originTemplate |> set("headgen__tex0", headgen__tex0)
+      originTemplate |> set("headgen__tex1", headgen__tex1)
+      originTemplate |> set("animchar__res", animchar__res)
+      originTemplate |> set("collres__res", collres__res)
+      originTemplate |> set("beard_id", beard_id)
+      originTemplate |> set("mustache_id", mustache_id)
+      originTemplate |> set("headgen__blendFactor", headgen__blendFactor)
+      datablock_save_to_text_file(blk, templatePath)
 

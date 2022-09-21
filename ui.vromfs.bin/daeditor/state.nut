@@ -182,5 +182,7 @@ return {
   handleEntityCreated
   handleEntityRemoved
   handleEntityMoved
+
+  wantOpenRISelect = Watched(false)
 }
 

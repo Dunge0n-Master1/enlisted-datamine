@@ -2,6 +2,16 @@ let store = require("xbox.store")
 let {subscribe_onehit} = require("eventbus")
 
 
+let function initialize(callback) {
+  let eventName = "xbox_store_initialize"
+  subscribe_onehit(eventName, function(result) {
+    let success = result?.success
+    callback?(success)
+  })
+  store.initialize(eventName)
+}
+
+
 let function gather_products_list(callback) {
   let eventName = "xbox_store_gather_products_list"
   subscribe_onehit(eventName, function(result) {
@@ -64,11 +74,24 @@ let function show_marketplace(product_kind, callback) {
 }
 
 
+let function get_total_quantity(product) {
+  local res = 0
+  foreach (sku in product?.skus ?? []) {
+    res += sku?.quantity ?? 0
+  }
+  return res
+}
+
+
 return {
   ProductKind = store.ProductKind
 
+  initialize
+  shutdown = store.shutdown
+
   gather_products_list
   retrieve_product_info
+  get_total_quantity
 
   request_review
   show_purchase

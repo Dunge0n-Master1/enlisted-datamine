@@ -1,4 +1,5 @@
 tags:t="idle,swim"
+optional_tags:t="swim_underwater"
 
 clips{
 
@@ -229,5 +230,68 @@ clips{
     velocity_magnitude:r=0.0
     velocity_magnitude_delta:r=0.7
     nextClip:t="swim_315"
+  }
+
+  swim_underwater{
+    tags:t="swim,idle"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=0.0
+    velocity_magnitude:r=0.0
+  }
+
+  swim_underwater_0{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=0.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_45{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=45.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_90{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=90.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_135{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=135.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_180{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=180.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_225{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=225.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_270{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=270.0
+    velocity_magnitude:r=0.7
+  }
+
+  swim_underwater_315{
+    tags:t="swim"
+    optional_tags:t="swim_underwater"
+    velocity_direction:r=315.0
+    velocity_magnitude:r=0.7
   }
 }

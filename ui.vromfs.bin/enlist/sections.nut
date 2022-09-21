@@ -3,12 +3,11 @@ from "%enlSqGlob/ui_library.nut" import *
 let soldiersList = require("soldiers/soldiersList.ui.nut")
 let armyUnlocksUi = require("soldiers/armyUnlocksUi.nut")
 let researchesList = require("researches/researchesList.ui.nut")
-let mkNotifier = require("%enlist/components/mkNotifier.nut")
+let { mkNotifierBlink, mkNotifierNoBlink } = require("%enlist/components/mkNotifier.nut")
 let armyShopUi = require("shop/armyShopUi.nut")
-let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { setSectionsSorted, curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { hasResearchesSection } = require("researches/researchesState.nut")
-let { unseenResearches } = require("researches/unseenResearches.nut")
+let { seenResearches, markSeen } = require("researches/unseenResearches.nut")
 let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let {
   curUnseenAvailShopGuids, hasUnseenCurrencies, isShopVisible, hasShopSection,
@@ -16,8 +15,7 @@ let {
 } = require("shop/armyShopState.nut")
 let { nextTutorialUnlock, showGetUnlockTutorial
 } = require("%enlist/tutorial/notReceivedUnlockTutorial.nut")
-let { hasCampaignSection, hasCurArmyUnlockAlert
-} = require("soldiers/model/armyUnlocksState.nut")
+let { hasCampaignSection } = require("soldiers/model/armyUnlocksState.nut")
 let { hasLevelDiscount, curLevelDiscount
 } = require("%enlist/campaigns/armiesConfig.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
@@ -25,15 +23,35 @@ let openUrl = require("%ui/components/openUrl.nut")
 let { getStoreUrl, getEventUrl} = require("%ui/networkedUrls.nut")
 let { isEventUnseen, markEventSeen } = require("gameModes/eventUnseenSignState.nut")
 let { markShopItemOpened } = require("%enlist/shop/unseenShopItems.nut")
+let { seenArmyProgress, markOpened } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
 
 
-let hasCampaignAlert = Computed(@() hasCampaignSection.value
-  && isCurCampaignProgressUnlocked.value
-  && hasCurArmyUnlockAlert.value )
+let curUnseenResearches = Computed(function() {
+  if (!hasResearchesSection.value || !isCurCampaignProgressUnlocked.value)
+    return null
 
-let hasResearchesAlert = Computed(@() hasResearchesSection.value
-  && isCurCampaignProgressUnlocked.value
-  && unseenResearches.value.findindex(@(a) a.len() > 0) != null)
+  let armyId = curArmyData.value?.guid
+  if (armyId == null)
+    return null
+
+  return {
+    hasUnseen = (seenResearches.value?.unseen[armyId] ?? {}).len() > 0
+    hasUnopened = curSection.value != "RESEARCHES"
+      && (seenResearches.value?.unopened[armyId] ?? {}).len() > 0
+  }
+})
+
+let function researchesAlertUi() {
+  let { hasUnseen, hasUnopened } = curUnseenResearches.value
+  let mkNotifier = hasUnopened ? mkNotifierBlink : mkNotifierNoBlink
+  return {
+    watch = curUnseenResearches
+    hplace = ALIGN_RIGHT
+    pos = [0, hdpx(30)]
+    children = !hasUnseen ? null
+      : mkNotifier(loc("hint/newResearchesAvailable"))
+  }
+}
 
 let hasUnseenShopItems = Computed(@() hasUnseenCurrencies.value
   || curUnseenAvailShopGuids.value.len() > 0)
@@ -57,15 +75,12 @@ let shopAlertBlink = Computed(@()
   curSection.value != "SHOP" && notOpenedShopItems.value.len() > 0)
 
 let function shopAlertUi() {
-  let override = shopAlertBlink.value
-    ? { key = "blink_on" }
-    : { key = "blink_off", animations = null }
+  let mkNotifier = shopAlertBlink.value ? mkNotifierBlink : mkNotifierNoBlink
   let percents = maxCurArmyDiscount.value
   let children = percents > 0
-      ? mkNotifier(loc("shop/discount", { percents }), {},
-          override.__merge(discountBg), tiny_txt)
+      ? mkNotifier(loc("shop/discount", { percents }), {}, discountBg)
     : hasShopAlert.value
-      ? mkNotifier(loc("hint/newShopItemsAvailable"), {}, override, tiny_txt)
+      ? mkNotifier(loc("hint/newShopItemsAvailable"))
     : null
   return {
     watch = [hasShopAlert, maxCurArmyDiscount, shopAlertBlink]
@@ -74,6 +89,15 @@ let function shopAlertUi() {
     children
   }
 }
+
+let hasUnseenArmyProgress = Computed(@() hasCampaignSection.value
+  && isCurCampaignProgressUnlocked.value
+  && curArmyData.value?.guid in seenArmyProgress.value?.unseen
+)
+let hasUnopenedArmyProgress = Computed(@() hasCampaignSection.value
+  && isCurCampaignProgressUnlocked.value
+  && curArmyData.value?.guid in seenArmyProgress.value?.unopened
+)
 
 let sections = [
 
@@ -90,18 +114,28 @@ let sections = [
     content = armyUnlocksUi
     id = "SQUADS"
     camera = "researches"
-    addChild = @() {
-      watch = [hasLevelDiscount, curLevelDiscount, hasCampaignAlert]
-      hplace = ALIGN_RIGHT
-      pos = [0, hdpx(30)]
-      children = hasLevelDiscount.value ? mkNotifier(loc("shop/discount",
-          { percents = curLevelDiscount.value }), {}, discountBg, tiny_txt)
-        : hasCampaignAlert.value ? mkNotifier(loc("hint/takeReward"),
-          {}, {}, tiny_txt)
-        : null
+    addChild = function() {
+      let mkNotifier = curSection.value != "SQUADS" && hasUnopenedArmyProgress.value
+        ? mkNotifierBlink
+        : mkNotifierNoBlink
+      return {
+        watch = [curSection, hasLevelDiscount, curLevelDiscount,
+          hasUnseenArmyProgress, hasUnopenedArmyProgress]
+        hplace = ALIGN_RIGHT
+        pos = [0, hdpx(30)]
+        children = hasLevelDiscount.value ? mkNotifier(loc("shop/discount",
+            { percents = curLevelDiscount.value }), {}, discountBg)
+          : hasUnseenArmyProgress.value ? mkNotifier(loc("hint/takeReward"))
+          : null
+      }
     }
     onExitCb = function() {
-      if (!hasCampaignAlert.value)
+      let armyId = curArmyData.value?.guid ?? ""
+      let { unseen = {}, unopened = {} } = seenArmyProgress.value
+      if (armyId in unopened)
+        markOpened(armyId, unopened[armyId])
+
+      if (armyId not in unseen)
         return true
 
       let unlock = nextTutorialUnlock.value
@@ -120,7 +154,14 @@ let sections = [
     content = researchesList
     id = "RESEARCHES"
     camera = "researches"
-    unseenWatch = hasResearchesAlert
+    addChild = researchesAlertUi
+    onExitCb = function() {
+      let armyId = curArmyData.value?.guid
+      let unopened = seenResearches.value?.unopened[armyId] ?? {}
+      if (unopened.len() > 0)
+        markSeen(armyId, unopened.keys(), true)
+      return true
+    }
   }
 
   {

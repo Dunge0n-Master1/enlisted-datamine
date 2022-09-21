@@ -145,6 +145,39 @@ p_40e_1{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb2"
+    node:t="bomb3"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare5"
+    node:t="flare6"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="pylon_bomb1"
   }
@@ -152,7 +185,7 @@ p_40e_1{
 
 base_p_40e_1_100lb_anm_30_launcher{
   item__name:t="guns/us_100lb_anm30"
-  gun__blk:t="content/enlisted/gamedata/weapons/p_40e_1/100lb_anm_30_launcher.blk"
+  gun__blk:t="gamedata/weapons/p_40e_1/100lb_anm_30_launcher.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="us_100lb_anm30"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -178,7 +211,7 @@ base_p_40e_1_100lb_anm_30_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/100lb_anm_30.blk"
+        blk:t="gamedata/weapons/shells/100lb_anm_30.blk"
         name:t="100lb_anm_30"
         type:t="he_frag_tank"
       }
@@ -188,7 +221,7 @@ base_p_40e_1_100lb_anm_30_launcher{
 
 base_p_40e_1_12_7mm_browning50_early{
   item__name:t="guns/gunbrowning50_early"
-  gun__blk:t="content/enlisted/gamedata/weapons/p_40e_1/12_7mm_browning50_early.blk"
+  gun__blk:t="gamedata/weapons/p_40e_1/12_7mm_browning50_early.blk"
   gun__shotFreq:r=12.5
   gun__locName:t="gunbrowning50_early"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -214,25 +247,25 @@ base_p_40e_1_12_7mm_browning50_early{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m1_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m1_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball_M1"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m2_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m2_ball_bullet.blk"
         name:t="ball"
         type:t="ball_M2"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball_M1"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m2_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m2_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball_M2"
       }
@@ -318,6 +351,6 @@ p_40e_1_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="p_40e_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/p_40e_1.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/p_40e_1.blk"
+  plane_anim__blk:t="gamedata/units/p_40e_1.blk"
+  plane_sight__blk:t="gamedata/units/p_40e_1.blk"
 }

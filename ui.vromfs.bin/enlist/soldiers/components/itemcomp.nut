@@ -3,14 +3,12 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let {
-  unitSize, gap, bigGap, bigPadding, smallPadding, soldierWndWidth, fadedTxtColor,
+let { unitSize, gap, bigGap, bigPadding, smallPadding, soldierWndWidth, fadedTxtColor,
   defBgColor, defTxtColor, blockedBgColor, listCtors
 } = require("%enlSqGlob/ui/viewConst.nut")
 let listTxtColor = listCtors.txtColor
 let listBgColor = listCtors.bgColor
-let {
-  statusHintText, statusIconCtor, statusIconLocked, statusBadgeWarning
+let { statusHintText, statusIconCtor, statusIconLocked, statusBadgeWarning
 } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
 let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex,
@@ -18,8 +16,7 @@ let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex,
 } = require("%enlist/soldiers/model/state.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { equipItem, swapItems } = require("%enlist/soldiers/model/itemActions.nut")
-let {
-  iconByItem, getItemName, getItemDesc, trimUpgradeSuffix
+let { iconByItem, getItemName, getItemDesc, trimUpgradeSuffix
 } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curHoveredItem } = require("%enlist/showState.nut")
 let popupsState = require("%enlist/popup/popupsState.nut")
@@ -84,7 +81,7 @@ let defSlotnameCtor = @(slotType, _itemSize, isSelected, flags, group) slotType 
   opacity = 0.5
 }.__update(tiny_txt)
 
-let nameBlockCtor = @(item, sf, selected, group) {
+let nameBlockCtor = @(item, sf, selected, group, ammoBox = null) {
   size = [flex(), SIZE_TO_CONTENT]
   vplace = ALIGN_BOTTOM
   valign = ALIGN_BOTTOM
@@ -105,12 +102,12 @@ let nameBlockCtor = @(item, sf, selected, group) {
         children = smallMainColorText(getItemName(item), sf, selected)
       }
     }
+    ammoBox
   ]
 }
 
 let defItemCtor = function(
-  item, _slotType, itemSize, isSelected, flags, group, isAvailable = false
-) {
+  item, _slotType, itemSize, isSelected, flags, group, isAvailable = false, ammoBox = null) {
   let isWide = (itemSize?[0] ?? 1) / (itemSize?[1] ?? 1) < 2
   let iconParams = {
     hplace = ALIGN_CENTER
@@ -122,7 +119,7 @@ let defItemCtor = function(
       ? itemSize[1] - 2 * smallPadding
       : itemSize[1] - 2 * bigPadding
   }.__update(isAvailable ? {} : DISABLED_ITEM)
-  let itemName = nameBlockCtor(item, flags, isSelected, group)
+  let itemName = nameBlockCtor(item, flags, isSelected, group, ammoBox)
   let itemIcon = iconByItem(item, iconParams)
   return {
     size = flex()
@@ -162,11 +159,32 @@ let canEquip = @(item, scheme) item != null && !(item?.isShopItem ?? false)
     || scheme?.itemTypes.indexof(item?.itemtype) != null
     || scheme?.items.indexof(trimUpgradeSuffix(item?.basetpl)) != null)
 
+let showSwapImpossible = @(text) popupsState.addPopup({
+  id = "swap_items_error"
+  text
+  styleName = "error"
+})
+
 // targetDropData is the data of a slot, WHERE we drop an item
 // draggedDropData is the data of a slot, FROM where drag originated
 let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
   if (draggedDropData == null)
     return false
+
+  local { slotId = null, slotType = null, item = {} } = targetDropData?.slotType == null ? targetDropData : draggedDropData
+  let toSlotType = targetDropData?.slotType == null ? draggedDropData.slotType : targetDropData.slotType
+  let toSlotId = targetDropData?.slotId == null ? draggedDropData.slotId : targetDropData.slotId
+  local itemGuid = item?.guid
+  if (!toOwnerGuid || !itemGuid)
+    return false
+
+  let equippedItems = getSoldierItemSlots(toOwnerGuid, campItemsByLink.value)
+  let toItem = equippedItems.findvalue(@(d) d.slotType == toSlotType && d.slotId == toSlotId)?.item
+  if (toItem?.isFixed ?? false) {
+    showSwapImpossible(loc($"equipDemand/deniedUnequipPremium"))
+    return false
+  }
+
   // dropping item from the soldier's card into storage:
   if (targetDropData.scheme == null){
     // dropping item into empty storage slot, unequip:
@@ -182,15 +200,8 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
     equipItem(targetDropData.item.guid, draggedDropData.slotType, draggedDropData.slotId, toOwnerGuid)
     return true
   }
-  // dropping item
-  local itemGuid = null
-  local { slotId = null, slotType = null, item = {} } = targetDropData?.slotType == null ? targetDropData : draggedDropData
-  let toSlotType = targetDropData?.slotType == null ? draggedDropData.slotType : targetDropData.slotType
-  let toSlotId = targetDropData?.slotId == null ? draggedDropData.slotId : targetDropData.slotId
-  itemGuid = item?.guid
-  if (!toOwnerGuid || !itemGuid)
-    return false
 
+  // dropping item
   let parentItemGuid = getItemOwnerGuid(item)
   if (!parentItemGuid) {
     // equip from inventory
@@ -206,8 +217,8 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
   slotType = slotType ?? item.links[parentItemGuid]
 
   // swap already equipped
-  let demandingSlots = getDemandingSlots(parentItemGuid, slotType,
-    objInfoByGuid.value?[parentItemGuid], campItemsByLink.value)
+  let owner = objInfoByGuid.value?[parentItemGuid]
+  let demandingSlots = getDemandingSlots(parentItemGuid, slotType, owner, campItemsByLink.value)
   if (demandingSlots.len() > 0) {
     local equippedCount = demandingSlots.filter(@(v) v != null).len()
     let equippedGuid = getEquippedItemGuid(campItemsByLink.value, toOwnerGuid, toSlotType, toSlotId)
@@ -219,20 +230,13 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
         return true
       }
       let demandingInfo = getDemandingSlotsInfo(parentItemGuid, slotType)
-      if ((demandingInfo ?? "").len() > 0) {
-        popupsState.addPopup({
-          id = "swap_items_error"
-          text = demandingInfo
-          styleName = "error"
-        })
+      if (demandingInfo != "") {
+        showSwapImpossible(demandingInfo)
         return false
       }
     }
   }
 
-  let equippedItems = getSoldierItemSlots(parentItemGuid, campItemsByLink.value)
-  let toItem = equippedItems.findvalue(@(d)
-    d.slotType == toSlotType && d.slotId == toSlotId)?.item
   if (toItem != null)
     swapItems(toOwnerGuid, toSlotType, toSlotId, parentItemGuid, slotType, slotId)
   else {
@@ -391,6 +395,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
 
   let weapData = getWeaponData(item?.gametemplate ?? "")
   let needShowAmmo = weapData?["caliber"] != null || weapData?["bullets"] != null
+  let ammoBox = needShowAmmo ? mkAmmo(item, soldierGuid, weapData, slotType) : null
 
   let stateFlags = Watched(0)
   selectKey = selectKey ?? (item != null
@@ -411,14 +416,16 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
     return canEquipBothItems(data)
   }
   let canDropWithExceptionCB = @(data) canDrop(data) || (hasDropExceptionCb && data != null)
+  let { isShowDebugOnly = false } = item
 
   return function() {
     let flags = stateFlags.value
     let isSelected = selectedKey.value == selectKey
     let upgradeData = mkItemUpgradeData(item)
     isAvailable = isAvailable ?? ((item?.guid ?? "") != "")
-    let children = isAvailable ? [
-          itemCtor(item, slotType, itemSize, isSelected, flags, group, isAvailable)
+    let children = isAvailable
+      ? [
+          itemCtor(item, slotType, itemSize, isSelected, flags, group, isAvailable, ammoBox)
           {
             flow = FLOW_HORIZONTAL
             halign = ALIGN_RIGHT
@@ -430,7 +437,6 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
               mkUnseenSign(hasUnseenSign)
             ]
           }
-          needShowAmmo ? mkAmmo(item, soldierGuid, weapData, slotType) : null
           mods
         ]
       : item != null ? [
@@ -476,7 +482,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
       stopMouse = true
       size = SIZE_TO_CONTENT
       rendObj = ROBJ_BOX
-      fillColor = (item?.isShowDebugOnly ?? false) ? 0xFF003366
+      fillColor = isShowDebugOnly ? 0xFF003366
         : isDisabled ? fadedTxtColor
         : isLocked ? blockedBgColor
         : bgColor

@@ -89,7 +89,7 @@ let itemCountRarity = @(item, sf, isSelected) {
 
 let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
   let isAllowed = (item.status.flags & CANT_USE) == 0
-
+  let { isShowDebugOnly = false } = item
   let onHover = hoverHoldAction("unseenSoldierItem", item.basetpl,
     function(tpl) {
       if (unseenSquadsVehicle.value?[curSquad.value?.guid][tpl] && curSquadArmy.value)
@@ -117,6 +117,7 @@ let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) 
 
       color = isSelected ? activeBgColor
         : (sf & S_HOVER) ? hoverBgColor
+        : isShowDebugOnly ? 0xFF003366
         : isAllowed ? defBgColor
         : blockedBgColor
       size = vehicleListCardSize

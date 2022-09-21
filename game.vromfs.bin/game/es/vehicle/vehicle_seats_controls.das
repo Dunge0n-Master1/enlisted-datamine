@@ -4,6 +4,7 @@ require strings
 require EnlistedNet
 require game.es.events
 require game.es.vehicle.vehicle_events
+require game.es.vehicle.vehicle_seats_common
 require DagorSystem
 require game.utils.hero
 require game.utils.team
@@ -224,16 +225,15 @@ def detect_camera_type(owner, wishCamera, isInHatch, isGunner)
 
   return wishCamera
 
-[es(tag=gameClient, no_order, REQUIRE=heroVehicle)]
+[es(tag=gameClient, no_order, REQUIRE=vehicleWithWatched)]
 def vehicle_seats_apply_camera_type(info : UpdateStageInfoAct;
                                     cockpit__isHeroInCockpit : bool = false;
                                     vehicle_seats__seatEids : EidList;
-                                    var vehicleCameraType : int&;
+                                    var vehicleCameraType aka vehicle__vehicleCameraType : int&;
                                     var isTpsView : bool?)
   for seatEid in vehicle_seats__seatEids
-    query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__isPlayer : bool; seat__cameraType : int; seat__canControlTurrets : bool; seat__isInHatch : bool)
-      let isPlayer = seat__isPlayer || has(seat__ownerEid, "watchedByPlr")
-      if !isPlayer || !has(seat__ownerEid, "hero")
+    query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__cameraType : int; seat__canControlTurrets : bool; seat__isInHatch : bool)
+      if !has(seat__ownerEid, "watchedByPlr")
         return
 
       let cameraType = detect_camera_type(seat__ownerEid, seat__cameraType, !cockpit__isHeroInCockpit || seat__isInHatch, seat__canControlTurrets)
@@ -243,11 +243,12 @@ def vehicle_seats_apply_camera_type(info : UpdateStageInfoAct;
       query(seat__ownerEid) <| $ [es] (isTpsView : bool; var vehicleCameraType : int&)
         vehicleCameraType = isTpsView ? int(VehicleCameraType VEHICLE_CAMERA_NONE) : cameraType
         heroIsTpsView = isTpsView
+        vehicle__vehicleCameraType = vehicleCameraType
 
       if isTpsView != null
         *isTpsView = heroIsTpsView
 
-[es(tag=gameClient, on_event=EventComponentsDisappear, REQUIRE=heroVehicle)]
+[es(tag=gameClient, on_event=EventComponentsDisappear, REQUIRE=vehicleWithWatched)]
 def vehicle_seats_reset_camera_type(evt : Event; var vehicleCameraType : int&)
   vehicleCameraType = int(VehicleCameraType VEHICLE_CAMERA_NONE)
   let hero = get_controlled_hero()

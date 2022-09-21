@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let msgbox = require("%ui/components/msgbox.nut")
 let { equipGroups } = require("config/equipGroups.nut")
 let { curCampSoldiers, getEquippedItemGuid, objInfoByGuid, armoryByArmy,
   getScheme, getItemOwnerSoldier, curCampItems, getSoldierItemSlots, getDemandingSlots,
@@ -18,14 +17,9 @@ let soldierSlotsCount = require("soldierSlotsCount.nut")
 let { logerr } = require("dagor.debug")
 let { getLinkedArmyName, isObjLinkedToAnyOfObjects
 } = require("%enlSqGlob/ui/metalink.nut")
-let { focusResearch, findResearchSlotUnlock
-} = require("%enlist/researches/researchesFocus.nut")
 let { getObjectName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { curSection, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { unseenTiers } = require("unseenWeaponry.nut")
-let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
-} = require("%enlist/shop/armyShopState.nut")
-let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { transfer_item } = require("%enlist/meta/clientApi.nut")
 let { lockedProgressCampaigns } = require("%enlist/meta/campaigns.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -229,6 +223,13 @@ let function itemClear() {
 
 curSection.subscribe(@(_) itemClear())
 
+enum ItemCheckResult {
+  NEED_RESEARCH = 0
+  WRONG_CLASS = 1
+  NEED_LEVEL = 2
+  IN_SHOP = 3
+}
+
 let function checkSelectItem(item) {
   let { basetpl = null, itemtype = null, isShopItem = false, unlocklevel = 0 } = item
   let soldier = viewSoldierInfo.value
@@ -247,38 +248,31 @@ let function checkSelectItem(item) {
   let slotsLocked = classSlotLocksByArmy.value?[armyId][sClass] ?? []
   if (slotsLocked.indexof(slotType) != null)
     return {
-      text = loc("slotClassResearch", { soldierClass = sClassLoc })
-      resolveText = loc("GoToResearch")
-      resolveCb = function() {
-        focusResearch(findResearchSlotUnlock(soldier, slotType))
-      }
+      result = ItemCheckResult.NEED_RESEARCH
+      soldierClass = sClassLoc
+      soldier
+      slotType
     }
 
   let itemTypes = equipScheme?[slotType].itemTypes ?? []
   let itemList = scheme?.items ?? []
   if ((itemTypes.len() != 0 || itemList.len() != 0)
-      && itemTypes.indexof(itemtype) == null
-      && itemList.indexof(trimmed) == null)
+    && itemTypes.indexof(itemtype) == null
+    && itemList.indexof(trimmed) == null)
     return {
-      text = loc("Not available for class", { soldierClass = sClassLoc })
+      result = ItemCheckResult.WRONG_CLASS
+      soldierClass = sClassLoc
     }
 
   if (isShopItem){
     if (unlocklevel > 0 && unlocklevel > armyLevel)
       return {
-        text = loc("obtainAtLevel", { level = unlocklevel })
-        resolveText = loc("GoToArmyLeveling")
-        resolveCb = function() {
-          scrollToCampaignLvl(unlocklevel)
-          setCurSection("SQUADS")
-        }
+        result = ItemCheckResult.NEED_LEVEL
+        level = unlocklevel
       }
-    let shopItemsCmp = getShopItemsCmp(item.basetpl)
+
     return {
-      text = loc("itemObtainInShop")
-      resolveText = loc("GoToShop")
-      watch = [shopItemsCmp, curArmyShopItems]
-      resolveCb = @() openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value)
+      result = ItemCheckResult.IN_SHOP
     }
   }
 
@@ -286,16 +280,6 @@ let function checkSelectItem(item) {
 }
 
 let function selectItem(item) {
-  let checkSelectInfo = checkSelectItem(item)
-  if (checkSelectInfo != null) {
-    let buttons = [{ text = loc("Ok"), isCancel = true }]
-    if (checkSelectInfo?.resolveCb != null)
-      buttons.append({ text = checkSelectInfo.resolveText,
-        action = checkSelectInfo.resolveCb,
-        isCurrent = true })
-    return msgbox.show({ text = checkSelectInfo.text, buttons = buttons })
-  }
-
   let { slotType = null, slotId = null, ownerGuid = null } = selectParams.value
   if (ownerGuid != null && isObjGuidBelongToRentedSquad(ownerGuid)) {
     showRentedSquadLimitsBox()
@@ -390,13 +374,15 @@ let curCanUnequipSoldiersList = Computed(function() {
 })
 
 let defaultSortOrder = {
-  medkits = 1
-  explosion_pack = 4
+  explosion_pack = 6
+  impact_grenade = 5
+  incendiary_grenade = 4
   grenade = 3
   molotov = 2
-  smoke_grenade = 1
   antipersonnel_mine = 2
   antitank_mine = 1
+  smoke_grenade = 1
+  medkits = 1
 }
 let classSortOrder = {
   tanker = { repair_kit = 2 }
@@ -562,6 +548,7 @@ return {
   itemClear
   checkSelectItem
   selectItem
+  ItemCheckResult
 
   curCanUnequipSoldiersList
   getPossibleEquipList

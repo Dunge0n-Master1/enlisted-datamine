@@ -6,8 +6,12 @@ require app
 require ecs
 
 [es(tag=gameClient, REQUIRE=resolvedTurret, track=turret_input__shootFlag)]
-def vehicle_turret_broken_notification_es(evt : Event; turret__owner : EntityId; turret_input__shootFlag, turret__canShoot : bool)
-  if !turret_input__shootFlag || turret__canShoot
+def vehicle_turret_unusable_notification_es(evt : Event;
+                                            turret__owner : EntityId;
+                                            turret_input__shootFlag : bool;
+                                            turret__isUnderwater : bool;
+                                            turret__isBroken : bool)
+  if !turret_input__shootFlag || (!turret__isBroken && !turret__isUnderwater)
     return
 
   query(turret__owner) <| $ [es] (vehicle__localControls : VehicleControlsState;
@@ -19,5 +23,8 @@ def vehicle_turret_broken_notification_es(evt : Event; turret__owner : EntityId;
       return
 
     let hero = get_controlled_hero()
-    sendEvent(hero, [[CmdHeroLogEvent event="vehicle_turret_shoot_blocked", text="vehicle/vehicle_turret_shoot_blocked", ttl=shootingBlockNotificationTime]])
+    if turret__isBroken
+      sendEvent(hero, [[CmdHeroLogEvent event="vehicle_turret_shoot_blocked", text="vehicle/vehicle_turret_shoot_blocked", ttl=shootingBlockNotificationTime]])
+    elif turret__isUnderwater
+      sendEvent(hero, [[CmdHeroLogEvent event="vehicle_turret_shoot_blocked_underwater", text="vehicle/vehicle_turret_shoot_blocked_underwater", ttl=shootingBlockNotificationTime]])
     lastBlockNotificationAtTime = get_sync_time()

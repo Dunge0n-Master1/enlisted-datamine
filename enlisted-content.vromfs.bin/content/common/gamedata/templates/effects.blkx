@@ -7,6 +7,9 @@ import:t="effects_includes/effects_muzzle_presets.blk"
 import:t="effects_includes/effects_vehicles.blk"
 import:t="effects_includes/effects_weapons.blk"
 import:t="effects_includes/effects_events.blk"
+import:t="effects_includes/effects_planes.blk"
+import:t="effects_vehicle_muzzle.blk"
+import:t="effects_includes/effects_trails.blk"
 
 level_effect{
   _extends:t="sound_control"
@@ -481,6 +484,10 @@ weather_choice_created{
   "weather_choice_tag:tag"{
     _tags:t="render"
   }
+
+  "client__canDestroyServerEntity:tag"{
+    _tags:t="playingReplay"
+  }
 }
 
 lightning_volumetric{
@@ -578,11 +585,37 @@ dafx_rain{
     drop_splashes__spriteYPos:r=0.2
   }
 
+  _group{
+    _tags:t="render"
+    effect__offset:p3=0.0, -2.0, 0.0
+  }
+
   rain{
     _tags:t="render"
   }
 
   "rain_tag:tag"{
+  }
+}
+
+rain_ripples{
+  _singleton:b=yes
+  _tags:t="render"
+  rain_ripples_shader_name:t="rain_ripples"
+  rain_ripples_texture_res:t="droplets_tex"
+  rain_ripples_texture_var:t="droplets_tex"
+  rain_ripple_params_value:p4=4.0, 1.5, 0.7, 0.8
+
+  "rain_ripples_shader:PostFxRenderer"{
+  }
+
+  "rain_ripples_texture:SharedTexHolder"{
+  }
+
+  "rain_ripple_params:ShaderVar"{
+  }
+
+  "zn_zfar:ShaderVar"{
   }
 }
 
@@ -598,6 +631,11 @@ dafx_snow{
     snow__length:r=1.0
     snow__alpha:r=1.0
     snow__maxDensity:r=10.0
+  }
+
+  _group{
+    _tags:t="render"
+    effect__offset:p3=0.0, -2.0, 0.0
   }
 
   "snow_tag:tag"{
@@ -1021,40 +1059,6 @@ ground_effect{
   }
 }
 
-chimney_exhaust{
-  _extends:t="replicating"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  effect{
-    _tags:t="render"
-  }
-
-  _group{
-    _tags:t="render"
-    effect__name:t="chimney_exhaust"
-  }
-
-  "staticEffect:tag"{
-  }
-}
-
-chimney_exhaust_permanent{
-  _extends:t="replicating"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  effect{
-    _tags:t="render"
-  }
-
-  _group{
-    _tags:t="render"
-    effect__name:t="chimney_exhaust"
-  }
-
-  "staticEffect:tag"{
-  }
-}
-
 chimney_fire{
   _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -1285,6 +1289,13 @@ turret_gun_flash_effect_base{
   }
 }
 
+turret_gun_flash_fx{
+
+  "turret_gun_flash_fx:tag"{
+    _tags:t="render"
+  }
+}
+
 big_gun_flame{
   _extends:t="turret_gun_flash_effect_base"
 
@@ -1327,141 +1338,6 @@ mg_flame_muzzle_brake{
   _group{
     _tags:t="render"
     effect__name:t="mg_flame_muzzle_brake"
-  }
-}
-
-muzzle_ground_20mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_20mm"
-  }
-}
-
-muzzle_ground_8mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_8mm"
-  }
-}
-
-muzzle_ground_40mm_slow{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_40mm_slow"
-  }
-}
-
-muzzle_ground_60mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_60mm"
-  }
-}
-
-muzzle_air_15mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_air_15mm"
-  }
-}
-
-muzzle_ground_100mm_recoilless{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_100mm_recoilless"
-  }
-}
-
-muzzle_ground_15mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_15mm"
-  }
-}
-
-muzzle_ground_80mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_80mm"
-  }
-}
-
-muzzle_ground_80mm_brake{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_80mm_brake"
-  }
-}
-
-muzzle_ground_60mm_brake{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_60mm_brake"
-  }
-}
-
-muzzle_ground_100mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_100mm"
-  }
-}
-
-muzzle_ground_125mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_125mm"
-  }
-}
-
-muzzle_ground_125mm_brake{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_125mm_brake"
-  }
-}
-
-muzzle_ground_150mm{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_150mm"
-  }
-}
-
-muzzle_ground_100mm_brake{
-  _extends:t="turret_gun_flash_effect_base"
-
-  _group{
-    _tags:t="render"
-    effect__name:t="muzzle_ground_100mm_brake"
   }
 }
 
@@ -1533,6 +1409,15 @@ capzone_signal_enemy_smoke_effect{
   effect__colorMult:c=255, 15, 0, 200
 }
 
+explosion_air_selfexplosion_big{
+  _extends:t="explosion_effect_extra_large"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="mine_expl"
+  }
+}
+
 smoke_shell_effect{
   effect__scale:r=1.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -1547,6 +1432,47 @@ smoke_shell_effect{
   _group{
     _tags:t="render"
     effect__name:t="misc_simple_smoke_grenade"
+  }
+
+  "extinguishUnderwater:tag"{
+  }
+
+  "smoke_occluders__isStatic:tag"{
+  }
+
+  "smoke_occluders__updateInterval:r"{
+    _tags:t="server"
+    value:r=2.0
+  }
+
+  "smoke_occluders__info:shared:array"{
+    _tags:t="server"
+
+    "big:object"{
+      windScale:r=0.0
+      expanseStartTime:r=0.0
+      expanseFullTime:r=2.0
+      fadeStartTime:r=15.0
+      totalTime:r=15.0
+      upSpeed:p3=0.0, 3.0, 0.0
+      normalSpeed:p3=0.0, 0.0, 0.0
+      radius:p3=0.0, 9.5, 1.0
+    }
+  }
+}
+
+white_phosphorus_smoke_effect{
+  _extends:t="smoke_occluders"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  effect__scale:r=1.0
+  _tracked:t="effect__scale"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_grenades_phosphorus_aftersmoke_cmps_fx"
+
+    effect{
+    }
   }
 
   "extinguishUnderwater:tag"{
@@ -1671,6 +1597,114 @@ base_hit_fx{
   }
 }
 
+ground_effect_base{
+  _extends:t="ecs_no_debug"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  effect__spawnRate:r=0.0
+  _tracked:t="effect__spawnRate"
+
+  "staticEffect:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t=""
+
+    effect{
+    }
+  }
+}
+
+lava_field_sparks_a_fx{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="lava_field_sparks_a_fx"
+  }
+}
+
+location_sand_wind_ground_fx{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="location_sand_wind_ground_fx"
+  }
+}
+
+ground_sparkles_10m{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="ground_sparkles_10m"
+  }
+}
+
+ground_sparkles_10m{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="ground_sparkles_10m"
+  }
+}
+
+ground_ashes_10m{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="ground_ashes_10m"
+  }
+}
+
+ground_leaves_10m{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="ground_leaves_10m"
+  }
+}
+
+land_haze{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="land_haze"
+  }
+}
+
+land_dust_storm{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="land_dust_storm"
+  }
+}
+
+ground_papers_10m{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="ground_papers_10m"
+  }
+}
+
+chimney_exhaust{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="chimney_exhaust"
+  }
+}
+
 weap_hit_fx{
   gun_hit_fx__default:t="base_hit_fx"
 
@@ -1685,12 +1719,9 @@ weap_hit_fx{
   }
 }
 
-base_gun_flash_fx{
+base_gun_flash_unattached_fx{
   _extends:t="ecs_no_debug"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  "attachedEffect:tag"{
-  }
 
   _group{
     _tags:t="render"
@@ -1703,6 +1734,13 @@ base_gun_flash_fx{
 
     "gun_flash_fx__gunEid:eid"{
     }
+  }
+}
+
+base_gun_flash_fx{
+  _extends:t="base_gun_flash_unattached_fx"
+
+  "attachedEffect:tag"{
   }
 }
 
@@ -1722,7 +1760,17 @@ side_muzzle_flash{
 falling_weather_effect_template{
   _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 20.0, 0.0]]
-  effect__offset:p3=0.0, 1.0, 0.0
+
+  _group{
+    _tags:t="render"
+    camera_prev_pos:p3=0.0, 0.0, 0.0
+    effect__offset:p3=0.0, 1.0, 0.0
+    effect__bias_coef:r=0.5
+  }
+
+  "client__canDestroyServerEntity:tag"{
+    _tags:t="playingReplay"
+  }
 
   effect{
     _tags:t="render"
@@ -1797,5 +1845,28 @@ camera_dust_template{
   _group{
     _tags:t="render"
     effect__name:t="camera_dust_cmps_fx"
+  }
+}
+
+shell_explosion_fx_info{
+  _singleton:b=yes
+  shell_explosion_fx__default:t=""
+  shell_explosion_fx__traceLength:r=0.5
+  shell_explosion_fx__infoTemplate:t=""
+}
+
+flesh_knife_hit{
+  _extends:t="ecs_no_debug"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  effect__scale:r=1.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="flesh_knife_hit"
+    effect__spawnOnPlayer:b=yes
+    gun_flash_fx__timeToDestroy:r=1.0
+
+    effect{
+    }
   }
 }

@@ -56,7 +56,7 @@ def setup_ammo_cluster(cluster_eid : EntityId; setup_ammo : int)
 
         let shouldPartBeEnabled = slotAmmo > 0
         if uint(partId) < uint(length(damage_model.dmData.parts)) && damage_model.dmData.parts[partId].enabled != shouldPartBeEnabled
-          damage_model.dmData |> enable_dm_part(partId, shouldPartBeEnabled)
+          damage_model.dmData.parts[partId].enabled = shouldPartBeEnabled
 
   return ammoToDistribute
 

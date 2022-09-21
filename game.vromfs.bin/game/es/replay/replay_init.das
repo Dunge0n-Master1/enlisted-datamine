@@ -23,13 +23,20 @@ def replay_create_cameras(evt : Event; replay_cameras : StringList)
       init |> set("camera__active", false)
       init |> set("camera__target", INVALID_ENTITY_ID)
 
+[es(tag=playingReplay, on_appear, REQUIRE=replayCamera)]
+def replay_camera_set_static_position_es(evt : Event; camera__target : EntityId; var transform aka replay_transform : float3x4&)
+  if !!camera__target
+    return
+
+  find_query() <| $ [es(REQUIRE=initialCamTag)] (transform : float3x4)
+    replay_transform = transform
+    return true
+
 [es(tag=playingReplay, after=(replay_speed_change_es, change_replay_speed_es))]
 def replay_set_current_time_es(evt : UpdateStageInfoAct;
-                               replay__firstHumanSpawnTime : float;
-                               replay__startAt : float;
                                var replay__curTime : float&;
                                var replay__speed : float&)
-  replay__curTime = evt.curTime - replay__firstHumanSpawnTime - replay__startAt
+  replay__curTime = evt.curTime
   replay__speed = get_timespeed()
 
 [es(tag=playingReplay, on_appear)]
@@ -40,3 +47,8 @@ def replay_read_meta_es(evt : Event;
   replay__playTime = get_currently_playing_replay_meta_info() |> json_get_or("total_play_time", 0.)
   replay__firstHumanSpawnTime = get_currently_playing_replay_meta_info() |> json_get_or("first_human_spawn_time", 0.)
   replay__startAt = get_currently_playing_replay_meta_info() |> json_get_or("replay__startAt", 0.)
+
+[es(tag=playingReplay, on_appear, after=replay_read_meta_es)]
+def replay_acceleration_to_first_human_spawn_es(evt : Event; replay__firstHumanSpawnTime : float)
+  createEntity("replay_acceleration_to") <| $(var init)
+    init |> set("replay__accelerationTime", replay__firstHumanSpawnTime)

@@ -31,15 +31,17 @@ def turret_weap_can_shoot_updater(evt : Event;
                                   turret_control__gunEids : EidList;
                                   damage_model : DamageModel)
   for turretEid in turret_control__gunEids
-    query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_dm_part__barrelDm, turret_dm_part__breechDm : int; var turret__canShoot : bool&)
+    query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_dm_part__barrelDm, turret_dm_part__breechDm : int;
+                                                        var turret__isBroken : bool&;
+                                                        var turret__isUnderwater : bool&)
       let barrelDm = turret_dm_part__barrelDm
       let breechDm = turret_dm_part__breechDm
       if barrelDm >= 0
-        turret__canShoot = int(get_rel_hp_fixed(damage_model.dmData, barrelDm)) > 0
-      if breechDm >= 0 && turret__canShoot
-        turret__canShoot = int(get_rel_hp_fixed(damage_model.dmData, breechDm)) > 0
+        turret__isBroken = int(get_rel_hp_fixed(damage_model.dmData, barrelDm)) <= 0
+      if breechDm >= 0 && !turret__isBroken
+        turret__isBroken = int(get_rel_hp_fixed(damage_model.dmData, breechDm)) <= 0
 
-      turret__canShoot &&= !vehicle__isUnderwater
+      turret__isUnderwater = vehicle__isUnderwater
 
 
 def get_dm_part_hp(damage_model : DamageModel; part_no, var_id : int) : float
@@ -159,13 +161,18 @@ def send_turrets_update_event(eid, tick, dt)
   sendEventImmediate(eid, [[CmdTurretsUpdate tick=tick, dt=dt]])
 
 [es(REQUIRE=turret_control__gunEids)]
-def turret_post_phys_update_es(evt : CmdPostPhysUpdate; eid : EntityId)
-  if evt.isForReal
+def turret_post_phys_update_es(evt : CmdPostPhysUpdate;
+                               eid : EntityId;
+                               phys__isAsleep : bool = false)
+  if evt.isForReal && !phys__isAsleep
     send_turrets_update_event(eid, evt.tick, evt.dt)
 
 [es(REQUIRE=turret_control__gunEids)]
-def turret_post_phys_update_remote_shadow_es(evt : CmdPostPhysUpdateRemoteShadow; eid : EntityId)
-  send_turrets_update_event(eid, evt.tick, evt.dt)
+def turret_post_phys_update_remote_shadow_es(evt : CmdPostPhysUpdateRemoteShadow;
+                                             eid : EntityId;
+                                             phys__isAsleep : bool = false)
+  if !phys__isAsleep
+    send_turrets_update_event(eid, evt.tick, evt.dt)
 
 [es(tag=server, on_appear, before=turret_gun_es, REQUIRE=isTurret)]
 def turret_gun_init_max_ammo(evt : Event; var gun__maxAmmo : int&; gun__shellsAmmo : Array)

@@ -1,0 +1,35 @@
+base_37mm_type_94{
+  item__name:t="guns/37mm_type_94"
+  gun__blk:t="gamedata/gen/weapons/37mm_type_94.blk"
+  gun__shotFreq:r=0.35
+  gun__locName:t="37mm_type_94"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_type_94_defaultset.blk"
+        name:t="37mm_aphe"
+        type:t="aphe_tank"
+      }
+    }
+
+    "37mm_type_94_APHE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/37mm_type_94_37mm_type_94_aphe.blk"
+        name:t="37mm_aphe"
+        type:t="aphe_tank"
+      }
+    }
+  }
+}
+
+tankgun_37mm_type_94{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_37mm_type_94"
+  _extends:t="gunsound_37mm_type_94"
+  turret__triggerGroup:i=0
+}

@@ -42,6 +42,7 @@ need_update_wish_ammo{
 
 item_gun{
   _extends:t="item"
+  _extends:t="gun_anim_vars"
   item__iconYaw:r=90.0
   item__ui_priority:i=2
   item__lootType:t="gun"
@@ -66,6 +67,7 @@ loaded_gun{
 
 item_melee{
   _extends:t="item"
+  _extends:t="gun_anim_vars"
   item__ui_priority:i=1
   item__lootType:t="melee"
   gun__propsId:i=-1

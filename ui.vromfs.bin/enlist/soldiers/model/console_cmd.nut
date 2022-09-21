@@ -94,3 +94,5 @@ console_register_command(remove_item, "meta.removeItemWithCount")
 console_register_command(decrease_purchases_count, "meta.cheatDecreasePurchasesCount")
 
 console_register_command(@() apply_freemium_soldier(curSoldier.value), "freemium.applySoldier")
+console_register_command(@(level)
+  apply_freemium_soldier(curSoldier.value, level), "freemium.applySoldierLevel")

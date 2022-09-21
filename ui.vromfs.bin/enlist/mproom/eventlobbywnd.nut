@@ -235,7 +235,7 @@ let function mkCell(column, player) {
 
 let columns = [
   {
-    content = @(player) memberName(player)
+    content = @(player) memberName(player.nameText, player.public?.nickFrame)
     width = flex()
     halign = ALIGN_RIGHT
   }

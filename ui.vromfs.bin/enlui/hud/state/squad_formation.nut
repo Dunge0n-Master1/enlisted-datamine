@@ -1,19 +1,19 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { RequestSquadFormation } = require("gameevents")
+let { sendNetEvent, RequestSquadFormation } = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { save_settings, get_setting_by_blk_path, set_setting_by_blk_path } = require("settings")
-let { ESFN_STANDARD } = require("ai")
+let { SquadFormationSpread } = require("%enlSqGlob/dasenums.nut")
 let { find_local_player } = require("%dngscripts/common_queries.nut")
 
 let savedSquadFormationOrders = get_setting_by_blk_path("ai/squadFormationOrder") ?? {}
-let DEFAULT_FORMATION = ESFN_STANDARD
+let DEFAULT_FORMATION = SquadFormationSpread.ESFN_STANDARD
 let squadFormation = Watched(DEFAULT_FORMATION)
 
 
 let function applyNewFormation(squadEid, formation) {
-  ecs.g_entity_mgr.sendEvent(squadEid, RequestSquadFormation(formation))
+  sendNetEvent(squadEid, RequestSquadFormation({spread=formation}))
   squadFormation(formation)
 }
 

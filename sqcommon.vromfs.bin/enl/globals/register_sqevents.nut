@@ -15,13 +15,9 @@ return {
     CmdGetMySquadsData = {}
     CmdSetMySquadsData = {}
     CmdGetBattleResult = {},
-    AFKShowWarning = null,
-    AFKShowDisconnectWarning = null,
     CmdSelectBuildingType = { index = 0 },
     EventOnSquadStats = {},
     CmdTutorialHint = { event = "", unique = "", text = "", hotkey = "", ttl = 15}
 
-    CmdRequestRespawn = {squadId = 0, memberId = 0, spawnGroup = 0},
-    CmdCancelRequestRespawn = {squadId = 0, memberId = 0},
   }.__update(unicastEvents).each(registerUnicastEvent)
 }

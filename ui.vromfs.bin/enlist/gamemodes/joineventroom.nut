@@ -57,7 +57,6 @@ let function showPasswordMsgbox(params){
       placeholder = loc("enter_pass")
       maxChars = 16
       password = true
-      charMask = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
       onReturn = tryToJoinRoom
       onAttach = @(elem) set_kb_focus(elem)
       onEscape = function(){

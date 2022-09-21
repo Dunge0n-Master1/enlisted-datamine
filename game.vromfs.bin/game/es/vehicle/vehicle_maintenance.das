@@ -38,7 +38,6 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
   let tracePos : float3 = (human_use_object__nodeId > 0
     ? geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId)
     : camTm[3])
-  var t = human_use_object__useDist
   var newMaintenanceTarget = INVALID_ENTITY_ID
   var needsRepair = false
   var needsExtinguisher = false
@@ -49,9 +48,8 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
                                                                                   repairable__repairRequired : bool = false;
                                                                                   repairable__extinguishRequired : bool = false;
                                                                                   team : int = TEAM_UNASSIGNED)
-    var norm : float3
     if ((is_teams_friendly(team, maintainable_team) || maintainable_team == TEAM_UNASSIGNED || team == TEAM_UNASSIGNED) &&
-        collres_traceray(collres, transform, animchar.nodeTree, tracePos, traceDir, t, norm))
+        collres_rayhit(collres, transform, animchar.nodeTree, tracePos, traceDir, human_use_object__useDist))
       newMaintenanceTarget = eid
       needsRepair = repairable__repairRequired
       needsExtinguisher = repairable__extinguishRequired

@@ -15,6 +15,15 @@ let mkAmmoInfo = require("player_info/player_ammo.ui.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
 let { currentGunEid } = require("%ui/hud/state/hero_weapons.nut")
+let {mkMedkitIcon} = require("player_info/medkitIcon.nut")
+let {selfHealMedkits, selfReviveMedkits} = require("%ui/hud/state/total_medkits.nut")
+
+let hasMedkit = Computed(@() (selfHealMedkits.value + selfReviveMedkits.value) > 0)
+let medkitIco = mkMedkitIcon(hdpx(25))
+let playerMedkits = @() {
+  watch = hasMedkit
+  children = hasMedkit.value ? medkitIco : null
+}
 
 let mainStyles = {
   curAmmo = {fontFxColor=Color(0,0,0,50) fontFx=FFT_GLOW}.__update(h2_txt)
@@ -31,6 +40,14 @@ let secondaryStyles = {
 }
 
 let gap = freeze({size = [0, hdpx(5)]})
+
+let grenadesAndMedkits = freeze({
+  flow = FLOW_HORIZONTAL
+  gap = hdpx(8)
+  valign = ALIGN_CENTER
+  children = [playerMedkits, playerGrenades]
+})
+
 let showShortBlock = Watched(true)
 let hideShortBlock = @() showShortBlock(false)
 let function activateShowShortBlock(...){
@@ -64,7 +81,7 @@ let shortPlayerBlock = @() {
     firingModeCmp
     gap
     gap
-    playerGrenades
+    grenadesAndMedkits
     handlersCm
   ] : handlersCm
 }

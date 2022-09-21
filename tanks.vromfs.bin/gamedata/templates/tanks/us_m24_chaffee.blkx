@@ -1,6 +1,7 @@
 us_m24_chaffee{
   _extends:t="base_m24_chaffee"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.1
 
   "bullet_holes__ignoreCollisionNodes:array"{

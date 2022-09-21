@@ -11,17 +11,48 @@ enum ContextCommand {  // context_command_common::ContextCommand
   ECC_PLANT_BOMB = 8
   ECC_DEFUSE_BOMB = 9
 }
+let ContextCommand_COUNT = 10
 
 enum MedicHealState {  // medic_common::MedicHealState
   MHS_NONE = 0
   MHS_NEED_HEAL = 1
   MHS_NEED_REVIVE = 2
 }
+let MedicHealState_COUNT = 3
 
 enum SquadBehaviour {  // squad_behaviour_command_common::SquadBehaviour
   ESB_AGRESSIVE = 0
   ESB_PASSIVE = 1
 }
+let SquadBehaviour_COUNT = 2
+
+enum SquadFormationSpread {  // squad_order_common::SquadFormationSpread
+  ESFN_CLOSEST = 0
+  ESFN_STANDARD = 1
+  ESFN_WIDE = 2
+}
+let SquadFormationSpread_COUNT = 3
+
+enum SquadMateOrder {  // squad_order_common::SquadMateOrder
+  ESMO_NO_ORDER = 0
+  ESMO_BRING_AMMO = 1
+  ESMO_HEAL = 2
+  ESMO_ARTILLERY = 3
+  ESMO_BUILD = 4
+  ESMO_ATTACK_TARGET = 5
+  ESMO_DEFEND_POINT = 6
+  ESMO_USE_VEHICLE = 7
+  ESMO_DEFUSE_BOMB = 8
+  ESMO_PLANT_BOMB = 9
+}
+let SquadMateOrder_COUNT = 10
+
+enum SquadOrder {  // squad_order_common::SquadOrder
+  ESO_FOLLOW_ME = 0
+  ESO_DEFEND_POINT = 1
+  ESO_USE_VEHICLE = 2
+}
+let SquadOrder_COUNT = 3
 
 enum CanTerraformCheckResult {  // terraform_common::CanTerraformCheckResult
   Successful = 0
@@ -29,10 +60,21 @@ enum CanTerraformCheckResult {  // terraform_common::CanTerraformCheckResult
   DisallowedMaterials = 2
   NearByObjects = 3
 }
+let CanTerraformCheckResult_COUNT = 4
 
 return {
   ContextCommand
+  ContextCommand_COUNT
   MedicHealState
+  MedicHealState_COUNT
   SquadBehaviour
+  SquadBehaviour_COUNT
+  SquadFormationSpread
+  SquadFormationSpread_COUNT
+  SquadMateOrder
+  SquadMateOrder_COUNT
+  SquadOrder
+  SquadOrder_COUNT
   CanTerraformCheckResult
+  CanTerraformCheckResult_COUNT
 }

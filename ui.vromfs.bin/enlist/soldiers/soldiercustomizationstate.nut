@@ -13,7 +13,6 @@ let rand = require("%sqstd/rand.nut")()
 let { removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let { isFreemiumCampaign } = require("%enlist/campaigns/freemiumState.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { isLinkedTo } = require("%enlSqGlob/ui/metalink.nut")
@@ -27,11 +26,9 @@ let customizationToApply = mkWatched(persist, "customizationToApply", {})
 let itemsToBuy = mkWatched(persist, "itemsToBuy", {})
 let oldSoldiersLook = mkWatched(persist, "oldSoldiersLook", {})
 let isMultiplePurchasing = mkWatched(persist, "isMultiplePurchasing", false)
+
 const APPEARANCE_ORDER_TPL = "appearance_change_order"
 const PURCHASE_WND_UID = "PURCHASE_WND"
-
-// simple freemium logic right now; flag can be moved to campaigns setup in future
-let isCustomizationAvailable = Computed(@() isFreemiumCampaign.value)
 
 currentItemPart.subscribe(@(v)
   curCustomizationItem(customizationToApply.value?[v]))
@@ -211,12 +208,10 @@ let lookCustomizationParts = [
   {
     locId = "appearance/helmet"
     slotName = "helmet"
-    hideIfUnchangeable = false
   },
   {
     locId = "appearance/head"
     slotName = "head"
-    hideIfUnchangeable = false
   },
   {
     locId = "appearance/tunic"
@@ -248,12 +243,12 @@ let availableCItem = Computed(function(){
 
   let templates = {}
   foreach (part in lookCustomizationParts){
-    let partItem = part.slotName
+    let { slotName } = part
+    if (itemScheme?[slotName] == null || itemScheme[slotName].len() == 1)
+      continue
 
-    if (itemScheme?[partItem] == null || (part?.hideIfUnchangeable ?? false))
-        continue
     let iconAttachments = []
-    let lookItem = customizationToApply.value?[partItem] ?? curSoldierItems?[partItem]
+    let lookItem = customizationToApply.value?[slotName] ?? curSoldierItems?[slotName]
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, lookItem)?.gametemplate ?? ""
     let slotTemplates = findItemTemplate(allItemTemplates, armyId, lookItem)?.slotTemplates ?? {}
     if (slotTemplates.len() > 0)
@@ -274,7 +269,7 @@ let availableCItem = Computed(function(){
         })
       }
     let allAvailableTemplates = []
-    foreach (item in (itemScheme?[part.slotName] ?? [])){
+    foreach (item in itemScheme[slotName]){
       let template = findItemTemplate(allItemTemplates, armyId, item)?.gametemplate ?? ""
       if (template != "")
         allAvailableTemplates.append(template)
@@ -601,7 +596,6 @@ return {
   isPurchasing
   itemsToBuy
   saveOutfit
-  isCustomizationAvailable
   premiumItemsCount
   oldSoldiersLook
   curSoldierItemsPrice

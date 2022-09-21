@@ -2,26 +2,23 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 //this is very good candidate to refactor - copy&paste is obvious
+let {levelLoaded, levelLoadedUpdate, levelIsLoading, levelIsLoadingUpdate} = require("%enlSqGlob/levelState.nut")
 
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
-
-let levelLoaded = sharedWatched("levelLoaded", @() false)
 let {EventUiShutdown} = require("dasevents")
 ecs.register_es("level_state_ui_es",
   {
-    [["onChange","onInit"]] = @(_eid, comp)  levelLoaded.update(comp["level__loaded"]),
-    [EventUiShutdown] = @() levelLoaded.update(false),
-    onDestroy = @() levelLoaded.update(false)
+    [["onChange","onInit"]] = @(_eid, comp)  levelLoadedUpdate(comp["level__loaded"]),
+    [EventUiShutdown] = @() levelLoadedUpdate(false),
+    onDestroy = @() levelLoadedUpdate(false)
   },
   {comps_track = [["level__loaded", ecs.TYPE_BOOL]]}
 )
 
 
-let levelIsLoading = sharedWatched("levelIsLoading", @() false)
 ecs.register_es("level_is_loading_ui_es",
   {
-    [["onChange","onInit"]] = @(_eid, comp) levelIsLoading(comp["level_is_loading"])
-    onDestroy = @() levelIsLoading.update(false)
+    [["onChange","onInit"]] = @(_eid, comp) levelIsLoadingUpdate(comp["level_is_loading"])
+    onDestroy = @() levelIsLoadingUpdate(false)
   },
   {comps_track = [["level_is_loading", ecs.TYPE_BOOL]]}
 )

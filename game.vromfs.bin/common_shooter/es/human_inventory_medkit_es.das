@@ -12,7 +12,7 @@ struct HealingItem
   healAmount : float
 
 
-def get_fastest_heal_item(item_container : EidList; heal_amount_comp : array<string>)
+def get_fastest_heal_item(item_container : EidList; heal_amount_comp : array<uint>)
   var fastestTime = 1e+06f
   var fastestEid = ecs::INVALID_ENTITY_ID
 
@@ -20,13 +20,13 @@ def get_fastest_heal_item(item_container : EidList; heal_amount_comp : array<str
     query(itemEid) <| $ [es(REQUIRE_NOT=item__targetUseOnly)] (item__useTime : float)
       if item__useTime < fastestTime
         for comp in heal_amount_comp
-          if has(itemEid, comp)
+          if has(itemEid, "", comp)
             fastestTime = item__useTime
             fastestEid = itemEid
   return fastestEid
 
 
-def get_fastest_heal_item(item_container : ecs::Object; heal_amount_comp : array<string>)
+def get_fastest_heal_item(item_container : ecs::Object; heal_amount_comp : array<uint>)
   var fastestTime = 1e+06f
   var fastestEid = ecs::INVALID_ENTITY_ID
 
@@ -38,7 +38,7 @@ def get_fastest_heal_item(item_container : ecs::Object; heal_amount_comp : array
     query(itemEid) <| $ [es(REQUIRE_NOT=item__targetUseOnly)] (item__useTime : float)
       if item__useTime < fastestTime
         for comp in heal_amount_comp
-          if has(itemEid, comp)
+          if has(itemEid, "", comp)
             fastestTime = item__useTime
             fastestEid = itemEid
             break
@@ -65,7 +65,7 @@ def get_min_summary_wasted_heal_amount(heal_items : array<HealingItem>;
 def get_most_effective_heal_item(item_container : EidList;
                                  needed_heal_amount : float;
                                  max_waste_heal_amount_ratio : float;
-                                 heal_amount_comp : array<string>) : EntityId
+                                 heal_amount_comp : array<uint>) : EntityId
   var healItems : array<HealingItem>
   reserve(healItems, length(item_container))
 
@@ -75,7 +75,7 @@ def get_most_effective_heal_item(item_container : EidList;
         return
       var healAmount = 0.0
       for comp in heal_amount_comp
-        healAmount += get_float(itemEid, comp) ?? 0.0
+        healAmount += get_float(itemEid, "", comp) ?? 0.0
       if healAmount > 0.0
         emplace(healItems, [[HealingItem eid=itemEid, healAmount=healAmount]])
 
@@ -107,7 +107,6 @@ def get_most_effective_heal_item(item_container : EidList;
 def human_inventory_medkit_es(evt : CmdMedkitUse;
                               eid : ecs::EntityId;
                               itemContainer : EidList;
-                              human_equipment__slots : ecs::Object;
                               hitpoints__hp : float;
                               hitpoints__maxHp : float;
                               isAlive : bool;
@@ -119,10 +118,7 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
                               maintenance__targetNeedsRepair : bool = false;
                               isInVehicle : bool = false;
                               burning__isBurning : bool = false;
-                              human_medkit__allowUseOnFullHP : bool = false;
                               isDowned : bool = false;
-                              hitpoints__canSelfReviveByPerk : bool = false;
-                              hitpoints_heal__restoreAmount : float = 0.0;
                               hitpoints__criticalHpRatio : float = 0.1;
                               hitpoints__maxHealAmountWasteRatio : float = 0.2)
   let extinguishAvailable = maintenance__canMaintainVehicle && extinguisher__hasExtinguisher && maintenance__targetNeedsExtinguishing
@@ -135,11 +131,11 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
     if !isInVehicle
       send_net_event(eid, [[CmdPutOutFireStart]])
     return
-  let needHp = hitpoints__maxHp - (max(hitpoints__hp, 0.f) + hitpoints_heal__restoreAmount)
-  if !isAlive || (!human_medkit__allowUseOnFullHP && needHp < 1e-06f && hitpoints__hp > hitpoints__criticalHpRatio)
+  let needHp = hitpoints__maxHp - max(hitpoints__hp, 0.f)
+  if !isAlive || (needHp < 1e-06f && hitpoints__hp > hitpoints__criticalHpRatio)
     return
 
-  let healAmountComp : array<string> <- isDowned ? [{string[] "item__reviveAmount"}] : [{string[] "item__healAmount"; "item__restoreHpAmount"}]
+  let healAmountComp <- isDowned ? [{auto[] ecs_hash("item__reviveAmount")}] : [{auto[] ecs_hash("item__healAmount")}]
   var bestItem : EntityId = INVALID_ENTITY_ID
   if length(itemContainer) != 0
     let criticalHpLevel = hitpoints__maxHp * hitpoints__criticalHpRatio
@@ -148,8 +144,6 @@ def human_inventory_medkit_es(evt : CmdMedkitUse;
     else
       let neededHealAmount = hitpoints__maxHp - hitpoints__hp
       bestItem = get_most_effective_heal_item(itemContainer, neededHealAmount, hitpoints__maxHealAmountWasteRatio, healAmountComp)
-  if bestItem == ecs::INVALID_ENTITY_ID && isDowned && hitpoints__canSelfReviveByPerk
-    bestItem = get_fastest_heal_item(human_equipment__slots, healAmountComp)
   if bestItem != ecs::INVALID_ENTITY_ID && bestItem != human_inventory__entityToUse
     sendEvent(eid, [[EventUseItem item=bestItem, target=INVALID_ENTITY_ID]])
 

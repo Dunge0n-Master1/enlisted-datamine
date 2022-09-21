@@ -77,21 +77,24 @@ def clipout_nodes(var tree : GeomNodeTree;
 
 def start_ragdoll(var ragdoll : PhysRagdoll;
                   var animchar : AnimcharBaseComponent;
-                  var animchar_node_wtm : AnimcharNodesMat44?;
-                  var animchar_render__root_pos : vec4f?;
                   unitTm : float3x4;
                   pos : float3;
                   vel : float3;
                   eid : EntityId;
                   curTime : float;
-                  dt : float;
                   human_anim__dynamicRagdollClipoutTimeout : float;
                   human_anim__dynamicRagdollClipoutOffset : float3)
   animchar |> animchar_resetPostController()
+
   // Go through wtm/tms setuping proper collision
-  animchar |> animchar_set_tm(unitTm, true)
+  // There was a hand-made extrapolation of current position by velocity, position and dt before.
+  // Yes, fixing the jump in position creates more visually pleasing animations.
+  // But it shouldn't be done, as also anything, that may move the animchar in a physically incorrect position.
+  // Meaning it may become pushed inside the wall or under the ground. Hence why we override the transform position to
+  // the last server-authoritated position.
+  animchar |> animchar_set_tm(pos, unitTm[0], unitTm[1])
   // Recalc tm so ragdoll will have proper coordinates and anything, like visual entity offset will not interfere
-  animchar |> animchar_doRecalcAnimAndWtm()
+  animchar |> animchar_recalc_wtm()
 
   if (human_anim__dynamicRagdollClipoutTimeout > 0.0f)
     let toPos = pos + human_anim__dynamicRagdollClipoutOffset
@@ -101,17 +104,6 @@ def start_ragdoll(var ragdoll : PhysRagdoll;
   ragdoll |> ragdoll_setOverrideVel(vel)
   sendEventImmediate(eid, [[CmdApplyRagdollParameters cur_time=curTime]])
   animchar |> animchar_setPostController(ragdoll)
-  // There was a hand-made extrapolation of current position by velocity, position and dt before.
-  // Yes, fixing the jump in position creates more visually pleasing animations.
-  // But it shouldn't be done, as also anything, that may move the animchar in a physically incorrect position.
-  // Meaning it may become pushed inside the wall or under the ground. Hence why we override the transform position to
-  // the last server-authoritated position.
-  animchar |> animchar_set_tm(pos, unitTm[0], unitTm[1])
-  animchar |> animchar_act(dt, true)
-
-  if animchar_node_wtm != null //< For the sake of cache locality we copy nodes here (only when animchar_node_wtm component created)
-    animchar_copy_nodes(animchar, *animchar_node_wtm, *animchar_render__root_pos)
-
 
 def stop_ragdoll(var ragdoll : PhysRagdoll;
                  var animchar : AnimcharBaseComponent)
@@ -133,9 +125,7 @@ def human_anim_ragdoll_es(info : UpdateStageInfoAct)
                                          human_anim__dynamicRagdollClipoutOffset : float3 = float3(0., 0.5, 0.);
                                          var human_anim__ragdollEnabled : bool&;
                                          var ragdoll : PhysRagdoll;
-                                         var animchar : AnimcharBaseComponent;
-                                         var animchar_node_wtm : AnimcharNodesMat44?;
-                                         var animchar_render__root_pos : vec4f?)
+                                         var animchar : AnimcharBaseComponent)
     if !animchar__updatable
       return
 
@@ -149,12 +139,11 @@ def human_anim_ragdoll_es(info : UpdateStageInfoAct)
           return
 
         human_anim__ragdollEnabled = true
-        let dt = info.dt
         let curTime = info.curTime
         // human_net_phys__locationPos stores the last correct snapshot's position of the human phys
-        start_ragdoll(ragdoll, animchar, animchar_node_wtm, animchar_render__root_pos,
-                      transform, float3(human_net_phys__locationPos), human_net_phys__velocity, eid, curTime,
-                      dt, human_anim__dynamicRagdollClipoutTimeout, human_anim__dynamicRagdollClipoutOffset)
+        start_ragdoll(ragdoll, animchar, transform, float3(human_net_phys__locationPos),
+                      human_net_phys__velocity, eid, curTime, human_anim__dynamicRagdollClipoutTimeout,
+                      human_anim__dynamicRagdollClipoutOffset)
         ragdollStarts--
       else
         human_anim__ragdollEnabled = false

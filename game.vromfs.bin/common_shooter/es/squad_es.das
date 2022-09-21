@@ -14,6 +14,7 @@ require zones
 require DagorMath
 require BehNodes
 require game.utils.team
+require game.es.squad_order_common
 
 
 [es(tag=server, no_order)]
@@ -124,6 +125,6 @@ def squad_mate_init_beh_tree(evt : Event; transform : float3x4; beh_tree__enable
   let wishPositionName = "wishPosition"
   var wishPositionParam = datablock_find_param(beh_tree.blackBoard, wishPositionName)
   if wishPositionParam == -1
-    wishPositionParam = datablock_addPoint3(beh_tree.blackBoard, wishPositionName, transform[3])
+    wishPositionParam = add(beh_tree.blackBoard, wishPositionName, transform[3])
   if beh_tree__enabled && !beh_tree__blackboard__wishPositionSet
-    datablock_setPoint3(beh_tree.blackBoard, wishPositionParam, transform[3])
+    set(beh_tree.blackBoard, wishPositionParam, transform[3])

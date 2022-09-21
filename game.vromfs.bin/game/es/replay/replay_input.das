@@ -85,7 +85,7 @@ def replay_speed_change_es(evt : EventDaInputActionTriggered;
     if int(evt.action) == replay_input__pause
       replay__speed = replay__speed == 0f ? 1f : 0f
     elif int(evt.action) == replay_input__speedUp
-      replay__speed = min(10f, replay__speed + 0.5f)
+      replay__speed = min(4f, replay__speed + 0.5f)
     elif int(evt.action) == replay_input__speedDown
       replay__speed = max(0f, replay__speed - 0.5f)
     return true
@@ -108,18 +108,21 @@ def camera_replay_change(evt : EventDaInputActionTriggered&;
 def replay_toggle_camera(evt : EventDaInputActionTriggered&; replay_input__toggleCamera : int)
   if int(evt.action) != replay_input__toggleCamera
     return
+  broadcastEvent([[ReplayToggleFreeCamera]])
 
-  find_query() <| $ [es(REQUIRE=replayCamera)] (camera__active : bool;
-                                                camera__inputActionSet : string;
-                                                var camera__input_enabled : bool&)
-    if !camera__active
-      return false
+[es(tag=playingReplay, on_event=ReplayToggleFreeCamera, REQUIRE=replayCamera)]
+def toggle_replay_free_camera_es(evt : Event;
+                                 camera__active : bool;
+                                 camera__inputActionSet : string;
+                                 var camera__input_enabled : bool&)
+  if !camera__active
+    return
 
-    camera__input_enabled = !camera__input_enabled
-    let replaySetHandle = get_action_set_handle(camera__inputActionSet)
-    if int(replaySetHandle) != int(BAD_ACTION_HANDLE)
-      activate_action_set(replaySetHandle, camera__input_enabled)
-    return true
+  camera__input_enabled = !camera__input_enabled
+  let replaySetHandle = get_action_set_handle(camera__inputActionSet)
+  if int(replaySetHandle) != int(BAD_ACTION_HANDLE)
+    activate_action_set(replaySetHandle, camera__input_enabled)
+  return
 
 [es(tag=(playingReplay, input), track=camera__active, REQUIRE=replayCamera)]
 def replay_disable_camera_input_es(evt : Event;

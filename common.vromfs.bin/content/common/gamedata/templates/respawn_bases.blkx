@@ -15,22 +15,6 @@ temporary_respawn_base{
   }
 }
 
-gun_game_respawn_base{
-  _extends:t="respawnBase"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  team:i=-1
-
-  "gun_game__respawnFriendlyRadius:r"{
-    value:r=3.0
-    _tags:t="server"
-  }
-
-  "respbase__noSpawnImmunity:b"{
-    value:b=yes
-    _tags:t="server"
-  }
-}
-
 _infoCommonComponents{
 
   team_id{

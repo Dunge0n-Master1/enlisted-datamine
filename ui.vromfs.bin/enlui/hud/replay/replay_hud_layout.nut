@@ -1,33 +1,91 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let textButton = require("%ui/components/textButton.nut")
+let { fontXLarge, fontSmall, fontLarge, fontMedium
+} = require("%enlSqGlob/ui/fontsStyle.nut")
 let console = require("console")
-let camera = require("camera")
-let cursors = require("%ui/style/cursors.nut")
-let fa = require("%ui/components/fontawesome.map.nut")
-
+let { colFull, colPart, panelBgColor, columnGap, commonBtnHeight, defTxtColor, midPadding,
+  smallPadding, bigPadding, maxContentWidth, titleTxtColor, tabBgColor, activeBgColor,
+  activeBdColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { Bordered, FAButton, SmallBordered } = require("%ui/components/txtButton.nut")
 let { tipCmp } = require("%ui/hud/huds/tips/tipComponent.nut")
-let { blurBgFillColor, blurBgColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { h2_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
-let { replayCurTime, replayPlayTime, replayTimeSpeed, canShowReplayHud,
-  isFreeTpsMode } = require("replayState.nut")
+let { replayCurTime, replayPlayTime, replayTimeSpeed, canShowReplayHud, isTpsFreeCamera,
+  canShowGameHudInReplay, curSoldierInfo, isFreeInput, FPS_CAMERA, TPS_CAMERA,
+  TPS_FREE_CAMERA, activeCameraId
+} = require("replayState.nut")
 let { format } = require("string")
-let { NextReplayTarget, ReplaySetFpsCamera, ReplaySetFreeTpsCamera, ReplaySetTpsCamera } = require("dasevents")
+let { ReplaySetFpsCamera, ReplaySetFreeTpsCamera, ReplaySetTpsCamera,
+  ReplayToggleFreeCamera
+} = require("dasevents")
 let { setInteractiveElement } = require("%ui/hud/state/interactive_state.nut")
 let { localPlayerName } = require("%ui/hud/state/local_player.nut")
-let { secondsToStringLoc } = require("%ui/helpers/time.nut")
+let { secondsToString } = require("%ui/helpers/time.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
-let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
-let timeSpeedVariants = [0, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4]
+let { showScores } = require("%ui/hud/huds/scores.nut")
+let mkReplayTimeLine = require("%ui/hud/replay/mkReplayTimeLine.nut")
+let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let faComp = require("%ui/components/faComp.nut")
+let cursors = require("%daeditor/components/cursors.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
+let mkToggle = require("%ui/components/mkToggle.nut")
+let mkCheckbox = require("%ui/components/mkCheckbox.nut")
+let mkReplaySlider = require("%ui/hud/replay/mkReplaySlider.nut")
+let { utf8ToUpper } = require("%sqstd/string.nut")
+let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
+let { levelTimeOfDay, changeDayTime, changeCameraFov, cameraFov, isRain, isSnow, isLightning,
+  isCinematicModeActive, changeBloom, changeAbberation, changeFilmGrain, changeMotionBlur,
+  changeVignette, motionBlur, bloomEffect, filmGrain, abberation, vigneteEffect, weatherPreset,
+  weatherPresetList, dofFocusDist, dofFocalLength, dofStop, dofBokeCount, dofBokeSize,
+  changeBoke, changeBokeSize, changeStop, changeFocalLength, changeFocusDist, isDofCameraEnabled,
+  isDofFocalActive, setRandomWeather, hasSnow, hasRain, hasLightning,lenseFlareIntensity,
+  changeLenseFlareIntensity
+} = require("%ui/hud/replay/replayCinematicState.nut")
+let { savePreset, replayPresets, lastChoosenPreset, deletePreset, MAX_PRESETS,
+  saveToCurrentPreset, saveDefaultSettings, restoreDefaultSettings
+} = require("%ui/hud/replay/saveReplaySettings.nut")
+let { mkSmallSelection } = require("%ui/components/mkSelection.nut")
+let JB = require("%ui/control/gui_buttons.nut")
+let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
+let vehicleSeats = require("%ui/hud/state/vehicle_seats.nut")
 
-let function timeSpeedInscrese(curTimeSpeed) {
+let timeSpeedVariants = [0, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4]
+let isAdvancedSettingsActive = Watched(false)
+let isNavigationBlockHidden = Watched(false)
+let isAnyAdvancedSettingsOn = Computed(@() isDofCameraEnabled.value || isCinematicModeActive.value)
+let showAdvancedSettings = keepref(
+  Computed(@() canShowReplayHud.value && isAdvancedSettingsActive.value))
+const CINEMATIC_SETTINGS_WND = "CINEMATIC_MODE_WND"
+local lastReplayTimeSpeed = 1
+let bottomMargin = [0, 0, colPart(0.5), 0]
+
+let replayBgColor = mul_color(panelBgColor, 0.8)
+let replayBlockPadding = [columnGap, colPart(0.55)]
+let soldierIconSize = colPart(0.4)
+let hideHudBtnSize = [colPart(0.5), colPart(0.9)]
+let activeBtnStyle = {
+  defBgColor = activeBgColor
+  defBdColor = activeBdColor
+  defTxtColor = titleTxtColor
+}
+
+
+let squareButtonStyle = { btnWidth = commonBtnHeight }
+let defTxtStyle = { color = defTxtColor }.__update(fontXLarge)
+let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let brightTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSmall)
+let headerTxtStyle = { color = titleTxtColor }.__update(fontLarge)
+
+
+let function timeSpeedIncrease(curTimeSpeed) {
   foreach (timeSpeed in timeSpeedVariants)
     if (curTimeSpeed < timeSpeed) {
       console.command($"app.timeSpeed {timeSpeed}")
       return
     }
 }
+
 
 let function timeSpeedDecrese(curTimeSpeed) {
   for (local i = timeSpeedVariants.len() - 1; i >= 0; --i)
@@ -37,171 +95,680 @@ let function timeSpeedDecrese(curTimeSpeed) {
     }
 }
 
+let hideReplayHudBtn = FAButton("chevron-down", @() canShowReplayHud(false), {
+  btnHeight = hideHudBtnSize[0]
+  btnWidth = hideHudBtnSize[1]
+})
+
+let hideReplayBlock = {
+  hplace = ALIGN_CENTER
+  flow = FLOW_VERTICAL
+  gap = smallPadding
+  halign = ALIGN_CENTER
+  pos = [0, -hideHudBtnSize[0] / 2]
+  children = [
+    hideReplayHudBtn
+    tipCmp({ inputId = "Replay.DisableHUD", style = { rendObj = null } })
+  ]
+}
+
+let soldierInfo = {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  children = [
+    @() {
+      watch = localPlayerName
+      rendObj = ROBJ_TEXT
+      text = loc("replay/player", { player = localPlayerName.value})
+    }.__update(brightTxtStyle)
+    @() {
+      watch = curSoldierInfo
+      flow = FLOW_HORIZONTAL
+      gap = smallPadding
+      valign = ALIGN_CENTER
+      children = [
+        kindIcon(curSoldierInfo.value?.soldier__sClass, soldierIconSize ?? "")
+        {
+          rendObj = ROBJ_TEXT
+          text = curSoldierInfo.value?.name ?? ""
+        }.__update(brightTxtStyle)
+      ]
+    }
+  ]
+}
+
+
 let replayTiming = @() {
   watch = [replayCurTime, replayPlayTime]
+  rendObj = ROBJ_TEXT
+  text = $"{secondsToString(replayCurTime.value)} / {secondsToString(replayPlayTime.value)}"
+}.__update(brightTxtStyle)
+
+
+let replayTopBlock = @() {
+  watch = replayPlayTime
+  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  padding = [fsh(1), fsh(1), fsh(2)]
+  gap = bigPadding
   children = [
     {
-      rendObj = ROBJ_TEXT
-      text = $"{secondsToStringLoc(replayCurTime.value)} | {secondsToStringLoc(replayPlayTime.value)}"
-      color = Color(255,255,255)
-    }.__update(h2_txt)
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_HORIZONTAL
+      children = [
+        soldierInfo
+        replayTiming
+      ]
+    }
+    mkReplayTimeLine(replayCurTime, {
+      min = 0
+      max = replayPlayTime.value
+      canChangeVal = false
+    })
   ]
 }
+
+let bottomHint = @(text) {
+  rendObj = ROBJ_TEXT
+  text
+}.__update(hintTxtStyle)
+
+let mkSquareBtn = @(locId, action, btnHint) {
+  flow = FLOW_VERTICAL
+  gap = midPadding
+  halign = ALIGN_CENTER
+  children = [
+    tipCmp({ inputId = btnHint, style = { rendObj = null } })
+    FAButton(locId, action)
+  ]
+}
+
 
 let replayTimeControl = @() {
-  watch = [replayTimeSpeed]
+  watch = replayTimeSpeed
   flow = FLOW_HORIZONTAL
+  gap = columnGap
   children = [
     replayTimeSpeed.value <= 0
-      ? textButton(fa["play"], @() console.command("app.timeSpeed 1"), fontawesome)
-      : textButton(fa["pause"], @() console.command("app.timeSpeed 0"), fontawesome)
-    textButton(fa["minus"], @() timeSpeedDecrese(replayTimeSpeed.value), fontawesome)
+      ? mkSquareBtn("play", @() console.command($"app.timeSpeed {lastReplayTimeSpeed}"),
+        "Replay.Pause")
+      : mkSquareBtn("pause", function(){
+          lastReplayTimeSpeed = replayTimeSpeed.value
+          console.command("app.timeSpeed 0")
+        }, "Replay.Pause")
     {
-      rendObj = ROBJ_TEXT
-      text = format("x%.2f", replayTimeSpeed.value)
-      padding = [hdpx(20), 0]
-      color = Color(255,255,255)
-    }.__update(h2_txt)
-    textButton(fa["plus"], @() timeSpeedInscrese(replayTimeSpeed.value), fontawesome)
+      flow = FLOW_HORIZONTAL
+      gap = midPadding
+      valign = ALIGN_BOTTOM
+      children = [
+        mkSquareBtn("minus", @() timeSpeedDecrese(replayTimeSpeed.value), "Replay.SpeedDown")
+        {
+          rendObj = ROBJ_TEXT
+          text = format("x%.2f", replayTimeSpeed.value)
+          size = [SIZE_TO_CONTENT, commonBtnHeight]
+          valign = ALIGN_CENTER
+        }.__update(defTxtStyle)
+        mkSquareBtn("plus", @() timeSpeedIncrease(replayTimeSpeed.value), "Replay.SpeedUp")
+      ]
+    }
   ]
 }
 
-let replayPlayerControl = {
-  flow = FLOW_HORIZONTAL
-  halign = ALIGN_RIGHT
-  size = flex()
+let replayTimeBlock = {
+  flow = FLOW_VERTICAL
+  gap = midPadding
+  halign = ALIGN_CENTER
   children = [
-    textButton(
-      loc("Prev Player"),
-      @() ecs.g_entity_mgr.sendEvent(camera.get_cur_cam_entity(), NextReplayTarget({delta=-1}))
-    )
-    textButton(
-      loc("Next Player"),
-      @() ecs.g_entity_mgr.sendEvent(camera.get_cur_cam_entity(), NextReplayTarget({delta=1}))
-    )
+    replayTimeControl
+    bottomHint(loc("replay/timeBlockHint"))
   ]
 }
+
+let canUseFPSCam = Computed(function(){
+  let seat = vehicleSeats.value.data.findvalue(@(s) s?.owner.eid == watchedHeroEid.value)
+  return seat?.order?.canPlaceManually ?? true
+})
+
+let function setFirstCameraActive() {
+  if (canUseFPSCam.value)
+    ecs.g_entity_mgr.broadcastEvent(ReplaySetFpsCamera())
+}
+
+let camerasList = [
+  {
+    text = "1"
+    id = FPS_CAMERA
+    action = setFirstCameraActive
+    handlers = { ["Replay.Camera1"] = @(_event) setFirstCameraActive()}
+    hotkey = "1"
+    isEnabled = canUseFPSCam
+  }
+  {
+    text = "2"
+    id = TPS_CAMERA
+    action = @() ecs.g_entity_mgr.broadcastEvent(ReplaySetTpsCamera())
+    handlers = { ["Replay.Camera2"] =
+      @(_event) ecs.g_entity_mgr.broadcastEvent(ReplaySetTpsCamera()) }
+    hotkey ="2"
+  }
+  {
+    text = "3"
+    id = TPS_FREE_CAMERA
+    action = @() ecs.g_entity_mgr.broadcastEvent(ReplaySetFreeTpsCamera())
+    handlers = { ["Replay.Camera3"] =
+      @(_event) ecs.g_entity_mgr.broadcastEvent(ReplaySetFreeTpsCamera()) }
+    hotkey ="3"
+  }
+]
+
+
+let function changeCamera(delta) {
+  let curCameraIdx = camerasList.findindex(@(v) v.id == activeCameraId.value)
+  if (curCameraIdx == null)
+    return
+  let newIdx = curCameraIdx + delta
+  if (camerasList?[newIdx] != null)
+    camerasList[newIdx].action()
+}
+
+let wndEventHandlers = {
+  ["Replay.PrevCamera"] = @(_event) changeCamera(-1),
+  ["Replay.NextCamera"] = @(_event) changeCamera(1)
+}
+
 
 let replayCameraControl = @() {
-  flow = FLOW_HORIZONTAL
-  halign = ALIGN_RIGHT
-  size = flex()
-  watch = inVehicle
+  watch = [activeCameraId, canUseFPSCam]
+  halign = ALIGN_CENTER
+  flow = FLOW_VERTICAL
+  gap = midPadding
+  size = [flex(), SIZE_TO_CONTENT]
   children = [
     {
-      rendObj = ROBJ_TEXT
-      text = loc("CAMERA: ")
-      padding = [fsh(2), 0]
-      color = Color(255,255,255)
-    }.__update(h2_txt)
-    textButton("FPS", @() ecs.g_entity_mgr.broadcastEvent(ReplaySetFpsCamera()), { isEnabled = !inVehicle.value })
-    textButton("TPS", @() ecs.g_entity_mgr.broadcastEvent(ReplaySetTpsCamera()), {})
-    textButton("Free TPS", @() ecs.g_entity_mgr.broadcastEvent(ReplaySetFreeTpsCamera()), {})
-  ]
-}
-
-let replayControl = {
-  flow = FLOW_HORIZONTAL
-  size = flex()
-  children = [
-    {
-      flow = FLOW_VERTICAL
-      size = flex()
+      flow = FLOW_HORIZONTAL
+      gap = colPart(1.5)
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      eventHandlers = wndEventHandlers
       children = [
-        replayTiming
-        replayTimeControl
+        tipCmp({ inputId = "Replay.PrevCamera", style = { rendObj = null } })
+        tipCmp({ inputId = "Replay.NextCamera", style = { rendObj = null } })
       ]
     }
     {
-      flow = FLOW_VERTICAL
-      size = flex()
+      flow = FLOW_HORIZONTAL
+      gap = bigPadding
+      children = camerasList.map(@(cam) Bordered(cam.text, cam.action, {
+        hotkeys = [[cam.hotkey, cam.action]]
+        isEnabled = cam?.isEnabled.value ?? true
+        style = activeCameraId.value == cam.id ? activeBtnStyle : {}
+        eventHandlers = { ["Replay.AdvancedSettings"] =
+          @(_event) isAdvancedSettingsActive(!isAdvancedSettingsActive.value) }
+      }.__update(squareButtonStyle)))
+    }
+    bottomHint(loc("replay/camera", {
+      camera = loc($"replay/cameraType/{activeCameraId.value}") }))
+  ]
+}
+
+
+let function mkBtnWithHint(btnParams) {
+  let { text, action, btnHint, actionDesc, isBtnSelected = Watched(false),
+    isBtnEnabled = Watched(true), eventHandlers = null } = btnParams
+  return @() {
+    watch = [isBtnSelected, isBtnEnabled]
+    flow = FLOW_VERTICAL
+    gap = midPadding
+    halign = ALIGN_CENTER
+    eventHandlers
+    children = [
+      tipCmp({ inputId = btnHint, style = { rendObj = null } })
+      Bordered(text, action, {
+        style = isBtnSelected.value ? activeBtnStyle : {},
+        isEnabled = isBtnEnabled.value
+      })
+      {
+        rendObj = ROBJ_TEXT
+        text = actionDesc
+      }.__update(hintTxtStyle)
+    ]
+  }
+}
+
+
+let buttons = [
+  {
+    text = loc("replay/tracking")
+    action = @() ecs.g_entity_mgr.broadcastEvent(ReplayToggleFreeCamera())
+    btnHint = "Replay.ToggleCamera"
+    actionDesc = loc("replay/trackingHint")
+    isBtnSelected = isFreeInput
+    isBtnEnabled = isTpsFreeCamera
+  }
+  {
+    text = loc("replay/teams")
+    action = @() showScores(!showScores.value)
+    btnHint = "HUD.Scores"
+    actionDesc = loc("replay/teamsHint")
+    isBtnSelected = showScores
+  }
+  {
+    text = loc("replay/showHud")
+    action = @() canShowGameHudInReplay(!canShowGameHudInReplay.value)
+    btnHint = "Replay.DisableGameHUD"
+    actionDesc = loc("replay/showHudHint")
+    isBtnSelected = canShowGameHudInReplay
+  }
+  {
+    text = loc("replay/advancedSettings")
+    action = @() isAdvancedSettingsActive(!isAdvancedSettingsActive.value)
+    btnHint = "Replay.AdvancedSettings"
+    eventHandlers = { ["Replay.AdvancedSettings"] =
+      @(_event) isAdvancedSettingsActive(!isAdvancedSettingsActive.value) }
+    actionDesc = loc("replay/advancedSettingsHint")
+    isBtnSelected = isAdvancedSettingsActive
+  }
+]
+
+
+let buttonsBlock = {
+  flow = FLOW_HORIZONTAL
+  gap = midPadding
+  hplace = ALIGN_RIGHT
+  valign = ALIGN_BOTTOM
+  children = buttons.map(mkBtnWithHint)
+}
+
+let cinematicToggleBlock = {
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = bottomMargin
+  valign = ALIGN_CENTER
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      text = loc("replay/cinematicMode")
+    }.__update(titleTxtStyle)
+    mkToggle(isCinematicModeActive)
+  ]
+}
+
+
+let mkSettingsHeader = @(text) {
+  rendObj = ROBJ_TEXT
+  text = utf8ToUpper(text)
+}.__update(headerTxtStyle)
+
+let mkCheckboxBlock = @(title, value, isActive = Watched(true)) @() {
+  watch = isActive
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = title
+    }.__update(hintTxtStyle)
+    mkCheckbox(value, isActive.value)
+  ]
+}
+
+let enviromentSettings = {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  children = [
+    mkSettingsHeader(loc("replay/enviroment"))
+      @() {
+        watch = levelTimeOfDay
+        size = [flex(), SIZE_TO_CONTENT]
+        children = mkReplaySlider(levelTimeOfDay, loc("replay/dayTime"), {
+            max = 24
+            setValue = @(newTime) changeDayTime(newTime)
+            valueToShow = secondsToString(levelTimeOfDay.value * 60)
+          })
+      }
+    function() {
+      let wPreset = weatherPreset.value
+      let wHeader = wPreset != null
+        ? loc("replay/wPreset", { preset = loc($"weatherPreset/{wPreset}")})
+        : loc("replay/chooseWeather")
+      return {
+        size = [flex(), SIZE_TO_CONTENT]
+        watch = [weatherPresetList, weatherPreset]
+        children = mkSmallSelection(weatherPresetList.value, weatherPreset, wHeader)
+      }
+    }
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_HORIZONTAL
+      gap = { size = flex() }
       children = [
-        replayPlayerControl
+        mkCheckboxBlock(loc("replay/weatherSnow"), isSnow, hasSnow)
+        mkCheckboxBlock(loc("replay/weatherRain"), isRain, hasRain)
+        mkCheckboxBlock(loc("replay/weatherLightning"), isLightning, hasLightning)
+      ]
+    }
+    @() {
+      watch = weatherPresetList
+      children = SmallBordered(loc("replay/randomWeather"), setRandomWeather, {
+        isEnabled = weatherPresetList.value.len() > 1
+      })
+    }
+  ]
+}
+
+
+let cameraSettingsBlock = @() {
+  watch = cameraFov
+  size = [flex(), SIZE_TO_CONTENT]
+  margin = bottomMargin
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  children = [
+    mkSettingsHeader(loc("replay/cameraSettings"))
+    mkReplaySlider(cameraFov, loc("replay/cameraFov"), {
+      setValue = @(newVal) changeCameraFov(newVal)
+      min = 30
+      max = 120
+    })
+  ]
+}
+
+
+let dofToggleBlock = {
+  size = [flex(), SIZE_TO_CONTENT]
+  valign = ALIGN_CENTER
+  margin = bottomMargin
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      text = loc("replay/dofMode")
+    }.__update(titleTxtStyle)
+    mkToggle(isDofCameraEnabled)
+  ]
+}
+
+
+let dofSettings = @() {
+  watch = isDofFocalActive
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  children =  [
+    mkSettingsHeader(loc("replay/dofSettings"))
+    mkReplaySlider(dofFocusDist, loc("replay/focusDist"), {
+      min = 0.1
+      max = 300
+      setValue = @(newVal) changeFocusDist(newVal)
+    })
+    mkReplaySlider(dofStop, loc("replay/focusStop"), {
+      min = 1
+      max = 22
+      setValue = @(newVal) changeStop(newVal)
+    })
+    mkReplaySlider(dofBokeCount, loc("replay/bokeCount"), {
+      min = 3
+      max = 15
+      setValue = @(newVal) changeBoke(newVal)
+    })
+    mkReplaySlider(dofBokeSize, loc("replay/bokeSize"), {
+      min = 1
+      max = 16
+      setValue = @(newVal) changeBokeSize(newVal)
+    })
+    mkCheckboxBlock(loc("replay/isFocalActive"), isDofFocalActive)
+    mkReplaySlider(dofFocalLength, loc("replay/focalLength"), {
+      min = 0.012
+      max = 0.3
+      setValue = @(newVal) changeFocalLength(newVal)
+      isEnabled = isDofFocalActive.value
+    })
+  ]
+}
+
+
+let postProcessinSettings = {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  children = [
+    mkSettingsHeader(loc("replay/postProcessing"))
+    mkReplaySlider(motionBlur, loc("replay/motionBlur"), {
+      setValue = @(newVal) changeMotionBlur(newVal)
+      step = 0.1
+    })
+    mkReplaySlider(bloomEffect, loc("replay/bloomEffect"), {
+      setValue = @(newVal) changeBloom(newVal)
+      step = 0.1
+    })
+    mkReplaySlider(filmGrain, loc("replay/filmicNoise"), {
+      setValue = @(newVal) changeFilmGrain(newVal)
+      step = 0.1
+    })
+    mkReplaySlider(abberation, loc("replay/chromaticAbb"), {
+      setValue = @(newVal) changeAbberation(newVal)
+      step = 0.1
+    })
+    mkReplaySlider(vigneteEffect, loc("replay/vignette"), {
+      setValue = @(newVal) changeVignette(newVal)
+      step = 0.1
+    })
+    mkReplaySlider(lenseFlareIntensity, loc("replay/lensFlare"), {
+      setValue = @(newVal) changeLenseFlareIntensity(newVal)
+      step = 0.1
+    })
+  ]
+}
+
+
+let mkSettingsBlock = @(watchedFlag, content) @(){
+  watch = watchedFlag
+  size = [flex(), SIZE_TO_CONTENT]
+  transform = { scale = watchedFlag.value ? [1, 1] : [1, 0] }
+  transitions = [ { prop = AnimProp.scale, duration = 0.4, easing = OutQuintic } ]
+  margin = watchedFlag.value ? bottomMargin : 0
+  children = watchedFlag.value ? content : null
+}
+
+
+let function presetBlock() {
+  let headerDummy = replayPresets.value.len() <= 0
+    ? loc("replay/createPreset")
+    : loc("replay/choosePreset")
+  let preset = lastChoosenPreset.value
+  return {
+    watch = [replayPresets, lastChoosenPreset]
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    margin = bottomMargin
+    gap = bigPadding
+    children = [
+      mkSmallSelection(replayPresets.value, lastChoosenPreset, preset ?? headerDummy)
+      @() {
+        watch = isAnyAdvancedSettingsOn
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
+        gap = { size = flex() }
+        children = [
+          SmallBordered(loc("replay/savePreset"), savePreset, {
+            isEnabled = replayPresets.value.len() < MAX_PRESETS && isAnyAdvancedSettingsOn.value })
+          SmallBordered(loc("replay/changePreset"),
+            @() saveToCurrentPreset(lastChoosenPreset.value),
+            { isEnabled = lastChoosenPreset.value != null }
+          )
+        ]
+      }
+      SmallBordered(loc("replay/deletePreset"), @() deletePreset(lastChoosenPreset.value), {
+        isEnabled = lastChoosenPreset.value != null
+        btnWidth = flex()
+      })
+    ]
+  }}
+
+
+let resetToDefaultBtn = SmallBordered(loc("replay/resetDefaultSettings"),
+  restoreDefaultSettings, { btnWidth = flex() })
+
+let advancedSettingsWnd = {
+  key = CINEMATIC_SETTINGS_WND
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  fillColor = replayBgColor
+  size = [colFull(6), SIZE_TO_CONTENT]
+  margin = colFull(1)
+  hplace = ALIGN_RIGHT
+  vplace = ALIGN_TOP
+  onClick = @() null
+  hotkeys = [["^{0} | Esc".subst(JB.B), @() isAdvancedSettingsActive(false)]]
+  onAttach = saveDefaultSettings
+  children = makeVertScroll(
+    {
+      flow = FLOW_VERTICAL
+      size = [flex(), SIZE_TO_CONTENT]
+      padding = [colPart(0.3), colPart(0.5)]
+      children = [
+        cameraSettingsBlock
+        cinematicToggleBlock
+        mkSettingsBlock(isCinematicModeActive, enviromentSettings)
+        mkSettingsBlock(isCinematicModeActive, postProcessinSettings)
+        dofToggleBlock
+        mkSettingsBlock(isDofCameraEnabled, dofSettings)
+        presetBlock
+        resetToDefaultBtn
+      ]
+    }, {
+      size = [colFull(6), SIZE_TO_CONTENT],
+      maxHeight = sh(70)
+      rootBase = class {
+        behavior = Behaviors.Pannable
+        wheelStep = 1
+      }
+      styling = thinStyle
+  })
+}
+
+showAdvancedSettings.subscribe(@(v) v
+  ? addModalWindow(advancedSettingsWnd)
+  : removeModalWindow(CINEMATIC_SETTINGS_WND))
+
+
+
+let replayBottomBlock = {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_BOTTOM
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      valign = ALIGN_BOTTOM
+      flow = FLOW_HORIZONTAL
+      gap = bigPadding
+      children = [
+        replayTimeBlock
         replayCameraControl
       ]
     }
+    buttonsBlock
   ]
 }
 
-let replayTargetName = @() {
-  watch = localPlayerName
-  flow = FLOW_HORIZONTAL
-  halign = ALIGN_RIGHT
-  padding = hdpx(10)
-  size = flex()
-  children = [
-    {
-      rendObj = ROBJ_TEXT
-      text = localPlayerName.value
-      color = Color(255,255,255)
-    }.__update(h2_txt)
-  ]
-}
 
-let replayBottomPlayMenu = {
-  cursor = cursors.normal
-  size = [sw(100), hdpx(200)]
+let replayNavigation = {
+  size = [colFull(24), colPart(3.6)]
   rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = blurBgColor
-  fillColor = blurBgFillColor
-  padding = [hdpx(30), hdpx(30), 0, hdpx(30)]
-  children = replayControl
-}
-
-let replayHideHudHint = @() {
-  flow = FLOW_VERTICAL
-  hplace = ALIGN_LEFT
-  watch = isFreeTpsMode
+  fillColor = replayBgColor
   children = [
-    tipCmp({
-      text = loc("F6 disable/enable HUD")
-      inputId = "Replay.DisableHUD"
-      textColor = Color(255,255,255)
-    })
-    tipCmp({
-      text = loc("tips/replay/disableGameHud")
-      inputId = "Replay.DisableGameHUD"
-      textColor = Color(255,255,255)
-    })
-    isFreeTpsMode.value ? tipCmp({
-      text = loc("tips/replay/tpsFreeCamera")
-      inputId = "Replay.ToggleCamera"
-      textColor = Color(255,255,255)
-    }) : null
+    hideReplayBlock
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      padding = replayBlockPadding
+      children = [
+        replayTopBlock
+        replayBottomBlock
+      ]
+    }
   ]
 }
+
+
+let hiddenNavigationBlock = watchElemState(function(sf) {
+  camerasList.each(function(v) {
+    let bindedKey = v.handlers.keys()[0]
+    let bindedAction = v.handlers.values()[0]
+    wndEventHandlers[bindedKey] <- bindedAction
+  })
+
+  let res = {
+    watch = isNavigationBlockHidden
+    onDetach = @() isNavigationBlockHidden(false)
+    eventHandlers = wndEventHandlers
+  }
+  if (isNavigationBlockHidden.value)
+    return res
+
+  return res.__update({
+    rendObj = ROBJ_WORLD_BLUR_PANEL
+    fillColor = sf & S_HOVER ? tabBgColor : replayBgColor
+    padding = [midPadding, colPart(0.2)]
+    halign = ALIGN_CENTER
+    flow = FLOW_VERTICAL
+    gap = smallPadding
+    transform = {}
+    animations = [
+      { prop = AnimProp.opacity, from = 1, to = 0, duration = 1, delay = 4,
+        play = true, onFinish = @() isNavigationBlockHidden(true) }
+      { prop = AnimProp.opacity, from = 0, to = 0, delay = 4.9, duration = 1,
+        play = true }
+    ]
+    children = [
+      faComp("chevron-up", {
+        fontSize = fontLarge.fontSize
+      })
+      {
+        flow = FLOW_HORIZONTAL
+        gap = midPadding
+        children = [
+          tipCmp({ inputId = "Replay.DisableHUD", style = { rendObj = null } })
+          {
+            rendObj = ROBJ_TEXT
+            text = loc("replay/showReplayUi")
+          }.__update(hintTxtStyle)
+        ]
+      }
+    ]
+  })
+})
+
+let replayNavigationBlock = @() {
+  watch = canShowReplayHud
+  children = canShowReplayHud.value
+    ? replayNavigation
+    : hiddenNavigationBlock
+}
+
 
 foreach(s in [isReplay, canShowReplayHud])
   s.subscribe(@(...) setInteractiveElement("ReplayHud", isReplay.value && canShowReplayHud.value))
 
 
 return @() {
+  watch = [canShowReplayHud, showScores]
   size = flex()
+  maxWidth = maxContentWidth
   flow = FLOW_VERTICAL
   key = "ReplayHud"
+  hplace = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  cursor = canShowReplayHud.value || showScores.value ? cursors.normal : null
+  valign = ALIGN_BOTTOM
   behavior = Behaviors.MenuCameraControl
-
-  children = {
-    size = flex()
-    children = [
-      {
-        size=[fsh(40),flex()]
-        padding = hdpx(10)
-        children = replayHideHudHint
-      }
-      {
-        halign = ALIGN_CENTER
-        valign = ALIGN_BOTTOM
-        size = [flex(), flex(1)]
-        children = [
-          replayTargetName
-          replayBottomPlayMenu
-        ]
-      }
-    ]
-  }
-  cursor = cursors.normal
+  children = replayNavigationBlock
 }
-

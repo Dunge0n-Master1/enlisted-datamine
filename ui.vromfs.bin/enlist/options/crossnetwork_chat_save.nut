@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { is_xbox } = require("%dngscripts/platform.nut")
 let {
-  xboxCrosschatAvailable, savedCrossnetworkChatId, savedCrossnetworkChatState
+  xboxCrosschatAvailable, savedCrossnetworkChatId, savedCrossnetworkChatStateUpdate
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 
@@ -21,6 +21,6 @@ return function(val, setValueFunc) {
   }
 
   settings.mutate(@(v) v[savedCrossnetworkChatId] <- val)
-  savedCrossnetworkChatState(val)
+  savedCrossnetworkChatStateUpdate(val)
   setValueFunc(val)
 }

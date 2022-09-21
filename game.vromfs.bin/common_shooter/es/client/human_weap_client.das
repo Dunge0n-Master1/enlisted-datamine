@@ -34,7 +34,7 @@ def do_gun_traceray(from : float3; dir : float3; var t : float&; ray_mat_id : in
   return retEid
 
 
-[es(REQUIRE=(human_input, human_weap))]
+[es(REQUIRE=(human_input, human_weap), after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def human_weap_trace_es(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
                         human_net_phys : HumanActor;
@@ -54,12 +54,12 @@ def human_weap_trace_es(info : ParallelUpdateFrameDelayed;
       human_weap__tracerayLen = 100.0
       human_weap__traceIntersectedEid = do_gun_traceray(camPos, gunDir, human_weap__tracerayLen, gun__aimRayMatId, eid)
 
-[es(after=human_phys_es, before=after_guns_update_sync, REQUIRE=(human_input, human_weap))]
+[es(after=human_phys_es, before=after_guns_update_sync, REQUIRE=(hero, human_weap))]
 def human_weap_update_es(info : UpdateStageInfoAct;
                          eid : EntityId;
                          human_weap__gunAngleTau : float;
                          isInVehicle : bool;
-                         humap_weap__useGrenadeInVehicle : bool = false;
+                         human_vehicle__isHoldingGunPassenger : bool;
                          human_weap__lockedGrenadeThrowingCounter : int = 0;
                          human_weap__mortarMode : bool = false;
                          human_weap__jumpDeviation : float = 0.;
@@ -84,6 +84,7 @@ def human_weap_update_es(info : UpdateStageInfoAct;
                          human_unarmed__active : bool = false;
                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                          human_weap__tracerayLen : float&;
+                         isReplayObserved : Tag?;
                          var human_net_phys : HumanActor;
                          var transform : float3x4;
                          var human_weap__gunEids : EidList;
@@ -97,12 +98,13 @@ def human_weap_update_es(info : UpdateStageInfoAct;
   var atTime = info.curTime
 
   // Align updates on phys ticks to phys.timeStep for shooting end time synchronization
-  assume ct = human_net_phys.phys.producedCT
+  // in replay use a appliedCT because producedCT doesn't multicast to all clients
+  assume ct = isReplayObserved == null ? human_net_phys.phys.producedCT : human_net_phys.phys.appliedCT
   if ct |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && !ct.haveUnenqueuedHctShoot
     atTime = floor(atTime / human_net_phys.phys.timeStep) * human_net_phys.phys.timeStep
 
   let isForReal = true
-  let wishGunDir = human_net_phys.phys.producedCT.wishShootDir
+  let wishGunDir = ct.wishShootDir
   var gunDir = wishGunDir
   var gunAngles = dir_to_angles(gunDir)
   var gunSpeedAng = gunAngles - human_weap__prevGunAngles
@@ -164,7 +166,7 @@ def human_weap_update_es(info : UpdateStageInfoAct;
     isForReal=isForReal,
     eid=eid,
     isDowned=isDowned,
-    isThrowingAllowed=human_weap__lockedGrenadeThrowingCounter == 0 && (humap_weap__useGrenadeInVehicle || !isInVehicle),
+    isThrowingAllowed=human_weap__lockedGrenadeThrowingCounter == 0 && (human_vehicle__isHoldingGunPassenger || !isInVehicle),
     shotDeviationMult=entity_mods__shotDeviationMult,
     rotationShotSpreadDecrMult=entity_mods__rotationShotSpreadDecrMult,
     aimingAfterFireMult=entity_mods__aimingAfterFireMult,
@@ -175,7 +177,7 @@ def human_weap_update_es(info : UpdateStageInfoAct;
 
   human_weap_gun_update(human_net_phys, human_weap__gunEids, human_weap__throwMode,
                         updCtx, transform, gunDir, gunShootDir, transform,
-                        human_net_phys.phys.producedCT, human_use_object__selectedObject,
+                        ct, human_use_object__selectedObject,
                         human_unarmed__active, human_attached_gun__attachedGunEid,
                         human_weap__jumpDeviation, human_weap__changePosDeviationCanAim, human_weap__changePosDeviationCanNotAim,
                         human_phys__jumpEndTime, human_phys__afterJumpDelay, human_phys__isInAirLong)

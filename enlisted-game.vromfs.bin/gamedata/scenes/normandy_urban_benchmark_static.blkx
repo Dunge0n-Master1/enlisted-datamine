@@ -589,6 +589,32 @@ entity{
 }
 
 entity{
+  _template:t="level"
+  level__blk:t="content/enlisted/levels/normandy_urban_area_2x2.blk"
+  level__timeRange:p2=5.0, 19.2
+  level__day:i=9
+  level__month:i=6
+
+  "level__weatherChoice:object"{
+    weather_clear_a:r=1.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=16.5
+  }
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=0.27
+}
+
+entity{
+  _template:t="wind"
+  wind__strength:r=2.0
+}
+
+entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [433.398, 295.965, -327.981]]
@@ -728,26 +754,6 @@ entity{
 }
 
 entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[-0.605145, -0.0021305, 0.796112] [-0.00763682, 0.999966, -0.00312891] [-0.796078, -0.00797321, -0.605141] [265.19, 1.57941, -91.1028]]
-}
-
-entity{
-  _template:t="bf_109g_14_a_destroyed"
-  transform:m=[[0.99988, -0.0155159, 0.0] [0.0154549, 0.995944, -0.0886364] [0.00137528, 0.0886257, 0.996064] [-146.119, 11.4279, -566.423]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[-0.787754, -0.0227229, 0.61557] [-0.0694161, 0.996228, -0.0520584] [-0.612066, -0.0837397, -0.786361] [249.387, 1.48258, -123.762]]
-}
-
-entity{
-  _template:t="m4a2_sherman_1944_destroyed"
-  transform:m=[[-0.798797, -0.0103026, -0.601512] [-0.0103026, 0.999941, -0.00344517] [0.601512, 0.00344517, -0.798856] [-98.9429, 1.70923, 194.678]]
-}
-
-entity{
   _template:t="domination_sphere_capzone"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.2, 0.0] [0.0, 0.0, 1.0] [-139.179, 1.65707, 151.41]]
   capzone__title:t="B"
@@ -847,6 +853,47 @@ entity{
   groupName:t="sector_5"
   respawnBaseGroup:i=1
   active:b=yes
+}
+
+entity{
+  _template:t="benchmark_artillery_strike"
+  transform:m=[[-0.0388287, -0.00684447, 0.999222] [-0.00164649, 0.999976, 0.00678565] [-0.999245, -0.00138173, -0.038839] [-123.056, 2.08149, 131.082]]
+  artillery__baseInterval:r=30.0
+  artillery__baseSpawnDelay:r=45.0
+  artillery__interval:r=60.0
+  artillery__missionStartDelay:r=15.0
+  artillery__spawnDelay:r=15.0
+  artillery__lastShotInTime:r=130.069
+  artilleryStrikeSpawnPeriod:r=60.0
+  artilleryStrikeSpawnTime:r=30.0
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.9
+  anim_track_on:b=yes
+}
+
+entity{
+  _template:t="benchmark"
+  benchmark_name:t="normandy"
+
+  "camera_tracks:array"{
+
+    "camera_tracks:object"{
+      from_fov:r=90.0
+      from_pos:p3=-189.374, 19.5177, 157.072
+      to_dir:p3=0.976788, -0.0201742, -0.21325
+      duration:r=10000.0
+      to_pos:p3=-189.374, 19.5177, 157.072
+      to_fov:r=90.0
+      from_dir:p3=0.976788, -0.0201742, -0.21325
+    }
+  }
+}
+
+entity{
+  _template:t="ui_disabled"
 }
 
 entity{
@@ -960,68 +1007,21 @@ entity{
 }
 
 entity{
-  _template:t="level"
-  level__blk:t="content/enlisted/levels/normandy_urban_area_2x2.blk"
-  level__timeRange:p2=5.0, 19.2
-  level__day:i=9
-  level__month:i=6
-
-  "level__weatherChoice:object"{
-    weather_clear_a:r=1.0
-  }
-
-  "level__timeVec:array"{
-    level__timeVec:r=16.5
-  }
+  _template:t="vw_kubelwagen"
+  transform:m=[[-0.605145, -0.0021305, 0.796112] [-0.00763682, 0.999966, -0.00312891] [-0.796078, -0.00797321, -0.605141] [265.19, 1.57941, -91.1028]]
 }
 
 entity{
-  _template:t="water"
-  water__strength:r=0.27
+  _template:t="bf_109g_14_a_destroyed"
+  transform:m=[[0.99988, -0.0155159, 0.0] [0.0154549, 0.995944, -0.0886364] [0.00137528, 0.0886257, 0.996064] [-146.119, 11.4279, -566.423]]
 }
 
 entity{
-  _template:t="wind"
-  wind__strength:r=2.0
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[-0.787754, -0.0227229, 0.61557] [-0.0694161, 0.996228, -0.0520584] [-0.612066, -0.0837397, -0.786361] [249.387, 1.48258, -123.762]]
 }
 
 entity{
-  _template:t="benchmark_artillery_strike"
-  transform:m=[[-0.0388287, -0.00684447, 0.999222] [-0.00164649, 0.999976, 0.00678565] [-0.999245, -0.00138173, -0.038839] [-123.056, 2.08149, 131.082]]
-  artillery__baseInterval:r=30.0
-  artillery__baseSpawnDelay:r=45.0
-  artillery__interval:r=60.0
-  artillery__missionStartDelay:r=15.0
-  artillery__spawnDelay:r=15.0
-  artillery__lastShotInTime:r=130.069
-  artilleryStrikeSpawnPeriod:r=60.0
-  artilleryStrikeSpawnTime:r=30.0
-}
-
-entity{
-  _template:t="screen_fade_anim"
-  screen_fade:r=0.9
-  anim_track_on:b=yes
-}
-
-entity{
-  _template:t="benchmark"
-  benchmark_name:t="normandy"
-
-  "camera_tracks:array"{
-
-    "camera_tracks:object"{
-      from_fov:r=90.0
-      from_pos:p3=-189.374, 19.5177, 157.072
-      to_dir:p3=0.976788, -0.0201742, -0.21325
-      duration:r=10000.0
-      to_pos:p3=-189.374, 19.5177, 157.072
-      to_fov:r=90.0
-      from_dir:p3=0.976788, -0.0201742, -0.21325
-    }
-  }
-}
-
-entity{
-  _template:t="ui_disabled"
+  _template:t="m4a2_sherman_1944_destroyed"
+  transform:m=[[-0.798797, -0.0103026, -0.601512] [-0.0103026, 0.999941, -0.00344517] [0.601512, 0.00344517, -0.798856] [-98.9429, 1.70923, 194.678]]
 }

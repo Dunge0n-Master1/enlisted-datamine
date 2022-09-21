@@ -16,14 +16,22 @@ def building_fortification_destroy_on_distance(info : UpdateStageInfoAct;
                                                transform aka restricted_zone_transform : float3x4;
                                                building_restricted_zone__updateInterval : float;
                                                building_restricted_zone__maxAngle : float;
-                                               building_restricted_zone__minDistance : float;
+                                               building_restricted_zone__minDistanceForTeamOffense : float;
+                                               building_restricted_zone__minDistanceForTeamDefense : float;
+                                               capzone__trainOffenseTeam : int;
                                                var building_restricted_zone__nextUpdateAt : float&)
   if info.curTime < building_restricted_zone__nextUpdateAt
     return
   building_restricted_zone__nextUpdateAt = info.curTime + building_restricted_zone__updateInterval
 
-  query() <| $ [es(REQUIRE=(buildByPlayer, buildTypeId))] (eid : EntityId; transform : float3x4)
-    if is_in_building_restricted_zone_sector(transform[3], restricted_zone_transform, building_restricted_zone__minDistance, building_restricted_zone__maxAngle)
+  query() <| $ [es(REQUIRE=(buildByPlayer, buildTypeId))] (eid : EntityId; transform : float3x4; builder_info__team : int)
+    if is_in_building_restricted_zone_sector(transform[3],
+                                             builder_info__team,
+                                             restricted_zone_transform,
+                                             building_restricted_zone__maxAngle,
+                                             building_restricted_zone__minDistanceForTeamOffense,
+                                             building_restricted_zone__minDistanceForTeamDefense,
+                                             capzone__trainOffenseTeam)
       destroyEntity(eid)
 
 [es(on_event=EventEntityDestroyed, tag=server, REQUIRE=buildByPlayer)]
@@ -121,7 +129,7 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
         sendEvent(operatorEid, [[CmdHeroLogEvent event="building_gun_not_attachable", text="building_gun_not_attachable"]])
         send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
         return
-      if is_in_building_restricted_zone(buildingPos)
+      if is_in_building_restricted_zone(buildingPos, builder_info__team)
         sendEvent(operatorEid, [[CmdHeroLogEvent event="building_blocked_restricted_zone", text="building_blocked_restricted_zone"]])
         send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
         return

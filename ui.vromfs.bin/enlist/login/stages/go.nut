@@ -18,5 +18,5 @@ return {
     let loginMethod = params?.two_step_code != null ? auth.login_2step : auth.login
     loginMethod(params, id)
   }
-  actionOnReload = @(_state, _cb) null
+  actionOnReload = @(_state, cb) eventbus.subscribe_onehit(id, ah.status_cb(cb))
 }

@@ -93,8 +93,6 @@ base_m41_75_18{
       turretName:t="turret_02"
       gun:t="m41_75_18_turret_02_8mm_breda_mod38"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

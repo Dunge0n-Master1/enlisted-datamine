@@ -6,7 +6,7 @@
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=75;mat=0$impact/shell"
+  sfx:t="[cal=75;mat=0]impact/shell"
 }
 
 75mm_ap_hit_stone{
@@ -17,7 +17,7 @@
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=75;mat=1$impact/shell"
+  sfx:t="[cal=75;mat=1]impact/shell"
 }
 
 100mm_ap_hit_ground{
@@ -28,7 +28,7 @@
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=100;mat=0$impact/shell"
+  sfx:t="[cal=100;mat=0]impact/shell"
 }
 
 100mm_ap_hit_stone{
@@ -39,7 +39,7 @@
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=100;mat=1$impact/shell"
+  sfx:t="[cal=100;mat=1]impact/shell"
 }
 
 100mm_ap_hit_water{
@@ -50,7 +50,7 @@
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=100;mat=2$impact/shell"
+  sfx:t="[cal=100;mat=2]impact/shell"
 }
 
 bullet_hit_armor{
@@ -60,7 +60,7 @@ bullet_hit_armor{
   numReserved:i=3
   onePointNumber:i=80
   group:t="highres"
-  sfx:t="^cal=100;mat=4$impact/shell"
+  sfx:t="[cal=100;mat=4]impact/shell"
 }
 
 ground_expl{
@@ -180,7 +180,7 @@ smoke_rocket_exhaust{
 }
 
 smoke_rocket_trail{
-  fx:t="smoke_rocket_trail_fx"
+  fx:t="trail_rocket_launch_smoke_cmps_fx"
   lifeTime:r=0.0
   softnessDepth:r=0.5
   granularity:i=4
@@ -263,56 +263,56 @@ rocket_expl{
 }
 
 rocket_fire{
-  fx:t="fires_rocket_tail_light_cmps_fx"
+  fx:t="trail_rocket_medium_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=4
 }
 
 rocket_fire_light{
-  fx:t="fires_rocket_tail_light_cmps_fx"
+  fx:t="trail_rocket_medium_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=4
 }
 
 rocket_fire_dark{
-  fx:t="fires_rocket_tail_dark_cmps_fx"
+  fx:t="trail_rocket_dark_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=4
 }
 
 rocket_fire_light_multiple{
-  fx:t="fires_rocket_tail_light_multiple_cmps_fx"
+  fx:t="trail_rocket_medium_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=8
 }
 
 rocket_fire_dark_multiple{
-  fx:t="fires_rocket_tail_dark_multiple_cmps_fx"
+  fx:t="trail_rocket_dark_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=8
 }
 
 rocket_fire_light_huge{
-  fx:t="fires_rocket_tail_huge_cmps_fx"
+  fx:t="trail_rocket_heavy_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=4
 }
 
 rocket_fire_bigfire{
-  fx:t="fires_rocket_tail_light_bigfire_cmps_fx"
+  fx:t="trail_rocket_heavy_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=4
 }
 
 rocket_fire_short{
-  fx:t="fires_rocket_tail_short_light_cmps_fx"
+  fx:t="trail_rocket_small_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=4

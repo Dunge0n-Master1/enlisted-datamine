@@ -727,7 +727,7 @@ entity{
 entity{
   _template:t="skies_settings"
   sky_atmosphere__atmosphere_scale:r=12.0
-  sky_atmosphere__multiple_scattering_factor:p2=3.0, 3.0
+  sky_atmosphere__multiple_scattering_factor:r=3.0
   sky_atmosphere__average_ground_albedo:r=0.2
   sky_atmosphere__multiple_scale:r=5.0
   sky_atmosphere__ozone_scale:p2=0.1, 0.1

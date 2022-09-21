@@ -1,0 +1,799 @@
+import{
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_sounds.blk"
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[642.711, 0.0, 515.632] [0.0, 162.959, 0.0] [-523.65, 0.0, 652.704] [77.2632, 27.1402, -263.339]]
+  battle_area__team:i=1
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=3.0
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[496.333, 0.0, 400.066] [0.0, 162.959, 0.0] [-567.977, 0.0, 704.647] [70.2781, 27.1404, -270.304]]
+  battle_area__team:i=2
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=3.0
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[25256.1, 0.0, 17996.4] [0.0, 8000.03, 0.0] [-17997.5, 0.0, 25255.2] [103.719, 240.916, -196.341]]
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="level"
+  level__blk:t="content/dev/levels/pacific_gavutu.blk"
+  level__timeRange:p2=5.0, 19.2
+
+  "level__weatherChoice:object"{
+    weather_clear_b:r=0.5
+    weather_cloudy_a:r=2.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=7.0
+    level__timeVec:r=8.0
+    level__timeVec:r=16.0
+  }
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="water"
+  shore__amplitude_to_length:r=800.0
+  shore__hmap_size:r=4096.0
+  shore__parallelism_to_wind:r=0.5
+  shore__rivers_width:r=30.0
+  shore__texture_size:i=4096
+  shore__wave_gspeed:r=0.6
+  shore__width_k:r=0.6
+  waterTrail__useObstacle:b=yes
+  water__level:r=0.0
+  water__strength:r=2.3
+  water__wind_dir:r=120.0
+  water__flowmap:b=yes
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    hmap_displacement_up:r=0.3
+    ocean1:c=40, 50, 100, 0
+    ocean0:c=30, 55, 55, 0
+    ocean_density:r=0.4
+    puddle_hardness:r=200.0
+    land_selfillum_worldscale:r=0.9
+    river1:c=40, 50, 100, 0
+    river0:c=30, 55, 55, 0
+    hmap_displacement_down:r=-0.15
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="pacific_color_tex_palette*"
+    puddle_increase:r=0.001
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    max_river_width:r=50.0
+    river_density:r=0.4
+  }
+}
+
+entity{
+  _template:t="envi_probe_render_settings"
+  envi_probe_use_geometry:b=yes
+  envi_probe_sun_enabled:b=yes
+}
+
+entity{
+  _template:t="pacific_gavutu_minimap"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_pacific/gamedata/pacific_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=0.0
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="evergreen_branches"
+  ri_gpu_object__biom_indexes:p4=18.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=2
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=50.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.6, 1.1
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=53423
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_date_palm_leaf_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_date_palm_leaf_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_date_palm_leaf_c"
+      weight:r=0.33
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="seasonal_branches"
+  ri_gpu_object__biom_indexes:p4=19.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=20.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.7, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=55113
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="wood_branch_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="wood_branch_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="wood_branch_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="wood_branch_d"
+      weight:r=0.33
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="wood_branch_e"
+      weight:r=0.33
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="wood_branch_f"
+      weight:r=0.33
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_japonica"
+  ri_gpu_object__biom_indexes:p4=27.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=24
+  ri_gpu_object__cell_size:r=8.0
+  ri_gpu_object__scale_range:p2=0.4, 0.9
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=75914
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_causonis_japonica_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_causonis_japonica_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_causonis_japonica_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_causonis_japonica_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_causonis_japonica_e"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_ficus"
+  ri_gpu_object__biom_indexes:p4=19.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=20.0
+  ri_gpu_object__scale_range:p2=0.7, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=73214
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ficus_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ficus_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ficus_c"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_big_ferns"
+  ri_gpu_object__biom_indexes:p4=19.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=6
+  ri_gpu_object__cell_size:r=50.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.6, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=44914
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_fern_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_fern_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_fern_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_fern_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_fern_e"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_fern_f"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_arctium"
+  ri_gpu_object__biom_indexes:p4=19.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=6
+  ri_gpu_object__cell_size:r=40.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.7, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=68914
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tropical_arctium_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tropical_arctium_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tropical_arctium_c"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_monstrea"
+  ri_gpu_object__biom_indexes:p4=18.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=6
+  ri_gpu_object__cell_size:r=40.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.4, 0.7
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=68344
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="monstera_bush_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="monstera_bush_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="monstera_bush_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="monstera_fern_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="monstera_fern_b"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_dracena"
+  ri_gpu_object__biom_indexes:p4=18.0, 19.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=4
+  ri_gpu_object__cell_size:r=40.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.1, 0.4
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=69614
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="dracena_bush_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="dracena_bush_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="dracena_bush_c"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_beech"
+  ri_gpu_object__biom_indexes:p4=16.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=20
+  ri_gpu_object__cell_size:r=40.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.7, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=47914
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_beech_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_beech_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_beech_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_beech_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_beech_e"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_beech_f"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="plants_flowers"
+  ri_gpu_object__biom_indexes:p4=16.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=8
+  ri_gpu_object__cell_size:r=20.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.6, 1.1
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=89454
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_crocus_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_crocus_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_crocus_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_crocus_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_crocus_e"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_crocus_f"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_hyacinth_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_hyacinth_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_hyacinth_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_hyacinth_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_hyacinth_e"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_hyacinth_f"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="leaves"
+  ri_gpu_object__biom_indexes:p4=21.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=20
+  ri_gpu_object__cell_size:r=8.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.7, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=46714
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_tropic_trash_pile_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_tropic_trash_pile_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_tropic_trash_pile_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ground_plant_tropic_trash_pile_d"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="bananas"
+  ri_gpu_object__biom_indexes:p4=25.0, -1.0, -1.0, -1.0
+  ri_gpu_object__grid_size:i=2
+  ri_gpu_object__grid_tiling:i=12
+  ri_gpu_object__cell_size:r=40.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.7, 1.5
+  ri_gpu_object__rotate_range:p2=135.0, 960.0
+  ri_gpu_object__seed:i=46714
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="bananas_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="bananas_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="bananas_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="bananas_d"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="bananas_e"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="briefing_domination"
+}
+
+entity{
+  _template:t="add_spawn_on_squadmates"
+}
+
+entity{
+  _template:t="team_pacific_allies+team_narrator_domination+respawn_creators_team"
+  team__id:i=1
+  team__scoreCap:r=2250.0
+  team__score:r=2250.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=2.0
+  team__spawnBotArmy:t="pacific_allies"
+}
+
+entity{
+  _template:t="team_pacific_axis+team_narrator_domination+respawn_creators_team"
+  team__id:i=2
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=2.0
+  team__spawnBotArmy:t="pacific_axis"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.998156, 4.61121e-09, 0.0607117] [-0.00428752, 0.997503, 0.0704907] [-0.06056, -0.0706209, 0.995662] [70.1366, 26.4364, -402.541]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [1679.02, 1000.0, -1929.19]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[0.735101, 0.0, -0.677958] [0.0, 1.0, 0.0] [0.677958, -0.0, 0.735101] [-1415.24, 1023.92, 1389.02]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[0.773495, 0.0, -0.633802] [0.0, 1.0, 0.0] [0.633802, -0.0, 0.773495] [-1303.42, 823.92, 1526.51]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[0.758973, 0.0, -0.651124] [0.0, 1.0, 0.0] [0.651124, -0.0, 0.758973] [-1310.69, 1023.92, 1505.64]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[0.757907, 0.0, -0.652362] [0.0, 1.0, 0.0] [0.652362, -0.0, 0.757907] [-1415.24, 823.92, 1389.02]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-1735.54, 920.073, 1744.51]]
+  resupply_zone__team:i=2
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1993.99, 1000.0, -1072.13]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1993.99, 800.0, -1072.13]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1964.52, 1000.0, -1219.81]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1923.04, 800.0, -1236.4]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="domination_sphere_capzone"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [85.9614, -7.50044, -296.706]]
+  capzone__title:t="C"
+  capzone__caption:t="capzone/artillery_emplacement"
+  sphere_zone__radius:r=20.0
+  decal__height:r=5.0
+  ui_order:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[-0.954674, 0.0, 0.297653] [0.0, 1.0, 0.0] [-0.297653, 0.0, -0.954673] [174.13, 2.32825, -356.371]]
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[0.687761, 0.0, -0.725936] [-0.0, 1.0, 0.0] [0.725937, 0.0, 0.687761] [23.7245, 1.46905, -253.855]]
+}
+
+entity{
+  _template:t="respawnChooser+respVehicle"
+  transform:m=[[0.189112, 0.0, 0.981953] [0.0, 1.0, -0.0] [-0.981954, 0.0, 0.189112] [123.488, 0.806376, -370.474]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnChooser+respVehicle"
+  transform:m=[[0.900154, 0.0269392, -0.434737] [-0.0359455, 0.999276, -0.012506] [0.434085, 0.0268841, 0.90047] [-13.9493, 2.41885, -222.544]]
+  team:i=1
+}

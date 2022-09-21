@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 require("connectingToServerMsg.nut")
 require("%enlSqGlob/notifications/disconnectedControllerMsg.nut")
-require("%enlSqGlob/notifications/actionInProgressMsg.nut")
 require("soldiers/newItemsWnd.nut")
 
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")

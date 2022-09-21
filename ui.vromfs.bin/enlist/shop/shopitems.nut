@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { goodsInfo } = require("%enlist/shop/goodsAndPurchases_pc.nut")
 let { purchasesCount, squadsByArmies } = require("%enlist/meta/profile.nut")
 let { isPlatformRelevant } = require("%dngscripts/platform.nut")
@@ -64,6 +64,8 @@ let function isInInterval(ts, interval = []){
   return ts >= from && (to == 0 || ts < to)
 }
 
+let priorityDiscounts = Watched({})
+
 let function updateItemCost(sItem, purchases) {
   let { shop_price = 0, shop_price_full = 0 } = sItem
   if (shop_price > 0 && shop_price_full > shop_price)
@@ -101,6 +103,7 @@ let function updateItemCost(sItem, purchases) {
 let shopItems = Computed(function() {
   // simple increment, we don't actually need its value, just an update trigger
   let needsUpdate = shopDiscountGen.value //warning disable: -declared-never-used
+  let discounts = priorityDiscounts.value
   let items = shopItemsBase.value
   return items
     .filter(function(item) {
@@ -111,14 +114,18 @@ let shopItems = Computed(function() {
       return items.findvalue(@(i) i?.offerGroup == offerContainer
         && isPlatformRelevant(i?.platforms ?? [])) != null
     })
-    .map(@(item, guid) updateItemCost(
-      item.__merge({ guid }).__update(goodsInfo.value?[item?.purchaseGuid] ?? {}),
-      purchasesCount.value
-    ))
+    .map(function(item, guid) {
+      let discountInPercent = discounts?[guid] ?? item?.discountInPercent ?? 0
+      return updateItemCost(
+        item.__merge({ guid, discountInPercent }, goodsInfo.value?[item?.purchaseGuid] ?? {})
+        purchasesCount.value
+      )
+    })
 })
 
 return {
   shopItemsBase
   shopItems
   shopDiscountGen
+  priorityDiscounts
 }

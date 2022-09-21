@@ -11,7 +11,7 @@ local standardPistol = [i(3, ""), i(2, ""), i(19)]
 local weaponToAnimState = freeze({
   defaultPoses = [i(11)]
   unarmedPoses = [i(1, ""), i(2, ""), i(3, ""), i(4, "")]
-  sittingPoses = [i(20),i(21),i(22),i(23)]
+  sittingPoses = [i(20),i(21),i(23)]
   standardRifle
   specificRifle
   specificGun
@@ -45,6 +45,11 @@ local weaponToAnimState = freeze({
   welrod_mk2_gun =             standardPistol
   cz_vz_27_gun =               standardPistol
   p08_luger_artillery_gun =    [i(10)]
+  nambu_type_14_gun =          standardPistol
+  nambu_type_94_gun =          standardPistol
+  hamada_type_1_gun =          standardPistol
+  hamada_type_2_gun =          standardPistol
+  enfield_p14_gun =    [i(9), i(11), i(13), i(14), i(15), i(16), i(18)]
 
   mosin_m38_gun =              standardRifle
   stl_mosin_m38_gun =          standardRifle
@@ -88,6 +93,17 @@ local weaponToAnimState = freeze({
   browning_m1919a6_gun =       [i(8), i(13), i(15), i(16)]
   turner_automatic_rifle_gun = [i(12), i(13), i(14), i(15), i(18)]
   beretta_m31_gun =            [i(11), i(13), i(14), i(15), i(18)]
+  type_hei_rifle_gun =         [i(9), i(13), i(14), i(15), i(16), i(18)]
+  scotti_model_x_gun =         [i(9), i(12), i(14), i(16), i(18)]
+  arisaka_type_99_early_short_gun =  [i(9), i(11), i(12),i(13), i(14), i(15), i(16), i(17)]
+  nambu_type_96_lmg_gun =  [i(9), i(13), i(15), i(18)]
+  nambu_type_97_lmg_gun =  [i(9), i(13), i(15), i(18)]
+  nambu_type_99_lmg_gun =  [i(9), i(13), i(15), i(18)]
+  m1903a4_springfield_gun =  [i(9), i(12), i(15), i(18)]
+  mp_34_jp_gun =  [i(13), i(14), i(15), i(18)]
+  type_97_antitank_canon_gun = [i(7), i(6), i(18), i(16), i(17)]
+
+
 
   browning_auto_5_gun =        specificGun
   m30_luftwaffe_drilling_gun = specificGun
@@ -102,7 +118,6 @@ local weaponToAnimState = freeze({
   stl_kar98k_wartime_production_gun =    specificGun
   gewehr_33_40_gun =           specificGun
   m1903_springfield_gun =      specificGun
-  m1903a4_springfield_gun =    specificGun
   m1_garand_gun =              specificGun
   m1_carbine_gun =             [i(9), i(11), i(12), i(14), i(16), i(18)]
   m1a2_carbine_gun =           [i(9), i(14), i(16), i(18)]
@@ -145,12 +160,28 @@ local weaponToAnimState = freeze({
   kb_p_135_gun =               [i(9), i(12), i(16)]
   sw_light_rifle_mk_2_gun =    [i(9), i(13), i(15)]
   beretta_m1918_30_gun =       [i(9), i(12), i(13), i(15)]
+  arisaka_type_38_gun =        [i(9), i(11), i(12), i(13), i(14), i(15), i(16) ]
+  arisaka_type_97_gun =        [i(9), i(11), i(12), i(13), i(14), i(15), i(16) ]
+  japanese_type_i_carcano_gun = [i(9), i(12), i(13), i(14), i(15), i(16) ]
+  wzh_29_jp_gun =              [i(9), i(11), i(12), i(13), i(14), i(15), i(16), i(18)]
+  nambu_type_2a_smg_gun =      [i(13), i(18)]
+  nambu_type_1_smg_gun =       [i(18)]
+  m1903a1_springfield_usmc_gun = [i(9), i(11), i(12), i(13), i(14), i(15), i(16), i(18)]
+  mkb_42_w_gun =               [i(9), i(12), i(16), i(18)]
+  type_100_smg_late_gun =      [i(9), i(14), i(15)]
+  type_100_smg_early_gun =      [i(13), i(14), i(15), i(18)]
+  owen_mk1_42_gun =            [i(13), i(14), i(15), i(18)]
+  thompson_m1921_28_usmc_gun = [i(13)]
+  m55_reising_gun =            [i(11), i(15)]
+  type_100_paratrooper_smg_gun = [i(9), i(14), i(15)]
+
 
   beretta_m38_gun =            [i(9), i(11), i(12), i(15), i(16)]
   beretta_m38_42_gun =         [i(11), i(13), i(15)]
   beretta_m1934_gun =          [i(10)]
   m3_submachine_gun_gun =      [i(18)]
   mp_18_gun =                  [i(9), i(12), i(13), i(14), i(15), i(16)]
+  mp_28_jp_gun =               [i(13), i(14), i(15)]
   mp_28_32_round_gun =         [i(13), i(14), i(15)]
   mp_28_gun =                  [i(13), i(14), i(15), i(18)]
   stl_mp_28_gun =              [i(13), i(14), i(15), i(18)]
@@ -172,6 +203,7 @@ local weaponToAnimState = freeze({
   stl_ppd_3438_box_gun =       [i(9), i(11), i(13), i(15), i(16)]
   ppd_40_gun =                 [i(9), i(11), i(13), i(15), i(16)]
   ppd_40_dv_gun =              [i(13), i(15)]
+  ppsh_2_gun =                 [i(22)]
   ppk_41_gun =                 [i(11), i(15), i(16)]
   ppk_42_gun =                 [i(10), i(18)]
   pps_43_gun =                 [i(9), i(12), i(15)]
@@ -186,6 +218,7 @@ local weaponToAnimState = freeze({
   zk_383_gun =                 [i(13), i(14), i(15)]
   pp_dolganov_gun =            [i(13), i(15)]
   orita_m1941_gun =            [i(11), i(13), i(15)]
+  stl_orita_m1941_gun =        [i(11), i(13), i(15)]
   stl_ppd_bramit_gun =         [i(11), i(13), i(15)]
   stl_silenced_erma_emp_gun =  [i(13), i(15)]
   stl_mp_717r_gun =            [i(9), i(13), i(15), i(16)]
@@ -215,6 +248,8 @@ local weaponToAnimState = freeze({
   stl_breda_mod_30_gun =       [i(13), i(15)]
   chauchat_gun =               [i(12), i(13)]
   stl_mg_42_handheld_gun =     [i(8), i(12), i(16)]
+  type_11_lmg_gun =            [i(8), i(13), i(16)]
+  mg_45_gun =                  [i(8), i(12), i(16)]
 
   ptrs_41_gun =                [i(7), i(6), i(18), i(16), i(17)]
   stl_ptrs_41_gun =            [i(7), i(6), i(18), i(16), i(17)]

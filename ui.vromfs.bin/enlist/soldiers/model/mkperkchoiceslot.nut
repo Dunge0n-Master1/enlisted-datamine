@@ -7,8 +7,8 @@ let {
   mkText, perkIcon, flexTextArea, getStatDescList,
   mkPerkCostChildren
 } = require("%enlist/soldiers/components/perksPackage.nut")
-let perksList = require("%enlSqGlob/configs/perks/perksList.nut")
-let perksPoints = require("%enlSqGlob/configs/perks/perksPoints.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let { sound_play } = require("sound")
 let {
      defTxtColor, gap, bigPadding, activeBgColor, perkBigIconSize, defBgColor

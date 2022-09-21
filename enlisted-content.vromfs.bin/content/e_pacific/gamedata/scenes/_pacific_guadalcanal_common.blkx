@@ -1,0 +1,392 @@
+import{
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_sounds.blk"
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_gpu_objects.blk"
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[25256.1, 0.0, 17996.4] [0.0, 8000.03, 0.0] [-17997.5, 0.0, 25255.2] [103.719, 240.916, -196.341]]
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[-158.606, 0.0, 220.621] [0.0, 5.47114, 0.0] [-26.3456, 0.0, -18.9401] [-2400.69, 16.0538, 2796.93]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[-156.352, 0.0, 222.224] [0.0, 5.47114, 0.0] [-26.5371, 0.0, -18.6709] [-2473.99, 16.1891, 2656.66]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[224.769, 0.0, 87.5561] [0.0, 6.43649, -0.0] [-11.3292, 0.0, 29.0837] [2417.26, 17.3271, 1362.5]]
+  battle_area__team:i=2
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[224.222, 0.0, 88.9453] [0.0, 6.43649, -0.0] [-11.509, 0.0, 29.0131] [2514.18, 17.1052, 1281.6]]
+  battle_area__team:i=2
+}
+
+entity{
+  _template:t="pacific_level"
+  level__blk:t="content/enlisted/levels/pacific_guadalcanal.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="water"
+  shore__amplitude_to_length:r=800.0
+  shore__hmap_size:r=4096.0
+  shore__parallelism_to_wind:r=0.5
+  shore__rivers_width:r=30.0
+  shore__texture_size:i=4096
+  shore__wave_gspeed:r=0.6
+  shore__width_k:r=0.6
+  waterTrail__useObstacle:b=yes
+  water__level:r=0.0
+  water__strength:r=1.0
+  water__wind_dir:r=270.0
+  water__flowmap:b=yes
+  water__flowmap_tex:t="pacific_guadalcanal_water_det_flowmap"
+  water__flowmap_area:p4=-2048.0, 2048.0, 2048.0, -2048.0
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    max_river_width:r=50.0
+    hmap_displacement_up:r=0.3
+    ocean0:c=30, 55, 55, 0
+    ocean1:c=40, 50, 100, 0
+    ocean_density:r=0.4
+    land_selfillum_worldscale:r=0.9
+    river0:c=30, 55, 55, 0
+    river1:c=40, 50, 100, 0
+    hmap_displacement_down:r=-0.15
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="pacific_color_tex_palette*"
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    river_density:r=0.4
+    puddle_increase:r=-0.5
+  }
+}
+
+entity{
+  _template:t="pacific_guadalcanal_minimap"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_pacific/gamedata/pacific_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=0.0
+  group_switch_timer__activateGroup:t="aircraft_spawn_on_carrier"
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=7200.0
+  group_switch_timer__deactivateGroup:t="aircraft_spawn_on_carrier"
+  group_switch_timer__activateGroup:t="aircraft_spawn_in_air"
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[157.435, 0.0, -220.304] [0.0, 32.0817, 0.0] [24.6098, -0.0, 17.5869] [-2399.8, 14.9795, 2795.8]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[152.779, 4.56118e-06, -219.659] [4.73497e-07, 30.0, 9.52275e-07] [24.6286, -9.32465e-07, 17.1299] [-2473.92, 14.9788, 2657.58]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[217.832, -2.10195e-06, 85.4711] [2.50861e-07, 30.0, 9.84304e-08] [-10.9578, 6.52971e-13, 27.9271] [2414.5, 14.9794, 1360.99]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[217.803, 7.68472e-07, 85.5436] [1.47848e-07, 30.0, -6.45938e-07] [-10.9671, 6.55277e-07, 27.9235] [2511.23, 14.9796, 1280.56]]
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.601413, 0.0, -0.798938] [0.0, 1.0, 0.0] [0.798938, -0.0, 0.601412] [-2467.71, 15.097, 2889.68]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.596178, 0.0, -0.802852] [0.0, 1.0, 0.0] [0.802852, -0.0, 0.596178] [-2539.69, 15.0585, 2749.13]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.597014, 0.0, -0.80223] [0.0, 1.0, 0.0] [0.80223, -0.0, 0.597014] [-2649.92, 0.354549, 2717.07]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+  sphere_zone__radius:r=500.0
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.928408, 0.0, -0.371563] [0.0, 1.0, 0.0] [0.371563, 0.0, -0.928408] [2509.37, 15.6442, 1398.59]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.924209, 0.0, -0.381889] [0.0, 1.0, 0.0] [0.381889, 0.0, -0.924209] [2607.34, 15.5633, 1318.7]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.91115, 0.00217787, -0.412068] [0.0141862, 0.999559, -0.0260852] [0.41183, -0.0296132, -0.91078] [2648.16, 0.535954, 1246.29]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+  sphere_zone__radius:r=500.0
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.958522, 0.0, -0.285021] [0.0, 1.0, 0.0] [0.285021, -0.0, 0.958522] [-2485.11, 1023.92, 626.129]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.968139, 0.0, -0.250417] [0.0, 1.0, 0.0] [0.250417, -0.0, 0.968139] [-2444.88, 1023.92, 777.5]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.973551, 0.0, -0.22847] [0.0, 1.0, 0.0] [0.22847, -0.0, 0.973551] [-2447.88, 823.92, 799.396]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.967727, 0.0, -0.251998] [0.0, 1.0, 0.0] [0.251998, -0.0, 0.967727] [-2485.11, 823.92, 626.129]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1614.99, 1000.0, 426.414]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1646.42, 1000.0, 279.141]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1614.99, 800.0, 426.414]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1614.9, 800.0, 247.473]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[-0.953359, 0.0, 0.301843] [0.0, 1.0, 0.0] [-0.301843, 0.0, -0.953359] [-5528.88, 1023.92, -217.02]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [4069.6, 982.32, -2236.6]]
+  resupply_zone__team:i=2
+}
+
+entity{
+  _template:t="american_assault_boat_m1"
+  transform:m=[[0.99642, -0.00556228, 0.0843716] [0.00556228, 0.999985, 0.00023507] [-0.0843716, 0.00023507, 0.996435] [-656.686, 0.096602, 246.035]]
+}
+
+entity{
+  _template:t="american_assault_boat_m1"
+  transform:m=[[0.748608, -0.00612462, -0.662985] [0.00610404, 0.999979, -0.0023454] [0.662985, -0.00229111, 0.748629] [-378.595, 0.0968847, 211.662]]
+}
+
+entity{
+  _template:t="american_assault_boat_m1"
+  transform:m=[[-0.997078, -0.00674542, 0.0760957] [-0.00684251, 0.999977, -0.00101514] [-0.076087, -0.00153285, -0.9971] [-494.342, 0.0968626, 244.207]]
+}
+
+entity{
+  _template:t="american_assault_boat_m1"
+  transform:m=[[-0.587191, -0.00680576, 0.80942] [-0.00445601, 0.999977, 0.0051754] [-0.809436, -0.000567827, -0.587208] [-59.9176, 0.102128, 159.402]]
+}
+
+entity{
+  _template:t="american_assault_boat_m1"
+  transform:m=[[-0.848189, -0.00528842, -0.529667] [-0.00482243, 0.999986, -0.00226182] [0.529671, 0.000635827, -0.848203] [-189.313, 0.102257, 162.465]]
+}
+
+entity{
+  _template:t="american_assault_boat_m1"
+  transform:m=[[-0.991851, -0.0569257, -0.113977] [-0.0713994, 0.9893, 0.127227] [0.105515, 0.134329, -0.985303] [-211.65, 1.2203, 101.431]]
+}
+
+entity{
+  _template:t="ford_gpa"
+  transform:m=[[0.825332, -0.00412839, 0.564632] [0.00635722, 0.999978, -0.00198097] [-0.564612, 0.00522444, 0.82534] [-769.357, 0.413007, 263.919]]
+}
+
+entity{
+  _template:t="ford_gpa"
+  transform:m=[[-0.922398, -0.0362631, -0.384534] [-0.0926656, 0.987282, 0.129176] [0.374959, 0.154785, -0.914028] [-595.144, 0.0658634, 239.373]]
+}
+
+entity{
+  _template:t="ford_gpa"
+  transform:m=[[-0.998432, -0.0556677, 0.0059199] [-0.0557635, 0.998291, -0.0174954] [-0.00493586, -0.0177981, -0.999829] [-153.363, 0.818912, 147.615]]
+}
+
+entity{
+  _template:t="ford_gpa"
+  transform:m=[[0.977606, -0.0845293, -0.192721] [0.0801945, 0.996322, -0.0301977] [0.194565, 0.0140663, 0.980789] [-374.762, 0.900774, 166.95]]
+}
+
+entity{
+  _template:t="nissan_80"
+  transform:m=[[0.903218, -0.117266, 0.412853] [0.0840339, 0.99165, 0.0978222] [-0.420877, -0.053661, 0.90553] [-565.672, 21.1686, 10.3451]]
+}
+
+entity{
+  _template:t="nissan_80"
+  transform:m=[[-0.803669, -0.0126025, 0.594943] [-0.00458124, 0.999877, 0.0149917] [-0.595059, 0.00932277, -0.803628] [-747.675, 31.6999, -55.4038]]
+}
+
+entity{
+  _template:t="nissan_80"
+  transform:m=[[-0.178809, -0.0982699, 0.978964] [0.102445, 0.987732, 0.117862] [-0.978536, 0.121365, -0.166548] [-728.944, 53.201, -220.166]]
+}
+
+entity{
+  _template:t="nissan_80"
+  transform:m=[[0.928008, 0.0142787, -0.372287] [0.00541588, 0.998643, 0.0518021] [0.372522, -0.0500891, 0.926672] [-856.827, 57.4915, -302.551]]
+}
+
+entity{
+  _template:t="nissan_80"
+  transform:m=[[0.780815, -0.0949567, 0.617504] [-0.00133845, 0.988126, 0.153642] [-0.624761, -0.120792, 0.771416] [-628.826, 60.9195, -398.393]]
+}
+
+entity{
+  _template:t="nissan_80"
+  transform:m=[[0.580323, -0.129935, 0.803954] [0.236111, 0.971634, -0.0133975] [-0.779409, 0.197597, 0.594541] [-725.446, 41.7556, -175.127]]
+}
+
+entity{
+  _template:t="gmc_353_a"
+  transform:m=[[0.890794, -0.0226521, 0.453843] [0.0596676, 0.99594, -0.0674053] [-0.450474, 0.0871239, 0.888529] [-891.076, 4.96079, 202.527]]
+}
+
+entity{
+  _template:t="gmc_353_b"
+  transform:m=[[-0.997742, 0.00107618, -0.0671575] [0.00201369, 0.999902, -0.0138937] [0.067136, -0.0139975, -0.997646] [-592.321, 3.73722, 169.543]]
+}
+
+entity{
+  _template:t="gmc_353_a"
+  transform:m=[[-0.714501, 0.152081, -0.682906] [0.0878841, 0.987867, 0.128045] [0.694093, 0.0314713, -0.719197] [-17.445, 4.80088, 101.081]]
+}

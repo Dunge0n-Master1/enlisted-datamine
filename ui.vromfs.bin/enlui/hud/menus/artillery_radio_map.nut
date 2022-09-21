@@ -143,7 +143,7 @@ let framedMapBg = {
   rendObj = ROBJ_WORLD_BLUR
   color = Color(140,140,140,255)
   padding = fsh(1)
-  hooks = HOOK_ATTACH
+  behavior = Behaviors.ActivateActionSet
   actionSet = "BigMap"
 }
 
@@ -154,7 +154,7 @@ let interactiveFrame = @() {
   color = Color(180,160,10,130)
 
   // use frame since parent already has another hook
-  hooks = HOOK_ATTACH
+  behavior = Behaviors.ActivateActionSet
   actionSet = "StopInput"
 }
 

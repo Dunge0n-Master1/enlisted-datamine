@@ -149,14 +149,14 @@ let function mkHudHint() {
 }
 
 let interactiveTip = @() {
-  watch = [isGamepad, hudIsInteractive]
+  watch = [isGamepad, hudIsInteractive, isReplay]
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
   gap = fsh(2.5)
   size = [flex(), fontH(250)]
 
-  children = [
+  children = isReplay.value ? null : [
     mkHudHint(),
     hudIsInteractive.value
       ? makeHintRow($"^{JB.A} | M:0", loc("ui/cursor.activate"))
@@ -209,7 +209,7 @@ let scoresMenuUi = {
       showBg = true
       scrollIsPossible = true
       interactiveTip = interactiveTip
-      isInteractive = hudIsInteractive.value
+      isInteractive = hudIsInteractive.value || isReplay.value
       showDisconnected = true
       teamsSlots = getTeamsSlots()
       hotkeys = [["^{0} | Esc".subst(JB.B), {
@@ -224,7 +224,7 @@ let scoresMenuUi = {
       eventHandlers = eventHandlers
       watch = [ scoringPlayers, localPlayerTeam, localPlayerEid, isReplay,
         hudIsInteractive, verPadding, localPlayerGroupMembers, canForgivePlayers, voteToKickEnabled]
-      hooks = HOOK_ATTACH
+      behavior = Behaviors.ActivateActionSet
       actionSet = "Scores"
       sound = {
         attach = "ui/stat_on"

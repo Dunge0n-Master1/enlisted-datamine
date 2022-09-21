@@ -2,8 +2,9 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {inTank, isPassenger} = require("%ui/hud/state/vehicle_state.nut")
+let {isHoldingGunPassenger} = require("%ui/hud/state/hero_in_vehicle_state.nut")
 let {get_gun_template_by_props_id} = require("dm")
-let {EventOnSeatOwnersChanged, CmdTrackVehicleWithWatched} = require("dasevents")
+let {EventOnSeatOwnersChanged} = require("dasevents")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let { vehicleTurrets, vehicleTurretsSetValue } = mkFrameIncrementObservable([], "vehicleTurrets")
 
@@ -21,6 +22,7 @@ let turretQuery = ecs.SqQuery("turretQuery", {
     ["gun__reloadable", ecs.TYPE_BOOL, false],
     ["turret__groupName", ecs.TYPE_STRING, ""],
     ["turretInput", ecs.TYPE_TAG, null],
+    ["turret_input__isLocalControlLocked", ecs.TYPE_BOOL, false],
     ["currentBulletId", ecs.TYPE_INT, 0],
     ["nextBulletId", ecs.TYPE_INT, -1],
     ["turret__triggerGroup", ecs.TYPE_INT, -1],
@@ -64,6 +66,7 @@ let function initTurretsState(_eid, comp) {
       isReloadable = gunComp["gun__reloadable"]
       icon = gunTpl?.getCompValNullable("gun__icon")
       isControlled = gunComp["turretInput"] != null
+      isLocalControlLocked = gunComp["turret_input__isLocalControlLocked"]
       isBomb = trigger == "bombs"
       isRocket = trigger == "rockets"
       hotkey = triggerMappings?[trigger]
@@ -104,7 +107,7 @@ let function initTurretsState(_eid, comp) {
 
 ecs.register_es("vehicle_turret_state_ui_es",
   {
-    [["onInit", "onChange", CmdTrackVehicleWithWatched, EventOnSeatOwnersChanged]] = initTurretsState,
+    [["onInit", "onChange", EventOnSeatOwnersChanged]] = initTurretsState,
     onDestroy = @(...) resetState(),
   },
   {
@@ -114,6 +117,7 @@ ecs.register_es("vehicle_turret_state_ui_es",
       ["turret_control__turretInfo", ecs.TYPE_SHARED_ARRAY],
     ]
     comps_track = [
+      ["turret_control__isInputLocked", ecs.TYPE_BOOL],
       ["turret_control__gunEids", ecs.TYPE_EID_LIST],
       ["vehicle_seats__seatEids", ecs.TYPE_EID_LIST],
     ]
@@ -144,7 +148,7 @@ let turretsVehicleQuery = ecs.SqQuery("turretsVehicleQuery", {
 })
 
 ecs.register_es("track_controlled_turret_ui_es",
-  { [["onInit", "onChange", "onDestroy", ecs.EventEntityRecreated]] = function(_eid, comp) {
+  { [["onInit", "onChange", "onDestroy"]] = function(_eid, comp) {
       turretsVehicleQuery(comp["turret__owner"], @(vehicleEid, vehicleComp) initTurretsState(vehicleEid, vehicleComp))
     }
   },
@@ -193,7 +197,7 @@ ecs.register_es("turret_state_reload_progress_ui",
 
 let showVehicleWeapons = Computed(function() {
   let haveTurrets = (vehicleTurrets.value?.len() ?? 0) > 0
-  return inTank.value ? haveTurrets && !isPassenger.value : haveTurrets
+  return (inTank.value ? haveTurrets && !isPassenger.value : haveTurrets) && !isHoldingGunPassenger.value
 })
 
 let mainTurretAmmo = Computed(@() turretsAmmo.value?[mainTurretEid.value])

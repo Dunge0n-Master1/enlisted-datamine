@@ -65,7 +65,7 @@ let function weaponAmmo(watchedWeapon, isCurrent, params=wAmmoDef, idx = null) {
       ? ""
       : isReloadable
         ? $"{curAmmo}/{totalAmmo}"
-        : totalAmmo
+        : curAmmo
 
     return {
       rendObj = ROBJ_TEXT

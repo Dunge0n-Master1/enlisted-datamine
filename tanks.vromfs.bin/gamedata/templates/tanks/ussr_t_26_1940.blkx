@@ -1,6 +1,8 @@
 ussr_t_26_1940{
   _extends:t="base_t_26_1940"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/t_26_1940.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/t_26_1940.blk"
 

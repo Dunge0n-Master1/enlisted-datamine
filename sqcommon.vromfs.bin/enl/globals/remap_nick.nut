@@ -6,11 +6,12 @@ let needPlatformMorphemesReplacement = get_setting_by_blk_path("needPlatformMorp
 
 let PC_ICON = "⋆"
 let TV_ICON = "⋇"
+let PSN_ICON = "⋊"
 let NBSP = " " // Non-breaking space character
 
 let namePostfix = {
   ["@live"] = is_xbox? "" : TV_ICON,
-  ["@psn"] = is_sony? "" : TV_ICON,
+  ["@psn"] = is_sony? PSN_ICON : TV_ICON,
   ["@steam"] = is_pc? "" : PC_ICON,
   ["@epic"] = is_pc? "" : PC_ICON,
   ["@nintendo"] = is_nswitch? "" : TV_ICON,
@@ -20,7 +21,7 @@ let namePostfix = {
 
 let namePrefix = {
   ["^"] = is_xbox? "" : TV_ICON,
-  ["*"] = is_sony? "" : TV_ICON
+  ["*"] = is_sony? PSN_ICON : TV_ICON
 }
 
 let pcAddIcon = is_pc? "" : PC_ICON

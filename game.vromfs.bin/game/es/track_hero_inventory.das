@@ -40,7 +40,7 @@ def track_died_hero_items_es(evt : Event; isAlive : bool; itemContainer : EidLis
     for_each_item(itemContainer, human_equipment__slots) <| $(eid : EntityId)
       remove_controllable_hero_item(eid)
 
-[es(on_appear, on_event=EventComponentChanged, track=item__ownerEid, tag=gameClient)]
+[es(on_appear, track=item__ownerEid, tag=gameClient)]
 def controlable_hero_items_es(evt : Event; eid : EntityId; item__ownerEid : EntityId)
   if has(item__ownerEid, "hero")
     addSubTemplate(eid, "controllable_hero_item")

@@ -18,7 +18,7 @@ let {terraformParams, beginTerraforming, isTerraforming, isTerraformingMode,
 let {isRIToolMode, beginRIToolMode, clearRIToolSelected, riToolSelected, getRIToolRemovedCount,
      unbakeRIToolSelected, enbakeRIToolSelected, rebakeRIToolSelected,
      removeRIToolSelected, instanceRIToolSelected, selectRIToolInside,
-     restoreRemovedByRITool} = require("%ui/editorToolRendInsts.nut")
+     restoreRemovedByRITool, spawnNewRIEntity} = require("%ui/editorToolRendInsts.nut")
 
 let {groupsList, updateGroupsList, mkGroupListItemName, mkGroupListItemTooltip,
      toggleGroupListItem} = require("%ui/editorGroupsControl.nut")
@@ -194,28 +194,33 @@ const TOOLTIP_COMMANDS  = "Toggles list of build commands"
 const TOOLTIP_REBUILD_NAVMESH = "Generates NavMesh for modified terrain and placed RI, which then saved to patch_nav_mesh.bin file in mod directory"
 const TOOLTIP_BUILD_MOD_VROM  = "Packages contents of mod directory to <mod_name>.vromfs.bin file placed to userGameMods/ folder, which then could be uploaded to mods portal"
 
-const TOOLTIP_RI_UNBAKE   = "Convert selected baked RI to unbaked RI entities"
-const TOOLTIP_RI_ENBAKE   = "Convert selected RI of RI entities to baked RI (except for doors/windows)"
-const TOOLTIP_RI_REBAKE   = "Convert selected RI of unbaked RI entities (shown in violet) to baked RI at their original positions"
-const TOOLTIP_RI_REMOVE   = "Delete selected RI or RI entities, and you can Restore removed RI later (but doors/windows will require Restart to function)"
-const TOOLTIP_RI_INSTANCE = "Clone RI or RI entities as new game RI entities"
-const TOOLTIP_RI_WITHIN   = "Select all other RI within (inside) selected RI"
+const TOOLTIP_CREATE_RI_ENTITY    = "Creates new 'game_rendinst' entity"
+const TOOLTIP_CREATE_RI_DECOR     = "Creates new 'game_rendinst_decor' entity"
+const TOOLTIP_ADD_SCENERY_REMOVER = "Creates new 'scenery_remover' entity"
+const TOOLTIP_RESTORE_REMOVED     = "Restores removed baked RI one by one"
 
-//                               Unbake                                          Enbake                    Rebake                          Remove                    Instance
-// baked RI/rebaked_rendinst     => riunb + unbaked_rendinst                     ---                       ---                             => rirmv                  => game_rendinst
-// game_rendinst/decor           ---                                             add enbaked_ri            ---                             del_entity                => game_rendinst/decor
-// unbaked_rendinst              ---                                             add enbaked_ri            ~riunb + rebaked_rendinst       del_entity                => game_rendinst
-// baked RI with door/window +rd => riunb + del_entity + unbaked_rendinst_door   ---                       ---                             => rirmv + del_entity (*) => game_rendinst_door
-// unbaked_rendinst_door         ---                                             ---                       ~riunb + rebaked_rendinst_door  del_entity                => game_rendinst_door
-// game_rendinst_door            ---                                             ---                       ---                             del_entity                => game_rendinst_door
+const TOOLTIP_RI_UNBAKE   = "Converts selected baked RI to unbaked RI entities, and enbaked RI entities to normal RI entities (show their boxes)"
+const TOOLTIP_RI_ENBAKE   = "Converts selected RI entities to enbaked RI entities (hide their boxes)"
+const TOOLTIP_RI_REBAKE   = "Converts selected unbaked RI entities (shown in violet) to baked RI at their original positions"
+const TOOLTIP_RI_REMOVE   = "Deletes selected baked RI or RI entities, and you can Restore removed baked RI later (doors/windows will require Restart)"
+const TOOLTIP_RI_INSTANCE = "Clones RI or RI entities as new game RI entities (detects decor RI entities, but properties like ri_extra__overrideHitPoitns not copied here)"
+const TOOLTIP_RI_WITHIN   = "Selects all other RI within (inside) selected RI"
+
+//                               Unbake                                          Enbake                    Rebake                                Remove                    Instance
+// baked RI/rebaked_rendinst     => riunb + unbaked_rendinst                     ---                       ---                                   ~rirmv + del_entity       => game_rendinst
+// game_rendinst/decor           ---                                             add enbaked_ri            ---                                   del_entity                => game_rendinst/decor
+// unbaked_rendinst              ---                                             add enbaked_ri            ~riunb + rebaked_rendinst             del_entity                => game_rendinst
+// if not clonedRIDoorTag        create clone+unbaked_door_ri + riunb + delgen   ---                       ---                                   ~rirmv + del_entity       => create clone with clonedRIDoorTag
+// if has unbaked_door_ri        ---                                             add enbaked_ri            ~riunb+rebaked_rendinst(need restart) del_entity                => create clone with clonedRIDoorTag
 // if has enbaked_ri             remove enbaked_ri
 
 let toolboxPopupBox = function() {
-  let ROW_H = 34
+  let ROW_H = hdpx(34)
   let riLen = riToolSelected.value.len()
-  let row0 = 6*ROW_H-7+((riLen > 15 ? 16 : riLen)*20)
-  let row1 = isTerraforming.value ? (terraformParams.lastName != "EV" ? 8*ROW_H-5 : 11*ROW_H+10)
-             : isRIToolMode() ? (riLen <= 0 ? 7*ROW_H-8 : (riLen <= 15) ? 9*ROW_H+(riLen*20) : 9*ROW_H+(16*20))
+  let riHas = riLen > 0
+  let row0 = 6*ROW_H-hdpx(7)+((riLen > 15 ? 16 : riLen)*hdpx(20))
+  let row1 = isTerraforming.value ? (terraformParams.lastName != "EV" ? 8*ROW_H-hdpx(5) : 11*ROW_H+hdpx(10))
+             : isRIToolMode() ? (riLen <= 0 ? 10*ROW_H-hdpx(20) : (riLen <= 15) ? 9*ROW_H+(riLen*hdpx(20)) : 9*ROW_H+hdpx(16*20))
              : 3*ROW_H
   let row2 = row1 + ROW_H
   let row3 = row2 + ROW_H
@@ -236,7 +241,7 @@ let toolboxPopupBox = function() {
     cursor = cursors.normal
     hotkeys = [["Esc", @() toolboxShown(false)]]
 
-    watch = [showPointAction, namePointAction, toolboxModes]
+    watch = [showPointAction, namePointAction, toolboxModes, riToolSelected]
 
     flow = FLOW_VERTICAL
     children = [
@@ -302,22 +307,21 @@ let toolboxPopupBox = function() {
       isRIToolMode() ? @() {
         pos = [hdpx(5), 0]
         flow = FLOW_VERTICAL
-        watch = [riToolSelected]
         children = [
           { size = [0, hdpx(5)] }
           { pos = [hdpx(16), 0], vplace = ALIGN_CENTER, children = txt($"Click to select baked RI") }
           { pos = [hdpx(16), 0], vplace = ALIGN_CENTER, children = txt($"Hold Ctrl to multiselect") }
           { size = [0, hdpx(5)] }
           { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
-            { vplace = ALIGN_CENTER, children = txt($"{riToolSelected.value.len()} selected") }
-            textButton("Deselect", @() clearRIToolSelected(), riToolSelected.value.len() > 0 ? toolboxButtonStyle : toolboxButtonStyleOff)
+            { vplace = ALIGN_CENTER, children = txt($"{riLen} selected") }
+            textButton("Deselect", @() clearRIToolSelected(), riHas ? toolboxButtonStyle : toolboxButtonStyleOff)
           ]}
           { size = [0, hdpx(5)] }
-          riToolSelected.value.len() > 0 ? function() {
+          riHas ? function() {
             local childs = []
             foreach (item in riToolSelected.value) {
               if (childs.len() >= 15) {
-                childs.append({ vplace = ALIGN_CENTER, children = txt($"... ({riToolSelected.value.len()-15} more)") })
+                childs.append({ vplace = ALIGN_CENTER, children = txt($"... ({riLen-15} more)") })
                 break
               }
               childs.append({ vplace = ALIGN_CENTER, children = txt($"{item.name}", item.kind == 1 ? {color=Color(255,64,255)} :
@@ -327,23 +331,30 @@ let toolboxPopupBox = function() {
             }
             return { flow = FLOW_VERTICAL, children = childs }
           } : null
-          riToolSelected.value.len() > 0 ? { size = [0, hdpx(10)] } : { size = [0, hdpx(5)] }
-          riToolSelected.value.len() > 0 ? { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
+          riHas ? { size = [0, hdpx(10)] } : { size = [0, hdpx(5)] }
+          riHas ? { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
             toolboxButton("Unbake", @() unbakeRIToolSelected(), toolboxButtonStyle, TOOLTIP_RI_UNBAKE, row0)
             toolboxButton("Remove", @() removeRIToolSelected(), toolboxButtonStyle, TOOLTIP_RI_REMOVE, row0)
           ]} : null
-          riToolSelected.value.len() > 0 ? { size = [0, hdpx(5)] } : null
-          riToolSelected.value.len() > 0 ? { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
+          riHas ? { size = [0, hdpx(5)] } : null
+          riHas ? { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
             toolboxButton("Enbake",   @() enbakeRIToolSelected(),   toolboxButtonStyle, TOOLTIP_RI_ENBAKE, row0 + 1*ROW_H)
             toolboxButton("Instance", @() instanceRIToolSelected(), toolboxButtonStyle, TOOLTIP_RI_INSTANCE, row0 + 1*ROW_H)
           ]} : null
-          riToolSelected.value.len() > 0 ? { size = [0, hdpx(5)] } : null
-          riToolSelected.value.len() > 0 ? { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
+          riHas ? { size = [0, hdpx(5)] } : null
+          riHas ? { pos = [hdpx(16), 0], flow = FLOW_HORIZONTAL, children = [
             toolboxButton("Rebake",   @() rebakeRIToolSelected(), toolboxButtonStyle, TOOLTIP_RI_REBAKE, row0 + 2*ROW_H)
             toolboxButton("Within..", @() selectRIToolInside(),   toolboxButtonStyle, TOOLTIP_RI_WITHIN, row0 + 2*ROW_H)
           ]} : null
-          riToolSelected.value.len() <= 0 ? { pos = [hdpx(4), 0], flow = FLOW_HORIZONTAL, children = [
-            textButton($"Restore removed ({getRIToolRemovedCount()})", @() restoreRemovedByRITool(), (getRIToolRemovedCount() > 0) ? toolboxButtonStyle : toolboxButtonStyleOff)
+          !riHas ? { pos = [hdpx(7), 0], flow = FLOW_VERTICAL, children = [
+            textButton($"Create new RendInst", @() spawnNewRIEntity("game_rendinst"),       toolboxButtonStyle.__merge({ onHover = @(on) cursors.setTooltip(on ? TOOLTIP_CREATE_RI_ENTITY    : null) }))
+            textButton($"Create new RI decor", @() spawnNewRIEntity("game_rendinst_decor"), toolboxButtonStyle.__merge({ onHover = @(on) cursors.setTooltip(on ? TOOLTIP_CREATE_RI_DECOR     : null) }))
+            textButton($"Add scenery remover", @() spawnNewRIEntity("scenery_remover"),     toolboxButtonStyle.__merge({ onHover = @(on) cursors.setTooltip(on ? TOOLTIP_ADD_SCENERY_REMOVER : null) }))
+          ]} : null
+          !riHas ? { size = [0, hdpx(5)] } : null
+          !riHas ? { pos = [hdpx(4), 0], flow = FLOW_HORIZONTAL, children = [
+            textButton($"Restore removed ({getRIToolRemovedCount()})", @() restoreRemovedByRITool(),
+                      ((getRIToolRemovedCount() > 0) ? toolboxButtonStyle : toolboxButtonStyleOff).__merge({ onHover = @(on) cursors.setTooltip(on ? TOOLTIP_RESTORE_REMOVED : null) }))
           ]} : null
           { size = [0, hdpx(5)] }
         ]

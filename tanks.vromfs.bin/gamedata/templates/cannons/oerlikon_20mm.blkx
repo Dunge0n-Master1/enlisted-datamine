@@ -1,0 +1,131 @@
+oerlikon_20mm_go{
+  _extends:t="base_ai_gunner_turret"
+  animchar__res:t="oerlikon_20mm_char"
+  collres__res:t="oerlikon_20mm_collision"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/oerlikon_20mm.blk"
+  killLogName:t="aircraft_carrier/defence_turret"
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      turretGroup:t="main_turrets"
+      gun:t="oerlikon_20mm_turret_01"
+      salt:i=1
+    }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="emtr_gun_flame"
+  }
+}
+
+oerlikon_20mm_turret_01{
+  _extends:t="tankgun_oerlikon_20mm"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret_ai__atackDist:r=800.0
+  turret__limit:p4=-120.0, 120.0, -10.0, 85.0
+
+  "turret_ai__atackMinDist:r"{
+    _tags:t="server"
+    value:r=0.0
+  }
+}
+
+tankgun_oerlikon_20mm{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_oerlikon_20mm"
+  _extends:t="gunsound_25mm_72k"
+  _extends:t="controlled_by_ai_gunner"
+  turret_ai__shootAngleCos:r=0.984
+  turret_ai__minWindow:p2=-0.0, -0.0
+  turret_ai__maxWindow:p2=0.0, 0.0
+  turret_ai__amplitude:p2=3.0, 3.0
+  turret_ai__period:p2=1.5, 3.7
+  turret_ai__distrTimer:r=10.0
+  turret_ai__attackTimerr:r=3.0
+  turret_ai__sleepTimer:r=1.0
+  turret_ai__pauseTimer:r=0.25
+  turret_ai__atackDist:r=800.0
+  turret_ai__limitAngles:p4=-120.0, 120.0, -15.0, 85.0
+  turret__triggerGroup:i=0
+  gun__shootNodeName:t="bone_gun"
+  turret__aimNodeName:t="bone_turret"
+  turret__yawSpeed:r=75.0
+  turret__pitchSpeed:r=65.0
+  turret__limit:p4=-180.0, 180.0, -15.0, 85.0
+
+  "turret_ai__atackMinDist:r"{
+    _tags:t="server"
+    value:r=0.0
+  }
+
+  "turret_ai__automatic:tag"{
+    _tags:t="server"
+  }
+
+  "turret_serverAim:tag"{
+    _tags:t="server"
+  }
+}
+
+base_oerlikon_20mm{
+  gun__blk:t="gamedata/gen/weapons/20mm_oerlikon.blk"
+  gun__locName:t="20mm_oerlikon"
+  item__name:t="guns/20mm_oerlikon"
+  gun__shotFreq:r=7.5
+  gun__reloadTime:r=4.0
+  gun__maxAmmo:i=60
+  gun__overheatPerShot:r=0.0
+  gun_spread__maxDeltaAngle:r=0.08
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__movementRange:p2=3.0, 5.0
+  gun_deviation__movementDevInc:p2=0.0, 6.0
+  gun_deviation__onShotDeviationChange:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=900000
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/25mm_72k_defaultset_bullet_1.blk"
+        type:t="ap_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/25mm_72k_defaultset_bullet_2.blk"
+        type:t="frag_i_t"
+      }
+    }
+  }
+}

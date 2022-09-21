@@ -28,8 +28,7 @@ entity{
 
   "level__weatherChoice:object"{
     weather_clear_a:r=1.0
-    weather_cloudy_a:r=2.0
-    weather_cloudy_b:r=2.0
+    weather_clear_b:r=1.0
   }
 
   "level__timeVec:array"{

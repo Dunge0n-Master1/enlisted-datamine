@@ -351,6 +351,11 @@ fm{
 }
 
 fm{
+  fm:t="cockpit_door"
+  dm:t="blister1_dm"
+}
+
+fm{
   fm:t="aileron_control_l"
   dm:t="wingcontrol_dm"
   dm:t="wingcontrol_l_dm"

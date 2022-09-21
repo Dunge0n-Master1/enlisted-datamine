@@ -47,6 +47,12 @@ mg_42_handheld_magazine{
   collres__res:t="mg_42_handheld_ammo_collision"
 }
 
+mg_45_gun_item{
+  _extends:t="item_gun"
+  _extends:t="mg_45"
+  collres__res:t="mg_45_collision"
+}
+
 mg_34_with_patronentrommel_gun_item{
   _extends:t="item_gun"
   _extends:t="mg_34_with_patronentrommel_gun"
@@ -195,6 +201,12 @@ dp_27_magazine{
   item__name:t="items/dp_27_magazine"
   collres__res:t="dp_27_ammo_collision"
   dropTm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [0.0, 0.03, 0.0]]
+}
+
+dp_42_beltfed_gun_item{
+  _extends:t="item_gun"
+  _extends:t="dp_42_beltfed"
+  collres__res:t="dp_1942_collision"
 }
 
 dpm_gun_item{
@@ -763,6 +775,26 @@ m1928a_thompson_magazine{
   item__weight:r=1.0
   item__volume:r=0.5
   item__name:t="items/m1928a_thompson_magazine"
+  collres__res:t="m1928a1_thompson_ammo_collision"
+}
+
+thompson_m1921_28_usmc_gun_item{
+  _extends:t="item_gun"
+  _extends:t="thompson_m1921_28_usmc"
+  collres__res:t="thompson_1921_28_usmc_collision"
+}
+
+thompson_small_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1928a1_thompson_ammo_char"
+  item__template:t="thompson_small_magazine"
+  item__proto:t="thompson_small_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="thompson_small_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.8
+  item__volume:r=0.35
+  item__name:t="items/thompson_small_magazine"
   collres__res:t="m1928a1_thompson_ammo_collision"
 }
 
@@ -1496,6 +1528,47 @@ arisaka_type_38_gun_item{
   collres__res:t="arisaka_type_38_collision"
 }
 
+arisaka_type_38_with_grenade_discharger_gun_item{
+  _extends:t="item_gun"
+  _extends:t="arisaka_type_38_with_grenade_discharger"
+  collres__res:t="arisaka_type_38_grenade_discharger_collision"
+}
+
+arisaka_grenade_discharger_item{
+  _extends:t="item_scope"
+  animchar__res:t="type_100_grenade_discharger_char"
+  collres__res:t="type_100_grenade_discharger_collision"
+  item__template:t="arisaka_grenade_discharger_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/arisaka_grenade_discharger.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/arisaka_grenade_discharger"
+  gunAttachable__slotName:t="grenade_launcher"
+  gunAttachable__gunSlotName:t="grenade_launcher"
+  gunAttachable__slotTag:t="arisaka_grenade_discharger"
+
+  "gunAttachable:tag"{
+  }
+}
+
+type_99_grenade_item{
+  _extends:t="item_grenade"
+  _extends:t="type_99_grenade_shell"
+  item__template:t="type_99_grenade_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/type_99_grenade.blk"
+  item__locDetails:t=""
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/type_99_grenade.blk"
+  item__ammoPropsId:i=-1
+  item__weight:r=3.3
+  item__volume:r=0.6
+  item__name:t="items/type_99_grenade"
+  item__grenadeType:t="shell"
+  ammo_holder__id:i=-1
+  ammo_holder__templateName:t="type_99_grenade_item"
+  ammo_holder__ammoCount:i=1
+}
+
 arisaka_magazine{
   _extends:t="item_bullets"
   animchar__res:t="m1903_springfield_ammo_char"
@@ -1508,6 +1581,18 @@ arisaka_magazine{
   item__volume:r=0.1
   item__name:t="items/arisaka_magazine"
   collres__res:t="m1903_springfield_ammo_collision"
+}
+
+arisaka_type_99_early_short_gun_item{
+  _extends:t="item_gun"
+  _extends:t="arisaka_type_99_early_short"
+  collres__res:t="arisaka_type_99_early_short_collision"
+}
+
+arisaka_type_99_late_gun_item{
+  _extends:t="item_gun"
+  _extends:t="arisaka_type_99_late"
+  collres__res:t="arisaka_type_99_late_collision"
 }
 
 arisaka_7mm_magazine{
@@ -1608,6 +1693,12 @@ sw_m1917_gun_item{
   collres__res:t="sw_m1917_collision"
 }
 
+sw_m1917_engraved_gun_item{
+  _extends:t="item_gun"
+  _extends:t="sw_m1917_engraved"
+  collres__res:t="sw_m1917_collision"
+}
+
 sw_m1917_magazine{
   _extends:t="item_magazine"
   animchar__res:t="colt_walker_ammo_char"
@@ -1631,6 +1722,36 @@ m1903_springfield_gun_item{
   item__userstats__pickupName:t="pickup_m1903_springfield_gun"
   collres__res:t="m1903_springfield_collision"
   dropTm:m=[[0.0, 1.0, 0.0] [0.0, 0.0, -1.0] [-1.0, 0.0, 0.0] [-0.3, 0.03, 0.0]]
+}
+
+m1903_springfield_with_grenade_launcher_gun_item{
+  _extends:t="item_gun"
+  _extends:t="m1903_springfield_with_grenade_launcher"
+  collres__res:t="m1903_springfield_with_grenade_launcher_collision"
+}
+
+m1_grenade_launcher_item{
+  _extends:t="item_scope"
+  animchar__res:t="grenade_launcher_m1_char"
+  collres__res:t="grenade_launcher_m1_collision"
+  item__template:t="m1_grenade_launcher_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/m1_grenade_launcher.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/m1_grenade_launcher"
+  gunAttachable__slotName:t="grenade_launcher"
+  gunAttachable__gunSlotName:t="grenade_launcher"
+  gunAttachable__slotTag:t="m1_grenade_launcher"
+
+  "gunAttachable:tag"{
+  }
+}
+
+m1903a1_springfield_usmc_gun_item{
+  _extends:t="item_gun"
+  _extends:t="m1903a1_springfield_usmc"
+  collres__res:t="m1903a1_springfield_marine_core_collision"
 }
 
 m1903_springfield_air_service_gun_item{
@@ -2833,6 +2954,26 @@ zh_29_magazine{
   collres__res:t="zh_29_ammo_collision"
 }
 
+zh_29_jp_gun_item{
+  _extends:t="item_gun"
+  _extends:t="zh_29_jp"
+  collres__res:t="zh_29_japanese_copy_collision"
+}
+
+zh_29_jp_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="zh_29_ammo_char"
+  item__template:t="zh_29_jp_magazine"
+  item__proto:t="zh_29_jp_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="zh_29_jp_magazine"
+  ammo_holder__ammoCount:i=5
+  item__weight:r=0.35
+  item__volume:r=0.2
+  item__name:t="items/zh_29_jp_magazine"
+  collres__res:t="zh_29_ammo_collision"
+}
+
 m1_carbine_gun_item{
   _extends:t="item_gun"
   _extends:t="m1_carbine"
@@ -3001,6 +3142,26 @@ pedersen_rifle_magazine{
   item__volume:r=0.1
   item__name:t="items/pedersen_rifle_magazine"
   collres__res:t="m1_garand_ammo_collision"
+}
+
+enfield_p14_gun_item{
+  _extends:t="item_gun"
+  _extends:t="enfield_p14"
+  collres__res:t="enfield_p14_collision"
+}
+
+enfield_p14_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1903_springfield_ammo_char"
+  item__template:t="enfield_p14_magazine"
+  item__proto:t="enfield_p14_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="enfield_p14_magazine"
+  ammo_holder__ammoCount:i=5
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/enfield_p14_magazine"
+  collres__res:t="m1903_springfield_ammo_collision"
 }
 
 m1917_enfield_gun_item{
@@ -3241,6 +3402,26 @@ mp_28_32_round_magazine{
   collres__res:t="mp_28_32_round_ammo_collision"
 }
 
+mp_28_jp_gun_item{
+  _extends:t="item_gun"
+  _extends:t="mp_28_jp_gun"
+  collres__res:t="mp_28_jp_collision"
+}
+
+mp_28_jp_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="lanchester_50_round_ammo_char"
+  item__template:t="mp_28_jp_magazine"
+  item__proto:t="mp_28_jp_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="mp_28_jp_magazine"
+  ammo_holder__ammoCount:i=50
+  item__weight:r=1.4
+  item__volume:r=0.5
+  item__name:t="items/mp_28_jp_magazine"
+  collres__res:t="lanchester_50_round_ammo_collision"
+}
+
 lanchester_magazine{
   _extends:t="item_magazine"
   animchar__res:t="lanchester_ammo_char"
@@ -3293,6 +3474,12 @@ mp34o_magazine{
   item__volume:r=0.5
   item__name:t="items/mp34o_magazine"
   collres__res:t="mp34o_ammo_collision"
+}
+
+mp_34_jp_gun_item{
+  _extends:t="item_gun"
+  _extends:t="mp_34_jp"
+  collres__res:t="mp_34_jp_collision"
 }
 
 mp_35_gun_item{
@@ -3577,6 +3764,12 @@ m50_reising_magazine{
   item__volume:r=0.35
   item__name:t="items/m50_reising_magazine"
   collres__res:t="m50_reising_ammo_collision"
+}
+
+m55_reising_gun_item{
+  _extends:t="item_gun"
+  _extends:t="m55_reising"
+  collres__res:t="m55_reising_collision"
 }
 
 vollmer_vpf_1926_gun_item{
@@ -4021,6 +4214,24 @@ germ_advanced_medkit_item{
   item__healAmount:r=4.5
 }
 
+jap_medkit_item{
+  _extends:t="medkit_item"
+  animchar__res:t="jap_medkit_char"
+  collres__res:t="jap_medkit_collision"
+  item__template:t="jap_medkit_item"
+  item__iconYaw:r=225.0
+}
+
+jap_advanced_medkit_item{
+  _extends:t="medkit_item"
+  animchar__res:t="jap_medkit_char"
+  collres__res:t="jap_medkit_collision"
+  item__template:t="jap_advanced_medkit_item"
+  item__name:t="items/advanced_medkit"
+  item__healAmount:r=4.5
+  item__iconYaw:r=225.0
+}
+
 bandage_kit_item{
   _extends:t="item"
   _extends:t="heal_anim_item"
@@ -4172,6 +4383,33 @@ uk_mills_grenade_item{
   item__name:t="items/uk_mills_grenade"
 }
 
+type_97_grenade_item{
+  _extends:t="item_grenade"
+  animchar__res:t="type_97_hand_grenade_char"
+  collres__res:t="type_97_hand_grenade_collision"
+  item__template:t="type_97_grenade_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/type_97_grenade.blk"
+  item__locDetails:t=""
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/type_97_grenade.blk"
+  item__weight:r=0.595
+  item__volume:r=0.5
+  item__name:t="items/type_97_grenade"
+}
+
+type_94_smoke_grenade_item{
+  _extends:t="item_grenade"
+  animchar__res:t="type_94_smoke_candle_small_char"
+  collres__res:t="type_94_smoke_candle_small_collision"
+  item__template:t="type_94_smoke_grenade_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/type_94_smoke_grenade.blk"
+  item__locDetails:t=""
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/type_94_smoke_grenade.blk"
+  item__weight:r=0.68
+  item__volume:r=0.5
+  item__name:t="items/type_94_smoke_grenade"
+  item__grenadeType:t="smoke"
+}
+
 rdg1_smoke_grenade_item{
   _extends:t="item_grenade"
   animchar__res:t="grenade_rdg_char"
@@ -4227,6 +4465,17 @@ ussr_molotov_item{
   collres__res:t="ussr_molotov_collision"
   item__grenadeType:t="flame"
   item__userstats__pickupName:t="pickup_ussr_molotov"
+}
+
+jap_molotov_item{
+  _extends:t="molotov_item_base"
+  item__template:t="jap_molotov_item"
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/jap_molotov.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/jap_molotov.blk"
+  animchar__res:t="jap_molotov_char"
+  collres__res:t="jap_molotov_collision"
+  item__grenadeType:t="flame"
+  item__userstats__pickupName:t="pickup_jap_molotov"
 }
 
 body_armor{
@@ -4564,6 +4813,22 @@ flask_it_in_use{
   _extends:t="flask_it_vis"
 }
 
+flask_jap_vis{
+  animchar__res:t="flask_japan_char"
+  collres__res:t="flask_japan_collision"
+}
+
+flask_jap_item{
+  _extends:t="flask_base_item"
+  _extends:t="flask_jap_vis"
+  item__selfUseVisEntityTemplateName:t="flask_jap_in_use"
+}
+
+flask_jap_in_use{
+  _extends:t="flask_base_in_use"
+  _extends:t="flask_jap_vis"
+}
+
 armor_sp_42_vis{
   _extends:t="base_vis_item"
   animchar__res:t="armor_sp_42_char"
@@ -4608,6 +4873,27 @@ type_30_bayonet_item{
   gunAttachable__slotName:t="bayonet"
   gunAttachable__gunSlotName:t="bayonet"
   gunAttachable__slotTag:t="type_30_bayonet"
+
+  "gunAttachable:tag"{
+  }
+
+  "gunAttachable__isBayonet:tag"{
+  }
+}
+
+type_2_bayonet_item{
+  _extends:t="item_scope"
+  animchar__res:t="type_2_bayonet_char"
+  collres__res:t="type_2_bayonet_collision"
+  item__template:t="type_2_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/type_30_bayonet.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/type_2_bayonet"
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="type_2_bayonet"
 
   "gunAttachable:tag"{
   }
@@ -4818,6 +5104,27 @@ m1905_bayonet_item{
   gunAttachable__slotName:t="bayonet"
   gunAttachable__gunSlotName:t="bayonet"
   gunAttachable__slotTag:t="m1905_bayonet"
+
+  "gunAttachable:tag"{
+  }
+
+  "gunAttachable__isBayonet:tag"{
+  }
+}
+
+m1917_bayonet_item{
+  _extends:t="item_scope"
+  animchar__res:t="m1917_bayonet_char"
+  collres__res:t="m1917_bayonet_collision"
+  item__template:t="m1905_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/mosin_m1930_bayonet.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/m1917_bayonet"
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="m1917_bayonet"
 
   "gunAttachable:tag"{
   }
@@ -5324,6 +5631,12 @@ rm_38_gun_item{
   collres__res:t="rm_38_collision"
 }
 
+bm_41_mortar_gun_item{
+  _extends:t="item_gun"
+  _extends:t="bm_41_mortar_gun"
+  collres__res:t="mortar_bm_41_collision"
+}
+
 neiman_minethrower_gun_item{
   _extends:t="item_gun"
   _extends:t="neiman_minethrower"
@@ -5436,6 +5749,22 @@ mine_o822_mp_item{
   ammo_holder__ammoCount:i=1
 }
 
+mine_o832_item{
+  _extends:t="item_grenade"
+  _extends:t="mine_o832_shell"
+  item__template:t="mine_o832_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/mine_o832.blk"
+  item__locDetails:t=""
+  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/mine_o832.blk"
+  item__weight:r=3.31
+  item__volume:r=0.5
+  item__name:t="items/mine_o832"
+  item__grenadeType:t="shell"
+  ammo_holder__id:i=-1
+  ammo_holder__templateName:t="mine_o832_item"
+  ammo_holder__ammoCount:i=1
+}
+
 wrg_36_item{
   _extends:t="item_grenade"
   _extends:t="wrg_36_shell"
@@ -5461,7 +5790,7 @@ wrg_36_item{
   item__locDetails:t=""
   item__shell:t="content/e_ww2_common/gamedata/weapons/shells/8cm_wgr_39.blk"
   item__ammoPropsId:i=-1
-  item__weight:r=0.9
+  item__weight:r=3.5
   item__volume:r=0.5
   item__name:t="items/8cm_wgr_39"
   item__grenadeType:t="shell"
@@ -5482,6 +5811,12 @@ cr_weak_flammenwerfer_35_gun_item{
   _extends:t="cr_weak_flammenwerfer_35_gun"
   item__userstats__pickupName:t="flammenwerfer_35_gun"
   collres__res:t="flammenwerfer_35_collision"
+}
+
+lanciafiamme_m35_gun_item{
+  _extends:t="item_gun"
+  _extends:t="lanciafiamme_m35_gun"
+  collres__res:t="lanciafiamme_mod_35_collision"
 }
 
 flammenwerfer_41_gun_item{
@@ -5523,6 +5858,12 @@ m1a1_flamethrower_gun_item{
   collres__res:t="m1a1_flamethrower_collision"
 }
 
+flamethrower_portable_no_2_lifebuoy_gun_item{
+  _extends:t="item_gun"
+  _extends:t="flamethrower_portable_no_2_lifebuoy_gun"
+  collres__res:t="flamethrower_portable_no_2_lifebuoy_collision"
+}
+
 flamethrower_fuel_tank{
   _extends:t="item_magazine"
   animchar__res:t="roks_3_ammo_char"
@@ -5548,6 +5889,57 @@ flamethrower_fuel_tank_light{
   item__proto:t="flamethrower_fuel_tank_light"
   item__locDetails:t=""
   ammo_holder__templateName:t="flamethrower_fuel_tank_light"
+  ammo_holder__ammoCount:i=200
+  item__weight:r=5.2
+  item__volume:r=2.2
+  item__name:t="items/flamethrower_fuel_tank_light"
+
+  "flamethrowerFuelTank:tag"{
+  }
+}
+
+jp_flamethrower_fuel_tank{
+  _extends:t="item_magazine"
+  animchar__res:t="type_100_ammo_char"
+  collres__res:t="type_100_ammo_collision"
+  item__template:t="jp_flamethrower_fuel_tank"
+  item__proto:t="jp_flamethrower_fuel_tank"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="jp_flamethrower_fuel_tank"
+  ammo_holder__ammoCount:i=300
+  item__weight:r=10.5
+  item__volume:r=3.5
+  item__name:t="items/flamethrower_fuel_tank"
+
+  "flamethrowerFuelTank:tag"{
+  }
+}
+
+jp_flamethrower_fuel_tank_light{
+  _extends:t="item_magazine"
+  animchar__res:t="type_100_ammo_char"
+  collres__res:t="type_100_ammo_collision"
+  item__template:t="jp_flamethrower_fuel_tank_light"
+  item__proto:t="jp_flamethrower_fuel_tank_light"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="jp_flamethrower_fuel_tank_light"
+  ammo_holder__ammoCount:i=200
+  item__weight:r=5.2
+  item__volume:r=2.2
+  item__name:t="items/flamethrower_fuel_tank_light"
+
+  "flamethrowerFuelTank:tag"{
+  }
+}
+
+uk_flamethrower_fuel_tank_light{
+  _extends:t="item_magazine"
+  animchar__res:t="flamethrower_portable_no_2_lifebuoy_ammo_char"
+  collres__res:t="flamethrower_portable_no_2_lifebuoy_ammo_collision"
+  item__template:t="uk_flamethrower_fuel_tank_light"
+  item__proto:t="uk_flamethrower_fuel_tank_light"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="uk_flamethrower_fuel_tank_light"
   ammo_holder__ammoCount:i=200
   item__weight:r=5.2
   item__volume:r=2.2
@@ -5888,6 +6280,28 @@ two_inch_mortar_gun_item{
   collres__res:t="two_inch_mortar_collision"
 }
 
+type_89_mortar_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_89_mortar_gun"
+  collres__res:t="type_89_knee_mortar_collision"
+}
+
+type_89_mortar_he_shell_item{
+  _extends:t="item_grenade"
+  _extends:t="type_89_mortar_he_shell"
+  item__template:t="type_89_mortar_he_shell_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/shells/type_89_mortar_he_shell.blk"
+  item__locDetails:t=""
+  item__shell:t="content/e_ww2_common/gamedata/weapons/shells/type_89_mortar_he_shell.blk"
+  item__weight:r=1.0
+  item__volume:r=0.5
+  item__name:t="items/type_89_mortar_he_shell"
+  item__grenadeType:t="shell"
+  ammo_holder__id:i=-1
+  ammo_holder__templateName:t="type_89_mortar_he_shell_item"
+  ammo_holder__ammoCount:i=1
+}
+
 breda_mod_30_gun_item{
   _extends:t="item_gun"
   _extends:t="breda_mod_30_gun"
@@ -5938,6 +6352,27 @@ ppd_bramit_gun_item{
   _extends:t="item_gun"
   _extends:t="ppd_bramit"
   collres__res:t="ppd_bramit_collision"
+}
+
+ppsh_40_gun_item{
+  _extends:t="item_gun"
+  _extends:t="ppsh_40"
+  collres__res:t="ppsh_40_collision"
+}
+
+ppsh_40_drum{
+  _extends:t="item_magazine"
+  animchar__res:t="ppsh_41_ammo_char"
+  item__template:t="ppsh_40_drum"
+  item__proto:t="ppsh_40_drum"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="ppsh_40_drum"
+  ammo_holder__ammoCount:i=97
+  item__weight:r=2.5
+  item__volume:r=1.0
+  item__name:t="items/ppsh_40_drum"
+  collres__res:t="ppsh_41_ammo_collision"
+  dropTm:m=[[0.0, 0.0, -1.0] [1.0, 0.0, 0.0] [0.0, -1.0, 0.0] [0.0, 0.03, 0.0]]
 }
 
 pp_dolganov_gun_item{
@@ -6217,4 +6652,382 @@ box_12_gauge_magazine{
   item__name:t="items/box_12_gauge_magazine"
   collres__res:t="cr_ammo_gauge_12_collision"
   dropTm:m=[[0.0, -0.01, 1.0] [0.0, 1.0, 0.01] [-1.0, -0.0, 0.0] [0.0, 0.0, 0.0]]
+}
+
+nambu_type_14_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_14"
+  collres__res:t="nambu_type_14_collision"
+}
+
+nambu_type_14_engraved_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_14_engraved"
+  collres__res:t="nambu_type_14_collision"
+}
+
+nambu_type_14_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="p08_luger_ammo_char"
+  item__template:t="nambu_type_14_magazine"
+  item__proto:t="nambu_type_14_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="nambu_type_14_magazine"
+  ammo_holder__ammoCount:i=8
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/nambu_type_14_magazine"
+  collres__res:t="p08_luger_ammo_collision"
+}
+
+hamada_type_1_gun_item{
+  _extends:t="item_gun"
+  _extends:t="hamada_type_1"
+  collres__res:t="hamada_type_1_collision"
+}
+
+hamada_type_1_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1911_colt_ammo_char"
+  item__template:t="hamada_type_1_magazine"
+  item__proto:t="hamada_type_1_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="hamada_type_1_magazine"
+  ammo_holder__ammoCount:i=9
+  item__weight:r=0.25
+  item__volume:r=0.1
+  item__name:t="items/hamada_type_1_magazine"
+  collres__res:t="m1911_colt_ammo_collision"
+}
+
+hamada_type_2_gun_item{
+  _extends:t="item_gun"
+  _extends:t="hamada_type_2"
+  collres__res:t="hamada_type_2_collision"
+}
+
+hamada_type_2_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1911_colt_ammo_char"
+  item__template:t="hamada_type_2_magazine"
+  item__proto:t="hamada_type_2_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="hamada_type_2_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.22
+  item__volume:r=0.1
+  item__name:t="items/hamada_type_2_magazine"
+  collres__res:t="m1911_colt_ammo_collision"
+}
+
+nambu_type_94_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_94"
+  collres__res:t="type_94_nambu_collision"
+}
+
+nambu_type_94_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1911_colt_ammo_char"
+  item__template:t="nambu_type_94_magazine"
+  item__proto:t="nambu_type_94_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="nambu_type_94_magazine"
+  ammo_holder__ammoCount:i=6
+  item__weight:r=0.25
+  item__volume:r=0.1
+  item__name:t="items/nambu_type_94_magazine"
+  collres__res:t="m1911_colt_ammo_collision"
+}
+
+arisaka_type_97_gun_item{
+  _extends:t="item_gun"
+  _extends:t="arisaka_type_97"
+  collres__res:t="arisaka_type_97_collision"
+}
+
+arisaka_type_99_early_sniper_gun_item{
+  _extends:t="item_gun"
+  _extends:t="arisaka_type_99_early_sniper"
+  collres__res:t="arisaka_type_99_early_sniper_collision"
+}
+
+japanese_type_i_carcano_gun_item{
+  _extends:t="item_gun"
+  _extends:t="japanese_type_i_carcano"
+  collres__res:t="japanese_type_i_carcano_collision"
+}
+
+type_hei_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_hei_rifle"
+  collres__res:t="type_hei_rifle_collision"
+}
+
+type_hei_rifle_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="zh_29_ammo_char"
+  item__template:t="type_hei_rifle_magazine"
+  item__proto:t="type_hei_rifle_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="type_hei_rifle_magazine"
+  ammo_holder__ammoCount:i=5
+  item__weight:r=0.35
+  item__volume:r=0.2
+  item__name:t="items/type_hei_rifle_magazine"
+  collres__res:t="zh_29_ammo_collision"
+}
+
+type_100_smg_early_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_100_smg_early"
+  collres__res:t="type_100_smg_early_collision"
+}
+
+type_100_paratrooper_smg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_100_paratrooper_smg"
+  collres__res:t="type_100_smg_paratrooper_collision"
+}
+
+type_100_smg_late_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_100_smg_late"
+  collres__res:t="type_100_smg_late_collision"
+}
+
+type_100_smg_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mp34o_ammo_char"
+  item__template:t="type_100_smg_magazine"
+  item__proto:t="type_100_smg_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="type_100_smg_magazine"
+  ammo_holder__ammoCount:i=30
+  item__weight:r=1.0
+  item__volume:r=0.5
+  item__name:t="items/type_100_smg_magazine"
+  collres__res:t="mp34o_ammo_collision"
+}
+
+nambu_type_1_smg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_1_smg"
+  collres__res:t="nambu_type_1_collision"
+}
+
+nambu_type_1_smg_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mp34o_ammo_char"
+  item__template:t="nambu_type_1_smg_magazine"
+  item__proto:t="nambu_type_1_smg_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="nambu_type_1_smg_magazine"
+  ammo_holder__ammoCount:i=50
+  item__weight:r=1.5
+  item__volume:r=0.5
+  item__name:t="items/nambu_type_1_smg_magazine"
+  collres__res:t="mp34o_ammo_collision"
+}
+
+nambu_type_2a_smg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_2a_smg"
+  collres__res:t="nambu_type_2a_collision"
+}
+
+nambu_type_2a_smg_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mp34o_ammo_char"
+  item__template:t="nambu_type_2a_smg_magazine"
+  item__proto:t="nambu_type_2a_smg_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="nambu_type_2a_smg_magazine"
+  ammo_holder__ammoCount:i=30
+  item__weight:r=1.5
+  item__volume:r=0.5
+  item__name:t="items/nambu_type_2a_smg_magazine"
+  collres__res:t="mp34o_ammo_collision"
+}
+
+type_11_lmg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_11_lmg"
+  collres__res:t="type_11_lmg_collision"
+}
+
+type_11_lmg_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1903_springfield_ammo_char"
+  item__template:t="type_11_lmg_magazine"
+  item__proto:t="type_11_lmg_magazine"
+  ammo_holder__templateName:t="type_11_lmg_magazine"
+  item__locDetails:t=""
+  ammo_holder__ammoCount:i=30
+  item__weight:r=1.0
+  item__volume:r=0.5
+  item__name:t="items/type_11_lmg_magazine"
+  collres__res:t="m1903_springfield_ammo_collision"
+}
+
+nambu_type_96_lmg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_96_lmg"
+  collres__res:t="nambu_type_96_collision"
+}
+
+nambu_type_96_lmg_magazine{
+  _extends:t="item_magazine"
+  item__template:t="nambu_type_96_lmg_magazine"
+  item__proto:t="nambu_type_96_lmg_magazine"
+  item__name:t="items/nambu_type_96_lmg_magazine"
+  item__locDetails:t=""
+  item__weight:r=1.6
+  item__volume:r=1.3
+  ammo_holder__templateName:t="nambu_type_96_lmg_magazine"
+  ammo_holder__ammoCount:i=30
+  animchar__res:t="bren_lmg_mk_2_ammo_char"
+  collres__res:t="bren_lmg_mk_2_ammo_collision"
+}
+
+nambu_type_97_lmg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_97_lmg"
+  collres__res:t="type_97_lmg_collision"
+}
+
+nambu_type_97_lmg_magazine{
+  _extends:t="item_magazine"
+  item__template:t="nambu_type_97_lmg_magazine"
+  item__proto:t="nambu_type_97_lmg_magazine"
+  item__name:t="items/nambu_type_97_lmg_magazine"
+  item__locDetails:t=""
+  item__weight:r=1.2
+  item__volume:r=0.8
+  ammo_holder__templateName:t="nambu_type_97_lmg_magazine"
+  ammo_holder__ammoCount:i=20
+  animchar__res:t="bren_lmg_mk_2_ammo_char"
+  collres__res:t="bren_lmg_mk_2_ammo_collision"
+}
+
+type_97_antitank_canon_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_97_antitank_canon"
+  collres__res:t="ptrs_41_collision"
+}
+
+type_97_antitank_canon_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="ptrs_41_ammo_char"
+  item__template:t="type_97_antitank_canon_magazine"
+  item__proto:t="type_97_antitank_canon_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="type_97_antitank_canon_magazine"
+  ammo_holder__ammoCount:i=7
+  item__weight:r=1.7
+  item__volume:r=0.2
+  item__name:t="items/type_97_antitank_canon_magazine"
+  collres__res:t="ptrs_41_ammo_collision"
+}
+
+type_5_45_at_rocket_launcher_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_5_45_at_rocket_launcher"
+  collres__res:t="type_5_rocket_launcher_collision"
+}
+
+type_5_rocket_item{
+  _extends:t="item_grenade"
+  _extends:t="type_5_rocket_shell"
+  item__template:t="type_5_rocket_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/shells/type_5_rocket.blk"
+  item__locDetails:t=""
+  item__shell:t="content/e_ww2_common/gamedata/weapons/shells/type_5_rocket.blk"
+  item__weight:r=1.5
+  item__volume:r=0.5
+  item__name:t="items/type_5_rocket"
+  item__grenadeType:t="shell"
+  ammo_holder__id:i=-1
+  ammo_holder__templateName:t="type_5_rocket_item"
+  ammo_holder__ammoCount:i=1
+}
+
+type_93_flamethrower_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_93_flamethrower_gun"
+  collres__res:t="type_93_flamethrower_collision"
+}
+
+type_100_flamethrower_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_100_flamethrower_gun"
+  collres__res:t="type_100_flamethrower_collision"
+}
+
+ni_05_lunge_mine_item{
+  _extends:t="item_melee"
+  _extends:t="ni_05_lunge_mine"
+  collres__res:t="ni_05_lunge_mine_collision"
+}
+
+scope_arisaka_type_97_item{
+  _extends:t="item_scope"
+  animchar__res:t="arisaka_type_97_scope_char"
+  collres__res:t="arisaka_type_97_scope_collision"
+  item__template:t="scope_arisaka_type_97_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/scope_avs_36_pe.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/scope_arisaka_type_97"
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_arisaka_type_97"
+
+  "gunAttachable:tag"{
+  }
+}
+
+scope_arisaka_type_99_item{
+  _extends:t="item_scope"
+  animchar__res:t="scope_arisaka_type_99_early_sniper_char"
+  collres__res:t="scope_arisaka_type_99_early_sniper_collision"
+  item__template:t="scope_arisaka_type_99_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/scope_avs_36_pe.blk"
+  item__locDetails:t=""
+  item__weight:r=0.7
+  item__volume:r=0.5
+  item__name:t="items/scope_arisaka_type_99"
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_arisaka_type_99"
+
+  "gunAttachable:tag"{
+  }
+}
+
+type_95_shin_gunto_item{
+  _extends:t="item_melee"
+  _extends:t="type_95_shin_gunto"
+  collres__res:t="type_95_shin_gunto_collision"
+}
+
+katana_item{
+  _extends:t="item_melee"
+  _extends:t="katana"
+  collres__res:t="japan_katana_short_collision"
+}
+
+dp_42_beltfed_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mg_42_handheld_ammo_char"
+  item__template:t="dp_42_beltfed_magazine"
+  item__proto:t="dp_42_beltfed_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="dp_42_beltfed_magazine"
+  ammo_holder__ammoCount:i=100
+  item__weight:r=2.5
+  item__volume:r=1.0
+  item__name:t="items/dp_42_beltfed_magazine"
+  collres__res:t="mg_42_handheld_ammo_collision"
 }

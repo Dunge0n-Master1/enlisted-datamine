@@ -16,7 +16,7 @@ let defValue = freeze({
 
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
 
-let {exportState} = watchedTable2TableOfWatched({state, defValue, plainOut=false})
+let exportState = watchedTable2TableOfWatched(state)
 
 local function partDamagedIndicate(parts, dmState, partDestroyedCount = 0) {
   local isDamaged = false

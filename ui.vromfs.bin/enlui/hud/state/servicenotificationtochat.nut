@@ -1,17 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let serviceNotificationsList = require("%enlSqGlob/serviceNotificationsList.nut")
+let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let { pushSystemMsg } = require("%ui/hud/state/chat.nut")
 
-let showed = persist("showed", @() {})
+let shown = persist("shown", @() {})
 
 let pushNewNotifications = @(notifications)
   notifications.each(function(notify) {
-    let { message, till_timestamp } = notify
-    let uid = $"{message}_{till_timestamp}"
-    if (uid in showed)
+    let { message, uid } = notify
+    if (uid in shown)
       return
-    showed[uid] <- true
+    shown[uid] <- true
     pushSystemMsg(message)
   })
 

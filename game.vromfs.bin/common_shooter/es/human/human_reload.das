@@ -194,11 +194,18 @@ def human_weap_request_reload_es(evt : CmdRequestReload;
                            gun__jamChance : float = 0.0;
                            gun__reloadFinishMult : float = 0.9;
                            gun__isDualMagReady : bool = false;
+                           var gun__ammoOnSwitch : int&;
                            var gun__ammoToReloadCount : int&;
                            var gun_anim__reloadStyle : int&)
     // Do not reload full ammo
     if gun__ammo >= gun__maxAmmo && gun__ammo > 0
       return
+
+    human_weap__reloadMode = int(human_weap__infiniteAmmoHolders ? ReloadAmmoMode INFINITE : ReloadAmmoMode CONSUME)
+    if human_weap__infiniteAmmoHolders && gun__ammoOnSwitch == 0
+      // If the player switched, while having an empty magazine, consume, so that the player can't easily exploit infinite ammo mode
+      gun__ammoOnSwitch = gun__maxAmmo
+      human_weap__reloadMode = int(ReloadAmmoMode CONSUME)
 
     find_ammo_for_gun(gunEid, itemContainer, INVALID_ITEM_ID, gun__ammo) <| $(ammoForGun : AmmoItemForGunResult#)
       if ammoForGun.itemIndex < 0
@@ -258,7 +265,6 @@ def human_weap_request_reload_es(evt : CmdRequestReload;
       human_weap__singleReload = ammoForGun.singleReload
       human_weap__singleReloadAmmoCount = ammoForGun.singleReloadAmmoCount
       human_weap__reloadPrevTime = atTime
-      human_weap__reloadMode = int(human_weap__infiniteAmmoHolders ? ReloadAmmoMode INFINITE : ReloadAmmoMode CONSUME)
       human_weap__isReloadRequested = true
       gun__ammoToReloadCount = ammoForGun.ammoCount
 

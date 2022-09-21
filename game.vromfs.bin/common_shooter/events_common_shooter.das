@@ -87,6 +87,7 @@ struct EventProjectileHitScene
   norm : float3
   allowDetonation : bool
   sceneIntersectionsExceeded : bool
+  collType : int
 
 [cpp_event(unicast)]
 struct EventOnMeleeHitClient
@@ -185,10 +186,10 @@ struct CmdWeapAttach
   isAttached : bool
   slotId : int
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdWeapDetach {}
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdDetachAttachedGun {}
 
 [cpp_event(unicast)]
@@ -207,24 +208,17 @@ struct EventOnInstallWeapMod
   gunSlotId : int
   withSfx : bool
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct HumanWeapThrowBackAbort {}
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct HumanDetachAllGuns {}
-
-[cpp_event(unicast)]
-struct RestoreAmmoMsg {}
-
-[cpp_event(unicast)]
-struct RestoreAmmoInSlotMsg
-  gunSlotId : int
 
 [cpp_event(unicast)]
 struct HumanWeapSetCurrentGun
   slot : uint8
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdReinitWeapons {}
 
 [cpp_event(broadcast)]
@@ -305,11 +299,11 @@ struct CmdSetWishAmmoItemType
   slot_id : int
   item_id : int
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdToggleWishAmmoItemType
   slot_id : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanRequestSetWishAmmoItemType
   slot_id : int
   item_id : int
@@ -363,9 +357,6 @@ struct CmdGunUpdate
   gloc : GunLocation
 
 [event(unicast)]
-struct CmdGunSoundSwitchFiringMode {}
-
-[event(unicast)]
 struct CmdTurretsUpdate
   tick : int
   dt : float
@@ -398,10 +389,20 @@ struct TurretShotShellMsg
   firingMode : uint
   bombBayHeight : float
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestBipodPlacing
+  enabled : bool
+  isCrawl : bool
+  placePos : float3
+  yawLimit : float2
+  anchorPos : float3
+  anchorDir : float3
+  anchorNormal : float3
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanWeapRequestSwitchFiringMode
   slotId : uint8
-  nodeId : uint8
+  modeId : uint8
 
 [cpp_event(unicast)]
 struct CmdAutoequipGunMod

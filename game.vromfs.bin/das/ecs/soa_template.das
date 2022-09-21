@@ -116,9 +116,6 @@ class SoaDefCallMacro : AstFunctionAnnotation
   [unused_argument(group, args)] def override apply(var func : FunctionPtr; var group : ModuleGroup; args : AnnotationArgumentList; var errors : das_string) : bool
     return fn_or_block_apply(func, func.body, errors, true)
 
-  [unused_argument(group, args, progArgs, errors)] def override finish(var func : FunctionPtr; var group : ModuleGroup; args, progArgs : AnnotationArgumentList; var errors : das_string) : bool
-    return fn_or_block_finish(func, func.body, true)
-
 
 [function_macro(name="soa_es")]
 class SoaEsCallMacro : AstFunctionAnnotation
@@ -188,30 +185,49 @@ class ReplaceIndexAndFieldsVisitor : AstVisitor
     let argsNum = length(expr.arguments)
     if (expr.name == "length") && argsNum == 1
       assume arg = expr.arguments[0]
-      if (arg is ExprVar)
-        if (arg as ExprVar).name == it_prefix
-          var len <- clone_expression(expr)
-          var lenCall = len as ExprCall
-          usedNames[fields[0]] = true
-          lenCall.arguments[0] := null
-          lenCall.arguments[0] <- new [[ExprVar() at=arg.at, name := fields[0]]]
-          return len
+      if (arg is ExprVar) && (arg as ExprVar).name == it_prefix
+        var len <- clone_expression(expr)
+        var lenCall = len as ExprCall
+        usedNames[fields[0]] = true
+        lenCall.arguments[0] := null
+        lenCall.arguments[0] <- new [[ExprVar() at=arg.at, name := fields[0]]]
+        return len
     elif (argsNum == 3 && (expr.name == "erase")
-      || (argsNum == 2 && (expr.name == "push" || expr.name == "push_clone" || expr.name == "emplace" || expr.name == "erase" || expr.name == "resize"))
-      || (argsNum == 1 && expr.name == "clear") || expr.name |> ends_with("_soa"))
+      || (argsNum == 2 && (expr.name == "push" || expr.name == "push_clone" || expr.name == "emplace" || expr.name == "erase" || expr.name == "resize" || expr.name == "reserve"))
+      || (argsNum == 1 && expr.name == "clear"))
       assume arg = expr.arguments[0]
-      if (arg is ExprVar)
-        if (arg as ExprVar).name == it_prefix
-          var pushExpr <- clone_expression(expr)
-          var pushCall = pushExpr as ExprCall
-          pushCall.arguments |> erase(0)
-          for field in fields
-            pushCall.arguments |> emplace_new <| new [[ExprVar()
-              at=arg.at,
-              name := field
-            ]]
-            usedNames[field] = true
-          return pushExpr
+      if (arg is ExprVar) && (arg as ExprVar).name == it_prefix
+        var pushExpr <- clone_expression(expr)
+        var pushCall = pushExpr as ExprCall
+        pushCall.arguments |> erase(0)
+        for field in fields
+          pushCall.arguments |> emplace_new <| new [[ExprVar()
+            at=arg.at,
+            name := field
+          ]]
+          usedNames[field] = true
+        return pushExpr
+    else
+      var hasSoaArg = false
+      for arg in expr.arguments
+        if (arg is ExprVar) && (arg as ExprVar).name == it_prefix
+          hasSoaArg = true
+          break
+      if hasSoaArg
+        var idx = length(expr.arguments)
+        var pushExpr <- clone_expression(expr)
+        var pushCall = pushExpr as ExprCall
+        while --idx >= 0
+          assume arg = expr.arguments[idx]
+          if (arg is ExprVar) && (arg as ExprVar).name == it_prefix
+            pushCall.arguments |> erase(idx)
+            for field in fields
+              pushCall.arguments |> emplace_new <| new [[ExprVar()
+                at=arg.at,
+                name := field
+              ]]
+              usedNames[field] = true
+        return pushExpr
     return expr
 
   def override visitExprFor(expr : smart_ptr<ExprFor>) : ExpressionPtr
@@ -310,8 +326,11 @@ class SoaTemplateStructMacro : AstStructureAnnotation
     var clear_op <- make_clear(st, stype, checkSizes)
     compiling_module() |> add_function(clear_op)
     // resize
-    var resize_op <- make_resize(st, stype, checkSizes)
+    var resize_op <- make_resize_reserve(st, stype, "resize", checkSizes)
     compiling_module() |> add_function(resize_op)
+    // reserve
+    var reserve_op <- make_resize_reserve(st, stype, "reserve", checkSizes)
+    compiling_module() |> add_function(reserve_op)
 
     compiling_module() |> add_structure(stype)
     return true
@@ -458,10 +477,10 @@ class SoaTemplateStructMacro : AstStructureAnnotation
     var args <- [{ MakeFuncArg[] [[MakeFuncArg argT <- argT]] }]
     return <- make_any_named_call(st, stype, args, "clear", "clear", check_sizes)
 
-  def make_resize(st, stype : StructurePtr; check_sizes : bool)
+  def make_resize_reserve(st, stype : StructurePtr; name : string; check_sizes : bool)
     var argT <- new [[TypeDecl() baseType=Type tInt, at=st.at]]
     var args <- [{ MakeFuncArg[] [[MakeFuncArg argT <- argT]] }]
-    return <- make_any_named_call(st, stype, args, "resize", "resize", check_sizes)
+    return <- make_any_named_call(st, stype, args, name, name, check_sizes)
 
   def make_named_call(st, stype : StructurePtr; fnName, callName : string; isConst : bool; check_sizes : bool) : FunctionPtr
     var argT <- new [[TypeDecl() baseType=Type tStructure, at=st.at, structType=get_ptr(st), flags= isConst ? TypeDeclFlags constant : bitfield(0)]]

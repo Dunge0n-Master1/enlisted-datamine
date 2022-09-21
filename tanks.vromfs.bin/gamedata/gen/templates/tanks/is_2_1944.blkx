@@ -102,8 +102,6 @@ base_is_2_1944{
       turretName:t="turret_02"
       gun:t="is_2_1944_turret_02_7_62mm_dt"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -111,8 +109,6 @@ base_is_2_1944{
       turretName:t="turret_03"
       gun:t="is_2_1944_turret_03_12_7mm_dshk"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

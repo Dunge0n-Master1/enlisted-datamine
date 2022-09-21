@@ -1,185 +1,840 @@
 base_vehicle_decor{
   _extends:t="animchar"
   _extends:t="animchar_act_on_demand"
+  animchar_render__enabled:b=yes
   decor__id:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   decor__swapYZ:b=no
+  outline__enabled:b=no
+  outline__always_visible:b=yes
+  outline__color:c=255, 0, 0, 255
+  item__iconPitch:r=45.0
+  item__iconYaw:r=45.0
+  item__iconRoll:r=45.0
+  item__iconScale:r=0.9
+  item__iconOffset:p2=0.0, 0.2
+  isExploded:b=no
+  _tracked:t="isExploded"
 
   "node_attached__updateWtm:tag"{
+  }
+
+  "decor__canAttach:b"{
+    value:b=no
+    _tags:t="gameClient"
+  }
+
+  _group{
+    decor__rootNodeId:i=-1
+    decor__turretNodeId:i=-1
+    _tags:t="gameClient"
+  }
+
+  "scorchable:tag"{
+    _tags:t="render"
   }
 }
 
 rgd_33_pack_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="rgd_33_pack_char"
-}
-
-ger_mp_40_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="ger_mp_40_char"
-}
-
-panzerfaust_60_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="panzerfaust_60_char"
-}
-
-grenades_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="grenades_char"
-}
-
-m1_carabine_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="m1_carabine_char"
+  collres__res:t="rgd_33_pack_collision"
 }
 
 ski_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="ski_char"
+  collres__res:t="ski_collision"
 }
 
 sleigh_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="sleigh_char"
-}
-
-guitar_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="guitar_char"
-}
-
-accordion_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="accordion_char"
-}
-
-balalayka_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="balalayka_char"
+  collres__res:t="sleigh_collision"
 }
 
 log_a_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="tank_decor_log_a_char"
-}
-
-log_b_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="tank_decor_log_b_char"
+  collres__res:t="tank_decor_log_a_collision"
 }
 
 log_c_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="tank_decor_log_c_char"
-}
-
-log_d_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="tank_decor_log_d_char"
-}
-
-wooden_plank_a_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="tank_decor_plank_4500_a_char"
+  collres__res:t="tank_decor_log_c_collision"
 }
 
 wooden_plank_b_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="tank_decor_plank_4500_b_char"
+  collres__res:t="tank_decor_plank_4500_b_collision"
 }
 
 wooden_plank_c_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="tank_decor_plank_4500_c_char"
+  collres__res:t="tank_decor_plank_4500_c_collision"
 }
 
 sandbag_single_a_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="sandbag_single_decor_a_char"
+  collres__res:t="sandbag_single_decor_a_collision"
 }
 
 sandbag_single_b_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="sandbag_single_decor_b_char"
+  collres__res:t="sandbag_single_decor_b_collision"
 }
 
 sandbag_single_c_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="sandbag_single_decor_c_char"
+  collres__res:t="sandbag_single_decor_c_collision"
 }
 
 sandbag_single_d_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="sandbag_single_decor_d_char"
+  collres__res:t="sandbag_single_decor_d_collision"
 }
 
 usa_bag_large_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="bag_large_char"
+  collres__res:t="bag_large_collision"
 }
 
 usa_big_bag_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="usa_big_bag_char"
+  collres__res:t="usa_big_bag_collision"
 }
 
 tank_decor_box_01_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="tank_decor_box_01_dynmodel_char"
-}
-
-us_jerrycan_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="jerrycan_char"
-}
-
-gazmask_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="gazmask_char"
-}
-
-ger_ammunition_wwii_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="ger_ammunition_wwii_char"
-}
-
-german_tank_helmet_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="german_tank_helmet_char"
-}
-
-us_helmet_m1_decor{
-  _extends:t="base_vehicle_decor"
-  animchar__res:t="helmet_m1_char"
+  collres__res:t="tank_decor_box_01_dynmodel_collision"
 }
 
 stuart_hedgerow_01_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="m5a1_fork_type1_dynmodel_char"
+  collres__res:t="m5a1_fork_type1_dynmodel_collision"
 }
 
 stuart_hedgerow_02_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="m5a1_fork_type2_dynmodel_char"
+  collres__res:t="m5a1_fork_type2_dynmodel_collision"
 }
 
 sherman_hedgerow_01_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="m4a2_fork_type1_dynmodel_char"
+  collres__res:t="m4a2_fork_type1_dynmodel_collision"
 }
 
 sherman_hedgerow_02_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="m4a2_fork_type2_dynmodel_char"
+  collres__res:t="m4a2_fork_type2_dynmodel_collision"
 }
 
 german_balkenkreuz_flag_turret_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="german_balkenkreuz_flag_01_char"
+  collres__res:t="german_balkenkreuz_flag_01_collision"
 }
 
 german_balkenkreuz_flag_carrier_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="german_balkenkreuz_flag_02_char"
+  collres__res:t="german_balkenkreuz_flag_02_collision"
+}
+
+vgt_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_a_char"
+  collres__res:t="vgt_a_collision"
+}
+
+vgt_aspen_autumn_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_aspen_autumn_a_char"
+  collres__res:t="vgt_aspen_autumn_a_collision"
+}
+
+vgt_aspen_autumn_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_aspen_autumn_b_char"
+  collres__res:t="vgt_aspen_autumn_b_collision"
+}
+
+vgt_aspen_autumn_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_aspen_autumn_c_char"
+  collres__res:t="vgt_aspen_autumn_c_collision"
+}
+
+vgt_aspen_autumn_d{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_aspen_autumn_d_char"
+  collres__res:t="vgt_aspen_autumn_d_collision"
+}
+
+vgt_aspen_autumn_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_aspen_autumn_e_char"
+  collres__res:t="vgt_aspen_autumn_e_collision"
+}
+
+vgt_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_b_char"
+  collres__res:t="vgt_b_collision"
+}
+
+vgt_birch_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_birch_a_char"
+  collres__res:t="vgt_birch_a_collision"
+}
+
+vgt_birch_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_birch_b_char"
+  collres__res:t="vgt_birch_b_collision"
+}
+
+vgt_birch_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_birch_c_char"
+  collres__res:t="vgt_birch_c_collision"
+}
+
+vgt_birch_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_birch_e_char"
+  collres__res:t="vgt_birch_e_collision"
+}
+
+vgt_birch_f{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_birch_f_char"
+  collres__res:t="vgt_birch_f_collision"
+}
+
+vgt_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_c_char"
+  collres__res:t="vgt_c_collision"
+}
+
+vgt_d{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_d_char"
+  collres__res:t="vgt_d_collision"
+}
+
+vgt_desert_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_desert_a_char"
+  collres__res:t="vgt_desert_a_collision"
+}
+
+vgt_desert_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_desert_b_char"
+  collres__res:t="vgt_desert_b_collision"
+}
+
+vgt_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_e_char"
+  collres__res:t="vgt_e_collision"
+}
+
+vgt_fir_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_fir_a_char"
+  collres__res:t="vgt_fir_a_collision"
+}
+
+vgt_fir_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_fir_b_char"
+  collres__res:t="vgt_fir_b_collision"
+}
+
+vgt_fir_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_fir_c_char"
+  collres__res:t="vgt_fir_c_collision"
+}
+
+vgt_fir_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_fir_e_char"
+  collres__res:t="vgt_fir_e_collision"
+}
+
+vgt_olive_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_olive_a_char"
+  collres__res:t="vgt_olive_a_collision"
+}
+
+vgt_olive_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_olive_b_char"
+  collres__res:t="vgt_olive_b_collision"
+}
+
+vgt_olive_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_olive_c_char"
+  collres__res:t="vgt_olive_c_collision"
+}
+
+vgt_palm_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_a_char"
+  collres__res:t="vgt_palm_a_collision"
+}
+
+vgt_palm_banana_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_banana_a_char"
+  collres__res:t="vgt_palm_banana_a_collision"
+}
+
+vgt_palm_banana_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_banana_b_char"
+  collres__res:t="vgt_palm_banana_b_collision"
+}
+
+vgt_palm_banana_d{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_banana_d_char"
+  collres__res:t="vgt_palm_banana_b_collision"
+}
+
+vgt_palm_banana_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_banana_e_char"
+  collres__res:t="vgt_palm_banana_e_collision"
+}
+
+vgt_palm_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_c_char"
+  collres__res:t="vgt_palm_c_collision"
+}
+
+vgt_palm_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_e_char"
+  collres__res:t="vgt_palm_e_collision"
+}
+
+vgt_palm_f{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_palm_f_char"
+  collres__res:t="vgt_palm_f_collision"
+}
+
+vgt_pine_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_pine_a_char"
+  collres__res:t="vgt_pine_a_collision"
+}
+
+vgt_pine_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_pine_b_char"
+  collres__res:t="vgt_pine_b_collision"
+}
+
+vgt_pine_c{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_pine_c_char"
+  collres__res:t="vgt_pine_c_collision"
+}
+
+vgt_pine_d{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_pine_d_char"
+  collres__res:t="vgt_pine_d_collision"
+}
+
+vgt_pine_e{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_pine_e_char"
+  collres__res:t="vgt_pine_e_collision"
+}
+
+vgt_sakura{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_sakura_char"
+  collres__res:t="vgt_sakura_collision"
+}
+
+vgt_straw_bales_a{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_straw_bales_a_char"
+  collres__res:t="vgt_straw_bales_a_collision"
+}
+
+vgt_straw_bales_b{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="vgt_straw_bales_b_char"
+  collres__res:t="vgt_straw_bales_b_collision"
+}
+
+gnome{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="gnome_char"
+  collres__res:t="gnome_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+teddy_bear_brown{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="teddy_bear_brown_char"
+  collres__res:t="teddy_bear_brown_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+teddy_bear_white{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="teddy_bear_white_char"
+  collres__res:t="teddy_bear_white_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+accordion{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="accordion_char"
+  collres__res:t="accordion_collision"
+}
+
+balalayka{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="balalayka_char"
+  collres__res:t="balalayka_collision"
+}
+
+guitar{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="guitar_char"
+  collres__res:t="guitar_collision"
+}
+
+53k{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="53k_char"
+  collres__res:t="53k_collision"
+}
+
+bsa_bicycle{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="bsa_bicycle_char"
+  collres__res:t="bsa_bicycle_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+bsa_bicycle_fold{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="bsa_bicycle_fold_char"
+  collres__res:t="bsa_bicycle_fold_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+gazmask{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="gazmask_char"
+  collres__res:t="gazmask_collision"
+}
+
+ger_ammunition_wwii{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="ger_ammunition_wwii_char"
+  collres__res:t="ger_ammunition_wwii_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+german_tank_helmet{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="german_tank_helmet_char"
+  collres__res:t="german_tank_helmet_collision"
+}
+
+grenades{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="grenades_char"
+  collres__res:t="grenades_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+headset{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="headset_char"
+  collres__res:t="headset_collision"
+}
+
+helmet_1938{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_1938_char"
+  collres__res:t="helmet_1938_collision"
+}
+
+helmet_gk80a_steel{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_gk80a_steel_char"
+  collres__res:t="helmet_gk80a_steel_collision"
+}
+
+helmet_m1{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_m1_char"
+  collres__res:t="helmet_m1_collision"
+}
+
+helmet_m1_late{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_m1_late_char"
+  collres__res:t="helmet_m1_late_collision"
+}
+
+helmet_m33{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_m33_char"
+  collres__res:t="helmet_m33_collision"
+}
+
+helmet_m35{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_m35_char"
+  collres__res:t="helmet_m35_collision"
+}
+
+helmet_m51{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_m51_char"
+  collres__res:t="helmet_m51_collision"
+}
+
+helmet_type90{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="helmet_type90_char"
+  collres__res:t="helmet_type90_collision"
+}
+
+horseshoe{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="horseshoe_char"
+  collres__res:t="horseshoe_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+jerrycan{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="jerrycan_char"
+  collres__res:t="jerrycan_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+samurai_helmet{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="samurai_helmet_char"
+  collres__res:t="samurai_helmet_collision"
+}
+
+type98_shin_gunto{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="type98_shin_gunto_char"
+  collres__res:t="type98_shin_gunto_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+type98_shin_gunto_set{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="type98_shin_gunto_set_char"
+  collres__res:t="type98_shin_gunto_set_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+uk_early_helmet{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="uk_early_helmet_char"
+  collres__res:t="uk_early_helmet_collision"
+}
+
+ussr_ammunition_wwii{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="ussr_ammunition_wwii_char"
+  collres__res:t="ussr_ammunition_wwii_collision"
+  item__iconPitch:r=125.0
+  item__iconYaw:r=-25.0
+  item__iconRoll:r=-135.0
+}
+
+ussr_tank_helmet{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="ussr_tank_helmet_char"
+  collres__res:t="ussr_tank_helmet_collision"
+}
+
+decor_arisaka_44{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_arisaka_44_char"
+  collres__res:t="decor_arisaka_44_collision"
+}
+
+decor_beretta_38{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_beretta_38_char"
+  collres__res:t="decor_beretta_38_collision"
+}
+
+decor_bren_mk2{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_bren_mk2_char"
+  collres__res:t="decor_bren_mk2_collision"
+}
+
+decor_dp_27{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_dp_27_char"
+  collres__res:t="decor_dp_27_collision"
+}
+
+decor_fr_mas_36{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_fr_mas_36_char"
+  collres__res:t="decor_fr_mas_36_collision"
+}
+
+decor_fr_mas_38{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_fr_mas_38_char"
+  collres__res:t="decor_fr_mas_38_collision"
+}
+
+decor_g41{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_g41_char"
+  collres__res:t="decor_g41_collision"
+}
+
+decor_ger_mp_40{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_ger_mp_40_char"
+  collres__res:t="decor_ger_mp_40_collision"
+}
+
+decor_it_mg_breda_38{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_it_mg_breda_38_char"
+  collres__res:t="decor_it_mg_breda_38_collision"
+}
+
+decor_jp_mg_type_99{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_jp_mg_type_99_char"
+  collres__res:t="decor_jp_mg_type_99_collision"
+}
+
+decor_lanchester_mk1{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_lanchester_mk1_char"
+  collres__res:t="decor_lanchester_mk1_collision"
+}
+
+decor_lee_enfield{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_lee_enfield_char"
+  collres__res:t="decor_lee_enfield_collision"
+}
+
+decor_m1_carabine{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_m1_carabine_char"
+  collres__res:t="decor_m1_carabine_collision"
+}
+
+decor_m1_garand{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_m1_garand_char"
+  collres__res:t="decor_m1_garand_collision"
+}
+
+decor_m1a1_carbine{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_m1a1_carbine_char"
+  collres__res:t="decor_m1a1_carbine_collision"
+}
+
+decor_m3{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_m3_char"
+  collres__res:t="decor_m3_collision"
+}
+
+decor_m50_Reising{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_m50_Reising_char"
+  collres__res:t="decor_m50_Reising_collision"
+}
+
+decor_mauser_98k{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_mauser_98k_char"
+  collres__res:t="decor_mauser_98k_collision"
+}
+
+decor_maxim_gun{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_maxim_gun_char"
+  collres__res:t="decor_maxim_gun_collision"
+}
+
+decor_mg_42{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_mg_42_char"
+  collres__res:t="decor_mg_42_collision"
+}
+
+decor_owen_machine_carbine{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_owen_machine_carbine_char"
+  collres__res:t="decor_owen_machine_carbine_collision"
+}
+
+decor_panzerfaust_60{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_panzerfaust_60_char"
+  collres__res:t="decor_panzerfaust_60_collision"
+}
+
+decor_ppd_3438{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_ppd_3438_char"
+  collres__res:t="decor_ppd_3438_collision"
+}
+
+decor_ppsh{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_ppsh_char"
+  collres__res:t="decor_ppsh_collision"
+}
+
+decor_roks_flamethrowers{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_roks_flamethrowers_char"
+  collres__res:t="decor_roks_flamethrowers_collision"
+}
+
+decor_sg43{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_sg43_char"
+  collres__res:t="decor_sg43_collision"
+}
+
+decor_stg_44{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_stg_44_char"
+  collres__res:t="decor_stg_44_collision"
+}
+
+decor_svt_40{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_svt_40_char"
+  collres__res:t="decor_svt_40_collision"
+}
+
+decor_sweden_gevar_m38{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_sweden_gevar_m38_char"
+  collres__res:t="decor_sweden_gevar_m38_collision"
+}
+
+decor_sweden_kg_m40{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_sweden_kg_m40_char"
+  collres__res:t="decor_sweden_kg_m40_collision"
+}
+
+decor_tp_100{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_tp_100_char"
+  collres__res:t="decor_tp_100_collision"
+}
+
+decor_type_99_sniper{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_type_99_sniper_char"
+  collres__res:t="decor_type_99_sniper_collision"
+}
+
+decor_ubt{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_ubt_char"
+  collres__res:t="decor_ubt_collision"
+}
+
+decor_uk_sten_mk2{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_uk_sten_mk2_char"
+  collres__res:t="decor_uk_sten_mk2_collision"
+}
+
+decor_us_browning_m1919a6{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_us_browning_m1919a6_char"
+  collres__res:t="decor_us_browning_m1919a6_collision"
+}
+
+decor_us_thompson_m1{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_us_thompson_m1_char"
+  collres__res:t="decor_us_thompson_m1_collision"
+}
+
+decor_ussr_pps_43{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_ussr_pps_43_char"
+  collres__res:t="decor_ussr_pps_43_collision"
+}
+
+decor_ussr_smg_ppsh{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_ussr_smg_ppsh_char"
+  collres__res:t="decor_ussr_smg_ppsh_collision"
 }

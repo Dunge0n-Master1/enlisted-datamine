@@ -1,8 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let {actionTimer} = require("%ui/hud/state/fortification_builder_action.nut")
-let fa = require("%ui/components/fontawesome.map.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 
 let endTimerTime = Computed(@() actionTimer.value.endTimeToComplete ?? 0.0)
@@ -23,11 +21,9 @@ let destroyingProgress = {
   valign = ALIGN_CENTER
   children = [
     {
-      rendObj = ROBJ_INSCRIPTION
-      font = fontawesome.font
+      rendObj = ROBJ_IMAGE
       color = Color(255, 255, 255)
-      text = fa["legal"]
-      fontSize = hdpx(40)
+      image = Picture($"!ui/uiskin/building_hammer.svg:{hdpx(50)}:{hdpx(50)}:K")
     }
     @() {
       watch = actionTimerColor

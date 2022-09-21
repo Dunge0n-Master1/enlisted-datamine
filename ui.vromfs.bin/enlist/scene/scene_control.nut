@@ -321,6 +321,12 @@ let objectsToObserve = {
     watch = vehTplInVehiclesScene
     shouldResetCameraDirection = Watched(true)
   },
+  aircrafts_floating = {
+    compName = "menu_aircraft_floating_to_control",
+    transformItemFunc = @(transform, ...) transform
+    watch = vehTplInVehiclesScene
+    shouldResetCameraDirection = Watched(true)
+  },
   armory = {
     compName = "menu_weapon_to_control",
     createEntityFunc = @(template, transform, callback=null)

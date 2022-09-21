@@ -32,7 +32,9 @@ let { squadsArmy, selectedSquadId, chosenSquads, reserveSquads, slotsCount,
 } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 let { curArmySquadsUnlocks, scrollToCampaignLvl } = require("model/armyUnlocksState.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let { hasPremium } = require("%enlist/currency/premium.nut")
+let premium = require("%enlist/currency/premium.nut")
+let { hasPremium } = premium
+let premiumSquadsInBattle = premium.maxSquadsInBattle
 let { armySlotDiscount, armySlotItem } = require("%enlist/shop/armySlotDiscount.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 let { armySquadsById } = require("model/state.nut")
@@ -46,9 +48,8 @@ let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
 let { unseenSquadTutorials, markSeenSquadTutorial
 } = require("%enlist/tutorial/unseenSquadTextTutorial.nut")
 let { tutorials } = require("%enlist/tutorial/squadTextTutorialPresentation.nut")
-let {
-  isFreemiumCampaign, needFreemiumStatus
-} = require("%enlist/campaigns/freemiumState.nut")
+let { needFreemiumStatus, disableBuySquadSlot, maxSquadsInBattle
+} = require("%enlist/campaigns/campaignConfig.nut")
 let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
@@ -302,49 +303,41 @@ let premBlockBg = {
   padding = bigPadding
 }
 
-let buyAdditionalSlot = @(num, shopItem) watchElemState(@(sf) {
-  watch = [armySlotDiscount]
-  size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_HORIZONTAL
-  gap = smallPadding
-  behavior = Behaviors.Button
-  onClick = @() buyShopItem({ shopItem })
-  children = [
-    squadNumber(num, emptySlotNumberStyle)
-    emptySquadToBuy([
-      {
-        size = flex()
-        valign = ALIGN_CENTER
-        flow = FLOW_HORIZONTAL
-        margin = [0, hdpx(20)]
-        gap = hdpx(20)
-        children = [
-          {
-            rendObj = ROBJ_TEXT
-            text = loc("squad/openNewSlot")
-            color = sf & S_HOVER ? activeTxtColor : fadedTxtColor
-          }
-          mkDiscountWidget(armySlotDiscount.value,
-            { hplace = ALIGN_LEFT, vplace = ALIGN_CENTER, pos = null })
-        ]
-      }
-      buySquadBtn(sf)
-    ])
-  ]
-})
-
-let buySquadSlot = @(num) function() {
-  let res = { watch = [hasPremium, isCurCampaignProgressUnlocked,
-    armySlotItem, isFreemiumCampaign] }
-  if (isFreemiumCampaign.value)
+let mkBuySquadSlot = @(num) function() {
+  let res = { watch = [armySlotItem, hasPremium, armySlotDiscount] }
+  let shopItem = armySlotItem.value
+  if (!shopItem || !hasPremium.value)
     return res
 
-  let shopItem = armySlotItem.value
   return res.__update({
-    size = [flex(), SIZE_TO_CONTENT]
-    children = !isCurCampaignProgressUnlocked.value ? unlockCampaignPromo(premBlockBg)
-      : hasPremium.value && shopItem ? buyAdditionalSlot(num, shopItem)
-      : null
+    children = watchElemState(@(sf) {
+      flow = FLOW_HORIZONTAL
+      gap = smallPadding
+      behavior = Behaviors.Button
+      onClick = @() buyShopItem({ shopItem })
+      children = [
+        squadNumber(num, emptySlotNumberStyle)
+        emptySquadToBuy([
+          {
+            size = flex()
+            valign = ALIGN_CENTER
+            flow = FLOW_HORIZONTAL
+            margin = [0, hdpx(20)]
+            gap = hdpx(20)
+            children = [
+              {
+                rendObj = ROBJ_TEXT
+                text = loc("squad/openNewSlot")
+                color = sf & S_HOVER ? activeTxtColor : fadedTxtColor
+              }
+              mkDiscountWidget(armySlotDiscount.value,
+                { hplace = ALIGN_LEFT, vplace = ALIGN_CENTER, pos = null })
+            ]
+          }
+          buySquadBtn(sf)
+        ])
+      ]
+    })
   })
 }
 
@@ -393,42 +386,33 @@ let function squadHorSlot(squad, idx, fixedSlotsCount) {
     )
   }
 
-  let thisSlotNeedMoveCursor = Computed(@() hoveredSquad.value == squad.squadId ? needMoveCursor.value : false)
+  let thisSlotNeedMoveCursor = Computed(@()
+    hoveredSquad.value == squad.squadId ? needMoveCursor.value : false)
 
-  let watch = [
-    thisSlotNeedMoveCursor,
-    firstSlotToAnim, secondSlotToAnim,
-    chosenSquads, unseenSquadTutorials
-  ]
-
-  return function() {
-    return {
-      watch
-      children = mkHorizontalSlot(
-        squad.__merge({
-          idx
-          onDropCb
-          onInfoCb
-          onClick
-          isSelected
-          override = {
-            onHover
-          }
-          group
-          stateFlags
-          fixedSlots = fixedSlotsCount
-          needMoveCursor = thisSlotNeedMoveCursor.value
-          firstSlotToAnim = firstSlotToAnim.value
-          secondSlotToAnim = secondSlotToAnim.value
-          addChildren = [
-            mkSquadFocused(squad.squadId)
-            squadUnseenMark(squad.squadId)
-          ]
-          needSquadTutorial = squad.squadType in tutorials
-        }),
-        KWARG_NON_STRICT
-      )
-    }
+  return @() {
+    watch = [thisSlotNeedMoveCursor, firstSlotToAnim, secondSlotToAnim, chosenSquads,
+      unseenSquadTutorials]
+    children = mkHorizontalSlot(
+      squad.__merge({
+        idx
+        onDropCb
+        onInfoCb
+        onClick
+        isSelected
+        override = { onHover }
+        group
+        stateFlags
+        fixedSlots = fixedSlotsCount
+        needMoveCursor = thisSlotNeedMoveCursor.value
+        firstSlotToAnim = firstSlotToAnim.value
+        secondSlotToAnim = secondSlotToAnim.value
+        addChildren = [
+          mkSquadFocused(squad.squadId)
+          squadUnseenMark(squad.squadId)
+        ]
+        needSquadTutorial = squad.squadType in tutorials
+      }),
+      KWARG_NON_STRICT)
   }
 }
 
@@ -488,8 +472,8 @@ let mkPrimeSlots = @(num, count, icon, locId) {
   children = array(count).map(@(_, idx) slotToBuy(num + idx, icon, locId))
 }
 
-let buyPremBtn = @(onClick)
-  watchElemState(@(sf){
+let mkBuyPremBtn = @(onClick)
+  watchElemState(@(sf) {
     rendObj = ROBJ_BOX
     behavior = Behaviors.Button
     onClick
@@ -515,36 +499,35 @@ let buyPremBtn = @(onClick)
     }
   })
 
-
-let lockedPrimeSlots = @(squadNum) function() {
-  let res = { watch = [
-    isCurCampaignProgressUnlocked, hasPremium, needFreemiumStatus
-  ]}
-
-  if (!isCurCampaignProgressUnlocked.value)
-    return res
-
+let extendSlots = function() {
+  let squadNum = chosenSquads.value.len()
   let children = []
-  if (needFreemiumStatus.value)
+  if (!isCurCampaignProgressUnlocked.value)
+    children.append(unlockCampaignPromo(premBlockBg))
+  else if (needFreemiumStatus.value && maxSquadsInBattle.value > 0)
     children.append(
-      mkPrimeSlots(squadNum, 4, freemiumIcon, "squad/plusFreemiumSquadSlot"),
-      buyPremBtn(freemiumWnd)
+      mkPrimeSlots(squadNum, maxSquadsInBattle.value, freemiumIcon, "squad/plusFreemiumSquadSlot"),
+      mkBuyPremBtn(freemiumWnd)
     )
-  else if (!hasPremium.value)
+  else if (!hasPremium.value && premiumSquadsInBattle.value > 0)
     children.append(
-      mkPrimeSlots(squadNum, 2, premiumIcon, "squad/plusPremiunSquadSlot"),
-      buyPremBtn(premiumWnd)
+      mkPrimeSlots(squadNum, premiumSquadsInBattle.value, premiumIcon, "squad/plusPremiunSquadSlot"),
+      mkBuyPremBtn(premiumWnd)
     )
+  else if (!disableBuySquadSlot.value)
+    children.append(mkBuySquadSlot(squadNum))
 
-  return res.__update({
+  return {
+    watch = [isCurCampaignProgressUnlocked, hasPremium, premiumSquadsInBattle, needFreemiumStatus,
+      maxSquadsInBattle, chosenSquads, disableBuySquadSlot]
     valign = ALIGN_CENTER
     children
-  })
+  }
 }
 
 let scrollHandlerLeftPanel = ScrollHandler()
 
-let mkChosenSquads = @(chosen, ctor, bottomPrime, buySquadSlot) {
+let mkChosenSquads = @(chosen, ctor, bottomPrime) {
   size = [SIZE_TO_CONTENT, flex()]
   flow = FLOW_VERTICAL
   clipChildren = true
@@ -554,7 +537,6 @@ let mkChosenSquads = @(chosen, ctor, bottomPrime, buySquadSlot) {
     gap = bigPadding
     children = chosen.map(ctor)
       .append(bottomPrime)
-      .append(buySquadSlot)
   },
   {
     size = [SIZE_TO_CONTENT, flex()]
@@ -609,6 +591,7 @@ let function leftHeader(){
 
 
 let function leftPanel() {
+  let noReserve = reserveSquads.value.len() == 0
   return panelBg.__merge({
     watch = [chosenSquads, reserveSquads]
     children = {
@@ -617,11 +600,9 @@ let function leftPanel() {
       gap = bigPadding
       children = [
         leftHeader
-        mkChosenSquads(chosenSquads.value, @(squad, idx)
-          mkSquadSlot(squad, idx, chosenSquads.value.len(),
-            false, reserveSquads.value.len() == 0),
-          lockedPrimeSlots(chosenSquads.value.len()),
-          buySquadSlot(chosenSquads.value.len()))
+        mkChosenSquads(chosenSquads.value,
+          @(squad, idx) mkSquadSlot(squad, idx, chosenSquads.value.len(), false, noReserve),
+          extendSlots)
         is_pc ? squadsManagementHint : null
         manageBlock
         {

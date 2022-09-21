@@ -4,14 +4,16 @@ let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { unlock_squad, buy_army_exp } = require("%enlist/meta/clientApi.nut")
 let { receivedUnlocks } = require("%enlist/meta/profile.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
-let { armies, curCampSquads, curArmy, curArmyData, curUnlockedSquads
+let { armies, curCampSquads, curArmy, curArmyData, curUnlockedSquads, squadsByArmy
 } = require("state.nut")
 let { armyLevelsData, armiesUnlocks, hasLevelDiscount, curLevelDiscount
 } = require("%enlist/campaigns/armiesConfig.nut")
 let { curArmyShowcase } = require("%enlist/shop/armyShopState.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { isFreemiumCampaign, isFreemiumBought, needFreemiumStatus
-} = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, isConfigurableCampaign, isCampaignBought, needFreemiumStatus
+} = require("%enlist/campaigns/campaignConfig.nut")
+let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
+
 
 let curUnlockedSquadId = Watched(null)
 let isBuyLevelInProgress = Watched(false)
@@ -30,7 +32,9 @@ let uType = freeze({
 let hasCampaignSection = Computed(@() !(disabledSectionsData.value?.CAMPAIGN ?? false))
 
 let curUnlockedSquadsIds = Computed(@()
-  curUnlockedSquads.value.reduce(@(res, s) res.__update({ [s.squadId] = true }), {}))
+  curUnlockedSquads.value
+    .filter(@(s) !isSquadRented (s))
+    .reduce(@(res, s) res.__update({ [s.squadId] = true }), {}))
 
 let LEVEL_WIDTH = fsh(70)
 let SHOWCASE_ITEM_WIDTH = LEVEL_WIDTH
@@ -132,29 +136,40 @@ let curArmySquadsUnlocks = Computed(@() curArmyUnlocks.value
 let curArmyLevelRewardsUnlocks = Computed(@() curArmyUnlocks.value
   .filter(@(u) u.unlockType == "level_reward"))
 
-let getSquadByUnlock = @(allSquads, unlock) allSquads
-  .findvalue(@(squad) squad.squadId == unlock.unlockId &&
-    (getLinkedArmyName(squad) ?? "") == unlock.armyId)
+let function getSquadByUnlock(allSquads, unlock) {
+  let unlockSquad = allSquads
+    .findvalue(@(squad) squad.squadId == unlock.unlockId &&
+      (getLinkedArmyName(squad) ?? "") == unlock.armyId)
+
+  return unlockSquad == null || isSquadRented(unlockSquad) ? null
+    : unlockSquad
+}
+
+let findMax = @(arr) arr.reduce(@(res, val) max(val, res), 0)
 
 let curArmyNextUnlockLevel = Computed(function() {
   let allSquads = curCampSquads.value
   let uReceived = receivedUnlocks.value
-  let squadUnlocks = curArmySquadsUnlocks.value
-  let rewardUnlocks = curArmyLevelRewardsUnlocks.value
-  let maxLevel = max(squadUnlocks.reduce(@(res, val) max(val.level, res), 0),
-                         rewardUnlocks.reduce(@(res, val) max(val.level, res), 0))
+  let squadUnlocks = {}
+  foreach (unlock in curArmySquadsUnlocks.value)
+    squadUnlocks[unlock.level] <- unlock
+  let rewardUnlocks = {}
+  foreach (unlock in curArmyLevelRewardsUnlocks.value)
+    rewardUnlocks[unlock.level] <- unlock
 
-  let haveFreemium = isFreemiumCampaign.value && isFreemiumBought.value
+  let maxLevel = max(findMax(squadUnlocks.keys()), findMax(rewardUnlocks.keys()))
+  let haveFreemium = isConfigurableCampaign.value && isCampaignBought.value
   local nextLevel = 0
   for (local lvl = 1; lvl <= maxLevel; lvl++) {
     nextLevel = lvl
-    let unlock = squadUnlocks.findvalue(@(u) u.level == lvl)
-      ?? rewardUnlocks.findvalue(@(u) u.level == lvl)
-    if (unlock != null
-      && ((unlock.unlockType == "squad" && getSquadByUnlock(allSquads, unlock) == null)
-        || (unlock.unlockType == "level_reward" && !(unlock.unlockGuid in uReceived)))
-      && (!unlock?.isFreemium || haveFreemium))
+    let unlock = squadUnlocks?[lvl] ?? rewardUnlocks?[lvl]
+    let { campaignGroup = CAMPAIGN_NONE } = unlock
+    if (unlock != null && (campaignGroup == CAMPAIGN_NONE || haveFreemium)) {
+      let isNewSquad = unlock.unlockType == "squad" && getSquadByUnlock(allSquads, unlock) == null
+      let isNewReward = unlock.unlockType == "level_reward" && !(unlock.unlockGuid in uReceived)
+      if (isNewSquad || isNewReward)
         break
+    }
   }
   return nextLevel
 })
@@ -221,16 +236,40 @@ let researchSquads = Computed(function() {
   return res
 })
 
-let hasCurArmyUnlockAlert = Computed(function() {
-  return curArmyUnlocks.value
-    .findvalue(function(u) {
-      if (!!u?.isFreemium && needFreemiumStatus.value)
-        return false
-      if ((u.unlockType == "squad" && u.unlockId in curUnlockedSquadsIds.value)
-          || (u.unlockType == "level_reward" && u.unlockGuid in receivedUnlocks.value))
-        return false
-      return curArmyLevel.value >= u.level && curArmyExp.value >= (u?.exp ?? 0)
-    }) != null
+let reachedArmyUnlocks = Computed(function() {
+  let needFreemium = needFreemiumStatus.value
+  let received = receivedUnlocks.value
+  let lvls = armies.value.map(@(a) a.level)
+  let exps = armies.value.map(@(a) a.exp)
+  let squads = squadsByArmy.value.map(function(squads) {
+    let res = {}
+    foreach (s in squads)
+      res[s.squadId] <- true
+    return res
+  })
+
+  let res = {}
+  foreach(u in armiesUnlocks.value) {
+    let { campaignGroup = CAMPAIGN_NONE } = u
+    if (campaignGroup != CAMPAIGN_NONE && needFreemium)
+      continue
+
+    if (u.unlockType == "level_reward" && u.unlockGuid in received)
+      continue
+
+    let armyId = u.armyId
+    if (u.unlockType == "squad" && u.unlockId in squads?[armyId])
+      continue
+
+    let lvl = lvls?[armyId] ?? 0
+    let exp = exps?[armyId] ?? 0
+    if (lvl < u.level || (lvl == u.level && exp < (u?.exp ?? 0)))
+      continue
+
+    res[armyId] <- max((res?[armyId] ?? 0), u.level)
+  }
+
+  return res
 })
 
 let function unlockSquad(squadId) {
@@ -314,7 +353,7 @@ return {
   curUnlockedSquadId
   squadUnlockInProgress
   researchSquads
-  hasCurArmyUnlockAlert
+  reachedArmyUnlocks
   viewSquadId
   receivedUnlocks
   needUpdateCampaignScroll

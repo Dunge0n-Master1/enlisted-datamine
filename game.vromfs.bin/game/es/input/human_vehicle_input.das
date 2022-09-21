@@ -1,9 +1,15 @@
 require ecs
 require strings
+require game.es.events
 require game.es.input.input_events
 require game.es.vehicle.vehicle_events
 require DagorInput
 require HumanPhys
+require EnlistedHuman
+require common_shooter.es.human_weap_common
+require game.es.vehicle.vehicle_seats_common
+require enlisted.events_enlisted
+require net
 
 
 def init(human_input__seatCount : int;
@@ -11,13 +17,15 @@ def init(human_input__seatCount : int;
          var human_input__seatNext : int&;
          var human_input__driverSeat : int&;
          var human_input__vehicleMaintenance : int&;
-         var human_input__toggleHatch : int&)
+         var human_input__toggleHatch : int&;
+         var human_input__toggleHoldGunMode : int&)
   if length(human_input__seats) != human_input__seatCount
     human_input__seats |> resize(human_input__seatCount)
   human_input__seatNext            = int(get_action_handle("Human.SeatNext", TYPEGRP_DIGITAL))
   human_input__driverSeat          = int(get_action_handle("Human.DriverSeat", TYPEGRP_DIGITAL))
   human_input__vehicleMaintenance  = int(get_action_handle("Human.VehicleMaintenance", TYPEGRP_DIGITAL))
   human_input__toggleHatch         = int(get_action_handle("Human.ToggleHatch", TYPEGRP_DIGITAL))
+  human_input__toggleHoldGunMode     = int(get_action_handle("Human.ToggleHoldGunMode", TYPEGRP_DIGITAL))
   for i in range(0, human_input__seatCount)
     human_input__seats[i]          = int(get_action_handle("Human.Seat" + format("%02d", i + 1), TYPEGRP_DIGITAL))
 
@@ -28,13 +36,15 @@ def reset(human_input__seatCount : int;
           var human_input__seatNext : int&;
           var human_input__driverSeat : int&;
           var human_input__vehicleMaintenance : int&;
-          var human_input__toggleHatch : int&)
+          var human_input__toggleHatch : int&;
+          var human_input__toggleHoldGunMode : int&)
   if length(human_input__seats) != human_input__seatCount
     human_input__seats |> resize(human_input__seatCount)
   human_input__seatNext            = int(BAD_ACTION_HANDLE)
   human_input__driverSeat          = int(BAD_ACTION_HANDLE)
   human_input__vehicleMaintenance  = int(BAD_ACTION_HANDLE)
   human_input__toggleHatch         = int(BAD_ACTION_HANDLE)
+  human_input__toggleHoldGunMode         = int(BAD_ACTION_HANDLE)
   for i in range(0, human_input__seatCount)
     human_input__seats[i]          = int(BAD_ACTION_HANDLE)
 
@@ -45,9 +55,10 @@ def vehicle_input_appear_es(evt : Event;
                             var human_input__seatNext : int&;
                             var human_input__driverSeat : int&;
                             var human_input__vehicleMaintenance : int&;
-                            var human_input__toggleHatch : int&)
+                            var human_input__toggleHatch : int&;
+                            var human_input__toggleHoldGunMode : int&)
   init(human_input__seatCount, human_input__seats, human_input__seatNext,
-       human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch)
+       human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch, human_input__toggleHoldGunMode)
 
 [es(tag=input)]
 def human_vehicle_input_es(evt : EventDaInputInit;
@@ -56,25 +67,27 @@ def human_vehicle_input_es(evt : EventDaInputInit;
                            var human_input__seatNext : int&;
                            var human_input__driverSeat : int&;
                            var human_input__vehicleMaintenance : int&;
-                           var human_input__toggleHatch : int&)
+                           var human_input__toggleHatch : int&;
+                           var human_input__toggleHoldGunMode : int&)
   if evt.init
     init(human_input__seatCount, human_input__seats, human_input__seatNext,
-         human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch)
+         human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch, human_input__toggleHoldGunMode)
   else
     reset(human_input__seatCount, human_input__seats, human_input__seatNext,
-         human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch)
+         human_input__driverSeat, human_input__vehicleMaintenance, human_input__toggleHatch, human_input__toggleHoldGunMode)
 
 
 [es(tag=input)]
 def human_change_seat_input_es(evt : EventDaInputActionTriggered;
                                eid : EntityId;
+                               human_vehicle__isHoldingGunPassenger : bool;
                                human_anim__vehicleSelected : EntityId;
                                human_input__seats : IntList;
                                human_input__seatNext : int;
                                human_input__driverSeat : int;
                                isInVehicle : bool;
                                input__enabled : bool)
-  if !input__enabled && !isInVehicle
+  if !input__enabled || !isInVehicle || human_vehicle__isHoldingGunPassenger
     return
   let action = int(evt.action)
   for i in range(0, length(human_input__seats))
@@ -110,7 +123,60 @@ def human_vehicle_maintenance_stop_input_es(evt : EventDaInputActionTerminated;
 def human_vehicle_toggle_hatch_input_es(evt : EventDaInputActionTriggered;
                                         input__enabled : bool;
                                         human_input__toggleHatch : int;
-                                        human_anim__vehicleSelected : EntityId;
                                         var human_input__standState : int&)
-  if input__enabled  && int(evt.action) == human_input__toggleHatch && !has(human_anim__vehicleSelected, "antiAircraftCannon")
+  if input__enabled  && int(evt.action) == human_input__toggleHatch
     human_input__standState = human_input__standState == int(HumanPhysControlType HCT_CROUCH) ? 0 : int(HumanPhysControlType HCT_CROUCH)
+
+[es(tag=input)]
+def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggered;
+                                                eid : EntityId;
+                                                isInVehicle : bool;
+                                                input__enabled : bool;
+                                                human_binocular__mode : bool;
+                                                human_weap__gunEids : EidList;
+                                                human_weap__currentGunSlot : int;
+                                                human_anim__vehicleSelected : EntityId;
+                                                human_input__toggleHoldGunMode : int;
+                                                human_vehicle__canHoldWeapon : bool;
+                                                var human_net_phys : HumanActor&)
+  if !input__enabled || int(evt.action) != human_input__toggleHoldGunMode || !isInVehicle
+    return
+
+  var isInCockpit = false
+  query(human_anim__vehicleSelected) <| $ [es] (cockpit__eid : EntityId)
+    query(cockpit__eid) <| $ [es] (cockpit__isAttached : bool)
+      isInCockpit = cockpit__isAttached
+  if isInCockpit
+    return
+
+  if human_vehicle__canHoldWeapon
+    let isHoldGunModeBit = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_HOLD_GUN_MODE)
+    let isEnablingHoldGunMode = !isHoldGunModeBit || human_binocular__mode
+    if isEnablingHoldGunMode && !is_gun_slot_allowed_to_hold_gun_in_hatch(human_weap__currentGunSlot)
+      switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
+
+    if human_binocular__mode
+      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=false]])
+
+    human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_HOLD_GUN_MODE, isEnablingHoldGunMode)
+  else
+    sendEvent(eid, [[CmdHeroLogEvent event="hold_gun_mode_disallowed", text="hold_gun_mode/disallowed_on_this_vehicle"]])
+
+[es(tag=input, track=(possessedByPlr, isInVehicle))]
+def human_vehicle_disable_hold_gun_mode_input_es(evt : Event;
+                                                 isInVehicle : bool;
+                                                 possessedByPlr : EntityId;
+                                                 var human_net_phys : HumanActor)
+  if !possessedByPlr || !isInVehicle
+    human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_HOLD_GUN_MODE, false)
+
+
+[es(tag=input, track=human_vehicle__isInHatch, REQUIRE=(hero, human_vehicle__isInHatch))]
+def human_vehicle_reset_zoom_input_on_change_hatch_state(evt : Event; human_anim__vehicleSelected : EntityId)
+  query(human_anim__vehicleSelected) <| $ [es] (vehicle_input__zoomToggle : int)
+    reset_digital_action_sticky_toggle(uint16(vehicle_input__zoomToggle))
+
+
+[es(tag=input, track=human_vehicle__occupiedSeatEid, REQUIRE=(hero, human_vehicle__occupiedSeatEid))]
+def human_vehicle_reset_aim_input_on_change_seat(evt : Event; human_input__aim1 : int)
+  reset_digital_action_sticky_toggle(uint16(human_input__aim1))

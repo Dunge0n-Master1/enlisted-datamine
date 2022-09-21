@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { ESO_DEFEND_POINT } = require("ai")
+let { SquadOrder } = require("%enlSqGlob/dasenums.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { mkWatchedSetAndStorage, MK_COMBINED_STATE } = require("%ui/ec_to_watched.nut")
 
@@ -41,7 +41,7 @@ ecs.register_es("squad_orders_ui_es",
 
 let localSquadOrder = Computed(function() {
   let v = squad_orders_State.value.findvalue(@(v) v.owner == localPlayerEid.value)
-  if (v != null && v.orderType == ESO_DEFEND_POINT && v.isAlive==true)
+  if (v != null && v.orderType == SquadOrder.ESO_DEFEND_POINT && v.isAlive==true)
     return v.orderPosition
   return null
 })

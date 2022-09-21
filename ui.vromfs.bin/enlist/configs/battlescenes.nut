@@ -12,6 +12,8 @@ let tutorialSceneByArmy = {
   tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_tunisia_allies.blk"
   stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_stalingrad_axis.blk"
   stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_stalingrad_allies.blk"
+  pacific_axis = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_pacific_axis.blk"
+  pacific_allies = "content/enlisted/gamedata/scenes/tutorial/tutorial_training_ground_pacific_allies.blk"
 }
 
 const defTutorialTank = "content/enlisted/gamedata/scenes/tutorial/_tutorial_training_ground_tank.blk"
@@ -41,6 +43,8 @@ let practiceSceneByArmy = {
   tunisia_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_tunisia_allies.blk"
   stalingrad_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_stalingrad_axis.blk"
   stalingrad_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_stalingrad_allies.blk"
+  pacific_axis = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_pacific_axis.blk"
+  pacific_allies = "content/enlisted/gamedata/scenes/tutorial/common_training_ground_pacific_allies.blk"
 }
 
 //local defTestDrive = "content/enlisted/gamedata/scenes/volokolamsk_city_assault_solo.blk"

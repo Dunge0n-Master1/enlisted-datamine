@@ -10,6 +10,19 @@ require ast public
 require strings
 require daslib/strings_boost
 
+def clone ( var args : dasvector`das_string; var nargs:array<string> )
+    let tot = length(nargs)
+    args |> resize ( tot )
+    for i in range(tot)
+        args[i] := nargs[i]
+    delete nargs
+
+def clone ( var args : dasvector`smart_ptr`TypeDecl; var nargs:array<TypeDeclPtr> )
+    args |> clear
+    for narg in nargs
+        args |> emplace(narg)
+    delete nargs
+
 def clone ( var args : dasvector`smart_ptr`Variable; var nargs:array<VariablePtr> )
     args |> clear
     for narg in nargs
@@ -641,6 +654,13 @@ def append_annotation ( var blk:smart_ptr<ExprBlock>; mod_name,ann_name:string; 
     assert(ann!=null)
     var decl <- append_annotation(mod_name, ann_name, args)
     add_block_annotation(blk, decl)
+    decl := null
+
+def append_annotation ( var st:smart_ptr<Structure>; mod_name,ann_name:string; args:array< tuple<argname:string;argvalue:RttiValue> > )
+    var ann = find_annotation(mod_name, ann_name)
+    assert(ann!=null)
+    var decl <- append_annotation(mod_name, ann_name, args)
+    add_structure_annotation(st, decl)
     decl := null
 
 def add_annotation_argument ( var arguments:AnnotationArgumentList; argName:string; val:bool )

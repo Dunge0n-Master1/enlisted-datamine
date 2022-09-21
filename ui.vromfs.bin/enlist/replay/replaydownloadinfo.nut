@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
-let http = require("dagor.http")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
@@ -12,7 +11,8 @@ let {
   REPLAY_DOWNLOAD_PROGRESS, REPLAY_DOWNLOAD_FAILED
 } = require("%enlist/replay/replayDownloadState.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let { replay_play } = require("app")
+let { replayPlay } = require("%enlist/replay/replaySettings.nut")
+let datacache = require("datacache")
 
 let WND_UID = "replayDownloadUi"
 
@@ -28,9 +28,9 @@ let replayWndClose = @() removeModalWindow(WND_UID)
 
 let closeButton = Bordered(loc("replay/Close"), replayWndClose, btnStyle)
 
-let playButton = Bordered(loc("replay/Play"), @() replay_play(replayDownload.value.filename, 0), btnStyle)
+let playButton = Bordered(loc("replay/Play"), @() replayPlay(replayDownload.value.filename), btnStyle)
 
-let abortButton = Bordered(loc("replay/Abort"), @() http.abort(replayDownload.value.downloadRequestId), btnStyle)
+let abortButton = Bordered(loc("replay/Abort"), @() datacache.abort_requests(replayDownload.value.downloadRequestId), btnStyle)
 
 let title = noteTextArea({
   size = [flex(), SIZE_TO_CONTENT]
@@ -40,8 +40,6 @@ let title = noteTextArea({
 }).__update(body_txt)
 
 let content = @(message) {
-  rendObj = ROBJ_SOLID
-  fillColor = Color(10,10,10,10)
   size = flex()
   flow = FLOW_HORIZONTAL
   gap = hdpx(10)
@@ -81,7 +79,7 @@ let infoContainer = @() {
           valign = ALIGN_CENTER
           children = spinner
         }
-        replayDownload.value.downloadRequestId != 0
+        replayDownload.value.downloadRequestId != ""
           ? abortButton
           : null
       ]

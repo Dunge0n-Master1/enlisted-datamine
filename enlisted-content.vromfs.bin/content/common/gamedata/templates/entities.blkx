@@ -58,6 +58,8 @@ import:t="darg_panels.blk"
 import:t="%danetlibs/screen_blood/templates/screen_blood.template.blk"
 import:t="custom_envi_probe.blk"
 import:t="%danetlibs/motion_matching/templates/motion_matching.template.blk"
+import:t="%danetlibs/renderer/templates/render_settings.template.blk"
+import:t="%danetlibs/frame_graph_renderer/templates/frame_graph_nodes.template.blk"
 
 ecs_no_debug{
 
@@ -306,6 +308,12 @@ group_activator{
 
   "activator__activateChoice:object"{
   }
+}
+
+group_switch_timer{
+  group_switch_timer__time:r=0.0
+  group_switch_timer__deactivateGroup:t=""
+  group_switch_timer__activateGroup:t=""
 }
 
 group_bidirectional_one_chain_activator{
@@ -868,6 +876,22 @@ esm_ambient_occlusion{
   }
 }
 
+charred_area_decals_manager{
+  _singleton:b=yes
+  _tags:t="render"
+  charred_area_decals_initial_capacity:i=64
+  charred_area_decals_total_time:r=1000.0
+  charred_area_decals_radius:r=1.0
+  charred_area_decals_thickness:r=0.25
+  charred_area_decals_init_shader:t="projective_decal_create_indirect"
+  charred_area_decals_generator_shader:t="projective_decal_decals_generator"
+  charred_area_decals_render_shader:t="charred_area_projective_decals"
+  charred_area_decals_culler_shader:t="projective_decal_cull"
+
+  "charred_area_decals_mgr:ResizableDecals"{
+  }
+}
+
 charred_area_decal{
   charred_area_left_time:r=0.0
   charred_area_total_time:r=0.0
@@ -896,5 +920,26 @@ screen_droplets_settings{
     screen_droplets__rain_cone_off:r=-0.25
     screen_droplets__intensity_direct_control:b=no
     screen_droplets__intensity_change_rate:r=0.1667
+  }
+}
+
+dynmat_params_base{
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    needImmediateConstPS:b=yes
+  }
+
+  "dynamic_material_params_arr:array"{
+    _tags:t="render"
+
+    "dynamic_material_params_channel:object"{
+      dynamic_material_param__emissive_color:p4=1.0, 0.0, 1.0, 3.0
+      dynamic_material_param__emission_albedo_mult:r=0.1
+    }
   }
 }

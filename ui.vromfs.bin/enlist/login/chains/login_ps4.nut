@@ -6,7 +6,7 @@ let auth = require("auth")
 let ps4 = require("ps4")
 let psnUser = require("sony.user")
 let {sendPsPlusStatusToUserstatServer = null} = require("%enlSqGlob/userstats/userstat.nut")
-let { voiceChatEnabled } = require("%enlist/voiceChat/voiceState.nut")
+let { voiceChatEnabledUpdate } = require("%enlSqGlob/voiceChatGlobalState.nut")
 let eventbus = require("eventbus")
 
 let function login_psn(state, cb) {
@@ -43,7 +43,7 @@ let function check_parental_control(cb) {
   return function(chat, _content, _ugc) {
     if (chat) {
       log("VoiceChat disabled due to parental control restrictions")
-      voiceChatEnabled(false)
+      voiceChatEnabledUpdate(false)
     }
     cb({})
   }

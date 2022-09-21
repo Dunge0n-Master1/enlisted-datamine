@@ -266,6 +266,20 @@ light_chandelier_big_far{
   light__contact_shadows:b=no
 }
 
+light_chandelier_big_far_b{
+  _extends:t="spot_light"
+  light__max_radius:r=18.0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=20.0
+
+  _group{
+    _tags:t="render"
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+  }
+}
+
 light_chandelier_big_antiprobe{
   _extends:t="omni_light"
   light__max_radius:r=6.0

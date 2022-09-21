@@ -1,7 +1,7 @@
-from "frp" import Computed
+from "frp" import Computed, Watched
 
 let { is_xbox, is_sony } = require("%dngscripts/platform.nut")
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
 let { get_setting_by_blk_path } = require("settings")
 
 let isCrossnetworkChatAvailable = true
@@ -21,23 +21,23 @@ let CrossPlayStateWeight = {
 }
 
 const savedCrossnetworkPlayId = "gameplay/crossnetworkPlay"
-let savedCrossnetworkState  = sharedWatched("crossnetworkState", @() get_setting_by_blk_path(savedCrossnetworkPlayId) ?? CrossplayState.ALL)
+let {savedCrossnetworkState, savedCrossnetworkStateUpdate} = globalWatched("savedCrossnetworkState", @() get_setting_by_blk_path(savedCrossnetworkPlayId) ?? CrossplayState.ALL)
 
 const savedCrossnetworkChatId = "gameplay/crossnetworkChat"
-let savedCrossnetworkChatState  = sharedWatched("savedCrossnetworkChatState", @() get_setting_by_blk_path(savedCrossnetworkChatId) ?? true)
+let {savedCrossnetworkChatState, savedCrossnetworkChatStateUpdate}  = globalWatched("savedCrossnetworkChatState", @() get_setting_by_blk_path(savedCrossnetworkChatId) ?? true)
 
-let xboxCrossplayAvailable = sharedWatched("xboxCrossplayAvailable", @() false)
-let xboxCrosschatAvailable = sharedWatched("xboxCrosschatAvailable", @() false)
-let xboxMultiplayerAvailable = sharedWatched("xboxMultiplayerAvailable", @() true)
+let {xboxCrossplayAvailable, xboxCrossplayAvailableUpdate} = globalWatched("xboxCrossplayAvailable", @() false)
+let {xboxCrosschatAvailable, xboxCrosschatAvailableUpdate} = globalWatched("xboxCrosschatAvailable", @() false)
+let {xboxMultiplayerAvailable, xboxMultiplayerAvailableUpdate} = globalWatched("xboxMultiplayerAvailable", @() true)
 
-let xboxCrossChatWithFriendsAllowed = sharedWatched("xboxCrossChatWithFriendsAllowed", @() true)
-let xboxCrossChatWithAllAllowed = sharedWatched("xboxCrossChatWithAllAllowed", @() true)
-let xboxCrossVoiceWithFriendsAllowed = sharedWatched("xboxCrossVoiceWithFriendsAllowed", @() true)
-let xboxCrossVoiceWithAllAllowed = sharedWatched("xboxCrossVoiceWithAllAllowed", @() true)
+let {xboxCrossChatWithFriendsAllowed, xboxCrossChatWithFriendsAllowedUpdate} = globalWatched("xboxCrossChatWithFriendsAllowed", @() true)
+let {xboxCrossChatWithAllAllowed, xboxCrossChatWithAllAllowedUpdate} = globalWatched("xboxCrossChatWithAllAllowed", @() true)
+let {xboxCrossVoiceWithFriendsAllowed, xboxCrossVoiceWithFriendsAllowedUpdate} = globalWatched("xboxCrossVoiceWithFriendsAllowed", @() true)
+let {xboxCrossVoiceWithAllAllowed, xboxCrossVoiceWithAllAllowedUpdate} = globalWatched("xboxCrossVoiceWithAllAllowed", @() true)
 
-let crossplayOptionNeededByProject = sharedWatched("crossplayOptionNeededByProject", @() is_xbox || is_sony)
-let isCrossplayOptConsolesOnlyRequired = sharedWatched("isCrossplayOptConsolesOnlyRequired", @() true)
-let isCrossplayOptionNeeded = Computed(@() crossplayOptionNeededByProject.value || isDebugCrossplay)
+let crossplayOptionNeededByProject = is_xbox || is_sony
+let isCrossplayOptConsolesOnlyRequired = Watched(true)
+let isCrossplayOptionNeeded = Watched(crossplayOptionNeededByProject || isDebugCrossplay)
 
 let availableCrossplayOptions = Computed(function() {
   if (is_xbox) //We are displaying limited options list on xbox
@@ -99,30 +99,28 @@ let canCrossnetworkVoiceWithFriends = Computed(@()
 
 return {
   savedCrossnetworkPlayId
-  savedCrossnetworkState
-  xboxCrossplayAvailable
+  savedCrossnetworkState, savedCrossnetworkStateUpdate
+  xboxCrossplayAvailable, xboxCrossplayAvailableUpdate
   crossnetworkPlay
   needShowCrossnetworkPlayIcon = is_xbox
   CrossplayState
-  xboxCrosschatAvailable
+  xboxCrosschatAvailable, xboxCrosschatAvailableUpdate
   crossnetworkChat
   savedCrossnetworkChatId
-  savedCrossnetworkChatState
+  savedCrossnetworkChatState, savedCrossnetworkChatStateUpdate
   CrossPlayStateWeight
   isCrossnetworkChatAvailable
   availableCrossplayOptions
   isCrossplayOptionNeeded
   isCrossnetworkChatOptionNeeded
-  xboxMultiplayerAvailable
+  xboxMultiplayerAvailable, xboxMultiplayerAvailableUpdate
   multiplayerAvailable
-  xboxCrossChatWithFriendsAllowed
-  xboxCrossChatWithAllAllowed
-  xboxCrossVoiceWithFriendsAllowed
-  xboxCrossVoiceWithAllAllowed
+  xboxCrossChatWithFriendsAllowed, xboxCrossChatWithFriendsAllowedUpdate,
+  xboxCrossChatWithAllAllowed, xboxCrossChatWithAllAllowedUpdate,
+  xboxCrossVoiceWithFriendsAllowed, xboxCrossVoiceWithFriendsAllowedUpdate,
+  xboxCrossVoiceWithAllAllowed, xboxCrossVoiceWithAllAllowedUpdate,
   canCrossnetworkChatWithAll
   canCrossnetworkChatWithFriends
   canCrossnetworkVoiceWithAll
   canCrossnetworkVoiceWithFriends
-  isCrossplayOptConsolesOnlyRequired
-  crossplayOptionNeededByProject
 }

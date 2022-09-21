@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require app
 require DagorMath
 require GamePhys
@@ -19,12 +20,12 @@ def occluder_cvt(timeData : TimeData; data : float3)
       return cvt(aliveTime, expanseStartTime, expanseFullTime, data[0], data[1])
     return cvt(aliveTime, fadeStartTime, totalTime, data[1], data[2])
 
-def init_comp(var init : ComponentsInitializer; occluder_template : Template; template_field : string; obj : Object const?&; object_field : string; default_value : float)
-  let value = get_float(obj, object_field) ?? get_float(getTemplateComponent(occluder_template, template_field)) ?? default_value
+def init_comp(var init : ComponentsInitializer; occluder_template : Template; template_field : string; template_field_hash : uint; obj : Object const?&; object_field : string; default_value : float)
+  let value = obj?[object_field] ?? getTemplateComponent(occluder_template, template_field, template_field_hash) ?? default_value
   set(init, template_field, value)
 
-def init_comp(var init : ComponentsInitializer; occluder_template : Template; template_field : string; obj : Object const?&; object_field : string; default_value : float3)
-  let value = get_Point3(obj, object_field) ?? get_Point3(getTemplateComponent(occluder_template, template_field)) ?? default_value
+def init_comp(var init : ComponentsInitializer; occluder_template : Template; template_field : string; template_field_hash : uint; obj : Object const?&; object_field : string; default_value : float3)
+  let value = obj?[object_field] ?? getTemplateComponent(occluder_template, template_field, template_field_hash) ?? default_value
   set(init, template_field, value)
 
 [es(tag=server, on_appear)]
@@ -39,14 +40,14 @@ def init_smoke_occluders(evt : Event; [[shared_comp]] smoke_occluders__info : Ar
       continue
 
     let occluderEid = createEntity(occluderTemplateName) <| $(var init : ComponentsInitializer)
-      init_comp(init, *occluderTemplate, "smoke_occluder__windScale", occluder, "windScale", 1.2)
-      init_comp(init, *occluderTemplate, "smoke_occluder__expanseStartTime", occluder, "expanseStartTime", 6.0)
-      init_comp(init, *occluderTemplate, "smoke_occluder__expanseFullTime", occluder, "expanseFullTime", 12.0)
-      init_comp(init, *occluderTemplate, "smoke_occluder__fadeStartTime", occluder, "fadeStartTime", 50.0)
-      init_comp(init, *occluderTemplate, "smoke_occluder__totalTime", occluder, "totalTime", 180.0)
-      init_comp(init, *occluderTemplate, "smoke_occluder__upSpeed", occluder, "upSpeed", float3(0.0, 2.0, 0.0))
-      init_comp(init, *occluderTemplate, "smoke_occluder__normalSpeed", occluder, "normalSpeed", float3(0.8, 0.8, 0.0))
-      init_comp(init, *occluderTemplate, "smoke_occluder__radius", occluder, "radius", float3(0.0, 2.0, 0.3))
+      init_comp(init, *occluderTemplate, "smoke_occluder__windScale", ecs_hash("smoke_occluder__windScale"), occluder, "windScale", 1.2)
+      init_comp(init, *occluderTemplate, "smoke_occluder__expanseStartTime", ecs_hash("smoke_occluder__expanseStartTime"), occluder, "expanseStartTime", 6.0)
+      init_comp(init, *occluderTemplate, "smoke_occluder__expanseFullTime", ecs_hash("smoke_occluder__expanseFullTime"), occluder, "expanseFullTime", 12.0)
+      init_comp(init, *occluderTemplate, "smoke_occluder__fadeStartTime", ecs_hash("smoke_occluder__fadeStartTime"), occluder, "fadeStartTime", 50.0)
+      init_comp(init, *occluderTemplate, "smoke_occluder__totalTime", ecs_hash("smoke_occluder__totalTime"), occluder, "totalTime", 180.0)
+      init_comp(init, *occluderTemplate, "smoke_occluder__upSpeed", ecs_hash("smoke_occluder__upSpeed"), occluder, "upSpeed", float3(0.0, 2.0, 0.0))
+      init_comp(init, *occluderTemplate, "smoke_occluder__normalSpeed", ecs_hash("smoke_occluder__normalSpeed"), occluder, "normalSpeed", float3(0.8, 0.8, 0.0))
+      init_comp(init, *occluderTemplate, "smoke_occluder__radius", ecs_hash("smoke_occluder__radius"), occluder, "radius", float3(0.0, 2.0, 0.3))
       set(init, "smoke_occluder__createdAtTime", get_sync_time())
       set(init, "transform", transform)
       set(init, "smoke_occluder__updateInterval", smoke_occluders__updateInterval)

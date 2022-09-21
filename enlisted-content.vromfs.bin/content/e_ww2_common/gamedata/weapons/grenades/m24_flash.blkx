@@ -46,3 +46,7 @@ explFx{
 explSound{
   explSoundPath:t="impact/grenade_flash"
 }
+
+shellSound{
+  activatePath:t="/weapon/grenade/activate"
+}

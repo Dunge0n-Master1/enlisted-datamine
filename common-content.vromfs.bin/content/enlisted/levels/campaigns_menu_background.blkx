@@ -102,13 +102,13 @@ gi{
 
 graphics{
   IndoorProbes:b=yes
-  spotShadowBias:p4=-6e-05, -0.1, 0.001, 0.002
+  spotShadowBias:p4=-6.1e-05, -0.01, 0.0001, 0.0005
   dynamicShadowsBias:p3=0.0, 0.0005, 0.4
   dynamicShadowsDistance:r=18.0
-  dynamicShadowsDistanceMultiplier_Low:r=1.0
+  dynamicShadowsDistanceMultiplier_Low:r=0.5
   dynamicShadowsDistanceMultiplier_Medium:r=1.0
   dynamicShadowsResolution:i=2048
-  dynamicShadowsResolutionMultiplier_Low:r=0.5
+  dynamicShadowsResolutionMultiplier_Low:r=1.0
   dynamicShadowsResolutionMultiplier_Medium:r=0.75
   dynamicShadowsNumCascades:i=2
   dynamicShadowsCascadeDistributionPowerWeightOverride:r=0.5
@@ -117,6 +117,8 @@ graphics{
 }
 
 unitedVdata.rendInst{
-  IB:i=1400
-  VB1:i=5000
+  IB:i=65536
+  VB1:i=65536
+  VB2:i=65536
+  VB3:i=0
 }

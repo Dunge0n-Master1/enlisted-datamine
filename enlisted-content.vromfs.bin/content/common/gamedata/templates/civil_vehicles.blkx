@@ -204,6 +204,15 @@ base_vehicle_seats{
   }
 }
 
+plane_vehicle_seats{
+  _extends:t="base_vehicle_seats"
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_default"
+    driver:t="vehicle_seat_pilot_driver"
+  }
+}
+
 base_vehicle_seat{
   _extends:t="replicating"
   seat__enumVarId:i=-1
@@ -212,6 +221,7 @@ base_vehicle_seat{
   _tracked:t="seat__ownerEid"
   _tracked:t="seat__squadEid"
   _tracked:t="seat__playerEid"
+  _tracked:t="seat__isOwnerAlive"
   _tracked:t="seat__limitedVisibility"
   _tracked:t="seat__ownerControls"
   _tracked:t="seat__canControlTurrets"
@@ -224,6 +234,7 @@ base_vehicle_seat{
   _replicated:t="seat__ownerEid"
   _replicated:t="seat__squadEid"
   _replicated:t="seat__playerEid"
+  _replicated:t="seat__isOwnerAlive"
   _replicated:t="seat__ownerControls"
   _replicated:t="seat__isInHatch"
   _replicated:t="seat__isLocked"
@@ -245,6 +256,8 @@ base_vehicle_seat{
   seat__isInHatch:b=no
   seat_anim__upper:t=""
   seat_anim__lower:t=""
+  seat_anim__fireReadyUpper:t="upper_fireready"
+  seat_anim__fireReadyLower:t="drive_fireready"
   seats_switch_time__time:r=-1.0
   seats_switch_time__newSeatNo:i=-1
   seats_attach_nodes__ignoreAttachNodeRotation:b=no
@@ -255,7 +268,9 @@ base_vehicle_seat{
   seats_attach_nodes__nodeItm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   seats_order__seatNo:i=-1
   seats_order__canPlaceManually:b=no
+  seat__isOwnerAlive:b=no
   seat__allowSmokeScreen:b=yes
+  seat__isHoldGunModeAllowed:b=yes
 
   "seat__lockSeats:list<i>"{
     _tags:t="server"
@@ -295,6 +310,11 @@ base_vehicle_seat{
 
   "seat__playerEid:eid"{
   }
+
+  _group{
+    _tags:t="input"
+    seat__holdingGunPassengerVertLookLimit:p2=0.0, 0.0
+  }
 }
 
 vehicle_seat_default{
@@ -310,6 +330,13 @@ vehicle_seat_driver{
   seat_anim__lower:t="drive_driver"
 }
 
+vehicle_seat_pilot_driver{
+  _extends:t="base_vehicle_seat"
+  seats_order__canPlaceManually:b=yes
+  seat_anim__upper:t="drive_pilot_driver"
+  seat_anim__lower:t="drive_pilot_driver"
+}
+
 vehicle_driver_skills{
   vehicle_net_phys__brakingTau:r=0.14
   vehicle_net_phys__gearChangeTime:r=1.0
@@ -320,12 +347,10 @@ vehicle_underwater{
   drowningHeight:r=1.0
   underWaterStartTime:r=-1.0
   underWaterMaxTime:r=5.0
+  vehicle__isUnderwater:b=no
   _replicated:t="underWaterStartTime"
-
-  _group{
-    _tags:t="server"
-    vehicle__isUnderwater:b=no
-  }
+  _replicated:t="vehicle__isUnderwater"
+  _tracked:t="vehicle__isUnderwater"
 }
 
 vehicle_no_ai{
@@ -356,6 +381,7 @@ vehicle_no_ai{
   team:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   _tracked:t="transform"
+  _tracked:t="isTpsView"
   _tracked:t="vehicleCameraType"
   _tracked:t="vehicle__localControls"
   _tracked:t="isAlive"
@@ -439,6 +465,7 @@ vehicle_no_ai{
   _group{
     _tags:t="render"
     dm_panel__prevLod:i=-1
+    dm_panel__outlineResolutionScale:r=1.0
   }
 
   "setCameraDirByHero:tag"{
@@ -531,7 +558,22 @@ vehicle_no_ai{
   }
 }
 
+vehicle_effects_offsets{
+
+  "node_emitter_offsets:list<p3>"{
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.0, 0.0
+  }
+}
+
 vehicle_effects_tracked{
+  _extends:t="vehicle_effects_offsets"
 
   track_dirt_fx{
     _tags:t="render"
@@ -540,92 +582,99 @@ vehicle_effects_tracked{
   _group{
     _tags:t="render"
 
-    "track_dirt_fx__emitters:array"{
+    "track_dirt_fx__node:list<t>"{
+      node:t="emtr_track_l_front_top"
+      node:t="emtr_track_r_front_top"
+      node:t="emtr_track_l_back_bottom"
+      node:t="emtr_track_r_back_bottom"
+      node:t="emtr_track_l_back_top"
+      node:t="emtr_track_r_back_top"
+      node:t="emtr_track_l_front_bottom"
+      node:t="emtr_track_r_front_bottom"
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_l_front_top"
-        physmatFxType:t="front"
-        minSpeed:r=1.0
-        maxSpeed:r=5.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=no
-      }
+    "track_dirt_fx__physmatFxType:list<t>"{
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_r_front_top"
-        physmatFxType:t="front"
-        minSpeed:r=1.0
-        maxSpeed:r=5.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=no
-      }
+    "track_dirt_fx__minSpeed:list<r>"{
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_l_back_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=3.0
-        speedMult:r=0.8
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__maxSpeed:list<r>"{
+      maxSpeed:r=5.0
+      maxSpeed:r=5.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=-5.0
+      maxSpeed:r=-5.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=-4.0
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_r_back_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=3.0
-        speedMult:r=0.8
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__speedMult:list<r>"{
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.8
+      speedMult:r=0.8
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.8
+      speedMult:r=0.8
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_l_back_top"
-        physmatFxType:t="front"
-        minSpeed:r=-1.0
-        maxSpeed:r=-5.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=no
-      }
+    "track_dirt_fx__driven:list<b>"{
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_r_back_top"
-        physmatFxType:t="front"
-        minSpeed:r=-1.0
-        maxSpeed:r=-5.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=no
-      }
+    "track_dirt_fx__atGround:list<b>"{
+      atGround:b=no
+      atGround:b=no
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=no
+      atGround:b=no
+      atGround:b=yes
+      atGround:b=yes
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_l_front_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=-4.0
-        speedMult:r=0.8
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__effectsEid:list<eid>"{
+    }
 
-      "emitters:object"{
-        node:t="emtr_track_r_front_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=-4.0
-        speedMult:r=0.8
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__fxId:list<i>"{
+    }
+
+    "track_dirt_fx__matFxTypeId:list<i>"{
+    }
+
+    "track_dirt_fx__nodeId:list<i>"{
     }
   }
 }
 
 vehicle_effects_4x4{
+  _extends:t="vehicle_effects_offsets"
 
   track_dirt_fx{
     _tags:t="render"
@@ -634,92 +683,110 @@ vehicle_effects_4x4{
   _group{
     _tags:t="render"
 
-    "track_dirt_fx__emitters:array"{
+    "track_dirt_fx__node:list<t>"{
+      node:t="emtr_wheel_l_drive_back_bottom"
+      node:t="emtr_wheel_r_drive_back_bottom"
+      node:t="emtr_wheel_l_back_bottom"
+      node:t="emtr_wheel_r_back_bottom"
+      node:t="emtr_wheel_l_drive_front_bottom"
+      node:t="emtr_wheel_r_drive_front_bottom"
+      node:t="emtr_wheel_l_front_bottom"
+      node:t="emtr_wheel_r_front_bottom"
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_l_drive_back_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=3.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__physmatFxType:list<t>"{
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_r_drive_back_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=3.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__minSpeed:list<r>"{
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_l_back_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=15.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__maxSpeed:list<r>"{
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=-4.0
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_r_back_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=15.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__speedMult:list<r>"{
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_l_drive_front_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=-20.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__driven:list<b>"{
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_r_drive_front_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=-20.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__atGround:list<b>"{
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_l_front_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=-4.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__effectsEid:list<eid>"{
+    }
 
-      "emitters:object"{
-        node:t="emtr_wheel_r_front_bottom"
-        physmatFxType:t="back"
-        minSpeed:r=0.0
-        maxSpeed:r=-4.0
-        speedMult:r=0.1
-        driven:b=yes
-        atGround:b=yes
-      }
+    "track_dirt_fx__fxId:list<i>"{
+    }
+
+    "track_dirt_fx__matFxTypeId:list<i>"{
+    }
+
+    "track_dirt_fx__nodeId:list<i>"{
     }
   }
 }
 
 floatable_vehicle{
+  floatable_vehicle__floatingVolumesOffset:p3=0.0, 0.0, 0.0
+
+  _group{
+    _tags:t="server"
+    floatable_vehicle__floodingDelay:r=10.0
+    floatable_vehicle__floodingSpeed:r=0.01
+    floatable_vehicle__floodingStartTime:r=-1.0
+    floatable_vehicle__floatingVolumeScale:r=1.0
+
+    "floatable_vehicle__initialFloatingVolumes:list<r>"{
+    }
+  }
 
   "vehicle_net_phys__floatable:tag"{
   }

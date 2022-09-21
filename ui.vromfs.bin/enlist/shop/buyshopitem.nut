@@ -12,7 +12,7 @@ let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut
 let { sound_play } = require("sound")
 let { HighlightFailure, MsgMarkedText, TextActive, TextHighlight, textColor
 } = require("%ui/style/colors.nut")
-let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { viewShopInfoBtnStyle, DISCOUNT_WARN_TIME } = require("shopPkg.nut")
 let {
   barterShopItem, buyItemByGuid, getBuyRequirementError, buyItemByStoreId, buyShopItem,
@@ -151,7 +151,7 @@ let mkBarterCurrency = @(barterTpl){
   ]
 }
 
-let btnWithCurrImageComp = @(text, currImgs, price, sf, countWatched, shopItemPriceInc) {
+let btnWithCurrImageComp = @(text, currImgs, price, sf, count, shopItemPriceInc) {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   margin = [hdpx(10), hdpx(20), hdpx(10), hdpx(50)]
@@ -163,12 +163,11 @@ let btnWithCurrImageComp = @(text, currImgs, price, sf, countWatched, shopItemPr
       text
     }.__update(body_txt)
     currImgs
-    @() {
+    {
       rendObj = ROBJ_TEXT
-      watch = countWatched
       color = textColor(sf, false, TextActive)
-      text = countWatched.value * price
-        + shopItemPriceInc * countWatched.value * (countWatched.value - 1) / 2
+      text = count * price
+        + shopItemPriceInc * count * (count - 1) / 2
     }.__update(body_txt)
   ]
 }
@@ -226,23 +225,10 @@ let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState
   discountState(newState)
 }
 
-let notEnoughMsg = @() msgbox.showMessageWithContent({
-  content = {
-    size = [sw(90), SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    gap = fsh(5)
-    halign = ALIGN_CENTER
-    children = {
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      color = defTxtColor
-      text = (loc("dontHaveEnoughOrders"))
-    }.__update(body_txt)
-  }
-  buttons = [{ text = loc("Ok"), isCancel = true, isCurrent = true }]
-})
+let function notEnoughMsg(itemTpl) {
+  let descId = $"dontHaveEnoughOrders/{itemTpl}"
+  msgbox.showMsgbox({ text = loc(doesLocTextExist(descId) ? descId : "dontHaveEnoughOrders") })
+}
 
 let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
 
@@ -259,7 +245,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
       buttons.append({ text = requiredInfo.resolveText,
         action = requiredInfo.resolveCb,
         isCurrent = true })
-    return msgbox.show({ text = requiredInfo.text, buttons = buttons })
+    return msgbox.show({ text = requiredInfo.text, buttons })
   }
 
   let {
@@ -416,19 +402,22 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
 
   let buttons = Computed(function(){
     let btns = []
+    let countVal = countWatched.value
+    let priceVal = price.value
+    let viewCurrenciesVal = viewCurrencies.value
     let purchaseCurrency = openShopByCurrencyId?[currencyId]
     if (hasBarter)
       if (barterInfo.value) {
         let [itemTpl = null, priceBarter = 0] = curItemCost.topairs()?[0]
-        let buyInfo = getPayItemsData(curItemCost, curCampItems.value, countWatched.value)
+        let buyInfo = getPayItemsData(curItemCost, curCampItems.value, countVal)
         let barterCurrImgs = mkCurrencyImage(getCurrencyPresentation(itemTpl)?.icon)
         btns.append({
           action = function() {
-            let isDisable = (viewCurrencies.value?[itemTpl] ?? 0) < priceBarter * countWatched.value
+            let isDisable = (viewCurrenciesVal?[itemTpl] ?? 0) < priceBarter * countVal
             if (isDisable)
-              notEnoughMsg()
+              notEnoughMsg(itemTpl)
             else
-              barterShopItem(shopItem, buyInfo, countWatched.value)
+              barterShopItem(shopItem, buyInfo, countVal)
           }
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
@@ -437,7 +426,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
                 barterCurrImgs,
                 priceBarter,
                 sf,
-                countWatched,
+                countVal,
                 shopItemPriceInc)
               params = h2_txt
               return textButtonTextCtor(textComp, params, handler, group, sf)
@@ -454,15 +443,15 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
       }
     if (hasBuy.value && !hasOfferExpired.value) {
       let currencyBalance = balance.value?[currencyId] ?? 0
-      if (currencyBalance >= price.value * countWatched.value)
+      if (currencyBalance >= priceVal * countVal)
         btns.append({
           text = loc("btn/buy")
           action = function() {
             if (pOfferGuid == null) {
-              buyShopItem(shopItem, currencyId, price.value, buyCb, countWatched.value)
+              buyShopItem(shopItem, currencyId, priceVal, buyCb, countVal)
               sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
             } else {
-              buyShopOffer(shopItem, currencyId, price.value, buyCb, pOfferGuid)
+              buyShopOffer(shopItem, currencyId, priceVal, buyCb, pOfferGuid)
               sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
             }
           }
@@ -471,9 +460,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
               textComp = btnWithCurrImageComp(
                 loc("btn/buy"),
                 currencyImage(currency),
-                price.value,
+                priceVal,
                 sf,
-                countWatched,
+                countVal,
                 shopItemPriceInc)
               params = h2_txt
               return textButtonTextCtor(textComp, params, handler, group, sf)
@@ -564,10 +553,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
   }
 
   // no tickets, nor price in gold, simple "not enough tickets" msg box
-  msgbox.show({
-    text = loc(costLocId),
-    buttons = [{ text = loc("Ok"), isCancel = true }]
-  })
+  msgbox.showMsgbox({ text = loc(costLocId) })
 }
 
 return kwarg(buyItem)

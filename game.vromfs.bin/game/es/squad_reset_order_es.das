@@ -11,6 +11,7 @@ require game.utils.team
 require math.base
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require BehNodes
+require game.es.squad_order_common
 
 def get_entity_transform(eid : EntityId) : float3x4 const?
   return get_TMatrix(eid, "transform")

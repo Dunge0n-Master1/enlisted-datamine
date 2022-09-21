@@ -120,17 +120,21 @@ sound{
     master_banks{
 
       master_bank{
+        async:b=no
+        preload:b=yes
         loadToMemory:b=yes
       }
 
       master_bank.assets{
         async:b=no
-        preload:b=no
+        preload:b=yes
+        loadToMemory:b=yes
       }
 
       master_bank.strings{
         async:b=no
-        preload:b=no
+        preload:b=yes
+        loadToMemory:b=yes
       }
     }
 

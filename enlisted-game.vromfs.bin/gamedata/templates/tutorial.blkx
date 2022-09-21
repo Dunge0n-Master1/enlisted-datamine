@@ -6,6 +6,9 @@ tutorial_map{
   "isTutorial:tag"{
   }
 
+  "spawnPlayerImmediate:tag"{
+  }
+
   "disableVehicleSpawnDelay:tag"{
   }
 }

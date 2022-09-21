@@ -3,10 +3,7 @@ require net
 require DagorDataBlock
 
 def get_environment() : string
-  var res = ""
-  get_circuit_conf() <| $(var blk : DataBlock?#)
-    res = datablock_getStr(blk, "environment", "")
-  return res
+  return get_circuit_conf() |> datablock_getStr("environment", "")
 
 def is_dev_circuit() : bool
   return get_environment() != "production"

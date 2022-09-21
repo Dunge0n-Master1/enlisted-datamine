@@ -8,17 +8,17 @@ engine01{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine01_start"
-    eventStop:t="engine01_stop"
-    eventProp:t="engine01_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine01"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine01"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.014
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -34,8 +34,8 @@ engine01{
     event_start_cockpit_r:t="engine01_start_cockpit_r"
     event_stop_cockpit_l:t="engine01_stop_cockpit_l"
     event_stop_cockpit_r:t="engine01_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine01_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine01_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -55,17 +55,17 @@ engine02{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine02_start"
-    eventStop:t="engine02_stop"
-    eventProp:t="engine02_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine02"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine02"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.008
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -81,8 +81,8 @@ engine02{
     event_start_cockpit_r:t="engine02_start_cockpit_r"
     event_stop_cockpit_l:t="engine02_stop_cockpit_l"
     event_stop_cockpit_r:t="engine02_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine02_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine02_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -102,17 +102,17 @@ engine03{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=1.0
-    eventStart:t="engine03_start"
-    eventStop:t="engine03_stop"
-    eventProp:t="engine03_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine03"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine03"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.01
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -128,8 +128,8 @@ engine03{
     event_start_cockpit_r:t="engine03_start_cockpit_r"
     event_stop_cockpit_l:t="engine03_stop_cockpit_l"
     event_stop_cockpit_r:t="engine03_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine03_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine03_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=4.0, 1.0, 5.0
     rightPos:p3=4.0, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -241,9 +241,9 @@ engine06{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine06_start"
-    eventStop:t="engine06_stop"
-    eventProp:t="engine06_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -267,8 +267,8 @@ engine06{
     event_start_cockpit_r:t="engine06_start_cockpit_r"
     event_stop_cockpit_l:t="engine06_stop_cockpit_l"
     event_stop_cockpit_r:t="engine06_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine06_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine06_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -288,17 +288,17 @@ engine07{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine07_start"
-    eventStop:t="engine07_stop"
-    eventProp:t="engine07_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine07"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine07"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.02
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -314,8 +314,8 @@ engine07{
     event_start_cockpit_r:t="engine07_start_cockpit_r"
     event_stop_cockpit_l:t="engine07_stop_cockpit_l"
     event_stop_cockpit_r:t="engine07_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine07_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine07_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -335,9 +335,9 @@ engine08{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine08_start"
-    eventStop:t="engine08_stop"
-    eventProp:t="engine08_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -361,8 +361,8 @@ engine08{
     event_start_cockpit_r:t="engine08_start_cockpit_r"
     event_stop_cockpit_l:t="engine08_stop_cockpit_l"
     event_stop_cockpit_r:t="engine08_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine08_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine08_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -382,9 +382,9 @@ engine09{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine09_start"
-    eventStop:t="engine09_stop"
-    eventProp:t="engine09_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -408,8 +408,8 @@ engine09{
     event_start_cockpit_r:t="engine09_start_cockpit_r"
     event_stop_cockpit_l:t="engine09_stop_cockpit_l"
     event_stop_cockpit_r:t="engine09_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine09_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine09_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -429,9 +429,9 @@ engine10{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine10_start"
-    eventStop:t="engine10_stop"
-    eventProp:t="engine10_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -455,8 +455,8 @@ engine10{
     event_start_cockpit_r:t="engine10_start_cockpit_r"
     event_stop_cockpit_l:t="engine10_stop_cockpit_l"
     event_stop_cockpit_r:t="engine10_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine10_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine10_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -476,17 +476,17 @@ engine11{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine11_start"
-    eventStop:t="engine11_stop"
-    eventProp:t="engine11_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine11"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine11"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.012
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -502,8 +502,8 @@ engine11{
     event_start_cockpit_r:t="engine11_start_cockpit_r"
     event_stop_cockpit_l:t="engine11_stop_cockpit_l"
     event_stop_cockpit_r:t="engine11_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine11_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine11_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -523,17 +523,17 @@ engine12{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine12_start"
-    eventStop:t="engine12_stop"
-    eventProp:t="engine12_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine12"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine12"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.02
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -549,8 +549,8 @@ engine12{
     event_start_cockpit_r:t="engine12_start_cockpit_r"
     event_stop_cockpit_l:t="engine12_stop_cockpit_l"
     event_stop_cockpit_r:t="engine12_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine12_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine12_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -570,17 +570,17 @@ engine13{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine13_start"
-    eventStop:t="engine13_stop"
-    eventProp:t="engine13_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine13"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine13"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.012
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -596,8 +596,8 @@ engine13{
     event_start_cockpit_r:t="engine13_start_cockpit_r"
     event_stop_cockpit_l:t="engine13_stop_cockpit_l"
     event_stop_cockpit_r:t="engine13_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine13_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine13_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -617,17 +617,17 @@ engine14{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine14_start"
-    eventStop:t="engine14_stop"
-    eventProp:t="engine14_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine14"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine14"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.02
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -643,8 +643,8 @@ engine14{
     event_start_cockpit_r:t="engine14_start_cockpit_r"
     event_stop_cockpit_l:t="engine14_stop_cockpit_l"
     event_stop_cockpit_r:t="engine14_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine14_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine14_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -664,17 +664,17 @@ engine15{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine15_start"
-    eventStop:t="engine15_stop"
-    eventProp:t="engine15_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine15"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine15"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.02
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -690,8 +690,8 @@ engine15{
     event_start_cockpit_r:t="engine15_start_cockpit_r"
     event_stop_cockpit_l:t="engine15_stop_cockpit_l"
     event_stop_cockpit_r:t="engine15_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine15_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine15_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=-0.5, 1.0, 5.0
     rightPos:p3=-0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -711,17 +711,17 @@ engine16{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine16_start"
-    eventStop:t="engine16_stop"
-    eventProp:t="engine16_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine16"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine16"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.012
     loadScale:r=6.0
     loadSmooth:r=0.05
@@ -737,8 +737,8 @@ engine16{
     event_start_cockpit_r:t="engine16_start_cockpit_r"
     event_stop_cockpit_l:t="engine16_stop_cockpit_l"
     event_stop_cockpit_r:t="engine16_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine16_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine16_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -758,9 +758,9 @@ engine17{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine17_start"
-    eventStop:t="engine17_stop"
-    eventProp:t="engine17_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -784,8 +784,8 @@ engine17{
     event_start_cockpit_r:t="engine17_start_cockpit_r"
     event_stop_cockpit_l:t="engine17_stop_cockpit_l"
     event_stop_cockpit_r:t="engine17_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine17_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine17_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -805,9 +805,9 @@ engine18{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine18_start"
-    eventStop:t="engine18_stop"
-    eventProp:t="engine18_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -831,8 +831,8 @@ engine18{
     event_start_cockpit_r:t="engine18_start_cockpit_r"
     event_stop_cockpit_l:t="engine18_stop_cockpit_l"
     event_stop_cockpit_r:t="engine18_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine18_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine18_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -852,9 +852,9 @@ engine19{
     dive:t="engine_dive"
     timeFallingDown:r=2.0
     engineVolumeOnOverheat:r=0.8
-    eventStart:t="engine19_start"
-    eventStop:t="engine19_stop"
-    eventProp:t="engine19_prop"
+    eventStart:t="engine04_start"
+    eventStop:t="engine04_stop"
+    eventProp:t="engine04_prop"
   }
 
   outside{
@@ -878,8 +878,8 @@ engine19{
     event_start_cockpit_r:t="engine19_start_cockpit_r"
     event_stop_cockpit_l:t="engine19_stop_cockpit_l"
     event_stop_cockpit_r:t="engine19_stop_cockpit_r"
-    event_prop_cockpit_l:t="engine19_prop_cockpit_l"
-    event_prop_cockpit_r:t="engine19_prop_cockpit_r"
+    event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+    event_prop_cockpit_r:t="engine04_prop_cockpit_r"
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -901,9 +901,9 @@ engine20{
       dive:t="engine_dive"
       timeFallingDown:r=2.0
       engineVolumeOnOverheat:r=0.8
-      eventStart:t="engine20_start"
-      eventStop:t="engine20_stop"
-      eventProp:t="engine20_prop"
+      eventStart:t="engine04_start"
+      eventStop:t="engine04_stop"
+      eventProp:t="engine04_prop"
     }
 
     outside{
@@ -930,8 +930,8 @@ engine20{
       event_start_cockpit_r:t="engine20_start_cockpit_r"
       event_stop_cockpit_l:t="engine20_stop_cockpit_l"
       event_stop_cockpit_r:t="engine20_stop_cockpit_r"
-      event_prop_cockpit_l:t="engine20_prop_cockpit_l"
-      event_prop_cockpit_r:t="engine20_prop_cockpit_r"
+      event_prop_cockpit_l:t="engine04_prop_cockpit_l"
+      event_prop_cockpit_r:t="engine04_prop_cockpit_r"
       leftPos:p3=0.5, 1.0, 1.0
       rightPos:p3=0.5, 1.0, -1.0
       rpm2Type:t="jetTrue"

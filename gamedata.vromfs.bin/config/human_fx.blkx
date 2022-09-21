@@ -8,7 +8,7 @@ ground_splash{
   minScale:r=0.5
   maxScale:r=2.0
   group:t="highres"
-  sfx:t="^cal=10;mat=0$impact/bullet"
+  sfx:t="[cal=10;mat=0]impact/bullet"
 }
 
 concrete_splash{
@@ -21,7 +21,7 @@ concrete_splash{
   minScale:r=0.5
   maxScale:r=2.0
   group:t="highres"
-  sfx:t="^cal=10;mat=1$impact/bullet"
+  sfx:t="[cal=10;mat=1]impact/bullet"
 }
 
 water_splash{
@@ -32,7 +32,7 @@ water_splash{
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=10;mat=2$impact/bullet"
+  sfx:t="[cal=10;mat=2]impact/bullet"
 }
 
 ground_splash_direct{
@@ -48,7 +48,7 @@ ground_splash_direct{
 }
 
 flesh_splash{
-  fx:t="blood_hit_entry_composite_fx"
+  fx:t="hit_blood_entry_cmps_fx"
   lifeTime:r=0.0
   softnessDepth:r=0.01
   granularity:i=4
@@ -58,7 +58,7 @@ flesh_splash{
 }
 
 blood_splash{
-  fx:t="blood_splash_a_fx"
+  fx:t="hit_blood_ground_cmps_fx"
   lifeTime:r=0.0
   softnessDepth:r=0.01
   granularity:i=4
@@ -68,13 +68,13 @@ blood_splash{
 }
 
 blood_flow_fx{
-  fx:t="blood_flow_fx"
+  fx:t="hit_blood_flow_heavy_cmps_fx"
   numInstances:i=300
   numReserved:i=30
 }
 
 flesh_splash_side{
-  fx:t="blood_hit_entry_side_composite_fx"
+  fx:t="hit_blood_flow_light_cmps_fx"
   lifeTime:r=0.2
   softnessDepth:r=0.01
   granularity:i=4
@@ -84,7 +84,7 @@ flesh_splash_side{
 }
 
 flesh_splash_exit{
-  fx:t="blood_hit_exit_composite_fx"
+  fx:t="hit_blood_exit_cmps_fx"
   lifeTime:r=4.0
   softnessDepth:r=0.01
   granularity:i=4
@@ -94,7 +94,7 @@ flesh_splash_exit{
 }
 
 flesh_splash_kill{
-  fx:t="blood_hit_entry_composite_fx"
+  fx:t="hit_blood_entry_cmps_fx"
   lifeTime:r=0.0
   softnessDepth:r=0.01
   granularity:i=4
@@ -104,7 +104,7 @@ flesh_splash_kill{
 }
 
 flesh_splash_kill_side{
-  fx:t="blood_hit_entry_side_composite_fx"
+  fx:t="hit_blood_flow_light_cmps_fx"
   lifeTime:r=0.3
   softnessDepth:r=0.01
   granularity:i=4
@@ -114,7 +114,7 @@ flesh_splash_kill_side{
 }
 
 flesh_splash_kill_exit{
-  fx:t="blood_hit_exit_composite_fx"
+  fx:t="hit_blood_exit_cmps_fx"
   lifeTime:r=4.0
   softnessDepth:r=0.01
   granularity:i=4
@@ -131,7 +131,7 @@ metal_splash{
   onePointNumber:i=10
   softnessDepth:r=0.3
   group:t="highres"
-  sfx:t="^cal=10;mat=4$impact/bullet"
+  sfx:t="[cal=10;mat=4]impact/bullet"
 }
 
 wood_splash{
@@ -142,7 +142,7 @@ wood_splash{
   numInstances:i=1000
   numReserved:i=30
   group:t="highres"
-  sfx:t="^cal=10;mat=3$impact/bullet"
+  sfx:t="[cal=10;mat=3]impact/bullet"
 }
 
 footstep_fx{

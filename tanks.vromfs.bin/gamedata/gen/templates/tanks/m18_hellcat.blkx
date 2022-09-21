@@ -93,8 +93,6 @@ base_m18_hellcat{
       turretName:t="turret_02"
       gun:t="m18_hellcat_turret_02_12_7mm_m2_hb"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

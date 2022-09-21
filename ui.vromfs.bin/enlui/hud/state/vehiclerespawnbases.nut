@@ -7,10 +7,10 @@ let trackRespawnBases = Watched([])
 let function doTrack() {
   state.mutate(function (st) {
     foreach (respawnbase in trackRespawnBases.value) {
-      let {eid, active, respawnbaseType} = respawnbase
+      let {eid, active, respawnbaseType, respawnbaseSubtype} = respawnbase
 
       if (active)
-        st.eids.append([eid, respawnbaseType])
+        st.eids.append([eid, respawnbaseType, respawnbaseSubtype])
       else
         st.eids = st.eids.filter(@(v) v[0] != eid)
     }
@@ -18,11 +18,10 @@ let function doTrack() {
 
     st.byType = {}
     foreach (v in st.eids) {
-      let [respEid, respType] = v;
-      if (respType in st.byType)
-        st.byType[respType].append(respEid)
-      else
-        st.byType[respType] <- [respEid]
+      let [_, respType, respSubtype] = v;
+      if (respType not in st.byType)
+        st.byType[respType] <- {}
+      st.byType[respType][respSubtype] <- true
     }
   })
 }
@@ -30,8 +29,9 @@ let function doTrack() {
 let function track(eid, comp) {
   let active          = comp.active
   let respawnbaseType = comp.respawnbaseType
+  let respawnbaseSubtype = comp.respawnbaseSubtype
 
-  trackRespawnBases.mutate(@(st) st.append({eid, active, respawnbaseType}))
+  trackRespawnBases.mutate(@(st) st.append({eid, active, respawnbaseType, respawnbaseSubtype}))
 
   // In order to handle multiple repsawnbases activation at the same time
   gui_scene.resetTimeout(0.1, doTrack)
@@ -41,7 +41,10 @@ ecs.register_es("vehicle_respawn_bases_ui_es",
   {[["onInit", "onChange"]] = track},
   {
     comps_track=[["active", ecs.TYPE_BOOL]]
-    comps_ro = [["respawnbaseType", ecs.TYPE_STRING, ""]]
+    comps_ro = [
+      ["respawnbaseType", ecs.TYPE_STRING, ""],
+      ["respawnbaseSubtype", ecs.TYPE_STRING, ""]
+    ]
     comps_rq = ["vehicleRespbase"]
   })
 

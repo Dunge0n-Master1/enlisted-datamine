@@ -34,7 +34,7 @@ def turret_gun_flash_fx_inserter_es(info : UpdateStageInfoAct;
                                     [[shared_comp]] turret_gun_flash_fx__flashFxScale : Array)
   for gunEid, gunFx, fxScale in turret_control__gunEids, turretGunFx, turret_gun_flash_fx__flashFxScale
     if gunFx.turret_gun_fx__nodeId < 0 || empty(gunFx.turret_gun_fx__fxTemplate)
-      return
+      continue
 
     query(gunEid) <| $ [es] (gun_launch_events : GunLaunchEvents)
       for _launchEvent in gun_launch_events.launchEvents
@@ -43,14 +43,19 @@ def turret_gun_flash_fx_inserter_es(info : UpdateStageInfoAct;
 
         tm = tm * get_mult_tm(fxScale ?? 1.0)
 
-        let flashEid = createEntitySync(string(gunFx.turret_gun_fx__fxTemplate)) <| $(var init : ComponentsInitializer)
+        let flashEid = createEntity(add_sub_template_name(string(gunFx.turret_gun_fx__fxTemplate),
+            "turret_gun_flash_fx")) <| $(var init : ComponentsInitializer)
           set(init, "transform", tm)
           set(init, "gun_flash_fx__gunEid", eid)
           set(init, "gun_flash_fx__nodeId", gunFx.turret_gun_fx__nodeId)
 
-        query(flashEid) <| $ [es] (effect__name : string; var gun_flash_fx__timeToDestroy : float&)
-          let fxId = get_type_by_name(effect__name)
-          gun_flash_fx__timeToDestroy = get_effect_life_time(fxId)
+
+[es(on_appear, tag=render, REQUIRE=turret_gun_flash_fx)]
+def turret_gun_flash_fx_init_es(evt : Event;
+                                effect__name : string;
+                                var gun_flash_fx__timeToDestroy : float&)
+  let fxId = get_type_by_name(effect__name)
+  gun_flash_fx__timeToDestroy = get_effect_life_time(fxId)
 
 
 [soa_es, es(tag=render, on_appear)]
@@ -68,6 +73,10 @@ def turret_gun_flash_fx_created_es(evt : Event;
     let fx = flashFx ?? ""
     let node = flashNode ?? ""
     if empty(fx) || empty(node)
+      push(turretGunFx, [[TurretGunFx
+        turret_gun_fx__fxTemplate="",
+        turret_gun_fx__nodeId=-1
+      ]])
       continue
 
     let fxType = get_type_by_name(fx)

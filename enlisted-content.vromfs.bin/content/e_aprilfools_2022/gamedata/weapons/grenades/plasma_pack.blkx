@@ -52,6 +52,10 @@ explSound{
   explSoundPath:t="impact/grenade"
 }
 
+shellSound{
+  activatePath:t="/weapon/grenade/activate"
+}
+
 solver{
   energyConservation:r=0.85
 }

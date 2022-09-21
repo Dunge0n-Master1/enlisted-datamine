@@ -37,6 +37,7 @@ bomb_crater_config{
       normandy_fence_flat_b_debris_a:b=yes
       normandy_fence_flat_a_debris_a:b=yes
       scaffold_decor_base_walls_a:b=yes
+      debris_spruce_stump_b:b=yes
       european_railway_station_ruins_funnel_soil_a:b=no
       european_railway_station_ruins_funnel_soil_b:b=no
       sandbags_wall_high_l2000_hard_a:b=no
@@ -44,6 +45,33 @@ bomb_crater_config{
       tunisia_ruins_pillar_big_base_b:b=no
       tunisia_ruins_pillar_small_base_a:b=no
       tunisia_ruins_pillar_small_base_b:b=no
+      aborigen_village_module_column_a_a:b=no
+      aborigen_village_module_column_a_b:b=no
+      aborigen_village_module_column_a_c:b=no
+      aborigen_village_module_stairs_c_a:b=no
+      aborigen_village_module_stairs_b_a:b=no
+      aborigen_village_module_floor_a_a:b=no
+      aborigen_village_module_floor_a_b:b=no
+      aborigen_village_module_floor_b_a:b=no
+      debris_pile_wood_burnt_a_a:b=no
+      debris_pile_wood_burnt_a_b:b=no
+      debris_pile_wood_burnt_a_c:b=no
+      aborigen_village_module_floor_burned_a_a:b=no
+      aborigen_village_module_floor_burned_a_b:b=no
+      aborigen_village_module_floor_burned_a_c:b=no
+      aborigen_village_module_floor_burned_b_a:b=no
+      aborigen_village_module_stairs_burned_c_a:b=no
+      aborigen_village_module_column_burned_a_a:b=no
+      aborigen_village_module_column_burned_a_b:b=no
+      sandbox_a:b=no
+      sandbox_a_destroyed:b=no
+      sandbox_b:b=no
+      sandbox_b_destroyed:b=no
+      sandbox_c:b=no
+      sandbox_c_destroyed:b=no
+      sandbox_d:b=no
+      sandbox_d_destroyed:b=no
+      sandbox_e:b=no
     }
 
     "crater_config__unremovableRIPoolsByNamePart:list<t>"{
@@ -61,7 +89,7 @@ bomb_crater_config{
       name:t="_flag_base_"
     }
 
-    "crater_config__removableRiPoolIds:list<b>"{
+    "crater_config__riPoolFlags:list<i>"{
     }
 
     "bullet_crater_config__explosiveMassToCraterRadius:list<p2>"{
@@ -82,12 +110,45 @@ bomb_crater_config{
       p:p2=20.0, 7.0
       p:p2=120.0, 25.0
     }
+
+    "crater_config__scaleByPhysmats:object"{
+      sand:p4=1.0, 0.6, 1.3, 0.1
+      soil:p4=1.0, 1.0, 1.0, 1.0
+      leaves:p4=1.0, 1.1, 1.0, 1.0
+      mud:p4=1.1, 1.2, 1.2, 0.5
+      snow:p4=1.1, 1.1, 1.2, 0.8
+      sand_slope:p4=0.6, 0.5, 0.9, 0.2
+      road_sand:p4=0.6, 0.5, 0.9, 0.2
+      roadmud:p4=0.8, 0.8, 1.0, 0.2
+    }
   }
 
   _group{
     _tags:t="render"
-    bomb_crater_config__decalName:t="explosion"
-    bomb_crater_config__decalId:i=-1
+
+    "bomb_crater_config__decalNames:list<t>"{
+      name:t="explosion"
+      name:t="explosion_sand"
+      name:t="explosion_sand"
+      name:t="explosion_sand"
+      name:t="explosion_sand"
+      name:t="explosion_sand"
+    }
+
+    "bomb_crater_config__decalPhysmats:list<t>"{
+      name:t="default"
+      name:t="sand"
+      name:t="sand_slope"
+      name:t="roadSand"
+      name:t="quickSand"
+      name:t="quarrySand"
+    }
+
+    "bomb_crater_config__decalIds:list<i>"{
+    }
+
+    "bomb_crater_config__decalPhysmatsIds:list<i>"{
+    }
   }
 }
 
@@ -105,6 +166,7 @@ bomb_crater_terraformer{
     bomb_crater_terraformer__outerAlt:r=0.0
     bomb_crater_terraformer__outerRadius:r=0.0
     bomb_crater_terraformer__expectedRiHandlesToRemoveCount:i=32
+    bomb_crater_terraformer__mainPhysmatId:i=-1
 
     "bomb_crater_terraformer__availablePartsMask:u64"{
       value:i64=0
@@ -127,6 +189,7 @@ bomb_crater{
   bomb_crater__gridWidth:i=0
   bomb_crater__riHandlesRemovedCount:i=0
   bomb_crater__isTerraformed:b=no
+  bomb_crater__mainPhysmatId:i=-1
 
   "bomb_crater__availablePartsMask:u64"{
     value:i64=0

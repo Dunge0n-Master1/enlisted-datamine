@@ -3,6 +3,7 @@ require ecs
 require BehNodes
 require walkerai
 require EnlistedWalkerai
+require game.es.squad_order_common
 
 var // these variables keep constant values that don't change at runtime (after set), variables for non constant values are prohibited
   PERSONAL_ORDER_REACTION_ID : int

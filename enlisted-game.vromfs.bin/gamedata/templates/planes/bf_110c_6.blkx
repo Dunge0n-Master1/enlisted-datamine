@@ -146,6 +146,33 @@ bf_110c_6{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare7"
+    node:t="flare5"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_30mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="pylon_wing_l"
     part:t="pylon_wing_r"
@@ -308,7 +335,7 @@ base_bf_110c_6_30mm_mk101{
       "shell:object"{
         blk:t="gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
         name:t="spur"
-        type:t="i"
+        type:t="i_t"
       }
 
       "shell:object"{
@@ -344,7 +371,7 @@ base_bf_110c_6_30mm_mk101{
       "shell:object"{
         blk:t="gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
         name:t="spur"
-        type:t="i"
+        type:t="i_t"
       }
     }
   }

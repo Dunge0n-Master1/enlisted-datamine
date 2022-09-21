@@ -228,6 +228,33 @@ wellington_mk1c{
       gun:t="planegun_wellington_mk1c_7_7mm_vikkersk_turret_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare5"
+    node:t="flare6"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_wellington_mk1c_7_7mm_vikkersk_turret{
@@ -296,7 +323,7 @@ base_wellington_mk1c_7_7mm_browning303_turret{
   gun__shotFreq:r=16.6667
   gun__locName:t="gunbrowning303_turret"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=1200
+  gun__maxAmmo:i=1000
 
   "gun__firingModes:array"{
 
@@ -310,7 +337,7 @@ base_wellington_mk1c_7_7mm_browning303_turret{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=1200
+    ammo:i=1000
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -362,9 +389,9 @@ planegun_wellington_mk1c_7_7mm_browning303_turret_01{
   _extends:t="base_wellington_mk1c_7_7mm_browning303_turret"
   _extends:t="gunsound_7_7mm_browning303_turret_aircraft"
   gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=1200
+  gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret1"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
+  turret__limit:p4=-95.0, 95.0, -45.0, 60.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }
@@ -375,9 +402,9 @@ planegun_wellington_mk1c_7_7mm_browning303_turret_02{
   _extends:t="base_wellington_mk1c_7_7mm_browning303_turret"
   _extends:t="gunsound_7_7mm_browning303_turret_aircraft"
   gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=1200
+  gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret1"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
+  turret__limit:p4=-95.0, 95.0, -45.0, 60.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }
@@ -390,7 +417,7 @@ planegun_wellington_mk1c_7_7mm_browning303_turret_03{
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=2000
   turret__aimNodeName:t="turret2"
-  turret__limit:p4=-100.0, 100.0, -45.0, 30.0
+  turret__limit:p4=-95.0, 95.0, -45.0, 60.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }

@@ -284,6 +284,7 @@ shooter_human{
   battle_area__timeToDamageType:t="human"
   soldier__id:i=-1
   requestAmmoAllowTime:r=0.0
+  requestAmmoCooldown:r=10.0
   _replicated:t="requestAmmoAllowTime"
 
   _group{

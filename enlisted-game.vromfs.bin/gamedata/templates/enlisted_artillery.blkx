@@ -178,6 +178,30 @@ stalingrad_ger_team_aircraft_request{
   }
 }
 
+pacific_usa_team_aircraft_request{
+  _extends:t="aircraft_request"
+
+  _group{
+    _tags:t="server"
+    aircraft_request__aircraftAfterBombingHeight:r=900.0
+    aircraft_request__aircraftBombingHeight:r=750.0
+    aircraft_request__aircraftSpawnHeight:r=900.0
+    aircraft_request__aircraftTemplate:t="ai_a_20g+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
+  }
+}
+
+pacific_japan_team_aircraft_request{
+  _extends:t="aircraft_request"
+
+  _group{
+    _tags:t="server"
+    aircraft_request__aircraftAfterBombingHeight:r=1000.0
+    aircraft_request__aircraftBombingHeight:r=850.0
+    aircraft_request__aircraftSpawnHeight:r=1000.0
+    aircraft_request__aircraftTemplate:t="ai_g4m1+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_jap"
+  }
+}
+
 artillery_smoke{
   _extends:t="artillery"
   artillery_zone__showOnMinimap:b=no

@@ -1,7 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
-let {outputDevice, outputDevicesList, recordDevice, recordDevicesList} = require("%enlSqGlob/sound_state.nut")
+let {soundOutputDevice, soundOutputDeviceUpdate,
+  soundOutputDevicesList, soundOutputDevicesListUpdate,
+  soundRecordDevice, soundRecordDeviceUpdate,
+  soundRecordDevicesList, soundRecordDevicesListUpdate
+} = require("%enlSqGlob/sound_state.nut")
 
 let {startsWith} = require("%sqstd/string.nut")
 let {sound_set_callbacks, sound_get_output_devices, sound_get_record_devices, sound_set_output_device} = require("sound")
@@ -41,11 +45,11 @@ let function get_record_devices() {
 }
 
 
-if (outputDevicesList.value.len() == 0)
-  outputDevicesList(get_output_devices())
+if (soundOutputDevicesList.value.len() == 0)
+  soundOutputDevicesListUpdate(get_output_devices())
 
-if (recordDevicesList.value.len() == 0)
-  recordDevicesList(get_record_devices())
+if (soundRecordDevicesList.value.len() == 0)
+  soundRecordDevicesListUpdate(get_record_devices())
 
 
 let function isDeviceInList(dev, devs_list) {
@@ -57,48 +61,48 @@ let function isDeviceInList(dev, devs_list) {
   return false
 }
 
-outputDevice.subscribe(function(dev) {
+soundOutputDevice.subscribe(function(dev) {
   log($"[sound] set output device {dev?.name}")
   sound_set_output_device(dev ? dev.id: 0)
 })
 
-recordDevice.subscribe(function(dev) {
+soundRecordDevice.subscribe(function(dev) {
   log($"[sound] set record device {dev?.name}")
 })
 
-outputDevicesList.subscribe(function(dlist) {
+soundOutputDevicesList.subscribe(function(dlist) {
   log(dlist)
 })
 
-recordDevicesList.subscribe(function(dlist) {
+soundRecordDevicesList.subscribe(function(dlist) {
   log(dlist)
 })
 
-if (outputDevice.value == null) {
+if (soundOutputDevice.value == null) {
   local dev = get_setting_by_blk_path("sound/output_device")
-  if (!isDeviceInList(dev, outputDevicesList.value))
-    dev = findBestOutputDevice(outputDevicesList.value)
-  outputDevice(dev)
+  if (!isDeviceInList(dev, soundOutputDevicesList.value))
+    dev = findBestOutputDevice(soundOutputDevicesList.value)
+  soundOutputDeviceUpdate(dev)
 
 }
 
-if (recordDevice.value == null) {
+if (soundRecordDevice.value == null) {
   local dev = get_setting_by_blk_path("sound/record_device")
-  if (!isDeviceInList(dev, recordDevicesList.value))
-    dev = findBestRecordDevice(recordDevicesList.value)
-  recordDevice(dev)
+  if (!isDeviceInList(dev, soundRecordDevicesList.value))
+    dev = findBestRecordDevice(soundRecordDevicesList.value)
+  soundRecordDeviceUpdate(dev)
 }
 
 sound_set_callbacks({
   function on_record_devices_list_changed() {
-    recordDevicesList(get_record_devices())
-    if (!isDeviceInList(recordDevice.value, recordDevicesList.value))
-      recordDevice(findBestRecordDevice(recordDevicesList.value))
+    soundRecordDevicesListUpdate(get_record_devices())
+    if (!isDeviceInList(soundRecordDevice.value, soundRecordDevicesList.value))
+      soundRecordDeviceUpdate(findBestRecordDevice(soundRecordDevicesList.value))
   }
 
   function on_output_devices_list_changed() {
-    outputDevicesList(get_output_devices())
-    if (!isDeviceInList(outputDevice.value, outputDevicesList.value))
-      outputDevice(findBestOutputDevice(outputDevicesList.value))
+    soundOutputDevicesListUpdate(get_output_devices())
+    if (!isDeviceInList(soundOutputDevice.value, soundOutputDevicesList.value))
+      soundOutputDeviceUpdate(findBestOutputDevice(soundOutputDevicesList.value))
   }
 })

@@ -6,14 +6,15 @@ def unhide_crew_equipment(var hidden_equipment_items_in_vehicle : ecs::EidList)
       slot_attach__visible = true
   clear(hidden_equipment_items_in_vehicle)
 
-[es(tag=gameClient, on_event=(EventEntityCreated, EventEntityDied), track=(human_anim__vehicleSelected, bindedCamera), REQUIRE=hero)]
+[es(tag=gameClient, on_appear, on_event=(EventEntityCreated, EventEntityDied), track=(human_anim__vehicleSelected, isTpsView, bindedCamera), REQUIRE=watchedByPlr)]
 def crew_quipment_hider_in_cockpit(evt : Event;
                                    isAlive : bool;
+                                   isTpsView : bool;
                                    bindedCamera : EntityId;
                                    human_anim__vehicleSelected : EntityId;
                                    human_equipment__slots : ecs::Object;
                                    var hidden_equipment_items_in_vehicle : ecs::EidList)
-  if !human_anim__vehicleSelected || !isAlive
+  if !human_anim__vehicleSelected || !isAlive || isTpsView
     unhide_crew_equipment(hidden_equipment_items_in_vehicle)
     return
   if !(get_bool(bindedCamera, "isCockpitCam") ?? false)

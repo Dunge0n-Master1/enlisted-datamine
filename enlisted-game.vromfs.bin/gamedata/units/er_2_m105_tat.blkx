@@ -1,13 +1,13 @@
 model:t="er_2_m105_tat"
 fmFile:t="fm/er_2_ach30b_early.blk"
-damagePartsToCollisionObjectsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_collision_objects.blk"
-damagePartsToFmPartsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
-damagePartsToHudPartsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
-damagePartsDependencyMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_dependency_map.blk"
-damagePartsToCollisionPointsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_collision_points_map.blk"
-damagePartsToWeaponsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_weapons_map.blk"
-damagePartsToVisualEffectsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
-damagePartsExcludeFromHoleBlk:t="content/enlisted/gamedata/units/dm/dm_parts_exclude_from_hole.blk"
+damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
+damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
+damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
+damagePartsDependencyMapBlk:t="gamedata/units/dm/dm_parts_dependency_map.blk"
+damagePartsToCollisionPointsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_points_map.blk"
+damagePartsToWeaponsMapBlk:t="gamedata/units/dm/dm_parts_to_weapons_map.blk"
+damagePartsToVisualEffectsMapBlk:t="gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
+damagePartsExcludeFromHoleBlk:t="gamedata/units/dm/dm_parts_exclude_from_hole.blk"
 
 DamagePartsDefault{
 
@@ -877,6 +877,11 @@ DamageEffects{
     name:t="fuse_dm"
 
     onHit{
+      flame:r=0.2
+      smoke:r=0.2
+    }
+
+    onHit{
       damage:r=30.0
       tail_dm:r=0.2
     }
@@ -1221,7 +1226,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -1230,7 +1235,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -1239,7 +1244,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -1248,7 +1253,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -1326,6 +1331,11 @@ DamageEffects{
 
   part{
     name:t="tail_dm"
+
+    onHit{
+      flame:r=0.2
+      smoke:r=0.2
+    }
 
     onHit{
       damage:r=50.0
@@ -1794,6 +1804,13 @@ DamageEffects{
     defaultEffectPart:t="spar1_l_dm"
 
     onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
 
@@ -1804,6 +1821,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
 
@@ -1814,6 +1833,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -1824,6 +1845,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=30.0
       cut:r=0.0
       nothing:r=3.0
@@ -1835,6 +1858,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
       nothing:r=2.0
@@ -1846,6 +1871,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
       nothing:r=1.0
@@ -1857,6 +1884,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -1872,6 +1901,13 @@ DamageEffects{
     defaultEffectPart:t="spar1_r_dm"
 
     onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
 
@@ -1882,6 +1918,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
 
@@ -1892,6 +1930,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -1902,6 +1942,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=30.0
       cut:r=0.0
       nothing:r=3.0
@@ -1913,6 +1955,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
       nothing:r=2.0
@@ -1924,6 +1968,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
       nothing:r=1.0
@@ -1935,6 +1981,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -1950,6 +1998,13 @@ DamageEffects{
     defaultEffectPart:t="spar2_l_dm"
 
     onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
 
@@ -1960,6 +2015,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
 
@@ -1970,6 +2027,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -1980,6 +2039,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=30.0
       cut:r=0.0
       nothing:r=3.0
@@ -1991,6 +2052,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
       nothing:r=2.0
@@ -2002,6 +2065,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
       nothing:r=1.0
@@ -2013,6 +2078,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -2028,6 +2095,13 @@ DamageEffects{
     defaultEffectPart:t="spar2_r_dm"
 
     onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
 
@@ -2038,6 +2112,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
 
@@ -2048,6 +2124,8 @@ DamageEffects{
     }
 
     onHit{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -2058,6 +2136,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=30.0
       cut:r=0.0
       nothing:r=3.0
@@ -2069,6 +2149,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=50.0
       cut:r=0.0
       nothing:r=2.0
@@ -2080,6 +2162,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=0.6
+      flame:r=0.7
       damage:r=70.0
       cut:r=0.0
       nothing:r=1.0
@@ -2091,6 +2175,8 @@ DamageEffects{
     }
 
     onKill{
+      smoke:r=1.0
+      flame:r=1.1
       damage:r=100.0
       cut:r=0.0
 
@@ -2103,10 +2189,140 @@ DamageEffects{
 
   part{
     name:t="wing_l_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.3
+    }
+
+    onHit{
+      damage:r=20.0
+      smoke:r=0.3
+      flame:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      smoke:r=0.4
+      flame:r=0.5
+    }
+
+    onHit{
+      damage:r=50.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onHit{
+      damage:r=70.0
+      smoke:r=0.8
+      flame:r=0.8
+    }
+
+    onKill{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=20.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=30.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onKill{
+      damage:r=50.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
+
+    onKill{
+      damage:r=70.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
   }
 
   part{
     name:t="wing_r_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.3
+    }
+
+    onHit{
+      damage:r=20.0
+      smoke:r=0.3
+      flame:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      smoke:r=0.4
+      flame:r=0.5
+    }
+
+    onHit{
+      damage:r=50.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onHit{
+      damage:r=70.0
+      smoke:r=0.8
+      flame:r=0.8
+    }
+
+    onKill{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=20.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=30.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onKill{
+      damage:r=50.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
+
+    onKill{
+      damage:r=70.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
   }
 
   part{

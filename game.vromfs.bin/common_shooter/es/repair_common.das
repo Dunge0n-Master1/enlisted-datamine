@@ -21,7 +21,8 @@ def repair_vehicle(recovery_ratio : float;
       hp = rel_hp_float_to_fixed_ceil(rel_hp_fixed_to_float(fire_protection_part.hpFixed) + float(recovery_ratio))
     fire_protection_part.hpFixed = hp
     repairRequired = int(part.relHpFixed) < MAX_REL_HP_FIXED
-  for i in range(0, int(get_meta_part_size(meta_parts_state)))
-    repair_meta_part(meta_parts_state, i, recovery_ratio)
-    repairRequired = int(get_meta_part_rel_hp(meta_parts_state, i)) < MAX_REL_HP_FIXED
+  for part in meta_parts_state.state
+    part |> metapart_reset()
+    part |> metapart_setHp(rel_hp_float_to_fixed_ceil(rel_hp_fixed_to_float(part.hp) + recovery_ratio))
+    repairRequired = int(rel_hp_fixed_to_float(part.hp)) < MAX_REL_HP_FIXED
   return repairRequired

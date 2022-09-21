@@ -1,5 +1,7 @@
 germ_flak_36_sdkfz_6_2{
   _extends:t="base_flak_36_sdkfz_6_2"
+  _extends:t="tank_panzer3_engine_sound"
+  _extends:t="tank_light_vehicle_tracks_sound"
 
   _group{
     _tags:t="render"

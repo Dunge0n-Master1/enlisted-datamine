@@ -11,8 +11,8 @@ require CollRes
 require enlisted.events_enlisted
 
 
-[es(no_order, tag=render, REQUIRE=human_visibility_tracer)]
-def human_visibility_tracer_es(info : UpdateStageInfoAct;
+[es(tag=render, REQUIRE=human_visibility_tracer, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+def human_visibility_tracer_es(info : ParallelUpdateFrameDelayed;
                                transform : float3x4;
                                animchar : AnimcharBaseComponent;
                                human_inventory__visTraceMatId : int = -1;
@@ -23,6 +23,7 @@ def human_visibility_tracer_es(info : UpdateStageInfoAct;
   let traceFromPos = human_inventory__lookNodeId >= 0 ? geomtree_getNodeWpos(animchar.nodeTree, human_inventory__lookNodeId) : transform[3] + float3(0.f, 1.f, 0.f)
   let heroPos = transform[3]
   let curTime = get_sync_time()
+  let visibilityTraceRadiusSq = square(visibilityTraceRadius)
 
   if human__canSeeLootItems
     for_each_entity_in_grid(ecs_hash("loot"), BSphere3(heroPos, visibilityTraceRadius), GridEntCheck POS) <| $(lootEid : EntityId)
@@ -38,7 +39,7 @@ def human_visibility_tracer_es(info : UpdateStageInfoAct;
     if timeBetweenVisibilityChecks + lastVisibilityTraceTime > curTime
       return
 
-    if length_sq(heroPos - transform[3]) > square(visibilityTraceRadius) || !human__canSeeLootItems
+    if length_sq(heroPos - transform[3]) > visibilityTraceRadiusSq || !human__canSeeLootItems
       item__visible = false
       removeSubTemplate(eid, "visibility_traceable_item")
       return

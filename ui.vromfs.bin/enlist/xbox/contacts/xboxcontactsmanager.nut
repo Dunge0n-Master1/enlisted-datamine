@@ -1,6 +1,6 @@
 let relationships = require("%xboxLib/impl/relationships.nut")
 let { mute_by_xuids, unmute_by_xuids } = require("%enlist/xbox/voice.nut")
-let { friends, blocked, muted } = require("xboxContactsState.nut")
+let { xboxFriends, xboxFriendsUpdate, xboxBlockedUsers, xboxBlockedUsersUpdate, xboxMuted, xboxMutedUpdate } = require("xboxContactsState.nut")
 let { xboxApprovedUids, xboxBlockedUids, xboxMutedUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let loginState = require("%enlSqGlob/login_state.nut")
 let { searchContactByExternalId } = require("%enlist/contacts/externalIdsManager.nut")
@@ -17,23 +17,26 @@ let CONTACT_GROUP_BLOCKED = "b"
 let CONTACT_GROUP_MUTED   = "m"
 
 let ignoreRequestedXboxUids = persist("ignoreRequestedXboxUids", @() {})
-let uidsListByGroup = persist("uidsListByGroup", @() {
+let uidsListByGroup = {
   [CONTACT_GROUP_FRIENDS] = {
     contactsUidsWatch = xboxApprovedUids
-    consoleUidsWatch = friends
-    unknownUidsList = {}
+    consoleUidsWatch = xboxFriends
+    consoleUidsWatchUpdate = xboxFriendsUpdate
+    unknownUidsList = persist("unknownUidsListFriends", @() {})
   },
   [CONTACT_GROUP_BLOCKED] = {
     contactsUidsWatch = xboxBlockedUids
-    consoleUidsWatch = blocked
-    unknownUidsList = {}
+    consoleUidsWatch = xboxBlockedUsers
+    consoleUidsWatchUpdate = xboxBlockedUsersUpdate
+    unknownUidsList = persist("unknownUidsListBlocked", @() {})
   },
   [CONTACT_GROUP_MUTED] = {
     contactsUidsWatch = xboxMutedUids
-    consoleUidsWatch = muted
-    unknownUidsList = {}
+    consoleUidsWatch = xboxMuted
+    consoleUidsWatchUpdate = xboxMutedUpdate
+    unknownUidsList = persist("unknownUidsListMuted", @() {})
   }
-})
+}
 
 
 let function searchUnknownUids() {
@@ -103,7 +106,7 @@ let function proceedPeopleListAndDo(xuids, group) {
     unmute_by_xuids(oldXuidsList)
   }
 
-  uidsListByGroup[group].consoleUidsWatch(xuids.map(@(u) u.tostring()))
+  uidsListByGroup[group].consoleUidsWatchUpdate(xuids.map(@(u) u.tostring()))
   uidsListByGroup[group].unknownUidsList.clear()
 
   foreach (xboxUid in uidsListByGroup[group].consoleUidsWatch.value)

@@ -1,6 +1,7 @@
 germ_stuh_III_ausf_G{
   _extends:t="base_stuh_iii_ausf_g"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

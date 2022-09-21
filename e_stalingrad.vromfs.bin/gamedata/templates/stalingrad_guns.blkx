@@ -117,6 +117,10 @@ kar98k_wartime_production_gun{
       path:t="/weapon/rifle/mauser98k/reload5/change_ammo"
     }
 
+    "reload5:object"{
+      path:t="/weapon/rifle/mauser98k/reload6/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/mosin/bolt_action"
     }

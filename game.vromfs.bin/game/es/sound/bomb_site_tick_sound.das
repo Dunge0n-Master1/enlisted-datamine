@@ -1,9 +1,10 @@
 require ecs
 require DagorMath
 require soundEvent
+require enlisted.events_enlisted
 
 [es(tag=sound, no_order)]
-def bomb_site_tick_sound(info : UpdateStageInfoAct;
+def bomb_site_tick_sound(info : ParallelUpdateFrameDelayed;
                          bomb_site__explosionTimeEnd : float;
                          bomb_site__timeToExplosion : float;
                          bomb_site_tick_sound__path : string;

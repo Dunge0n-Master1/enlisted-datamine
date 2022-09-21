@@ -115,7 +115,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   transform:m=[[-0.235823, -0.0126018, -0.971715] [0.00525262, 0.999885, -0.0142419] [0.971782, -0.00846257, -0.235729] [-349.162, 4.17615, -409.169]]
   active:b=no

@@ -1,7 +1,7 @@
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
 let { sound_play } = require("sound")
 
-let serviceNotificationsList = sharedWatched("serviceNotificationsList", @() [])
+let {serviceNotificationsList, serviceNotificationsListUpdate} = globalWatched("serviceNotificationsList", @() [])
 serviceNotificationsList.subscribe(@(_v) sound_play("ui/enlist/notification"))
 
-return serviceNotificationsList
+return {serviceNotificationsList, serviceNotificationsListUpdate}

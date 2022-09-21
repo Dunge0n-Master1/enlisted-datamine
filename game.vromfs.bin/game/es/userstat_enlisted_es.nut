@@ -5,7 +5,7 @@ let {userstatsAdd} = require("%scripts/game/utils/userstats.nut")
 let {get_gun_stat_type_by_props_id, DM_MELEE, DM_PROJECTILE, DM_BACKSTAB} = require("dm")
 let getSoldierInfoFromCache = require("%scripts/game/es/soldier_info_cache.nut")
 let {
-  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventOnPlayerMineVehicleKill, EventOnPlayerMineInfantryKill,
+  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventOnPlayerShellVehicleKill, EventOnPlayerShellInfantryKill,
   EventPlayerSquadFinishedCapturing, EventOnPlayerWipedOutInfantrySquad
 } = require("dasevents")
 
@@ -166,10 +166,10 @@ ecs.register_es("userstats_player_squad_wipeout_es",
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})
 
-ecs.register_es("userstats_player_mine_kill_es",
+ecs.register_es("userstats_player_shell_kill_es",
   {
-    [EventOnPlayerMineVehicleKill] = @(_, comp) userstatsAdd(comp.userstats, null, "vehicle_mine_kills", null),
-    [EventOnPlayerMineInfantryKill] = @(_, comp) userstatsAdd(comp.userstats, null, "infantry_mine_kills", null)
+    [EventOnPlayerShellVehicleKill] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
+    [EventOnPlayerShellInfantryKill] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null)
   },
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})

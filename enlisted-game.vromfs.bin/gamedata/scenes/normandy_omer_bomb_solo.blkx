@@ -382,7 +382,7 @@ entity{
 }
 
 entity{
-  _template:t="briefing_assault"
+  _template:t="briefing_destruction"
   mission_name:t="normandy_omer_bomb"
 
   "loading_images:list<t>"{

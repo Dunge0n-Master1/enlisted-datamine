@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
-require("%enlist/soldiers/model/onlyInEnlistVm.nut")("servProfile")
-
-let profile = mkWatched(persist,"profile", {})
+let profile = nestWatched("PLAYER_PROFILE", {})
 
 let export = {
   items = {}

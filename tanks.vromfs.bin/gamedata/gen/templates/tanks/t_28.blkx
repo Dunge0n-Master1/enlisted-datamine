@@ -139,8 +139,8 @@ base_t_28{
       turretName:t="turret_02"
       gun:t="t_28_turret_02_7_62mm_dt"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
+      verDriveDm:t="gun_barrel_02"
+      horDriveDm:t="drive_turret_h_02"
       salt:i=1
     }
 
@@ -148,8 +148,8 @@ base_t_28{
       turretName:t="turret_03"
       gun:t="t_28_turret_03_7_62mm_dt"
       barrelDm:t="gun_barrel_03"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
+      verDriveDm:t="gun_barrel_03"
+      horDriveDm:t="drive_turret_h_03"
       salt:i=1
     }
 
@@ -157,8 +157,6 @@ base_t_28{
       turretName:t="turret_04"
       gun:t="t_28_turret_04_7_62mm_dt"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

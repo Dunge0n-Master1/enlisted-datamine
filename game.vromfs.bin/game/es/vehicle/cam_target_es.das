@@ -2,6 +2,7 @@ require ecs
 require game.utils.hero
 require vehicle
 require game.es.events
+require game.events_game
 require player
 
 def bind_camera_to_vehicle(vehicle : ecs::EntityId; var camera__target : ecs::EntityId&)
@@ -34,16 +35,17 @@ def on_change_vehicle_camera_type_es(evt : Event;
                           var camera__target : ecs::EntityId&;
                           var camera__active : bool&;
                           transform : float3x4;
+                          replayCamera : Tag?;
                           bindToVehicle : bool = false)
 
     if !camera__active
       return
 
-    set_camera_target(get_controlled_hero(), camera__target, bindToVehicle)
+    set_camera_target(get_watched_entity(), camera__target, bindToVehicle)
 
     let setupCameraAsActive <- @ <| (cam_eid : EntityId)
       setup_camera_as_active(cam_eid)
-    if vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD) && vehicleDeathCamera == INVALID_ENTITY_ID
+    if vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD) && vehicleDeathCamera == INVALID_ENTITY_ID && replayCamera == null
       camera__active = false
       vehiclePrevCamera = eid
       vehicleDeathCamera = createEntity(vehicleDeathCameraTemplate, setupCameraAsActive) <| $(var init : ComponentsInitializer)
@@ -59,11 +61,11 @@ def on_change_vehicle_camera_type_es(evt : Event;
         ecs::query(vehiclePrevCamera) <| $ [es] (var camera__target : ecs::EntityId&; var camera__active : bool&; bindToVehicle : bool = false)
           camera__active = true
           setup_camera_as_active(vehiclePrevCamera)
-          set_camera_target(get_controlled_hero(), camera__target, bindToVehicle)
+          set_camera_target(get_watched_entity(), camera__target, bindToVehicle)
 
       vehiclePrevCamera = INVALID_ENTITY_ID
 
-[es(tag=gameClient)]
+[es(tag=gameClient, before=on_change_vehicle_camera_type_es)]
 def set_camera_target_es(evt : CmdSetCameraTarget; var camera__target : ecs::EntityId&; bindToVehicle : bool = false)
   set_camera_target(evt.target, camera__target, bindToVehicle)
 
@@ -74,7 +76,10 @@ def set_camera_target_es(evt : CmdSetCameraTarget; var camera__target : ecs::Ent
 // This polling solves the problem, but must be removed in the future.
 // Polling is a bad way to solve issues.
 [es(tag=gameClient, no_order)]
-def fix_camera_target_es(info : UpdateStageInfoAct; eid : EntityId; var camera__target : ecs::EntityId&; bindToVehicle : bool)
+def fix_camera_target_es(info : UpdateStageInfoAct; eid : EntityId; var camera__target : ecs::EntityId&; bindToVehicle : bool; camera__active : bool)
+  if !camera__active
+    return
+
   if bindToVehicle && !has(camera__target, "vehicle")
     find_query() <| $ [es] (bindedCamera : EntityId; human_anim__vehicleSelected : ecs::EntityId)
       if bindedCamera == eid

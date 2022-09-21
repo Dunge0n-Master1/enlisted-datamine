@@ -13,6 +13,8 @@ require player
 require math
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require enlisted.game.es.squad_behaviour_command_common
+require game.es.squad_order_common
 
 def squad_order_response(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId)
   ecs::query() <| $ [es(REQUIRE=squad_member)] (eid : ecs::EntityId; squad_member__squad : ecs::EntityId)
@@ -69,7 +71,11 @@ def squad_formation_es(evt : RequestSquadFormation;
     squadFormationSpread = int(evt.spread)
     squad_formation_order_speech(eid, squad__leader, evt.spread)
 
-def squad_behaviour_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId)
+def squad_behaviour_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; squad_behaviour : int)
+  if squad_behaviour == int(SquadBehaviour ESB_AGRESSIVE)
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourAggressiveOrder", importance=1.]])
+  elif squad_behaviour == int(SquadBehaviour ESB_PASSIVE)
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourPassiveOrder", importance=1.]])
   squad_order_response(squad_eid, leader_eid)
 
 [es(tag=server)]
@@ -78,6 +84,6 @@ def squad_behaviour_es(evt : RequestSquadBehaviour;
                        squad__leader : ecs::EntityId;
                        var squad__squadBehaviour : int&)
   squad__squadBehaviour = evt.behaviour
-  squad_behaviour_speech(eid, squad__leader)
+  squad_behaviour_speech(eid, squad__leader, squad__squadBehaviour)
 
   reset_squad_behaviour_exclude_personal(eid)

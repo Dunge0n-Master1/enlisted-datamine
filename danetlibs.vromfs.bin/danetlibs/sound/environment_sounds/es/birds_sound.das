@@ -6,7 +6,7 @@ require DagorMath
 
 
 [es(tag=sound)]
-def birds_sound_shut_up(evt : EventOnLoudSound;
+def birds_sound_shut_up(evt : EventOnWeaponSound;
                         var birds_sound__noiseTime : float&;
                         birds_sound__actionRange = 250.)
   if length_sq(get_listener_pos() - evt.pos) < birds_sound__actionRange * birds_sound__actionRange

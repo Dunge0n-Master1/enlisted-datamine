@@ -98,12 +98,8 @@ def simulate_shot(owner_eid : EntityId;
                   let newHitPos = prevPos + dir * isect.t
                   out_hit_pos = newHitPos
 
-                  var isInvulnerable = false
-                  var haveDeflectedShell = false
-                  check_shell_invulnerability(eid, distance, dir, newHitPos, curTime) <| $(var invul : InvulnerabilityRes#)
-                    isInvulnerable = invul.isInvulnerable
-                    haveDeflectedShell = invul.haveDeflectedShell
-                  if isInvulnerable
+                  let invul = check_shell_invulnerability(eid, distance, dir, newHitPos, curTime)
+                  if invul.isInvulnerable
                     sendEvent(isect.eid, [[ProjectileHitInvulnerableNotification hitPos=isect.pos, hitDir=dir]])
                     continue
                   if has(eid, "turretHitAlwaysEffective")
@@ -129,7 +125,7 @@ def simulate_shot(owner_eid : EntityId;
                   let isTeamFireAllowed = (!isTeamsFriendly || is_friendly_fire_allowed())
                   let isCorrectRestrictToTeam = (restrictToTeam == TEAM_UNASSIGNED || restrictToTeam != projectileOwnerTeam)
                   if (damageModel != null && !isExploded && isTeamFireAllowed &&
-                      isCorrectRestrictToTeam && !haveDeflectedShell)
+                      isCorrectRestrictToTeam && !invul.haveDeflectedShell)
                     if mode == SimulateMode FULL
                       let t = damageModel.collisionData.boundingSphere.r
                       let velDir = normalize(ballistics.state.vel)

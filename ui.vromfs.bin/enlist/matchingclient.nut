@@ -68,10 +68,13 @@ eventbus.subscribe("matching.logged_out", function(notify) {
         buttons = buttons
       })
     }
-    else
-      msgbox.show({text=loc("msgboxtext/matchingDisconnect",
-                              {error = notify.message.len() > 0 ? notify.message : loc("error/{0}".subst(notify.reason_str))})
-                  })
+    else {
+      log($"Matching server disconnect by {notify.reason} with message {notify.message}")
+      msgbox.show({
+        text = loc("msgboxtext/matchingDisconnect",
+          {error = loc("error/{0}".subst(notify.reason_str))})
+      })
+    }
   }
 })
 

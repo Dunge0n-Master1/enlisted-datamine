@@ -397,14 +397,18 @@ ussr_berlin_building_tool_gun{
   }
 }
 
-modern_event_building_tool_gun{
+jp_building_tool_gun{
   _extends:t="building_tool_gun"
-  item__weapTemplate:t="modern_event_building_tool_gun"
-  item__template:t="modern_event_building_tool_item"
+  item__weapTemplate:t="jp_building_tool_gun"
+  item__template:t="jp_building_tool_item"
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
-    template:t="usa_rallypoint_preview"
+    template:t="sandbags_wall_type_92_hmg_preview"
+    template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
+    template:t="cannon_us_towed_at_m1_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="jp_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
   }
@@ -412,7 +416,11 @@ modern_event_building_tool_gun{
   "buildingLimits:list<i>"{
     limit:i=10
     limit:i=1
+    limit:i=2
+    limit:i=1
     limit:i=6
+    limit:i=1
+    limit:i=10
     limit:i=3
   }
 }
@@ -427,9 +435,11 @@ developer_building_tool_gun{
     template:t="sandbags_wall_mg_34_preview_dev"
     template:t="sandbags_wall_maxim_no_shield_preview_dev"
     template:t="sandbags_wall_browning_m1919a4_preview_dev"
+    template:t="sandbags_wall_type_92_hmg_preview_dev"
   }
 
   "buildingLimits:list<i>"{
+    limit:i=2
     limit:i=2
     limit:i=2
     limit:i=2
@@ -465,9 +475,9 @@ ger_building_tools_item{
   item__userstats__pickupName:t="pickup_building_tool"
 }
 
-modern_event_building_tool_item{
+jp_building_tool_item{
   _extends:t="item_melee"
-  _extends:t="modern_event_building_tool_gun"
+  _extends:t="jp_building_tool_gun"
   collres__res:t="construction_hammer_collision"
   item__userstats__pickupName:t="pickup_building_tool"
 }
@@ -619,7 +629,6 @@ feldfu_b_radio_gun{
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
   _replicated:t="gun__holsterGen"
-  _replicated:t="gun__animVarsGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
@@ -632,7 +641,6 @@ feldfu_b_radio_gun{
   gun__visible:b=yes
   animchar_render__enabled:b=no
   human_gun_attached:b=no
-  gun__animVarsGen:i=0
   gun_anim__reloadProgress:r=-1.0
   gun_anim__singleReloadProgress:r=-1.0
   gun_anim__singleReloadState:i=0
@@ -694,7 +702,6 @@ ussr_p13_radio_gun{
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
   _replicated:t="gun__holsterGen"
-  _replicated:t="gun__animVarsGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
@@ -707,7 +714,6 @@ ussr_p13_radio_gun{
   gun__visible:b=yes
   animchar_render__enabled:b=no
   human_gun_attached:b=no
-  gun__animVarsGen:i=0
   gun_anim__reloadProgress:r=-1.0
   gun_anim__singleReloadProgress:r=-1.0
   gun_anim__singleReloadState:i=0
@@ -769,7 +775,6 @@ scr_300_gun{
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
   _replicated:t="gun__holsterGen"
-  _replicated:t="gun__animVarsGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
@@ -782,7 +787,6 @@ scr_300_gun{
   gun__visible:b=yes
   animchar_render__enabled:b=no
   human_gun_attached:b=no
-  gun__animVarsGen:i=0
   gun_anim__reloadProgress:r=-1.0
   gun_anim__singleReloadProgress:r=-1.0
   gun_anim__singleReloadState:i=0
@@ -844,7 +848,6 @@ ita_rf1_radio_gun{
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
   _replicated:t="gun__holsterGen"
-  _replicated:t="gun__animVarsGen"
   _replicated:t="slot_attach__visible"
   _replicated:t="human_gun_attached"
   _replicated:t="gun__visible"
@@ -857,7 +860,6 @@ ita_rf1_radio_gun{
   gun__visible:b=yes
   animchar_render__enabled:b=no
   human_gun_attached:b=no
-  gun__animVarsGen:i=0
   gun_anim__reloadProgress:r=-1.0
   gun_anim__singleReloadProgress:r=-1.0
   gun_anim__singleReloadState:i=0

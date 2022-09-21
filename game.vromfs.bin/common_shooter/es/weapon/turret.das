@@ -25,6 +25,8 @@ require Gun
 require BitStream
 require game.utils.hero
 require EnlistedWeapon
+require BallisticsProps
+require DaWeaponProps
 
 
 [es]
@@ -83,6 +85,13 @@ def calc_turret_angles(wish_dir : float3&)
   let wishAngles = dir_to_angles(normalize(wish_dir))
   return float2(-wishAngles.x, wishAngles.y) // -x because dir_to_angles uses negative z (for heading, not true rotation)
 
+[es(tag=gameClient, track=gun__curShellId, on_appear)]
+def init_projectile_impulse_for_gun(evt : Event;
+                                    gun__curShellId : ShellPropIds;
+                                    var gun__curShellImpulse : float&)
+  if int(gun__curShellId.ballisticsId) >= 0
+    projectile_get_props(int(gun__curShellId.ballisticsId)) <| $(ballisticsProps : ProjectileProps)
+      gun__curShellImpulse = (ballisticsProps.velRange.y - ballisticsProps.velRange.x) * 0.5f * ballisticsProps.mass
 
 [es(tag=gameClient)]
 def turret_direction_control_remote_es(evt : CmdTurretsUpdate;
@@ -131,6 +140,12 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
                            turret_control__gunEids : EidList;
                            turret_state__atTick : int;
                            var turret_input__prevCmdSendTick : int&)
+  var controlledHero = INVALID_ENTITY_ID
+  query() <| $ [es(REQUIRE=hero)] (eid : EntityId)
+    controlledHero = eid
+  if !controlledHero
+    return
+
   let curTime = info.curTime
   let curTick = int(curTime * float(PHYS_DEFAULT_TICKRATE))
   if int(vehicle__localControls.turretsMask) == 0 || turret_input__prevCmdSendTick >= curTick
@@ -183,7 +198,7 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
           bs |> Write(turret_state.shoot.pos)
 
     bs |> WriteAt(turretCount, 0u)
-    send_turret_controls_msg(get_controlled_hero(), bs)
+    send_turret_controls_msg(controlledHero, bs)
     turret_input__prevCmdSendTick = curTick
 
 def turret_apply_client_input(evt : TurretControlsMsg;
@@ -300,6 +315,15 @@ def turret_shoot_tm_save_es(evt : CmdTurretsUpdate;
                             net_phys__currentStateVelocity : float3)
   turret_shoot_tm_save(isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
 
+[es(tag=server, REQUIRE_NOT=deadEntity, after=(turret_shoot_tm_save_es, turret_set_angles_es), before=turret_weap_updater_es)]
+def turret_server_aim(evt : CmdTurretsUpdate;
+                      turret_control__gunEids : EidList)
+  for gunEid in turret_control__gunEids
+    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, turret_serverAim))] (var turret_state : TurretState; turret__serverCosDeviationThreshold : float = 0.984 /*~10 deg*/)
+      let wishDir = angles_to_dir(float2(-turret_state.wishAngles.x, turret_state.wishAngles.y))
+      if dot(turret_state.shoot.dir, wishDir) > turret__serverCosDeviationThreshold
+        turret_state.shoot.dir = wishDir
+
 [es(tag=netClient, REQUIRE=heroVehicle, after=turret_shoot_tm_save_es, before=turret_weap_drivers_updater_es)]
 def turret_shoot_tm_save_client_es(evt : CmdTurretsUpdate;
                                    isAlive : bool = true;
@@ -337,11 +361,13 @@ def turret_weap_update(gunEid : EntityId;
   query(gunEid) <| $ [es] (turret_state : TurretState;
                            turret_aim__shootFlag : bool;
                            turret_aim__shootDirWithCorrection : float3?;
-                           turret__canShoot : bool;
+                           turret_serverAim : Tag?;
+                           turret__isUnderwater : bool;
+                           turret__isBroken : bool;
                            gun__timeBetweenShotMult : float = 1.0;
                            gun__isOverheat : bool = false)
-    let shoot = !gun__isOverheat && turret_aim__shootFlag && turret__canShoot
-    let shootDir = turret_aim__shootDirWithCorrection != null ? *turret_aim__shootDirWithCorrection : turret_state.shoot.dir
+    let shoot = !gun__isOverheat && turret_aim__shootFlag && !turret__isUnderwater && !turret__isBroken
+    let shootDir = turret_serverAim == null && turret_aim__shootDirWithCorrection != null && length_sq(*turret_aim__shootDirWithCorrection) != 0.0 ? *turret_aim__shootDirWithCorrection : turret_state.shoot.dir
 
     let isForReal = true
     let rndSeed = phys_time_to_seed(atTime)
@@ -438,21 +464,19 @@ def turret_weap_updater_es(evt : CmdTurretsUpdate;
               let qa = dir_to_quat(turret_state.shoot.dir)
               let qb = dir_to_quat(historyState.shootDir)
               turret_state.shoot.dir = slerp(qa, qb, PERMITTED_TURRET_DIR_DIFF / acos(dirDiffCos)) |> quat_get_forward()
-            // else
-            // Ignore 0 or NaN dir
+            else
+              return // Ignore 0 or NaN dir
         turret_weap_update(gunEid, float(vehicleTick) * dt)
 
 
-[es(tag=gameClient, after=after_collision_sync)]
+[es(tag=gameClient, after=after_collision_sync, REQUIRE=vehicleWithWatched)]
 def turret_update_visual_shoot_tm_es(evt : UpdateStageInfoAct;
                                      turret_control__gunEids : EidList;
-                                     input__enabled : bool;
                                      net_phys__interpK : float;
                                      var turret_current_visual_shoot_tm : float3x4)
-  if input__enabled
-    for gunEid in turret_control__gunEids
-      query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (gun : Gun)
-        turret_current_visual_shoot_tm = gun |> gun_lerpGunTmWithK(net_phys__interpK)
+  for gunEid in turret_control__gunEids
+    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstWatchedTurret))] (gun : Gun)
+      turret_current_visual_shoot_tm = gun |> gun_lerpGunTmWithK(net_phys__interpK)
 
 
 [es(tag=(gameClient, net))]

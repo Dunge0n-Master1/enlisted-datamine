@@ -8,6 +8,7 @@ require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require game.es.vehicle.vehicle_seats_common
 require BehNodes
 require EnlistedBehTree
+require game.es.squad_order_common
 
 [es(tag=server)]
 def on_personal_squadmate_use_vehicle_order(evt : RequestPersonalSquadMateOrder;
@@ -21,7 +22,7 @@ def on_personal_squadmate_use_vehicle_order(evt : RequestPersonalSquadMateOrder;
                                             var squad_member__isPersonalOrder : bool&)
   var hasSeatInVehicle = false
   query(evt.orderUseEntity) <| $ [es] (vehicle_seats__seatEids : EidList)
-    hasSeatInVehicle = find_vehicle_seat(vehicle_seats__seatEids) >= 0
+    hasSeatInVehicle = find_vehicle_seat_for_bot(vehicle_seats__seatEids) >= 0
 
   if evt.orderType == int(SquadMateOrder ESMO_USE_VEHICLE) && (isInVehicle || hasSeatInVehicle)
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
@@ -81,7 +82,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
 
       var hasSeatInVehicle = false
       query(vehicleEid) <| $ [es] (vehicle_seats__seatEids : EidList)
-        hasSeatInVehicle = find_vehicle_seat(vehicle_seats__seatEids) >= 0
+        hasSeatInVehicle = find_vehicle_seat_for_bot(vehicle_seats__seatEids) >= 0
 
       if ((squad__orderType == int(SquadOrder ESO_USE_VEHICLE) && squad_member__orderType == int(SquadMateOrder ESMO_NO_ORDER)) ||
            squad_member__orderType == int(SquadMateOrder ESMO_USE_VEHICLE)) && !beh_tree__isInTrainBeh
@@ -107,7 +108,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
           EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
           if beh_tree__latencyLoadBlackBoard != null
             *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(vehicleEid)))
-          beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(vehicleEid)))
+          beh_tree.blackBoard |> set("vehicleEid", int(uint(vehicleEid)))
 
         elif isInVehicle && !beh_tree__orderIsInVehicle
           beh_tree__orderIsInVehicle     = true
@@ -117,7 +118,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
 
           if beh_tree__latencyLoadBlackBoard != null
             *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(vehicleEid)))
-          beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(vehicleEid)))
+          beh_tree.blackBoard |> set("vehicleEid", int(uint(vehicleEid)))
       else
         beh_tree__orderIsInVehicle      = false
         beh_tree__orderShouldUseVehicle = false
@@ -125,7 +126,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
         if isInVehicle
           query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
             kick_from_vehicle(squadMemberEid, human_anim__vehicleSelected, vehicle_seats__seatEids)
-
+require DagorSystem
 [es(tag=server, no_order)]
 def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
                                   squad__leader : EntityId;
@@ -164,7 +165,7 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
 
   var hasSeatInVehicle = false
   query(leaderVehicleEid) <| $ [es] (vehicle_seats__seatEids : EidList)
-    hasSeatInVehicle = find_vehicle_seat(vehicle_seats__seatEids) >= 0
+    hasSeatInVehicle = find_vehicle_seat_for_bot(vehicle_seats__seatEids) >= 0
 
   for squadMemberEid in squad__allMembers
     if squad__leader == squadMemberEid
@@ -223,7 +224,7 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
 
         if beh_tree__latencyLoadBlackBoard != null
           *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
-        beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(leaderVehicleEid)))
+        beh_tree.blackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
 
       elif isInLeaderVehicle && !beh_tree__isInVehicle
         beh_tree__isInVehicleResetTrigger = true
@@ -234,7 +235,7 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
         EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
         if beh_tree__latencyLoadBlackBoard != null
           *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
-        beh_tree.blackBoard |> datablock_setInt("vehicleEid", int(uint(leaderVehicleEid)))
+        beh_tree.blackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
 
 [es(tag=server, track=beh_tree__shouldUseVehicleResetTrigger)]
 def on_squad_mate_use_vehicle_es(evt : Event;

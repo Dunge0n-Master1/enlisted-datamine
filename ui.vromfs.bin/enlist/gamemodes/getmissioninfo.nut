@@ -8,6 +8,7 @@ let misPrefixToCampaign = {
   berlin = "berlin"
   tunisia = "tunisia"
   stalingrad = "stalingrad"
+  pacific = "pacific"
 }
 
 let function mkMissionInfo(scene) {

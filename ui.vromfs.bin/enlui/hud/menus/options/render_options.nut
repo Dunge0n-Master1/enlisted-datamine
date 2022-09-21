@@ -341,6 +341,19 @@ let optCloudsQuality = optionCtor({
   isEqual = defCmp
 })
 
+let optVolumeFogQuality = optionCtor({
+  name = loc("options/volumeFogQuality", "Volumetric Fog Quality")
+  widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
+  tab = "Graphics"
+  isAvailable = isOptAvailable
+  blkPath = "graphics/volumeFogQuality"
+  defVal = "close"
+  available = [ "close", "far" ]
+  restart = false
+  valToString = loc_opt
+  isEqual = defCmp
+})
+
 let optWaterQuality = optionCtor({
   name = loc("options/waterQuality", "Water Quality")
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
@@ -600,7 +613,7 @@ let optSSRQuality = optionCtor({
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   blkPath = "graphics/ssrQuality"
-  available = ["low", "medium", "high"]
+  available = is_dx12() ? ["low", "medium", "high", "ultra"] : ["low", "medium", "high"]
   defVal = "low"
   restart = false
   valToString = loc_opt
@@ -694,6 +707,7 @@ return {
   optSsaoQuality
   optObjectsDistanceMul
   optCloudsQuality
+  optVolumeFogQuality
   optWaterQuality
   optGroundDisplacementQuality
   optGroundDeformations
@@ -767,6 +781,7 @@ return {
     optAnisotropy,
     // Details
     optCloudsQuality,
+    optVolumeFogQuality,
     optWaterQuality,
     optFFTWaterQuality,
     optGroundDisplacementQuality,

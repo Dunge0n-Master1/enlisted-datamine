@@ -9,6 +9,7 @@ stabilityThreshold:r=0.05
 hitPowerMult:r=7.0
 stabilityCaliberToArmorThreshold:r=5.0
 recoilMultiplier:r=0.3
+bulletType:t="ball_shell"
 stabilityReductionAfterPenetration:r=0.3
 effectiveDistance:r=700.0
 slopeEffectPreset:t="ap"
@@ -47,29 +48,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

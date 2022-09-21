@@ -89,8 +89,6 @@ base_t_50{
       turretName:t="turret_02"
       gun:t="t_50_turret_02_7_62mm_dt"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -98,8 +96,6 @@ base_t_50{
       turretName:t="turret_03"
       gun:t="t_50_turret_03_7_62mm_dt"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

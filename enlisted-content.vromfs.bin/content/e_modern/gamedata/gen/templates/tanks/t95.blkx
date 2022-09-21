@@ -92,8 +92,6 @@ base_t95{
     "turretInfo:object"{
       turretName:t="turret_02"
       gun:t="t95_turret_02_12_7mm_m2_hb"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

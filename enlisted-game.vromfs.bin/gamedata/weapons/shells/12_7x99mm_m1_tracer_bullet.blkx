@@ -12,6 +12,7 @@ stabilityReductionAfterRicochet:r=0.01
 onHitChanceMultFire:r=2.0
 stabilityReductionAfterPenetration:r=0.01
 hitPowerMult:r=8.0
+bulletType:t="t_ball_M1"
 slopeEffectPreset:t="ap"
 effectiveDistance:r=3000.0
 relativeVelHitShift:p2=300.0, 3000.0
@@ -49,29 +50,6 @@ visual{
   traceFreq:i=1
   tracer:t="12mmDarkRed"
   trail:t="smallTrail"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

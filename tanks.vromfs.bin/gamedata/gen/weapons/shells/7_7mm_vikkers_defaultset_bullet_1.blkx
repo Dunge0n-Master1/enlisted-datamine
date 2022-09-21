@@ -12,7 +12,7 @@ explodeArmorPower:r=2.5
 explodeRadius:p2=0.03, 0.035
 groundCollisionEffect:t="hit_8_11mm_dirt_he"
 ricochetEffect:t="hit_8_11mm_metal_he"
-waterCollisionEffect:t="hit_12_18mm_water"
+waterCollisionEffect:t="hit_8_11mm_water"
 secondaryShattersPreset:t="ap"
 
 hitpower{

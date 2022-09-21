@@ -13,6 +13,12 @@ require GridCollision
 require game.es.events
 require game.es.vehicle.vehicle_events
 require game.utils.net_utils
+require HumanPhys
+
+enum VehicleControlTypes : uint8
+  VEHICLE_CONTROLS_MOVEMENT = 1 << 0
+  VEHICLE_CONTROLS_TURRETS = 1 << 1
+  VEHICLE_CONTROLS_CAMERA = 1 << 2
 
 def find_seat_with_owner(owner_eid, seat_eids)
   if !owner_eid
@@ -53,15 +59,14 @@ def find_next_seat_no(name : string; seats : ecs::Array; var nextSeatNo : int&) 
 def vehicle_get_hero_seat_idx(seat_eids)
   return find_seat_with_owner(get_controlled_hero(), seat_eids)
 
+def vehicle_get_watched_seat_idx(seat_eids : EidList) : int
+  return find_seat_with_owner(get_watched_entity(), seat_eids)
 
 def is_hero_in_vehicle(vehicle_seats__seatEids : EidList) : bool
   return vehicle_get_hero_seat_idx(vehicle_seats__seatEids) != -1
 
 def is_watched_in_vehicle(vehicle_seats__seatEids : EidList) : bool
-  let watched = get_watched_entity()
-  if watched == INVALID_ENTITY_ID
-    return false
-  return find_seat_with_owner(watched, vehicle_seats__seatEids) != -1
+  return vehicle_get_watched_seat_idx(vehicle_seats__seatEids) != -1
 
 def find_seat_order_no(seat_no : int; vehicle_seats__seatEids : EidList) : int
   var seatOrderNo = -1
@@ -86,9 +91,7 @@ def is_vehicle_with_crew(vehicle_eid : EntityId)
 
 def is_vehicle_with_alive_crew(vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
-    let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-    let isAlive = get_bool(ownerEid, "isAlive") ?? true
-    if !!ownerEid && isAlive
+    if get_bool(seatEid, "seat__isOwnerAlive") ?? false
       return true
   return false
 
@@ -236,16 +239,17 @@ def can_take_adjacent_seat(seat_eid : EntityId)
     res = can_bot_replace_seat_owner(seat__ownerEid)
   return res
 
-def find_vehicle_seat(seat_eids : EidList)
+def find_vehicle_seat_for_bot(seat_eids : EidList)
   var foundSeatNo = -1
   var isSeatWithControlFound = false
   for seatNo in iter_range(seat_eids)
     let seatEid = seat_eids[seatNo]
     query(seatEid) <| $ [es] (seat__ownerEid : EntityId;
                               seat__availableControls : VehicleControlsState;
+                              seats_order__notForBots : bool = false;
                               seat__isLocked : bool = false;
                               seat__adjacentSeat : int = -1)
-      if !seat__isLocked && can_bot_replace_seat_owner(seat__ownerEid)
+      if !seat__isLocked && !seats_order__notForBots && can_bot_replace_seat_owner(seat__ownerEid)
         if seat__adjacentSeat > -1 && !can_take_adjacent_seat(seat_eids[seat__adjacentSeat])
           return
         foundSeatNo = seatNo
@@ -253,3 +257,39 @@ def find_vehicle_seat(seat_eids : EidList)
     if isSeatWithControlFound
       break
   return foundSeatNo
+
+def is_gun_slot_allowed_to_hold_gun_in_hatch(slot : int)
+  return slot < int(HUWeaponSlots EWS_MELEE) || slot == int(HUWeaponSlots EWS_GRENADE)
+
+def get_vehicle_driver(seat_eids : EidList)
+  var res = INVALID_ENTITY_ID
+  var found = false
+  for seatEid in seat_eids
+    query(seatEid) <| $ [es] (seat__availableControls : VehicleControlsState; seat__ownerEid : EntityId)
+      if seat__availableControls.canControlVehicle
+        res = seat__ownerEid
+        found = true
+    if found
+      break
+  return res
+
+def get_vehicle_driver(vehicle_eid : EntityId)
+  var res = INVALID_ENTITY_ID
+  query(vehicle_eid) <| $ [es] (vehicle_seats__seatEids : EidList)
+    res = get_vehicle_driver(vehicle_seats__seatEids)
+  return res
+
+def get_last_vehicle_driver(vehicle_eid : EntityId; max_time_after_leave : float)
+  var driver = get_vehicle_driver(vehicle_eid)
+  if !driver
+    query(vehicle_eid) <| $ [es] (last_driver : EntityId = INVALID_ENTITY_ID; last_driver_leave_time : float = 0.)
+      if !!last_driver && (get_sync_time() - last_driver_leave_time < max_time_after_leave)
+        driver = last_driver
+  return driver
+
+def get_last_vehicle_driver_possessed_by_player(vehicle_eid : EntityId; max_time_after_leave : float)
+  let driver = get_last_vehicle_driver(vehicle_eid, max_time_after_leave)
+  var res = INVALID_ENTITY_ID
+  query(driver) <| $ [es] (possessedByPlr : EntityId = INVALID_ENTITY_ID; squad_member__squad : EntityId = INVALID_ENTITY_ID)
+    res = !!possessedByPlr ? driver : get_Eid(squad_member__squad, "squad__leader") ?? INVALID_ENTITY_ID
+  return res

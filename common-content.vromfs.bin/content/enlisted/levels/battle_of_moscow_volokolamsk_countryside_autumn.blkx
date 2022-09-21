@@ -10,7 +10,6 @@ skies{
   day:i=6
   latitude:r=49.0
   longtitude:r=0.0
-  weatherName:t="content/common/gamedata/default_clouds.blk"
   weatherSeed:i=-1
   skyIsUnreachable:b=no
 }

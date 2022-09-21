@@ -1,7 +1,7 @@
 require ecs
 require PhysVars
 require AnimV20
-require EnlistedDeviceAnim
+require game.es.device_state_common
 require DagorSystem
 
 [es(on_appear, before=anim_phys_init_es)]

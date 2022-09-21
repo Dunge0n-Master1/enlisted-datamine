@@ -19,7 +19,7 @@ let defValue = freeze({
 })
 
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
-let { exportState } = watchedTable2TableOfWatched({state, defValue, plainOut=false})
+let exportState = watchedTable2TableOfWatched(state)
 
 
 let maintenanceTargetQuery = ecs.SqQuery("maintenanceTargetQuery", {

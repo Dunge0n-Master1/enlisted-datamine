@@ -3,7 +3,7 @@ require Gun
 require math
 require game.utils.hero
 require EnlistedHuman
-require EnlistedDeviceAnim
+require game.es.device_state_common
 require game.es.events
 
 def manage_mortar_target(human_weap__curGunSlot : int;

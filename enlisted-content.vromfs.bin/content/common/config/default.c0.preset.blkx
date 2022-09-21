@@ -463,6 +463,11 @@ Human.ExitVehicleAlone{
   btn:i=34
 }
 
+Human.ToggleHoldGunMode{
+  dev:i=1
+  btn:i=48
+}
+
 Human.ArtilleryStrike{
   dev:i=1
   btn:i=8
@@ -485,7 +490,7 @@ Human.Use{
 
 Human.PushObject{
   dev:i=1
-  btn:i=42
+  btn:i=48
 }
 
 Human.LeanX{
@@ -604,6 +609,13 @@ Vehicle.ShootMachinegun{
 Vehicle.ShootTurret03{
   dev:i=1
   btn:i=57
+}
+
+Vehicle.ZoomToggle{
+  dev:i=2
+  btn:i=1
+  type:i=5
+  stickyToggle:b=yes
 }
 
 Vehicle.Zoom{
@@ -1083,7 +1095,7 @@ Mortar.Cancel{
 
 Replay.ToggleCamera{
   dev:i=1
-  btn:i=57
+  btn:i=47
 }
 
 Replay.Prev{
@@ -1098,17 +1110,17 @@ Replay.Next{
 
 Replay.SpeedDown{
   dev:i=1
-  btn:i=21
+  btn:i=44
 }
 
 Replay.Pause{
   dev:i=1
-  btn:i=22
+  btn:i=57
 }
 
 Replay.SpeedUp{
   dev:i=1
-  btn:i=23
+  btn:i=45
 }
 
 Replay.DisableHUD{
@@ -1119,4 +1131,34 @@ Replay.DisableHUD{
 Replay.DisableGameHUD{
   dev:i=1
   btn:i=66
+}
+
+Replay.AdvancedSettings{
+  dev:i=1
+  btn:i=29
+}
+
+Replay.Camera1{
+  dev:i=1
+  btn:i=2
+}
+
+Replay.Camera2{
+  dev:i=1
+  btn:i=3
+}
+
+Replay.Camera3{
+  dev:i=1
+  btn:i=4
+}
+
+Replay.NextCamera{
+  dev:i=1
+  btn:i=18
+}
+
+Replay.PrevCamera{
+  dev:i=1
+  btn:i=16
 }

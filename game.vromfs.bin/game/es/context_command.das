@@ -14,6 +14,8 @@ require enlisted.game.es.bomb_site_common
 require game.es.battle_area_common
 require zones
 require CollRes
+require game.es.squad_order_common
+require EnlistedNet
 
 def get_alive_num_in_squad(squad_eid : EntityId) : int
   return get_int(squad_eid, "squad__numAliveMembers") ?? 0
@@ -179,7 +181,7 @@ def human_context_command_req(evt : RqContextCommand; eid, squad_member__squad :
                               human_context_command__orderPosition : float3;
                               human_context_command__orderUseEntity : ecs::EntityId)
   if human_context_command__orderType == int(ContextCommand ECC_CANCEL)
-    sendEvent(squad_member__squad, [[RequestSquadOrder orderType=SquadOrder ESO_FOLLOW_ME, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
+    send_net_event(squad_member__squad, [[RequestSquadOrder orderType=SquadOrder ESO_FOLLOW_ME, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
   elif human_context_command__orderType == int(ContextCommand ECC_DEFEND_POINT)
     var orderType = SquadOrder ESO_DEFEND_POINT
     var orderPosition = human_context_command__orderPosition
@@ -190,21 +192,21 @@ def human_context_command_req(evt : RqContextCommand; eid, squad_member__squad :
         orderPosition = (*targetTM)[3]
       if has(orderUseEntity, "vehicle_seats__seats")
         orderType = SquadOrder ESO_USE_VEHICLE
-    sendEvent(squad_member__squad, [[RequestSquadOrder orderType=orderType, orderPosition=orderPosition, orderUseEntity=orderUseEntity]])
+    send_net_event(squad_member__squad, [[RequestSquadOrder orderType=orderType, orderPosition=orderPosition, orderUseEntity=orderUseEntity]])
   elif human_context_command__orderType == int(ContextCommand ECC_REVIVE)
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_HEAL, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_HEAL, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
   elif human_context_command__orderType == int(ContextCommand ECC_BRING_AMMO)
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_BRING_AMMO, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_BRING_AMMO, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
   elif human_context_command__orderType == int(ContextCommand ECC_BUILD)
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_BUILD, orderPosition=float3(), orderUseEntity=human_context_command__orderUseEntity]])
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_BUILD, orderPosition=float3(), orderUseEntity=human_context_command__orderUseEntity]])
   elif human_context_command__orderType == int(ContextCommand ECC_PLANT_BOMB)
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder
       orderType=SquadMateOrder ESMO_PLANT_BOMB,
       orderPosition=human_context_command__orderPosition,
       orderUseEntity=human_context_command__orderUseEntity
     ]])
   elif human_context_command__orderType == int(ContextCommand ECC_DEFUSE_BOMB)
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder
       orderType=SquadMateOrder ESMO_DEFUSE_BOMB,
       orderPosition=human_context_command__orderPosition,
       orderUseEntity=human_context_command__orderUseEntity
@@ -217,7 +219,7 @@ def human_context_command_req(evt : RqContextCommand; eid, squad_member__squad :
       let targetTM = get_TMatrix(orderUseEntity, "transform")
       if targetTM != null
         orderPosition = (*targetTM)[3]
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder orderType=orderType, orderPosition=orderPosition, orderUseEntity=orderUseEntity]])
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder orderType=orderType, orderPosition=orderPosition, orderUseEntity=orderUseEntity]])
   elif human_context_command__orderType == int(ContextCommand ECC_DISABLED) && get_alive_num_in_squad(squad_member__squad) <= 1
     sendEvent(eid, [[CmdHeroLogEvent event="squad_order_canceled", text="context_command/no_alive_squadmates"]])
 
@@ -233,8 +235,8 @@ def human_context_command_all_cancel_req(evt : RqCancelContextCommand; eid, squa
       hasOrder = squadEid == squad_member__squad && isAlive && squad_member__orderType != int(SquadOrder ESO_FOLLOW_ME)
       return hasOrder
   if hasGlobalOrder
-    sendEvent(squad_member__squad, [[RequestSquadOrder orderType=SquadOrder ESO_FOLLOW_ME, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
+    send_net_event(squad_member__squad, [[RequestSquadOrder orderType=SquadOrder ESO_FOLLOW_ME, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
   if evt.include_personal_orders
-    sendEvent(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_NO_ORDER, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
+    send_net_event(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_NO_ORDER, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
   if hasOrder
     sendEvent(eid, [[CmdHeroLogEvent event="squad_order_canceled", text="context_command/all_orders_canceled"]])

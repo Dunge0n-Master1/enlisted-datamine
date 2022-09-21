@@ -97,7 +97,7 @@ def vehicle_seats_dm_parts_es(evt : Event;
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
     if vehicle_seats_receive_damage_from_dm_part[seatNo] >= 0
       let enabled = (ownerEid != ecs::INVALID_ENTITY_ID) || (get_bool(ownerEid, "isAlive") ?? false)
-      damage_model.dmData |> enable_dm_part(vehicle_seats_receive_damage_from_dm_part[seatNo], enabled)
+      damage_model.dmData.parts[vehicle_seats_receive_damage_from_dm_part[seatNo]].enabled = enabled
 
 def set_offender(victim_eid : EntityId; offender_eid : EntityId; offender_player : EntityId; offender_team : int; time : float)
   query(victim_eid) <| $ [es] (possessedByPlr : EntityId;

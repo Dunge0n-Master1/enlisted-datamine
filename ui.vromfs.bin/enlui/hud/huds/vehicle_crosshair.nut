@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
 let {
-  currentMainTurretAmmo, currentMainTurretEid, turretsReload
+  currentMainTurretAmmo, currentMainTurretEid, turretsReload, vehicleTurrets
 } = require("%ui/hud/state/vehicle_turret_state.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 
@@ -71,16 +71,19 @@ let crosshair = @() {
   behavior = Behaviors.VehicleCrosshair
   transform = {}
 
-  watch = [controlledVehicleEid]
+  watch = controlledVehicleEid
   eid = controlledVehicleEid.value
 
-  children = [ bgAim aim overheatBlock]
+  children = [bgAim aim overheatBlock]
 }
+
+let isCrosshairEnabled = Computed(@() vehicleTurrets.value.findvalue(@(turret) turret.isLocalControlLocked) == null)
 
 let function root() {
   return {
+    watch = isCrosshairEnabled
     size = flex()
-    children = crosshair
+    children = isCrosshairEnabled.value ? crosshair : null
   }
 }
 

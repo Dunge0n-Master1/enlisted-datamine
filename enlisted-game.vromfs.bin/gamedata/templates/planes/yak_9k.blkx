@@ -61,6 +61,21 @@ yak_9k{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_50mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="cannon_ns_37"
     part:t="flare2"
@@ -182,6 +197,7 @@ planegun_yak_9k_45mm_ns45_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_yak_9k_45mm_ns45"
+  _extends:t="gunsound_45mm_ns45_aircraft"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=29
 }

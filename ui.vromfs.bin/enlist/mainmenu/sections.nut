@@ -168,6 +168,4 @@ let navHeader = @() {
   ].append(sectionsHotkeys)
 }
 
-return {
-  navHeader
-}
+return navHeader

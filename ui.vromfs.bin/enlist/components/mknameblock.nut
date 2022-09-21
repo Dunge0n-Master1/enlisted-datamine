@@ -12,8 +12,8 @@ let {
 let {  gap, noteTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkSoldiersData } = require("%enlist/soldiers/model/collectSoldierData.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
-let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
+let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 let hdrAnimations = [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, easing = OutCubic, trigger = "hdrAnim"}
@@ -62,23 +62,25 @@ let callnameBlock = @(callname, soldierName) {
 
 
 let nameField = function(soldierWatch){
-  let soldierName = getObjectName(soldierWatch.value)
-  let { callname = "" } = soldierWatch.value
-  return @(){
-    flow = FLOW_HORIZONTAL
-    watch = soldierWatch
-    size = [flex(), SIZE_TO_CONTENT]
-    gap = hdpx(5)
-    children = [
-      callname != "" ? callnameBlock(callname, soldierName)
-      : {
-          size = [flex(), SIZE_TO_CONTENT]
-          key = "soldierName_big"
-          rendObj = ROBJ_TEXT
-          text = soldierName
-          color = noteTxtColor
-        }.__update(h2_txt)
-    ]
+  return function(){
+    let soldierName = getObjectName(soldierWatch.value)
+    let { callname = "" } = soldierWatch.value
+    return {
+      flow = FLOW_HORIZONTAL
+      watch = soldierWatch
+      size = [flex(), SIZE_TO_CONTENT]
+      gap = hdpx(5)
+      children = [
+        callname != "" ? callnameBlock(callname, soldierName)
+        : {
+            size = [flex(), SIZE_TO_CONTENT]
+            key = "soldierName_big"
+            rendObj = ROBJ_TEXT
+            text = soldierName
+            color = noteTxtColor
+          }.__update(h2_txt)
+      ]
+    }
   }
 }
 

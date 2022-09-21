@@ -1,11 +1,4 @@
 tutorial_engineer_begin{
-  tutor_stage__next:t="tutorial_engineer_start"
-
-  "tutor_stage__begin:tag"{
-  }
-}
-
-tutorial_engineer_start{
   tutor_stage__next:t="tutorial_engineer_intro"
 
   "tutor_stage__onHeroRespawn:tag"{

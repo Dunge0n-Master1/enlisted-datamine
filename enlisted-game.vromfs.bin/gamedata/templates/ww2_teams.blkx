@@ -392,6 +392,22 @@ team_stalingrad_axis{
   }
 }
 
+team_pacific_allies{
+  _extends:t="team_usa"
+
+  "team__armies:list<t>"{
+    army:t="pacific_allies"
+  }
+}
+
+team_pacific_axis{
+  _extends:t="team_germany"
+
+  "team__armies:list<t>"{
+    army:t="pacific_axis"
+  }
+}
+
 army_language{
   _tags:t="gameClient"
   _extends:t="replicating"
@@ -408,5 +424,7 @@ army_language{
     tunisia_axis:t="de"
     stalingrad_allies:t="ru"
     stalingrad_axis:t="de"
+    pacific_allies:t="en"
+    pacific_axis:t="jp"
   }
 }

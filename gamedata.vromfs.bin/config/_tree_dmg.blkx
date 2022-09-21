@@ -499,6 +499,24 @@ dmg{
 }
 
 dmg{
+  name:t="tree_tilia_smaller_a"
+  destructionImpulse:r=50.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_tilia_smaller_b"
+  destructionImpulse:r=50.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_tilia_smaller_c"
+  destructionImpulse:r=50.0
+  material:t="wood"
+}
+
+dmg{
   name:t="dry_tree_small_a"
   destructionImpulse:r=4000.0
   material:t="wood"
@@ -1484,13 +1502,31 @@ dmg{
 
 dmg{
   name:t="dry_tree_wide_d"
-  destructionImpulse:r=5000000.0
+  destructionImpulse:r=60000.0
   material:t="wood"
 }
 
 dmg{
   name:t="dry_tree_wide_a"
-  destructionImpulse:r=5000000.0
+  destructionImpulse:r=60000.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_tilia_wide_a"
+  destructionImpulse:r=60000.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_tilia_wide_b"
+  destructionImpulse:r=60000.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_tilia_wide_c"
+  destructionImpulse:r=60000.0
   material:t="wood"
 }
 
@@ -1742,24 +1778,6 @@ dmg{
 
 dmg{
   name:t="tree_tilia_unic_a"
-  destructionImpulse:r=5000000.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_tilia_wide_a"
-  destructionImpulse:r=5000000.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_tilia_wide_b"
-  destructionImpulse:r=5000000.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_tilia_wide_c"
   destructionImpulse:r=5000000.0
   material:t="wood"
 }

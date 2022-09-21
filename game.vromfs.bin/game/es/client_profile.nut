@@ -156,6 +156,7 @@ let perksFactory = {
   less_concussion_shake                       = { ctor = mkCalcSubstract, compName = "entity_mods__concussionShakeMult", compType = ecs.TYPE_FLOAT }
   faster_self_fire_putout                     = { ctor = mkCalcAddPercent,compName = "burning__putOutForce", compType = ecs.TYPE_FLOAT }
   more_flamethrower_fuel                      = { ctor = mkCalcAdd       ,compName = "entity_mods__flamethrowerFuelMult", compType = ecs.TYPE_FLOAT }
+  faster_melee                                = { ctor = mkCalcSubPercent,compName = "entity_mods__meleeSpeedMult", compType = ecs.TYPE_FLOAT }
 }
 
 let perksPointFactory = {
@@ -399,8 +400,12 @@ let function applyUpgradesToComponents(gunTemplate, upgrades) {
   }
   let result = {}
   foreach (compName, compMod in upgrades) {
-    let baseValue = templ.getCompVal(compName)?.tofloat() ?? 0.0
-    result[compName] <- baseValue * (1.0 + compMod * 0.01)
+    let compVal = templ.getCompValNullable(compName)
+    if (compVal == null) {
+      logerr($"Gun {gunTemplate} has no component {compName} to apply a mod.")
+      continue
+    }
+    result[compName] <- compVal.tofloat() * (1.0 + compMod * 0.01)
   }
   return result
 }
@@ -499,12 +504,26 @@ let function applyVehicleMods(armies) {
       if ("decals" in vehicle) {
         let decalCompArray = ecs.CompArray()
         foreach (decal in vehicle?.decals ?? []) {
-          let decalData = stringToDecal(decal.details, decal.id, decal.slotIdx)
+          let decalData = stringToDecal(decal.details, "vehDecal", decal.id, decal.slotIdx)
           if (decalData != null)
             decalCompArray.append(decalToCompObject(decalData))
         }
         vehicle.comps["animcharDecalsData"] <- decalCompArray
         delete vehicle.decals
+      }
+
+      if ("decors" in vehicle) {
+        let decorCompArray = ecs.CompArray()
+        foreach (decor in vehicle?.decors ?? []) {
+          let decorData = stringToDecal(decor.details, "vehDecorator", decor.id, decor.slotIdx)
+          if (decorData != null)
+            decorCompArray.append(decalToCompObject(decorData.__merge({
+              template = decor.id
+              swapYZ = false
+            })))
+        }
+        vehicle.comps["attach_decorators__templates"] <- decorCompArray
+        delete vehicle.decors
       }
     }
   }
@@ -680,7 +699,7 @@ let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
   comp["squads__respawnTypeList"] = array(squadsCount, "")
   for (local i = 0; i < squadsCount; ++i) {
     let gametemplate = army?.squads?[i]?.curVehicle.gametemplate ?? army.squads[i]?[0].gametemplate
-    let respType = get_can_use_respawnbase_type(gametemplate) ?? "human"
+    let respType = get_can_use_respawnbase_type(gametemplate)?.canUseRespawnbaseType ?? "human"
     comp["squads__respawnTypeList"][i] = respType
   }
 

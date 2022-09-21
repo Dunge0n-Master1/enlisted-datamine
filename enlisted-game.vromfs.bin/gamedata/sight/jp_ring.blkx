@@ -1,0 +1,68 @@
+crosshairHorVertSize:p2=3.0, 2.0
+rangefinderProgressBarColor1:c=0, 255, 0, 64
+rangefinderProgressBarColor2:c=255, 255, 255, 64
+rangefinderTextScale:r=0.7
+rangefinderVerticalOffset:r=15.0
+rangefinderHorizontalOffset:r=0.0
+fontSizeMult:r=1.0
+lineSizeMult:r=1.0
+drawCentralLineVert:b=no
+drawCentralLineHorz:b=no
+crosshairDistHorSizeMain:p2=0.03, 0.02
+crosshairDistHorSizeAdditional:p2=0.005, 0.003
+distanceCorrectionPos:p2=-0.2, -0.05
+drawDistanceCorrection:b=yes
+
+drawLines{
+
+  line{
+    line:p4=0.075, 0.0, 0.3, 0.0
+    move:b=no
+  }
+
+  line{
+    line:p4=-0.075, 0.0, -0.3, 0.0
+    move:b=no
+  }
+
+  line{
+    line:p4=0.0, 0.075, 0.0, 0.3
+    move:b=no
+  }
+
+  line{
+    line:p4=0.0, -0.075, 0.0, -0.3
+    move:b=no
+  }
+}
+
+drawCircles{
+
+  circle{
+    pos:p2=0.0, 0.0
+    diameter:r=0.002
+    size:r=4.0
+    segment:p2=0.0, 360.0
+  }
+
+  circle{
+    pos:p2=0.0, 0.0
+    diameter:r=0.15
+    size:r=1.5
+    segment:p2=0.0, 360.0
+  }
+
+  circle{
+    pos:p2=0.0, 0.0
+    diameter:r=0.3
+    size:r=1.5
+    segment:p2=0.0, 360.0
+  }
+
+  circle{
+    pos:p2=0.0, 0.0
+    diameter:r=0.45
+    size:r=1.5
+    segment:p2=0.0, 360.0
+  }
+}

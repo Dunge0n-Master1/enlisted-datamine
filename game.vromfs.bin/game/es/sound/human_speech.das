@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require app
 require soundHash
 require soundSystem
@@ -32,9 +33,9 @@ def start_speech(phrase_idx : int;
                  team : int = TEAM_UNASSIGNED;
                  human_speech__distThreshold = 50.)
   if human_speech__canSpeak && uint(phrase_idx) < uint(human_speech__speeches.size) && (is_watched_sound || should_play(transform[3], human_speech__distThreshold))
-    let desc = get_ecs_object(human_speech__speeches[phrase_idx])
+    let desc = human_speech__speeches[phrase_idx] as Object
     if desc != null
-      if is_playing(get_sound(sound_event_group, sound_hash("speech")))
+      if !(desc?.replace ?? false) && is_playing(get_sound(sound_event_group, sound_hash("speech")))
         return
       let path = is_watched_sound ? human_sound__playerVoice : get_npc_voice(human_voice_sound__voiceId, human_sound__npcVoices)
       let handle = sound_player_common::play_desc_path(*desc, path, sound_hash("speech"), transform[3], sound_event_group)
@@ -173,7 +174,7 @@ def human_speech_cmd_hero_speech(evt : CmdHeroSpeech;
 
 
 [es(tag=sound, after=(net_phys_update_es, human_voice_enable))]
-def human_speech_can_speak_update(info : UpdateStageInfoAct;
+def human_speech_can_speak_update(info : ParallelUpdateFrameDelayed;
                                   human_speech__enable : bool;
                                   var human_speech__canSpeak : bool&;
                                   var sound_event_group : SoundEventGroup&;

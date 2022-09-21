@@ -26,7 +26,7 @@ let teammatePlayerInfoQuery = ecs.SqQuery("teammatePlayerInfoQuery", {
   ]
 })
 
-let {alivePossessedTeammates, alivePossessedTeammatesMutate, alivePossessedTeammatesSetKeyVal, alivePossessedTeammatesDeleteKey} = mkFrameIncrementObservable({}, "alivePossessedTeammates")
+let {alivePossessedTeammates, alivePossessedTeammatesModify, alivePossessedTeammatesSetKeyVal, alivePossessedTeammatesDeleteKey} = mkFrameIncrementObservable({}, "alivePossessedTeammates")
 
 let {
   teammatesAvatarsSet,
@@ -82,7 +82,10 @@ ecs.register_es("human_teammates_players_ui_es",
         return
       }
       let {possessed, name, groupId, disconnected} = comp
-      alivePossessedTeammatesMutate(@(value) value?[possessed]?.__update({name, groupId, disconnected}))
+      alivePossessedTeammatesModify(function(value) {
+        value?[possessed]?.__update({name, groupId, disconnected})
+        return value
+      })
     },
   },
   {

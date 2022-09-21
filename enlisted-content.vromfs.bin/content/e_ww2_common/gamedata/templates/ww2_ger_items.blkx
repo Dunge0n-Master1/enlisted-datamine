@@ -108,6 +108,16 @@ attachable_wear_pants_zeltbahn_01_ger_summer_item{
   }
 }
 
+attachable_wear_pants_tan_camo_01_ger_summer_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_02_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_pants_1_tex_d*":t="ger_pants_1_tan_camo_tex_d*"
+    "ger_pants_1_tex_n*":t="ger_pants_1_tan_camo_tex_n*"
+  }
+}
+
 attachable_wear_pants_bl_01_ger_summer_item{
   _extends:t="attachable_pants"
   _extends:t="attachable_wear_pants_02_ger_summer_item"
@@ -145,6 +155,16 @@ attachable_wear_pants_dak_01_ger_summer_item{
   "animchar__objTexReplace:object"{
     "ger_pants_1_tex_d*":t="ger_pants_1_dak_tex_d*"
     "ger_pants_1_tex_n*":t="ger_pants_1_dak_tex_n*"
+  }
+}
+
+attachable_wear_pants_beige_01_ger_summer_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_02_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_pants_1_tex_d*":t="ger_pants_1_beige_tex_d*"
+    "ger_pants_1_tex_n*":t="ger_pants_1_beige_tex_n*"
   }
 }
 
@@ -392,6 +412,71 @@ attachable_wear_tunic_01_ger_summer_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ger_medic_drillich_jacket_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ger_medic_drillich_jacket_item"
+  animchar__res:t="ger_medic_drillich_jacket_char"
+  collres__res:t="ger_medic_drillich_jacket_collision"
+  animchar_fast_phys__res:t="ger_medic_drillich_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ger_drillich_jacket_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ger_drillich_jacket_item"
+  animchar__res:t="ger_drillich_jacket_char"
+  collres__res:t="ger_drillich_jacket_collision"
+  animchar_fast_phys__res:t="ger_drillich_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ger_hooded_smock_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ger_hooded_smock_item"
+  animchar__res:t="ger_hooded_smock_char"
+  collres__res:t="ger_hooded_smock_collision"
+  animchar_fast_phys__res:t="ger_hooded_smock_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ger_hooded_smock_covered_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_ger_hooded_smock_covered_item"
+  animchar__res:t="ger_hooded_smock_covered_char"
+  collres__res:t="ger_hooded_smock_covered_collision"
+  animchar_fast_phys__res:t="ger_hooded_smock_covered_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  animchar_node_collapser{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+
+    "animchar_node_collapser__nodes:object"{
+      "Bip01 Neck":t=""
+      "Bip01 Head":t=""
+    }
+  }
+
+  "hides:array"{
+    hides:t="helmet"
   }
 }
 
@@ -2144,6 +2229,19 @@ attachable_wear_medic_squad_tornister_backpack_item{
   }
 }
 
+attachable_wear_tornister_backpack_drillich_jacket_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_tornister_backpack_drillich_jacket_item"
+  animchar__res:t="tornister_backpack_drillich_jacket_char"
+  collres__res:t="tornister_backpack_drillich_jacket_collision"
+  animchar_fast_phys__res:t="tornister_backpack_drillich_jacket_fastphys"
+  item__name:t="items/medpack"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_flammenwerfer_35_gasbag_item{
   _extends:t="attachable_backpack"
   item__uniqueName:t="attachable_wear_flammenwerfer_35_gasbag_item"
@@ -2285,6 +2383,10 @@ attachable_wear_pioniersturmgepack_m42_gebirgsjager_anorak_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
+
+  "hides:array"{
+    hides:t="roll"
+  }
 }
 
 attachable_wear_pioniersturmgepack_m42_anorak_item{
@@ -2297,6 +2399,10 @@ attachable_wear_pioniersturmgepack_m42_anorak_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
+
+  "hides:array"{
+    hides:t="roll"
+  }
 }
 
 attachable_wear_pioniersturmgepack_01_ger_summer_item{
@@ -2305,9 +2411,14 @@ attachable_wear_pioniersturmgepack_01_ger_summer_item{
   animchar__res:t="pioniersturmgepack_01_ger_summer_char"
   collres__res:t="pioniersturmgepack_01_ger_summer_collision"
   animchar_fast_phys__res:t="pioniersturmgepack_01_ger_summer_fastphys"
+  attachable_backpack__capacity:i=3
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+
+  "hides:array"{
+    hides:t="roll"
   }
 }
 
@@ -2449,6 +2560,18 @@ attachable_wear_case_01_ger_summer_item{
   animchar__res:t="case_01_ger_summer_char"
   collres__res:t="case_01_ger_summer_collision"
   animchar_fast_phys__res:t="case_01_ger_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_gasmask_case_drillich_jacket_item{
+  _extends:t="attachable_ammo_case"
+  item__uniqueName:t="attachable_wear_gasmask_case_drillich_jacket_item"
+  animchar__res:t="gasmask_case_drillich_jacket_char"
+  collres__res:t="gasmask_case_drillich_jacket_collision"
+  animchar_fast_phys__res:t="gasmask_case_drillich_jacket_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2806,6 +2929,13 @@ attachable_wear_belt_2_03_ger_summer_item{
   collres__res:t="belt_2_03_ger_summer_collision"
 }
 
+attachable_wear_sholder_belt_drillich_jacket_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_sholder_belt_drillich_jacket_item"
+  animchar__res:t="sholder_belt_drillich_jacket_char"
+  collres__res:t="sholder_belt_drillich_jacket_collision"
+}
+
 attachable_wear_sholder_belt_zeltbahn_03_ger_summer_item{
   _extends:t="attachable_belt2"
   item__uniqueName:t="attachable_wear_sholder_belt_zeltbahn_03_ger_summer_item"
@@ -2818,6 +2948,13 @@ attachable_wear_sholder_belt_gebirgsjager_jacket_item{
   item__uniqueName:t="attachable_wear_sholder_belt_gebirgsjager_jacket_item"
   animchar__res:t="sholder_belt_gebirgsjager_jacket_char"
   collres__res:t="sholder_belt_gebirgsjager_jacket_collision"
+}
+
+attachable_wear_sholder_belt_hooded_smock_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_sholder_belt_hooded_smock_item"
+  animchar__res:t="sholder_belt_hooded_smock_char"
+  collres__res:t="sholder_belt_hooded_smock_collision"
 }
 
 attachable_wear_shoulder_belt_knochensack_item{
@@ -2966,6 +3103,7 @@ attachable_wear_bag_01_ger_summer_item{
   animchar__res:t="bag_01_ger_summer_char"
   collres__res:t="bag_01_ger_summer_collision"
   animchar_fast_phys__res:t="bag_01_ger_summer_fastphys"
+  attachable_backpack__capacity:i=1
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -3014,6 +3152,18 @@ attachable_wear_bag_w_flask_knochensack_item{
   animchar__res:t="bag_w_flask_knochensack_char"
   collres__res:t="bag_w_flask_knochensack_collision"
   animchar_fast_phys__res:t="bag_w_flask_knochensack_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_bag_w_flask_drillich_jacket_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_bag_w_flask_drillich_jacket_item"
+  animchar__res:t="bag_w_flask_drillich_jacket_char"
+  collres__res:t="bag_w_flask_drillich_jacket_collision"
+  animchar_fast_phys__res:t="bag_w_flask_drillich_jacket_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"

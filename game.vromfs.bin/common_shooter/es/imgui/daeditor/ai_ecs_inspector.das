@@ -7,7 +7,7 @@ require danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspectors_macro
 require imgui
 
 [ecs_inspector(type_name="BehaviourTree")]
-def draw_BehaviourTree(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_BehaviourTree(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   unsafe
     var val = reinterpret<BehaviourTree ??> ref.rawData
     let behTree & = **val

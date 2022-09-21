@@ -24,9 +24,8 @@ let { mkSoldiersData } = require("model/collectSoldierData.nut")
 let { mkPerkChoiceSlot } = require("%enlist/soldiers/model/mkPerkChoiceSlot.nut")
 let { openAvailablePerks } = require("availablePerksWnd.nut")
 let textButton = require("%ui/components/textButton.nut")
-let { RECOMMENDED_PERKS_COUNT } = require("%enlSqGlob/configs/perks/perksStats.nut")
-let { isFreemiumCampaign, needFreemiumStatus
-} = require("%enlist/campaigns/freemiumState.nut")
+let { RECOMMENDED_PERKS_COUNT } = require("%enlist/meta/perks/perksStats.nut")
+let { needFreemiumStatus, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
 
 const WND_UID = "choose_perk_wnd"
 
@@ -235,9 +234,9 @@ let changePerksMsg = @() purchaseMsgBox({
 
 
 let function changePerksButton() {
-  let res = { watch = [changePerkCost, isFreemiumCampaign] }
+  let res = { watch = [changePerkCost, disablePerkReroll] }
   let cost = changePerkCost.value
-  if (cost <= 0 || isFreemiumCampaign.value)
+  if (cost <= 0 || disablePerkReroll.value)
     return res
   return res.__update({
     hplace = ALIGN_RIGHT

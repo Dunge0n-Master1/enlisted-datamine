@@ -5,7 +5,7 @@ let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
 let {localPlayerTeamInfo} = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let {EventHeroChanged} = require("gameevents")
+let {EventHeroChanged, EventLevelLoaded} = require("gameevents")
 let {EventZoneIsAboutToBeCaptured, EventZoneCaptured, EventCapZoneEnter, EventCapZoneLeave, CmdStartNarrator} = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
@@ -15,7 +15,7 @@ let {allZonesInGroupCapturedByTeam, isLastSectorForTeam} = require("%enlSqGlob/z
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 
 let {isTwoChainsCapzones, isTwoChainsCapzonesSetValue} = mkFrameIncrementObservable(false, "isTwoChainsCapzones")
-let {capZones, capZonesMutate, capZonesSetKeyVal, capZonesDeleteKey} = mkFrameIncrementObservable({}, "capZones")
+let {capZones, capZonesModify, capZonesSetKeyVal, capZonesDeleteKey} = mkFrameIncrementObservable({}, "capZones")
 let isReverseZoneUiOrder = Computed(@() isTwoChainsCapzones.value && localPlayerTeam.value != FIRST_GAME_TEAM)
 let whichTeamAttack = Computed(@()
   capZones.value.reduce(@(team, zone) (zone.active && !zone.trainZone) ? zone.attackTeam : team, -1))
@@ -340,7 +340,7 @@ let function onHeroChanged(evt, _eid, _comp){
         zonesUpdate[zoneEid] <- zone.__merge({ heroInsideEid })
     }
     if (zonesUpdate.len()>0)
-      capZonesMutate(@(v) v.__update(zonesUpdate))
+      capZonesModify(@(v) v.__update(zonesUpdate))
   })
 }
 
@@ -394,11 +394,12 @@ let function onCapZoneChanged(_evt, eid, comp) {
 
 let function onZonePresenseChange(eid, visitor_eid, leave) {
   let hero_eid = controlledHeroEid.value
-  capZonesMutate(function(v) {
+  capZonesModify(function(v) {
     let zone = v?[eid]
     if (!zone || visitor_eid != hero_eid)
-      return
+      return v
     v[eid] = zone.__merge({ heroInsideEid = leave ? INVALID_ENTITY_ID : hero_eid })
+    return v
   })
 }
 
@@ -410,7 +411,7 @@ ecs.register_es("capzones_ui_state_hero_changed",
 ecs.register_es("capzones_ui_state_es",
   {
     onChange = onCapZoneChanged,
-    onInit = onCapzonesInitialized,
+    [[EventLevelLoaded, "onInit"]] = onCapzonesInitialized,
     onDestroy = @(_, eid, __) capZonesDeleteKey(eid),
     [EventCapZoneEnter] = @(evt, eid, _comp) onZonePresenseChange(eid, evt.visitor, false),
     [EventCapZoneLeave] = @(evt, eid, _comp) onZonePresenseChange(eid, evt.visitor, true),

@@ -8,14 +8,25 @@ let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let itemsPresentation = require("%enlSqGlob/ui/itemsPresentation.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 
+
 const UPGRADE_TEMPLATE_SUFFIX = "_upgrade_"
 
-let ITEM_DETAILS = [
+let ITEM_DETAILS_BRIEF = [
+  { key = "hitPowerTotal", precision = 0.1, range = [0, 26] }
+  { key = "kineticArmorPowerMax", precision = 0.1, range = [0, 200] }
+  { key = "rateOfFire", measure = "shots/min" }
+  { key = "recoilAmountVert", isPositive = false }
+  { key = "recoilAmountHor", isPositive = false }
+  { key = "gun__adsSpeedMult", mult = 100, defVal = 1, range = [0, 130] }
+]
+
+let ITEM_DETAILS_FULL = [
   { key = "caliber", measure = "mm", mult = 1000, precision = 0.01 }
   { key = "hitPowerTotal", precision = 0.1 }
   { key = "explodeHitPower", precision = 0.1 }
   { key = "hitpower", measure = "meters", precision = 0.1, baseKey = "hitPowerTotal" }
-  { key = "armorpower", measure = "meters", altMeasure = "mm", precision = 0.1 }
+  { key = "cumulativeArmorPower", measure = "mm", precision = 0.1 }
+  { key = "kineticArmorPower", measure = "meters", altMeasure = "mm", precision = 0.1 }
   { key = "speed", measure = "m/sec" }
   { key = "rateOfFire", measure = "shots/min" }
   { key = "gun__reloadTime", measure = "sec", precision = 0.1, isPositive = false }
@@ -219,7 +230,7 @@ let function soldierNameSlicer(soldier = null, useCallname = true) {
 }
 
 return {
-  ITEM_DETAILS
+  getItemDetails = @(isFull) isFull ? ITEM_DETAILS_FULL : ITEM_DETAILS_BRIEF
   PLANE_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_PLANE_DETAILS)
   TANK_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_TANK_DETAILS)
   ARMOR_ORDER

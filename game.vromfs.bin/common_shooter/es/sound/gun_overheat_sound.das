@@ -1,10 +1,11 @@
 require ecs
 require soundEvent
 require DagorMath
+require enlisted.events_enlisted
 
 
 [es(tag=sound, after=gun_overheat_es)]
-def gun_overheat_sound(info : UpdateStageInfoAct;
+def gun_overheat_sound(info : ParallelUpdateFrameDelayed;
                        gun_sound__isWatched : bool;
                        gun__overheat : float;
                        gun_overheat_sound__path : string;

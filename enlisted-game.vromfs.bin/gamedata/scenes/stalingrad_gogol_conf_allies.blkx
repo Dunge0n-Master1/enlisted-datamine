@@ -4059,7 +4059,7 @@ entity{
 }
 
 entity{
-  _template:t="briefing_invasion"
+  _template:t="briefing_confrontation"
   mission_name:t="stalingrad_gogol_conf"
 
   "loading_images:list<t>"{

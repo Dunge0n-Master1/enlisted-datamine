@@ -35,81 +35,81 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
   var gctrl = evt.gctrl
   assume gloc = evt.gloc
 
-  if !human_gun_attached
-    sendEvent(eid, [[CmdWeapAttach toEid=ownerEid, isAttached=true, slotId=int(HUWeaponSlots EWS_GRENADE)]])
+  query(ownerEid) <| $ [es] (isInVehicle : bool = false; human_vehicle__isHoldingGunPassenger : bool = false; human_weap__fastThrowExclusive : bool = true)
+    if !human_gun_attached && (!isInVehicle || human_vehicle__isHoldingGunPassenger)
+      sendEvent(eid, [[CmdWeapAttach toEid=ownerEid, isAttached=true, slotId=int(HUWeaponSlots EWS_GRENADE)]])
 
-  let fastThrow = get_bool(ownerEid, "human_weap__fastThrowExclusive") ?? true
-  grenade_throw_get_props(gun__propsId) <| $(throwProps : GrenadeThrowProps)
-    // TODO: reformat to simple FSM, so it'll be easier to read/understand
-    if grenade_thrower.state == GrenadeThrowState GTS_READY
-      verify(grenade_thrower.throwProgress == 0.0)
-      if gctrl.shoot
-        // Start fetching the grenade
-        grenade_thrower.state = GrenadeThrowState GTS_DRAW
-        grenade_thrower.stateStart = atTime
-        grenade_thrower.stateEnd = atTime + throwProps.drawTime
-        sendEvent(ownerEid, [[EventOnGrenadeThrow gun_props_id=int(gun__curShellId.shellId)]])
-      // else
-      //   Doing nothing
-      //   Progress stays at 0
-    elif grenade_thrower.state == GrenadeThrowState GTS_DRAW
-      if atTime > grenade_thrower.stateEnd
-        // grenade_thrower.throwProgress isn't guaranteed to reach exactly 0.5
-        // arTime + dt on frame N can be less, than atTime on frame N + 1
-        verify(grenade_thrower.throwProgress <= 0.5)
-        if !gctrl.shoot // Trigger is released
-          // Starting to throw the grenade
-          grenade_thrower.state = GrenadeThrowState GTS_THROW
+    grenade_throw_get_props(gun__propsId) <| $(throwProps : GrenadeThrowProps)
+      // TODO: reformat to simple FSM, so it'll be easier to read/understand
+      if grenade_thrower.state == GrenadeThrowState GTS_READY
+        verify(grenade_thrower.throwProgress == 0.0)
+        if gctrl.shoot
+          // Start fetching the grenade
+          grenade_thrower.state = GrenadeThrowState GTS_DRAW
           grenade_thrower.stateStart = atTime
-          grenade_thrower.stateEnd = atTime + throwProps.throwTime
+          grenade_thrower.stateEnd = atTime + throwProps.drawTime
+          sendEvent(ownerEid, [[EventOnGrenadeThrow gun_props_id=int(gun__curShellId.shellId)]])
         // else
-        //   Waiting with the grenade in hand
-        //   grenade_thrower.progress stays at 0.5
-      else
-        // Draw in progress
-        // grenade_thrower.progress goes from 0 to 0.5
-        // grenade_thrower.progress can be exactly 0 at this point only if app.timeSpeed == 0
-        verify(grenade_thrower.throwProgress >= 0.0 && grenade_thrower.throwProgress <= 0.5)
-    elif grenade_thrower.state == GrenadeThrowState GTS_THROW
-      if atTime > grenade_thrower.stateEnd
-        // Throw is finished
-        // grenade_thrower.throwProgress isn't guaranteed to reach exactly 1.0 because of floating point errors
-        verify(grenade_thrower.throwProgress <= 1.0)
-        grenade_thrower.state = GrenadeThrowState GTS_READY
-      else
-        // Throw in progress
-        // grenade_thrower.progress goes from 0.5 to 1.0
-        // grenade_thrower.progress can be exactly 0.5 at this point only if app.timeSpeed == 0
-        verify(grenade_thrower.throwProgress >= 0.5 && grenade_thrower.throwProgress <= 1.0)
+        //   Doing nothing
+        //   Progress stays at 0
+      elif grenade_thrower.state == GrenadeThrowState GTS_DRAW
+        if atTime > grenade_thrower.stateEnd
+          // grenade_thrower.throwProgress isn't guaranteed to reach exactly 0.5
+          // arTime + dt on frame N can be less, than atTime on frame N + 1
+          verify(grenade_thrower.throwProgress <= 0.5)
+          if !gctrl.shoot // Trigger is released
+            // Starting to throw the grenade
+            grenade_thrower.state = GrenadeThrowState GTS_THROW
+            grenade_thrower.stateStart = atTime
+            grenade_thrower.stateEnd = atTime + throwProps.throwTime
+          // else
+          //   Waiting with the grenade in hand
+          //   grenade_thrower.progress stays at 0.5
+        else
+          // Draw in progress
+          // grenade_thrower.progress goes from 0 to 0.5
+          // grenade_thrower.progress can be exactly 0 at this point only if app.timeSpeed == 0
+          verify(grenade_thrower.throwProgress >= 0.0 && grenade_thrower.throwProgress <= 0.5)
+      elif grenade_thrower.state == GrenadeThrowState GTS_THROW
+        if atTime > grenade_thrower.stateEnd
+          // Throw is finished
+          // grenade_thrower.throwProgress isn't guaranteed to reach exactly 1.0 because of floating point errors
+          verify(grenade_thrower.throwProgress <= 1.0)
+          grenade_thrower.state = GrenadeThrowState GTS_READY
+        else
+          // Throw in progress
+          // grenade_thrower.progress goes from 0.5 to 1.0
+          // grenade_thrower.progress can be exactly 0.5 at this point only if app.timeSpeed == 0
+          verify(grenade_thrower.throwProgress >= 0.5 && grenade_thrower.throwProgress <= 1.0)
 
-    let prevThrowProgress = grenade_thrower.throwProgress
-    grenade_thrower.throwProgress = calc_grenade_throw_progress(grenade_thrower, atTime + dt)
+      let prevThrowProgress = grenade_thrower.throwProgress
+      grenade_thrower.throwProgress = calc_grenade_throw_progress(grenade_thrower, atTime + dt)
 
-    if grenade_thrower__projectileEntity != INVALID_ENTITY_ID
-      let cookProgressTime = throwProps |> grenade_throw_props_getCookProgressTime(fastThrow)
-      if is_in_range(cookProgressTime, prevThrowProgress, grenade_thrower.throwProgress)
-        // activating client-side grenade too, so it have correct explTime
-        query(grenade_thrower__projectileEntity) <| $ [es] (shell__shell_id__shell_id : int;
-                                                            var shell__explTime : float&;
-                                                            var active : bool&)
-          if active
-            return
-          detonation_get_props(shell__shell_id__shell_id) <| $(detonationProps : DetonationProps)
-            shell__explTime = atTime + detonationProps.timer
-            active = true
+      if grenade_thrower__projectileEntity != INVALID_ENTITY_ID
+        let cookProgressTime = throwProps |> grenade_throw_props_getCookProgressTime(human_weap__fastThrowExclusive)
+        if is_in_range(cookProgressTime, prevThrowProgress, grenade_thrower.throwProgress)
+          // activating client-side grenade too, so it have correct explTime
+          query(grenade_thrower__projectileEntity) <| $ [es] (shell__shell_id__shell_id : int;
+                                                              var shell__explTime : float&;
+                                                              var active : bool&)
+            if active
+              return
+            detonation_get_props(shell__shell_id__shell_id) <| $(detonationProps : DetonationProps)
+              shell__explTime = atTime + detonationProps.timer
+              active = true
 
-    if !human_gun_attached
-      return
+      if !human_gun_attached
+        return
 
-    // if throwProgressTime is set < 0.5, the grenade won't be thrown because the GTS_DRAW stage isn't finished
-    let throwProgressTime = throwProps |> grenade_throw_props_getThrowProgressTime(fastThrow)
-    gctrl.shoot = (grenade_thrower.state == GrenadeThrowState GTS_THROW &&
-                  is_in_range(throwProgressTime,
-                              prevThrowProgress,
-                              grenade_thrower.throwProgress))
+      // if throwProgressTime is set < 0.5, the grenade won't be thrown because the GTS_DRAW stage isn't finished
+      let throwProgressTime = throwProps |> grenade_throw_props_getThrowProgressTime(human_weap__fastThrowExclusive)
+      gctrl.shoot = (grenade_thrower.state == GrenadeThrowState GTS_THROW &&
+                    is_in_range(throwProgressTime,
+                                prevThrowProgress,
+                                grenade_thrower.throwProgress))
 
-    let rndSeed = phys_time_to_seed(atTime)
-    sendEventImmediate(eid, [[CmdGunUpdate atTime=atTime, isForReal=isForReal, seed=rndSeed, gctrl=gctrl, gloc=gloc]])
+      let rndSeed = phys_time_to_seed(atTime)
+      sendEventImmediate(eid, [[CmdGunUpdate atTime=atTime, isForReal=isForReal, seed=rndSeed, gctrl=gctrl, gloc=gloc]])
 
 
 [es(before=human_gun_attach_es)]

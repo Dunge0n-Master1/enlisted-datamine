@@ -6,6 +6,7 @@ require game.es.battle_area_common
 require game.utils.team
 require math.base
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
+require game.es.squad_order_common
 
 [es(tag=server, no_order)]
 def squadmate_reset_personal_order_far_away_es(act : UpdateStageInfoAct;

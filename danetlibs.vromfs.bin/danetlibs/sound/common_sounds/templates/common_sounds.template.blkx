@@ -45,6 +45,15 @@ sound_effect_2d{
   }
 }
 
+sound_effect_speed{
+
+  _group{
+    _tags:t="sound"
+    sound_effect_speed__pos:p3=0.0, 0.0, 0.0
+    sound_effect_speed__speedToVar:p4=0.0, 10.0, 0.0, 100.0
+  }
+}
+
 on_appear_sound{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 

@@ -77,7 +77,7 @@ let function chatRoom(chatId) {
   local lastScrolledTo = null
 
   let function logContent() {
-    let chatLog = getChatLog(chatId)
+    let chatLog = getChatLog(chatId)?.data
     if (chatLog == null)
       return {}
     let messages = chatLog.value.map(messageInLog)

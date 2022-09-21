@@ -17,5 +17,6 @@ struct CmdPlaySoundSimple
   hash : uint
 
 [event(broadcast)]
-struct EventOnLoudSound
+struct EventOnWeaponSound
   pos : float3
+  isLoop : bool

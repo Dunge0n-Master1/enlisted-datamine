@@ -26,10 +26,23 @@ def plane_inertial_cam_update_head_pos(evt : Event;
       if eid == seat__ownerEid
         plane_inertial_cam__headPos = seat__cameraPos
 
+def apply_cam_angles(vec : float3; angles : float2)
+  var res = vec
+  query(get_cur_cam_entity()) <| $ [es] (transform : float3x4)
+    var rotTm : float3x4
+    let up = transform[1]
+    make_tm(up, angles.x, rotTm)
+    res = rotTm * vec
+    let side = transform[0]
+    make_tm(side, angles.y, rotTm)
+    res = rotTm * vec
+  return res
+
 [es(tag=input, before=before_camera_sync, REQUIRE=plane_input)]
 def plane_inertial_cam_update(info : UpdateStageInfoAct;
                               plane_net_phys : PlaneActor;
                               transform : float3x4;
+                              camera__zoomPos : float;
                               plane_inertial_cam__headPos : float3;
                               plane_inertial_cam__cameraFpsPhysMult : float;
                               plane_inertial_cam__accelAdaptationVisc : float;
@@ -49,7 +62,7 @@ def plane_inertial_cam_update(info : UpdateStageInfoAct;
                               var plane_inertial_cam__headShakePos : float3&;
                               var camera__look_at : DPoint3&;
                               var camera__lookDir : float3&)
-  let zoom = get_float(get_cur_cam_entity(), "zoom") ?? 0.0f
+  let zoom = camera__zoomPos
   let localW = LOCAL_W_FACTOR * cross(plane_inertial_cam__headPos, float3(plane_net_phys.phys.currentState.omega))
   var finalAccel = float3(plane_net_phys.phys.localAccel) + localW
   plane_inertial_cam__lastAccel = approach(plane_inertial_cam__lastAccel, finalAccel, info.dt, plane_inertial_cam__accelAdaptationVisc)
@@ -72,7 +85,8 @@ def plane_inertial_cam_update(info : UpdateStageInfoAct;
 
   let stabilisationMult = max(get_float(get_controlled_hero(), "entity_mods__pilotHeadStabilisationMult") ?? 1.0, 0.0)
   let zoomMult = cvt(zoom, 0.f, 0.5f, 1.2f, 1.f) * cvt(zoom, 0.5f, 1.f, 1.f, 0.5f)
-  let physMult = zoomMult * plane_inertial_cam__cameraFpsPhysMult * stabilisationMult
+  let isOnGround = plane_net_phys.phys.Gears.onSurface // TODO: stub to remove camera yanking. Real problem is somewhere in physics
+  let physMult = isOnGround ? 0.0 : zoomMult * plane_inertial_cam__cameraFpsPhysMult * stabilisationMult
   let curAccel = float3(plane_net_phys.phys.localAccel) - plane_net_phys.phys.currentState.appliedExternalForce / plane_net_phys.phys.mass
   var immediateRotPos = float3(
     plane_inertial_cam__headAccelRotScale.x * float(plane_net_phys.phys.currentState.omega.y) * physMult,
@@ -110,10 +124,8 @@ def plane_inertial_cam_update(info : UpdateStageInfoAct;
 
   //logerr("headPos={plane_inertial_cam__headPos}, headAcc={plane_inertial_cam__headAccelRot.xy}, headMove={headMovePos}")
 
-  var angles = dir_to_angles(camera__lookDir)
   if (info.dt > 0.f)
-    angles = angles + plane_inertial_cam__headAccelRot.xy
-  camera__lookDir = angles_to_dir(angles)
+    camera__lookDir = apply_cam_angles(camera__lookDir, plane_inertial_cam__headAccelRot.xy)
   let pos = transform[3] + headMovePos
   camera__look_at.x = double(pos.x)
   camera__look_at.y = double(pos.y)
@@ -126,7 +138,5 @@ def plane_inertial_cam_update_aim_pos(info : UpdateStageInfoAct;
                                       isTurretAimPosValid : bool;
                                       var turretAimPos : float3&)
   if isTurretAimPosValid
-    let oldDir = turretAimPos - transform[3]
-    let angles = dir_to_angles(oldDir) - plane_inertial_cam__headAccelRot.xy
-    let newDir = angles_to_dir(angles) * length(oldDir)
-    turretAimPos = transform[3] + newDir
+    let dir = turretAimPos - transform[3]
+    turretAimPos = transform[3] + apply_cam_angles(dir, -plane_inertial_cam__headAccelRot.xy)

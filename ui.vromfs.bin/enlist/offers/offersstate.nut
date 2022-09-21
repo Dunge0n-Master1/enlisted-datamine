@@ -11,8 +11,8 @@ let { send_counter } = require("statsd")
 
 let { offers } = require("%enlist/meta/profile.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
-let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { priorityDiscounts, shopItems } = require("%enlist/shop/shopItems.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { isOffersVisible } = require("%enlist/featureFlags.nut")
 
 
@@ -41,53 +41,61 @@ let allOffers = Computed(function() {
   if (!isOffersVisible.value)
     return []
 
-  let armyData = curArmyData.value
-  if (armyData == null)
-    return []
-
   let oSchemes = offersSchemes.value
   let offersVal = offers.value
-  let sItems = shopItems.value
-  let armyGuid = armyData.guid
+
   let offerslist = []
   foreach (offer in offersVal.values()) {
-    let { hasUsed, shopItemGuid } = offer
-    if (hasUsed)
+    if (offer.hasUsed)
       continue
 
     let scheme = oSchemes?[offer.offerType]
     if (scheme == null)
       continue
 
-    let shopItem = sItems?[shopItemGuid]
-    if (shopItem == null)
-      continue
-
-    let { armies = [] } = shopItem
-    if (armies.len() > 0 && !armies.contains(armyGuid))
-      continue
-
-    offerslist.append(offer.__merge({ shopItem, scheme }))
+    offerslist.append(offer.__merge({ scheme }))
   }
 
   return offerslist
 })
 
-let function recalcActiveOffers() {
+let function recalcActiveOffers(_ = null) {
+  let sItems = shopItems.value
   let time = serverTime.value
-  let list = allOffers.value
-    .filter(@(offer) offer.intervalTs[1] > time)
-    .map(@(offer) {
-      endTime = offer.intervalTs[1]
-      widgetTxt = loc(offer.shopItem?.nameLocId ?? "")
-      widgetImg = offer.scheme?.baseWidgetImg
-      windowImg = offer.scheme?.basePromoImg
-      descLocId = offer.scheme?.baseDescLocId
-      lifeTime  = offer.scheme.lifeTime
-      guid = offer.guid
-      shopItem = offer.shopItem
-      discountInPercent = offer.discountInPercent
-    })
+  let armyId = curArmyData.value?.guid
+  let list = armyId == null ? []
+    : allOffers.value
+        .map(function(offer) {
+          let shopItem = sItems?[offer.shopItemGuid]
+          if (shopItem == null)
+            return null
+
+          let { armies = [] } = shopItem
+          if (armies.len() > 0 && !armies.contains(armyId))
+            return null
+
+          return {
+            endTime = offer.intervalTs[1]
+            widgetTxt = loc(shopItem?.nameLocId ?? "")
+            widgetImg = offer.scheme?.baseWidgetImg
+            windowImg = offer.scheme?.basePromoImg
+            descLocId = offer.scheme?.baseDescLocId
+            lifeTime  = offer.scheme.lifeTime
+            guid = offer.guid
+            shopItem
+            discountInPercent = offer.discountInPercent
+            offerType = offer.offerType
+          }
+        })
+        .filter(@(offer) offer != null && offer.endTime > time)
+
+  let wasDiscounts = priorityDiscounts.value
+  let newDiscounts = {}
+  foreach (offer in list)
+    newDiscounts[offer.shopItem.guid] <- offer.discountInPercent
+  if (!isEqual(wasDiscounts, newDiscounts))
+    priorityDiscounts(newDiscounts)
+
   allActiveOffers(list)
 }
 
@@ -101,7 +109,9 @@ nextExpireData.subscribe(function(v) {
   if (timeLeft > 0)
     gui_scene.resetTimeout(timeLeft, recalcActiveOffers)
 })
-allOffers.subscribe(@(_) recalcActiveOffers())
+
+foreach (v in [allOffers, curArmyData, shopItems])
+  v.subscribe(recalcActiveOffers)
 
 recalcActiveOffers()
 
@@ -257,7 +267,6 @@ return {
   offersTags
   headingAndDescription
 
-  allOffers
   allActiveOffers
   curOfferIdx
   nextExpireData

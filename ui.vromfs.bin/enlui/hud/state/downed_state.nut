@@ -6,10 +6,9 @@ let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 let defValue = freeze({
   downedEndTime = -1.0
   canSelfReviveByHealing = false
-  canSelfReviveByPerk = false
 })
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
-let { downedEndTime, canSelfReviveByPerk, canSelfReviveByHealing } = watchedTable2TableOfWatched({state, defValue})
+let { downedEndTime, canSelfReviveByHealing } = watchedTable2TableOfWatched(state)
 
 ecs.register_es("downedTracker",{
   [["onInit", "onChange"]] = function trackDownedState(_, _eid, comp) {
@@ -21,10 +20,9 @@ ecs.register_es("downedTracker",{
   comps_track = [
     ["hitpoints__downedEndTime",ecs.TYPE_FLOAT, -1],
     ["hitpoints__canSelfReviveByHealing", ecs.TYPE_BOOL, false],
-    ["hitpoints__canSelfReviveByPerk", ecs.TYPE_BOOL, false],
   ],
   comps_rq=["watchedByPlr","isDowned"]
 })
 
-return {downedEndTime, canSelfReviveByPerk, canSelfReviveByHealing}
+return {downedEndTime, canSelfReviveByHealing}
 

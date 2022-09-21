@@ -1,0 +1,5 @@
+import:t="cannons/type_96_25mm_mg.blk"
+import:t="cannons/type_89_127mm_naval_gun.blk"
+import:t="cannons/bofors_40mm.blk"
+import:t="cannons/oerlikon_20mm.blk"
+import:t="cannons/turret_127mm_mk32.blk"

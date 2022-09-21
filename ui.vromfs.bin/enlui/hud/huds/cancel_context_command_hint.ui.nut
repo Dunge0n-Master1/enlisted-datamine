@@ -5,7 +5,7 @@ let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
 let {showBigMap} = require("%ui/hud/menus/big_map.nut")
 let {heroSquadNumAliveMembers, heroSquadOrderType, hasPersonalOrder} = require("%ui/hud/state/hero_squad.nut")
-let {ESO_FOLLOW_ME} = require("ai")
+let {SquadOrder} = require("%enlSqGlob/dasenums.nut")
 let { watchedHeroSquadMembers, isPersonalContextCommandMode } = require("%ui/hud/state/squad_members.nut")
 
 let hasAnySquadmatePersonalOrder = @(members)
@@ -15,7 +15,7 @@ let tipLocId = Computed(@()
   showBigMap.value || inVehicle.value || heroSquadNumAliveMembers.value <= 1 ? null
     : (isPersonalContextCommandMode.value && hasAnySquadmatePersonalOrder(watchedHeroSquadMembers.value))
       ? "squad_orders/cancel_personal_order"
-    : (heroSquadOrderType.value != ESO_FOLLOW_ME || hasPersonalOrder.value)
+    : (heroSquadOrderType.value != SquadOrder.ESO_FOLLOW_ME || hasPersonalOrder.value)
       ? "squad_orders/cancel_all_orders"
     : null
 )

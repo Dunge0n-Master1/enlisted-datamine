@@ -42,7 +42,7 @@ let RTT_MAX : uint = uint(INT_MAX)
 
 // Echo history has timeouts just alongside regular echo responses, meaning the timeout is indistinguishable from high ping (true to life)
 def get_rtt_estimation(echo_history : UInt32List) : uint
-  if length(echo_history) == 0 // Happens if the route is unavailable after less than a 1 second of the game (practically impossible)
+  if length(echo_history) == 0 // Unavailable route
     return RTT_MAX
   var rttSum : uint = 0u
   for rtt in echo_history
@@ -56,28 +56,16 @@ def get_rtt_estimation(echo_history : UInt32List) : uint
   return rttAvg + rttMad
 
 def get_circuit_param(param : string; fallback : int) : int
-  var val : int = fallback
-  get_circuit_conf() <| $(var blk : DataBlock?#)
-    let proberBlock : DataBlock const? = blk |> datablock_get_block_by_name_const("route_prober")
-    if proberBlock != null
-      val = proberBlock |> datablock_getInt(param, fallback)
-  return val
+  return get_circuit_conf() |> datablock_get_block_by_name("route_prober") |> datablock_getInt(param, fallback)
 
 def get_circuit_param(param : string; fallback : float) : float
-  var val : float = fallback
-  get_circuit_conf() <| $(var blk : DataBlock?#)
-    let proberBlock : DataBlock const? = blk |> datablock_get_block_by_name_const("route_prober")
-    if proberBlock != null
-      val = proberBlock |> datablock_getReal(param, fallback)
-  return val
+  return get_circuit_conf() |> datablock_get_block_by_name("route_prober") |> datablock_getReal(param, fallback)
 
 def get_settings(param : string; fallback : bool) : bool
-  let netBlock = dgs_get_settings() |> datablock_get_block_by_name_const("net")
-  return netBlock |> datablock_getBool(param, fallback)
+  return dgs_get_settings() |> datablock_get_block_by_name("net") |> datablock_getBool(param, fallback)
 
 def get_settings(param : string; fallback : int) : int
-  let netBlock = dgs_get_settings() |> datablock_get_block_by_name_const("net")
-  return netBlock |> datablock_getInt(param, fallback)
+  return dgs_get_settings() |> datablock_get_block_by_name("net") |> datablock_getInt(param, fallback)
 
 // Enables experiment with a given chance depending on current session id (deterministically)
 def is_matching_experiment_enabled(chance : float) : bool

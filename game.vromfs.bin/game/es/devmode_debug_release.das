@@ -10,8 +10,7 @@ struct EventApplyDevMode {}
 
 
 def private is_devmode_enabled_in_settings()
-  let debugBlock = dgs_get_settings() |> datablock_get_block_by_name_const("debug")
-  return debugBlock |> datablock_getBool("devmodeEnabled", false)
+  return dgs_get_settings() |> datablock_get_block_by_name("debug") |> datablock_getBool("devmodeEnabled", false)
 
 
 [es(REQUIRE=player)]

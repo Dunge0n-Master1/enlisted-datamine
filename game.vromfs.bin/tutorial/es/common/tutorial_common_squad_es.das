@@ -1,5 +1,6 @@
 require ecs
 require game.events_game
+require EnlistedNet
 
 [es(tag=server, on_appear)]
 def tutorial_action_kill_squad_member_es(evt : Event; var tutor_action__killSquadMember : int&)
@@ -8,5 +9,5 @@ def tutorial_action_kill_squad_member_es(evt : Event; var tutor_action__killSqua
       return true
 
     --tutor_action__killSquadMember
-    sendEvent(eid, [[RequestSuicide]])
+    send_net_event(eid, [[RequestSuicide]])
     return false

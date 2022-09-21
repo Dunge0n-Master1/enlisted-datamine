@@ -24,6 +24,7 @@ level{
   level__patchNavMeshPath:t=""
   _tracked:t="level__loaded"
   _tracked:t="level__loadedAtTime"
+  _tracked:t="level__timeOfDay"
   level__blk:t=""
   level__loadedAtTime:r=-1.0
   level__timeRange:p2=9.0, 9.0
@@ -37,7 +38,6 @@ level{
   level__weatherSeed:i=0
   level__cloudsHoleEnabled:b=yes
   level__weather:t="weather_clear_a"
-  level__maxNightLuminance:r=0.3142
   level__fpsLimit:i=-1
   level__fixedBattleAreas:b=no
   level__loadNavMesh:b=yes
@@ -111,8 +111,12 @@ water{
     water__fft_resolution:i=7
     water__max_tessellation:i=4
     water__flowmap:b=no
+    water__flowmap_tex:t=""
+    water__flowmap_area:p4=-512.0, 512.0, 512.0, -512.0
+    water__wind_strength:r=0.2
+    water__flowmap_strength:r=1.0
     water__colormap_tex:t=""
-    water__colormap_area:p4=-512.0, -512.0, 512.0, 512.0
+    water__colormap_area:p4=-512.0, 512.0, 512.0, -512.0
     shore__enabled:b=yes
     shore__texture_size:i=1024
     shore__hmap_size:r=1024.0

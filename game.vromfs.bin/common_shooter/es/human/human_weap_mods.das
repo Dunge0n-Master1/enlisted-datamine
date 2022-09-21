@@ -26,12 +26,10 @@ def human_optics_deviation_es(info : UpdateStageInfoAct;
   if isIntegratedScope && !gunScopeEid
     gunScopeEid = human_weap__currentGunEid
 
-  if gunScopeEid == INVALID_ENTITY_ID
-    return
-
   var devMult = 1.0
   if human_net_phys.phys.currentState.isAiming
-    devMult = get_float(gunScopeEid, "gunmod__deviationMult") ?? 1.0
+    query(gunScopeEid) <| $ [es] (gunmod__deviationMult : float)
+      devMult = gunmod__deviationMult
 
   let itf = entity_mods__shotDeviationMods |> get_float("optics_devitiation")
 

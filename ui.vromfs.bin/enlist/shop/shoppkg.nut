@@ -49,13 +49,13 @@ let mkShopItemImg = @(img, override = {}) (img ?? "").len()  == 0 ? null
   : {
       rendObj = ROBJ_IMAGE
       size = flex()
-      keepAspect = true
+      keepAspect = KEEP_ASPECT_FILL
       image = Picture(img)
     }.__update(override)
 
 let mkShopItemVideo = @(uri) {
   size = flex()
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FILL
   rendObj = ROBJ_MOVIE
   movie = uri
   behavior = Behaviors.Movie
@@ -284,9 +284,7 @@ let function mkTitle(text, itemAmount, idx, isBundle) {
 let function getMaxCount(shopItem) {
   let { limit = 0, premiumDays = 0, squads = [] } = shopItem
   let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
-  return limit > 0 ? 1
-    : premiumDays > 0 ? 1
-    : squads.len() > 0 ? 1
+  return limit > 0 ||  premiumDays > 0 || squads.len() > 0 ? 1
     : isSoldier ? min(99, max(curArmyReserveCapacity.value - curArmyReserve.value.len(), 0))
     : 99
 }

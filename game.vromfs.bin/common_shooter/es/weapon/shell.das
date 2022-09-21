@@ -136,8 +136,9 @@ def shell_es(info : UpdateStageInfoAct;
              shell__explNodeIdx : int;
              animchar : AnimcharBaseComponent;
              shell__explTime : float;
+             shell_trigger__active : bool = true;
              var active : bool&)
-  if info.curTime < shell__explTime || !active
+  if info.curTime < shell__explTime || !active || !shell_trigger__active
     return
 
   let pos = animchar.nodeTree |> geomtree_getNodeWpos(shell__explNodeIdx)

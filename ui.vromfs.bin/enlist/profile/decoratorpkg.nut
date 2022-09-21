@@ -144,12 +144,12 @@ let mkRatingBlock = function(rankDataWatch) {
               children = [
                 {
                   rendObj = ROBJ_IMAGE
-                  size = [infoiconSize,infoiconSize]
+                  size = [infoiconSize, infoiconSize]
                   color = stateFlag.value & S_HOVER ? titleTxtColor : defTxtColor
-                  image = Picture($"!ui/skin#info/info_icon.svg:{infoiconSize}:{infoiconSize}:K")
+                  image = Picture($"ui/skin#info/info_icon.svg:{infoiconSize}:{infoiconSize}:K")
                 }
                 txt({
-                  text = loc("rank/playerRank", {rating = rating / 100 })
+                  text = loc("rank/playerRank", { rating = rating / 100 })
                   color = stateFlag.value & S_HOVER ? titleTxtColor : defTxtColor
                 })
               ]

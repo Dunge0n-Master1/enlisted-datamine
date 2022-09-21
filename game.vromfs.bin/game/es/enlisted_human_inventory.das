@@ -25,8 +25,9 @@ def human_inventory_use_flask(evt : CmdFlaskUse;
     return
 
   for item in itemContainer
-    query(item) <| $ [es(REQUIRE=flask)]
+    if has(item, "flask")
       sendEvent(eid, [[EventUseItem item=item, target=INVALID_ENTITY_ID]])
+      return
 
 
 [es(tag=server, REQUIRE_NOT=deadEntity)]

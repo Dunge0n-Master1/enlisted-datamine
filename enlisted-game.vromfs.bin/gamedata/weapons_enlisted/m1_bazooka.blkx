@@ -17,11 +17,3 @@ shotDeviation{
   movementRange:p2=3.0, 5.0
   movementDevInc:p2=0.0, 6.0
 }
-
-gunFlash{
-
-  gunFx_main{
-    fx:t="smoke_rocket_exhaust"
-    scale:r=1.0
-  }
-}

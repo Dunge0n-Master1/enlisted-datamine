@@ -53,6 +53,7 @@ def turret_control_init_es(evt : Event;
                            turret__pitchSpeed : float = -1.0;
                            turret__yawAccel : float = -1.0;
                            turret__pitchAccel : float = -1.0;
+                           turret__fireFxOn : bool = true;
                            turret__limit : float4? = null;
                            var turret__resolved : bool&;
                            var turret__wishYawVarId : int&;
@@ -123,7 +124,8 @@ def turret_control_init_es(evt : Event;
         setVar(phys_vars, turret__yawAccelVarId, turret__yawAccel)
       if turret__pitchAccelVarId >= 0
         setVar(phys_vars, turret__pitchAccelVarId, turret__pitchAccel)
-
+      if turret__fireFxOn
+        registerVar(phys_vars, "fire_on", 1.0);
       anim_phys_init(anim_phys, animchar, phys_vars)
 
     turret__resolved = true

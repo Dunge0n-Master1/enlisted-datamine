@@ -26,7 +26,8 @@ let {
   defBgColor, blurBgColor, tinyOffset, bigOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {
-  hasUnseenMedals, hasUnseenDecorators, hasUnseenWallposters
+  hasUnseenMedals, hasUnopenedMedals, hasUnseenDecorators, hasUnopenedDecorators,
+  hasUnseenWallposters, hasUnopenedWallposters
 } = require("unseenProfileState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
@@ -35,6 +36,10 @@ let {
 } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { isReplayTabHidden } = require("%enlist/replay/replaySettings.nut")
+let { BLINK, NO_BLINK } = require("%ui/components/unseenComps.nut")
+let {
+  hasUnopenedAchievements, hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks
+} = require("%enlist/unlocks/unseenUnlocksState.nut")
 
 
 let curTabIdx = mkWatched(persist, "curTabIdx", 0)
@@ -43,21 +48,27 @@ let tabsList = [
     id = "playerCard"
     locId = "profile/playerCardTab"
     content = playerCardUi
-    unseenWatch = hasUnseenDecorators
+    unseenMarkType = Computed(@() !hasUnseenDecorators.value ? null
+      : hasUnopenedDecorators.value ? BLINK
+      : NO_BLINK)
   }
   {
     id = "medals"
     locId = "profile/medalsTab"
     content = medalsUi
     hideWatch = Computed(@() !hasMedals.value)
-    unseenWatch = hasUnseenMedals
+    unseenMarkType = Computed(@() !hasUnseenMedals.value ? null
+      : hasUnopenedMedals.value ? BLINK
+      : NO_BLINK)
   }
   {
     id = "wallpapers"
     locId = "profile/wallpaperTab"
     content = wallpostersUi
     hideWatch = isWpHidden
-    unseenWatch = hasUnseenWallposters
+    unseenMarkType = Computed(@() !hasUnseenWallposters.value ? null
+      : hasUnopenedWallposters.value ? "blink"
+      : "noBlink")
   }
   {
     id = "boosters"
@@ -72,12 +83,17 @@ let tabsList = [
         .__update(h2_txt, { color })
     }
     content = achievementsBlockUI
-    unseenWatch = hasAchievementsReward
+    unseenMarkType = Computed(@() !hasAchievementsReward.value ? null
+      : hasUnopenedAchievements.value ? "blink"
+      : "noBlink")
   }
   {
     id = "weeklyTasks"
     locId = "profile/weeklyTasks"
     content = weeklyUnlocksUi
+    unseenMarkType = Computed(@() !hasUnseenWeeklyTasks.value ? null
+      : hasUnopenedWeeklyTasks.value ? "blink"
+      : "noBlink")
   }
   {
     id = "replay"
@@ -98,6 +114,7 @@ let tabsUi = @() {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   color = defBgColor
+  halign = ALIGN_CENTER
   children = tabsList.map(function(tab, idx) {
     let isHiddenWatch = tab?.hideWatch ?? Watched(false)
     return function() {
@@ -117,8 +134,8 @@ let tabsUi = @() {
               tab?.mkTitleComponent ?? loc(tab?.locId ?? ""),
               @() curTabIdx(idx),
               idx == curTabIdx.value,
-              tab?.unseenWatch ?? Watched(false),
-              { margin = [0, tinyOffset] }
+              { margin = [0, tinyOffset] },
+              tab?.unseenMarkType ?? Watched(null)
             )
       }
     }
@@ -155,7 +172,10 @@ let profileWindow = @() {
             return wpIdSelected(null)
 
           isProfileOpened(false)
-        }, { hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") } ]]})
+        }, {
+          hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") } ]]
+          margin = 0
+        })
       ])
     ]
   }

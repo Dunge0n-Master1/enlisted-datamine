@@ -31,6 +31,7 @@ base_cannon_no_phys{
   _extends:t="watched_vehicle_sound"
   _extends:t="vehicle_fatal_explosion_external_fire"
   _extends:t="vehicle_underwater"
+  _extends:t="vehicle_marker_ui"
   _extends:t="vehicle_autodetect_team"
   drowningHeight:r=0.5
   zones_visitor__triggerTag:t="vehicleTriggerable"
@@ -54,6 +55,7 @@ base_cannon_no_phys{
   hitmarks__showUserHits:b=yes
   camera__lookDir:p3=1.0, 0.0, 0.0
   camera__magnification:r=1.0
+  camera__zoomPos:r=0.0
   camera__isStabilized:b=no
   camName:t="tank_fps_cam_perlin"
   vehicleCameraType:i=0
@@ -401,4 +403,121 @@ base_anti_aircraft_cannon{
 base_movable_anti_tank_cannon{
   _extends:t="base_movable_cannon"
   _extends:t="anti_tank_cannon_common"
+}
+
+base_ai_gunner_turret{
+  _extends:t="replicating"
+  _extends:t="turret_sound_group"
+  _extends:t="base_net_phys"
+  _extends:t="phys_sleepable"
+  _extends:t="animchar"
+  _extends:t="base_dm_parts"
+  _extends:t="base_turret_controls"
+  hitpoints__hp:r=100.0
+  pair_collision__tag:t="collidableToPhysObj"
+  animchar__updatable:b=yes
+  animchar__res:t=""
+  collres__res:t=""
+  net__controlsTickDelta:i=0
+  phys__maxMassRatioForPushOnCollision:r=4.0
+  phys_obj_net_phys__blk:t=""
+  killLogName:t=""
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  team:i=-1
+  _replicated:t="team"
+  _replicated:t="phys__lowFreqTickrate"
+  _replicated:t="isAlive"
+  animchar_render__enabled:b=yes
+  material:t="steel"
+  needsBlood:b=no
+  phys__lowFreqTickrate:b=yes
+  net__physId:i=-1
+  isAlive:b=yes
+  _tracked:t="isAlive"
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+
+  phys_obj_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  collres{
+  }
+
+  "turret_control__hasAiGunners:tag"{
+  }
+
+  "ai_gunners__assignTeam:tag"{
+  }
+
+  "phys_vars__skipVisibilityCheck:tag"{
+  }
+
+  "net_phys__interpK:r"{
+    _tags:t="gameClient"
+  }
+
+  vehicle__allAcquiredControls{
+    _tags:t="server"
+  }
+
+  "scorchable:tag"{
+    _tags:t="render"
+  }
+
+  grid_obj{
+  }
+
+  vehicle__localControls{
+    _tags:t="gameClient"
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bone_gun_barrel"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      gunRecoilParamName:t="gun_01_recoil"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+  }
 }

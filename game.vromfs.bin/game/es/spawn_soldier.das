@@ -41,8 +41,9 @@ def spawn_soldier(evt : Event; eid : EntityId; var soldierComponents : Object; v
       if components != null
         let tpl = getTemplateByName(gametempate)
         for comp in *components
-          if tpl != null && templateHasComponent(*tpl, comp.key)
-            set(init, comp.key, comp.value)
+          let keyHash = ecs_hash(comp.key)
+          if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)
+            set(init, comp.key, keyHash, comp.value)
 
   clear(equipment)
   clear(equipmentComponents)
@@ -82,8 +83,9 @@ def spawn_soldier_done(evt : Event;
   let tpl = getTemplateByName(baseTemplateName)
   let soldierEid : EntityId = createEntity(soldierTemplate, finalizeCreation) <| $(var init : ComponentsInitializer)
     for comp in soldierComponents
-      if tpl != null && templateHasComponent(*tpl, comp.key)
-        set(init, comp.key, comp.value)
+      let keyHash = ecs_hash(comp.key)
+      if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)
+        set(init, comp.key, keyHash, comp.value)
   sendEvent(soldierEid, [[FinalizeSoldierCreation spawnerEid=eid]])
 
 [es(tag=server)]

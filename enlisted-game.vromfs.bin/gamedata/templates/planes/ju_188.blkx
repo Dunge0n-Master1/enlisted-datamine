@@ -299,6 +299,48 @@ ju_188{
       gun:t="planegun_ju_188_7_92mm_mg81_turret_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb33"
+    node:t="bomb34"
+    node:t="bomb29"
+    node:t="bomb30"
+    node:t="bomb31"
+    node:t="bomb32"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare5"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_ju_188_13mm_mg131_turret{
@@ -563,6 +605,7 @@ planegun_ju_188_20mm_mg15120_turret_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_ju_188_20mm_mg15120_turret"
+  _extends:t="gunsound_20mm_mg15120_turret_aircraft"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=250
   turret__aimNodeName:t="turret1"
@@ -575,6 +618,7 @@ planegun_ju_188_20mm_mg15120_turret_02{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_ju_188_20mm_mg15120_turret"
+  _extends:t="gunsound_20mm_mg15120_turret_aircraft"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=250
   turret__aimNodeName:t="turret2"

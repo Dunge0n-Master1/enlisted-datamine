@@ -225,13 +225,12 @@ def ai_danger_trace_targets(act : UpdateStageInfoAct; eid : EntityId; isAlive : 
                       traceTransparencyRayRIGenNormalized(fromPos, dir, danger.distance, 0.01) ||
                       rayhit_smoke_occluders(fromPos, ai_target.targetPos))
 
-      var t = min(length(ai_target.targetPos - fromPos), danger.distance)
+      let t = min(length(ai_target.targetPos - fromPos), danger.distance)
       if !collides
         find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], fromPos, dir, t, 0.0, GridEntCheck BOUNDING) <| $(objEid : EntityId)
           if objEid != danger.eid && objEid != agentEid && uint(objEid) != ai_target.useVehicle
             query(objEid) <| $ [es] (transform : float3x4; collres : CollisionResource; animchar : AnimcharBaseComponent)
-              var norm : float3
-              collides = collres_traceray(collres, transform, animchar.nodeTree, fromPos, dir, t, norm)
+              collides = collres_rayhit(collres, transform, animchar.nodeTree, fromPos, dir, t)
           return collides
       danger.traceable = !collides
 

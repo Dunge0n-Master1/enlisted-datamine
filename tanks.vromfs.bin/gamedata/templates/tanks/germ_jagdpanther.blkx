@@ -18,6 +18,7 @@ germ_jagdpanther_berlin_premium{
 germ_jagdpanther_common{
   _extends:t="base_panzerjager_panther"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "vehicle_seats__seats:shared:array"{
 

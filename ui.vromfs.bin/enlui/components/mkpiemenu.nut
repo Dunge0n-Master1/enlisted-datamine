@@ -183,7 +183,7 @@ local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, close = null)
       attach = "ui/map_on"
       detach = "ui/map_off"
     }
-    hooks = HOOK_ATTACH
+    behavior = Behaviors.ActivateActionSet
     actionSet = "PieMenu"
     hotkeys = [
       [activateHotkey, {description = { skip = true }, action = @() actions?[curIdx.value]?.onClick?()}],

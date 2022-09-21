@@ -1567,7 +1567,7 @@ entity{
 }
 
 entity{
-  _template:t="briefing_invasion"
+  _template:t="briefing_confrontation"
   mission_name:t="normandy_station_conf"
 
   "loading_images:list<t>"{

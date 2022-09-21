@@ -84,10 +84,17 @@ def human_head_anim_es(info : UpdateStageInfoAct;
                     :  human_attached_gun__attachedGunEid)
   query(currentGunEid) <| $ [es] (gun__additionalHeadRoll : float = 0.0;
                                   gun__additionalHeadPitch : float = 0.0;
-                                  gun__additionalHeadYaw : float = 0.0)
-    additionalHeadRoll = lerp(human_head_dir__prevAdditionalRoll, gun__additionalHeadRoll, human_head_dir__interpolationSpeed)
-    additionalHeadPitch = lerp(human_head_dir__prevAdditionalPitch, gun__additionalHeadPitch, human_head_dir__interpolationSpeed)
-    additionalHeadYaw = lerp(human_head_dir__prevAdditionalYaw, gun__additionalHeadYaw, human_head_dir__interpolationSpeed)
+                                  gun__additionalHeadYaw : float = 0.0;
+                                  gun__additionalHeadRollInCrawlMult : float = 1.0;
+                                  gun__additionalHeadPitchInCrawlMult : float = 1.0;
+                                  gun__additionalHeadYawInCrawlMult : float = 1.0)
+    let isCrawl = human_net_phys.phys.currentState.isCrawl
+    let rollMult = isCrawl ? gun__additionalHeadRollInCrawlMult : 1.0
+    let pitchMult = isCrawl ? gun__additionalHeadPitchInCrawlMult : 1.0
+    let yawMult = isCrawl ? gun__additionalHeadYawInCrawlMult : 1.0
+    additionalHeadRoll = lerp(human_head_dir__prevAdditionalRoll, gun__additionalHeadRoll * rollMult, human_head_dir__interpolationSpeed)
+    additionalHeadPitch = lerp(human_head_dir__prevAdditionalPitch, gun__additionalHeadPitch * pitchMult, human_head_dir__interpolationSpeed)
+    additionalHeadYaw = lerp(human_head_dir__prevAdditionalYaw, gun__additionalHeadYaw * yawMult, human_head_dir__interpolationSpeed)
     human_head_dir__prevAdditionalRoll = additionalHeadRoll
     human_head_dir__prevAdditionalPitch = additionalHeadPitch
     human_head_dir__prevAdditionalYaw = additionalHeadYaw
@@ -156,7 +163,7 @@ def human_anim_keep_jump_start_time(update : CmdPostPhysUpdate;
   if jumpStartTime > 0.
     human_anim__jumpStartTime = jumpStartTime
 
-[es(REQUIRE_NOT=animchar__actOnDemand, no_order)]
+[es(REQUIRE_NOT=animchar__actOnDemand, no_order, parallel_for=1)]
 def human_anim_es(info : UpdateStageInfoAct;
                   ragdoll : PhysRagdoll?;
                   human_anim__climbHeights : Array;
@@ -179,7 +186,7 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_weap__reloadStartTime : float = -1.0;
                   human_weap__weapModActivateStartTime : float = -1.0;
                   human_weap__weapModActivateFinishTime : float = -1.0;
-                  human_weap__blockAiming : bool = false;
+                  human_vehicle__isHoldingGunPassenger : bool = false;
                   human_ladder__attached : bool = false;
                   isGunner : bool = false;
                   isInVehicle : bool = false;
@@ -209,6 +216,10 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_anim__toCrawlTransitionVarId : int;
                   human_anim__fromCrawlTransitionAnimId : int;
                   human_anim__fromCrawlTransitionVarId : int;
+                  human_melee_charge__isActive : bool;
+                  human_melee_charge__animUpperStateId : int;
+                  human_melee_charge__animProgressVarId : int;
+                  human_melee_charge__animProgress : float;
                   animchar__updatable : bool;
                   animchar__visible : bool = true;
                   human_anim__jumpStartStateRange : float2;
@@ -301,8 +312,10 @@ def human_anim_es(info : UpdateStageInfoAct;
                    HumanStateMove E_STILL)
 
   var stateUpperBody = HumanStateUpperBody E_READY
+  let effectiveCurSlot = phys.currentState.weapEquipState.effectiveCurSlot
+  let isChangingWeapon = (phys.currentState.weapEquipState.curState == HUWeaponEquipState EES_HOLSTERING ||
+                          phys.currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPING)
   if human_weap__throwMode
-    let effectiveCurSlot = phys.currentState.weapEquipState.effectiveCurSlot
     stateUpperBody = (effectiveCurSlot == HUWeaponSlots EWS_GRENADE ? HumanStateUpperBody E_THROW
                                                                     : HumanStateUpperBody E_FAST_THROW)
   elif phys.currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPED
@@ -312,8 +325,7 @@ def human_anim_es(info : UpdateStageInfoAct;
                            curTime <= human_weap__weapModActivateFinishTime)
     stateUpperBody = ((reload || weapModActivate) ? HumanStateUpperBody E_RELOAD :
                       human_phys_isAiming(phys) ? HumanStateUpperBody E_AIM : HumanStateUpperBody E_READY)
-  elif (phys.currentState.weapEquipState.curState == HUWeaponEquipState EES_HOLSTERING ||
-        phys.currentState.weapEquipState.curState == HUWeaponEquipState EES_EQUIPING)
+  elif isChangingWeapon
     stateUpperBody = HumanStateUpperBody E_CHANGE
 
     assume prevState = phys.previousState.weapEquipState
@@ -432,13 +444,15 @@ def human_anim_es(info : UpdateStageInfoAct;
 
   var state = HumanAnimStateResult(-1, -1)
   if isInVehicle
-    let isAiming = !human_weap__blockAiming && phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
     let isHealing = stateUpperBody == HumanStateUpperBody E_HEAL
+    let throwModeUpperState = effectiveCurSlot == HUWeaponSlots EWS_GRENADE ? human_anim.animState.upperState.throwGrenade : human_anim.animState.upperState.fastThrow
     let upperVehicleState = ((isHealing && human_vehicle_anim__healUpperId >= 0) ? human_vehicle_anim__healUpperId
-      : isAiming ? human_vehicle_anim__fireReadyUpperId
+      : human_vehicle__isHoldingGunPassenger && human_weap__throwMode ? throwModeUpperState
+      : human_vehicle__isHoldingGunPassenger && isChangingWeapon ? human_anim.animState.upperState.changeWeapon
+      : human_vehicle__isHoldingGunPassenger ? human_vehicle_anim__fireReadyUpperId
       : human_vehicle_anim__upperId)
     let lowerVehicleState = ((isHealing && human_vehicle_anim__healLowerId >= 0) ? human_vehicle_anim__healLowerId
-      : isAiming ? human_vehicle_anim__fireReadyLowerId
+      : human_vehicle__isHoldingGunPassenger ? human_vehicle_anim__fireReadyLowerId
       : human_vehicle_anim__lowerId)
     state = HumanAnimStateResult(upperVehicleState, lowerVehicleState)
     if phys.currentState.height > human_vehicle_anim__maxStandHeight
@@ -461,6 +475,10 @@ def human_anim_es(info : UpdateStageInfoAct;
       state.lower = human_anim__fromCrawlTransitionAnimId
       if human_anim__fromCrawlTransitionVarId >= 0
         setVar(phys_vars, human_anim__fromCrawlTransitionVarId, cvt(animHeight, 0., -1., 1., 0.))
+    if human_melee_charge__isActive && human_melee_charge__animUpperStateId >= 0
+      state.upper = human_melee_charge__animUpperStateId
+      if human_melee_charge__animProgressVarId >= 0
+        setVar(phys_vars, human_melee_charge__animProgressVarId, human_melee_charge__animProgress)
   send_change_anim_state_event(eid, "lower", ecs_hash("lower"), state.lower)
   send_change_anim_state_event(eid, "upper", ecs_hash("upper"), state.upper)
   animchar__animSpeed = spd * safeinv(animchar__scale)

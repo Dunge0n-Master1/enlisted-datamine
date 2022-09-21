@@ -116,11 +116,38 @@ spitfire_vb{
       gun:t="planegun_spitfire_vb_7_7mm_browning303_raf_04"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare5"
+    node:t="flare6"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_spitfire_vb_7_7mm_browning303_raf{
   item__name:t="guns/gunbrowning303_raf"
-  gun__blk:t="content/enlisted/gamedata/weapons/spitfire_vb/7_7mm_browning303_raf.blk"
+  gun__blk:t="gamedata/weapons/spitfire_vb/7_7mm_browning303_raf.blk"
   gun__shotFreq:r=16.6667
   gun__locName:t="gunbrowning303_raf"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -146,31 +173,31 @@ base_spitfire_vb_7_7mm_browning303_raf{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
         name:t="api"
         type:t="ap_i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
@@ -180,7 +207,7 @@ base_spitfire_vb_7_7mm_browning303_raf{
 
 base_spitfire_vb_20mm_hispanomkii{
   item__name:t="guns/cannonhispanomkii"
-  gun__blk:t="content/enlisted/gamedata/weapons/spitfire_vb/20mm_hispanomkii.blk"
+  gun__blk:t="gamedata/weapons/spitfire_vb/20mm_hispanomkii.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="cannonhispanomkii"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -206,25 +233,25 @@ base_spitfire_vb_20mm_hispanomkii{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
         name:t="mk1"
         type:t="ball_shell"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
         name:t="1"
         type:t="t_shell"
       }
@@ -292,6 +319,6 @@ spitfire_vb_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="spitfire_mk5b_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/spitfire_vb.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/spitfire_vb.blk"
+  plane_anim__blk:t="gamedata/units/spitfire_vb.blk"
+  plane_sight__blk:t="gamedata/units/spitfire_vb.blk"
 }

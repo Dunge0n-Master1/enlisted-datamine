@@ -12,8 +12,8 @@ let { calc_golden_ratio_columns } = require("%sqstd/math.nut")
 let { mkXpBooster, mkBoosterInfo, mkBoosterLimits, boosterWidthToHeight
 } = require("%enlist/components/mkXpBooster.nut")
 let { rewardBgSizePx } = require("%enlist/items/itemsPresentation.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
-let { perkLevelsGrid } = require("%enlSqGlob/configs/perks/perksExp.nut")
+let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 
 let itemSizeShort = [3.4 * unitSize, 1.8 * unitSize]

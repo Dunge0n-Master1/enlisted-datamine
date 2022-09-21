@@ -79,12 +79,12 @@ def calc_cockpit_block()
                                                         cockpit__cockpitOffsetBySlit : Point3List?)
     using <| $(var blk : DataBlock#)
       components_to_blk(eid, blk, "cockpit__", true)
-      let templatesArrayBlk = datablock_get_block_by_name(blk, "cockpitOffsetBySlit:list<p3>")
-      let templateName = getEntityTemplateName(eid)
-      if cockpit__cockpitOffsetBySlit != null
-        save_block_to_origin_template(templateName, "cockpit__cockpitOffsetBySlit:list<p3>", templatesArrayBlk)
-      else
-        save_param_to_origin_template(templateName) <| $(var originBlk : DataBlock&) : void
-          datablock_setPoint3(originBlk, "cockpit__offset", cockpit__offset)
+      datablock_get_block(blk, "cockpitOffsetBySlit:list<p3>") <| $(templatesArrayBlk)
+        let templateName = getEntityTemplateName(eid)
+        if cockpit__cockpitOffsetBySlit != null
+          save_block_to_origin_template(templateName, "cockpit__cockpitOffsetBySlit:list<p3>", templatesArrayBlk)
+        else
+          save_param_to_origin_template(templateName) <| $(var originBlk : DataBlock&) : void
+            set(originBlk, "cockpit__offset", cockpit__offset)
 
     return true

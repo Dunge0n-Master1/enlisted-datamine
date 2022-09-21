@@ -2,6 +2,7 @@ require ecs
 require EnlistedWalkerai
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
+require game.es.squad_order_common
 
 [es(tag=server)]
 def on_cancel_squad_mate_order(squadMateOrder : RequestSquadMateOrder; eid : EntityId; squad__leader : EntityId)

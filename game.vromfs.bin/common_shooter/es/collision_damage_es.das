@@ -2,6 +2,7 @@ require ecs
 require DagorMath
 require EnlistedDm
 require app
+require game.es.vehicle.vehicle_seats_common
 require game.es.events
 require game.events_game
 require EnlistedHuman

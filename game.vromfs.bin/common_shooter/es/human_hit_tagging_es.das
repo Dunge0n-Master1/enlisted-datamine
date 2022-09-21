@@ -16,7 +16,7 @@ def human_hit_tagging_applier_es(info : ecs::UpdateStageInfoAct;
   if info.curTime < human_hit_tagging__tagStart || info.curTime > human_hit_tagging__tagEnd
     return
 
-  human_net_phys.phys.currentState.moveSpeedMult = cvt(info.curTime, human_hit_tagging__tagStart,
+  human_net_phys.phys.currentState.moveSpeedMult *= cvt(info.curTime, human_hit_tagging__tagStart,
                                                         human_hit_tagging__tagEnd,
                                                         human_hit_tagging__currentTagPower,
                                                         1.f)

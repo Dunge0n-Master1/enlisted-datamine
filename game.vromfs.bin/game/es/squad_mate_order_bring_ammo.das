@@ -18,6 +18,7 @@ require app
 require EnlistedNet
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
+require game.es.squad_order_common
 
 def order_ammo(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int) : bool
   var ordered = false
@@ -45,13 +46,13 @@ def order_ammo(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("ammoRequester", int(uint(squad__leader)))
-    beh_tree.blackBoard |> datablock_setInt("ammoRequester", int(uint(squad__leader)))
+    beh_tree.blackBoard |> set("ammoRequester", int(uint(squad__leader)))
 
     squad_member__orderType = int(SquadMateOrder ESMO_BRING_AMMO)
     squad_member__orderPosition = float3()
     squad_member__orderUseEntity = INVALID_ENTITY_ID
     squad_member__isPersonalOrder = false
-    request_squad_member_response(nearestTeammate.eid)
+    request_squad_member_response(nearestTeammate.eid, "squadBringAmmo")
     ordered = true
   if !ordered
     if squad__numAliveMembers <= 1
@@ -101,7 +102,7 @@ def on_squad_mate_bring_ammo_es(act : UpdateStageInfoAct;
     if beh_tree.blackBoard |> datablock_getInt("ammoRequester", 0) != int(uint(squad__leader))
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
       reset_squad_mate_behaviour(eid)
-      beh_tree.blackBoard |> datablock_setInt("ammoRequester", 0)
+      beh_tree.blackBoard |> set("ammoRequester", 0)
 
 [es(tag=server)]
 def squad_mate_order_bring_ammo_es(evt : RequestSquadMateOrder; squad__leader : EntityId)

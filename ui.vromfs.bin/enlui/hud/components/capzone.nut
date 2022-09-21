@@ -6,6 +6,8 @@ let { getZoneWatch } = require("%ui/hud/state/capZones.nut")
 let capzoneProgress = require("capzoneProgress.nut")
 let mkObjectiveProgress = require("mkObjectiveProgress.nut")
 let { mkObjectiveIcon } = require("mkObjectiveIcon.nut")
+let { isReplayStopped } = require("%ui/hud/replay/replayState.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 /*
 TODO: this is not optimal as we rebuild complicate ui of zone widget on ANY zone changes
@@ -73,11 +75,12 @@ let mkZoneText = memoize(@(caption, animations){
 let function capzoneCtor(zoneWatch, params={}) {
   let { animAppear = null, canHighlight=true} = params
   let {eid} = zoneWatch.value
-  let watch = [zoneWatch, watchedTeam, watchedHeroEid]
+  let watch = [zoneWatch, watchedTeam, watchedHeroEid, isReplay, isReplayStopped]
 
   return function(){
     let zoneData = zoneWatch.value
-    let { active, wasActive, alwaysShow, locked, heroInsideEid, caption, ui_order, ownTeamIcon, presenceTeamCount } = zoneData
+    let { active, wasActive, alwaysShow, locked, heroInsideEid, caption, ui_order,
+      ownTeamIcon, presenceTeamCount } = zoneData
     if (!wasActive && !alwaysShow)
       return { ui_order, watch }
 
@@ -92,7 +95,9 @@ let function capzoneCtor(zoneWatch, params={}) {
       : (params?.useBlurBack ?? true) ? capzonBlurback(highlightedSize[1])
       : capzonDarkback(highlightedSize[1])
 
-    let zoneProgress = active ? mkObjectiveProgress(zoneData, heroTeam, highlightedSize) : null
+    let zoneProgress = active
+      ? mkObjectiveProgress(zoneData, heroTeam, highlightedSize, !isReplay.value || !isReplayStopped.value)
+      : null
     if (active && ownTeamIcon != null) {
       zoneProgress.__update({
         image = mkZoneIcon(ownTeamIcon, highlightedSize[0])

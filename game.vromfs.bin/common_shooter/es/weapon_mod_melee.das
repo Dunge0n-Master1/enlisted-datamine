@@ -36,6 +36,15 @@ def melee_mod_destroyed(evt : Event; slot_attach__attachedTo : EntityId)
     melee_weapon__attackTime = melee_weapon__baseAttackTime
     meleeSoundType := melee_weapon__baseSoundType
 
+[es(on_appear, REQUIRE=meleeChargeMod, after=melee_item_created_es)]
+def melee_charge_mod_attached(evt : Event; slot_attach__attachedTo : EntityId)
+  if !has(slot_attach__attachedTo, "meleeChargeWeapon")
+    addSubTemplate(slot_attach__attachedTo, "melee_charge_mod")
+
+[es(on_disappear, REQUIRE=meleeChargeMod)]
+def melee_charge_mod_destroyed(evt : Event; slot_attach__attachedTo : EntityId)
+  removeSubTemplate(slot_attach__attachedTo, "melee_charge_mod")
+
 [es(tag=server, on_appear)]
 def melee_init_base_props(evt : Event;
                           melee_weapon__propsId : int;

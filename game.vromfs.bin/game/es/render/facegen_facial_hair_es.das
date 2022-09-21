@@ -48,7 +48,7 @@ def init_animchar_for_facegen(evt : Event;
   sendEvent(eid, [[faceGenInfoUpdated]])
 
 
-[es(tag=render, on_appear, on_event=EventEntityRecreated, track=(headgen__blendFactor, headgen__tex0, headgen__tex1))]
+[es(tag=render, on_appear, REQUIRE=animchar, track=(headgen__blendFactor, headgen__tex0, headgen__tex1))]
 def init_facegen_material_es(evt : Event;
                              var animchar_render : AnimcharRendComponent;
                              headgen__blendFactor : float;
@@ -71,7 +71,7 @@ def init_facegen_material_es(evt : Event;
 
 
 
-[es(tag=render, on_appear, on_event=EventEntityRecreated)]
+[es(tag=render, on_appear, REQUIRE=animchar)]
 def init_eye_material_es(evt : Event;
                          var animchar_render : AnimcharRendComponent;
                          eye_iris_color_a_from, eye_iris_color_a_to, eye_iris_color_b_from, eye_iris_color_b_to, eye_sclera_color_from, eye_sclera_color_to : float4;

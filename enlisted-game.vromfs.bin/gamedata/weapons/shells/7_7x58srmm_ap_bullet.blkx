@@ -12,6 +12,7 @@ stabilityReductionAfterRicochet:r=0.5
 effectiveDistance:r=400.0
 stabilityReductionAfterPenetration:r=0.3
 relativeVelHitShift:p2=300.0, 1000.0
+bulletType:t="ap_ball"
 groundCollisionEffect:t="hit_8_11mm_dirt_ap"
 ricochetEffect:t="hit_8_11mm_metal_ap"
 waterCollisionEffect:t="hit_8_11mm_water"
@@ -46,29 +47,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

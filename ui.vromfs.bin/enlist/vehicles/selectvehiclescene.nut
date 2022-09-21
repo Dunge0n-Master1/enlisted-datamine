@@ -20,7 +20,7 @@ let mkHeader = require("%enlist/components/mkHeader.nut")
 let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi } = require("%enlist/vehicles/dmViewer.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 
 
@@ -51,23 +51,26 @@ let function mkStatusHeader(status) {
         margin = [smallPadding, 0, 0, 0]
         text
         color = defTxtColor
+        behavior = [Behaviors.Marquee, Behaviors.Button]
+        scrollOnHover = true
       }.__update(sub_txt)
 }
 
 let function groupByStatus(itemsList) {
   let groupedItems = {}
   foreach (item in itemsList) {
-    let { status } = item
-    groupedItems[status] <- (groupedItems?[status] ?? []).append(item)
+    let { statusText = "" } = item.status
+    groupedItems[statusText] <- (groupedItems?[statusText] ?? []).append(item)
   }
   let children = []
-  let statusOrdered = groupedItems.keys().sort(sortByStatus)
-  foreach (status in statusOrdered) {
+  let itemsOrdered = groupedItems.values().sort(@(a, b) sortByStatus(a[0].status, b[0].status))
+  foreach (items in itemsOrdered) {
+    let { status } = items[0]
     if (status.flags != CAN_USE)
       children.append(mkStatusHeader(status))
-    foreach (item in groupedItems[status])
+    foreach (item in items)
       children.append(vehiclesListCard({
-        item = item
+        item
         onClick = @(item) viewVehicle(item)
         onDoubleClick = @(item) selectVehicle(item)
       }))
@@ -76,8 +79,14 @@ let function groupByStatus(itemsList) {
 }
 
 let function vehiclesList() {
-  let children = groupByStatus(vehicles.value.filter(@(v) (v.status.flags & CANT_USE) == 0))
-  let unavailable = vehicles.value.filter(@(v) (v.status.flags & CANT_USE) != 0)
+  let available = []
+  let unavailable = []
+  foreach (vehicle in vehicles.value)
+    if ((vehicle.status.flags & CANT_USE) == 0)
+      available.append(vehicle)
+    else
+      unavailable.append(vehicle)
+  let children = groupByStatus(available)
   if (unavailable.len() > 0) {
     children.append(notAvailableHeader)
     if (showNotAvailable.value)
@@ -88,7 +97,7 @@ let function vehiclesList() {
     size = [vehicleListCardSize[0], SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = bigPadding
-    children = children
+    children
   }
 }
 

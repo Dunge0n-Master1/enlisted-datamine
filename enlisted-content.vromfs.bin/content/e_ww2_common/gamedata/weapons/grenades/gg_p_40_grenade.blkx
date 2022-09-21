@@ -44,10 +44,6 @@ explFx{
   effectTemplName:t="explosion_effect_small+disable_effect_sfx"
 }
 
-explSound{
-  explSoundPath:t="impact/grenade"
-}
-
 cumulativeDamage{
   armorPower:r=50.0
   distance:r=3.0

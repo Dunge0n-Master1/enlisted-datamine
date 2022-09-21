@@ -238,6 +238,7 @@ base_soldier{
     entity_mods__medkitUseTimeTargetMult:r=1.0
     entity_mods__aimSpeedMult:r=1.0
     entity_mods__grenadeThrowDistMult:r=1.0
+    entity_mods__meleeSpeedMult:r=1.0
   }
 
   _group{
@@ -264,7 +265,7 @@ base_soldier{
   _group{
     _hide:b=yes
 
-    "human_anim__disableHubsIds:list<i>"{
+    "human_anim__disableHubsIds:list<ip2>"{
     }
 
     "human_anim__disableNodesIds:list<i>"{
@@ -468,7 +469,37 @@ base_soldier{
       }
     }
 
+    "side_belt_l:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "side_belt_r:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
     "rear_belt_l:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "rear_belt_r:object"{
       template:t=""
 
       "item:eid"{
@@ -913,6 +944,7 @@ dead_enlisted_base_soldier{
   _tracked:t="human_weap__gunMods"
   _tracked:t="human_equipment__slots"
   _tracked:t="possessedByPlr"
+  _tracked:t="isInVehicleHiddenLocal"
   _tracked:t="human__visible"
   _tracked:t="human_inventory__capacity"
   _tracked:t="human_inventory__currentVolume"
@@ -927,6 +959,7 @@ dead_enlisted_base_soldier{
   animchar__res:t="usaSoldier_char"
   animchar_render__enabled:b=yes
   isInVehicleHidden:b=no
+  isInVehicleHiddenLocal:b=no
   human__visible:b=yes
   human_inventory__dropLootOffset:p3=0.1, 0.6, 0.0
   isAlive:b=no
@@ -1186,6 +1219,41 @@ offenders_for_assist{
   }
 }
 
+human_melee_charge{
+  human_melee_charge__canStart:b=no
+  human_melee_charge__isOnCooldown:b=no
+  human_melee_charge__chargeEndTime:r=0.0
+  human_melee_charge__isInputStillActive:b=no
+  human_melee_charge__isActive:b=no
+  human_melee_charge__isChargeOrAttack:b=no
+  human_melee_charge__zoom:r=1.0
+  human_melee_charge__currentLessStoppingPower:r=0.0
+  human_melee_charge__animUpperStateId:i=-1
+  human_melee_charge__animProgressVarId:i=-1
+  human_melee_charge__animProgress:r=0.4
+  _tracked:t="human_melee_charge__canStart"
+  _tracked:t="human_melee_charge__isActive"
+  _tracked:t="human_melee_charge__currentLessStoppingPower"
+  _replicated:t="human_melee_charge__isActive"
+  human_melee_charge__cooldown:r=3.0
+  human_melee_charge__minStaminaLevelToStart:r=6.0
+  human_melee_charge__staminaDrainMult:r=3.0
+  human_melee_charge__staminaRegenMult:r=0.16
+  human_melee_charge__chargeSpeedMult:r=1.15
+  human_melee_charge__chargeStrikeSpeedMult:r=1.4
+  human_melee_charge__zoomMult:r=0.8
+  human_melee_charge__zoomSpeed:r=0.25
+  human_melee_charge__lessStoppingPower:r=0.6
+  human_melee_charge__animUpperState:t="upper_melee"
+  human_melee_charge__animProgressVar:t="action_progress"
+  human_melee_charge__animProgressBase:r=0.3
+
+  "human_melee_charge__targetFound:b"{
+    _tags:t="input"
+    value:b=no
+  }
+}
+
 enlisted_base_soldier{
   _extends:t="base_soldier"
   _extends:t="barbwire_damage"
@@ -1203,6 +1271,7 @@ enlisted_base_soldier{
   _extends:t="human_parachute"
   _extends:t="human_aim_stamina"
   _extends:t="motion_matching_animchar_component"
+  _extends:t="human_melee_charge"
   collision_damage__lethalSpeed:r=20.0
   collision_damage__damageOnLeavingVehicleTemplate:t="damage_on_leaving_vehicle"
   _tracked:t="human_use_object__selectedBuilding"
@@ -1240,6 +1309,15 @@ enlisted_base_soldier{
   dmgzone_fire_resistance__decayInterval:r=1.0
   dmgzone_fire_resistance__lastTickAt:r=0.0
   dmgzone_fire_resistance__currentTicks:i=0
+
+  "copy_skeleton_nodes__idxFrom:list<i>"{
+  }
+
+  "copy_skeleton_nodes__idxTo:list<i>"{
+  }
+
+  "copy_skeleton_nodes__copyFromEid:eid"{
+  }
 
   "override__riextraDamage:tag"{
   }

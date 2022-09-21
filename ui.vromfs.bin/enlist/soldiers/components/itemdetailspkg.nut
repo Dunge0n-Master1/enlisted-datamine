@@ -15,20 +15,40 @@ let upgrades = require("%enlist/soldiers/model/config/upgradesConfig.nut")
 let { levelBlock } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { withTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let { mkUpgradeWatch, mkSpecsWatch } = require("%enlist/vehicles/physSpecs.nut")
-let { ITEM_DETAILS, VEHICLE_DETAILS, ARMOR_ORDER, getArmaments, getItemDesc
+let { getItemDetails, VEHICLE_DETAILS, ARMOR_ORDER, getArmaments, getItemDesc
 } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const MAX_STATS_COUNT = 3 // max count of shown stats changes in upgrades
 const GOOD_COLOR = 0xFF3DB613
 const BAD_COLOR = 0xFFFF5522
+const BASE_COLOR = 0xFFC6C7DC
+const VALUE_COLOR = 0xFFCFD0E3
+const DARK_COLOR = 0xFF3E413F
+
+let RANGE_SIZE = [hdpx(250), hdpx(3)]
 
 let blur = @(override = {}) {
   size = SIZE_TO_CONTENT
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = textBgBlurColor
-  padding = smallPadding
+  padding = bigPadding
   flow = FLOW_HORIZONTAL
 }.__update(override)
+
+let mkText = @(text) {
+  rendObj = ROBJ_TEXT
+  color = BASE_COLOR
+  text
+}
+
+let mkTextArea = @(text, size = SIZE_TO_CONTENT, halign = ALIGN_LEFT) {
+  rendObj = ROBJ_TEXTAREA
+  behavior = Behaviors.TextArea
+  color = BASE_COLOR
+  halign
+  size
+  text
+}
 
 let mkTextRow = @(header, value) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -37,14 +57,14 @@ let mkTextRow = @(header, value) {
     {
       rendObj = ROBJ_TEXT
       text = header
-      color = defTxtColor
+      color = BASE_COLOR
     }
     { size = flex() }
     {
       rendObj = ROBJ_TEXTAREA
       text = value
       behavior = Behaviors.TextArea
-      color = defTxtColor
+      color = BASE_COLOR
     }
   ]
 }
@@ -52,18 +72,20 @@ let mkTextRow = @(header, value) {
 let vertFrame = { rendObj = ROBJ_SOLID, size = [hdpx(1), flex()], color = fadedTxtColor }
 
 let armamentRowTitle = @(gun) {
-  size = [flex(), SIZE_TO_CONTENT]
-  valign = ALIGN_CENTER
+  size = [flex(4), SIZE_TO_CONTENT]
+  valign = ALIGN_TOP
   flow = FLOW_HORIZONTAL
   gap = smallPadding
+  padding = [smallPadding, bigPadding]
   children = [
     {
-      rendObj = ROBJ_TEXT
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
       size = [flex(), SIZE_TO_CONTENT]
       text = "gun__locName" in gun ? loc("guns/{0}".subst(gun["gun__locName"])) : loc("unknown")
       color = defTxtColor
     }
-    gun.count <= 1 ? null : {
+    gun.count <= 1 || gun.count == gun.gun__maxAmmo ? null : {
       rendObj = ROBJ_TEXT
       text = loc("common/amountShort", { count = gun.count })
       color = defTxtColor
@@ -73,13 +95,16 @@ let armamentRowTitle = @(gun) {
 
 let armamentRowRounds = @(gun) {
   rendObj = ROBJ_TEXTAREA
+  size = [flex(1), SIZE_TO_CONTENT]
+  halign = ALIGN_RIGHT
+  padding = [smallPadding, bigPadding]
   text = "{0}{1}".subst(colorize(activeTxtColor, gun["gun__maxAmmo"]), loc("itemDetails/count"))
   behavior = Behaviors.TextArea
   color = defTxtColor
 }
 
 let getValueColor = @(val, baseVal, isPositive = true)
-  fabs(val - baseVal) < 0.001 * fabs(val + baseVal) ? activeTxtColor
+  fabs(val - baseVal) < 0.001 * fabs(val + baseVal) ? BASE_COLOR
     : val > baseVal == isPositive ? GOOD_COLOR
     : BAD_COLOR
 
@@ -100,25 +125,19 @@ let function armamentRowCtor(val, _itemData, setup, _itemBase) {
         ? {
             rendObj = ROBJ_FRAME
             size = [flex(), SIZE_TO_CONTENT]
-            flow = FLOW_HORIZONTAL
-            gap = vertFrame
+            flow = FLOW_VERTICAL
+            padding = smallPadding
             color = fadedTxtColor
             borderWidth = hdpx(1)
-            children = [
-              {
-                size = [flex(3), SIZE_TO_CONTENT]
-                flow = FLOW_VERTICAL
-                padding = [smallPadding, bigPadding]
-                children = reducedGuns.map(armamentRowTitle)
-              }
-              {
-                size = [flex(1), SIZE_TO_CONTENT]
-                flow = FLOW_VERTICAL
-                padding = [smallPadding, bigPadding]
-                halign = ALIGN_RIGHT
-                children = reducedGuns.map(armamentRowRounds)
-              }
-            ]
+            children = reducedGuns.map(@(gun){
+              size = [flex(), SIZE_TO_CONTENT]
+              flow = FLOW_HORIZONTAL
+              gap = vertFrame
+              children = [
+                armamentRowTitle(gun)
+                armamentRowRounds(gun)
+              ]
+            })
           }
         : {
             size = [flex(), SIZE_TO_CONTENT]
@@ -210,34 +229,91 @@ let VEHICLE_DETAILS_CONSTRUCTORS = {
   }
 }
 
-local function mkDetailsLine(val, _itemData, setup, itemBase) {
-  local { key, mult = 1, measure = "", altLimit = 0.0, altMeasure = "", precision = 1, isPositive = true } = setup
-  let baseVal = itemBase[key]
-  let color = getValueColor(val, baseVal, isPositive)
-  if (altLimit != 0.0 && val >= altLimit)
-    measure = altMeasure
-  else
-    val *= mult
-  let valColor = colorize(color, floatToStringRounded(val, precision))
-  val = round_by_value(val, precision).tointeger()
-  return mkTextRow(loc($"itemDetails/{key}"),
-    measure != "" ? "{0}{1}".subst(valColor, loc($"itemDetails/{measure}", { val })) : valColor)
+local function mkRange(val, range, key) {
+  val = clamp(val, range[0], range[1])
+  local progressWidth = val == 0 ? 0 : RANGE_SIZE[0] * val / range[1]
+  return {
+    key
+    rendObj = ROBJ_SOLID
+    size = RANGE_SIZE
+    color = DARK_COLOR
+    children = {
+      rendObj = ROBJ_SOLID
+      size = [progressWidth, flex()]
+      color = BASE_COLOR
+      transform = { pivot = [0, 0]}
+      animations = [
+        { prop = AnimProp.scale, from = [0, 1], to = [0, 1], duration = 0.1, play = true }
+        { prop = AnimProp.scale, from = [0, 1], to = [1, 1], duration = 0.2, play = true, delay = 0.1 }
+      ]
+    }
+  }
 }
 
-local function mkDetailsRange(val, baseVal, setup) {
+let mkShortLine = @(key, valText, val, range, animKey) {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = sh(1)
+  children = [
+    mkTextArea(valText, [flex(), SIZE_TO_CONTENT], ALIGN_RIGHT)
+    {
+      size = [RANGE_SIZE[0], SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      children = [
+        mkText(loc($"itemDetails/{key}"))
+        range != null ? mkRange(val, range, animKey) : null
+      ]
+    }
+  ]
+}
+
+let mkFullLine = @(key, valText, val, range, animKey) {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_HORIZONTAL
+      children = [
+        mkText(loc($"itemDetails/{key}"))
+        { size = flex() }
+        mkTextArea(valText)
+      ]
+    }
+    range != null ? mkRange(val, range, animKey) : null
+  ]
+}
+
+local function mkDetailsLine(val, setup, itemBase, isFull, animKey) {
+  local {
+    key, mult = 1, measure = "", altLimit = 0.0, altMeasure = "",
+    precision = 1, isPositive = true, range = null
+  } = setup
+
+  local baseVal = itemBase[key]
   if (type(baseVal) != "array")
     baseVal = [baseVal]
-  local { key, mult = 1, measure = "", altLimit = 0.0, altMeasure = "", precision = 1, isPositive = true } = setup
-  let colors = val.map(@(v, idx) getValueColor(v, baseVal?[idx] ?? baseVal.top(), isPositive))
+  if (type(val) != "array")
+    val = [val]
+
+  let colors = val.map(@(v, idx)
+    getValueColor(v, baseVal?[idx] ?? baseVal.top(), isPositive))
   if (altLimit != 0.0 && val.top() >= altLimit)
     measure = altMeasure
   else
     val = (clone val).map(@(v) v * mult)
-  let valColorList = val.map(@(v, idx) colorize(colors[idx], floatToStringRounded(v, precision)))
-  let valColor = "-".join(valColorList)
+
+  let valColorList = val.map(@(v, idx)
+    colorize(colors[idx], floatToStringRounded(v, precision)))
+  let valColored = "-".join(valColorList)
   let topVal = round_by_value(val.top(), precision).tointeger()
-  return mkTextRow(loc($"itemDetails/{key}"),
-    measure != "" ? "{0}{1}".subst(valColor, loc($"itemDetails/{measure}", { val = topVal })) : valColor)
+  let valText = !isFull || measure == ""
+    ? valColored
+    : "{0}{1}".subst(valColored, loc($"itemDetails/{measure}", { val = topVal }))
+
+  return isFull
+    ? mkFullLine(key, valText, val.top(), range, animKey)
+    : mkShortLine(key, valText, val.top(), range, animKey)
 }
 
 let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
@@ -249,9 +325,9 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
     .sort(@(a, b) (a?.y ?? 0) <=> (b?.y ?? 0))
     .map(function(col) {
       let ref = col?.y ?? 0
-      let refColor = colorize(activeTxtColor, ref)
+      let refColor = colorize(BASE_COLOR, ref)
       local val = (col?.x ?? 0) * baseVal * mult
-      let valColor = colorize(activeTxtColor, floatToStringRounded(val, precision))
+      let valColor = colorize(BASE_COLOR, floatToStringRounded(val, precision))
       val = round_by_value(val, precision).tointeger()
       return {
         size = [flex(), SIZE_TO_CONTENT]
@@ -265,7 +341,7 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
               ? "{0}{1}".subst(refColor, loc($"itemDetails/{measure}", { val = ref }))
               : refColor
             behavior = Behaviors.TextArea
-            color = defTxtColor
+            color = BASE_COLOR
           }
           {
             rendObj = ROBJ_TEXTAREA
@@ -273,7 +349,7 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
               ? "{0}{1}".subst(valColor, loc($"itemDetails/{altMeasure}", { val = val }))
               : valColor
             behavior = Behaviors.TextArea
-            color = defTxtColor
+            color = BASE_COLOR
           }
         ]
       }
@@ -286,7 +362,7 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
       {
         rendObj = ROBJ_TEXT
         text = loc($"itemDetails/{key}")
-        color = defTxtColor
+        color = BASE_COLOR
       }
       {
         rendObj = ROBJ_FRAME
@@ -294,25 +370,31 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         gap = vertFrame
-        color = fadedTxtColor
+        color = BASE_COLOR
         children = columns
       }
     ]
   }
 }
 
-let containerSize = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
+let containerFullSize = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
+let containerShortSize = [inventoryItemDetailsWidth * 0.8, SIZE_TO_CONTENT]
 
-let function mkDetails(detailsList, constructors, item, size = containerSize) {
+let function mkDetails(detailsList, constructors, item, isFull) {
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null, itemtype = null } = item
   if (gametemplate == null)
     return null
-  let itemData = itemtype == "vehicle" ? getVehicleData(gametemplate) : getWeaponData(gametemplate)
+
+  let itemData = itemtype == "vehicle"
+    ? getVehicleData(gametemplate)
+    : getWeaponData(gametemplate)
   if (itemData == null)
     return null
+
   let upgradesCurWatch = mkUpgradeWatch(upgrades, upgradesId, upgradeIdx)
   let upgradesBaseWatch = mkUpgradeWatch(upgrades,upgradesId, 0)
   let specsWatch = mkSpecsWatch(upgradesCurWatch, item)
+
   return function() {
     let res = { watch = [upgradesCurWatch, upgradesBaseWatch, specsWatch] }
     itemData.__update(specsWatch.value)
@@ -321,23 +403,23 @@ let function mkDetails(detailsList, constructors, item, size = containerSize) {
     let children = detailsList
       .map(function(setup) {
         let val = upgradedData?[setup.key]
+        let animKey = $"{gametemplate}_{setup.key}_{isFull}"
         return val == null || val == 0 ? null
           : setup.key in constructors ? constructors[setup.key](val, itemData, setup, itemBase)
           : type(val) == "table" ? mkDetailsTable(val, setup, upgradedData?[setup?.baseKey] ?? 1.0)
-          : type(val) == "array" ? mkDetailsRange(val, itemData[setup.key], setup)
-          : mkDetailsLine(val, itemData, setup, itemBase)
+          : mkDetailsLine(val, setup, itemBase, isFull, animKey)
       })
       .filter(@(v) v != null)
     return children.len() == 0
       ? res
-      : blur(res.__update({
+      : res.__update({
           children = {
-            size = size
+            size = isFull ? containerFullSize : containerShortSize
             gap = smallPadding
             flow = FLOW_VERTICAL
             children = children
           }
-        }))
+        })
   }
 }
 
@@ -428,12 +510,12 @@ let function mkUpgradeStatsList(upgrade, limit = 0) {
   return list
 }
 
-let mkUpgradesStatsComp = @(list) {
+let mkUpgradesStatsComp = @(list, isAvailable = false) {
   rendObj = ROBJ_TEXTAREA
   size = [flex(), SIZE_TO_CONTENT]
   text = "\n".join(list)
   behavior = Behaviors.TextArea
-  color = defTxtColor
+  color = isAvailable ? BASE_COLOR : defTxtColor
 }
 
 let mkUpgradeStatsTooltip = @(header, list) {
@@ -458,7 +540,7 @@ let mkUpgradeStatsTooltip = @(header, list) {
   }
 }
 
-let function mkUpgradeGroup(groupId, level, idx, upgrade) {
+let function mkUpgradeGroup(groupId, level, idx, upgrade, isFull) {
   if ((upgrade?.len() ?? 0) == 0)
     return null
   let list = mkUpgradeStatsList(upgrade, MAX_STATS_COUNT)
@@ -466,39 +548,45 @@ let function mkUpgradeGroup(groupId, level, idx, upgrade) {
     return null
 
   let upgradeHeader = {
-    valign = ALIGN_CENTER
+    valign = ALIGN_TOP
     flow = FLOW_HORIZONTAL
+    size = [flex(), SIZE_TO_CONTENT]
     gap = smallPadding
     children = [
       {
-        rendObj = ROBJ_TEXT
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        size = [flex(), SIZE_TO_CONTENT]
         text = loc($"itemDetails/group/{groupId}_{idx}")
-        color = activeTxtColor
+        color = BASE_COLOR
       }
-      levelBlock({ curLevel = level + idx })
+      levelBlock({ curLevel = level + idx }).__update({pos = [0, 4]})
     ]
   }
 
   local upgradeStats
-  let descLocId = $"itemDetails/group/{groupId}_{idx}/desc"
-  if (doesLocTextExist(descLocId)) {
-    upgradeStats = {
-      size = [flex(), SIZE_TO_CONTENT]
-      gap = smallPadding
-      children = {
-        rendObj = ROBJ_TEXTAREA
+  if (isFull) {
+    let descLocId = $"itemDetails/group/{groupId}_{idx}/desc"
+    if (doesLocTextExist(descLocId)) {
+      upgradeStats = {
         size = [flex(), SIZE_TO_CONTENT]
-        behavior = Behaviors.TextArea
-        text = loc(descLocId)
-        color = defTxtColor
+        gap = smallPadding
+        children = {
+          rendObj = ROBJ_TEXTAREA
+          size = [flex(), SIZE_TO_CONTENT]
+          behavior = Behaviors.TextArea
+          text = loc(descLocId)
+          color = defTxtColor
+        }
       }
+    } else {
+      upgradeStats = mkUpgradesStatsComp(list)
+      if (countUpgradeStats(upgrade) > MAX_STATS_COUNT)
+        upgradeStats = withTooltip(upgradeStats.__update({ cursor = normalTooltipTop }),
+          @() mkUpgradeStatsTooltip(upgradeHeader, upgrade))
     }
-  } else {
-    upgradeStats = mkUpgradesStatsComp(list)
-    if (countUpgradeStats(upgrade) > MAX_STATS_COUNT)
-      upgradeStats = withTooltip(upgradeStats.__update({ cursor = normalTooltipTop }),
-        @() mkUpgradeStatsTooltip(upgradeHeader, upgrade))
   }
+
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -532,17 +620,18 @@ let function prepareUpgrades(curUpgrades, prevUpgrades, itemData) {
   return res
 }
 
-let function mkUpgrades(item, size = containerSize) {
+let function mkUpgrades(item, isFull = true) {
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null, tier = 0 } = item
   if (upgradesId == null || gametemplate == null)
     return null
+
   local children = []
   let itemData = getWeaponData(gametemplate)
   let allUpgrades = upgrades.value?[upgradesId] ?? []
   let curUpgrades = prepareUpgrades(allUpgrades?[upgradeIdx], allUpgrades?[0] ?? {}, itemData)
   let availableUpgrades = mkUpgradeStatsList(curUpgrades, MAX_STATS_COUNT)
   if (availableUpgrades.len() > 0) {
-    local curStats = mkUpgradesStatsComp(availableUpgrades)
+    local curStats = mkUpgradesStatsComp(availableUpgrades, true)
     if (countUpgradeStats(curUpgrades) > MAX_STATS_COUNT) {
       let basicHeader = {
         rendObj = ROBJ_TEXT
@@ -558,7 +647,7 @@ let function mkUpgrades(item, size = containerSize) {
   let pendingUpgrades = []
   for (local idx = upgradeIdx + 1; idx < allUpgrades.len(); ++idx) {
     let diff = prepareUpgrades(allUpgrades[idx], allUpgrades?[idx-1] ?? {}, itemData)
-    let upgradeGroup = mkUpgradeGroup(upgradesId, tier - upgradeIdx + 1, idx, diff)
+    let upgradeGroup = mkUpgradeGroup(upgradesId, tier - upgradeIdx + 1, idx, diff, isFull)
     if (upgradeGroup != null)
       pendingUpgrades.append(upgradeGroup)
   }
@@ -569,14 +658,14 @@ let function mkUpgrades(item, size = containerSize) {
       color = msgHighlightedTxtColor
     }).extend(pendingUpgrades)
 
-  return children.len() == 0 ? null : blur({
+  return children.len() == 0 ? null : {
     children = {
-      size = size
-      gap = bigPadding
+      size = isFull ? containerFullSize : containerShortSize
+      gap = isFull ? bigPadding : 0
       flow = FLOW_VERTICAL
       children = children
     }
-  })
+  }
 }
 
 let function diffUpgrades(item, nextIdx = null) {
@@ -589,27 +678,32 @@ let function diffUpgrades(item, nextIdx = null) {
   return mkUpgradeStatsList(curUpgrades)
 }
 
-let function mkItemDescription(item, size = containerSize) {
+let function mkItemDescription(item) {
   let descLoc = getItemDesc(item)
-  return descLoc == "" ? null : blur({
+  return descLoc == "" ? null : {
     children = {
-      maxWidth = size[0]
-      size
+      size = containerFullSize
+      padding = smallPadding
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = descLoc
-      color = defTxtColor
+      color = BASE_COLOR
     }.__update(sub_txt)
-  })
+  }
 }
+
+let mkItemDetails = @(item, isFull)
+  mkDetails(getItemDetails(isFull), ITEM_DETAILS_CONSTRUCTORS, item, isFull)
+
+let mkVehicleDetails = @(vehicle, isFull)
+  mkDetails(VEHICLE_DETAILS, VEHICLE_DETAILS_CONSTRUCTORS, vehicle, isFull)
 
 return {
   blur
   mkItemDescription
-  mkItemDetails = @(item, size = containerSize)
-    mkDetails(ITEM_DETAILS, ITEM_DETAILS_CONSTRUCTORS, item, size)
-  mkVehicleDetails = @(vehicle, size = containerSize)
-    mkDetails(VEHICLE_DETAILS, VEHICLE_DETAILS_CONSTRUCTORS, vehicle, size)
+  mkItemDetails
+  mkVehicleDetails
   mkUpgrades
   diffUpgrades
+  BASE_COLOR
 }

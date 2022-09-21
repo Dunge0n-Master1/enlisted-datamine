@@ -45,13 +45,15 @@ def human_vehicle_cockpit_effectors_reset(evt : Event;
 def human_vehicle_cockpit_effectors(info : UpdateStageInfoAct;
                                     animchar aka cockpit_animchar : AnimcharBaseComponent;
                                     cockpit__vehicleEid : EntityId;
-                                    cockpit__effectors : Object)
+                                    cockpit__effectors : Object;
+                                    cockpit__offset : float3)
   query() <| $ [es(REQUIRE=hero)] (var animchar_effectors__effectorsState : Object; transform : float3x4)
     var cockpitRootTm : float3x4
     var vehicleTransform : float3x4
     query(cockpit__vehicleEid) <| $ [es] (transform : float3x4)
       vehicleTransform = transform
     geomtree_getNodeWtmRelScalar(cockpit_animchar.nodeTree, 0, cockpitRootTm)
+    cockpitRootTm[3] = cockpitRootTm * -cockpit__offset
     for field in cockpit__effectors
       let effectorName = field.key
       let effectorIndex = cockpit__effectors[effectorName] ?? -1

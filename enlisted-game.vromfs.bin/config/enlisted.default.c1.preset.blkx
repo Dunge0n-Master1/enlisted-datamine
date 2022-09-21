@@ -270,6 +270,11 @@ Human.ToggleHatch{
   type:i=5
 }
 
+Human.ToggleHoldGunMode{
+  dev:i=3
+  btn:i=7
+}
+
 Human.Use{
   dev:i=3
   btn:i=14
@@ -458,7 +463,7 @@ Plane.Look{
 
   mod{
     dev:i=3
-    btn:i=9
+    btn:i=6
   }
 }
 
@@ -466,6 +471,7 @@ Plane.ZoomToggle{
   dev:i=3
   btn:i=16
   type:i=0
+  stickyToggle:b=yes
 }
 
 Plane.Shoot{
@@ -546,6 +552,55 @@ Mortar.Cancel{
   type:i=0
 }
 
+Replay.SpeedDown{
+  dev:i=3
+  btn:i=8
+}
+
+Replay.Pause{
+  dev:i=3
+  btn:i=14
+}
+
+Replay.SpeedUp{
+  dev:i=3
+  btn:i=9
+}
+
+Replay.ToggleCamera{
+  dev:i=3
+  btn:i=6
+  stickyToggle:b=yes
+}
+
+Replay.DisableGameHUD{
+  dev:i=3
+  btn:i=7
+  stickyToggle:b=yes
+}
+
+Replay.AdvancedSettings{
+  dev:i=3
+  btn:i=15
+  type:i=5
+}
+
+Replay.DisableHUD{
+  dev:i=3
+  btn:i=15
+  type:i=1
+}
+
+Replay.NextCamera{
+  dev:i=3
+  btn:i=17
+}
+
+Replay.PrevCamera{
+  dev:i=3
+  btn:i=16
+}
+
 Vehicle.Accel{
   dev:i=3
   axis:i=1
@@ -577,6 +632,13 @@ Vehicle.ShootMachinegun{
 Vehicle.ShootTurret03{
   dev:i=3
   btn:i=8
+}
+
+Vehicle.ZoomToggle{
+  dev:i=3
+  btn:i=16
+  type:i=5
+  stickyToggle:b=yes
 }
 
 Vehicle.Zoom{

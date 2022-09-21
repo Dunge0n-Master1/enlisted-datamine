@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let {
   unlockProgress, emptyProgress, allUnlocks
 } = require("%enlSqGlob/userstats/unlocksState.nut")
-let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 
 
 let curFinishedWeeklyTasksCount = Watched(0)
@@ -26,35 +25,6 @@ let weeklyTasks = Computed(function() {
   return unlocks
 })
 
-const WEEKLYTASKS_SEEN_ID = "seen/weeklytasks"
-
-let seenWeeklyTasks = Computed(@() settings.value?[WEEKLYTASKS_SEEN_ID])
-
-let unseenWeeklyTasks = Computed(function() {
-  if (!onlineSettingUpdated.value)
-    return {}
-
-  let seen = seenWeeklyTasks.value ?? {}
-  let unseen = {}
-  foreach (u in weeklyTasks.value)
-    if ((u?.activity.active ?? false) && !(u?.isFinished ?? false) && u.name not in seen)
-      unseen[u.name] <- true
-
-  return unseen
-})
-
-let function markSeenWeeklyTasks(id) {
-  if (!(seenWeeklyTasks.value?[id] ?? false))
-    settings.mutate(function(set) {
-      set[WEEKLYTASKS_SEEN_ID] <- (set?[WEEKLYTASKS_SEEN_ID] ?? {}).__merge({ [id] = true })
-    })
-}
-
-let hasWeeklyTasksAlert = Computed(@()
-  weeklyTasks.value.findindex(@(u) u?.hasReward ?? false) != null
-    || unseenWeeklyTasks.value.len() > 0
-)
-
 let getFinishedWeeklyTasksCount = @()
   weeklyTasks.value.filter(@(u) u?.isFinished ?? false).len()
 
@@ -70,13 +40,8 @@ let function triggerBPStarsAnim() {
     bpStarsAnimGen(bpStarsAnimGen.value + 1)
 }
 
-console_register_command(@() settings.mutate(@(v) delete v[WEEKLYTASKS_SEEN_ID]), "meta.resetSeenWeeklyTasks")
-
 return {
   weeklyTasks
-  hasWeeklyTasksAlert
-  unseenWeeklyTasks
-  markSeenWeeklyTasks
   saveFinishedWeeklyTasks
   triggerBPStarsAnim
   needWeeklyTasksAnim

@@ -3,17 +3,16 @@ from "%enlSqGlob/ui_library.nut" import *
 let { hexStringToInt } = require("%sqstd/string.nut")
 let { warningColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { subscribe } = require("%enlSqGlob/notifications/matchingNotifications.nut")
-let serviceNotificationsList = require("%enlSqGlob/serviceNotificationsList.nut")
+let { serviceNotificationsList, serviceNotificationsListUpdate } = require("%enlSqGlob/serviceNotificationsList.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let colorize = require("%ui/components/colorize.nut")
-
 const DEF_LIFE_TIME = 300
 
 let function filterOldAndStartTimer() {
   let curTime = serverTime.value
   let newList = serviceNotificationsList.value.filter(@(n) n.till_timestamp > curTime)
   if (newList.len() != serviceNotificationsList.value.len())
-    serviceNotificationsList(newList)
+    serviceNotificationsListUpdate(newList)
 
   let nextNotifyTime = newList.reduce(@(res, n) res <= 0 ? n.till_timestamp : min(res, n.till_timestamp), 0)
   if (nextNotifyTime > 0)
@@ -34,7 +33,8 @@ subscribe("web-service", function(ev) {
 
   if (till_timestamp <= 0)
     till_timestamp = serverTime.value + DEF_LIFE_TIME
-
-  serviceNotificationsList.mutate(@(v) v.append({ message, till_timestamp }))
+  let snl = serviceNotificationsList.value
+  snl.append({ message, till_timestamp, uid = $"{message}_{till_timestamp}"})
+  serviceNotificationsListUpdate(snl)
   filterOldAndStartTimer()
 })

@@ -93,7 +93,7 @@ def human_weap_wish_ammo_es(evt : CmdSetWishAmmoItemType;
   let isGrenadeSlotCurrent = (effectiveCurSlot == HUWeaponSlots EWS_GRENADE)
 
   if !is_server()
-    sendEvent(eid, [[HumanRequestSetWishAmmoItemType slot_id=slotId, item_id=itemId, is_grenade_slot_current=isGrenadeSlotCurrent]])
+    send_net_event(eid, [[HumanRequestSetWishAmmoItemType slot_id=slotId, item_id=itemId, is_grenade_slot_current=isGrenadeSlotCurrent]])
     return // Do nothing, it's all should be server driven
 
   if !try_take_grenade_in_hand(eid, slotId, itemId,

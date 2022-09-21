@@ -84,9 +84,9 @@ let function onSuccessfulSpawn(comp) {
     comp["scoring_player__firstSpawnTime"] = get_sync_time()
 }
 
-let groupSpawnCb = @(team, canUseRespawnbaseType, respawnGroupId)
+let groupSpawnCb = @(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
   get_random_respawn_base(
-    find_all_respawn_bases_for_team_with_type(team, canUseRespawnbaseType)
+    find_all_respawn_bases_for_team_with_type(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
       .filter(@(v) ecs.obsolete_dbg_get_comp_val(v[0], "respawnBaseGroup", -1) == respawnGroupId)
   )
 
@@ -96,13 +96,13 @@ let function spawnGroupError(template, team, eid, comp) {
   return false
 }
 
-let function avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType) {
+let function avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
   local getRespawnbaseForTeamCb = @(team, _safest = false)
-    find_respawn_base_for_team_with_type(team, canUseRespawnbaseType)
+    find_respawn_base_for_team_with_type(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
   let respawnGroupId = ctx.respawnGroupId
   if (respawnGroupId >= 0)
     getRespawnbaseForTeamCb = @(team, _safest = false)
-      groupSpawnCb(team, canUseRespawnbaseType, respawnGroupId)
+      groupSpawnCb(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
   return [
     getRespawnbaseForTeamCb(ctx.team),
     @(team) mkSpawnParamsByTeamEx(team, getRespawnbaseForTeamCb)
@@ -110,13 +110,23 @@ let function avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType) {
 }
 
 let debugAllRespawnbasesQuery = ecs.SqQuery("debugAllRespawnbasesQuery", {
-  comps_ro=["active", "transform", "team", "lastSpawnOnTime", "respawnbaseType", ["respTime", ecs.TYPE_INT, 0], ["maxVehicleOnSpawn", ecs.TYPE_INT, -1]]
+  comps_ro=[
+    ["active", ecs.TYPE_BOOL],
+    ["transform", ecs.TYPE_MATRIX],
+    ["team", ecs.TYPE_INT],
+    ["lastSpawnOnTime", ecs.TYPE_FLOAT],
+    ["respawnbaseType", ecs.TYPE_STRING],
+    ["respawnbaseSubtype", ecs.TYPE_STRING, ""],
+    ["respTime", ecs.TYPE_INT, 0],
+    ["maxVehicleOnSpawn", ecs.TYPE_INT, -1]
+  ]
   comps_rq=["respbase"]
 })
 
-let function debugDumpRespawnbases(ctx, canUseRespawnbaseType) {
+let function debugDumpRespawnbases(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
   debugTableData(ctx)
-  debug($"canUseRespawnbaseType = {canUseRespawnbaseType}")
+  let subtypes = ", ".join(canUseRespawnbaseSubtypes)
+  debug($"canUseRespawnbaseType = {canUseRespawnbaseType}, canUseRespawnbaseSubtypes = [{subtypes}]")
 
   debugAllRespawnbasesQuery(function(eid, comp) {
     debug($"eid = {eid}")
@@ -134,7 +144,7 @@ let function trySpawnSquad(ctx, comp) {
   let shouldValidateSpawnRules = ctx.shouldValidateSpawnRules;
 
   let templateName = squadParams.squad[memberId].gametemplate
-  let canUseRespawnbaseType = get_can_use_respawnbase_type(templateName)
+  let { canUseRespawnbaseType = null } = get_can_use_respawnbase_type(templateName)
   if (canUseRespawnbaseType == null)
     return spawnGroupError(templateName, team, eid, comp)
 
@@ -210,21 +220,21 @@ let function trySpawnVehicleSquad(ctx, comp) {
   let shouldValidateSpawnRules = ctx.shouldValidateSpawnRules;
   let vehicleRespawnsBySquad   = ctx.vehicleRespawnsBySquad;
 
-  let canUseRespawnbaseType = get_can_use_respawnbase_type(vehicle)
+  let { canUseRespawnbaseType = null, canUseRespawnbaseSubtypes = [] } = get_can_use_respawnbase_type(vehicle)
   if (canUseRespawnbaseType == null)
     return spawnGroupError(vehicle, team, eid, comp)
 
   if (ctx.respawnGroupId < 0)
     ctx.respawnGroupId = getPrioritySpawnGroup(canUseRespawnbaseType, team)
 
-  let [baseEid, cb] = avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType)
+  let [baseEid, cb] = avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
   ctx.canUseRespawnbaseType <- canUseRespawnbaseType
   squadParams.mkSpawnParamsCb <- cb
   let nextSpawnOnVehicleInTime = vehicleRespawnsBySquad[squadId].nextSpawnOnVehicleInTime
   if (baseEid == INVALID_ENTITY_ID) {
     debug($"Spawn {vehicle} on base {baseEid} squad [{squadId}, {memberId}] for team {team} is not possible")
     rejectSpawn("No respawn base for vehicle", team, eid, comp)
-    debugDumpRespawnbases(ctx, canUseRespawnbaseType)
+    debugDumpRespawnbases(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
     return false
   }
   if (shouldValidateSpawnRules && (!is_vehicle_spawn_allowed_by_limit(team, canUseRespawnbaseType) || nextSpawnOnVehicleInTime > get_sync_time())) {

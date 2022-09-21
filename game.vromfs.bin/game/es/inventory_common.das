@@ -95,9 +95,8 @@ def get_item_pickup_score(eid, item_eid : EntityId; view_convex : Point4List; vi
       if test_segment_box_intersection(from, to, lbb)
         ret.score += item_pickup_priority__lookAtWeight
     else
-      var t = 10f
-      var norm : float3
-      if collres_traceray(*collres, *transform, animchar.nodeTree, aimFrom, aimDir, t, norm)
+      let t = 10f
+      if collres_rayhit(*collres, *transform, animchar.nodeTree, aimFrom, aimDir, t)
         ret.score += item_pickup_priority__lookAtWeight
 
     ret.useful = is_item_useful(eid, item_eid)

@@ -5,8 +5,7 @@ let { logerr } = require("dagor.debug")
 let { fabs } = require("%sqstd/math.nut")
 let { format } = require("string")
 let { toIntegerSafe, isStringFloat } = require("%sqstd/string.nut")
-let { Point3, Point4 } = require("dagor.math")
-
+let { Point3, Point4, TMatrix } = require("dagor.math")
 
 const VERSION = 0
 const ZERO_CHAR_CODE = 48
@@ -62,8 +61,18 @@ let function stringToPoint4(str) {
     stringToFloat(strData?[3] ?? "0"))
 }
 
+let matrixToString = @(v) !(v instanceof TMatrix) ? ""
+  : "?".concat(point3ToString(v[0]), point3ToString(v[1]), point3ToString(v[2]), point3ToString(v[3]))
 
-let codecConfig = [
+let function stringToMatrix(str) {
+  let strData = str.split("?")
+  let tm = TMatrix()
+  for(local i = 0; i < 4; ++i)
+    tm.setcol(i, stringToPoint3(strData?[i] ?? ""))
+  return tm
+}
+
+let decalConfig = [
   { key = "twoSided", valType = "bool", encode = boolToString, decode = stringToBool }
   { key = "dProj0", valType = "Point4", encode = point4ToString, decode = stringToPoint4 }
   { key = "locPos0", valType = "Point3", encode = point3ToString, decode = stringToPoint3 }
@@ -81,30 +90,44 @@ let codecConfig = [
   { key = "locNorm1", valType = "Point3", encode = point3ToString, decode = stringToPoint3 }
 ]
 
+let decorConfig = [
+  { key = "relativeTm", valType = "TMatrix", encode = matrixToString, decode = stringToMatrix },
+  { key = "nodeName", valType = "string", encode = @(v) v, decode = @(v) v },
+]
+
 let codecCfgByVer = {
-  [0] = codecConfig
+  vehDecal = {
+    [0] = decalConfig
+  }
+  vehDecorator = {
+    [0] = decorConfig
+  }
 }
 
-assert(VERSION in codecCfgByVer, $"No decal string convertor with {VERSION} version")
+foreach(key, cfg in codecCfgByVer)
+  assert(VERSION in cfg, $"No {key} string convertor with {VERSION} version")
 
 
-let decalToString = @(decal) "{0}:{1}"
-  .subst(VERSION, ";".join(codecCfgByVer[VERSION]
+let decalToString = @(decal, cType) "{0}:{1}"
+  .subst(VERSION, ";".join(codecCfgByVer[cType][VERSION]
     .map(@(data) data.encode(decal?[data.key]) ?? "")
   ))
 
-let function stringToDecal(decalStr, textureName = "", slot = -1) {
+let function stringToDecal(decalStr, cType, textureName = "", slot = -1) {
   let baseList = decalStr.split(":")
   if (baseList.len() != 2)
-    return logerr($"Wrong decal save format")
+    return logerr($"Wrong decor save format")
+
+  if (cType not in codecCfgByVer)
+    return logerr($"No decor string convertor with {cType} type")
 
   let ver = toIntegerSafe(baseList[0], -1, false)
-  if (ver not in codecCfgByVer)
-    return logerr($"No decal string convertor with {ver} version")
+  if (ver not in codecCfgByVer[cType])
+    return logerr($"No decor string convertor with {ver} version")
 
   let strData = (baseList?[1] ?? "").split(";")
   let decal = {}
-  foreach (key, cfg in codecCfgByVer[ver]) {
+  foreach (key, cfg in codecCfgByVer[cType][ver]) {
     let str = strData?[key] ?? ""
     decal[cfg.key] <- cfg.decode(str) ?? str
   }

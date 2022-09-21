@@ -3,6 +3,7 @@ import "%dngscripts/ecs.nut" as ecs
 
 let { Point2 } = require("dagor.math")
 let { RequestToSaveVehicleDecals, LoadVehicleDecals } = require("vehicle_decals")
+let { SaveVehicleDecor, SetVehicleDecor } = require("dasevents")
 
 
 const MIN_SIZE = 0.2
@@ -35,12 +36,13 @@ let function setDecalSlot(slot) {
 }
 
 
-let setDecalNameQuery = ecs.SqQuery("setDecalNameQuery",
-  { comps_rw = [ "current_decal__name" ]})
+let setDecalInfoQuery = ecs.SqQuery("setDecorInfoQuery",
+  { comps_rw = [ "current_decal__name", "current_decor__type" ]})
 
-let function setDecalName(dName) {
-  setDecalNameQuery.perform(function(_eid, comp) {
+let function setDecorInfo(dName, dType) {
+  setDecalInfoQuery.perform(function(_eid, comp) {
     comp["current_decal__name"] = dName
+    comp["current_decor__type"] = dType
   })
 }
 
@@ -114,20 +116,38 @@ let function applyUsingDecal() {
   ecs.g_entity_mgr.sendEvent(vehTargetEid.value, RequestToSaveVehicleDecals())
 }
 
+let function applyUsingDecor() {
+  ecs.g_entity_mgr.broadcastEvent(SaveVehicleDecor())
+}
+
 let function applyDecalsToVehicle(decal) {
   let { targetEid, decalCompArray } = decal
   ecs.g_entity_mgr.sendEvent(targetEid, LoadVehicleDecals(decalCompArray))
 }
 
+let function applyDecorToVehicle(decor_info) {
+  let { targetEid, decorArray } = decor_info
+
+  foreach(decor in decorArray)
+    ecs.g_entity_mgr.sendEvent(targetEid, SetVehicleDecor({
+      relativeTm = decor.relativeTm,
+      slotId = decor.slot,
+      nodeName = decor.nodeName
+      templateName = decor.textureName
+    }))
+}
+
 return {
   setDecalTarget
   setDecalSlot
-  setDecalName
+  setDecorInfo
   setDecalMirrored
   setDecalTwoSide
   onDecalMouseMove
   onDecalMouseWheel
   vehTargetEid
   applyUsingDecal
+  applyUsingDecor
   applyDecalsToVehicle
+  applyDecorToVehicle
 }

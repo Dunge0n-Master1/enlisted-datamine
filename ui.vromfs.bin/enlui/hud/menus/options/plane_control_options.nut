@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
-let planeControlModeState = require("%enlSqGlob/planeControlModeState.nut")
+let {planeControlModeStateUpdate} = require("%enlSqGlob/planeControlModeState.nut")
 let {getOnlineSaveData, optionCtor, optionSpinner } = require("%ui/hud/menus/options/options_lib.nut")
 
 const MOUSE_AIM = "mouse_aim"
@@ -36,7 +36,7 @@ let function setPlaneControlMode(mode) {
   if (mode not in modSettings)
     return
   let {isMouseAimEnabled, isSimpleJoyEnabled} = modSettings[mode]
-  planeControlModeState({isMouseAimEnabled, isSimpleJoyEnabled})
+  planeControlModeStateUpdate({isMouseAimEnabled, isSimpleJoyEnabled})
 }
 onlineDataMode.watch.subscribe(setPlaneControlMode)
 setPlaneControlMode(onlineDataMode.watch.value)

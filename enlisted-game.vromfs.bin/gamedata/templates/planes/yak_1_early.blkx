@@ -103,6 +103,44 @@ yak_1_early{
       gun:t="planegun_yak_1_early_7_62mm_shkas_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_rocket1"
+    part:t="pylon_rocket2"
+    part:t="pylon_rocket3"
+    part:t="pylon_rocket4"
+    part:t="pylon_rocket5"
+    part:t="pylon_rocket6"
+    part:t="pylon_rocket7"
+    part:t="pylon_rocket8"
+    part:t="pylon_rocket9"
+    part:t="pylon_rocket10"
+    part:t="pylon_rocket11"
+  }
 }
 
 base_yak_1_early_fab_50_launcher{

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let {globalWatched} = require("%dngscripts/globalState.nut")
 let platform = require("%dngscripts/platform.nut")
 let { get_setting_by_blk_path } = require("settings")
 
@@ -11,8 +11,9 @@ let function is_voice_chat_available() {
   }
   return isAvailableByBlk && (platform.is_pc || platform.is_sony || platform.is_nswitch)
 }
-
+let {voiceChatEnabled, voiceChatEnabledUpdate} = globalWatched("voiceChatEnabled", is_voice_chat_available)
+let {voiceChatRestricted, voiceChatRestrictedUpdate} = globalWatched("voiceChatRestricted", @() false)
 return {
-  voiceChatEnabled = sharedWatched("voiceChatEnabled", is_voice_chat_available)
-  voiceChatRestricted = sharedWatched("voiceChatRestricted", @() false)
+  voiceChatEnabled, voiceChatEnabledUpdate,
+  voiceChatRestricted, voiceChatRestrictedUpdate
 }

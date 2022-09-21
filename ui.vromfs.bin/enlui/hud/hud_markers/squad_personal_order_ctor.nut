@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { MY_SQUAD_TEXT_COLOR } = require("%ui/hud/style.nut")
-let { ESMO_DEFEND_POINT } = require("ai")
+let { SquadMateOrder } = require("%enlSqGlob/dasenums.nut")
 let { makeArrow } = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
 let { watchedHeroSquadPersonalOrdersSet, watchedHeroSquadPersonalOrdersGetWatched } = require("%ui/hud/state/squad_personal_orders.nut")
 
@@ -42,7 +42,7 @@ let ctor = function(eid) {
 
   return function() {
     let { orderType, orderPosition } = watch.value
-    if ( orderType != ESMO_DEFEND_POINT )
+    if ( orderType != SquadMateOrder.ESMO_DEFEND_POINT )
       return {watch}
 
     return {

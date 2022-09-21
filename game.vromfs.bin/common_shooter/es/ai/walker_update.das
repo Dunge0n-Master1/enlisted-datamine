@@ -7,8 +7,8 @@ require BehNodes
 
 
 def set_walker_agent_shoot_time(var beh_tree : BehaviourTree&; combatShootTime, combatCooldownTime : float2)
-  beh_tree.blackBoard |> datablock_setPoint2("shootTime", combatShootTime)
-  beh_tree.blackBoard |> datablock_setPoint2("cooldownTime", combatCooldownTime)
+  beh_tree.blackBoard |> set("shootTime", combatShootTime)
+  beh_tree.blackBoard |> set("cooldownTime", combatCooldownTime)
 
 [es(tag=server, on_appear, track=human_weap__currentGunEid)]
 def track_walker_shoot_time(evt : Event; isAlive : bool; human_weap__currentGunEid : EntityId; var beh_tree : BehaviourTree&)

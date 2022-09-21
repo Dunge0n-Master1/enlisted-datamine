@@ -19,7 +19,7 @@ struct CmdPlayNetSoundSimple
   hash : uint
   time : float
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdPlayNetSoundFromAnySource
   hash : uint
   time : float

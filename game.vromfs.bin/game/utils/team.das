@@ -14,12 +14,11 @@ def have_active_teammates(owner_eid : EntityId; our_team : int; include_bots = f
                                                 team : int;
                                                 countAsAlive, isAlive, isDowned : bool;
                                                 beh_tree__enabled = false;
-                                                hitpoints__canSelfReviveByPerk = false;
                                                 isSpectatable = true)
     return (
          eid != owner_eid
       && countAsAlive && isAlive && isSpectatable
-      && (!isDowned || hitpoints__canSelfReviveByPerk)
+      && !isDowned
       && is_teams_friendly(team, our_team)
       && (include_bots ? true : !beh_tree__enabled)
     )

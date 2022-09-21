@@ -5,16 +5,18 @@ let {EWS_PRIMARY, EWS_GRENADE, EWS_NUM } = require("%enlSqGlob/weapon_slots.nut"
 let { INVALID_ITEM_ID } = require("humaninv")
 let { CmdTrackHeroWeapons } = require("gameevents")
 let { grenadesEids } = require("inventory_grenades_es.nut")
+let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
 const EES_EQUIPED = 0
 const EES_HOLSTERING = 1
 const EES_EQUIPING = 2
 const EES_DOWN = 3
 
-let weaponSlots = array(EWS_NUM).reduce(@(res, _, idx) res.rawset(idx, Watched()), {})
+let weaponSlotsRaw = array(EWS_NUM).reduce(@(res, _, idx) res.rawset(idx, mkFrameIncrementObservable(null)), {})
+let weaponSlots = weaponSlotsRaw.map(@(v) v.state)
 let weaponSlotsStatic = array(EWS_NUM).reduce(@(res, _, idx) res.rawset(idx, null), {})
-let weaponSlotsGen = Watched(0)
-let heroModsByWeaponSlotRaw = Watched(array(EWS_NUM))
+let { weaponSlotsGen, weaponSlotsGenSetValue } = mkFrameIncrementObservable(0, "weaponSlotsGen")
+let { heroModsByWeaponSlotRaw, heroModsByWeaponSlotRawModify } = mkFrameIncrementObservable(array(EWS_NUM), "heroModsByWeaponSlotRaw")
 
 let heroModsByWeaponSlot = Computed(function(){
   let res = array(EWS_NUM)
@@ -53,6 +55,18 @@ ecs.register_es("hero_throw_mode_es",
   {
     comps_rq = ["watchedByPlr"]
     comps_track = [["human_weap__throwMode", ecs.TYPE_BOOL]]
+  }
+)
+
+let canStartMeleeCharge = Watched(false)
+ecs.register_es("hero_can_start_melee_charge_es",
+  {
+    [["onInit", "onChange"]] = @(_, comp) canStartMeleeCharge(comp.human_melee_charge__canStart)
+    onDestroy = @(...) canStartMeleeCharge(false)
+  },
+  {
+    comps_rq = ["watchedByPlr"]
+    comps_track = [["human_melee_charge__canStart", ecs.TYPE_BOOL]]
   }
 )
 
@@ -105,16 +119,18 @@ ecs.register_es("hero_ui_weapons_es",
       if (idx < 0 || idx >= EWS_NUM)
         return
       if (weaponMod) {
-        heroModsByWeaponSlotRaw.mutate(function(v) {
+        let modCurAmmo = comp["gun__ammo"]
+        let modTotalAmmo = comp["gun__totalAmmo"]
+        let modsDesc = memoizedDesc(comp["item__name"], eid, comp)
+        heroModsByWeaponSlotRawModify(function(v) {
           if (v[idx] == null)
             v[idx] = {}
-          let modCurAmmo = comp["gun__ammo"]
-          let modTotalAmmo = comp["gun__totalAmmo"]
           v[idx][eid] <- {
             modCurAmmo
             modTotalAmmo
             isWeapon = (modTotalAmmo + modCurAmmo) > 0
-          }.__update(memoizedDesc(comp["item__name"], eid, comp))
+          }.__update(modsDesc)
+          return v
         })
         return
       }
@@ -129,23 +145,31 @@ ecs.register_es("hero_ui_weapons_es",
         totalAmmo = comp["gun__totalAmmo"]
       }
       weaponSlotsStatic[idx] <- staticDesc
-      weaponSlots[idx].update(desc)
-      weaponSlotsGen.update(weaponSlotsGen.value+1)
+      weaponSlotsRaw[idx].setValue(desc)
+      weaponSlotsGenSetValue(weaponSlotsGen.value+1)
     }
     onDestroy = function(eid, comp) {
       let idx = comp["slot_attach__weaponSlotIdx"]
       if (idx < 0 || idx > EWS_NUM)
         return
+      let weaponMod = comp["weaponMod"] != null
+      if (weaponMod) {
+        heroModsByWeaponSlotRawModify(function(v) {
+            if (eid not in v?[idx])
+              return v
+            delete v[idx][eid]
+            return v
+          })
+        return
+      }
       weaponSlotsStatic[idx] <- null
-      weaponSlots[idx].update(null)
-      weaponSlotsGen.update(weaponSlotsGen.value+1)
-      if (eid in heroModsByWeaponSlotRaw.value?[idx])
-        heroModsByWeaponSlotRaw.mutate(@(v) delete v[idx][eid])
+      weaponSlotsRaw[idx].setValue(null)
+      weaponSlotsGenSetValue(weaponSlotsGen.value + 1)
     }
   },
   {
     comps_rq = anyItemComps.comps_rq,
-    comps_no = ["binocular", "flask"]
+    comps_no = ["binocular", "flask", "grenade_thrower"]
     comps_ro = [
       ["weaponMod", ecs.TYPE_TAG, null],
       ["slot_attach__weaponSlotIdx", ecs.TYPE_INT, null],
@@ -267,6 +291,7 @@ return {
   curWeaponIsGrenade
   hasPrimaryWeapon
   curWeaponHasScope
+  canStartMeleeCharge
   EWS_NUM
   isThrowMode
 }

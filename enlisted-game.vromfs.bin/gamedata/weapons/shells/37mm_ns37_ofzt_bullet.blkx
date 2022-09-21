@@ -27,7 +27,7 @@ relativeVelHitShift:p2=300.0, 1000.0
 midArmorPower:p2=3.0, 600.0
 explodeOnRendinst:b=yes
 farArmorPower:p2=3.0, 1000.0
-shellAnimation:t="video/shells_animations/he.ivf"
+shellAnimation:t="video/shells_animations/he_belt.ivf"
 relativeVelArmorShift:p2=200.0, 1000.0
 fuseDelayDist:r=0.05
 explodeTreshold:r=0.01
@@ -163,29 +163,6 @@ shatterCollisions{
 
   stone_snow{
     fx:t="hit_8_11mm_snow_ap"
-  }
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_39_58mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_39_58mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_39_58mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_39_58mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

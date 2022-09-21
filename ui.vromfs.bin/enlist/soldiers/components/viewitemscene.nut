@@ -99,7 +99,7 @@ let viewItemScene = @(){
           size = SIZE_TO_CONTENT
           hplace = ALIGN_RIGHT
           vplace = ALIGN_BOTTOM
-          children = mkDetailsInfo(itemToShow, false)
+          children = mkDetailsInfo(itemToShow)
         }
       ]
     }

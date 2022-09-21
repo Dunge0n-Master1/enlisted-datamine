@@ -4,7 +4,7 @@ VehiclePhys{
   Mass{
     Empty:r=560.0
     Fuel:r=200.0
-    TakeOff:r=5000.0
+    TakeOff:r=650.0
     momentOfInertia:p3=6.0, 1.0, 6.0
     CenterOfGravity:p3=-0.8, 0.2, 0.0
     AdvancedMass:b=no
@@ -50,9 +50,9 @@ VehiclePhys{
   }
 
   suspension{
-    suspensionOffsets:p3=-0.03, -0.02, 0.02
+    suspensionOffsets:p3=-0.15, -0.12, 0.12
     defaultGearRadius:r=0.372
-    defaultDampeningForce:p2=6000.0, 6000.0
+    defaultDampeningForce:p2=1750.0, 1750.0
     hasSuspensionOnDriveGear:b=yes
     dampeningRelaxationRatio:r=0.4
     dampeningCompressionRatio:r=0.15

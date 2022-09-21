@@ -1,8 +1,8 @@
 require ecs
 
 // One and only place that defines final visibility of a human.
-def calc_human_visibility(isInVehicleHidden : bool; human__visible : bool)
-  return !isInVehicleHidden && human__visible
+def calc_human_visibility(isInVehicleHidden : bool; isInVehicleHiddenLocal : bool; human__visible : bool)
+  return !isInVehicleHidden && !isInVehicleHiddenLocal && human__visible
 
 // One and only place that defines final visibility of an attachable item (such as a gun, hat, grenade, etc.)
 def calc_attachable_visibility(slot_attach__attachedTo : ecs::EntityId; slot_attach__visible : bool;
@@ -14,9 +14,9 @@ def calc_attachable_visibility(slot_attach__attachedTo : ecs::EntityId; slot_att
     // wants to detach this gun, but it may not necessarily destroy it (it may "cache" it),
     // so we need to hide it.
     res = false
-  ecs::query(slot_attach__attachedTo) <| $ [es] (isInVehicleHidden : bool; human__visible : bool)
+  ecs::query(slot_attach__attachedTo) <| $ [es] (isInVehicleHidden : bool; human__visible : bool; isInVehicleHiddenLocal : bool)
     // If it's attached to a human and human is invisible, then the item is also invisible.
-    res &&= calc_human_visibility(isInVehicleHidden, human__visible)
+    res &&= calc_human_visibility(isInVehicleHidden, isInVehicleHiddenLocal, human__visible)
 
   ecs::query(slot_attach__attachedTo) <| $ [es] (gun__visible : bool;
                                                  slot_attach__attachedTo : ecs::EntityId;
@@ -44,16 +44,20 @@ def update_attached_visibility(parentEid : ecs::EntityId)
       if parentEid != eid
         update_attached_visibility(eid)
 
-[es(track=isInVehicleHidden, track=human__visible, on_appear)]
-def animchar_human_visibility_es(evt : Event; eid : ecs::EntityId; isInVehicleHidden : bool; human__visible : bool;
+[es(track=(isInVehicleHidden, human__visible, isInVehicleHiddenLocal), on_appear)]
+def animchar_human_visibility_es(evt : Event;
+                                 eid : EntityId;
+                                 human__visible : bool;
+                                 isInVehicleHidden : bool;
+                                 isInVehicleHiddenLocal : bool;
                                  var animchar_render__enabled : bool&)
-  animchar_render__enabled = calc_human_visibility(isInVehicleHidden, human__visible)
+  animchar_render__enabled = calc_human_visibility(isInVehicleHidden, isInVehicleHiddenLocal, human__visible)
 
   update_attached_visibility(eid)
   ecs::query() <| $ [es] (skeleton_attach__attachedTo : ecs::EntityId; var animchar_render__enabled : bool&;
                           slot_attach__visible : bool)
     if skeleton_attach__attachedTo == eid
-      animchar_render__enabled = calc_human_visibility(isInVehicleHidden, human__visible) && slot_attach__visible
+      animchar_render__enabled = calc_human_visibility(isInVehicleHidden, isInVehicleHiddenLocal, human__visible) && slot_attach__visible
 
 [es(on_appear, track=slot_attach__visible, track=slot_attach__attachedTo, track=gun__visible)]
 def animchar_attachable_visibility_es(evt : Event; eid : ecs::EntityId; slot_attach__attachedTo : ecs::EntityId;
@@ -67,5 +71,5 @@ def animchar_attachable_visibility_es(evt : Event; eid : ecs::EntityId; slot_att
 [es(on_appear, track=skeleton_attach__attachedTo, track=slot_attach__visible)]
 def animchar_skeleton_visibility_es(evt : Event; skeleton_attach__attachedTo : ecs::EntityId;
                                     var animchar_render__enabled : bool&; slot_attach__visible : bool)
-  ecs::query(skeleton_attach__attachedTo) <| $ [es] (isInVehicleHidden : bool; human__visible : bool)
-    animchar_render__enabled = calc_human_visibility(isInVehicleHidden, human__visible) && slot_attach__visible
+  query(skeleton_attach__attachedTo) <| $ [es] (isInVehicleHidden : bool; human__visible : bool; isInVehicleHiddenLocal : bool)
+    animchar_render__enabled = calc_human_visibility(isInVehicleHidden, isInVehicleHiddenLocal, human__visible) && slot_attach__visible

@@ -846,14 +846,6 @@ entity{
 }
 
 entity{
-  _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.989672, 0.0854253, -0.115115] [-0.0848532, 0.996345, 0.00986964] [-0.115536, 0.0, -0.993304] [-341.269, 30.6698, 6.85826]]
-  groupName:t="sector_1"
-  respawnBaseGroup:i=2
-  active:b=no
-}
-
-entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
   transform:m=[[-0.545546, 0.0854253, -0.833714] [0.0467744, 0.996345, 0.0714816] [-0.836776, 0.0, 0.547548] [-96.5244, 8.95564, 222.407]]
   groupName:t="sector_1"
@@ -865,7 +857,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[0.107442, 0.0854253, 0.990535] [-0.00921178, 0.996345, -0.0849271] [0.994169, 0.0, -0.107835] [-328.921, 23.8531, -111.897]]
+  transform:m=[[0.720433, 0.0854253, 0.688244] [-0.0617689, 0.996345, -0.0590092] [-0.690768, 1.52737e-07, 0.723076] [-336.519, 23.666, -133.47]]
   groupName:t="sector_1"
   team:i=2
   maxVehicleOnSpawn:i=2
@@ -1025,7 +1017,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.0985031, 0.0854253, 0.991463] [0.00844566, 0.996345, -0.0850068] [0.995101, 0.0, 0.0988658] [-201.595, 21.8839, -92.8436]]
+  transform:m=[[-0.394339, 0.0854253, 0.914985] [0.0338103, 0.996345, -0.0784497] [-0.918343, 1.30385e-07, -0.395786] [-192.992, 20.4165, -86.5198]]
   groupName:t="sector_1"
   respawnBaseGroup:i=1
   active:b=no
@@ -1521,7 +1513,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.107442, 0.0854253, 0.990535] [-0.00921178, 0.996345, -0.0849271] [0.994169, 0.0, -0.107835] [-328.921, 23.8531, -111.897]]
+  transform:m=[[0.720433, 0.0854253, 0.688244] [-0.0617689, 0.996345, -0.0590092] [-0.690768, 1.52737e-07, 0.723076] [-336.643, 23.6661, -133.337]]
   team:i=2
   groupName:t="sector_1"
 }
@@ -1568,7 +1560,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.107442, 0.0854253, 0.990535] [-0.00921178, 0.996345, -0.0849271] [0.994169, 0.0, -0.107835] [-328.921, 23.8531, -111.897]]
+  transform:m=[[0.107442, 0.0854253, 0.990535] [-0.00921178, 0.996345, -0.0849271] [0.994169, 0.0, -0.107835] [-328.221, 23.8531, -111.736]]
   resupply_zone__team:i=2
   groupName:t="sector_1"
   active:b=no

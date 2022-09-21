@@ -321,6 +321,20 @@ owen_mk1_42_gun_item{
   collres__res:t="owen_mk1_42_collision"
 }
 
+owen_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1928a1_thompson_ammo_char"
+  item__template:t="owen_magazine"
+  item__proto:t="owen_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="owen_magazine"
+  ammo_holder__ammoCount:i=33
+  item__weight:r=1.0
+  item__volume:r=0.5
+  item__name:t="items/owen_magazine"
+  collres__res:t="m1928a1_thompson_ammo_collision"
+}
+
 beretta_m1923_gun_item{
   _extends:t="item_gun"
   _extends:t="beretta_m1923"

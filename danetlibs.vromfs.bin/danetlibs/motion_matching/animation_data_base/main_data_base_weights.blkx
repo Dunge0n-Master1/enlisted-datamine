@@ -1,46 +1,104 @@
-nodes{
+nodes_name{
+  node:t="Bip01 L Hand"
+  node:t="Bip01 R Hand"
+  node:t="Bip01 L Foot"
+  node:t="Bip01 R Foot"
+}
 
-  "Bip01 L Hand"{
+prediction_times{
+  time:r=0.1
+  time:r=0.25
+  time:r=0.5
+}
+
+default{
+  optionalTagWeight:r=8.0
+  animationBlendTime:r=0.2
+  trajectoryInertionFactor:r=0.8
+  linearVelocityViscosity:r=0.07
+  angularVelocityViscosity:r=0.02
+
+  node{
+    position_weight:r=0.368
+    velocity_weight:r=0.221
+  }
+
+  node{
+    position_weight:r=0.368
+    velocity_weight:r=0.221
+  }
+
+  node{
+    position_weight:r=6.765
+    velocity_weight:r=3.456
+  }
+
+  node{
+    position_weight:r=6.765
+    velocity_weight:r=3.456
+  }
+
+  point{
+    position_weight:r=4.265
+    velocity_weight:r=7.639
+    rotation_weight:r=2.459
+  }
+
+  point{
+    position_weight:r=3.75
+    velocity_weight:r=6.94
+    rotation_weight:r=1.53
+  }
+
+  point{
+    position_weight:r=4.044
+    velocity_weight:r=6.885
+    rotation_weight:r=2.941
+  }
+}
+
+swim{
+  optionalTagWeight:r=8.0
+  animationBlendTime:r=0.45
+  trajectoryInertionFactor:r=0.75
+  linearVelocityViscosity:r=0.1
+  angularVelocityViscosity:r=0.1
+
+  node{
     position_weight:r=1.559
     velocity_weight:r=1.065
   }
 
-  "Bip01 R Hand"{
+  node{
     position_weight:r=1.559
     velocity_weight:r=0.941
   }
 
-  "Bip01 L Foot"{
+  node{
     position_weight:r=1.559
     velocity_weight:r=0.91
   }
 
-  "Bip01 R Foot"{
+  node{
     position_weight:r=1.497
     velocity_weight:r=0.941
   }
-}
-
-trajectory{
 
   point{
-    time:r=0.1
+    position_weight:r=7.948
     velocity_weight:r=7.639
     rotation_weight:r=2.459
-    position_weight:r=7.948
   }
 
   point{
-    time:r=0.25
+    position_weight:r=7.145
     velocity_weight:r=6.94
     rotation_weight:r=1.53
-    position_weight:r=7.145
   }
 
   point{
-    time:r=0.5
+    position_weight:r=6.219
     velocity_weight:r=6.885
     rotation_weight:r=0.656
-    position_weight:r=6.219
   }
 }

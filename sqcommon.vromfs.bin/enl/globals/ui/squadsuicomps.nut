@@ -2,10 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let {
   smallPadding, activeBgColor, hoverBgColor, defBgColor, selectedTxtColor,
-  defTxtColor, spawnNotReadyColor, multySquadPanelSize
+  defTxtColor, spawnNotReadyColor, multySquadPanelSize, blinkingSignalsGreenDark
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkHintRow } = require("%ui/components/uiHotkeysHint.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -178,6 +177,18 @@ let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
   image = Picture($"{premIcon}:{premIconSize}:{premIconSize}:K")
 }.__update(override ?? {})
 
+
+let timerIcon = "ui/skin#/battlepass/boost_time.svg"
+let timerSize = hdpxi(18)
+
+let squadTimer = {
+  rendObj = ROBJ_IMAGE
+  size = [timerSize, timerSize]
+  margin = smallPadding
+  image = Picture($"{timerIcon}:{timerSize}:{timerSize}:K")
+  color = blinkingSignalsGreenDark
+}
+
 let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
   squadType = null, squadSize = null, level = null, isFaded = false,
   premIcon = null, onClick = null, addedRightObj = null, mkChild = null,
@@ -189,13 +200,16 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
 
   return function() {
     let sf = stateFlags.value
-    let timerObj = expireTime == 0 ? null
-      : mkCountdownTimer({
-          timestamp = expireTime
-          color = txtColor(sf, selected)
-          override = { hplace = ALIGN_RIGHT, padding = [0, smallPadding] }
-          isSmall = true
-        })
+    let topRightChilds = expireTime == 0 ? addChild
+      : {
+          flow = FLOW_HORIZONTAL
+          hplace = ALIGN_RIGHT
+          children = [
+            addChild
+            squadTimer
+          ]
+        }
+
     return {
       rendObj = ROBJ_SOLID
       size = multySquadPanelSize
@@ -217,8 +231,7 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
         premIcon != null
           ? mkSquadPremIcon(premIcon, { margin = [0, hdpx(6)] })
           : mkSquadLevel(level, sf, selected)
-        timerObj
-      ].append(addChild)
+      ].append(topRightChilds)
     }
   }
 })

@@ -1,0 +1,55 @@
+base_f4f_3{
+  plane_phys_damage__blk:t="gamedata/units/f4f_3.blk"
+  animchar__res:t="f4f_3_char"
+}
+
+f4f_3_wreckage{
+  _extends:t="base_f4f_3"
+  _extends:t="plane_wreckage"
+  plane_wreckage__nodeName:t=""
+  plane_wreckage__typeName:t=""
+}
+
+f4f_3_base{
+  _extends:t="plane_with_cockpit"
+  _extends:t="base_f4f_3"
+  plane_engine_sound__engine:t="engine11"
+  collres__res:t="f4f_3_collision"
+  plane_net_phys__blk:t="gamedata/units/f4f_3.blk"
+  damage_model__blk:t="gamedata/units/f4f_3.blk"
+  plane_collision__blk:t="gamedata/units/f4f_3.blk"
+  plane_anim__blk:t="gamedata/units/f4f_3.blk"
+  plane_sight__blk:t="gamedata/units/f4f_3.blk"
+  canUseRespawnbaseType:t="aircraft_fighter"
+  is_seaplane:b=no
+  plane_wreckage__template:t="f4f_3_wreckage"
+  killLogName:t="f4f_3"
+  animchar__res:t="f4f_3_char"
+  vehicle_seats_camera_nodes__defaultNode:t=""
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t=""
+    animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
+  }
+
+  "plane_hit_sound__canopyNodes:list<t>"{
+    _tags:t="sound"
+    name:t="cover2_dm"
+  }
+
+  "vehicle_seats_can_acquire_controls:list<i>"{
+  }
+
+  "vehicle_seats__canAcquireControls:shared:object"{
+
+    "driver:object"{
+      movement:b=yes
+      turrets:b=yes
+    }
+
+    "main_gunner:object"{
+      turrets:b=yes
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d42b31;
+      }
+
+      .cls-2 {
+        fill: #247026;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #231f20;
+      }
+    </style>
+  </defs>
+  <g id="Layer_5" data-name="Layer 5">
+    <g>
+      <circle class="cls-1" cx="75.00006" cy="75" r="69.78125"/>
+      <path class="cls-2" d="M75,7.9375A67.0625,67.0625,0,1,1,7.9375,75,67.13845,67.13845,0,0,1,75,7.9375M75,2.5A72.5,72.5,0,1,0,147.5,75,72.5,72.5,0,0,0,75,2.5Z"/>
+      <polygon class="cls-3" points="106.368 17.453 43.632 17.453 74.568 75 43.632 132.547 106.368 132.547 75.432 75 106.368 17.453"/>
+    </g>
+  </g>
+</svg>

@@ -9,6 +9,7 @@ let commonMultipliersCfg = [
   { stat = "defeatMult", locId = "debriefing/tooltipDefeatMult"},
   { stat = "deserterMult", locId = "debriefing/tooltipDeserterMult"},
   { stat = "premiumSquadMult", locId = "debriefing/tooltipPremiumSquadMult"},
+  { stat = "squadRentedMult", locId = "debriefing/squadRentedMult"},
   { stat = "premiumMult", locId = "debriefing/tooltipPremiumMult"},
   { stat = "premiumSquadAndPremiumMult", locId = "debriefing/tooltipPremiumSquadAndPremiumMult"},
   { stat = "battleHeroAwardsMult", locId = "debriefing/tooltipBattleHeroAwardsMult"},
@@ -16,12 +17,14 @@ let commonMultipliersCfg = [
 ]
 
 let function getPremMultiplier(stats) {
-  let squadBonus = stats?.premSquadExpBonus ?? 0
-  let premBonus = stats?.premAccountExpBonus ?? 0
-  return (squadBonus > 0 && premBonus > 0) ? {premiumSquadAndPremiumMult = (1 + premBonus + squadBonus)} :
-         (squadBonus > 0) ? {premiumSquadMult = (1 + squadBonus)} :
-         (premBonus  > 0) ? {premiumMult = (1 + premBonus)} :
-         {}
+  let { isRented = false, premSquadExpBonus = 0, premAccountExpBonus = 0 } = stats
+  let mult = 1 + premSquadExpBonus + premAccountExpBonus
+  let stat = isRented ? "squadRentedMult"
+    : premSquadExpBonus > 0 && premAccountExpBonus > 0 ? "premiumSquadAndPremiumMult"
+    : premSquadExpBonus > 0 ? "premiumSquadMult"
+    : premAccountExpBonus > 0 ? "premiumMult"
+    : ""
+  return stat == "" ? {} : { [stat] = mult }
 }
 
 let function getBattleResultMultiplier(stats, result) {

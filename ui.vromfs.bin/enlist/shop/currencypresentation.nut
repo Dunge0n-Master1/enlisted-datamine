@@ -248,6 +248,37 @@ let currencyPresentation = freeze({
     icon  = "!ui/uiskin/currency/event_order.svg"
     hideIfZero = true
   }
+  pacific_event_2022_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  twitch_drop_2022_pacific_weapon_order = {
+    order = 3
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/twitch_drop_weapon_order.svg"
+    hideIfZero = true
+  }
+  twitch_drop_2022_pacific_axis_hero_order = {
+    order = 3
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/twitch_drop_soldier_order.svg"
+    hideIfZero = true
+  }
+  twitch_drop_2022_pacific_allies_tank_order = {
+    order = 3
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/twitch_drop_tank_order.svg"
+    hideIfZero = true
+  }
+
+
+
 })
 
 let function getCurrencyPresentation(key) {

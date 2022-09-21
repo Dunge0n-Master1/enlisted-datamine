@@ -1,3 +1,4 @@
+options no_aot
 module verify_common shared
 
 require ecs
@@ -14,22 +15,43 @@ def validate_template(name : string; comps : table<string; uint>; cb : block<(su
     cb |> invoke(false, tmplPtr)
     return
   assume tmpl = *tmplPtr
+  let compTypes & = getComponentTypes()
+  let dataComps & = getDataComponents()
 
   var res = true
-  for compName, _compType in keys(comps), values(comps)
-    if !templateHasComponent(tmpl, compName)
+  for compName, compType in keys(comps), values(comps)
+    let compNameHash = ecs_hash(compName)
+    if !templateHasComponent(tmpl, compName, compNameHash)
       logwarn("ecs_verify: comp '{compName}'' wasn't found inside '{name}'' template")
       res = false
       break
-    // let comp = tmpl |> getTemplateComponent(compName)
-    // if comp == null || comp.isNull
-    //   logwarn("ecs_verify: comp '{compName}'' wasn't found inside '{name}'' template")
-    //   res = false
-    //   break
-    // if comp.userType != compType
-    //   logwarn("ecs_verify: comp '{compName}' has incorrect type inside '{name}'' template. Expected {dasType |> describe()}<{compType}> got <{comp.userType}>")
-    //   res = false
-    //   break
+    let typeIdx = compTypes |> component_types_findType(compType)
+    if typeIdx == INVALID_COMPONENT_TYPE_INDEX
+      logerr("ecs_verify: comp '{compName}' hash<{compNameHash}> with unknown type hash<{compType}>")
+      res = false
+      break
+    let templateComp = tmpl |> getTemplateComponent(compName, compNameHash)
+    if templateComp == null || templateComp.isNull
+      // data component!?
+      let typName = compTypes |> component_types_getTypeNameById(typeIdx)
+      let dataCompId = dataComps |> data_components_findComponentId(compNameHash)
+      if dataCompId == INVALID_COMPONENT_INDEX
+        logerr("ecs_verify: unknown data comp '{compName}' hash<{compNameHash}>. Expected type <{typName}|{typeIdx}>")
+        res = false
+        break
+      let compData = dataComps |> data_components_getComponentById(dataCompId)
+      if typeIdx != compData.componentType
+        let actualTypName = compTypes |> component_types_getTypeNameById(compData.componentType)
+        logerr("ecs_verify: wrong data comp type '{compName}' hash<{compNameHash}>. Expected type <{typName}|{typeIdx}>, actual type <{actualTypName}|{compData.componentType}>")
+        res = false
+        return
+
+    elif templateComp.typeId != typeIdx
+      let typName = compTypes |> component_types_getTypeNameById(typeIdx)
+      let actualTypName = compTypes |> component_types_getTypeNameById(templateComp.typeId)
+      logerr("ecs_verify: wrong comp type '{compName}' hash<{compType}>. Expected type <{typName}|{typeIdx}>, actual type <{actualTypName}|{templateComp.typeId}>")
+      res = false
+      break
 
   cb |> invoke(res, tmplPtr)
 
@@ -37,13 +59,36 @@ def validate_template(name : string; comps : table<string; uint>; cb : block<(su
 def find_template(comps : table<string; uint>; cb : block<(name : string implicit; tmpl : ecs::Template#) : bool>) : bool
   var res = false
   get_templateDB() <| $ [unused_argument(name)] (tmplName; tmpl)
-    for compName, _compType in keys(comps), values(comps)
-      if !templateHasComponent(tmpl, compName)
+    let compTypes & = getComponentTypes()
+    let dataComps & = getDataComponents()
+
+    for compName, compType in keys(comps), values(comps)
+      let compNameHash = ecs_hash(compName)
+      if !templateHasComponent(tmpl, compName, compNameHash)
         return true
-      // TODO: type check
-      // let comp = tmpl |> getTemplateComponent(compName)
-      // // if comp == null || comp.isNull // || comp.userType != compType
-      //   return true
+      let typeIdx = compTypes |> component_types_findType(compType)
+      if typeIdx == INVALID_COMPONENT_TYPE_INDEX
+        logerr("ecs_verify: comp '{compName}' hash<{compNameHash}> with unknown type hash<{compType}>")
+        return true
+      let templateComp = tmpl |> getTemplateComponent(compName, compNameHash)
+      if templateComp == null || templateComp.isNull
+        // data component!?
+        let typName = compTypes |> component_types_getTypeNameById(typeIdx)
+        let dataCompId = dataComps |> data_components_findComponentId(compNameHash)
+        if dataCompId == INVALID_COMPONENT_INDEX
+          logerr("ecs_verify: unknown data comp '{compName}' hash<{compNameHash}>. Expected type <{typName}|{typeIdx}>")
+          return true
+        let compData = dataComps |> data_components_getComponentById(dataCompId)
+        if typeIdx != compData.componentType
+          let actualTypName = compTypes |> component_types_getTypeNameById(compData.componentType)
+          logerr("ecs_verify: wrong data comp type '{compName}' hash<{compNameHash}>. Expected type <{typName}|{typeIdx}>, actual type <{actualTypName}|{compData.componentType}>")
+          return true
+
+      elif templateComp.typeId != typeIdx
+        let typName = compTypes |> component_types_getTypeNameById(typeIdx)
+        let actualTypName = compTypes |> component_types_getTypeNameById(templateComp.typeId)
+        logerr("ecs_verify: wrong comp type '{compName}' hash<{compNameHash}>. Expected type <{typName}|{typeIdx}>, actual type <{actualTypName}|{templateComp.typeId}>")
+        return true
 
     if cb |> invoke(tmplName, tmpl)
       res = true

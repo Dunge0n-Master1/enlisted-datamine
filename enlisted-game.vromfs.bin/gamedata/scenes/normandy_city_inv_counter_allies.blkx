@@ -2470,6 +2470,22 @@ entity{
 }
 
 entity{
+  _template:t="normandy_level"
+  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=3.0
+  water__max_tessellation:i=0
+}
+
+entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[-0.221934, 0.000599429, -0.975063] [0.168467, 0.984985, -0.0377391] [0.9604, -0.172641, -0.218703] [-85.8598, 87.5165, -294.987]]
@@ -2544,7 +2560,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=65.0
   capzone__capTeam:i=-1
   transform:m=[[2.39954, 0.0, 0.995925] [0.0, 1.0, 0.0] [-0.534627, 0.0, 1.28811] [-30.6206, 69.2551, -301.696]]
   active:b=no
@@ -2575,7 +2591,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=65.0
   capzone__capTeam:i=-1
   transform:m=[[2.38698, 0.0, -17.5624] [0.0, 9.64847, 0.0] [14.527, 0.0, 2.03133] [-33.7868, 70.7681, -268.603]]
   active:b=no
@@ -2605,7 +2621,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_c"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=65.0
   capzone__capTeam:i=-1
   transform:m=[[14.3942, 0.0, -9.97579] [0.0, 7.25878, 0.0] [4.74499, 0.0, 6.84853] [-53.7874, 71.0186, -332.928]]
   active:b=no
@@ -3520,22 +3536,6 @@ entity{
   maxVehicleOnSpawn:i=2
   respTime:i=120
   respawnBaseGroup:i=1
-}
-
-entity{
-  _template:t="normandy_level"
-  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
-}
-
-entity{
-  _template:t="clouds_hole_target"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=3.0
-  water__max_tessellation:i=0
 }
 
 entity{

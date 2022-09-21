@@ -5,6 +5,8 @@ ussr_su_76m_stalingrad_premium{
 ussr_su_76m_common{
   _extends:t="base_su_76m"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_su76_vehicle_tracks_sound"
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

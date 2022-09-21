@@ -22,7 +22,7 @@ require strings
 let
   quat_ident = float4(0.f, 0.f, 0.f, 1.f)
 
-[es(on_appear, on_event=(EventHeroChanged, EventOnSeatOwnersChanged), track=(vehicleCameraType, cockpit__eid), tag=render, REQUIRE=(vehicleCameraType, heroVehicle, cockpit__eid))]
+[es(on_appear, on_event=(EventHeroChanged, EventOnSeatOwnersChanged), track=(vehicleCameraType, cockpit__eid, isTpsView), tag=render, REQUIRE=(vehicleCameraType, vehicleWithWatched, cockpit__eid))]
 def vehicle_change_cockpit_es(evt : Event;
                               eid : EntityId;
                               [[shared_comp]] vehicle_seats__seats : Array;
@@ -37,7 +37,7 @@ def vehicle_change_cockpit_es(evt : Event;
       vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD))
     return
 
-  let heroSeatIdx = vehicle_get_hero_seat_idx(vehicle_seats__seatEids)
+  let heroSeatIdx = vehicle_get_watched_seat_idx(vehicle_seats__seatEids)
   if heroSeatIdx < 0
     return
 
@@ -87,12 +87,12 @@ def cockpit_attach_nodes_init(evt : Event;
     for i in range(commonNodesCount, slitNodesCount)
       cockpit__attachNodeIndices[i] = cockpit__attachNodeIndex
 
-[es(tag=gameClient, on_appear, on_disappear, on_event=EventOnSeatOwnersChanged, REQUIRE=heroVehicle)]
+[es(tag=gameClient, on_appear, on_disappear, on_event=EventOnSeatOwnersChanged, REQUIRE=vehicleWithWatched)]
 def vehicle_is_cockpit_seat(evt : Event;
                             [[shared_comp]] vehicle_seats__seats : Array;
                             vehicle_seats__seatEids : EidList;
                             var cockpit__isHeroInCockpit : bool&)
-  let heroSeatIdx = vehicle_get_hero_seat_idx(vehicle_seats__seatEids)
+  let heroSeatIdx = vehicle_get_watched_seat_idx(vehicle_seats__seatEids)
   if heroSeatIdx < 0
     cockpit__isHeroInCockpit = false
     return
@@ -132,11 +132,11 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
                               cockpit__angles : float3?;
                               cockpit__scale = float3(1.0, 1.0, -1.0))
   cockpit__isAttached = false
-  ecs::query(cockpit__vehicleEid) <| $ [es] (animchar : AnimcharBaseComponent;
-                                             vehicle_seats__seatEids : EidList;
-                                             vehicleCameraType : int;
-                                             isTpsView : bool = false;
-                                             isAlive, isExploded : bool)
+  query(cockpit__vehicleEid) <| $ [es(REQUIRE=vehicleWithWatched)] (animchar : AnimcharBaseComponent;
+                                                                    vehicle_seats__seatEids : EidList;
+                                                                    vehicleCameraType : int;
+                                                                    isTpsView : bool = false;
+                                                                    isAlive, isExploded : bool)
 
     if !isAlive || isExploded || isTpsView
       return
@@ -145,7 +145,7 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
         vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD))
       return
 
-    let heroSeatNo = vehicle_get_hero_seat_idx(vehicle_seats__seatEids)
+    let heroSeatNo = vehicle_get_watched_seat_idx(vehicle_seats__seatEids)
     if heroSeatNo < 0 || heroSeatNo != cockpit__seatNo
       return
 

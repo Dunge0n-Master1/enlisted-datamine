@@ -11,7 +11,7 @@ let defValue = freeze({
   lowStamina = false
 })
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
-let { stamina, scaleStamina, staminaCanAim, staminaUseFlask, lowStamina } = watchedTable2TableOfWatched({state, defValue})
+let { stamina, scaleStamina, staminaCanAim, staminaUseFlask, lowStamina } = watchedTable2TableOfWatched(state)
 
 ecs.register_es("hud_stamina_state_es",
   {

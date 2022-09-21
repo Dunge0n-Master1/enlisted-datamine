@@ -1470,6 +1470,22 @@ entity{
 }
 
 entity{
+  _template:t="normandy_level"
+  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=3.0
+  water__max_tessellation:i=0
+}
+
+entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[-0.0804047, -0.000173257, 0.996764] [-0.133118, 0.991044, -0.010566] [-0.987835, -0.133536, -0.079708] [55.3846, 95.7052, -309.187]]
@@ -2412,22 +2428,6 @@ entity{
   maxVehicleOnSpawn:i=2
   respTime:i=120
   respawnBaseGroup:i=1
-}
-
-entity{
-  _template:t="normandy_level"
-  level__blk:t="content/enlisted/levels/normandy_beach_fortified_1x1.blk"
-}
-
-entity{
-  _template:t="clouds_hole_target"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=3.0
-  water__max_tessellation:i=0
 }
 
 entity{

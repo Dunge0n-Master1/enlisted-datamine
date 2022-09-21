@@ -5,6 +5,7 @@ germ_sdkfz_234_2{
 germ_sdkfz_234_2_common{
   _extends:t="base_sdkfz_234_2"
   _extends:t="vehicle_steering_assist"
+  _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.3
 

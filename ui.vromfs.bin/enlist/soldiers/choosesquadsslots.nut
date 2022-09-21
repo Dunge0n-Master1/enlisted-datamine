@@ -152,8 +152,8 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
   isSelected = Watched(false), onInfoCb = null, onDropCb = null, group = null, addChildren = null,
   icon = "", squadType = "", level = 0, vehicle = null, squadSize = null, battleExpBonus = 0,
   isOwn = true, fixedSlots = -1, override = {}, premIcon = null, isLocked = false, unlocObj = null,
-  needMoveCursor = false, firstSlotToAnim = null, secondSlotToAnim = null, needSquadTutorial = false,
-  stateFlags = null, expireTime = 0
+  needMoveCursor = false, firstSlotToAnim = null, secondSlotToAnim = null, stateFlags = null,
+  needSquadTutorial = false, expireTime = 0, size = null
 ) {
   let stateFlagsUnfiltered = stateFlags ?? Watched(0)
   stateFlags = Computed(@() stateFlagsUnfiltered.value & ~S_TOP_HOVER)
@@ -248,7 +248,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
                       : mkCardText("".concat(loc("XP"), loc("ui/colon"), bonusText(battleExpBonus)),
                         sf, selected)
                     mkCardText(", {0} ".subst(loc("squad/contain")), sf, selected)
-                    mkCardText(squadSize, sf, selected)
+                    mkCardText(squadSize ?? size, sf, selected)
                     faComp("user-o", {
                       fontSize = hdpx(12)
                       color = txtColor(sf & S_HOVER, selected)

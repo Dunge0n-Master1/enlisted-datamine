@@ -21,7 +21,6 @@ _infoCommonComponents{
 
 base_battle_area{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  deactivatable:b=yes
   deactivationDelay:r=120.0
   _extends:t="replicating"
   zone__keepDead:b=yes
@@ -44,8 +43,9 @@ base_battle_area{
   }
 
   _group{
-    battle_area__timeToDamage:r=15.0
-    battle_area__damage:r=1.0
+    battle_area__deactivateEndTime:r=-1.0
+    battle_area__timeToDamage:r=8.0
+    battle_area__damage:r=2.0
     battle_area__damageInterval:r=1.0
     battle_area__noDamageBorderWidth:r=0.0
     battle_area__timeToWarn:r=30.0
@@ -53,9 +53,8 @@ base_battle_area{
     _tags:t="server"
 
     "battle_area__timeToDamageByType:object"{
-      human:r=8.0
-      vehicle:r=12.0
-      aircraft:r=30.0
+      human:r=7.0
+      default:r=15.0
     }
 
     "battle_area__killList:array"{

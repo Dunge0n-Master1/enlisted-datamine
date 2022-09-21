@@ -17,7 +17,10 @@ let baseQueryComps = {
 }
 
 let respbaseWithTypeComps = baseQueryComps.__merge({
-  comps_ro = [].extend(baseQueryComps.comps_ro).append(["respawnbaseType", ecs.TYPE_STRING])
+  comps_ro = [
+    ["respawnbaseType", ecs.TYPE_STRING],
+    ["respawnbaseSubtype", ecs.TYPE_STRING, ""]
+  ].extend(baseQueryComps.comps_ro)
 })
 
 let respbaseQueryComps = baseQueryComps.__merge({
@@ -98,6 +101,9 @@ let function get_respawn_bases(query, team_id) {
   return validEntities
 }
 
+let is_valid_respawn_subtype = @(subtype, subtypes)
+  subtypes.len() == 0 || subtypes.contains(subtype)
+
 let get_random_respawn_base = @(arr)
   arr.len() != 0 ? arr[rndInstance.rint(0, arr.len() - 1)][0] : ecs.INVALID_ENTITY_ID
 
@@ -107,8 +113,8 @@ let find_respawn_base_for_team = @(team_id)
 let find_vehicle_respawn_base_for_team = @(team_id)
   get_random_respawn_base(get_respawn_bases_impl(vehicleRespbaseQuery, get_filter_by_team(team_id)))
 
-let find_all_respawn_bases_for_team_with_type = @(team, respType)
-  get_respawn_bases_impl(respbaseWithTypeQuery, get_filter_by_team(team), @(comp) comp.respawnbaseType == respType)
+let find_all_respawn_bases_for_team_with_type = @(team, respType, subtypes = [])
+  get_respawn_bases_impl(respbaseWithTypeQuery, get_filter_by_team(team), @(comp) comp.respawnbaseType == respType && is_valid_respawn_subtype(comp.respawnbaseSubtype, subtypes))
 
 local function find_safest_respawn_base_impl(query, team_id, validEntities, enemyEntities, spawn_team_together = true) {
   let friendlyEntities = get_friendly_entities(query, team_id, get_filter_by_team(team_id))
@@ -236,8 +242,8 @@ return {
 
   get_random_respawn_base
 
-  find_respawn_base_for_team_with_type = @(team, respType)
-    get_random_respawn_base(find_all_respawn_bases_for_team_with_type(team, respType))
+  find_respawn_base_for_team_with_type = @(team, respType, subtypes = [])
+    get_random_respawn_base(find_all_respawn_bases_for_team_with_type(team, respType, subtypes))
 
   find_all_respawn_bases_for_team_with_type
 

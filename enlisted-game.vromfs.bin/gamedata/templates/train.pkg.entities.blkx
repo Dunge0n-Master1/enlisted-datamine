@@ -31,18 +31,13 @@ train_sound{
 }
 
 train_escort_narrator{
+  _tags:t="server"
+  train_escort_narrator__prevTeamOffensePresence:i=-1
+  train_escort_narrator__prevTeamDefensePresence:i=-1
   train_escort_narrator__teamOffensePresence:i=-1
   train_escort_narrator__teamDefensePresence:i=-1
-  _replicated:t="train_escort_narrator__teamOffensePresence"
-  _replicated:t="train_escort_narrator__teamDefensePresence"
   _tracked:t="train_escort_narrator__teamOffensePresence"
   _tracked:t="train_escort_narrator__teamDefensePresence"
-
-  _group{
-    _tags:t="sound"
-    train_escort_narrator__prevTeamOffensePresence:i=-1
-    train_escort_narrator__prevTeamDefensePresence:i=-1
-  }
 }
 
 train_destination_point{
@@ -204,6 +199,9 @@ train_panzerzug_bp_44_lokomotiv{
   collres__res:t="panzerzug_bp_44_lokomotiv_collision"
   phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
   damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
+
+  "attach_decorators__entities:list<eid>"{
+  }
 
   "attach_decorators__templates:array"{
 

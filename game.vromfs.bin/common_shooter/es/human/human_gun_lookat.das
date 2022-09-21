@@ -24,7 +24,7 @@ def human_weap_camera_in_action_es(act : UpdateStageInfoAct;
     human_weap__cameraTransitionOnActionProgress += action__running ? change : -change
     human_weap__cameraTransitionOnActionProgress = saturate(human_weap__cameraTransitionOnActionProgress)
 
-[es(tag=render, REQUIRE=hero, after=(camera_set_sync, human_fpv_cam_pos), before=before_camera_sync,
+[es(tag=render, REQUIRE=watchedByPlr, after=(camera_set_sync, human_fpv_cam_pos), before=before_camera_sync,
      after=animchar_cam_target_es, after=animchar_cam_target_with_offset_es)]
 def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
                                human_net_phys : HumanActor;

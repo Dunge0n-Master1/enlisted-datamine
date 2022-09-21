@@ -12,6 +12,7 @@ stabilityReductionAfterRicochet:r=0.5
 effectiveDistance:r=700.0
 stabilityReductionAfterPenetration:r=0.3
 relativeVelHitShift:p2=300.0, 1000.0
+bulletType:t="ap_t_ball"
 slopeEffectPreset:t="ap"
 relativeVelArmorShift:p2=200.0, 1000.0
 groundCollisionEffect:t="hit_12_18mm_dirt_ap"

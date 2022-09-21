@@ -8,10 +8,10 @@ briefing{
     briefing:b=yes
     header:t="briefing/header"
     common:t=""
-    common_header:t=""
+    common_header:t="briefing/common_header"
     briefing_common:t=""
     hints_header:t="briefing/common_hints_header"
-    hints:t=""
+    hints:t="common/controls"
     showtime:r=7.0
   }
 
@@ -27,83 +27,69 @@ briefing{
 
 briefing_common{
   _extends:t="briefing"
-  briefing:b=yes
-  common:t=""
-  header:t="briefing/header"
-  hints_header:t="briefing/common_hints_header"
   common_header:t=""
-  briefing_common:t="No objectives defined"
-  hints:t="common/controls"
-  showtime:r=7.0
-  _track:b=yes
-  _singleton:b=yes
 }
 
 briefing_invasion{
   _extends:t="briefing"
   mission_type:t="invasion"
-  _singleton:b=yes
 
   _group{
-    _track:b=yes
-    header:t="briefing/header"
-    hints:t="common/controls"
-    hints_header:t="briefing/common_hints_header"
-    briefing:b=yes
     common:t="invasion/common_goals"
-    common_header:t="briefing/common_header"
-    showtime:r=7.0
+  }
+}
+
+briefing_confrontation{
+  _extends:t="briefing"
+  mission_type:t="confrontation"
+
+  _group{
+    common:t="invasion/common_goals"
+  }
+}
+
+briefing_destruction{
+  _extends:t="briefing"
+  mission_type:t="destruction"
+
+  _group{
+    common:t="assault/common_goals"
   }
 }
 
 briefing_assault{
   _extends:t="briefing"
   mission_type:t="assault"
-  _singleton:b=yes
 
   _group{
-    _track:b=yes
-    briefing:b=yes
     common:t="assault/common_goals"
-    common_header:t="briefing/common_header"
-    hints:t="common/controls"
-    showtime:r=7.0
-    header:t="briefing/header"
-    hints_header:t="briefing/common_hints_header"
   }
 }
 
 briefing_domination{
   _extends:t="briefing"
   mission_type:t="domination"
-  _singleton:b=yes
 
   _group{
-    _track:b=yes
-    briefing:b=yes
-    common:t="domination/hints"
-    common_header:t="briefing/common_header"
-    hints:t="common/controls"
-    showtime:r=7.0
-    header:t="briefing/header"
-    hints_header:t="briefing/common_hints_header"
+    common:t="domination/common_goals"
+  }
+}
+
+briefing_escort{
+  _extends:t="briefing"
+  mission_type:t="escort"
+
+  _group{
+    common:t="invasion/common_goals"
   }
 }
 
 briefing_gun_game{
   _extends:t="briefing"
   mission_type:t="gun_game"
-  _singleton:b=yes
 
   _group{
-    _track:b=yes
-    briefing:b=yes
     common:t="gun_game/hints"
-    common_header:t="briefing/common_header"
-    hints:t="common/controls"
-    showtime:r=7.0
-    header:t="briefing/header"
-    hints_header:t="briefing/common_hints_header"
   }
 }
 

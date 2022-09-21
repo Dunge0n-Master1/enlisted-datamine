@@ -1,0 +1,48 @@
+debug_visualization_node{
+  _singleton:b=yes
+
+  _group{
+    _tags:t="render"
+    debug_node_type:t="DebugVisualizationNode"
+    debug_node_name:t="debug_visualization_node"
+
+    "debug_node:FrameGraphNodePtr"{
+    }
+  }
+}
+
+gbuffer_diffuse_override_debug_node{
+  _singleton:b=yes
+
+  _group{
+    _tags:t="render"
+    debug_node_type:t="GbufferDiffuseOverride"
+    debug_node_name:t="gbuffer_diffuse_override"
+    debug_fill_gbuffer_name:t="debug_fill_gbuffer"
+    debug_fill_color:p4=0.5, 0.5, 0.5, 0.5
+
+    "debug_node:FrameGraphNodePtr"{
+    }
+
+    "debug_fill_gbuffer:PostFxRenderer"{
+    }
+  }
+}
+
+gbuffer_specular_override_debug_node{
+  _singleton:b=yes
+
+  _group{
+    _tags:t="render"
+    debug_node_type:t="GbufferSpecularOverride"
+    debug_node_name:t="gbuffer_specular_override"
+    debug_fill_gbuffer_name:t="debug_fill_gbuffer"
+    debug_fill_color:p4=0.0, 0.0, 0.0, 0.0
+
+    "debug_node:FrameGraphNodePtr"{
+    }
+
+    "debug_fill_gbuffer:PostFxRenderer"{
+    }
+  }
+}

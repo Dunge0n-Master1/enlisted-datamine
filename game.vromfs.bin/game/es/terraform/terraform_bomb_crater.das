@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require net
 require app
@@ -20,6 +21,13 @@ require enlisted.game.es.train.train_common
 require enlisted.game.es.terraform.terraform_common
 require EnlistedDm
 require strings
+
+
+enum RIPoolFlags
+  None = 0
+  Removable = 1
+  Blocking = 2
+
 
 def interpolate_by_point_list(list : Point2List; value : float)
   if length(list) == 0
@@ -47,16 +55,16 @@ def interpolate_by_point_list(list : Point2List; value : float)
   let t = safediv(value - min.x, max.x - min.x)
   return lerp(min.y, max.y, t)
 
-def is_ri_block_crater(handle : riex_handle_t; removable_ri_pool_ids : BoolList)
+def is_ri_pool_has_flag(handle : riex_handle_t; ri_pool_flags : IntList; flag : RIPoolFlags)
   if !riex_isRiGenExtraValid(handle)
     return false
 
   let poolId = handle_to_ri_type(handle)
-  if poolId >= uint(length(removable_ri_pool_ids))
-    logerr("failed to check RI removable state: riName={riex_getRIGenExtraName(poolId)} poolId={int(poolId)}, length(removable_ri_pool_ids)={length(removable_ri_pool_ids)}, poolsCount={int(rendinst_getRiGenExtraResCount())}")
+  if poolId >= uint(length(ri_pool_flags))
+    logerr("failed to check flag '{flag}' of RI pool: riName={riex_getRIGenExtraName(poolId)} poolId={int(poolId)}, length(ri_pool_flags)={length(ri_pool_flags)}, poolsCount={int(rendinst_getRiGenExtraResCount())}")
     return true
 
-  return !removable_ri_pool_ids[poolId]
+  return (ri_pool_flags[poolId] & int(flag)) == int(flag)
 
 def can_terraform_bomb_crater_part(trace_up_height : float;
                                    trace_down_height : float;
@@ -64,7 +72,7 @@ def can_terraform_bomb_crater_part(trace_up_height : float;
                                    part_radius : float;
                                    railroad_half_width : float;
                                    crater_disabled_phys_mat_ids : IntList;
-                                   removable_ri_pool_ids : BoolList)
+                                   ri_pool_flags : IntList)
   var isTerraformBlocked = false
 
   find_query() <| $ [es(REQUIRE=railroad__points)] ()
@@ -89,7 +97,7 @@ def can_terraform_bomb_crater_part(trace_up_height : float;
   let to = float3(part_pos.x, part_pos.y + trace_up_height, part_pos.z)
   sphere_query_ri(from, to, part_radius, queryOut, -1, null) <| $(descs : array<RendInstDesc>#)
     for desc in descs
-      if is_ri_block_crater(desc.riExtraHandle, removable_ri_pool_ids)
+      if is_ri_pool_has_flag(desc.riExtraHandle, ri_pool_flags, RIPoolFlags Blocking)
         isTerraformBlocked = true
         break
 
@@ -106,13 +114,13 @@ def gather_ri_to_remove_in_crater_part(trace_up_height : float;
                                        trace_down_height : float;
                                        part_pos : float3;
                                        part_radius : float;
-                                       removable_ri_pool_ids : BoolList;
+                                       ri_pool_flags : IntList;
                                        var ri_handles_to_remove : UInt64List&)
   let boxMin = float3(part_pos.x - part_radius, part_pos.y - trace_down_height, part_pos.z - part_radius)
   let boxMax = float3(part_pos.x + part_radius, part_pos.y + trace_up_height, part_pos.z + part_radius)
   gather_ri_gen_extra_collidable(BBox3(boxMin, boxMax)) <| $(handles : array<riex_handle_t>#)
     for handle in handles
-      if !riex_isDestroyedPhysResExist(handle_to_ri_type(handle)) && !is_ri_block_crater(handle, removable_ri_pool_ids)
+      if is_ri_pool_has_flag(handle, ri_pool_flags, RIPoolFlags Removable)
         push(ri_handles_to_remove, uint64(handle))
 
 def is_under_water(crater_pos : float2)
@@ -159,30 +167,67 @@ def is_valid_place_for_crater(crater_pos : float3; outer_radius : float; max_hei
   let castPosEnd = craterPosXZ + float2(outer_radius)
   return is_valid_heightmap_pos(castPosStart) && is_valid_heightmap_pos(castPosEnd)
 
-def is_ri_pool_block_crater(pool_id : uint;
-                            is_ri_pool_removable : Object;
-                            unremovable_ri_pools_by_name_part : StringList;
-                            max_ri_radius_to_remove : float)
+
+def get_ri_pool_flags(pool_id : uint;
+                      is_ri_pool_removable : Object;
+                      unremovable_ri_pools_by_name_part : StringList;
+                      max_ri_radius_to_remove : float)
   let riName = riex_getRIGenExtraName(pool_id)
 
+  var isBlocking = false
   for poolName in unremovable_ri_pools_by_name_part
     if find(riName, string(poolName)) > -1
-      return true
+      isBlocking = true
 
-  let isPoolForcedRemovable = get_bool(is_ri_pool_removable, riName)
-  if isPoolForcedRemovable != null
-    return !*isPoolForcedRemovable
+  let isPoolForcedRemovableState = get_bool(is_ri_pool_removable, riName)
+  if !isBlocking && isPoolForcedRemovableState != null
+    isBlocking = !*isPoolForcedRemovableState
 
-  if riex_isWalls(pool_id) || riex_isImmortal(pool_id)
-    return true
+  if !isBlocking && (riex_isWalls(pool_id) || riex_isImmortal(pool_id))
+    isBlocking = true
 
-  let isInRadius = riex_getBsphRad(pool_id) <= max_ri_radius_to_remove
-  let parentForDestroyedRiIdx = riex_getParentForDestroyedRiIdx(pool_id)
-  let isDestroyedPhysResExist = riex_isDestroyedPhysResExist(pool_id)
-  if !isInRadius && parentForDestroyedRiIdx < 0 && !isDestroyedPhysResExist
-    return true
+  if !isBlocking
+    let isInRadius = riex_getBsphRad(pool_id) <= max_ri_radius_to_remove
+    let parentForDestroyedRiIdx = riex_getParentForDestroyedRiIdx(pool_id)
+    let isDestroyedPhysResExist = riex_isDestroyedPhysResExist(pool_id)
+    if !isInRadius && parentForDestroyedRiIdx < 0 && !isDestroyedPhysResExist
+      isBlocking = true
 
-  return false
+  let isRemovable = !isBlocking && !riex_isDestroyedPhysResExist(pool_id) || isPoolForcedRemovableState ?? false
+
+  return int(isBlocking ? RIPoolFlags Blocking
+           : isRemovable ? RIPoolFlags Removable
+           : RIPoolFlags None)
+
+
+def calc_main_physmat_in_crater(crater_pos : float3; outer_radius : float)
+  var physmats : table<int; int>
+
+  for offset in [[float2 float2(0, 0); float2(0, 1); float2(0, -1); float2(-1, 0); float2(1, 0)]]
+    let posXZ = crater_pos.xz + offset * outer_radius
+    let matId = dacoll_get_lmesh_mat_id_at_point(posXZ)
+    if matId != -1
+      physmats[matId]++
+
+  var mainMatId = -1
+  var maxPhysMatsCount = 0
+  for physmatId, physmatCount in keys(physmats), values(physmats)
+    if physmatCount > maxPhysMatsCount
+      maxPhysMatsCount = physmatCount
+      mainMatId = physmatId
+
+  return mainMatId
+
+
+def get_crater_scale_by_main_physmat_in_crater(main_mat_id : int;  crater_config__scaleByPhysmats : Object)
+  let defScale = float4(1.0)
+  if main_mat_id < 0
+    return defScale
+
+  let mainMatName = get_material_name(get_material(main_mat_id))
+  let craterScaleForMat = crater_config__scaleByPhysmats[mainMatName] ?? defScale
+  return craterScaleForMat
+
 
 [es(tag=server, on_appear)]
 def terraform_crater_init_disabled_phys_mats(evt : Event; crater_config__disabledPhysMatNames : StringList; var crater_config__disabledPhysMatIds : IntList&)
@@ -194,40 +239,26 @@ def terraform_crater_init_disabled_phys_mats(evt : Event; crater_config__disable
     else
       logerr("invalid physmat name '{matName}' in crater_config__disabledPhysMatNames")
 
-[es(tag=server, on_event=EventLevelLoaded)]
-def terraform_crater_init_removable_ri_list(evt : Event;
-                                            crater_config__isRIPoolRemovable : Object;
-                                            crater_config__unremovableRIPoolsByNamePart : StringList;
-                                            crater_config__maxRIRadiusToRemove : float;
-                                            var crater_config__removableRiPoolIds : BoolList&)
-  let poolsCount = int(rendinst_getRiGenExtraResCount())
-  clear(crater_config__removableRiPoolIds)
-  resize(crater_config__removableRiPoolIds, poolsCount)
 
-  for i in range(0, poolsCount)
-    crater_config__removableRiPoolIds[i] = !is_ri_pool_block_crater(uint(i),
-                                                                    crater_config__isRIPoolRemovable,
-                                                                    crater_config__unremovableRIPoolsByNamePart,
-                                                                    crater_config__maxRIRadiusToRemove)
-
-[es(tag=server, on_event=CmdUpdateBombCraterRemovableRiList)]
-def terraform_crater_update_removable_ri_list(evt : Event;
-                                              crater_config__isRIPoolRemovable : Object;
-                                              crater_config__unremovableRIPoolsByNamePart : StringList;
-                                              crater_config__maxRIRadiusToRemove : float;
-                                              var crater_config__removableRiPoolIds : BoolList&)
-  let removablePoolsCount = length(crater_config__removableRiPoolIds)
+[es(tag=server, on_event=(EventLevelLoaded, CmdUpdateBombCraterRiPoolFlags), after=terraform_crater_init_ri_pool_flags)]
+def terraform_crater_update_ri_pool_flags(evt : Event;
+                                          crater_config__isRIPoolRemovable : Object;
+                                          crater_config__unremovableRIPoolsByNamePart : StringList;
+                                          crater_config__maxRIRadiusToRemove : float;
+                                          var crater_config__riPoolFlags : IntList&)
+  let riPoolFlagsLen = length(crater_config__riPoolFlags)
   let poolsCount = int(rendinst_getRiGenExtraResCount())
-  if removablePoolsCount >= poolsCount
+  if riPoolFlagsLen >= poolsCount
     return
 
-  resize(crater_config__removableRiPoolIds, poolsCount)
+  resize(crater_config__riPoolFlags, poolsCount)
 
-  for i in range(removablePoolsCount, poolsCount)
-    crater_config__removableRiPoolIds[i] = !is_ri_pool_block_crater(uint(i),
-                                                                    crater_config__isRIPoolRemovable,
-                                                                    crater_config__unremovableRIPoolsByNamePart,
-                                                                    crater_config__maxRIRadiusToRemove)
+  for i in range(riPoolFlagsLen, poolsCount)
+    crater_config__riPoolFlags[i] = get_ri_pool_flags(uint(i),
+                                                             crater_config__isRIPoolRemovable,
+                                                             crater_config__unremovableRIPoolsByNamePart,
+                                                             crater_config__maxRIRadiusToRemove)
+
 
 [es(tag=server, REQUIRE=shouldCreateBulletCrater)]
 def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
@@ -237,7 +268,8 @@ def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
                      bullet_crater_config__innerDepthScale : float;
                      bullet_crater_config__outerAltScale : float;
                      bullet_crater_config__maxHeightAtLand : float;
-                     bullet_crater_config__explosiveMassToCraterRadius : Point2List)
+                     bullet_crater_config__explosiveMassToCraterRadius : Point2List;
+                     crater_config__scaleByPhysmats : Object)
     let bulletCraterExplosiveMassToCraterRadiusLen = length(bullet_crater_config__explosiveMassToCraterRadius)
     if bulletCraterExplosiveMassToCraterRadiusLen < 1
       return
@@ -256,12 +288,16 @@ def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
       let innerDepth = -outerRadius * bullet_crater_config__innerDepthScale
       let outerAlt = outerRadius * bullet_crater_config__outerAltScale
 
+      let mainMatId = calc_main_physmat_in_crater(position, outerRadius)
+      let craterScaleForMat = get_crater_scale_by_main_physmat_in_crater(mainMatId, crater_config__scaleByPhysmats)
+
       let eid = createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
         set(init, "bomb_crater_terraformer__position", position)
-        set(init, "bomb_crater_terraformer__innerRadius", innerRadius)
-        set(init, "bomb_crater_terraformer__innerDepth", innerDepth)
-        set(init, "bomb_crater_terraformer__outerAlt", outerAlt)
-        set(init, "bomb_crater_terraformer__outerRadius", outerRadius)
+        set(init, "bomb_crater_terraformer__innerRadius", innerRadius * craterScaleForMat.x)
+        set(init, "bomb_crater_terraformer__innerDepth",  innerDepth  * craterScaleForMat.y)
+        set(init, "bomb_crater_terraformer__outerRadius", outerRadius * craterScaleForMat.z)
+        set(init, "bomb_crater_terraformer__outerAlt",    outerAlt    * craterScaleForMat.w)
+        set(init, "bomb_crater_terraformer__mainPhysmatId", mainMatId)
 
 [es(tag=server, REQUIRE=shouldCreateCrater)]
 def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
@@ -271,7 +307,8 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
                      bomb_crater_config__innerDepthScale : float;
                      bomb_crater_config__outerAltScale : float;
                      bomb_crater_config__maxHeightAtLand : float;
-                     bomb_crater_config__splashToCraterRadius : Point2List)
+                     bomb_crater_config__splashToCraterRadius : Point2List;
+                     crater_config__scaleByPhysmats : Object)
     using <| $(var splashParams : SplashParams#)
       splashParams = calc_splash_params(int(launch_desc.shellId.shellId), false)
 
@@ -283,12 +320,16 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
         let innerDepth = -outerRadius * bomb_crater_config__innerDepthScale
         let outerAlt = outerRadius * bomb_crater_config__outerAltScale
 
+        let mainMatId = calc_main_physmat_in_crater(position, outerRadius)
+        let craterScaleForMat = get_crater_scale_by_main_physmat_in_crater(mainMatId, crater_config__scaleByPhysmats)
+
         let eid = createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
           set(init, "bomb_crater_terraformer__position", position)
-          set(init, "bomb_crater_terraformer__innerRadius", innerRadius)
-          set(init, "bomb_crater_terraformer__innerDepth", innerDepth)
-          set(init, "bomb_crater_terraformer__outerAlt", outerAlt)
-          set(init, "bomb_crater_terraformer__outerRadius", outerRadius)
+          set(init, "bomb_crater_terraformer__innerRadius", innerRadius * craterScaleForMat.x)
+          set(init, "bomb_crater_terraformer__innerDepth",  innerDepth  * craterScaleForMat.y)
+          set(init, "bomb_crater_terraformer__outerRadius", outerRadius * craterScaleForMat.z)
+          set(init, "bomb_crater_terraformer__outerAlt",    outerAlt    * craterScaleForMat.w)
+          set(init, "bomb_crater_terraformer__mainPhysmatId", mainMatId)
 
 [es(tag=server, on_appear)]
 def bomb_crater_terraformer_on_init(evt : Event;
@@ -306,12 +347,12 @@ def bomb_crater_terraformer_on_init(evt : Event;
   if bomb_crater_terraformer__expectedRiHandlesToRemoveCount > 0
     reserve(bomb_crater_terraformer__riHandlesToRemove, bomb_crater_terraformer__expectedRiHandlesToRemoveCount)
 
-  query() <| $ [es] (crater_config__removableRiPoolIds : BoolList)
-    if length(crater_config__removableRiPoolIds) < int(rendinst_getRiGenExtraResCount())
-      broadcastEventImmediate([[CmdUpdateBombCraterRemovableRiList]])
+  query() <| $ [es] (crater_config__riPoolFlags : IntList)
+    if length(crater_config__riPoolFlags) < int(rendinst_getRiGenExtraResCount())
+      broadcastEventImmediate([[CmdUpdateBombCraterRiPoolFlags]])
 
 def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
-                                    crater_config__removableRiPoolIds : BoolList;
+                                    crater_config__riPoolFlags : IntList;
                                     eid : EntityId;
                                     bomb_crater_terraformer__processPartsPerFrame : int;
                                     bomb_crater_terraformer__gridWidth : int;
@@ -321,6 +362,7 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
                                     bomb_crater_terraformer__innerDepth : float;
                                     bomb_crater_terraformer__outerAlt : float;
                                     bomb_crater_terraformer__outerRadius : float;
+                                    bomb_crater_terraformer__mainPhysmatId : int;
                                     var bomb_crater_terraformer__processedPartsCount : int&;
                                     var bomb_crater_terraformer__availablePartsMask : uint64&;
                                     var bomb_crater_terraformer__riHandlesToRemove : UInt64List&)
@@ -347,6 +389,7 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
         set(init, "bomb_crater__availablePartsMask", bomb_crater_terraformer__availablePartsMask)
         set(init, "bomb_crater__gridWidth", bomb_crater_terraformer__gridWidth)
         set(init, "bomb_crater__riHandlesToRemove", ri_handles_to_remove)
+        set(init, "bomb_crater__mainPhysmatId", bomb_crater_terraformer__mainPhysmatId)
     destroyEntity(eid)
     return
 
@@ -381,7 +424,7 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
                                           partRadius,
                                           bomb_crater_terraformer__railroadHalfWidth,
                                           crater_config__disabledPhysMatIds,
-                                          crater_config__removableRiPoolIds)
+                                          crater_config__riPoolFlags)
           let partMask = (1ul << uint64(bomb_crater_terraformer__processedPartsCount))
           bomb_crater_terraformer__availablePartsMask |= partMask
 
@@ -389,13 +432,13 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
                                               -bomb_crater_terraformer__innerDepth,
                                               partPos,
                                               partRadius,
-                                              crater_config__removableRiPoolIds,
+                                              crater_config__riPoolFlags,
                                               bomb_crater_terraformer__riHandlesToRemove)
 
       bomb_crater_terraformer__processedPartsCount++
 
 [es(tag=server, no_order)]
-def bomb_crater_terraformer_update(info : UpdateStageInfoAct; crater_config__disabledPhysMatIds : IntList; crater_config__removableRiPoolIds : BoolList)
+def bomb_crater_terraformer_update(info : UpdateStageInfoAct; crater_config__disabledPhysMatIds : IntList; crater_config__riPoolFlags : IntList)
   find_query() <| $ [es] (eid : EntityId;
                           bomb_crater_terraformer__processPartsPerFrame : int;
                           bomb_crater_terraformer__gridWidth : int;
@@ -405,11 +448,12 @@ def bomb_crater_terraformer_update(info : UpdateStageInfoAct; crater_config__dis
                           bomb_crater_terraformer__innerDepth : float;
                           bomb_crater_terraformer__outerAlt : float;
                           bomb_crater_terraformer__outerRadius : float;
+                          bomb_crater_terraformer__mainPhysmatId : int;
                           var bomb_crater_terraformer__processedPartsCount : int&;
                           var bomb_crater_terraformer__availablePartsMask : uint64&;
                           var bomb_crater_terraformer__riHandlesToRemove : UInt64List&)
     process_bomb_crater_terraformer(crater_config__disabledPhysMatIds,
-                                    crater_config__removableRiPoolIds,
+                                    crater_config__riPoolFlags,
                                     eid,
                                     bomb_crater_terraformer__processPartsPerFrame,
                                     bomb_crater_terraformer__gridWidth,
@@ -419,6 +463,7 @@ def bomb_crater_terraformer_update(info : UpdateStageInfoAct; crater_config__dis
                                     bomb_crater_terraformer__innerDepth,
                                     bomb_crater_terraformer__outerAlt,
                                     bomb_crater_terraformer__outerRadius,
+                                    bomb_crater_terraformer__mainPhysmatId,
                                     bomb_crater_terraformer__processedPartsCount,
                                     bomb_crater_terraformer__availablePartsMask,
                                     bomb_crater_terraformer__riHandlesToRemove)
@@ -434,6 +479,7 @@ def bomb_crater_apply(bomb_crater__position : float3;
                       bomb_crater__gridWidth : int;
                       bomb_crater__riHandlesToRemove : UInt64List;
                       bomb_crater__destroyRiCountPerFrame : int;
+                      bomb_crater__mainPhysmatId : int;
                       var bomb_crater__riHandlesRemovedCount : int&;
                       var bomb_crater__isTerraformed : bool&;
                       var terraform : TerraformComponent)
@@ -479,7 +525,8 @@ def bomb_crater_apply(bomb_crater__position : float3;
       pos=bomb_crater__position,
       outerRadius=bomb_crater__outerRadius,
       availablePartsMask=bomb_crater__availablePartsMask,
-      partsGridWidth=bomb_crater__gridWidth
+      partsGridWidth=bomb_crater__gridWidth,
+      mainPhysmatId=bomb_crater__mainPhysmatId
     ]])
 
   return isApplyingCompleted
@@ -497,12 +544,14 @@ def bomb_crater_apply_server_es(info : UpdateStageInfoAct; var terraform : Terra
                                                                bomb_crater__availablePartsMask : uint64;
                                                                bomb_crater__gridWidth : int;
                                                                bomb_crater__riHandlesToRemove : UInt64List;
+                                                               bomb_crater__mainPhysmatId : int;
                                                                var bomb_crater__riHandlesRemovedCount : int&;
                                                                var bomb_crater__isTerraformed : bool&)
     if bomb_crater_apply(bomb_crater__position, bomb_crater__innerRadius, bomb_crater__innerDepth,
                          bomb_crater__outerRadius, bomb_crater__outerAlt, bomb_crater__partRadius,
                          bomb_crater__availablePartsMask, bomb_crater__gridWidth, bomb_crater__riHandlesToRemove,
                          bomb_crater__removeRiCountPerFrame,
+                         bomb_crater__mainPhysmatId,
                          bomb_crater__riHandlesRemovedCount,
                          bomb_crater__isTerraformed,
                          terraform)
@@ -523,12 +572,14 @@ def bomb_crater_apply_client_es(info : UpdateStageInfoAct; var terraform : Terra
                                                                bomb_crater__availablePartsMask : uint64;
                                                                bomb_crater__gridWidth : int;
                                                                bomb_crater__riHandlesToRemove : UInt64List;
+                                                               bomb_crater__mainPhysmatId : int;
                                                                var bomb_crater__riHandlesRemovedCount : int&;
                                                                var bomb_crater__isTerraformed : bool&)
     if bomb_crater_apply(bomb_crater__position, bomb_crater__innerRadius, bomb_crater__innerDepth,
                          bomb_crater__outerRadius, bomb_crater__outerAlt, bomb_crater__partRadius,
                          bomb_crater__availablePartsMask, bomb_crater__gridWidth, bomb_crater__riHandlesToRemove,
                          bomb_crater__removeRiCountPerFrame,
+                         bomb_crater__mainPhysmatId,
                          bomb_crater__riHandlesRemovedCount,
                          bomb_crater__isTerraformed,
                          terraform)

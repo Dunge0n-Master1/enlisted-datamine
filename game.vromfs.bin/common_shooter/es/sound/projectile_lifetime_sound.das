@@ -1,9 +1,10 @@
 require ecs
 require soundEvent
 require DagorMath
+require enlisted.events_enlisted
 
 [es(tag=sound, after=(animchar_render_es, shell_fly_sound_with_transform, shell_fly_sound_with_ballistics))]
-def projectile_lifetime_sound(info : UpdateStageInfoAct;
+def projectile_lifetime_sound(info : ParallelUpdateFrameDelayed;
                               projectile_lifetime_sound__path : string;
                               var projectile_lifetime_sound__event : SoundEvent&;
                               projectile__lifeTime : float;

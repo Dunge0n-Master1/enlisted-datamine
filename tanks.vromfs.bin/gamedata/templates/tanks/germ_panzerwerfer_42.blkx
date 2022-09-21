@@ -7,6 +7,7 @@ germ_panzerwerfer_42_common{
   _extends:t="base_panzerwerfer_42"
   _extends:t="vehicle_steering_assist"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

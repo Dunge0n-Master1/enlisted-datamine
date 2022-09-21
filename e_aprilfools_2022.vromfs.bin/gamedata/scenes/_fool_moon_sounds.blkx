@@ -15,6 +15,10 @@ entity{
 }
 
 entity{
+  _template:t="global_sound_vars"
+}
+
+entity{
   _template:t="projectile_sound_physmat"
 }
 

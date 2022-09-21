@@ -1,0 +1,9 @@
+stat_name:t="mortar"
+selWeaponVar:t="type_89_knee_mortar"
+
+ownerAnimVars{
+  reye_offset_fwd0:r=0.0
+  gun_offset_along:r=0.0
+  gun_offset_across:r=0.0
+  gun_offset_up:r=0.0
+}

@@ -86,11 +86,8 @@ game_effect_server_sound_appear{
 ambient_sound{
   _extends:t="birds_sound"
   _extends:t="sound_bank_preset_state"
-  _extends:t="ambient_sound_regionquery"
   _extends:t="replicating"
   _singleton:b=yes
-  ambient_sound__minMaxRainDensity:p2=1.0, 15.0
-  ambient_sound__rainStrength:r=0.1
   ambient_sound_biomequery__period:r=1.0
   ambient_sound_biomequery__range:r=10.0
   ambient_sound_biomequery__id:i=-1

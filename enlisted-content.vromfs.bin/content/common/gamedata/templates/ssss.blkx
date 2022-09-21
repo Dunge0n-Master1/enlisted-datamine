@@ -2,7 +2,14 @@ ssss{
   _singleton:b=yes
   _tags:t="render"
   _extends:t="replicating"
-  enabled:b=no
+  ssss__enabled:b=no
+  ssss__shader_name:t="ssss_reflectance_blur_ps"
+
+  "ssss__manager:SeparableSubSurfaceScattering"{
+  }
+
+  "ssss__shader:PostFxRenderer"{
+  }
 
   _group{
     _track:b=yes

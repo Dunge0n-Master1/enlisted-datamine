@@ -1,3 +1,7 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_menu_sounds.blk"
+}
+
 entity{
   _template:t="menu_camera"
   transform:m=[[0.17715, 0.0, 0.984184] [3.06845e-06, 1.0, -5.52308e-07] [-0.984184, 3.11776e-06, 0.17715] [-14.9102, 10.0449, -71.8244]]
@@ -39,7 +43,7 @@ entity{
   _template:t="camera_scenic_place_dof"
   scene:t="armory"
   fov:r=90.0
-  transform:m=[[0.10212, 0.0, 0.994772] [-0.0219319, 0.999757, 0.00225146] [-0.99453, -0.0220472, 0.102095] [-4.03666, 3.62289, 94.8231]]
+  transform:m=[[0.10212, 0.0, 0.994772] [-0.0219319, 0.999757, 0.00225146] [-0.99453, -0.0220472, 0.102095] [-3.76095, 3.62939, 94.62]]
   menu_cam__limitYaw:p2=-180.0, 180.0
   menu_cam__limitPitch:p2=-80.0, 80.0
   menu_cam__shouldRotateTarget:b=yes
@@ -252,6 +256,36 @@ entity{
 
 entity{
   _template:t="camera_scenic_place_dof"
+  scene:t="aircrafts_floating"
+  fov:r=60.0
+  transform:m=[[-0.574526, 0.0, 0.818486] [0.0, 1.0, 0.0] [-0.818486, 0.0, -0.574526] [-100.963, -1.75153, 106.019]]
+  menu_cam__offset:p3=-0.5, 0.2, -7.8
+  menu_cam__offsetMult:p3=1.4, 1.0, 1.6
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 28.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=1.4
+  dof__focusDistance:r=10.0
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofEnd:r=400.0
+  dof__farDofStart:r=18.0
+  dof__nearDofAmountPercent:r=0.002
+  dof__nearDofEnd:r=6.0
+  dof__nearDofStart:r=1.5
+  dof__minCheckDistance:r=0.5
+  dof__bokehShape_bladesCount:r=6.0
+  dof__bokehShape_kernelSize:r=18.0
+}
+
+entity{
+  _template:t="menu_aircraft_floating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-110.319, -4.0, 99.9024]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
   fov:r=90.0
   transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-34.2328, 98.565, 28.4068]]
   menu_cam__limitYaw:p2=-180.0, 180.0
@@ -404,6 +438,7 @@ entity{
     microdetails:b=yes
     clusteredLights:b=yes
     fullDeferred:b=yes
+    downsampledShadows:b=yes
   }
 
   "level__weatherChoice:object"{
@@ -416,7 +451,42 @@ entity{
 }
 
 entity{
-  _template:t="music_launcher_ambient_sound"
+  _template:t="water"
+  water__strength:r=1.8
+  water__level:r=-4.0
+  water__wind_dir:r=40.0
+  water__max_tessellation:i=2
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap"
+
+  "color_grading:object"{
+    colorContrast:p4=1.1, 1.0, 1.0, 1.0
+  }
+
+  "tonemap:object"{
+    tonemapMidOut:r=0.22
+    tonemapMidIn:r=0.15
+    tonemapShoulder:r=0.85
+    tonemapContrast:r=1.28
+    tonemapHdrMax:r=4.0
+  }
+
+  "tonemap_save:object"{
+    colorContrast:p4=1.1, 1.0, 1.0, 1.0
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+
+  "post_fx:object"{
+    adaptation__autoExposureScale:r=0.5
+    adaptation__minExposure:r=0.3
+    bloom__on:b=no
+    adaptation__maxExposure:r=0.3
+  }
 }
 
 entity{
@@ -447,25 +517,9 @@ entity{
 }
 
 entity{
-  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
-}
-
-entity{
-  _template:t="postfx_roundctrl"
-  damage_indicator__startTime:r=0.0
-
-  "post_fx:object"{
-    adaptation__autoExposureScale:r=0.5
-    adaptation__minExposure:r=0.6
-    bloom__on:b=no
-    adaptation__maxExposure:r=0.6
-  }
-}
-
-entity{
   _template:t="spot_light"
   transform:m=[[0.763411, 0.279283, 0.582413] [0.260552, 0.691919, -0.673319] [-0.591031, 0.66577, 0.45545] [88.5016, 8.72801, 10.2703]]
-  light__brightness:r=141.0
+  light__brightness:r=341.0
   spot_light__shadows:b=yes
   spot_light__dynamic_obj_shadows:b=no
   light__max_radius:r=9.0
@@ -477,18 +531,19 @@ entity{
 
 entity{
   _template:t="spot_light"
-  transform:m=[[0.797179, -0.112711, 0.806325] [-0.0373209, 1.12224, 0.193769] [-0.813315, -0.161974, 0.781454] [-37.6641, 10.7163, -50.6136]]
+  transform:m=[[4.43237, 0.403471, 2.77773] [0.0400851, 5.18226, -0.816699] [-2.80662, 0.711215, 4.37517] [-37.5122, 10.5835, -51.0318]]
   spot_light__inner_attenuation:r=0.1
-  light__max_radius:r=3.0
-  light__brightness:r=4.0
+  light__max_radius:r=1.2
+  light__brightness:r=8.9
   light__color:c=255, 180, 180, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
 }
 
 entity{
   _template:t="spot_light"
-  transform:m=[[0.154143, 1.13439, -0.212943] [0.526224, -0.260276, -1.00563] [-1.02727, 0.0368922, -0.547095] [-36.9, 9.68, -49.52]]
+  transform:m=[[-0.424693, 2.92268, -0.548092] [1.49006, -0.271104, -2.58838] [-2.57363, -0.639259, -1.40816] [-37.1115, 9.68, -49.2245]]
   light__brightness:r=10.0
   light__color:c=245, 50, 10, 255
   spot_light__dynamic_obj_shadows:b=yes
@@ -497,6 +552,7 @@ entity{
   spot_light__shadow_shrink:i=0
   light__max_radius:r=4.0
   spot_light__dynamic_light:b=no
+  spot_light__contact_shadows:b=yes
 }
 
 entity{
@@ -516,23 +572,24 @@ entity{
 
 entity{
   _template:t="spot_light"
-  transform:m=[[0.350417, -0.170077, 1.41964] [-0.279052, 1.4254, 0.239648] [-1.4023, -0.326154, 0.307068] [-17.5043, 10.804, -70.3905]]
+  transform:m=[[0.350417, -0.170077, 1.41964] [-0.279052, 1.4254, 0.239648] [-1.4023, -0.326154, 0.307068] [-17.5043, 10.7022, -70.3905]]
   spot_light__inner_attenuation:r=0.1
   light__max_radius:r=4.0
-  light__brightness:r=2.0
-  light__color:c=255, 180, 180, 255
+  light__brightness:r=3.7
+  light__color:c=255, 200, 200, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
 }
 
 entity{
   _template:t="spot_light"
-  transform:m=[[0.350195, -0.231506, 1.05931] [0.0101977, 1.11384, 0.240053] [-1.08427, -0.0642971, 0.344404] [-17.6672, 10.7818, -71.8308]]
+  transform:m=[[0.350195, -0.231506, 1.05931] [0.0101977, 1.11384, 0.240053] [-1.08427, -0.0642971, 0.344404] [-17.6672, 10.6464, -71.8308]]
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
   spot_light__inner_attenuation:r=0.1
   light__max_radius:r=5.0
   light__brightness:r=5.5
+  light__color:c=255, 200, 200, 255
 }
 
 entity{
@@ -543,7 +600,7 @@ entity{
   spot_light__dynamic_obj_shadows:b=no
   spot_light__shadow_shrink:i=1
   light__color:c=255, 230, 200, 255
-  light__brightness:r=3.0
+  light__brightness:r=6.0
   spot_light__inner_attenuation:r=0.9
 }
 
@@ -555,67 +612,73 @@ entity{
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
   light__color:c=255, 230, 200, 255
-  light__brightness:r=16.0
+  light__brightness:r=86.0
   spot_light__inner_attenuation:r=0.9
 }
 
 entity{
   _template:t="light_bunker_ceiling"
-  transform:m=[[-0.892362, -0.0249036, 0.747663] [-0.748044, 0.0179727, -0.892219] [0.00754304, -1.16405, -0.0297736] [82.8781, 14.7797, 16.059]]
+  transform:m=[[-2.05208, -0.0572686, 1.71933] [-1.72021, 0.0413302, -2.05176] [0.0173461, -2.67686, -0.0684677] [82.8781, 14.7797, 16.059]]
   light__max_radius:r=15.0
   spot_light__shadows:b=yes
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
   light__color:c=255, 230, 200, 255
-  light__brightness:r=96.0
+  light__brightness:r=196.0
   spot_light__inner_attenuation:r=0.6
   spot_light__dynamic_light:b=yes
 }
 
 entity{
   _template:t="spot_light"
-  transform:m=[[-1.04999, 0.132057, 0.485822] [-0.356003, -0.989292, -0.500508] [0.355985, -0.599838, 0.93242] [-21.5938, 10.0277, -73.9151]]
-  light__brightness:r=850.0
-  light__max_radius:r=15.0
+  transform:m=[[-1.07963, 0.107762, 0.422755] [-0.322361, -0.957364, -0.579209] [0.29397, -0.654052, 0.917461] [-21.5938, 10.0277, -73.9151]]
+  light__brightness:r=3650.0
+  light__max_radius:r=7.0
   spot_light__inner_attenuation:r=0.1
   light__color:c=245, 80, 30, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  light__affect_volumes:b=no
 }
 
 entity{
   _template:t="omni_light_huge"
-  transform:m=[[-2.76686, -1.68897, -14.2549] [2.88726, 14.155, -2.23756] [14.0613, -3.23891, -2.34556] [-25.0512, 11.4441, -67.6187]]
-  light__brightness:r=700.0
-  light__max_radius:r=7.0
+  transform:m=[[-5.03046, -3.07073, -25.917] [5.24936, 25.7354, -4.06813] [25.565, -5.8887, -4.26449] [-22.353, 13.2881, -68.6833]]
+  light__brightness:r=750.0
+  light__max_radius:r=7.5
   light__max_radius:r=7.0
   light__color:c=255, 255, 255, 255
   light__affect_volumes:b=yes
+  omni_light__shadows:b=yes
+  omni_light__dynamic_obj_shadows:b=no
+  light__dynamic_light:b=no
+  omni_light__shadow_shrink:i=2
 }
 
 entity{
   _template:t="omni_light_huge"
   transform:m=[[-3.38932, -3.95935, 155.499] [-35.318, 151.493, 3.0876] [-151.488, -35.2312, -4.19865] [32.0224, 21.9114, 48.7136]]
-  light__brightness:r=1200.0
+  light__brightness:r=4200.0
   light__max_radius:r=11.0
   light__color:c=255, 255, 255, 255
 }
 
 entity{
   _template:t="spot_light"
-  transform:m=[[-0.0103122, -0.256861, -1.11008] [0.402822, 1.03761, -0.243836] [1.06584, -0.394647, 0.0814123] [-38.7092, 10.46, -50.8549]]
-  light__brightness:r=4.5
+  transform:m=[[0.606728, -0.339747, -1.33715] [0.619117, 1.37243, -0.0677906] [1.23292, -0.521996, 0.69207] [-38.7092, 10.46, -50.8549]]
+  light__brightness:r=3.5
   spot_light__inner_attenuation:r=0.1
   light__max_radius:r=3.0
   light__color:c=255, 180, 180, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
 }
 
 entity{
   _template:t="spot_light"
   transform:m=[[-0.52158, -0.0735584, -0.850026] [-0.194576, 0.980277, 0.0345625] [0.830721, 0.183423, -0.525606] [-5.34983, 3.1957, 99.7249]]
-  light__brightness:r=91.0
+  light__brightness:r=151.0
   spot_light__shadows:b=yes
   spot_light__dynamic_obj_shadows:b=yes
   light__max_radius:r=11.0
@@ -627,11 +690,11 @@ entity{
 
 entity{
   _template:t="spot_light"
-  transform:m=[[0.429733, -0.170077, 1.39768] [-0.265126, 1.4254, 0.254969] [-1.3828, -0.326154, 0.385478] [-16.9637, 10.6946, -71.1257]]
+  transform:m=[[1.23466, -0.488645, 4.01565] [-0.761729, 4.09529, 0.732547] [-3.9729, -0.937067, 1.10751] [-16.5411, 10.6554, -71.2893]]
   spot_light__inner_attenuation:r=0.5
-  light__max_radius:r=1.0
-  light__brightness:r=2.0
-  light__color:c=255, 180, 180, 255
+  light__max_radius:r=4.0
+  light__brightness:r=11.5
+  light__color:c=255, 200, 200, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
   spot_light__dynamic_light:b=no
@@ -640,23 +703,27 @@ entity{
 entity{
   _template:t="spot_light"
   transform:m=[[-0.909254, -0.0424377, -0.68543] [0.686744, -0.055889, -0.907536] [0.000177234, -1.1373, 0.0701708] [-38.0322, 11.5, -50.3846]]
-  light__brightness:r=6.0
-  light__max_radius:r=3.6
+  light__brightness:r=10.0
+  light__max_radius:r=0.83
   spot_light__inner_attenuation:r=0.2
   light__color:c=55, 80, 180, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=yes
+  spot_light__dynamic_light:b=no
+  light__dynamic_light:b=no
 }
 
 entity{
   _template:t="spot_light"
-  transform:m=[[-0.79354, -0.322455, -0.751444] [0.160355, 0.965427, -0.583617] [0.801838, -0.512197, -0.626974] [-38.7624, 10.8992, -50.1449]]
-  light__brightness:r=3.0
-  light__max_radius:r=2.0
+  transform:m=[[-0.728573, -0.436267, -1.08858] [-0.00587878, 1.2829, -0.51021] [1.17275, -0.264609, -0.678859] [-38.5223, 10.7084, -50.1319]]
+  light__brightness:r=11.0
+  light__max_radius:r=0.55
   spot_light__inner_attenuation:r=0.2
   light__color:c=255, 205, 205, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
 }
 
 entity{
@@ -664,32 +731,23 @@ entity{
   transform:m=[[0.315508, -0.0236832, 1.12064] [-1.00643, -0.518516, 0.272391] [0.493461, -1.04236, -0.160963] [-19.1111, 12.3309, -70.3819]]
   light__brightness:r=50.0
   light__color:c=105, 210, 250, 255
-  light__max_radius:r=5.0
-  spot_light__inner_attenuation:r=0.1
-  spot_light__dynamic_obj_shadows:b=yes
-  spot_light__shadows:b=yes
-}
-
-entity{
-  _template:t="spot_light"
-  transform:m=[[0.313007, 0.0532779, 1.12033] [-0.905663, -0.674129, 0.285089] [0.66162, -0.947971, -0.139773] [-20.2237, 11.783, -71.9592]]
-  light__brightness:r=50.0
-  light__color:c=105, 210, 250, 255
   light__max_radius:r=3.0
   spot_light__inner_attenuation:r=0.1
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=yes
 }
 
 entity{
   _template:t="spot_light"
-  transform:m=[[-0.86944, 0.232165, -0.738999] [-0.571258, -0.942459, 0.376007] [-0.523143, 0.643284, 0.817584] [-21.3474, 8.80262, -75.1682]]
-  light__brightness:r=850.0
+  transform:m=[[-0.86944, -0.105068, -0.767451] [-0.571258, -0.692196, 0.74194] [-0.523147, 0.930465, 0.465284] [-21.3474, 8.80262, -75.1682]]
+  light__brightness:r=1850.0
   light__max_radius:r=15.0
   spot_light__inner_attenuation:r=0.1
   light__color:c=245, 80, 30, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  light__affect_volumes:b=no
 }
 
 entity{
@@ -713,8 +771,9 @@ entity{
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
   light__color:c=255, 230, 200, 255
-  light__brightness:r=16.0
+  light__brightness:r=96.0
   spot_light__inner_attenuation:r=0.9
+  spot_light__contact_shadows:b=no
 }
 
 entity{
@@ -725,7 +784,7 @@ entity{
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
   light__color:c=255, 230, 200, 255
-  light__brightness:r=16.0
+  light__brightness:r=96.0
   spot_light__inner_attenuation:r=0.9
 }
 
@@ -737,25 +796,30 @@ entity{
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
   light__color:c=255, 230, 200, 255
-  light__brightness:r=12.0
+  light__brightness:r=82.0
   spot_light__inner_attenuation:r=0.9
 }
 
 entity{
   _template:t="light_bunker_ceiling"
-  transform:m=[[-0.134953, -0.0432281, 1.15579] [-1.1481, -0.135863, -0.139137] [0.140018, -1.15569, -0.026878] [-2.69065, 6.88629, 94.7438]]
-  light__brightness:r=66.0
+  transform:m=[[-0.134953, -0.0432281, 1.15579] [-1.1481, -0.135863, -0.139137] [0.140018, -1.15569, -0.026878] [-2.69065, 6.85442, 94.7438]]
+  light__brightness:r=226.0
+  spot_light__shadow_shrink:i=3
+  spot_light__inner_attenuation:r=0.9
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__contact_shadows:b=yes
 }
 
 entity{
   _template:t="spot_light"
   transform:m=[[0.580962, -0.347694, -0.916484] [0.2903, 1.07861, -0.225179] [0.936265, -0.118684, 0.638521] [-38.7843, 9.10476, -50.6035]]
-  light__brightness:r=4.0
+  light__brightness:r=1.0
   light__max_radius:r=2.0
   spot_light__inner_attenuation:r=0.2
   light__color:c=255, 205, 205, 255
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
 }
 
 entity{
@@ -773,9 +837,9 @@ entity{
 
 entity{
   _template:t="light_bunker_ceiling"
-  transform:m=[[-0.892362, -0.0249036, 0.747663] [-0.748044, 0.0179727, -0.892219] [0.00754304, -1.16405, -0.0297736] [77.6301, 15.0527, 13.6859]]
-  light__brightness:r=36.0
-  light__max_radius:r=7.0
+  transform:m=[[-4.06388, -0.113413, 3.40491] [-3.40665, 0.081849, -4.06323] [0.0343516, -5.30117, -0.135591] [77.6301, 15.0527, 13.6859]]
+  light__brightness:r=126.0
+  light__max_radius:r=11.0
   spot_light__shadows:b=yes
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
@@ -785,9 +849,9 @@ entity{
 
 entity{
   _template:t="light_bunker_ceiling"
-  transform:m=[[-0.892362, -0.0249036, 0.747663] [-0.748044, 0.0179727, -0.892219] [0.00754304, -1.16405, -0.0297736] [87.6483, 15.0527, 19.3515]]
-  light__brightness:r=36.0
-  light__max_radius:r=7.0
+  transform:m=[[-4.41366, -0.123174, 3.69797] [-3.69986, 0.0888937, -4.41295] [0.0373082, -5.75744, -0.147261] [87.6483, 15.0527, 19.3515]]
+  light__brightness:r=126.0
+  light__max_radius:r=11.0
   spot_light__shadows:b=yes
   spot_light__dynamic_obj_shadows:b=yes
   spot_light__shadow_shrink:i=1
@@ -797,8 +861,8 @@ entity{
 
 entity{
   _template:t="light_bunker_ceiling"
-  transform:m=[[-0.874352, 0.246571, 0.728457] [-0.747813, -0.0151249, -0.892466] [-0.179517, -1.13795, 0.169705] [85.1158, 13.928, 12.2974]]
-  light__brightness:r=36.0
+  transform:m=[[-2.70435, 0.762639, 2.2531] [-2.31297, -0.046781, -2.76038] [-0.555242, -3.51966, 0.524894] [85.1158, 13.928, 12.2974]]
+  light__brightness:r=86.0
   light__max_radius:r=10.0
   spot_light__shadows:b=yes
   spot_light__dynamic_obj_shadows:b=yes
@@ -809,4 +873,96 @@ entity{
 
 entity{
   _template:t="vehicle_decals_manager"
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.350195, 1.00667, 0.40293] [0.0101974, 0.420347, -1.05904] [-1.08427, 0.329089, 0.120179] [-19.2062, 10.621, -71.7096]]
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__inner_attenuation:r=0.1
+  light__max_radius:r=7.0
+  light__brightness:r=7.5
+  light__color:c=255, 200, 200, 255
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.84637, 0.279283, 0.453496] [0.150075, 0.691919, -0.706203] [-0.511014, 0.665769, 0.543707] [-105.305, -3.90586, 95.4116]]
+  light__brightness:r=341.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  light__max_radius:r=9.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.621294, 0.280308, -0.731725] [-0.323083, 0.942391, 0.0866858] [0.713871, 0.182551, 0.676066] [-116.518, -3.18013, 95.5653]]
+  light__brightness:r=141.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  light__max_radius:r=9.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-2.70435, 0.762639, 2.2531] [-2.31297, -0.046781, -2.76038] [-0.555242, -3.51966, 0.524894] [-106.959, 1.29413, 98.372]]
+  light__brightness:r=86.0
+  light__max_radius:r=10.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-2.05208, -0.0572686, 1.71933] [-1.72021, 0.0413302, -2.05176] [0.0173461, -2.67686, -0.0684677] [-109.197, 2.14583, 102.134]]
+  light__max_radius:r=15.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=196.0
+  spot_light__inner_attenuation:r=0.6
+  spot_light__dynamic_light:b=yes
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-4.41366, -0.123174, 3.69797] [-3.69986, 0.0888937, -4.41295] [0.0373082, -5.75744, -0.147261] [-114.388, 2.41883, 92.975]]
+  light__brightness:r=126.0
+  light__max_radius:r=11.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-4.06388, -0.113413, 3.40491] [-3.40665, 0.081849, -4.06323] [0.0343516, -5.30117, -0.135591] [-114.445, 2.41883, 99.7605]]
+  light__brightness:r=126.0
+  light__max_radius:r=11.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+  light__affect_volumes:b=no
 }

@@ -28,12 +28,6 @@ let disableFlagStyle = {
   tailColor =Color(75, 75, 75)
 }
 
-let freemiumFlagStyle = {
-  flagColor = Color(88, 73, 153)
-  offsetColor = Color(61, 45, 136)
-  tailColor =Color(0, 0, 0)
-}
-
 let mkFlagOffset = @(p) p.offset <= 0 ? null
   : {
       rendObj = ROBJ_VECTOR_CANVAS
@@ -81,5 +75,4 @@ return {
   casualFlagStyle
   primeFlagStyle
   disableFlagStyle
-  freemiumFlagStyle
 }

@@ -116,8 +116,8 @@ base_m3_lee{
       gun:t="m3_lee_turret_01_37mm_m5_user_cannon_for_m3_lee+turret_with_several_types_of_shells+main_turret"
       barrelDm:t="gun_barrel_01"
       breechDm:t="cannon_breech_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
+      verDriveDm:t="drive_turret_v_01"
+      horDriveDm:t="drive_turret_h_01"
       salt:i=1
     }
 
@@ -135,8 +135,6 @@ base_m3_lee{
       turretName:t="turret_03"
       gun:t="m3_lee_turret_03_7_62mm_m1919a4"
       barrelDm:t="gun_barrel_03"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -144,8 +142,6 @@ base_m3_lee{
       turretName:t="turret_04"
       gun:t="m3_lee_turret_04_7_62mm_m1919a4"
       barrelDm:t="gun_barrel_04"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

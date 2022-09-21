@@ -8,5 +8,4 @@ entity{
 
 entity{
   _template:t="tunisia_4x4_river_sound"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }

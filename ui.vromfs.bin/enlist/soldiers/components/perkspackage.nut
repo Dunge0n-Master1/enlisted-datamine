@@ -14,9 +14,9 @@ let {
   allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
-let perksStats = require("%enlSqGlob/configs/perks/perksStats.nut")
-let perksList = require("%enlSqGlob/configs/perks/perksList.nut")
-let perksPoints = require("%enlSqGlob/configs/perks/perksPoints.nut")
+let perksStats = require("%enlist/meta/perks/perksStats.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let colorize = require("%ui/components/colorize.nut")
 
 const MIN_ROLL_PERKS = 10

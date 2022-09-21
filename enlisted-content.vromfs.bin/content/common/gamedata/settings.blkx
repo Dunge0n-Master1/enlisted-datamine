@@ -692,6 +692,16 @@ sound{
         async:b=yes
         preload:b=no
       }
+
+      enl_vo_jp{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_jp.assets{
+        async:b=yes
+        preload:b=no
+      }
     }
 
     languageToLocale{
@@ -706,6 +716,7 @@ folders{
   webcache:t="{downloads}/webcache"
   online_storage:t="{downloads}/online_storage"
   pubcfg:t="{downloads}/pubcfg"
+  records:t="{downloads}/replays"
 }
 
 network{
@@ -727,6 +738,7 @@ __allowedConfigOverrides{
   xboxOne_submission_circuit:t="yes"
   xboxScarlett_submission_circuit:t="yes"
   language:t=""
+  harmonizationEnabled:b=yes
 
   ui{
     enableLabelOnLoot:b=yes
@@ -789,6 +801,7 @@ __allowedConfigOverrides{
     safeArea:b=yes
     driver:t=""
     frameSkip:i=0
+    freqLevel:i=0
     vsync_tearing_tolerance_percents:i=0
     latency:i=0
     latencyFlash:b=no
@@ -952,6 +965,15 @@ dx12{
     intel{
       vendorId:i=32902
       preferedDeviceIds:i=22176
+      preferedDeviceIds:i=22177
+      preferedDeviceIds:i=22178
+      preferedDeviceIds:i=22181
+      preferedDeviceIds:i=22182
+      preferedDeviceIds:i=22160
+      preferedDeviceIds:i=22161
+      preferedDeviceIds:i=22162
+      preferedDeviceIds:i=22163
+      preferedDeviceIds:i=22164
       minDriver:t="26.20.0.0"
     }
   }

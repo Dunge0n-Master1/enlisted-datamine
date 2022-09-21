@@ -67,37 +67,37 @@ human{
     }
 
     "Bip01 L Thigh:object"{
-      dmgMult:r=0.8
+      dmgMult:r=0.6
       armor:r=0.0
       type:t="l_leg"
     }
 
     "Bip01 R Thigh:object"{
-      dmgMult:r=0.8
+      dmgMult:r=0.6
       armor:r=0.0
       type:t="r_leg"
     }
 
     "Bip01 L Calf:object"{
-      dmgMult:r=0.8
+      dmgMult:r=0.45
       armor:r=0.0
       type:t="l_leg"
     }
 
     "Bip01 R Calf:object"{
-      dmgMult:r=0.8
+      dmgMult:r=0.45
       armor:r=0.0
       type:t="r_leg"
     }
 
     "Bip01 L Foot:object"{
-      dmgMult:r=0.8
+      dmgMult:r=0.3
       armor:r=0.0
       type:t="l_leg"
     }
 
     "Bip01 R Foot:object"{
-      dmgMult:r=0.8
+      dmgMult:r=0.3
       armor:r=0.0
       type:t="r_leg"
     }

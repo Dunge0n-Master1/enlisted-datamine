@@ -20,7 +20,7 @@ let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let multiresearchWarningMsgbox = require("multiresearchWarningMsgbox.nut")
 let changeResearchMsgbox = require("changeResearchMsgbox.nut")
 let { mkGlyphsStyle } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { isFreemiumCampaign } = require("%enlist/campaigns/freemiumState.nut")
+let { disableSquadExp } = require("%enlist/campaigns/campaignConfig.nut")
 let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 
 
@@ -48,7 +48,7 @@ let statusCfg = {
     onResearch = function() {
       anim_start(BALANCE_ATTRACT_TRIGGER)
       let cost = curSquadProgress.value?.levelCost ?? 0
-      if (cost <= 0 || isFreemiumCampaign.value)
+      if (cost <= 0 || disableSquadExp.value)
         return
       purchaseMsgBox({
         price = cost
@@ -98,18 +98,24 @@ let mkResearchDescription = @(researchDef) {
   tagsTable = mkGlyphsStyle(hdpx(24))
 }.__update(body_txt)
 
-let mkResearchPrice = @(researchDef) {
-  valign = ALIGN_CENTER
-  flow = FLOW_HORIZONTAL
-  gap = bigGap
-  children = [
-    mkActiveText(loc("research/researchPrice", { price = researchDef.price }))
-    {
-      rendObj = ROBJ_IMAGE
-      size = [priceIconSize, priceIconSize]
-      image = Picture("!ui/uiskin/research/squad_points_icon.svg:{0}:{0}:K".subst(priceIconSize))
-    }
-  ]
+let function mkResearchPrice(researchDef) {
+  let { price = 0 } = researchDef
+  if (price == 0)
+    return null
+
+  return {
+    valign = ALIGN_CENTER
+    flow = FLOW_HORIZONTAL
+    gap = bigGap
+    children = [
+      mkActiveText(loc("research/researchPrice", { price }))
+      {
+        rendObj = ROBJ_IMAGE
+        size = [priceIconSize, priceIconSize]
+        image = Picture("!ui/uiskin/research/squad_points_icon.svg:{0}:{0}:K".subst(priceIconSize))
+      }
+    ]
+  }
 }
 
 let mkResearchBtn = @(onResearch, researchText) @() {

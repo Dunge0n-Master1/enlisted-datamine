@@ -15,7 +15,7 @@ let colorize = require("%ui/components/colorize.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { primaryButtonStyle } = require("%ui/components/textButton.nut")
-let { isFreemiumCampaign } = require("%enlist/campaigns/freemiumState.nut")
+let { disableChangeResearch } = require("%enlist/campaigns/campaignConfig.nut")
 
 let textarea = @(text, color) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -33,7 +33,7 @@ let mkText = @(text) {
 }.__update(body_txt)
 
 let balanceText = @() {
-    watch = [changeResearchBalance, changeResearchGoldCost, isFreemiumCampaign]
+    watch = [changeResearchBalance, changeResearchGoldCost, disableChangeResearch]
     margin = [fsh(5), 0, 0, 0]
   }.__update(changeResearchBalance.value == 0
     ? {
@@ -41,7 +41,7 @@ let balanceText = @() {
         halign = ALIGN_CENTER
         children = [
           mkText(loc("research/change_research_no_orders"))
-          isFreemiumCampaign.value ? null : {
+          disableChangeResearch.value ? null : {
             flow = FLOW_HORIZONTAL
             valign = ALIGN_CENTER
             children = mkTextRow(loc("research/can_change_research_by_gold"),
@@ -94,8 +94,8 @@ let function changeResearchMsgbox(newResearch) {
 
   let buttons = Computed(function() {
     let res = []
-    let isCurrencyAvailable = !isFreemiumCampaign.value && changeResearchBalance.value <= 0
-    if ( changeResearchBalance.value > 0 || isCurrencyAvailable)
+    let isCurrencyAvailable = !disableChangeResearch.value && changeResearchBalance.value <= 0
+    if (changeResearchBalance.value > 0 || isCurrencyAvailable)
       res.append({ text = loc("research/applyChangeResearch"), customStyle = primaryButtonStyle,
         action = @() doChangeResearch(curResearch.research_id, research_id) })
     res.append({ text = loc("Cancel"), isCancel = true })

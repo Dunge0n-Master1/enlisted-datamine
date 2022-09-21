@@ -35,6 +35,7 @@ farArmorPower:p2=0.2, 700.0
 shutterAmount:i=2000
 relativeVelArmorShift:p2=200.0, 1000.0
 shutterArmorPower:r=10.0
+iconType:t="bombs_small"
 entityTemplate:t="fab_50_bomb_projectile"
 entityPhysTemplate:t=""
 
@@ -165,8 +166,13 @@ DamageParts{
 hitFx{
   defaultFx:t="generic_weapon_hit_ground"
   jetFx:t="generic_weapon_hit_ground"
+
+  water3d{
+    fx:t="water_hit_big_cmps_fx"
+    fxScale:p2=1.0, 1.0
+  }
 }
 
 explFx{
-  effectTemplName:t="bomb_expl_50kg"
+  effectTemplName:t="explosion_50_100kg_dirt_effect"
 }

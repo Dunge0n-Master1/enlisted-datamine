@@ -2,6 +2,8 @@ require ecs
 require ecs.common
 
 def add_watched_by_player_tag(eid : EntityId; add_tag : bool)
+  if eid == INVALID_ENTITY_ID
+    return
   let itemHasTag = has(eid, "watchedPlayerItem")
   if add_tag && !itemHasTag
     addSubTemplate(eid, "watched_by_player_item")

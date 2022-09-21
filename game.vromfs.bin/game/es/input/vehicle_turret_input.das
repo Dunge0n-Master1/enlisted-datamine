@@ -4,6 +4,7 @@ require game.es.input.input_events
 require game.es.input.input_common
 
 def init(var vehicle_input__aim : int&;
+         var vehicle_input__zoomToggle : int&;
          var vehicle_input__zoom : int&;
          var vehicle_input__shoot : int&;
          var vehicle_input__shootSecondary : int&;
@@ -13,6 +14,7 @@ def init(var vehicle_input__aim : int&;
          var vehicle_input__secondaryNextBulletType : int&;
          turret_input__actionSet : string)
   vehicle_input__aim             = int(get_action_handle("Vehicle.Aim", TYPEGRP_STICK))
+  vehicle_input__zoomToggle      = int(get_action_handle("Vehicle.ZoomToggle", TYPEGRP_DIGITAL))
   vehicle_input__zoom            = int(get_action_handle("Vehicle.Zoom", TYPEGRP_DIGITAL))
   vehicle_input__shoot           = int(get_action_handle("Vehicle.Shoot", TYPEGRP_DIGITAL))
   vehicle_input__shootSecondary  = int(get_action_handle("Vehicle.ShootSecondary", TYPEGRP_DIGITAL))
@@ -22,9 +24,11 @@ def init(var vehicle_input__aim : int&;
   vehicle_input__secondaryNextBulletType = int(get_action_handle("Vehicle.SecondaryNextBulletType", TYPEGRP_DIGITAL))
 
   activate_action_set(get_action_set_handle(turret_input__actionSet), /*active*/true)
+  reset_digital_action_sticky_toggle(uint16(vehicle_input__zoomToggle))
 
 
 def reset(var vehicle_input__aim : int&;
+          var vehicle_input__zoomToggle : int&;
           var vehicle_input__zoom : int&;
           var vehicle_input__shoot : int&;
           var vehicle_input__shootSecondary : int&;
@@ -34,6 +38,7 @@ def reset(var vehicle_input__aim : int&;
           var vehicle_input__secondaryNextBulletType : int&;
           turret_input__actionSet : string)
   vehicle_input__aim             = int(BAD_ACTION_HANDLE)
+  vehicle_input__zoomToggle      = int(BAD_ACTION_HANDLE)
   vehicle_input__zoom            = int(BAD_ACTION_HANDLE)
   vehicle_input__shoot           = int(BAD_ACTION_HANDLE)
   vehicle_input__shootSecondary  = int(BAD_ACTION_HANDLE)
@@ -42,11 +47,13 @@ def reset(var vehicle_input__aim : int&;
   vehicle_input__mainNextBulletType = int(BAD_ACTION_HANDLE)
   vehicle_input__secondaryNextBulletType = int(BAD_ACTION_HANDLE)
 
+  reset_digital_action_sticky_toggle(uint16(vehicle_input__zoomToggle))
   activate_action_set(get_action_set_handle(turret_input__actionSet), /*active*/false)
 
 [es(tag=input, on_appear)]
 def vehicle_turret_input_appear(evt : Event;
                                 var vehicle_input__aim : int&;
+                                var vehicle_input__zoomToggle : int&;
                                 var vehicle_input__zoom : int&;
                                 var vehicle_input__shoot : int&;
                                 var vehicle_input__shootSecondary : int&;
@@ -55,7 +62,7 @@ def vehicle_turret_input_appear(evt : Event;
                                 var vehicle_input__mainNextBulletType : int&;
                                 var vehicle_input__secondaryNextBulletType : int&;
                                 turret_input__actionSet : string)
-  init(vehicle_input__aim, vehicle_input__zoom, vehicle_input__shoot,
+  init(vehicle_input__aim, vehicle_input__zoomToggle, vehicle_input__zoom, vehicle_input__shoot,
        vehicle_input__shootSecondary, vehicle_input__shootMachinegun,
        vehicle_input__shootTurret03, vehicle_input__mainNextBulletType,
        vehicle_input__secondaryNextBulletType, turret_input__actionSet)
@@ -63,6 +70,7 @@ def vehicle_turret_input_appear(evt : Event;
 [es(tag=input, on_disappear)]
 def vehicle_turret_input_disappear(evt : Event;
                                    var vehicle_input__aim : int&;
+                                   var vehicle_input__zoomToggle : int&;
                                    var vehicle_input__zoom : int&;
                                    var vehicle_input__shoot : int&;
                                    var vehicle_input__shootSecondary : int&;
@@ -71,7 +79,7 @@ def vehicle_turret_input_disappear(evt : Event;
                                    var vehicle_input__mainNextBulletType : int&;
                                    var vehicle_input__secondaryNextBulletType : int&;
                                    turret_input__actionSet : string)
-  reset(vehicle_input__aim, vehicle_input__zoom, vehicle_input__shoot,
+  reset(vehicle_input__aim, vehicle_input__zoomToggle, vehicle_input__zoom, vehicle_input__shoot,
         vehicle_input__shootSecondary, vehicle_input__shootMachinegun,
         vehicle_input__shootTurret03, vehicle_input__mainNextBulletType,
         vehicle_input__secondaryNextBulletType, turret_input__actionSet)
@@ -79,6 +87,7 @@ def vehicle_turret_input_disappear(evt : Event;
 [es(tag=input)]
 def vehicle_turret_input_init_reset(evt : EventDaInputInit;
                                     var vehicle_input__aim : int&;
+                                    var vehicle_input__zoomToggle : int&;
                                     var vehicle_input__zoom : int&;
                                     var vehicle_input__shoot : int&;
                                     var vehicle_input__shootSecondary : int&;
@@ -88,12 +97,12 @@ def vehicle_turret_input_init_reset(evt : EventDaInputInit;
                                     var vehicle_input__secondaryNextBulletType : int&;
                                     turret_input__actionSet : string)
   if evt.init
-    init(vehicle_input__aim, vehicle_input__zoom, vehicle_input__shoot,
+    init(vehicle_input__aim, vehicle_input__zoomToggle, vehicle_input__zoom, vehicle_input__shoot,
          vehicle_input__shootSecondary, vehicle_input__shootMachinegun,
          vehicle_input__shootTurret03, vehicle_input__mainNextBulletType,
          vehicle_input__secondaryNextBulletType, turret_input__actionSet)
   else
-    reset(vehicle_input__aim, vehicle_input__zoom, vehicle_input__shoot,
+    reset(vehicle_input__aim, vehicle_input__zoomToggle, vehicle_input__zoom, vehicle_input__shoot,
           vehicle_input__shootSecondary, vehicle_input__shootMachinegun,
           vehicle_input__shootTurret03, vehicle_input__mainNextBulletType,
           vehicle_input__secondaryNextBulletType, turret_input__actionSet)

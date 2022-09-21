@@ -274,7 +274,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   groupName:t="sector_1"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=85.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0

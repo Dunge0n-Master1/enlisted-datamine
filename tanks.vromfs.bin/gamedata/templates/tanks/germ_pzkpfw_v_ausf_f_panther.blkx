@@ -1,5 +1,7 @@
 germ_pzkpfw_V_ausf_f_panther{
   _extends:t="germ_pzkpfw_V_ausf_g_panther"
+  _extends:t="tank_panzer3_engine_sound"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
 }
 
 germ_pzkpfw_V_ausf_f_panther_premium{

@@ -71,7 +71,7 @@ let function sendMessage(evtData){
     text = text.replace(AUTOREPLACE_HERO, $"{hero}")
     text = text.replace(AUTOREPLACE_PLAYER, $"{senderEid}")
     console.command($"net.set_console_connection_id {evtData?.fromconnid ?? -1}")
-    sendLogToClients(text)
+    sendLogToClients($"{senderName}: {text}")
     console.command(text)
     log($"console command '{text}' received userid:{senderUserId}")
     return

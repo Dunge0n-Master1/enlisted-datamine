@@ -21,8 +21,8 @@ let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let {
   mkDecorSlot, mkDecorIcon, mkBlockHeader, mkCustGroup, slotSize, mkSkinIcon,
-  mkFlipBtn, mkSelectBox, mkButton, closeActionIcon, scaleRotationHint,
-  slotBigSize, slotNormalColor
+  mkFlipBtn, mkSelectBox, mkButton, closeActionIcon, mkDecorHints, decorScaleHint,
+  decorRotationHint, slotBigSize, slotNormalColor
 } = require("customizePkg.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
@@ -32,8 +32,8 @@ let {
   curDecorCfgByType, viewVehCustSchemes, customizationSort,
   selectedCamouflage, applyDecorator, availVehDecorByTypeId,
   buyDecorator, curCamouflageId, getOwnedCamouflage, viewVehCamouflage,
-  selectedDecorator, startUsingDecal, stopUsingDecal,
-  mirrorDecal, twoSideDecal, viewVehDecorByType,
+  selectedDecorator, startUsingDecor, stopUsingDecal, vehDecorLimits,
+  mirrorDecal, twoSideDecal, viewVehDecorByType, viewVehCustLimits,
   cropSkinName, closeDecoratorsList, isPurchasing
 } = require("customizeState.nut")
 let {
@@ -44,9 +44,15 @@ let {
   defBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {
-  onDecalMouseMove, onDecalMouseWheel, applyUsingDecal
+  onDecalMouseMove, onDecalMouseWheel, applyUsingDecal, applyUsingDecor
 } = require("decorViewer.nut")
 let { closeDmViewerMode } = require("dmViewer.nut")
+let { SaveVehicleDecor } = require("dasevents")
+let { getFirstLinkByType } = require("%enlSqGlob/ui/metalink.nut")
+let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
+let { squads } = require("%enlist/meta/profile.nut")
+let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
+let popupsState = require("%enlist/popup/popupsState.nut")
 
 
 enum SIDE_PARAMS {
@@ -175,14 +181,14 @@ let mkCustomize = kwarg(
   })
 
 let curAvailCamouflages = Computed(function() {
-  let { gametemplate = null, isEvent = false, isPremium = false } = viewVehicle.value
+  let { gametemplate = null, sign = 0 } = viewVehicle.value
   if (gametemplate == null)
     return []
 
   let availCamouflage = availVehDecorByTypeId.value?.vehCamouflage ?? {}
   let tplWithoutCountry = gametemplate.slice((gametemplate.indexof("_") ?? -1) + 1)
   let vehSkins = getVehSkins(gametemplate)
-  return !isEvent && !isPremium ? vehSkins
+  return sign == 0 ? vehSkins
     : vehSkins.filter(@(skinData) skinData.id in availCamouflage
         || startswith(skinData.id, tplWithoutCountry))
 })
@@ -190,7 +196,7 @@ let curAvailCamouflages = Computed(function() {
 let function customizeSlotsUi() {
   let decorCfgByType = curDecorCfgByType.value
   let { gametemplate = null } = viewVehicle.value
-  let { vehDecal = null } = viewVehCustSchemes.value
+  let { vehDecal = null, vehDecorator = null } = viewVehCustSchemes.value
   let slotParams = customizationParams.value
   let decorators = viewVehDecorByType.value
   let camouflage = viewVehCamouflage.value
@@ -212,13 +218,13 @@ let function customizeSlotsUi() {
     children = [
       { size = flex() }
       camouflageSlot
-      /*mkCustomize({ // decorators temporarily hidden
+      mkCustomize({
         decorators = decorators?.vehDecorator ?? {}
         scheme = vehDecorator
         slotParams
         decoratorsCfg = decorCfgByType?.vehDecorator ?? {}
         hasPrem = hasPremium.value
-      })*/
+      })
       mkCustomize({
         decorators = decorators?.vehDecal ?? {}
         scheme = vehDecal
@@ -267,8 +273,23 @@ let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
     if (freeDecorators.len() == 0 && onlyOwnedVal)
       continue
 
-    let onClick = curCustType == "vehDecal"
-      ? @() startUsingDecal(curSlotIdx, cfg)
+    let onClick = curCustType != ""
+      ? function() {
+          let { cType, subType } = cfg
+          let limit = vehDecorLimits.value?[cType][subType] ?? 0
+          if (limit > 0) {
+            let count = (viewVehCustLimits.value?[cType] ?? {})
+              .filter(@(id, slot) id == subType && slot != curSlotIdx).len()
+            if (count >= limit) {
+              showMsgbox({ text = loc("msg/vehDecorOverlimits", {
+                limit = colorize(accentTitleTxtColor, limit)
+                id = colorize(accentTitleTxtColor, loc($"decals/category/{subType}"))
+              }) })
+              return
+            }
+          }
+          startUsingDecor(curSlotIdx, cfg)
+        }
       : @() null
     children.append(mkDecorIcon({
       cfg, currencies, onClick, availableCount = freeDecorators.len()
@@ -282,12 +303,12 @@ let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
       }
 }
 
-let mkCustomizeList = @(groupName, hasOpened, onClick, groupIcons = null) {
+let mkCustomizeList = @(groupName, hasOpened, onClick, availCount, limit, count, groupIcons = null) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = bigPadding
   children = [
-    mkCustGroup(groupName, hasOpened, onClick)
+    mkCustGroup(groupName, hasOpened, onClick, availCount, limit, count)
     groupIcons
   ]
 }
@@ -345,8 +366,8 @@ let mkCustomizationList = @(curCustType, content, onlyOwned = null) {
 let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
   let res = {
     watch = [
-      curDecorCfgByType, lastOpenedGroupName, viewVehicle,
-      currenciesList, availVehDecorByTypeId, onlyOwned
+      curDecorCfgByType, lastOpenedGroupName, viewVehicle, vehDecorLimits,
+      currenciesList, availVehDecorByTypeId, onlyOwned, viewVehCustLimits
     ]
   }
 
@@ -357,6 +378,8 @@ let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
   if (custCfg.len() == 0)
     return res
 
+  let cfgLimits = vehDecorLimits.value?[curCustType] ?? {}
+  let vehLimits = viewVehCustLimits.value?[curCustType] ?? {}
   let groupsList = custCfg
     .reduce(@(r, v) v.subType == "" ? r : r.__merge({ [v.subType] = true }), {})
     .keys()
@@ -380,7 +403,20 @@ let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
                 currencies, ownDecorators, onlyOwnedVal)
             : null
           let onGroupClick = @() lastOpenedGroupName(hasOpened ? "" : groupName)
-          return mkCustomizeList(groupName, hasOpened, onGroupClick, groupIcons)
+          let availCount = custCfg
+            .filter(@(v) v.subType == groupName).values()
+            .reduce(function(r, v) {
+              let list = (ownDecorators?[v.guid] ?? {})
+                .filter(@(d) (d.vehGuid == "" || d.vehGuid == vehGuid)
+                  && (d.slotIdx == -1 || d.slotIdx == curSlotIdx))
+              return r + list.len()
+            }, 0)
+
+          let limit = cfgLimits?[groupName] ?? 0
+          let count = vehLimits.reduce(@(res, id, slot)
+            id == groupName && slot != curSlotIdx ? res + 1 : res, 0)
+          return mkCustomizeList(groupName, hasOpened, onGroupClick,
+            availCount, limit, count, groupIcons)
         })
       }
   return res.__update(mkCustomizationList(curCustType, content, onlyOwned))
@@ -534,14 +570,26 @@ let function customizeListUi() {
   }
 }
 
-let mkUseDecalBlock = kwarg(@(applyCb, cancelModeCb, padding) {
+let function isVehicleOwnedByRentedSquad(vehicle) {
+  let squadGuid = getFirstLinkByType(vehicle, "curVehicle")
+  return squadGuid != null && isSquadRented(squads.value?[squadGuid])
+}
+
+let mkUseDecalBlock = @(applyCb, cancelModeCb, padding) {
   size = flex()
   flow = FLOW_HORIZONTAL
   gap = smallOffset
   padding
   margin = bigPadding
   behavior = [Behaviors.MenuCameraControl, Behaviors.Button]
-  onClick = applyCb
+  onClick = function() {
+    if (isVehicleOwnedByRentedSquad(viewVehicle.value)) {
+      showRentedSquadLimitsBox()
+      cancelModeCb()
+      return
+    }
+    applyCb()
+  }
   eventPassThrough = true
   halign = ALIGN_CENTER
   valign = ALIGN_BOTTOM
@@ -566,7 +614,7 @@ let mkUseDecalBlock = kwarg(@(applyCb, cancelModeCb, padding) {
         $"^J:RT", @() onDecalMouseWheel({ altKey = true, button = 2 })
       ]]
     }
-    scaleRotationHint
+    mkDecorHints([decorScaleHint, decorRotationHint])
     mkFlipBtn(isMirrorMode)
     mkSelectBox(sideParams, twoSideIdx, ["S", "T", "M"], "J:X")
     mkButton({
@@ -578,7 +626,48 @@ let mkUseDecalBlock = kwarg(@(applyCb, cancelModeCb, padding) {
       hasHotkeyHint = true
     })
   ]
-})
+}
+
+let mkUseDecorBlock = @(applyCb, cancelModeCb, padding) {
+  size = flex()
+  flow = FLOW_HORIZONTAL
+  gap = smallOffset
+  padding
+  margin = bigPadding
+  behavior = [Behaviors.MenuCameraControl, Behaviors.Button]
+  onClick = function() {
+    if (isVehicleOwnedByRentedSquad(viewVehicle.value)) {
+      showRentedSquadLimitsBox()
+      cancelModeCb()
+      return
+    }
+    applyCb()
+  }
+  eventPassThrough = true
+  halign = ALIGN_CENTER
+  valign = ALIGN_BOTTOM
+  children = [
+    {
+      hotkeys = [[
+        $"^J:LT", @() onDecalMouseWheel({ altKey = true, button = -2 })
+      ]]
+    }
+    {
+      hotkeys = [[
+        $"^J:RT", @() onDecalMouseWheel({ altKey = true, button = 2 })
+      ]]
+    }
+    mkDecorHints([decorRotationHint])
+    mkButton({
+      icon = closeActionIcon
+      onClick = cancelModeCb
+      descLocId = "Close"
+      hotkey = "Esc"
+      gpadHotkey = "J:B"
+      hasHotkeyHint = true
+    })
+  ]
+}
 
 isMirrorMode.subscribe(@(v) mirrorDecal(v))
 twoSideIdx.subscribe(function(v) {
@@ -609,17 +698,22 @@ let customizeScene = {
         : Behaviors.MenuCameraControl
       onMouseMove = mouseMoveCb
       onMouseWheel = mouseWheelCb
-      children = selectedDecorator.value != null
-        ? mkUseDecalBlock({
-            applyCb = applyUsingDecal
-            cancelModeCb = stopUsingDecal
-            padding = safeAreaBorders.value
-          })
-        : [
+      children = selectedDecorator.value == null
+        ? [
             customizeSlotsUi
             isPurchasing.value ? purchSpinner : null
             customizeListUi
           ]
+        : selectedDecorator.value.cType == "vehDecorator" ? mkUseDecorBlock(
+            applyUsingDecor,
+            stopUsingDecal,
+            safeAreaBorders.value
+          )
+        : mkUseDecalBlock(
+            applyUsingDecal,
+            stopUsingDecal,
+            safeAreaBorders.value
+          )
     }
   }
 }
@@ -630,12 +724,13 @@ let function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
   if (price == null || currencyId == "")
     return
 
+  let locTypeId = cType == "vehDecorator" ? "decorators" : "decals"
   purchaseMsgBox({
     price
     currencyId
     description = "{0}\n{1}".subst(
       loc($"{cType}BuyConfirm"),
-      colorize(accentTitleTxtColor, loc($"decals/{guid}"))
+      colorize(accentTitleTxtColor, loc($"{locTypeId}/{guid}"))
     )
     productView = mkDecorIcon({
       cfg = decoratorCfg, override = { size = slotBigSize }
@@ -654,7 +749,7 @@ let function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
   })
 }
 
-let function onSaveVehicleDecals(evt, _eid, _comp) {
+let function onSaveVehicleDecals(decors_info) {
   let vehGuid = viewVehicle.value?.guid
   let decoratorCfg = selectedDecorator.value
   let { guid = null, cType = null } = decoratorCfg
@@ -664,8 +759,7 @@ let function onSaveVehicleDecals(evt, _eid, _comp) {
   if (guid == null || curSlotIdx == -1)
     return
 
-  let decalsData = (evt?[0]?.getAll() ?? [])
-    .findvalue(@(d) d.slot == curSlotIdx)
+  let decalsData = decors_info.findvalue(@(d) d.slot == curSlotIdx)
   if (decalsData == null)
     return
 
@@ -679,7 +773,7 @@ let function onSaveVehicleDecals(evt, _eid, _comp) {
 
   let applyCb = function(decGuid) {
     closeDecoratorsList()
-    let decalString = decalToString(decalsData)
+    let decalString = decalToString(decalsData, cType)
     if (decalString != null)
       applyDecorator(decGuid, vehGuid, cType, decalString, curSlotIdx)
   }
@@ -694,8 +788,37 @@ let function onSaveVehicleDecals(evt, _eid, _comp) {
 }
 
 ecs.register_es("decal_es", {
-  [SaveVehicleDecals] = onSaveVehicleDecals
+  [SaveVehicleDecals] = @(evt, _eid, _comp) onSaveVehicleDecals(evt?[0]?.getAll() ?? [])
 }, {}, {tags = "server"})
+
+ecs.register_es("decor_save_es", {
+  [SaveVehicleDecor] = function(_eid, comp) {
+    if (!comp.decor__canAttach) {
+      popupsState.addPopup({
+        id = "vehicle_decor_place_error"
+        text = loc("msg/vehDecorCantPlaceHere")
+        styleName = "error"
+      })
+      return
+    }
+
+    onSaveVehicleDecals([{
+      template = comp.node_attached__template
+      nodeName = comp.node_attached__nodeName
+      relativeTm = comp.node_attached__localTm
+      slot = comp.decor__id
+    }])
+  }
+},
+{
+  comps_ro = [
+    ["node_attached__localTm", ecs.TYPE_MATRIX],
+    ["node_attached__template", ecs.TYPE_STRING],
+    ["node_attached__nodeName", ecs.TYPE_STRING],
+    ["decor__id", ecs.TYPE_INT],
+    ["decor__canAttach", ecs.TYPE_BOOL]
+  ],
+}, {tags = "server"})
 
 let function open() {
   closeDmViewerMode()

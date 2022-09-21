@@ -167,17 +167,15 @@ let function mkRewardsProgress(
   giftsConfig, curGifts, addExp, mkAppearAnimations, armyId, campaignId, armyExpDetailed,
   squads, result, onFinish, blockWidth
 ) {
-  let isFreemium = (armyExpDetailed?.freemiumExpMult ?? 1.0) > 1.0
-  let gifts = giftsConfig.filter(@(giftCfg) (giftCfg?.isFreemium ?? false) == isFreemium)
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
-    children = wrap(gifts.map(@(giftCfg, idx) mkGift({
-      gift = curGifts?[getGlobalGiftGuid(giftCfg, isFreemium ? campaignId : null)]
+    children = wrap(giftsConfig.map(@(giftCfg, idx) mkGift({
+      gift = curGifts?[getGlobalGiftGuid(giftCfg, campaignId)]
       giftCfg, addExp, mkAppearAnimations,
       animDelay = idx * 0.5,
       tooltip = mkExpTooltip(squads, addExp, armyExpDetailed, result?.deserter ?? false, armyId)
-      onFinish = idx == gifts.len() - 1 ? onFinish : null
+      onFinish = idx == giftsConfig.len() - 1 ? onFinish : null
     })), wrapParams(blockWidth))
   }
 }

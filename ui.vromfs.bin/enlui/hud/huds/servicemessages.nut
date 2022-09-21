@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { get_time_msec } = require("dagor.time")
-let serviceNotificationsList = require("%enlSqGlob/serviceNotificationsList.nut")
+let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let isAnyMenuVisible = require("%ui/hud/state/isAnyMenuVisible.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
 

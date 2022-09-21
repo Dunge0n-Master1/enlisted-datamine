@@ -43,24 +43,26 @@ local function show_profile_card(xuid, callback) {
 }
 
 
-local function register_for_user_signout_event(callback) {
-  subscribe(user.user_signout_event_name, function(_) {
-    callback?()
+local function register_for_user_change_event(callback) {
+  subscribe(user.user_change_event_name, function(result) {
+    callback?(result?.event)
   })
 }
 
 
 return {
   AchievementStatus = user.AchievementStatus
+  EventType = user.EventType
 
   init_default_user
   init_user_with_ui
   shutdown_user = user.shutdown_user
-  register_for_user_signout_event
+  register_for_user_change_event
 
   retrieve_achievements_list
   set_achievement_progress = user.set_achievement_progress
 
   show_profile_card
   get_xuid = user.get_xuid
+  is_any_user_active = user.is_any_user_active
 }

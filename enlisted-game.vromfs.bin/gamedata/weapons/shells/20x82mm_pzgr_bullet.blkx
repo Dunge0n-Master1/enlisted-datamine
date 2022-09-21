@@ -1,6 +1,6 @@
 mass:r=0.117
 caliber:r=0.02
-speed:r=705.0
+speed:r=710.0
 maxDistance:r=2000.0
 normalizationPreset:t="ap"
 ricochetPreset:t="ap"

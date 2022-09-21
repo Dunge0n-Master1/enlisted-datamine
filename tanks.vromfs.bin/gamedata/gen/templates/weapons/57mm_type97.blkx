@@ -1,0 +1,53 @@
+base_57mm_type97{
+  item__name:t="guns/57mm_type97"
+  gun__blk:t="gamedata/gen/weapons/57mm_type97.blk"
+  gun__shotFreq:r=0.25
+  gun__locName:t="57mm_type97"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_defaultset.blk"
+        name:t="57mm_type90_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "57mm_type_90_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type_90_ap.blk"
+        name:t="57mm_type90_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "57mm_type90_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type90_he.blk"
+        name:t="57mm_type90_he"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "57mm_Type3_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type3_heat.blk"
+        name:t="57mm_type3"
+        type:t="heat_tank"
+      }
+    }
+  }
+}
+
+tankgun_57mm_type97{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_57mm_type97"
+  _extends:t="gunsound_57mm_type97"
+  turret__triggerGroup:i=0
+}

@@ -1,6 +1,6 @@
 mass:r=0.13
 caliber:r=0.02
-speed:r=853.0
+speed:r=868.0
 maxDistance:r=2000.0
 normalizationPreset:t="heat"
 ricochetPreset:t="he"
@@ -13,6 +13,7 @@ stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=1.0
 stabilityReductionAfterPenetration:r=0.15
 onHitChanceMultFire:r=1.5
+bulletType:t="he_frag_i"
 slopeEffectPreset:t="ap"
 effectiveDistance:r=700.0
 fresnel:p3=0.23, 0.1, 2.0

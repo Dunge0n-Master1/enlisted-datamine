@@ -124,6 +124,17 @@ plane_dive_siren{
   }
 }
 
+plane_watertracks_sound{
+
+  _group{
+    _tags:t="sound"
+    plane_watertracks_sound__path:t="aircraft/effects/hydroplane"
+
+    "plane_watertracks_sound__event:SoundEvent"{
+    }
+  }
+}
+
 watched_vehicle_sound{
   _tracked:t="is_watched_sound"
 
@@ -206,8 +217,113 @@ tank_vehicle_tracks_sound{
 
   "vehicle_tracks_sound__path:shared:object"{
     _tags:t="sound"
-    hero:t="player/vehicle/tank/m4a2/tracks"
-    enemy:t="enemy/vehicle/tank/m4a2/tracks"
+    hero:t="player/vehicle/tank/common/tracks"
+    enemy:t="enemy/vehicle/tank/common/tracks"
+  }
+}
+
+tank_light_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_light"
+    enemy:t="enemy/vehicle/tank/common/tracks_light"
+  }
+}
+
+tank_heavy_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_heavy"
+    enemy:t="enemy/vehicle/tank/common/tracks_heavy"
+  }
+}
+
+tank_t34_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_t34"
+    enemy:t="enemy/vehicle/tank/common/tracks_t34"
+  }
+}
+
+tank_su76_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_su76"
+    enemy:t="enemy/vehicle/tank/common/tracks_su76"
+  }
+}
+
+tank_su100_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_su100"
+    enemy:t="enemy/vehicle/tank/common/tracks_su100"
+  }
+}
+
+tank_tiger_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_tiger"
+    enemy:t="enemy/vehicle/tank/common/tracks_tiger"
+  }
+}
+
+tank_maus_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_maus"
+    enemy:t="enemy/vehicle/tank/common/tracks_maus"
   }
 }
 
@@ -218,6 +334,66 @@ tank_with_wheels_vehicle_tracks_sound{
     _tags:t="sound"
     hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
     enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+}
+
+tank_mbt_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_mbt"
+    enemy:t="enemy/vehicle/tank/common/tracks_mbt"
+  }
+}
+
+tank_lt_modern_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_lt_modern"
+    enemy:t="enemy/vehicle/tank/common/tracks_lt_modern"
+  }
+}
+
+tank_bmp_modern_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_bmp_modern"
+    enemy:t="enemy/vehicle/tank/common/tracks_bmp_modern"
+  }
+}
+
+tank_abrams_vehicle_tracks_sound{
+  _extends:t="base_vehicle_tracks_sound"
+
+  _group{
+    _tags:t="sound"
+    vehicle_tracks_sound__speedToTurnMul:p4=0.0, 50.0, 0.5, 0.2
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/tank/common/tracks_abrams"
+    enemy:t="enemy/vehicle/tank/common/tracks_abrams"
   }
 }
 
@@ -238,7 +414,7 @@ movable_cannon_vehicle_tracks_sound{
     _tags:t="sound"
     vehicle_tracks_sound__speedToTurnMul:p4=0.0, 5.0, 0.5, 0.2
     vehicle_tracks_sound__speedThreshold:r=0.005
-    vehicle_sound__noiseSpeedThreshold:r=0.1
+    vehicle_sound_state__noiseSpeedThreshold:r=0.1
   }
 
   "vehicle_tracks_sound__path:shared:object"{
@@ -478,6 +654,75 @@ tank_vehicle_engine_sound{
   }
 }
 
+tank_m10_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/m10/engine"
+      enemy:t="enemy/vehicle/tank/m10/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/tank/m10/engine_start"
+      enemy:t="enemy/vehicle/tank/m10/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/tank/m10/engine_stop"
+      enemy:t="enemy/vehicle/tank/m10/engine_stop"
+    }
+  }
+}
+
+tank_panzer3_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/panzer3/engine"
+      enemy:t="enemy/vehicle/tank/panzer3/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/tank/panzer3/engine_start"
+      enemy:t="enemy/vehicle/tank/panzer3/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/tank/panzer3/engine_stop"
+      enemy:t="enemy/vehicle/tank/panzer3/engine_stop"
+    }
+  }
+}
+
+tank_t34_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/t34/engine"
+      enemy:t="enemy/vehicle/tank/t34/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/tank/t34/engine_start"
+      enemy:t="enemy/vehicle/tank/t34/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/tank/t34/engine_stop"
+      enemy:t="enemy/vehicle/tank/t34/engine_stop"
+    }
+  }
+}
+
 motorcycle_vehicle_engine_sound{
   _extends:t="base_vehicle_engine_sound"
 
@@ -576,24 +821,55 @@ motorcycle_vehicle_gear_sound{
   }
 }
 
+vehicle_engine_sound_state{
+
+  _group{
+    _tags:t="sound"
+    vehicle_engine_sound_state__rpm:r=0.0
+    vehicle_engine_sound_state__load:r=0.0
+    vehicle_engine_sound_state__isStarted:b=no
+  }
+}
+
+vehicle_sound_speed{
+
+  _group{
+    _tags:t="sound"
+    vehicle_sound_speed:r=-1.0
+    vehicle_sound__minSpeed:r=0.5
+    vehicle_sound__maxSpeed:r=10.0
+  }
+}
+
+vehicle_sound_update_speed{
+
+  _group{
+    _tags:t="sound"
+    vehicle_sound_update_speed__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  }
+}
+
 vehicle_sound_state{
 
   _group{
     _tags:t="sound"
-    vehicle_sound_state__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
     vehicle_sound_state__prevSoundShockSummary:r=0.0
     vehicle_sound_state__deltaShock:r=0.0
-    vehicle_sound_state__engineRpm:r=0.0
-    vehicle_sound_state__engineLoad:r=0.0
-    vehicle_sound_state__isEngineStarted:b=no
-    vehicle_sound_state__speed:r=-1.0
     vehicle_sound_state__isOnGround:b=no
     vehicle_sound_state__noiseReductionTimer:r=1.0
     vehicle_sound_state__noiseReduction:r=0.0
     vehicle_sound_state__slip:r=0.0
-    vehicle_sound_state__surfaceTimer:r=0.0
-    vehicle_sound_state__surfaceWater:r=0.0
-    vehicle_sound_state__surfaceConcrete:r=0.0
+    vehicle_sound_state__water:r=0.0
+    vehicle_sound_state__concrete:r=0.0
+  }
+}
+
+ship_sound_state{
+  _extends:t="vehicle_sound_state"
+
+  _group{
+    _tags:t="sound"
+    ship_sound_state__waterTimer:r=0.0
   }
 }
 
@@ -792,7 +1068,10 @@ vehicle_sound{
   _extends:t="sound_control"
   _extends:t="sound_event_group"
   _extends:t="sound_player_components"
+  _extends:t="vehicle_engine_sound_state"
   _extends:t="vehicle_sound_state"
+  _extends:t="vehicle_sound_speed"
+  _extends:t="vehicle_sound_update_speed"
   _extends:t="base_vehicle_collision_sound"
   _extends:t="vehicle_projectile_hit_sound"
   _extends:t="vehicle_damage_sound"
@@ -868,7 +1147,10 @@ ship_sound{
   _extends:t="ship_tracks_sound"
   _extends:t="ship_engine_sound"
   _extends:t="vehicle_engine_sound_seats_starter"
-  _extends:t="vehicle_sound_state"
+  _extends:t="vehicle_engine_sound_state"
+  _extends:t="ship_sound_state"
+  _extends:t="vehicle_sound_speed"
+  _extends:t="vehicle_sound_update_speed"
   _extends:t="base_vehicle_collision_sound"
   _extends:t="ship_vehicle_collision_sound_setup"
   _extends:t="ship_vehicle_horn_sound"

@@ -3,29 +3,23 @@ from "%enlSqGlob/ui_library.nut" import *
 let { debounce } = require("%sqstd/timers.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { squadUnlockInProgress } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { isUnlockSquadSceneVisible, openUnlockSquadScene
 } = require("%enlist/soldiers/unlockSquadScene.nut")
 let { squadsByArmies } = require("%enlist/meta/profile.nut")
-let {
-  openSquadsPromo, hasSquadsPromoOpened
-} = require("%enlist/soldiers/receivedSquadsWnd.nut")
+let { openSquadsPromo, hasSquadsPromoOpened } = require("%enlist/soldiers/receivedSquadsWnd.nut")
 
 const LAST_PROMO_ID = "seen/squads/promoTime"
 
 let lastPromoTime = Computed(@() settings.value?[LAST_PROMO_ID] ?? {})
 let squadsToPromo = Watched({})
 
-let findLast = @(list) list?.reduce(@(res, s) res.ctime >= s.ctime ? res : s)
-
 let promoSquadsData = keepref(Computed(function() {
   if (squadUnlockInProgress.value != null)
     return {}
 
-  return (gameProfile.value?.campaignByArmyId ?? {})
-    .map(@(_campaign, armyId) findLast(squadsToPromo.value?[armyId]))
-    .filter(@(squad) squad != null)
+  return (squadsToPromo.value ?? {})
+    .filter(@(squads) squads.len() > 0)
 }))
 
 let function updatePromoSquads(_) {
@@ -79,8 +73,11 @@ let function openPromoSquad(_) {
     return
 
   if (squadsByArmy.len() == 1) {
-    openUnlockSquadScene(squadsByArmy.values()[0].__merge(squadViewStyle), KWARG_NON_STRICT)
-    return
+    let squadsList = squadsByArmy.values()[0]
+    if (squadsList.len() == 1) {
+      openUnlockSquadScene(squadsList[0].__merge(squadViewStyle), KWARG_NON_STRICT)
+      return
+    }
   }
 
   openSquadsPromo(squadsByArmy)

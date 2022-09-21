@@ -465,6 +465,30 @@ attachable_front_belt_r{
   }
 }
 
+attachable_side_belt_r{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="side_belt_r"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="side_belt_r"
+  }
+}
+
+attachable_side_belt_l{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="side_belt_l"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="side_belt_l"
+  }
+}
+
 attachable_front_rear_belt_l{
   _extends:t="attachable_wear"
 
@@ -474,6 +498,18 @@ attachable_front_rear_belt_l{
 
   "hideFlags:array"{
     hideFlag:t="rear_belt_l"
+  }
+}
+
+attachable_rear_belt_r{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="rear_belt_r"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="rear_belt_r"
   }
 }
 

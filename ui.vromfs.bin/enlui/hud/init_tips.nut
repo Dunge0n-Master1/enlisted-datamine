@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let {setTips} = require("%ui/hud/state/tips.nut")
 let medkit_tip               = require("%ui/hud/huds/tips/medkit_tip.nut")
@@ -17,6 +18,7 @@ let vehicle_under_water      = require("%ui/hud/huds/tips/vehicle_underwater.nut
 let burning_tip              = require("%ui/hud/huds/tips/burning_tip.nut")
 let hold_breath_tip          = require("%ui/hud/huds/tips/hold_breath_tip.nut")
 let parachute_redeploy_tip   = require("%ui/hud/huds/tips/parachute_redeploy_tip.nut")
+let plane_redeploy_tip       = require("%ui/hud/huds/tips/plane_redeploy_tip.nut")
 let prevent_reloading_tip    = require("%ui/hud/huds/tips/prevent_reloading_tip.nut")
 let place_bipod_tip          = require("%ui/hud/huds/tips/place_bipod_tip.nut")
 let open_parachute_tip       = require("huds/tips/open_parachute_tip.nut")
@@ -24,6 +26,7 @@ let mark_enemy_tip           = require("huds/tips/mark_enemy_tip.nut")
 let mortar_aiming_tip        = require("%ui/hud/huds/tips/mortar_aiming_tip.nut")
 let mortar_marker_tip        = require("%ui/hud/huds/tips/mortar_mark_enemy_tip.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
+let { canShowGameHudInReplay } = require("%ui/hud/replay/replayState.nut")
 
 let fullTips = [
   {
@@ -44,7 +47,7 @@ let fullTips = [
   { children = vehicle_under_water }
   {
     pos = [fsh(0), fsh(5)]
-    children = [downed_tip, burning_tip, parachute_redeploy_tip]
+    children = [downed_tip, burning_tip, parachute_redeploy_tip, plane_redeploy_tip]
   }
   {
     pos = [fsh(-15), fsh(2)]
@@ -55,7 +58,7 @@ let minTips = [
   {
     pos = [fsh(30), fsh(25)]
     gap = hdpx(2)
-    children = [medkit_tip, mortar_aiming_tip, mortar_marker_tip]
+    children = [medkit_tip, mortar_aiming_tip]
   }
   { children = medkit_usage }
   { children = vehicle_under_water }
@@ -66,11 +69,10 @@ let minTips = [
 ]
 
 let function stips(...){
-  setTips(isAlive.value
-    ? forcedMinimalHud.value ? minTips : fullTips
-    : []
-)
+  setTips(!isAlive.value || !canShowGameHudInReplay.value ? []
+    : forcedMinimalHud.value || minimalistHud.value ? minTips
+    : fullTips)
 }
 stips()
-forcedMinimalHud.subscribe(stips)
-isAlive.subscribe(stips)
+foreach (option in [canShowGameHudInReplay, isAlive, forcedMinimalHud, minimalistHud])
+  option.subscribe(stips)

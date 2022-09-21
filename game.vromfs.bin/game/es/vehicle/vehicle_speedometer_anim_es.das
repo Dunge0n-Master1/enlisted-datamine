@@ -12,7 +12,7 @@ def vehicle_speedometer_anim_init_es(evt : Event;
                                      var phys_vars : PhysVars&)
   vehicle_anim__speedometerVarId = registerVar(phys_vars, vehicle_anim__speedometerVarName, vehicle_anim__speedometerMinMax.x)
 
-[es(tag=render, after=vehicle_input_driver_es, REQUIRE=heroVehicle)]
+[es(tag=render, after=vehicle_input_driver_es, REQUIRE=vehicleWithWatched)]
 def vehicle_speedometer_anim_es(info : UpdateStageInfoAct;
                                 animchar__updatable : bool;
                                 vehicle_net_phys : VehiclePhysActor;

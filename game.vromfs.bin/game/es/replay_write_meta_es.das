@@ -1,6 +1,7 @@
 require ecs
 require app
 require net
+require strings
 require EnlistedNet
 require rapidjson
 require game.events_game
@@ -8,12 +9,11 @@ require enlisted.events_enlisted
 
 [es(tag=recordingReplay, on_appear, REQUIRE=human)]
 def set_first_respawn_time_es(evt : Event)
-  query() <| $ [es] (replay__startAt : float;
-                     var replay__firstHumanSpawnTime : float&;
+  query() <| $ [es] (var replay__firstHumanSpawnTime : float&;
                      var replay__isFirstHumanSpawned : bool&)
     if !replay__isFirstHumanSpawned
       replay__isFirstHumanSpawned = true
-      replay__firstHumanSpawnTime = floor(get_sync_time() - replay__startAt)
+      replay__firstHumanSpawnTime = get_sync_time()
 
 [es(tag=recordingReplay, on_event=EventLevelLoaded)]
 def replay_recording_create_meta(evt : Event)
@@ -34,7 +34,7 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
                        replay__startAt : float)
       item |> AddMember("start_timestamp", mission__startTime, obj)
       item |> AddMember("first_human_spawn_time", replay__firstHumanSpawnTime, obj)
-      item |> AddMember("total_play_time", get_sync_time() - replay__firstHumanSpawnTime - replay__startAt, obj)
+      item |> AddMember("total_play_time", get_sync_time(), obj)
       item |> AddMember("replay__startAt", replay__startAt, obj)
     item |> AddMember("end_timestamp", int64(get_clock()), obj)
     item |> AddMember("session_id", get_session_id(), obj)
@@ -50,16 +50,20 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
       if digestGroup != ""
         item |> AddMember("digestGroup", digestGroup, obj)
 
-      let difficulty = mode_info |> json_get_or("difficulty", "")
-      if difficulty != ""
-        item |> AddMember("difficulty", difficulty, obj)
+      let difficulty = mode_info |> json_get_or("difficulty", "standard") // default(empty) is standard difficulty
+      item |> AddMember("difficulty", difficulty, obj)
+
+      let mode = mode_info |> json_get_or("mode", "SQUADS") // default(empty) is SQUADS mode
+      item |> AddMember("mode", mode, obj)
 
     using(JsonType kArrayType) <| $(var players : JsonValue#)
-      query() <| $ [es(REQUIRE=player, REQUIRE_NOT=playerIsBot)] (team : int; name : string; userid : uint64)
+      query() <| $ [es(REQUIRE=player)] (team : int; name : string; userid : uint64; playerIsBot : Tag?)
         using(JsonType kObjectType) <| $(var player : JsonValue#)
           player |> AddMember("team", team, obj)
-          player |> AddMember("name", name, obj)
-          player |> AddMember("userid", userid, obj)
+          // replace white spaces for hide bot player names from output
+          player |> AddMember("name", replace(name, " ", ""), obj)
+          if playerIsBot == null // do not send bot userid to meta
+            player |> AddMember("userid", userid, obj)
           players |> PushBack(player, obj)
       item |> AddMember("players", players, obj)
 

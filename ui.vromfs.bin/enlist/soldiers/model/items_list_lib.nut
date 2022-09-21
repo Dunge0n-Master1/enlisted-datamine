@@ -52,8 +52,8 @@ let itemWeights = {
   // vehicle
   vehicle = 81,
   // explosives and mines
-  explosion_pack = 79, grenade = 78, impact_grenade = 77, molotov = 75,
-  tnt_block_exploder = 74, smoke_grenade = 73, antipersonnel_mine = 72, antitank_mine = 71
+  explosion_pack = 80, grenade = 79, impact_grenade = 78, incendiary_grenade = 77, molotov = 76,
+  lunge_mine = 75, tnt_block_exploder = 74, smoke_grenade = 73, antipersonnel_mine = 72, antitank_mine = 71
   // special
   flamethrower = 62, mortar = 61,
   // heavy

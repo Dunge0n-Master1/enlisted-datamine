@@ -16,13 +16,6 @@ elco77_pt20{
       cameraNodeName:t="bone_camera_driver"
     }
   }
-
-  "vehicle_seats__canAcquireControls:shared:object"{
-
-    "driver:object"{
-      movement:b=yes
-    }
-  }
 }
 
 pv_sturmbot39{
@@ -223,6 +216,7 @@ american_assault_boat_m1{
   _extends:t="vehicle_horn_note_E5"
   _extends:t="vehicle_seats_effectors"
   _extends:t="simple_damage_model"
+  _extends:t="pushable_object"
   vehicle_seats__exitTime:r=0.25
   vehicle_seats__enterTime:r=0.25
   animchar__res:t="american_assault_boat_m1_char"
@@ -233,14 +227,6 @@ american_assault_boat_m1{
   isExploded:b=no
   triggerDamageEffects:b=yes
   camera__offset:p3=0.0, -1.0, -4.0
-
-  "nonLethalExplodeOnFire:tag"{
-  }
-
-  "vehicle_seats__seatTemplates:shared:object"{
-    default:t="vehicle_seat_fire_ready"
-    driver:t="vehicle_seat_driver"
-  }
 
   _group{
     _tags:t="render"
@@ -307,6 +293,7 @@ german_assault_boat_39{
   _extends:t="vehicle_horn_note_E5"
   _extends:t="vehicle_seats_effectors"
   _extends:t="simple_damage_model"
+  _extends:t="pushable_object"
   vehicle_seats__exitTime:r=0.25
   vehicle_seats__enterTime:r=0.25
   animchar__res:t="german_assault_boat_39_char"
@@ -317,14 +304,6 @@ german_assault_boat_39{
   isExploded:b=no
   triggerDamageEffects:b=yes
   camera__offset:p3=0.0, -1.0, -4.0
-
-  "nonLethalExplodeOnFire:tag"{
-  }
-
-  "vehicle_seats__seatTemplates:shared:object"{
-    default:t="vehicle_seat_fire_ready"
-    driver:t="vehicle_seat_driver"
-  }
 
   _group{
     _tags:t="render"
@@ -391,6 +370,7 @@ poluglisser_pg_117{
   _extends:t="vehicle_horn_note_E5"
   _extends:t="vehicle_seats_effectors"
   _extends:t="simple_damage_model"
+  _extends:t="pushable_object"
   vehicle_seats__exitTime:r=0.25
   vehicle_seats__enterTime:r=0.25
   animchar__res:t="poluglisser_pg_117_char"
@@ -401,14 +381,6 @@ poluglisser_pg_117{
   isExploded:b=no
   triggerDamageEffects:b=yes
   camera__offset:p3=0.0, -1.0, -4.0
-
-  "nonLethalExplodeOnFire:tag"{
-  }
-
-  "vehicle_seats__seatTemplates:shared:object"{
-    default:t="vehicle_seat_fire_ready"
-    driver:t="vehicle_seat_driver"
-  }
 
   _group{
     _tags:t="render"

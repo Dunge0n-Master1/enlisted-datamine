@@ -1,15 +1,13 @@
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let {globalWatched} = require("%dngscripts/globalState.nut")
 
-let state = {
-  outputDevicesList = []
-  recordDevicesList = []
-  outputDevice = null
-  recordDevice = null
-}.map(@(value, name) sharedWatched($"sound.{name}", @() value))
+let {soundOutputDevicesList, soundOutputDevicesListUpdate} = globalWatched("soundOutputDevicesList", @() [])
+let {soundRecordDevicesList, soundRecordDevicesListUpdate} = globalWatched("soundRecordDevicesList", @() [])
+let {soundOutputDevice, soundOutputDeviceUpdate} = globalWatched("soundOutputDevice")
+let {soundRecordDevice, soundRecordDeviceUpdate} = globalWatched("soundRecordDevice")
 
 return {
-  outputDevicesList = state.outputDevicesList
-  recordDevicesList = state.recordDevicesList
-  outputDevice = state.outputDevice
-  recordDevice = state.recordDevice
+  soundOutputDevicesList, soundOutputDevicesListUpdate,
+  soundRecordDevicesList, soundRecordDevicesListUpdate,
+  soundOutputDevice, soundOutputDeviceUpdate,
+  soundRecordDevice, soundRecordDeviceUpdate
 }

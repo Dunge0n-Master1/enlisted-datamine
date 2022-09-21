@@ -2,6 +2,7 @@ require ecs
 require game.utils.hero
 require soundEvent
 require soundSystem
+require enlisted.events_enlisted
 
 [es(tag=sound, on_appear)]
 def game_effect_sound_appear(evt : Event;
@@ -19,7 +20,7 @@ def game_effect_sound_appear(evt : Event;
         abandon(game_effect_sound__event.handle)
 
 [es(tag=sound, no_order)]
-def game_effect_sound_update(info : UpdateStageInfoAct;
+def game_effect_sound_update(info : ParallelUpdateFrameDelayed;
                              game_effect_sound__event : SoundEvent&;
                              game_effect__attachedTo : EntityId)
   if is_valid(game_effect_sound__event.handle)

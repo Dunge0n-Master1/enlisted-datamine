@@ -89,7 +89,7 @@ entity{
   level__blk:t="content/dev/levels/battle_of_stalingrad_tractor_plant.blk"
 
   "level__timeVec:array"{
-    level_timeVec:r=10.5
+    level_timeVec:r=8.0
   }
 
   "level__weatherChoice:object"{
@@ -135,19 +135,17 @@ entity{
   _template:t="shaderVars"
 
   "shader_vars__vars:object"{
-    hmap_displacement_up:r=0.3
     ocean1:c=142, 137, 71, 0
     ocean0:c=76, 63, 5, 0
     ocean_density:r=0.1
     river1:c=142, 137, 71, 0
     river0:c=76, 63, 5, 0
-    hmap_displacement_down:r=-0.15
     paint_details_tex:t="stalingrad_city_wall_color_tex_palette*"
-    puddle_increase:r=0.01
+    puddle_increase:r=-1.0
     water_color_noise_size:r=71.0
     river_density:r=0.3
     envi_cover_specular_color:p4=1.0, 1.0, 1.0, 0.0
-    envi_cover_intensity_map_top_left_bottom_right:p4=-2048.0, -2048.0, 2048.0, 2048.0
+    envi_cover_intensity_map_left_top_right_bottom:p4=-1024.0, 1024.0, 1024.0, -1024.0
     envi_cover_normal_mask_threshold:r=0.5
     envi_cover_intensity_map:t="stalingrad_tractor_plant_2x2_snow_cover_tex_m*"
     envi_cover_noise_scale:r=8.0
@@ -192,12 +190,10 @@ entity{
 
 entity{
   _template:t="briefing_domination"
-  mission_name:t="normandy_coast_city_dom"
+  mission_name:t="stalingrad_tractor_plant_base"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_coast_city_01.jpg"
-    item:t="ui/normandy_coast_city_02.jpg"
-    item:t="ui/normandy_coast_city_03.jpg"
+    item:t="ui/stalingrad_inv_05.jpg"
   }
 }
 

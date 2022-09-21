@@ -11,7 +11,7 @@ fw_190d_9_wreckage{
 }
 
 fw_190d_9_base{
-  _extends:t="plane"
+  _extends:t="plane_with_cockpit"
   _extends:t="base_fw_190d_9"
   collres__res:t="fw_190d_9_collision"
   plane_net_phys__blk:t="gamedata/units/fw_190d_9.blk"
@@ -19,6 +19,7 @@ fw_190d_9_base{
   plane_collision__blk:t="gamedata/units/fw_190d_9.blk"
   plane_anim__blk:t="gamedata/units/fw_190d_9.blk"
   plane_sight__blk:t="gamedata/units/fw_190d_9.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_fighter"
   is_seaplane:b=no
   plane_wreckage__template:t="fw_190d_9_wreckage"

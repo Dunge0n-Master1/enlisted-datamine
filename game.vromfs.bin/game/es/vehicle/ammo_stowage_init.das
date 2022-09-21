@@ -10,7 +10,7 @@ def ammo_stowage_init_stowages(evt : Event;
                                [[shared_comp]] ammo_stowage__stowageTemplates : StringList;
                                var ammo_stowage__stowages : EidList&)
   for stowageTemplate in ammo_stowage__stowageTemplates
-    let stowageEid = createEntitySync(string(stowageTemplate)) <| $(var init)
+    let stowageEid = createEntity(string(stowageTemplate)) <| $(var init)
       init |> set("ammo_stowage__vehicleEid", eid)
     ammo_stowage__stowages |> push(stowageEid)
 
@@ -20,7 +20,7 @@ def ammo_stowage_init_clusters(evt : Event;
                                ammo_stowage__vehicleEid : EntityId;
                                var ammo_stowage__clusters : EidList&)
   for clusterTemplate in ammo_stowage__clusterTemplates
-    let clusterEid = createEntitySync(string(clusterTemplate)) <| $(var init)
+    let clusterEid = createEntity(string(clusterTemplate)) <| $(var init)
       init |> set("ammo_cluster__vehicleEid", ammo_stowage__vehicleEid)
     ammo_stowage__clusters |> push(clusterEid)
 

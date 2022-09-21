@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { update_profile, get_all_configs } = require("%enlist/meta/clientApi.nut")
-let { updateAllConfigs } = require("%enlSqGlob/configs/configs.nut")
+let { updateAllConfigs } = require("%enlist/meta/configs.nut")
 
 let updateList = [
   { id = "update_profile", request = update_profile }

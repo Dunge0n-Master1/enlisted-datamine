@@ -170,7 +170,7 @@ let function settingsMenu(params) {
       flow = FLOW_VERTICAL
       //stopHotkeys = true
       stopMouse = true
-      hooks = HOOK_ATTACH
+      behavior = Behaviors.ActivateActionSet
       actionSet = "StopInput"
 
       children = [

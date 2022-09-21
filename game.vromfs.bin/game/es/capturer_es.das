@@ -6,7 +6,7 @@ require enlisted.events_enlisted
 require ecs.common
 require strings
 
-[es(tag=server, on_event=EventComponentChanged, track=isAlive)]
+[es(tag=server, track=isAlive)]
 def capturer_died_es(evt : Event; eid : EntityId; isAlive : bool;
                      var capturer__capZonesIn : EidList;
                      var capturer__capZonesInBlocked : EidList)

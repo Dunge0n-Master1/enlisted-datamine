@@ -27,11 +27,13 @@ let MAKE_PARAMS = { //+all params of itemComp
   hasModsUnseenSign = Watched(false)
 }
 
-let function modItemCtor(item, _slotType, itemSize, _selected, _flags, _group, _isAvailable = false) {
-  return iconByItem(item, {
-    width = itemSize[0] - 2 * smallPadding, height = itemSize[1] - 2 * smallPadding
+let modItemCtor = @(
+  item, _slotType, itemSize, _selected, _flags, _group, _isAvailable = false, _ammo = null
+)
+  iconByItem(item, {
+    width = itemSize[0] - 2 * smallPadding
+    height = itemSize[1] - 2 * smallPadding
   })
-}
 
 let modBgStyle = @(sf, isSelected) {
   rendObj = ROBJ_BOX

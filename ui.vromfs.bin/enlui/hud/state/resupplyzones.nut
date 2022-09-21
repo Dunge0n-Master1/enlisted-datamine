@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
 let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")
-let {inGroundVehicle, inPlane, controlledVehicleEid} = require("%ui/hud/state/vehicle_state.nut")
+let { isVehicleCanBeRessuplied, inGroundVehicle, inPlane } = require("%ui/hud/state/vehicle_state.nut")
 let { mkWatchedSetAndStorage, MK_COMBINED_STATE } = require("%ui/ec_to_watched.nut")
 let {
   resupply_zones_GetWatched,
@@ -13,12 +13,10 @@ let {
 } = mkWatchedSetAndStorage("resupply_zones_", MK_COMBINED_STATE)
 
 let heroActiveResupplyZonesEids = Computed(function(){
-  let disableVehicleResupply = ecs.obsolete_dbg_get_comp_val(controlledVehicleEid.value ?? INVALID_ENTITY_ID, "disableVehicleResupply")
   let isInPlane = inPlane.value
   let isInGroundVehicle = inGroundVehicle.value
-  if ((!isInGroundVehicle && !isInPlane) || disableVehicleResupply != null) {
+  if ((!isInGroundVehicle && !isInPlane) || !isVehicleCanBeRessuplied.value)
     return {}
-  }
   let heroTeam = watchedTeam.value
   return resupply_zones_State.value.filter(function(z) {
     let {team, active, eid} = z

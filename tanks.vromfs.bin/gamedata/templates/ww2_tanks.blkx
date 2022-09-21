@@ -5,6 +5,7 @@ import:t="tank_cockpit.blk"
 import:t="ammo_stowage.blk"
 import:t="uk_tanks.blk"
 import:t="usa_tanks.blk"
+import:t="jp_tanks.blk"
 import:t="germ_tanks.blk"
 import:t="ussr_tanks.blk"
 import:t="it_tanks.blk"
@@ -13,6 +14,7 @@ import:t="germ_cannons.blk"
 import:t="ussr_cannons.blk"
 import:t="us_cannons.blk"
 import:t="uk_cannon.blk"
+import:t="ai_gunner_cannons.blk"
 import:t="aa_cars.blk"
 import:t="artillery.blk"
 import:t="ww2_motorcycles.blk"
@@ -113,6 +115,7 @@ base_turret_controls{
   shootingBlockNotificationTime:i=5
   lastBlockNotificationAtTime:r=0.0
   _tracked:t="ui_turrets_state__ammo"
+  _tracked:t="turret_control__isInputLocked"
   net_phys__prevTick:i=0
   turret_state__atTick:i=0
   _replicated:t="turret_control__gunEids"
@@ -159,6 +162,12 @@ base_turret_controls{
     }
 
     "main_gunner:object"{
+      movement:b=yes
+      turrets:b=yes
+      camera:b=yes
+    }
+
+    "extra_gunner:object"{
       movement:b=yes
       turrets:b=yes
       camera:b=yes
@@ -225,6 +234,7 @@ tank_camera_setup{
   "defaultCameraTypes:shared:object"{
     driver:t="driver"
     main_gunner:t="gunner"
+    extra_gunner:t="gunner"
     machinegunner:t="gunner"
     commander:t="commander"
     loader:t="commander"
@@ -386,41 +396,13 @@ base_tank_without_xray{
   }
 }
 
-base_tank_without_xray_common{
-  _extends:t="vehicle"
-  _extends:t="base_turret_controls"
-  _extends:t="turret_controls_hit_result_info"
-  _extends:t="base_damage_model"
-  _extends:t="base_damage_model_fx"
-  _extends:t="attached_fire_engine_damage"
-  _extends:t="vehicle_engine_external_fire"
-  _extends:t="vehicle_fatal_explosion_external_fire"
-  _extends:t="vehicle_fatal_fire_external_fire"
-  canUseRespawnbaseType:t="vehicle"
-  vehicle_seats_switch_time__totalSwitchTime:r=3.0
-  vehicle_seats__enterTime:r=3.0
-  vehicle_seats__exitTime:r=4.0
-  camera__magnification:r=1.0
-  camera__isStabilized:b=no
-  driverFpsCamMaxAngle:p2=20.0, 0.0
-  passengerFpsCamMaxAngle:p2=20.0, 0.0
-  gunnerFpsCamMaxAngle:p2=12.0, 9.0
-  commanderFpsCamMaxAngle:p2=90.0, 60.0
-  commanderCockpitFpsCamMaxAngle:p2=20.0, 0.0
-  cockpit__cameraDir:p3=1.0, 0.0, 0.0
-  _tracked:t="cockpit__eid"
-  expl_fx:t="tank_explosion"
-  vehicle_seats__enumVarName:t="tank"
-  killLogName:t="Tank"
-  reportKill:b=yes
-  _replicated:t="reportKill"
-  _replicated:t="killer"
-  fire_damage__fireParamsPreset:t="tank"
-  fire_damage__timeToExplosion:r=80.0
+vehicle_maintenance{
   repairable__baseRepairTotalTime:r=5.0
   repairable__baseRecoveryRatio:r=0.3
   repairable__recoveryRatio:r=0.3
-  turret_control__missingLoaderReloadTimeMult:r=2.0
+
+  "maintainable__operator:eid"{
+  }
 
   _group{
     _replicate:b=yes
@@ -443,33 +425,42 @@ base_tank_without_xray_common{
     repairable__repairRequired:b=no
     repairable__extinguishRequired:b=no
   }
+}
 
-  _group{
-    _tags:t="render"
-    animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
-  }
-
-  _group{
-    _tags:t="render"
-
-    "engine_fire_fx__eids:list<eid>"{
-    }
-
-    "vehicle_fxs__effectsEids:list<eid>"{
-    }
-  }
-
-  _group{
-    _tags:t="render"
-
-    "bullet_holes__ignoreCollisionNodes:array"{
-    }
-
-    "bullet_holes__movingCollisionNodes:array"{
-      movingCollisionNodes:t="turret_front"
-      movingCollisionNodes:t="turret_side"
-    }
-  }
+base_tank_without_xray_common{
+  _extends:t="vehicle"
+  _extends:t="base_turret_controls"
+  _extends:t="turret_controls_hit_result_info"
+  _extends:t="base_damage_model"
+  _extends:t="base_damage_model_fx"
+  _extends:t="attached_fire_engine_damage"
+  _extends:t="vehicle_maintenance"
+  _extends:t="vehicle_engine_external_fire"
+  _extends:t="vehicle_fatal_explosion_external_fire"
+  _extends:t="vehicle_fatal_fire_external_fire"
+  canUseRespawnbaseType:t="vehicle"
+  vehicle_seats_switch_time__totalSwitchTime:r=3.0
+  vehicle_seats__enterTime:r=3.0
+  vehicle_seats__exitTime:r=4.0
+  camera__magnification:r=1.0
+  camera__zoomPos:r=0.0
+  camera__isStabilized:b=no
+  driverFpsCamMaxAngle:p2=20.0, 0.0
+  passengerFpsCamMaxAngle:p2=20.0, 0.0
+  gunnerFpsCamMaxAngle:p2=12.0, 9.0
+  commanderFpsCamMaxAngle:p2=90.0, 60.0
+  commanderCockpitFpsCamMaxAngle:p2=20.0, 0.0
+  cockpit__cameraDir:p3=1.0, 0.0, 0.0
+  _tracked:t="cockpit__eid"
+  expl_fx:t="tank_explosion"
+  vehicle_seats__enumVarName:t="tank"
+  killLogName:t="Tank"
+  reportKill:b=yes
+  _replicated:t="reportKill"
+  _replicated:t="killer"
+  fire_damage__fireParamsPreset:t="tank"
+  fire_damage__timeToExplosion:r=80.0
+  turret_control__missingLoaderReloadTimeMult:r=2.0
 
   "turretsCorrection:tag"{
   }
@@ -507,6 +498,33 @@ base_tank_without_xray_common{
     value:i=2
   }
 
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
+  }
+
+  _group{
+    _tags:t="render"
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
+  }
+
+  _group{
+    _tags:t="render"
+
+    "bullet_holes__ignoreCollisionNodes:array"{
+    }
+
+    "bullet_holes__movingCollisionNodes:array"{
+      movingCollisionNodes:t="turret_front"
+      movingCollisionNodes:t="turret_side"
+    }
+  }
+
   "animchar__objTexReplace:object"{
   }
 
@@ -536,9 +554,6 @@ base_tank_without_xray_common{
 
   "geomNodeIdRemapDstr:list<i>"{
     _tags:t="render"
-  }
-
-  "maintainable__operator:eid"{
   }
 
   "vehicle_seats_receive_damage_from_dm_part:list<i>"{
@@ -938,6 +953,7 @@ base_tank_seat_templates{
     default:t="vehicle_seat_default"
     driver:t="vehicle_seat_driver"
     main_gunner:t="vehicle_seat_main_gunner"
+    extra_gunner:t="vehicle_seat_extra_gunner"
     machinegunner:t="vehicle_seat_machinegunner"
     commander:t="vehicle_seat_commander"
     loader:t="vehicle_seat_loader"
@@ -1013,12 +1029,222 @@ base_vehicle_sight{
   }
 }
 
+base_vehicle_attach_rules{
+  _tags:t="gameClient"
+
+  "vehicle_attach__allowPartsExt:list<t>"{
+  }
+
+  "vehicle_attach__denyParts:list<t>"{
+    denyParts:t="gun_barrel"
+    denyParts:t="gun_barrel_02"
+    denyParts:t="gun_barrel_03"
+    denyParts:t="gun_barrel_04"
+    denyParts:t="gun_barrel_05"
+    denyParts:t="bone_camera_driver"
+    denyParts:t="bone_camera_gunner"
+    denyParts:t="emtr_mg_flame"
+    denyParts:t="emtr_mg_flame_01"
+    denyParts:t="emtr_mg_flame_02"
+    denyParts:t="emtr_mg_flame_03"
+    denyParts:t="emtr_mg_flame_04"
+    denyParts:t="emtr_mg_flame_05"
+    denyParts:t="optic_gun"
+    denyParts:t="optic_gun_01"
+    denyParts:t="optic_gun_02"
+    denyParts:t="optic_body"
+    denyParts:t="optic_body_01"
+    denyParts:t="optic_body_02"
+    denyParts:t="optic_body_03"
+    denyParts:t="optic_body_04"
+    denyParts:t="optic_body_05"
+    denyParts:t="optic_body_06"
+    denyParts:t="optic_body_07"
+    denyParts:t="optic_body_08"
+    denyParts:t="optic_body_09"
+    denyParts:t="optic_body_10"
+    denyParts:t="optic_turret"
+    denyParts:t="optic_turret_01"
+    denyParts:t="optic_turret_02"
+    denyParts:t="optic_turret_03"
+    denyParts:t="optic_turret_04"
+    denyParts:t="optic_turret_05"
+    denyParts:t="optic_turret_06"
+    denyParts:t="optic_turret_07"
+    denyParts:t="optic_turret_08"
+    denyParts:t="optic_turret_09"
+    denyParts:t="optic_turret_10"
+    denyParts:t="optic"
+    denyParts:t="optic_01"
+    denyParts:t="optic_02"
+    denyParts:t="optic_03"
+    denyParts:t="optic_04"
+    denyParts:t="optic_05"
+    denyParts:t="optic_06"
+    denyParts:t="optic_07"
+    denyParts:t="optic_08"
+    denyParts:t="optic_09"
+    denyParts:t="optic_10"
+    denyParts:t="hatch_01"
+    denyParts:t="hatch_02"
+    denyParts:t="hatch_03"
+    denyParts:t="hatch_04"
+    denyParts:t="hatch_05"
+  }
+
+  "vehicle_attach__allowParts:shared:list<t>"{
+    allowNode:t="superstructure_front"
+    allowNode:t="superstructure_bottom"
+    allowNode:t="superstructure_back"
+    allowNode:t="superstructure_side"
+    allowNode:t="superstructure_top"
+    allowNode:t="body_front"
+    allowNode:t="body_back"
+    allowNode:t="body_side"
+    allowNode:t="body_top"
+    allowNode:t="body_shield"
+    allowNode:t="body"
+    allowNode:t="body_bottom"
+    allowNode:t="turret_bottom"
+    allowNode:t="turret_front"
+    allowNode:t="turret_back"
+    allowNode:t="turret_side"
+    allowNode:t="turret_top"
+    allowNode:t="body_front_hatch"
+    allowNode:t="turret_commander"
+    allowNode:t="turret_05_front"
+    allowNode:t="turret_05_back"
+    allowNode:t="turret_05_side"
+    allowNode:t="turret_05_top"
+    allowNode:t="turret_05_bottom"
+    allowNode:t="turret_04_front"
+    allowNode:t="turret_07_front"
+    allowNode:t="turret_04_back"
+    allowNode:t="turret_04_side"
+    allowNode:t="turret_04_top"
+    allowNode:t="turret_03_front"
+    allowNode:t="turret_03_back"
+    allowNode:t="turret_03_side"
+    allowNode:t="turret_03_top"
+    allowNode:t="turret_02_front"
+    allowNode:t="turret_02_back"
+    allowNode:t="turret_02_side"
+    allowNode:t="turret_02_top"
+    allowNode:t="turret_01_front"
+    allowNode:t="turret_01_back"
+    allowNode:t="turret_01_side"
+    allowNode:t="turret_01_top"
+    allowNode:t="turret_01_bottom"
+    allowNode:t="turret_02_bottom"
+    allowNode:t="turret_03_bottom"
+    allowNode:t="turret_04_bottom"
+    allowNode:t="turret_06_front"
+    allowNode:t="turret_06_bottom"
+    allowNode:t="turret_06_back"
+    allowNode:t="turret_06_side"
+    allowNode:t="turret_06_top"
+    allowNode:t="turret_09_top"
+    allowNode:t="ex_decor_l_01"
+    allowNode:t="ex_decor_l_02"
+    allowNode:t="ex_decor_l_03"
+    allowNode:t="ex_decor_l_04"
+    allowNode:t="ex_decor_l_05"
+    allowNode:t="ex_decor_r_01"
+    allowNode:t="ex_decor_r_02"
+    allowNode:t="ex_decor_r_03"
+    allowNode:t="ex_decor_r_04"
+    allowNode:t="ex_decor_r_05"
+    allowNode:t="ex_decor_01"
+    allowNode:t="ex_decor_02"
+    allowNode:t="ex_decor_03"
+    allowNode:t="ex_decor_04"
+    allowNode:t="ex_decor_05"
+    allowNode:t="ex_armor_body_l_01"
+    allowNode:t="ex_armor_body_l_02"
+    allowNode:t="ex_armor_body_l_03"
+    allowNode:t="ex_armor_body_l_04"
+    allowNode:t="ex_armor_body_l_05"
+    allowNode:t="ex_armor_body_l_06"
+    allowNode:t="ex_armor_body_r_01"
+    allowNode:t="ex_armor_body_r_02"
+    allowNode:t="ex_armor_body_r_03"
+    allowNode:t="ex_armor_body_r_04"
+    allowNode:t="ex_armor_body_r_05"
+    allowNode:t="ex_armor_body_r_06"
+    allowNode:t="ex_armor_body_01"
+    allowNode:t="ex_armor_body_02"
+    allowNode:t="ex_armor_body_03"
+    allowNode:t="ex_armor_body_04"
+    allowNode:t="ex_armor_body_05"
+    allowNode:t="ex_armor_03"
+    allowNode:t="ex_armor_04"
+    allowNode:t="ex_armor_05"
+    allowNode:t="ex_armor_06"
+    allowNode:t="ex_armor_07"
+    allowNode:t="ex_armor_08"
+    allowNode:t="ex_armor_r_01"
+    allowNode:t="ex_armor_r_02"
+    allowNode:t="ex_armor_r_03"
+    allowNode:t="ex_armor_r_04"
+    allowNode:t="ex_armor_r_05"
+    allowNode:t="ex_armor_r_06"
+    allowNode:t="ex_armor_r_07"
+    allowNode:t="ex_armor_r_08"
+    allowNode:t="ex_armor_r_09"
+    allowNode:t="ex_armor_r_10"
+    allowNode:t="ex_armor_l_01"
+    allowNode:t="ex_armor_l_02"
+    allowNode:t="ex_armor_l_03"
+    allowNode:t="ex_armor_l_04"
+    allowNode:t="ex_armor_l_05"
+    allowNode:t="ex_armor_l_06"
+    allowNode:t="ex_armor_l_07"
+    allowNode:t="ex_armor_l_08"
+    allowNode:t="ex_armor_l_09"
+    allowNode:t="ex_armor_l_10"
+    allowNode:t="turret_07_bottom"
+    allowNode:t="turret_07_back"
+    allowNode:t="turret_07_side"
+    allowNode:t="turret_07_top"
+    allowNode:t="turret_08_bottom"
+    allowNode:t="turret_08_back"
+    allowNode:t="turret_08_side"
+    allowNode:t="turret_08_top"
+    allowNode:t="turret_08_front"
+    allowNode:t="turret_09_bottom"
+    allowNode:t="turret_09_back"
+    allowNode:t="turret_09_side"
+    allowNode:t="turret_09_front"
+    allowNode:t="turret_10_bottom"
+    allowNode:t="turret_10_back"
+    allowNode:t="turret_10_side"
+    allowNode:t="turret_10_top"
+    allowNode:t="turret_10_front"
+    allowNode:t="ex_armor_body_06"
+    allowNode:t="ex_armor_body_07"
+    allowNode:t="ex_armor_body_08"
+    allowNode:t="ex_armor_body_09"
+    allowNode:t="ex_armor_body_10"
+    allowNode:t="ex_armor_body_l_07"
+    allowNode:t="ex_armor_body_l_08"
+    allowNode:t="ex_armor_body_l_09"
+    allowNode:t="ex_armor_body_l_10"
+    allowNode:t="ex_armor_body_l_11"
+    allowNode:t="ex_armor_body_r_07"
+    allowNode:t="ex_armor_body_r_08"
+    allowNode:t="ex_armor_body_r_09"
+    allowNode:t="ex_armor_body_r_10"
+    allowNode:t="ex_armor_body_r_11"
+  }
+}
+
 base_tank{
   _extends:t="base_tank_without_xray"
   _extends:t="tank_camera_setup"
   _extends:t="base_tank_seat_templates"
   _extends:t="base_phys_modifications"
   _extends:t="base_tank_sound"
+  _extends:t="base_vehicle_attach_rules"
   net__physId:i=-1
   netLodZones:p4=2500.0, 22500.0, 62500.0, 6250000.0
   _tracked:t="animchar__objTexReplace"
@@ -1070,6 +1296,14 @@ base_tank{
     }
   }
 
+  _group{
+    _tags:t="render"
+    highlight_collision__color:p4=1.0, 0.0, 0.0, 1.0
+
+    "highlight_collision__nodes:list<i>"{
+    }
+  }
+
   cockpit_animchar_res_preload{
     _tags:t="gameClient"
   }
@@ -1082,12 +1316,28 @@ base_tank{
 
   "humanAdditionalCollisionChecks:tag"{
   }
+
+  "attach_decorators__templates:array"{
+  }
+
+  "attach_decorators__entities:list<eid>"{
+  }
 }
 
 vehicle_seat_main_gunner{
   _extends:t="base_vehicle_seat"
   _extends:t="base_seats_hatch_nodes"
   seats_order__canPlaceManually:b=yes
+  seat_anim__upper:t="drive_passenger"
+  seat_anim__lower:t="drive_passenger"
+}
+
+vehicle_seat_extra_gunner{
+  _extends:t="base_vehicle_seat"
+  _extends:t="base_seats_hatch_nodes"
+  seats_order__canPlaceManually:b=yes
+  seats_order__isExtraPlace:b=yes
+  seats_order__notForBots:b=yes
   seat_anim__upper:t="drive_passenger"
   seat_anim__lower:t="drive_passenger"
 }
@@ -1099,6 +1349,7 @@ vehicle_seat_machinegunner{
 base_seats_hatch_nodes{
   _replicated:t="seats_hatch_nodes__openPos"
   _tracked:t="seats_hatch_nodes__openPos"
+  seat__isHatchControlInversed:b=no
   seats_hatch_nodes__isValid:b=no
   seats_hatch_nodes__nodeIdX:i=-1
   seats_hatch_nodes__nodeIdY:i=-1
@@ -1115,8 +1366,6 @@ vehicle_seat_commander{
   seats_order__canPlaceManually:b=yes
   seat_anim__upper:t="drive_driver"
   seat_anim__lower:t="drive_driver"
-  seat_anim__fireReadyUpper:t="upper_fireready"
-  seat_anim__fireReadyLower:t="drive_driver"
 
   "commanderSeat:tag"{
   }
@@ -1167,6 +1416,8 @@ base_tankgun_cannon{
   gun__cameraShakeMaxTrauma:r=0.8
   _replicated:t="gun__timeBetweenShotMult"
   _tracked:t="gun__timeBetweenShotMult"
+  rumble__isHighBand:b=no
+  rumble__maxShellImpulse:r=15.0
 
   "turret__hasLoaderSeatInVehicle:b"{
     _tags:t="server"
@@ -1197,6 +1448,8 @@ base_machinegun{
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
   gun_deviation__maxDeviation:r=25.0
+  rumble__isHighBand:b=yes
+  rumble__maxShellImpulse:r=5.0
 
   _group{
     _tags:t="sound"
@@ -1347,7 +1600,8 @@ _componentFilters{
   turret_aim_drives_mult:t="filter_possessed_and_spectated_vehicle"
   turret_guidance__reductionAtYawAngleDeg:t="filter_possessed_spectated_attachables_and_vehicle"
   turret_guidance__pitchMultWhenAimingYaw:t="filter_possessed_spectated_attachables_and_vehicle"
-  turret__canShoot:t="filter_possessed_spectated_attachables_and_vehicle"
+  turret__isBroken:t="filter_possessed_spectated_attachables_and_vehicle"
+  turret__isUnderwater:t="filter_possessed_spectated_attachables_and_vehicle"
   turret__canChangeShellDuringReload:t="filter_possessed_spectated_attachables_and_vehicle"
   gun__overheat:t="filter_possessed_spectated_attachables_and_vehicle"
   gun__timeBetweenShotMult:t="filter_possessed_and_spectated_vehicle"

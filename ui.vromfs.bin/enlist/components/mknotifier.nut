@@ -27,4 +27,12 @@ let mkNotifier = @(txt, customStyle = {}, bgStyle = {}, txtStyle = {}) {
   ]
 }.__update(customStyle)
 
-return mkNotifier
+let blinkOnOverride = { key = "blink_on" }
+let blinkOffOverride = { key = "blink_off", animations = null }
+
+return {
+  mkNotifierBlink = @(txt, customStyle = {}, bgStyle = {}, txtStyle = {})
+    mkNotifier(txt, customStyle, bgStyle.__update(blinkOnOverride), txtStyle)
+  mkNotifierNoBlink = @(txt, customStyle = {}, bgStyle = {}, txtStyle = {})
+    mkNotifier(txt, customStyle, bgStyle.__update(blinkOffOverride), txtStyle)
+}

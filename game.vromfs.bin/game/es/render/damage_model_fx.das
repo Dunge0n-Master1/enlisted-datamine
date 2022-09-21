@@ -58,7 +58,7 @@ def vehicle_fx_on_appear(vehicle_eid : EntityId;
                 push(fxTemplateNames, fxTemplateName)
                 push(nodeIds, nodeId)
               else
-                logwarn("FX emitter node '{fxEmitterName}'' is not found!")
+                logwarn("{vehicle_eid} <{getEntityTemplateName(vehicle_eid)}> FX emitter node '{fxEmitterName}' is not found!")
 
           set(init, "vehicle_fx_node__fxTemplateName", fxTemplateNames)
           set(init, "vehicle_fx_node__nodeId", nodeIds)
@@ -214,12 +214,13 @@ def is_effect_should_be_active(vehicle_fx_eid : EntityId;
 def fire_fx_check_state_es_event_handler(evt : Event;
                                          eid : EntityId;
                                          transform : float3x4;
+                                         vehicle__isUnderwater : bool;
                                          fire_damage_state : FireDamageState;
                                          animchar : AnimcharBaseComponent;
                                          engine_fire_fx__eids : EidList;
                                          vehicle_fxs__effectsEids : EidList)
   for i, vehicleFxEid in iter_range(engine_fire_fx__eids), engine_fire_fx__eids
-    if is_effect_should_be_active(vehicleFxEid, fire_damage_state)
+    if is_effect_should_be_active(vehicleFxEid, fire_damage_state) && !vehicle__isUnderwater
       start_fx(eid, vehicle_fxs__effectsEids, transform, animchar, vehicleFxEid, i, VehicleEffectType EngineFire)
     else
       stop_fx(vehicle_fxs__effectsEids, int(VehicleEffectType EngineFire), i)
@@ -229,22 +230,25 @@ def fire_fx_check_state_es_event_handler(evt : Event;
 def explosion_fx_es(evt : EventExplosionFatal;
                     eid : EntityId;
                     transform : float3x4;
+                    vehicle__isUnderwater : bool;
                     animchar : AnimcharBaseComponent;
                     fatal_explosion_fx__eids : EidList;
                     vehicle_fxs__effectsEids : EidList)
   stop_all_fxs(vehicle_fxs__effectsEids, VehicleEffectType FatalFire)
-  start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, fatal_explosion_fx__eids, VehicleEffectType FatalExplosion)
+  if !vehicle__isUnderwater
+    start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, fatal_explosion_fx__eids, VehicleEffectType FatalExplosion)
 
 
 [es(tag=render, REQUIRE=damage_model)]
 def fatal_fire_fx_es(evt : EventFireFatal;
                      eid : EntityId;
                      transform : float3x4;
+                     vehicle__isUnderwater : bool;
                      animchar : AnimcharBaseComponent;
                      fatal_fire_fx__eids : EidList;
                      vehicle_fxs__effectsEids : EidList;
                      isExploded : bool)
-  if !isExploded
+  if !isExploded && !vehicle__isUnderwater
     start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, fatal_fire_fx__eids, VehicleEffectType FatalFire)
 
 
@@ -258,6 +262,7 @@ def dm_restore_fx_es(evt : CmdRestore; vehicle_fxs__effectsEids : EidList)
 def fatal_explosion_fx_check_es(evt : Event;
                                 eid : EntityId;
                                 transform : float3x4;
+                                vehicle__isUnderwater : bool;
                                 animchar : AnimcharBaseComponent;
                                 fatal_explosion_fx__eids : EidList;
                                 vehicle_fxs__effectsEids : EidList;
@@ -266,13 +271,15 @@ def fatal_explosion_fx_check_es(evt : Event;
   if isExploded && !isFatalExplosionFxStarted
     isFatalExplosionFxStarted = true
     stop_all_fxs(vehicle_fxs__effectsEids, VehicleEffectType FatalFire)
-    start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, fatal_explosion_fx__eids, VehicleEffectType FatalExplosion)
+    if !vehicle__isUnderwater
+      start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, fatal_explosion_fx__eids, VehicleEffectType FatalExplosion)
 
 
 [es(tag=render)]
 def destroyed_fx_start_es(info : UpdateStageInfoAct;
                           eid : EntityId;
                           transform : float3x4;
+                          vehicle__isUnderwater : bool;
                           animchar : AnimcharBaseComponent;
                           destroyed_fx__eids : EidList;
                           vehicle_fxs__effectsEids : EidList;
@@ -287,16 +294,29 @@ def destroyed_fx_start_es(info : UpdateStageInfoAct;
 
     if !isDestroyedFxStarted && isExploded
       isDestroyedFxStarted = true
-      start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, destroyed_fx__eids, VehicleEffectType Destroyed)
+      if !vehicle__isUnderwater
+        start_all_fxs(eid, vehicle_fxs__effectsEids, transform, animchar, destroyed_fx__eids, VehicleEffectType Destroyed)
+
+
+[es(tag=render, track=vehicle__isUnderwater)]
+def vehicle_fx_stop_all_on_flooding(evt : Event;
+                                    vehicle_fxs__effectsEids : EidList;
+                                    vehicle__isUnderwater : bool)
+  if vehicle__isUnderwater
+    stop_all_fxs(vehicle_fxs__effectsEids, VehicleEffectType FatalFire)
+    stop_all_fxs(vehicle_fxs__effectsEids, VehicleEffectType EngineFire)
+    stop_all_fxs(vehicle_fxs__effectsEids, VehicleEffectType FatalExplosion)
+    stop_all_fxs(vehicle_fxs__effectsEids, VehicleEffectType Destroyed)
 
 
 [es(tag=render, track=isExploded, REQUIRE=damage_model)]
 def damage_model_fx_es(evt : Event;
                        transform : float3x4;
+                       vehicle__isUnderwater : bool;
                        animchar : AnimcharBaseComponent;
                        expl_fx : string;
                        isExploded : bool)
-  if !isExploded
+  if !isExploded || vehicle__isUnderwater
     return
 
   let fxId = get_type_by_name(expl_fx)
@@ -325,6 +345,14 @@ def vehicle_effect_on_disappear(evt : Event; eid : EntityId; vehicle_effect__veh
     let effectIdx = find_index(vehicle_fxs__effectsEids, eid)
     if effectIdx > -1
       erase(vehicle_fxs__effectsEids, effectIdx)
+
+
+[es(tag=render, on_disappear)]
+def vehicle_effect_destroy_on_vehicle_disappear(evt : Event;
+                                                var vehicle_fxs__effectsEids : EidList&)
+  for vehicleEffectEid in vehicle_fxs__effectsEids
+    destroyEntity(vehicleEffectEid)
+  vehicle_fxs__effectsEids |> clear()
 
 
 [es(tag=render, no_order)]

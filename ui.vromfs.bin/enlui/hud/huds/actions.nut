@@ -23,6 +23,7 @@ let {
   ACTION_OPEN_DOOR, ACTION_CLOSE_DOOR, ACTION_REMOVE_SPRAY, ACTION_DENIED_TOO_MUCH_WEIGHT, ACTION_THROW_BACK,
   ACTION_LOOT_BODY, ACTION_OPEN_WINDOW, ACTION_CLOSE_WINDOW, ACTION_REVIVE_TEAMMATE } =  require("hud_actions")
 let {localTeamEnemyHint} = require("%ui/hud/huds/enemy_hint.nut")
+let { isInHatch } = require("%ui/hud/state/hero_in_vehicle_state.nut")
 
 let showTeamQuickHint = Watched(true)
 let teamHintsQuery = ecs.SqQuery("teamHintsQuery", {comps_ro =[["team__id", ecs.TYPE_INT],["team__showQuickHint", ecs.TYPE_BOOL, true]]})
@@ -115,7 +116,9 @@ let blinkAnimations = [
   { prop=AnimProp.translate, from=[0,0], to=[hdpx(20),0], duration=0.7, trigger = triggerBlinkAnimations, easing=Shake4, onEnter = @() sound_play("ui/enlist/login_fail")}
 ]
 
-let showExitAction = Computed(@() (!inPlane.value || isSafeToExit.value ) && isPlayerCanExit.value && isVehicleAlive.value)
+let showExitAction = Computed(
+  @()(!inPlane.value || isSafeToExit.value ) && isPlayerCanExit.value && isVehicleAlive.value && !isInHatch.value
+)
 
 let function mainAction() {
   let res = {

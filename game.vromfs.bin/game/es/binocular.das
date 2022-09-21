@@ -6,7 +6,6 @@ require HumanPhys
 require AnimV20
 require GeomNodeTree
 require EnlistedHuman
-require vehicle
 
 [es(tag=server, on_appear, track=itemContainer)]
 def binocular_track_inventory(evt : Event; eid : EntityId; itemContainer : EidList; var human_binocular__eid : EntityId&)
@@ -24,10 +23,8 @@ def binocular_track_inventory(evt : Event; eid : EntityId; itemContainer : EidLi
 def binocular_on_switch_event(evt : CmdSwitchBinocular;
                               eid : EntityId;
                               isInVehicle : bool;
-                              isPassenger : bool;
-                              human_weap__blockAiming : bool;
+                              human_vehicle__canHoldWeapon : bool;
                               human_weap__gunEids : EidList;
-                              human_anim__vehicleSelected : EntityId;
                               human_binocular__eid : EntityId;
                               human_binocular__mode : bool;
                               human_binocular__prevGunInBinocSlotEid : EntityId;
@@ -35,19 +32,8 @@ def binocular_on_switch_event(evt : CmdSwitchBinocular;
                               var human_binocular__prevGunSlot : int&;
                               var human_binocular__binocularSwitchRequested : bool&;
                               var human_binocular__binocularSwitchRequestedMode : bool&)
-  if !human_binocular__eid || isInVehicle && (!isPassenger || human_weap__blockAiming)
+  if !human_binocular__eid || isInVehicle && !human_vehicle__canHoldWeapon
     return
-
-  if isInVehicle
-    var isCanControlVehicleOrTurrets = false
-    query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
-      for seatEid in vehicle_seats__seatEids
-        query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__availableControls : VehicleControlsState)
-          if seat__ownerEid == eid
-            isCanControlVehicleOrTurrets = seat__availableControls.canControlVehicleOrTurrets
-
-    if isCanControlVehicleOrTurrets
-      return
 
   human_binocular__binocularSwitchRequested = true
   human_binocular__binocularSwitchRequestedMode = !human_binocular__mode
@@ -96,9 +82,6 @@ def switch_binocular(eid : EntityId;
     human_binocular__mode = true
     human_binocular__prevGunInBinocSlotEid = human_weap__gunEids[targetSlot]
     human_weap__gunEids[targetSlot] = human_binocular__eid
-
-  query(human_weap__gunEids[targetSlot]) <| $ [es] (var gun__animVarsGen : int&)
-    gun__animVarsGen++
 
 
 [es(no_order)]

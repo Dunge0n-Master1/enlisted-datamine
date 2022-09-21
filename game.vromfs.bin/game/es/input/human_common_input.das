@@ -7,7 +7,6 @@ require DagorInput
 require HumanPhys
 require EnlistedHuman
 require game.es.action_common
-require Action
 
 
 def init(var human_input__jump : int&;

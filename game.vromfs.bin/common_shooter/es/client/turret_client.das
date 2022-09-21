@@ -6,6 +6,7 @@ require EnlistedCamera
 require DagorMathUtils
 require GridCollision
 require Dacoll
+require AnimV20
 
 
 [es(after=turret_update_visual_shoot_tm_es, REQUIRE=resolvedTurret)]
@@ -65,7 +66,7 @@ def turret_shoot_correction_es(evt : CmdTurretsUpdate;
     if turretsCount > 0
       midGunPos /= float(turretsCount)
 
-    query(get_cur_cam_entity()) <| $ [es] (transform aka camera_transform : float3x4)
+    query(get_cur_cam_entity()) <| $ [es] (transform aka camera_transform : float3x4; camera__target : EntityId)
       let camPos = camera_transform[3]
       for gunEid in turret_control__gunEids
         query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, turretInput))] (turret_state : TurretState;
@@ -74,7 +75,14 @@ def turret_shoot_correction_es(evt : CmdTurretsUpdate;
           let turretPos = turret_state.shoot.pos
 
           var t = 500.0
-          do_turret_trace(camPos, turretDir, t, eid, vehicle_seats__seatEids)
+          var tracePos = camPos
+          query(camera__target) <| $ [es] (human_net_phys__isAiming : bool; human_weap__currentGunEid : EntityId)
+            if human_net_phys__isAiming
+              query(human_weap__currentGunEid) <| $ [es] (animchar : AnimcharBaseComponent; animchar_bsph : vec4f)
+                var tm : float3x4
+                animchar_get_tm(animchar, tm)
+                tracePos = tm[3] + camera_transform[2] * animchar_bsph.w
+          do_turret_trace(tracePos, turretDir, t, eid, vehicle_seats__seatEids)
 
           var distToShootRange = 0.0
           if t < turret_aim__shootRange

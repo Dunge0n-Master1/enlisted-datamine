@@ -1,11 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-require("%enlist/soldiers/model/onlyInEnlistVm.nut")("clientApi")
-
 let eventbus = require("eventbus")
 let { profile } = require("servProfile.nut")
 let rand = require("%sqstd/rand.nut")()
-let { updateAllConfigs } = require("%enlSqGlob/configs/configs.nut")
+let { updateAllConfigs } = require("%enlist/meta/configs.nut")
 let { serverTimeUpdate } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
 let { get_time_msec } = require("dagor.time")
 let { logerr } = require("dagor.debug")
@@ -617,9 +615,9 @@ return {
     params = { campaignId }
   })
 
-  apply_freemium_soldier = @(guid) request({
+  apply_freemium_soldier = @(guid, level = 0) request({
     method = "apply_freemium_soldier"
-    params = { guid }
+    params = { guid, level }
   })
 
   use_outfit_orders = @(armyId, items, orders, cb = null) request({

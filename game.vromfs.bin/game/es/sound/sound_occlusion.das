@@ -9,9 +9,10 @@ require AnimV20
 require GeomNodeTree
 require DagorRandom
 require RendInst
+require enlisted.events_enlisted
 
 [es(tag=sound, no_order)]
-def sound_occlusion_update(info : UpdateStageInfoAct;
+def sound_occlusion_update(info : ParallelUpdateFrameDelayed;
                            var sound_occlusion__targetId : int&)
 
   var targetId = -1

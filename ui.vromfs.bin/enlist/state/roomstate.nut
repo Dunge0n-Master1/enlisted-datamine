@@ -28,6 +28,7 @@ let {MatchingRoomExtraParams} = require("dasevents")
 let { OK, error_string } = require("matching.errors")
 let { pushNotification, removeNotify, subscribeGroup } = require("%enlist/mailboxState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
+let remap_nick = require("%enlSqGlob/remap_nick.nut")
 
 const INVITE_ACTION_ID = "room_invite_action"
 let LobbyStatus = {
@@ -132,6 +133,8 @@ let function addRoomMember(member) {
     log("found host ", member.name,"(", member.userId,")")
     hostId(member.userId)
   }
+
+  member.nameText <- member.name == userInfo.value?.name ? userInfo.value.nameorig : remap_nick(member.name)
   roomMembers.mutate(@(value) value.append(member))
   return member
 }
@@ -155,6 +158,12 @@ let function makeCreateRoomCb(user_cb) {
       log("failed to create room:", error_string(response.error))
     } else {
       roomIsLobby(true)
+
+      if (response?.public.creator && response.public.creator != "")
+        response.public.creatorText <- response.public.creator == userInfo.value?.name
+          ? userInfo.value.nameorig
+          : remap_nick(response.public.creator)
+
       room.update(response)
       log("you have created the room", response.roomId)
       foreach (member in response.members)
@@ -320,7 +329,7 @@ let function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
     return
   }
 
-  let cmdText = "@start win32/enlisted-ded-dev --listen -game:{game} -config:circuit:t={circuit} -config:scene:t={scene} -invite_data={inviteData} -noeac -nonetenc"
+  let cmdText = "@start win32/{game}-ded-dev --listen -game:{game} -config:circuit:t={circuit} -config:scene:t={scene} -invite_data={inviteData} -noeac -nonetenc"
     .subst({
       game = get_game_name()
       circuit = get_circuit()

@@ -215,6 +215,36 @@ ar_2{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb250_3"
+    node:t="bomb250_4"
+    node:t="bomb250_5"
+    node:t="bomb250_6"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="no_pylons_l"
     part:t="no_pylons_r"
@@ -361,7 +391,7 @@ planegun_ar_2_7_62mm_shkas_turret_01{
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=500
   turret__aimNodeName:t="turret1"
-  turret__limit:p4=-35.0, 35.0, -35.0, 35.0
+  turret__limit:p4=-25.0, 25.0, -25.0, 25.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }
@@ -374,9 +404,17 @@ planegun_ar_2_7_62mm_shkas_turret_02{
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret2"
-  turret__limit:p4=-90.0, 90.0, 0.0, 40.0
+  turret__limit:p4=-90.0, 90.0, -30.0, 70.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-90.0, -80.0, 0.0, 70.0
+    lim2:p4=-80.0, -30.0, -30.0, 70.0
+    lim3:p4=-30.0, 30.0, 0.0, 70.0
+    lim4:p4=30.0, 80.0, -30.0, 70.0
+    lim5:p4=80.0, 90.0, 0.0, 70.0
+  }
 }
 
 planegun_ar_2_7_62mm_shkas_turret_03{
@@ -387,7 +425,7 @@ planegun_ar_2_7_62mm_shkas_turret_03{
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=600
   turret__aimNodeName:t="turret3"
-  turret__limit:p4=0.0, 40.0, -30.0, 30.0
+  turret__limit:p4=-30.0, 30.0, -50.0, 5.0
   turret__yawSpeed:r=100.0
   turret__pitchSpeed:r=100.0
 }

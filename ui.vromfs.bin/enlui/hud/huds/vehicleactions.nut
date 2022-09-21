@@ -6,7 +6,9 @@ let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let { DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { tipCmp, mkInputHintBlock, defTipAnimations } = require("%ui/hud/huds/tips/tipComponent.nut")
-let { inVehicle, inPlane, isSafeToExit, isPlayerCanExit, isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
+let { inVehicle, inPlane, isPlayerCanExit, isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
+let { isInHatch, canHoldWeapon, isHoldingGunPassenger } = require("%ui/hud/state/hero_in_vehicle_state.nut")
+let { isBinocularMode, hasHeroBinocular } = require("%ui/hud/state/binocular.nut")
 
 let allowHints = Computed(@() controlledHeroEid.value == watchedHeroEid.value
   && controlledHeroEid.value != INVALID_ENTITY_ID)
@@ -15,14 +17,18 @@ let showExitAloneAction = Computed(@()
   inVehicle.value
   && isPlayerCanExit.value
   && isVehicleAlive.value
-  && (!inPlane.value || isSafeToExit.value))
+  && !inPlane.value
+  && !isInHatch.value)
+
+let showToggleHoldGunMode = Computed(@() canHoldWeapon.value && !isHoldingGunPassenger.value)
+let showUseBinocular = Computed(@() canHoldWeapon.value && hasHeroBinocular.value && !isBinocularMode.value)
 
 let canHatch = Computed(function() {
   if (!allowHints.value)
     return false
   let ownerEid = controlledHeroEid.value
   let seat = vehicleSeats.value.data.findvalue(@(s) s?.owner.eid == ownerEid)
-  return (seat?.seat.hatchNodes.len() ?? 0) > 0 && (seat?.seat.displayHintAboutHatch ?? true)
+  return (seat?.seat.hatchNodes.len() ?? 0) > 0
 })
 
 let function exitVehicleAlone() {
@@ -75,8 +81,36 @@ let function nextView() {
   return res.__update({ children = nextViewTip })
 }
 
+let function toggleHoldGunMode() {
+  let res = { watch = showToggleHoldGunMode }
+  if (!showToggleHoldGunMode.value)
+    return res
+  return res.__update({
+    children = tipCmp({
+      text = loc("hud/toggleHoldGunMode")
+      inputId = "Human.ToggleHoldGunMode"
+      textColor = DEFAULT_TEXT_COLOR
+    })
+  })
+}
+
+let function useBinocular() {
+  let res = { watch = showUseBinocular }
+  if (!showUseBinocular.value)
+    return res
+  return res.__update({
+    children = tipCmp({
+      text = loc("hud/useBinocular")
+      inputId = "Human.UseBinocular"
+      textColor = DEFAULT_TEXT_COLOR
+    })
+  })
+}
+
 return [
   exitVehicleAlone
   getOutOfTheTankHatch
   nextView
+  toggleHoldGunMode
+  useBinocular
 ]

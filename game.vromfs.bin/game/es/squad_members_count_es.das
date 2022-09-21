@@ -4,6 +4,7 @@ require DagorRandom
 require math
 require math.base
 require common_shooter.es.squad_common
+require game.es.squad_order_common
 
 let
   predefined_angles = [[ float[4]- HALF_PI; HALF_PI; -HALF_PI * 1.5f; HALF_PI * 1.5f ]]

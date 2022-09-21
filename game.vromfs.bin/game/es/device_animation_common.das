@@ -2,7 +2,7 @@ module device_animation_common shared
 require ecs
 require DagorMath
 require PhysVars
-require EnlistedDeviceAnim
+require game.es.device_state_common
 require game.es.events
 require AnimV20
 require AnimatedPhys

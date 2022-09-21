@@ -103,6 +103,30 @@ hs_129b_2{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare5"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_30mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="gun_75mm"
     part:t="75mm_bk"
@@ -115,7 +139,7 @@ hs_129b_2{
 
 base_hs_129b_2_7_92mm_mg17{
   item__name:t="guns/gunmg17"
-  gun__blk:t="content/enlisted/gamedata/weapons/hs_129b_2/7_92mm_mg17.blk"
+  gun__blk:t="gamedata/weapons/hs_129b_2/7_92mm_mg17.blk"
   gun__shotFreq:r=16.66
   gun__locName:t="gunmg17"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -141,31 +165,31 @@ base_hs_129b_2_7_92mm_mg17{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
         name:t="v"
         type:t="ap_t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
         name:t="s"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
         name:t="s"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
         name:t="v"
         type:t="ap_i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
         name:t="v"
         type:t="he_ball"
       }
@@ -175,7 +199,7 @@ base_hs_129b_2_7_92mm_mg17{
 
 base_hs_129b_2_30mm_mk103_underwing{
   item__name:t="guns/cannonmk103_underwing"
-  gun__blk:t="content/enlisted/gamedata/weapons/hs_129b_2/30mm_mk103_underwing.blk"
+  gun__blk:t="gamedata/weapons/hs_129b_2/30mm_mk103_underwing.blk"
   gun__shotFreq:r=7.5
   gun__locName:t="cannonmk103_underwing"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -201,51 +225,51 @@ base_hs_129b_2_30mm_mk103_underwing{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
         name:t="spur"
         type:t="he_i_mine"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
         name:t="spur"
-        type:t="i"
+        type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_pzbrgr_m_el_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_pzbrgr_m_el_bullet.blk"
         name:t="el"
         type:t="ap_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_pzgr_40_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_pzgr_40_l_spur_bullet.blk"
         name:t="spur"
         type:t="apcr_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
         name:t="spur"
         type:t="he_i_mine"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
         name:t="spur"
         type:t="he_i_mine"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
         name:t="spur"
         type:t="he_i_mine"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
         name:t="spur"
-        type:t="i"
+        type:t="i_t"
       }
     }
   }
@@ -253,7 +277,7 @@ base_hs_129b_2_30mm_mk103_underwing{
 
 base_hs_129b_2_20mm_mg15120{
   item__name:t="guns/cannonmg15120"
-  gun__blk:t="content/enlisted/gamedata/weapons/hs_129b_2/20mm_mg15120.blk"
+  gun__blk:t="gamedata/weapons/hs_129b_2/20mm_mg15120.blk"
   gun__shotFreq:r=11.66
   gun__locName:t="cannonmg15120"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -279,25 +303,25 @@ base_hs_129b_2_20mm_mg15120{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
         name:t="spur"
         type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
         name:t="spur"
         type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
         name:t="pzgr"
         type:t="aphe"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
         name:t="mgesch"
         type:t="he_i_mine"
       }
@@ -356,6 +380,6 @@ hs_129b_2_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="hs_129b_2_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/hs_129b_2.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/hs_129b_2.blk"
+  plane_anim__blk:t="gamedata/units/hs_129b_2.blk"
+  plane_sight__blk:t="gamedata/units/hs_129b_2.blk"
 }

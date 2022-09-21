@@ -67,6 +67,6 @@ def apply_spawn_mode_on_player_profile_changed_es(evt : Event; eid : EntityId)
   apply_spawn_mode_to_player_and_team(eid)
 
 [es(tag=server, REQUIRE=(player, soldier_revive_points__healPerSquadmate, soldier_revive_points__afterDeath),
-                on_event=(EventEntityRecreated, EventComponentsAppear), after=soldier_revive_points_init_es)]
+                on_appear, after=soldier_revive_points_init_es)]
 def apply_spawn_mode_after_init_soldier_revive_es(evt : Event; eid : EntityId)
   apply_spawn_mode_to_player_and_team(eid)

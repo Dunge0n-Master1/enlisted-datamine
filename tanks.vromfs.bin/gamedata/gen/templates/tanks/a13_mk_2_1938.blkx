@@ -80,8 +80,6 @@ base_a13_mk_2_1938{
       turretName:t="turret_02"
       gun:t="a13_mk_2_1938_turret_02_7_7mm_vikkers"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

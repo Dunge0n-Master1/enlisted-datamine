@@ -1,15 +1,14 @@
 capturer{
-  _replicated:t="capturer__capZonesIn"
 
   _group{
     _tags:t="server"
     capturer__nextUpdateAt:r=0.0
     capturer__updatePeriod:r=0.25
 
+    "capturer__capZonesIn:list<eid>"{
+    }
+
     "capturer__capZonesInBlocked:list<eid>"{
     }
-  }
-
-  "capturer__capZonesIn:list<eid>"{
   }
 }

@@ -1,18 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { defTxtColor, detailsHeaderColor, smallPadding, inventoryItemDetailsWidth, unitSize
+let { defTxtColor, detailsHeaderColor, smallPadding, inventoryItemDetailsWidth
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { statusTier, statusHintText, statusIconCtor } = require("%enlSqGlob/ui/itemPkg.nut")
-let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
 let { getItemName, getItemTypeName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { itemTypeIcon } = require("itemTypesData.nut")
 let mkItemLevelData = require("%enlist/soldiers/model/mkItemLevelData.nut")
-let { blur, mkItemDescription, mkVehicleDetails, mkItemDetails, mkUpgrades
+let { blur, mkItemDescription, mkVehicleDetails, mkItemDetails, mkUpgrades, BASE_COLOR
 } = require("itemDetailsPkg.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { inventoryItems } = require("%enlist/soldiers/model/selectItemState.nut")
 
 let animations = [
@@ -22,35 +21,28 @@ let animations = [
     play = true, trigger = "itemDetailsAnim"}
 ]
 
-let lockedInfo = function(item) {
-  let demandsWatch = mkItemDemands(item)
-  let watch = [demandsWatch, inventoryItems]
-  return function() {
-    let demands = demandsWatch.value
-    if (demands == null) {
-      let count = inventoryItems.value?[item.basetpl].count ?? 0
-      return count < 1 ? { watch } : blur({
-        watch
-        children = {
-          size = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
-          rendObj = ROBJ_TEXT
-          maxWidth = inventoryItemDetailsWidth
-          halign = ALIGN_RIGHT
-          text = loc("itemCurrentCount", { count })
-          color = defTxtColor
-        }.__update(sub_txt)
-      })
-    }
-    return blur({
-      watch
-      size = [inventoryItemDetailsWidth + smallPadding * 2, SIZE_TO_CONTENT]
-      valign = ALIGN_CENTER
-      children = [
-        statusHintText(demands)
-        statusIconCtor(demands)
-      ]
-    })
+let inStockInfo = @(item) function() {
+  let count = inventoryItems.value?[item.basetpl].count ?? 0
+  return count < 1 ? { watch = inventoryItems } : {
+    watch = inventoryItems
+    children = {
+      rendObj = ROBJ_TEXT
+      maxWidth = inventoryItemDetailsWidth
+      halign = ALIGN_RIGHT
+      text = loc("itemCurrentCount", { count })
+      color = BASE_COLOR
+    }.__update(sub_txt)
   }
+}
+
+let lockedInfo = @(demands) {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_CENTER
+  children = [
+    statusHintText(demands)
+    statusIconCtor(demands)
+  ]
 }
 
 let mkInfoRow = @(text, value) {
@@ -96,77 +88,106 @@ let itemTitle = @(item) {
   color = detailsHeaderColor
 }.__update(body_txt)
 
-let function detailsStatusTier(item, isBlur = false) {
-  return @() {
-    watch = needFreemiumStatus
-    children = statusTier(
-      item,
-      mkItemLevelData(item),
-      needFreemiumStatus.value,
-      isBlur ? blur : @(v) v
-    )
-  }
+let detailsStatusTier = @(item) @() {
+  watch = needFreemiumStatus
+  children = statusTier(
+    item,
+    mkItemLevelData(item),
+    needFreemiumStatus.value,
+    @(v) v
+  )
 }
 
 local lastTpl = null
 
-let mkDetailsInfo = @(viewItemWatch, isLocked = true) function() {
-  let res = {
-    watch = viewItemWatch
-    transform = {}
-    animations = animations
-  }
-  let item = viewItemWatch.value
-  let tpl = item?.basetpl
-  if (lastTpl != tpl) {
-    lastTpl = tpl
-    anim_start("itemDetailsAnim")
-  }
-  if (!tpl)
-    return res
-
-  let typeLoc = getItemTypeName(item)
+let function titleBlock(item) {
   let isVehicle = item?.itemtype == "vehicle"
+  let typeLoc = getItemTypeName(item)
   let itemType = isVehicle ? item?.itemsubtype : item?.itemtype
-  let size = [unitSize * 10, SIZE_TO_CONTENT]
-  return res.__update({
-    size
+  return {
+    flow = FLOW_VERTICAL
+    halign = ALIGN_RIGHT
+    children = [
+      {
+        flow = FLOW_HORIZONTAL
+        gap = smallPadding
+        children = [
+          itemTypeIcon(itemType, null, { size = [hdpx(27), hdpx(27)] })
+          mkSpecialItemIcon(item, hdpx(30))
+          itemTitle(item)
+        ]
+      }
+      typeLoc == "" ? null : {
+        rendObj = ROBJ_TEXT
+        text = typeLoc
+        color = BASE_COLOR
+      }.__update(sub_txt)
+    ]
+  }
+}
+
+let function mkItemHeader(item, isFull) {
+  return {
+    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_RIGHT
     gap = smallPadding
-    children = [
-      blur({
-        flow = FLOW_VERTICAL
-        halign = ALIGN_RIGHT
-        children = [
+    children = isFull
+      ? [
+          titleBlock(item)
+          detailsStatusTier(item)
+          inStockInfo(item)
+        ]
+      : [
+          itemTitle(item)
           {
             flow = FLOW_HORIZONTAL
             gap = smallPadding
             children = [
-              itemTypeIcon(itemType, null, { size = [hdpx(27), hdpx(27)] })
-              mkSpecialItemIcon(item, hdpx(30))
-              itemTitle(item)
+              detailsStatusTier(item)
+              inStockInfo(item)
             ]
           }
-          typeLoc == "" ? null : {
-            rendObj = ROBJ_TEXT
-            text = typeLoc
-            color = defTxtColor
-          }.__update(sub_txt)
         ]
-      })
-      detailsStatusTier(item, true)
-      isLocked ? lockedInfo(item) : null
-      isVehicle ? mkItemDescription(item, size) : mkItemDescription(item)
-      mkSlotIncreaseInfo(item)
-      mkAmmoIncreaseInfo(item)
-      isVehicle ? mkVehicleDetails(item, size) : mkItemDetails(item)
-      isVehicle ? mkUpgrades(item, size) : mkUpgrades(item)
-    ]
-  })
+  }
 }
+
+let mkDetailsInfo = @(viewItemWatch, isFullMode = Watched(true))
+  function() {
+    let res = {
+      watch = [viewItemWatch, isFullMode]
+      transform = {}
+      animations = animations
+    }
+    let item = viewItemWatch.value
+    let tpl = item?.basetpl
+    if (lastTpl != tpl) {
+      lastTpl = tpl
+      anim_start("itemDetailsAnim")
+    }
+    if (!tpl)
+      return res
+
+    let isVehicle = item?.itemtype == "vehicle"
+    let isFull = isFullMode.value
+
+    return res.__update(blur({
+      flow = FLOW_VERTICAL
+      halign = ALIGN_RIGHT
+      gap = smallPadding
+      children = [
+        mkItemHeader(item, isFull)
+        isFull ? mkItemDescription(item) : null
+        isVehicle ? null : mkSlotIncreaseInfo(item)
+        isVehicle ? null : mkAmmoIncreaseInfo(item)
+        isVehicle ? mkVehicleDetails(item, isFull) : mkItemDetails(item, isFull)
+        mkUpgrades(item, isFull)
+      ]
+    }))
+  }
 
 return {
   mkDetailsInfo
+  lockedInfo
   detailsStatusTier
 }

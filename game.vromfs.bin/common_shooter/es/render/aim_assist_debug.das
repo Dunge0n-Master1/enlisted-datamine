@@ -20,13 +20,17 @@ require DagorDebug3D
 require DagorSystem
 require strings
 require common_shooter.es.input.aim_assist_common
+require ecs.ecs_template
+
+
+[ecs_template]
+struct aim_assist_debug_draw
+  aim_assist__debugDraw : bool = false
 
 
 [console_cmd(name="aim_assist.debug_draw")]
 def debug_aim_assist_cmd(aim_assist_debug_draw : bool = true)
   let tmpl = "aim_assist_debug_draw"
-  ecs::createTemplate(tmpl, "", false) <| $(var cmp : ecs::ComponentsMap)
-    set(cmp, "aim_assist__debugDraw", false)
   addSubTemplate(get_controlled_hero(), tmpl) <| $(var init)
     set(init, "aim_assist__debugDraw", aim_assist_debug_draw)
 

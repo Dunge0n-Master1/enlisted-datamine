@@ -1,13 +1,13 @@
 model:t="he51b_2w"
 fmFile:t="fm/he51b_2w.blk"
-damagePartsToCollisionObjectsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_collision_objects.blk"
-damagePartsToFmPartsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
-damagePartsToHudPartsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
-damagePartsDependencyMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_dependency_map_biplane.blk"
-damagePartsToCollisionPointsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_collision_points_map_biplane.blk"
-damagePartsToWeaponsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_weapons_map_biplane.blk"
-damagePartsToVisualEffectsMapBlk:t="content/enlisted/gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
-damagePartsExcludeFromHoleBlk:t="content/enlisted/gamedata/units/dm/dm_parts_exclude_from_hole.blk"
+damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
+damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
+damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
+damagePartsDependencyMapBlk:t="gamedata/units/dm/dm_parts_dependency_map_biplane.blk"
+damagePartsToCollisionPointsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_points_map_biplane.blk"
+damagePartsToWeaponsMapBlk:t="gamedata/units/dm/dm_parts_to_weapons_map_biplane.blk"
+damagePartsToVisualEffectsMapBlk:t="gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
+damagePartsExcludeFromHoleBlk:t="gamedata/units/dm/dm_parts_exclude_from_hole.blk"
 
 DamagePartsDefault{
 
@@ -899,7 +899,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -908,7 +908,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -917,7 +917,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -926,7 +926,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -935,7 +935,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -944,7 +944,7 @@ DamageEffects{
 
     onKill{
       nothing:r=2.0
-      cut:r=4.0
+      cut:r=3.0
     }
   }
 
@@ -1102,6 +1102,7 @@ DamageEffects{
 
     onHit{
       damage:r=50.0
+      expl:r=0.5
       fire:r=0.8
       leak:r=0.9
     }
@@ -1114,12 +1115,14 @@ DamageEffects{
 
     onKill{
       damage:r=30.0
+      expl:r=25.0
       fire:r=15.0
       leak:r=25.0
     }
 
     onKill{
       damage:r=50.0
+      expl:r=50.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1141,6 +1144,7 @@ DamageEffects{
 
     onHit{
       damage:r=50.0
+      expl:r=0.5
       fire:r=0.8
       leak:r=0.9
     }
@@ -1153,12 +1157,14 @@ DamageEffects{
 
     onKill{
       damage:r=30.0
+      expl:r=25.0
       fire:r=15.0
       leak:r=25.0
     }
 
     onKill{
       damage:r=50.0
+      expl:r=50.0
       fire:r=50.0
       leak:r=30.0
     }

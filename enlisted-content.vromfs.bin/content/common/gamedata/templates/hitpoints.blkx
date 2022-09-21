@@ -18,7 +18,6 @@ base_hitpoints{
     hitpoints__maxHp:r=0.0
     hitpoints__downedEndTime:r=-1.0
     hitpoints__revivingCount:i=0
-    hitpoints__canSelfReviveByPerk:b=no
   }
 
   _group{

@@ -58,7 +58,7 @@ def private write_member_data(var states : Object&; member_eid : EntityId)
     *state |> set("mineTypes", squad_member_ui__mineTypes)
 
 
-[es(tag=ui, no_order)]
+[es(tag=ui, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
 def squad_members_ui_update_state(info : ParallelUpdateFrameDelayed)
   query(get_local_player_eid()) <| $ [es] (squad_members_ui__watchedSquadEid : EntityId;
                                            squad_members_ui__updateInterval : float;

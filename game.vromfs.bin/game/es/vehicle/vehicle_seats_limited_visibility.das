@@ -21,7 +21,7 @@ def seat_visibility_changed(evt : Event; vehicle_seats__seatEids : EidList)
 def seat_limited_visibility_changed(evt : Event; seat__ownerEid : EntityId; seat__limitedVisibility : int)
   seat_limited_visibility_impl(seat__ownerEid, seat__limitedVisibility)
 
-[es(tag=server, on_event=EventComponentChanged, track=isInVehicle)]
+[es(tag=server, track=isInVehicle)]
 def seats_visibility_enter(evt : Event;
                            isInVehicle : bool;
                            var isBlinded : bool&)

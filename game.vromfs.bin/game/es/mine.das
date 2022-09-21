@@ -55,7 +55,8 @@ def mine_init_start_eid_list_es(evt : Event;
   for_each_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], BSphere3(minePosition, activationRadius), GridEntCheck BOUNDING) <| $(visitorEid : EntityId)
     query(visitorEid) <| $ [es(REQUIRE_NOT=deadEntity)] (zones_visitor__triggerTag : string;
                                                          transform : float3x4)
-      if has(mineEid, zones_visitor__triggerTag) && (length_sq(transform[3] - minePosition) < mineTriggerRadiusSq)
+      let zones_visitor__triggerTagHash = ecs_hash(zones_visitor__triggerTag)
+      if has(mineEid, zones_visitor__triggerTag, zones_visitor__triggerTagHash) && (length_sq(transform[3] - minePosition) < mineTriggerRadiusSq)
         push(mine_activation_zone__initEids, visitorEid)
   mine__activated = true
 
@@ -120,7 +121,8 @@ def mine_zone_checker(info : UpdateStageInfoAct;
       let idx = find_index(mine_activation_zone__initEids, eid)
       if idx != -1
         return
-      objectFound = (((mineTeam == TEAM_UNASSIGNED || !is_teams_friendly(mineTeam, team)) && has(mineEid, zones_visitor__triggerTag)) &&
+      let zones_visitor__triggerTagHash = ecs_hash(zones_visitor__triggerTag)
+      objectFound = (((mineTeam == TEAM_UNASSIGNED || !is_teams_friendly(mineTeam, team)) && has(mineEid, zones_visitor__triggerTag, zones_visitor__triggerTagHash)) &&
                      (length_sq(transform[3] - minePosition) < mineTriggerRadiusSq))
     return objectFound
   if objectFound && mine__blockedToTime < 0.f

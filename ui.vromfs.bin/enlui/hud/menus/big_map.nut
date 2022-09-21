@@ -21,8 +21,14 @@ let {safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
 let {mouseNavTips, placePointsTipGamepad, navGamepadHints, placePointsTipMouse} = require("mapComps.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
 let cursors = require("%ui/style/cursors.nut")
-let tasksInBattle = require("%ui/hud/state/tasksInBattle.nut")
-let { missionName } = require("%enlSqGlob/missionParams.nut")
+let { battleUnlocks, statsInGame, getTasksWithProgress } = require("%ui/hud/state/tasksInBattle.nut")
+let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
+let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
+
+let isMapAutonomousInReplay = Watched(true)
+let isMapInteractive = Computed(@() hudIsInteractive.value
+  && (!isReplay.value || !isMapAutonomousInReplay.value))
 
 let screen_aspect_ratio = sw(100)/sh(100)
 local mapSizeForTasks = [fsh(70), fsh(70)]
@@ -39,18 +45,19 @@ else if ( screen_aspect_ratio <= 4.0/3 ) {
 }
 
 let showBigMap = mkWatched(persist, "showBigMap", false)
-let needShowTasks = Computed(@() tasksInBattle.value.len()>0)
+let needShowTasks = Computed(@() battleUnlocks.value.len()>0)
 let mapSize = Computed(@() needShowTasks.value
   ? mapSizeForTasks
   : [safeAreaAmount.value*fsh(70), safeAreaAmount.value*fsh(70)])
 
 let tasksList = @() {
-  watch = [tasksInBattle, mapSize]
+  watch = [mapSize, battleUnlocks, unlockProgress, statsInGame]
   size = [hdpx(450), SIZE_TO_CONTENT]
   children = makeVertScroll({
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    children = tasksInBattle.value.map(@(u) mkTask(u))
+    children = getTasksWithProgress(battleUnlocks.value, unlockProgress.value, statsInGame.value)
+      .map(@(u) mkTask(u))
   },
   {
     size = [flex(), SIZE_TO_CONTENT]
@@ -113,19 +120,19 @@ let mkPlacePointsTip = @(mapSize, addChild) @() {
   ]
 }
 let mkInteractiveTips = @(internactiveTips, notInteractiveTips) @() {
-  watch = hudIsInteractive
+  watch = isMapInteractive
   size = [flex(), hdpx(100)]
   valign = ALIGN_CENTER
   flow = FLOW_VERTICAL
   gap = fsh(0.5)
   padding = [mapPadding, 0]
   halign = ALIGN_CENTER
-  children = hudIsInteractive.value ? internactiveTips : notInteractiveTips
+  children = isMapInteractive.value ? internactiveTips : notInteractiveTips
 }
 
 let function interactiveFrame() {
-  let res = { watch = hudIsInteractive }
-  if (!hudIsInteractive.value)
+  let res = { watch = isMapInteractive }
+  if (!isMapInteractive.value)
     return res
   return res.__update({
     rendObj = ROBJ_FRAME
@@ -133,20 +140,23 @@ let function interactiveFrame() {
     borderWidth = hdpx(2)
     color = Color(180,160,10,130)
 
-    children = {
-      // use frame since parent already has another hook
-      hooks = HOOK_ATTACH
-      actionSet = "StopInput"
-      children = null
-    }
+    behavior = Behaviors.ActivateActionSet
+    actionSet = "StopInput"
   })
 }
 
 let bigMapEventHandlers = {
-  ["HUD.Interactive"] = @(_event) switchInteractiveElement("bigMap"),
-  ["HUD.Interactive:end"] = function onHudInteractiveEnd(event) {
-    if (showBigMap.value && ((event?.dur ?? 0) > 500 || event?.appActive == false))
+  ["HUD.Interactive"] = function(_event) {
+    if (isReplay.value)
+      isMapAutonomousInReplay(!isMapAutonomousInReplay.value)
+    switchInteractiveElement("bigMap")
+  },
+  ["HUD.Interactive:end"] = function (event) {
+    if (showBigMap.value && ((event?.dur ?? 0) > 500 || event?.appActive == false)) {
+      if (isReplay.value)
+        isMapAutonomousInReplay(true)
       removeInteractiveElement("bigMap")
+    }
   }
 }
 
@@ -188,18 +198,18 @@ let markersParams = Computed(@() {
   size = mapSize.value
   isCompassMinimap = false
   transform = markersTransform
-  isInteractive = hudIsInteractive.value
+  isInteractive = isMapInteractive.value
   showHero = true
 })
 
 let baseMap = @() {
   size = mapSize.value
-  watch = [hudIsInteractive, mapSize]
+  watch = [isMapInteractive, mapSize]
   minimapState = minimapState
   rendObj = ROBJ_MINIMAP
   transform = mapTransform
   panMouseButton = mouseButtons.MMB
-  behavior = hudIsInteractive.value
+  behavior = isMapInteractive.value
     ? [Behaviors.Minimap, Behaviors.Button, Behaviors.MinimapInput]
     : [Behaviors.Minimap]
   color = Color(255, 255, 255, 200)
@@ -217,7 +227,7 @@ let baseMap = @() {
 }
 
 let mapLayers = @() {
-  hooks = HOOK_ATTACH
+  behavior = Behaviors.ActivateActionSet
   actionSet = "BigMap"
   watch = [ mapSize]
   size = mapSize.value
@@ -228,39 +238,52 @@ let mapLayers = @() {
     .append(interactiveFrame)
 }
 
-let framedMap = @() {
-  padding = [0, mapPadding]
-  watch = mapSize
-  children = mapLayers
-}
 
-let mapBlock = @(){
-  watch = hudIsInteractive
+let mapBlock = {
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
+  padding = [0, mapPadding]
   children = [
-    framedMap
+    mapLayers
     interactiveTips
   ]
 }
 
 let missionTitle = @(){
-  watch = missionName
+  watch = [missionName, missionType]
   size = [flex(), SIZE_TO_CONTENT]
   padding = [mapPadding, mapPadding]
   children = missionName.value == null ? null : {
     rendObj = ROBJ_TEXT
-    text = loc(missionName.value)
+    text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
     fontFxColor = DEFAULT_TEXT_COLOR
   }.__update(h1_txt)
 }
 
+
+let mapContent = @() {
+  watch = needShowTasks
+  flow = FLOW_HORIZONTAL
+  children = [
+    mapBlock
+    needShowTasks.value
+      ? @() {
+          watch = isReplay
+          size = [SIZE_TO_CONTENT, flex()]
+          disableInput = !isMapInteractive.value
+          children = isReplay.value ? null : tasksList
+        }
+      : null
+  ]
+}
+
+
 let function bigMap() {
-  let needCursor = hudIsInteractive.value
+  let needCursor = isMapInteractive.value
   return {
     rendObj = ROBJ_SOLID
     color = Color(0,0,0,140)
-    watch = hudIsInteractive
+    watch = isMapInteractive
     key = "big_map"
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
@@ -274,21 +297,7 @@ let function bigMap() {
     }
     children = [
       missionTitle
-      @() {
-        watch = [needShowTasks, hudIsInteractive]
-        flow = FLOW_HORIZONTAL
-        children = [
-          mapBlock
-          needShowTasks.value
-            ? @() {
-                watch = hudIsInteractive
-                size = [SIZE_TO_CONTENT, flex()]
-                disableInput = !hudIsInteractive.value
-                children = tasksList
-              }
-            : null
-        ]
-      }
+      mapContent
     ]
 
 

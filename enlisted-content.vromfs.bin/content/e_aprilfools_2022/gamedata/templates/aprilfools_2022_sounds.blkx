@@ -2,12 +2,16 @@ moon_base_soldier_sound{
 
   _group{
     _tags:t="sound"
-    human_breath_sound__minBreathShortness:r=0.4
+    human_breath_sound__baseBreathShortness:r=0.4
     human_breath_sound__breathShortnessStart:r=0.0
   }
 
   "sound_irqs:shared:object"{
     _tags:t="sound"
+
+    "grenade_take:object"{
+      type:t="grenadeActivate"
+    }
 
     "weaponChangeStart:object"{
       hero:t="player/walker/ww2_soldier/foley_mov/common/wpn_change_start"

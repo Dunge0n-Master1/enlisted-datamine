@@ -17,7 +17,7 @@ class ContextInspectorFn
       ctx = addr(context)
     fn <- f
 
-  [unused_argument(id)] def call(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
+  [unused_argument(id)] def call(eid : array < EntityId > const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
     unsafe
       lock_debug_agent() <| $()
         ctx |> invoke_in_context(fn, eid, flags, name, ref, level, changed, sub_menu)
@@ -31,7 +31,7 @@ class ContextEditorFn
       ctx = addr(context)
     fn <- f
 
-  [unused_argument(id)] def call(eid : EntityId) : void
+  [unused_argument(id)] def call(eid : array < EntityId > const#) : void
     unsafe
       lock_debug_agent() <| $()
         ctx |> invoke_in_context(fn, eid)
@@ -39,19 +39,18 @@ class ContextEditorFn
 
 struct InspectorDesc
   field_name : string
-  tag : string
+  tag : uint
   fn : ContextInspectorFn?
 
 
 struct EditorDesc
   prefix : bool
-  tags : array<string>
+  tags : array<uint>
   fn : ContextEditorFn?
 
-
 typedef
-  InspectorFn = function<(eid : EntityId; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
-  EditorFn = function<(eid : EntityId) : void>
+  InspectorFn = function<(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
+  EditorFn = function<(eid : array<EntityId> const#) : void>
 
 
 let AGENT_NAME = "ecs_inspectors"
@@ -108,16 +107,17 @@ def start_ecs_inspectors_agent()
 [apply_in_context(ecs_inspectors)]
 def add_inspector(typ_name, field_name, tag : string implicit; var fn : InspectorFn; var ctx : Context implicit) : bool
   let type_name = clone_string(typ_name)
+  let tag_hash = !empty(tag) ? ecs_hash(tag) : 0u
   if !key_exists(inspectors, type_name)
     inspectors[type_name] <- [[array<InspectorDesc>]]
   inspectors |> find_for_edit_if_exists(type_name) <| $(list)
     for it in *list
-      if it.field_name == field_name && it.tag == tag
+      if it.field_name == field_name && it.tag == tag_hash
         delete * it.fn
         it.fn = new ContextInspectorFn(fn, ctx)
         return
 
-    *list |> emplace <| [[InspectorDesc field_name=clone_string(field_name), tag=clone_string(tag), fn=new ContextInspectorFn(fn, ctx)]]
+    *list |> emplace <| [[InspectorDesc field_name=clone_string(field_name), tag=tag_hash, fn=new ContextInspectorFn(fn, ctx)]]
   return true
 
 
@@ -127,7 +127,7 @@ def has_inspector(type_name : string implicit) : bool
 
 
 [apply_in_context(ecs_inspectors)]
-def call_inspector(type_name : string implicit; eid : EntityId; flags : uint; field_name : string implicit; ref : EntityComponentRef#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
+def call_inspector(type_name : string implicit; eid : array<EntityId> const#; flags : uint; field_name : string implicit; ref : EntityComponentRef#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
   var res = false
   inspectors |> find_for_edit_if_exists(type_name) <| $(list)
     res = true
@@ -137,13 +137,13 @@ def call_inspector(type_name : string implicit; eid : EntityId; flags : uint; fi
 
     // field_name and tag
     for it in *list
-      if it.field_name == field_name && !empty(it.tag) && has(eid, it.tag)
+      if it.field_name == field_name && it.tag != 0u && has(eid[0], "", it.tag)
         it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
     // tag
     for it in *list
-      if !empty(it.tag) && has(eid, it.tag)
+      if it.tag != 0u && has(eid[0], "", it.tag)
         it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
@@ -155,7 +155,7 @@ def call_inspector(type_name : string implicit; eid : EntityId; flags : uint; fi
 
     // default renderer
     for it in *list
-      if empty(it.field_name) && empty(it.tag)
+      if empty(it.field_name) && it.tag == 0u
         it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
         return
 
@@ -166,19 +166,20 @@ def call_inspector(type_name : string implicit; eid : EntityId; flags : uint; fi
 
 [apply_in_context(ecs_inspectors)]
 def add_editor(prefix : bool; tags : array<string> implicit; var fn : EditorFn; var ctx : Context implicit) : bool
-  editors |> emplace <| [[EditorDesc prefix=prefix, tags := tags, fn=new ContextEditorFn(fn, ctx) ]]
+  var tagHashes <- [{ for tag in tags; !empty(tag) ? ecs_hash(tag) : 0u }]
+  editors |> emplace <| [[EditorDesc prefix=prefix, tags <- tagHashes, fn=new ContextEditorFn(fn, ctx) ]]
   return true
 
 
 [apply_in_context(ecs_inspectors)]
-def call_editor(prefix : bool; eid : EntityId) : bool
+def call_editor(prefix : bool; eid : array<EntityId> const#) : bool
   var res = false
   for it in editors
     if it.prefix != prefix
       continue
     var valid = true
     for tag in it.tags
-      if !eid |> has(tag)
+      if !eid[0] |> has("", tag)
         valid = false
         break
     if valid

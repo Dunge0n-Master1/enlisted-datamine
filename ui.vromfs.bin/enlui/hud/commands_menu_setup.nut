@@ -2,9 +2,11 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { Point3 } = require("dagor.math")
-let { RequestSquadMateOrder, CmdHeroLogEvent } = require("gameevents")
-let { RequestOpenArtilleryMap, CmdShowArtilleryCooldownHint, RqCancelContextCommand } = require("dasevents")
-let { CmdWallposterPreview } = require("wallposterevents")
+let { CmdHeroLogEvent } = require("gameevents")
+let {
+  sendNetEvent,
+  RequestSquadMateOrder, RequestOpenArtilleryMap, CmdShowArtilleryCooldownHint, RqCancelContextCommand, CmdWallposterPreview
+} = require("dasevents")
 let { pieMenuItems, showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
@@ -26,8 +28,7 @@ let { get_controlled_hero } = require("%dngscripts/common_queries.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { cmdQuickChat } = require("quickchat_menu.nut")
 let colorize = require("%ui/components/colorize.nut")
-let { ESMO_BRING_AMMO, ESMO_HEAL, ESFN_CLOSEST, ESFN_STANDARD, ESFN_WIDE } = require("ai")
-let { SquadBehaviour } = require("%enlSqGlob/dasenums.nut")
+let { SquadBehaviour, SquadMateOrder, SquadFormationSpread } = require("%enlSqGlob/dasenums.nut")
 let { get_setting_by_blk_path } = require("settings")
 
 let { forcedMinimalHud, noBotsModeHud } = require("state/hudGameModes.nut")
@@ -48,8 +49,8 @@ let noMembersText = Computed(@() hasActive.value ? null
   : colorize(noMembersColor, loc("msg/noAliveMembersToOrder")))
 
 let sendCmd = @(orderType)
-  ecs.g_entity_mgr.sendEvent(ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "squad_member__squad", INVALID_ENTITY_ID),
-    RequestSquadMateOrder(orderType, Point3(), INVALID_ENTITY_ID))
+  sendNetEvent(ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "squad_member__squad", INVALID_ENTITY_ID),
+    RequestSquadMateOrder({orderType, orderPosition=Point3(), orderUseEntity=INVALID_ENTITY_ID}))
 
 let showMsg = @(text) playerEvents.pushEvent({ text = text, ttl = 5 })
 
@@ -110,15 +111,15 @@ let cmdSquadBehaviour = addTextCtor({
 })
 
 let squadFormationNames = {
-  [ESFN_CLOSEST] = loc("squad_orders/formation_close", "Closest"),
-  [ESFN_STANDARD] = loc("squad_orders/formation_standard", "Standard"),
-  [ESFN_WIDE] = loc("squad_orders/formation_wide", "Wide")
+  [SquadFormationSpread.ESFN_CLOSEST] = loc("squad_orders/formation_close", "Closest"),
+  [SquadFormationSpread.ESFN_STANDARD] = loc("squad_orders/formation_standard", "Standard"),
+  [SquadFormationSpread.ESFN_WIDE] = loc("squad_orders/formation_wide", "Wide")
 }
 
 let squadFormationDescs = {
-  [ESFN_CLOSEST] = loc("squad_orders/formation_close/desc"),
-  [ESFN_STANDARD] = loc("squad_orders/formation_standard/desc"),
-  [ESFN_WIDE] = loc("squad_orders/formation_wide/desc")
+  [SquadFormationSpread.ESFN_CLOSEST] = loc("squad_orders/formation_close/desc"),
+  [SquadFormationSpread.ESFN_STANDARD] = loc("squad_orders/formation_standard/desc"),
+  [SquadFormationSpread.ESFN_WIDE] = loc("squad_orders/formation_wide/desc")
 }
 
 let currentSquadFormationText = Computed(@()
@@ -142,9 +143,9 @@ let addSquadFormationCtor = @(formation) addTextCtor({
 let cmdSquadFormation = addTextCtor({
   id = "squadformation_items"
   items = [
-    addSquadFormationCtor(ESFN_CLOSEST),
-    addSquadFormationCtor(ESFN_STANDARD),
-    addSquadFormationCtor(ESFN_WIDE),
+    addSquadFormationCtor(SquadFormationSpread.ESFN_CLOSEST),
+    addSquadFormationCtor(SquadFormationSpread.ESFN_STANDARD),
+    addSquadFormationCtor(SquadFormationSpread.ESFN_WIDE),
   ]
   text = loc("squad_orders/formation", "Formation")
   closeOnClick = false
@@ -177,7 +178,7 @@ let requestAmmoReason = Computed(function() {
 })
 
 let cmdBringAmmo = addTextCtor({
-  action = @() sendCmd(ESMO_BRING_AMMO)
+  action = @() sendCmd(SquadMateOrder.ESMO_BRING_AMMO)
   disabledAction = @() showMsg(requestAmmoReason.value)
   text = Computed(@() "\n".concat(loc("squad_orders/bring_ammo"), cantRequestAmmoText.value ?? ""))
   disabledtext = Computed(@() noMembersText.value ?? cantRequestAmmoText.value ?? loc("pieMenu/actionUnavailable"))
@@ -242,7 +243,7 @@ let canRequestHeal = Computed(@() available.value
 let textWithInfo = @(text, info) $"{text} ({info})"
 
 let cmdHeal = addTextCtor({
-  action = @() sendCmd(ESMO_HEAL)
+  action = @() sendCmd(SquadMateOrder.ESMO_HEAL)
   disabledAction = function() {
     if (isAttachedToGun.value)
       showMsg(loc("msg/cantHealWhenMounted"))
@@ -274,7 +275,7 @@ let canUseWallposter = Computed(@() !isUnavailableWallposter.value
 let cmdWallPoster = addTextCtor({
   action = @() wallPosters.value.len() > 1
     ? showWallposterMenu(true)
-    : ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdWallposterPreview(true, 0))
+    : ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdWallposterPreview({enable=true, wallPosterId=0}))
   disabledAction = function() {
     if (wallPostersCurCount.value >= wallPostersMaxCount.value)
       showMsg(loc("wallposter/nomore"))

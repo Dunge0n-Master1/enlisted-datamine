@@ -93,8 +93,6 @@ base_zis_30{
       turretName:t="turret_02"
       gun:t="zis_30_turret_02_7_62mm_dt"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

@@ -185,6 +185,52 @@ pe_3{
       gun:t="planegun_pe_3_7_62mm_shkas_turret_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb5"
+    node:t="bomb6"
+    node:t="bomb3"
+    node:t="bomb4"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare5"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="pylon_rocket1"
+    part:t="pylon_rocket2"
+    part:t="pylon_rocket3"
+    part:t="pylon_rocket4"
+    part:t="pylon_rocket5"
+    part:t="pylon_rocket6"
+    part:t="pylon_rocket7"
+    part:t="pylon_rocket8"
+    part:t="pylon_rocket9"
+    part:t="pylon_rocket10"
+  }
 }
 
 base_pe_3_fab_100x_launcher{

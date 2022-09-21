@@ -5,8 +5,8 @@ let saveCrossnetworkChatValue = require("crossnetwork_chat_save.nut")
 let { optionSpinner, defCmp, optionCtor, optionCheckBox, getOnlineSaveData, mkDisableableCtor
 } = require("%ui/hud/menus/options/options_lib.nut")
 let { crossnetworkPlay, savedCrossnetworkPlayId,
-  savedCrossnetworkState, CrossplayState, savedCrossnetworkChatId,
-  savedCrossnetworkChatState, availableCrossplayOptions,
+  savedCrossnetworkStateUpdate, CrossplayState, savedCrossnetworkChatId,
+  savedCrossnetworkChatStateUpdate, availableCrossplayOptions,
   isCrossplayOptionNeeded, isCrossnetworkChatOptionNeeded
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
@@ -38,7 +38,7 @@ let settingsCrossnetworkChat = Computed(function() {
 let function setValBySettings(val) {
   if (!onlineSettingUpdated.value)
     return
-  savedCrossnetworkState(val)
+  savedCrossnetworkStateUpdate(val)
 }
 
 settingsCrossnetworkPlay.subscribe(setValBySettings)
@@ -49,7 +49,7 @@ onlineSettingUpdated.subscribe(@(val) val ? setValBySettings(settingsCrossnetwor
 let function setValChatBySettings(val) {
   if (!onlineSettingUpdated.value)
     return
-  savedCrossnetworkChatState(val)
+  savedCrossnetworkChatStateUpdate(val)
 }
 
 settingsCrossnetworkChat.subscribe(setValChatBySettings)

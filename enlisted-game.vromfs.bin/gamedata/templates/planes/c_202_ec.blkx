@@ -88,11 +88,32 @@ c_202_ec{
       gun:t="planegun_c_202_ec_20mm_mg15120_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_c_202_ec_20mm_mg15120{
   item__name:t="guns/cannonmg15120"
-  gun__blk:t="content/enlisted/gamedata/weapons/c_202_ec/20mm_mg15120.blk"
+  gun__blk:t="gamedata/weapons/c_202_ec/20mm_mg15120.blk"
   gun__shotFreq:r=11.66
   gun__locName:t="cannonmg15120"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -118,25 +139,25 @@ base_c_202_ec_20mm_mg15120{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
         name:t="spur"
         type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
         name:t="spur"
         type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
         name:t="pzgr"
         type:t="aphe"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
         name:t="mgesch"
         type:t="he_i_mine"
       }
@@ -146,7 +167,7 @@ base_c_202_ec_20mm_mg15120{
 
 base_c_202_ec_12_7mm_bredasafat127{
   item__name:t="guns/gunbredasafat127"
-  gun__blk:t="content/enlisted/gamedata/weapons/c_202_ec/12_7mm_bredasafat127.blk"
+  gun__blk:t="gamedata/weapons/c_202_ec/12_7mm_bredasafat127.blk"
   gun__shotFreq:r=11.6667
   gun__locName:t="gunbredasafat127"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -172,31 +193,31 @@ base_c_202_ec_12_7mm_bredasafat127{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
@@ -246,6 +267,6 @@ c_202_ec_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="c_202_ec_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/c_202_ec.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/c_202_ec.blk"
+  plane_anim__blk:t="gamedata/units/c_202_ec.blk"
+  plane_sight__blk:t="gamedata/units/c_202_ec.blk"
 }

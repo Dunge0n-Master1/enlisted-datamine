@@ -13,13 +13,15 @@ let inVehicleDefValue = freeze({
   inShip = false
   inGroundVehicle = false
   isVehicleAlive = false
+  isVehicleCanBeRessuplied = false
+  isPlaneOnCarrier = false
   controlledVehicleEid = INVALID_ENTITY_ID
 })
 
 let { inVehicleState, inVehicleStateSetValue } = mkFrameIncrementObservable(inVehicleDefValue, "inVehicleState")
 let {
-  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, controlledVehicleEid
-} = watchedTable2TableOfWatched({state=inVehicleState, defValue=inVehicleDefValue})
+  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid
+} = watchedTable2TableOfWatched(inVehicleState)
 
 let rolesDefValue = freeze({
   isDriver = false
@@ -28,7 +30,7 @@ let rolesDefValue = freeze({
 })
 
 let { rolesState, rolesStateSetValue } = mkFrameIncrementObservable(rolesDefValue, "rolesState")
-let { rolesExport } = watchedTable2TableOfWatched({state=rolesState, defValue=rolesDefValue, plainOut=false, name="rolesExport"})
+let rolesExport = watchedTable2TableOfWatched(rolesState)
 
 let actionsDefValue = freeze({
   isPlayerCanEnter = true
@@ -37,7 +39,7 @@ let actionsDefValue = freeze({
   isHighSpeedWarningEnabled = false
 })
 let { actionsState, actionsStateSetValue } = mkFrameIncrementObservable(actionsDefValue, "actionsState")
-let { actionsExport } = watchedTable2TableOfWatched({state=actionsState, defValue=actionsDefValue, plainOut=false, name="actionsExport"})
+let actionsExport = watchedTable2TableOfWatched(actionsState)
 
 ecs.register_es("ui_in_vehicle_eid_es",
   {
@@ -45,10 +47,13 @@ ecs.register_es("ui_in_vehicle_eid_es",
       let inPlaneC = comp["airplane"] != null
       let inTankC = comp["isTank"] != null
       let inShipC = comp["ship"] != null
+      let canBeRessuplied = comp.resupplyAtTime != null && comp.disableVehicleResupply == null
       inVehicleStateSetValue({
         inPlane=inPlaneC, inTank = inTankC, inShip=inShipC, inGroundVehicle=!inPlaneC,
         isVehicleAlive = comp["isAlive"]
+        isVehicleCanBeRessuplied = canBeRessuplied
         controlledVehicleEid = eid
+        isPlaneOnCarrier = comp.plane_carrier_assist__isOnCarrier
       })
     },
     function onDestroy(){
@@ -58,11 +63,14 @@ ecs.register_es("ui_in_vehicle_eid_es",
   {
     comps_track = [
       ["isAlive", ecs.TYPE_BOOL, false],
+      ["plane_carrier_assist__isOnCarrier", ecs.TYPE_BOOL, false],
     ],
     comps_ro = [
       ["airplane", ecs.TYPE_TAG, null],
       ["isTank", ecs.TYPE_TAG, null],
       ["ship", ecs.TYPE_TAG, null],
+      ["resupplyAtTime", ecs.TYPE_FLOAT, null],
+      ["disableVehicleResupply", ecs.TYPE_TAG, null],
     ],
     comps_rq=["vehicleWithWatched"]
   }
@@ -129,6 +137,6 @@ ecs.register_es("ui_vehicle_state_es",
 )
 
 return rolesExport.__merge(actionsExport, {
-  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, controlledVehicleEid
+  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid
   inVehicle = Computed(@() inGroundVehicle.value || inPlane.value)
 })

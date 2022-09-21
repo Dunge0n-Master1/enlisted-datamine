@@ -1018,8 +1018,8 @@ Gear{
   FrontalSpringsCoeff:r=340000.0
   TailSpringsCoeff:r=400000.0
   HasWheels:b=yes
-  LeftWheelRadius:r=1.35
-  RightWheelRadius:r=1.35
+  LeftWheelRadius:r=0.55
+  RightWheelRadius:r=0.55
   CenterWheelRadius:r=0.175
   Height:r=1.8
   Pitch:r=13.0

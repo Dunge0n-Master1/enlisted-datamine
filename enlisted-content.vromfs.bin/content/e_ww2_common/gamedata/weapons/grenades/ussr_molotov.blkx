@@ -34,3 +34,7 @@ ccdSpheres{
 solver{
   energyConservation:r=0.85
 }
+
+shellSound{
+  activatePath:t="/weapon/molotov/activate"
+}

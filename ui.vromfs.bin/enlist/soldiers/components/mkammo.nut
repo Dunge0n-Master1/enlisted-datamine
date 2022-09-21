@@ -4,7 +4,7 @@ let {iconByGameTemplate} = require("%enlSqGlob/ui/itemsInfo.nut")
 let {
   defInsideBgColor, insideBorderColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let {configs} = require("%enlSqGlob/configs/configs.nut")
+let {configs} = require("%enlist/meta/configs.nut")
 let {campItemsByLink} = require("%enlist/meta/profile.nut")
 
 let function mkAmmo(item, soldierGuid, weapData, slotType){

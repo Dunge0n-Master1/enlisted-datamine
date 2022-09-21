@@ -16,7 +16,6 @@ let {
 let getPlayersCountInRoomText = require("getPlayersCountInRoomText.nut")
 let { lockIconSize } = require("eventModeStyle.nut")
 let { joinSelEventRoom } = require("joinEventRoom.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
@@ -63,10 +62,10 @@ let columnsTable = {
     width = hdpx(60)
   }
   creator = {
-    cell = @(r) txt(remap_nick(r?.creator ?? "???"), creatorColumnWidth)
+    cell = @(r) txt(r?.creator ?? "???", creatorColumnWidth)
     label = loc("Creator")
     width = creatorColumnWidth
-    sortFunc = @(a, b) remap_nick(a?.creator ?? "") <=> remap_nick(b?.creator ?? "")
+    sortFunc = @(a, b) (a?.creator ?? "") <=> (b?.creator ?? "")
   }
   players = {
     cell = @(r) txt(getPlayersCountInRoomText(r), playersColumnWidth)

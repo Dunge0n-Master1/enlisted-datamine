@@ -28,7 +28,7 @@ def squad_sight_avoid_destroy_es(evt : Event; eid : EntityId)
 def squad_sight_avoid_destroyed_es(evt : Event; eid : EntityId)
   ecs::query() <| $ [es] (var beh_tree : BehaviourTree&; squad_member__squad : EntityId)
     if squad_member__squad == eid
-      beh_tree.blackBoard |> datablock_setBool("sightAvoidEnabled", false)
+      beh_tree.blackBoard |> set("sightAvoidEnabled", false)
 
 [es(tag=server, no_order, REQUIRE=squad_sight_avoid)]
 def squad_sight_avoid_update_es(info : ecs::UpdateStageInfoAct;
@@ -53,19 +53,19 @@ def squad_sight_avoid_update_es(info : ecs::UpdateStageInfoAct;
     if !isDowned && isAlive && !isInVehicle
       leader_aimTm = human__aimTm
       found = true
-      beh_tree.blackBoard |> datablock_setBool("sightAvoidEnabled", false)
+      beh_tree.blackBoard |> set("sightAvoidEnabled", false)
   collect_squad_ai(eid, squad__leader) <| $(var beh_tree : BehaviourTree&)
-    beh_tree.blackBoard |> datablock_setBool("sightAvoidEnabled", found)
+    beh_tree.blackBoard |> set("sightAvoidEnabled", found)
     if found
       var endPos = leader_aimTm[3] + leader_aimTm[0] * squad_sight_avoid__forwardDist
       endPos.y = leader_aimTm[3].y
-      beh_tree.blackBoard |> datablock_setPoint3("sightAvoidPos", leader_aimTm[3])
-      beh_tree.blackBoard |> datablock_setPoint3("sightAvoidForwardDir", endPos - leader_aimTm[3])
-      beh_tree.blackBoard |> datablock_setReal("sightAvoidDownDist", squad_sight_avoid__downDist)
-      beh_tree.blackBoard |> datablock_setReal("sightAvoidSideDist", squad_sight_avoid__sideDist)
-      beh_tree.blackBoard |> datablock_setPoint2("sightAvoidWeight", squad_sight_avoid__weight)
+      beh_tree.blackBoard |> set("sightAvoidPos", leader_aimTm[3])
+      beh_tree.blackBoard |> set("sightAvoidForwardDir", endPos - leader_aimTm[3])
+      beh_tree.blackBoard |> set("sightAvoidDownDist", squad_sight_avoid__downDist)
+      beh_tree.blackBoard |> set("sightAvoidSideDist", squad_sight_avoid__sideDist)
+      beh_tree.blackBoard |> set("sightAvoidWeight", squad_sight_avoid__weight)
     return false
 
 [es(tag=server, on_appear, track=squad_member__squad, REQUIRE=squad_member__squad)]
 def squad_sight_avoid_update_squad_es(evt : Event; var beh_tree : BehaviourTree&)
-  beh_tree.blackBoard |> datablock_setBool("sightAvoidEnabled", false)
+  beh_tree.blackBoard |> set("sightAvoidEnabled", false)

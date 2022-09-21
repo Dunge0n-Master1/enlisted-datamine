@@ -38,7 +38,7 @@ let getMineType = @(mines)
 
 let sortMembers = @(a,b) a.memberIdx <=> b.memberIdx
 let mkDefState = @() {watchedHeroSquadEid = INVALID_ENTITY_ID, controlledSquadEid = INVALID_ENTITY_ID, members = {}}
-let {watchedHeroSquadMembersRaw, watchedHeroSquadMembersRawSetValue, watchedHeroSquadMembersRawMutate} = mkFrameIncrementObservable(mkDefState(), "watchedHeroSquadMembersRaw")
+let {watchedHeroSquadMembersRaw, watchedHeroSquadMembersRawSetValue, watchedHeroSquadMembersRawModify} = mkFrameIncrementObservable(mkDefState(), "watchedHeroSquadMembersRaw")
 
 let watchedHeroSquadMembersGetWatched = memoize(@(eid) Computed(@() watchedHeroSquadMembersRaw.value.members?[eid]))
 
@@ -117,7 +117,7 @@ ecs.register_es("track_squad_members_state_ui",
       }
       let controlled = comp["squad_members_ui__controlledSquadEid"]
       let squadMembers = comp["squad_members_ui__watchedSquadState"].getAll()
-      watchedHeroSquadMembersRawMutate(function(state) {
+      watchedHeroSquadMembersRawModify(function(state) {
         state.watchedHeroSquadEid = watchedSquadEid
         state.controlledSquadEid = controlled
         foreach (k, v in squadMembers) {
@@ -127,6 +127,7 @@ ecs.register_es("track_squad_members_state_ui",
           startMemberAnimations(updatedState, oldState)
           state.members[eid] <- updatedState
         }
+        return state
       })
     },
   },

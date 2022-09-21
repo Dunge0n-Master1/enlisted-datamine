@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let cursors = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let premiumWnd = require("premiumWnd.nut")
@@ -8,7 +7,7 @@ let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
 let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
-let mkNotifier = require("%enlist/components/mkNotifier.nut")
+let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 
 let IMAGE_WIDTH = hdpx(35)
 
@@ -35,7 +34,7 @@ let premiumWidget = @(){
   children = [
     premiumImage(IMAGE_WIDTH)
     !hasDiscount.value ? null
-      : mkNotifier(loc("shop/discountNotify"), { size = SIZE_TO_CONTENT }, {}, tiny_txt)
+      : mkNotifierBlink(loc("shop/discountNotify"), { size = SIZE_TO_CONTENT })
   ]
 }
 

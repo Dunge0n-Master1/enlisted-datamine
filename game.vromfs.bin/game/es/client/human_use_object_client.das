@@ -136,6 +136,7 @@ def can_request_ammo_from(squad_eid : EntityId;
 [es(REQUIRE=hero, after=(hero_human_use_door_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
 def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
+                                   possessedByPlr : EntityId;
                                    animchar : AnimcharBaseComponent;
                                    human_use_object__useDist : float;
                                    human_weap__throwMode : bool;
@@ -149,37 +150,38 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
     return
   let camTm = get_cam_itm()
   let traceDir = camTm[2]
-  let tracePos = (human_use_object__nodeId > 0 ? animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
+  var tracePos = (human_use_object__nodeId > 0 ? animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
                                                : camTm[3])
 
   using() <| $(var entities : IntersectedEntities#)
     var dist = human_use_object__useDist
     trace_entities_in_grid(ecs_hash("humans"), tracePos, traceDir, dist, eid, entities, SortIntersections NO)
     trace_entities_in_grid(ecs_hash("vehicles"), tracePos, traceDir, dist, INVALID_ENTITY_ID, entities, SortIntersections YES)
-    if length(entities) > 0
-      var norm : float3
-      var t = float(entities[0].t)
-      if traceray_normalized(tracePos, traceDir, t, norm)
-        return // Exit early as closest object is hidden by collision (trace_grid_objects returns sorted list)
 
-    let attachedToGun = (human_attached_gun__attachedGunEid != INVALID_ENTITY_ID)
+    let canUseVehicles = !human_use_object__lockVehicleUse && human_attached_gun__attachedGunEid == INVALID_ENTITY_ID && !human_weap__throwMode
+    var prevDist = 0.0
     for entity in entities
       if eid == entity.eid
         continue
 
-      if (!human_use_object__lockVehicleUse && !attachedToGun && !human_weap__throwMode &&
-          has(entity.eid, "vehicle_seats__seats") && get_bool(entity.eid, "isAlive") ?? true)
-        human_use_object__selectedObject = entity.eid
+      var traceDist = entity.t - prevDist
+      tracePos += traceDir * traceDist
+      prevDist = entity.t
+      var norm : float3
+      if traceray_normalized(tracePos, traceDir, traceDist, norm)
+        return // Exit early as far objects are hidden by collision (trace_grid_objects returns sorted list)
 
-        query(entity.eid) <| $ [es] (vehicle_seats__restrictToTeam : int)
+      if canUseVehicles
+        ecs::query(entity.eid) <| $ [es(REQUIRE=vehicle_seats__seats)] (isAlive : bool = true; vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED)
+          if !isAlive
+            return
           if vehicle_seats__restrictToTeam != TEAM_UNASSIGNED && team_human != vehicle_seats__restrictToTeam
-            human_use_object__selectedObject = INVALID_ENTITY_ID
-
-        let playerEid = get_Eid(eid, "possessedByPlr") ?? INVALID_ENTITY_ID
-        if !is_vehicle_has_free_player_seats(entity.eid, playerEid)
-          human_use_object__selectedObject = INVALID_ENTITY_ID
+            return
+          if is_vehicle_has_free_player_seats(entity.eid, possessedByPlr)
+            human_use_object__selectedObject = entity.eid
         if human_use_object__selectedObject != INVALID_ENTITY_ID
           break
+
       let isLootable = has(entity.eid, "lootable")
       let isLootableGunOnly = has(entity.eid, "lootableGunOnly")
       let isAlive = get_bool(entity.eid, "isAlive") ?? true
@@ -210,21 +212,13 @@ def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
   let camTm = get_cam_itm()
   let tracePos = (human_use_object__nodeId > 0 ? animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
                                                : camTm[3])
-  find_query() <| $ [es] (eid : EntityId;
-                          human_inventory__entityToUse : EntityId;
-                          team : int;
-                          transform : float3x4;
-                          isDowned : bool;
-                          hitpoints__canSelfReviveByPerk : bool = false)
+  find_query() <| $ [es(REQUIRE=human)] (eid : EntityId;
+                                         team : int;
+                                         transform : float3x4;
+                                         isDowned : bool)
     if team != team_hero || !isDowned
       return false
 
-    if hitpoints__canSelfReviveByPerk
-      var reviveDisabled = false
-      query(human_inventory__entityToUse) <| $ [es(REQUIRE=item__useInterruptDisabled)] (item__reviveAmount : float)
-        reviveDisabled = (item__reviveAmount > 0.0)
-      if reviveDisabled
-        return false
     let offset = transform[3] - tracePos
     let dist = length(offset)
     let dir = offset * safeinv(dist)

@@ -36,8 +36,11 @@ def set_hero_cockpit_vec_impl()
     return false
 
   var humanTraceHandle : TraceMeshFaces?
-  query(heroEid) <| $ [es] (human_net_phys : HumanActor)
+  var isAiming : bool
+  query(heroEid) <| $ [es] (human_net_phys : HumanActor;
+                            human_net_phys__isAiming : bool)
     humanTraceHandle = human_net_phys.phys.traceHandle
+    isAiming = human_net_phys__isAiming
 
   shootTm[0] = -shootTm1.col2.xyz
   shootTm[1] = shootTm1.col1.xyz
@@ -59,12 +62,24 @@ def set_hero_cockpit_vec_impl()
   var pmid : int
   var riDesc = RendInstDesc()
 
-  if !traceray_normalized(tracePos, traceDir, t, pmid, norm, ETF_DEFAULT | ETF_RI_TREES, riDesc, -1, humanTraceHandle)
+  var startFadeDistance = 1000.0
+  var applyFade = false
+  if traceray_normalized(tracePos, traceDir, t, pmid, norm, ETF_DEFAULT | ETF_RI_TREES, riDesc, -1, humanTraceHandle)
+    applyFade = true
+    startFadeDistance = t - START_FADE_BEFORE_INTERSECTION
+
+  if isAiming
+    query(get_human_gun_eid(heroEid))  <| $ [es] (gun__distanceToDisableAOinAiming : float)
+      if gun__distanceToDisableAOinAiming > 0.0
+        applyFade = true
+        startFadeDistance = min(startFadeDistance, gun__distanceToDisableAOinAiming + startBias)
+
+  if !applyFade
     return false
 
-  let intersectionPos = tracePos + (t - START_FADE_BEFORE_INTERSECTION) * traceDir
+  let startFadePos = tracePos + startFadeDistance * traceDir
   let normalizedDir = traceDir / FADE_INTERVAL
-  let vec = float4(normalizedDir, -dot(normalizedDir, intersectionPos) + 1.0)
+  let vec = float4(normalizedDir, -dot(normalizedDir, startFadePos) + 1.0)
   DagorShaders::set_color4(hero_cockpit_vecVarId, Color4(vec))
   return true
 

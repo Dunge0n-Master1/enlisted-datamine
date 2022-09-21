@@ -57,6 +57,7 @@ enlist_ab_41_turret_01_20mm_breda_m35_l6{
 it_ab_41_common{
   _extends:t="base_ab_41"
   _extends:t="vehicle_steering_assist"
+  _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
 
   "vehicle_seats__seats:shared:array"{

@@ -189,6 +189,13 @@ box_battle_area{
   }
 }
 
+human_hidden_ui_battle_area{
+  _extends:t="box_battle_area"
+
+  "hideOnMinimap:tag"{
+  }
+}
+
 aircraft_box_battle_area{
   _extends:t="base_battle_area"
 

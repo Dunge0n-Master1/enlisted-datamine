@@ -1,0 +1,326 @@
+import{
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_sounds.blk"
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_gpu_objects.blk"
+}
+
+entity{
+  _template:t="pacific_level"
+  level__blk:t="content/enlisted/levels/pacific_guadalcanal.blk"
+}
+
+entity{
+  _template:t="clouds_hole_target"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}
+
+entity{
+  _template:t="wind"
+}
+
+entity{
+  _template:t="water"
+  shore__amplitude_to_length:r=800.0
+  shore__hmap_size:r=4096.0
+  shore__parallelism_to_wind:r=0.5
+  shore__rivers_width:r=30.0
+  shore__texture_size:i=4096
+  shore__wave_gspeed:r=0.6
+  shore__width_k:r=0.6
+  waterTrail__useObstacle:b=yes
+  water__level:r=0.0
+  water__strength:r=1.0
+  water__wind_dir:r=270.0
+  water__flowmap:b=yes
+  water__flowmap_tex:t="pacific_guadalcanal_water_det_flowmap"
+  water__flowmap_area:p4=-2048.0, 2048.0, 2048.0, -2048.0
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    max_river_width:r=50.0
+    hmap_displacement_up:r=0.3
+    ocean0:c=30, 55, 55, 0
+    ocean1:c=40, 50, 100, 0
+    ocean_density:r=0.4
+    land_selfillum_worldscale:r=0.9
+    river0:c=30, 55, 55, 0
+    river1:c=40, 50, 100, 0
+    hmap_displacement_down:r=-0.15
+    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
+    paint_details_tex:t="pacific_color_tex_palette*"
+    land_selfillum_strength:r=32.0
+    water_color_noise_size:r=71.0
+    river_density:r=0.4
+    puddle_increase:r=-0.5
+  }
+}
+
+entity{
+  _template:t="pacific_guadalcanal_minimap"
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+}
+
+entity{
+  _template:t="door_mult_ent_generator"
+  ri_extra_gen__blk:t="content/e_pacific/gamedata/pacific_doors.blk"
+}
+
+entity{
+  _template:t="session_finalizer"
+  session_finalizer__timer:r=10.0
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=0.0
+  group_switch_timer__activateGroup:t="aircraft_spawn_on_carrier"
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=300.0
+  group_switch_timer__deactivateGroup:t="aircraft_spawn_on_carrier"
+  group_switch_timer__activateGroup:t="aircraft_spawn_in_air"
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[157.435, 0.0, -220.304] [0.0, 32.0817, 0.0] [24.6098, -0.0, 17.5869] [-2399.8, 14.9795, 2795.8]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[152.779, 4.56118e-06, -219.659] [4.73497e-07, 30.0, 9.52275e-07] [24.6286, -9.32465e-07, 17.1299] [-2473.92, 14.9788, 2657.58]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[217.832, -2.10195e-06, 85.4711] [2.50861e-07, 30.0, 9.84304e-08] [-10.9578, 6.52971e-13, 27.9271] [2414.5, 14.9794, 1360.99]]
+}
+
+entity{
+  _template:t="aircraft_carrier_landing_zone"
+  transform:m=[[217.803, 7.68472e-07, 85.5436] [1.47848e-07, 30.0, -6.45938e-07] [-10.9671, 6.55277e-07, 27.9235] [2511.23, 14.9796, 1280.56]]
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.601413, 0.0, -0.798938] [0.0, 1.0, 0.0] [0.798938, -0.0, 0.601412] [-2467.71, 15.097, 2889.68]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.596178, 0.0, -0.802852] [0.0, 1.0, 0.0] [0.802852, -0.0, 0.596178] [-2539.69, 15.0585, 2749.13]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.5221, 0.0, -0.852884] [0.0, 1.0, 0.0] [0.852884, -0.0, 0.5221] [-2632.7, 0.952057, 2704.28]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[0.5221, 0.0, -0.852884] [0.0, 1.0, 0.0] [0.852884, -0.0, 0.5221] [-2395.42, 0.952194, 2935.53]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.924681, 0.0, -0.380744] [0.0, 1.0, 0.0] [0.380744, 0.0, -0.924681] [2507.97, 16.6763, 1397.94]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnCarrier"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.923038, 0.0, -0.38471] [0.0, 1.0, 0.0] [0.38471, 0.0, -0.923038] [2608.32, 16.5077, 1319.41]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.919181, 0.00276797, -0.393824] [0.0141862, 0.999559, -0.0260852] [0.393578, -0.0295639, -0.918816] [2648.16, 0.535954, 1246.29]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftOnWater"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_on_carrier"
+  transform:m=[[-0.92887, 0.0035171, -0.370387] [0.0141862, 0.999559, -0.0260852] [0.370132, -0.0294842, -0.928512] [2518.18, 1.57307, 1502.76]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.958522, 0.0, -0.285021] [0.0, 1.0, 0.0] [0.285021, -0.0, 0.958522] [-2485.11, 1023.92, 626.129]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.968139, 0.0, -0.250417] [0.0, 1.0, 0.0] [0.250417, -0.0, 0.968139] [-2444.88, 1023.92, 777.5]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.973551, 0.0, -0.22847] [0.0, 1.0, 0.0] [0.22847, -0.0, 0.973551] [-2447.88, 823.92, 799.396]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[0.967727, 0.0, -0.251998] [0.0, 1.0, 0.0] [0.251998, -0.0, 0.967727] [-2485.11, 823.92, 626.129]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1614.99, 1000.0, 426.414]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1646.42, 1000.0, 279.141]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1614.99, 800.0, 426.414]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  groupName:t="aircraft_spawn_in_air"
+  transform:m=[[-0.999958, 0.0, 0.00917732] [0.0, 1.0, 0.0] [-0.00917732, 0.0, -0.999958] [1614.9, 800.0, 247.473]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="team_ussr_berlin+team_narrator_invasion_attack+respawn_creators_team"
+  team__memberCount:r=0.0
+  team__scoreCap:r=1500.0
+  team__score:r=1500.0
+  team__squadSpawnCost:i=250
+  team__firstSpawnCostMul:r=0.0
+  team__zeroScoreFailTimer:r=60.0
+  team__id:i=1
+  team__briefing:t="invasion/attackers_goals"
+  team__winSubtitle:t="debriefing/won_invasion_subtitle"
+  team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
+  team__winTitle:t="debriefing/ussr_won_invasion"
+  team__spawnBotArmy:t="berlin_allies"
+}
+
+entity{
+  _template:t="team_germany_berlin+team_narrator_invasion_defence+respawn_creators_team"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=3000.0
+  team__capturePenalty:r=1001.0
+  team__score:r=3000.0
+  team__id:i=2
+  team__briefing:t="invasion/defenders_goals"
+  team__winSubtitle:t="debriefing/won_defence_subtitle"
+  team__loseSubtitle:t="debriefing/lost_defence_subtitle"
+  team__winTitle:t="debriefing/ger_won_defence"
+  team__spawnBotArmy:t="berlin_axis"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  moveCameraToHeight:r=170.0
+  respawnSelectorDistanceMult:r=1.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  moveCameraToHeight:r=170.0
+  respawnSelectorDistanceMult:r=1.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}

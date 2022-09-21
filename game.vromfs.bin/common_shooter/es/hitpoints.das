@@ -2,6 +2,7 @@ require ecs
 require app
 require game.es.events
 require common_shooter.events_common_shooter
+require game.es.vehicle.vehicle_seats_common
 require game.events_game
 require game.utils.team
 require EnlistedDm

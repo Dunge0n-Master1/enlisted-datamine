@@ -32,9 +32,8 @@ let formatIconName = memoize(function(icon, width, height = null) {
 let mkAlertIcon = @(icon, unseenWatch = Watched(true), hasBlink = false)
   function() {
     let res = { watch = unseenWatch }
-    return res.__update(unseenWatch.value
-      ? blinkingIcon(icon).__update(hasBlink ? {} : { animations = null })
-      : {})
+    return !unseenWatch.value ? res
+      : res.__update(blinkingIcon(icon), hasBlink ? {} : { animations = null })
   }
 
 let mkLevelIcon = @(fontSize = hdpx(10), color = soldierExpColor, fName = "star") {

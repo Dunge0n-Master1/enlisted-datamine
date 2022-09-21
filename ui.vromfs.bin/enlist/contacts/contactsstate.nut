@@ -11,7 +11,7 @@ let matching_api = require("matching.api")
 let eventbus = require("eventbus")
 let msgbox = require("%enlist/components/msgbox.nut")
 let platform = require("%dngscripts/platform.nut")
-let blacklist = require("%enlSqGlob/blacklist.nut")
+let {blocklistUpdate} = require("%enlSqGlob/blocklist.nut")
 let isContactsVisible = mkWatched(persist, "isContactsVisible", false)
 let { presences, updatePresences } = require("contactPresence.nut")
 let { canInterractCrossPlatform } = require("%enlSqGlob/platformUtils.nut")
@@ -282,7 +282,7 @@ blockedUids.subscribe(function(b) {
   let byUid = {}
   foreach (userId, _ in b)
     byUid[userId.tointeger()] <- true
-  blacklist(byUid)
+  blocklistUpdate(byUid)
 })
 
 crossnetworkChat.subscribe(@(_) fetchContacts())

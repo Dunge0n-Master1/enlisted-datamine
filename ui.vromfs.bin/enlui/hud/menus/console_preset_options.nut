@@ -29,7 +29,7 @@ else if (platform.is_ps4 || dbgConsolePreset.value == "ps4" || platform.is_ps4_p
 //else if (platform.is_ps4_pro || dbgConsolePreset.value == "ps4_pro")
 //  availableGraphicPresets = [ "HighQuality", "HighFPS" ]
 else if (platform.is_ps5 || dbgConsolePreset.value == "ps5")
-  availableGraphicPresets = ["HighQuality"]
+  availableGraphicPresets = [ "HighFPS", "HighQuality" ]
 
 let consoleGfxSettingsBlk = get_setting_by_blk_path("graphics/consoleGfxSettings")
 let presetAvailable = (consoleGfxSettingsBlk == null) || (consoleGfxSettingsBlk == "no")
@@ -85,12 +85,12 @@ let optXboxGraphicsPreset = optionCtor({
       {blkPath = "video/antiAliasingMode", val = (platform.is_xboxone_X || platform.is_xbox_scarlett ? 3 : 2)}, //3 = TSR 2 = TAA
       {blkPath = "video/temporalUpsamplingRatio", val = (platform.is_xboxone_X || platform.is_xbox_scarlett ? 80.0 : 100.0)},
       {blkPath = "graphics/ssss", val = ((v == "HighQuality" && platform.is_xboxone_X) || platform.is_xbox_scarlett)},
-      {blkPath = "graphics/cloudsQuality", val = (platform.is_xbox_scarlett ? (v == "HighQuality" && platform.is_xbox_anaconda ? "volumetric" : "highres") : "default")}
+      {blkPath = "graphics/cloudsQuality", val = (platform.is_xbox_scarlett ? (v == "HighQuality" && platform.is_xbox_anaconda ? "volumetric" : "highres") : "default")},
+      {blkPath = "graphics/volumeFogQuality", val = "close"}
     ]
   }
 })
 
-// This is not used anymore, but I expect to make use of it again on PS5 when we add 120 FPS mode so keeping it for now
 let optPSGraphicsPreset = optionCtor({
   name = loc("options/graphicsPreset")
   widgetCtor = optionSpinner
@@ -116,7 +116,8 @@ let optPSGraphicsPreset = optionCtor({
       {blkPath = "graphics/dropletsOnScreen", val = (v == "HighQuality")},
       {blkPath = "graphics/scopeImageQuality", val = (v == "HighQuality" ? 1 : 0)},
       {blkPath = "video/vsync_tearing_tolerance_percents", val = 10},
-      {blkPath = "video/frameSkip", val = (platform.is_ps5 ? 0 : 1)},
+      {blkPath = "video/freqLevel", val = (platform.is_ps5 && v == "HighFPS" ? 3 : 1)},
+      {blkPath = "video/fpsLimit", val = (platform.is_ps5 && v == "HighFPS" ? 90 : 0)},
       {blkPath = "graphics/shouldRenderHeroCockpit", val = true},
       {blkPath = "graphics/skiesQuality", val = (platform.is_ps4_simple ? "low" : (v == "HighFPS" ? "medium" : "high"))},
       {blkPath = "video/antiAliasingMode", val = (platform.is_ps4_pro ? 3 : 2)}, //3 = TSR 2 = TAA

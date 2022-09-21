@@ -973,7 +973,7 @@ let function debriefingRoot(debriefing, doClose) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     cursor = normal
     stopMouse = true
-    hooks = HOOK_ATTACH
+    behavior = Behaviors.ActivateActionSet
     actionSet = "StopInput"
     watch = safeAreaBorders
     stopHotkeys = true

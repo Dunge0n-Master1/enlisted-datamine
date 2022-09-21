@@ -5,8 +5,15 @@ let {
   activeTxtColor, titleTxtColor, defTxtColor, tinyOffset, smallPadding,
   bigPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.7)
+let { smallUnseenNoBlink, unseenByType } = require("%ui/components/unseenComps.nut")
 
+
+let function mkUnseenSign(mark, isSelected) {
+  let sign = unseenByType?[mark]
+  return sign == null ? null
+    : isSelected ? smallUnseenNoBlink
+    : sign
+}
 
 let function txtColor (sf){
   return sf & S_ACTIVE ? activeTxtColor
@@ -17,7 +24,7 @@ let function txtColor (sf){
 let mkTabText = @(text, color) type(text) == "function" ? text(color)
   : { rendObj = ROBJ_TEXT, color, text }.__update(h2_txt)
 
-let mkWindowTab = @(text, onClick, isSelected, isUnseen = Watched(false), customStyle = {})
+let mkWindowTab = @(text, onClick, isSelected, override = {}, unseenMarkType = Watched(null))
   watchElemState(@(sf) {
     halign = ALIGN_CENTER
     flow = FLOW_VERTICAL
@@ -28,7 +35,7 @@ let mkWindowTab = @(text, onClick, isSelected, isUnseen = Watched(false), custom
     }
     onClick
     children = @() {
-      watch = isUnseen
+      watch = [unseenMarkType]
       rendObj = ROBJ_BOX
       borderWidth = isSelected ? [0, 0, smallPadding, 0] : 0
       borderColor = txtColor(sf)
@@ -37,13 +44,13 @@ let mkWindowTab = @(text, onClick, isSelected, isUnseen = Watched(false), custom
           padding = [0, 0, tinyOffset, 0]
           children = mkTabText(text, isSelected ? activeTxtColor : txtColor(sf))
         }
-        !isUnseen.value ? null
-          : unseenSignal.__update({
-              pos = [tinyOffset, -bigPadding]
-              hplace = ALIGN_RIGHT
-            })
+        {
+          pos = [tinyOffset, -bigPadding]
+          hplace = ALIGN_RIGHT
+          children = mkUnseenSign(unseenMarkType.value, isSelected)
+        }
       ]
     }
-  }.__update(customStyle))
+  }.__update(override))
 
 return mkWindowTab

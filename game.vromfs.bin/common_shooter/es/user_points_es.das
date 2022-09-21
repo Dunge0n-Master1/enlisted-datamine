@@ -54,11 +54,13 @@ def clear_all_map_user_point_es(evt : CmdClearAllAttachedUserPoint;
     if target == evt.target
       destroy_point(eid, target)
 
-def set_mark(name : string; player_eid : EntityId; trace_pos, trace_dir : float3)
+def set_mark(name : string; player_eid : EntityId; trace_pos, trace_dir : float3; ray_mat_id : int)
   let dst = 2000.0
   var t = dst
   var norm : float3
-  traceray_normalized(trace_pos, trace_dir, t, norm)
+  var pmid : int
+  var rendInstDesc = RendInstDesc()
+  traceray_normalized(trace_pos, trace_dir, t, pmid, norm, ETF_DEFAULT, rendInstDesc, ray_mat_id)
   let markPos = t < dst ? trace_pos + trace_dir * t : float3()
   if !find_and_delete_point(player_eid, trace_pos, trace_dir)
     send_net_event(player_eid, [[CmdCreateMapUserPoint pos = markPos, dir = trace_dir, norm = norm, item_name = name ]])
@@ -93,16 +95,18 @@ def on_cmd_set_mark(player, possessed : EntityId; always_enemy : bool)
   let isExistsAndAlive = possessed |> get_bool("isAlive") ?? false // as possessed entity could be invalid entity at this poit and we should use spectator in this case
   if isExistsAndAlive
     query(possessed) <| $ [es] (human__aimTm : float3x4;
+                                human_weap__currentGunEid : EntityId;
                                 human_net_phys__isAiming : bool;
                                 camera__lookDir : float3 = float3())
       find_query() <| $ [es] (ui_crosshair_state__isAiming : bool)
         let markType = ui_crosshair_state__isAiming || always_enemy ? "enemy" : "main"
-        set_mark(markType, player, human__aimTm[3], human_net_phys__isAiming ? human__aimTm[0] : camera__lookDir)
+        let aimRayMatId = get_int(human_weap__currentGunEid, "gun__aimRayMatId") ?? PHYSMAT_INVALID
+        set_mark(markType, player, human__aimTm[3], human_net_phys__isAiming ? human__aimTm[0] : camera__lookDir, aimRayMatId)
         return true
   else
     find_query() <| $ [es(REQUIRE=spectator__target)] (transform : float3x4)
       let markType = always_enemy ? "enemy" : "main"
-      set_mark(markType, player, transform[3], transform[2])
+      set_mark(markType, player, transform[3], transform[2], PHYSMAT_INVALID)
       return true
 
 [es(tag = gameClient, on_event=CmdSetMarkEnemy)]

@@ -48,6 +48,10 @@ def attach_to_gun(eid : EntityId;
     animchar__updatable = true
 
   if gun != null
+    query(gun_eid) <| $ [es] (transform : float3x4)
+      gun.wishLookDir = transform[2]
+      gun.initialTm = transform
+
     (*gun) |> mounted_gun_attach(gun_eid, eid)
 
   if is_server()
@@ -224,7 +228,7 @@ def human_attached_gun_input_es(update : CmdPostPhysUpdate;
           human_net_phys.phys.currentState.height = -1.0
         else
           let crouchToStandLerpHeight = 1.6
-          human_net_phys.phys.currentState.height = cvt(dH, 0.0, crouchToStandLerpHeight, -0.8, 1.0)
+          human_net_phys.phys.currentState.height = cvt(dH, 0.0, crouchToStandLerpHeight, 0.0, 1.0)
 
         human_net_phys.phys.currentState.velocity = float3(0.0, 0.0, 0.0)
         human_net_phys.phys.currentState.moveState = HUMoveState EMS_STAND

@@ -38,3 +38,15 @@ ussr_female_base_soldier{
     }
   }
 }
+
+ussr_female_medic_soldier{
+  _extends:t="ussr_female_base_soldier"
+
+  "animation__overridedIdleAnims:object"{
+    _tags:t="render"
+
+    "defaultPoses:list<t>"{
+      pose:t="enlisted_idle_22_weapon"
+    }
+  }
+}

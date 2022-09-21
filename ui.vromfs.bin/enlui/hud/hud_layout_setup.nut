@@ -7,6 +7,7 @@ let bombSiteProgress = require("%ui/hud/huds/bomb_site_progress_hint.nut")
 let ammoRequestCooldown = require("huds/ammo_request_cooldown_hint.nut")
 let vehicleSeats = require("huds/vehicle_seats.ui.nut")
 let vehicleChangeSeats = require("huds/vehicle_change_seats.nut")
+let pushObjectTip = require("huds/push_object_tip.nut")
 let fortificationAction = require("%ui/hud/huds/fortification_builder_action.nut")
 let { enterVehicleIndicator, exitVehicleIndicator } = require("%ui/hud/huds/enter_exit_vehicle.nut")
 let putOutFire = require("%ui/hud/huds/put_out_fire_indicator.nut")
@@ -18,6 +19,7 @@ let { serviceMessages, hasServiceMessages } = require("huds/serviceMessages.nut"
 let vehicleRepair = require("%ui/hud/huds/vehicle_repair.nut")
 let playerEventsRoot = require("%ui/hud/huds/player_events.nut")
 let throw_grenade_tip = require("%ui/hud/huds/tips/throw_grenade_tip.nut")
+let melee_charge_tip = require("%ui/hud/huds/tips/melee_charge_tip.nut")
 let artillery_ratio_tip = require("huds/tips/artillery_radio_tip.nut")
 let friendly_fire_warning = require("%ui/hud/huds/friendly_fire_warning.nut")
 let ammoDepletedInTank = require("huds/tips/ammo_depleted_in_tank.nut")
@@ -32,7 +34,6 @@ let fortificationRepairProgress = require("%ui/hud/huds/fortification_repair_pro
 let outsideBattleAreaWarning = require("%ui/hud/huds/battle_area_warnings_hint.nut")
 
 let vehicleWarnings = require("%ui/hud/huds/vehicle_warnings.nut")
-let vehicleControlHint = require("huds/vehicle_control_hint.nut")
 let vehicleSteerTip = require("%ui/hud/huds/vehicle_steer_tip.nut")
 let planeSteerTip = require("%ui/hud/huds/tips/plane_steer_tip.nut")
 let vehicleResupplyTip = require("%ui/hud/huds/tips/vehicle_resupply.nut")
@@ -46,6 +47,7 @@ let { mainAction } = require("%ui/hud/huds/actions.nut")
 let maintenanceHint = require("%ui/hud/huds/maintenance_hint.nut")
 let { localTeamEnemyHint } = require("%ui/hud/huds/enemy_hint.nut")
 let vehicleActions = require("%ui/hud/huds/vehicleActions.nut")
+let planeTakeOffTips = require("%ui/hud/huds/planeTakeOffTips.nut")
 let buildingActions = require("huds/tips/building_tool_tip.nut")
 let vehicleFreeSeatTip = require("huds/tips/vehicle_free_seat_tip.nut")
 let wallposterActions = require("huds/tips/wallposter_tool_tip.nut")
@@ -122,9 +124,9 @@ let actionsRoot = {
     halign = ALIGN_CENTER
     children = minHud.value
       ? [localTeamEnemyHint].extend(wallposterActions)
-      : [
-          medicHealTip, maintenanceHint, mainAction, localTeamEnemyHint, vehicleFreeSeatTip
-        ].extend(vehicleActions, buildingActions, wallposterActions)
+      : [].extend(planeTakeOffTips,
+                  [medicHealTip, maintenanceHint, mainAction, localTeamEnemyHint, vehicleFreeSeatTip],
+                  vehicleActions, buildingActions, wallposterActions)
   }
 }
 
@@ -196,8 +198,8 @@ let function tutorialHudLayout(){
 
   hudLayoutState.centerPanelBottom([
         playerEventsRoot, cannotDigAtPosTip, ammoDepletedInTank, actionsRoot,
-        throw_grenade_tip, artillery_ratio_tip, vehicleResupplyTip, vehicleControlHint,
-        spectatorKeys, friendly_fire_warning
+        throw_grenade_tip, artillery_ratio_tip, vehicleResupplyTip,
+        spectatorKeys, friendly_fire_warning, pushObjectTip
     ])
 
   /// Right Panel
@@ -247,8 +249,9 @@ let function setHudLayout(...) {
     ? [
         lieDownToShootAccuratelyTip, hasToChargeTip,
         cannotDigAtPosTip, ammoDepletedInTank, lie_down_to_save_from_expl_tip,
-        showBigMap.value ? null : actionsRoot, throw_grenade_tip, artillery_ratio_tip,
-        vehicleResupplyTip, vehicleControlHint, spectatorKeys, friendly_fire_warning
+        showBigMap.value ? null : actionsRoot, throw_grenade_tip, melee_charge_tip, artillery_ratio_tip,
+        vehicleResupplyTip, spectatorKeys, friendly_fire_warning,
+        pushObjectTip
       ]
     : [ actionsRoot, artillery_ratio_tip, friendly_fire_warning])
 

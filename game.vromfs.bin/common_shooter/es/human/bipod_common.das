@@ -227,6 +227,12 @@ def bipod_solve_limits(bipod__anchorDir : float3;
     body_points.bodyMax = bodyFromToPointsMax.bodyFrom
     body_points.legsMax = bodyFromToPointsMax.legsFrom
 
+    let minDYaw = PI * 0.12
+    if minYaw > -minDYaw
+      minYaw = -minDYaw
+    if maxYaw < minDYaw
+      maxYaw = minDYaw
+
     bipod__yawLimit.x = clamp(minYaw, -TWOPI, 0.)
     bipod__yawLimit.y = clamp(maxYaw, 0., TWOPI)
 

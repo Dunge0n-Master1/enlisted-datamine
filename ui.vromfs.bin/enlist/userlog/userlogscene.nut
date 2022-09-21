@@ -48,8 +48,8 @@ let tabsUi = @() {
       tab?.mkTitleComponent ?? loc(tab?.locId ?? ""),
       @() curTabIdx(idx),
       idx == curTabIdx.value,
-      tab?.unseenWatch ?? Watched(false),
-      { margin = [0, tinyOffset] }
+      { margin = [0, tinyOffset] },
+      tab?.unseenWatch ?? Watched(null)
     )
   )
   .insert(0, isGamepad.value ? mkHotkey("^J:LB", @() switchTab(curTabIdx.value - 1)) : null)

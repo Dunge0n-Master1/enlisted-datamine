@@ -17,7 +17,7 @@ require HumanPhys
 require EnlistedPhys
 require GamePhys
 require PhysVars
-require EnlistedDeviceAnim
+require game.es.device_state_common
 require common_shooter.es.mortar.mortar_common
 
 def start_mortar_mode(ownerEid : ecs::EntityId const)

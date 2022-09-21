@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { isPlatformRelevant } = require("%dngscripts/platform.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { purchasesCount } = require("%enlist/meta/servProfile.nut")
 let { maxVersionStr, maxVersionInt } = require("%enlSqGlob/client_version.nut")
 let { check_version } = require("%sqstd/version_compare.nut")

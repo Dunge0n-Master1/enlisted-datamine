@@ -1,6 +1,7 @@
 us_m4a3e2_76w_sherman_jumbo{
   _extends:t="base_m4a3e2_76w_sherman_jumbo"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

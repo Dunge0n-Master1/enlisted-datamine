@@ -9,6 +9,7 @@
   "@delete:vsync":b=no
   vsync:b=yes
   enableHdr:b=yes
+  temporalUpsamplingRatio:r=80
 }
 
 "@override:dx12"{

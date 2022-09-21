@@ -8,7 +8,9 @@ let { sub_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { hasProfileCard } = require("%enlist/featureFlags.nut")
 let { borderColor } = require("%enlist/profile/profilePkg.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let { hasUnseenDecorators, hasUnseenMedals
+let {
+  hasUnseenDecorators, hasUnseenMedals, hasUnseenWallposters,
+  hasUnopenedDecorators, hasUnopenedMedals, hasUnopenedWallposters
 } = require("%enlist/profile/unseenProfileState.nut")
 let { hasAchievementsReward } = require("%enlist/unlocks/taskListState.nut")
 let { chosenNickFrame, chosenPortrait } = require("%enlist/profile/decoratorState.nut")
@@ -16,13 +18,29 @@ let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.n
 let { bigPadding, titleTxtColor, defTxtColor, isWide
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkPortraitIcon } = require("decoratorPkg.nut")
-let { mkRankIcon } = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, rankIconSize } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { playerRank } = require("%enlist/profile/rankState.nut")
+let {
+  hasUnopenedAchievements, hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks
+} = require("%enlist/unlocks/unseenUnlocksState.nut")
+
 
 let PORTRAIT_WIDTH = hdpx(60)
 
+let unseenNoBlink = unseenSignal.__merge({ key = "blink_off", animations = null })
+let unseenBlink = unseenSignal.__merge({ key = "blink_on" })
+
 let hasUnseenElements = Computed(@() hasUnseenDecorators.value
-  || hasUnseenMedals.value || hasAchievementsReward.value)
+  || hasUnseenMedals.value
+  || hasUnseenWallposters.value
+  || hasAchievementsReward.value
+  || hasUnseenWeeklyTasks.value)
+
+let hasUnopenedElements = Computed(@() hasUnopenedDecorators.value
+  || hasUnopenedMedals.value
+  || hasUnopenedWallposters.value
+  || hasUnopenedAchievements.value
+  || hasUnopenedWeeklyTasks.value)
 
 let mkChosenPortrait = @(chosenPortraitVal, sf) @() {
   rendObj = ROBJ_BOX
@@ -32,7 +50,7 @@ let mkChosenPortrait = @(chosenPortraitVal, sf) @() {
   borderColor = borderColor(sf)
   children = [
     mkPortraitIcon(getPortrait(chosenPortraitVal?.guid), PORTRAIT_WIDTH)
-    mkRankIcon(playerRank.value?.rank, {
+    mkRankIcon(playerRank.value?.rank, rankIconSize, {
       vplace = ALIGN_BOTTOM
       hplace = ALIGN_CENTER
       pos = [0, hdpx(10)]
@@ -49,12 +67,12 @@ let mkText = @(txt, sf) {
 let function profileWidgetUI() {
   let res = {
     watch = [
-      userInfo, hasProfileCard, hasUnseenElements, chosenPortrait, chosenNickFrame
+      userInfo, hasProfileCard, hasUnseenElements, hasUnopenedElements,
+      chosenPortrait, chosenNickFrame
     ]
   }
   let pName = userInfo.value?.nameorig ?? ""
   let chosenPortraitVal = chosenPortrait.value
-  let hasUnseen = hasUnseenElements.value
   return !hasProfileCard.value ? res
     : res.__update({
         size = [SIZE_TO_CONTENT, flex()]
@@ -81,7 +99,9 @@ let function profileWidgetUI() {
                   vplace = ALIGN_BOTTOM
                   valign = ALIGN_CENTER
                   children = [
-                    hasUnseen ? unseenSignal : null
+                    !hasUnseenElements.value ? null
+                      : hasUnopenedElements.value ? unseenBlink
+                      : unseenNoBlink
                     mkText(isWide
                       ? loc("profile/playerCardTab")
                       : frameNick(pName, chosenNickFrame.value?.guid), sf

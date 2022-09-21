@@ -10,6 +10,8 @@ require game.events_game
 require enlisted.game.es.squad_behaviour_command_common
 require EnlistedBehTree
 require enlisted.game.es.enlisted_covers_common
+require game.es.squad_order_common
+require EnlistedNet
 
 variant MaybeOrder
   order : SquadMateOrder
@@ -152,12 +154,12 @@ def private reset_squadmate_orders_impl(var squad_member__orderType : int&;
                                         var squad_member__orderUseEntity : EntityId&;
                                         var squad_member__isPersonalOrder : bool&;
                                         var beh_tree : BehaviourTree&)
-  beh_tree.blackBoard |> datablock_setInt("ammoRequester", 0)
-  beh_tree.blackBoard |> datablock_setInt("healRequester", 0)
-  beh_tree.blackBoard |> datablock_setInt("artilleryRequester", 0)
-  beh_tree.blackBoard |> datablock_setInt("buildTarget", 0)
-  beh_tree.blackBoard |> datablock_setInt("bombSiteEid", 0)
-  beh_tree.blackBoard |> datablock_setBool("artilleryShouldSend", false)
+  beh_tree.blackBoard |> set("ammoRequester", 0)
+  beh_tree.blackBoard |> set("healRequester", 0)
+  beh_tree.blackBoard |> set("artilleryRequester", 0)
+  beh_tree.blackBoard |> set("buildTarget", 0)
+  beh_tree.blackBoard |> set("bombSiteEid", 0)
+  beh_tree.blackBoard |> set("artilleryShouldSend", false)
   reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
 
 def reset_squad_mate_orders(squad_eid, squad__leader : EntityId)
@@ -192,7 +194,7 @@ def reset_personal_squadmate_orders(squadmate_eid : EntityId)
     if squad_member__isPersonalOrder
       if squad_member__orderType == int(SquadMateOrder ESMO_DEFEND_POINT) && has(squad_member__orderUseEntity, "capzone")
         query(squad_member__squad) <| $ [es] (squad__regroupPos : float3)
-          beh_tree.blackBoard |> datablock_setPoint3("wishPosition", squad__regroupPos)
+          beh_tree.blackBoard |> set("wishPosition", squad__regroupPos)
       reset_squadmate_orders_impl(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder, beh_tree)
 
 def get_nearest_squad_mate_for_order(squad_eid, squad__leader : EntityId; order : SquadMateOrder) : MemberForOrder
@@ -260,7 +262,7 @@ def is_squad_member(squadEid : EntityId; memberEid : EntityId) : bool
   return isMemberSquad
 
 def suicide_kill(eid : EntityId)
-  sendEvent(eid, [[RequestSuicide]])
+  send_net_event(eid, [[RequestSuicide]])
 
 def kill_squad(squad_eid : EntityId)
   kill_squad(squad_eid) <| $ [unused_argument(_)] (_) => true

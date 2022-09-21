@@ -24,8 +24,7 @@ let function wallposterTips() {
         textColor = DEFAULT_TEXT_COLOR
       })
       {
-        size = [0, 0] // in order to override empty ui component formal warning
-        hooks = HOOK_ATTACH
+        behavior = Behaviors.ActivateActionSet
         actionSet = "Wallposter"
       }
     ]

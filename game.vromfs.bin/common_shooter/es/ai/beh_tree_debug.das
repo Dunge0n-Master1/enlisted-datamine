@@ -89,7 +89,7 @@ def debug_behaviour_tree(debug_beh_tree : bool; log_ai : bool = false; debug_dan
     return true
 
   if !hasGlobal && (debug_beh_tree || log_ai || debug_dangers)
-    createEntitySync("global_debug_beh_tree") <| $(init)
+    createEntity("global_debug_beh_tree") <| $(init)
       init |> set("global_beh_tree__debug", debug_beh_tree)
       init |> set("global_beh_tree__showDebugLog", log_ai)
       init |> set("global_entity_danger__debug", debug_dangers)
@@ -227,10 +227,10 @@ def beh_tree_update_reaction(act : UpdateStageInfoAct; eid : EntityId;
   if !beh_tree__showDebugLog || beh_tree__debugLogSize <= 0
     return
   if beh_tree.changeNodeReason != null
-    let name = beh_tree.changeNodeReason |> beh_node_hierarchy_name(true)
+    let name = (*beh_tree.changeNodeReason) |> beh_node_hierarchy_name(true)
     beh_tree__debugLog |> push("{act.curTime} {eid} {name}")
   if beh_tree.resetReason != null
-    let name = beh_tree.resetReason |> beh_node_hierarchy_name(true)
+    let name = (*beh_tree.resetReason) |> beh_node_hierarchy_name(true)
     beh_tree__debugLog |> push("{act.curTime} {eid} {name}")
   while length(beh_tree__debugLog) > beh_tree__debugLogSize
     beh_tree__debugLog |> erase(0)
@@ -258,7 +258,7 @@ def debug_attractive_places(show_attract_point = true)
     return true
 
   if !hasGlobal && show_attract_point
-    createEntitySync("global_debug_attract_points") <| $(init)
+    createEntity("global_debug_attract_points") <| $(init)
       init |> set("attract_points__debugDraw", show_attract_point)
 
 [es(tag=(dev, render), no_order)]

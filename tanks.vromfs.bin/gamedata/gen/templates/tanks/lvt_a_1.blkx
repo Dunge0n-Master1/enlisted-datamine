@@ -1,0 +1,343 @@
+base_lvt_a_1{
+  _extends:t="base_tank"
+  _extends:t="lvt_a_1_ammo_stowages"
+  killLogName:t="us_lvt_a_1"
+  animchar__res:t="lvt_a_1_char"
+  collres__res:t="lvt_a_1_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/lvt_a_1.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="lvt_a_1_dmg_char"
+  xray_resource__modelName:t="lvt_a_1"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=2.456
+  damage_model__blk:t="gamedata/gen/units/tanks/lvt_a_1.blk"
+  item__name:t="items/us_lvt_a_1"
+  skin__template:t="lvt_a_1_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+    node:t="emtr_mg_flame_02"
+    node:t="emtr_mg_flame_03"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_v_01"
+    node:t="bone_mg_v_02"
+    node:t="bone_mg_gun_twin"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+      aimActiveParamName:t="aim_02_active"
+      paramYawSpeed:t="turret_02_yaw_speed"
+      paramYawSpeedMul:t="turret_02_yaw_mul"
+      paramYawAccel:t="turret_02_yaw_accel"
+      paramMinYawAngle:t="turret_02_min_yaw_angle"
+      paramMaxYawAngle:t="turret_02_max_yaw_angle"
+      paramMinPitchAngle:t="turret_02_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_02_max_pitch_angle"
+      paramPitchSpeed:t="gun_02_pitch_speed"
+      paramPitchSpeedMul:t="gun_02_pitch_mul"
+      paramPitchAccel:t="gun_02_pitch_accel"
+      wishYawParamName:t="gun_02_aim:targetYaw"
+      wishPitchParamName:t="gun_02_aim:targetPitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+      aimActiveParamName:t="aim_03_active"
+      paramYawSpeed:t="turret_03_yaw_speed"
+      paramYawSpeedMul:t="turret_03_yaw_mul"
+      paramYawAccel:t="turret_03_yaw_accel"
+      paramMinYawAngle:t="turret_03_min_yaw_angle"
+      paramMaxYawAngle:t="turret_03_max_yaw_angle"
+      paramMinPitchAngle:t="turret_03_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_03_max_pitch_angle"
+      paramPitchSpeed:t="gun_03_pitch_speed"
+      paramPitchSpeedMul:t="gun_03_pitch_mul"
+      paramPitchAccel:t="gun_03_pitch_accel"
+      wishYawParamName:t="gun_03_aim:targetYaw"
+      wishPitchParamName:t="gun_03_aim:targetPitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+      aimActiveParamName:t="aim_04_active"
+      paramYawSpeed:t="turret_04_yaw_speed"
+      paramYawSpeedMul:t="turret_04_yaw_mul"
+      paramYawAccel:t="turret_04_yaw_accel"
+      paramMinYawAngle:t="turret_04_min_yaw_angle"
+      paramMaxYawAngle:t="turret_04_max_yaw_angle"
+      paramMinPitchAngle:t="turret_04_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_04_max_pitch_angle"
+      paramPitchSpeed:t="gun_04_pitch_speed"
+      paramPitchSpeedMul:t="gun_04_pitch_mul"
+      paramPitchAccel:t="gun_04_pitch_accel"
+      wishYawParamName:t="gun_04_aim:targetYaw"
+      wishPitchParamName:t="gun_04_aim:targetPitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="lvt_a_1_turret_01_37mm_m6+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="lvt_a_1_turret_02_7_62mm_m1919a4"
+      barrelDm:t="gun_barrel_03"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      gun:t="lvt_a_1_turret_03_7_62mm_m1919a4"
+      barrelDm:t="gun_barrel_02"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      gun:t="lvt_a_1_turret_04_7_62mm_m1919a4"
+      barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+  }
+}
+
+lvt_a_1_turret_01_37mm_m6{
+  _extends:t="tankgun_37mm_m6"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=24.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-180.0, 180.0, -10.0, 25.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-180.0, -170.0, -10.0, 25.0
+    lim2:p4=-170.0, -130.0, 2.0, 25.0
+    lim3:p4=-130.0, 130.0, -10.0, 25.0
+    lim4:p4=130.0, 170.0, 2.0, 25.0
+    lim5:p4=170.0, 180.0, -12.0, 25.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=36
+    ammo:i=34
+    ammo:i=34
+  }
+}
+
+lvt_a_1_turret_02_7_62mm_m1919a4{
+  _extends:t="tankgun_7_62mm_m1919a4"
+  gun__shootNodeName:t="bone_mg_v_01"
+  turret__yawSpeed:r=90.0
+  turret__pitchSpeed:r=90.0
+  turret__aimNodeName:t="bone_mg_h_02"
+  turret__limit:p4=-60.0, 60.0, -10.0, 40.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=3000
+  }
+}
+
+lvt_a_1_turret_03_7_62mm_m1919a4{
+  _extends:t="tankgun_7_62mm_m1919a4"
+  gun__shootNodeName:t="bone_mg_v_02"
+  turret__yawSpeed:r=90.0
+  turret__pitchSpeed:r=90.0
+  turret__aimNodeName:t="bone_mg_h_01"
+  turret__limit:p4=-60.0, 60.0, -10.0, 40.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=3000
+  }
+}
+
+lvt_a_1_turret_04_7_62mm_m1919a4{
+  _extends:t="tankgun_7_62mm_m1919a4"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=3000
+  }
+}
+
+lvt_a_1_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="lvt_a_1_ammo_stowage_1"
+  }
+}
+
+lvt_a_1_ammo_stowage_1{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="lvt_a_1_ammo_cluster_1_1"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+lvt_a_1_ammo_cluster_1_1{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret"
+    part:t="ammo_body_01"
+    part:t="ammo_body_02"
+    part:t="ammo_body_03"
+    part:t="ammo_body_04"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=12
+    count:i=23
+    count:i=23
+    count:i=23
+    count:i=23
+  }
+}
+
+lvt_a_1_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_dark_green_dark_earth"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_dark_green_dark_earth*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_desert_pink_dark_khaki"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_dark_khaki*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_desert_pink_lines"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_desert_pink_olive"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_desert_pink_olive_drab"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_olive_drab*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_desert_pink_olive_drab_dark_earth"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_desert_pink_olive_drab_dark_earth*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_olive_drab"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_olive_drab*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_winter_olive"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_winter_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_olive_drab_olive"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_olive_drab_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="lvt_a_1_us_camo_winter_grid"
+
+      "objTexReplace:object"{
+        "us_camo_olive*":t="us_camo_winter_grid*"
+      }
+    }
+  }
+}

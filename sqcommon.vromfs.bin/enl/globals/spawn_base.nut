@@ -10,7 +10,10 @@ let function get_can_use_respawnbase_type(templName) {
     logerr($"Template '{templName}' not found in templates DB")
     return null
   }
-  return templ.getCompValNullable("canUseRespawnbaseType")
+  return {
+    canUseRespawnbaseType = templ.getCompValNullable("canUseRespawnbaseType")
+    canUseRespawnbaseSubtypes = templ.getCompValNullable("canUseRespawnbaseSubtypes")?.getAll() ?? []
+  }
 }
 
 return {

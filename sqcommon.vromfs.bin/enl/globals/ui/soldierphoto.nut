@@ -49,6 +49,9 @@ let function getAttachmentParams(template) {
     slotName             = tpl?.getCompValNullable("slot_attach__slotName")
     needAttach   = tpl?.getCompValNullable("skeleton_attach__attachedTo") != null
     paintColor = tpl?.getCompValNullable("paintColor")
+    headgenTex0 = tpl?.getCompValNullable("headgen__tex0")
+    headgenTex1 = tpl?.getCompValNullable("headgen__tex1")
+    blendFactor = tpl?.getCompValNullable("headgen__blendFactor")
     objTexReplace = [tpl?.getCompValNullable("animchar__objTexReplace")?.getAll() ?? {}]
     objTexSet = [tpl?.getCompValNullable("animchar__objTexSet")?.getAll() ?? {}]
   }
@@ -77,16 +80,23 @@ local function mkSoldierPhotoName(soldierTemplate, equipment_, animation, isLarg
     if (aParams.hideFlags.findvalue(@(h) h in hides) != null)
       continue
     let paintColor = aParams?.paintColor
+    let headgenReplace = aParams?.headgenTex0 && aParams?.headgenTex1 ?
+      @"from:t=head_european_01_tex_d*;to:t={tex0}_d*;
+      from:t=head_european_02_tex_d*;to:t={tex1}_d*;
+      from:t=head_european_01_tex_n*;to:t={tex0}_n*;
+      from:t=head_european_02_tex_n*;to:t={tex1}_n*;".subst({tex0 = aParams?.headgenTex0, tex1 = aParams?.headgenTex1}) : ""
+
     let objTexReplace = getTexReplaceString(aParams)
     let objTexSet = getTexSetString(aParams)
-    attachments.append("a{animchar:t={animchar};slot:t={slot};shading:t=same;attachType:t={attachType};{objTexReplaceRules}{objTexSetRules}{paintColorParam}}"
+    attachments.append("a{animchar:t={animchar};slot:t={slot};shading:t=same;attachType:t={attachType};{objTexReplaceRules}{objTexSetRules}{paintColorParam}{blendFactor}}"
       .subst({
         animchar = aParams.animchar
         slot = aParams.slotName ?? equip.slot
         attachType = aParams.needAttach ? "skeleton" : "slot"
-        objTexReplaceRules = "objTexReplaceRules{{0}} ".subst(objTexReplace)
+        objTexReplaceRules = "objTexReplaceRules{{0} r1{{1}}}".subst(objTexReplace, headgenReplace)
         objTexSetRules = "objTexSetRules{{0}} ".subst(objTexSet)
         paintColorParam = paintColor ? $"paintColor:p4={paintColor.x}, {paintColor.y}, {paintColor.z}, {paintColor.w};" : ""
+        blendFactor = aParams?.blendFactor ? $"blendfactor:r={aParams?.blendFactor}" : ""
       }))
   }
 

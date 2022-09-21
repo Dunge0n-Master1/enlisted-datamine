@@ -13,6 +13,7 @@ let psnMatchIdQuery = ecs.SqQuery("psnMatchInfoQuery", {comps_ro=[["psn_external
 let getPsnMatchId = @() (psnMatchIdQuery.perform(@(_, comp) comp.psn_external_match_id) ?? "")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 let { isPractice } = require("%ui/hud/state/practice_state.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 
 let teamComps = {
@@ -59,7 +60,7 @@ let function setResult(comp, status) {
     psnMatchId = getPsnMatchId() ?? ""
     playerName = remap_nick(localPlayerName.value)
     playerNamePrefixIcon = localPlayerNamePrefixIcon.value
-    missionName = loc(missionName.value)
+    missionName = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
     missionType = missionType.value
 
     result = {
@@ -91,7 +92,7 @@ let function onTeamRoundResult(evt, _eid, comp) {
 }
 
 let function onGetBattleResult(_evt, _eid, playerComp) {
-  if (debriefingShow.value)
+  if (debriefingShow.value || isReplay.value)
     return
   let status = playerComp["scoring_player__isGameFinished"] ? STATUS.FINISHED_EARLY : STATUS.DESERTER
   teamsQuery.perform(

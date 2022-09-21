@@ -9,7 +9,8 @@ let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_stat
 let { getScoreTableColumns, LINE_H } = require("scoreTableColumns.nut")
 
 let HEADER_H = LINE_H
-let MAX_ROWS_TO_SCROLL = 20
+const MAX_ROWS_TO_SCROLL = 20
+const MAX_ROWS_IN_REPLAY = 14
 
 let smallPadding = hdpx(4)
 let borderWidth = hdpx(1)
@@ -121,13 +122,15 @@ let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
   let hasEnemies = enemies.len() > 0 || enemySlots != null
   if (!hasAllies && !hasEnemies)
     return null
+  let { isReplay = false} = params
+  let maxRowsCount = isReplay ? MAX_ROWS_IN_REPLAY : MAX_ROWS_TO_SCROLL
 
-  let scrollWidth = params.scrollIsPossible && minRows > MAX_ROWS_TO_SCROLL ? fsh(1) : 0
+  let scrollWidth = params.scrollIsPossible && minRows > maxRowsCount ? fsh(1) : 0
   let myTeamData = params?.teams[myTeamStr]
   let alliesHeader = !hasAllies ? null : paneHeader(columns, {
     armies = myTeamData?.armies,
     teamIcon = myTeamData?.icon,
-    teamText = loc("debriefing/your_team"),
+    teamText = isReplay ? loc(myTeamData?.armies[0]) : loc("debriefing/your_team"),
     addChild = params.additionalHeaderChild?(true)
     teamColor = yourTeamColor
     isInteractive = params?.isInteractive ?? false
@@ -136,7 +139,7 @@ let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
   let enemiesHeader = !hasEnemies ? null : paneHeader(columns, {
     armies = enemyTeamData?.armies,
     teamIcon = enemyTeamData?.icon,
-    teamText = loc("debriefing/enemy_team"),
+    teamText = isReplay ? loc(enemyTeamData?.armies[0]) : loc("debriefing/enemy_team"),
     addChild = params.additionalHeaderChild?(false)
     teamColor = enemyTeamColor
     isInteractive = params?.isInteractive ?? false
@@ -160,7 +163,7 @@ let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
         enemiesHeader
       ]
     }
-    params.scrollIsPossible && minRows > MAX_ROWS_TO_SCROLL
+    params.scrollIsPossible && minRows > maxRowsCount
       ? scrollbar.makeVertScroll({
           size = [params.width - scrollWidth, SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
@@ -168,7 +171,7 @@ let function mkTwoColumnsTable(columns, allies, enemies, params, minRows) {
           children = teams
         },
         {
-          size = [flex(), MAX_ROWS_TO_SCROLL * LINE_H]
+          size = [flex(), maxRowsCount * LINE_H]
           scrollHandler = statisticsScrollHandler
         })
       : {

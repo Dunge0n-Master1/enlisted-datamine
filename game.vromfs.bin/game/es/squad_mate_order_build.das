@@ -8,6 +8,7 @@ require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
+require game.es.squad_order_common
 
 def order_build(squad_mate_eid, squad__leader, target_eid : EntityId; squad__numAliveMembers : int) : bool
   var ordered = false
@@ -32,7 +33,7 @@ def order_build(squad_mate_eid, squad__leader, target_eid : EntityId; squad__num
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("buildTarget", int(uint(target_eid)))
-    beh_tree.blackBoard |> datablock_setInt("buildTarget", int(uint(target_eid)))
+    beh_tree.blackBoard |> set("buildTarget", int(uint(target_eid)))
 
     squad_member__orderType = int(SquadMateOrder ESMO_BUILD)
     squad_member__orderPosition = float3()
@@ -95,7 +96,7 @@ def on_squad_mate_build(act : UpdateStageInfoAct;
   if squad_member__orderType == int(SquadMateOrder ESMO_BUILD)
     let buildTargetEid = EntityId(uint(beh_tree.blackBoard |> datablock_getInt("buildTarget", 0)))
     if !doesEntityExist(buildTargetEid) || buildTargetEid != squad_member__orderUseEntity
-      beh_tree.blackBoard |> datablock_setInt("buildTarget", 0)
+      beh_tree.blackBoard |> set("buildTarget", 0)
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
       reset_squad_mate_behaviour(eid)
 

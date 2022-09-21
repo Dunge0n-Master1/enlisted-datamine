@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let faComp = require("%ui/components/faComp.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(1.5)
+let { normUnseenNoBlink, normUnseenBlink } = require("%ui/components/unseenComps.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
@@ -16,7 +16,9 @@ let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let { canShowGameMode, currentGameMode, setGameMode, mainModes, tutorialModes,
   isGameModeChangedManually } = require("gameModeState.nut")
-let { seenGamemodes, markSeenGamemode } = require("seenGameModes.nut")
+let {
+  seenGamemodes, markSeenGamemode, markOpenedGamemodes
+} = require("seenGameModes.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let { crossnetworkPlay, needShowCrossnetworkPlayIcon, CrossplayState
@@ -224,7 +226,11 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
           color = titleTxtColor
         }.__update(body_txt)
       }.__update(nameBlockParams)
-      hasSeen ? null : unseenSignal.__update({ hplace = ALIGN_RIGHT })
+      hasSeen ? null
+        : {
+            hplace = ALIGN_RIGHT
+            children = normUnseenNoBlink
+          }
     ]
     animations = animations
   }.__update(modeFrameParams))
@@ -243,7 +249,7 @@ let function mkAnimations(idx, len) {
   ]
 }
 
-let mkTutorialsButton = @(hasSeen) watchElemState(function(sf) {
+let mkTutorialsButton = @(unseenSign) watchElemState(function(sf) {
   let tutorialParams = defTutorialParams.value
   let { image, isAvailable } = tutorialParams
   return {
@@ -267,7 +273,10 @@ let mkTutorialsButton = @(hasSeen) watchElemState(function(sf) {
           color = titleTxtColor
         }.__update(body_txt)
       }.__update(nameBlockParams)
-      hasSeen ? null : unseenSignal.__update({ hplace = ALIGN_RIGHT })
+      {
+        hplace = ALIGN_RIGHT
+        children = unseenSign
+      }
     ]
     animations = mkAnimations(0, 1)
   }.__update(modeFrameParams)
@@ -406,7 +415,11 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
           isLocked ? lockLevel : 0
         )
         isSelected ? mkSelectedFrame(cardSize) : null
-        hasSeen ? null : unseenSignal.__update({ hplace = ALIGN_RIGHT })
+        hasSeen ? null
+          : {
+              hplace = ALIGN_RIGHT
+              children = normUnseenNoBlink
+            }
       ]
 
       key = id
@@ -418,30 +431,47 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
 let tblScrollHandler = ScrollHandler()
 
 let function gameModesList() {
-  let seenGM = seenGamemodes.value
-  let hasSeenAllTutorials = tutorialModes.value
-    .findindex(@(m) m.id not in seenGM) == null
+  let seenGM = seenGamemodes.value?.seen
+  let openedGM = seenGamemodes.value?.opened
+
+  let hasUnseenTutorial = tutorialModes.value.findindex(@(m) m.id not in seenGM) != null
+  let hasUnopenedTutorial = tutorialModes.value.findindex(@(m) m.id not in openedGM) != null
+  let tutorialUnseen = !hasUnseenTutorial ? null
+    : hasUnopenedTutorial ? normUnseenBlink
+    : normUnseenNoBlink
+
   let tutorialsToShow = tutorialModes.value
     .map(@(mode, idx) mkGameModeButton(mode, idx, seenGM?[mode?.id] ?? false))
 
+  let tutorialsToMarkOpened = tutorialModes.value.map(@(m) m.id)
+  let modesToMarkOpened = mainModes.value.map(@(m) m.id)
   let modes = mainModes.value
     .map(@(mode, idx) mkGameModeButton(mode, idx + 1, seenGM?[mode?.id] ?? false))
-    .insert(0, mkTutorialsButton(hasSeenAllTutorials))
+    .insert(0, mkTutorialsButton(tutorialUnseen))
 
   if (eventGameModes.value.len() > 0) {
     let events = mkEventGameMode(eventGameModes.value[0])
     modes.append(mkCustomGameButton(events,
       seenGM?[events?.id] ?? false,
       mkAnimations(modes.len(), modes.len() + 1)))
+    modesToMarkOpened.append(events?.id)
   }
 
   let custGameMode = customGameMode.value
-  if (custGameMode != null)
+  if (custGameMode != null) {
     modes.append(mkCustomGameButton(custGameMode,
       seenGM?[custGameMode?.id] ?? false,
       mkAnimations(modes.len(), modes.len() + 1)))
+    modesToMarkOpened.append(custGameMode?.id)
+  }
 
   let modesOnScreen = isTutorialsWndOpened.value ? tutorialsToShow : modes
+  let toMarkOpened = isTutorialsWndOpened.value
+    ? tutorialsToMarkOpened
+    : modesToMarkOpened
+
+  gui_scene.setTimeout(0.1, @()
+    markOpenedGamemodes(toMarkOpened.filter(@(m) m not in seenGamemodes.value?.opened)))
   return {
     size = flex()
     watch = [seenGamemodes, customGameMode, mainModes, tutorialModes,

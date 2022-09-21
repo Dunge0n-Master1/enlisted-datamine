@@ -26,6 +26,13 @@ sbd_3{
         turret:t="turret_04"
         turret:t="turret_05"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -33,7 +40,7 @@ sbd_3{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, -1.50996e-07] [0.0, 1.0, 0.0] [1.50996e-07, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[-1.0, 0.0, -1.50996e-07] [0.0, 1.0, 0.0] [1.50996e-07, 0.0, -1.0] [0.15, 0.0, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner1_dm"
       directTurretControl:b=yes
@@ -159,6 +166,36 @@ sbd_3{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb2"
+    node:t="bomb3"
+    node:t="bomb1"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="dgp_1_l"
     part:t="dgp_1_r"
@@ -173,7 +210,7 @@ sbd_3{
 
 base_sbd_3_100lb_anm_30_launcher{
   item__name:t="guns/us_100lb_anm30"
-  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/100lb_anm_30_launcher.blk"
+  gun__blk:t="gamedata/weapons/sbd_3/100lb_anm_30_launcher.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="us_100lb_anm30"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -199,7 +236,7 @@ base_sbd_3_100lb_anm_30_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/100lb_anm_30.blk"
+        blk:t="gamedata/weapons/shells/100lb_anm_30.blk"
         name:t="100lb_anm_30"
         type:t="he_frag_tank"
       }
@@ -209,7 +246,7 @@ base_sbd_3_100lb_anm_30_launcher{
 
 base_sbd_3_12_7mm_browning50_early{
   item__name:t="guns/gunbrowning50_early"
-  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/12_7mm_browning50_early.blk"
+  gun__blk:t="gamedata/weapons/sbd_3/12_7mm_browning50_early.blk"
   gun__shotFreq:r=12.5
   gun__locName:t="gunbrowning50_early"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -235,25 +272,25 @@ base_sbd_3_12_7mm_browning50_early{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m1_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m1_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball_M1"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m2_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m2_ball_bullet.blk"
         name:t="ball"
         type:t="ball_M2"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball_M1"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x99mm_m2_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x99mm_m2_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball_M2"
       }
@@ -263,7 +300,7 @@ base_sbd_3_12_7mm_browning50_early{
 
 base_sbd_3_7_62mm_browning30_turret{
   item__name:t="guns/gunbrowning30_turret"
-  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/7_62mm_browning30_turret.blk"
+  gun__blk:t="gamedata/weapons/sbd_3/7_62mm_browning30_turret.blk"
   gun__shotFreq:r=16.6667
   gun__locName:t="gunbrowning30_turret"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -289,31 +326,31 @@ base_sbd_3_7_62mm_browning30_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_62x51mm_m2_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_62x51mm_m2_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_62x51mm_m2_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m2_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_62x51mm_m2_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_62x51mm_m1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_62x51mm_m1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
@@ -323,7 +360,7 @@ base_sbd_3_7_62mm_browning30_turret{
 
 base_sbd_3_1000lb_anm_65a_1_launcher{
   item__name:t="guns/us_1000lb_anm65a1"
-  gun__blk:t="content/enlisted/gamedata/weapons/sbd_3/1000lb_anm_65a_1_launcher.blk"
+  gun__blk:t="gamedata/weapons/sbd_3/1000lb_anm_65a_1_launcher.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="us_1000lb_anm65a1"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -349,7 +386,7 @@ base_sbd_3_1000lb_anm_65a_1_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/1000lb_anm_65a_1.blk"
+        blk:t="gamedata/weapons/shells/1000lb_anm_65a_1.blk"
         name:t="1000lb_anm_65a_1"
         type:t="he_frag_tank"
       }
@@ -434,6 +471,26 @@ sbd_3_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="sbd_3_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/sbd_3.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/sbd_3.blk"
+  plane_anim__blk:t="gamedata/units/sbd_3.blk"
+  plane_sight__blk:t="gamedata/units/sbd_3.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    offset:p3=0.01, 0.01, 0.01
+    offset:p3=0.015, -0.013, 0.02
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    rot:p2=15.0, 10.0
+    rot:p2=-20.0, 0.0
+  }
 }

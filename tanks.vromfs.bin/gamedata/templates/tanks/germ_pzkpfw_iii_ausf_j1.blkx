@@ -5,6 +5,7 @@ germ_pzkpfw_iii_ausf_j1_moscow{
 germ_pzkpfw_iii_ausf_j1_common{
   _extends:t="base_pzkpfw_iii_ausf_j1_l60"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.3
 
   "vehicle_seats__seats:shared:array"{
@@ -125,7 +126,7 @@ germ_pzkpfw_iii_ausf_j1_driver_cockpit{
 }
 
 germ_pzkpfw_iii_ausf_j1_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf4.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5e.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="pzkpfw_iii_e_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0

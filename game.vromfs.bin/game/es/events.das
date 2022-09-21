@@ -99,7 +99,7 @@ struct EventOnRicochet
   localHitPos : float3
   caliber : float
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdHumanHitTagging
   powerMult : float
 
@@ -205,14 +205,6 @@ struct CmdChatMessage//mode="team",text="",qmsg=null
   data : Object
 
 [cpp_event(unicast)]
-struct EventSomeSwarmBoidBorn
-  count : int
-
-[cpp_event(unicast)]
-struct EventSomeSwarmBoidDied
-  pos : float3
-
-[cpp_event(unicast)]
 struct CmdEquipItem
   itemEid : EntityId
   slotName : string
@@ -283,7 +275,7 @@ struct EventShellExplosionDamageDebug
   shatterSingleDamage : float
   shatterDamage : float
 
-[cpp_event(broadcast)]
+[event(broadcast)]
 struct ProjectileFlyShockWave
   position : float3
   prev_position : float3
@@ -294,7 +286,7 @@ struct ProjectileHitShake
   position : float3
   damage : float
 
-[cpp_event(broadcast)]
+[event(broadcast)]
 struct CmdShakeCamera
   position : float3
   max_distance : float
@@ -349,16 +341,6 @@ struct EventOnPhysImpulse
   nodeId : int
   pos : float3
   dir : float3
-
-[cpp_event(unicast)]
-struct RequestBipodPlacing
-  enabled : bool
-  isCrawl : bool
-  placePos : float3
-  yawLimit : float2
-  anchorPos : float3
-  anchorDir : float3
-  anchorNormal : float3
 
 [cpp_event(unicast)]
 struct EventFlashExploded

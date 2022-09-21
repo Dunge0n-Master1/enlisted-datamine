@@ -16,9 +16,9 @@ def vehicle_lock_use_broken_turret(evt : Event;
                                    turret_control__gunEids : EidList;
                                    var vehicle__isPlayerCanEnter : bool&)
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=(mainTurret, resolvedTurret))] (turret__canShoot : bool;
+    query(gunEid) <| $ [es(REQUIRE=(mainTurret, resolvedTurret))] (turret__isBroken : bool;
                                                                    turret_drive_dm_part__horDriveDm : int;
                                                                    turret_drive_dm_part__verDriveDm : int)
       let canAim = (is_part_alive(damage_model, turret_drive_dm_part__horDriveDm) &&
                     is_part_alive(damage_model, turret_drive_dm_part__verDriveDm))
-      vehicle__isPlayerCanEnter = turret__canShoot && canAim
+      vehicle__isPlayerCanEnter = !turret__isBroken && canAim

@@ -48,7 +48,7 @@ let voteToKickButtonBody = {
     ["VoteKick.Yes"] = @(...) voteToKick(voteToKickAccused.value, true),
     ["VoteKick.No"] = @(...) voteToKick(voteToKickAccused.value, false)
   }
-  hooks = HOOK_ATTACH
+  behavior = Behaviors.ActivateActionSet
   actionSet = "VoteKick"
   children = [
     tipCmp({

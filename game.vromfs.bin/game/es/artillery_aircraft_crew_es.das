@@ -3,7 +3,7 @@ require app
 require game.es.events
 require game.events_game
 
-[es(tag=server, on_disappear, REQUIRE=requested_aircraft)]
+[es(tag=server, on_disappear, REQUIRE=requested_aircraft, before=vehicle_seats_kick_from_destroyed)]
 def aircraft_with_ai_crew_on_disappear(evt : Event;
                                        vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
@@ -33,6 +33,7 @@ def aircraft_with_ai_crew_on_appear(evt : Event;
         set(init, "vehicle__lastTime", get_sync_time())
         set(init, "killLogName", item__name)
         set(init, "", uint(seat__component), true)
+        set(init, "human_vehicle__occupiedSeatEid", seatEid)
 
       seat__ownerEid  = soldierEid
 

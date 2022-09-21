@@ -163,7 +163,8 @@ def plane_input_gunner_aim(info : UpdateStageInfoAct;
 
   disableTurretCam = !aAim.bActive;
 
-  apply_turret_input(turret_control__gunEids, aAim, get_digital_action_state(uint16(plane_input__zoomToggle)))
+  let zoomToggle = get_digital_action_state(uint16(plane_input__zoomToggle))
+  apply_turret_input(turret_control__gunEids, aAim, zoomToggle, zoomToggle)
 
 [es(tag=input)]
 def plane_input_bomb_input_triggered(evt : EventDaInputActionTriggered;

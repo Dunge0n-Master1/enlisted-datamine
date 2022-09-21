@@ -10,6 +10,7 @@ require matching
 require math
 require math.base
 require EnlistedNet
+require net
 require player
 
 var error_logged_initial = false

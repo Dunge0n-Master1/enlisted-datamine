@@ -15,6 +15,7 @@ stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=1.0
 stabilityReductionAfterPenetration:r=0.15
 onHitChanceMultFire:r=1.5
+bulletType:t="frag_i_t"
 shellAnimation:t="video/shells_animations/he.ivf"
 effectiveDistance:r=700.0
 relativeVelHitShift:p2=300.0, 1000.0

@@ -53,17 +53,24 @@ let vehDataInVehiclesScene = Computed(function() {
   return res
 })
 
-let function isAircraft(template) {
+let function getAircraftInfo(template) {
   if (template == null)
-    return false
+    return { isAircraft = false isFloating = false }
   let templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(template)
-  return templ?.getCompValNullable("airplane") != null
+  return {
+    isAircraft = templ?.getCompValNullable("airplane") != null
+    isFloating = templ?.getCompValNullable("floating_aircraft") != null
+  }
 }
 
 let scene = Computed(function() {
   let curCameraValue = curCamera.value
-  if (curCameraValue == "vehicles" || curSelectedItem.value?.itemtype == "vehicle")
-    return isAircraft(vehTplInVehiclesScene.value) ? "aircrafts" : "vehicles"
+  if (curCameraValue == "vehicles" || curSelectedItem.value?.itemtype == "vehicle") {
+    let aircraftInfo = getAircraftInfo(vehTplInVehiclesScene.value)
+    return !aircraftInfo.isAircraft ? "vehicles"
+      : aircraftInfo.isFloating ? "aircrafts_floating"
+      : "aircrafts"
+  }
   return curCameraValue == "soldiers" && !curSoldierGuid.value ? "squad"
     : isCustomizationWndOpened.value ? "soldier_customization"
     : curCameraValue == "new_items" && currentNewSoldierGuid.value ? "soldier_in_middle"

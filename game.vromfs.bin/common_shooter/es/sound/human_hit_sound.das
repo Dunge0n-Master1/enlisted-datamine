@@ -25,6 +25,8 @@ def damage_type_to_sound_path(damage_type : int)
     return "hit_dmgExplosion"
   if damage_type == int(DamageType DM_HOLD_BREATH)
     return "hit_dmgAsphyxiation"
+  if damage_type == int(DamageType DM_GAS)
+    return "hit_dmgGas"
   return ""
 
 

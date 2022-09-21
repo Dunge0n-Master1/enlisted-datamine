@@ -12,6 +12,7 @@ require math.base
 require math.ang
 require game.es.events
 require game.events_game
+require common_shooter.events_common_shooter
 require common_shooter.es.human.bipod_common
 require PhysMat
 require RendInst

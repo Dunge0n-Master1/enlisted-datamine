@@ -22,7 +22,7 @@ let groupmateQuery = ecs.SqQuery("groupmateQuery", {comps_ro = [["groupId", ecs.
 localPlayerSpecTarget.subscribe(@(eid) logObs($"spectated: {eid}"))
 
 let function addGroupmate(eid, comp) {
-  if (comp["groupId"] == localPlayerGroupId.value) {
+  if (localPlayerGroupId.value != INVALID_GROUP_ID && comp["groupId"] == localPlayerGroupId.value) {
     if (eid in localPlayerGroupMembers.value)
       return
     localPlayerGroupMembers.mutate(@(v) v[eid] <- true)

@@ -80,3 +80,13 @@ def aircraft_hud_engine_state(info : UpdateStageInfoAct;
           view.plane_view_engine__oilTemp = int(engine.oilTemp + zeroKelvinInCelsium + 0.5)
         if view.plane_view_engine__engineWarnLevel > 0
           view.plane_view_engine__headTemp = int(engine.headTemp + zeroKelvinInCelsium + 0.5)
+
+
+[es(tag=ui, after=plane_phys_es, REQUIRE=vehicleWithWatched)]
+def plane_minimal_view_air_brakes(info : UpdateStageInfoAct;
+                                  plane_net_phys : PlaneActor;
+                                  var plane_view__hasAirBrakes : bool&;
+                                  var plane_view__isAirBrakesActive : bool&)
+  assume phys = plane_net_phys.phys
+  plane_view__hasAirBrakes = phys.bHasAirBrakeControl;
+  plane_view__isAirBrakesActive = phys.AirBrakeControl > 0.5

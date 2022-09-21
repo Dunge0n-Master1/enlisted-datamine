@@ -1,14 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.8)
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
 let {
-  weeklyTasks, unseenWeeklyTasks, markSeenWeeklyTasks,
-  saveFinishedWeeklyTasks, triggerBPStarsAnim
+  weeklyTasks, saveFinishedWeeklyTasks, triggerBPStarsAnim
 } = require("weeklyUnlocksState.nut")
+let {
+  seenUnlocks, markUnlockSeen, markUnlocksOpened
+} = require("%enlist/unlocks/unseenUnlocksState.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 let {
@@ -21,6 +22,7 @@ let {
 } = require("%enlSqGlob/ui/taskPkg.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
+let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 
 
 let finishedOpacity = 0.5
@@ -122,7 +124,7 @@ let function mkWeeklyTaskSlot(task, isUnseen) {
         behavior = Behaviors.Button
         onHover = function(on) {
           if (isUnseen)
-            hoverHoldAction("markSeenWeeklyTasks", name, @(v) markSeenWeeklyTasks(v))(on)
+            hoverHoldAction("markUnlockSeen", name, @(v) markUnlockSeen(v))(on)
         }
         children = [
           mkTaskContent(task, sf)
@@ -130,7 +132,7 @@ let function mkWeeklyTaskSlot(task, isUnseen) {
         ]
       })
       statusBlock(task)
-      isUnseen ? unseenSignal : null
+      isUnseen ? smallUnseenNoBlink : null
     ]
   }
 }
@@ -143,12 +145,15 @@ return {
   hplace = ALIGN_CENTER
   padding = [fsh(2),0,0,0]
   onAttach = saveFinishedWeeklyTasks
-  onDetach = triggerBPStarsAnim
+  onDetach = function() {
+    triggerBPStarsAnim()
+    markUnlocksOpened((seenUnlocks.value?.unopenedWeeklyTasks ?? {}).keys())
+  }
   children = makeVertScroll(function() {
-    let unseen = unseenWeeklyTasks.value
+    let unseen = seenUnlocks.value?.unseenWeeklyTasks ?? {}
     return {
       rendObj = ROBJ_WORLD_BLUR_PANEL
-      watch = [weeklyTasks, unseenWeeklyTasks]
+      watch = [weeklyTasks, seenUnlocks]
       size = [flex(), SIZE_TO_CONTENT]
       minHeight = ph(100)
       xmbNode = XmbContainer({

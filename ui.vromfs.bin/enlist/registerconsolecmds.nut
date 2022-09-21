@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { matchingCall } = require("matchingClient.nut")
 let eventbus = require("eventbus")
-let { actionInProgress, controllerDisconnected } = require("%enlSqGlob/uistate.nut")
 let checkReconnect = require("checkReconnect.nut")
 let {inspectorToggle} = require("%darg/helpers/inspector.nut")
 let msgbox = require("components/msgbox.nut")
@@ -36,8 +35,5 @@ console_register_command(@(message, data) eventbus.send(message, data), "eventbu
 console_register_command(@() inspectorToggle(), "ui.inspector_enlist")
 
 console_register_command(@() checkReconnect(), "app.check_reconnect")
-
-console_register_command(@() controllerDisconnected(!controllerDisconnected.value), "ui.controllerDisconnected")
-console_register_command(@() actionInProgress(!actionInProgress.value), "ui.actionInProgress")
 
 console_register_command(@() matching_api.logout(), "matching.logout")

@@ -7,17 +7,17 @@ let { curArmiesList, getSoldiersByArmy, curCampSquads, chosenSquadsByArmy, curCa
 let { getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let {
   getExpToNextLevel, perkLevelsGrid, getNextLevelData
-} = require("%enlSqGlob/configs/perks/perksExp.nut")
+} = require("%enlist/meta/perks/perksExp.nut")
 let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
-let perksList = require("%enlSqGlob/configs/perks/perksList.nut")
-let perksStats = require("%enlSqGlob/configs/perks/perksStats.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let perksStats = require("%enlist/meta/perks/perksStats.nut")
 let {
   get_perks_choice, choose_perk, change_perk_choice, buy_soldier_exp,
   use_soldier_levelup_orders, buy_soldier_max_level, drop_perk
 } = require("%enlist/meta/clientApi.nut")
 let serverPerks = require("%enlist/meta/servProfile.nut").soldierPerks
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let popupsState = require("%enlist/popup/popupsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 

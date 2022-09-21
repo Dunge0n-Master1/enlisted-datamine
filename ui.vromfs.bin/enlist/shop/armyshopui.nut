@@ -28,10 +28,10 @@ let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
 let { mkShopItemView, mkLevelLockLine, mkShopItemPriceLine, mkProductView
 } = require("shopPkg.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
-let mkNotifier = require("%enlist/components/mkNotifier.nut")
+let { mkNotifierNoBlink } = require("%enlist/components/mkNotifier.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 
 
@@ -94,15 +94,16 @@ let contIcon = {
 }
 
 let mkShopNotifier = @(locId)
-  mkNotifier(locId, { margin = hdpx(3) }, { animations = null })
+  mkNotifierNoBlink(locId, { margin = hdpx(3) })
+let shopGroupNotifier = mkShopNotifier(loc("hint/newShopItemsAvailable"))
+let shopItemNotifier = mkShopNotifier(loc("hint/newShopItemAvailable"))
 
 let function mkShopItemCard(shopItem, armyData) {
-  let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0} = shopItem
+  let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0 } = shopItem
   let squad = shopItem?.squads[0]
   let armyId = armyData?.guid ?? ""
   let currentLevel = armyData?.level ?? 0
-  let { armyLevel = 0, isFreemium = false } = shopItem?.requirements
-  let isLocked = armyLevel > currentLevel || (isFreemium && needFreemiumStatus.value)
+  let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
   let stateFlags = Watched(0)
   let isGroupContainer = offerContainer != ""
 
@@ -110,10 +111,12 @@ let function mkShopItemCard(shopItem, armyData) {
   let crateContent = shopItemContentCtor(shopItem)
   return function() {
     let sf = stateFlags.value
+    let isLocked = armyLevel > currentLevel
+      || (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
     let hasUnseenSignal = curUnseenAvailShopGuids.value?[shopItem.guid] ?? false
     let unseenSignalObj = !hasUnseenSignal ? null
-      : isGroupContainer ? mkShopNotifier(loc("hint/newShopItemsAvailable"))
-      : mkShopNotifier(loc("hint/newShopItemAvailable"))
+      : isGroupContainer ? shopGroupNotifier
+      : shopItemNotifier
     return {
       watch = [stateFlags, curUnseenAvailShopGuids, crateContent, needFreemiumStatus]
       rendObj = ROBJ_SOLID
@@ -131,7 +134,7 @@ let function mkShopItemCard(shopItem, armyData) {
             @(v) markShopItemSeen(v.armyId, v.guid))(on)
       }
       onClick = function() {
-        clickShopItem(shopItem, curArmyData.value?.level ?? 0)
+        clickShopItem(shopItem, armyData?.level ?? 0)
         if (!isGroupContainer && hasUnseenSignal)
           markShopItemSeen(armyId, guid)
       }
@@ -150,11 +153,11 @@ let function mkShopItemCard(shopItem, armyData) {
               onCrateViewCb = @() viewShopItemsScene(shopItem)
               onInfoCb = squad == null || armyLevel > currentLevel ? null
                 : @() buySquadWindow({
-                      shopItem
-                      productView = mkProductView(shopItem, allItemTemplates)
-                      armyId = squad.armyId
-                      squadId = squad.id
-                    })
+                    shopItem
+                    productView = mkProductView(shopItem, allItemTemplates)
+                    armyId = squad.armyId
+                    squadId = squad.id
+                  })
               unseenSignalObj
               crateContent
               itemTemplates = allItemTemplates
@@ -237,7 +240,10 @@ let mkGroupBtn = @(groupItem, isLast, hasHotkey) isLast
         borderWidth = [0,0,hdpx(1),0]
         hotkeys = !hasHotkey ? null
           : [["^{0} | Esc".subst(JB.B), {
-              action = @() setCurArmyShopFolder(groupItem?.offerContainer)
+              action = function() {
+                setCurArmyShopFolder(groupItem?.offerContainer)
+                shopScroll.scrollToY(0)
+              }
               description = { skip = true }
             }]]
       })

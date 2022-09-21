@@ -14,6 +14,13 @@ require math.base
 def debug_setup_for_seats(info : UpdateStageInfoAct;
                           camera__target : EntityId;
                           transform : float3x4)
+  var vehicleEid = INVALID_ENTITY_ID
+  query(camera__target) <| $ [es] (human_anim__vehicleSelected : EntityId)
+    vehicleEid = human_anim__vehicleSelected
+
+  if vehicleEid == INVALID_ENTITY_ID
+    return
+
   var moveOffset = float3()
   query(camera__target) <| $ [es] (animchar : AnimcharBaseComponent;
                                    human_cam__camNodeId : int;
@@ -27,10 +34,6 @@ def debug_setup_for_seats(info : UpdateStageInfoAct;
 
     camera__look_at = DPoint3(transform[3])
     moveOffset = float3(camera__look_at - lookAtOriginal)
-
-  var vehicleEid = INVALID_ENTITY_ID
-  query(camera__target) <| $ [es] (human_anim__vehicleSelected : EntityId)
-    vehicleEid = human_anim__vehicleSelected
 
   var tankTransform : float3x4 = IDENT_TM
   query(vehicleEid) <| $ [es] (transform : float3x4)
@@ -63,7 +66,7 @@ def calc_seats_block()
   find_query() <| $ [es(REQUIRE=(daeditor__selected, vehicle_seats__seats))] (eid : EntityId)
     using <| $(var blk : DataBlock#)
       components_to_blk(eid, blk, "vehicle_seats__", true)
-      let templatesArrayBlk = datablock_get_block_by_name(blk, "seats:shared:array")
-      let templateName = getEntityTemplateName(eid)
-      save_block_to_origin_template(templateName, "vehicle_seats__seats:shared:array", templatesArrayBlk)
+      datablock_get_block(blk, "seats:shared:array") <| $(templatesArrayBlk)
+        let templateName = getEntityTemplateName(eid)
+        save_block_to_origin_template(templateName, "vehicle_seats__seats:shared:array", templatesArrayBlk)
     return true

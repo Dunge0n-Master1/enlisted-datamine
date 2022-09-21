@@ -4,27 +4,45 @@ require ecs
 require GeomNodeTree
 require AnimV20
 require EcsUtils
-
+require enlisted.events_enlisted
 
 def swap_yz(var tm : float3x4)
   let yTmVec = tm[1]
   tm[1] = tm[2]
   tm[2] = yTmVec
 
+[es(tag=gameClient)]
+def node_attached_init_es(evt : SetVehicleDecor;
+                          eid : EntityId;
+                          animchar : AnimcharBaseComponent;
+                          var attach_decorators__entities : EidList&)
+  let nodeId = geomtree_findNodeIndex(animchar.nodeTree, evt.nodeName)
+  if nodeId <= -1
+    logerr("Invalid node {evt.nodeName} on target {getEntityTemplateName(eid)}")
+    return
+
+  let decorEid = createEntity("{evt.templateName}+node_attached_itm") <| $(var init &)
+    init |> set("node_attached__nodeId", nodeId)
+    init |> set("node_attached__entity", eid)
+    init |> set("node_attached__localTm", evt.relativeTm)
+    init |> set("node_attached__nodeId", nodeId)
+    init |> set("decor__id", evt.slotId)
+  attach_decorators__entities |> push(decorEid)
+
 [es(tag=gameClient, on_event=(EventEntityDestroyed, EventEntityDied), REQUIRE=attach_decorators__templates)]
-def destroy_decors_for_vehicle_es(evt : Event;
-                                  eid : EntityId)
-  let vehicleEid = eid
-  query() <| $ [es(REQUIRE=decor__id)] (eid : EntityId;
-                                        node_attached__entity : EntityId)
-    if node_attached__entity == vehicleEid
-      destroyEntity(eid)
+def destroy_decors_for_vehicle_es(evt : Event; attach_decorators__entities : EidList)
+  for decorEid in attach_decorators__entities
+    query(decorEid) <| $ [es(REQUIRE=decor__id)] ()
+      destroyEntity(decorEid)
 
 [es(tag=gameClient, on_appear)]
 def init_decors_for_vehicle_es(evt : Event;
                                eid : EntityId;
                                attach_decorators__templates : Array;
-                               animchar : AnimcharBaseComponent)
+                               animchar : AnimcharBaseComponent;
+                               var attach_decorators__entities : EidList&)
+  assume entities = attach_decorators__entities
+  resize(entities, length(attach_decorators__templates))
   for i in iter_range(attach_decorators__templates)
     let obj = get_ecs_object(attach_decorators__templates[i])
     if obj == null
@@ -43,7 +61,7 @@ def init_decors_for_vehicle_es(evt : Event;
     let swapYZ = get_bool(*obj, "swapYZ") ?? true
     if swapYZ
       swap_yz(testTm)
-    createEntity("{decorTemplate}+node_attached_itm") <| $(var init : ComponentsInitializer)
+    entities[i] = createEntity("{decorTemplate}+node_attached_itm") <| $(var init : ComponentsInitializer)
       set(init, "node_attached__entity", eid)
       set(init, "node_attached__nodeId", attachNodeId)
       set(init, "node_attached__localTm", testTm)
@@ -71,3 +89,11 @@ def debug_setup_for_decors(info : UpdateStageInfoAct;
     var obj = getRW_ecs_object(attach_decorators__templates[decor__id])
     *obj |> set("relativeTm", decorRelativeTm)
 
+
+[es(tag=gameClient, track=isExploded, REQUIRE=vehicle)]
+def vehicle_burn_decorators_es(evt : Event;
+                               attach_decorators__entities : EidList;
+                               isExploded : bool)
+  if isExploded
+    for decorEid in attach_decorators__entities
+      destroyEntity(decorEid)

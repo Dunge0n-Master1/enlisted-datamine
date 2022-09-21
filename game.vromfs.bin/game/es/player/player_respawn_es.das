@@ -88,7 +88,7 @@ def destroy_possessed_entity(evt : Event; eid : EntityId; possessed : EntityId; 
   destroyEntity(possessed)
   broadcastEvent([[EventTeamMemberLeave eid=eid, team=team]])
 
-[es(on_event=EventComponentChanged, track=possessed, REQUIRE=player)]
+[es(track=possessed, REQUIRE=player)]
 def set_possessed_by(evt : Event; eid : EntityId; possessed : EntityId)
   query(possessed) <| $ [es] (var possessedByPlr : EntityId&)
     possessedByPlr = eid

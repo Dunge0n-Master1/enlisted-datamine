@@ -5,7 +5,7 @@ let { round_by_value } = require("%sqstd/math.nut")
 let { do_research, change_research, buy_change_research, buy_squad_exp, add_army_squad_exp_by_id
 } = require("%enlist/meta/clientApi.nut")
 let servResearches = require("%enlist/meta/profile.nut").researches
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { curArmiesList, armySquadsById, curSquadId, curArmy, maxCampaignLevel, armyItemCountByTpl,
   curCampItems
 } = require("%enlist/soldiers/model/state.nut")

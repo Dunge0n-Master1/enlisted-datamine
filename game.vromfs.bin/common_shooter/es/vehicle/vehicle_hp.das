@@ -10,14 +10,14 @@ require player
 [es(tag=server, on_appear)]
 def vehicle_hp_init_es(evt : Event;
                        damage_model : DamageModel;
-                       vehicle__hpMetaPart : das_string;
+                       vehicle__hpMetaPart : string;
                        var vehicle__hpMetaPartId : int&;
                        var vehicle__hp : float&;
                        var vehicle__maxHp : float&)
 
   vehicle__hpMetaPartId = damage_model |> find_meta_part_id_by_name(vehicle__hpMetaPart)
   if vehicle__hpMetaPartId >= 0
-    vehicle__maxHp = damage_model |> get_meta_part_max_hp(vehicle__hpMetaPartId)
+    vehicle__maxHp = damage_model.dmProps.metaParts[vehicle__hpMetaPartId].hp
     vehicle__hp = vehicle__maxHp
 
 def process_damage_effects(offender : ecs::EntityId;
@@ -69,8 +69,8 @@ def vehicle_hp_es(info : ecs::UpdateStageInfoAct;
   if vehicle__hpMetaPartId < 0
     return
 
-  let relHp = meta_parts_state |> get_meta_part_rel_hp(vehicle__hpMetaPartId)
-  let maxHp = damage_model |> get_meta_part_max_hp(vehicle__hpMetaPartId)
+  let relHp = rel_hp_fixed_to_float(meta_parts_state.state[vehicle__hpMetaPartId].hp)
+  let maxHp = damage_model.dmProps.metaParts[vehicle__hpMetaPartId].hp
 
   vehicle__hp = relHp * maxHp
 

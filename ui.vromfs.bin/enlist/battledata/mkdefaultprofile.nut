@@ -51,7 +51,7 @@ let function saveProfilePack(profiles, to_file) {
 }
 
 
-let defCampaigns = ["moscow", "berlin", "normandy", "tunisia", "stalingrad"]
+let defCampaigns = ["moscow", "berlin", "normandy", "tunisia", "stalingrad", "pacific"]
 local defProfileArmies = []
 foreach (campaign in defCampaigns)
   defProfileArmies = defProfileArmies.append($"{campaign}_allies", $"{campaign}_axis")

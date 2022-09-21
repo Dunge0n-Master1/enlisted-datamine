@@ -8,9 +8,9 @@ let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows
 let { uniteEqualPerks, tierTitle, thumbIconSize, perkCard
 } = require("components/perksPackage.nut")
 let { getPerkPointsInfo } = require("model/soldierPerks.nut")
-let { pPointsList } = require("%enlSqGlob/configs/perks/perksPoints.nut")
-let perksList = require("%enlSqGlob/configs/perks/perksList.nut")
-let { RECOMMENDED_PERKS_COUNT } = require("%enlSqGlob/configs/perks/perksStats.nut")
+let { pPointsList } = require("%enlist/meta/perks/perksPoints.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let { RECOMMENDED_PERKS_COUNT } = require("%enlist/meta/perks/perksStats.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 
 const WND_UID = "possiblePerksWindow"

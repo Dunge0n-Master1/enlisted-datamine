@@ -12,9 +12,9 @@ let function register_activation_callback(callback) {
 }
 
 
-let function register_unconstrain_callback(callback) {
-  subscribe(app.unconstrain_event_name, function(_) {
-    callback?()
+let function register_constrain_callback(callback) {
+  subscribe(app.constrain_event_name, function(result) {
+    callback?(result?.active)
   })
 }
 
@@ -31,6 +31,6 @@ return {
   get_title_id = app.get_title_id
 
   register_activation_callback
-  register_unconstrain_callback
+  register_constrain_callback
   register_important_live_error_callback
 }

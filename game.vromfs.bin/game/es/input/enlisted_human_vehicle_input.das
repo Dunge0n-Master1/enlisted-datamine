@@ -4,6 +4,7 @@ require DagorInput
 require enlisted.events_enlisted
 require EnlistedWalkerai
 require EnlistedNet
+require game.es.squad_order_common
 
 
 def init(var human_input__exitVehicleAlone : int&)

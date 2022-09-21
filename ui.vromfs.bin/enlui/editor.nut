@@ -5,7 +5,7 @@ local editorState = null
 local showUIinEditor = Watched(false)
 local editorIsActive = Watched(false)
 local editorFreeCam  = Watched(false)
-local initRISelect   = @(_) null
+local initRISelect   = @(_a,_b) null
 local proceedWithSavingUnsavedChanges = @() false
 let daEditor4 = require_optional("daEditor4")
 if (daEditor4 != null) {
@@ -14,7 +14,7 @@ if (daEditor4 != null) {
   showUIinEditor = editorState?.showUIinEditor ?? showUIinEditor
   editorIsActive = editorState?.editorIsActive ?? editorIsActive
   editorFreeCam  = editorState?.editorFreeCam  ?? editorFreeCam
-  initRISelect   = require_optional("%daeditor/riSelect.nut")?.initRISelect ?? @(_) null
+  initRISelect   = require_optional("%daeditor/riSelect.nut")?.initRISelect ?? @(_a,_b) null
   proceedWithSavingUnsavedChanges = editorState?.proceedWithSavingUnsavedChanges ?? proceedWithSavingUnsavedChanges
   editorState?.initWorkModes?(["Developer", "Designer"])
 }

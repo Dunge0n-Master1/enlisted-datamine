@@ -326,11 +326,77 @@ beaufighter_mkx{
       gun:t="planegun_beaufighter_mkx_7_7mm_vikkersk_turret_01"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="rocket4"
+    node:t="rocket5"
+    node:t="rocket3"
+    node:t="rocket6"
+    node:t="rocket2"
+    node:t="rocket7"
+    node:t="rocket1"
+    node:t="rocket8"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare5"
+    node:t="flare6"
+    node:t="flare7"
+    node:t="flare8"
+    node:t="flare9"
+    node:t="flare10"
+    node:t="flare11"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_beaufighter_mkx_rp_3_launcher{
   item__name:t="guns/uk_rp3"
-  gun__blk:t="content/enlisted/gamedata/weapons/beaufighter_mkx/rp_3_launcher.blk"
+  gun__blk:t="gamedata/weapons/beaufighter_mkx/rp_3_launcher.blk"
   gun__shotFreq:r=1000.25
   gun__locName:t="uk_rp3"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -356,7 +422,7 @@ base_beaufighter_mkx_rp_3_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/rp_3.blk"
+        blk:t="gamedata/weapons/shells/rp_3.blk"
         name:t="rp_3"
         type:t="he_frag_tank"
       }
@@ -366,7 +432,7 @@ base_beaufighter_mkx_rp_3_launcher{
 
 base_beaufighter_mkx_7_7mm_vikkersk_turret{
   item__name:t="guns/gunvikkersk_turret"
-  gun__blk:t="content/enlisted/gamedata/weapons/beaufighter_mkx/7_7mm_vikkersk_turret.blk"
+  gun__blk:t="gamedata/weapons/beaufighter_mkx/7_7mm_vikkersk_turret.blk"
   gun__shotFreq:r=15.8333
   gun__locName:t="gunvikkersk_turret"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -392,31 +458,31 @@ base_beaufighter_mkx_7_7mm_vikkersk_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
@@ -426,7 +492,7 @@ base_beaufighter_mkx_7_7mm_vikkersk_turret{
 
 base_beaufighter_mkx_7_7mm_browning303_raf{
   item__name:t="guns/gunbrowning303_raf"
-  gun__blk:t="content/enlisted/gamedata/weapons/beaufighter_mkx/7_7mm_browning303_raf.blk"
+  gun__blk:t="gamedata/weapons/beaufighter_mkx/7_7mm_browning303_raf.blk"
   gun__shotFreq:r=16.6667
   gun__locName:t="gunbrowning303_raf"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -452,31 +518,31 @@ base_beaufighter_mkx_7_7mm_browning303_raf{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
         name:t="api"
         type:t="ap_i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
@@ -486,7 +552,7 @@ base_beaufighter_mkx_7_7mm_browning303_raf{
 
 base_beaufighter_mkx_20mm_hispanomkii{
   item__name:t="guns/cannonhispanomkii"
-  gun__blk:t="content/enlisted/gamedata/weapons/beaufighter_mkx/20mm_hispanomkii.blk"
+  gun__blk:t="gamedata/weapons/beaufighter_mkx/20mm_hispanomkii.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="cannonhispanomkii"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -512,25 +578,25 @@ base_beaufighter_mkx_20mm_hispanomkii{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
         name:t="mk1"
         type:t="ball_shell"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
         name:t="1"
         type:t="t_shell"
       }
@@ -719,6 +785,6 @@ beaufighter_mkx_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="beaufighter_mkx_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
+  plane_anim__blk:t="gamedata/units/beaufighter_mkx.blk"
+  plane_sight__blk:t="gamedata/units/beaufighter_mkx.blk"
 }

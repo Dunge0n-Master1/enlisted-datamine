@@ -22,7 +22,7 @@ require math.base
 [es(tag=netClient)]
 def vehicle_seats_enter_exit_kick_client_es(evt : CmdKickFromVehicle;
                                             eid : EntityId)
-  sendEvent(eid, [[RequestKickFromVehicle requester=evt.eid]])
+  send_net_event(eid, [[RequestKickFromVehicle requester=evt.eid]])
 
 [es(tag=server, REQUIRE=vehicle_seats__seats)]
 def vehicle_seats_enter_exit_kick_request_es(evt : RequestKickFromVehicle;
@@ -31,10 +31,14 @@ def vehicle_seats_enter_exit_kick_request_es(evt : RequestKickFromVehicle;
 
 
 def private detach_human_from_seat(eid : EntityId; seat__component : int)
-  query(eid) <| $ [es] (var isInVehicle : bool&; var isInVehicleHidden : bool&; var human_anim__vehicleSelected : EntityId&)
+  query(eid) <| $ [es] (var isInVehicle : bool&;
+                        var isInVehicleHidden : bool&;
+                        var human_anim__vehicleSelected : EntityId&;
+                        var human_vehicle__occupiedSeatEid : EntityId&)
     isInVehicle = false
     isInVehicleHidden = false
     human_anim__vehicleSelected = INVALID_ENTITY_ID
+    human_vehicle__occupiedSeatEid = INVALID_ENTITY_ID
 
   setOptional(eid, "", uint(seat__component), false)
 

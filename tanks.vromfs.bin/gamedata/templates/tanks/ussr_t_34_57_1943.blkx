@@ -1,6 +1,8 @@
 ussr_t_34_57_1943{
   _extends:t="base_t_34_57_1943"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_t34_vehicle_tracks_sound"
 
   "vehicle_seats__seats:shared:array"{
 

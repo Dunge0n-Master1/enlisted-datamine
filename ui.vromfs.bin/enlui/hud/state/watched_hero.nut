@@ -18,7 +18,7 @@ let whDefValue = freeze({
 let whState = mkWatched(persist, "watchedHero", whDefValue)
 let whStateSetValue = @(v) whState(v)
 
-let { watchedHeroEid, watchedHeroTeam} = watchedTable2TableOfWatched({state=whState, defValue=whDefValue})
+let { watchedHeroEid, watchedHeroTeam } = watchedTable2TableOfWatched(whState)
 
 let watchedHeroPlayerEid = mkWatched(persist, "watchedHeroPlayerEid", INVALID_ENTITY_ID)
 let watchedHeroPlayerEidSetValue = @(v) watchedHeroPlayerEid(v)

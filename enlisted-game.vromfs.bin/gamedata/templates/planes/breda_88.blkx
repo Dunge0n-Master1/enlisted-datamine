@@ -159,6 +159,36 @@ breda_88{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb_100_t3"
+    node:t="bomb_100_t2"
+    node:t="bomb_100_t1"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="fuse_panel"
     part:t="pylon_bomb3"
@@ -324,6 +354,7 @@ base_breda_88_100kg_t_launcher{
 planegun_breda_88_100kg_t_launcher_01{
   _extends:t="100kg_t_launcher"
   _extends:t="base_breda_88_100kg_t_launcher"
+  _extends:t="gunsound_100kg_t_launcher_aircraft"
   gun__shootNodeName:t="bomb_100_t3"
   slot_attach__slotName:t="bomb_100_t3"
   gun__maxAmmo:i=1
@@ -332,6 +363,7 @@ planegun_breda_88_100kg_t_launcher_01{
 planegun_breda_88_100kg_t_launcher_02{
   _extends:t="100kg_t_launcher"
   _extends:t="base_breda_88_100kg_t_launcher"
+  _extends:t="gunsound_100kg_t_launcher_aircraft"
   gun__shootNodeName:t="bomb_100_t2"
   slot_attach__slotName:t="bomb_100_t2"
   gun__maxAmmo:i=1
@@ -340,6 +372,7 @@ planegun_breda_88_100kg_t_launcher_02{
 planegun_breda_88_100kg_t_launcher_03{
   _extends:t="100kg_t_launcher"
   _extends:t="base_breda_88_100kg_t_launcher"
+  _extends:t="gunsound_100kg_t_launcher_aircraft"
   gun__shootNodeName:t="bomb_100_t1"
   slot_attach__slotName:t="bomb_100_t1"
   gun__maxAmmo:i=1

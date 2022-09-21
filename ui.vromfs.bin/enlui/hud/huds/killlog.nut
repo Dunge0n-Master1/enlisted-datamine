@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { DM_PROJECTILE, DM_MELEE, DM_EXPLOSION, DM_ZONE, DM_COLLISION, DM_HOLD_BREATH,
-  DM_FIRE, DM_BACKSTAB, DM_BARBWIRE } = require("dm")
+  DM_FIRE, DM_GAS, DM_BACKSTAB, DM_BARBWIRE } = require("dm")
 let { killLogState } = require("%ui/hud/state/kill_log_es.nut")
 let { is_console } = require("%dngscripts/platform.nut")
 let style = require("%ui/hud/style.nut")
@@ -34,6 +34,7 @@ let damageTypeIcons = {
   [DM_HOLD_BREATH] = "killlog/kill_asphyxia.svg",
   [DM_BACKSTAB]    = "killlog/kill_backstab.svg",
   [DM_FIRE]        = "killlog/kill_fire.svg",
+  [DM_GAS]         = "killlog/kill_fire.svg",
   [DM_BARBWIRE]    = null
 }
 

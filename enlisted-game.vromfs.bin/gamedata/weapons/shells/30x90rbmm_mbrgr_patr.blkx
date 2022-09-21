@@ -11,6 +11,7 @@ secondaryShattersPreset:t="ap"
 hitPowerMult:r=2.0
 stabilityThreshold:r=0.05
 onHitChanceMultFire:r=4.0
+bulletType:t="he_frag_i"
 stabilityReductionAfterRicochet:r=0.5
 effectiveDistance:r=300.0
 stabilityReductionAfterPenetration:r=0.15

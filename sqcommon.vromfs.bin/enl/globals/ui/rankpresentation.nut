@@ -7,7 +7,7 @@ let mkGenRank = @(rank, rankName, rankBack) {
   imageScore = $"!ui/uiskin/ranks/imageScore/military_rank_{rank}_lb.svg"
 }
 
-let iconSize = hdpxi(24)
+let rankIconSize = hdpxi(24)
 let imageSize = hdpxi(50)
 
 let ranks = freeze([
@@ -51,13 +51,13 @@ let function mkRankImage(rank, onClick = null) {
   }.__update(!onClick ? {} : { onClick, behavior = Behaviors.Button })
 }
 
-let function mkRankIcon(rank, override = {}) {
+let function mkRankIcon(rank, iconSize = rankIconSize ,override = {}) {
   if (rank == null)
     return null
-
   let rankCfg = getRankConfig(rank)
   return {
     rendObj = ROBJ_IMAGE
+    size = [iconSize, iconSize]
     image = Picture($"{rankCfg.imageScore}:{iconSize}:{iconSize}:K")
   }.__update(override)
 }
@@ -67,4 +67,5 @@ return {
   mkRankImage
   mkRankIcon
   getRankConfig
+  rankIconSize
 }

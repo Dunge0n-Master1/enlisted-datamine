@@ -15,16 +15,20 @@ def human_update_stamina_on_spawn(evt : Event;
 
 [es(tag=server, after=human_phys_es, before=after_net_phys_sync)]
 def human_apply_stamina_regen_affect_server(evt : UpdateStageInfoAct; game_effect__attachedTo : EntityId; stamina_regen__amount : float)
-  query(game_effect__attachedTo) <| $ [es] (var human_net_phys : HumanActor)
+  query(game_effect__attachedTo) <| $ [es] (human__totalMaxStamina : float; human_stamina_regen_affect__mult : float = 1.0; var human_net_phys : HumanActor)
     assume cs = human_net_phys.phys.currentState
-    let maxStamina = human_net_phys.phys.maxStamina * cs.maxStaminaMult * cs.staminaBoostMult
-
-    cs.stamina = min(cs.stamina + stamina_regen__amount * evt.dt, maxStamina)
+    cs.stamina = min(cs.stamina + stamina_regen__amount * human_stamina_regen_affect__mult * evt.dt, human__totalMaxStamina)
 
 [es(tag=netClient, after=human_phys_es, before=after_net_phys_sync)]
 def human_apply_stamina_regen_affect_client(evt : UpdateStageInfoAct; game_effect__attachedTo : EntityId; stamina_regen__amount : float)
-  query(game_effect__attachedTo) <| $ [es(REQUIRE=hero)] (var human_net_phys : HumanActor)
+  query(game_effect__attachedTo) <| $ [es(REQUIRE=hero)] (human__totalMaxStamina : float; human_stamina_regen_affect__mult : float = 1.0; var human_net_phys : HumanActor)
     assume cs = human_net_phys.phys.currentState
-    let maxStamina = human_net_phys.phys.maxStamina * cs.maxStaminaMult * cs.staminaBoostMult
+    cs.stamina = min(cs.stamina + stamina_regen__amount * human_stamina_regen_affect__mult * evt.dt, human__totalMaxStamina)
 
-    cs.stamina = min(cs.stamina + stamina_regen__amount * evt.dt, maxStamina)
+[es(on_appear, track=(human_net_phys__maxStamina, human_net_phys__maxStaminaMult, human_net_phys__staminaBoostMult))]
+def human_update_total_max_stamina(evt : Event;
+                                   human_net_phys__maxStamina : float;
+                                   human_net_phys__maxStaminaMult : float;
+                                   human_net_phys__staminaBoostMult : float;
+                                   var human__totalMaxStamina : float&)
+  human__totalMaxStamina = human_net_phys__maxStamina * human_net_phys__maxStaminaMult * human_net_phys__staminaBoostMult

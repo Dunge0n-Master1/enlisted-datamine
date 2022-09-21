@@ -125,6 +125,7 @@ us_towed_at_m1_movable_common{
       nextSeat:t="main_gunner"
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="root"
+      copySkeletonNodesPostfix:t="_gunner"
 
       "lockSeats:list<t>"{
         locked:t="loader"
@@ -135,6 +136,11 @@ us_towed_at_m1_movable_common{
         r.hand:t="ik_hand_right001"
         l.forearm:t="ik_forearm_left001"
         r.forearm:t="ik_forearm_right001"
+      }
+
+      "copySkeletonNodesRecursive:array"{
+        node:t="Bip01 L Hand"
+        node:t="Bip01 R Hand"
       }
     }
 
@@ -173,12 +179,18 @@ us_towed_at_m1_movable_common{
       nextSeat:t="main_gunner"
       vehicleReloadMult:r=0.7
       canPlaceManually:b=no
+      copySkeletonNodesPostfix:t="_loader"
 
       "effectors:object"{
         l.hand:t="ik_hand_left"
         r.hand:t="ik_hand_right"
         l.forearm:t="ik_forearm_left"
         r.forearm:t="ik_forearm_right"
+      }
+
+      "copySkeletonNodesRecursive:array"{
+        node:t="Bip01 L Hand"
+        node:t="Bip01 R Hand"
       }
     }
   }

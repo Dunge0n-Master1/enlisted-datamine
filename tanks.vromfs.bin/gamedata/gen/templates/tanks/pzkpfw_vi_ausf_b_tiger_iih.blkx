@@ -102,16 +102,12 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
       turretName:t="turret_02"
       gun:t="pzkpfw_vi_ausf_b_tiger_iih_turret_02_7_92mm_mg34"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       gun:t="pzkpfw_vi_ausf_b_tiger_iih_turret_03_7_92mm_mg34"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

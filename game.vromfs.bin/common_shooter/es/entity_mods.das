@@ -45,7 +45,9 @@ def entity_restore_stamina_mult_applier_es(info : UpdateStageInfoAct;
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
 def entity_sprint_stamina_drain_applier_es(info : UpdateStageInfoAct;
                                            entity_mods__sprintStaminaDrain : float;
+                                           var human_stamina_regen_affect__mult : float&;
                                            var human_net_phys : HumanActor&)
+  human_stamina_regen_affect__mult = 1.0
   human_net_phys.phys.currentState.staminaSprintDrainMult = entity_mods__sprintStaminaDrain
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]

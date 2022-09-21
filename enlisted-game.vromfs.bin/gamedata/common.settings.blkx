@@ -8,7 +8,7 @@ entitiesPath:t="content/enlisted/gamedata/templates/enlisted.entities.blk"
 contactsGameId:t="enlisted"
 matchingGameName:t="enlisted"
 windowTitle:t="Enlisted"
-bgImage:t="ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg;"
+bgImage:t="ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/pacific_usa_login_screen.jpg; ui/pacific_jap_login_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg; ui/ussr_berlin_prem_assault_1.jpg; ui/ger_moscow_prem_mgun_2.jpg;"
 scene:t="content/enlisted/gamedata/scenes/campaigns_menu_squad_customization_scene.blk"
 allowEmptyScenes:b=yes
 needPlatformMorphemesReplacement:b=yes
@@ -736,6 +736,16 @@ sound{
         async:b=yes
         preload:b=no
       }
+
+      enl_vo_jp{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      enl_vo_jp.assets{
+        async:b=yes
+        preload:b=no
+      }
     }
 
     languageToLocale{
@@ -773,6 +783,10 @@ sound{
       narrator_loc_it{
         banks:t="cmn_loc_vo_it"
       }
+
+      narrator_loc_jp{
+        banks:t="cmn_loc_vo_jp"
+      }
     }
   }
 }
@@ -781,6 +795,7 @@ folders{
   webcache:t="{downloads}/webcache"
   online_storage:t="{downloads}/online_storage"
   pubcfg:t="{downloads}/pubcfg"
+  records:t="{downloads}/replays"
 }
 
 network{
@@ -802,6 +817,7 @@ __allowedConfigOverrides{
   xboxOne_submission_circuit:t="yes"
   xboxScarlett_submission_circuit:t="yes"
   language:t=""
+  harmonizationEnabled:b=yes
 
   ui{
     enableLabelOnLoot:b=yes
@@ -864,6 +880,7 @@ __allowedConfigOverrides{
     safeArea:b=yes
     driver:t=""
     frameSkip:i=0
+    freqLevel:i=0
     vsync_tearing_tolerance_percents:i=0
     latency:i=0
     latencyFlash:b=no
@@ -1027,6 +1044,15 @@ dx12{
     intel{
       vendorId:i=32902
       preferedDeviceIds:i=22176
+      preferedDeviceIds:i=22177
+      preferedDeviceIds:i=22178
+      preferedDeviceIds:i=22181
+      preferedDeviceIds:i=22182
+      preferedDeviceIds:i=22160
+      preferedDeviceIds:i=22161
+      preferedDeviceIds:i=22162
+      preferedDeviceIds:i=22163
+      preferedDeviceIds:i=22164
       minDriver:t="26.20.0.0"
     }
   }
@@ -1043,6 +1069,7 @@ scenes{
   folder:t="content/e_moscow"
   folder:t="content/e_normandy"
   folder:t="content/e_tunisia"
+  folder:t="content/e_pacific"
   folder:t="content/e_aprilfools_2022"
 }
 
@@ -1054,8 +1081,6 @@ addons{
   folder:t="content/tomoe"
   folder:t="content.hq/tomoe_hq"
   folder:t="content/lshaders_{SHADER_SUFFIX}"
-  folder:t="content/modern_conflict"
-  folder:t="content.hq/modern_conflict_hq"
 }
 
 chunksMapping{
@@ -1100,18 +1125,6 @@ chunksMapping{
     folder:t="content/lshaders_{SHADER_SUFFIX}"
     id:i=1001
     sony_id:i=0
-  }
-
-  chunk{
-    folder:t="content/modern_conflict"
-    id:i=1001
-    sony_id:i=0
-  }
-
-  chunk{
-    folder:t="content.hq/modern_conflict_hq"
-    id:i=1002
-    sony_id:i=1
   }
 }
 
@@ -1263,13 +1276,6 @@ addonBasePath{
   }
 
   addon{
-    folder:t="content/modern_conflict"
-    vrom:t="content/modern_conflict/modern_conflict-content.vromfs.bin"
-    vromed:b=no
-    src:t="../develop/gameBase/content/modern_conflict"
-  }
-
-  addon{
     folder:t="content/enlisted"
     src:t="../prog/gameBase/content/enlisted"
     vromed:b=yes
@@ -1277,7 +1283,7 @@ addonBasePath{
   }
 
   addon{
-    folder:t="content/enlisted"
+    folder:t="content/enlisted_pkg_dev"
     src:t="../prog/gameBase/content/enlisted_pkg_dev"
     vromed:b=no
     vrom:t="content/enlisted/enlisted-dev.vromfs.bin"
@@ -1320,6 +1326,7 @@ addonBasePath{
     src:t="../prog/gameBase/content/e_normandy"
     src:t="../prog/gameBase/content/e_berlin"
     src:t="../prog/gameBase/content/e_stalingrad"
+    src:t="../prog/gameBase/content/e_pacific"
     src:t="../prog/gameBase/content/e_aprilfools_2022"
     src:t="../prog/gameBase/content/e_moscow"
     src:t="../prog/gameBase/content/modern_equipment"

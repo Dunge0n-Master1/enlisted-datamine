@@ -38,7 +38,7 @@ let transitions = [
   { prop=AnimProp.opacity, duration=0.2, easing=InOutCubic }
 ]
 
-local function healthBar(hp, maxHp, scaleHp = 0, hitTrigger=null, maxHpTrigger=null, hpRestoreAmount = null, colorFg = null) {
+local function healthBar(hp, maxHp, scaleHp = 0, hitTrigger=null, maxHpTrigger=null, colorFg = null) {
 
   if (hp == null || maxHp <= 0)
     return null
@@ -48,7 +48,7 @@ local function healthBar(hp, maxHp, scaleHp = 0, hitTrigger=null, maxHpTrigger=n
   let isVisible = hp < maxHp
   let baseScale = scaleHp <= 0 ? 1.0 : maxHp.tofloat() / scaleHp
   let ratio = clamp(hp.tofloat() / maxHp.tofloat(), 0.0, 1.0)
-  let regenRatio = clamp((hp.tofloat() + (hpRestoreAmount?.tofloat() ?? 0.0)) / maxHp, 0.0, 1.0)
+  let regenRatio = clamp(hp.tofloat() / maxHp, 0.0, 1.0)
   let colorBg = Color(30+50*(1.0-ratio), 50*ratio, 30*ratio, 80)
   let colorRegen = Color(50, 10, 10, 80)
   colorFg = colorFg ?? ((ratio >= 1) ? Color(105, 255, 105, 80) : Color(255, 105, 105, 80))

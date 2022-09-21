@@ -2,8 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let mkIcon3d = require("%ui/components/icon3d.nut")
-
-let {get_setting_by_blk_path} = require("settings")
+let { isHarmonizationEnabled } = require("%enlSqGlob/harmonizationState.nut")
 
 let function applyHarmonizationImpl(template, objTexReplace, objTexSet) {
   let objTexHarmonize = template.getCompValNullable("animchar__objTexHarmonize")
@@ -14,8 +13,7 @@ let function applyHarmonizationImpl(template, objTexReplace, objTexSet) {
   objTexSet.append(objTexHarmonize?["animchar__objTexSet"]?.getAll() ?? {})
 }
 
-let harmonizationRequired = get_setting_by_blk_path("harmonizationRequired") ?? false
-let applyHarmonization    = harmonizationRequired ? applyHarmonizationImpl : @(...) null
+let applyHarmonization = isHarmonizationEnabled.value ? applyHarmonizationImpl : @(...) null
 
 let DB = ecs.g_entity_mgr.getTemplateDB()
 
@@ -59,7 +57,8 @@ let function icon3dByGameTemplate(gametemplate, params = {}) {
   if (template == null)
     return null
   let itemInfo = getIconInfoByGameTemplate(template, params)
-  return mkIcon3d(itemInfo.__update(params?.genOverride ?? {}), params)
+  itemInfo.__update(params?.genOverride ?? {})
+  return mkIcon3d(itemInfo, params, itemInfo?.iconAttachments)
 }
 
 return icon3dByGameTemplate

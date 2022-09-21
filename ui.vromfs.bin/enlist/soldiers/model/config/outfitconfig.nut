@@ -1,7 +1,7 @@
 
 from "%enlSqGlob/ui_library.nut" import *
 
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { getLinkedArmyName, isObjLinkedToAnyOfObjects } = require("%enlSqGlob/ui/metalink.nut")
 let { soldiersOutfit } = require("%enlist/meta/servProfile.nut")
 let { curCampSoldiers } = require("%enlist/meta/profile.nut")

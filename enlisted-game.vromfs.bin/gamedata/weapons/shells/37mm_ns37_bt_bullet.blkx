@@ -12,7 +12,7 @@ stabilityReductionAfterPenetration:r=0.15
 bulletType:t="ap_t"
 slopeEffectPreset:t="ap"
 fresnel:p3=0.23, 0.1, 2.0
-shellAnimation:t="video/shells_animations/ap.ivf"
+shellAnimation:t="video/shells_animations/ap_belt.ivf"
 relativeVelArmorShift:p2=200.0, 1000.0
 armorFragmentsDamage:b=yes
 armorFragmentsDamageRadius:r=1.5
@@ -55,29 +55,6 @@ visual{
   traceFreq:i=1
   tracer:t="50mmLightRed"
   trail:t="black"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_39_58mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_39_58mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

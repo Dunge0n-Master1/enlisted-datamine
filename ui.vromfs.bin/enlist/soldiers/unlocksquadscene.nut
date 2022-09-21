@@ -25,8 +25,8 @@ let colorize = require("%ui/components/colorize.nut")
 let { isTestDriveProfileInProgress, startSquadTestDrive
 } = require("%enlist/battleData/testDrive.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = btnSizeBig[1] })
-let { isFreemiumCampaign, isFreemiumBought
-} = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, isCampaignBought, disableArmyExp
+} = require("%enlist/campaigns/campaignConfig.nut")
 
 let viewData = Watched(null)
 let isUnlockSquadSceneVisible = Watched(false)
@@ -138,7 +138,8 @@ let function unlockSquadWnd() {
 
   let { armyId, unlockInfo, squadCfg, isNewSquad } = viewData.value
   let { isShowcase = false, isNextToBuyExp = false, unlockCb = null, unlockText = null,
-    isFreemium = false } = unlockInfo
+    hasTestDrive = false, campaignGroup = CAMPAIGN_NONE } = unlockInfo
+  let isFreemium = campaignGroup != CAMPAIGN_NONE
   let squadId = squadCfg.id
 
   let hasReceived = curUnlockedSquads.value.findvalue(@(s) s.squadId == squadId) != null
@@ -148,20 +149,20 @@ let function unlockSquadWnd() {
       ? primeDescBlock(squadCfg)
     : mkDescBlock(squadCfg.announceLocId)
 
-  local buttons = null
+  let children = []
   if (isNewSquad)
-    buttons = mkNewSquadButtons(squadId)
+    children.append(mkNewSquadButtons(squadId))
   else if (!hasReceived) {
-    local children = []
+    if (isNextToBuyExp || hasTestDrive)
+      children.append(mkTestDriveButton(armyId, squadCfg.id))
     if (isNextToBuyExp) {
-      children = [ mkTestDriveButton(armyId, squadCfg.id) ]
-      if (!isFreemiumCampaign.value)
+      if (!disableArmyExp.value)
         children.insert(0, mkBuyArmyLevel(curArmyLevel.value,
           curBuyLevelData.value?.cost,
           curBuyLevelData.value?.costFull))
     } else if (unlockCb != null
-        && (!isFreemium || (isFreemiumCampaign.value && isFreemiumBought.value)))
-      children = [PrimaryFlat(
+        && (!isFreemium || (disableArmyExp.value && isCampaignBought.value)))
+      children.append(PrimaryFlat(
         unlockText ?? loc("squads/receive"),
         unlockCb,
         {
@@ -169,24 +170,26 @@ let function unlockSquadWnd() {
           stopHover = true
           size = btnSizeBig
           hotkeys = [[ "^J:X | Enter", { description = {skip = true}} ]]
-        })]
+        }))
     else if (unlockText != null)
-      children = [mkUnlockInfo(unlockText, { size = btnSizeBig })]
+      children.append(mkUnlockInfo(unlockText, { size = btnSizeBig }))
     children.append(mkPromoBackBtn(close))
-    buttons = {
-      flow = FLOW_VERTICAL
-      minHeight = btnBlockHeight
-      gap = bigPadding
-      vplace = ALIGN_BOTTOM
-      valign = ALIGN_BOTTOM
-      children
-    }
+  } else
+    children.append(mkPromoBackBtn(close))
+
+  let buttons = children.len() <= 1 ? children?[0] : {
+    flow = FLOW_VERTICAL
+    minHeight = btnBlockHeight
+    gap = bigPadding
+    vplace = ALIGN_BOTTOM
+    valign = ALIGN_BOTTOM
+    children
   }
 
   return {
     key = "unlockSquadScene" //for tutorial
     watch = [viewData, curArmyNextUnlockLevel, curArmyLevel, curBuyLevelData,
-      armySquadsById, isFreemiumCampaign, isFreemiumBought]
+      armySquadsById, disableArmyExp, isCampaignBought]
     onAttach = @() isUnlockSquadSceneVisible(true)
     onDetach = @() isUnlockSquadSceneVisible(false)
     rendObj = ROBJ_BOX
@@ -205,7 +208,7 @@ let function unlockSquadWnd() {
           }), descBlock, buttons)
           mkPromoSquadIcon(squadCfg?.icon, !hasReceived)
           !hasReceived ? null
-            : isFreemium ? receivedFreemium
+            : isFreemium ? receivedFreemium(campaignGroup)
             : receivedCommon
           isNewSquad ? null : closeBtn
         ]

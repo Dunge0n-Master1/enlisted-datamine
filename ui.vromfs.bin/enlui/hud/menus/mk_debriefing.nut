@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { exit_to_enlist } = require("app")
+let { switch_to_menu_scene } = require("app")
 let textarea = require("%ui/components/textarea.nut").smallTextarea
 let JB = require("%ui/control/gui_buttons.nut")
 let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
@@ -23,7 +23,7 @@ let animations = [
   { prop=AnimProp.scale, from=[1,1], to=[2,2], duration=0.3, playFadeOut=true, easing=InOutCubic}
 ]
 
-let requestExitToLobby = Watched(false).subscribe(@(v) v ? exit_to_enlist() : null)
+let requestExitToLobby = Watched(false).subscribe(@(v) v ? switch_to_menu_scene() : null)
 
 let function closeAction() {
   requestExitToLobby(true)

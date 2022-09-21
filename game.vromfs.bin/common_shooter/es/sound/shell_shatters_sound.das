@@ -14,10 +14,10 @@ require BallisticsProps
 
 [es(tag=sound, REQUIRE=msg_sink)]
 def shell_shatters_sound(evt : EventOnShellExploded)
-  let shellExplSoundProps = shell_expl_sound_try_get_props(int(evt.shellId))
-  if shellExplSoundProps == null
+  let shellSoundProps = shell_sound_try_get_props(int(evt.shellId))
+  if shellSoundProps == null
     return
-  assume props = *shellExplSoundProps
+  assume props = *shellSoundProps
 
   let maxRadius = get_shell_max_radius(int(evt.shellId), int(evt.damageId), int(evt.ballisticsId))
   let minMaxRayLen = props.shattersMinMaxRayLenMul * maxRadius

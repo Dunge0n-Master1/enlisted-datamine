@@ -1,0 +1,101 @@
+entity{
+  _template:t="spline_gen_repository"
+}
+
+entity{
+  _template:t="spline_gen_template"
+  spline_gen_template__template_name:t="braided_cable_lod0"
+  spline_gen_template__slices:i=15
+  spline_gen_template__stripes:i=63
+  spline_gen_template__diffuse_name:t="cable_braided_a_tex_d"
+  spline_gen_template__normal_name:t="cable_braided_a_tex_n"
+  spline_gen_template__asset_name:t=""
+  spline_gen_template__asset_lod:i=0
+}
+
+entity{
+  _template:t="spline_gen_template"
+  spline_gen_template__template_name:t="braided_cable_lod1"
+  spline_gen_template__slices:i=7
+  spline_gen_template__stripes:i=31
+  spline_gen_template__diffuse_name:t="cable_braided_a_tex_d"
+  spline_gen_template__normal_name:t="cable_braided_a_tex_n"
+  spline_gen_template__asset_name:t=""
+  spline_gen_template__asset_lod:i=0
+}
+
+entity{
+  _template:t="spline_gen_template"
+  spline_gen_template__template_name:t="braided_cable_lod2"
+  spline_gen_template__slices:i=3
+  spline_gen_template__stripes:i=15
+  spline_gen_template__diffuse_name:t="cable_braided_a_tex_d"
+  spline_gen_template__normal_name:t="cable_braided_a_tex_n"
+  spline_gen_template__asset_name:t=""
+}
+
+entity{
+  _template:t="spline_gen_lods"
+  spline_gen_lods__lods_name:t="braided_cable"
+
+  "spline_gen_lods__distances:list<r>"{
+    distance:r=15.0
+    distance:r=40.0
+    distance:r=100.0
+  }
+
+  "spline_gen_lods__template_names:list<t>"{
+    template_name:t="braided_cable_lod0"
+    template_name:t="braided_cable_lod1"
+    template_name:t="braided_cable_lod2"
+  }
+}
+
+entity{
+  _template:t="spline_gen_template"
+  spline_gen_template__template_name:t="rope_lod0"
+  spline_gen_template__slices:i=15
+  spline_gen_template__stripes:i=63
+  spline_gen_template__diffuse_name:t="rope_steel_a_tex_d"
+  spline_gen_template__normal_name:t="rope_steel_a_tex_n"
+  spline_gen_template__asset_name:t=""
+  spline_gen_template__asset_lod:i=0
+}
+
+entity{
+  _template:t="spline_gen_template"
+  spline_gen_template__template_name:t="rope_lod1"
+  spline_gen_template__slices:i=7
+  spline_gen_template__stripes:i=31
+  spline_gen_template__diffuse_name:t="rope_steel_a_tex_d"
+  spline_gen_template__normal_name:t="rope_steel_a_tex_n"
+  spline_gen_template__asset_name:t=""
+  spline_gen_template__asset_lod:i=0
+}
+
+entity{
+  _template:t="spline_gen_template"
+  spline_gen_template__template_name:t="rope_lod2"
+  spline_gen_template__slices:i=3
+  spline_gen_template__stripes:i=15
+  spline_gen_template__diffuse_name:t="rope_steel_a_tex_d"
+  spline_gen_template__normal_name:t="rope_steel_a_tex_n"
+  spline_gen_template__asset_name:t=""
+}
+
+entity{
+  _template:t="spline_gen_lods"
+  spline_gen_lods__lods_name:t="rope"
+
+  "spline_gen_lods__distances:list<r>"{
+    distance:r=15.0
+    distance:r=40.0
+    distance:r=100.0
+  }
+
+  "spline_gen_lods__template_names:list<t>"{
+    template_name:t="rope_lod0"
+    template_name:t="rope_lod1"
+    template_name:t="rope_lod2"
+  }
+}

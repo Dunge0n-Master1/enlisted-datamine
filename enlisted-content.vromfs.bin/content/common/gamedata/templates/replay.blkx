@@ -33,6 +33,26 @@ replay_meta{
     cam:t="replay_camera_tps"
     cam:t="replay_camera_tps_free"
   }
+
+  "replay__prevCam:eid"{
+  }
+
+  "replay__curCam:eid"{
+  }
+}
+
+replay_acceleration_to{
+  _singleton:b=yes
+  replay__accelerationSpeed:r=10.0
+  replay__accelerationPrevSpeed:r=1.0
+  replay__accelerationTime:r=0.0
+}
+
+replay_acceleration_to_debug{
+  _extends:t="replay_acceleration_to"
+
+  "replay__accelerationDebug:tag"{
+  }
 }
 
 replay_input{

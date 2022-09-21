@@ -5,6 +5,7 @@ require app
 require game.utils.team
 require game.es.render.render_events
 require game.utils.hero
+require common_shooter.es.human_weap_common
 require DagorSystem
 require DagorMath
 require DagorConsole

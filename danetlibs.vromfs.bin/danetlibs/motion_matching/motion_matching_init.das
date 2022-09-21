@@ -14,4 +14,12 @@ def load_motion_matching(base_path : string) : bool
     if ecs_has_tag("dev") || app::get_game_name() == "aot"
       ok = load_sub_folder(base_path, "debug_es") && ok
 
+    if (ecs_has_tag("dev") && typeinfo(builtin_module_exists DagorImgui)) || app::get_game_name() == "aot"
+      ok = load_sub_folder(base_path, "debug_ui") && ok
   return ok
+
+
+[export]
+def test()
+  let ok = load_motion_matching("%danetlibs/motion_matching")
+  assert(ok)

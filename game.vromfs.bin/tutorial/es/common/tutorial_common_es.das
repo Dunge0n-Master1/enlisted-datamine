@@ -13,6 +13,7 @@ require enlisted.events_enlisted
 require game.es.input.input_events
 require enlisted.tutorial.tutorial_common
 require enlisted.game.es.client.tutorial_bq_common
+require game.es.squad_order_common
 
 def private tutorial_hit_target_process(targetEid; hitTargetByWeapon; currentGunEid; vehicleSelected; attachedGunEid)
   if hitTargetByWeapon == ""
@@ -267,12 +268,6 @@ def tutorial_destroy_target_es(evt : Event; tutorial_target__targetId : string; 
     destroyEntity(eid)
     return true
 
-// Why we do it in update: Problem in script loading system, this script load async, after scene already loading
-// so we can't handle Entity Create event for detect tutorial is begin or respawner created
-[es(no_order, REQUIRE=tutor_stage__begin)]
-def tutorial_begin_force_spawn_squad_es(evt : UpdateStageInfoAct; eid : EntityId)
-  spawn_squad_immediate()
-  destroyEntity(eid)
 
 [es(on_appear)]
 def tutorial_damage_hero_es(evt : Event; eid : EntityId; tutor_action__damageHeroAmount : float)

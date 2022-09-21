@@ -14,7 +14,7 @@ let { debounce } = require("%sqstd/timers.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { get_time_msec } = require("dagor.time")
 let {error_response_converter} = require("%enlSqGlob/netErrorConverter.nut")
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let {globalWatched} = require("%dngscripts/globalState.nut")
 let eventbus = require("eventbus")
 let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
 let { get_app_id } = require("app")
@@ -72,8 +72,14 @@ handlers["SyncUnlocksWithSteam"] <- @(_)null
 
 
 let function makeUpdatable(persistName, request, watches, defValue) {
-  let data = sharedWatched($"userstat.{persistName}", @() defValue)
-  let lastTime = sharedWatched($"userstat.{persistName}.lastTime", @() { request = 0, update = 0 })
+  let dataKey = $"userstat.{persistName}"
+  let lastTimeKey = $"userstat.{persistName}.lastTime"
+  let dataS = globalWatched(dataKey, @() defValue)
+  let lastTimeS = globalWatched(lastTimeKey, @() { request = 0, update = 0 })
+  let data = dataS[dataKey]
+  let dataUpdate = dataS[$"{dataKey}Update"]
+  let lastTime = lastTimeS[lastTimeKey]
+  let lastTimeUpdate = lastTimeS[$"{lastTimeKey}Update"]
   let isRequestInProgress = @() lastTime.value.request > lastTime.value.update
     && lastTime.value.request + STATS_REQUEST_TIMEOUT > get_time_msec()
   let canRefresh = @() !isRequestInProgress()
@@ -86,13 +92,13 @@ let function makeUpdatable(persistName, request, watches, defValue) {
 
     serverTimeUpdate(1000 * (result?.response.timestamp ?? 0), lastTime.value.request)
     if (result?.error) {
-      data(defValue)
+      dataUpdate(defValue)
       logUs($"Failed to update {persistName}")
       logUs(result)
       return
     }
     lastSuccessTime(get_time_msec())
-    data(result?.response ?? defValue)
+    dataUpdate(result?.response ?? defValue)
 
     if (needSyncSteamAchievements) {
       syncSteamAchievements()
@@ -101,12 +107,12 @@ let function makeUpdatable(persistName, request, watches, defValue) {
   }
 
   let function prepareToRequest() {
-    lastTime.mutate(@(v) v.request = get_time_msec())
+    lastTimeUpdate(lastTime.value.__merge({request = get_time_msec()}))
   }
 
   let function refresh(cb = null) {
     if (!chardToken.value || appId.value < 0) {
-      data.update(defValue)
+      dataUpdate(defValue)
       if (cb)
         cb({ error = "not logged in" })
       return
@@ -122,14 +128,14 @@ let function makeUpdatable(persistName, request, watches, defValue) {
   }
 
   let function forceRefresh(cb = null) {
-    lastTime.mutate(@(v) v.__update({ update = 0, request = 0}))
+    lastTimeUpdate(lastTime.value.__merge({ update = 0, request = 0}))
     refresh(cb)
   }
 
   foreach (w in watches)
     w.subscribe(function(_v) {
-      lastTime.mutate(@(v) v.update = 0)
-      data(defValue)
+      lastTimeUpdate(lastTime.value.__merge({update = 0}))
+      dataUpdate(defValue)
       forceRefresh()
     })
 
@@ -138,11 +144,11 @@ let function makeUpdatable(persistName, request, watches, defValue) {
 
   return {
     id = persistName
-    data = data
-    refresh = refresh
-    forceRefresh = forceRefresh
-    processResult = processResult
-    prepareToRequest = prepareToRequest
+    data
+    refresh
+    forceRefresh
+    processResult
+    prepareToRequest
     lastUpdateTime = Computed(@() lastTime.value.update)
   }
 }

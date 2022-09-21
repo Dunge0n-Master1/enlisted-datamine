@@ -142,7 +142,7 @@ def ecs_scene_window()
           imgui::TableNextColumn()
           imgui::Text(eidStr)
           imgui::TableNextColumn()
-          selected = selectedItem == eid
+          selected = selectedItem == eid || eid |> has("daeditor__selected")
           imgui::PushID(eidStr)
           if imgui::Selectable(templateStr, selectedAddr, ImGuiSelectableFlags AllowDoubleClick)
             selectedItem = eid

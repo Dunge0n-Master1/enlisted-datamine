@@ -38,6 +38,25 @@ _infoCommonComponents{
   }
 }
 
+capture_zone_decals_manager{
+  _singleton:b=yes
+  _tags:t="render"
+  capture_zone_decals_initial_capacity:i=16
+  capture_zone_decals_init_shader:t="projective_decal_create_indirect"
+  capture_zone_decals_generator_shader:t="projective_decal_decals_generator"
+  capture_zone_decals_render_shader:t="capture_zone_projective_decals"
+  capture_zone_decals_culler_shader:t="capture_zone_cull"
+
+  "capture_zone_decals_mgr:ResizableDecals"{
+  }
+
+  "capture_zone_decals_progress_buf:UniqueBufHolder"{
+  }
+
+  "capture_zone_decals_progresses:list<r>"{
+  }
+}
+
 projective_decal{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 

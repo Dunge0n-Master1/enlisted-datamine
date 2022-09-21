@@ -3,6 +3,7 @@ require app
 require math.base
 require game.es.events
 require enlisted.events_enlisted
+require EnlistedNet
 
 [es(tag=server, before=fortification_repair_start_es)]
 def before_fortification_repair_start_es(evt : EventRepairFortificationStart;
@@ -55,7 +56,7 @@ def fortification_repair_process_es(info : UpdateStageInfoAct;
     rejectResupply ||= length_sq(transform[3] - operatorPos) > square(object__useDist ?? human_use_object__useDist)
 
   if rejectResupply
-    sendEvent(eid, [[EventRepairFortificationStop]])
+    send_net_event(eid, [[EventRepairFortificationStop]])
     return
 
   if fortification_repair__timer < info.curTime
@@ -71,4 +72,4 @@ def fortification_repair_stop_es(evt : EventRepairFortificationStop;
 
 [es(tag=server)]
 def fortification_repair_finish_es(evt : EventRepairFortificationFinish; eid : EntityId)
-  sendEvent(eid, [[EventRepairFortificationStop]])
+  send_net_event(eid, [[EventRepairFortificationStop]])

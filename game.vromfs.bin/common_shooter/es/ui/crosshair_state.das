@@ -3,6 +3,7 @@ require app
 require game.utils.team
 require game.utils.hero
 require game.es.render.render_events
+require common_shooter.es.human_weap_common
 require dm
 require DagorSystem
 require DagorMath
@@ -19,14 +20,12 @@ def check_crosshair_hintable_objects(var tracePos : float3&;
                                      var traceDir : float3&;
                                      traceLen : float;
                                      ownTeam : int)
-  var len = traceLen
   let eps = 0.05
-  len += eps
   var needHint = false
   find_query() <| $ [es(REQUIRE=hasCrosshairHint)] (transform : float3x4;
                                                     collres : CollisionResource;
                                                     team : int)
-    if collres |> collres_traceray(transform, tracePos, traceDir, len, null)
+    if collres |> collres_rayhit(transform, null, tracePos, traceDir, traceLen + eps)
       needHint = is_teams_friendly(team, ownTeam)
     return needHint ? true : false
 
@@ -40,7 +39,7 @@ def check_crosshair_hintable_objects(var tracePos : float3&;
 
     let riType = int(handle_to_ri_type(ri_extra.handle))
     let collRes = get_rigen_extra_coll_res(riType)
-    if collRes != null && *collRes |> collres_traceray(transform, tracePos, traceDir, len, null)
+    if collRes != null && *collRes |> collres_rayhit(transform, null, tracePos, traceDir, traceLen + eps)
       if destroyable_ri__addScoreTeam == TEAM_UNASSIGNED
         needHint = is_teams_friendly(team, ownTeam)
       else

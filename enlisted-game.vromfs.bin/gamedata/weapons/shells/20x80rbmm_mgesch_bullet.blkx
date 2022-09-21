@@ -14,6 +14,7 @@ stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=1.0
 stabilityReductionAfterPenetration:r=0.15
 onHitChanceMultFire:r=2.5
+bulletType:t="he_i_mine"
 slopeEffectPreset:t="ap"
 effectiveDistance:r=700.0
 fresnel:p3=0.23, 0.1, 2.0

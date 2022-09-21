@@ -42,8 +42,11 @@ return freeze(autoSoldierIcons.__update({
   artillery_type_unlock_9_icon = "ui/uiskin/marker_bomb.svg"
   artillery_type_unlock_10_icon = "ui/uiskin/marker_bomb.svg"
   artillery_type_unlock_11_icon = "ui/uiskin/marker_bomb.svg"
+  artillery_type_unlock_12_icon = "ui/uiskin/marker_bomb.svg"
+  artillery_type_unlock_13_icon = "ui/uiskin/marker_bomb.svg"
 
   squad_usa = "ui/uiskin/squad_usa_default.svg"
   squad_ussr ="ui/uiskin/squad_ussr_default.svg"
   squad_germany ="ui/uiskin/squad_germany_default.svg"
+  squad_japan ="ui/uiskin/squad_japan_default.svg"
 }))

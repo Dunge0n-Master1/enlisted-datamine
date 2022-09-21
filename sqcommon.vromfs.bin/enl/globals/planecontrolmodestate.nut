@@ -1,5 +1,5 @@
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let {globalWatched} = require("%dngscripts/globalState.nut")
 
-let planeControlModeState = sharedWatched("planeControlModeState", @() null)
+let {planeControlModeState, planeControlModeStateUpdate} = globalWatched("planeControlModeState", @() null)
 
-return planeControlModeState
+return {planeControlModeState, planeControlModeStateUpdate}

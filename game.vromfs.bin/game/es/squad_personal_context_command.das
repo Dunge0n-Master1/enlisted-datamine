@@ -5,6 +5,7 @@ require enlisted.game.es.squad_personal_order_common
 require enlisted.game.es.context_command_common
 require EnlistedNet
 require game.es.events
+require game.es.squad_order_common
 
 [es(tag=gameClient, REQUIRE=human_context_command_input)]
 def human_personal_context_command_req(evt : RqPersonalContextCommand;
@@ -35,13 +36,13 @@ def human_personal_context_command_req(evt : RqPersonalContextCommand;
       isOrdered = true
       send_net_event(personal_bot_order__currentBotEid, [[RequestPersonalSquadMateOrder orderType=int(orderType), orderPosition=float3(), orderUseEntity=orderUseEntity]])
   elif human_context_command__orderType == int(ContextCommand ECC_PLANT_BOMB)
-    sendEvent(personal_bot_order__currentBotEid, [[RequestPersonalSquadMateOrder
+    send_net_event(personal_bot_order__currentBotEid, [[RequestPersonalSquadMateOrder
       orderType=int(SquadMateOrder ESMO_PLANT_BOMB),
       orderPosition=human_context_command__orderPosition,
       orderUseEntity=human_context_command__orderUseEntity
     ]])
   elif human_context_command__orderType == int(ContextCommand ECC_DEFUSE_BOMB)
-    sendEvent(personal_bot_order__currentBotEid, [[RequestPersonalSquadMateOrder
+    send_net_event(personal_bot_order__currentBotEid, [[RequestPersonalSquadMateOrder
       orderType=int(SquadMateOrder ESMO_DEFUSE_BOMB),
       orderPosition=human_context_command__orderPosition,
       orderUseEntity=human_context_command__orderUseEntity

@@ -2,6 +2,7 @@ require ecs
 require soundEvent
 require turrets
 require Gun
+require enlisted.events_enlisted
 
 
 def update_turret_sound(vel_h, vel_v : float; var event : SoundEvent&; path : string; pos : float3 const&)
@@ -17,7 +18,7 @@ def update_turret_sound(vel_h, vel_v : float; var event : SoundEvent&; path : st
 
 
 [es(tag=sound, REQUIRE=turret_sound_group, no_order)]
-def turret_sound_group_update(info : UpdateStageInfoAct;
+def turret_sound_group_update(info : ParallelUpdateFrameDelayed;
                               is_watched_sound : bool;
                               var turret_sound__event : SoundEvent&;
                               turret_sound__path : string;
@@ -37,7 +38,7 @@ def turret_sound_group_update(info : UpdateStageInfoAct;
 
 
 [es(tag=sound, REQUIRE_NOT=turret_sound_group, no_order)]
-def turret_sound_update(info : UpdateStageInfoAct;
+def turret_sound_update(info : ParallelUpdateFrameDelayed;
                         is_watched_sound : bool;
                         turret_control__gunEids : EidList)
   if is_watched_sound

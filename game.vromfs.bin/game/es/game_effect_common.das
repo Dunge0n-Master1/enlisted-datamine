@@ -7,6 +7,7 @@ require Daphys
 require DagorMath
 require math.base
 require vehicle
+require game.es.vehicle.vehicle_seats_common
 
 def adjust_entity_spawn_position(var pos : float3&; radius : float; iters : int; errorMargin : float)
   var dpos = DPoint3(pos)

@@ -106,6 +106,24 @@ type_30_bayonet{
   }
 }
 
+type_2_bayonet{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="type_2_bayonet_char"
+  item__template:t="type_2_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/type_30_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="type_2_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/type_2_bayonet"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/type_30_bayonet.blk"
+
+  "gunAttachable:tag"{
+  }
+}
+
 lebel_bayonet{
   _extends:t="bayonet_gunmod"
   animchar__res:t="lebel_bayonet_char"
@@ -190,6 +208,24 @@ m1905_bayonet{
   item__weight:r=0.3
   item__volume:r=0.5
   item__name:t="items/m1905_bayonet"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+
+  "gunAttachable:tag"{
+  }
+}
+
+m1917_bayonet{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="m1917_bayonet_char"
+  item__template:t="m1917_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/mosin_m1930_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="m1917_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/m1917_bayonet"
   melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
 
   "gunAttachable:tag"{
@@ -889,6 +925,46 @@ scope_zf_41_gewehr_41{
   }
 }
 
+scope_arisaka_type_97{
+  _extends:t="scope_gunmod"
+  animchar__res:t="arisaka_type_97_scope_char"
+  item__template:t="scope_arisaka_type_97_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/scope_avs_36_pe.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_arisaka_type_97"
+  gunmod__zoomFactor:r=5.0
+  gunmod__camShiftMin:r=0.14
+  gunmod__camShiftMax:r=0.14
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_arisaka_type_97"
+
+  "gunAttachable:tag"{
+  }
+}
+
+scope_arisaka_type_99{
+  _extends:t="scope_gunmod"
+  animchar__res:t="scope_arisaka_type_99_early_sniper_char"
+  item__template:t="scope_arisaka_type_99_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/scope_avs_36_pe.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_arisaka_type_99"
+  gunmod__zoomFactor:r=5.0
+  gunmod__camShiftMin:r=0.14
+  gunmod__camShiftMax:r=0.14
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_arisaka_type_99"
+
+  "gunAttachable:tag"{
+  }
+}
+
 steel_helm_phys{
   _extends:t="phys_sleepable"
   _extends:t="animchar"
@@ -919,23 +995,16 @@ steel_helm_phys{
   }
 }
 
-diakov_grenade_launcher{
+grenade_laucher_base{
   _extends:t="grenade_launcher_gunmod"
-  animchar__res:t="diakov_grenade_launcher_char"
-  item__template:t="diakov_grenade_launcher_item"
-  item__proto:t="content/e_ww2_common/gamedata/weapons/diakov_grenade_launcher.blk"
   item__weight:r=0.3
   item__volume:r=0.5
-  item__name:t="items/diakov_grenade_launcher"
   item__iconYaw:r=90.0
   gunAttachable__slot:i=-1
   gunAttachable__slotName:t="grenade_launcher"
   gunAttachable__gunSlotName:t="grenade_launcher"
-  gunAttachable__slotTag:t="diakov_grenade_launcher"
-  gun__blk:t="content/e_ww2_common/gamedata/weapons/diakov_grenade_launcher.blk"
   gun__shootNodeName:t="bullet"
   gun__magnification:r=3.0
-  gun__locName:t="Diakov~'s grenade launcher"
   gun__statName:t="launcher"
   gun__shotFreq:r=0.8
   gun__automaticReload:b=no
@@ -961,14 +1030,6 @@ diakov_grenade_launcher{
   "gunAttachable:tag"{
   }
 
-  "gun__ammoHolders:array"{
-    ammoHolders:t="content/e_ww2_common/gamedata/weapons/grenades/diakov_rifle_grenade.blk"
-  }
-
-  "gun__shells:array"{
-    shells:t="content/e_ww2_common/gamedata/weapons/grenades/diakov_rifle_grenade.blk"
-  }
-
   "gun__firingModes:array"{
 
     "mode:object"{
@@ -978,6 +1039,28 @@ diakov_grenade_launcher{
 
   "gun__firingModeNames:array"{
     mode:t="bolt_action"
+  }
+}
+
+diakov_grenade_launcher{
+  _extends:t="grenade_laucher_base"
+  animchar__res:t="diakov_grenade_launcher_char"
+  item__template:t="diakov_grenade_launcher_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/diakov_grenade_launcher.blk"
+  item__name:t="items/diakov_grenade_launcher"
+  gunAttachable__slotTag:t="diakov_grenade_launcher"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/diakov_grenade_launcher.blk"
+  gun__locName:t="Diakov~'s grenade launcher"
+
+  "gunAttachable:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="content/e_ww2_common/gamedata/weapons/grenades/diakov_rifle_grenade.blk"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_ww2_common/gamedata/weapons/grenades/diakov_rifle_grenade.blk"
   }
 }
 
@@ -1044,40 +1127,15 @@ vpgs_grenade_launcher{
 }
 
 schiessbecher_grenade_launcher{
-  _extends:t="grenade_launcher_gunmod"
+  _extends:t="grenade_laucher_base"
   animchar__res:t="schiessbecher_grenade_launcher_char"
   item__template:t="schiessbecher_grenade_launcher_item"
   item__proto:t="content/e_ww2_common/gamedata/weapons/schiessbecher_grenade_launcher.blk"
-  item__weight:r=0.3
-  item__volume:r=0.5
   item__name:t="items/schiessbecher_grenade_launcher"
-  item__iconYaw:r=90.0
-  gunAttachable__slot:i=-1
-  gunAttachable__slotName:t="grenade_launcher"
-  gunAttachable__gunSlotName:t="grenade_launcher"
   gunAttachable__slotTag:t="schiessbecher_grenade_launcher"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/schiessbecher_grenade_launcher.blk"
-  gun__shootNodeName:t="bullet"
-  gun__magnification:r=3.0
   gun__locName:t="Schiessbecher grenade launcher"
   gun__statName:t="launcher"
-  gun__shotFreq:r=0.8
-  gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.05
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.5
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.15
-  gun_deviation__maxDeviation:r=15.0
-  gun__reloadTime:r=3.0
-  gun_shell_ejection__timeMult:r=0.35
-  gun__recoilAmount:r=0.1
-  gun__recoilDirAmount:r=0.5
-  gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
   weapon_mod__activateTime:r=2.8
   weapon_mod__deactivateTime:r=2.8
 
@@ -1091,54 +1149,18 @@ schiessbecher_grenade_launcher{
   "gun__shells:array"{
     shells:t="content/e_ww2_common/gamedata/weapons/grenades/schiessbecher_grenade.blk"
   }
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="manual"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="bolt_action"
-  }
 }
 
 gg_p_40_grenade_launcher{
-  _extends:t="grenade_launcher_gunmod"
+  _extends:t="grenade_laucher_base"
   animchar__res:t="gg_p_40_grenade_launcher_char"
   item__template:t="gg_p_40_grenade_launcher_item"
   item__proto:t="content/e_ww2_common/gamedata/weapons/gg_p_40_grenade_launcher.blk"
-  item__weight:r=0.3
-  item__volume:r=0.5
   item__name:t="items/gg_p_40_grenade_launcher"
-  item__iconYaw:r=90.0
-  gunAttachable__slot:i=-1
-  gunAttachable__slotName:t="grenade_launcher"
-  gunAttachable__gunSlotName:t="grenade_launcher"
   gunAttachable__slotTag:t="gg_p_40_grenade_launcher"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/gg_p_40_grenade_launcher.blk"
-  gun__shootNodeName:t="bullet"
-  gun__magnification:r=3.0
   gun__locName:t="GGP/40 grenade launcher"
   gun__statName:t="launcher"
-  gun__shotFreq:r=0.8
-  gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.05
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.5
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.15
-  gun_deviation__maxDeviation:r=15.0
-  gun__reloadTime:r=3.0
-  gun_shell_ejection__timeMult:r=0.35
-  gun__recoilAmount:r=0.1
-  gun__recoilDirAmount:r=0.5
-  gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
   weapon_mod__activateTime:r=2.8
   weapon_mod__deactivateTime:r=2.8
 
@@ -1152,54 +1174,37 @@ gg_p_40_grenade_launcher{
   "gun__shells:array"{
     shells:t="content/e_ww2_common/gamedata/weapons/grenades/gg_p_40_grenade.blk"
   }
+}
 
-  "gun__firingModes:array"{
+m1_grenade_launcher{
+  _extends:t="grenade_laucher_base"
+  animchar__res:t="grenade_launcher_m1_char"
+  item__template:t="m1_grenade_launcher_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/m1_grenade_launcher.blk"
+  item__name:t="items/m1_grenade_launcher"
+  gunAttachable__slotTag:t="m1_grenade_launcher"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/m1_grenade_launcher.blk"
+  gun__locName:t="M1 grenade launcher"
 
-    "mode:object"{
-      modeType:t="manual"
-    }
+  "gun__ammoHolders:array"{
+    ammoHolders:t="m2_rifle_grenade_item"
   }
 
-  "gun__firingModeNames:array"{
-    mode:t="bolt_action"
+  "gun__shells:array"{
+    shells:t="content/e_ww2_common/gamedata/weapons/grenades/m2_rifle_grenade.blk"
   }
 }
 
 m8_grenade_launcher{
-  _extends:t="grenade_launcher_gunmod"
+  _extends:t="grenade_laucher_base"
   animchar__res:t="m8_grenade_launcher_char"
   item__template:t="m8_grenade_launcher_item"
   item__proto:t="content/e_ww2_common/gamedata/weapons/m8_grenade_launcher.blk"
-  item__weight:r=0.3
-  item__volume:r=0.5
   item__name:t="items/m8_grenade_launcher"
-  item__iconYaw:r=90.0
-  gunAttachable__slot:i=-1
-  gunAttachable__slotName:t="grenade_launcher"
-  gunAttachable__gunSlotName:t="grenade_launcher"
   gunAttachable__slotTag:t="m8_grenade_launcher"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/m8_grenade_launcher.blk"
-  gun__shootNodeName:t="bullet"
-  gun__magnification:r=3.0
   gun__locName:t="M8 grenade launcher"
-  gun__statName:t="launcher"
-  gun__shotFreq:r=0.8
-  gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.05
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.5
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.15
-  gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=2.7
-  gun_shell_ejection__timeMult:r=0.35
-  gun__recoilAmount:r=0.1
-  gun__recoilDirAmount:r=0.5
-  gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
   weapon_mod__activateTime:r=2.85
   weapon_mod__deactivateTime:r=2.85
 
@@ -1227,40 +1232,16 @@ m8_grenade_launcher{
 }
 
 m7_grenade_launcher{
-  _extends:t="grenade_launcher_gunmod"
+  _extends:t="grenade_laucher_base"
   animchar__res:t="m7_grenade_launcher_char"
   item__template:t="m7_grenade_launcher_item"
   item__proto:t="content/e_ww2_common/gamedata/weapons/m7_grenade_launcher.blk"
-  item__weight:r=0.3
-  item__volume:r=0.5
   item__name:t="items/m7_grenade_launcher"
-  item__iconYaw:r=90.0
-  gunAttachable__slot:i=-1
-  gunAttachable__slotName:t="grenade_launcher"
-  gunAttachable__gunSlotName:t="grenade_launcher"
   gunAttachable__slotTag:t="m7_grenade_launcher"
   gun__blk:t="content/e_ww2_common/gamedata/weapons/m7_grenade_launcher.blk"
-  gun__shootNodeName:t="bullet"
-  gun__magnification:r=3.0
   gun__locName:t="M7 grenade launcher"
   gun__statName:t="launcher"
-  gun__shotFreq:r=0.8
-  gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.05
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.5
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.15
-  gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=2.7
-  gun_shell_ejection__timeMult:r=0.35
-  gun__recoilAmount:r=0.1
-  gun__recoilDirAmount:r=0.5
-  gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
   weapon_mod__activateTime:r=2.85
   weapon_mod__deactivateTime:r=2.85
 
@@ -1274,15 +1255,23 @@ m7_grenade_launcher{
   "gun__shells:array"{
     shells:t="content/e_ww2_common/gamedata/weapons/grenades/m9a1_grenade.blk"
   }
+}
 
-  "gun__firingModes:array"{
+arisaka_grenade_discharger{
+  _extends:t="grenade_laucher_base"
+  animchar__res:t="type_100_grenade_discharger_char"
+  item__template:t="arisaka_grenade_discharger_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/arisaka_grenade_discharger.blk"
+  item__name:t="items/arisaka_grenade_discharger"
+  gunAttachable__slotTag:t="arisaka_grenade_discharger"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/arisaka_grenade_discharger.blk"
+  gun__locName:t="Grenade discharger"
 
-    "mode:object"{
-      modeType:t="manual"
-    }
+  "gun__ammoHolders:array"{
+    ammoHolders:t="type_99_grenade_item"
   }
 
-  "gun__firingModeNames:array"{
-    mode:t="bolt_action"
+  "gun__shells:array"{
+    shells:t="content/e_ww2_common/gamedata/weapons/grenades/type_99_grenade.blk"
   }
 }

@@ -2,6 +2,8 @@ ussr_kv_2_1939{
   _extends:t="base_kv_2_1939"
   _extends:t="three_seats_vehicle"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
 
   "animchar__objTexReplace:object"{
     "ussr_camo_green*":t="ussr_camo_winter_white_full*"

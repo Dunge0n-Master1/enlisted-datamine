@@ -83,7 +83,14 @@ let state = [
   //{comp = "plane_view.heading_deg",   watch = Watched(), locId="HDG",  typ = ecs.TYPE_INT  }
 
   // controls
-  {comp = "plane_view__throttle",      watch = Watched(), locId="plane_hud/Thr",  typ = ecs.TYPE_FLOAT, transformFunc = transformPercentsFunc}
+  {comp = "plane_view__is_throttle_control_active", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, show = false }
+  {comp = "plane_view__throttle", watch = Watched(),
+    compShow = "plane_view__is_throttle_control_active", watchShow = Watched(false),
+    locId="plane_hud/Thr",  typ = ecs.TYPE_FLOAT, transformFunc = transformPercentsFunc }
+  {comp = "plane_view__is_climb_control_active", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, show = false }
+  {comp = "plane_view__climb", watch = Watched(),
+    compShow = "plane_view__is_climb_control_active", watchShow = Watched(false),
+    locId="plane_hud/Clb",  typ = ecs.TYPE_FLOAT, transformFunc = transformPercentsFunc}
   {comp = "plane_view__has_gear_control", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, show = false }
   {comp = "plane_view__gear_position", watch = Watched(),
     compShow = "plane_view__has_gear_control", watchShow = Watched(false),
@@ -94,6 +101,11 @@ let state = [
     compShow = "plane_view__has_flaps_control", watchShow = Watched(false),
     locId="plane_hud/Flaps", typ = ecs.TYPE_INT,
     enumValues = ["plane_hud/FlapsUp", "plane_hud/FlapsCombat", "plane_hud/FlapsTakeoff", "plane_hud/FlapsLanding"], transformFunc = transformEnumFunc}
+  {comp = "plane_view__hasAirBrakes", watch = Watched(), locId = "", typ = ecs.TYPE_BOOL, show = false }
+  {comp = "plane_view__isAirBrakesActive", watch = Watched(),
+    compShow = "plane_view__hasAirBrakes", watchShow = Watched(false),
+    locId="plane_hud/AirBrakes", typ = ecs.TYPE_BOOL,
+    boolValues = ["plane_hud/AirBrakesUp", "plane_hud/AirBrakesDown"], transformFunc = transformBoolFunc}
 /*
   {comp = "is_parking_brake_on",      watch=Watched(), locId = "PARKING BRAKE", typ = ecs.TYPE_BOOL, mkIndicator = mkExistIndicator}
 */

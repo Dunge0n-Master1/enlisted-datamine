@@ -242,16 +242,11 @@ def human_interrupt_revive_es(info : UpdateStageInfoAct;
   if !human_inventory__targetToUse || human_inventory__targetToUse == eid
     return
   let isReviving = get_bool(human_inventory__entityToUse, "item__isCurrentlyUsedForReviveTarget") ?? true;
-  query(human_inventory__targetToUse) <| $ [es(REQUIRE=human)] (isAlive : bool; isDowned : bool;
-                                                                human_inventory__entityToUse : EntityId;
-                                                                transform : float3x4;
-                                                                hitpoints__canSelfReviveByPerk : bool = false)
-    var interruptByPerk = false
-    if hitpoints__canSelfReviveByPerk
-      query(human_inventory__entityToUse) <| $ [es(REQUIRE=item__useInterruptDisabled)] (item__reviveAmount : float)
-        interruptByPerk = item__reviveAmount > 0.0
+  query(human_inventory__targetToUse) <| $ [es(REQUIRE=(human))] (isAlive : bool;
+                                                                  isDowned : bool;
+                                                                  transform : float3x4)
     let distSq = length_sq(human__aimTm[3] - transform[3])
-    if !isAlive || interruptByPerk || (isReviving != isDowned) || distSq > square(human_reviver__maxDistance.y)
+    if !isAlive || (isReviving != isDowned) || distSq > square(human_reviver__maxDistance.y)
       sendEvent(eid, [[EventInterruptItemUse]])
 
 

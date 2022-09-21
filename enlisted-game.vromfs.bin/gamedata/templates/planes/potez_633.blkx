@@ -117,6 +117,27 @@ potez_633{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="fr_200kg_1"
+    node:t="fr_200kg_2"
+    node:t="flare1"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="hatch1"
     part:t="hatch2"

@@ -143,7 +143,7 @@ let stages = [
         "rendinst_deferred_decal",
         "rendinst_deferred_modulate2x_decal",
         "rendinst_emissive",
-        "rendinst_impostor",
+        "rendinst_baked_impostor",
         "rendinst_layered",
         "rendinst_mask_layered",
         "rendinst_modulate2x_diffuse_decal",

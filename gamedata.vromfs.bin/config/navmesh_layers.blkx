@@ -1321,6 +1321,12 @@ doors{
   berlin_door_flat_panel_l_lr{
   }
 
+  berlin_door_flat_panel_n_lr{
+  }
+
+  berlin_door_flat_panel_b_l{
+  }
+
   kroll_opera_royal_hall_left_wing_door_a_r{
   }
 
@@ -1451,5 +1457,32 @@ doors{
   }
 
   stalingrad_department_store_door_950x3600_a_r{
+  }
+
+  german_village_gate_wide_wood_2500_a_r{
+  }
+
+  german_village_gate_wide_wood_2500_a_l{
+  }
+
+  fachwerk_gate_wide_wood_2200_a_r{
+  }
+
+  fachwerk_gate_wide_wood_2200_a_l{
+  }
+
+  russia_fire_station_a_doors_c{
+  }
+
+  frame_horsehouse_stall_door_a{
+  }
+
+  frame_horsehouse_stall_door_b{
+  }
+
+  frame_horsehouse_stall_door_c{
+  }
+
+  frame_stable_stall_door_a{
   }
 }

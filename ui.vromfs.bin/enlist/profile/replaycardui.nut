@@ -1,25 +1,31 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { makeVertScroll } = require("%ui/components/scrollbar.nut")
-let { smallPadding, rowBg } = require("%enlSqGlob/ui/viewConst.nut")
-let { getFiles, currentRecord } = require("%enlist/replay/replaySettings.nut")
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { rowBg, bigPadding, blockedTxtColor, defTxtColor, commonBtnHeight
+} = require("%enlSqGlob/ui/viewConst.nut")
+let { currentRecord, replayPlay, deleteReplay, records, updateReplays
+} = require("%enlist/replay/replaySettings.nut")
 let { format_unix_time } = require("dagor.iso8601")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
-let { load_replay_meta_info, replay_play } = require("app")
+let { load_replay_meta_info } = require("app")
 let { ceil } = require("%sqstd/math.nut")
 let textButton = require("%ui/components/textButton.nut")
-let { NET_PROTO_VERSION, get_dasevent_net_version } = require("net")
-let msgbox = require("%enlist/components/msgbox.nut")
-let {get_setting_by_blk_path} = require("settings")
+let msgbox = require("%ui/components/msgbox.nut")
+let openUrl = require("%ui/components/openUrl.nut")
 
-let allowProtoMismatch = get_setting_by_blk_path("replay/allowProtoMismatch") ?? false
+const REPLAY_URL = "https://enlisted.net/replays"
 
-let displayPerPage = 10
+let displayPerPage = 11
+let maxListHeight = (displayPerPage + 1) * commonBtnHeight
 let curPage = Watched(0)
+let listGap = hdpx(20)
+let buttonsGap = hdpx(16)
+let listPadding = [0, listGap]
 let isCurrentRecordProtocolValid = Watched(true)
-let records = Watched(getFiles())
 let totalPages = Computed(@() ceil(records.value.len().tofloat() / displayPerPage).tointeger())
+
+let defTxtStyle = { color = defTxtColor }.__update(body_txt)
+let disabledTxtStyle = { color = blockedTxtColor }.__update(body_txt)
 
 records.subscribe(function(_) {
   if (totalPages.value < curPage.value)
@@ -27,125 +33,208 @@ records.subscribe(function(_) {
 })
 
 let mkProtocolBlock = @(isValid) {
-  size = [pw(45), SIZE_TO_CONTENT]
+  size = [flex(1.5), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXT
-  text = loc(isValid ? "replay/readyToPlay" : "replay/protocolMisMatch")
-  color = isValid ? 0xFF14FF0A : 0xFFFF4E4E
-}.__update(body_txt)
+  text = isValid ? loc("replay/readyToPlay") : loc("replay/protocolMisMatch")
+}.__update(isValid ? defTxtStyle : disabledTxtStyle)
 
-let function watchCurrentReplay() {
-  let replayInfo = load_replay_meta_info(currentRecord.value.id)
-  let startFrom = replayInfo?.first_human_spawn_time ?? 0
-  if (isCurrentRecordProtocolValid.value) {
-    replay_play(currentRecord.value.id, startFrom)
-    return
+let listHeader = [
+  {
+    locId = loc("replay/recordDate")
+    size = flex()
   }
+  {
+    locId = loc("replay/mission")
+    size = [flex(1.5), flex()]
+  }
+  {
+    locId = loc("replay/gameTime")
+    size = [flex(0.5), flex()]
+  }
+  {
+    locId = loc("replay/availabilityStatus")
+    size = [flex(1.5), flex()]
+  }
+]
 
-  let buttons = [{
-    text = loc("Ok")
-    isCancel = true
-  }]
-
-  if (allowProtoMismatch)
-    buttons.append({
-      text = loc("replay/playAnyway")
-      action = @() replay_play(currentRecord.value.id, startFrom)
-      isCurrent = true
-    })
-
-  msgbox.show({
-    text = loc("replay/protocolMisMatchDoYouWantStart"),
-    buttons
-  })
+let headerRow = {
+  size = [flex(), commonBtnHeight]
+  flow = FLOW_HORIZONTAL
+  padding = listPadding
+  gap = listGap
+  children = listHeader.map(@(tab) {
+    size = tab.size
+    rendObj = ROBJ_TEXT
+    text = tab.locId
+  }.__update(defTxtStyle))
 }
 
-let function mkReplay(record, idx, das_net_version) {
+let function mkReplay(record, idx) {
   let replayInfo = load_replay_meta_info(record.id)
   if (!replayInfo)
     return null
 
-  let isValidProtocol = replayInfo?.protocol_version == NET_PROTO_VERSION &&
-    replayInfo?.dasevent_net_version == das_net_version
-
-  return {
-    size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    children = @() {
-      watch = currentRecord
-      size = [flex(), hdpx(56)]
-      rendObj = ROBJ_SOLID
-      flow = FLOW_HORIZONTAL
-      gap = smallPadding
-      padding = [hdpx(5), hdpx(5), hdpx(5), hdpx(24)]
-      valign = ALIGN_CENTER
-      xmbNode = XmbNode()
-      behavior = Behaviors.Button
-      color = rowBg(0, idx, record.id == (currentRecord.value?.id ?? ""))
-      onClick = function() {
-        currentRecord(record)
-        isCurrentRecordProtocolValid(isValidProtocol)
-      }
-      children = [
-        {
-          rendObj = ROBJ_TEXT
-          size = [pw(25), SIZE_TO_CONTENT]
-          text = format_unix_time(replayInfo?.start_timestamp ?? 0).replace("T", " ").replace("Z", "")
-        }.__update(body_txt)
-        {
-          rendObj = ROBJ_TEXT
-          size = [pw(35), SIZE_TO_CONTENT]
-          text = loc(replayInfo?.mission_name ?? "replay/UnknownMission")
-        }.__update(body_txt)
-        {
-          size = [pw(15), SIZE_TO_CONTENT]
-          rendObj = ROBJ_TEXT
-          text = secondsToStringLoc(replayInfo?.total_play_time ?? 0)
-        }.__update(body_txt)
-        mkProtocolBlock(isValidProtocol)
-      ]
+  let { isValid } = record
+  return watchElemState(@(sf) {
+    watch = currentRecord
+    size = [flex(), commonBtnHeight]
+    rendObj = ROBJ_SOLID
+    flow = FLOW_HORIZONTAL
+    gap = listGap
+    padding = listPadding
+    valign = ALIGN_CENTER
+    xmbNode = XmbNode()
+    behavior = Behaviors.Button
+    color = rowBg(sf, idx, record.id == (currentRecord.value?.id ?? ""))
+    onClick = function() {
+      currentRecord(record)
+      isCurrentRecordProtocolValid(isValid)
     }
-  }
+    children = [
+      {
+        rendObj = ROBJ_TEXT
+        size = [flex(), SIZE_TO_CONTENT]
+        text = format_unix_time(replayInfo?.start_timestamp ?? 0)
+          .replace("T", " ").replace("Z", "")
+      }.__update(body_txt)
+      {
+        rendObj = ROBJ_TEXT
+        size = [flex(1.5), SIZE_TO_CONTENT]
+        behavior = Behaviors.Marquee
+        text = loc(replayInfo?.mission_name ?? "replay/UnknownMission",
+          { mission_type=loc($"missionType/{replayInfo?.mission_type}" ?? "unknownMissionType") })
+      }.__update(body_txt)
+      {
+        size = [flex(0.5), SIZE_TO_CONTENT]
+        rendObj = ROBJ_TEXT
+        text = secondsToStringLoc(replayInfo?.total_play_time ?? 0)
+      }.__update(body_txt)
+      mkProtocolBlock(isValid)
+    ]
+  })
 }
 
-let mkReplayScroll = makeVertScroll(function() {
-  let dasNetVersion = get_dasevent_net_version()
+let emptyReplayBlock = {
+  rendObj = ROBJ_TEXT
+  text = loc("replay/emptyList")
+  size = flex()
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+}.__update(defTxtStyle)
+
+let function mkReplayList() {
   let sliceFrom = curPage.value * displayPerPage
   let sliceTo = (curPage.value * displayPerPage) + displayPerPage
+  let recordsToShow = records.value
+    .sort(@(a, b) b.isValid <=> a.isValid || b.recordTime <=> a.recordTime)
+  let hasAnyReplay = records.value.len() > 0
   return {
     watch = [records, curPage]
-    rendObj = ROBJ_WORLD_BLUR_PANEL
     size = [flex(), SIZE_TO_CONTENT]
-    minHeight = ph(100)
-    xmbNode = XmbContainer({
-      canFocus = @() false
-      scrollSpeed = 5
-      isViewport = true
-    })
+    minHeight = maxListHeight
+    onAttach = updateReplays
     flow = FLOW_VERTICAL
-    halign = ALIGN_CENTER
-    children = records.value.slice(sliceFrom, sliceTo).map(@(v, k) mkReplay(v, k, dasNetVersion))
-  }
+    children = !hasAnyReplay ? emptyReplayBlock
+      : [headerRow].extend(recordsToShow.slice(sliceFrom, sliceTo).map(@(v, k) mkReplay(v, k)))
+  }}
+
+let deleteReplayMsgbox = @() msgbox.show({
+  text = loc("replay/deleteApprove"),
+  buttons = [
+    {
+      text = loc("Yes")
+      action = @() deleteReplay(currentRecord.value.id)
+      isCurrent = true
+    },
+    {
+      text = loc("No")
+      isCancel = true
+    }
+  ]
 })
 
-let mkReplayControl = @() {
-  watch = [curPage, totalPages, currentRecord]
+
+let curPageInfo = @() {
+  watch = [totalPages, curPage]
+  size = [flex(), SIZE_TO_CONTENT]
+  halign = ALIGN_CENTER
+  rendObj = ROBJ_TEXT
+  text = totalPages.value <= 1 ? ""
+    : loc("replay/page", { curPage = curPage.value + 1, totalPages = totalPages.value })
+}.__update(defTxtStyle)
+
+
+let mkReplayControl = {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
+  gap = { size = [flex(), 0]}
   children = [
-    textButton(loc("page/prev"), @() curPage( curPage.value - 1 ), { isEnabled = curPage.value > 0 })
-    textButton(loc("page/next"), @() curPage( curPage.value + 1 ), { isEnabled = (curPage.value + 1) < totalPages.value })
-    currentRecord.value ? textButton(loc("replay/Watch"), watchCurrentReplay, { gap=hdpx(10) }) : null
+    {
+      flow = FLOW_VERTICAL
+      gap = buttonsGap
+      children = [
+        @() {
+          watch = [totalPages, curPage]
+          flow = FLOW_HORIZONTAL
+          gap = buttonsGap
+          children = [
+            textButton(loc("page/prev"), @() curPage( curPage.value - 1 ),
+              {
+                isEnabled = curPage.value > 0
+                margin = 0
+                hotkeys = totalPages.value > 0 ? [["^J:LT"]] : null
+              })
+            textButton(loc("page/next"), @() curPage( curPage.value + 1 ),
+              {
+                isEnabled = (curPage.value + 1) < totalPages.value
+                margin = 0
+                hotkeys = totalPages.value > 0 ? [["^J:RT"]] : null
+              })
+          ]
+        }
+        textButton(loc("replay/replaysOnSite"), @() openUrl(REPLAY_URL), {
+          margin = 0
+        })
+      ]
+    }
+    @() {
+      watch = currentRecord
+      flow = FLOW_HORIZONTAL
+      gap = buttonsGap
+      children = [
+        textButton(loc("replay/delete"), deleteReplayMsgbox,
+          {
+            isEnabled = currentRecord.value != null
+            margin = 0
+            hotkeys = [["^J:X"]]
+          })
+        textButton(loc("replay/Watch"), @() replayPlay(currentRecord.value.id),
+          {
+            isEnabled = currentRecord.value != null
+            margin = 0
+            hotkeys = [["^J:Y"]]
+          })
+      ]
+    }
   ]
 }
 
 return {
-  size = [fsh(100), flex()]
+  size = flex()
   vplace = ALIGN_CENTER
   hplace = ALIGN_CENTER
   flow = FLOW_VERTICAL
-  onAttach = @() records(getFiles())
+  gap = { size = flex() }
   children = [
-    mkReplayScroll
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      children = [
+        mkReplayList
+        curPageInfo
+      ]
+    }
     mkReplayControl
   ]
 }

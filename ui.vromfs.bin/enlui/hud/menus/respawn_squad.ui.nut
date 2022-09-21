@@ -11,7 +11,7 @@ let txt = require("%ui/components/text.nut").text
 let {textarea} = require("%ui/components/textarea.nut")
 let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { missionName } = require("%enlSqGlob/missionParams.nut")
+let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let { isFirstSpawn, spawnCount, spawnSquadId, squadIndexForSpawn,
         squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, vehicleRespawnsBySquad,
         canUseRespawnbaseByType, respawnBlockedReason, selectedRespawnGroupId} = require("%ui/hud/state/respawnState.nut")
@@ -248,11 +248,11 @@ let squadRespawn = panel(@() {
 let titlePadding = fsh(4)
 let missionNameUI = @() {
   rendObj = ROBJ_TEXT
-  text = loc(missionName.value)
+  text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
   margin = [verPadding.value + titlePadding, horPadding.value + titlePadding]
   hplace = ALIGN_RIGHT
   vplace = ALIGN_BOTTOM
-  watch = [verPadding, missionName]
+  watch = [verPadding, missionName, missionType]
 }.__update(h1_txt, strokeStyle)
 
 

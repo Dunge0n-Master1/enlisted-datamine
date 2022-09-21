@@ -1853,7 +1853,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.39726, 0.0, 0.917706] [0.0, 1.0, 0.0] [-0.917706, 0.0, 0.39726] [-1551.85, 5.03977, -890.704]]
+  transform:m=[[0.39726, 0.0, 0.917706] [0.0, 1.0, 0.0] [-0.917706, 0.0, 0.39726] [-1559.55, 6.48684, -888.589]]
   respTime:i=150
   team:i=1
   groupName:t="sector_1"
@@ -1879,7 +1879,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[-0.997933, 0.0, 0.0642477] [0.0, 1.0, 0.0] [-0.0642477, 0.0, -0.997933] [-1234.8, 10.2625, -746.565]]
+  transform:m=[[-0.997933, 0.0, 0.0642477] [0.0, 1.0, 0.0] [-0.0642477, 0.0, -0.997933] [-1231.27, 10.2625, -743.658]]
   groupName:t="sector_1"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -1922,7 +1922,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.897411, 0.0, 0.441196] [0.0, 1.0, 0.0] [-0.441196, 0.0, 0.897411] [-1529.65, 10.9252, -694.767]]
+  transform:m=[[0.788846, 0.0, 0.614591] [0.0, 1.0, -0.0] [-0.614591, 0.0, 0.788846] [-1560.69, 12.1283, -704.455]]
   groupName:t="sector_2"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -2456,7 +2456,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[0.32519, 0.0, 0.945649] [0.0, 1.0, 0.0] [-0.945649, 0.0, 0.32519] [-1550.52, 4.31523, -814.066]]
+  transform:m=[[0.32519, 0.0, 0.945649] [0.0, 1.0, 0.0] [-0.945649, 0.0, 0.32519] [-1552.37, 5.06422, -813.643]]
   groupName:t="sector_1"
   respTime:i=150
   respawnBaseGroup:i=1
@@ -2496,7 +2496,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[1.0, 0.0, 0.000788116] [0.0, 1.0, 0.0] [-0.000788116, 0.0, 1.0] [-1521.11, 3.90173, -769.524]]
+  transform:m=[[1.0, 0.0, 0.000788116] [0.0, 1.0, 0.0] [-0.000788116, 0.0, 1.0] [-1521.11, 4.66742, -769.524]]
   groupName:t="sector_2"
   respTime:i=150
   respawnBaseGroup:i=1
@@ -3087,7 +3087,7 @@ entity{
 
 entity{
   _template:t="opel_blitz_kfz_305"
-  transform:m=[[-0.0643487, 0.049395, 0.996704] [-0.0791702, 0.995373, -0.0544404] [-0.994782, -0.0824124, -0.0601404] [-1243.48, 8.67276, -753.556]]
+  transform:m=[[0.282231, -0.0811574, -0.955907] [-0.150677, 0.980299, -0.127715] [0.94744, 0.180078, 0.264442] [-1252.32, 8.71968, -752.565]]
 }
 
 entity{
@@ -3164,7 +3164,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.39726, 0.0, 0.917706] [0.0, 1.0, 0.0] [-0.917706, 0.0, 0.39726] [-1551.85, 5.03977, -890.704]]
+  transform:m=[[0.39726, 0.0, 0.917706] [0.0, 1.0, 0.0] [-0.917706, 0.0, 0.39726] [-1559.66, 6.48684, -888.903]]
   resupply_zone__team:i=1
   groupName:t="sector_1"
   active:b=no
@@ -3172,7 +3172,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.0817299, 0.0, -0.996654] [0.0, 1.0, 0.0] [0.996654, 0.0, -0.0817299] [-1234.8, 10.2625, -746.565]]
+  transform:m=[[-0.0817299, 0.0, -0.996654] [0.0, 1.0, 0.0] [0.996654, 0.0, -0.0817299] [-1230.82, 10.2625, -743.734]]
   resupply_zone__team:i=2
   groupName:t="sector_1"
   active:b=no
@@ -3180,7 +3180,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.897411, 0.0, 0.441196] [0.0, 1.0, 0.0] [-0.441196, 0.0, 0.897411] [-1529.65, 10.9252, -694.767]]
+  transform:m=[[0.788846, 0.0, 0.614591] [0.0, 1.0, -0.0] [-0.614591, 0.0, 0.788846] [-1560.82, 12.1283, -704.569]]
   resupply_zone__team:i=1
   groupName:t="sector_2"
   active:b=no

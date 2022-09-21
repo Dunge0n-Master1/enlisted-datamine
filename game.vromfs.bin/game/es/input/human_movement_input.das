@@ -4,6 +4,7 @@ require app
 require math.base
 require game.es.input.input_events
 require game.es.events
+require game.es.action_common
 require game.events_game
 require player
 require DagorMath
@@ -12,7 +13,6 @@ require DagorInput
 require DagorDriver3D
 require TouchInput
 require HumanPhys
-require Action
 require EnlistedHuman
 require EnlistedInputControls
 require EnlistedCamera
@@ -92,6 +92,7 @@ def update_movement(dt : float;
                     human_input__resetSprintMovementThreshold : float = DEFAULT_RESET_SPRINT_MOVEMENT_THRESHOLD;
                     human_input__resetSprintMoveThreshold : float = DEFAULT_RESET_SPRINT_MOVE_THRESHOLD;
                     human_input__lookAngleTau : float = 0.;
+                    human_vehicle__isShootingPassenger : bool;
                     var actor : HumanActor&;
                     var aim_angle : float2&;
                     var human_input__lookAngle : float2&)
@@ -112,7 +113,7 @@ def update_movement(dt : float;
 
     if isZoomView || isAim
       sensMult = double(get_sens_scale().humanAiming * human_input__aimingSensMult)
-    elif isInVehicle
+    elif isInVehicle && !human_vehicle__isShootingPassenger
       sensMult = double(get_sens_scale().vehicleCam)
     elif get_cur_cam_entity() |> get_bool("isTpsView") ?? false
       sensMult = double(get_sens_scale().humanTpsCam)
@@ -205,6 +206,7 @@ def fix_changed_hero_input(dt : float;
                            human_input__perspWk : float;
                            human_input__forceLookMode : bool;
                            human_input__blockLookModeCounter : int;
+                           human_vehicle__isShootingPassenger : bool;
                            aim_offset : float2&;
                            vehicle_input__aim : int?;
                            isInVehicle : bool;
@@ -236,6 +238,7 @@ def fix_changed_hero_input(dt : float;
                   human_input__resetSprintMovementThreshold,
                   human_input__lookAngleTau,
                   human_input__resetSprintMoveThreshold,
+                  human_vehicle__isShootingPassenger,
                   human_net_phys, aim_angle,
                   human_input__lookAngle)
   human_input__hasValidState = true
@@ -273,6 +276,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__aim2 : int;
                    human_input__zoom : int;
                    human_input__holdBreath : int;
+                   human_input__melee : int;
                    isInVehicle : bool;
                    human_input__jump : int;
                    human_input__reload : int;
@@ -284,7 +288,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_weap__throwMode : bool;
                    human_input__forceLookMode : bool;
                    human_input__shoot : int = 0;
-                   mainAttackIsMelee : bool = false;
+                   human_weap__currentGunEid : EntityId;
                    human_input__lookDirClamp : float2 = float2(90.f, 90.f);
                    human_input__currentVertLookAngleLimit : float2;
                    human_input__prevVertLookAngleLimit : float2;
@@ -301,6 +305,8 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__forceAim : bool = false;
                    human_input__blockLeaningCounter : int = 0;
                    human_input__blockLookModeCounter : int = 0;
+                   human_vehicle__isShootingPassenger : bool = false;
+                   human_melee_charge__targetFound : bool = false;
                    isTpsView : bool = false;
                    human_input__followVehicleRotationInFirstPerson : bool = true;
                    var human_input__perspWk : float&;
@@ -323,9 +329,19 @@ def human_input_es(info : UpdateStageUpdateInput;
     human_input__perspWk = pers.wk
 
   var vehicleInputAim : int? = null
+  var vehicleInputShoot : int? = null
+  var vehicleInputZoomToggle : int? = null
+  var vehicleInputZoom : int? = null
   if isInVehicle
-    query(human_anim__vehicleSelected) <| $ [es] (vehicle_input__aim : int?; transform : float3x4)
+    query(human_anim__vehicleSelected) <| $ [es] (vehicle_input__aim : int?;
+                                                  vehicle_input__shoot : int?;
+                                                  vehicle_input__zoomToggle : int?;
+                                                  vehicle_input__zoom : int?;
+                                                  transform : float3x4)
       vehicleInputAim = vehicle_input__aim
+      vehicleInputShoot = vehicle_input__shoot
+      vehicleInputZoomToggle = vehicle_input__zoomToggle
+      vehicleInputZoom = vehicle_input__zoom
 
       human_input__lastVehicleAngleDelta = 0.0
       let vehicleAngle = dir_to_angles(transform[0])
@@ -348,6 +364,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                            human_input__sprint, human_input__perspWk,
                            human_input__forceLookMode,
                            human_input__blockLookModeCounter,
+                           human_vehicle__isShootingPassenger,
                            human_input__aimAngleOffset,
                            vehicleInputAim, isInVehicle,
                            human_input__resetSprintMovementThreshold,
@@ -355,11 +372,13 @@ def human_input_es(info : UpdateStageUpdateInput;
 
   var shouldUpdateWalkDir = is_action_active(uint16(human_input__move))
 
-  let aim1 = (is_action_active(uint16(human_input__aim1))
-             ? (get_digital_action_state(uint16(human_input__aim1)).bState || is_button_pressed(uint16(human_input__aim1)))
+  let inputAim1 = human_vehicle__isShootingPassenger ? vehicleInputZoomToggle ?? human_input__aim1 : human_input__aim1
+  let inputAim2 = human_vehicle__isShootingPassenger ? vehicleInputZoom ?? human_input__aim2 : human_input__aim2
+  let aim1 = (is_action_active(uint16(inputAim1))
+             ? (get_digital_action_state(uint16(inputAim1)).bState || is_button_pressed(uint16(inputAim1)))
              : false) || human_input__forceAim
-  let aim2 = (is_action_active(uint16(human_input__aim2))
-             ? get_digital_action_state(uint16(human_input__aim2)).bState
+  let aim2 = (is_action_active(uint16(inputAim2))
+             ? get_digital_action_state(uint16(inputAim2)).bState
              : false) || human_input__forceAim
   var aim = aim1 || aim2
 
@@ -397,6 +416,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                   human_input__resetSprintMovementThreshold,
                   human_input__resetSprintMoveThreshold,
                   human_input__lookAngleTau,
+                  human_vehicle__isShootingPassenger,
                   human_net_phys, human_input__aimAngle,
                   human_input__lookAngle)
 
@@ -404,15 +424,17 @@ def human_input_es(info : UpdateStageUpdateInput;
   if leanXState.bActive
     phys.producedCT |> human_control_state_set_lean_position(human_input__blockLeaningCounter > 0 ? 0.0 : leanXState.x)
 
-  if !mainAttackIsMelee && is_action_active(uint16(human_input__shoot)) && human_input__canShoot
+  let inputShoot = human_vehicle__isShootingPassenger ? vehicleInputShoot ?? human_input__shoot : human_input__shoot
+  let mainAttackIsMelee = get_bool(human_weap__currentGunEid, "gun__melee") ?? false
+  if is_action_active(uint16(inputShoot)) && human_input__canShoot
     // We block shooting right after we drop a weapon, so we'll not shoot with our 'not dropped weapon' on the client, while we
     // still wait for server reply.
     let isShootBlocked = info.curTime - human_input__lastWeaponChangeInput < get_interp_delay_time(human_net_phys)
-    let shoot = get_digital_action_state(uint16(human_input__shoot)).bState || is_button_pressed(uint16(human_input__shoot)) || phys.producedCT.haveUnenqueuedHctShoot
+    let shoot = get_digital_action_state(uint16(inputShoot)).bState || is_button_pressed(uint16(inputShoot)) || phys.producedCT.haveUnenqueuedHctShoot
     let shootFlag = (shoot && !isShootBlocked)
     if shootFlag != phys.producedCT.lastEnqueuedHctShoot
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, shootFlag)
-    if shootFlag
+    if shootFlag && !mainAttackIsMelee
       human_input__lastShootInput = info.curTime
       // Reset sprinting when started shooting
       reset_digital_action_sticky_toggle(uint16(human_input__sprint))
@@ -459,23 +481,28 @@ def human_input_es(info : UpdateStageUpdateInput;
   phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_CROUCH, crouch)
 
   human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_JUMP, uint16(human_input__jump))
+
   human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_RELOAD, uint16(human_input__reload))
 
-  phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, human_input__wishMelee)
+  let isMeleeButtonPressed = get_digital_action_state(uint16(human_input__melee)).bState || is_button_pressed(uint16(human_input__melee))
+  let isMeleeCharge = isMeleeButtonPressed && phys.producedCT |> is_control_bit_set(HumanPhysControlType HCT_SPRINT)
+  let isMelee = human_input__wishMelee || isMeleeCharge && !human_melee_charge__targetFound
+  phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, isMelee)
 
   // Clear melee, but apply it if we press shoot
-  if mainAttackIsMelee && is_action_active(uint16(human_input__shoot)) && human_input__canShoot
-    let value = get_digital_action_state(uint16(human_input__shoot)).bState || is_button_pressed(uint16(human_input__shoot))
-    phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, value)
+  if mainAttackIsMelee && is_action_active(uint16(inputShoot)) && human_input__canShoot
+    let value = get_digital_action_state(uint16(inputShoot)).bState || is_button_pressed(uint16(inputShoot))
+    phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, (value || isMelee) && !human_melee_charge__targetFound)
 
   if aim
     human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_SPRINT, uint16(human_input__holdBreath))
   else
     phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SPRINT, isSprinting)
 
-  human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_ZOOM_VIEW, uint16(human_input__zoom))
+  let inputZoom = human_vehicle__isShootingPassenger && vehicleInputZoom != null ? *vehicleInputZoom : human_input__zoom
+  human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_ZOOM_VIEW, uint16(inputZoom))
 
-  if !aim && (does_action_block_sprint(eid) || phys.producedCT |> is_control_bit_set(HumanPhysControlType HCT_MELEE))
+  if !aim && does_action_block_sprint(eid)
     phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SPRINT, false)
 
   if phys.currentState |> human_phys_state_stoppedSprint()
@@ -542,7 +569,7 @@ def human_input_switch_camera_es(evt : EventDaInputActionTriggered;
         sendEvent(playerEid, [[CmdSwitchCamera]])
 
 
-[es(on_event=EventComponentChanged, REQUIRE=isInVehicle, track=human_anim__vehicleSelected)]
+[es(REQUIRE=isInVehicle, track=human_anim__vehicleSelected)]
 def human_input_in_vehicle_es(evt : Event;
                               human_anim__vehicleSelected : ecs::EntityId;
                               camNames : Array&;

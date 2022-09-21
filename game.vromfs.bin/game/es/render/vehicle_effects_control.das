@@ -10,7 +10,7 @@ let cockpit_girth_radiusVarId = get_shader_variable_id("cokpitRadius", true)
 def set_cokpit_radius(radius)
   DagorShaders::set_real(cockpit_girth_radiusVarId, radius)
 
-[es(tag=render, on_appear, on_event=(EventComponentChanged, EventOnSeatOwnersChanged),
+[es(tag=render, on_appear, on_event=(EventOnSeatOwnersChanged),
      track=(human_anim__vehicleSelected, isInVehicle, bindedCamera),
      REQUIRE=(hero, bindedCamera))]
 def cockpit_inside_effects_control(evt : Event;
@@ -30,8 +30,7 @@ def cockpit_inside_effects_control(evt : Event;
   currentRadius = isInVehicle ? currentRadius : 0f;
   set_cokpit_radius(currentRadius)
 
-[es(tag=render, on_appear, on_event=EventComponentChanged,
-    track=(seats_hatch_nodes__openPos))]
+[es(tag=render, on_appear, track=(seats_hatch_nodes__openPos))]
 def cockpit_open_hatch_effects_control(evt : Event; seats_hatch_nodes__isValid : bool; seats_hatch_nodes__openPos : float; eid : EntityId)
   let heroId = get_controlled_hero()
   query(heroId) <| $ [es] (human_anim__vehicleSelected : EntityId)

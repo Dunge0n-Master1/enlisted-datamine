@@ -35,6 +35,7 @@ binocular_base_item{
   _extends:t="base_equipable_gun"
   _extends:t="rifle_ww2_preset"
   _extends:t="scope_gunmod"
+  _extends:t="gun_with_additional_head_angles"
   animchar__res:t="ussr_binoculars_char"
   collres__res:t="ussr_binoculars_collision"
   gun_tps_anim_var__reyeOffsetFwd0:r=0.0
@@ -190,4 +191,15 @@ uk_binoculars_item{
   item__name:t="items/uk_binoculars"
   item__type:t="binoculars"
   gun__locName:t="uk_binoculars"
+}
+
+jap_binoculars_item{
+  _extends:t="binocular_base_item"
+  animchar__res:t="jap_binoculars_char"
+  collres__res:t="jap_binoculars_collision"
+  item__template:t="jap_binoculars_item"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/binocular.blk"
+  item__name:t="items/jap_binoculars"
+  item__type:t="binoculars"
+  gun__locName:t="jap_binoculars"
 }

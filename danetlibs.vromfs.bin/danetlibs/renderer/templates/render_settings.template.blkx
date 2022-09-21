@@ -1,0 +1,14 @@
+render_settings{
+  _singleton:b=yes
+  _tags:t="render"
+  _track:b=yes
+  render_settings__ssss:b=no
+  render_settings__gamma_correction:r=1.0
+  render_settings__is_hdr_enabled:b=no
+  render_settings__bare_minimum:b=no
+  render_settings__grassQuality:t="high"
+  render_settings__fftWaterQuality:t="high"
+  render_settings__fullDeferred:b=yes
+  render_settings__rain_ripples_enabled:b=yes
+  render_settings__forwardRendering:b=yes
+}

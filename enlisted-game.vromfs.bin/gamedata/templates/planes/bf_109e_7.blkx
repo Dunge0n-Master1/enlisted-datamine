@@ -145,6 +145,39 @@ bf_109e_7{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb2"
+    node:t="bomb3"
+    node:t="bomb4"
+    node:t="bomb5"
+    node:t="flare4"
+    node:t="flare5"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="droptank"
     part:t="rack_droptank"
@@ -154,7 +187,7 @@ bf_109e_7{
 
 base_bf_109e_7_7_92mm_mg17{
   item__name:t="guns/gunmg17"
-  gun__blk:t="content/enlisted/gamedata/weapons/bf_109e_7/7_92mm_mg17.blk"
+  gun__blk:t="gamedata/weapons/bf_109e_7/7_92mm_mg17.blk"
   gun__shotFreq:r=16.66
   gun__locName:t="gunmg17"
   gun__shootNodeName:t="bone_mg_gun_twin"

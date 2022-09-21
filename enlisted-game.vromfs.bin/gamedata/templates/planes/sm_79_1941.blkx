@@ -367,6 +367,66 @@ sm_79_1941{
     }
   }
 
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb50_1"
+    node:t="bomb50_2"
+    node:t="bomb50_3"
+    node:t="bomb50_4"
+    node:t="bomb50_5"
+    node:t="bomb50_6"
+    node:t="bomb50_7"
+    node:t="bomb50_8"
+    node:t="bomb50_9"
+    node:t="bomb50_10"
+    node:t="bomb50_11"
+    node:t="bomb50_12"
+    node:t="flare5"
+    node:t="flare1"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare2"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_15mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
   "disableDMParts:list<t>"{
     part:t="pylon_bomb1"
     part:t="pylon_bomb2"
@@ -376,7 +436,7 @@ sm_79_1941{
 
 base_sm_79_1941_12_7mm_bredasafat127_turret{
   item__name:t="guns/gunbredasafat127_turret"
-  gun__blk:t="content/enlisted/gamedata/weapons/sm_79_1941/12_7mm_bredasafat127_turret.blk"
+  gun__blk:t="gamedata/weapons/sm_79_1941/12_7mm_bredasafat127_turret.blk"
   gun__shotFreq:r=11.6667
   gun__locName:t="gunbredasafat127_turret"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -402,31 +462,31 @@ base_sm_79_1941_12_7mm_bredasafat127_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_he_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_he_bullet.blk"
         name:t="he"
         type:t="he_frag_ball"
       }
@@ -436,7 +496,7 @@ base_sm_79_1941_12_7mm_bredasafat127_turret{
 
 base_sm_79_1941_12_7mm_bredasafat127{
   item__name:t="guns/gunbredasafat127"
-  gun__blk:t="content/enlisted/gamedata/weapons/sm_79_1941/12_7mm_bredasafat127.blk"
+  gun__blk:t="gamedata/weapons/sm_79_1941/12_7mm_bredasafat127.blk"
   gun__shotFreq:r=11.6667
   gun__locName:t="gunbredasafat127"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -462,31 +522,31 @@ base_sm_79_1941_12_7mm_bredasafat127{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
@@ -496,7 +556,7 @@ base_sm_79_1941_12_7mm_bredasafat127{
 
 base_sm_79_1941_7_7mm_lewis_turret{
   item__name:t="guns/gunlewis_turret"
-  gun__blk:t="content/enlisted/gamedata/weapons/sm_79_1941/7_7mm_lewis_turret.blk"
+  gun__blk:t="gamedata/weapons/sm_79_1941/7_7mm_lewis_turret.blk"
   gun__shotFreq:r=9.17
   gun__locName:t="gunlewis_turret"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -522,31 +582,31 @@ base_sm_79_1941_7_7mm_lewis_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
@@ -556,7 +616,7 @@ base_sm_79_1941_7_7mm_lewis_turret{
 
 base_sm_79_1941_50kg_t_vert_launcher{
   item__name:t="guns/it_50kg_t_vert"
-  gun__blk:t="content/enlisted/gamedata/weapons/sm_79_1941/50kg_t_vert_launcher.blk"
+  gun__blk:t="gamedata/weapons/sm_79_1941/50kg_t_vert_launcher.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="it_50kg_t_vert"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -582,7 +642,7 @@ base_sm_79_1941_50kg_t_vert_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/50kg_t_vert.blk"
+        blk:t="gamedata/weapons/shells/50kg_t_vert.blk"
         name:t="50kg_t_vert"
         type:t="he_frag_tank"
       }

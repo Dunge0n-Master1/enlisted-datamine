@@ -412,7 +412,6 @@ opel_blitz_kfz_305{
   hitpoints__maxHp:r=550.0
   hitpoints__hp:r=550.0
   vehicle_seats__enumVarName:t="opel_blitz_kfz_305"
-  push_object__energyScale:r=350.0
   camera__offset:p3=0.0, -1.0, -6.0
   car_painting__chance:r=0.9
 
@@ -496,7 +495,6 @@ opel_blitz_omnibus{
   hitpoints__maxHp:r=550.0
   hitpoints__hp:r=550.0
   vehicle_seats__enumVarName:t="opel_blitz_omnibus"
-  push_object__energyScale:r=350.0
   camera__offset:p3=0.0, -1.0, -6.0
   car_painting__chance:r=0.9
 
@@ -854,5 +852,205 @@ vw_beetle{
     part:t="driver"
     part:t="cls_body_01"
     part:t="cls_body_02"
+  }
+}
+
+nissan_80{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="truck_ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="nissan_80"
+  animchar__res:t="pv_nissan_80_char"
+  collres__res:t="pv_nissan_80_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/nissan_80.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/nissan_80.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_kfz_305"
+  push_object__energyScale:r=350.0
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_05"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+  }
+}
+
+gmc_353_a{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="gmc_353_a"
+  animchar__res:t="pv_gmc_353_a_char"
+  collres__res:t="pv_gmc_353_a_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/gmc_353.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/gmc_353.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_kfz_305"
+  push_object__energyScale:r=350.0
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_05"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+    part:t="cls_body_08"
+  }
+}
+
+gmc_353_b{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="vehicle_engine_sound_seats_starter"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="gmc_353_b"
+  animchar__res:t="pv_gmc_353_b_char"
+  collres__res:t="pv_gmc_353_b_collision"
+  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/gmc_353.blk:VehiclePhys"
+  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/gmc_353.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_kfz_305"
+  push_object__energyScale:r=350.0
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_05"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+    part:t="cls_body_08"
   }
 }

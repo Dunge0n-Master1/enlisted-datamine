@@ -2,7 +2,7 @@ require ecs
 require app
 require PhysVars
 require EnlistedHumanAnim
-require EnlistedDeviceAnim
+require game.es.device_state_common
 require EnlistedHuman
 require HumanPhys
 require AnimV20
@@ -90,6 +90,7 @@ def device_animation(act : ecs::UpdateStageInfoAct;
                                device_anim__progressVarId aka human_device_anim__progressVarId : int;
                                device_anim__states aka human_device_anim__states : ecs::IntList;
                                isTpsView : bool = false;
+                               watchedByPlr : EntityId = INVALID_ENTITY_ID;
                                var device_anim__state aka human_device_anim__state : int&;
                                var device_anim__progress aka human_device_anim__progress : float&;
                                var phys_vars : PhysVars)
@@ -124,7 +125,8 @@ def device_animation(act : ecs::UpdateStageInfoAct;
     set_device_state(gun_phys_vars, gun_device_anim__state, gun_device_anim__progress, gun_device_anim__stateVarId,
                      gun_device_anim__progressVarId, gun_device_anim__states, state, progress)
     if device_anim__isFpvVarId >= 0
-      setVar(gun_phys_vars, device_anim__isFpvVarId, isTpsView ? 0.0 : 1.0)
+      let isViewedFromFPS = watchedByPlr != INVALID_ENTITY_ID && !isTpsView
+      setVar(gun_phys_vars, device_anim__isFpvVarId, isViewedFromFPS ? 1.0 : 0.0)
 
 [es(tag=gameClient, track=human_gun_attached)]
 def device_anim_unequipped_animchar_update(evt : Event;

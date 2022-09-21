@@ -4,7 +4,7 @@ let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { round_by_value } = require("%sqstd/math.nut")
 let {
   unitSize, bigPadding, smallPadding, textBgBlurColor, detailsHeaderColor,
-  activeTxtColor, freemiumDarkColor
+  activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let defcomps = require("%enlSqGlob/ui/defcomps.nut")
 let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
@@ -31,7 +31,7 @@ let { canModifyItems, mkItemUpgradeData, mkItemDisposeData
 } = require("%enlist/soldiers/model/mkItemModifyData.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("%enlist/soldiers/model/unseenUpgrades.nut")
-let { curUpgradeDiscount } = require("%enlist/campaigns/freemiumState.nut")
+let { curUpgradeDiscount, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let { openUpgradeItemMsg, openDisposeItemMsg
 } = require("%enlist/soldiers/components/modifyItemComp.nut")
@@ -40,23 +40,19 @@ let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
-let freemiumBack = {
-  rendObj = ROBJ_SOLID
-  color = freemiumDarkColor
-}
+
+local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let function txt(text) {
-  let children = (type(text) == "string")
+  return type(text) == "string"
     ? defcomps.txt({text}.__update(sub_txt))
     : defcomps.txt(text)
-  return blur({ children })
 }
 
 let mkStatusRow = @(text, icon) {
   size = [flex(), SIZE_TO_CONTENT]
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = textBgBlurColor
   padding = smallPadding
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
@@ -68,7 +64,7 @@ let mkStatusRow = @(text, icon) {
 }
 
 let vehicleNameRow = @(item) item == null ? null
-  : blur({
+  : {
       flow = FLOW_HORIZONTAL
       gap = hdpx(6)
       vplace = ALIGN_BOTTOM
@@ -80,7 +76,7 @@ let vehicleNameRow = @(item) item == null ? null
           text = getItemName(item)
         }.__update(h2_txt))
       ]
-    })
+    }
 
 let vehicleStatusRow = @(item) item == null || item.status.flags == CAN_USE ? null
   : mkStatusRow(item.status?.statusText ?? "",
@@ -125,7 +121,8 @@ let function mkUpgradeBtn(item) {
   let upgradeDataWatch = mkItemUpgradeData(item)
   return function() {
     let res = {
-      watch = [upgradeDataWatch, curUnseenAvailableUpgrades, isUpgradeUsed, curUpgradeDiscount]
+      watch = [upgradeDataWatch, curUnseenAvailableUpgrades, isUpgradeUsed,
+        curUpgradeDiscount, campPresentation]
     }
     let upgradeData = upgradeDataWatch.value
     if (!upgradeData.isUpgradable)
@@ -149,7 +146,10 @@ let function mkUpgradeBtn(item) {
       : txt({
           text = loc("upgradeDiscount", { discount })
           color = activeTxtColor
-        }).__update(curUpgradeDiscount.value > 0.0 ? freemiumBack : {})
+        }).__update(curUpgradeDiscount.value > 0.0 ? {
+          rendObj = ROBJ_SOLID
+          color = campPresentation.value?.darkColor
+        } : {})
     return res.__update({
       flow = FLOW_VERTICAL
       gap = bigPadding
@@ -299,7 +299,6 @@ return function() {
     lastVehicleTpl = vehicle?.basetpl
     anim_start("vehicleDetailsAnim")
   }
-  let size = [hdpx(450), SIZE_TO_CONTENT]
   return res.__update({
     size = [unitSize * 10, flex()]
     flow = FLOW_VERTICAL
@@ -310,14 +309,20 @@ return function() {
     animations = animations
     children = !isDmViewerEnabled.value
       ? [
-        vehicleNameRow(vehicle)
-        detailsStatusTier(vehicle, true)
-        vehicleStatusRow(vehicle)
-        mkItemDescription(vehicle, size)
-        mkVehicleDetails(vehicle, size)
-        mkUpgrades(vehicle, size)
-        manageButtons
-      ]
+          blur({
+            flow = FLOW_VERTICAL
+            gap = bigPadding
+            children = [
+              vehicleNameRow(vehicle)
+              detailsStatusTier(vehicle)
+              vehicleStatusRow(vehicle)
+              mkItemDescription(vehicle)
+              mkVehicleDetails(vehicle, true)
+              mkUpgrades(vehicle)
+            ]
+          })
+          manageButtons
+        ]
       : manageButtons
   })
 }

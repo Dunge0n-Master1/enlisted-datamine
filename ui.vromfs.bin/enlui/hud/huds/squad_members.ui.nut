@@ -19,9 +19,8 @@ let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let contextCommandHint = require("%ui/hud/huds/context_command_hint.ui.nut")
 let cancelContextCommandHint = require("%ui/hud/huds/cancel_context_command_hint.ui.nut")
 let { squadFormation } = require("%ui/hud/state/squad_formation.nut")
-let { ESFN_CLOSEST, ESFN_WIDE } = require("ai")
 let { squadBehaviour } = require("%ui/hud/state/squad_behaviour.nut")
-let { SquadBehaviour } = require("%enlSqGlob/dasenums.nut")
+let { SquadBehaviour, SquadFormationSpread } = require("%enlSqGlob/dasenums.nut")
 
 let sIconSize = hdpxi(15)
 let iconSize = hdpxi(40)
@@ -237,8 +236,8 @@ let mkSquadStatusIcon = memoize(@(icon) {
 })
 
 let squadFormationIcons = {
-  [ESFN_CLOSEST] = mkSquadStatusIcon("ui/skin#squad_formation_closest.svg"),
-  [ESFN_WIDE] = mkSquadStatusIcon("ui/skin#squad_formation_wide.svg")
+  [SquadFormationSpread.ESFN_CLOSEST] = mkSquadStatusIcon("ui/skin#squad_formation_closest.svg"),
+  [SquadFormationSpread.ESFN_WIDE] = mkSquadStatusIcon("ui/skin#squad_formation_wide.svg")
 }
 
 let squadBehaviourIcons = {

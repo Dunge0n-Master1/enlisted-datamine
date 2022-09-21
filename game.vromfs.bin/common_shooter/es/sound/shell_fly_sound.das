@@ -10,6 +10,7 @@ require game.utils.team
 require soundSystem
 require EnlistedDm
 require math.base
+require enlisted.events_enlisted
 
 
 def update_shell_fly_sound(enable : bool; var event : SoundEvent&; path : string; pos : float3)
@@ -25,7 +26,7 @@ def update_shell_fly_sound(enable : bool; var event : SoundEvent&; path : string
 
 
 [es(tag=sound, after=animchar_render_es, REQUIRE_NOT=(projectile_ballistics, shell_fly_sound__isLoud))]
-def shell_fly_sound_with_transform(info : UpdateStageInfoAct;
+def shell_fly_sound_with_transform(info : ParallelUpdateFrameDelayed;
                                    active : bool = true;
                                    shell_fly_sound__path : string;
                                    var shell_fly_sound__event : SoundEvent&;
@@ -35,7 +36,7 @@ def shell_fly_sound_with_transform(info : UpdateStageInfoAct;
 
 
 [es(tag=sound, after=animchar_render_es, REQUIRE_NOT=shell_fly_sound__isLoud)]
-def shell_fly_sound_with_ballistics(info : UpdateStageInfoAct;
+def shell_fly_sound_with_ballistics(info : ParallelUpdateFrameDelayed;
                                     active : bool = true;
                                     shell_fly_sound__path : string;
                                     var shell_fly_sound__event : SoundEvent&;
@@ -50,7 +51,7 @@ def is_loud(launch_desc : LaunchDesc; pos : float3; radius_mul : float; owner_ei
   return maxRadius > 0. && length_sq(get_listener_pos().xz - pos.xz) < square(maxRadius) && (shouldPlayForAllTeams || should_shell_damage(get_watched_entity(), owner_eid, TEAM_UNASSIGNED))
 
 [es(tag=sound, after=animchar_render_es)]
-def loud_shell_fly_sound_update(info : UpdateStageInfoAct;
+def loud_shell_fly_sound_update(info : ParallelUpdateFrameDelayed;
                                 active : bool = true;
                                 shell_fly_sound__path : string;
                                 shell_fly_sound__loudPath : string;
@@ -73,7 +74,7 @@ def loud_shell_fly_sound_update(info : UpdateStageInfoAct;
 
 
 [es(tag=sound, after=(shell_fly_sound_with_ballistics_es, shell_fly_sound_with_transform_es, loud_shell_fly_sound_es))]
-def shell_fly_sound_apply_speed(info : UpdateStageInfoAct;
+def shell_fly_sound_apply_speed(info : ParallelUpdateFrameDelayed;
                                 shell_fly_sound__event : SoundEvent&;
                                 shell_fly_sound_speed_to_volume : float4;
                                 projectile_ballistics : ProjectileBallistics)

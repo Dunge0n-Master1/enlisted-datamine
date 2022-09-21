@@ -45,3 +45,15 @@ def binocular_input_action_triggered(evt : EventDaInputActionTriggered;
 [es(tag=input)]
 def binocular_switch_request(evt : RequestSwitchBinocular; eid : EntityId)
   send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=evt.choosePrevGunSlot]])
+
+
+[es(tag=input)]
+def binocular_disable_on_toggle_hatch(evt : EventDaInputActionTriggered;
+                                      eid : EntityId;
+                                      input__enabled : bool;
+                                      human_binocular__mode : bool;
+                                      human_input__toggleHatch : int;
+                                      human_vehicle__occupiedSeatEid : EntityId)
+  let hasHatch = get_bool(human_vehicle__occupiedSeatEid, "seats_hatch_nodes__isValid") ?? false
+  if input__enabled && int(evt.action) == human_input__toggleHatch && hasHatch && human_binocular__mode
+    send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=true]])

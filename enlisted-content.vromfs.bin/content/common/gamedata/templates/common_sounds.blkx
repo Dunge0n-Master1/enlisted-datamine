@@ -58,6 +58,19 @@ reverb_sound{
   }
 }
 
+round_result_battle_music{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    round_result_battle_music__path:t="music/battle"
+
+    "round_result_battle_music__event:SoundEvent"{
+    }
+  }
+}
+
 scene_net_sounds{
   _extends:t="net_sound_descs"
   _extends:t="replicating"
@@ -232,4 +245,96 @@ gun_overheat_speech_enable{
 
   "gunOverheatSpeechEnable:tag"{
   }
+}
+
+battle_music_scores_progress{
+
+  _group{
+    _tags:t="sound"
+    battle_music__progress:r=0.0
+    battle_music__scoresToProgress:p4=0.15, 0.0, 0.0, 0.99
+  }
+}
+
+battle_music_capture_progress{
+
+  _group{
+    _tags:t="sound"
+    battle_music__progress:r=0.0
+    battle_music__capProgressToProgress:p4=0.5, 1.0, 0.0, 0.99
+  }
+}
+
+battle_music_scores_condition{
+
+  _group{
+    _tags:t="sound"
+    battle_music__condition:r=-1.0
+
+    "battleMusicScoresCondition:tag"{
+    }
+  }
+}
+
+base_battle_music{
+  _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    battle_music__intensity:r=0.0
+    battle_music__roundResult:r=-1.0
+    battle_music__addIntensityOnShotSingle:r=10.0
+    battle_music__addIntensityOnShotLoop:r=1.0
+    battle_music__addIntensityOnHit:r=25.0
+    battle_music__maxShotRange:r=500.0
+    battle_music__intensityBleed:r=4.0
+    battle_music__progressToPart:p3=0.01, 0.33, 0.9
+    battle_music__path:t="music/battle"
+
+    "battle_music__event:SoundEvent"{
+    }
+  }
+}
+
+battle_music_dom{
+  _extends:t="base_battle_music"
+  _extends:t="battle_music_scores_condition"
+  _extends:t="battle_music_scores_progress"
+  _extends:t="battle_music_capture_progress"
+}
+
+battle_music_assault{
+  _extends:t="base_battle_music"
+  _extends:t="battle_music_scores_condition"
+  _extends:t="battle_music_scores_progress"
+  _extends:t="battle_music_capture_progress"
+}
+
+battle_music_bomb{
+  _extends:t="base_battle_music"
+  _extends:t="battle_music_scores_condition"
+  _extends:t="battle_music_scores_progress"
+  _extends:t="battle_music_capture_progress"
+}
+
+battle_music_inv{
+  _extends:t="base_battle_music"
+  _extends:t="battle_music_scores_condition"
+  _extends:t="battle_music_scores_progress"
+  _extends:t="battle_music_capture_progress"
+}
+
+battle_music_inv_counter{
+  _extends:t="base_battle_music"
+  _extends:t="battle_music_scores_condition"
+  _extends:t="battle_music_scores_progress"
+  _extends:t="battle_music_capture_progress"
+}
+
+battle_music_conf{
+  _extends:t="base_battle_music"
+  _extends:t="battle_music_scores_condition"
+  _extends:t="battle_music_scores_progress"
+  _extends:t="battle_music_capture_progress"
 }

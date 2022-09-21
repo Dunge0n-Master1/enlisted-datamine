@@ -5,6 +5,8 @@ antipersonnel_mine_shell{
   gun__statName:t="mine"
   item__name:t="items/antipersonnel_mine"
   shell__isKillerCamAllowed:b=no
+  shell__vehicleKillStat:t="vehicle_mine_kills"
+  shell__infantryKillStat:t="infantry_mine_kills"
 
   "shell__mine:tag"{
   }
@@ -20,6 +22,8 @@ antitank_mine_shell{
   item__name:t="items/antitank_mine"
   gun__statName:t="mine"
   shell__isKillerCamAllowed:b=no
+  shell__vehicleKillStat:t="vehicle_mine_kills"
+  shell__infantryKillStat:t="infantry_mine_kills"
 
   "shell__mine:tag"{
   }
@@ -201,6 +205,7 @@ antitank_mine_item_gun{
   item__iconScale:r=1.1
   item__iconRoll:r=30.0
   item__iconYaw:r=45.0
+  shell_explosion_fx__infoTemplate:t="hit_effect_group_antitank_mine_explosion"
 
   "ui__placeableItemMarker:tag"{
     _tags:t="ui"
@@ -236,6 +241,7 @@ antipersonnel_mine_item_gun{
   item__mineType:t="antipersonnel_mine"
   item__weight:r=4.0
   activationRadius:r=1.4
+  shell_explosion_fx__infoTemplate:t="hit_effect_group_antipersonel_mine_explosion"
 
   "ui__placeableItemMarker:tag"{
     _tags:t="ui"
@@ -449,5 +455,48 @@ it_antitank_mine{
       dmgMult:r=1.0
       armor:r=0.0
     }
+  }
+}
+
+jp_antipersonnel_mine{
+  _extends:t="antipersonnel_mine_item_gun"
+  animchar__res:t="type_3_mine_char"
+  collres__res:t="type_3_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/jp_antipersonnel_mine.blk"
+  item__template:t="jp_antipersonnel_mine"
+  item__weapTemplate:t="jp_antipersonnel_mine"
+  placeable_item__additionalHeight:r=0.015
+  item__weight:r=4.0
+
+  "dm_parts__parts:object"{
+
+    "volumebox_01:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+}
+
+jp_antitank_mine{
+  _extends:t="antitank_mine_item_gun"
+  animchar__res:t="type_93_mine_char"
+  collres__res:t="type_93_mine_collision"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mines/jp_antitank_mine.blk"
+  item__template:t="jp_antitank_mine"
+  item__weapTemplate:t="jp_antitank_mine"
+  item__weight:r=8.5
+  placeable_item__additionalHeight:r=0.02
+
+  "dm_parts__parts:object"{
+
+    "volumebox:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+
+  _group{
+    placeable_item__additionalRotation:p3=0.0, -10.0, 0.0
+    _tags:t="gameClient"
   }
 }

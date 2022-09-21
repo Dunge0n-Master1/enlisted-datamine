@@ -11,11 +11,11 @@ let { shopItemLockedMsgBox, mkShopItemUsage, mkDynamicProductView, mkProductView
 } = require("shopPkg.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 
 let function shopItemAction(shopItem, curLevel, personalOffer = null) {
-  let { armyLevel = 0, isFreemium = false } = shopItem?.requirements
+  let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
   let { guid = "" } = curArmyData.value
   let { squads = [] } = shopItem
   let squad = squads.findvalue(@(s) s.armyId == guid) ?? squads?[0]
@@ -26,7 +26,7 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
     : (crateContent.value?.content.items ?? {}).len() > 0
   if ((shopItem?.offerContainer ?? "") != "")
     setCurArmyShopPath((clone curArmyShopFolder.value.path).append(shopItem))
-  else if (isFreemium && needFreemiumStatus.value)
+  else if (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
     shopItemFreemiumMsgBox()
   else if (armyLevel > curLevel)
     shopItemLockedMsgBox(armyLevel)

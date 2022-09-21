@@ -21,7 +21,7 @@ let styling = {
   cursor = cursors.normal
 
   Root = {
-    hooks = HOOK_ATTACH
+    behavior = Behaviors.ActivateActionSet
     actionSet = "StopInput"
     rendObj = ROBJ_WORLD_BLUR_PANEL
     stopMouse = true

@@ -5,16 +5,16 @@ require soundEvent
 require soundHash
 require soundSystem
 require game.es.events
-require game.es.sound.sound_events
 require sound_utils.modules.sound_utils_events
 require sound_utils.modules.sound_player_common
+require common_human_sounds.modules.common_human_sounds_events
 require DagorMath
 require DagorSystem
 require Gun
 require DaWeapons
 require common_shooter.events_common_shooter
 require strings
-
+require enlisted.events_enlisted
 
 def try_shot_loop(gun_owner : EntityId; pos : float3; shot_path : Object; tags : Object; is_watched : bool)
   var handle = invalid_sound_event_handle()
@@ -64,6 +64,7 @@ def on_launch(tm : float3x4;
   assume launchPos = tm[3]
   let forceOneshot = gun_sound__isWatched ? force_oneshot : force_oneshot_enemy
   var isOneshot = forceOneshot || is_oneshot(gun, firing_mode)
+  var isLoop = false
 
   // force N oneshots on loop start
   if !isOneshot && gun_sound__isWatched && start_loop_with_n_oneshots > 0
@@ -85,12 +86,13 @@ def on_launch(tm : float3x4;
 
     sound_player_common::play_name_path(name, path, launchPos)
   else
+    isLoop = sound_event.handle != invalid_sound_event_handle()
     if sound_event.handle == invalid_sound_event_handle()
       sound_event.handle = try_shot_loop(turret__owner, launchPos, shot_path, tags, gun_sound__isWatched)
     if sound_event.handle != invalid_sound_event_handle()
       set_pos(sound_event.handle, launchPos)
 
-  broadcastEvent([[EventOnLoudSound pos=launchPos]])
+  broadcastEvent([[EventOnWeaponSound pos=launchPos, isLoop=isLoop]])
   shot_loop_timeout = (time_between_shots * time_between_shots_mad.x + time_between_shots_mad.y)
 
 
@@ -169,7 +171,7 @@ def is_shooting(gun_sound__shotLoopTimeout : float)
   return gun_sound__shotLoopTimeout > 0.
 
 [es(tag=sound, REQUIRE=gunSound, no_order)]
-def gun_sound_update(info : UpdateStageInfoAct;
+def gun_sound_update(info : ParallelUpdateFrameDelayed;
                      var gun_sound__shotLoopTimeout : float&;
                      var gun_sound__deltaTime : float4&;
                      var gun_sound__numShotsInLoop : int&;
@@ -220,6 +222,6 @@ def gun_sound_toggle(evt : Event;
 
 
 [es(tag=sound, after=animchar_render_es)]
-def gun_owner_sound_event_group_update(info : UpdateStageInfoAct;
+def gun_owner_sound_event_group_update(info : ParallelUpdateFrameDelayed;
                                        var gun_owner_sound_event_group : SoundEventGroup&)
   update_sounds(gun_owner_sound_event_group)

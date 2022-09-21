@@ -510,7 +510,7 @@ hit_106_132mm_dirt_he{
 }
 
 hit_59_80mm_stone_ap{
-  fx:t="hit_59_80mm_stone_ap_cmps_fx"
+  fx:t="hit_100_150mm_he_stone_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=10
@@ -521,7 +521,7 @@ hit_59_80mm_stone_ap{
 }
 
 hit_59_80mm_wood_ap{
-  fx:t="hit_59_80mm_wood_ap_cmps_fx"
+  fx:t="hit_100_150mm_he_wood_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=10
@@ -532,7 +532,7 @@ hit_59_80mm_wood_ap{
 }
 
 hit_59_80mm_metal_ap{
-  fx:t="hit_59_80mm_metal_ap_cmps_fx"
+  fx:t="hit_100_150mm_he_metal_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=10
@@ -540,7 +540,7 @@ hit_59_80mm_metal_ap{
 }
 
 hit_59_80mm_dirt_ap{
-  fx:t="hit_59_80mm_dirt_ap_cmps_fx"
+  fx:t="hit_100_150mm_he_dirt_cmps_fx"
   numInstances:i=70
   numReserved:i=20
   onePointNumber:i=10

@@ -9,7 +9,7 @@ let replayDownload = Watched({
   state = REPLAY_DOWNLOAD_NONE
   stateText  = ""
   filename = ""
-  downloadRequestId = 0
+  downloadRequestId = ""
 })
 
 return {

@@ -22,3 +22,11 @@ node_attached_pos{
   _extends:t="node_attached_base"
   _extends:t="node_attached_pos_base"
 }
+
+node_attached_edit{
+  node_attached__template:t=""
+  node_attached__nodeName:t=""
+
+  collres{
+  }
+}

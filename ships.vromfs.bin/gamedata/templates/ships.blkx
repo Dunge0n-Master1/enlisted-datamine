@@ -95,6 +95,9 @@ base_ship{
     _tags:t="gameClient"
   }
 
+  "nonLethalExplodeOnFire:tag"{
+  }
+
   "vehicle_seats_hide_owner:list<b>"{
   }
 
@@ -110,7 +113,17 @@ base_ship{
 
     "main_gunner:object"{
       turrets:b=yes
+      movement:b=yes
     }
+
+    "default:object"{
+      movement:b=yes
+    }
+  }
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_fire_ready"
+    driver:t="vehicle_seat_driver"
   }
 
   "last_driver:eid"{

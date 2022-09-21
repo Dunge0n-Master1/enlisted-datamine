@@ -1,0 +1,44 @@
+base_47mm_type1{
+  item__name:t="guns/47mm_type1"
+  gun__blk:t="gamedata/gen/weapons/47mm_type1.blk"
+  gun__shotFreq:r=0.3
+  gun__locName:t="47mm_type1"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/47mm_type1_defaultset.blk"
+        name:t="47mm_type1_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "47mm_type1_APHE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/47mm_type1_47mm_type1_aphe.blk"
+        name:t="47mm_type1_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "47mm_type1_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/47mm_type1_47mm_type1_he.blk"
+        name:t="47mm_type1_he"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+tankgun_47mm_type1{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="base_47mm_type1"
+  _extends:t="gunsound_47mm_type1"
+  turret__triggerGroup:i=0
+}

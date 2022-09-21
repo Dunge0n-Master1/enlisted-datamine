@@ -26,11 +26,14 @@ require danetlibs.console_commands.console_commands_init
 require danetlibs.native_dasevents.native_dasevents_init
 require danetlibs.hero_cockpit.hero_cockpit_init
 require danetlibs.verify_ecs.verify_ecs_init
+require danetlibs.blood_decals.blood_decals_init
+require danetlibs.frame_graph_renderer.frame_graph_renderer_init
 
 
 def private sound_override_voices_locale() : bool
-  let soundBlock = dgs_get_settings() |> datablock_get_block_by_name_const("sound")
-  let locale = soundBlock |> datablock_getStr("overrideVoicesLocale", "")
+  var locale = ""
+  dgs_get_settings() |> datablock_get_block("sound") <| $(soundBlock)
+    locale = soundBlock |> datablock_getStr("overrideVoicesLocale", "")
   return locale != ""
 
 def private load_sound() : bool
@@ -137,6 +140,13 @@ def private load_sandbox() : bool
   return ok
 
 
+def private load_modern_conflict() : bool
+  var ok = true
+  if app::get_game_name() == "modern_conflict" || app::get_game_name() == "aot"
+    ok = load_optional_folder("%modern_conflict") && ok
+  return ok
+
+
 [init]
 def load
   var ok = true
@@ -167,6 +177,7 @@ def load
   ok = load_dedicated() && ok
   ok = load_replay() && ok
   ok = load_dev() && ok
+  ok = load_modern_conflict() && ok
   ok = load_imgui() && ok
   ok = load_sandbox() && ok
 
@@ -180,6 +191,8 @@ def load
   ok = load_native_dasevents("%danetlibs/native_dasevents") && ok
   ok = load_hero_cockpit("%danetlibs/hero_cockpit") && ok
   ok = load_verify_ecs("%danetlibs/verify_ecs") && ok
+  ok = load_blood_decals("%danetlibs/blood_decals") && ok
+  ok = load_frame_graph_renderer("%danetlibs/frame_graph_renderer") && ok
 
   if app::get_game_name() == "aot"
     assert(ok)

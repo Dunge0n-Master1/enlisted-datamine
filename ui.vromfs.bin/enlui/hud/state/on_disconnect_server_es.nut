@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {exit_to_enlist} = require("app")
+let {switch_to_menu_scene} = require("app")
 let {EventOnDisconnectedFromServer} = require("gameevents")
 let net = require("net")
 let msgbox = require("%ui/components/msgbox.nut")
@@ -27,7 +27,7 @@ let function onDisconnectedFromServer(evt, _eid, _comp) {
   })
   msgbox.show({
     text = msgText
-    onClose = exit_to_enlist
+    onClose = switch_to_menu_scene
   })
 }
 

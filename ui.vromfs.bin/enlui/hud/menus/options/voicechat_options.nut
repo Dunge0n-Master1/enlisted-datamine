@@ -4,11 +4,14 @@ let {
   optionSpinner, optionCtor, optionPercentTextSliderCtor, mkDisableableCtor
 } = require("options_lib.nut")
 let platform = require("%dngscripts/platform.nut")
-let voice = require("%enlSqGlob/voice_settings.nut")
-let soundState = require("%enlSqGlob/sound_state.nut")
-let voiceSettings = voice.settings
-let voiceModes = voice.modes
-let voiceActivationModes = voice.activation_modes
+let {
+  voicePlaybackVolume, voicePlaybackVolumeUpdate,
+  voiceRecordVolume, voiceRecordVolumeUpdate,
+  voiceChatMode, voiceChatModeUpdate,
+  voiceActivationMode, voiceActivationModeUpdate,
+  voice_activation_modes, voice_modes
+} = require("%enlSqGlob/voice_settings.nut")
+let {soundRecordDevicesList, soundRecordDevice, soundRecordDeviceUpdate} = require("%enlSqGlob/sound_state.nut")
 let {voiceChatEnabled, voiceChatRestricted} = require("%enlSqGlob/voiceChatGlobalState.nut")
 
 let optPlaybackVolume = optionCtor({
@@ -18,8 +21,9 @@ let optPlaybackVolume = optionCtor({
   blkPath = "voice/playback_volume"
   defVal = 1.0
   min = 0 max = 1 unit = 0.05 pageScroll = 0.05 mult = 100
-  var = voiceSettings.playbackVolume
-  originalVal = voiceSettings.playbackVolume.value
+  var = voicePlaybackVolume
+  originalVal = voicePlaybackVolume.value
+  setValue = voicePlaybackVolumeUpdate
   restart = false
   isAvailable = @() voiceChatEnabled.value
 })
@@ -31,8 +35,9 @@ let optMicVolume = optionCtor({
   blkPath = "voice/record_volume"
   defVal = 1.0
   min = 0 max = 1 unit = 0.05 pageScroll = 0.05 mult = 100
-  var = voiceSettings.recordVolume
-  originalVal = voiceSettings.recordVolume.value
+  var = voiceRecordVolume
+  originalVal = voiceRecordVolume.value
+  setValue = voiceRecordVolumeUpdate
   restart = false
   isAvailable = @() voiceChatEnabled.value
 })
@@ -44,11 +49,12 @@ let optMode = optionCtor({
     Computed(@() voiceChatRestricted.value ? loc("voicechat/parental") : null),
     optionSpinner)
   blkPath = "voice/mode"
-  defVal = voiceSettings.chatMode.value
-  var = voiceSettings.chatMode
-  originalVal = voiceSettings.chatMode.value
+  defVal = voiceChatMode.value
+  var = voiceChatMode
+  setValue = voiceChatModeUpdate
+  originalVal = voiceChatMode.value
   restart = false
-  available = voiceModes.keys()
+  available = voice_modes.keys()
   valToString = @(v) loc($"voicechat/{v}")
   isEqual = @(a,b) a==b
   isAvailable = @() voiceChatEnabled.value
@@ -59,11 +65,12 @@ let optActivationMode = optionCtor({
   tab = "VoiceChat"
   widgetCtor = optionSpinner
   blkPath = "voice/activation_mode"
-  defVal = voiceSettings.activationMode.value
-  var = voiceSettings.activationMode
-  originalVal = voiceSettings.activationMode.value
+  defVal = voiceActivationMode.value
+  var = voiceActivationMode
+  setValue = voiceActivationModeUpdate
+  originalVal = voiceActivationMode.value
   restart = false
-  available = voiceActivationModes.keys()
+  available = voice_activation_modes.keys()
   valToString = @(v) loc($"voicechat/{v}")
   isEqual = @(a,b) a==b
   isAvailable = @() voiceChatEnabled.value && platform.is_pc
@@ -75,9 +82,10 @@ let optRecordDevice = optionCtor({
   widgetCtor = optionSpinner
   blkPath = "sound/record_device"
   isAvailableWatched = Computed(@() platform.is_pc && voiceChatEnabled.value &&
-                    soundState.recordDevicesList.value.len() > 0)
-  var = soundState.recordDevice
-  available = soundState.recordDevicesList
+                    soundRecordDevicesList.value.len() > 0)
+  var = soundRecordDevice
+  setValue = soundRecordDeviceUpdate
+  available = soundRecordDevicesList
   valToString = @(v) v?.name ?? ""
   isEqual = @(a,b) (a?.name ?? "")==(b?.name ?? "")
   changeVarOnListUpdate = false

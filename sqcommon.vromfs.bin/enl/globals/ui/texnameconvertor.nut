@@ -1,7 +1,7 @@
-let { get_setting_by_blk_path } = require("settings")
 let { check_tex_exists } = require("game_load")
+let { isHarmonizationEnabled } = require("%enlSqGlob/harmonizationState.nut")
 
-let texNameConvertor = (get_setting_by_blk_path("harmonizationRequired") ?? false)
+let texNameConvertor = isHarmonizationEnabled.value
   ? function(name) {
       let idx = name.indexof("*")
       if (idx == null)

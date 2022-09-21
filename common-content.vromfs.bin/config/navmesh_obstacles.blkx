@@ -1,0 +1,15 @@
+barbed_wire_a{
+  navMeshBoxOffset:r=0.75
+}
+
+barbed_wire_b{
+  navMeshBoxOffset:r=0.75
+}
+
+barbedwire_engineer_a{
+  navMeshBoxOffset:r=0.75
+}
+
+barbedwire_engineer_dmg_a{
+  navMeshBoxOffset:r=0.75
+}

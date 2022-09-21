@@ -50,8 +50,7 @@ def set_throwbit(var ct &; throw0; throw2; throw3; throw4; throw5)
   if is_action_active(throw4) && get_digital_action_state(throw4).bState
     ct |> human_control_state_set_throw_state(true, HumanControlThrowSlot HCTS_SLOT3)
   if is_action_active(throw5) && get_digital_action_state(throw5).bState
-    // unsafe reinterpret is a temporal measure, properly fixed in https://cvs1.gaijin.lan/c/dagor4/+/330090
-    ct |> human_control_state_set_throw_state(true, unsafe(reinterpret<HumanControlThrowSlot> 16))
+    ct |> human_control_state_set_throw_state(true, HumanControlThrowSlot HCTS_SLOT4)
 
 [es(tag=input, on_appear)]
 def human_grenade_input_appear_es(evt : Event;
@@ -134,8 +133,7 @@ def human_grenade_input_action_triggered_es(evt : EventDaInputActionTriggered;
   elif action == human_input__throw4
     ct |> human_control_state_set_throw_state(true, HumanControlThrowSlot HCTS_SLOT3)
   elif action == human_input__throw5
-    // unsafe reinterpret is a temporal measure, properly fixed in https://cvs1.gaijin.lan/c/dagor4/+/330090
-    ct |> human_control_state_set_throw_state(true, unsafe(reinterpret<HumanControlThrowSlot> 16))
+    ct |> human_control_state_set_throw_state(true, HumanControlThrowSlot HCTS_SLOT4)
 
 [es(tag=input)]
 def human_grenade_input_es(info : UpdateStageUpdateInput;

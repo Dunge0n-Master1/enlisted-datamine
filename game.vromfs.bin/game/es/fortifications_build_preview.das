@@ -124,11 +124,20 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                                       previewCollobj : CollisionObject;
                                       previewCollobjOffset : float;
                                       buildingCost : float;
+                                      preview_render__enabled : bool = true;
                                       var buildingNorm : float3&;
                                       var nextCheckGridObjectsTime : float&;
                                       var transform : float3x4;
                                       var semi_transparent__placingColor : float3&;
-                                      var semi_transparent__visible : bool&)
+                                      var semi_transparent__visible : bool&;
+                                      var animchar_render__enabled : bool?)
+  if animchar_render__enabled != null
+    *animchar_render__enabled = preview_render__enabled
+
+  if !preview_render__enabled
+    semi_transparent__visible = false
+    return
+
   var norm : float3
   var build_position : float3
   var isAngleValid = true
@@ -159,7 +168,9 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
     aimTm = human__aimTm
     let tracePos = aimTm[3]
     //We save hands position and try to use camera tm if it available (swap XZ in camera TM)
-    ecs::query(bindedCamera) <| $ [es] (transform : float3x4)
+    ecs::query(bindedCamera) <| $ [es] (transform : float3x4; isTpsView : bool = false)
+      if isTpsView
+        return
       aimTm[0] = transform[2]
       aimTm[2] = -transform[0]
       aimTm[1] = transform[1]
@@ -213,7 +224,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                    has_active_human_battle_area_at(buildPos, heroTeam) &&
                    (shredInDeactivatingBattleArea == null || has_active_non_deactivating_human_battle_area_at(buildPos, heroTeam)) &&
                    !is_not_attachable_gun(eid) &&
-                   !is_in_building_restricted_zone(buildPos))
+                   !is_in_building_restricted_zone(buildPos, heroTeam))
     if isValid
       semi_transparent__placingColor = !availableByCountLimit && allowRecreate ? warningColor : avaliableColor
     else
@@ -498,7 +509,7 @@ def try_build_fortification_es(evt : Event;
   if !is_required_space_above_object_free(buildingPos, requiredSpaceAboveObject)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_not_enough_free_space_to_spawn", text="building_blocked_not_enough_free_space_to_spawn"]])
     return
-  if is_in_building_restricted_zone(buildingPos)
+  if is_in_building_restricted_zone(buildingPos, heroTeam)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_restricted_zone", text="building_blocked_restricted_zone"]])
     return
   send_net_event(hero, [[CmdBuildFortification builderGunEid = builderGunEid,

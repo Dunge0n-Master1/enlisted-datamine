@@ -25,6 +25,15 @@ def explosion_impl(offender : EntityId;
       deal_damage_to_part(damage_model, eid, i, explosionDamageTypeId, int(DamageEffectsMask DM_EFFECTS_MASK_ALL), damage, hitData)
 
 [es(tag=server)]
+def kill_vehicle_es(evt : CmdKillVehicle;
+                    eid : EntityId;
+                    var damage_model : DamageModel&;
+                    var lastOffender : EntityId&;
+                    var isAlive : bool&;
+                    var isExploded : bool&)
+  explosion_impl(evt.offender, eid, damage_model, lastOffender, isAlive, isExploded)
+
+[es(tag=server)]
 def explosion_es(evt : CmdExplosionFatal;
                  eid : EntityId;
                  var damage_model : DamageModel&;

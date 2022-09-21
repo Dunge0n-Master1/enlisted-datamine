@@ -10,11 +10,13 @@ motion_matching_animchar_component{
   motion_matching__angularVelocity:p3=0.0, 0.0, 0.0
   motion_matching__linearVelocityAmortized:p3=0.0, 0.0, 0.0
   motion_matching__angularVelocityAmortized:p3=0.0, 0.0, 0.0
+  motion_matching__metricaTolerance:r=0.0
   motion_matching__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   motion_matching__animationBlendTime:r=0.45
   motion_matching__updateProgress:r=0.0
   motion_matching__distanceFactor:r=1.0
   motion_matching__trajectoryTolerance:r=3.0
+  motion_matching__presetIdx:i=-1
   motion_matching__dataBaseTemplateName:t="motion_matchign_animation_database"
 
   "motion_matching__trajectoryTimes:list<r>"{
@@ -29,13 +31,19 @@ motion_matching_animchar_component{
   "motion_matching__predictedRotation:list<p3>"{
   }
 
-  "motion_matching__goalFeature:FrameFeature"{
+  "motion_matching__goalFeature:FrameFeatures"{
   }
 
   "motion_matching__goalNodesIdx:list<i>"{
   }
 
   "motion_matching__goalTags:list<t>"{
+  }
+
+  "motion_matching__optionalTags:list<t>"{
+  }
+
+  "motion_matching__currentTags:Tags"{
   }
 
   "motion_matching__dataBaseEid:eid"{
@@ -46,10 +54,14 @@ motion_matching_animchar_component{
 
   _group{
     _tags:t="tools"
+    motion_matching__historyIndex:ip2=-1, 0
     motion_matching__walkSpeed:r=1.8
     motion_matching__runSpeed:r=3.7
 
     "motion_matching__clipProgress:list<r>"{
+    }
+
+    "motion_matching__history:list<ip2>"{
     }
   }
 }
@@ -61,7 +73,8 @@ motion_matchign_animation_database{
   main_database__loaded:b=no
   main_database__perFrameLimit:i=-1
   weightsPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_weights.blk"
-  main_database__root_node:t="Bip01"
+  rootMotionPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_root_motion.blk"
+  main_database__root_node:t=""
 
   "data_bases_paths:list<t>"{
     path:t="%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
@@ -74,29 +87,18 @@ motion_matchign_animation_database{
   }
 
   "main_database__direction_nodes:list<t>"{
-    node:t="Bip01"
-    node:t="Bip01 Pelvis"
   }
 
   "main_database__direction_weights:list<r>"{
-    weight:r=1.0
-    weight:r=1.0
   }
 
   "main_database__center_of_mass_nodes:list<t>"{
-    node:t="Bip01 Pelvis"
-    node:t="Bip01 L Thigh"
-    node:t="Bip01 R Thigh"
-    node:t="Bip01 L Calf"
-    node:t="Bip01 R Calf"
   }
 
   "main_database__center_of_mass_params:list<p4>"{
-    params:p4=0.0, 0.0, 0.0, 13.0
-    params:p4=0.0, 0.0, 0.0, 10.0
-    params:p4=0.0, 0.0, 0.0, 10.0
-    params:p4=0.0, 0.0, 0.0, 5.0
-    params:p4=0.0, 0.0, 0.0, 5.0
+  }
+
+  "main_database__presetsTagsName:list<t>"{
   }
 }
 

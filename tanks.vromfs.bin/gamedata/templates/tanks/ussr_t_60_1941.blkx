@@ -9,6 +9,8 @@ ussr_t_60_1941{
 ussr_t_60_1941_common{
   _extends:t="base_t_60_1941"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_su76_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/t_60_1941.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/t_60_1941.blk"
 
@@ -27,6 +29,8 @@ ussr_t_60_1941_common{
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="ussr_t_60_1941_gunner_cockpit"
       hatchRotationAxis:p3=1.9, 0.0, 0.0
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
 
       "turretNames:array"{
         turretNames:t="turret_01"

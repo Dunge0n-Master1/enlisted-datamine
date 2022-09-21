@@ -102,8 +102,6 @@ base_m14_41{
       turretName:t="turret_02"
       gun:t="m14_41_turret_02_8mm_breda_mod38"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -111,8 +109,6 @@ base_m14_41{
       turretName:t="turret_03"
       gun:t="m14_41_turret_03_8mm_breda_mod38"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

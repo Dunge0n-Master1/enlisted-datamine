@@ -93,8 +93,6 @@ base_panzerjager_hetzer{
       turretName:t="turret_02"
       gun:t="panzerjager_hetzer_turret_02_7_92mm_mg34"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

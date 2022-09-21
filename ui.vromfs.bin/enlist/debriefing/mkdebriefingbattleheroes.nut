@@ -9,12 +9,16 @@ let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.n
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { soldierNameSlicer } = require("%enlSqGlob/ui/itemsInfo.nut")
 let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
-let { BattleHeroesAward, combineMultispecialistAward, awardPriority, isSoldierKindAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
+let { BattleHeroesAward, combineMultispecialistAward, awardPriority, isSoldierKindAward
+} = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { partition } = require("%sqstd/underscore.nut")
 let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let { mkSoldierPhotoName, mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
-let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, rankIconSize, getRankConfig
+} = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkPortraitIcon } = require("%enlist/profile/decoratorPkg.nut")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 
 let awardMultTxtColor = Color(252, 186, 3, 255)
@@ -54,16 +58,11 @@ let function mkBattleHeroAwards(awards, isActive) {
 }
 
 let mkBattleHeroPortrait = @(portrait) {
-  size = [PORTRAIT_SIZE, PORTRAIT_SIZE]
-  padding = smallPadding
   rendObj = ROBJ_BOX
+  padding = smallPadding
   borderColor = activeBgColor
   borderWidth = hdpx(1)
-  children = {
-    size = flex()
-    rendObj = ROBJ_IMAGE
-    image = Picture(getPortrait(portrait).icon)
-  }
+  children = mkPortraitIcon(getPortrait(portrait), PORTRAIT_SIZE)
 }
 
 let photoSize = [hdpx(92), hdpx(136)]
@@ -80,7 +79,7 @@ let function rankBlock(playerRank) {
     image = Picture(imageBack)
     margin = hdpx(1)
     size = [hdpx(28), hdpx(28)]
-    children = mkRankIcon(playerRank, {
+    children = mkRankIcon(playerRank, rankIconSize, {
       vplace = ALIGN_CENTER
       hplace = ALIGN_CENTER
     })
@@ -145,7 +144,7 @@ let mkHeroes = @(heroes, isExpReceived) {
       isFinished = true, awards = [], playerName = "", nickFrame = "",
       portrait = "", isLocalPlayer = false, soldier = null, expMult = 1.0, playerRank = 0
     } = hero
-    let playerNameTxt = frameNick(remap_nick(playerName), nickFrame)
+    let playerNameTxt = frameNick(isLocalPlayer? userInfo.value?.nameorig : remap_nick(playerName), nickFrame)
     let heroesObjects = [
       mkBattleHeroPlayerNameText(playerNameTxt, isLocalPlayer)
       portrait == ""

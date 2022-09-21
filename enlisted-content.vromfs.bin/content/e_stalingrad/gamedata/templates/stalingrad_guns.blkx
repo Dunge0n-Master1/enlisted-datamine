@@ -60,6 +60,7 @@ kar98k_wartime_production_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="kar98k_wartime_production"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -256,6 +257,7 @@ mannlicher_m93_roman_gun{
   _extends:t="rifle_ww2_preset"
   _extends:t="mannlicher_m93_roman"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -619,6 +621,7 @@ orita_m1941_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="orita_m1941"
   _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -670,7 +673,7 @@ stl_orita_m1941_gun{
   gun__recoilDir:r=0.32
   gun__recoilDirAmount:r=0.78
   gun__crawlRecoilMult:r=0.8
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=1.3
   gun__recoilControlMult:r=0.33
   gun__recoilOffsMult:r=0.3
 }
@@ -865,7 +868,7 @@ ppsh_2{
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.15
   gun__shotFreq:r=8.75
-  gun_spread__maxDeltaAngle:r=0.25
+  gun_spread__maxDeltaAngle:r=0.75
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.07, 0.5
   gun_deviation__movementRange:p2=2.1, 4.0
@@ -902,15 +905,19 @@ ppsh_2_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="ppsh_2"
   _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.03
+  gun__recoilAmount:r=0.033
   gun__recoilDirAmount:r=0.75
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
+  gun__visualRecoilMult:r=1.3
+  gun__recoilControlMult:r=0.3
+  gun__recoilOffsMult:r=0.3
+  gun__crawlRecoilMult:r=0.8
   meleeSoundType:t="mgun"
 
   _group{
@@ -950,7 +957,7 @@ stl_ppsh_2{
 stl_ppsh_2_gun{
   _extends:t="ppsh_2_gun"
   _extends:t="stl_ppsh_2"
-  gun__recoilAmount:r=0.032
+  gun__recoilAmount:r=0.033
   gun__recoilDirAmount:r=0.66
   gun__recoilDir:r=0.41
   gun__recoilControlMult:r=0.4
@@ -1060,6 +1067,7 @@ stl_ppsh_41_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="stl_ppsh_41"
   _extends:t="smg_muzzle_break_3_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15

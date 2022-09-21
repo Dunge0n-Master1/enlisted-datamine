@@ -19,6 +19,7 @@ me_410a_1_u2_base{
   plane_collision__blk:t="gamedata/units/me_410a_1_u2.blk"
   plane_anim__blk:t="gamedata/units/me_410a_1_u2.blk"
   plane_sight__blk:t="gamedata/units/me_410a_1_u2.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_assault"
   is_seaplane:b=no
   plane_wreckage__template:t="me_410a_1_u2_wreckage"

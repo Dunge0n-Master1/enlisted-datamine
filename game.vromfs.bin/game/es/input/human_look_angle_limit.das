@@ -51,3 +51,12 @@ def apply_binocular_look_angle_limit(evt : UpdateStageUpdateInput;
                                      var human_input__currentVertLookAngleLimit : float2&)
   if human_binocular__mode
     human_input__currentVertLookAngleLimit |> apply_limit(human_binocular__vertLookAngleLimit)
+
+[es(tag=input, before=human_input_es, after=reset_look_angle_limit)]
+def apply_hold_gun_mode_look_angle_limit(evt : UpdateStageUpdateInput;
+                                         human_vehicle__isHoldingGunPassenger : bool;
+                                         human_vehicle__occupiedSeatEid : EntityId;
+                                         var human_input__currentVertLookAngleLimit : float2&)
+  if human_vehicle__isHoldingGunPassenger
+    query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__holdingGunPassengerVertLookLimit : float2)
+      human_input__currentVertLookAngleLimit |> apply_limit(seat__holdingGunPassengerVertLookLimit)

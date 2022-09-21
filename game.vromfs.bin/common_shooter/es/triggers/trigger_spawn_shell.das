@@ -7,7 +7,7 @@ require NetPropsRegistry
 require EnlistedWeapon
 require DagorDataBlock
 require DagorSystem
-
+require common_shooter.es.human.human_gun_common
 
 def spawn_shell_impl(eid : EntityId;
                      transform : float3x4;

@@ -338,7 +338,7 @@ plane_damage_effects{
     plane_damage_fx__airExplosionFxType:t="explosion_plane"
     plane_damage_fx__landExplosionFxType:t="land_explosion_plane"
     plane_damage_fx__waterExplosionFxType:t="water_explosion_plane"
-    plane_damage_fx__landCrashFireEffect:t="land_crash_fire"
+    plane_damage_fx__landCrashFireEffect:t="land_explosion_plane"
     plane_damage_fx__landCrashSmokeEffect:t="land_crash_smoke"
     plane_damage_fx__engineMajorSmokeSizeScaleMin:r=0.2
     plane_damage_fx__engineMajorSmokeSizeScaleMax:r=0.5
@@ -656,6 +656,9 @@ plane_minimal_view{
   plane_view__engine_head_temperature:r=0.0
   plane_view__engine_oil_temperature:r=0.0
   plane_view__throttle:r=0.0
+  plane_view__is_throttle_control_active:b=yes
+  plane_view__climb:r=0.0
+  plane_view__is_climb_control_active:b=no
   plane_view__has_gear_control:b=no
   plane_view__gear_position:b=no
   plane_view__is_gear_locked:b=no
@@ -737,11 +740,70 @@ squad_controlled_plane{
   _tracked:t="team"
 }
 
+plane_carrier_assist{
+  plane_carrier_assist__forwardForce:r=3.0
+  plane_carrier_assist__windForce:r=20.0
+  plane_carrier_assist__fakeWindTime:r=15.0
+  plane_carrier_assist__requiredPowerLevel:r=0.6
+  plane_carrier_assist__timeAfterTakeOff:r=-1.0
+  plane_carrier_assist__isOnCarrier:b=no
+  plane_carrier_assist__showReminderAfterTakeOffTime:r=10.0
+  _tracked:t="plane_carrier_assist__isOnCarrier"
+}
+
+plane_landing_hook{
+  plane_landing__hookPosLocal:p3=-6.0, 0.0, 0.0
+  plane_landing__hookHeight:r=3.0
+  plane_landing__hookActive:b=no
+  plane_landing__hookReleaseSpeedSq:r=1.0
+  plane_landing__hookReactivateAtHeight:r=10.0
+}
+
+aircraft_carrier_landing_zone{
+  _extends:t="replicating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  inverseTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  carrier_cable__minAcceleration:r=29.4
+  carrier_cable__maxAcceleration:r=44.1
+  carrier__runwayStart:p3=0.0, 0.0, 0.0
+  carrier__runwayEnd:p3=0.0, 0.0, 0.0
+  carrier__runwayDir:p3=0.0, 0.0, 0.0
+
+  "aircraftCarrierLandingZone:tag"{
+  }
+}
+
+plane_landing_repair{
+  _tracked:t="plane_landing__repairAtTime"
+
+  _group{
+    _tags:t="server"
+    plane_landing__timeAfterLanding:r=0.0
+    plane_landing__respawnInProgress:b=no
+  }
+
+  _group{
+    _replicate:b=yes
+    plane_landing__canUseRespawn:b=no
+    plane_landing__repairTime:r=-1.0
+    plane_landing__repairAtTime:r=-1.0
+  }
+
+  _group{
+    _tags:t="gameClient"
+    plane_landing__respawnedAtTime:r=-1.0
+    plane_landing_blackout__timeBeforeSpawn:r=0.6
+    plane_landing_blackout__timeAfterSpawn:r=1.5
+    plane_landing_blackout__fullBlackTime:r=0.2
+    plane_landing_blackout__progressMinMax:p2=0.0, 1.5
+  }
+}
+
 plane_base{
   _extends:t="replicating"
   _extends:t="animchar"
   _extends:t="base_vehicle"
-  _extends:t="base_vehicle_seats"
+  _extends:t="plane_vehicle_seats"
   _extends:t="base_damage_model"
   _extends:t="plane_cutting"
   _extends:t="plane_wheel_effects"
@@ -754,17 +816,22 @@ plane_base{
   _extends:t="capturer"
   _extends:t="plane_inertial_cam"
   _extends:t="vehicle_enter_accessibility"
+  _extends:t="plane_carrier_assist"
+  _extends:t="plane_landing_repair"
+  _extends:t="plane_landing_hook"
   battle_area__timeToDamageType:t="aircraft"
   plane_input__autoDisableMouseAim:b=no
   plane_input__mouseAimEnabled:b=yes
   plane_input__simpleJoyEnabled:b=no
   plane_input__aileronsAxis:r=0.0
   plane_input__elevatorAxis:r=0.0
+  plane_input__autopilotImpl:t="No"
   _tracked:t="plane_input__mouseAimEnabled"
   _tracked:t="plane_input__simpleJoyEnabled"
   _tracked:t="transform"
   _tracked:t="flight_angles_enabled"
   _tracked:t="flaps_position"
+  _tracked:t="plane_view__isAirBrakesActive"
   _tracked:t="is_parking_brake_on"
   _tracked:t="vehicleCameraType"
   _tracked:t="isAlive"
@@ -780,7 +847,10 @@ plane_base{
   flight_angles:p2=0.0, 0.0
   flight_angles_enabled:b=no
   stick_pusher_enabled:b=no
+  is_autopilot_in_hover_mode:b=no
   flaps_position:i=0
+  plane_view__hasAirBrakes:b=no
+  plane_view__isAirBrakesActive:b=no
   is_parking_brake_on:b=no
   parking_anchor_pos:p3=0.0, 0.0, 0.0
   parking_anchor_dir:p3=1.0, 0.0, 0.0
@@ -810,7 +880,9 @@ plane_base{
   camera__wish_relative_angle:p2=0.0, 0.0
   camera__unit_offset_multiplier:r=1.0
   camera__magnification:r=1.0
-  camera__lookLimitAngles:p4=-127.0, 127.0, -35.0, 85.0
+  camera__zoomPos:r=0.0
+  camera__lookLimitAngles:p4=-160.0, 160.0, -35.0, 85.0
+  camera__lookAroundOffsetRange:p2=0.12, 0.12
   camera__isStabilized:b=no
   camName:t="plane_tps_cam"
   disableTurretCam:b=yes
@@ -1102,6 +1174,9 @@ plane_inertial_cam{
 _componentFilters{
   g_force__isPositive:t="filter_possessed_and_spectated"
   aircraft_crew__stamina:t="filter_possessed_and_spectated"
+  plane_landing__canUseRespawn:t="filter_possessed_and_spectated_vehicle"
+  plane_landing__repairTime:t="filter_possessed_and_spectated_vehicle"
+  plane_landing__repairAtTime:t="filter_possessed_and_spectated_vehicle"
 }
 
 common_machinegun{

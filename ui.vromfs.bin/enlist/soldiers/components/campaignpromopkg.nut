@@ -4,8 +4,10 @@ let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let { titleTxtColor, activeTxtColor, bigPadding, defTxtColor, commonBtnHeight, accentTitleTxtColor,
-  freemiumColor, freemiumDarkColor } = require("%enlSqGlob/ui/viewConst.nut")
+} = require("%enlSqGlob/ui/viewConst.nut")
 let { itemTypeIcon } = require("itemTypesData.nut")
+let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
 let btnSizeSmall = [hdpx(330), commonBtnHeight]
 let btnSizeBig = [hdpx(400), commonBtnHeight]
@@ -44,10 +46,12 @@ let mkSquadName = @(nameLocId, titleLocId, sClass, itemType, itemSubType) {
   ]
 }
 
-let function campaignName(params){
-  let {nameLocId, titleLocId, hasReceived, isPrimeSquad = false, sClass = null,
-    itemType = null, itemSubType = null, isFreemium = false} = params
-  return{
+let function campaignName(params) {
+  let { nameLocId, titleLocId, hasReceived, isPrimeSquad = false, sClass = null,
+    itemType = null, itemSubType = null, campaignGroup = CAMPAIGN_NONE } = params
+  let isFreemiumMode = campaignGroup != CAMPAIGN_NONE
+  let { color = null, darkColor = null } = getConfig(campaignGroup)
+  return {
     vplace = ALIGN_CENTER
     flow = FLOW_VERTICAL
     pos = [-hdpx(23), 0]
@@ -60,7 +64,7 @@ let function campaignName(params){
         valign = ALIGN_CENTER
         padding = [bigPadding * 2, bigPadding * 4]
         color = isPrimeSquad ? primeColor
-          : isFreemium ? freemiumColor
+          : isFreemiumMode ? color
           : hasReceived ? receivedColor
           : unavailableColor
         image = Picture($"!ui/gameImage/base_header_bar.svg:{hdpxi(150)}:4:K?Ac")
@@ -72,7 +76,7 @@ let function campaignName(params){
         lineWidth = 0
         color = 0
         fillColor = isPrimeSquad ? Color(69, 24, 24)
-          : isFreemium ? freemiumDarkColor
+          : isFreemiumMode ? darkColor
           : Color(54, 54, 45)
         commands = [
           [VECTOR_POLY, 0,0, 100,0, 100,100]
@@ -108,7 +112,7 @@ let weapInfoBtn =  @(sf) {
   size = [infoBtnSize, infoBtnSize]
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
-  margin = hdpx(15)
+  margin = bigPadding
   image =  Picture("{0}:{1}:{1}:K".subst("ui/skin#info/info_icon.svg", infoBtnSize))
   color = sf & S_ACTIVE ? activeTxtColor
     : sf & S_HOVER ? titleTxtColor
@@ -120,7 +124,7 @@ return {
   btnSizeSmall
   btnSizeBig
   receivedCommon = mkReceivedBanner(mainBgColor)
-  receivedFreemium = mkReceivedBanner(freemiumColor)
+  receivedFreemium = @(campaignGroup) mkReceivedBanner(getConfig(campaignGroup)?.color)
   weapInfoBtn
   progressBarWidth
   rewardToScroll

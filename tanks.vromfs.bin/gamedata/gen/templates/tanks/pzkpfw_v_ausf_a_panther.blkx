@@ -102,8 +102,6 @@ base_pzkpfw_v_ausf_a_panther{
       turretName:t="turret_02"
       gun:t="pzkpfw_v_ausf_a_panther_turret_02_7_92mm_mg34"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -111,8 +109,6 @@ base_pzkpfw_v_ausf_a_panther{
       turretName:t="turret_03"
       gun:t="pzkpfw_v_ausf_a_panther_turret_03_7_92mm_mg34"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

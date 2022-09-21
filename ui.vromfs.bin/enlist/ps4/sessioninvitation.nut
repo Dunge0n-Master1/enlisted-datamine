@@ -4,7 +4,7 @@ let psn = require("%sonyLib/webApi.nut")
 if (psn.getPreferredVersion() == 2)
   return require("%enlist/ps4/sessionManager.nut")
 
-let state = require("state.nut")
+let state = require("psn_state.nut")
 
 let SESSION_MAX_USERS = 4
 let SESSION_TYPE = "owner-migration"

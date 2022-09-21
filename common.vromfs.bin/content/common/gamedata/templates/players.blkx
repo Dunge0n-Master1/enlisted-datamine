@@ -46,13 +46,9 @@ player{
   _group{
     _track:b=yes
     _replicate:b=yes
-    scoring_player__teammateKills:i=0
     scoring_player__kills:i=0
-    scoring_player__deaths:i=0
-    scoring_player__headshots:i=0
     scoring_player__firstSpawnTime:r=-1.0
     scoring_player__battleTime:r=0.0
-    scoring_player__deathTime:r=-1.0
     scoring_player__battlesPlayed:i=-1
   }
 
@@ -123,10 +119,6 @@ bot_player{
 
   "playerIsBot:tag"{
   }
-}
-
-_componentFilters{
-  scoring_player__headshots:t="filter_same_player"
 }
 
 player_hits_counter{

@@ -9,7 +9,6 @@ require("%ui/hud/spectator_console.nut")
 require("%ui/hud/state/aiming_smooth.nut")
 require("%ui/hud/state/cmd_hero_log_event.nut")
 require("%enlSqGlob/notifications/disconnectedControllerMsg.nut")
-require("%enlSqGlob/notifications/actionInProgressMsg.nut")
 require("state/battle_area_warnings.nut")
 require("state/team_score_warnings.nut")
 
@@ -54,6 +53,7 @@ let killMarks = require("%ui/hud/huds/kill_marks.nut")
 let {posHitMarks} = require("%ui/hud/huds/hit_marks.nut")
 let zonePointers = require("huds/zone_pointers.nut")
 let resupplyPointers = require("huds/resupply_pointers.nut")
+let landingPointers = require("huds/aircraft_respawn_landing_pointers.nut")
 let respawn = require("%ui/hud/menus/respawn.nut")
 
 let {setGameHud}  = require("%ui/hud/state/gameHuds.nut")
@@ -63,7 +63,7 @@ let {isAlive} = require("%ui/hud/state/health_state.nut")
 let {debriefingShow} = require("state/debriefingStateInBattle.nut")
 let showPlayerHuds = require("%ui/hud/state/showPlayerHuds.nut")
 let replayHudLayout = require("%ui/hud/replay/replay_hud_layout.nut")
-let { canShowReplayHud, canShowGameHudInReplay } = require("%ui/hud/replay/replayState.nut")
+let { canShowGameHudInReplay } = require("%ui/hud/replay/replayState.nut")
 
 let showHuds = Computed(function(){
   return !(!isAlive.value || debriefingShow.value)
@@ -79,11 +79,12 @@ let {showCrosshair = false} = require("%enlSqGlob/wipFeatures.nut")
 
 let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
+let { harmonizationOption } = require("%ui/hud/menus/options/harmonization_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
 let { cameraShakeOptions } = require("%ui/hud/menus/options/camera_shake_options.nut")
 let { hudOptions } = require("%ui/hud/menus/options/hud_options.nut")
 let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
-let { optXboxGraphicsPreset, dbgConsolePreset }  = require("%ui/hud/menus/console_preset_options.nut")
+let { optXboxGraphicsPreset, optPSGraphicsPreset, dbgConsolePreset }  = require("%ui/hud/menus/console_preset_options.nut")
 let { renderOptions } = require("%ui/hud/menus/options/render_options.nut")
 let { soundOptions } = require("%ui/hud/menus/options/sound_options.nut")
 let { cameraFovOption } = require("%ui/hud/menus/options/camera_fov_option.nut")
@@ -100,13 +101,14 @@ let tutorialZonePointers = require("%ui/hud/tutorial/huds/tutorial_zone_pointers
 let platform = require("%dngscripts/platform.nut")
 
 let options = []
-if (platform.is_xbox_scarlett || dbgConsolePreset.value == "xbox_scarlett")
+if (platform.is_xbox_scarlett || dbgConsolePreset.value == "xbox_scarlett") {
   options.append(optXboxGraphicsPreset)
-// This is not used anymore, but I expect to make use of it again on PS5 when we add 120 FPS mode so keeping it for now
-// else if (platform.is_ps5 || dbgConsolePreset.value == "ps5")
-//   options.append(optPSGraphicsPreset)
+}
+else if (platform.is_ps5 || dbgConsolePreset.value == "ps5") {
+  options.append(optPSGraphicsPreset)
+}
 
-options.append(optGraphicsQualityPreset, cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption)
+options.append(optGraphicsQualityPreset, cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption, harmonizationOption)
   .extend(renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions,
     planeContolOptions, hudOptions, narratorOptions
   )
@@ -122,17 +124,23 @@ menuTabsOrder([
 let minHud = Computed(@() forcedMinimalHud.value || minimalistHud.value)
 
 let function hud(){
+  if (isReplay.value && !canShowGameHudInReplay.value)
+    return {
+      watch = canShowGameHudInReplay
+      size = flex()
+      children = replayHudLayout
+    }
+
   let showPlayerHudsV = showHuds.value
   let notMinimalHud = !minHud.value
   let children = [
     notMinimalHud || showSquadSpawn.value ? zonePointers : null,
     isTutorial.value ? tutorialZonePointers : null,
     notMinimalHud ? resupplyPointers : null,
+    notMinimalHud ? landingPointers : null,
     hud_under,
     showPlayerHudsV ? all_tips : null,
-    isReplay.value
-      ? (canShowGameHudInReplay.value ? hudLayout : null)
-      : hudLayout,
+    hudLayout,
     notMinimalHud && showPlayerHudsV ? forestall : null,
     notMinimalHud && showPlayerHudsV ? crosshairImmunity : null,
     notMinimalHud && showPlayerHudsV ? killMarks : null,
@@ -140,19 +148,21 @@ let function hud(){
     showPlayerHudsV && notMinimalHud ? turretCrosshair : null,
     showPlayerHudsV ? vehicleCrosshair : null,
     !isReplay.value ? respawn : null,
-    isReplay.value && canShowReplayHud.value ? replayHudLayout : null,
+    isReplay.value ? replayHudLayout : null,
   ]
   if (showPlayerHudsV){
     if (showCrosshair) {
       children.append(crosshair)
     } else {
-      children.append(crosshairForbidden, crosshairOverheat, crosshairReload, notMinimalHud ? crosshairHitmarks : null, crosshairOverlayTransparency)
+      children.append(crosshairForbidden, crosshairOverheat, crosshairReload,
+        notMinimalHud ? crosshairHitmarks : null, crosshairOverlayTransparency)
     }
   }
   children.append(network_error, perfStats)
   return {
-    size = flex(), children = children, watch = [showHuds, isTutorial, minHud,
-      showSquadSpawn, isReplay, canShowReplayHud, canShowGameHudInReplay]
+    watch = [showHuds, isTutorial, minHud, showSquadSpawn, isReplay, canShowGameHudInReplay]
+    size = flex()
+    children
   }
 }
 setGameHud([hud, menusUi])

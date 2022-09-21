@@ -1,3 +1,10 @@
+_infoCommonComponents{
+
+  ri_hit_points{
+    desc:t="Special values are: 0 (default HP with regeneration), -1 (default HP with no regeneration) and -2 (invincible). Anything more than 0 is explicit hit points value with no regeneration."
+  }
+}
+
 rendinst_base{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   _tracked:t="transform"
@@ -25,9 +32,16 @@ rendinst_handle{
 
 rendinst{
   _extends:t="rendinst_base"
-  ri_extra__name:t="sandbags_wall_medium_rounded_a"
   ri_extra__bboxMin:p3=0.0, 0.0, 0.0
   ri_extra__bboxMax:p3=0.0, 0.0, 0.0
+
+  "ri_extra__name:t"{
+    value:t="sandbags_wall_medium_rounded_a"
+
+    _info{
+      desc:t="Render model name for this extra render instance (RI)"
+    }
+  }
 }
 
 game_rendinst{
@@ -38,12 +52,17 @@ game_rendinst{
   "gameRendInstTag:tag"{
   }
 
+  "ri_extra__overrideHitPoints:i"{
+    value:i=0
+    _info:t="ri_hit_points"
+  }
+
   "isRendinstDestr:tag"{
     _tags:t="render"
   }
 
   _info{
-    desc:t="Game level model (render instance or RI) with physical destruction (some are immortal). You can also select, remove and copy RI via Toolbox panel at right top corner of editor (RendInsts)."
+    desc:t="Game level model (render instance or RI) with physical destruction (some are immortal). You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
   }
 }
 
@@ -55,8 +74,13 @@ game_rendinst_decor{
   "gameRendInstTag:tag"{
   }
 
+  "ri_extra__overrideHitPoints:i"{
+    value:i=-2
+    _info:t="ri_hit_points"
+  }
+
   _info{
-    desc:t="Game level model (render instance or RI) without physical destruction. You can also select, remove and copy RI via Toolbox panel at right top corner of editor (RendInsts)."
+    desc:t="Game level model (render instance or RI) without physical destruction. You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
   }
 }
 
@@ -70,6 +94,11 @@ unbaked_rendinst{
   rebake__name:t=""
 
   "unbakedRendInstTag:tag"{
+  }
+
+  "ri_extra__overrideHitPoints:i"{
+    value:i=0
+    _info:t="ri_hit_points"
   }
 
   "isRendinstDestr:tag"{
@@ -277,10 +306,6 @@ animated_scene_rendinst{
 floating_rendinst_system{
   _singleton:b=yes
   floatingRiSystem__useRandomWaves:b=no
-  floatingRiSystem__maxUpdateDist:r=0.0
-
-  "floatingRiSystem__data:FloatingData"{
-  }
 
   "floatingRiSystem__volumePresets:object"{
 
@@ -322,13 +347,15 @@ floating_rendinst_res_group{
   floatingRiGroup__volumesCount:i=-1
   floatingRiGroup__volumePresetName:t=""
   floatingRiGroup__wreckageFloatDuration:r=15.0
-  floatingRiGroup__updateDist:r=1000.0
+  floatingRiGroup__updateDistSq:r=1000000.0
   floatingRiGroup__interactionType:i=0
-  floatingRiGroup__interactionDist:r=0.0
+  floatingRiGroup__interactionDistSq:r=0.0
   floatingRiGroup__elasticity:r=0.1
   floatingRiGroup__physUpdateDt:r=0.0417
   floatingRiGroup__maxShiftDist:r=1000.0
   floatingRiGroup__geomCenterShift:p3=0.0, 0.0, 0.0
   floatingRiGroup__physBboxSizeMul:p3=1.0, 1.0, 1.0
-  floatingRiGroup__resIdx:i=-1
+
+  floatingRiGroup__riPhysFloatingModel{
+  }
 }

@@ -9,7 +9,8 @@ require game.es.node_attach_common
 require AnimV20
 require CollRes
 require common_shooter.events_common_shooter
-
+require DagorMathUtils
+require DagorRandom
 
 struct MolotovShellInfo
   ownerEid : EntityId
@@ -230,3 +231,59 @@ def molotov_exploded(evt : CmdShellExplode;
   explode_molotov(start, dir, on_exploded__create, shellInfo,
                   molotov_spread__minHeight, molotov_spread__localRays, molotov_spread__globalRays,
                   molotov_spread__dropMaxHeight, square(molotov_fire__minDistanceBetween))
+
+def get_random_spread_dir(dir : float3; yaw, pitch : float2)
+  var dirAngles = dir_to_angles(dir)
+  dirAngles.x += deg_to_rad(rnd_float(yaw.x, yaw.y))
+  dirAngles.y += deg_to_rad(rnd_float(pitch.x, pitch.y))
+  return normalize(angles_to_dir(dirAngles))
+
+[es(tag=server, on_appear)]
+def explosion_spread_static_dir_init(evt : Event;
+                                     explosion_spread__staticDir : float3;
+                                     var on_explosion__dir : float3&)
+  on_explosion__dir = explosion_spread__staticDir
+
+[es(tag=server, on_appear, after=explosion_spread_static_dir_init)]
+def explosion_spread_static_pos_init(evt : Event;
+                                     explosion_spread__stepBack : float;
+                                     on_explosion__dir : float3;
+                                     var on_explosion__pos : float3&)
+  on_explosion__pos = on_explosion__pos - on_explosion__dir * explosion_spread__stepBack
+
+[es(tag=server, no_order)]
+def explosion_spread_update(info : UpdateStageInfoAct;
+                            eid : EntityId;
+                            on_explosion__owner : EntityId;
+                            on_explosion__gunPropsId : int;
+                            on_explosion__shellId : int;
+                            on_explosion__pos : float3;
+                            on_explosion__dir : float3;
+                            explosion_spread__createOnTrace : string;
+                            explosion_spread__minDistanceBetween : float;
+                            explosion_spread__upLengthMult : float;
+                            explosion_spread__downLengthMult : float;
+                            explosion_spread__downDirAdd : float;
+                            explosion_spread__yaw : float2;
+                            explosion_spread__pitch : float2;
+                            explosion_spread__length : float2;
+                            var explosion_spread__traceCount : int&)
+  if explosion_spread__traceCount <= 0
+    destroyEntity(eid)
+    return
+  explosion_spread__traceCount -= 1
+
+  let shellInfo = [[MolotovShellInfo ownerEid   = on_explosion__owner,
+                                     gunPropsId = on_explosion__gunPropsId,
+                                     shellId    = on_explosion__shellId]]
+  var fires : array<float3>
+  var attached_fires : array<tuple<EntityId; float3> >
+  let dir = get_random_spread_dir(on_explosion__dir, explosion_spread__yaw, explosion_spread__pitch)
+  let len = rnd_float(explosion_spread__length.x, explosion_spread__length.y)
+  let upLen = len * explosion_spread__upLengthMult
+
+  if !create_fire_on_trace(on_explosion__pos, dir, upLen, explosion_spread__createOnTrace, shellInfo, square(explosion_spread__minDistanceBetween), fires, attached_fires)
+    let pos = on_explosion__pos + dir * upLen
+    let downDir = normalize(float3(dir.x, -abs(dir.y) + explosion_spread__downDirAdd, dir.z))
+    let downLen = len * explosion_spread__downLengthMult
+    create_fire_on_trace(pos, downDir, downLen, explosion_spread__createOnTrace, shellInfo, square(explosion_spread__minDistanceBetween), fires, attached_fires)

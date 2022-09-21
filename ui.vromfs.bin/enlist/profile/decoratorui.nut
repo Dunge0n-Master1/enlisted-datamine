@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { doesLocTextExist } = require("dagor.localize")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.8)
 let spinner = require("%ui/components/spinner.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
@@ -35,13 +34,14 @@ let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let {
-  unseenDecorators, markSeenDecorator, hasUnseenPortraits, hasUnseenNickFrames
+  seenDecorators, unopenedPortraits, unopenedNickFrames, markSeenDecorator, markDecoratorsOpened,
+  hasUnseenPortraits, hasUnseenNickFrames
 } = require("unseenProfileState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 let { playerRank } = require("%enlist/profile/rankState.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
-
+let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 
 
 const PORTRAIT_WND_UID = "SelectPortraitWnd"
@@ -125,12 +125,12 @@ let function nickFrameListUi() {
   let nickFrameList = [null].extend(nickFramesCfgAvailable.value)
   let chosenGuid = chosenNickFrame.value?.guid ?? ""
   let curPurchase = decoratorInPurchase.value
-  let unseen = unseenDecorators.value
+  let unseen = seenDecorators.value?.unseen ?? {}
   let chosen = nickFrameList.findvalue(@(v) v?.guid == chosenGuid)
   return {
     watch = [
       chosenNickFrame, nickFramesCfgAvailable, availNickFrames,
-      userInfo, unseenDecorators, decoratorInPurchase
+      userInfo, seenDecorators, decoratorInPurchase
     ]
     size = [nickFrameListWidth, flex()]
     flow = FLOW_VERTICAL
@@ -193,7 +193,7 @@ let function nickFrameListUi() {
                 : null
               curPurchase != guid ? null
                 : spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
-              !isUnseen ? null : unseenSignal
+              !isUnseen ? null : smallUnseenNoBlink
             ]
           }
         }), {
@@ -270,10 +270,10 @@ let function portraitListUi() {
   let availList = availPortraits.value
   let portraitList = [basePortrait].extend(portraitCfgAvailable.value)
   let curPurchase = decoratorInPurchase.value
-  let unseen = unseenDecorators.value
+  let unseen = seenDecorators.value?.unseen ?? {}
   let chosenGuid = chosenPortrait.value?.guid ?? ""
   return {
-    watch = [portraitCfgAvailable, availPortraits, decoratorInPurchase, unseenDecorators, chosenPortrait]
+    watch = [portraitCfgAvailable, availPortraits, decoratorInPurchase, seenDecorators, chosenPortrait]
     size = [portraitListWidth, flex()]
     flow = FLOW_VERTICAL
     gap = bigOffset
@@ -326,7 +326,7 @@ let function portraitListUi() {
               mkPortraitFrame(children, onClick, onHover, iconCtor)
               curPurchase != guid ? null
                 : spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
-              !isUnseen ? null : unseenSignal
+              !isUnseen ? null : smallUnseenNoBlink
             ]
           }
         }), {
@@ -341,7 +341,7 @@ let function portraitListUi() {
   }
 }
 
-let mkChangeNickFrameBtn = @(hasUnseen) watchElemState(@(sf) {
+let mkChangeNickFrameBtn = @(hasUnseen, hasUnopened) watchElemState(@(sf) {
   rendObj = ROBJ_BOX
   flow = FLOW_HORIZONTAL
   gap = bigPadding
@@ -350,7 +350,10 @@ let mkChangeNickFrameBtn = @(hasUnseen) watchElemState(@(sf) {
   borderWidth = [0,0,hdpx(1),0]
   borderColor = borderColor(sf)
   behavior = Behaviors.Button
-  onClick = @() openFrameWnd(NICKFRAME_WND_UID, nickFrameListUi)
+  function onClick() {
+    markDecoratorsOpened(unopenedNickFrames.value)
+    openFrameWnd(NICKFRAME_WND_UID, nickFrameListUi)
+  }
   children = [
     txt({
       text = loc("profile/changeNameDecorator")
@@ -360,7 +363,7 @@ let mkChangeNickFrameBtn = @(hasUnseen) watchElemState(@(sf) {
     !hasUnseen ? null
       : {
           size = [0, flex()]
-          children = unseenSignal
+          children = hasUnopened ? smallUnseenBlink : smallUnseenNoBlink
         }
   ]
 })
@@ -375,18 +378,22 @@ let decoratorBlock = {
       let portraitCfg = (portraitsConfig.value ?? [])
         .findvalue(@(p) p.guid == chosenPortrait.value?.guid) ?? basePortrait
       let children = [ mkPortraitIcon(portraitCfg) ]
-      let onClick = @() openFrameWnd(PORTRAIT_WND_UID, portraitListUi)
+      let function onClick() {
+        markDecoratorsOpened(unopenedPortraits.value)
+        openFrameWnd(PORTRAIT_WND_UID, portraitListUi)
+      }
       let addObject = @(sf) mkIcon(fa["pencil"], borderColor(sf)).__update(iconParam)
       let hasUnseen = hasUnseenPortraits.value
+      let hasUnopened = unopenedPortraits.value.len() > 0
       return {
-        watch = [chosenPortrait, portraitsConfig, hasUnseenPortraits]
+        watch = [chosenPortrait, portraitsConfig, hasUnseenPortraits, unopenedPortraits]
         children = [
           mkPortraitFrame(children,
             onClick,
             @(on) setTooltip(on ? loc("profile/changePortraitDecorator") : null),
             addObject
-          ),
-          hasUnseen ? unseenSignal : null
+          )
+          !hasUnseen ? null : hasUnopened ? smallUnseenBlink : smallUnseenNoBlink
         ]
       }
     }
@@ -396,8 +403,12 @@ let decoratorBlock = {
       let userName = userInfo.value?.nameorig ?? ""
       let nickName = nickFrame?.framedNickName(userName) ?? userName
       let hasUnseen = hasUnseenNickFrames.value
+      let hasUnopened = unopenedNickFrames.value.len() > 0
       return {
-        watch = [chosenNickFrame, nickFramesConfig, userInfo, hasUnseenNickFrames]
+        watch = [
+          chosenNickFrame, nickFramesConfig, userInfo, hasUnseenNickFrames,
+          unopenedNickFrames
+        ]
         flow = FLOW_VERTICAL
         gap = fsh(2)
         valign = ALIGN_CENTER
@@ -406,7 +417,7 @@ let decoratorBlock = {
             text = nickName
             color = titleTxtColor
           }).__update(body_txt)
-          mkChangeNickFrameBtn(hasUnseen)
+          mkChangeNickFrameBtn(hasUnseen, hasUnopened)
           !is_pc || isChineseVersion ? null
             : Bordered(loc("profile/changeNick"), @() openUrl(CHANGE_NICK_URL),
                 {

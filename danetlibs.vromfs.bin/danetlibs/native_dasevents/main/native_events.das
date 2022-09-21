@@ -129,3 +129,20 @@ struct BloodPuddlesSplashEmmiterEvent
   dir : float3
   size : float
   ri_desc_handle : riex_handle_t
+
+[cpp_event(unicast, with_scheme)]
+struct EventMeleeAction
+  actorEid : EntityId
+  propsId : int
+
+[cpp_event(unicast, with_scheme)]
+struct CmdStartSecAnim
+  startTime : float
+
+[cpp_event(unicast, with_scheme)]
+struct CmdStopSecAnim
+  immediately : bool
+
+[cpp_event(broadcast, with_scheme)]
+struct EventAnyEntityResurrected
+  eid : EntityId

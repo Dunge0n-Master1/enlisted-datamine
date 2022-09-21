@@ -102,8 +102,6 @@ base_m4a3e8_76w_sherman{
       turretName:t="turret_02"
       gun:t="m4a3e8_76w_sherman_turret_02_7_62mm_m1919a4"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
@@ -111,8 +109,6 @@ base_m4a3e8_76w_sherman{
       turretName:t="turret_03"
       gun:t="m4a3e8_76w_sherman_turret_03_12_7mm_m2_hb"
       barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

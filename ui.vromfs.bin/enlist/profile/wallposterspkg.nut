@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let exclamation = require("%enlist/components/exclamation.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")()
 let { doesLocTextExist } = require("dagor.localize")
 let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { borderColor } = require("profilePkg.nut")
 let {
   bigPadding, smallPadding, rowBg, disabledTxtColor, smallOffset, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 
 
 let wpSize = hdpxi(190)
@@ -107,7 +107,7 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
             ]
           }
           isHidden ? exclamation().__update({ hplace = ALIGN_RIGHT }) : null
-          isUnseen ? unseenSignal : null
+          isUnseen ? smallUnseenNoBlink : null
         ]
       }
     ]

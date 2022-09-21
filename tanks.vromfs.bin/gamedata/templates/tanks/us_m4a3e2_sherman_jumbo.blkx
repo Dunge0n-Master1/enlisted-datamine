@@ -19,6 +19,7 @@ us_m4a3e2_sherman_jumbo{
 us_m4a3e2_sherman_jumbo_common{
   _extends:t="base_m4a3e2_sherman_jumbo"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.2
 
   "bullet_holes__ignoreCollisionNodes:array"{
@@ -202,6 +203,9 @@ us_m4a3e2_sherman_jumbo_rhino_premium{
     }
   }
 
+  "attach_decorators__entities:list<eid>"{
+  }
+
   "attach_decorators__templates:array"{
 
     "templates:object"{
@@ -308,19 +312,19 @@ us_m4a3e2_sherman_jumbo_rhino_premium{
 
     "templates:object"{
       relativeTm:m=[[0.263327, -0.964805, 0.000856065] [0.965381, 0.263393, 0.000652188] [-0.000855406, 0.000654602, 0.999961] [-0.67659, 1.46536, -1.48223]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[0.0428182, -0.998718, 0.000886788] [0.99885, 0.0428361, 0.000847413] [-0.000884696, 0.000849742, 1.0] [-0.188766, 1.55225, -1.49093]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.277033, -0.960343, 0.000690751] [-0.96076, 0.276824, -0.00245649] [0.00216835, -0.00134415, -0.999973] [-1.18185, 1.43432, -1.33959]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
   }

@@ -4,7 +4,7 @@ let {sound_play} = require("sound")
 let auth  = require("auth")
 let msgbox = require("%enlist/components/msgbox.nut")
 let urlText = require("%enlist/components/urlText.nut")
-let userInfo = require("%enlSqGlob/userInfo.nut")
+let {userInfoUpdate} = require("%enlSqGlob/userInfoState.nut")
 let {getLoginActions} = require("loginActions.nut")
 let {exit_game} = require("app")
 let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut")
@@ -15,7 +15,7 @@ let { isKZVersion } = require("chineseKongZhongVersion.nut")
 
 let function onSuccess(state) {
   let authResult = state.stageResult.auth_result
-  userInfo.update({
+  userInfoUpdate({
     userId = authResult.userId
     userIdStr = authResult.userId.tostring()
     name = authResult.name

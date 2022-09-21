@@ -272,3 +272,11 @@ it_tnt_block{
   item__template:t="it_tnt_block"
   item__weapTemplate:t="it_tnt_block"
 }
+
+jap_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_jap_char"
+  collres__res:t="tnt_charge_collision"
+  item__template:t="jap_tnt_block"
+  item__weapTemplate:t="jap_tnt_block"
+}

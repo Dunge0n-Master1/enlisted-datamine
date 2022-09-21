@@ -2,9 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let auth_friends = require("%enlist/ps4/auth_friends.nut")
-let ps4 = require("ps4")
 let pswa = require("ps4.webapi")
-let { friends, blocked } = require("%enlist/ps4/state.nut")
+let { psn_friendsUpdate, psn_blocked_users, psn_blocked_usersUpdate } = require("%enlist/ps4/psn_state.nut")
 let loginState = require("%enlSqGlob/login_state.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { updatePresences, presences } = require("%enlist/contacts/contactPresence.nut")
@@ -47,7 +46,7 @@ let function onGetPsnFriends(pfriends) {
 
     updateUids(psn2uid)
     updatePresences(updPresences)
-    friends(result)
+    psn_friendsUpdate(result)
     psnApprovedUids(uidsList)
 
     eventbus.send("PSNAuthContactsRecieved", null)
@@ -57,8 +56,8 @@ let function onGetPsnFriends(pfriends) {
 }
 
 let function onGetBlockedUsers(users) {
-  let unblockedList = blocked.value.filter(@(u) users.findvalue(@(u2) u.userId == u2.userId) == null)
-  let blockedList = users.filter(@(u) blocked.value.findvalue(@(u2) u.userId == u2.userId) == null)
+  let unblockedList = psn_blocked_users.value.filter(@(u) users.findvalue(@(u2) u.userId == u2.userId) == null)
+  let blockedList = users.filter(@(u) psn_blocked_users.value.findvalue(@(u2) u.userId == u2.userId) == null)
 
   foreach (u in unblockedList)
     voiceApi.unmute_player_by_uid(u.userId.tointeger())
@@ -66,7 +65,7 @@ let function onGetBlockedUsers(users) {
   foreach (u in blockedList)
     voiceApi.mute_player_by_uid(u.userId.tointeger())
 
-  blocked(users)
+  psn_blocked_usersUpdate(users)
 
   let unknownPsnUids = []
   let knownUids = []
@@ -113,7 +112,7 @@ let function onPresenceUpdate(accountId) {
     updatePresences({ [userId] = { online = !(presences.value[userId]?.online ?? false) }})
 }
 
-let function onFriendsUpdate() {
+let function onFriendsUpdate(_) {
   profile.request_psn_friends(onGetPsnFriends)
 }
 
@@ -140,16 +139,16 @@ let function request_blocked_users(callback) {
   profile.request_blocked_users(profile_cb)
 }
 
-let function onBlocklistUpdate() {
+let function onBlocklistUpdate(_) {
   request_blocked_users(onGetBlockedUsers)
 }
 
 isInBattleState.subscribe(function(val) {
   if (val)
-    ps4.set_presence_callback(null)
+    eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
   else if (loginState.isLoggedIn.value) {
     profile.request_psn_friends(onGetPsnFriends) //update psn friends presences
-    ps4.set_presence_callback(onPresenceUpdate)
+    eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
   }
 })
 
@@ -157,14 +156,14 @@ loginState.isLoggedIn.subscribe(function(v) {
   if (v) {
     profile.request_psn_friends(onGetPsnFriends)
     request_blocked_users(onGetBlockedUsers)
-    ps4.set_presence_callback(onPresenceUpdate)
-    ps4.set_friends_list_callback(onFriendsUpdate)
-    ps4.set_blocklist_callback(onBlocklistUpdate)
+    eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
+    eventbus.subscribe("ps4.friends_list_update", onFriendsUpdate)
+    eventbus.subscribe("ps4.blocklist_update", onBlocklistUpdate)
     pswa.subscribe_to_push_events()
   } else {
-    ps4.set_presence_callback(null)
-    ps4.set_friends_list_callback(null)
-    ps4.set_blocklist_callback(null)
+    eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
+    eventbus.unsubscribe("ps4.friends_list_update", onFriendsUpdate)
+    eventbus.unsubscribe("ps4.blocklist_update", onBlocklistUpdate)
     pswa.unsubscribe_from_push_events()
   }
 })

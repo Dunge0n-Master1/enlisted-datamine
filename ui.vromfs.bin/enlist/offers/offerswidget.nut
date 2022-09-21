@@ -14,7 +14,7 @@ let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent
 } = require("%enlist/gameModes/eventModesState.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { needFreemiumStatus, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
@@ -22,6 +22,9 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { eventForcedUrl, isPromoteCampaign } = require("%enlist/unlocks/eventsTaskState.nut")
 let openUrl = require("%ui/components/openUrl.nut")
+let premiumWnd = require("%enlist/currency/premiumWnd.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
+
 
 enum WidgetType {
   FREEMIUM
@@ -29,6 +32,10 @@ enum WidgetType {
   EVENT_BASE
   EVENT_SPECIAL
   URL
+}
+
+let customOfferActions = {
+  ["PREMIUM"] = @(_specOffer) premiumWnd()
 }
 
 const SWITCH_SEC = 8.0
@@ -122,7 +129,8 @@ let widgetData = {
   [WidgetType.OFFER] = {
     ctor = @(specOffer) @(sf) mkOfferInfo(sf, specOffer)
     onClick = function(specOffer) {
-      offersWindow(specOffer)
+      let action = customOfferActions?[specOffer.offerType] ?? offersWindow
+      action(specOffer)
       let { discountInPercent = 0, shopItem = null } = specOffer
       let { guid = "" } = shopItem
       sendBigQueryUIEvent("open_offer", null, {
@@ -156,9 +164,8 @@ let widgetList = Computed(function() {
   if (needFreemiumStatus.value)
     list.append({
       id = WidgetType.FREEMIUM
-      data = gameProfile.value?.campaigns[curCampaign.value].title
-        ?? curCampaign.value
-      backImage = "ui/uiskin/offers/freemium_widget.jpg"
+      data = gameProfile.value?.campaigns[curCampaign.value].title ?? curCampaign.value
+      backImage = getConfig(campaignConfigGroup.value)?.widgetImage ?? defOfferImg
     })
 
   list.extend(allActiveOffers.value.map(@(specOffer) {
@@ -167,13 +174,11 @@ let widgetList = Computed(function() {
     backImage = specOffer?.widgetImg ?? defOfferImg
   }))
 
-  if (hasBaseEvent.value) {
-    let { image = null } = promotedEvent.value
+  if (hasBaseEvent.value)
     list.append({
       id = WidgetType.EVENT_BASE
-      backImage = image ?? defOfferImg
+      backImage = promotedEvent.value?.image ?? defOfferImg
     })
-  }
 
   list.extend(eventForcedUrl.value.map(@(v) {
     id = WidgetType.URL
@@ -181,14 +186,12 @@ let widgetList = Computed(function() {
     backImage = v?.image ?? defExtUrlImg
   }))
 
-  if (hasSpecialEvent.value && hasEventData.value && isPromoteCampaign.value) {
-    let { heading = null } = headingAndDescription.value
+  if (hasSpecialEvent.value && hasEventData.value && isPromoteCampaign.value)
     list.append({
       id = WidgetType.EVENT_SPECIAL
       data = offersShortTitle.value
-      backImage = heading?.v ?? defOfferImg
+      backImage = headingAndDescription.value?.heading.v ?? defOfferImg
     })
-  }
 
   return list
 })

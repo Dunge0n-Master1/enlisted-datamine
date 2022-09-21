@@ -9,7 +9,6 @@ let roomMemberStatuses = require("roomMemberStatuses.nut")
 let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { memberName, mkStatusImg } = require("components/memberComps.nut")
 
-
 let PORTRAIT_SIZE = hdpx(140)
 
 let mkText = @(text, color = defTxtColor) {
@@ -51,8 +50,8 @@ let mkStatusRow = @(statusCfg) mkTextWithIcon(
   loc(statusCfg.locId))
 
 let function mkPlayerTooltip(player) {
-  let { public } = player
-  let { army = null, campaign = null, status = null, portrait = "" } = public
+  let { public, nameText } = player
+  let { army = null, campaign = null, status = null, portrait = "", nickFrame = "" } = public
   let statusCfg = roomMemberStatuses?[status]
   return tooltipBox({
      flow = FLOW_HORIZONTAL
@@ -63,7 +62,7 @@ let function mkPlayerTooltip(player) {
          flow = FLOW_VERTICAL
          gap = bigPadding
          children = [
-           memberName(player)
+           memberName(nameText, nickFrame)
            statusCfg == null ? null : mkStatusRow(statusCfg)
            campaign == null ? null : mkTextWithIcon(smallCampaignIcon(campaign), loc($"{campaign}/full"))
            army == null ? null : mkTextWithIcon(mkArmySimpleIcon(army, hdpx(20), { margin = 0 }), loc(army))

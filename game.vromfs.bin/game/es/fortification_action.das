@@ -19,7 +19,16 @@ def update_building_preview_colors(selectedObject : EntityId; builderPos : float
                                                                                            previewTeam : int;
                                                                                            previewColor : float3;
                                                                                            var semi_transparent__placingColor : float3&;
-                                                                                           var semi_transparent__visible : bool&)
+                                                                                           var semi_transparent__visible : bool&;
+                                                                                           var animchar_render__enabled : bool?;
+                                                                                           preview_render__enabled : bool = true)
+    if animchar_render__enabled != null
+      *animchar_render__enabled = preview_render__enabled
+
+    if !preview_render__enabled
+      semi_transparent__visible = false
+      return
+
     if eid == selectedObject
       semi_transparent__visible = true
       if previewTeam == engineer_team
@@ -93,8 +102,7 @@ def find_destroyable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
     previewEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
     return !!previewEid
   return previewEid
-
-[es(tag=gameClient, REQUIRE=input__enabled, after=hero_human_use_human_object_es, after=hero_human_use_stationary_gun_object_es, after=hero_human_pre_use_object_es, before=hero_human_final_use_object_sync)]
+[es(tag=gameClient, REQUIRE=watchedByPlr, after=hero_human_use_human_object_es, after=hero_human_use_stationary_gun_object_es, after=hero_human_pre_use_object_es, before=hero_human_final_use_object_sync)]
 def find_bilding_action_target(info : ParallelUpdateFrameDelayed;
                                bindedCamera : EntityId;
                                team : int;
@@ -102,14 +110,14 @@ def find_bilding_action_target(info : ParallelUpdateFrameDelayed;
                                human_use_object__nodeId : int;
                                human_use_object__useDist : float;
                                animchar : AnimcharBaseComponent;
-                               input__enabled : bool;
                                transform : float3x4;
                                isInVehicle : bool = false;
                                human_binocular__mode : bool = false;
                                var human_use_object__selectedObject : EntityId&;
                                var human_use_object__selectedBuilding : EntityId&)
-  if !input__enabled
+  if has(bindedCamera, "spectator")
     return
+
   let isEngineer = !isInVehicle && has(human_weap__currentGunEid, "previewEid")
   if isInVehicle
     update_building_preview_colors(human_use_object__selectedBuilding, transform[3], isEngineer, team)

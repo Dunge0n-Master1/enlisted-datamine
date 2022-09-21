@@ -1,24 +1,32 @@
 ussr_t_34_85_zis_53{
   _extends:t="base_t_34_85_zis_53"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_t34_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.2
+
+  "vehicle_seats__seatsProvideOrder:tag"{
+  }
 
   "vehicle_seats__seats:shared:array"{
 
     "seats:object"{
-      name:t="driver"
-      locName:t="vehicle_seats/driver"
-      seatOwnsEntityControl:b=yes
-      attachNode:t="driver"
-      ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
-      seatComponent:t="isDriver"
-      nextSeat:t="main_gunner"
+      name:t="commander"
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
       shouldHideOwner:b=yes
-      receiveDamageFromDMPart:t="driver"
-      cameraNodeName:t="bone_camera_driver"
-      cameraOffset:p3=0.15, -0.0, -0.0
-      cockpitTemplate:t="ussr_t_34_85_zis_53_driver_cockpit"
+      maxPosWithOpenHatch:r=0.7
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, -0.35, 0.05]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="commander"
+      cameraNodeName:t="bone_turret"
+      cockpitTemplate:t="ussr_t_34_85_zis_53_commander_cockpit"
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
+        node:t="hatch_02"
+      }
     }
 
     "seats:object"{
@@ -41,22 +49,19 @@ ussr_t_34_85_zis_53{
     }
 
     "seats:object"{
-      name:t="commander"
-      locName:t="vehicle_seats/commander"
-      attachNode:t="commander"
-      shouldHideOwner:b=yes
-      maxPosWithOpenHatch:r=0.7
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.15, -0.35, 0.05]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
       seatComponent:t="isDriver"
-      receiveDamageFromDMPart:t="commander"
-      cameraNodeName:t="bone_turret"
-      cockpitTemplate:t="ussr_t_34_85_zis_53_commander_cockpit"
-
-      "hatchNodes:array"{
-        node:t="hatch_01"
-        node:t="hatch_02"
-      }
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+      cameraOffset:p3=0.15, -0.0, -0.0
+      cockpitTemplate:t="ussr_t_34_85_zis_53_driver_cockpit"
     }
 
     "seats:object"{
@@ -191,5 +196,25 @@ ussr_t_34_85_zis_53_suvorov_premium_skin{
     "t_34_85_zis_53_gun_c*:object"{
       "t_34_85_zis_53_skin_gun_c*":t="camo_skin_tex"
     }
+  }
+}
+
+ussr_t_34_85_zis_53_tutorial{
+  _extends:t="ussr_t_34_85_zis_53"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      fill:b=yes
+    }
+  }
+
+  "heroTutorialVehicle:tag"{
   }
 }

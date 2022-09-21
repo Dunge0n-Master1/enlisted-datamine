@@ -27,7 +27,7 @@ let { bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize, detailsH
 let { curSelectedItem } = require("%enlist/showState.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
 
@@ -104,7 +104,7 @@ let function purchaseBtnUi() {
   if (offerContainer.len() > 0)
     return null
 
-  let { armyLevel = 0, isFreemium = false } = requirements
+  let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = requirements
   let { level = 0 } = curArmyData.value
   let btnCtor = armyLevel > level ? Flat : PrimaryFlat
   let crateContent = shopItemContentCtor(shopItemData)
@@ -116,7 +116,7 @@ let function purchaseBtnUi() {
     children = !purchaseIsPossible.value ? null
       : btnCtor(loc("btn/buy"),
           function() {
-            if (isFreemium && needFreemiumStatus.value)
+            if (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
               return shopItemFreemiumMsgBox(@() shopItem(null))
 
             if (armyLevel > level)
@@ -148,7 +148,6 @@ let function purchaseBtnUi() {
   }
 }
 
-let vehicleDetailsSize = [hdpx(450), SIZE_TO_CONTENT]
 let vehicleDetails = @() {
   watch = curSelectedItem
   flow = FLOW_VERTICAL
@@ -161,9 +160,9 @@ let vehicleDetails = @() {
         text = getItemName(curSelectedItem.value)
       }.__update(h2_txt)
     })
-    detailsStatusTier(curSelectedItem.value, true)
-    mkVehicleDetails(curSelectedItem.value, vehicleDetailsSize)
-    mkUpgrades(curSelectedItem.value, vehicleDetailsSize)
+    detailsStatusTier(curSelectedItem.value)
+    mkVehicleDetails(curSelectedItem.value, true)
+    mkUpgrades(curSelectedItem.value)
   ]
 }
 
@@ -222,7 +221,7 @@ let shopItemsScene = @() {
           valign = ALIGN_BOTTOM
           children = isSelectedVehicle.value
             ? vehicleDetails
-            : mkDetailsInfo(curSelectedItem, false)
+            : mkDetailsInfo(curSelectedItem)
         }
       ]
     }

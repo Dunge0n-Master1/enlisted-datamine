@@ -33,7 +33,6 @@ def weapon_sounds_verify_ecs_templates(evt : Event)
     "sound_bank_preset_state__isValid" => ecs_type_hash(type<bool>);
     "gun_sound__isWatched" => ecs_type_hash(type<bool>)
   }})
-  req_unique_event_handler("CmdGunSoundSwitchFiringMode")
 
   // play_projectile_hit_scene_sound (play_projectile_hit_scene_sound.das)
   req_template({{

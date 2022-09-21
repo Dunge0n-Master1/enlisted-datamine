@@ -18,9 +18,9 @@ let { isTestDriveProfileInProgress, startSquadTestDrive } = require("%enlist/bat
 let { Bordered, Purchase } = require("%ui/components/textButton.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = btnSizeBig[1] })
 let { mkPrice } = require("%enlist/shop/mkShopItemPrice.nut")
-let {
-  allActiveOffers, curOfferIdx, isSpecOffersOpened
+let { allActiveOffers, curOfferIdx, isSpecOffersOpened
 } = require("%enlist/offers/offersState.nut")
+let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 
 
@@ -157,7 +157,7 @@ let function buySquadWnd() {
   if (viewData.value == null)
     return null
 
-  let { armyId, squadCfg, isFreemium = false } = viewData.value
+  let { armyId, squadCfg, campaignGroup = CAMPAIGN_NONE } = viewData.value
   return {
     watch = viewData
     rendObj = ROBJ_BOX
@@ -167,7 +167,11 @@ let function buySquadWnd() {
       mkBackWithImage(squadCfg?.image, false, false),
       [
         mkSquadBodyBig(squadCfg.__merge({
-            armyId, isPrimeSquad = true, hasReceived = false, isFreemium }),
+            armyId
+            isPrimeSquad = true
+            hasReceived = false
+            campaignGroup
+          }),
           primeDescBlock(squadCfg),
           mkButtonsBlock(viewData.value))
         mkPromoSquadIcon(squadCfg?.icon, false)

@@ -1,4 +1,3 @@
-options no_unused_function_arguments = false
 options no_aot = true
 
 module logerr_once shared
@@ -10,7 +9,7 @@ require daslib/templates_boost
 require DagorSystem public
 
 
-[tag_function(logerr_once_tag)]
+[tag_function(logerr_once_tag), unused_argument(message)]
 def logerr_once(message : string) {}
 
 // convert logerr_once(message) to

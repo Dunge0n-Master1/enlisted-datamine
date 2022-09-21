@@ -208,14 +208,27 @@ def human_input_aim_in_crawling_es(info : UpdateStageUpdateInput;
 
 [es(tag=input, after=human_input_es)]
 def human_input_disable_toggle_aim_es(info : UpdateStageUpdateInput;
+                                      isInVehicle : bool;
                                       human_input__aim1 : int;
                                       human_input__zoom : int;
                                       human_weap__currentGunEid : EntityId;
                                       human_input__forceAim : bool;
+                                      human_anim__vehicleSelected : EntityId;
+                                      human_vehicle__isShootingPassenger : bool;
                                       var human_net_phys : HumanActor)
   if get_bool(human_weap__currentGunEid, "gun__disableToggleAim") ?? false
-    let isAim1 = is_action_active(uint16(human_input__aim1)) ? get_digital_action_state(uint16(human_input__aim1)).bState : false
-    let isZoom = is_action_active(uint16(human_input__zoom)) ? get_digital_action_state(uint16(human_input__zoom)).bState : false
+    var vehicleInputZoomToggle : int? = null
+    var vehicleInputZoom : int? = null
+    if isInVehicle
+      query(human_anim__vehicleSelected) <| $ [es] (vehicle_input__zoomToggle : int?; vehicle_input__zoom : int?)
+        vehicleInputZoomToggle = vehicle_input__zoomToggle
+        vehicleInputZoom = vehicle_input__zoom
+
+    let inputAim1 = human_vehicle__isShootingPassenger ? vehicleInputZoomToggle ?? human_input__aim1 : human_input__aim1
+    let inputZoom = human_vehicle__isShootingPassenger ? vehicleInputZoom ?? human_input__zoom : human_input__zoom
+
+    let isAim1 = is_action_active(uint16(inputAim1)) ? get_digital_action_state(uint16(inputAim1)).bState : false
+    let isZoom = is_action_active(uint16(inputZoom)) ? get_digital_action_state(uint16(inputZoom)).bState : false
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit((HumanPhysControlType HCT_ZOOM_VIEW), isAim1 || isZoom || human_input__forceAim)
 
 

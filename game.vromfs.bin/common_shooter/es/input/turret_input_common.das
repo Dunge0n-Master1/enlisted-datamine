@@ -16,6 +16,7 @@ def calc_aim_pos(aim_angles : float2)
 
 def apply_turret_input(turret_control__gunEids : EidList;
                        aim : AnalogStickAction;
+                       zoomToggle : DigitalAction;
                        zoom : DigitalAction)
   var isFirstAimPosVaild = false
   var firstAimPos = float3()
@@ -29,8 +30,7 @@ def apply_turret_input(turret_control__gunEids : EidList;
       assume aimAngles = turret_input__aimAngles
       assume aimPos = turret_input__aimPos
 
-      if zoom.bActive && turret__canZoom
-        turret_input__isZoom = zoom.bState
+      turret_input__isZoom = turret__canZoom && (zoomToggle.bActive && zoomToggle.bState || zoom.bActive && zoom.bState)
 
       if aim.bActive && !turret_input__firstUpdate
         let dx = aim.x * PI

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt, h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { missionName } = require("%enlSqGlob/missionParams.nut")
+let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let {showBriefingForTime, showBriefing, briefingState} = require("%ui/hud/state/briefingState.nut")
 let {localPlayerTeamInfo, localPlayerTeamIcon} = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
@@ -182,9 +182,9 @@ let function briefingComp() {
 }
 
 let missionTitle = @() {
-  watch = missionName
+  watch = [missionName, missionType]
   rendObj = ROBJ_TEXT
-  text = loc(missionName.value)
+  text = loc(missionName.value, { mission_type = loc($"missionType/{missionType.value}") })
 }.__update(h1_txt, strokeStyle)
 
 let titledBriefing = {

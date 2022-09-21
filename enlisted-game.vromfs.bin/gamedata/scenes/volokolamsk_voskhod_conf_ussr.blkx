@@ -2653,7 +2653,7 @@ entity{
 }
 
 entity{
-  _template:t="briefing_invasion"
+  _template:t="briefing_confrontation"
   mission_name:t="volokolamsk_voskhod_conf"
 
   "loading_images:list<t>"{

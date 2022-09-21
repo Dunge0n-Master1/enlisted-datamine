@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let userInfo = require("%enlSqGlob/userInfo.nut")
+let {userInfo, userInfoUpdate} = require("%enlSqGlob/userInfoState.nut")
 let {hideAllModalWindows} = require("%ui/components/modalWindows.nut")
 let steam = require("steam")
 let epic = require("epic")
@@ -18,7 +18,7 @@ let usePCLogin = get_setting_by_blk_path("debug")?.usePCLogin ?? false
 let function logOut() {
   log("logout")
   hideAllModalWindows()
-  userInfo.update(null)
+  userInfoUpdate(null)
 }
 
 console_register_command(logOut, "app.logout")

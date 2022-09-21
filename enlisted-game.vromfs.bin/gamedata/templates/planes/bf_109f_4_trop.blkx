@@ -74,11 +74,29 @@ bf_109f_4_trop{
       gun:t="planegun_bf_109f_4_trop_20mm_mg15120_01"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_bf_109f_4_trop_7_92mm_mg17{
   item__name:t="guns/gunmg17"
-  gun__blk:t="content/enlisted/gamedata/weapons/bf_109f_4_trop/7_92mm_mg17.blk"
+  gun__blk:t="gamedata/weapons/bf_109f_4_trop/7_92mm_mg17.blk"
   gun__shotFreq:r=16.66
   gun__locName:t="gunmg17"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -104,31 +122,31 @@ base_bf_109f_4_trop_7_92mm_mg17{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
         name:t="v"
         type:t="ap_t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
         name:t="s"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_s_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
         name:t="s"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
         name:t="v"
         type:t="ap_i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
         name:t="v"
         type:t="he_ball"
       }
@@ -138,7 +156,7 @@ base_bf_109f_4_trop_7_92mm_mg17{
 
 base_bf_109f_4_trop_20mm_mg15120{
   item__name:t="guns/cannonmg15120"
-  gun__blk:t="content/enlisted/gamedata/weapons/bf_109f_4_trop/20mm_mg15120.blk"
+  gun__blk:t="gamedata/weapons/bf_109f_4_trop/20mm_mg15120.blk"
   gun__shotFreq:r=11.66
   gun__locName:t="cannonmg15120"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -164,25 +182,25 @@ base_bf_109f_4_trop_20mm_mg15120{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
         name:t="spur"
         type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
         name:t="spur"
         type:t="i_t"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
         name:t="pzgr"
         type:t="aphe"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
         name:t="mgesch"
         type:t="he_i_mine"
       }
@@ -223,6 +241,6 @@ bf_109f_4_trop_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="bf_109f_4_trop_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/bf_109f_4_trop.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/bf_109f_4_trop.blk"
+  plane_anim__blk:t="gamedata/units/bf_109f_4_trop.blk"
+  plane_sight__blk:t="gamedata/units/bf_109f_4_trop.blk"
 }

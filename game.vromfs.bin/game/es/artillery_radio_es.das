@@ -12,6 +12,7 @@ require game.utils.hero
 require EnlistedWalkerai
 require DagorSystem
 require game.utils.team
+require game.es.squad_order_common
 
 [es(tag=server, on_appear, track=human_equipment__slots)]
 def artillery_radio_track_equipment(evt : Event; human_equipment__slots : Object; var human_weap__radioEid : EntityId&)
@@ -88,10 +89,11 @@ def radio_mode_change_pose_on_client(evt : Event;
     human_input__standState = radioMode__prevPose
 
 def test_artillery_in_battle_area(pos_start, pos_end : float3; team : int) : bool
-  if distance_sq(pos_start, pos_end) < VERY_SMALL_NUMBER
+  let dist2 = distance_sq(pos_start, pos_end)
+  if dist2 < VERY_SMALL_NUMBER
     return has_active_human_battle_area_at(pos_start, team)
   else
-    return is_segment_in_active_human_battle_area(pos_start, pos_end, team)
+    return dist2 < 1e10 && is_segment_in_active_human_battle_area(pos_start, pos_end, team)
 
 [es(tag=server)]
 def request_artillery_strike(evt : RequestArtilleryStrikeAtPos;
@@ -99,6 +101,7 @@ def request_artillery_strike(evt : RequestArtilleryStrikeAtPos;
                              human_weap__radioMode : bool;
                              squad_member__squad : EntityId const)
   if !test_artillery_in_battle_area(evt.pos, evt.posEnd, team)
+    print("Ignore artillery strike request for invalid pos/segment {evt.pos} {evt.posEnd}")
     return
   let playerEid = get_Eid(evt.owner, "possessedByPlr") ?? INVALID_ENTITY_ID
   if is_aircraft_request(playerEid, evt.typeIndex) && is_aircraft_request_on_cooldown(team)
@@ -108,7 +111,7 @@ def request_artillery_strike(evt : RequestArtilleryStrikeAtPos;
   if human_weap__radioMode
     sendEvent(playerEid, [[CmdStartArtilleryStrikeAtPos owner=evt.owner, pos=evt.pos, typeIndex=evt.typeIndex, posEnd=evt.posEnd]])
   else
-    sendEventImmediate(squad_member__squad, [[RequestArtilleryOverOrder active=true, targetPos=evt.pos, typeIndex=evt.typeIndex, posEnd=evt.posEnd]])
+    sendEventImmediate(squad_member__squad, [[CmdStartArtilleryOverOrder targetPos=evt.pos, typeIndex=evt.typeIndex, posEnd=evt.posEnd]])
 
 [es(tag=gameClient)]
 def artillery_map_pos_selected(evt : EventArtilleryMapPosSelected;
@@ -128,6 +131,8 @@ def artillery_map_pos_selected(evt : EventArtilleryMapPosSelected;
 
     sendEvent(eid, [[CmdCloseArtilleryMap]])
     human_net_phys.phys.producedCT |> human_control_state_set_device_state(false)
+  else
+    print("Ignore artillery strike request for invalid pos/segment {evt.pos} {evt.posEnd}")
 
 [es(tag=gameClient, on_event=RequestCloseArtilleryMap)]
 def artillery_map_close_request(evt : Event;
@@ -136,7 +141,7 @@ def artillery_map_close_request(evt : Event;
                                 var human_net_phys : HumanActor)
   sendEvent(eid, [[CmdCloseArtilleryMap]])
   human_net_phys.phys.producedCT |> human_control_state_set_device_state(false)
-  send_net_event(squad_member__squad, [[RequestArtilleryOverOrder active=false]])
+  send_net_event(squad_member__squad, [[RequestStopArtilleryOverOrder]])
 
 [es(tag=gameClient, on_event=RequestOpenArtilleryMap)]
 def artilery_request(evt : Event;
@@ -166,7 +171,7 @@ def artilery_request(evt : Event;
     if !!human_weap__radioEid
       human_net_phys.phys.producedCT |> human_control_state_set_device_state(true)
     else
-      sendEvent(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_ARTILLERY, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
+      send_net_event(squad_member__squad, [[RequestSquadMateOrder orderType=SquadMateOrder ESMO_ARTILLERY, orderPosition=float3(), orderUseEntity=INVALID_ENTITY_ID]])
 
 [es(track=human_weap__radioMode)]
 def radio_animation_start_end_control(evt : Event; human_weap__radioMode : bool; human_weap__radioEid : EntityId)

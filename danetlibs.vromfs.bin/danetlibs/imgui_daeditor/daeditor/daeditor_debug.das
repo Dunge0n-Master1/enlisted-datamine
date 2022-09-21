@@ -3,7 +3,7 @@ require ecs
 require math.base
 require strings
 require daslib/strings_boost
-require danetlibs.imgui_daeditor.daeditor.daEditor_common
+require danetlibs.imgui_daeditor.daEditor.daEditor_common
 require DagorConsole
 require DagorEditor
 require danetlibs.console_commands.main.console_common

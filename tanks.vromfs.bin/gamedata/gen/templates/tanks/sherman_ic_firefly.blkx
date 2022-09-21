@@ -102,16 +102,12 @@ base_sherman_ic_firefly{
       turretName:t="turret_02"
       gun:t="sherman_ic_firefly_turret_02_7_62mm_l3a1"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       gun:t="sherman_ic_firefly_turret_03_12_7mm_m2_hb"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

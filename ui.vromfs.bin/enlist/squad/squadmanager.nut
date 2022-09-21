@@ -436,7 +436,8 @@ let function onInviteNotify(invite_info) {
   }
   else if ("replaces" in invite_info) {
     onInviteRevoked(invite_info.replaces, selfUid.value)
-    if ((let uid := invite_info?.leader.id.tostring())!=null)
+    let uid = invite_info?.leader.id.tostring()
+    if (uid != null)
       addInviteByContact(Contact(uid))
   }
 }
@@ -853,7 +854,7 @@ let unsuitableCrossplayConditionMembers = Computed(function() {
     let curPlayerCPState = m.state.value?.crossnetworkPlay
     if (curPlayerCPState in CrossPlayStateWeight
         && userInfo.value?.name != m.state.value.name
-        && CrossPlayStateWeight[curPlayerCPState] > CrossPlayStateWeight[myCPState])
+        && CrossPlayStateWeight[curPlayerCPState] != CrossPlayStateWeight[myCPState])
       res.append(m)
   }
 

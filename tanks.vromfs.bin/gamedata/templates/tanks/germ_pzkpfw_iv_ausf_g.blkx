@@ -20,6 +20,9 @@ germ_pzkpfw_iv_ausf_g_tunisia_premium{
     part:t="ex_armor_body_02"
   }
 
+  "attach_decorators__entities:list<eid>"{
+  }
+
   "attach_decorators__templates:array"{
 
     "templates:object"{
@@ -42,43 +45,43 @@ germ_pzkpfw_iv_ausf_g_tunisia_premium{
 
     "templates:object"{
       relativeTm:m=[[-0.944119, -0.331946, -0.02775] [0.331158, -0.943665, 0.0343079] [-0.037562, 0.0231833, 0.999231] [-1.91422, 1.83852, -0.669171]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.94404, -0.332052, -0.0277488] [0.331252, -0.944058, 0.034319] [-0.0375587, 0.0231905, 0.999231] [-1.89411, 1.8293, -0.496844]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.94414, -0.332048, -0.0277488] [0.331199, -0.943893, 0.0343089] [-0.0375583, 0.0231901, 0.999231] [-1.90179, 1.81215, -0.341888]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.943902, -0.332168, -0.0277415] [0.331238, -0.944033, 0.0343112] [-0.0375678, 0.0231968, 0.999283] [-1.9248, 1.81987, -0.0419476]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.943982, -0.332188, -0.0277502] [0.331346, -0.944228, 0.0343095] [-0.037562, 0.023197, 0.999258] [-1.90085, 1.80403, -0.194694]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.944076, -0.331861, -0.0277498] [0.331191, -0.943874, 0.0343142] [-0.0375649, 0.0231836, 0.99923] [-1.92524, 1.83466, -0.829012]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
     "templates:object"{
       relativeTm:m=[[-0.973873, -0.231058, -0.0280207] [0.230366, -0.973602, 0.03441] [-0.0352122, 0.0270348, 0.99927] [-1.90848, 1.83643, -0.969736]]
-      template:t="us_jerrycan_decor"
+      template:t="jerrycan"
       nodeName:t="root"
     }
 
@@ -157,6 +160,7 @@ pzkpfw_iv_ausf_g_turret_01_75mm_kwk40_l43_custom{
 germ_pzkpfw_iv_ausf_g_common{
   _extends:t="base_pzkpfw_iv_ausf_g"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
 
   "vehicle_seats__seats:shared:array"{
 
@@ -275,7 +279,7 @@ germ_pzkpfw_iv_ausf_g_driver_cockpit{
 }
 
 germ_pzkpfw_iv_ausf_g_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf4.blk"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5f.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="pzkpfw_iii_e_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0

@@ -7,6 +7,7 @@ let warningsCompsTrack = [
   ["ui_perf_stats__latency_warn", 0],
   ["ui_perf_stats__latency_variation_warn", 0],
   ["ui_perf_stats__packet_loss_warn", 0],
+  ["ui_perf_stats__low_tickrate_warn", 0],
 ]
 
 let warnings = Watched(warningsCompsTrack.totable())

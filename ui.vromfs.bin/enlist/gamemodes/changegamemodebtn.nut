@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(1)
+let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { TextHover, TextNormal } = require("%ui/components/textButton.style.nut")
 let openChangeGameModeWnd = require("changeGameModeWnd.nut")
 let { currentGameModeId, canChangeGameMode, canShowGameMode, allGameModesById,
-  hasUnseenGameMode } = require("gameModeState.nut")
+  hasUnseenGameMode, hasUnopenedGameMode } = require("gameModeState.nut")
 let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
 let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -77,14 +77,16 @@ let changeGameModeBtn = textButton(loc("change_mode"), openChangeGameModeWnd, {
           }
           modeInfo(text.text, txtColor)
           @() {
-            watch = [canShowCrossplayIcon, hasUnseenGameMode]
+            watch = [canShowCrossplayIcon, hasUnseenGameMode, hasUnopenedGameMode]
             vplace = ALIGN_CENTER
             hplace = ALIGN_RIGHT
             flow = FLOW_HORIZONTAL
             padding = [0, hdpx(10), 0, 0]
             children = [
-              canShowCrossplayIcon.value ? crossplayIcon({ iconColor }) : null,
-              hasUnseenGameMode.value ? unseenSignal : null
+              canShowCrossplayIcon.value ? crossplayIcon({ iconColor }) : null
+              !hasUnseenGameMode.value ? null
+                : hasUnopenedGameMode.value ? smallUnseenBlink
+                : smallUnseenNoBlink
             ]
           }
         ]

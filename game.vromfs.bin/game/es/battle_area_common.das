@@ -22,7 +22,7 @@ def private check_active_poly_battle_area(pos2 : float2;
                                           battle_area__team : int)
   if battle_area__team == TEAM_UNASSIGNED || team == TEAM_UNASSIGNED || battle_area__team == team
     static_if typeinfo(is_string type<TT>)
-      if !has(eid, trigger_tag)
+      if !has(eid, trigger_tag, ecs_hash(trigger_tag))
         return false
     if is_point_in_poly(pos2, battleAreaPoints)
       return true
@@ -37,7 +37,7 @@ def private check_active_box_battle_area(pos : float3;
                                          battle_area__team : int)
   if battle_area__team == TEAM_UNASSIGNED || team == TEAM_UNASSIGNED || battle_area__team == team
     static_if typeinfo(is_string type<TT>)
-      if !has(eid, trigger_tag)
+      if !has(eid, trigger_tag, ecs_hash(trigger_tag))
         return false
     if is_point_in_box_zone(pos, transform)
       return true

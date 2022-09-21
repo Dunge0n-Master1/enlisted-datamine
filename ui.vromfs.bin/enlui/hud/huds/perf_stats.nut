@@ -16,6 +16,7 @@ let icons = {
   ["ui_perf_stats__latency_warn"] = {pic = pic("high_latency"), loc="hud/latency_warn_tip"},
   ["ui_perf_stats__latency_variation_warn"] = {pic = pic("latency_variation"), loc ="hud/latency_variation_warn_tip"},
   ["ui_perf_stats__packet_loss_warn"] = {pic = pic("packet_loss"), loc="hud/packet_loss_warn_tip"},
+  ["ui_perf_stats__low_tickrate_warn"] = {pic = pic("low_tickrate"), loc="hud/low_tickrate_warn_tip"},
 }
 
 let colorMedium = Color(160, 120, 0, 160)

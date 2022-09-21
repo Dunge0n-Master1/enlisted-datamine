@@ -9,13 +9,14 @@ let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { openUnlockSquadScene } = require("%enlist/soldiers/unlockSquadScene.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
-let {
-  bigPadding, smallPadding, tinyOffset, smallOffset, blurBgColor,
+let { bigPadding, smallPadding, tinyOffset, smallOffset, blurBgColor,
   defBgColor, activeTxtColor, accentTitleTxtColor, disabledTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { arrayByRows } = require("%sqstd/underscore.nut")
 
 
 const WND_UID = "received_squads"
+const SQUADS_PER_LINE = 2
 
 let receivedData = Watched(null)
 let hasSquadsPromoOpened = Watched(false)
@@ -67,63 +68,81 @@ let curSquadStyle = {
 let function receivedSquadsUi() {
   let res = { watch = [gameProfile, receivedData, curCampaign] }
   let squadsByArmy = receivedData.value
+  if (squadsByArmy == null)
+    return res
+
   let curCampId = curCampaign.value
   let campaigns = (gameProfile.value?.campaigns ?? {})
     .map(@(campaignData, id) {
-      id, title = campaignData.title, armies = campaignData.armies })
+      id
+      title = campaignData.title
+      armies = campaignData.armies
+    })
     .values()
     .sort(@(a,b) (b.id == curCampId) <=> (a.id == curCampId) || a.id <=> b.id)
+
   let squadsBlock = []
   foreach (campaign in campaigns) {
     let isCurrent = campaign.id == curCampId
-    let campaignSquads = []
+    local campaignSquads = []
     foreach (army in campaign.armies)
       if (army.id in squadsByArmy) {
-        let squadData = squadsByArmy[army.id]
-        let squadCfg = squadData.squadCfg
-        let onClick = isCurrent
-          ? function() {
-              openUnlockSquadScene(squadData.__merge(squadViewStyle), KWARG_NON_STRICT)
-              receivedData(null)
-            }
-          : null
-        campaignSquads.append(watchElemState(@(sf) {
-          size = [squadSlotWidth, SIZE_TO_CONTENT]
-          behavior = isCurrent ? Behaviors.Button : null
-          onClick
-          children = [
-            mkSquad(squadCfg)
-            {
-              rendObj = ROBJ_BOX
-              size = flex()
-              borderWidth = sf & S_HOVER ? hdpx(1) : 0
-              borderColor = disabledTxtColor
-            }
-            sf & S_HOVER ? txt({
-              text = utf8ToUpper(loc("btn/view"))
-              padding = bigPadding
-              hplace = ALIGN_RIGHT
-              vplace = ALIGN_BOTTOM
-              color = activeTxtColor
-            }) : null
-          ]
-        }))
+        let squadsList = squadsByArmy[army.id]
+        foreach (squad in squadsList) {
+          let squadData = squad.__merge(squadViewStyle)
+          let squadCfg = squadData.squadCfg
+          let onClick = isCurrent
+            ? function() {
+                openUnlockSquadScene(squadData, KWARG_NON_STRICT)
+                receivedData(null)
+              }
+            : null
+          campaignSquads.append(watchElemState(@(sf) {
+            size = [squadSlotWidth, SIZE_TO_CONTENT]
+            behavior = isCurrent ? Behaviors.Button : null
+            onClick
+            children = [
+              mkSquad(squadCfg)
+              {
+                rendObj = ROBJ_BOX
+                size = flex()
+                borderWidth = sf & S_HOVER ? hdpx(1) : 0
+                borderColor = disabledTxtColor
+              }
+              sf & S_HOVER ? txt({
+                text = utf8ToUpper(loc("btn/view"))
+                padding = bigPadding
+                hplace = ALIGN_RIGHT
+                vplace = ALIGN_BOTTOM
+                color = activeTxtColor
+              }) : null
+            ]
+          }))
+        }
       }
 
     if (campaignSquads.len() > 0) {
-      let headerTxt= "{0} {1}".subst(loc(campaign.title),
+      let headerTxt = "{0} {1}".subst(loc(campaign.title),
         isCurrent ? colorize(accentTitleTxtColor, loc("currentCampaign")) : "")
+      campaignSquads = arrayByRows(campaignSquads, SQUADS_PER_LINE)
+        .map(@(list) {
+          flow = FLOW_HORIZONTAL
+          gap = bigPadding
+          children = list
+        })
       squadsBlock.append({
         flow = FLOW_VERTICAL
         gap = smallPadding
         padding = bigPadding
         children = [
           noteTextArea(headerTxt).__update({ color = activeTxtColor }, body_txt)
-          {
-            flow = FLOW_HORIZONTAL
-            gap = bigPadding
-            children = campaignSquads
-          }
+          campaignSquads.len() == 1
+            ? campaignSquads[0]
+            : {
+                flow = FLOW_VERTICAL
+                gap = bigPadding
+                children = campaignSquads
+              }
         ]
       }.__update(isCurrent ? curSquadStyle : {}))
     }

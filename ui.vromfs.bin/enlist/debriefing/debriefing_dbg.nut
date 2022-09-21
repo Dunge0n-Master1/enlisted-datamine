@@ -7,7 +7,7 @@ let { dbgShow, dbgData } = require("debriefingDbgState.nut")
 local cfg = {
   state = debriefingState
   savePath = "debriefing.json"
-  samplePath = ["../prog/scripts/enlist/debriefing/debriefing_sample.json"]
+  samplePath = ["../prog/enlist/debriefing/debriefing_sample.json"]
   loadPostProcess = function(_debriefingData) {} //for difference in json saving format, as integer keys in table
 }
 

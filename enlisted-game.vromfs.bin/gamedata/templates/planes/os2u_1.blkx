@@ -16,6 +16,7 @@ os2u_1{
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
       cameraOffset:p3=0.63, 0.748, 0.0
+      cockpitTemplate:t="os2u_1_driver_cockpit"
       roomSpace:i=0
 
       "turretNames:array"{
@@ -93,6 +94,21 @@ os2u_1{
       trigger:t="machine_guns"
       gun:t="planegun_os2u_1_7_62mm_browning30_turret_01"
     }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
   }
 }
 
@@ -248,4 +264,14 @@ planegun_os2u_1_7_62mm_browning30_turret_01{
     lim2:p4=-30.0, 30.0, -5.0, 45.0
     lim3:p4=30.0, 75.0, -70.0, 45.0
   }
+}
+
+os2u_1_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="os2u_1_cockpit_char"
+  plane_anim__blk:t="gamedata/units/os2u_1.blk"
+  plane_sight__blk:t="gamedata/units/os2u_1.blk"
 }

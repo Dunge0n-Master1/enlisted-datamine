@@ -3,9 +3,10 @@ require soundEvent
 require soundSystem
 require math.base
 require DagorMath
+require enlisted.events_enlisted
 
 [es(tag=sound, no_order)]
-def force_dome_sound_update(info : UpdateStageInfoAct;
+def force_dome_sound_update(info : ParallelUpdateFrameDelayed;
                             force_dome_sound__path : string;
                             force_dome_sound__enterPath : string;
                             force_dome_sound__hearingRange : float;

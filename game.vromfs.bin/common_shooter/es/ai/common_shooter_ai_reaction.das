@@ -81,7 +81,7 @@ def flash_exploded(evt : CmdShellExplode; eid : EntityId;
     find_query() <| $ [es] (blindness__timeMult : float)
       blindnessTime *= blindness__timeMult
       return true
-    beh_tree.blackBoard |> datablock_setReal("blindness.timeEnd", get_sync_time() + blindnessTime)
+    beh_tree.blackBoard |> set("blindness.timeEnd", get_sync_time() + blindnessTime)
     if agent_dangers__lastBlindnessReactionShellEid != null && agent_dangers__lastBlindnessReactionTime != null
       *agent_dangers__lastBlindnessReactionTime = get_sync_time()
       *agent_dangers__lastBlindnessReactionShellEid = eid

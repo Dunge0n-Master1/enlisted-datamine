@@ -11,6 +11,7 @@ stabilityReductionAfterRicochet:r=0.5
 hitPowerMult:r=8.5
 stabilityReductionAfterPenetration:r=0.3
 onHitChanceMultFire:r=10.0
+bulletType:t="ap_i_ball"
 slopeEffectPreset:t="ap"
 effectiveDistance:r=3000.0
 relativeVelHitShift:p2=300.0, 3000.0

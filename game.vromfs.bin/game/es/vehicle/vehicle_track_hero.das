@@ -3,6 +3,7 @@ require ecs.common
 require vehicle
 require game.utils.hero
 require game.es.vehicle.vehicle_seats_common
+require enlisted.events_enlisted
 
 
 [es(on_appear, on_event=(EventHeroChanged, EventOnSeatOwnersChanged), tag=gameClient, REQUIRE_NOT=heroVehicle)]
@@ -23,19 +24,16 @@ def vehicle_with_hero_es(evt : Event; eid : EntityId; vehicle_seats__seatEids : 
   if !is_hero_in_vehicle(vehicle_seats__seatEids)
     removeSubTemplate(eid, "vehicle_with_hero")
 
+[es(tag=gameClient)]
+def vehicle_with_watched(evt : ParallelUpdateFrameDelayed)
+  var watchedByPlrVehicleEid = INVALID_ENTITY_ID
+  find_query() <| $ [es(REQUIRE=watchedByPlr)] (human_anim__vehicleSelected : EntityId)
+    watchedByPlrVehicleEid = human_anim__vehicleSelected
+    return true
 
-[es(tag=gameClient, on_appear, on_event=EventHeroChanged, track=human_anim__vehicleSelected)]
-def track_vehicle_with_watched(evt : Event; watchedByPlr, human_anim__vehicleSelected : EntityId)
   query() <| $ [es(REQUIRE=vehicleWithWatched)] (eid : EntityId)
-    removeSubTemplate(eid, "vehicle_with_watched")
-  if !!watchedByPlr && !!human_anim__vehicleSelected
-    addSubTemplate(human_anim__vehicleSelected, "vehicle_with_watched")
-
-[es(tag=gameClient, on_disappear, REQUIRE=(watchedByPlr, human_anim__vehicleSelected))]
-def clear_vehicle_with_watched(evt : Event; eid : EntityId)
-  let disappearEid = eid
-  let isAnotherWatched = find_query() <| $ [es(REQUIRE=watchedByPlr)] (eid : EntityId)
-    return eid != disappearEid
-  if !isAnotherWatched
-    query() <| $ [es(REQUIRE=vehicleWithWatched)] (eid : EntityId)
+    if eid != watchedByPlrVehicleEid
       removeSubTemplate(eid, "vehicle_with_watched")
+
+  if !!watchedByPlrVehicleEid && !has(watchedByPlrVehicleEid, "vehicleWithWatched")
+    addSubTemplate(watchedByPlrVehicleEid, "vehicle_with_watched")

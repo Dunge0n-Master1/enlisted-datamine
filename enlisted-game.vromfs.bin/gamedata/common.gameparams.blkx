@@ -36,6 +36,8 @@ commonScenes{
   scene:t="content/common/gamedata/scenes/_outdoor_factor_tracer.blk"
   scene:t="content/common/gamedata/scenes/debug_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/motion_matching_data_base.blk"
+  scene:t="content/enlisted/gamedata/scenes/spline_gen_scene.blk"
+  scene:t="content/enlisted/gamedata/scenes/global_turret_hit_fx.blk"
 }
 
 bulletHoles
@@ -114,8 +116,6 @@ navQueryFilterWeights {
   jumpDownWeight:r = 2
   jumpDownThreshold:r = 0.4
 }
-bloodDecals {}
-capzoneDecals {}
 
 terraform {
   enabled:b = yes

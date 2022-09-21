@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { setIntervalForUpdateFunc } = require("%ui/helpers/timers.nut")
 let { INVALID_USER_ID } = require("matching.errors")
 let { TEAM_UNASSIGNED } = require("team")
-let blacklist = require("%enlSqGlob/blacklist.nut")
+let { blocklist } = require("%enlSqGlob/blocklist.nut")
 let { canInterractCrossPlatform } = require("%enlSqGlob/platformUtils.nut")
 let obsceneFilter = require("%enlSqGlob/obsceneFilter.nut")
 
@@ -25,7 +25,7 @@ let function updateChat(dt) {
 setIntervalForUpdateFunc(0.45, updateChat)
 
 let function pushMsg(sender_team, name_from, user_id_from, text, send_mode, qmsg) {
-  if ( user_id_from in blacklist.value
+  if ( user_id_from in blocklist.value
     || (qmsg == null && name_from != "" && !canInterractCrossPlatform(name_from, false)) )
     return
 

@@ -1,6 +1,7 @@
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
-let isInBattleState = sharedWatched("isInBattleState", @() false) //userId = true
+let {globalWatched} = require("%dngscripts/globalState.nut")
+let {isInBattleState, isInBattleStateUpdate} = globalWatched("isInBattleState", @() false) //userId = true
 
 return {
   isInBattleState
+  isInBattleStateUpdate
 }

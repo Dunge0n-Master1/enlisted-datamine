@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { showSettingsMenu } = require("settings_menu.nut")
 let { showControlsMenu } = require("controls_setup.nut")
-let { exit_to_enlist } = require("app")
+let { switch_to_menu_scene } = require("app")
 let { isSandboxEditor, quitSandboxEditor } = require("%ui/sandbox_editor.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 
@@ -30,7 +30,7 @@ let items = {
       msgbox.show({
         text = loc("exit_game_confirmation")
         buttons = [
-          { text=loc("Yes"), action=exit_to_enlist}
+          { text=loc("Yes"), action=switch_to_menu_scene}
           { text=loc("No"), isCurrent=true}
         ]
       })

@@ -1,12 +1,33 @@
-const DEFAULT_SQUAD_GER = "balkenkreuz.svg"
-const DEFAULT_SQUAD_USSR = "ussr.svg"
-const DEFAULT_SQUAD_USA = "usaf.svg"
+let { isNewDesign } = require("%enlSqGlob/wipFeatures.nut")
+
+let DEFAULT_SQUAD_GER = isNewDesign
+  ? "army_icons/germany_army.svg"
+  : "balkenkreuz.svg"
+let DEFAULT_SQUAD_USSR = isNewDesign
+  ? "army_icons/ussr_army.svg"
+  : "ussr.svg"
+let DEFAULT_SQUAD_USA = isNewDesign
+  ? "army_icons/usa_army.svg"
+  : "usaf.svg"
+let DEFAULT_SQUAD_JAP = isNewDesign
+  ? "army_icons/jap_army.svg"
+  : "japan.svg"
 const SMALL_SQUAD_GER = "army_icons/germany_color_small.svg"
 const SMALL_SQUAD_USSR = "army_icons/ussr_color_small.svg"
 const SMALL_SQUAD_USA = "army_icons/usa_color_small.svg"
-const PREM_SQUAD_GER = "!ui/squads/germany/prem_squad_ger.svg"
-const PREM_SQUAD_USSR = "!ui/squads/ussr/prem_squad_ussr.svg"
-const PREM_SQUAD_USA = "!ui/squads/ussr/prem_squad_ussr.svg" // TODO probably needed different icon for USA
+const SMALL_SQUAD_JAP = "army_icons/japan_color_small.svg"
+let PREM_SQUAD_GER = isNewDesign
+  ? "!ui/squads/germany/squad_prem_ger.svg"
+  : "!ui/squads/germany/prem_squad_ger.svg"
+let PREM_SQUAD_USSR = isNewDesign
+  ? "!ui/squads/ussr/squad_prem_ussr.svg"
+  : "!ui/squads/ussr/prem_squad_ussr.svg"
+let PREM_SQUAD_USA = isNewDesign
+  ? "!ui/squads/ussr/squad_prem_ussr.svg"
+  : "!ui/squads/ussr/prem_squad_ussr.svg" // TODO probably needed different icon for USA
+let PREM_SQUAD_JAP = isNewDesign
+  ? "!ui/squads/japan/squad_prem_jap.svg"
+  : "!ui/squads/japan/prem_squad_jap.svg"
 
 return freeze({
   normandy_allies = {
@@ -108,5 +129,25 @@ return freeze({
     tutorialTankImage = "ui/game_mode_tutorial_tank.jpg"
     practiceImage = "ui/game_mode_practice.jpg"
     customGameImage = "ui/game_mode_stalingrad_solo.jpg"
+  }
+  pacific_allies = {
+    promoImage = "ui/soldiers/usa/allies_pacific_assault_2_image.jpg"
+    icon = DEFAULT_SQUAD_USA
+    smallIcon = SMALL_SQUAD_USA
+    premIcon = PREM_SQUAD_USA
+    tutorialImage = "ui/game_mode_tutorial_2.jpg"
+    tutorialTankImage = "ui/game_mode_tutorial_tank.jpg"
+    practiceImage = "ui/game_mode_practice.jpg"
+    customGameImage = "ui/game_mode_pacific_solo.jpg"
+  }
+  pacific_axis = {
+    promoImage = "ui/soldiers/japan/axis_pacific_mgun_1_image.jpg"
+    icon = DEFAULT_SQUAD_JAP
+    smallIcon = SMALL_SQUAD_JAP
+    premIcon = PREM_SQUAD_JAP
+    tutorialImage = "ui/game_mode_tutorial_2.jpg"
+    tutorialTankImage = "ui/game_mode_tutorial_tank.jpg"
+    practiceImage = "ui/game_mode_practice.jpg"
+    customGameImage = "ui/game_mode_pacific_solo.jpg"
   }
 })

@@ -70,11 +70,6 @@ entity{
 }
 
 entity{
-  _template:t="tunisia_4x4_river_sound"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
   _template:t="door_mult_ent_generator"
   ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
 }

@@ -115,6 +115,9 @@ return freeze({
   crate_normandy_allies_level_36 = {
     image = "ui/campaign_rewards/reward_us_m4a1_76w_sherman_normandy.jpg",
   }
+  crate_normandy_allies_level_38 = {
+    image = "ui/campaign_rewards/reward_m1928a1_thompson_with_box_magazine.jpg"
+  }
 
 
 
@@ -154,6 +157,9 @@ return freeze({
   }
   crate_normandy_axis_level_36 = {
     image = "ui/campaign_rewards/reward_germ_pzkpfw_VI_ausf_E_tiger_normandy.jpg",
+  }
+  crate_normandy_axis_level_38 = {
+    image = "ui/campaign_rewards/reward_stg_44.jpg"
   }
 
 
@@ -198,6 +204,9 @@ return freeze({
   crate_berlin_allies_level_35 = {
     image = "ui/campaign_rewards/reward_ussr_is_2_1943.jpg"
   }
+  crate_berlin_allies_level_36 = {
+    image = "ui/campaign_rewards/reward_bm_42_mortar.jpg"
+  }
 
 
 
@@ -240,6 +249,9 @@ return freeze({
   }
   crate_berlin_axis_level_35 = {
     image = "ui/campaign_rewards/reward_germ_pzkpfw_vi_ausf_b_tiger_iip.jpg"
+  }
+  crate_berlin_axis_level_36 = {
+    image = "ui/campaign_rewards/reward_granatwerfer_42.jpg"
   }
 
 
@@ -367,5 +379,55 @@ return freeze({
   crate_stalingrad_axis_level_28 = {
     image = "ui/campaign_rewards/reward_germ_stug_iii_ausf_f.jpg"
   }
+
+
+//PACIFIC ALLIES
+  crate_pacific_allies_level_6 = {
+    image = "ui/campaign_rewards/reward_m3_submachine_gun.jpg"
+  }
+  crate_pacific_allies_level_9 = {
+    image = "ui/campaign_rewards/reward_us_m2a4_pacific.jpg"
+  }
+  crate_pacific_allies_level_11 = {
+    image = "ui/campaign_rewards/reward_browning_auto_5.jpg"
+  }
+  crate_pacific_allies_level_13 = {
+    image = "ui/campaign_rewards/reward_m1_garand.jpg"
+  }
+  crate_pacific_allies_level_16 = {
+    image = "ui/campaign_rewards/reward_sbd_3.jpg"
+  }
+  crate_pacific_allies_level_21 = {
+    image = "ui/campaign_rewards/reward_m1_bazooka.jpg"
+  }
+  crate_pacific_allies_level_26 = {
+    image = "ui/campaign_rewards/reward_m1941_johnson_mg.jpg"
+  }
+
+
+//PACIFIC AXIS
+  crate_pacific_axis_level_6 = {
+    image = "ui/campaign_rewards/reward_type_100_smg_early.jpg"
+  }
+  crate_pacific_axis_level_9 = {
+    image = "ui/campaign_rewards/reward_jp_type_98_ke_ni_pacific.jpg"
+  }
+  crate_pacific_axis_level_11 = {
+    image = "ui/campaign_rewards/reward_type_95_shin_gunto.jpg"
+  }
+  crate_pacific_axis_level_13 = {
+    image = "ui/campaign_rewards/reward_arisaka_type_99_late.jpg"
+  }
+  crate_pacific_axis_level_16 = {
+    image = "ui/campaign_rewards/reward_d3a1.jpg"
+  }
+  crate_pacific_axis_level_21 = {
+    image = "ui/campaign_rewards/reward_type_5_45_at_rocket_launcher.jpg"
+  }
+  crate_pacific_axis_level_26 = {
+    image = "ui/campaign_rewards/reward_nambu_type_96_lmg.jpg"
+  }
+
+
 
 })

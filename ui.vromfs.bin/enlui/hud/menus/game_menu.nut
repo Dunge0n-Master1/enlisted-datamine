@@ -158,7 +158,7 @@ let function gameMenu() {
       detach="ui/menu_exit"
     }
 
-    hooks = HOOK_ATTACH
+    behavior = Behaviors.ActivateActionSet
     actionSet = "StopInput"
   }
 }

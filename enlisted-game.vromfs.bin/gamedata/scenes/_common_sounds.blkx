@@ -41,3 +41,7 @@ entity{
 entity{
   _template:t="biome_sound_query"
 }
+
+entity{
+  _template:t="round_result_battle_music"
+}

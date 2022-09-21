@@ -60,11 +60,26 @@ re_2000_int{
       gun:t="planegun_re_2000_int_12_7mm_bredasafat127_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_15mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_re_2000_int_12_7mm_bredasafat127{
   item__name:t="guns/gunbredasafat127"
-  gun__blk:t="content/enlisted/gamedata/weapons/re_2000_int/12_7mm_bredasafat127.blk"
+  gun__blk:t="gamedata/weapons/re_2000_int/12_7mm_bredasafat127.blk"
   gun__shotFreq:r=11.6667
   gun__locName:t="gunbredasafat127"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -90,31 +105,31 @@ base_re_2000_int_12_7mm_bredasafat127{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/12_7x81mm_breda_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
@@ -146,6 +161,6 @@ re_2000_int_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="re_2000_int_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/re_2000_int.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/re_2000_int.blk"
+  plane_anim__blk:t="gamedata/units/re_2000_int.blk"
+  plane_sight__blk:t="gamedata/units/re_2000_int.blk"
 }

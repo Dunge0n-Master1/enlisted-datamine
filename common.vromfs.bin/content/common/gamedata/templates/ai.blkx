@@ -90,6 +90,9 @@ squad_member_ai{
   _extends:t="squad_member_on_bullet_nearby_reaction"
   _extends:t="beh_tree_agent_in_train_zone"
   _extends:t="beh_tree_agent_on_train"
+  _extends:t="beh_tree_agent_leader"
+  _extends:t="beh_tree_agent_vehicle"
+  _extends:t="beh_tree_agent_bomb"
   beh_tree__node:t="squad_member"
   beh_tree__debug:b=no
   walker_agent__velViscosity:r=0.3
@@ -108,8 +111,38 @@ squad_member_ai{
   walker_agent__crouchShootLocalPos:p3=0.23, 0.95, -0.25
   walker_agent__crawlShootLocalPos:p3=0.76, 0.26, -0.18
   beh_tree__blackboard__preferedWeapon:i=0
-  beh_tree__blackboard__enemyRadius:r=90.0
+  beh_tree__blackboard__enemyRadius:r=60.0
   beh_tree__blackboard__enemyNearRadius:r=10.0
+  beh_tree__blackboard__enemyMeleeRadius:r=2.0
+  beh_tree__data__defendPoint:t="sub.defendPoint"
+  beh_tree__data__personalOrder:t="sub.personalOrder"
+  beh_tree__data__agressiveBeh:t="sub.agressiveBeh"
+  beh_tree__data__passiveBeh:t="sub.passiveBeh"
+  beh_tree__data__runToTrain:t="sub.runToTrain"
+  beh_tree__data__useTrain:t="sub.useTrain"
+  beh_tree__data__outTrain:t="sub.outTrain"
+  beh_tree__data__passiveStayReactionTrain:t="sub.passiveStayReactionTrain"
+  beh_tree__data__passiveMoveReactionTrain:t="sub.passiveMoveReactionTrain"
+  beh_tree__data__agressiveStayReactionTrain:t="sub.agressiveStayReactionTrain"
+  beh_tree__data__agressiveMoveReactionTrain:t="sub.agressiveMoveReactionTrain"
+  beh_tree__data__getRegroupPosTrain:t="sub.getRegroupPosTrain"
+  beh_tree__data__orderReq:t="sub.orderReq"
+  beh_tree__data__plantBombReq:t="sub.plantBombReq"
+  beh_tree__data__defuseBombReq:t="sub.defuseBombReq"
+  beh_tree__data__ammoReq:t="sub.ammoReq"
+  beh_tree__data__healReq:t="sub.healReq"
+  beh_tree__data__artilleryReq:t="sub.artilleryReq"
+  beh_tree__data__buildReq:t="sub.buildReq"
+  beh_tree__data__attackReq:t="sub.attackReq"
+  beh_tree__data__useVehicleReq:t="sub.useVehicleReq"
+  beh_tree__data__vehicleBeh:t="sub.vehicleBeh"
+  beh_tree__refs__behaviour:t="sub.agressiveBeh"
+  beh_tree__refs__orderType:t=""
+  beh_tree__refs__passiveStayReaction:t="sub.passiveStayReactionDefault"
+  beh_tree__refs__passiveMoveReaction:t="sub.passiveMoveReactionDefault"
+  beh_tree__refs__agressiveStayReaction:t="sub.agressiveStayReactionDefault"
+  beh_tree__refs__agressiveMoveReaction:t="sub.agressiveMoveReactionDefault"
+  beh_tree__refs__getRegroupPos:t="sub.getRegroupPosDefault"
   agent_dangers__maxDangerDist:r=90.0
   agent_dangers__frustumAngle:r=45.0
   agent_dangers__projectileDist:r=4.0
@@ -121,7 +154,11 @@ squad_member_ai{
   agent_dangers__nextDangersTraceTime:r=0.0
   agent_dangers__standShootPos:p3=0.0, 0.0, 0.0
   agent_dangers__standShootDir:p3=0.0, 0.0, 0.0
+  agent_dangers__minTraceableRatio:r=1.5
   agent_dangers__targetAirplanePilots:b=no
+
+  "beh_tree__resetBlackBoard:tag"{
+  }
 
   "beh_tree__debugState:t"{
     _tags:t="dev"

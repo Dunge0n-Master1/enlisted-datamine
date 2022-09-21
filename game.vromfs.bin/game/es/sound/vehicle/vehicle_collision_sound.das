@@ -67,7 +67,7 @@ def vehicle_collision_sound_on_collision(evt : EventOnCollision;
       vehicle_collision_sound__entityCollMatId = get_material_id(material)
 
 
-[es(tag=sound, after=(vehicle_phys_sound_state, ship_phys_sound_state))]
+[es(tag=sound, after=(vehicle_phys_sound_state, ship_sound_state))]
 def vehicle_collision_sound(info : UpdateStageInfoAct;
                             sound_control__shouldPlay : bool;
                             vehicle_collision_sound__collRange = float2(20., 22.);

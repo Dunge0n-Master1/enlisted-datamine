@@ -13,3 +13,7 @@ entity{
   _template:t="ui_disabled"
   ui__disabled:b=yes
 }
+
+entity{
+  _template:t="sound_step_settings"
+}

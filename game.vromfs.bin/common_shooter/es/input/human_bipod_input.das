@@ -15,6 +15,7 @@ require GeomNodeTree
 require Dacoll
 require HumanPhys
 require EnlistedNet
+require common_shooter.events_common_shooter
 require common_shooter.es.human.bipod_common
 
 
@@ -92,7 +93,7 @@ def human_bipod_input_action_triggered_es(evt : EventDaInputActionTriggered;
 
     bipod__anchorPos += bipod__placeNormal * bipodHeight
 
-[es(tag=input, REQUIRE=hero, no_order)]
+[es(tag=input, REQUIRE=hero, before=start_async_phys_sim_es)] // before start_async_phys_sim_es due to usage of sphere_cast
 def human_bipod_check_es(info : ParallelUpdateFrameDelayed;
                          human_weap__currentGunEid : EntityId;
                          human_input__aimAngle : float2;
@@ -213,10 +214,10 @@ def human_request_placing_es(evt : Event;
                              bipod__anchorPos : float3;
                              bipod__anchorDir : float3;
                              bipod__anchorNormal : float3)
-  sendEvent(eid, [[RequestBipodPlacing enabled      = bipod__enabled,
-                                       isCrawl      = bipod__isCrawl,
-                                       placePos     = bipod__placePos,
-                                       yawLimit     = bipod__yawLimit,
-                                       anchorPos    = bipod__anchorPos,
-                                       anchorDir    = bipod__anchorDir,
-                                       anchorNormal = bipod__anchorNormal]])
+  send_net_event(eid, [[RequestBipodPlacing enabled      = bipod__enabled,
+                                            isCrawl      = bipod__isCrawl,
+                                            placePos     = bipod__placePos,
+                                            yawLimit     = bipod__yawLimit,
+                                            anchorPos    = bipod__anchorPos,
+                                            anchorDir    = bipod__anchorDir,
+                                            anchorNormal = bipod__anchorNormal]])

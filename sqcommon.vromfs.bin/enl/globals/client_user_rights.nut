@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut")
-let userInfo = require("%enlSqGlob/userInfo.nut")
+let {userInfo, userInfoUpdate} = require("%enlSqGlob/userInfoState.nut")
 let {appId} = require("%enlSqGlob/clientState.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let {char_request} = require("%enlSqGlob/charClient.nut")
@@ -35,7 +35,7 @@ let function updateUserRightsInternal(cb = null) {
 
       cb?("UPDATED_SUCCESFULL")
       //permissions update only if jwt token was update. Penalties update always
-      userInfo(userInfo.value.__merge({
+      userInfoUpdate(userInfo.value.__merge({
         permissions = readPermissions(resClientPermJwt, userId)
         penalties = readPenalties(resPenaltiesJwt, userId)
         penaltiesJwt = resPenaltiesJwt

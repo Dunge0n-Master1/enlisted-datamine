@@ -36,4 +36,4 @@ def vehicle_seats_switch_timer_replace_squad_mate(evt : EventEnterVehicle; vehic
       let awaitingChangeEid = seat__ownerEid
       if incomerSeatPlayerEid == (get_Eid(awaitingChangeEid, "possessedByPlr") ?? INVALID_ENTITY_ID)
         let squadEid = get_Eid(awaitingChangeEid, "squad_member__squad") ?? INVALID_ENTITY_ID
-        sendEvent(squadEid, [[RequestSquadChangeLeader eid=incomerSeatOwnerEid]])
+        sendEvent(squadEid, [[CmdSwitchSquadLeader eid=incomerSeatOwnerEid]])

@@ -1,0 +1,230 @@
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[642.711, 0.0, 515.632] [0.0, 162.959, 0.0] [-523.65, 0.0, 652.704] [-125.584, 27.1399, -85.3854]]
+  battle_area__team:i=1
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=3.0
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[496.333, 0.0, 400.066] [0.0, 162.959, 0.0] [-567.977, 0.0, 704.647] [-214.83, 27.1399, 2.16069]]
+  battle_area__team:i=2
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=3.0
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[25256.1, 0.0, 17996.4] [0.0, 8000.03, 0.0] [-17997.5, 0.0, 25255.2] [103.719, 240.916, -196.341]]
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="briefing_domination"
+}
+
+entity{
+  _template:t="add_spawn_on_squadmates"
+}
+
+entity{
+  _template:t="spawn_switcher"
+  swapProbability:r=0.5
+  team1:i=2
+  team2:i=1
+}
+
+entity{
+  _template:t="team_pacific_allies+team_narrator_domination+respawn_creators_team"
+  team__id:i=1
+  team__scoreCap:r=2250.0
+  team__score:r=2250.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=2.0
+  team__spawnBotArmy:t="pacific_allies"
+}
+
+entity{
+  _template:t="team_pacific_axis+team_narrator_domination+respawn_creators_team"
+  team__id:i=2
+  team__score:r=2250.0
+  team__scoreCap:r=2250.0
+  score_bleed__domBleed:r=4.0
+  score_bleed__domBleedOn:b=no
+  score_bleed__totalDomZoneCount:i=3
+  score_bleed__totalDomBleedMul:r=2.0
+  score_bleed__totalDomBleedOn:b=no
+  team__briefing:t="domination/common_goals"
+  team__numZonesCaptured:i=0
+  team__deathPenalty:r=2.0
+  team__spawnBotArmy:t="pacific_axis"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.998156, 4.61121e-09, 0.0607117] [-0.00428752, 0.997503, 0.0704907] [-0.06056, -0.0706209, 0.995662] [70.1366, 26.4364, -402.541]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [1679.02, 1000.0, -1929.19]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[0.735101, 0.0, -0.677958] [0.0, 1.0, 0.0] [0.677958, -0.0, 0.735101] [-1415.24, 1023.92, 1389.02]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[0.773495, 0.0, -0.633802] [0.0, 1.0, 0.0] [0.633802, -0.0, 0.773495] [-1303.42, 823.92, 1526.51]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[0.758973, 0.0, -0.651124] [0.0, 1.0, 0.0] [0.651124, -0.0, 0.758973] [-1310.69, 1023.92, 1505.64]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[0.757907, 0.0, -0.652362] [0.0, 1.0, 0.0] [0.652362, -0.0, 0.757907] [-1415.24, 823.92, 1389.02]]
+  team:i=2
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-1735.54, 920.073, 1744.51]]
+  resupply_zone__team:i=2
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1993.99, 1000.0, -1072.13]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1993.99, 800.0, -1072.13]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1964.52, 1000.0, -1219.81]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[-0.925008, 0.0, 0.379947] [0.0, 1.0, 0.0] [-0.379947, 0.0, -0.925008] [1923.04, 800.0, -1236.4]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="domination_sphere_capzone"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-99.8659, 10.0049, -43.3281]]
+  capzone__title:t="C"
+  capzone__caption:t="capzone/artillery_emplacement"
+  sphere_zone__radius:r=20.0
+  decal__height:r=5.0
+  ui_order:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[-0.596322, 0.0, 0.802746] [0.0, 1.0, 0.0] [-0.802745, 0.0, -0.596321] [-90.415, 5.56556, -101.84]]
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[0.591139, 0.0, -0.806569] [0.0, 1.0, 0.0] [0.806569, -0.0, 0.591139] [-144.625, 5.14665, -7.89581]]
+}
+
+entity{
+  _template:t="respawnChooser+respVehicle"
+  transform:m=[[-0.600383, 0.0, 0.79971] [0.0, 1.0, 0.0] [-0.799711, 0.0, -0.600383] [-98.4857, 5.35029, -109.109]]
+  team:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respVehicle"
+  transform:m=[[0.707316, 0.0269392, -0.706383] [-0.0380589, 0.999276, 0.0] [0.705871, 0.0268842, 0.707829] [-152.007, 5.24391, -11.9434]]
+  team:i=2
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  transform:m=[[0.517206, 0.0, -0.855861] [0.0, 1.0, 0.0] [0.855861, -0.0, 0.517206] [-163.155, 5.28559, -16.7755]]
+  team:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respMotorcycle"
+  transform:m=[[0.517206, 0.0, -0.855861] [0.0, 1.0, 0.0] [0.855861, -0.0, 0.517206] [-104.442, 5.28559, -113.19]]
+  team:i=2
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-177.261, 5.40008, -8.30276]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-105.612, 5.40008, -128.383]]
+  resupply_zone__team:i=2
+}
+
+import{
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+}

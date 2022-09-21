@@ -5,20 +5,17 @@ let eventbus = require("eventbus")
 let watchdog = require("watchdog")
 let armyData = require("armyData.nut")
 let soldiersData = require("soldiersData.nut")
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
 let { teams } = require("%ui/hud/state/teams.nut")
 let { localPlayerEid, localPlayerTeam, localPlayerGroupId, localPlayerGroupMembers } = require("%ui/hud/state/local_player.nut")
 let { isDebugDebriefingMode } = require("%enlSqGlob/wipFeatures.nut")
 let { get_session_id } = require("app")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
+let { singleMissionRewardId, singleMissionRewardSum } = require("%enlSqGlob/singleMissionRewardState.nut")
 
 let debriefingData = mkWatched(persist, "debriefingData")
 let debriefingShow = mkWatched(persist, "debriefingShow", false)
 
 const INVALID_SESSION = "0"
-
-let singleMissionRewardId = sharedWatched("singleMissionRewardId", @() null)
-let singleMissionRewardSum = sharedWatched("singleMissionRewardSum", @() 0)
 
 let debriefingUpdateData = mkWatched(persist, "debriefingUpdateData", {})
 let battleStats = mkWatched(persist, "battleStats", {})
@@ -81,6 +78,7 @@ let function getSquadData(squadId, stats) {
     wasLevel = squad?.level ?? 0
     toLevelExp = squad?.toLevelExp ?? 0
     battleExpBonus = squad?.battleExpBonus ?? 0.0
+    isRented = squad?.isRented ?? 0.0
   }
 }
 

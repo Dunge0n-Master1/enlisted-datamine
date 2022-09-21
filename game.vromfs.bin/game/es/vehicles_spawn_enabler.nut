@@ -31,12 +31,14 @@ let playerQuery = ecs.SqQuery("playerQuery", {
 let function gatherAllRespawnbaseTypesInSquads(squads) {
   let respTypes = {}
   foreach (i, squad in squads) {
-    let respType = get_can_use_respawnbase_type(squad?.curVehicle.gametemplate)
-    if (respType != null)
-      if (respType in respTypes)
-        respTypes[respType].append(i)
+    let { canUseRespawnbaseType = null, canUseRespawnbaseSubtypes = [] } = get_can_use_respawnbase_type(squad?.curVehicle.gametemplate)
+    if (canUseRespawnbaseType != null) {
+      let key = canUseRespawnbaseSubtypes.len() > 0 ? "{0}+{1}".subst(canUseRespawnbaseType,"+".join(canUseRespawnbaseSubtypes)) : canUseRespawnbaseType
+      if (key in respTypes)
+        respTypes[key].squadIndices.append(i)
       else
-        respTypes[respType] <- [i]
+        respTypes[key] <- { respType = canUseRespawnbaseType, subtypes = canUseRespawnbaseSubtypes, squadIndices = [i] }
+    }
   }
   return respTypes
 }
@@ -61,8 +63,9 @@ let function onTimerChanged(_evt, eid, comp) {
 
     let curTime = get_sync_time()
 
-    foreach (respType, squadIndices in gatherAllRespawnbaseTypesInSquads(armyData?.squads ?? [])) {
-      let baseEid = find_respawn_base_for_team_with_type(playerTeam, respType)
+    foreach (respawnType in gatherAllRespawnbaseTypesInSquads(armyData?.squads ?? [])) {
+      let { respType, subtypes, squadIndices } = respawnType
+      let baseEid = find_respawn_base_for_team_with_type(playerTeam, respType, subtypes)
       if (baseEid == INVALID_ENTITY_ID)
         continue
       local spawnFreq = ecs.obsolete_dbg_get_comp_val(baseEid, "respTime", 0)

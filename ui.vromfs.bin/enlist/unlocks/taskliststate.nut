@@ -1,7 +1,4 @@
 from "%enlSqGlob/ui_library.nut" import *
-
-require("%enlist/soldiers/model/onlyInEnlistVm.nut")("taskListState")
-
 let { hasEliteBattlePass } = require("%enlist/battlepass/eliteBattlePass.nut")
 let {
   unlocksSorted, unlockProgress, emptyProgress, activeUnlocks

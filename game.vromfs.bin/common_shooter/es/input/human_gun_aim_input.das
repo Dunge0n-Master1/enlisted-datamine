@@ -6,12 +6,13 @@ require DagorMathUtils
 require Gun
 require EnlistedHuman
 require EnlistedActor
+require HumanPhys
 
 [es]
 def human_input_attached_gun_es(evt : UpdateStageUpdateInput;
                                 human_attached_gun__attachedGunEid : ecs::EntityId;
                                 human_input__aimAngleOffset : float2&;
-                                human_net_phys : HumanActor&;
+                                var human_net_phys : HumanActor&;
                                 var human_input__aimAngle : float2&)
   if human_attached_gun__attachedGunEid != ecs::INVALID_ENTITY_ID
     let roleFlags = RoleFlags URF_AUTHORITY | RoleFlags URF_LOCAL_CONTROL
@@ -23,6 +24,7 @@ def human_input_attached_gun_es(evt : UpdateStageUpdateInput;
         let aimDir = mounted_gun |> mounted_gun_clampAimDir(dir, initialDir)
         let aimAngle = dir_to_angles(aimDir)
         human_input__aimAngle = aimAngle - human_input__aimAngleOffset
+        human_net_phys.phys.producedCT |> human_control_state_set_wish_shoot_dir(aimDir)
 
 [es(tag=input)]
 def human_input_action_triggered_es(evt : EventDaInputActionTriggered;

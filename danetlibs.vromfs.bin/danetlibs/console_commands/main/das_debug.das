@@ -4,7 +4,7 @@ require DagorConsole
 require vehicle
 require DagorSystem
 require danetlibs.console_commands.main.das_debug_common
-
+require ecs.ecs_template
 
 [console_cmd(name="das.common_code")]
 def das_common_code()
@@ -39,11 +39,13 @@ def das_throw_exception_no_aot()
     *unavailable_comp__ |> clear()
 
 
+[ecs_template]
+struct endless_exception_template
+  endless_exception = true
+
 [console_cmd(name="das.throw_endless_exception")]
 def das_start_endless_exception()
   let tmpl = "endless_exception_template"
-  ecs::createTemplate(tmpl, "", false) <| $(var cmp : ecs::ComponentsMap)
-    set(cmp, "endless_exception", true)
   let found = find_query() <| $ [es(REQUIRE=endless_exception)] (eid : EntityId)
     destroyEntity(eid)
     debug(eid)

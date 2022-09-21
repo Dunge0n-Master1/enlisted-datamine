@@ -1,0 +1,69 @@
+base_20mm_type98{
+  item__name:t="guns/20mm_type98"
+  gun__blk:t="gamedata/gen/weapons/20mm_type98.blk"
+  gun__shotFreq:r=5.0
+  gun__reloadTime:r=3.0
+  gun__maxAmmo:i=20
+  gun__locName:t="20mm_type98"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_type98_defaultset_bullet_1.blk"
+        name:t="20mm_type100_ap"
+        type:t="ap_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_type98_defaultset_bullet_2.blk"
+        name:t="20mm_type100_he"
+        type:t="he_frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_type98_defaultset_bullet_3.blk"
+        name:t="20mm_type100_he"
+        type:t="he_frag_i_t"
+      }
+    }
+
+    "20mm_jp_type100_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_type98_20mm_jp_type100_he.blk"
+        name:t="20mm_type100_he"
+        type:t="he_frag_i_t"
+      }
+    }
+
+    "20mm_jp_type100_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_type98_20mm_jp_type100_ap.blk"
+        name:t="20mm_type100_ap"
+        type:t="ap_i_t"
+      }
+    }
+  }
+}
+
+tankgun_20mm_type98{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_20mm_type98"
+  _extends:t="gunsound_20mm_type98"
+  turret__triggerGroup:i=0
+}

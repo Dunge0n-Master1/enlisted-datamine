@@ -1,6 +1,3 @@
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
+let {userInfo} = require("userInfoState.nut")
 //null or {userId=-1 userIdStr="" name=string or null, token=string or null}
-
-let userInfo = sharedWatched("userInfo", @() null)
-
 return userInfo

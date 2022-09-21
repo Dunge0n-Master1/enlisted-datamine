@@ -12,6 +12,7 @@ base_builder_preview{
   buildingCost:r=1.0
   _extends:t="semi_transparent_render"
   nextCheckGridObjectsTime:r=0.0
+  preview_render__enabled:b=yes
   checkGridObjectsTimeInterval:r=0.3
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   avaliableAngles:p2=-30.0, 30.0

@@ -1,12 +1,13 @@
 require ecs
 require soundEvent
 require soundSystem
+require enlisted.events_enlisted
 
 
 let SOUND_SPEED = 335.
 
 [es(tag=sound, no_order)]
-def lightning_sound(info : UpdateStageInfoAct;
+def lightning_sound(info : ParallelUpdateFrameDelayed;
                     animchar_render__enabled : bool;
                     transform : float3x4;
                     lightning_sound__path : string;

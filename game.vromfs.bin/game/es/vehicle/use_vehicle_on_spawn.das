@@ -12,18 +12,22 @@ def cmd_use_vehicle_on_spawn_es(evt : CmdUseVehicleOnSpawn; eid : ecs::EntityId)
       return
 
     var isPlayer = false
+    let seatNo = get_int(vehicle_seats__seatEids[evt.seatOrderNo], "seats_order__seatNo") ?? -1
     ecs::query(evt.possessed) <| $ [es] (possessedByPlr : ecs::EntityId;
                                          var isInVehicle : bool&;
                                          var human_anim__vehicleSelected : ecs::EntityId&;
+                                         var human_vehicle__occupiedSeatEid : ecs::EntityId&;
                                          var vehicle__lastEid : ecs::EntityId&;
                                          var vehicle__lastTime : float&)
+      if seatNo >= 0
+        human_vehicle__occupiedSeatEid = vehicle_seats__seatEids[seatNo]
+
       isPlayer = possessedByPlr != INVALID_ENTITY_ID
       isInVehicle = true
       human_anim__vehicleSelected = evt.vehicle
       vehicle__lastEid = evt.vehicle
       vehicle__lastTime = get_sync_time()
 
-    let seatNo = get_int(vehicle_seats__seatEids[evt.seatOrderNo], "seats_order__seatNo") ?? -1
     if seatNo < 0
       return
 

@@ -38,6 +38,8 @@ def play_impl(hash : uint; pos : float3; param : float; descs : Object; is_watch
       var handle = soundEvent::play(name, "", pos, isFar)
       if has(obj, "var")
         set_var(handle, obj["var"] ?? "", param)
+      if has(obj, "volume")
+        set_volume(handle, obj["volume"] ?? 1.)
       if has(obj, "groupId") && sound_event_group != null
         if has(obj, "releaseId")
           release_sound(*sound_event_group, sound_hash(obj.releaseId ?? ""))

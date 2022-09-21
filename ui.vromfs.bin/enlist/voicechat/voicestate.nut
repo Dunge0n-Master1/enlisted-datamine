@@ -1,17 +1,21 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let localSettings = require("%enlist/options/localSettings.nut")("voice/", false)
-let {voiceChatEnabled, voiceChatRestricted} = require("%enlSqGlob/voiceChatGlobalState.nut")
+let {voiceChatEnabled} = require("%enlSqGlob/voiceChatGlobalState.nut")
 let voiceApi = require_optional("voiceApi")
-let {settings, modes, activation_modes} = require("%enlSqGlob/voice_settings.nut")
+let {voiceRecordVolume, voiceRecordVolumeUpdate,
+  voiceChatMode, voiceChatModeUpdate,
+  voicePlaybackVolume, voicePlaybackVolumeUpdate,
+  voiceActivationMode, voiceActivationModeUpdate,
+  voice_modes, voice_activation_modes} = require("%enlSqGlob/voice_settings.nut")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 
 let initialized = mkWatched(persist, "initialized", false)
 let joinedVoiceRooms = persist("joinedVoiceRooms", @() {})
 
 let validation_tbl = {
-  chatMode = @(v) modes?[v] ?? settings.chatMode.value
-  activationMode = @(v) activation_modes?[v] ?? settings.activationMode.value
+  voiceChatMode = @(v) voice_modes?[v] ?? voiceChatMode.value
+  voiceActivationMode = @(v) voice_activation_modes?[v] ?? voiceActivationMode.value
 }
 
 let validate_setting = @(key, val) validation_tbl?[key](val) ?? val
@@ -19,11 +23,14 @@ let validate_setting = @(key, val) validation_tbl?[key](val) ?? val
 let function loadVoiceSettings() {
   log("loadVoiceSettings")
   let noop = { // warning disable: -declared-never-used
-    recordVolume = localSettings(settings.recordVolume.value, "record_volume")
-    playbackVolume = localSettings(settings.playbackVolume.value, "playback_volume")
-    chatMode = voiceChatEnabled.value ? localSettings(settings.chatMode.value, "mode") : Watched(modes.off)
-    activationMode = localSettings(settings.activationMode.value, "activation_mode")
-  }.each(@(watched, key) settings[key].update(validate_setting(key, watched.value)))
+    voiceRecordVolume = [localSettings(voiceRecordVolume.value, "record_volume"), voiceRecordVolumeUpdate]
+    voicePlaybackVolume = [localSettings(voicePlaybackVolume.value, "playback_volume"), voicePlaybackVolumeUpdate]
+    voiceChatMode = [voiceChatEnabled.value ? localSettings(voiceChatMode.value, "mode") : Watched(voice_modes.off), voiceChatModeUpdate]
+    voiceActivationMode = [localSettings(voiceActivationMode.value, "activation_mode"), voiceActivationModeUpdate]
+  }.each(function(v, key) {
+    let [watched, update] = v
+    update(validate_setting(key, watched.value))
+  })
 }
 
 
@@ -76,9 +83,7 @@ let function on_room_disconnect(voice_chat_id) {
 }
 
 return {
-  leave_voice_chat = leave_voice_chat
-  join_voice_chat = join_voice_chat
-  on_room_disconnect = on_room_disconnect
-  voiceChatEnabled = voiceChatEnabled
-  voiceChatRestricted = voiceChatRestricted
+  leave_voice_chat
+  join_voice_chat
+  on_room_disconnect
 }

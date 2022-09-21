@@ -16,9 +16,11 @@ let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
 let complain = require("%ui/complaints/complainWnd.nut")
 let forgive = require("%ui/requestForgiveFriendlyFire.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, getRankConfig, rankIconSize
+} = require("%enlSqGlob/ui/rankPresentation.nut")
 let { SetReplayTarget } = require("dasevents")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
+let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 let LINE_H = hdpxi(40)
 let NUM_COL_WIDTH = hdpx(45)
@@ -162,13 +164,14 @@ let function mkArmiesIcons(armies) {
 
 let function mkPlayerRank(playerData, isInteractive) {
   let { player_info__military_rank = 0 } = playerData?.player
-  return player_info__military_rank <= 0 ? null : mkRankIcon(player_info__military_rank, {
-    hplace = ALIGN_RIGHT
-    vplace = ALIGN_CENTER
-    margin = [0, bigGap]
-    behavior = isInteractive ? Behaviors.Button : null
-    onHover = @(on) setTooltip(on ? loc(getRankConfig(player_info__military_rank).locId) : null)
-  })
+  return player_info__military_rank <= 0 ? null
+    : mkRankIcon(player_info__military_rank, rankIconSize, {
+        hplace = ALIGN_RIGHT
+        vplace = ALIGN_CENTER
+        margin = [0, bigGap]
+        behavior = isInteractive ? Behaviors.Button : null
+        onHover = @(on) setTooltip(on ? loc(getRankConfig(player_info__military_rank).locId) : null)
+      })
 }
 
 let queryPlayerGetSquad = ecs.SqQuery("query_player_get_squad", {
@@ -180,8 +183,10 @@ let querySoldierSquadMembers = ecs.SqQuery("query_soldier_squad_members", {
 })
 
 let queryAliveSoldierName = ecs.SqQuery("query_alive_soldier_name", {
-  comps_ro = [["name", ecs.TYPE_STRING]], comps_no=["deadEntity"]
+  comps_ro = [["name", ecs.TYPE_STRING], ["surname", ecs.TYPE_STRING]],
+  comps_no=["deadEntity"]
 })
+
 
 let function openReplayContextMenu(event, playerData) {
   let buttons = [{
@@ -190,12 +195,13 @@ let function openReplayContextMenu(event, playerData) {
   }]
 
   let respSquad = queryPlayerGetSquad.perform(playerData.eid, @(_eid, comp) comp.respawner__squad)
-  let allMembers = querySoldierSquadMembers.perform(respSquad, @(_eid, comp) comp.squad__allMembers)
+  let allMembers = querySoldierSquadMembers.perform(respSquad, @(_eid, comp) comp.squad__allMembers.getAll()) ?? []
   if (allMembers.len() > 1)
     foreach (member in allMembers)
       queryAliveSoldierName.perform(member, @(eid, comp)
         buttons.append({
-          text = loc("btn/replay/spectateHuman", { name = comp.name })
+          text = loc("btn/replay/spectateHuman", { name = getObjectName(
+            { name = comp.name, surname = comp.surname })})
           action = @() ecs.g_entity_mgr.sendEvent(eid, SetReplayTarget({}))
         })
       )

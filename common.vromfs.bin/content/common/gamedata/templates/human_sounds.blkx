@@ -218,6 +218,8 @@ human_breath_sound{
   _group{
     _tags:t="sound"
     human_breath_sound__isBreath:b=no
+    human_breath_sound__canBreath:b=no
+    human_breath_sound__isDrinking:b=no
     human_breath_sound__breathShortness:r=0.0
     human_breath_sound__goodBreathNextTime:r=0.0
     human_breath_sound__breathStart:r=0.0
@@ -1447,6 +1449,7 @@ human_net_sound{
     "using_flask:object"{
       hero:t="player/walker/ww2_soldier/items/flask/activate"
       enemy:t="enemy/walker/ww2_soldier/items/flask/activate"
+      isDrinking:b=yes
     }
 
     "createBuilding_fortification:object"{

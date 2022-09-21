@@ -1,6 +1,7 @@
 options no_aot
 require ecs
 require DagorConsole
+require DagorSystem
 require game.es.teleport_common
 require game.utils.hero
 
@@ -30,4 +31,6 @@ def console_phys_teleport_to_camera()
 def console_phys_position()
   let targetEid = get_controlled_hero()
   query(targetEid) <| $ [es] (transform : float3x4)
-    console_print("Phys pos: {transform[3]}")
+    let s = "{transform[3]}"
+    set_clipboard_ansi_text(s)
+    console_print("Phys pos: {s}")

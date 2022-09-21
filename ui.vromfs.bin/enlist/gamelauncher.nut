@@ -1,12 +1,12 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { launch_network_session } = require("app")
 let statsd = require("statsd")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { EventGameSessionFinished, EventGameSessionStarted } = require("dasevents")
 
+let { isInBattleState, isInBattleStateUpdate } = require("%enlSqGlob/inBattleState.nut")
 let lastGame = mkWatched(persist, "lastGame", null)
 let extraGameLaunchParams = mkWatched(persist, "extraGameLaunchParams", {})
 
@@ -15,7 +15,7 @@ let isRealBattleStarted = Watched(false)
 let function setNotInBattle(){
   if (isRealBattleStarted.value)
     return
-  isInBattleState(false)
+  isInBattleStateUpdate(false)
 }
 
 local function startGame(params) {
@@ -30,7 +30,7 @@ local function startGame(params) {
     return
   }
 
-  isInBattleState(true) //to not wait dedicated answer and event EventGameSessionStarted
+  isInBattleStateUpdate(true) //to not wait dedicated answer and event EventGameSessionStarted
   gui_scene.resetTimeout(30, setNotInBattle)
   statsd.send_counter("game_launch", 1)
   lastGame(params)
@@ -40,12 +40,12 @@ ecs.register_es(
   "script_game_launcher_es",
   {
     [EventGameSessionFinished] = function() {
-      isInBattleState(false)
+      isInBattleStateUpdate(false)
       isRealBattleStarted(false)
     },
     [EventGameSessionStarted] = function() {
       gui_scene.clearTimer(setNotInBattle)
-      isInBattleState(true)
+      isInBattleStateUpdate(true)
       isRealBattleStarted(true)
     }
   }

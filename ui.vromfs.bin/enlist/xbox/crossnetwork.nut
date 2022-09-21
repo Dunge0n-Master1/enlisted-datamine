@@ -1,38 +1,42 @@
-let cn = require("%xboxLib/impl/crossnetwork.nut")
-let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[CROSSNET] ")
-let {voiceChatRestricted} = require("%enlSqGlob/voiceChatGlobalState.nut")
+let {voiceChatRestrictedUpdate} = require("%enlSqGlob/voiceChatGlobalState.nut")
 
-let { xboxCrossplayAvailable, xboxCrosschatAvailable, xboxMultiplayerAvailable,
-  xboxCrossChatWithFriendsAllowed, xboxCrossChatWithAllAllowed,
-  xboxCrossVoiceWithFriendsAllowed, xboxCrossVoiceWithAllAllowed
+let { xboxCrossplayAvailableUpdate, xboxCrosschatAvailableUpdate, xboxMultiplayerAvailableUpdate,
+  xboxCrossChatWithFriendsAllowedUpdate, xboxCrossChatWithAllAllowedUpdate,
+  xboxCrossVoiceWithFriendsAllowedUpdate, xboxCrossVoiceWithAllAllowedUpdate
 } = require("%enlSqGlob/crossnetwork_state.nut")
 
-
-let function on_text_chat_permission_result(success, state) {
-  logX($"on_text_chat_permission_result: {success}, {state}")
-  xboxCrossChatWithFriendsAllowed(success && (state == cn.CommunicationState.FriendsOnly
-    || state == cn.CommunicationState.Allowed))
-  xboxCrossChatWithAllAllowed(success && state == cn.CommunicationState.Allowed)
-}
+let { CommunicationState } = require("%xboxLib/impl/crossnetwork.nut")
+let { multiplayerPrivilege, communicationsPrivilege, crossnetworkPrivilege,
+  textWithAnonUser, voiceWithAnonUser } = require("%xboxLib/crossnetwork.nut")
 
 
-let function on_voice_chat_permission_result(success, state) {
-  logX($"on_voice_chat_permission_result: {success}, {state}")
-  xboxCrossVoiceWithFriendsAllowed(success && (state == cn.CommunicationState.FriendsOnly
-    || state == cn.CommunicationState.Allowed))
-  xboxCrossVoiceWithAllAllowed(success && state == cn.CommunicationState.Allowed)
-}
+multiplayerPrivilege.subscribe(function(v) {
+  xboxMultiplayerAvailableUpdate(v)
+})
 
 
-let function on_crossnetwork_change(success) {
-  logX($"on_crossnetwork_change: {success}")
-  let communicationsAvailable = success && cn.has_communications_privilege()
-  xboxCrossplayAvailable(success && cn.has_crossnetwork_privilege())
-  xboxCrosschatAvailable(communicationsAvailable)
-  voiceChatRestricted(!communicationsAvailable)
-  xboxMultiplayerAvailable(success && cn.has_multiplayer_sessions_privilege())
-  cn.retrieve_text_chat_permissions(0, on_text_chat_permission_result) //xuid 0 - external player
-  cn.retrieve_voice_chat_permissions(0, on_voice_chat_permission_result) //xuid 0 - external player
-}
+communicationsPrivilege.subscribe(function(v) {
+  xboxCrosschatAvailableUpdate(v)
+  voiceChatRestrictedUpdate(!v)
+})
 
-cn.register_state_change_callback(on_crossnetwork_change)
+
+crossnetworkPrivilege.subscribe(function(v) {
+  xboxCrossplayAvailableUpdate(v)
+})
+
+
+textWithAnonUser.subscribe(function(v) {
+  xboxCrossChatWithFriendsAllowedUpdate(
+    v == CommunicationState.FriendsOnly || v == CommunicationState.Allowed
+  )
+  xboxCrossChatWithAllAllowedUpdate(v == CommunicationState.Allowed)
+})
+
+
+voiceWithAnonUser.subscribe(function(v) {
+  xboxCrossVoiceWithFriendsAllowedUpdate(
+    v == CommunicationState.FriendsOnly || v == CommunicationState.Allowed
+  )
+  xboxCrossVoiceWithAllAllowedUpdate(v == CommunicationState.Allowed)
+})

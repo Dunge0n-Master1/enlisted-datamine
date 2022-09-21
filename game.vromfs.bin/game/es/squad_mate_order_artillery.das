@@ -9,6 +9,7 @@ require game.es.sound_net.sound_net_events
 require enlisted.game.es.artillery_radio_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
+require game.es.squad_order_common
 
 def get_squad_radioman(squad_eid : EntityId; squad__leader : EntityId) : MemberForOrder
   return get_nearest_squad_mate_for_order(squad_eid, squad__leader, SquadMateOrder ESMO_ARTILLERY) <| $(eid : EntityId)
@@ -53,8 +54,8 @@ def prepare_artillery_strike(squad_eid, squad__leader : EntityId; squad__numAliv
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("artilleryShouldSend", false)
       *beh_tree__latencyLoadBlackBoard |> set("artilleryRequester", int(uint(squad__leader)))
-    beh_tree.blackBoard |> datablock_setBool("artilleryShouldSend", false)
-    beh_tree.blackBoard |> datablock_setInt("artilleryRequester", int(uint(squad__leader)))
+    beh_tree.blackBoard |> set("artilleryShouldSend", false)
+    beh_tree.blackBoard |> set("artilleryRequester", int(uint(squad__leader)))
 
     squad_member__orderType = int(SquadMateOrder ESMO_ARTILLERY)
     squad_member__orderUseEntity = INVALID_ENTITY_ID
@@ -66,7 +67,24 @@ def prepare_artillery_strike(squad_eid, squad__leader : EntityId; squad__numAliv
   return ordered
 
 [es(tag=server)]
-def on_squad_mate_artillery_order_over(evt : RequestArtilleryOverOrder; eid aka squad_eid : EntityId)
+def on_squad_mate_artillery_order_start(evt : CmdStartArtilleryOverOrder; eid aka squad_eid : EntityId)
+  find_query() <| $ [es] (squad_member__squad : EntityId;
+                          squad_member__orderType : int;
+                          var squad_member__orderPosition : float3&;
+                          var beh_tree : BehaviourTree&)
+    if squad_member__squad != squad_eid
+      return false
+    if squad_member__orderType != int(SquadMateOrder ESMO_ARTILLERY)
+      return false
+
+    squad_member__orderPosition = evt.targetPos
+    beh_tree.blackBoard |> set("artilleryTypeIndex", evt.typeIndex)
+    beh_tree.blackBoard |> set("artilleryPosEnd", evt.posEnd)
+    beh_tree.blackBoard |> set("artilleryShouldSend", true)
+    return true
+
+[es(tag=server)]
+def on_squad_mate_artillery_order_stop(evt : RequestStopArtilleryOverOrder; eid aka squad_eid : EntityId)
   find_query() <| $ [es] (eid : EntityId;
                           squad_member__squad : EntityId;
                           var squad_member__orderType : int&;
@@ -79,19 +97,13 @@ def on_squad_mate_artillery_order_over(evt : RequestArtilleryOverOrder; eid aka 
     if squad_member__orderType != int(SquadMateOrder ESMO_ARTILLERY)
       return false
 
-    if evt.active
-      squad_member__orderPosition = evt.targetPos
-      beh_tree.blackBoard |> datablock_setInt("artilleryTypeIndex", evt.typeIndex)
-      beh_tree.blackBoard |> datablock_setPoint3("artilleryPosEnd", evt.posEnd)
-      beh_tree.blackBoard |> datablock_setBool("artilleryShouldSend", true)
-    else
-      if (beh_tree.blackBoard |> datablock_getBool("artilleryShouldSend", false))
-        return false
-      reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
-      reset_squad_mate_behaviour(eid)
+    if (beh_tree.blackBoard |> datablock_getBool("artilleryShouldSend", false))
+      return false
+    reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
+    reset_squad_mate_behaviour(eid)
 
-      beh_tree.blackBoard |> datablock_setInt("artilleryRequester", 0)
-      beh_tree.blackBoard |> datablock_setBool("artilleryShouldSend", false)
+    beh_tree.blackBoard |> set("artilleryRequester", 0)
+    beh_tree.blackBoard |> set("artilleryShouldSend", false)
     return true
 
 [es(tag=server)]
@@ -127,8 +139,8 @@ def on_squad_mate_artillery_es(act : UpdateStageInfoAct;
       reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)
       reset_squad_mate_behaviour(eid)
 
-      beh_tree.blackBoard |> datablock_setInt("artilleryRequester", 0)
-      beh_tree.blackBoard |> datablock_setBool("artilleryShouldSend", false)
+      beh_tree.blackBoard |> set("artilleryRequester", 0)
+      beh_tree.blackBoard |> set("artilleryShouldSend", false)
 
 [es(tag=server)]
 def squad_mate_order_artillery_es(evt : RequestSquadMateOrder; eid : EntityId; squad__leader : EntityId)

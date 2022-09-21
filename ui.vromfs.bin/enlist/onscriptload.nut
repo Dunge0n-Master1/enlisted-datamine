@@ -27,7 +27,6 @@ require("notifications/unlockRewardCampaignNotification.nut")
 require("notifications/newSquadReceivedNotification.nut")
 require("notifications/serviceNotificationMonitor.nut")
 require("notifications/updateGameNotify.nut")
-require("%enlSqGlob/configs/configs.nut")
 require("%enlist/login/initLogin.nut")
 require("login/initLoginStages.nut")
 require("squad/myExtData.nut")
@@ -67,10 +66,11 @@ require("%enlist/shop/rentedSquadDialog.nut")
 
 let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
+let { harmonizationOption } = require("%ui/hud/menus/options/harmonization_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
 let { cameraShakeOptions } = require("%ui/hud/menus/options/camera_shake_options.nut")
 let { hudOptions } = require("%ui/hud/menus/options/hud_options.nut")
-let { optXboxGraphicsPreset, dbgConsolePreset }  = require("%ui/hud/menus/console_preset_options.nut")
+let { optXboxGraphicsPreset, optPSGraphicsPreset, dbgConsolePreset }  = require("%ui/hud/menus/console_preset_options.nut")
 let { renderOptions } = require("%ui/hud/menus/options/render_options.nut")
 let { soundOptions } = require("%ui/hud/menus/options/sound_options.nut")
 let { cameraFovOption } = require("%ui/hud/menus/options/camera_fov_option.nut")
@@ -87,15 +87,16 @@ let {get_time_msec} = require("dagor.time")
 
 
 let options = []
-if (platform.is_xbox_scarlett || dbgConsolePreset.value == "xbox_scarlett")
+if (platform.is_xbox_scarlett || dbgConsolePreset.value == "xbox_scarlett") {
   options.append(optXboxGraphicsPreset)
-// This is not used anymore, but I expect to make use of it again on PS5 when we add 120 FPS mode so keeping it for now
-// else if (platform.is_ps5 || dbgConsolePreset.value == "ps5")
-//   options.append(optPSGraphicsPreset)
+}
+else if (platform.is_ps5 || dbgConsolePreset.value == "ps5") {
+  options.append(optPSGraphicsPreset)
+}
 else
   options.append(optGraphicsQualityPreset)
 
-options.append(cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption)
+options.append(cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption, harmonizationOption)
   .extend(
     renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions, planeContolOptions,
     crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions
@@ -195,8 +196,8 @@ require("%enlist/components/fontsDebugWnd.nut")(fonts)
 let debriefingDbg = require("%enlist/debriefing/debriefing_dbg.nut")
 debriefingDbg.init({
   state = debriefingState
-  samplePath = ["../prog/enlisted/enlist/debriefing/samples/debriefing_sample.json",
-                "../prog/enlisted/enlist/debriefing/samples/debriefing_sample2.json"]
+  samplePath = ["../prog/enlist/debriefing/samples/debriefing_sample.json",
+                "../prog/enlist/debriefing/samples/debriefing_sample2.json"]
   savePath = "debriefing_enlisted.json"
   loadPostProcess = function(debrData) {
     if (typeof debrData?.players != "table")

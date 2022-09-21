@@ -11,6 +11,7 @@ stabilityReductionAfterRicochet:r=0.5
 effectiveDistance:r=500.0
 stabilityReductionAfterPenetration:r=0.3
 relativeVelHitShift:p2=300.0, 1000.0
+bulletType:t="ball"
 groundCollisionEffect:t="hit_12_18mm_dirt_ap"
 ricochetEffect:t="hit_12_18mm_metal_ap"
 waterCollisionEffect:t="hit_12_18mm_water"

@@ -76,6 +76,10 @@ struct CmdVehicleSwapSeats
   seatNo1 : int
   seatNo2 : int
 
+[event(unicast)]
+struct CmdKillVehicle
+  offender : EntityId
+
 [cpp_event(unicast)]
 struct CmdExplosionFatal
   offender : ecs::EntityId
@@ -152,8 +156,7 @@ struct CmdVehicleChangeSeat
 
 [event(broadcast)]
 struct EventOnStartVehicleChangeSeat
-  eid : EntityId
-  seat : int
+  endTime : float
 
 [event(unicast)]
 struct CmdVehiclePlaceSeat
@@ -168,7 +171,7 @@ struct CmdVehiclePlaceDriverSeat
 struct CmdVehiclePlaceNextSeat
   eid : EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdSetVehicleShootDir
   dir : float3
 
@@ -209,9 +212,6 @@ struct EventEnterVehicle
   vehicle : EntityId
   seat_no : int
   enter : bool
-
-[event(unicast)]
-struct CmdTrackVehicleWithWatched {}
 
 [event(unicast)]
 struct EventOnSeatOwnersChanged {}

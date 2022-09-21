@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { platformId } = require("%dngscripts/platform.nut")
-let sharedWatched = require("%dngscripts/sharedWatched.nut")
 let controlsTypes = require("controls_types.nut")
 let eventbus = require("eventbus")
 let {GAMEPAD_VENDOR_SONY, GAMEPAD_VENDOR_NINTENDO} = require("dainput2")
@@ -12,16 +11,18 @@ let gamepadTypeByPlatform = {
 }
 let defGamepadType = gamepadTypeByPlatform?[platformId] ?? controlsTypes.x1gamepad
 
-let gamepadType = sharedWatched("gamepadType", @() defGamepadType)
+let gamepadType = mkWatched(persist, "gamepadType", defGamepadType)
 
-console_register_command(@(value) eventbus.send("input_gamepad_type", {ctype=value}), "ui.changegamepad")
-
-eventbus.subscribe("input_gamepad_type", function(msg) {
-  let val = msg.ctype
-  gamepadType( val==GAMEPAD_VENDOR_SONY ? controlsTypes.ds4gamepad
-             : val==GAMEPAD_VENDOR_NINTENDO ? controlsTypes.nxJoycon
-             : controlsTypes.x1gamepad)
-})
+let function setInput(msg){
+  let {ctype} = msg
+  gamepadType(ctype==GAMEPAD_VENDOR_SONY
+                ? controlsTypes.ds4gamepad
+                : ctype==GAMEPAD_VENDOR_NINTENDO
+                  ? controlsTypes.nxJoycon
+                  : controlsTypes.x1gamepad)
+}
+eventbus.subscribe("input_gamepad_type", setInput)
+console_register_command(@(value) setInput({ctype=value}), "ui.changegamepad")
 
 wlog(gamepadType, "ui.changegamepad-->")
 

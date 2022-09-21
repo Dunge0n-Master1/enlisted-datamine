@@ -8,7 +8,7 @@ let {
   seenShopItems, excludeShopItemSeen, getSeenStatus, SeenMarks
 } = require("unseenShopItems.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { getShopUrl, getUrlByGuid } = require("%enlist/shop/shopUrls.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { curSection, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
@@ -34,7 +34,7 @@ let checkPurchases = require("%enlist/shop/checkPurchases.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { shopItemsBase, shopItems, shopDiscountGen
 } = require("shopItems.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/freemiumState.nut")
+let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
 let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileCountry.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
@@ -411,7 +411,7 @@ let curAvailableShopItems = Computed(function() {
   return curArmyShopItems.value.filter(@(item) (item?.offerContainer ?? "") == ""
     && item?.itemCost
     && (item?.requirements.armyLevel ?? 0) <= level
-    && (!item?.requirements.isFreemium || !needFreemium)
+    && (!item?.requirements.campaignGroup || !needFreemium)
   )
 })
 

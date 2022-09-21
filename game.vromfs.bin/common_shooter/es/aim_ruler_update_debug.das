@@ -2,6 +2,7 @@ options no_aot
 require ecs
 require app
 require EnlistedWeapon
+require common_shooter.es.human_weap_common
 
 [es(tag=render, before=draw_ruler_es, REQUIRE=aimRulerDebug)]
 def aim_ruler_update_es(evt : UpdateStageInfoRenderDebug; var shouldDraw : bool&; var tracePos : float3&; var traceDir : float3&)

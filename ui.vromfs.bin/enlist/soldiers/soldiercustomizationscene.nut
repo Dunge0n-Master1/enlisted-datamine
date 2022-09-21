@@ -41,11 +41,14 @@ let leftBlockHeader = {
 }.__update(body_txt)
 
 
-let customizationCurrency = @(currencyTpl, count) mkItemCurrency({
-  currencyTpl
-  count
-  textStyle = { color = defTxtColor, vplace = ALIGN_BOTTOM, fontSize = body_txt.fontSize }
-})
+let customizationCurrency = @() {
+  watch = curCampItemsCount
+  children = mkItemCurrency({
+    currencyTpl = APPEARANCE_ORDER_TPL
+    count = curCampItemsCount.value?[APPEARANCE_ORDER_TPL] ?? 0
+    textStyle = { color = defTxtColor, vplace = ALIGN_BOTTOM, fontSize = body_txt.fontSize }
+  })
+}
 
 let purchaseHeader = {
   size = [flex(), SIZE_TO_CONTENT]
@@ -63,8 +66,7 @@ let purchaseHeader = {
         emptyGap
         currenciesWidgetUi
         horGap
-        customizationCurrency(APPEARANCE_ORDER_TPL,
-          curCampItemsCount.value?[APPEARANCE_ORDER_TPL] ?? 0)
+        customizationCurrency
         emptyGap
         purchaseCloseBtn
       ]
@@ -317,8 +319,7 @@ let topBar = @() {
       children = [
         currenciesWidgetUi
         horGap
-        customizationCurrency(APPEARANCE_ORDER_TPL,
-          curCampItemsCount.value?[APPEARANCE_ORDER_TPL] ?? 0)
+        customizationCurrency
         emptyGap
       ]
     }

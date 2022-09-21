@@ -50,6 +50,10 @@ explSound{
   explSoundPath:t="impact/grenade"
 }
 
+shellSound{
+  activatePath:t="/weapon/grenade/activate"
+}
+
 damage{
 
   explosive{

@@ -10,11 +10,11 @@ def squad_member_init_es(evt : Event; squad_member__squad : EntityId)
   if squad_member__squad != ecs::INVALID_ENTITY_ID
     check_squad_alive_members(squad_member__squad)
 
-[es(on_event=EventComponentChanged, track=squad_member__squad, REQUIRE=walker_agent, REQUIRE=isAlive)]
+[es(track=squad_member__squad, REQUIRE=walker_agent, REQUIRE=isAlive)]
 def squad_member_changed_squad_es(evt : Event; squad_member__squad : EntityId)
   if squad_member__squad != ecs::INVALID_ENTITY_ID
     check_squad_alive_members(squad_member__squad)
 
-[es(on_event=EventComponentChanged, track=isAlive, REQUIRE=isAlive)]
+[es(track=isAlive, REQUIRE=isAlive)]
 def squad_member_check_alive_es(evt : Event; squad_member__squad : EntityId)
   check_squad_alive_members(squad_member__squad)

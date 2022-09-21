@@ -7,6 +7,7 @@ require math.base
 require dm
 require Dacoll
 require game.es.vehicle.vehicle_events
+require game.es.vehicle.vehicle_seats_common
 
 [es(tag=server, no_order)]
 def vehicle_underwater_es(info : UpdateStageInfoAct;

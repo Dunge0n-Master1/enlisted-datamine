@@ -16,6 +16,7 @@ lagg_3_11{
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
       cameraOffset:p3=-1.185, 0.566, 0.0
+      cockpitTemplate:t="lagg_3_11_driver_cockpit"
       roomSpace:i=0
 
       "turretNames:array"{
@@ -58,6 +59,21 @@ lagg_3_11{
       trigger:t="cannons"
       gun:t="planegun_lagg_3_11_20mm_shvak_01"
     }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_15mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
   }
 }
 
@@ -173,4 +189,14 @@ planegun_lagg_3_11_20mm_shvak_01{
   _extends:t="gunsound_20mm_shvak_aircraft"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=150
+}
+
+lagg_3_11_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="lagg_3_11_cockpit_char"
+  plane_anim__blk:t="gamedata/units/lagg_3_11.blk"
+  plane_sight__blk:t="gamedata/units/lagg_3_11.blk"
 }

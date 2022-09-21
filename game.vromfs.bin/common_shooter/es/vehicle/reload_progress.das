@@ -36,7 +36,7 @@ def turret_reloadable_reload_progress(info : CmdGunUpdate;
   else
     ui_turret_reload_progress__progressStopped = safediv(resumeTime - ui_turret_reload_progress__startTime, gun__reloadTime)
 
-[es(tag=ui, REQUIRE=turretInput, REQUIRE_NOT=turret__lastShellChangeTime, track=(gun__reloadStartTime, gun__reloadFinishTime))]
+[es(tag=ui, REQUIRE=turretInput, REQUIRE_NOT=turret__lastShellChangeTime, on_appear, track=(gun__reloadStartTime, gun__reloadFinishTime))]
 def turret_reloadable_reload_progress_start_end(evt : Event;
                                                 gun__reloadStartTime : float;
                                                 gun__reloadFinishTime : float;

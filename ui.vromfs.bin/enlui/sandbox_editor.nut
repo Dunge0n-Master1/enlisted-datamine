@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "%darg/laconic.nut" import *
-from "string" import regexp
+from "string" import regexp, startswith, endswith
 import "%dngscripts/ecs.nut" as ecs
 
-let {app_is_offline_mode, app_set_offline_mode, exit_game, exit_to_enlist, switch_scene} = require("app")
+let {app_is_offline_mode, app_set_offline_mode, exit_game, switch_to_menu_scene, switch_scene} = require("app")
 
 let isSandboxContext = @() app_is_offline_mode()
 let sandboxEditorEnabled = Watched(isSandboxContext())
@@ -29,7 +29,8 @@ let {makeVertScroll} = require("%ui/components/scrollbar.nut")
 let {editorTimeStop, showPointAction, namePointAction} = require("%daeditor/state.nut")
 
 let {editorIsActive, editorFreeCam, initTemplatesGroups, initRISelect, proceedWithSavingUnsavedChanges, hideDebugButtons} = require("%ui/editor.nut")
-initRISelect("content/common/gamedata/ri_list.blk")
+let {predefinedRIGroups} = require("sandbox_ri_groups.nut")
+initRISelect("content/common/gamedata/ri_list.blk", predefinedRIGroups)
 initTemplatesGroups(false)
 hideDebugButtons()
 
@@ -43,7 +44,7 @@ let {registerPerCompPropEdit} = require("%daeditor/propPanelControls.nut")
 let {msgboxComponent, showMsgbox} = require("%ui/components/mkMsgbox.nut")("sandbox_")
 let infoBox = @(text) showMsgbox({text})
 
-let {openPlayConfigDialog} = require("sandbox_playconfig.nut")
+let {openPlayConfigDialog, backupSaveEnabled} = require("sandbox_playconfig.nut")
 let {showHints, hintShown, hintWindow} = require("sandbox_hints.nut")
 let {setToolboxShowMsgbox, toolboxShown, toolboxPopup} = require("sandbox_toolbox.nut")
 setToolboxShowMsgbox(showMsgbox)
@@ -145,6 +146,27 @@ let function openSelectPrefab(selectedPrefab, onSelect=null) {
 
 const MODS_TO_EDIT_FOLDER = "userGameMods"
 const DEF_SCENE_FILENAME = "scene.blk"
+
+const BACKUPSAVE_TIME = 300.0 // 5min
+let function sandboxBackupSave() {
+  gui_scene.resetTimeout(BACKUPSAVE_TIME, sandboxBackupSave)
+  if (backupSaveEnabled.value && levelLoaded.value && !levelIsLoading.value && editorIsActive.value) {
+    let path = get_scene_filepath()
+    if (startswith(path, $"{MODS_TO_EDIT_FOLDER}/") && endswith(path, $"/{DEF_SCENE_FILENAME}")) {
+      let modName = path.slice(MODS_TO_EDIT_FOLDER.len()+1, path.len()-DEF_SCENE_FILENAME.len()-1)
+      let pathSave = $"{MODS_TO_EDIT_FOLDER}/backup.{modName}.scene.blk"
+      print($"Backup saving scene to {pathSave}")
+      entity_editor?.get_instance().saveObjectsCopy(pathSave, "backup")
+    }
+  }
+}
+editorIsActive.subscribe(function(v) {
+  if (v) {
+    // NOTE: Delay backup to give user time to reload unmodified scene after playtesting
+    gui_scene.resetTimeout(BACKUPSAVE_TIME, sandboxBackupSave)
+  }
+})
+gui_scene.resetTimeout(BACKUPSAVE_TIME, sandboxBackupSave)
 
 let convertToPath = @(v) v.split("/").slice(1)
 let function convertToModAndScene(v) {
@@ -384,7 +406,7 @@ let function quitSandboxEditor() {
     function() {
       console_command("daEd4.open 0")
       if (app_set_offline_mode(false))
-        exit_to_enlist()
+        switch_to_menu_scene()
       else
         exit_game()
     },

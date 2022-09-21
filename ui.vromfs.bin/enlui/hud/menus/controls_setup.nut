@@ -169,6 +169,7 @@ let isActionDisabledToCustomize = memoize(
 let function makeTabsList() {
   tabsList = [ {id="Options" text=loc("controls/tab/Control")} ]
   let isVoiceChatAvailable = is_pc && voiceChatEnabled.value
+  let isReplayAvailable = is_pc
   let bindingTabs = [
     {id="Movement" text=loc("controls/tab/Movement")}
     {id="Weapon" text=loc("controls/tab/Weapon")}
@@ -180,6 +181,7 @@ let function makeTabsList() {
     {id="UI" text=loc("controls/tab/UI")}
     {id="VoiceChat" text=loc("controls/tab/VoiceChat") isEnabled = @() isVoiceChatAvailable }
     {id="Spectator" text=loc("controls/tab/Spectator")}
+    {id="Replay" text=loc("controls/tab/Replay") isEnabled = @() isReplayAvailable }
   ]
 
   let hasActions = {}
@@ -277,6 +279,15 @@ let function loadOriginalBindingParametersTo(blk, ah, col) {
     blk.setReal("sensScale", origBlk.getReal("sensScale", 1.0))
 }
 
+let function loadPreviousBindingParametersTo(blk, ah, col) {
+  let prevBinding = dainput.get_digital_action_binding(ah, col)
+
+  let actionType = dainput.get_action_type(ah)
+
+  if ((actionType & dainput.TYPEGRP__MASK) == dainput.TYPEGRP_DIGITAL)
+    blk.setBool("stickyToggle", prevBinding.stickyToggle)
+}
+
 let function checkRecordingFinished() {
   if (dainput.is_recording_complete()) {
     let cellData = actionRecording.value
@@ -318,6 +329,7 @@ let function checkRecordingFinished() {
           }
           else {
             loadOriginalBindingParametersTo(blk, ah, col)
+            loadPreviousBindingParametersTo(blk, ah, col)
             dainput.set_action_binding(ah, col, blk)
             let binding = dainput.get_digital_action_binding(ah, col)
             if (binding?.eventType)
@@ -1380,6 +1392,7 @@ let function axisSetupWindow() {
   ]
 
   return {
+    watch = actionRecording
     size = flex()
     behavior = Behaviors.Button
     stopMouse = true
@@ -1438,7 +1451,6 @@ let function actionTypeSelect(_cell_data, watched, value) {
 }
 
 let selectEventTypeHdr = {
-  size = [flex(), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXT
   text = loc("controls/actionEventType", "Action on")
   color = DEFAULT_TEXT_COLOR
@@ -1473,6 +1485,11 @@ let function buttonSetupWindow() {
     margin = fsh(3)
   }.__update(h2_txt)
 
+  let stickyToggle = Watched(binding.stickyToggle)
+  stickyToggle.subscribe(function(new_val) {
+    binding.stickyToggle = new_val
+    haveChanges(true)
+  })
 
   let buttons = {
     size = [flex(), SIZE_TO_CONTENT]
@@ -1489,16 +1506,25 @@ let function buttonSetupWindow() {
     ]
   }
 
-  let eventTypesChildren = getAllowedBindingsTypes(cellData.ah).map( @(eventType) actionTypeSelect(cellData, eventTypeValue, eventType))
+  let isStickyToggle = {
+    margin = [fsh(1), 0, 0, fsh(0.4)]
+    children = checkbox(stickyToggle,
+      {
+        color = DEFAULT_TEXT_COLOR
+        text = loc("controls/digital/mode/isStickyToggle")
+      }.__update(body_txt)
+    )
+  }
+
   let selectEventType = @() {
     flow = FLOW_VERTICAL
-    size = [flex(), SIZE_TO_CONTENT]
     watch = eventTypeValue
-    children = eventTypesChildren
+    children = getAllowedBindingsTypes(cellData.ah)
+      .map( @(eventType) actionTypeSelect(cellData, eventTypeValue, eventType) )
+      .append(isStickyToggle)
   }
 
   let triggerTypeArea = {
-    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     valign = ALIGN_TOP
     gap = fsh(2)
@@ -1523,11 +1549,7 @@ let function buttonSetupWindow() {
       flow = FLOW_VERTICAL
       children = [currentBinding, selectModifierType]
     }
-    {
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      children = triggerTypeArea
-    }
+    triggerTypeArea
     {size = flex(10) }
     buttons
   ]
@@ -1620,7 +1642,7 @@ let function controlsSetup() {
       detach="ui/menu_exit"
     }
 
-    hooks = HOOK_ATTACH
+    behavior = Behaviors.ActivateActionSet
     actionSet = "StopInput"
   }
 

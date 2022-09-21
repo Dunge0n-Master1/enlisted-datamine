@@ -22,7 +22,7 @@ class Log : BehNodeAdapter
     msg = datablock_getStr(data, "msg", msg)
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     print("{eid}: {msg}")
     return EBehResult ER_SUCCESS
 
@@ -30,7 +30,7 @@ class Log : BehNodeAdapter
 class VisualLog : Log
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     print("{eid}: {msg}")
     visual_log("{eid}: {msg}")
     return EBehResult ER_SUCCESS
@@ -38,24 +38,26 @@ class VisualLog : Log
 [beh_node(name="setTime")]
 class SetTime : BehNodeAdapter
   to : string
+  [[hidden]] toHash : uint
 
   def override loadFromBlk(var data : DataBlock) : void
     to = datablock_getStr(data, "to", "default")
+    toHash = ecs_hash(to)
 
   def override update(dt : float) : EBehResult
-    var v = getRW_float(beh_tree_eid(owner), to)
+    var v = getRW_float(beh_tree_eid(), to, toHash)
     if v != null
       *v = get_sync_time()
       return EBehResult ER_SUCCESS
     else
-      logerr_once("{beh_tree_eid(owner)}: SetTime node cannot find '{to}' field in <{getEntityTemplateName(beh_tree_eid(owner))}>")
+      logerr_once("{beh_tree_eid()}: SetTime node cannot find '{to}' field in <{getEntityTemplateName(beh_tree_eid())}>")
       return EBehResult ER_FAILED
 
 [beh_node(name="destroyEntity")]
 class DestroyEntity : BehNodeAdapter
 
   def override update(dt : float) : EBehResult
-    destroyEntity(beh_tree_eid(owner))
+    destroyEntity(beh_tree_eid())
     return EBehResult ER_SUCCESS
 
 [beh_node(name="runAction")]
@@ -67,7 +69,7 @@ class RunAction : BehNodeAdapter
 
   def override update(dt : float) : EBehResult
     let res = EBehResult ER_SUCCESS
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     run_action(eid, action)
     return res
 
@@ -83,7 +85,7 @@ class FailedChance : BehNodeAdapter
     data |> load_optional_ecs_param("chanceParam", chanceParam, chanceParamHash)
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     let currentChance = chanceParamHash != 0u ? get_float(eid, chanceParam, chanceParamHash) ?? chance : chance
     return gfrnd() < currentChance ? EBehResult ER_FAILED : EBehResult ER_SUCCESS
 
@@ -99,7 +101,7 @@ class SuccessChance : BehNodeAdapter
     data |> load_optional_ecs_param("chanceParam", chanceParam, chanceParamHash)
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     let currentChance = chanceParamHash != 0u ? get_float(eid, chanceParam, chanceParamHash) ?? chance : chance
     return gfrnd() < currentChance ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
@@ -119,7 +121,7 @@ class DebugBlink : BehNodeAdapter
     data |> load_optional_ecs_param("eidParam", eidParam, eidParamHash)
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid(owner)
+    let eid = beh_tree_eid()
     var pos : float3
     if posParamHash != 0u
       pos = get_Point3(eid, posParam, posParamHash) ?? float3()

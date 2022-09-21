@@ -5,7 +5,7 @@ require DagorMath
 def get_pos(animchar_bbox : bbox3f)
   return (animchar_bbox.bmin.xyz + animchar_bbox.bmax.xyz) * 0.5
 
-[es(tag=sound, on_event=CmdGunSoundSwitchFiringMode)]
+[es(tag=sound, track=gun__firingModeIndex, REQUIRE=gun__firingModeIndex)]
 def gun_switch_firing_mode_sound(evt : Event;
                                  animchar_bbox : bbox3f;
                                  gun_sound__isEnabled : bool;

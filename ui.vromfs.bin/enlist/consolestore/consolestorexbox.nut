@@ -24,13 +24,15 @@ let updateCb = function(result) {
 subscribe("xbox_update_purchases_after_app_state_changed", updateCb)
 
 
-app.register_unconstrain_callback(function() {
-  logXbox($"updatePurchases: is logged in: {userInfo.value != null}, isInBattleState: {isInBattleState.value}")
-  if (userInfo.value == null || isInBattleState.value)
-    return
+app.register_constrain_callback(function(active) {
+  if (active) {
+    logXbox($"updatePurchases: is logged in: {userInfo.value != null}, isInBattleState: {isInBattleState.value}")
+    if (userInfo.value == null || isInBattleState.value)
+      return
 
-  let xuid = user.get_xuid().tostring()
-  auth.login_live(xuid, "xbox_update_purchases_after_app_state_changed")
+    let xuid = user.get_xuid().tostring()
+    auth.login_live(xuid, "xbox_update_purchases_after_app_state_changed")
+  }
 })
 
 

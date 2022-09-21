@@ -1,0 +1,331 @@
+environment_effect_base{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="render"
+
+    effect{
+    }
+  }
+
+  "staticEffect:tag"{
+  }
+}
+
+envir_smoke_crater_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_crater_cmps_fx"
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+}
+
+envir_smoke_bg_massive_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_bg_massive_cmps_fx"
+  }
+}
+
+envir_smoke_bg_thick_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_bg_thick_cmps_fx"
+  }
+}
+
+envir_smoke_bg_thin_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_bg_thin_cmps_fx"
+  }
+}
+
+envir_misc_burned_ground_dist_5m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_dist_5m_cmps_fx"
+  }
+}
+
+envir_misc_burned_ground_dist_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_dist_15m_cmps_fx"
+  }
+}
+
+envir_misc_burned_ground_dist_30m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_dist_30m_cmps_fx"
+  }
+}
+
+envir_misc_burned_ground_fire_5m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_fire_5m_cmps_fx"
+  }
+}
+
+envir_misc_burned_ground_fire_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_fire_15m_cmps_fx"
+  }
+}
+
+envir_misc_burned_ground_smoke_single_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_p_smoke"
+  }
+}
+
+envir_misc_burned_ground_smoke_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_burned_ground_smoke_15m_cmps_fx"
+  }
+}
+
+envir_smoke_checkpoint_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_checkpoint_cmps_fx"
+  }
+}
+
+envir_sparks_burst_big_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_burst_big_cmps_fx"
+  }
+}
+
+envir_sparks_burst_line_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_burst_line_cmps_fx"
+  }
+}
+
+envir_sparks_burst_small_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_burst_small_cmps_fx"
+  }
+}
+
+envir_sparks_small_continious_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_sparks_small_continious_cmps_fx"
+  }
+}
+
+envir_misc_floating_ashes_single_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_ashes_p_base_fx"
+  }
+}
+
+envir_misc_floating_ashes_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_ashes_cmps_fx"
+  }
+}
+
+envir_misc_floating_leaves_5m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_leaves_5m_cmps_fx"
+  }
+}
+
+envir_misc_floating_leaves_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_leaves_15m_cmps_fx"
+  }
+}
+
+envir_misc_floating_leaves_30m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_leaves_30m_cmps_fx"
+  }
+}
+
+envir_misc_floating_papers_5m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_papers_5m_cmps_fx"
+  }
+}
+
+envir_misc_floating_papers_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_papers_15m_cmps_fx"
+  }
+}
+
+envir_misc_floating_papers_30m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_misc_floating_papers_30m_cmps_fx"
+  }
+}
+
+envir_fire_background_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_fire_background_cmps_fx"
+  }
+}
+
+envir_dust_floating_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_floating_cmps_fx"
+  }
+}
+
+envir_dust_ground_distortion_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_ground_distortion_15m_cmps_fx"
+  }
+}
+
+envir_dust_ground_dust_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_ground_dust_15m_cmps_fx"
+  }
+}
+
+envir_dust_ground_sand_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_ground_sand_15m_cmps_fx"
+  }
+}
+
+envir_dust_ground_snow_15m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_ground_snow_15m_cmps_fx"
+  }
+}
+
+envir_dust_swirling_sand_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_swirling_sand_cmps_fx"
+  }
+}
+
+envir_dust_swirling_snow_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_dust_swirling_snow_cmps_fx"
+  }
+}
+
+fire_spot_1m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_spot_1m_cmps_fx"
+  }
+}
+
+fire_spot_2m_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_spot_2m_cmps_fx"
+  }
+}
+
+fire_spot_vertical_effect{
+  _extends:t="environment_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_spot_vertical_cmps_fx"
+  }
+}

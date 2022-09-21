@@ -4,7 +4,7 @@ let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { inPlane, isDriver } = require("%ui/hud/state/vehicle_state.nut")
 let { mkHasBinding } = require("%ui/components/controlHudHint.nut")
-let DRIVER_TIPS = ["Human.SeatNext", "Plane.Throttle", "Plane.Ailerons","Plane.Elevator", "plane.Rudder","Plane.EngineToggle", "Plane.ToggleGear"] //"Plane.MouseAimToggle", "Plane.SimpleJoy"
+let DRIVER_TIPS = ["Human.SeatNext", "Plane.Throttle", "Plane.Ailerons","Plane.Elevator", "plane.Rudder","Plane.EngineToggle", "Plane.ToggleGear"] //"Plane.MouseAimToggle", "Plane.MouseAimRollOverride", "Plane.SimpleJoy"
 let PASSENGER_TIPS = ["Human.SeatNext"]
 let watches = {}
 foreach (key in [].extend(DRIVER_TIPS).extend(PASSENGER_TIPS))

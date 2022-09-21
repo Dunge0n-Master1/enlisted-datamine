@@ -88,11 +88,32 @@ spitfire_vc{
       gun:t="planegun_spitfire_vc_20mm_hispanomkii_04"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_spitfire_vc_20mm_hispanomkii{
   item__name:t="guns/cannonhispanomkii"
-  gun__blk:t="content/enlisted/gamedata/weapons/spitfire_vc/20mm_hispanomkii.blk"
+  gun__blk:t="gamedata/weapons/spitfire_vc/20mm_hispanomkii.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="cannonhispanomkii"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -118,25 +139,25 @@ base_spitfire_vc_20mm_hispanomkii{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
         name:t="mk1"
         type:t="ball_shell"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
         name:t="1"
         type:t="t_shell"
       }
@@ -186,6 +207,6 @@ spitfire_vc_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="spitfire_mk5c_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/spitfire_vc.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/spitfire_vc.blk"
+  plane_anim__blk:t="gamedata/units/spitfire_vc.blk"
+  plane_sight__blk:t="gamedata/units/spitfire_vc.blk"
 }

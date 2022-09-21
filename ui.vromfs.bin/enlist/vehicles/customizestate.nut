@@ -6,13 +6,13 @@ let { hasPremium } = require("%enlist/currency/premium.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { hasVehicleCustomization } = require("%enlist/featureFlags.nut")
 let { endswith } = require("string")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
 let { viewVehicle } = require("vehiclesListState.nut")
 let { add_veh_decorators, apply_decorator, buy_veh_decorator
 } = require("%enlist/meta/clientApi.nut")
-let { setDecalSlot, setDecalName, setDecalMirrored, setDecalTwoSide,
-  vehTargetEid, applyDecalsToVehicle
+let { setDecalSlot, setDecalMirrored, setDecalTwoSide,
+  vehTargetEid, applyDecalsToVehicle, setDecorInfo, applyDecorToVehicle
 } = require("decorViewer.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let {
@@ -58,6 +58,10 @@ let viewVehCustSchemes = Computed(function() {
 
 let vehDecorBelongCfg = Computed(function() {
   return configs.value?.vehDecorBelongCfg ?? {}
+})
+
+let vehDecorLimits = Computed(function() {
+  return configs.value?.vehDecorLimits ?? {}
 })
 
 let vehCustomizationCfg = Computed(function() {
@@ -202,9 +206,9 @@ let viewVehDecorators = Computed(function() {
 let curCamouflageId = Computed(@()
   selectedCamouflage.value?.id ?? viewVehCamouflage.value?.id)
 
-let function startUsingDecal(slot, cfg) {
+let function startUsingDecor(slot, cfg) {
   setDecalSlot(slot)
-  setDecalName(cfg.guid)
+  setDecorInfo(cfg.guid, cfg.cType)
   selectedDecorator(cfg)
 }
 
@@ -240,6 +244,32 @@ let function buyDecorator(cType, id, cost, cb = null) {
 
 let closeDecoratorsList = @() customizationParams(null)
 
+let viewVehDecorData = keepref(Computed(function() {
+  let vehicleGuid = viewVehicle.value?.guid ?? ""
+  let targetEid = vehTargetEid.value ?? INVALID_ENTITY_ID
+  if (vehicleGuid == "" || targetEid == INVALID_ENTITY_ID)
+    return null
+
+  let hasPrem = hasPremium.value
+  let { slotsNum = 0, premSlotsNum = 0 } = viewVehCustSchemes.value?.vehDecorator ?? {}
+  let availableSlots = hasPrem ? slotsNum + premSlotsNum : slotsNum
+  if (availableSlots <= 0)
+    return null
+  let decorArray = []
+  foreach (decorById in availVehDecorByTypeId.value?.vehDecorator ?? {}) {
+    foreach (decor in decorById) {
+      let { vehGuid, slotIdx, id, details, cType } = decor
+      if (vehGuid != vehicleGuid || slotIdx >= availableSlots)
+        continue
+
+      let decorData = stringToDecal(details, cType, id, slotIdx)
+      if (decorData != null)
+        decorArray.append(decorData)
+    }
+  }
+  return { targetEid, decorArray }
+}))
+
 let viewVehDecalData = keepref(Computed(function() {
   let vehicleGuid = viewVehicle.value?.guid ?? ""
   let targetEid = vehTargetEid.value ?? -1
@@ -255,11 +285,11 @@ let viewVehDecalData = keepref(Computed(function() {
   let decalCompArray = ecs.CompArray()
   foreach (decalsById in availVehDecorByTypeId.value?.vehDecal ?? {}) {
     foreach (decal in decalsById) {
-      let { vehGuid, slotIdx, id, details } = decal
+      let { vehGuid, slotIdx, id, details, cType } = decal
       if (vehGuid != vehicleGuid || slotIdx >= avaiSlots)
         continue
 
-      let decalData = stringToDecal(details, id, slotIdx)
+      let decalData = stringToDecal(details, cType, id, slotIdx)
       if (decalData != null)
         decalCompArray.append(decalToCompObject(decalData))
     }
@@ -268,18 +298,44 @@ let viewVehDecalData = keepref(Computed(function() {
   return { targetEid, decalCompArray }
 }))
 
+let viewVehCustLimits = Computed(function() {
+  let viewVehGuid = viewVehicle.value?.guid
+  if (viewVehGuid == null)
+    return null
+
+  let cfg = vehCustomizationCfg.value
+  let res = {}
+  foreach (vehDecorator in vehDecorators.value) {
+    let { cType, id, vehGuid, slotIdx } = vehDecorator
+    if (vehGuid != viewVehGuid)
+      continue
+
+    let groupId = cfg?[cType][id].subType ?? ""
+    if (groupId != "")
+      res[cType] <- (res?[cType] ?? {}).__update({ [slotIdx] = groupId })
+  }
+  return res
+})
+
 let function updateViewVehDecals(_ = null) {
   let decals = viewVehDecalData.value
   if (decals != null)
     applyDecalsToVehicle(decals)
 }
 
+let function updateViewVehDecor(_ = null) {
+  let decors = viewVehDecorData.value
+  if (decors != null)
+    applyDecorToVehicle(decors)
+}
+
 viewVehDecalData.subscribe(updateViewVehDecals)
+viewVehDecorData.subscribe(updateViewVehDecor)
 
 let function stopUsingDecal() {
   selectedDecorator(null)
   setDecalSlot(-1)
-  setDecalName("")
+  setDecorInfo("", "")
   updateViewVehDecals()
 }
 
@@ -297,7 +353,7 @@ return {
   selectedCamouflage
 
   selectedDecorator
-  startUsingDecal
+  startUsingDecor
   isPurchasing
   mirrorDecal
   twoSideDecal
@@ -306,8 +362,10 @@ return {
   viewVehDecorators
   vehCustomizationCfg
   vehDecorBelongCfg
+  vehDecorLimits
   customizationSort
   viewVehCustSchemes
+  viewVehCustLimits
   getVehSkins
   getBaseVehicleSkin
   getOwnedCamouflage

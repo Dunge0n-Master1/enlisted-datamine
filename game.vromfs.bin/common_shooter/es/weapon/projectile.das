@@ -63,6 +63,7 @@ def projectile_phys_created_es(evt : Event;
 [es(on_appear)]
 def projectile_created_es(evt : Event;
                           launch_desc : LaunchDesc;
+                          var projectile__bulletTypeHash : uint&;
                           var projectile__visualPos : float3&;
                           var detonation__timer : float&;
                           var dm_projectile_state : ProjectileState)
@@ -78,6 +79,7 @@ def projectile_created_es(evt : Event;
     shell_entity_get_props(int(launch_desc.shellId.shellId)) <| $(entProps : ShellEntityTypeProps)
       let bulletType = entProps.bulletType
       if bulletType != ""
+        projectile__bulletTypeHash = ecs_hash(bulletType)
         dm_projectile_state.projectileTypePropsId = getBulletTypeId(get_damage_model_params(), bulletType)
       dm_projectile_state.startPos = launch_desc.tm[3]
       dm_projectile_state.startVel = launch_desc.vel
@@ -142,7 +144,7 @@ def update_projectile_phys_es(info : ParallelUpdateFrameDelayed;
   dm_projectile_state.distance += ures.dirLen
 
 
-[es(no_order)]
+[es(no_order, REQUIRE_NOT=projectile__inactive)]
 def update_projectile_es(info : ParallelUpdateFrameDelayed;
                          eid : EntityId;
                          ownerEid : EntityId;

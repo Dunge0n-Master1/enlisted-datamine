@@ -20,8 +20,9 @@ import:t="bomb_site.blk"
 import:t="bomb_crater.blk"
 import:t="#content/common_shooter/gamedata/templates/squads.blk"
 import:t="#content/common/gamedata/templates/humans.blk"
+import:t="%danetlibs/spline_geometry/templates/spline_gen_geometry.blk"
 import:t="#content/common_shooter/gamedata/templates/burning.blk"
-import:t="#content/common_shooter/gamedata/templates/blood_decals.blk"
+import:t="%danetlibs/blood_decals/templates/blood_decals.template.blk"
 import:t="#content/common_shooter/gamedata/templates/blood_flow.blk"
 import:t="#content/common_shooter/gamedata/templates/battle_areas.blk"
 import:t="enlisted_input.blk"
@@ -31,6 +32,7 @@ import:t="#content/e_ww2_common/gamedata/templates/it_soldiers.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ger_weapon_presets.blk"
 import:t="#content/e_ww2_common/gamedata/templates/sov_soldiers.blk"
 import:t="#content/e_ww2_common/gamedata/templates/uk_soldiers.blk"
+import:t="#content/e_ww2_common/gamedata/templates/jap_soldiers.blk"
 import:t="#content/e_ww2_common/gamedata/templates/moroc_soldiers.blk"
 import:t="#content/e_ww2_common/gamedata/templates/usa_soldiers.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ussr_female_soldiers.blk"
@@ -54,21 +56,23 @@ import:t="#content/common_shooter/gamedata/templates/shooter_humans.blk"
 import:t="enlisted_shooter_humans.blk"
 import:t="mission_time.blk"
 import:t="enlisted_debug.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_character_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_facegen_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_ger_items.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_guns.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_guns_mods.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_mines.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_tnt_blocks.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_binoculars.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_impact_grenades.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_ussr_items.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_us_items.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_uk_items.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_ger_items.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_italy_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_ussr_items.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_japan_items.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_impact_grenades.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_incendiary_grenades.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_tnt_blocks.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_mines.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_binoculars.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_game_objects.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_character_items.blk"
+import:t="#content/e_ww2_common/gamedata/templates/ww2_facegen_items.blk"
 import:t="#content/modern_equipment/gamedata/templates/*.blk"
 import:t="hero.blk"
 import:t="menu_hero.blk"
@@ -89,6 +93,7 @@ import:t="#content/tanks/gamedata/templates/ww2_destroyed_tanks.blk"
 import:t="dummy_body_parts.blk"
 import:t="enlisted_guns.blk"
 import:t="#content/enlisted/gamedata/templates/enlisted_guns_hit_fx.blk"
+import:t="#content/enlisted/gamedata/templates/enlisted_explosion_hit_fx.blk"
 import:t="enlisted_items.blk"
 import:t="enlisted_sounds.blk"
 import:t="enlisted_buildings.blk"
@@ -146,6 +151,19 @@ rendinsts_removes{
   }
 }
 
+battle_area_ui_state{
+  _singleton:b=yes
+  battle_area__requireUpdate:b=yes
+  _tracked:t="battle_area__activeBattleAreasPolygon"
+  _tracked:t="battle_area__nextBattleAreasPolygon"
+
+  "battle_area__activeBattleAreasPolygon:list<p2>"{
+  }
+
+  "battle_area__nextBattleAreasPolygon:list<p2>"{
+  }
+}
+
 navmesh_rebuilding{
   nonCreatableObj:b=yes
   editableObj:b=no
@@ -168,11 +186,11 @@ digging_config{
 
     "digging_config__decalNames:list<t>"{
       name:t="shovel_dig"
-      name:t="shovel_dig"
-      name:t="shovel_dig"
-      name:t="shovel_dig"
-      name:t="shovel_dig"
-      name:t="shovel_dig"
+      name:t="shovel_dig_sand"
+      name:t="shovel_dig_sand"
+      name:t="shovel_dig_sand"
+      name:t="shovel_dig_sand"
+      name:t="shovel_dig_sand"
     }
 
     "digging_config__decalIds:list<i>"{
@@ -225,6 +243,7 @@ vehicle_fx{
 civil_vehicle_templ{
   _override:b=yes
   _extends:t="vehicle_autodetect_team"
+  _extends:t="vehicle_marker_ui"
   team:i=-1
   vehicle__mapIcon:t="map_icon_car"
   user_point__icon:t="map_icon_car"
@@ -238,7 +257,7 @@ civil_vehicle_templ{
 
   "vehicle_seats__canAcquireControls:shared:object"{
 
-    "driver:object"{
+    "default:object"{
       movement:b=yes
     }
   }
@@ -345,6 +364,15 @@ game_objects{
 
   "game_objects__createChance:object"{
     stationary_mg42:r=1.0
+    type_89_127mm_naval_gun_go:r=1.0
+    type_89_127mm_naval_gun_shield_go:r=1.0
+    type_96_25mm_mg_go:r=1.0
+    type_96_25mm_mg_shield_go:r=1.0
+    bofors_40mm_quadruple_go:r=1.0
+    bofors_40mm_twin_go:r=1.0
+    oerlikon_20mm_go:r=1.0
+    turret_127mm_mk32_single_go:r=1.0
+    turret_127mm_mk32_twin_go:r=1.0
   }
 }
 
@@ -464,6 +492,9 @@ plane_base{
   last_offender__gunPropsId:i=-1
 
   "turret_control__hasAiGunners:tag"{
+  }
+
+  "turret_control__chaseTargets:tag"{
   }
 
   "ai_target__targetForAiGunner:tag"{
@@ -591,6 +622,20 @@ base_xray{
   }
 }
 
+vehicle_marker_ui{
+  _tags:t="ui"
+  _track:b=yes
+  vehicle_marker_ui__isEmpty:b=yes
+  vehicle_marker_ui__hasGroupmates:b=no
+  vehicle_marker_ui__hasSquadmates:b=no
+
+  "vehicle_marker_ui__gropmateNames:list<t>"{
+  }
+
+  "vehicle_marker_ui__gropmateNickFrames:list<t>"{
+  }
+}
+
 base_tank{
   _override:b=yes
   _extends:t="base_xray"
@@ -600,6 +645,7 @@ base_tank{
   _extends:t="tank_ammo_distribution_default"
   _extends:t="killer_outline"
   _extends:t="vehicle_decals"
+  _extends:t="vehicle_marker_ui"
   vehicle__mapIcon:t="map_icon_tank"
   user_point__icon:t="map_icon_tank"
 
@@ -639,6 +685,7 @@ base_tank{
 base_ship{
   _override:b=yes
   _extends:t="vehicle_autodetect_team"
+  _extends:t="vehicle_marker_ui"
   vehicle__mapIcon:t="map_icon_boat"
   user_point__icon:t="map_icon_boat"
   team:i=-1
@@ -670,6 +717,7 @@ base_bike_common{
   _extends:t="bike_mods"
   _extends:t="vehicle_flippable"
   _extends:t="kick_passengers_on_flip"
+  _extends:t="vehicle_marker_ui"
   vehicle__mapIcon:t="map_icon_bike"
   user_point__icon:t="map_icon_bike"
 
@@ -739,8 +787,6 @@ xray_context{
     xray_context__pos:p2=0.0, 0.0
     xray_context__size:p2=420.0, 230.0
     xray_context__dmPanelVisible:b=no
-    xray_context__dmPanelPos:p2=0.0, 0.0
-    xray_context__dmPanelSize:p2=420.0, 230.0
   }
 }
 
@@ -847,6 +893,15 @@ menu_aircraft{
   _singleton:b=yes
 
   "menu_aircraft_to_control:eid"{
+  }
+}
+
+menu_aircraft_floating{
+  _extends:t="menu_transform"
+  _track:b=yes
+  _singleton:b=yes
+
+  "menu_aircraft_floating_to_control:eid"{
   }
 }
 
@@ -1023,6 +1078,16 @@ artillery_owner{
     "unlock:object"{
       template:t="stalingrad_ger_team_aircraft_request"
       unlockId:i=11
+    }
+
+    "unlock:object"{
+      template:t="pacific_usa_team_aircraft_request"
+      unlockId:i=12
+    }
+
+    "unlock:object"{
+      template:t="pacific_japan_team_aircraft_request"
+      unlockId:i=13
     }
 
     "unlock:object"{
@@ -1332,6 +1397,8 @@ enlisted_userstat_filter{
     mission_objectives_destroyed:b=yes
     infantry_mine_kills:b=yes
     vehicle_mine_kills:b=yes
+    lunge_mine_kills:b=yes
+    lunge_mine_vehicle_kills:b=yes
     friendly_fire_squad_spawns:b=yes
     friendly_fire_score:b=yes
     battle_group_battle_score:b=yes
@@ -2145,7 +2212,11 @@ soldier_info_cache{
 }
 
 shell_info_cache{
+  _singleton:b=yes
   _tags:t="gameClient"
+  shell_info_cache__expirationTime:r=3.0
+  shell_info_cache__checkInterval:r=1.0
+  shell_info_cache__nextCheckAt:r=0.0
 
   "shell_info_cache:object"{
   }
@@ -2190,6 +2261,8 @@ armor_analyzer{
 vehicle_decals_manager{
   _singleton:b=yes
   _tags:t="render"
+  decor_manager__rootNodeName:t="root"
+  decor_manager__turretNodeName:t="bone_turret"
 
   _group{
     _track:b=yes
@@ -2204,8 +2277,12 @@ vehicle_decals_manager{
     current_decal__twoSided:b=no
     current_decal__oppositeMirrored:b=no
     current_decal__hasHit:b=no
+    current_decor__type:t=""
 
     "decals_manager__target:eid"{
+    }
+
+    "current_decal__decorEid:eid"{
     }
   }
 }
@@ -2320,6 +2397,14 @@ ai_aircraft_crew_usa{
   _group{
     _tags:t="server"
     ai_aircraft_crew__soldier_template:t="ai_aircraft_crew_usa_soldier+no_report_kill"
+  }
+}
+
+ai_aircraft_crew_jap{
+
+  _group{
+    _tags:t="server"
+    ai_aircraft_crew__soldier_template:t="ai_aircraft_crew_jap_soldier+no_report_kill"
   }
 }
 
@@ -2460,7 +2545,7 @@ scenery_remover{
   }
 
   _info{
-    desc:t="Special entity to remove baked original level models (RI) at start of level. Use move, rotate and scale tools to setup displayed box. Everything inside box, except for excluded list, will be removed. Please note, that you can also select, remove and copy RI via Toolbox panel at right top corner of editor (RendInsts)."
+    desc:t="Special entity to remove baked original level models (RI) at start of level. Use move, rotate and scale tools to setup displayed box. Everything inside box, except for excluded list, will be removed. You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
   }
 
   _group{
@@ -2754,26 +2839,49 @@ gun_game_mode_sounds{
 }
 
 cinematic_mode{
+  _extends:t="cinematic_mode_settings"
+  _extends:t="cinematic_mode_manager"
   _singleton:b=yes
-  cinematic_mode__hasRain:b=no
-  cinematic_mode__hasSnow:b=no
-  cinematic_mode__hasLightning:b=no
+}
+
+cinematic_mode_manager{
 
   "cinematic_mode_tag:tag"{
   }
 
   _group{
+    _tags:t="render"
+
+    "cinematic_mode__manager:CinematicMode"{
+    }
+  }
+}
+
+cinematic_mode_settings{
+  cinematic_mode__lenseCoveringTex:t="lense_dust"
+  cinematic_mode__lenseRadialTex:t=""
+
+  _group{
     _track:b=yes
     cinematic_mode__useCustomSettings:b=no
     cinematic_mode__fps:i=60
-    cinematic_mode__fname:t="d:/encode.mp4"
+    cinematic_mode__fname:t=""
+    cinematic_mode__audioDataFName:t=""
     cinematic_mode__bitrate:i=30000000
     cinematic_mode__subPixels:i=1
     cinematic_mode__vignetteStrength:r=0.0
     cinematic_mode__chromaticAberration:p3=0.01, 0.007, 1.0
     cinematic_mode__filmGrain:p3=0.0, 1.0, 1.0
     cinematic_mode__bloomThreshold:r=0.8
+    cinematic_mode__lenseFlareIntensity:r=0.0
+    cinematic_mode__lenseDust:b=no
     cinematic_mode__recording:b=no
+    cinematic_mode__audio_recording:b=no
+    cinematic_mode__loadAudio:b=no
+    cinematic_mode__saveAudio:b=no
+    cinematic_mode__hasRain:b=no
+    cinematic_mode__hasSnow:b=no
+    cinematic_mode__hasLightning:b=no
     cinematic_mode__weatherPreset:t=""
     cinematic_mode__rain:b=no
     cinematic_mode__snow:b=no
@@ -2797,4 +2905,8 @@ cinematic_mode{
   "cinematic_mode__colorGradingOptions:shared:list<t>"{
     item:t="postfx_color_grading_tonemap_death_alive_enlisted"
   }
+}
+
+pushable_object{
+  push_object__energyScale:r=200.0
 }

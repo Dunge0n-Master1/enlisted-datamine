@@ -1,6 +1,8 @@
 germ_pzkpfw_II_ausf_C{
   _extends:t="base_pzkpfw_ii_ausf_c"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
+  _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_ii_ausf_c.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_ii_ausf_c.blk"
   item__iconOffset:p2=0.0, 0.3
@@ -19,17 +21,24 @@ germ_pzkpfw_II_ausf_C{
       locName:t="vehicle_seats/gunner"
       attachNode:t="commander"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.13, -0.5, 0.115]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=yes
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="germ_pzkpfw_II_ausf_C_gunner_cockpit"
+      hatchRotationAxis:p3=1.7, 0.0, 0.0
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
 
       "turretNames:array"{
         turret:t="turret_01"
         turret:t="turret_02"
+      }
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
       }
     }
 
@@ -50,21 +59,16 @@ germ_pzkpfw_II_ausf_C{
     }
 
     "seats:object"{
-      name:t="commander"
+      name:t="loader"
       attachNode:t="bone_turret"
       shouldHideOwner:b=yes
-      locName:t="vehicle_seats/commander"
+      locName:t="vehicle_seats/loader"
       ignoreAttachNodeRotation:b=yes
       hatchRotationAxis:p3=1.7, 0.0, 0.0
       attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.65, -0.0]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_turret"
-      cockpitTemplate:t="germ_pzkpfw_II_ausf_C_commander_cockpit"
-
-      "hatchNodes:array"{
-        node:t="hatch_01"
-      }
 
       "loaderTurretNames:array"{
         turret:t="turret_01"

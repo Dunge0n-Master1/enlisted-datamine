@@ -14,7 +14,7 @@ require DagorMath
 require DagorSystem
 
 
-[es(tag=(server, net), REQUIRE=human_net_phys, REQUIRE_NOT=ragdoll, track=isAlive, on_event=EventComponentChanged)]
+[es(tag=(server, net), REQUIRE=human_net_phys, REQUIRE_NOT=ragdoll, track=isAlive)]
 def human_anim_disable_anim_updates_for_deadmen_server_es(evt : Event;
                                                           isAlive : bool;
                                                           var animchar__updatable : bool&)

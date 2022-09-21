@@ -80,8 +80,6 @@ base_pzkpfw_ii_ausf_c{
       turretName:t="turret_02"
       gun:t="pzkpfw_ii_ausf_c_turret_02_7_92mm_mg34"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

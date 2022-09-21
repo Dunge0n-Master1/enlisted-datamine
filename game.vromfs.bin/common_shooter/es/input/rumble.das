@@ -42,10 +42,18 @@ def rumble_on_damage(evt : EventOnEntityHit)
 
   sendEvent(evt.victim, [[CmdRumble eventName=rumbleEvent]])
 
-[es(tag=input, REQUIRE=(isTurret, mainTurret))]
-def turret_rumble_on_shooting(evt : EventShot; gun__owner : ecs::EntityId)
+[es(tag=input)]
+def turret_rumble_on_shooting(evt : EventShot;
+                              gun__owner : ecs::EntityId;
+                              gun__curShellImpulse : float;
+                              rumble__isHighBand : bool = true;
+                              rumble__maxShellImpulse : float = 1.5f)
   if is_gamepad_input() && has(gun__owner, "human_input")
-    sendEvent(gun__owner, [[CmdRumble eventName="mainTurretShot"]])
+    let scale = cvt(gun__curShellImpulse, 0.0, rumble__maxShellImpulse, 0.0, 1.0)
+    if rumble__isHighBand
+      sendEvent(gun__owner, [[CmdScaledRumble eventMinName="minImpulseTurretShotHb", eventMaxName="maxImpulseTurretShotHb", scale=scale]])
+    else
+      sendEvent(gun__owner, [[CmdScaledRumble eventMinName="minImpulseTurretShot", eventMaxName="maxImpulseTurretShot", scale=scale]])
 
 [es(tag=input, on_appear, track=game_effect__attachedTo)]
 def rumble_on_effect_attach_es(evt : Event; game_effect__attachedTo : EntityId; ingame_rumble__onEffectAttach : string)

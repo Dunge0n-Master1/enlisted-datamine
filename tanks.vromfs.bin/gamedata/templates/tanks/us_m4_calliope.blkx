@@ -107,6 +107,11 @@ us_m4_sherman_calliope_common{
       cameraNodeName:t="bone_camera_driver"
     }
   }
+
+  _group{
+    _tags:t="render"
+    dm_panel__outlineResolutionScale:r=2.1
+  }
 }
 
 us_m4_sherman_calliope_commander_cockpit{

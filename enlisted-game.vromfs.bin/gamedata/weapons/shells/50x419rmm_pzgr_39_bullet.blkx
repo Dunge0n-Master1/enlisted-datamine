@@ -18,6 +18,7 @@ explodeTreshold:r=9.0
 stucking:r=0.7
 relativeVelArmorShift:p2=200.0, 1000.0
 stuckingAngle:r=45.0
+bulletType:t="ap_t"
 slopeEffectPreset:t="apc"
 fresnel:p3=0.23, 0.1, 2.0
 selfDestructionFx:t="explosion_air_selfexplosion_med"

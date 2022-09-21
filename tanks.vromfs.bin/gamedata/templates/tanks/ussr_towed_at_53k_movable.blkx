@@ -93,6 +93,7 @@ ussr_towed_at_53k_movable_common{
       nextSeat:t="main_gunner"
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="root"
+      copySkeletonNodesPostfix:t="_gunner"
 
       "lockSeats:list<t>"{
         locked:t="loader"
@@ -101,6 +102,11 @@ ussr_towed_at_53k_movable_common{
       "effectors:object"{
         l.hand:t="ik_hand_left_gunner"
         r.hand:t="ik_hand_right_gunner"
+      }
+
+      "copySkeletonNodesRecursive:array"{
+        node:t="Bip01 L Hand"
+        node:t="Bip01 R Hand"
       }
     }
 
@@ -139,10 +145,16 @@ ussr_towed_at_53k_movable_common{
       nextSeat:t="main_gunner"
       vehicleReloadMult:r=0.7
       canPlaceManually:b=no
+      copySkeletonNodesPostfix:t="_loader"
 
       "effectors:object"{
         l.hand:t="ik_hand_left_loader"
         r.hand:t="ik_hand_right_loader"
+      }
+
+      "copySkeletonNodesRecursive:array"{
+        node:t="Bip01 L Hand"
+        node:t="Bip01 R Hand"
       }
     }
   }

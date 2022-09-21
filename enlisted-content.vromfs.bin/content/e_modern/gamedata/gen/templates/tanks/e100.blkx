@@ -90,8 +90,6 @@ base_e100{
       turretName:t="turret_02"
       gun:t="gm_e_99_blastergun"
       barrelDm:t="gun_barrel_03"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

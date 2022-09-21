@@ -11,6 +11,7 @@ return @() {
     size = flex()
     children = {
       size = flex()
+      rendObj = ROBJ_XRAYDOLL
       behavior = Behaviors.DMPanel
     }
   }

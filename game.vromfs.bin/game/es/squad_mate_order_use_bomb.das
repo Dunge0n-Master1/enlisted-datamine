@@ -42,8 +42,8 @@ def on_squad_leader_use_bomb_es(act : UpdateStageInfoAct)
             if beh_tree__latencyLoadBlackBoard != null
               *beh_tree__latencyLoadBlackBoard |> set("bombSiteEid", int(uint(eid)))
               *beh_tree__latencyLoadBlackBoard |> set("bombSitePos", bomb_transform[3])
-            beh_tree.blackBoard |> datablock_setInt("bombSiteEid", int(uint(eid)))
-            beh_tree.blackBoard |> datablock_setPoint3("bombSitePos", bomb_transform[3])
+            beh_tree.blackBoard |> set("bombSiteEid", int(uint(eid)))
+            beh_tree.blackBoard |> set("bombSitePos", bomb_transform[3])
 
           if can_defuse_bomb(eid, squad__leader)
             beh_tree__useBombResetTrigger = true
@@ -56,8 +56,8 @@ def on_squad_leader_use_bomb_es(act : UpdateStageInfoAct)
             if beh_tree__latencyLoadBlackBoard != null
               *beh_tree__latencyLoadBlackBoard |> set("bombSiteEid", int(uint(eid)))
               *beh_tree__latencyLoadBlackBoard |> set("bombSitePos", bomb_transform[3])
-            beh_tree.blackBoard |> datablock_setInt("bombSiteEid", int(uint(eid)))
-            beh_tree.blackBoard |> datablock_setPoint3("bombSitePos", bomb_transform[3])
+            beh_tree.blackBoard |> set("bombSiteEid", int(uint(eid)))
+            beh_tree.blackBoard |> set("bombSitePos", bomb_transform[3])
 
 [es(tag=server, track=beh_tree__useBombResetTrigger)]
 def on_squad_leader_using_bomb_es(evt : Event;
@@ -71,5 +71,5 @@ def on_squad_leader_using_bomb_es(evt : Event;
 [es(on_event=EventLevelLoaded)]
 def create_ai_bomb_beh_on_level_loaded(evt : Event)
   find_query() <| $ [es] (walker_agent__aiBombBehaviourEntity : string)
-    createEntitySync(walker_agent__aiBombBehaviourEntity)
+    createEntity(walker_agent__aiBombBehaviourEntity)
     return true

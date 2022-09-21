@@ -68,7 +68,7 @@ fire_source{
 
   _group{
     _tags:t="render"
-    effect__name:t="molotov_fire"
+    effect__name:t="fire_molotov_cmps_fx"
   }
 
   "attachedNoScaleEffect:tag"{

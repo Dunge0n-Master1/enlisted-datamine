@@ -1,7 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-require("onlyInEnlistVm.nut")("soldiersState")
-
 let json = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { profile } = require("%enlist/meta/servProfile.nut")
@@ -26,6 +24,8 @@ let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
+let { expiredRentedSquads } = require("rentedSquads.nut")
+
 
 let curArmiesStorage = mkOnlineSaveData("curArmies", @() {})
 let setCurArmies = curArmiesStorage.setValue
@@ -200,12 +200,16 @@ let curUnlockedSquadsSoldiers = Computed(@()
 
 let chosenSquadsByArmy = Computed(function() {
   let res = {}
+  let expired = expiredRentedSquads.value
   foreach (armyId in curArmiesList.value) {
     let squadsLimits = limitsByArmy.value?[armyId] ?? armyLimitsDefault
     local { maxSquadsInBattle, maxInfantrySquads, maxBikeSquads, maxVehicleSquads } = squadsLimits
     let squadsList = []
     foreach (squad in squadsByArmy.value?[armyId] ?? []) {
-      let { vehicleType = "" } = squad
+      let { guid, vehicleType = "" } = squad
+      if (guid in expired)
+        continue
+
       if (vehicleType == "bike") {
         if (maxBikeSquads <= 0)
           continue
@@ -375,7 +379,7 @@ let function getSoldierItemSlots(guid, itemsByLink) {
 let getSoldierItem = @(guid, slot, campItems) campItems?[guid][slot][0]
 
 let function getDemandingSlots(ownerGuid, slotType, objInfo, itemsByLink) {
-  let equipScheme = objInfo.equipScheme ?? {}
+  let { equipScheme = {} } = objInfo
   let equipGroup = equipScheme?[slotType].atLeastOne ?? ""
   return equipGroup != ""
     ? equipScheme
@@ -438,8 +442,8 @@ let DROP_COMMANDS = {
   addAllPistols           = ["sideweapon"]
   addAllMedkits           = ["medkits", "medic_medkits"]
   addAllGrenades          = ["grenade", "explosion_pack", "molotov", "tnt_block_exploder",
-                             "impact_grenade", "smoke_grenade"]
-  addAllMines             = ["antipersonnel_mine", "antitank_mine"]
+                             "impact_grenade", "smoke_grenade", "incendiary_grenade"]
+  addAllMines             = ["antipersonnel_mine", "antitank_mine", "lunge_mine"]
   addAllRepairKits        = ["repair_kit"]
   addAllMelee             = ["melee"]
   addAllBayonet           = ["bayonet"]

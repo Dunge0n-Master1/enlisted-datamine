@@ -61,6 +61,10 @@ explSound{
   shattersMinMaxCount:ip2=0, 4
 }
 
+shellSound{
+  activatePath:t="/weapon/grenade/activate"
+}
+
 damage{
 
   explosive{

@@ -101,6 +101,30 @@ mosquito_fb_mk18{
       gun:t="planegun_mosquito_fb_mk18_7_7mm_browning303_raf_04"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare5"
+    node:t="flare6"
+    node:t="flare7"
+    node:t="flare8"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_50mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_mosquito_fb_mk18_57mm_molinsclassm{

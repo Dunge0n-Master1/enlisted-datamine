@@ -187,7 +187,7 @@ let function getItemAnimationBlacklist(soldier, soldierGuid, scheme, soldiersLoo
 }
 
 let function getWeapTemplates(soldierGuid, scheme) {
-  let weapTemplates = {primary="", secondary="", tertiary=""}
+  let weapTemplates = {primary="", secondary="", tertiary="", special=""}
   foreach (slotType, slot in scheme) {
     if (weapTemplates?[slot?.ingameWeaponSlot] != "")
       continue
@@ -249,21 +249,19 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
 
   let armyId = getLinkedArmyName(soldier ?? {})
   let faceOverride = getSoldierFace(soldierGuid)
-  local soldiersLookToShow = soldiersDefaultLook
-  local soldiersDefaultItems = soldiersDefaultLook.items
-  local premiumItemsToEquip = {}
-  let premiumToOverride = premiumItems?[armyId]
+  local lookItemsApplyOrder = [soldiersDefaultLook.items.filter(@(_, slot) slot not in customizationOvr)]
 
-  if (soldiersLookToShow != null && premiumToOverride != null)
-    foreach (item in premiumToOverride){
-      let slot = item?.links[soldierGuid]
-      if (slot != null)
-        premiumItemsToEquip.__update({ [slot] = item.basetpl })
-    }
+  local premiumItemsToEquip = {}
+  foreach (item in premiumItems?[armyId] ?? []) {
+    let slot = item?.links[soldierGuid]
+    if (slot != null && slot not in customizationOvr)
+      premiumItemsToEquip.__update({ [slot] = item.basetpl })
+  }
+  lookItemsApplyOrder.append(premiumItemsToEquip, customizationOvr ?? {})
 
   let eInfos = getWearInfos(soldierGuid, scheme)
   foreach (eInfo in eInfos)
-    if (eInfo?.slot != null){
+    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null && eInfo.slot not in customizationOvr) {
       let data = appendEquipment(equipment, eInfo)
       if (!data)
         break
@@ -271,53 +269,26 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
         data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
     }
 
-
-  if (premiumItemsToEquip.len() > 0){
-    soldiersDefaultItems = soldiersDefaultItems.__merge(premiumItemsToEquip)
-    soldiersLookToShow = soldiersLookToShow.__merge({ items = soldiersDefaultItems })
-  }
-
-  if ((customizationOvr ?? {}).len() > 0){
-    soldiersDefaultItems = soldiersDefaultItems.__merge(customizationOvr)
-    soldiersLookToShow = soldiersLookToShow.__merge({items = soldiersDefaultItems})
-  }
-
-
-  if (soldiersLookToShow != null) {
-    foreach (tmpl in soldiersLookToShow?.items ?? {}) {
+  foreach(list in lookItemsApplyOrder)
+    foreach (tmpl in list) {
       let eInfo = findItemTemplate(allItemTemplates, armyId, tmpl)
-      if (eInfo?.slot != null) {
-        let data = appendEquipment(equipment, eInfo)
-        if (!data)
-          break
-        if (eInfo.itemtype == "head")
-          data.faceId <- faceOverride ?? soldiersLookToShow.faceId
-      }
+      if (eInfo?.slot == null)
+        continue
+      let data = appendEquipment(equipment, eInfo)
+      if (!data)
+        break
+      if (eInfo.itemtype == "head")
+        data.faceId <- faceOverride ?? soldiersDefaultLook.faceId
     }
-  }
-
 
   foreach (eInfo in eInfos)
-    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null){
+    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null && eInfo.slot not in customizationOvr){
       let data = appendEquipment(equipment, eInfo)
       if (!data)
         break
       if (eInfo.itemtype == "head")
         data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
     }
-
-
-  foreach (eInfo in eInfos) {
-    if (eInfo?.slotTemplates != null)
-      foreach (slot, gametemplate in eInfo.slotTemplates){
-        let itemsInfo = {
-          slot
-          gametemplate
-          itemtemplate = gametemplate
-        }
-        appendEquipment(equipment, itemsInfo)
-      }
-  }
 
   equipment = equipment.filter(@(v) v != "" && v != null)
 

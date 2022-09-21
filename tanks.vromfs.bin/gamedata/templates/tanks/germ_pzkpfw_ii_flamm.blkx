@@ -6,6 +6,7 @@ germ_pzkpfw_ii_flamm{
 germ_pzkpfw_ii_flamm_common{
   _extends:t="base_pzkpfw_ii_flamm"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.2
 
   "vehicle_seats__seats:shared:array"{
@@ -66,6 +67,25 @@ germ_pzkpfw_ii_flamm_common{
       "loaderTurretNames:array"{
         turret:t="turret_01"
       }
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/panzer3/engine"
+      enemy:t="enemy/vehicle/tank/panzer3/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/tank/panzer3/engine_start"
+      enemy:t="enemy/vehicle/tank/panzer3/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/tank/panzer3/engine_stop"
+      enemy:t="enemy/vehicle/tank/panzer3/engine_stop"
     }
   }
 }

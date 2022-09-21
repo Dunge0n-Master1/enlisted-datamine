@@ -1,0 +1,36 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ae8cd9;
+      }
+
+      .cls-2 {
+        fill: #b7a1d9;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-4 {
+        fill: #5d4e84;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="11.5" y1="1134.82" x2="11.5" y2="1110.18" gradientTransform="translate(0 -1108)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b399d9"/>
+      <stop offset="1" stop-color="#c3b4d9"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-1" width="23" height="29"/>
+  <g>
+    <path class="cls-2" d="M11.5,7,19,14.5,11.5,22,4,14.5Z"/>
+    <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" class="cls-2" d="M11.5,4,22,14.5,11.5,25,1,14.5Zm0,1,9.42,9.46L11.5,24,2.08,14.5Z"/>
+  </g>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-3" d="M1,28V1H22V28ZM18,2H5L2,5V24l3,3H18l3-3V5Z"/>
+  <path id="Color_Fill_1_copy" data-name="Color Fill 1 copy" class="cls-4" d="M3.36,6.32l1.48,3.73.89-.33.09.36-.41,1,2,5.38h.08l3,6.42a23.70967,23.70967,0,0,1-3.84-.48c-1.51-.42-2.45-1-2.45-1.67v-.15c.45-1.49,1.07-3.23,1.56-3.49a7.60024,7.60024,0,0,1,1.2-.46h0c0-.1-.22-.2-1.58.2l-1.2-4.67.28-.42L2.94,6.52ZM13.05,23h-.58L8.74,16.16h.19l.62-1.94A3.21008,3.21008,0,0,1,9.22,13,1.08993,1.08993,0,0,1,9,13a2.37,2.37,0,0,1-.58-1s-.91.15-1-.31c0-.18.46-2.22.46-2.22s.86-3.95,3.41-3.95h1.09c2.54,0,3.34,4.24,3.34,4.24s.48,1.75.5,1.93c-.09.46-1,.31-1,.31a2.61809,2.61809,0,0,1-.58,1,1.09036,1.09036,0,0,1-.26,0A3.20993,3.20993,0,0,1,14,14.18l.5,1.93a18.64922,18.64922,0,0,1,3.31,1c.42.23,1.07,2,1.64,3.86-.29,1-3,1.9-6.44,2.06Z"/>
+</svg>

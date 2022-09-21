@@ -127,10 +127,10 @@ def apply_train_behaviour(agentEid : EntityId)
           *beh_tree__latencyLoadBlackBoard |> set("cartEidParam", int(uint(trainData.cartEid)))
           *beh_tree__latencyLoadBlackBoard |> set("navPosition", trainData.navPoint)
           *beh_tree__latencyLoadBlackBoard |> set("navPtIdParam", trainData.navPointId)
-        beh_tree.blackBoard |> datablock_setPoint3("enterPosition", trainData.enterPoint)
-        beh_tree.blackBoard |> datablock_setInt("cartEidParam", int(uint(trainData.cartEid)))
-        beh_tree.blackBoard |> datablock_setPoint3("navPosition", trainData.navPoint)
-        beh_tree.blackBoard |> datablock_setInt("navPtIdParam", trainData.navPointId)
+        beh_tree.blackBoard |> set("enterPosition", trainData.enterPoint)
+        beh_tree.blackBoard |> set("cartEidParam", int(uint(trainData.cartEid)))
+        beh_tree.blackBoard |> set("navPosition", trainData.navPoint)
+        beh_tree.blackBoard |> set("navPtIdParam", trainData.navPointId)
 
     if beh_tree__isAgentOnTrain && !beh_tree__isAgentShouldUseTrain && beh_tree__isAgentShouldRunToTrain
       reset_squad_mate_order(agentEid)
@@ -158,10 +158,10 @@ def apply_train_behaviour(agentEid : EntityId)
         *beh_tree__latencyLoadBlackBoard |> set("cartEidParam", int(uint(trainData.cartEid)))
         *beh_tree__latencyLoadBlackBoard |> set("navPosition", trainData.navPoint)
         *beh_tree__latencyLoadBlackBoard |> set("navPtIdParam", trainData.navPointId)
-      beh_tree.blackBoard |> datablock_setPoint3("enterPosition", trainData.enterPoint)
-      beh_tree.blackBoard |> datablock_setInt("cartEidParam", int(uint(trainData.cartEid)))
-      beh_tree.blackBoard |> datablock_setPoint3("navPosition", trainData.navPoint)
-      beh_tree.blackBoard |> datablock_setInt("navPtIdParam", trainData.navPointId)
+      beh_tree.blackBoard |> set("enterPosition", trainData.enterPoint)
+      beh_tree.blackBoard |> set("cartEidParam", int(uint(trainData.cartEid)))
+      beh_tree.blackBoard |> set("navPosition", trainData.navPoint)
+      beh_tree.blackBoard |> set("navPtIdParam", trainData.navPointId)
 
     if beh_tree__isAgentOnTrain && !beh_tree__isAgentShouldUseTrain && !beh_tree__isAgentShouldRunToTrain
       apply_train_out_behaviour(agentEid)
@@ -202,10 +202,10 @@ def apply_train_out_behaviour(agentEid : EntityId)
         *beh_tree__latencyLoadBlackBoard |> set("cartEidParam", int(uint(trainData.cartEid)))
         *beh_tree__latencyLoadBlackBoard |> set("navPosition", trainData.navPoint)
         *beh_tree__latencyLoadBlackBoard |> set("navPtIdParam", trainData.navPointId)
-      beh_tree.blackBoard |> datablock_setPoint3("enterPosition", trainData.enterPoint)
-      beh_tree.blackBoard |> datablock_setInt("cartEidParam", int(uint(trainData.cartEid)))
-      beh_tree.blackBoard |> datablock_setPoint3("navPosition", trainData.navPoint)
-      beh_tree.blackBoard |> datablock_setInt("navPtIdParam", trainData.navPointId)
+      beh_tree.blackBoard |> set("enterPosition", trainData.enterPoint)
+      beh_tree.blackBoard |> set("cartEidParam", int(uint(trainData.cartEid)))
+      beh_tree.blackBoard |> set("navPosition", trainData.navPoint)
+      beh_tree.blackBoard |> set("navPtIdParam", trainData.navPointId)
 
 [es(tag=server, no_order, REQUIRE=aiTrainBehaviour)]
 def on_squad_leader_use_train(act : UpdateStageInfoAct)
@@ -285,11 +285,11 @@ def on_agent_train_possesed(evt : Event;
     beh_tree__isAgentShouldOutTrain   = false
     beh_tree__isInTrainBeh            = false
 
-    beh_tree.blackBoard |> datablock_setPoint3("enterPosition", float3())
-    beh_tree.blackBoard |> datablock_setInt("cartEidParam", -1)
+    beh_tree.blackBoard |> set("enterPosition", float3())
+    beh_tree.blackBoard |> set("cartEidParam", -1)
 
-    beh_tree.blackBoard |> datablock_setPoint3("navPosition", float3())
-    beh_tree.blackBoard |> datablock_setInt("navPtIdParam", -1)
+    beh_tree.blackBoard |> set("navPosition", float3())
+    beh_tree.blackBoard |> set("navPtIdParam", -1)
 
 [es(tag=server, on_event=EventEntityDied, REQUIRE=human)]
 def reset_nav_points_on_agent_died(evt : Event;
@@ -307,11 +307,11 @@ def reset_nav_points_on_agent_died(evt : Event;
     beh_tree__isAgentShouldOutTrain   = false
     beh_tree__isInTrainBeh            = false
 
-    beh_tree.blackBoard |> datablock_setPoint3("enterPosition", float3())
-    beh_tree.blackBoard |> datablock_setInt("cartEidParam", -1)
+    beh_tree.blackBoard |> set("enterPosition", float3())
+    beh_tree.blackBoard |> set("cartEidParam", -1)
 
-    beh_tree.blackBoard |> datablock_setPoint3("navPosition", float3())
-    beh_tree.blackBoard |> datablock_setInt("navPtIdParam", -1)
+    beh_tree.blackBoard |> set("navPosition", float3())
+    beh_tree.blackBoard |> set("navPtIdParam", -1)
 
 [es(tag=server, on_appear, before=load_beh_tree_es_event_handler)]
 def set_agent_train_behavior(evt : Event;
@@ -335,5 +335,5 @@ def set_agent_train_behavior(evt : Event;
 [es(on_event=EventLevelLoaded)]
 def create_ai_train_beh_on_level_loaded(evt : Event)
   let shouldCreateAiTrainEntity = find_query() <| $ [es] (walker_agent__aiTrainBehaviourEntity : string)
-    createEntitySync(walker_agent__aiTrainBehaviourEntity)
+    createEntity(walker_agent__aiTrainBehaviourEntity)
     return true

@@ -203,7 +203,7 @@ def calc_primary_cart_tick_es(info : UpdateStageInfoAct;
   net__upToCtrlTick = -1
   train__netTicksOffset = 0
 
-  find_query() <| $ [es(REQUIRE=hero)] (human_net_phys : HumanActor)
+  find_query() <| $ [es(REQUIRE=hero, REQUIRE_NOT=isReplayObserved)] (human_net_phys : HumanActor)
     assume humanPhys = human_net_phys.phys
 
     let ctrlTick = humanPhys.currentState.lastAppliedControlsForTick + 1

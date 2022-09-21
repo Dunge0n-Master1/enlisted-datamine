@@ -582,18 +582,18 @@ EngineType0{
 
     Mode0{
       Altitude:r=1000.0
-      RPM:r=500.0
-      ManifoldPressure:r=0.5832
-      WaterTemperature:r=60.0
-      OilTemperature:r=40.0
+      RPM:r=550.0
+      ManifoldPressure:r=1.0
+      WaterTemperature:r=75.0
+      OilTemperature:r=65.0
     }
 
     Mode1{
       Altitude:r=1000.0
-      RPM:r=2550.0
-      ManifoldPressure:r=1.283
-      WaterTemperature:r=95.0
-      OilTemperature:r=95.0
+      RPM:r=2600.0
+      ManifoldPressure:r=1.05
+      WaterTemperature:r=80.0
+      OilTemperature:r=85.0
     }
 
     Mode2{

@@ -36,7 +36,7 @@ require PhysObj
 require PhysMat
 require AnimV20
 require RendInst
-
+require common_shooter.es.human.human_gun_common
 
 // When the client throws the grenade, the action starts immediately.
 // But the throw action on the server is delayed proportionaly to the client-server RTT.
@@ -195,6 +195,13 @@ def destroy_orphaned_projectile_es_event_handler(evt : Event;
   human_weap__localProjectilePhysEid = INVALID_ENTITY_ID
 
 
+[es(tag=(server, net), no_order, REQUIRE=projectile__inactive)]
+def destroy_inactive_projectile_by_deadline(info : UpdateStageInfoAct; eid : EntityId; var projectile__timeToDestroy : float&)
+  // After being stopped, the projectiles still lives for a little while, so the projectile state can be used to verify client-side shot
+  projectile__timeToDestroy -= info.dt
+  if projectile__timeToDestroy <= 0.f
+    destroyEntity(eid)
+
 [es]
 def launch_projectile_es(evt : CmdLaunchProjectile;
                          eid : EntityId;
@@ -268,7 +275,8 @@ def launch_projectile_es(evt : CmdLaunchProjectile;
     return
 
 
-def projectile_trace_scene(bullet_mat_id : int;
+def projectile_trace_scene(eid : EntityId;
+                           bullet_mat_id : int;
                            prev_pos : float3;
                            dir : float3;
                            cur_time : float;
@@ -276,12 +284,13 @@ def projectile_trace_scene(bullet_mat_id : int;
                            var len : float&;
                            var pmid : int&;
                            var norm : float3&;
+                           var coll_type : int&;
                            var water_len : float&)
   if bullet_mat_id < 0
-    // logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
+    logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
     return false
-  var sceneIntersected = traceray_normalized(prev_pos, dir, len, pmid, norm,
-                                             ETF_ALL, ri_desc, bullet_mat_id)
+  var sceneIntersected = traceray_normalized_coll_type(prev_pos, dir, len, pmid, norm,
+                                             ETF_ALL, ri_desc, coll_type, bullet_mat_id)
   water_len = len
   let traceEnd = prev_pos + dir * len
   if traceray_water_at_time(prev_pos, traceEnd, cur_time, water_len)
@@ -296,7 +305,7 @@ def projectile_trace_scene(bullet_mat_id : int;
   return sceneIntersected
 
 
-[es(after=update_projectile_es, parallel_for=1)]
+[es(after=(update_projectile_es, start_async_phys_sim_es), REQUIRE_NOT=projectile__inactive, parallel_for=1)] // after start_async_phys_sim_es to start phys sim job earlier
 def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                            eid : EntityId;
                                            projectile__traceRayMatId : int;
@@ -308,6 +317,7 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                            var projectile_trace_info__pmid : int&;
                                            var projectile_trace_info__dir : float3&;
                                            var projectile_trace_info__norm : float3&;
+                                           var projectile_trace_info__collType : int&;
                                            var projectile_trace_info__prevProjectileDistance : float&;
                                            var projectile_trace_info__waterLen : float&;
                                            var projectile_trace_info__len : float&;
@@ -320,17 +330,20 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
     let prevPos = projectile__prevPos
     let offset = projectile_ballistics.state.pos - prevPos
     projectile_trace_info__len = length(offset)
-    projectile_trace_info__dir = offset * safeinv(projectile_trace_info__len)
+    if projectile_trace_info__len < FLT_EPSILON
+      return
+    projectile_trace_info__dir = offset / projectile_trace_info__len
     projectile_trace_info__prevProjectileDistance = dm_projectile_state.distance - projectile_trace_info__len
 
     if (length_sq(prevPos) < 1e10 && length_sq(projectile_trace_info__dir) < 1e10)
       using() <| $(var riDesc : RendInstDesc#)
-        projectile_trace_info__sceneIntersected = projectile_trace_scene(projectile__traceRayMatId,
+        projectile_trace_info__sceneIntersected = projectile_trace_scene(eid, projectile__traceRayMatId,
                                                                          prevPos, projectile_trace_info__dir,
                                                                          info.curTime, riDesc,
                                                                          projectile_trace_info__len,
                                                                          projectile_trace_info__pmid,
                                                                          projectile_trace_info__norm,
+                                                                         projectile_trace_info__collType,
                                                                          projectile_trace_info__waterLen)
         projectile_trace_info__riDescCellIdx = riDesc.cellIdx
         projectile_trace_info__riDescIdx = riDesc.idx
@@ -462,6 +475,7 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
                             norm : float3;
                             prev_pos : float3;
                             dir : float3;
+                            coll_type : int&;
                             len : float;
                             water_len : float;
                             projectile_dist : float;
@@ -539,7 +553,8 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
         matId=pmid,
         norm=norm,
         allowDetonation=allow_detonation,
-        sceneIntersectionsExceeded=sceneIntersectionsExceeded]])
+        sceneIntersectionsExceeded=sceneIntersectionsExceeded,
+        collType=coll_type]])
 
     shouldStop = res.shouldStop
   return shouldStop
@@ -554,7 +569,7 @@ def trace_shootable_objects(from, dir : float3; len : float; ignore_human, ignor
     invoke(cb, intersections)
 
 
-[es(after=trace_scene_after_update_projectile_es, before=before_net_phys_sync)]
+[es(after=trace_scene_after_update_projectile_es, before=before_net_phys_sync, REQUIRE_NOT=projectile__inactive)]
 def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from ParallelUpdateFrameDelayed!! Not thread safe now (fx/sound)
                                eid : EntityId;
                                ownerEid : EntityId;
@@ -568,6 +583,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
                                projectile__prevPos : float3;
                                projectile_trace_info__dir : float3;
                                projectile_trace_info__norm : float3;
+                               projectile_trace_info__collType : int;
                                projectile_trace_info__waterLen : float;
                                projectile_trace_info__len : float;
                                projectile_trace_info__prevProjectileDistance : float;
@@ -587,18 +603,18 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
                                var scene_hit_place__pos : float3&;
                                var scene_hit_place__norm : float3&;
                                var scene_hit_place__matId : int&;
-                               var scene_hit_place__rendinstIdx : int&;
+                               var scene_hit_place__collType : int&;
                                var projectile__intersectionCount : int&)
-  if projectile__stopped
+  if projectile__stopped || projectile_trace_info__len < FLT_EPSILON
     return
 
   let allowDetonation = (projectile__lifeTime > projectile__minLifeTime)
   let prevPos = projectile__prevPos
   let dir = projectile_trace_info__dir
   let norm = projectile_trace_info__norm
+  let collType = projectile_trace_info__collType
   let pmid = projectile_trace_info__pmid
   let len = projectile_trace_info__len
-  let rendinstIdx = projectile_trace_info__riDescIdx
   var entitiesIntersected = false
   let vehicleEid = get_Eid(ownerEid, "human_anim__vehicleSelected") ?? INVALID_ENTITY_ID
   let projectileOwnerTeam = get_int(ownerEid, "team") ?? TEAM_UNASSIGNED
@@ -645,6 +661,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
       projectile__intersectionCount += 1
       let projectileDist = projectile_trace_info__prevProjectileDistance + projectile_trace_info__waterLen + dm_projectile_state.piercingShift
       let shouldStop = on_projectile_hit_scene(eid, riDesc, pmid, norm, prevPos, dir,
+                                               projectile_trace_info__collType,
                                                projectile_trace_info__len, projectile_trace_info__waterLen,
                                                projectileDist, allowDetonation, projectile__intersectionCount,
                                                projectile__maxAllowedSceneIntersectionsForFx,
@@ -661,16 +678,20 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
     if projectile_trace_info__sceneIntersected && !entitiesIntersected
       scene_hit_place__norm = norm
       scene_hit_place__matId = pmid
-      scene_hit_place__rendinstIdx = rendinstIdx
+      scene_hit_place__collType = collType
     else
       scene_hit_place__matId = -1
 
   // Actually, it is better to check lengthSq(ballistics.state.vel) > threshold
   if projectile__lifeTime > projectile__maxLifeTime || projectile__exploded
-    destroyEntity(eid)
+    if is_true_net_server()
+      // net server needs projectile for client-side shot verification, so the projectile destruction is slightly delayed
+      addSubTemplate(eid, "projectile_inactive")
+    else
+      destroyEntity(eid)
 
 
-[es(after=update_projectile_es)]
+[es(after=update_projectile_es, REQUIRE_NOT=projectile__inactive)]
 def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
                                        eid : EntityId;
                                        ownerEid : EntityId;
@@ -708,7 +729,11 @@ def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
 
     // Actually, it is better to check lengthSq(ballistics.state.vel) > threshold
     if projectile__lifeTime > projectile__maxLifeTime || projectile__exploded
-      destroyEntity(eid)
+      if is_true_net_server()
+        // net server needs projectile for client-side shot verification, so the projectile destruction is slightly delayed
+        addSubTemplate(eid, "projectile_inactive")
+      else
+        destroyEntity(eid)
 
 [es(after=after_update_stopped_projectile_es)]
 def clear_exploding_projectiles_counter(info : UpdateStageInfoAct;
@@ -719,6 +744,6 @@ def clear_exploding_projectiles_counter(info : UpdateStageInfoAct;
 def init_max_exploding_projectiles(evt : Event;
                                    var server_explosions__maxProjectilesCount : int&;
                                    var server_explosions__maxDelayedFrames : int&)
-  let dedBlock = dgs_get_settings() |> datablock_get_block_by_name_const("dedicated")
-  server_explosions__maxProjectilesCount = dedBlock |> datablock_getInt("maxExplodingProjectiles", server_explosions__maxProjectilesCount)
-  server_explosions__maxDelayedFrames = dedBlock |> datablock_getInt("maxExplosionDelay", server_explosions__maxDelayedFrames)
+  dgs_get_settings() |> datablock_get_block("dedicated") <| $(dedBlock)
+    server_explosions__maxProjectilesCount = dedBlock |> datablock_getInt("maxExplodingProjectiles", server_explosions__maxProjectilesCount)
+    server_explosions__maxDelayedFrames = dedBlock |> datablock_getInt("maxExplosionDelay", server_explosions__maxDelayedFrames)

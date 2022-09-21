@@ -95,6 +95,12 @@ def set_respawner_squad_on_spawn(evt : Event; eid, squad__ownerPlayer : EntityId
     respawner__squad = eid
     respawner__isFirstSpawn = false
 
+[es(tag=server, on_disappear)]
+def reset_respawner_squad_on_destroy(evt : Event; eid, squad__ownerPlayer : EntityId)
+  query(squad__ownerPlayer) <| $ [es] (var respawner__squad : EntityId&)
+    if respawner__squad == eid
+      respawner__squad = INVALID_ENTITY_ID
+
 [es(tag=server, on_appear)]
 def respawner_init_mission_start_delay_on_creating(evt : Event;
                                                    respawner__missionStartDelay : float;
@@ -324,8 +330,11 @@ def respawner_es(info : UpdateStageInfoAct;
       respawner__queuedAtPointGroupId = -1
 
     var newEid = respawner__chosenRespawn
-    if !doesEntityExist(newEid) && respawner__squad != INVALID_ENTITY_ID
-      newEid = find_best_leader(respawner__squad)
+    if !doesEntityExist(newEid)
+      if respawner__squad != INVALID_ENTITY_ID
+        newEid = find_best_leader(respawner__squad)
+      else
+        newEid = INVALID_ENTITY_ID
     print("respawner_es: force spawn entity {newEid} for player {eid} (squad {respawner__squad}), respEndTime {respawner__respEndTime}")
     if !disconnected // refuse to spawn entity for disconnected players
       if newEid != INVALID_ENTITY_ID
@@ -384,3 +393,35 @@ def respawner_next_respawn_entity_es(evt : RequestNextRespawnEntity;
 def hardcore_spawn_on_player_immunity_es(evt : Event; var respbase__noSpawnImmunity : bool&)
   query() <| $ [es(REQUIRE=gamemodeFriendlyFire)] ()
     respbase__noSpawnImmunity = false
+
+[es(tag=server)]
+def respawn_req_es(evt : CmdRequestRespawn;
+                   eid : EntityId;
+                   var respawner__respawnGroupId : int&;
+                   var respawner__respRequested : bool&;
+                   var respawner__respRequestedSquadId : int&;
+                   var respawner__respRequestedMemberId : int&)
+  let respRequestedSquadId = evt.squadId
+  let respRequestedMemberId = evt.memberId
+  let respawnGroupId = evt.spawnGroup
+  print("[HERO_RESPAWN] onRequestRespawn: {eid}; squadId: {respRequestedSquadId}; memberId: {respRequestedMemberId}; groupId: {respawnGroupId};")
+  respawner__respRequested = true
+  respawner__respRequestedSquadId = respRequestedSquadId
+  respawner__respRequestedMemberId = respRequestedMemberId
+  respawner__respawnGroupId = respawnGroupId
+
+[es(tag=server)]
+def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
+                          eid : EntityId;
+                          var respawner__respawnGroupId : int&;
+                          var respawner__respRequested : bool&;
+                          var respawner__respRequestedSquadId : int&;
+                          var respawner__respRequestedMemberId : int&)
+  let respRequestedSquadId = evt.squadId
+  let respRequestedMemberId = evt.memberId
+  let respawnGroupId = evt.spawnGroup
+  print("[HERO_RESPAWN] onCancelRequestRespawn: {eid}; squadId: {respRequestedSquadId}; memberId: {respRequestedMemberId}; groupId: {respawnGroupId};")
+  respawner__respRequested = false
+  respawner__respRequestedSquadId = respRequestedSquadId
+  respawner__respRequestedMemberId = respRequestedMemberId
+  respawner__respawnGroupId = respawnGroupId

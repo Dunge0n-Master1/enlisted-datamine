@@ -4,7 +4,7 @@ let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { defTxtColor, commonBtnHeight } = require("%enlSqGlob/ui/viewConst.nut")
 let { curCampItems, curCampItemsCount } = require("model/state.nut")
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let getPayItemsData = require("model/getPayItemsData.nut")
@@ -22,10 +22,7 @@ let obsceneFilter = require("%enlSqGlob/obsceneFilter.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = commonBtnHeight })
 let popupsState = require("%enlist/popup/popupsState.nut")
 let { lookCustomizationBlock } = require("soldierCustomizationPkg.nut")
-let { curSquad } = require("%enlist/soldiers/model/state.nut")
-let {
-  isCustomizationAvailable
-} = require("%enlist/soldiers/soldierCustomizationState.nut")
+let { enableExtendedOufit } = require("%enlist/campaigns/campaignConfig.nut")
 let { reserveSoldiers } = require("model/chooseSoldiersState.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { hasLinkByType } = require("%enlSqGlob/ui/metalink.nut")
@@ -294,23 +291,21 @@ local function mkAppearanceBlock(soldier){
 
 let customizationTab = @(soldier) function(){
   let { armyId, squadId } = soldier
-  let canChangeAppearance = isCustomizationAvailable.value
-    && (curSquad.value?.battleExpBonus ?? 0) <= 0
-  let isPlacedInReserve = !hasLinkByType(soldier, "squad") || reserveSoldiers.value.findvalue(@(v)
-    v.guid == soldier.guid) != null
-
+  let canChangeAppearance = enableExtendedOufit.value
+  let isPlacedInReserve = !hasLinkByType(soldier, "squad")
+    || reserveSoldiers.value.findvalue(@(v) v.guid == soldier.guid) != null
   let { isOutfitLocked = false } = squadsCfgById.value?[armyId][squadId]
 
   return {
-    watch = [curSquad, isCustomizationAvailable, reserveSoldiers, squadsCfgById]
+    watch = [enableExtendedOufit, reserveSoldiers, squadsCfgById]
     size = flex()
     gap = hdpx(10)
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     children = [
       isOutfitLocked || isPlacedInReserve? null
-        : !canChangeAppearance ? mkAppearanceBlock(soldier)
-        : lookCustomizationBlock
+        : canChangeAppearance ? lookCustomizationBlock
+        : mkAppearanceBlock(soldier)
       mkCallnameBlock(soldier)
     ]
   }

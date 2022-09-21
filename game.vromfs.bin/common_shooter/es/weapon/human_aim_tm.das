@@ -7,6 +7,7 @@ require EnlistedWeapon
 require GeomNodeTree
 require Gun
 require math
+require common_shooter.es.human_weap_common
 
 def human_aim_tm_common(info : UpdateStageInfoAct;
                         eid : EntityId;

@@ -332,6 +332,7 @@ planegun_boston_mk3_utk1_12_7mm_ubk_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_boston_mk3_utk1_12_7mm_ubk"
+  _extends:t="gunsound_12_7mm_ubk_aircraft"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=130
 }
@@ -340,6 +341,7 @@ planegun_boston_mk3_utk1_12_7mm_ubk_02{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_boston_mk3_utk1_12_7mm_ubk"
+  _extends:t="gunsound_12_7mm_ubk_aircraft"
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=130
 }
@@ -348,6 +350,7 @@ planegun_boston_mk3_utk1_12_7mm_ubk_03{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_boston_mk3_utk1_12_7mm_ubk"
+  _extends:t="gunsound_12_7mm_ubk_aircraft"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=220
   turret__aimNodeName:t="turret1"
@@ -360,6 +363,7 @@ planegun_boston_mk3_utk1_12_7mm_ubk_04{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_boston_mk3_utk1_12_7mm_ubk"
+  _extends:t="gunsound_12_7mm_ubk_aircraft"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=220
   turret__aimNodeName:t="turret2"

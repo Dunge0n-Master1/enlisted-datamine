@@ -7,7 +7,7 @@ let {
   tableStructure, selectedTable, selectedResearch, researchStatuses,
   RESEARCHED, CAN_RESEARCH, GROUP_RESEARCHED
 } = require("researchesState.nut")
-let { unseenResearches, markSeen } = require("unseenResearches.nut")
+let { seenResearches, markSeen } = require("unseenResearches.nut")
 let hoverImage = require("%enlist/components/hoverImage.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -194,7 +194,7 @@ return function(armyId, researchDef, elemPosX, elemPosY) {
   let researchId = researchDef.research_id
   let isMulti = (researchDef?.multiresearchGroup ?? 0) > 0
   let status = Computed(@() researchStatuses.value?[researchId])
-  let isUnseen = Computed(@() unseenResearches.value?[armyId][researchId] ?? false)
+  let isUnseen = Computed(@() seenResearches.value?.unseen[armyId][researchId] ?? false)
   let isSelected = Computed(@() selectedResearch.value?.research_id == researchId)
   let isOtherInGroupSelected = isMulti
     ? Computed(@() selectedResearch.value?.multiresearchGroup == researchDef?.multiresearchGroup

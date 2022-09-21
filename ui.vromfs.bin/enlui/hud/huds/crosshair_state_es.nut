@@ -22,7 +22,7 @@ let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")
 let {
   crossHairEid, canShoot, teammateAim, isAiming, isAimPressed, overheat, debugForceCrosshair,
   crosshairType, crosshairColor, crosshairReloadEndTime, crosshairReloadTotalTime
-} = watchedTable2TableOfWatched({state, defValue})
+} = watchedTable2TableOfWatched(state)
 
 
 ecs.register_es("script_chrosshair_state_es",

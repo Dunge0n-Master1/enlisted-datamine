@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { configs } = require("%enlSqGlob/configs/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 let {hasClientPermission} = require("%enlSqGlob/client_user_rights.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 

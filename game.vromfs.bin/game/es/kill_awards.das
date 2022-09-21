@@ -80,12 +80,12 @@ def kill_award_es(evt : EventPlayerKilledEntity;
     update_sequential_kill_award(sequential_kills__time, sequential_kills__lastKillTime, sequential_kills__currentCount, awards)
 
 [es(tag=server, REQUIRE=player)]
-def kill_awards_vehicle_mine_kills(evt : EventOnPlayerMineVehicleKill; var awards : Array&)
-  add_award(awards, "vehicle_mine_kills")
+def kill_awards_vehicle_shell_kills(evt : EventOnPlayerShellVehicleKill; var awards : Array&)
+  add_award(awards, evt.stat)
 
 [es(tag=server, REQUIRE=player)]
-def kill_awards_infantry_mine_kills(evt : EventOnPlayerMineInfantryKill; var awards : Array&)
-  add_award(awards, "infantry_mine_kills")
+def kill_awards_infantry_shell_kills(evt : EventOnPlayerShellInfantryKill; var awards : Array&)
+  add_award(awards, evt.stat)
 
 [es(tag=server, REQUIRE=player)]
 def squad_wipeout_award(evt : EventOnPlayerWipedOutInfantrySquad; var awards : Array&)

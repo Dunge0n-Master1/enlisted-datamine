@@ -44,6 +44,8 @@ let function retrieve_voice_chat_permissions(xuid, callback) {
 return {
   CommunicationState = cn.CommunicationState
 
+  update_state = cn.update_state
+
   has_multiplayer_sessions_privilege = cn.has_multiplayer_sessions_privilege
   has_crossnetwork_privilege = cn.has_crossnetwork_privilege
   has_communications_privilege = cn.has_communications_privilege

@@ -130,11 +130,35 @@ beaufighter_mk6c{
       gun:t="planegun_beaufighter_mk6c_7_7mm_vikkersk_turret_01"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare9"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_20mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
 base_beaufighter_mk6c_7_7mm_vikkersk_turret{
   item__name:t="guns/gunvikkersk_turret"
-  gun__blk:t="content/enlisted/gamedata/weapons/beaufighter_mk6c/7_7mm_vikkersk_turret.blk"
+  gun__blk:t="gamedata/weapons/beaufighter_mk6c/7_7mm_vikkersk_turret.blk"
   gun__shotFreq:r=15.8333
   gun__locName:t="gunvikkersk_turret"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -160,31 +184,31 @@ base_beaufighter_mk6c_7_7mm_vikkersk_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
         name:t="tracer"
         type:t="t_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
         name:t="ap"
         type:t="ap_ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
         name:t="ball"
         type:t="ball"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
       }
@@ -194,7 +218,7 @@ base_beaufighter_mk6c_7_7mm_vikkersk_turret{
 
 base_beaufighter_mk6c_20mm_hispanomki{
   item__name:t="guns/cannonhispanomki"
-  gun__blk:t="content/enlisted/gamedata/weapons/beaufighter_mk6c/20mm_hispanomki.blk"
+  gun__blk:t="gamedata/weapons/beaufighter_mk6c/20mm_hispanomki.blk"
   gun__shotFreq:r=10.0
   gun__locName:t="cannonhispanomki"
   gun__shootNodeName:t="bone_mg_gun_twin"
@@ -220,25 +244,25 @@ base_beaufighter_mk6c_20mm_hispanomki{
     "default:array"{
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
         name:t="2"
         type:t="he_i"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
         name:t="mk1"
         type:t="ball_shell"
       }
 
       "shell:object"{
-        blk:t="content/enlisted/gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
         name:t="1"
         type:t="t_shell"
       }
@@ -301,6 +325,6 @@ beaufighter_mk6c_driver_cockpit{
   cockpit__angles:p3=0.0, 0.0, 0.0
   cockpit__scale:p3=1.0, 1.0, 1.0
   animchar__res:t="beaufighter_mk6c_cockpit_char"
-  plane_anim__blk:t="content/enlisted/gamedata/units/beaufighter_mk6c.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/beaufighter_mk6c.blk"
+  plane_anim__blk:t="gamedata/units/beaufighter_mk6c.blk"
+  plane_sight__blk:t="gamedata/units/beaufighter_mk6c.blk"
 }

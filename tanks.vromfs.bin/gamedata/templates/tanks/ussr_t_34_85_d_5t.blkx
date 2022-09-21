@@ -1,29 +1,34 @@
 ussr_t_34_85_d_5t{
   _extends:t="base_t_34_85_d_5t"
   _extends:t="vehicle_effects_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_t34_vehicle_tracks_sound"
 
   "vehicle_seats__seats:shared:array"{
 
     "seats:object"{
-      name:t="commander"
-      attachNode:t="loader"
+      name:t="main_gunner"
+      attachNode:t="commander"
       shouldHideOwner:b=yes
       hatchRotationAxis:p3=1.5, 0.0, 0.0
-      locName:t="vehicle_seats/commander"
+      locName:t="vehicle_seats/gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1103699, -0.0855852, 0.820016]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.55, 0.13]]
       seatComponent:t="isDriver"
-      receiveDamageFromDMPart:t="loader"
+      receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
-      cockpitTemplate:t="ussr_t_34_85_d_5t_commander_cockpit"
+      cockpitTemplate:t="ussr_t_34_85_d_5t_gunner_cockpit"
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
 
       "hatchNodes:array"{
-        node:t="hatch_01"
         node:t="hatch_02"
+        node:t="hatch_03"
       }
 
-      "loaderTurretNames:array"{
+      "turretNames:array"{
         turret:t="turret_01"
+        turret:t="turret_02"
       }
     }
 
@@ -43,21 +48,17 @@ ussr_t_34_85_d_5t{
     }
 
     "seats:object"{
-      name:t="main_gunner"
-      locName:t="vehicle_seats/gunner"
-      attachNode:t="commander"
+      name:t="loader"
+      locName:t="vehicle_seats/loader"
+      attachNode:t="loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
-      seatComponent:t="isGunner"
-      nextSeat:t="driver"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
       shouldHideOwner:b=yes
-      receiveDamageFromDMPart:t="commander"
-      cameraNodeName:t="bone_camera_gunner"
-      cockpitTemplate:t="ussr_t_34_85_d_5t_gunner_cockpit"
+      receiveDamageFromDMPart:t="loader"
 
-      "turretNames:array"{
+      "loaderTurretNames:array"{
         turret:t="turret_01"
-        turret:t="turret_02"
       }
     }
 
@@ -79,10 +80,10 @@ ussr_t_34_85_d_5t_driver_cockpit{
   cockpit__offset:p3=-0.2, -0.0, -0.0
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
-    node:t="track_l"
-    node:t="track_r"
-    node:t="ex_decor_l_01"
-    node:t="ex_decor_r_01"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.07
   }
 }
 
@@ -90,12 +91,12 @@ ussr_t_34_85_d_5t_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tsh_15.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minZoom:r=-0.27
+  cockpit__minZoom:r=-0.05
   cockpit__offset:p3=-0.0, -0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-0.3, -0.04, 0.3
-    slit:p3=-0.0, 0.98, 0.42
+    item:p3=-0.342191, -0.040123, 0.194089
+    item:p3=-0.0, 0.98, 0.42
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -116,8 +117,8 @@ ussr_t_34_85_d_5t_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.13
-    slit:r=0.2
+    slit:r=0.105
+    slit:r=0.19
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -126,53 +127,6 @@ ussr_t_34_85_d_5t_gunner_cockpit{
   }
 }
 
-ussr_t_34_85_d_5t_commander_cockpit{
-  _extends:t="base_commander_cockpit_no_slits"
-  animchar__res:t="t_26_1940_commander_char"
-  cockpit__offset:p3=-0.0, 0.0, 0.0
-
-  "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-0.58, 1.17, 0.38
-  }
-
-  "cockpit__visibleVehicleNodeNames:list<t>"{
-    node:t="gun_barrel"
-    node:t="bone_gun"
-  }
-
-  "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.15
-  }
-
-  "cockpit__slitIsGun:list<b>"{
-    slit:b=yes
-  }
-
-  "cockpit__slitNodeNames:list<t>"{
-    slit:t="cam_front"
-  }
-}
-
 ussr_t_34_85_d_5t_premium{
   _extends:t="ussr_t_34_85_d_5t"
-}
-
-ussr_t_34_85_d_5t_tutorial{
-  _extends:t="ussr_t_34_85_d_5t"
-
-  "turrets__initAmmoDistribution:array"{
-
-    "ammo:object"{
-      slot:i=1
-      fill:b=yes
-    }
-
-    "ammo:object"{
-      slot:i=2
-      fill:b=yes
-    }
-  }
-
-  "heroTutorialVehicle:tag"{
-  }
 }

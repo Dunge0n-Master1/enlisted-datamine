@@ -4,13 +4,13 @@ require game.es.camera_common
 require game.es.events
 require game.events_game
 
-[es(tag=gameClient)]
-def target_enable_spectator_camera(evt : EnableSpectatorForTarget; eid : EntityId)
-  sendEvent(evt.player, [[EnableSpectatorForPlayer target=eid]])
 
-[es(tag=gameClient)]
-def player_enable_spectator_camera(evt : EnableSpectatorForPlayer; var activeCamEid : EntityId&; var activeCamName : das_string&;
-                                   possessed : EntityId; team : int; waitingForRespawn = false)
+def enable_spectator_camera(target : EntityId;
+                            possessed : EntityId;
+                            team : int;
+                            var activeCamEid : EntityId&;
+                            var activeCamName : das_string&;
+                            waitingForRespawn = false)
   if waitingForRespawn && (possessed |> get_bool("isAlive") ?? false)
     return
   print("Enable spectator camera for camera entity {int(uint(activeCamEid))}")
@@ -20,13 +20,31 @@ def player_enable_spectator_camera(evt : EnableSpectatorForPlayer; var activeCam
   if camTm == null
     return
   var spectatedTeam = team
-  query(evt.target) <| $ [es] (team : int)
+  query(target) <| $ [es] (team : int)
     spectatedTeam = team
-  let specCam : EntityId = enable_spectator_camera(*camTm, spectatedTeam, evt.target)
+  let specCam : EntityId = enable_spectator_camera(*camTm, spectatedTeam, target)
   if activeCamEid != specCam
     destroyEntity(activeCamEid)
   activeCamEid = specCam
   activeCamName := ""
+
+[es(tag=gameClient)]
+def target_enable_spectator_camera(evt : EnableSpectatorForTarget; eid : EntityId)
+  query(evt.player) <| $ [es] (possessed : EntityId;
+                               team : int;
+                               var activeCamEid : EntityId&;
+                               var activeCamName : das_string&;
+                               waitingForRespawn = false)
+    enable_spectator_camera(eid, possessed, team, activeCamEid, activeCamName, waitingForRespawn)
+
+[es(tag=gameClient)]
+def player_enable_spectator_camera(evt : EnableSpectatorForPlayer;
+                                   possessed : EntityId;
+                                   team : int;
+                                   var activeCamEid : EntityId&;
+                                   var activeCamName : das_string&;
+                                   waitingForRespawn = false)
+  enable_spectator_camera(evt.target, possessed, team, activeCamEid, activeCamName, waitingForRespawn)
 
 def player_switch_camera(player_eid : EntityId; target_eid : EntityId; activeCamEid : EntityId; idx : int = -1;
                          cam_names_eid : EntityId = INVALID_ENTITY_ID)

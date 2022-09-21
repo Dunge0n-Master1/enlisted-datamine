@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require DagorSystem
 require AnimV20
@@ -41,3 +42,13 @@ def create_vehicle_seats(evt : Event;
         set(init, "seats_order__canPlaceManually", get_bool(seat, "canPlaceManually") ?? false)
 
     vehicle_seats__seatEids[seatNo] = seatEid
+
+[es(tag=server, on_appear, after=create_vehicle_seats)]
+def vehicle_seat_is_hold_gun_mode_allowed_on_appear(evt : Event;
+                                                    vehicle_seats__seatEids : EidList;
+                                                    [[shared_comp]] vehicle_seats__seats : Array)
+  for seatEid in vehicle_seats__seatEids
+    query(seatEid) <| $ [es] (seat__id : int;
+                              var seat__isHoldGunModeAllowed : bool&)
+      let seat = vehicle_seats__seats?[seat__id] ?as Object
+      seat__isHoldGunModeAllowed = seat?.isHoldGunModeAllowed ?? true

@@ -1,0 +1,23 @@
+import:t="#content/e_pacific/gamedata/templates/*.blk"
+
+pacific_guadalcanal_minimap{
+  _extends:t="minimap"
+  mapTex:t="pacific_guadalcanal_det_minimap*"
+  farMapTex:t="pacific_guadalcanal_far_minimap*"
+  left_top:p2=-1536.0, 1024.0
+  right_bottom:p2=512.0, -1024.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}
+
+pacific_gavutu_minimap{
+  _extends:t="minimap"
+  mapTex:t="pacific_gavutu_det_minimap*"
+  farMapTex:t="pacific_gavutu_far_minimap*"
+  left_top:p2=-700.0, 300.0
+  right_bottom:p2=800.0, -1200.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}

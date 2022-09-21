@@ -19,6 +19,7 @@ require RendInst
 require game.utils.team
 require game.es.events
 require common_shooter.es.input.aim_assist_common
+require common_shooter.es.human_weap_common
 
 
 [es(tag=input, on_appear)]

@@ -11,6 +11,7 @@ and this is just ugly and really awful
 let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
 let vehiclesData = require("%ui/hud/state/vehiclesData.nut")
 let app = require("net")
+let {sendNetEvent, CmdRequestRespawn, CmdCancelRequestRespawn} = require("dasevents")
 let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
 let logHR = require("%enlSqGlob/library_logs.nut").with_prefix("[HERO_RESPAWN]")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
@@ -55,7 +56,7 @@ let vehicleInfo = Computed(function() {
   return vehicle.__merge(override)
 })
 
-let canUseRespawnbaseByType = Computed(@() get_can_use_respawnbase_type(vehicleInfo.value?.gametemplate) ?? "human")
+let canUseRespawnbaseByType = Computed(@() get_can_use_respawnbase_type(vehicleInfo.value?.gametemplate)?.canUseRespawnbaseType ?? "human")
 let currentRespawnGroup = Computed(@() selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1)
 
 let squadMemberIdForSpawn = mkWatched(persist, "squadMemberIdForSpawn", 0)
@@ -99,7 +100,7 @@ let function requestRespawn() {
   let curSpawnSquadId = spawnSquadId.value
   setSpawnedSquads((curSpawnedSquads.value ?? {}).__merge({ [curSpawnSquadId] = true }))
   logHR($"Request respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  ecs.client_send_event(respawnerEid.value, ecs.event.CmdRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup}))
+  sendNetEvent(respawnerEid.value, CmdRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup }))
 }
 
 let function cancelRequestRespawn() {
@@ -107,7 +108,7 @@ let function cancelRequestRespawn() {
   let memberId = squadMemberIdForSpawn.value
   let spawnGroup = queueRespawnGroupId.value
   logHR($"Request cancel respawn, respawnerEid {respawnerEid.value}, squadId {squadId}, memberId {memberId}")
-  ecs.client_send_event(respawnerEid.value, ecs.event.CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup}))
+  sendNetEvent(respawnerEid.value, CmdCancelRequestRespawn({ squadId = squadId, memberId = memberId, spawnGroup = spawnGroup }))
   queuedRespawnGroupId(queueRespawnGroupId.value)
 }
 
@@ -131,10 +132,12 @@ let squadsList = Computed(function(prev) {
       local canSpawn = readinessPercent == 100
       if (canSpawn) {
         if (squad?.curVehicle != null) {
-          let canUseRespawnbaseType = get_can_use_respawnbase_type(squad.curVehicle?.gametemplate)
-          let respawnbasesCount = vehicleRespawnBases.value.byType?[canUseRespawnbaseType].len() ?? 0
+          let { canUseRespawnbaseType = null, canUseRespawnbaseSubtypes = [] } = get_can_use_respawnbase_type(squad.curVehicle?.gametemplate)
+          let availableRespSubtypes = hasVehicleRespawns.value ? (vehicleRespawnBases.value.byType?[canUseRespawnbaseType] ?? {}) : {}
+          let hasRespawnbase = availableRespSubtypes.len() > 0
+            && (canUseRespawnbaseSubtypes.len() == 0 || canUseRespawnbaseSubtypes.findvalue(@(subtype) availableRespSubtypes?[subtype]))
           let canSpawnOnVehicle = canSpawnOnVehicleBySquad.value?[idx] ?? false
-          canSpawn = hasVehicleRespawns.value && respawnbasesCount > 0 && canSpawnOnVehicle && readinessPercent == 100
+          canSpawn = hasRespawnbase && canSpawnOnVehicle && readinessPercent == 100
         } else {
           canSpawn = humanCanRespawn.value
         }

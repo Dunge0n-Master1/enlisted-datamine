@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.8)
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -12,7 +11,8 @@ let { mkMedalCard, mkDisabledMedalCard, mkMedalTooltip } = require("medalsPkg.nu
 let { borderColor, PROFILE_WIDTH } = require("profilePkg.nut")
 let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let { unseenMedals, markSeenMedal } = require("unseenProfileState.nut")
+let { seenMedals, markSeenMedal, markMedalsOpened } = require("unseenProfileState.nut")
+let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 
 
 const MAX_COLUMNS = 6
@@ -53,11 +53,11 @@ let function mkCampaignMedals(campaignId, medalsByCamp, campCfg, unseen) {
         margin = bigPadding
       }).__update(body_txt)
       wrap(campaignMedals.map(function(medal) {
-        let isUnseen = unseen.findindex(@(m) m.id == medal.id) != null
+        let isUnseen = medal.id in unseen
         return {
           children = [
             mkMedalBlock(medal, isUnseen)
-            isUnseen ? unseenSignal : null
+            isUnseen ? smallUnseenNoBlink : null
           ]
         }
       }), {
@@ -72,14 +72,15 @@ let function mkCampaignMedals(campaignId, medalsByCamp, campCfg, unseen) {
 let function medalsListUi() {
   let medalsByCamp = medalsByCampaign.value
   let campCfg = gameProfile.value?.campaigns
-  let unseen = unseenMedals.value
+  let { unseen = {}, unopened = {} } = seenMedals.value
   return {
-    watch = [medalsByCampaign, unlockedCampaigns, gameProfile, unseenMedals]
+    watch = [medalsByCampaign, unlockedCampaigns, gameProfile, seenMedals]
     rendObj = ROBJ_BOX
     borderWidth = hdpx(1)
     size = flex()
     padding = smallPadding
     borderColor = borderColor(0)
+    onDetach = @() markMedalsOpened(unopened.keys())
     children = makeVertScroll({
       xmbNode = XmbContainer({
         canFocus = @() false

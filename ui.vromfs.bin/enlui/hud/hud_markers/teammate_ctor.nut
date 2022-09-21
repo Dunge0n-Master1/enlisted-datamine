@@ -27,7 +27,7 @@ let mkIcon = function(colorInner, colorOuter, sizeFactor) {
   let unitIconSize = [fsh(1*sizeFactor), fsh(1.25*sizeFactor)].map(@(v) v.tointeger())
 
   return {
-    key = $"icon_{colorInner}_{colorOuter}"
+    key = {}
     rendObj = ROBJ_IMAGE
     color = colorOuter
     image = Picture($"ui/skin#unit_outer.svg:{unitIconSize[0]}:{unitIconSize[1]}:K")
@@ -43,22 +43,21 @@ let mkIcon = function(colorInner, colorOuter, sizeFactor) {
     markerFlags = MARKER_SHOW_ONLY_IN_VIEWPORT
   }
 }
+let selectedIcon = mkIcon(HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER, 2.0)
+let notSelectedIcon = mkIcon(HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER, 1.0)
+let animSquadIcon = freeze([
+  {prop = AnimProp.translate, from=[0, hdpx(25)], to=[0, 0], duration=0.5, play=true, loop=true, easing=OutBack}
+])
 
-let mkSquadmateIcon = memoize(@(eid) function() {
-  let isSelectedBotForOrders = selectedBotForOrderEid.value == eid && isPersonalContextCommandMode.value
-  let sizeFactor = isSelectedBotForOrders ? 2.0 : 1.0
-  let icon = mkIcon(HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER, sizeFactor)
-  return {
-    watch = [selectedBotForOrderEid, isPersonalContextCommandMode]
-    children = icon.__update(isSelectedBotForOrders
-      ? {
-          key = $"{eid}_selected"
-          transform = {}
-          animations = [
-            {prop = AnimProp.translate, from=[0, hdpx(25)], to=[0, 0], duration=0.5, play=true, loop=true, easing=OutBack}
-          ]
-        }
-      : { key = eid })
+let mkSquadmateIcon = memoize(function(eid) {
+  let selectedIco = freeze(selectedIcon.__merge({key = {}, transform = {}, animations = animSquadIcon}))
+  let notSelectedIco = freeze(notSelectedIcon.__merge({key = eid}))
+  return function() {
+    let isSelectedBotForOrders = selectedBotForOrderEid.value == eid && isPersonalContextCommandMode.value
+    return {
+      watch = [selectedBotForOrderEid, isPersonalContextCommandMode]
+      children = isSelectedBotForOrders ? selectedIco : notSelectedIco
+    }
   }
 })
 

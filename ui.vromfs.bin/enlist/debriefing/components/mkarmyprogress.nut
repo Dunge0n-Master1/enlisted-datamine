@@ -11,17 +11,15 @@ let { mkCurrencyImage, mkCurrencyTooltip } = require("%enlist/shop/currencyComp.
 let { sound_play } = require("sound")
 let { mkArmyBaseExpTooltip, mkArmyPremiumExpTooltip, mkArmyResultExpTooltip
 } = require("%enlist/debriefing/components/mkArmyExpTooltip.nut")
-let {
-  mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage, mkPremiumSquadXpImage,
+let { mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage, mkPremiumSquadXpImage,
   mkBoosterXpImage, mkFreemiumXpImage
 } = require("%enlist/debriefing/components/mkXpImage.nut")
-let {
-  bigPadding, activeTxtColor, progressBorderColor, progressExpColor,
+let { bigPadding, activeTxtColor, progressBorderColor, progressExpColor,
   progressAddExpColor, defBgColor, activeBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { mkXpBooster } = require("%enlist/components/mkXpBooster.nut")
-
+let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const trigger = "content_anim"
 const playerCountMultTooltipText = "debriefing/playerCountMultArmyExpTooltip"
@@ -466,7 +464,7 @@ let mkGainAwards = @(unlockedRewards) {
             text = loc("common/amountShort", { count })
           }.__update(body_txt))
           mkCurrencyImage(tpl, ticketHeight * 1.5)
-          txt(loc($"items/{tpl}"))
+          txt(getItemName(tpl))
         ]
       }).values()
     }

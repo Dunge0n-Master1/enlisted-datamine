@@ -174,6 +174,8 @@ let rewardsPresentation = {
         tunisia_axis = "beretta_m1918_30"
         stalingrad_allies = "kb_p_135"
         stalingrad_axis = "p08_luger_artillery"
+        pacific_allies = "sw_light_rifle_mk_2"
+        pacific_axis = "p08_luger_artillery"
       }
     }
   },
@@ -597,7 +599,7 @@ let rewardsPresentation = {
     gametemplate = "vehicle_upgrade_ticket"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_gold.png"
-    cardImage = "ui/skin#/battlepass/up_weapons.png"
+    cardImage = "ui/skin#/battlepass/up_vehicles.png"
     cardImageParams = mkImageParams([180, 131], [0, 1])
   },
   ["250"] = {
@@ -716,6 +718,16 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/usa/usa_hero_medal_1_icon.svg")
   },
+  ["344"] = {
+    name = loc("items/pacific_event_2022_order")
+    description = loc("items/pacific_event_2022_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+
+
+
 
 
   // boosters presentation

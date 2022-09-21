@@ -10,6 +10,7 @@ require AnimV20
 require GeomNodeTree
 require DagorSystem
 require DagorMath
+require ecs.safe
 
 let
   openVel = 5.0f
@@ -37,6 +38,7 @@ def get_node_id_and_tm(animchar, node_name; var out_node_id &; var out_node_tm)
 def init_hatch_nodes(evt : Event;
                      seat__id : int;
                      seat__vehicleEid : EntityId;
+                     var seat__isHatchControlInversed : bool&;
                      var seats_hatch_nodes__isValid : bool&;
                      var seats_hatch_nodes__nodeIdX : int&;
                      var seats_hatch_nodes__nodeIdY : int&;
@@ -63,6 +65,7 @@ def init_hatch_nodes(evt : Event;
     seats_hatch_nodes__rotAxis = get_Point3(*seat, "hatchRotationAxis") ?? float3(1.f, 0.f, 0.f)
 
     seats_hatch_nodes__isValid = seats_hatch_nodes__nodeIdX >= 0
+    seat__isHatchControlInversed = seat?.isHatchControlInversed ?? false
 
 def rotate_hatch_node(var animchar : AnimcharBaseComponent;
                       hatch__node_id : int;
@@ -76,12 +79,12 @@ def rotate_hatch_node(var animchar : AnimcharBaseComponent;
 [es(tag=server, after=after_net_phys_sync)]
 def vehicle_seats_hatch_crouch_es(info : UpdateStageInfoAct; vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
-    query(seatEid) <| $ [es] (seats_hatch_nodes__isValid : bool; seat__ownerEid : EntityId; seat__isPlayer : bool; var seat__isInHatch : bool&)
+    query(seatEid) <| $ [es] (seats_hatch_nodes__isValid : bool; seat__ownerEid : EntityId; seat__isPlayer : bool; seat__isHatchControlInversed : bool = false; var seat__isInHatch : bool&)
       if !seats_hatch_nodes__isValid || !seat__isPlayer
         return
       seat__isInHatch = false
       query(seat__ownerEid) <| $ [es] (human_net_phys : HumanActor)
-        seat__isInHatch = is_control_bit_set(human_net_phys.phys.appliedCT, (HumanPhysControlType HCT_CROUCH))
+        seat__isInHatch = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_CROUCH) ^^ seat__isHatchControlInversed
       return
 
 

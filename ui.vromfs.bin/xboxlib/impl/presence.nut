@@ -48,6 +48,9 @@ return {
   DeviceType = pres.DeviceType
   TitleState = pres.TitleState
 
+  subscribe_to_changes = pres.subscribe_to_changes
+  unsubscribe_from_changes = pres.unsubscribe_from_changes
+
   set_presence
   retrieve_presences_for_users
 

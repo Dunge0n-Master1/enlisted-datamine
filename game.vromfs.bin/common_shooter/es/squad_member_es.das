@@ -66,12 +66,12 @@ def squad_member_crawl_with_leader(info : UpdateStageInfoAct; eid : ecs::EntityI
     query(smEid) <| $ [es(REQUIRE_NOT=deadEntity)] (squad_member__squad : EntityId; var beh_tree : BehaviourTree&)
       if squad_member__squad != eid
         return
-      beh_tree.blackBoard |> datablock_setInt("maxStanceOrder", STANCE_CRAWL)
-      beh_tree.blackBoard |> datablock_setBool("maxStanceOrderForce", true)
+      beh_tree.blackBoard |> set("maxStanceOrder", STANCE_CRAWL)
+      beh_tree.blackBoard |> set("maxStanceOrderForce", true)
       let orderTime = rnd_float(squad__membersCrawlOrderTime.x, squad__membersCrawlOrderTime.y)
-      beh_tree.blackBoard |> datablock_setReal("maxStanceOrderEndTime", info.curTime + orderTime)
+      beh_tree.blackBoard |> set("maxStanceOrderEndTime", info.curTime + orderTime)
 
-[es(tag=server, on_event=EventComponentChanged, track=isInVehicle)]
+[es(tag=server, track=isInVehicle)]
 def squad_member_can_be_leader_set(evt : Event; isInVehicle : bool; var squad_member__canBeLeader : bool&)
   if (!isInVehicle)
     // Not in vehicle anymore, can be leader

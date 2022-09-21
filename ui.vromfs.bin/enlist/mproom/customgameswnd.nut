@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {addScene, removeScene} = require("%enlist/navState.nut")
 let roomState = require("%enlist/state/roomState.nut")
-let {showCreateRoom} = require("%enlSqGlob/uistate.nut")
+let {showCreateRoom} = require("showCreateRoom.nut")
 
 let progressText = require("%enlist/components/progressText.nut")
 let customRoomLobby = require("customRoomLobby.nut")

@@ -9,6 +9,7 @@ require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
+require game.es.squad_order_common
 
 def squadmate_attack_order_speech(squadmate_eid : EntityId; leader_eid : EntityId; squad_member_response = "confirm")
   sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadAttackOrder", importance=1.]])
@@ -49,10 +50,10 @@ def order_attack(squadmate_eid, squad__leader, attack_target : EntityId)
 
     EnlistedBehTree::load_beh_tree_from_ecs(squadmate_eid)
 
-    beh_tree.blackBoard |> datablock_setInt("attackTarget", int(uint(attack_target)))
+    beh_tree.blackBoard |> set("attackTarget", int(uint(attack_target)))
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("attackTarget", int(uint(attack_target)))
-    beh_tree.blackBoard |> datablock_setInt("attackTarget", int(uint(attack_target)))
+    beh_tree.blackBoard |> set("attackTarget", int(uint(attack_target)))
 
     squad_member__orderType = int(SquadMateOrder ESMO_ATTACK_TARGET)
     squad_member__orderPosition = float3()

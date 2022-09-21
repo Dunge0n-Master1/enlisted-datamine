@@ -10,6 +10,9 @@ let {teammatesAvatarsGetWatched, groupmatesAvatarsSet, groupmatesAvatarsGetWatch
 let { TEAM_UNASSIGNED } = require("team")
 let {MAP_COLOR_SQUADMATE, MAP_COLOR_GROUPMATE, MAP_COLOR_TEAMMATE} = require("%enlSqGlob/ui/style/unit_colors.nut")
 let {hudMarkerEnable} = require("%ui/hud/state/hudOptionsState.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
+
+
 let unitArrowSz = [fsh(0.7), fsh(1.4)]
 let teammateArrowSz = [fsh(1.7), fsh(1.7)]
 
@@ -56,46 +59,45 @@ let map_unit_ctor = function(eid, showHero=false) {
     dirRotate = true
   }
   let markerState = teammatesAvatarsGetWatched(eid)
-  let watch = [localPlayerTeam, watchedHeroEid, watchedHeroSquadEid, markerState, localPlayerGroupMembers, hudMarkerEnable]
   let blinkAnimation = mkBlinkAnimation(eid)
-  return function() {
-    let {
-      isAlive = true,
-      team = TEAM_UNASSIGNED,
-      human_anim__vehicleSelected = INVALID_ENTITY_ID,
-      squad_member__playerEid = INVALID_ENTITY_ID,
-      squad_member__squad = INVALID_ENTITY_ID
-    } = markerState.value
-    let hideMarker = !isAlive
+  let hideMarker = Computed(function(){
+    let {isAlive=true, human_anim__vehicleSelected = INVALID_ENTITY_ID} = markerState.value
+    return !isAlive
       || !hudMarkerEnable.value
       || (showHero && watchedHeroEid.value==eid)
       || human_anim__vehicleSelected != INVALID_ENTITY_ID
-    if (hideMarker)
+  })
+  let fillColorState = Computed(function(){
+    let {squad_member__squad = INVALID_ENTITY_ID, team = TEAM_UNASSIGNED, squad_member__playerEid=INVALID_ENTITY_ID} = markerState.value
+    let isSquadmate = squad_member__squad != INVALID_ENTITY_ID && squad_member__squad == watchedHeroSquadEid.value
+    if (isSquadmate) {
+      return MAP_COLOR_SQUADMATE
+    }
+    else if (!isSquadmate && squad_member__playerEid in localPlayerGroupMembers.value) {
+      return MAP_COLOR_GROUPMATE
+    }
+    else if (team == localPlayerTeam.value) {
+      return MAP_COLOR_TEAMMATE
+    }
+    else if (isReplay.value)
+      return null /* FIX ME: It is made to hide ENEMIES on the map in replays */
+    return Color(0, 0, 0)
+  })
+
+  let watch = [hideMarker, fillColorState]
+  return function() {
+    if (hideMarker.value)
       return {watch}
 
-    local fillColor = Color(0, 0, 0)
-    let isSquadmate = squad_member__squad != INVALID_ENTITY_ID && squad_member__squad == watchedHeroSquadEid.value
-    let isTeammate = team == localPlayerTeam.value
-    let isGroupmate = !isSquadmate && squad_member__playerEid in localPlayerGroupMembers.value
-
-    if (isSquadmate) {
-      fillColor = MAP_COLOR_SQUADMATE
-    }
-    else if (isGroupmate) {
-      fillColor = MAP_COLOR_GROUPMATE
-    }
-    else if (isTeammate) {
-      fillColor = MAP_COLOR_TEAMMATE
-    }
-
     return {
-      key = eid
+      watch
+      key = {}
       data
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
       transform = {}
-      children = mkIcon(fillColor).__merge(blinkAnimation)
-      watch
+      children = fillColorState.value == null ? null
+        : mkIcon(fillColorState.value).__merge(blinkAnimation)
     }
   }
 }

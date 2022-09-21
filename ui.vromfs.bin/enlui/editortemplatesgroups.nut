@@ -68,6 +68,7 @@ let function initTemplatesGroups(for_debug) {
   add_group_variext("Other items", "item__*", "+item_in_world")
 
   add_group_variant("RendInsts", "@gameRendInstTag")
+  add_group_variant("RendInsts", "@unbakedRendInstTag")
   add_group_variant("RendInsts", "scenery_remove__*")
 
   add_group_variant("Effects", "ri_gpu_object__*")

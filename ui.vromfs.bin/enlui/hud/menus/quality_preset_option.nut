@@ -18,6 +18,7 @@ let {
   ,optSkiesQuality
   ,optSsaoQuality
   ,optCloudsQuality
+  ,optVolumeFogQuality
   ,optWaterQuality
   ,optGroundDisplacementQuality
   ,optGroundDeformations
@@ -61,6 +62,7 @@ let mapOptionsByPreset = {
   [optShadowsQuality]            = ["minimum",     "minimum", "low",    "low",    "medium",   "high"],
   [optEffectsShadows]            = [false,         false,     false,    false,    true,       true],
   [optCloudsQuality]             = ["default",     "default", "default","default","highres",  "volumetric"],
+  [optVolumeFogQuality]          = ["close",       "close",   "close",  "close",  "close",    "far"],
   [optWaterQuality]              = ["low",         "low",     "low",    "low",    "medium",   "high"],
   [optGroundDisplacementQuality] = [0,             0,         0,        1,        1,          2],
   [optGroundDeformations]        = ["off",         "off",     "low",    "medium", "high",     "high"],

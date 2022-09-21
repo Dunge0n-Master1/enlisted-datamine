@@ -563,6 +563,7 @@ skies_settings{
     clouds_form__cumulonimbusShapeScale:i=4
     clouds_form__turbulenceFreq:i=2
     clouds_settings__maximum_averaging_ratio:r=0.75
+    clouds_settings__force_panorama:b=no
     clouds_settings__quality:i=2
     clouds_settings__target_quality:i=2
     clouds_settings__competitive_advantage:b=no
@@ -589,7 +590,7 @@ skies_settings{
     sky_atmosphere__rayleigh_scale:p2=1.0, 1.0
     sky_atmosphere__rayleigh_alt_scale:p2=1.0, 1.0
     sky_atmosphere__rayleigh_color:p3=1.0, 1.0, 1.0
-    sky_atmosphere__multiple_scattering_factor:p2=1.0, 1.0
+    sky_atmosphere__multiple_scattering_factor:r=1.0
     sky_atmosphere__ozone_alt_dist:r=1.0
     sky_atmosphere__ozone_max_alt:r=1.0
     sky_atmosphere__ozone_scale:p2=1.0, 1.0
@@ -755,6 +756,7 @@ beh_tree_agent_in_train_zone{
     beh_tree__agentInTrainZoneAt:r=0.0
     beh_tree__agentInTrainZonePeriod:r=0.4
     beh_tree__isAgentInTrainZone:b=no
+    beh_tree__isAgentShouldRunToTrain:b=no
   }
 }
 
@@ -766,13 +768,56 @@ beh_tree_agent_on_train{
     beh_tree__agentOnTrainAt:r=0.0
     beh_tree__agentOnTrainPeriod:r=0.4
     beh_tree__isAgentOnTrain:b=no
+    beh_tree__isAgentShouldUseTrain:b=no
+    beh_tree__isAgentShouldOutTrain:b=no
+    beh_tree__isInTrainBeh:b=no
+    beh_tree__minDstForGetOnTrain:r=36.0
+  }
+}
+
+beh_tree_agent_bomb{
+  _tracked:t="beh_tree__useBombResetTrigger"
+
+  _group{
+    _tags:t="server"
+    beh_tree__useBomb:b=no
+    beh_tree__useBombResetTrigger:b=no
+  }
+}
+
+beh_tree_agent_vehicle{
+  _tracked:t="beh_tree__isInVehicleResetTrigger"
+  _tracked:t="beh_tree__shouldUseVehicleResetTrigger"
+
+  _group{
+    _tags:t="server"
+    beh_tree__isInVehicle:b=no
+    beh_tree__shouldUseVehicle:b=no
+    beh_tree__orderIsInVehicle:b=no
+    beh_tree__orderShouldUseVehicle:b=no
+    beh_tree__isInVehicleResetTrigger:b=no
+    beh_tree__shouldUseVehicleResetTrigger:b=no
+  }
+}
+
+beh_tree_agent_leader{
+
+  _group{
+    _tags:t="server"
+    beh_tree__navPointId:i=-1
+
+    "beh_tree__capturedCapzone:eid"{
+    }
+
+    "beh_tree__capzoneOfInterest:eid"{
+    }
   }
 }
 
 beh_tree_bomb_site_in_radius{
   beh_tree__bombSiteInRadiusAt:r=0.0
   beh_tree__bombSiteInRadiusPeriod:r=0.1
-  beh_tree__bombSiteInRadiusDistSqr:r=100.0
+  beh_tree__bombSiteInRadiusDistSqr:r=256.0
 }
 
 turn_off_souls{

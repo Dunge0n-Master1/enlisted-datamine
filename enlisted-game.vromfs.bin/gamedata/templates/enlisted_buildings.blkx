@@ -93,6 +93,7 @@ builded_cannon_germ_20mm_flak38_flakvierling_common{
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_aaa"
   building_menu__text:t="building_tool/aaa_cannon_flak38_flakvierling"
+  isTpsView:b=no
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -105,7 +106,7 @@ builded_cannon_germ_20mm_flak38_flakvierling_common{
 
 cannon_germ_towed_at_pak38_movable_preview{
   _extends:t="cannon_germ_towed_at_pak38_preview_common"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_pak38.blk"
+  preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/towed_at_pak38.blk"
   instantiateTemplate:t="builded_germ_towed_at_pak38_movable"
 }
 
@@ -158,6 +159,7 @@ builded_germ_towed_at_pak38_common{
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_pak38"
+  isTpsView:b=no
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -192,7 +194,7 @@ cannon_towed_at_pak40_preview_common{
   _extends:t="base_animchar_builder_preview"
   animchar__res:t="towed_at_pak40_char"
   collres__res:t="towed_at_pak40_collision"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks//towed_at_pak40.blk"
+  preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/towed_at_pak40.blk"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
   building_builder__maxTimeToBuild:r=30.0
@@ -232,6 +234,7 @@ builded_towed_at_pak40_common{
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_pak40"
+  isTpsView:b=no
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -292,6 +295,7 @@ builded_towed_m1_common{
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_m1"
+  isTpsView:b=no
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -314,7 +318,7 @@ builded_us_towed_at_m1{
 
 cannon_ussr_towed_at_53k_movable_preview{
   _extends:t="cannon_ussr_towed_at_53k_preview"
-  preview_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_53k.blk"
+  preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/towed_at_53k.blk"
   instantiateTemplate:t="builded_ussr_towed_at_53k_movable"
 }
 
@@ -363,6 +367,7 @@ builded_ussr_towed_at_53k_common{
   building_destroy__maxTimeToDestroy:r=30.0
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_53k"
+  isTpsView:b=no
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -694,6 +699,93 @@ sandbags_wall_browning_m1919a4{
 
 builded_stationary_browning_m1919a4_with_autodetach{
   _extends:t="stationary_browning_m1919a4_with_autodetach"
+  _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-30.0, 30.0
+
+  "disableDestroyWithRi:tag"{
+  }
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "refundForDependsBuilding:tag"{
+  }
+}
+
+stationary_type_92_hmg_building_additive_preview{
+  _extends:t="base_animchar_builder_preview"
+  _extends:t="stationary_mg42_building_attachable"
+  additiveUp:p3=0.0, 1.0, 0.0
+  additiveTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  animchar__res:t="type_92_hmg_char"
+  collres__res:t="type_92_hmg_collision"
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "builder_additive_preview:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="isAlive"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=1.0
+  }
+}
+
+sandbags_wall_type_92_hmg_preview{
+  _extends:t="base_rendinst_builder_preview"
+  instantiateTemplate:t="sandbags_wall_type_92_hmg"
+  ri_preview__name:t="sandbags_wall_medium_rounded_d_mission_object"
+  avaliableAngles:p2=-15.0, 15.0
+  buildingSoundTag:t="fortification"
+  building_builder__maxTimeToBuild:r=45.0
+  buildingCost:r=12.0
+  building__requireUnlockId:i=3
+  building_menu__text:t="building_tool/sandbags_with_mg42"
+  building_menu__image:t="building_mg_nest"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="stationary_type_92_hmg_building_additive_preview"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [0.35, 0.92, -0.24]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+sandbags_wall_type_92_hmg{
+  _extends:t="base_ri_building"
+  _extends:t="additive_building_can_repair"
+  ri_extra__name:t="sandbags_wall_medium_rounded_d_mission_object"
+  fortification_repair__costPercent:r=0.5
+  fortification_repair__text:t="hud/repair_sandbags_wall_mg"
+  team:i=-1
+  building_destroy__maxTimeToDestroy:r=20.0
+  building_menu__text:t="building_tool/sandbags_with_mg42"
+  building_menu__image:t="building_mg_nest"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="builded_stationary_type_92_hmg_with_autodetach"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [0.35, 0.92, -0.24]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+builded_stationary_type_92_hmg_with_autodetach{
+  _extends:t="stationary_type_92_hmg_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-30.0, 30.0
 
@@ -1191,6 +1283,18 @@ ussr_rallypoint{
   ri_extra__name:t="ussr_rallypoint"
 }
 
+jp_rallypoint_preview{
+  _extends:t="base_rallypoint_preview"
+  instantiateTemplate:t="jp_rallypoint"
+  ri_preview__name:t="jap_rallypoint"
+  preview_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/jp_rallypoint_phys.blk"
+}
+
+jp_rallypoint{
+  _extends:t="base_rallypoint"
+  ri_extra__name:t="jap_rallypoint"
+}
+
 ammunition_box_a_preview{
   _extends:t="base_animchar_builder_preview"
   instantiateTemplate:t="ammunition_box_a"
@@ -1496,7 +1600,8 @@ building_restricted_zone{
   building_restricted_zone__nextUpdateAt:r=0.0
   building_restricted_zone__updateInterval:r=0.5
   building_restricted_zone__maxAngle:r=30.0
-  building_restricted_zone__minDistance:r=200.0
+  building_restricted_zone__minDistanceForTeamOffense:r=150.0
+  building_restricted_zone__minDistanceForTeamDefense:r=250.0
 
   "buildingRestrictedZone:tag"{
   }
@@ -1553,6 +1658,13 @@ sandbags_wall_maxim_no_shield_preview_dev{
 
 sandbags_wall_browning_m1919a4_preview_dev{
   _extends:t="sandbags_wall_browning_m1919a4_preview"
+  building_builder__maxTimeToBuild:r=2.0
+  buildingCost:r=1.0
+  building__requireUnlockId:i=-1
+}
+
+sandbags_wall_type_92_hmg_preview_dev{
+  _extends:t="sandbags_wall_type_92_hmg_preview"
   building_builder__maxTimeToBuild:r=2.0
   buildingCost:r=1.0
   building__requireUnlockId:i=-1

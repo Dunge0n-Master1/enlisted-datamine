@@ -7,7 +7,6 @@ let { EventGameSessionFinished, EventSessionFinished } = require("dasevents")
 //=============hp_es=======
 let defState = freeze({
   hp = null
-  hpRestoreAmount = 0
   maxHp = 0
   scaleHp = 0
   isAliveState = false
@@ -18,7 +17,6 @@ let defState = freeze({
 let {state, stateSetValue} = mkFrameIncrementObservable(defState,"state")
 
 let hp = Computed(@() state.value.hp)
-let hpRestoreAmount = Computed(@() state.value.hpRestoreAmount)
 let maxHp = Computed(@() state.value.maxHp)
 let scaleHp = Computed(@() state.value.scaleHp)
 let isAliveState = Computed(@() state.value.isAliveState)
@@ -35,7 +33,6 @@ ecs.register_es("health_state_ui_es", {
     let isDowned = comp["isDowned"]
     stateSetValue({
       hp = isAlive ? comp["hitpoints__hp"] : null
-      hpRestoreAmount = isAlive ? comp["hitpoints_heal__restoreAmount"] : null
       maxHp = !isDowned ? comp["hitpoints__maxHp"] : -comp["hitpoints__deathHpThreshold"]
       scaleHp = comp["hitpoints__scaleHp"]
       isAliveState = isAlive
@@ -59,7 +56,6 @@ ecs.register_es("health_state_ui_es", {
     ["hitpoints__deathHpThreshold", ecs.TYPE_FLOAT, 0.0],
     ["isAlive", ecs.TYPE_BOOL, true],
     ["isDowned", ecs.TYPE_BOOL, false],
-    ["hitpoints_heal__restoreAmount", ecs.TYPE_FLOAT, 0.0],
     ["heal__continuousInput", ecs.TYPE_BOOL, true],
   ]
   comps_rq=["watchedByPlr"]
@@ -72,7 +68,6 @@ return {
   isAlive = isAliveState
   isDowned = isDownedState
   hp
-  hpRestoreAmount
   maxHp
   scaleHp
   isHealContinuousInput

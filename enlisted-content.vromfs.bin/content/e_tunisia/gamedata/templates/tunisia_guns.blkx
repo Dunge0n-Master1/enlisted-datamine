@@ -56,6 +56,7 @@ carcano_m38_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m38"
   _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -162,6 +163,7 @@ carcano_m38_7_35_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m38_7_35"
   _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -268,6 +270,7 @@ carcano_m38_7_35_with_scope_mount_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m38_7_35_with_scope_mount"
   _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -417,6 +420,7 @@ carcano_m41_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m41"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.52
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -523,6 +527,7 @@ carcano_m91_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m91"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -599,6 +604,7 @@ carcano_m91_with_scope_mount_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m91_with_scope_mount"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -680,6 +686,9 @@ carcano_moschetto_91{
   gun__altReloadTime:r=4.2
   gun__kineticDamageMult:r=1.58
 
+  "meleeChargeWeapon:tag"{
+  }
+
   "gun_shell_ejection__onShootRelease:tag"{
   }
 
@@ -708,6 +717,7 @@ carcano_moschetto_91_gun{
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_moschetto_91"
   _extends:t="rifle_carbine_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -847,6 +857,7 @@ smle_mk3_gun{
   _extends:t="rifle_ww2_preset"
   _extends:t="smle_mk3"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -967,6 +978,7 @@ armaguerra_mod_39_gun{
   _extends:t="semiauto_ww2_preset"
   _extends:t="armaguerra_mod_39"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1063,6 +1075,7 @@ beretta_m31_gun{
   _extends:t="semiauto_ww2_preset"
   _extends:t="beretta_m31"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1167,6 +1180,7 @@ pavesi_m42_gun{
   _extends:t="semiauto_ww2_preset"
   _extends:t="pavesi_m42"
   _extends:t="rifle_muzzle_break_2_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1276,6 +1290,7 @@ pavesi_prototype_svt_copy_gun{
   _extends:t="semiauto_ww2_preset"
   _extends:t="pavesi_prototype_svt_copy"
   _extends:t="rifle_muzzle_break_2_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1357,6 +1372,9 @@ beretta_m1918_30{
   melee_weapon__attackAt:r=0.375
   gun__kineticDamageMult:r=1.05
 
+  "meleeChargeWeapon:tag"{
+  }
+
   "gun__ammoHolders:array"{
     ammoHolders:t="beretta_m1918_magazine"
   }
@@ -1383,6 +1401,7 @@ beretta_m1918_30_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="beretta_m1918_30"
   _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="riffle_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1481,6 +1500,7 @@ sw_light_rifle_mk_1_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="sw_light_rifle_mk_1"
   _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -1576,6 +1596,7 @@ sw_light_rifle_mk_2_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="sw_light_rifle_mk_2"
   _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -1678,6 +1699,7 @@ turner_automatic_rifle_gun{
   _extends:t="semiauto_ww2_preset"
   _extends:t="turner_automatic_rifle"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1781,6 +1803,7 @@ beretta_m38_42_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="beretta_m38_42"
   _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="riffle_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1882,6 +1905,7 @@ beretta_m1_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="beretta_m1"
   _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="riffle_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -1984,6 +2008,7 @@ ovp_1918_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="ovp_1918"
   _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -2084,6 +2109,7 @@ tz_45_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="tz_45"
   _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="riffle_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -2189,6 +2215,7 @@ thompson_m1921_28_box_gun{
   _extends:t="mp_45acp_ww2_preset"
   _extends:t="thompson_m1921_28_box"
   _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -2291,6 +2318,7 @@ sten_mk3_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="sten_mk3"
   _extends:t="smg_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -2361,7 +2389,7 @@ owen_mk1_42{
   gun__altReloadTime:r=2.2
 
   "gun__ammoHolders:array"{
-    ammoHolders:t="sten_mk2_magazine"
+    ammoHolders:t="owen_magazine"
   }
 
   "gun__shells:array"{
@@ -2385,6 +2413,7 @@ owen_mk1_42_gun{
   _extends:t="mp_ww2_preset"
   _extends:t="owen_mk1_42"
   _extends:t="smg_muzzle_break_preset"
+  _extends:t="hit_effect_group_8_12mm"
   _extends:t="mgun_gun_aim_sound"
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -2392,11 +2421,11 @@ owen_mk1_42_gun{
   gun__recoilAmount:r=0.048
   gun__recoilDirAmount:r=0.64
   gun__recoilDir:r=0.7
-  gun__visualRecoilMult:r=1.6
+  gun__visualRecoilMult:r=0.8
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun__rotationSpringMult:p3=1.0, 1.0, 1.0
 
   _group{
     _tags:t="sound"
@@ -2480,6 +2509,7 @@ beretta_m1923_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="beretta_m1923"
   _extends:t="pistol_muzzle_preset"
+  _extends:t="hit_effect_group_6_8mm"
   gun__recoilAmount:r=0.044
   gun__recoilDirAmount:r=0.5
   gun__recoilDir:r=0.0
@@ -2563,6 +2593,7 @@ beretta_m1934_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="beretta_m1934"
   _extends:t="pistol_muzzle_preset"
+  _extends:t="hit_effect_group_6_8mm"
   gun__recoilAmount:r=0.048
   gun__recoilDirAmount:r=0.64
   gun__recoilDir:r=0.0
@@ -2615,6 +2646,7 @@ beretta_m1934_gold_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="beretta_m1934_gold"
   _extends:t="pistol_muzzle_preset"
+  _extends:t="hit_effect_group_6_8mm"
   gun__recoilAmount:r=0.048
   gun__recoilDirAmount:r=0.64
   gun__recoilDir:r=0.0
@@ -2705,6 +2737,7 @@ webley_mk6_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="webley_mk6"
   _extends:t="pistol_big_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   gun__recoilAmount:r=0.06
   gun__recoilDirAmount:r=0.63
   gun__rotationSpringMult:p3=1.0, 1.0, 0.1
@@ -2758,6 +2791,7 @@ webley_mk6_nickel_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="webley_mk6_nickel"
   _extends:t="pistol_big_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
   gun__recoilAmount:r=0.06
   gun__recoilDirAmount:r=0.63
   gun__rotationSpringMult:p3=1.0, 1.0, 0.1
@@ -2795,7 +2829,7 @@ enfield_no2_mk1{
   _extends:t="pistol_weap_slots"
   _extends:t="reload_single_bullet"
   _extends:t="ironsights_open_pistol"
-  reload__singleReloadAmmoCount:i=1
+  reload__singleReloadAmmoCount:i=2
   single_reload__prepareTime:r=1.1
   single_reload__loopTime:r=1.35
   single_reload__postTime:r=0.7
@@ -2852,6 +2886,7 @@ enfield_no2_mk1_gun{
   _extends:t="pistol_ww2_preset"
   _extends:t="enfield_no2_mk1"
   _extends:t="pistol_big_muzzle_preset"
+  _extends:t="hit_effect_group_6_8mm"
   gun__recoilAmount:r=0.052
   gun__recoilDirAmount:r=0.68
   gun__rotationSpringMult:p3=1.0, 1.0, 0.1
@@ -2940,6 +2975,7 @@ bren_mk1_gun{
   _extends:t="mg_ww2_preset"
   _extends:t="bren_mk1"
   _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
@@ -3058,6 +3094,7 @@ besal_lmg_gun{
   _extends:t="mg_ww2_preset"
   _extends:t="besal_lmg"
   _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
@@ -3176,6 +3213,7 @@ charlton_automatic_rifle_gun{
   _extends:t="mg_ww2_preset"
   _extends:t="charlton_automatic_rifle"
   _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
@@ -3295,6 +3333,7 @@ solothurn_s_18_100_gun{
   _extends:t="ptr_ww2_preset"
   _extends:t="solothurn_s_18_100"
   _extends:t="high_caliber_muzzle_brake_2_preset"
+  _extends:t="hit_effect_group_20_60mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
@@ -3395,6 +3434,7 @@ atr_boys_gun{
   _extends:t="ptr_ww2_preset"
   _extends:t="atr_boys"
   _extends:t="high_caliber_muzzle_brake_3_preset"
+  _extends:t="hit_effect_group_14_20mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -3521,6 +3561,7 @@ vickers_berthier_gun{
   _extends:t="mg_ww2_preset"
   _extends:t="vickers_berthier"
   _extends:t="mg_rapid_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="gun_switch_firing_mode_sound"
   _extends:t="mgun_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
@@ -3649,6 +3690,7 @@ smle_mk3_grenade_launcher_gun{
   _extends:t="rifle_ww2_preset"
   _extends:t="smle_mk3_grenade_launcher"
   _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -3778,6 +3820,7 @@ smle_2_5_inch_rifle_grenade_phys{
   shell__launchTime:r=-1.0
   shell__cleanupTime:r=30.0
   shell__fuseTime:r=0.0
+  shell_explosion_fx__infoTemplate:t="hit_effect_group_grenade_explosion"
 
   "shell__concussionMaxRadius:r"{
     value:r=1.8

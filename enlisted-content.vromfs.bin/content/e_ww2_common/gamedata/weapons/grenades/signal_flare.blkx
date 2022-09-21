@@ -31,3 +31,7 @@ detonation{
   onHit:b=no
   timer:r=180.0
 }
+
+shellSound{
+  activatePath:t="/weapon/grenade/activate"
+}

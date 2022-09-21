@@ -10,7 +10,6 @@ skies{
   day:i=6
   latitude:r=49.0
   longtitude:r=0.0
-  weatherName:t="content/common/gamedata/default_clouds.blk"
   weatherSeed:i=-1
   skyIsUnreachable:b=no
 }
@@ -121,17 +120,18 @@ grass{
       hor_size_rnd_add:r=0.2
       color_mask_r_from:c=102, 131, 64, 90
       color_mask_r_to:c=130, 112, 86, 90
-      color_mask_g_from:c=31, 31, 31, 90
-      color_mask_g_to:c=103, 102, 93, 90
+      color_mask_g_from:c=108, 108, 108, 90
+      color_mask_g_to:c=63, 63, 62, 90
       color_mask_b_from:c=86, 112, 46, 90
       color_mask_b_to:c=123, 122, 29, 90
       height_from_weight_mul:r=0.3
-      height_from_weight_add:r=0.7
+      height_from_weight_add:r=0.75
       density_from_weight_mul:r=1.0
       density_from_weight_add:r=0.9
       vertical_angle_add:r=-0.3416
       vertical_angle_mul:r=0.1
       stiffness:r=1.0
+      height:r=0.1
     }
 
     generic_grass_low_b{
@@ -756,8 +756,9 @@ grass{
 
     slope_low{
       id:i=1
-      generic_grass_low_a:r=10.0
-      generic_grass_tall_a:r=7.0
+      generic_grass_tall_a:r=6.0
+      field_grass_a:r=8.0
+      bush_a:r=4.0
     }
 
     slope_high{
@@ -770,8 +771,8 @@ grass{
       id:i=16
       generic_grass_low_a:r=1.0
       heather_yellow:r=2.0
-      generic_grass_tall_a:r=1.0
-      generic_grass_tall_b:r=1.0
+      generic_grass_tall_a:r=4.0
+      generic_grass_tall_b:r=8.0
     }
 
     meadow_b{
@@ -808,19 +809,24 @@ grass{
     forest_c{
       id:i=22
       nograss:r=1.0
+      bush_dead_a:r=4.0
+      clover_flat:r=2.0
+      bush_trunks_dead_a:r=2.0
     }
 
     forest_d{
       id:i=23
       nograss:r=1.0
-      bush_a:r=7.0
+      bush_a:r=10.0
       chamerion_angustifolium:r=1.0
       matricaria_chamomilla:r=13.0
     }
 
     field_a{
       id:i=24
-      generic_grass_low_a:r=20.0
+      nograss:r=2.0
+      bush_a:r=1.0
+      generic_grass_low_a:r=7.0
     }
 
     forest_felling{
@@ -831,7 +837,10 @@ grass{
 
     courtyard{
       id:i=28
-      generic_grass_low_a:r=6.0
+      nograss:r=7.0
+      bush_a:r=5.0
+      generic_grass_low_a:r=1.0
+      field_grass_a:r=7.0
     }
 
     road{

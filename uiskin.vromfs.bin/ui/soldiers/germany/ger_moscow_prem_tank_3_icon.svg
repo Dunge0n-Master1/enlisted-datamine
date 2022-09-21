@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fc0;
+      }
+
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <polygon class="cls-1" points="75 14.169 63.423 31.048 69.994 31.048 69.994 141.331 80.006 141.331 80.006 31.048 86.577 31.048 75 14.169"/>
+      <rect class="cls-2" x="-11.89801" y="96.80226" width="84.82598" height="10.01273" transform="translate(-71.65497 72.5262) rotate(-57.32244)"/>
+      <rect class="cls-2" x="114.47865" y="59.39563" width="10.01273" height="84.82598" transform="translate(-36.05589 80.6263) rotate(-32.67794)"/>
+    </g>
+  </g>
+</svg>

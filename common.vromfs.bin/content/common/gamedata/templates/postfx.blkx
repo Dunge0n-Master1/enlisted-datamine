@@ -20,26 +20,15 @@ postfx{
   _extends:t="replicating"
 
   "post_fx:object"{
-    dof__on:b=yes
     bloom__on:b=yes
     adaptation__on:b=yes
-    dof__nearDofStart:r=0.01
-    dof__farDofAmountPercent:r=0.0
-    dof__nearDofEnd:r=0.35
-    dof__nearDofEndOriginal:r=0.35
     adaptation__autoExposureScale:r=1.5
     adaptation__highPart:r=0.0
-    dof__bokehShape_fNumber:r=8.0
-    dof__minCheckDistance:r=0.3
-    dof__nearDofAmountPercent:r=2.0
-    dof__farDofStart:r=100.0
     bloom__threshold:r=1.8
     bloom__highQuality:b=yes
     adaptation__maxExposure:r=16.0
     adaptation__minExposure:r=0.25
     adaptation__lowPart:r=0.0
-    dof__farDofEnd:r=1000000.0
-    dof__bokehShape_bladesCount:r=6.0
     adaptation__adaptDownSpeed:r=4.0
     adaptation__adaptUpSpeed:r=3.0
     bloom__radius:r=1.0
@@ -73,5 +62,39 @@ postfx_roundctrl_update{
 
   "postfx_round_ctrl_update:tag"{
     _tags:t="render"
+  }
+}
+
+depth_of_field{
+  _singleton:b=yes
+
+  "dof:DepthOfFieldPS"{
+    _tags:t="render"
+  }
+
+  "downsampled_dof_frame_fallback:UniqueTexHolder"{
+    _tags:t="render"
+  }
+
+  "is_dof:tag"{
+  }
+
+  _group{
+    _track:b=yes
+    dof__on:b=no
+    dof__is_filmic:b=no
+    dof__focusPlane:r=-1.0
+    dof__fNumber:r=1.0
+    dof__sensorHeight:r=0.024
+    dof__focalLengthFor90:r=0.012
+    dof__nearDofStart:r=0.01
+    dof__nearDofEnd:r=0.35
+    dof__nearDofAmountPercent:r=0.0
+    dof__farDofStart:r=100.0
+    dof__farDofEnd:r=1000000.0
+    dof__farDofAmountPercent:r=0.0
+    dof__bokehShape_bladesCount:r=6.0
+    dof__bokehShape_fNumber:r=8.0
+    dof__minCheckDistance:r=0.3
   }
 }

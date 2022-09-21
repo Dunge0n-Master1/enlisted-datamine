@@ -41,10 +41,13 @@ def poly_capzone_area_calc(evt : Event;
   if pointsCount == 0
     return
   let pos2d = transform[3].xz
-  var summOfDistance = 0.f
   for i in range(pointsCount)
-    summOfDistance += length(capzone__areaPoints[i] - pos2d)
-  capzone__approximateRadius = summOfDistance / float(pointsCount)
+    let distance = length_sq(capzone__areaPoints[i] - pos2d)
+    if capzone__approximateRadius < distance
+      capzone__approximateRadius = distance
+
+  if capzone__approximateRadius > 0.0
+    capzone__approximateRadius = sqrt(capzone__approximateRadius)
 
 [es(tag=server, on_event=EventLevelLoaded, REQUIRE=capzone)]
 def poly_capzone_area_create_on_load_es(evt : Event;

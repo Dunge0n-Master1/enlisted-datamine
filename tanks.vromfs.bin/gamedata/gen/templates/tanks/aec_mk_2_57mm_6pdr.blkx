@@ -80,8 +80,6 @@ base_aec_mk_2_57mm_6pdr{
       turretName:t="turret_02"
       gun:t="aec_mk_2_57mm_6pdr_turret_02_7_92mm_besa"
       barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
       salt:i=1
     }
   }

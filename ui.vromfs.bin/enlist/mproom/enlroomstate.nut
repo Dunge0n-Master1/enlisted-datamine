@@ -89,16 +89,18 @@ let function cancelSessionStart() {
 
 let mkDebugMembers = @(count) array(count).map(function(_, idx) {
   let campaign = chooseRandom((gameProfile.value?.campaigns ?? {}).keys())
+  let rnd = rand()
   return {
-    userId = rand()
+    userId = rnd
     memberId = 1000 - idx
-    name = $"WWWWWWWWWWWWWWW{rand() % 10}"
-    squadNum = max(0, rand() % 10 - 4)
+    name = $"WWWWWWWWWWWWWWW{rnd % 10}"
+    nameText = $"WWWWWWWWWWWWWWW{rnd % 10}"
+    squadNum = max(0, rnd % 10 - 4)
     public = {
-      team = rand() % 2
+      team = rnd % 2
       campaign
       army = chooseRandom(gameProfile.value?.campaigns[campaign].armies ?? [])?.id ?? ""
-      isReady = (rand() % 2) == 1
+      isReady = (rnd % 2) == 1
       portrait = chooseRandom(portraits.keys())
       nickFrame = chooseRandom(nickFrames.keys())
       status = chooseRandom(memberStatuses.keys())

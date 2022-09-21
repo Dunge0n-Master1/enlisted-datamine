@@ -9,6 +9,7 @@ def sound_effect_track(evt : Event;
                        sound_control__inRange : bool;
                        sound_effect__path : string;
                        sound_effect__localOffset : float3;
+                       sound_effect__volume : float = 1.0;
                        var sound_effect__event : SoundEvent&;
                        transform : float3x4)
   if sound_control__inRange
@@ -16,7 +17,7 @@ def sound_effect_track(evt : Event;
   else
     release(sound_effect__event.handle)
   if sound_control__shouldPlay
-    sound_effect__event |> play(sound_effect__path, transform * sound_effect__localOffset)
+    sound_effect__event |> play(sound_effect__path, transform * sound_effect__localOffset, sound_effect__volume)
 
 
 [es(tag=sound, track=(sound_control__shouldPlay, is_watched_sound), REQUIRE=watchableSoundEffect)]
@@ -26,6 +27,7 @@ def sound_effect_track_watchable(evt : Event;
                                  sound_effect__path : string;
                                  sound_effect__watchedPath : string;
                                  sound_effect__localOffset : float3;
+                                 sound_effect__volume : float = 1.0;
                                  is_watched_sound : bool;
                                  var sound_effect__event : SoundEvent&;
                                  transform : float3x4)
@@ -35,7 +37,7 @@ def sound_effect_track_watchable(evt : Event;
     release(sound_effect__event.handle)
   if sound_control__shouldPlay
     let path = is_watched_sound ? sound_effect__watchedPath : sound_effect__path
-    sound_effect__event |> play(path, transform * sound_effect__localOffset)
+    sound_effect__event |> play(path, transform * sound_effect__localOffset, sound_effect__volume)
 
 
 [es(tag=sound, REQUIRE=movableSoundEffect, no_order)]
