@@ -175,5 +175,5 @@ hitFx{
 }
 
 explFx{
-  effectTemplName:t="water_hit_big_cmps_fx"
+  effectTemplName:t="explosion_250_500kg_dirt_effect"
 }

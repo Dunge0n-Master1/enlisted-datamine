@@ -1,4 +1,10 @@
 ShipPhys{
+  skipUpdateOnSleep:b=yes
+  sleepOnWater:b=yes
+
+  settings{
+    groundBounceMult:r=0.5
+  }
 
   mass{
     Empty:r=400.0

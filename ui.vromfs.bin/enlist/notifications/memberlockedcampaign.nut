@@ -40,7 +40,7 @@ let function showWarningMsgbox(userId) {
       campaign = colorize(MsgMarkedText, loc(gameProfile.value?.campaigns[campaign].title ?? campaign))
     })
     buttons = [{ text = loc("Ok"),
-      action = @() viewedWarnings[campaign] <- (viewedWarnings.value?[campaign] ?? {}).__merge({ [userId] = true })
+      action = @() viewedWarnings.mutate(@(v) v[campaign] <- (v?[campaign] ?? {}).__merge({ [userId] = true }))
       isCurrent = true
       isCancel = true
     }]

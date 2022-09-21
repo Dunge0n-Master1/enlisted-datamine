@@ -410,7 +410,7 @@ return freeze({
     image = "ui/campaign_rewards/reward_type_100_smg_early.jpg"
   }
   crate_pacific_axis_level_9 = {
-    image = "ui/campaign_rewards/reward_jp_type_98_ke_ni_pacific.jpg"
+    image = "ui/campaign_rewards/reward_jp_type_95_ha_go_pacific.jpg"
   }
   crate_pacific_axis_level_11 = {
     image = "ui/campaign_rewards/reward_type_95_shin_gunto.jpg"

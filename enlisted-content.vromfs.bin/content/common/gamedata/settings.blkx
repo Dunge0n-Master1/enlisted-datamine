@@ -384,6 +384,19 @@ sound{
       }
     }
 
+    cmn_loc_vo_jp_banks{
+
+      _cmn_loc_vo_jp{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_jp.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
     ww2_banks{
 
       ww2_ambient_music{

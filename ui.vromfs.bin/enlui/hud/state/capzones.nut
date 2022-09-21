@@ -345,49 +345,53 @@ let function onHeroChanged(evt, _eid, _comp){
 }
 
 let function onCapZoneChanged(_evt, eid, comp) {
-  let zone = capZones.value?[eid]
-  if (zone==null)
-    return
   let changedZoneVals = {}
   foreach (attrName, v in comp){
     let zonePropName = attr2gui?[attrName]
     if (attrName == "capzone__ownTeamIcon") {
       let ico = mkOwnTeamIco(v, comp["capzone__owningTeam"])
-      if (zone.ownTeamIcon != ico)
-        changedZoneVals.ownTeamIcon <- ico
+      changedZoneVals.ownTeamIcon <- ico
     }
-    else if (attrName in attr2gui && zone[zonePropName] != v) {
+    else if (attrName in attr2gui) {
       changedZoneVals[zonePropName] <- v?.getAll() ?? v
     }
   }
   let attackTeam = comp["capzone__checkAllZonesInGroup"] ?
                      comp["capzone__mustBeCapturedByTeam"] : comp["capzone__onlyTeamCanCapture"]
-  if (zone?["attackTeam"] != attackTeam)
-    changedZoneVals["attackTeam"] <- attackTeam
-  let newZone = zone.__merge(changedZoneVals)
+  let title = comp["capzone__title"]
   let heroTeam = localPlayerTeam.value
-  if ("curTeamCapturingZone" in changedZoneVals){
-    notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, zone.attackTeam)
-    newZone.prevTeamCapturingZone = zone.curTeamCapturingZone
-  }
-  if (zone.active && !zone.isBombSite && !zone.trainTriggerable && zone.attackTeam < 0 && "capTeam" in changedZoneVals) {
-    let {capTeam} = changedZoneVals
-    if (capTeam >= FIRST_GAME_TEAM && zone.capTeam < FIRST_GAME_TEAM) {
-      let isHeroTeam = capTeam == heroTeam
-      let isAllies = isFriendlyTeam(capTeam, heroTeam)
-      let isHero = isHeroTeam && (queryCapturerZones(controlledHeroEid.value, @(_, comp) comp.capturer__capZonesIn.getAll().indexof(eid) != null) ?? false)
-      let event = {event="zone_capture_start", text=loc("Zone is being captured"), myTeamScores=isHeroTeam}
-      let title = comp["capzone__title"]
-      if (!isHero && !tryPlayMajorEvent(event, "pointCapturingPlayer") && !tryPlayMajorEvent(event, isAllies ? $"point{title}CapturingAlly" : $"point{title}CapturingEnemy"))
-        playMajorEvent(event, isAllies ? "pointCapturingAlly" : "pointCapturingEnemy")
+  let controlledHero = controlledHeroEid.value
+  capZonesModify(function(zones){
+    let zone = zones?[eid]
+    if (zone==null)
+      return zones
+
+    if (zone?["attackTeam"] != attackTeam)
+      changedZoneVals["attackTeam"] <- attackTeam
+    let newZone = zone.__merge(changedZoneVals)
+    if ("curTeamCapturingZone" in changedZoneVals){
+      notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, zone.attackTeam)
+      newZone.prevTeamCapturingZone = zone.curTeamCapturingZone
     }
-  }
-  newZone.isCapturing = newZone.curTeamCapturingZone != TEAM_UNASSIGNED
-    && (newZone.progress != 1.0 || newZone.isMultipleTeamsPresent)
-    && newZone.active
-  if (changedZoneVals?.active)
-    newZone.wasActive = true
-  capZonesSetKeyVal(eid, newZone)
+    if (zone.active && !zone.isBombSite && !zone.trainTriggerable && zone.attackTeam < 0 && "capTeam" in changedZoneVals) {
+      let {capTeam} = changedZoneVals
+      if (capTeam >= FIRST_GAME_TEAM && zone.capTeam < FIRST_GAME_TEAM) {
+        let isHeroTeam = capTeam == heroTeam
+        let isAllies = isFriendlyTeam(capTeam, heroTeam)
+        let isHero = isHeroTeam && (queryCapturerZones(controlledHero, @(_, compCapZones) compCapZones.capturer__capZonesIn.getAll().indexof(eid) != null) ?? false)
+        let event = {event="zone_capture_start", text=loc("Zone is being captured"), myTeamScores=isHeroTeam}
+        if (!isHero && !tryPlayMajorEvent(event, "pointCapturingPlayer") && !tryPlayMajorEvent(event, isAllies ? $"point{title}CapturingAlly" : $"point{title}CapturingEnemy"))
+          playMajorEvent(event, isAllies ? "pointCapturingAlly" : "pointCapturingEnemy")
+      }
+    }
+    newZone.isCapturing = newZone.curTeamCapturingZone != TEAM_UNASSIGNED
+      && (newZone.progress != 1.0 || newZone.isMultipleTeamsPresent)
+      && newZone.active
+    if (changedZoneVals?.active)
+      newZone.wasActive = true
+    zones[eid] <- newZone
+    return zones
+  })
 }
 
 

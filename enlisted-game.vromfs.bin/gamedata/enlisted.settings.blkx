@@ -8,7 +8,7 @@ entitiesPath:t="content/enlisted/gamedata/templates/enlisted.entities.blk"
 contactsGameId:t="enlisted"
 matchingGameName:t="enlisted"
 windowTitle:t="Enlisted"
-bgImage:t="ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/pacific_usa_login_screen.jpg; ui/pacific_jap_login_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg; ui/ussr_berlin_prem_assault_1.jpg; ui/ger_moscow_prem_mgun_2.jpg;"
+bgImage:t="ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg; ui/ussr_berlin_prem_assault_1.jpg; ui/ger_moscow_prem_mgun_2.jpg;"
 scene:t="content/enlisted/gamedata/scenes/campaigns_menu_squad_customization_scene.blk"
 allowEmptyScenes:b=yes
 needPlatformMorphemesReplacement:b=yes
@@ -424,6 +424,19 @@ sound{
       }
 
       _cmn_loc_vo_it.assets{
+        async:b=yes
+        preload:b=no
+      }
+    }
+
+    cmn_loc_vo_jp_banks{
+
+      _cmn_loc_vo_jp{
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      _cmn_loc_vo_jp.assets{
         async:b=yes
         preload:b=no
       }
