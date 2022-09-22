@@ -142,8 +142,8 @@ let function getWearInfos(soldierGuid, scheme) {
   foreach (itemInfo in getSoldierItemSlots(soldierGuid, campItemsByLink.value)) {
     let { slotType, item } = itemInfo
     let { slotTemplates = {} } = item
-    if (slotTemplates.len() <= 0
-        && (slotType in INVENTORY_SLOTS || (scheme?[slotType].ingameWeaponSlot ?? "") in WEAPON_SLOTS))
+    if (slotTemplates.len() <= 0 && (slotType in INVENTORY_SLOTS
+        || (scheme?[slotType].ingameWeaponSlot ?? "") in WEAPON_SLOTS))
       continue
 
     let itemGuid = itemInfo.item.guid
@@ -211,29 +211,27 @@ let function getTemplate(gametemplate) {
   return recreateName == "" ? gametemplate : $"{gametemplate}+{recreateName}"
 }
 
-let function appendEquipment(equipment, equipmentOverride, eInfo) {
-  let { gametemplate, slot = null, slotTemplates = {} } = eInfo
+let function appendEquipment(equipment, eInfo) {
+  let { gametemplate, slot, slotTemplates = {} } = eInfo
   local res
-  if (slot != null) {
-    if (gametemplate == "")
-      equipment[slot] <- null
-    else {
-      let template = getTemplate(gametemplate)
-      if (!template)
-        return logerr($"Appearance of main template {template} at slot {slot} not found")
-      res = { gametemplate, template }
-      equipment[slot] <- res
-    }
+  if (gametemplate == "")
+    equipment[slot] <- null
+  else {
+    let template = getTemplate(gametemplate)
+    if (!template)
+      return logerr($"Appearance of main template {template} at slot {slot} not found")
+    res = { gametemplate, template }
+    equipment[slot] <- res
   }
 
   foreach (slotId, tmpl in slotTemplates) {
     if (tmpl == "")
-      equipmentOverride[slotId] <- null
+      equipment[slotId] <- null
     else {
       let template = getTemplate(tmpl)
       if (!template)
         return logerr($"Appearance of multi template {tmpl} at {slotId} not found")
-      equipmentOverride[slotId] <- { gametemplate = tmpl, template }
+      equipment[slotId] <- { gametemplate = tmpl, template }
     }
   }
   return res
@@ -249,7 +247,6 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
   if (soldiersDefaultLook == null)
     return equipment
 
-  let eqOvr = {}
   let armyId = getLinkedArmyName(soldier ?? {})
   let faceOverride = getSoldierFace(soldierGuid)
   local lookItemsApplyOrder = [soldiersDefaultLook.items.filter(@(_, slot) slot not in customizationOvr)]
@@ -264,10 +261,10 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
 
   let eInfos = getWearInfos(soldierGuid, scheme)
   foreach (eInfo in eInfos)
-    if (eInfo?.itemtype in IGNORE_SECOND_PASS && eInfo?.slot not in customizationOvr) {
-      let data = appendEquipment(equipment, eqOvr, eInfo)
+    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null && eInfo.slot not in customizationOvr) {
+      let data = appendEquipment(equipment, eInfo)
       if (!data)
-        continue
+        break
       if (eInfo.itemtype == "head")
         data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
     }
@@ -275,23 +272,24 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
   foreach(list in lookItemsApplyOrder)
     foreach (tmpl in list) {
       let eInfo = findItemTemplate(allItemTemplates, armyId, tmpl)
-      let data = appendEquipment(equipment, eqOvr, eInfo)
-      if (!data)
+      if (eInfo?.slot == null)
         continue
+      let data = appendEquipment(equipment, eInfo)
+      if (!data)
+        break
       if (eInfo.itemtype == "head")
         data.faceId <- faceOverride ?? soldiersDefaultLook.faceId
     }
 
   foreach (eInfo in eInfos)
-    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot not in customizationOvr) {
-      let data = appendEquipment(equipment, eqOvr, eInfo)
+    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot != null && eInfo.slot not in customizationOvr){
+      let data = appendEquipment(equipment, eInfo)
       if (!data)
-        continue
+        break
       if (eInfo.itemtype == "head")
         data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
     }
 
-  equipment.__update(eqOvr)
   equipment = equipment.filter(@(v) v != "" && v != null)
 
   if (equipment?.hair && (equipment?.head || equipment?.skined_helmet))
