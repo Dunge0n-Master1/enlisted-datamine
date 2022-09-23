@@ -1034,52 +1034,52 @@ let missions = {
   }
 
   pacific_gavutu_inv = {
-    image = "ui/pacific_gavutu_inv_01.jpg"
+    image = "ui/pacific_gavutu_inv_04.jpg"
     locId = "lobbies/pacific_gavutu_inv"
     army = MissionArmy.ALLIES
   }
 
   pacific_gavutu_inv_axis = {
-    image = "ui/pacific_gavutu_inv_01.jpg"
+    image = "ui/pacific_gavutu_inv_04.jpg"
     locId = "lobbies/pacific_gavutu_inv_axis"
     army = MissionArmy.AXIS
   }
 
   pacific_gavutu_inv_counter = {
-    image = "ui/pacific_gavutu_inv_02.jpg"
+    image = "ui/pacific_gavutu_inv_03.jpg"
     locId = "lobbies/pacific_gavutu_inv_counter"
     army = MissionArmy.ALLIES
   }
 
   pacific_gavutu_inv_counter_axis = {
-    image = "ui/pacific_gavutu_inv_02.jpg"
+    image = "ui/pacific_gavutu_inv_03.jpg"
     locId = "lobbies/pacific_gavutu_inv_counter_axis"
     army = MissionArmy.AXIS
   }
 
   pacific_gavutu_bomb = {
-    image = "ui/pacific_gavutu_inv_03.jpg"
+    image = "ui/pacific_gavutu_inv_01.jpg"
     locId = "lobbies/pacific_gavutu_bomb"
     type = MissionType.DESTRUCTION
     army = MissionArmy.ALLIES
   }
 
   pacific_gavutu_bomb_axis = {
-    image = "ui/pacific_gavutu_inv_03.jpg"
+    image = "ui/pacific_gavutu_inv_01.jpg"
     locId = "lobbies/pacific_gavutu_bomb_axis"
     type = MissionType.DESTRUCTION
     army = MissionArmy.AXIS
   }
 
   pacific_gavutu_conf = {
-    image = "ui/pacific_gavutu_inv_04.jpg"
+    image = "ui/pacific_gavutu_inv_02.jpg"
     locId = "lobbies/pacific_gavutu_conf"
     type = MissionType.CONFRONTATION
     army = MissionArmy.ALLIES
   }
 
   pacific_gavutu_conf_axis = {
-    image = "ui/pacific_gavutu_inv_04.jpg"
+    image = "ui/pacific_gavutu_inv_02.jpg"
     locId = "lobbies/pacific_gavutu_conf_axis"
     type = MissionType.CONFRONTATION
     army = MissionArmy.AXIS
@@ -1104,19 +1104,19 @@ let missions = {
   }
 
   pacific_vertical_inv = {
-    image = "ui/pacific_guadalcanal_inv_03.jpg"
+    image = "ui/pacific_guadalcanal_inv_07.jpg"
     locId = "lobbies/pacific_vertical_inv"
     army = MissionArmy.ALLIES
   }
 
   pacific_native_inv = {
-    image = "ui/pacific_guadalcanal_inv_09.jpg"
+    image = "ui/pacific_guadalcanal_inv_06.jpg"
     locId = "lobbies/pacific_native_inv"
     army = MissionArmy.ALLIES
   }
 
   pacific_native_inv_axis = {
-    image = "ui/pacific_guadalcanal_inv_09.jpg"
+    image = "ui/pacific_guadalcanal_inv_06.jpg"
     locId = "lobbies/pacific_native_inv_axis"
     army = MissionArmy.AXIS
   }

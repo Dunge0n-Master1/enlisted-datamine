@@ -563,7 +563,6 @@ entity{
   "loading_images:list<t>"{
     item:t="ui/pacific_gavutu_inv_01.jpg"
     item:t="ui/pacific_gavutu_inv_02.jpg"
-    item:t="ui/pacific_gavutu_inv_03.jpg"
   }
 }
 

@@ -13,7 +13,7 @@ let chatRoom = require("%enlist/chat/chatRoom.nut")
 let matching_errors = require("matching.errors")
 let roomSettings = require("%enlist/roomSettings.nut")
 let membersSpeaking = require("%ui/hud/state/voice_chat.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkArmyIcon, mkArmyName } = require("%enlist/soldiers/components/armyPackage.nut")
 

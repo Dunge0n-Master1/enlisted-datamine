@@ -1482,9 +1482,10 @@ base_tankgun_machinegun{
   _extends:t="reloadable_turret"
   _extends:t="base_tankgun_machinegun_nooverheat"
   _extends:t="tankgun_machinegun_overheat_sound"
-  gun__overheatReduce:r=0.05
-  gun__overheatReduceOnOverheat:r=0.15
-  gun__overheatPerShot:r=0.02
+  gun__reloadTime:r=8.0
+  gun__overheatReduce:r=0.18
+  gun__overheatReduceOnOverheat:r=0.083
+  gun__overheatPerShot:r=0.04
 }
 
 base_tankgun_machinegun_nooverheat{

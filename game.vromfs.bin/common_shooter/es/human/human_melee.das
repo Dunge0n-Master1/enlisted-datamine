@@ -217,15 +217,6 @@ def charge_melee_weapon_detect_target(info : ParallelUpdateFrameDelayed;
           let dir = human_net_phys.phys.appliedCT.wishShootDir
           human_melee_charge__targetFound = trace_entities_in_grid(ecs_hash("vehicles"), pos, dir, t, INVALID_ENTITY_ID, intersections, SortIntersections YES)
 
-def melee_charge_cooldown(time : float;
-                          human_melee_charge__chargeEndTime : float;
-                          human_melee_charge__cooldown : float;
-                          var human_net_phys : HumanActor&;
-                          var human_melee_charge__isOnCooldown : bool&)
-  human_melee_charge__isOnCooldown = time < human_melee_charge__chargeEndTime + human_melee_charge__cooldown
-  if human_melee_charge__isOnCooldown
-    human_net_phys.phys.currentState.restoreStaminaMult = 0.0
-
 def melee_charge_speed(human_melee_charge__isActive : bool;
                        human_melee_charge__isChargeOrAttack : bool;
                        human_melee_charge__chargeSpeedMult : float;
@@ -246,8 +237,6 @@ def melee_charge_stamina_drain(human_melee_charge__isActive : bool;
 [es(tag=netClient, REQUIRE=(meleeChargeWeapon, watchedPlayerItem), after=after_entity_mods_apply_sync_point, before=human_phys_es)]
 def melee_charge_human_phys_update_local(info : UpdateStageInfoAct; eid aka weapon_eid : EntityId; gun__owner : EntityId)
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
-                               human_melee_charge__chargeEndTime : float;
-                               human_melee_charge__cooldown : float;
                                human_melee_charge__isActive : bool;
                                human_melee_charge__isChargeOrAttack : bool;
                                human_melee_charge__chargeSpeedMult : float;
@@ -255,18 +244,14 @@ def melee_charge_human_phys_update_local(info : UpdateStageInfoAct; eid aka weap
                                human_melee_charge__staminaDrainMult : float;
                                human_melee_charge__staminaRegenMult : float;
                                var human_net_phys : HumanActor&;
-                               var human_stamina_regen_affect__mult : float&;
-                               var human_melee_charge__isOnCooldown : bool&)
+                               var human_stamina_regen_affect__mult : float&)
     if human_weap__currentGunEid == weapon_eid
       melee_charge_stamina_drain(human_melee_charge__isActive, human_melee_charge__staminaDrainMult, human_melee_charge__staminaRegenMult, human_stamina_regen_affect__mult, human_net_phys)
       melee_charge_speed(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__chargeSpeedMult, human_melee_charge__chargeStrikeSpeedMult, human_net_phys)
-      melee_charge_cooldown(info.curTime, human_melee_charge__chargeEndTime, human_melee_charge__cooldown, human_net_phys, human_melee_charge__isOnCooldown)
 
 [es(tag=server, REQUIRE=meleeChargeWeapon, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
 def melee_charge_human_phys_update_server(info : UpdateStageInfoAct; eid aka weapon_eid : EntityId; gun__owner : EntityId)
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
-                               human_melee_charge__chargeEndTime : float;
-                               human_melee_charge__cooldown : float;
                                human_melee_charge__isActive : bool;
                                human_melee_charge__isChargeOrAttack : bool;
                                human_melee_charge__chargeSpeedMult : float;
@@ -274,13 +259,35 @@ def melee_charge_human_phys_update_server(info : UpdateStageInfoAct; eid aka wea
                                human_melee_charge__staminaDrainMult : float;
                                human_melee_charge__staminaRegenMult : float;
                                var human_net_phys : HumanActor&;
-                               var human_stamina_regen_affect__mult : float&;
-                               var human_melee_charge__isOnCooldown : bool&)
+                               var human_stamina_regen_affect__mult : float&)
     if human_weap__currentGunEid == weapon_eid
       melee_charge_stamina_drain(human_melee_charge__isActive, human_melee_charge__staminaDrainMult, human_melee_charge__staminaRegenMult, human_stamina_regen_affect__mult, human_net_phys)
       melee_charge_speed(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__chargeSpeedMult, human_melee_charge__chargeStrikeSpeedMult, human_net_phys)
-      melee_charge_cooldown(info.curTime, human_melee_charge__chargeEndTime, human_melee_charge__cooldown, human_net_phys, human_melee_charge__isOnCooldown)
 
+def melee_charge_cooldown(time : float;
+                          human_melee_charge__chargeEndTime : float;
+                          human_melee_charge__cooldown : float;
+                          var human_net_phys : HumanActor&;
+                          var human_melee_charge__isOnCooldown : bool&)
+  human_melee_charge__isOnCooldown = time < human_melee_charge__chargeEndTime + human_melee_charge__cooldown
+  if human_melee_charge__isOnCooldown
+    human_net_phys.phys.currentState.restoreStaminaMult = 0.0
+
+[es(tag=netClient, REQUIRE=hero, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
+def melee_charge_cooldown_local(info : UpdateStageInfoAct;
+                                human_melee_charge__chargeEndTime : float;
+                                human_melee_charge__cooldown : float;
+                                var human_net_phys : HumanActor&;
+                                var human_melee_charge__isOnCooldown : bool&)
+  melee_charge_cooldown(info.curTime, human_melee_charge__chargeEndTime, human_melee_charge__cooldown, human_net_phys, human_melee_charge__isOnCooldown)
+
+[es(tag=server, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
+def melee_charge_cooldown_server(info : UpdateStageInfoAct;
+                                 human_melee_charge__chargeEndTime : float;
+                                 human_melee_charge__cooldown : float;
+                                 var human_net_phys : HumanActor&;
+                                 var human_melee_charge__isOnCooldown : bool&)
+  melee_charge_cooldown(info.curTime, human_melee_charge__chargeEndTime, human_melee_charge__cooldown, human_net_phys, human_melee_charge__isOnCooldown)
 
 def melee_charge_reset(var human_melee_charge__isActive : bool&;
                        var human_melee_charge__isChargeOrAttack : bool&;

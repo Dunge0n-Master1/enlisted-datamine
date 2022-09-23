@@ -28,7 +28,7 @@ let {MatchingRoomExtraParams} = require("dasevents")
 let { OK, error_string } = require("matching.errors")
 let { pushNotification, removeNotify, subscribeGroup } = require("%enlist/mailboxState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
 const INVITE_ACTION_ID = "room_invite_action"
 let LobbyStatus = {
@@ -134,7 +134,7 @@ let function addRoomMember(member) {
     hostId(member.userId)
   }
 
-  member.nameText <- member.name == userInfo.value?.name ? userInfo.value.nameorig : remap_nick(member.name)
+  member.nameText <- remap_others(member.name)
   roomMembers.mutate(@(value) value.append(member))
   return member
 }
@@ -160,9 +160,7 @@ let function makeCreateRoomCb(user_cb) {
       roomIsLobby(true)
 
       if (response?.public.creator && response.public.creator != "")
-        response.public.creatorText <- response.public.creator == userInfo.value?.name
-          ? userInfo.value.nameorig
-          : remap_nick(response.public.creator)
+        response.public.creatorText <- remap_others(response.public.creator)
 
       room.update(response)
       log("you have created the room", response.roomId)

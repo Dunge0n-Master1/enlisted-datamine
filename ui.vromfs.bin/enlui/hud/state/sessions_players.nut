@@ -1,13 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let userInfo = require("%enlSqGlob/userInfo.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
 let players = Watched({})
-let names = Computed(@() players.value.values().map(
-  @(v) v == userInfo.value?.name ? userInfo.value.nameorig : remap_nick(v)
-))
+let names = Computed(@() players.value.values().map(remap_others))
 
 ecs.register_es("session_players_bots_es",
   {

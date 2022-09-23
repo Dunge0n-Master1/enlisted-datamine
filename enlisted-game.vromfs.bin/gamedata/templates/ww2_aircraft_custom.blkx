@@ -479,7 +479,7 @@ e13a1{
 sbd_3_pacific{
   _override:b=yes
   _extends:t="plane_increased_damage"
-  plane_carrier_assist__forwardForce:r=5.0
+  plane_carrier_assist__forwardForce:r=6.0
 }
 
 d3a1{

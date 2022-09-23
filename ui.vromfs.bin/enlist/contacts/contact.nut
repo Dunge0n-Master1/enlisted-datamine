@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let invalidNickName = "????????"
 let {request_nick_by_uid_batch} = require("%enlist/netUtils.nut")
 let {ndbTryRead, ndbWrite} = require("nestdb")
-let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let function mkGlobalWatched(userIdStr, defVal){
   let key = $"allContacts/{userIdStr}"
@@ -77,17 +76,14 @@ let function getContactNick(contact) {
   let uid = contact?.value.uid ?? contact?.uid
   let nick = contact?.value.realnick ?? contact?.realnick ?? invalidNickName
 
-  if (uid == null) {
-    if (nick == userInfo?.value.name)
-      return userInfo.value.nameorig
-    return remap_nick(nick)
-  }
+  if (uid == null)
+    remap_others(nick)
 
   if (uid in nickContactsCache)
     return nickContactsCache[uid]
 
   if (nick != invalidNickName) {
-    nickContactsCache[uid] <- nick == userInfo?.value.name ? userInfo.value.nameorig : remap_nick(nick)
+    nickContactsCache[uid] <- remap_others(nick)
     return nickContactsCache[uid]
   }
   return invalidNickName

@@ -3881,8 +3881,9 @@ entity{
   mission_name:t="pacific_vertical_inv"
 
   "loading_images:list<t>"{
+    item:t="ui/pacific_guadalcanal_inv_01.jpg"
     item:t="ui/pacific_guadalcanal_inv_03.jpg"
-    item:t="ui/pacific_guadalcanal_inv_06.jpg"
+    item:t="ui/pacific_guadalcanal_inv_04.jpg"
   }
 }
 
@@ -5556,7 +5557,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.281267, 0.0, 0.95963] [0.0, 1.0, -0.0] [-0.959631, 0.0, 0.281267] [-485.865, 11.0313, 72.0004]]
+  transform:m=[[0.22381, 0.0, 0.974633] [0.0, 1.0, -0.0] [-0.974634, 0.0, 0.223811] [-485.865, 11.0313, 72.0004]]
   groupName:t="sector_1_b"
   active:b=no
   respawnBaseGroup:i=4
@@ -5564,7 +5565,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.981082, 0.0, 0.193597] [0.0, 1.0, -0.0] [-0.193597, 0.0, 0.981082] [-480.835, 10.8793, 63.8529]]
+  transform:m=[[0.960602, 0.0, 0.277929] [0.0, 1.0, -0.0] [-0.277929, 0.0, 0.960602] [-483.907, 10.841, 67.2896]]
   groupName:t="sector_1_b"
   active:b=no
   respawnBaseGroup:i=4

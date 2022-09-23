@@ -22,6 +22,14 @@ import:t="tanks/us_m3a1_stuart_flame.blk"
 import:t="tanks/us_m4a3_105_sherman.blk"
 import:t="tanks/us_m4a1_sherman_1942.blk"
 
+tankgun_12_7mm_m2_hb{
+  _override:b=yes
+  gun__reloadTime:r=12.0
+  gun__overheatReduce:r=0.15
+  gun__overheatReduceOnOverheat:r=0.0625
+  gun__overheatPerShot:r=0.045
+}
+
 us_halftrack_m3_75mm_gmc{
   _extends:t="base_tank"
   particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"

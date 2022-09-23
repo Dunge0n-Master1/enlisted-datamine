@@ -21,7 +21,7 @@ let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let { showSquadMembersCrossPlayRestrictionMsgBox,
   showSquadVersionRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")

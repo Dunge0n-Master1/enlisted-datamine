@@ -2557,8 +2557,8 @@ entity{
   mission_name:t="pacific_gavutu_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_gavutu_inv_04.jpg"
     item:t="ui/pacific_gavutu_inv_01.jpg"
+    item:t="ui/pacific_gavutu_inv_02.jpg"
     item:t="ui/pacific_gavutu_inv_03.jpg"
   }
 }
@@ -2600,7 +2600,7 @@ entity{
 entity{
   _template:t="static_cam"
   camera__active:b=yes
-  transform:m=[[-0.754476, -0.000917004, 0.65633] [0.042518, 0.997831, 0.0502701] [-0.654948, 0.065833, -0.752795] [140.717, 7.33996, -312.244]]
+  transform:m=[[0.784401, 4.65662e-09, 0.620257] [-0.00776936, 0.999923, 0.00982542] [-0.620206, -0.012526, 0.784336] [192.193, 12.7747, -313.122]]
 }
 
 entity{
@@ -2742,7 +2742,7 @@ entity{
   capzone__iconOffsetY:r=4.0
 
   "capzone__activateChoiceTeam1:object"{
-    sector_4:r=0.0
+    sector_4:r=1.0
     sector_4_b:r=1.0
   }
 
@@ -2838,7 +2838,7 @@ entity{
   decal__height:r=1.3
 
   "capzone__activateChoiceTeam2:object"{
-    sector_4:r=0.0
+    sector_4:r=1.0
     sector_4_b:r=1.0
   }
 }

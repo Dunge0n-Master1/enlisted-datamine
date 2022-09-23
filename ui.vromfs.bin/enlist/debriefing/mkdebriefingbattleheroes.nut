@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { smallPadding, activeBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { soldierNameSlicer } = require("%enlSqGlob/ui/itemsInfo.nut")

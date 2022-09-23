@@ -4,9 +4,8 @@ import "%dngscripts/ecs.nut" as ecs
 let { body_txt, sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { INVALID_USER_ID, INVALID_SESSION_ID } = require("matching.errors")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let { round_by_value } = require("%sqstd/math.nut")
-let userInfo = require("%enlSqGlob/userInfo.nut")
 let { BattleHeroesAward, awardPriority, isSoldierKindAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let contextMenu = require("%ui/components/contextMenu.nut")
 let { setTooltip, withTooltip } = require("%ui/style/cursors.nut")
@@ -101,7 +100,7 @@ let deserterIcon = @(playerData, sf) {
 
 let getFramedNick = @(player)
   frameNick( //TEMP FIX: Recieve already corrent name from server
-    player?.userid == userInfo.value?.userId ? userInfo.value?.nameorig : remap_nick(player.name),
+    remap_others(player.name),
     player?.decorators__nickFrame
   )
 

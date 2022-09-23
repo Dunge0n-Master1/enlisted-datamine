@@ -2844,7 +2844,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=11
 
   "capzone__activateChoice:object"{
-    sector_2:r=0.0
+    sector_2:r=1.0
     sector_2_b:r=1.0
   }
 }

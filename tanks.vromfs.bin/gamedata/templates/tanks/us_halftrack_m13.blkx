@@ -9,6 +9,8 @@ us_halftrack_m13_common{
   _extends:t="forestall"
   item__iconScale:r=0.8
   vehicle_seats__exitTime:r=1.0
+  cockpit__zoomOutFov:r=1.5
+  cockpit__zoomInFov:r=2.0
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -20,7 +22,7 @@ us_halftrack_m13_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.45, -0.4, 0.0]]
+      attachTm:m=[[0.848, 0.53, 0.0] [-0.53, 0.848, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.3, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -29,8 +31,8 @@ us_halftrack_m13_common{
       cockpitTemplate:t="us_halftrack_m13_gunner_cockpit"
       directTurretControl:b=yes
       canLoadInHatch:b=yes
-      seatAnimUpper:t="drive_passenger"
-      seatAnimLower:t="drive_passenger"
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
 
       "turretNames:array"{
         turretNames:t="turret_01"
@@ -136,7 +138,7 @@ us_halftrack_m13_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.19
+    slit:r=0.22
   }
 
   "cockpit__slitIsGun:list<b>"{

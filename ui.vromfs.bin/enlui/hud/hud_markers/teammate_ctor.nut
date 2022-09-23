@@ -12,7 +12,7 @@ let {
   HUD_COLOR_SQUADMATE_INNER, HUD_COLOR_SQUADMATE_OUTER,
   HUD_COLOR_MEDIC_HP_LOW, HUD_COLOR_MEDIC_HP_CRITICAL, HUD_COLOR_MEDIC_HP_OUTER
 } = require("%enlSqGlob/ui/style/unit_colors.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let engineersInSquad = require("%ui/hud/state/engineers_in_squad.nut")
 let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")

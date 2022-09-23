@@ -7,7 +7,7 @@ let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 
 const MSG_UID = "member_locked_campaign_msgbox"
 let viewedWarnings = mkWatched(persist, "viewedWarnings", {})

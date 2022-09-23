@@ -9,3 +9,11 @@ import:t="tanks/jp_type_97_chi_ha_12cm.blk"
 import:t="tanks/jp_type_97_chi_ha.blk"
 import:t="tanks/jp_type_3_ka_chi.blk"
 import:t="tanks/jp_type_1_chi_he.blk"
+
+tankgun_20mm_type98{
+  _override:b=yes
+  gun__reloadTime:r=8.0
+  gun__overheatReduce:r=0.15
+  gun__overheatReduceOnOverheat:r=0.0833
+  gun__overheatPerShot:r=0.1
+}

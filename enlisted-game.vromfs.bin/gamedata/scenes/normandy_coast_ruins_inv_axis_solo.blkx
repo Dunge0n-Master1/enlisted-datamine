@@ -424,7 +424,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [325.815, 5.33782, 263.116]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [325.815, 5.33782, 258.947]]
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
   battle_area_polygon_point__forBattleAreaId:t="area1_c_2"
@@ -432,7 +432,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [108.492, 5.33782, 228.755]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [109.976, 5.33781, 219.676]]
   battle_area_polygon_point__id:t="point9"
   battle_area_polygon_point__nextId:t="point1"
   battle_area_polygon_point__forBattleAreaId:t="area1_c_2"
@@ -1152,7 +1152,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-125.459, 5.33782, -88.4344]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-119.314, 5.33783, -123.86]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area3_b_2"
@@ -1160,7 +1160,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [200.227, 5.33782, -99.6694]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [196.761, 5.33781, -128.04]]
   battle_area_polygon_point__id:t="point2"
   battle_area_polygon_point__nextId:t="point3"
   battle_area_polygon_point__forBattleAreaId:t="area3_b_2"
@@ -1216,7 +1216,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [119.635, 5.33782, 233.609]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [119.635, 5.33782, 253.422]]
   battle_area_polygon_point__id:t="point9"
   battle_area_polygon_point__nextId:t="point10"
   battle_area_polygon_point__forBattleAreaId:t="area3_b_2"

@@ -46,8 +46,8 @@ bomb_site_base{
   _tracked:t="bomb_site__timeToExplosionLeft"
   _tracked:t="transform"
   bomb_site__timeToPlant:r=20.0
-  bomb_site__timeToResetPlant:r=10.0
-  bomb_site__timeToDefuse:r=10.0
+  bomb_site__timeToResetPlant:r=20.0
+  bomb_site__timeToDefuse:r=20.0
   bomb_site__timeToExplosion:r=60.0
   bomb_site__maxDist:r=3.0
   bomb_site__plantingTeam:i=-1

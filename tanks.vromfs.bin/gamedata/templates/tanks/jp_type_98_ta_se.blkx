@@ -10,6 +10,8 @@ jp_type_98_ta_se_common{
   _extends:t="forestall"
   item__iconOffset:p2=0.0, 0.0
   vehicle_seats__exitTime:r=1.0
+  cockpit__zoomOutFov:r=1.5
+  cockpit__zoomInFov:r=2.0
 
   "vehicle_seats__seats:shared:array"{
 
@@ -18,7 +20,7 @@ jp_type_98_ta_se_common{
       locName:t="vehicle_seats/gunner"
       attachNode:t="commander"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.28, -0.1, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.28, -0.25, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=no
@@ -64,7 +66,7 @@ jp_type_98_ta_se_common{
       attachNode:t="loader"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, -0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.3, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="loader"
 
@@ -93,7 +95,7 @@ jp_type_98_ta_se_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.2
+    slit:r=0.22
   }
 
   "cockpit__slitIsGun:list<b>"{

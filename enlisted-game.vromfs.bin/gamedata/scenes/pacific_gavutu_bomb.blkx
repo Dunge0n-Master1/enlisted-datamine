@@ -740,17 +740,17 @@ entity{
   mission_name:t="pacific_gavutu_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_gavutu_inv_04.jpg"
     item:t="ui/pacific_gavutu_inv_01.jpg"
     item:t="ui/pacific_gavutu_inv_02.jpg"
+    item:t="ui/pacific_gavutu_inv_04.jpg"
   }
 }
 
 entity{
   _template:t="team_pacific_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -780,7 +780,7 @@ entity{
 entity{
   _template:t="static_cam"
   camera__active:b=yes
-  transform:m=[[0.784401, 3.7253e-09, 0.620257] [-0.043803, 0.997503, 0.055395] [-0.618706, -0.0706208, 0.78244] [192.193, 17.0344, -313.122]]
+  transform:m=[[-0.754476, -0.000917004, 0.65633] [0.042518, 0.997831, 0.0502701] [-0.654948, 0.065833, -0.752795] [140.717, 7.33996, -312.244]]
 }
 
 entity{
@@ -813,10 +813,12 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_1"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=300.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -841,10 +843,12 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_1"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=300.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -867,7 +871,9 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[-0.00648558, 0.0, 0.733494] [0.0, 0.690404, 0.0] [-0.779431, 0.0, -0.00689176] [202.835, 3.41452, -367.518]]
   groupName:t="sector_2"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__caption:t="capzone/barracks"
@@ -896,7 +902,9 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[0.787614, 0.0, 0.524749] [0.0, 0.650368, -0.0] [-0.466579, 0.0, 0.700306] [256.287, 2.28407, -284.116]]
   groupName:t="sector_2"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__caption:t="capzone/barracks"
@@ -926,7 +934,9 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[0.403265, 0.0, 0.169954] [0.0, 0.575724, 0.0] [-0.230528, 0.0, 0.546997] [386.113, 0.867163, -344.929]]
   groupName:t="sector_3"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__caption:t="capzone/warehouse"

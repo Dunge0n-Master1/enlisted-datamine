@@ -3,9 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let speakingPlayers = require("%ui/hud/state/voice_chat.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let {horPadding, verPadding} = require("%enlSqGlob/safeArea.nut")
-let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let speakingColor = Color(0, 255, 0)
 let speakingIcon = faComp("volume-up", {
@@ -54,7 +53,5 @@ return @() {
   zOrder = Layers.Tooltip
   size = SIZE_TO_CONTENT
   watch = [speakingPlayers, horPadding, verPadding]
-  children = mapTable(speakingPlayers.value, @(name) mkSpeaker(
-    name == userInfo.value?.name ? userInfo.value?.nameorig : remap_nick(name)
-  ))
+  children = mapTable(speakingPlayers.value, @(name) mkSpeaker(remap_others(name)))
 }

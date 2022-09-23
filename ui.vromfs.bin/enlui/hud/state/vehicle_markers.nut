@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 
 let { mkWatchedSetAndStorage } = require("%ui/ec_to_watched.nut")
 

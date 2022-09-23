@@ -84,7 +84,7 @@ damage{
   }
 
   kinetic{
-    damage:r=10.0
+    damage:r=25.0
     damageType:t="generic"
 
     energyToDamage{

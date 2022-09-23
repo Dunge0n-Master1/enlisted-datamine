@@ -48,6 +48,7 @@ let { mkSmallSelection } = require("%ui/components/mkSelection.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let vehicleSeats = require("%ui/hud/state/vehicle_seats.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
 let timeSpeedVariants = [0, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4]
 let isAdvancedSettingsActive = Watched(false)
@@ -120,7 +121,7 @@ let soldierInfo = {
     @() {
       watch = localPlayerName
       rendObj = ROBJ_TEXT
-      text = loc("replay/player", { player = localPlayerName.value})
+      text = loc("replay/player", { player = remap_others(localPlayerName.value)})
     }.__update(brightTxtStyle)
     @() {
       watch = curSoldierInfo

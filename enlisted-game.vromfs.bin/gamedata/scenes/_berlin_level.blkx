@@ -75,11 +75,6 @@ entity{
 }
 
 entity{
-  _template:t="session_timer"
-  session_timer__time_left:r=1200.0
-}
-
-entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
 }

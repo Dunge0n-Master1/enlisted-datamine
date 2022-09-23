@@ -58,7 +58,7 @@ def create_player(connid : int; name : das_string; uid : uint64; group_id : int6
                   app_id : int) : EntityId
   let playerTemplOverride = find_player_override()
   let playerTemplateName : string = playerTemplOverride.found ? playerTemplOverride.templ : dgs_get_settings() |> datablock_getStr("playerTemplateName", "common_player")
-  let eid : EntityId = createEntitySync(playerTemplateName) <| $(init)
+  let eid : EntityId = createEntity(playerTemplateName) <| $(init)
     init |> set("connid", connid)
     init |> set("name", name)
     init |> set("userid", uid)
@@ -117,8 +117,7 @@ def server_create_player(evt : EventOnClientConnected)
   if !reconnected
     plrEid = create_player(evt.connid, evt.userName, evt.matching, evt.groupId, evt.platformUserId, evt.platform, evt.appId)
 
-  // Finalize is implemented via an event for no particular reason. The finalize code can be placed here with the same effect.
-  sendEventImmediate(plrEid, [[FinalizePlayerCreation matchingTeam=evt.matchingTeam, clientFlags=evt.clientFlags, reconnected=reconnected]])
+  sendEvent(plrEid, [[FinalizePlayerCreation matchingTeam=evt.matchingTeam, clientFlags=evt.clientFlags, reconnected=reconnected]])
 
 [es(tag=server)]
 def server_finalize_create_player(evt : FinalizePlayerCreation; eid : EntityId; possessed : EntityId; var specTarget : EntityId&;

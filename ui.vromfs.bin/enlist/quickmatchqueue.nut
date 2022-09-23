@@ -8,7 +8,7 @@ let { STATUS, curQueueParam, queueStatus, isInQueue,
 let { revokeAllSquadInvites, dismissAllOfflineSquadmates, squadOnlineMembers,
   isInSquad, autoSquad, squadId, squadMembers, isInvitedToSquad
 } = require("%enlist/squad/squadManager.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let msgbox = require("components/msgbox.nut")
 let { matchingCall, netStateCall } = require("matchingClient.nut")
 let matching_api = require("matching.api")

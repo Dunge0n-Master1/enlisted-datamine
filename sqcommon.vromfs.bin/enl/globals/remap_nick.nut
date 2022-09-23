@@ -1,6 +1,7 @@
 let { is_xbox, is_sony, is_pc, is_nswitch, is_android } = require("%dngscripts/platform.nut")
 let { startsWith, endsWith } = require("%sqstd/string.nut")
 let {get_setting_by_blk_path} = require("settings")
+let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let needPlatformMorphemesReplacement = get_setting_by_blk_path("needPlatformMorphemesReplacement") ?? false
 
@@ -29,7 +30,7 @@ let pcAddIcon = is_pc? "" : PC_ICON
 let addIcon = needPlatformMorphemesReplacement ? (@(name, icon) icon == "" ? name : $"{icon}{NBSP}{name}")
   : @(name, _icon) name
 
-return function(name) {
+let function remap_nick(name) {
   if (typeof name != "string" || name == "")
     return ""
 
@@ -42,4 +43,13 @@ return function(name) {
       return addIcon(name.slice(morpheme.len()), icon)
 
   return addIcon(name, pcAddIcon)
+}
+
+let remap_others = @(name) name == userInfo.value?.name
+  ? userInfo.value?.nameorig
+  : remap_nick(name)
+
+return {
+  remap_nick
+  remap_others
 }

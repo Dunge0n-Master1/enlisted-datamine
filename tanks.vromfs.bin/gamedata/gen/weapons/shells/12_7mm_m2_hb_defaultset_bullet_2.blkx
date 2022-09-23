@@ -1,23 +1,23 @@
 mass:r=0.041
 caliber:r=0.0127
-speed:r=944.0
+speed:r=850.0
+Cx:r=0.15
 maxDistance:r=2000.0
 normalizationPreset:t="default"
-bulletType:t="i_ball_M1"
+bulletType:t="he_i_ball"
 bulletName:t="i_ball_M1"
 nearHitPower:p2=1.0, 50.0
 midHitPower:p2=0.9, 300.0
 farHitPower:p2=0.1, 700.0
 endHitPower:p2=0.008, 1500.0
-explodeTreshold:r=0.3
-explodeHitPower:r=8.0
-explodeArmorPower:r=2.0
-explodeRadius:p2=0.12, 0.2
-fuseDelayDist:r=0.02
+explodeTreshold:r=0.1
+explodeHitPower:r=12.0
+explodeArmorPower:r=3.0
+explodeRadius:p2=0.03, 0.1
 shutterDamage:b=yes
-shutterAmount:i=5
+shutterAmount:i=10
 shutterArmorPower:r=3.0
-shutterHit:r=2.5
+shutterHit:r=3.5
 groundCollisionEffect:t="hit_12_18mm_dirt_he"
 ricochetEffect:t="hit_12_18mm_metal_ap"
 waterCollisionEffect:t="hit_12_18mm_water"
@@ -70,23 +70,22 @@ damage{
   }
 
   splash{
-    radius:p2=0.12, 0.2
-    penetration:r=2.0
-    damage:r=8.0
+    radius:p2=0.03, 0.1
+    penetration:r=3.0
+    damage:r=12.0
     damageType:t="explosion"
   }
 
   shatter{
-    radius:r=0.3
-    count:i=5
+    radius:r=0.2
+    count:i=10
     penetration:r=3.0
-    damage:r=2.5
+    damage:r=3.5
     damageType:t="shatter"
   }
 
   explosive{
-    fuseDelayDist:r=0.02
-    fuseArmorTreshold:r=0.3
+    fuseArmorTreshold:r=0.1
   }
 
   secondaryShatter{
@@ -297,10 +296,10 @@ ballistics{
   }
 
   stability{
-    stabilityThreshold:r=0.0
+    stabilityThreshold:r=0.05
     stabilityCaliberToArmorThreshold:r=5.0
-    stabilityReductionAfterRicochet:r=0.01
-    stabilityReductionAfterPenetration:r=0.01
+    stabilityReductionAfterRicochet:r=0.5
+    stabilityReductionAfterPenetration:r=0.3
 
     stabilityRicochetModifier{
       mod1:p2=0.0, 0.05

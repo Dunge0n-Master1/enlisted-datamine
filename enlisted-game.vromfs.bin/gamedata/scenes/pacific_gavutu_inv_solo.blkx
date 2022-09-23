@@ -2559,7 +2559,7 @@ entity{
   "loading_images:list<t>"{
     item:t="ui/pacific_gavutu_inv_01.jpg"
     item:t="ui/pacific_gavutu_inv_02.jpg"
-    item:t="ui/pacific_gavutu_inv_03.jpg"
+    item:t="ui/pacific_gavutu_inv_04.jpg"
   }
 }
 
@@ -2681,7 +2681,7 @@ entity{
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
-    sector_3_b:r=0.0
+    sector_3_b:r=1.0
   }
 }
 
@@ -2708,7 +2708,7 @@ entity{
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
-    sector_3_b:r=0.0
+    sector_3_b:r=1.0
   }
 }
 
@@ -2736,7 +2736,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
 
   "capzone__activateChoice:object"{
-    sector_4:r=0.0
+    sector_4:r=1.0
     sector_4_b:r=1.0
   }
 }
@@ -2767,7 +2767,7 @@ entity{
   capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
-    sector_4:r=0.0
+    sector_4:r=1.0
     sector_4_b:r=1.0
   }
 }

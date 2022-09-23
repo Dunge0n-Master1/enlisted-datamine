@@ -740,9 +740,9 @@ entity{
   mission_name:t="pacific_gavutu_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_gavutu_inv_04.jpg"
     item:t="ui/pacific_gavutu_inv_01.jpg"
     item:t="ui/pacific_gavutu_inv_02.jpg"
+    item:t="ui/pacific_gavutu_inv_04.jpg"
   }
 }
 
@@ -780,7 +780,7 @@ entity{
 entity{
   _template:t="static_cam"
   camera__active:b=yes
-  transform:m=[[0.784401, 3.7253e-09, 0.620257] [-0.043803, 0.997503, 0.055395] [-0.618706, -0.0706208, 0.78244] [192.193, 17.0344, -313.122]]
+  transform:m=[[-0.754476, -0.000917004, 0.65633] [0.042518, 0.997831, 0.0502701] [-0.654948, 0.065833, -0.752795] [140.717, 7.33996, -312.244]]
 }
 
 entity{

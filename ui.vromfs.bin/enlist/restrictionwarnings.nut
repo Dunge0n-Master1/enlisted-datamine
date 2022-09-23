@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let { Alert } = require("%ui/style/colors.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let { is_xbox } = require("%dngscripts/platform.nut")
 
 let getMembersNames = @(members) members.map(@(m) remap_nick(m.state.value.name))

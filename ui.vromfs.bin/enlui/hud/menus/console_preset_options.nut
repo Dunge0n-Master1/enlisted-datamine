@@ -63,7 +63,7 @@ let optXboxGraphicsPreset = optionCtor({
   defVal = (XB1_MODE_CHANGE_ENABLED ? forceGraphicPreset : null) ?? "HighFPS"
   isAvailable = @() presetAvailable
   available = availableGraphicPresets
-  valToString = loc_opt
+  valToString = @(v) loc(platform.isXboxScarlett && v == "HighFPS" ? "option/HighFPSwithHint" : $"option/{v}")
   blkPath = "graphics/consolePreset"
   getMoreBlkSettings = function(v){
     return [
@@ -82,6 +82,7 @@ let optXboxGraphicsPreset = optionCtor({
       {blkPath = "graphics/shouldRenderHeroCockpit", val = true},
       {blkPath = "graphics/giQuality", val = ((v == "HighQuality" && platform.is_xboxone_X) || platform.is_xbox_scarlett) ? "medium" : "minimum"},
       {blkPath = "graphics/skiesQuality", val = (platform.is_xboxone_s ? "low" : (v == "HighFPS" ? "medium" : "high"))},
+      {blkPath = "video/freqLevel", val = (v == "HighFPS" ? 3 : 1)},
       {blkPath = "video/antiAliasingMode", val = (platform.is_xboxone_X || platform.is_xbox_scarlett ? 3 : 2)}, //3 = TSR 2 = TAA
       {blkPath = "video/temporalUpsamplingRatio", val = (platform.is_xboxone_X || platform.is_xbox_scarlett ? 80.0 : 100.0)},
       {blkPath = "graphics/ssss", val = ((v == "HighQuality" && platform.is_xboxone_X) || platform.is_xbox_scarlett)},

@@ -846,7 +846,7 @@ Debido a una posible sobrecarga del servidor.";"サーバーの\t過負荷の\t�
 已\t降\t低\t服\t务\t器\t单\t位\t时\t间\t模\t拟\t循\t环\t次\t数。";"Lowered server tick rate.
 Due to possible server overload.";"Zmniejszono częstotliwość odświeżania serwera.
 Ze względu na możliwe przeciążenie serwera."
-"hud/use";"Use vehicle";"Использовать транспорт";"Fahrzeug benutzen";"Utiliser le véhicule";"Usar vehículo";"車両を\t使用";"장비 탑승";"使\t用\t载\t具";"按\t键\t使\t用";"Użyj maszyny"
+"hud/use";"Use";"Использовать";"Fahrzeug benutzen";"Utiliser le véhicule";"Usar vehículo";"車両を\t使用";"장비 탑승";"使\t用\t载\t具";"按\t键\t使\t用";"Użyj maszyny"
 "hud/leaveVehicle";"Leave the vehicle";"Покинуть технику";"Fahrzeug verlassen";"Quitter le véhicule";"Dejar el vehículo";"車両から\t出る";"장비 하차";"离\t开\t载\t具";"离\t开\t载\t具";"Opuść maszynę"
 "hud/extinguish";"Hold to extinguish";"Зажмите для тушения";"Zum Löschen gedrückt halten";"Maintenir pour éteindre";"Mantener para extinguir";"長押しで\t消す";"길게 눌러 불 끄기";"按\t住\t灭\t火";"按\t住\t灭\t火";"Przytrzymaj by zgasić"
 "hud/repair";"Hold to repair";"Зажмите для починки";"Zum Reparieren halten";"Maintenir pour réparer";"Mantener para reparar";"長押しで\t修理";"길게 눌러 수리";"按\t住\t修\t理";"按\t住\t修\t理";"Przetrzymaj by naprawić"

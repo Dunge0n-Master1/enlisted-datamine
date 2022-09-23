@@ -7,7 +7,7 @@ let textButton = require("%ui/components/textButton.nut")
 let {getChatLog} = require("chatState.nut")
 let {sendMessage} = require("chatApi.nut")
 let {format_unixtime} = require("dagor.time")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 
 let ColorInactive = Color(120,120,120)
 let function messageInLog(entry) {

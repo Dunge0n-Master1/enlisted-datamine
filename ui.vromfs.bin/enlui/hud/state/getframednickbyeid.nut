@@ -1,7 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let remap_nick = require("%enlSqGlob/remap_nick.nut")
-let userInfo = require("%enlSqGlob/userInfo.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
 let getPlayerNickAndFrameQuery = ecs.SqQuery("getPlayerNickAndFrame",
   { comps_ro = [
@@ -11,9 +10,6 @@ let getPlayerNickAndFrameQuery = ecs.SqQuery("getPlayerNickAndFrame",
   })
 
 let getFramedNickByEid = @(playerEid) getPlayerNickAndFrameQuery.perform(playerEid,
-  @(_eid, comp) frameNick(
-    comp.name == userInfo.value?.name ? userInfo.value.nameorig : remap_nick(comp.name),
-    comp["decorators__nickFrame"]
-  ))
+  @(_eid, comp) frameNick(remap_others(comp.name), comp["decorators__nickFrame"]))
 
 return getFramedNickByEid
