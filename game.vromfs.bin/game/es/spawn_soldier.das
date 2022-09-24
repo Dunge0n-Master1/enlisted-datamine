@@ -55,6 +55,31 @@ def init_item_container(eid)
         item__lastOwner = eid
         item__ownerEid = eid
 
+def gather_dependent_templates(soldierComponents : Object; var depsList : StringList#)
+  let weapTemplatesPtr = get_ecs_object(soldierComponents, "human_weap__weapTemplates")
+  if weapTemplatesPtr != null
+    assume weapTemplates = *weapTemplatesPtr
+    for kv in weapTemplates
+      let weapTemplate = get_ecs_string(kv.value)
+      if weapTemplate != null
+        depsList |> push(*weapTemplate)
+
+  let weapInfoPtr = get_ecs_array(soldierComponents, "human_weap__weapInfo")
+  if weapInfoPtr != null
+    assume weapInfo = *weapInfoPtr
+    for weapInfoSlot in weapInfo
+      let resvAmmoTemplate = weapInfoSlot |> get_ecs_object() |> get_ecs_string("reserveAmmoTemplate")
+      if resvAmmoTemplate != null
+        depsList |> push(*resvAmmoTemplate)
+
+  let itemRemapPtr = get_ecs_object(soldierComponents, "human_weap__itemRemap")
+  if itemRemapPtr != null
+    assume itemRemap = *itemRemapPtr
+    for kv in itemRemap
+      let remapTemplate = get_ecs_string(kv.value)
+      if remapTemplate != null
+        depsList |> push(*remapTemplate)
+
 [es(tag=server, on_event=SoldierSpawnEquipmentCreated)]
 def spawn_soldier_done(evt : Event;
                        eid : EntityId;
@@ -82,6 +107,15 @@ def spawn_soldier_done(evt : Event;
   let baseTemplateName = split_template(soldierTemplate)[0]
   let tpl = getTemplateByName(baseTemplateName)
   let soldierEid : EntityId = createEntity(soldierTemplate, finalizeCreation) <| $(var init : ComponentsInitializer)
+    let depsCompKey = "human_weap__template_deps_list"
+    let depsCompHash = ecs_hash(depsCompKey)
+    if tpl != null && templateHasComponent(*tpl, depsCompKey, depsCompHash)
+      using() <| $(var depsList : StringList#)
+        gather_dependent_templates(soldierComponents, depsList)
+        set(init, depsCompKey, depsCompHash, depsList)
+    else
+      logerr("Can't create a list of entities for instantiation for '{soldierTemplate}'")
+
     for comp in soldierComponents
       let keyHash = ecs_hash(comp.key)
       if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)

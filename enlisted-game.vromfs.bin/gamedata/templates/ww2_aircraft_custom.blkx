@@ -420,6 +420,7 @@ soc_1{
   _override:b=yes
   _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.17, 0.17
+  vehicle_resupply__type:t="water"
 
   "canUseRespawnbaseSubtypes:list<t>"{
     subtype:t="air"
@@ -469,6 +470,7 @@ f2a3_driver_cockpit{
 e13a1{
   _override:b=yes
   _extends:t="plane_increased_damage"
+  vehicle_resupply__type:t="water"
 
   "canUseRespawnbaseSubtypes:list<t>"{
     subtype:t="air"

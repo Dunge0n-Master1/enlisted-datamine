@@ -19,14 +19,14 @@ base_sherman_ii{
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
-    node:t="emtr_mg_aa_flame_01"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mg_aa_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_60mm"
-    fx:t="muzzle_ground_15mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_15mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
@@ -37,8 +37,8 @@ base_sherman_ii{
 
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
-    node:t="bone_mg_aa_v_01"
     node:t="bone_mg_gun_twin"
+    node:t="bone_mg_aa_v_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -63,6 +63,11 @@ base_sherman_ii{
     }
 
     "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
       aimActiveParamName:t="aim_02_active"
@@ -78,11 +83,6 @@ base_sherman_ii{
       paramPitchAccel:t="gun_02_pitch_accel"
       wishYawParamName:t="gun_02_aim:targetYaw"
       wishPitchParamName:t="gun_02_aim:targetPitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="turret_03_yaw"
-      curPitchParamName:t="gun_03_pitch"
     }
   }
 
@@ -100,15 +100,15 @@ base_sherman_ii{
 
     "turretInfo:object"{
       turretName:t="turret_02"
-      gun:t="sherman_ii_turret_02_12_7mm_m2_hb"
-      barrelDm:t="gun_barrel_02"
+      gun:t="sherman_ii_turret_03_7_62mm_m1919a4"
+      barrelDm:t="gun_barrel_01"
       salt:i=1
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
-      gun:t="sherman_ii_turret_03_7_62mm_m1919a4"
-      barrelDm:t="gun_barrel_01"
+      gun:t="sherman_ii_turret_02_12_7mm_m2_hb"
+      barrelDm:t="gun_barrel_02"
       salt:i=1
     }
   }

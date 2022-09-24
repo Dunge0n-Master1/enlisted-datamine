@@ -21,6 +21,10 @@ def replay_recording_create_meta(evt : Event)
     init |> set("replay__startAt", get_sync_time())
     init |> set("mission__startTime", int64(get_clock()))
 
+[es(tag=recordingReplay, on_event=EventTeamRoundResult)]
+def replay_is_game_finished_es(evt : Event; var replay__isFinished : bool&)
+  replay__isFinished = true
+
 [es(tag=recordingReplay)]
 def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
   assume obj = evt.replayMeta
@@ -31,11 +35,13 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
 
     query() <| $ [es] (mission__startTime : int64;
                        replay__firstHumanSpawnTime : float;
+                       replay__isFinished : bool;
                        replay__startAt : float)
       item |> AddMember("start_timestamp", mission__startTime, obj)
       item |> AddMember("first_human_spawn_time", replay__firstHumanSpawnTime, obj)
       item |> AddMember("total_play_time", get_sync_time(), obj)
       item |> AddMember("replay__startAt", replay__startAt, obj)
+      item |> AddMember("replay__isFinished", replay__isFinished, obj)
     item |> AddMember("end_timestamp", int64(get_clock()), obj)
     item |> AddMember("session_id", get_session_id(), obj)
 

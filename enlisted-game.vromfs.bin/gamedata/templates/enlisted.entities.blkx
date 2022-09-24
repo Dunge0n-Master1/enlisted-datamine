@@ -429,6 +429,7 @@ resupply_vehicle{
   _extends:t="net_sound_descs"
   resupplyAtTime:r=-1.0
   resupplyStarted:b=no
+  vehicle_resupply__type:t="air"
 
   "net_sound__descs:shared:object"{
 

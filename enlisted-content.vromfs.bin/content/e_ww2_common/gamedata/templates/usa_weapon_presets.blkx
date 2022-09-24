@@ -34,6 +34,19 @@ usa_light_assault_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="m3_submachine_gun_magazine"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
+    }
+  }
 }
 
 usa_infantry_preset{
@@ -73,6 +86,20 @@ usa_infantry_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="mk2_grenade_item"
       numReserveAmmo:i=2
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="browning_auto_5_magazine"
+      tmpl:t="m1903_springfield_magazine"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
     }
   }
 }
@@ -120,6 +147,20 @@ usa_sniper_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="browning_auto_5_magazine"
+      tmpl:t="m1_garand_magazine"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
+    }
+  }
 }
 
 usa_marksman_preset{
@@ -156,6 +197,19 @@ usa_marksman_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="mk2_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="m1_carbine_magazine"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
     }
   }
 }
@@ -196,6 +250,19 @@ usa_heavy_assault_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="m1928a_thompson_magazine"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
+    }
+  }
 }
 
 usa_machine_gunner_preset{
@@ -232,6 +299,19 @@ usa_machine_gunner_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="mk2_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="browning_m1918_magazine"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
     }
   }
 }
@@ -272,6 +352,20 @@ usa_anti_armor_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="mk2_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="m3_submachine_gun_magazine"
+      tmpl:t="m6a1_bazooka_item"
+      tmpl:t="m1911_colt_magazine"
+      tmpl:t="mk2_grenade_item"
     }
   }
 }

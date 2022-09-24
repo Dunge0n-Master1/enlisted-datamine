@@ -282,14 +282,26 @@ entity{
 }
 
 entity{
-  _template:t="resupply_in_air_zone"
+  _template:t="resupply_for_air_planes_only_zone"
   transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [2417.99, 649.743, -4726.38]]
   resupply_zone__team:i=1
 }
 
 entity{
-  _template:t="resupply_in_air_zone"
+  _template:t="resupply_for_air_planes_only_zone"
   transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-3665.97, 675.322, 3070.82]]
+  resupply_zone__team:i=2
+}
+
+entity{
+  _template:t="resupply_for_seaplanes_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [759.666, 649.743, -3614.37]]
+  resupply_zone__team:i=1
+}
+
+entity{
+  _template:t="resupply_for_seaplanes_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-2410.6, 675.322, 2135.3]]
   resupply_zone__team:i=2
 }
 

@@ -1100,6 +1100,7 @@ DamageParts{
     armorClass:t="tank_barrel"
     hp:r=100.0
     armorThickness:r=10.0
+    restrainDamage:r=0.4
   }
 
   track_r{
@@ -1359,10 +1360,10 @@ DamageParts{
     vital:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=150.0
-    armorThickness:r=150.0
+    armorThickness:r=7.0
     hidableInViewer:b=no
+    armorThrough:r=15.0
     restrainDamage:r=0.5
-    armorThrough:r=150.0
   }
 
   engine{

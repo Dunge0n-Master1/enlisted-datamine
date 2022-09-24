@@ -202,6 +202,18 @@ base_vehicle_seats{
     default:t="vehicle_seat_default"
     driver:t="vehicle_seat_driver"
   }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="vehicle_seat_default"
+      template_name:t="vehicle_seat_driver"
+    }
+  }
 }
 
 plane_vehicle_seats{
@@ -210,6 +222,18 @@ plane_vehicle_seats{
   "vehicle_seats__seatTemplates:shared:object"{
     default:t="vehicle_seat_default"
     driver:t="vehicle_seat_pilot_driver"
+  }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="vehicle_seat_default"
+      template_name:t="vehicle_seat_pilot_driver"
+    }
   }
 }
 

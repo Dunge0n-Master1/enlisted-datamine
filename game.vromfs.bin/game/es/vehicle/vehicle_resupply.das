@@ -12,6 +12,7 @@ require math
 require math.base
 require EnlistedPlane
 require GamePhys
+require strings
 
 [es(tag=server, on_event=CmdResupplyVehicle)]
 def resupply_vehicle_on_server(evt : Event; turret_control__gunEids : EidList)
@@ -75,8 +76,10 @@ def need_resupply(turret_control__gunEids : EidList)
       break
   return needResupply
 
-def is_applied_for_zone(zone_pos : float3; zone_radius_sq : float; zone_team : int; visitor_pos : float3; visitor_team : int)
-  return (zone_team == TEAM_UNASSIGNED || zone_team == visitor_team) && distance_sq(zone_pos, visitor_pos) < zone_radius_sq
+def is_applied_for_zone(zone_pos : float3; zone_radius_sq : float; zone_team : int; visitor_pos : float3; visitor_team : int; zone_subtype : string; vehicle_subtype : string)
+  return ((empty(zone_subtype) || zone_subtype == vehicle_subtype) &&
+          (zone_team == TEAM_UNASSIGNED || zone_team == visitor_team) &&
+          distance_sq(zone_pos, visitor_pos) < zone_radius_sq)
 
 def zone_timer(at_time : float; resupply_zone__updateInterval : float; var resupply_zone__nextUpdateAtTime : float&)
   if at_time < resupply_zone__nextUpdateAtTime
@@ -95,9 +98,11 @@ def apply_zone(at_time : float;
                visitor_team : int;
                turret_control__gunEids : EidList;
                resupplyFuel : bool;
+               zone_subtype : string;
+               vehicle_subtype : string;
                var resupplyAtTime : float&;
                var resupplyStarted : bool&)
-  if !is_applied_for_zone(zone_pos, zone_radius_sq, zone_team, visitor_pos, visitor_team)
+  if !is_applied_for_zone(zone_pos, zone_radius_sq, zone_team, visitor_pos, visitor_team, zone_subtype, vehicle_subtype)
     return
   if resupplyFuel
     resupply_fuel(visitor_eid)
@@ -118,14 +123,21 @@ def resupply_in_air_zone_timer(info : UpdateStageInfoAct;
                                resupply_zone__duration : float;
                                resupply_zone__updateInterval : float;
                                resupply_zone__resupplyFuel : bool;
+                               resupply_zone__type : string = "";
                                var resupply_zone__nextUpdateAtTime : float&)
   if !active || !zone_timer(info.curTime, resupply_zone__updateInterval, resupply_zone__nextUpdateAtTime)
     return
   let zonePos = transform[3]
   let zoneRadiusSq = square(sphere_zone__radius)
-  query() <| $ [es(REQUIRE=airplane, REQUIRE_NOT=disableVehicleResupply)] (eid : EntityId; team : int; transform : float3x4; turret_control__gunEids : EidList; var resupplyAtTime : float&; var resupplyStarted : bool&)
+  query() <| $ [es(REQUIRE=airplane, REQUIRE_NOT=disableVehicleResupply)] (eid : EntityId;
+                                                                           team : int;
+                                                                           transform : float3x4;
+                                                                           turret_control__gunEids : EidList;
+                                                                           vehicle_resupply__type : string = "";
+                                                                           var resupplyAtTime : float&;
+                                                                           var resupplyStarted : bool&)
     apply_zone(info.curTime, zonePos, zoneRadiusSq, resupply_zone__team, resupply_zone__cooldown, resupply_zone__duration, eid, transform[3],
-               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupplyAtTime, resupplyStarted)
+               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupply_zone__type, vehicle_resupply__type, resupplyAtTime, resupplyStarted)
 
 [es(no_order, tag=server, REQUIRE=groundVehicleResupply)]
 def resupply_on_ground_zone_timer(info : UpdateStageInfoAct;
@@ -137,6 +149,7 @@ def resupply_on_ground_zone_timer(info : UpdateStageInfoAct;
                                   resupply_zone__duration : float;
                                   resupply_zone__updateInterval : float;
                                   resupply_zone__resupplyFuel : bool;
+                                  resupply_zone__type : string = "";
                                   var resupply_zone__nextUpdateAtTime : float&)
   if !active || !zone_timer(info.curTime, resupply_zone__updateInterval, resupply_zone__nextUpdateAtTime)
     return
@@ -147,11 +160,12 @@ def resupply_on_ground_zone_timer(info : UpdateStageInfoAct;
                                                                                       transform : float3x4;
                                                                                       turret_control__gunEids : EidList;
                                                                                       resupply__cooldownOverride : float = -1.f;
+                                                                                      vehicle_resupply__type : string = "";
                                                                                       var resupplyAtTime : float&;
                                                                                       var resupplyStarted : bool&)
     let coolDownTime = resupply__cooldownOverride > 0.f ? resupply__cooldownOverride : resupply_zone__cooldown
     apply_zone(info.curTime, zonePos, zoneRadiusSq, resupply_zone__team, coolDownTime, resupply_zone__duration, eid, transform[3],
-               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupplyAtTime, resupplyStarted)
+               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupply_zone__type, vehicle_resupply__type, resupplyAtTime, resupplyStarted)
 
 [es(no_order, tag=server)]
 def resupply_vehicle_timer(info : UpdateStageInfoAct;

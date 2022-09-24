@@ -34,6 +34,19 @@ ger_light_assault_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mp_35_magazine"
+      tmpl:t="p38_walther_magazine"
+      tmpl:t="m24_grenade_item"
+    }
+  }
 }
 
 ger_infantry_preset{
@@ -72,6 +85,20 @@ ger_infantry_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="m24_grenade_item"
       numReserveAmmo:i=2
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mp_35_magazine"
+      tmpl:t="mauser98k_magazine"
+      tmpl:t="p08_luger_magazine"
+      tmpl:t="m24_grenade_item"
     }
   }
 }
@@ -118,6 +145,20 @@ ger_sniper_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mp_35_magazine"
+      tmpl:t="mauser98k_magazine"
+      tmpl:t="p08_luger_magazine"
+      tmpl:t="m24_grenade_item"
+    }
+  }
 }
 
 ger_marksman_preset{
@@ -154,6 +195,19 @@ ger_marksman_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="m24_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="gewehr_43_magazine"
+      tmpl:t="p08_luger_magazine"
+      tmpl:t="m24_grenade_item"
     }
   }
 }
@@ -194,6 +248,19 @@ ger_41_marksman_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="gewehr_41_magazine"
+      tmpl:t="p08_luger_magazine"
+      tmpl:t="m24_grenade_item"
+    }
+  }
 }
 
 ger_heavy_assault_preset{
@@ -230,6 +297,19 @@ ger_heavy_assault_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="m24_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mp40_magazine"
+      tmpl:t="mauser_c96_magazine"
+      tmpl:t="m24_grenade_item"
     }
   }
 }
@@ -270,6 +350,19 @@ ger_machine_gunner_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mg_42_handheld_magazine"
+      tmpl:t="mauser_c96_magazine"
+      tmpl:t="m24_grenade_item"
+    }
+  }
 }
 
 ger_anti_armor_preset{
@@ -308,6 +401,20 @@ ger_anti_armor_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="m24_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mp_35_magazine"
+      tmpl:t="rpzb_gr_4322_item"
+      tmpl:t="mauser_c96_magazine"
+      tmpl:t="m24_grenade_item"
     }
   }
 }

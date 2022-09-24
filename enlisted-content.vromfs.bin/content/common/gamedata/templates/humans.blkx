@@ -2275,6 +2275,17 @@ base_human_weap{
     grenade:t="grenade_thrower"
   }
 
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      grenade:t="grenade_thrower"
+    }
+  }
+
   "human_weap__gunModsBySlot:array"{
 
     "gunModsBySlot:object"{

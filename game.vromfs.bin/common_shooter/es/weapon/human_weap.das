@@ -110,9 +110,16 @@ def restore_ammo_impl(eid : EntityId;
           itemId = entity_item__id
         initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
       for _i in range(initialNum, numResvAmmo)
-        let itemEid = createEntitySync(*resvAmmoTemplate |> string()) <| $(var init : ComponentsInitializer)
+        var itemEid = INVALID_ENTITY_ID
+        let ammoTemplate = *resvAmmoTemplate |> string()
+        using() <| $(var init : ComponentsInitializer#)
           set(init, "item__ownerEid", eid)
           set(init, "item__lastOwner", eid)
+          itemEid = createInstantiatedEntitySync(ammoTemplate, init)
+          if itemEid == INVALID_ENTITY_ID
+            // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
+            logerr("Template dependency '{ammoTemplate}' isn't instantiated in '{getEntityTemplateName(eid)}'")
+            itemEid = createEntitySync(ammoTemplate, init)
         if find_index(itemContainer, itemEid) == -1
           itemContainer |> push(itemEid)
       if (gun_slot != int(HUWeaponSlots EWS_GRENADE))
@@ -361,7 +368,12 @@ def server_recreate_guns(eid : EntityId;
     human_weap__gunEids[slotId] = create_gun_for_entity_impl(eid, slotId, weapTemplStr, gunInitComps, flags) <| $(n : string;
                                                                                                                   var ci : ComponentsInitializer#)
       if is_dedicated()
-        return createEntitySync(n, ci)
+        var newEid = createInstantiatedEntitySync(n, ci)
+        if newEid == INVALID_ENTITY_ID
+          // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
+          logerr("Template dependency '{n}' isn't instantiated in '{getEntityTemplateName(eid)}'")
+          newEid = createEntitySync(n, ci)
+        return newEid
       else
         return createEntity(n, ci)
 

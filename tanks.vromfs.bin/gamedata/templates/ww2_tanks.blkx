@@ -958,6 +958,23 @@ base_tank_seat_templates{
     commander:t="vehicle_seat_commander"
     loader:t="vehicle_seat_loader"
   }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="vehicle_seat_default"
+      template_name:t="vehicle_seat_driver"
+      template_name:t="vehicle_seat_main_gunner"
+      template_name:t="vehicle_seat_extra_gunner"
+      template_name:t="vehicle_seat_machinegunner"
+      template_name:t="vehicle_seat_commander"
+      template_name:t="vehicle_seat_loader"
+    }
+  }
 }
 
 base_tank_sound{

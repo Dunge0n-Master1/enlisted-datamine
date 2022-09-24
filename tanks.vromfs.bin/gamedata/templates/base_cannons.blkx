@@ -304,6 +304,21 @@ movable_cannon_seat_templates{
     loader:t="movable_cannon_seat_loader"
     loader_marching:t="movable_cannon_seat_marching"
   }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="movable_cannon_seat_default_sit"
+      template_name:t="movable_cannon_seat_driver"
+      template_name:t="movable_cannon_seat_gunner"
+      template_name:t="movable_cannon_seat_loader"
+      template_name:t="movable_cannon_seat_marching"
+    }
+  }
 }
 
 base_movable_cannon{

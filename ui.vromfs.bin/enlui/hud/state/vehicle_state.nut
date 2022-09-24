@@ -15,12 +15,13 @@ let inVehicleDefValue = freeze({
   isVehicleAlive = false
   isVehicleCanBeRessuplied = false
   isPlaneOnCarrier = false
+  vehicleResupplyType = ""
   controlledVehicleEid = INVALID_ENTITY_ID
 })
 
 let { inVehicleState, inVehicleStateSetValue } = mkFrameIncrementObservable(inVehicleDefValue, "inVehicleState")
 let {
-  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid
+  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, vehicleResupplyType, controlledVehicleEid
 } = watchedTable2TableOfWatched(inVehicleState)
 
 let rolesDefValue = freeze({
@@ -50,6 +51,7 @@ ecs.register_es("ui_in_vehicle_eid_es",
       let canBeRessuplied = comp.resupplyAtTime != null && comp.disableVehicleResupply == null
       inVehicleStateSetValue({
         inPlane=inPlaneC, inTank = inTankC, inShip=inShipC, inGroundVehicle=!inPlaneC,
+        vehicleResupplyType = comp.vehicle_resupply__type
         isVehicleAlive = comp["isAlive"]
         isVehicleCanBeRessuplied = canBeRessuplied
         controlledVehicleEid = eid
@@ -69,6 +71,7 @@ ecs.register_es("ui_in_vehicle_eid_es",
       ["airplane", ecs.TYPE_TAG, null],
       ["isTank", ecs.TYPE_TAG, null],
       ["ship", ecs.TYPE_TAG, null],
+      ["vehicle_resupply__type", ecs.TYPE_STRING, ""],
       ["resupplyAtTime", ecs.TYPE_FLOAT, null],
       ["disableVehicleResupply", ecs.TYPE_TAG, null],
     ],
@@ -137,6 +140,7 @@ ecs.register_es("ui_vehicle_state_es",
 )
 
 return rolesExport.__merge(actionsExport, {
-  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid
+  inTank, inPlane, inShip, inGroundVehicle, isVehicleAlive, isVehicleCanBeRessuplied, isPlaneOnCarrier, controlledVehicleEid,
+  vehicleResupplyType,
   inVehicle = Computed(@() inGroundVehicle.value || inPlane.value)
 })

@@ -21520,9 +21520,9 @@ zh_29_jp{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_semiauto"
   animchar__res:t="zh_29_japanese_copy_char"
-  gun__blk:t="content/e_ww2_common/gamedata/weapons/zh_29.blk"
+  gun__blk:t="content/e_ww2_common/gamedata/weapons/zh_29_jp.blk"
   item__template:t="zh_29_jp_gun_item"
-  item__proto:t="content/e_ww2_common/gamedata/weapons/zh_29.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/zh_29_jp.blk"
   item__locDetails:t="7.92x57mm;"
   item__id:i=0
   item__weapTemplate:t="zh_29_jp_gun"
@@ -21531,9 +21531,10 @@ zh_29_jp{
   item__weight:r=5.0
   gun__locName:t="Type Otsu rifle"
   gun__statName:t="semiauto"
-  gun__shotFreq:r=7.0
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
   gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.15
+  gun_spread__maxDeltaAngle:r=0.32
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.1, 0.6
   gun_deviation__movementRange:p2=2.1, 4.0
@@ -21542,8 +21543,9 @@ zh_29_jp{
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.3
   gun_deviation__maxDeviation:r=30.0
-  gun__reloadTime:r=2.1
-  gun__altReloadTime:r=1.7
+  gun__reloadTime:r=2.3
+  gun__altReloadTime:r=2.2
+  gun__kineticDamageMult:r=1.0667
 
   "gun__ammoHolders:array"{
     ammoHolders:t="zh_29_jp_magazine"
@@ -21577,7 +21579,7 @@ zh_29_jp_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.108
+  gun__recoilAmount:r=0.115
   gun__recoilDirAmount:r=0.76
   gun__recoilDir:r=-0.5
   gun__visualRecoilMult:r=1.0

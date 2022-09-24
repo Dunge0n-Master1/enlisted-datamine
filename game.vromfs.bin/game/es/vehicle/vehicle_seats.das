@@ -35,13 +35,18 @@ def create_vehicle_seats(evt : Event;
       logerr("Seat template not found for seat '{seatName}' in entity {eid} ({getEntityTemplateName(eid)})")
       continue
 
-    let seatEid = createEntitySync(seatTemplate) <| $(var init : ComponentsInitializer)
+    using() <| $(var init : ComponentsInitializer#)
       set(init, "seat__id", seatNo)
       set(init, "seat__vehicleEid", eid)
       if has(*seat, "canPlaceManually")
         set(init, "seats_order__canPlaceManually", get_bool(seat, "canPlaceManually") ?? false)
 
-    vehicle_seats__seatEids[seatNo] = seatEid
+      var seatEid = createInstantiatedEntitySync(seatTemplate, init)
+      if seatEid == INVALID_ENTITY_ID
+        logerr("Seat with template '{seatTemplate}' hasn't been instantiated before entity '{getEntityTemplateName(eid)}'")
+        seatEid = createEntitySync(seatTemplate, init)
+
+      vehicle_seats__seatEids[seatNo] = seatEid
 
 [es(tag=server, on_appear, after=create_vehicle_seats)]
 def vehicle_seat_is_hold_gun_mode_allowed_on_appear(evt : Event;

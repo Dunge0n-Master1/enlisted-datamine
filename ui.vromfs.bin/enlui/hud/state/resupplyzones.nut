@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
 let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")
-let { isVehicleCanBeRessuplied, inGroundVehicle, inPlane } = require("%ui/hud/state/vehicle_state.nut")
+let { isVehicleCanBeRessuplied, inGroundVehicle, inPlane, vehicleResupplyType } = require("%ui/hud/state/vehicle_state.nut")
 let { mkWatchedSetAndStorage, MK_COMBINED_STATE } = require("%ui/ec_to_watched.nut")
 let {
   resupply_zones_GetWatched,
@@ -15,16 +15,18 @@ let {
 let heroActiveResupplyZonesEids = Computed(function(){
   let isInPlane = inPlane.value
   let isInGroundVehicle = inGroundVehicle.value
+  let vehicleType = vehicleResupplyType.value
   if ((!isInGroundVehicle && !isInPlane) || !isVehicleCanBeRessuplied.value)
     return {}
   let heroTeam = watchedTeam.value
   return resupply_zones_State.value.filter(function(z) {
-    let {team, active, eid} = z
+    let {team, active, isForPlanes, isForGroundVehicles, acceptedVehicleType} = z
     return active
       && (team == TEAM_UNASSIGNED || team == heroTeam)
+      && (acceptedVehicleType == "" || acceptedVehicleType == vehicleType)
       && (
-        (isInPlane && ecs.obsolete_dbg_get_comp_val(eid, "planeResupply") != null) ||
-        (isInGroundVehicle && ecs.obsolete_dbg_get_comp_val(eid, "groundVehicleResupply") != null)
+        (isInPlane && isForPlanes) ||
+        (isInGroundVehicle && isForGroundVehicles)
       )
   })
 })
@@ -39,6 +41,9 @@ ecs.register_es("resupply_zones_ui_state_es",
       caption  = comp["zone__caption"]
       radius   = comp["sphere_zone__radius"]
       team     = comp["resupply_zone__team"]
+      isForPlanes = comp.planeResupply != null
+      isForGroundVehicles = comp.groundVehicleResupply != null
+      acceptedVehicleType = comp.resupply_zone__type
     })
     onDestroy = @(_, eid, __) resupply_zones_DestroyEid(eid)
   },
@@ -46,6 +51,9 @@ ecs.register_es("resupply_zones_ui_state_es",
     comps_ro = [
       ["zone__icon", ecs.TYPE_STRING, ""],
       ["zone__caption", ecs.TYPE_STRING, ""],
+      ["planeResupply", ecs.TYPE_TAG, null],
+      ["groundVehicleResupply", ecs.TYPE_TAG, null],
+      ["resupply_zone__type", ecs.TYPE_STRING, ""],
     ]
     comps_track = [
       ["active", ecs.TYPE_BOOL],

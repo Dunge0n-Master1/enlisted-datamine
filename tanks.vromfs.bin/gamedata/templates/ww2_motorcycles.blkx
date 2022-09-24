@@ -143,6 +143,19 @@ base_bike_common{
   }
 
   _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="vehicle_seat_fire_ready"
+      template_name:t="bike_seat_driver"
+      template_name:t="vehicle_seat_commander"
+    }
+  }
+
+  _group{
     vehicle_anim__steeringDeflectionLimit:p2=1.0, 0.0
     _tags:t="render"
   }

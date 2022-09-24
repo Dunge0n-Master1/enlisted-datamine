@@ -126,6 +126,18 @@ base_ship{
     driver:t="vehicle_seat_driver"
   }
 
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="vehicle_seat_fire_ready"
+      template_name:t="vehicle_seat_driver"
+    }
+  }
+
   "last_driver:eid"{
   }
 }

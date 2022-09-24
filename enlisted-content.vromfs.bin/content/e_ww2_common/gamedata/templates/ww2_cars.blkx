@@ -173,6 +173,18 @@ base_civil_fire_ready_vehicle{
     default:t="vehicle_seat_fire_ready"
     driver:t="vehicle_seat_driver"
   }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list:list<t>"{
+      template_name:t="vehicle_seat_fire_ready"
+      template_name:t="vehicle_seat_driver"
+    }
+  }
 }
 
 opel_olympia{

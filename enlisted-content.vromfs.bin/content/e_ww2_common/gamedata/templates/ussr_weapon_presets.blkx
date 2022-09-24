@@ -34,6 +34,19 @@ ussr_light_assault_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="ppsh_drum"
+      tmpl:t="tt_magazine"
+      tmpl:t="mk2_grenade_item"
+    }
+  }
 }
 
 ussr_infantry_preset{
@@ -70,6 +83,19 @@ ussr_infantry_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="mk2_grenade_item"
       numReserveAmmo:i=2
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mosin_magazine"
+      tmpl:t="tt_magazine"
+      tmpl:t="mk2_grenade_item"
     }
   }
 }
@@ -110,6 +136,19 @@ ussr_sniper_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="avs_36_magazine"
+      tmpl:t="tt_magazine"
+      tmpl:t="mk2_grenade_item"
+    }
+  }
 }
 
 ussr_marksman_preset{
@@ -148,6 +187,19 @@ ussr_marksman_preset{
       numReserveAmmo:i=1
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="svt_40_magazine"
+      tmpl:t="tt_magazine"
+      tmpl:t="mk2_grenade_item"
+    }
+  }
 }
 
 ussr_heavy_assault_preset{
@@ -184,6 +236,19 @@ ussr_heavy_assault_preset{
     "weapInfo:object"{
       reserveAmmoTemplate:t="mk2_grenade_item"
       numReserveAmmo:i=1
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="ppsh_drum"
+      tmpl:t="tt_magazine"
+      tmpl:t="mk2_grenade_item"
     }
   }
 }

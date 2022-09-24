@@ -222,6 +222,19 @@ ger_soldier{
       numReserveAmmo:i=2
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="mp40_magazine"
+      tmpl:t="p38_walther_magazine"
+      tmpl:t="m24_grenade_item"
+    }
+  }
 }
 
 ger_br_soldier{

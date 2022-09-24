@@ -41,7 +41,7 @@ uk_sherman_ii_common{
 
       "turretNames:array"{
         turretNames:t="turret_01"
-        turretNames:t="turret_03"
+        turretNames:t="turret_02"
       }
     }
 
@@ -80,7 +80,7 @@ uk_sherman_ii_common{
       }
 
       "hatchTurretNames:array"{
-        turret:t="turret_02"
+        turret:t="turret_03"
       }
     }
 
