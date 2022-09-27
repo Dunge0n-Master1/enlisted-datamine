@@ -39,7 +39,7 @@ let customOfferActions = {
 }
 
 const SWITCH_SEC = 8.0
-const defOfferImg = "ui/tunisia_city_inv_01.jpg"
+const defOfferImg = "ui/pacific_guadalcanal_inv_05.jpg"
 const defExtUrlImg = "ui/normandy_village_04.jpg"
 
 let curWidgetIdx = Watched(0)

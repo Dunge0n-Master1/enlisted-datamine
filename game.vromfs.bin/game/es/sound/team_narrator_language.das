@@ -28,7 +28,7 @@ def narrator_set_language(army : string; player_team : int)
         sound_banks_load_preset(preset, true)
 
 
-[es(tag=sound, on_appear, track=(team, is_local), REQUIRE=player)]
+[es(tag=sound, on_appear, track=(team, is_local, army), REQUIRE=player)]
 def team_narrator_language_created(evt : Event; is_local : bool; army : string; team : int)
   if is_local
     narrator_set_language(army, team)
