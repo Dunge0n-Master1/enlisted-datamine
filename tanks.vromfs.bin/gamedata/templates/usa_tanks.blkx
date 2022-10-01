@@ -11,16 +11,9 @@ import:t="tanks/us_m4a2_76w_sherman.blk"
 import:t="tanks/us_m3_lee.blk"
 import:t="tanks/us_m4_calliope.blk"
 import:t="tanks/us_m3a1_stuart.blk"
-import:t="tanks/us_m8_greyhound.blk"
 import:t="tanks/us_lvt_a_1.blk"
-import:t="tanks/us_lvt_a_4.blk"
-import:t="tanks/uk_ac1_sentinel.blk"
-import:t="tanks/us_halftrack_m3_75mm_gmc.blk"
 import:t="tanks/us_halftrack_m13.blk"
 import:t="tanks/us_m2a4.blk"
-import:t="tanks/us_m3a1_stuart_flame.blk"
-import:t="tanks/us_m4a3_105_sherman.blk"
-import:t="tanks/us_m4a1_sherman_1942.blk"
 
 tankgun_12_7mm_m2_hb{
   _override:b=yes

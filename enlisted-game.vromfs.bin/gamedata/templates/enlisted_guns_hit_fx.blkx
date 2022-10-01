@@ -1405,7 +1405,7 @@ global_turret_hit_fx_info{
 
           "water3d:object"{
             fx:t="hit_water_medium_big_effect"
-            penetrationFx:t="hit_water_medium_effect"
+            penetrationFx:t="hit_water_medium_big_effect"
           }
 
           "glass:object"{
@@ -1533,7 +1533,7 @@ global_turret_hit_fx_info{
 
           "water3d:object"{
             fx:t="hit_water_medium_big_effect"
-            penetrationFx:t="hit_water_medium_effect"
+            penetrationFx:t="hit_water_medium_big_effect"
           }
 
           "glass:object"{
@@ -1630,7 +1630,7 @@ global_turret_hit_fx_info{
 
           "water3d:object"{
             fx:t="hit_water_big_effect"
-            penetrationFx:t="hit_water_medium_effect"
+            penetrationFx:t="hit_water_medium_big_effect"
           }
 
           "glass:object"{
@@ -1758,7 +1758,7 @@ global_turret_hit_fx_info{
 
           "water3d:object"{
             fx:t="hit_water_big_effect"
-            penetrationFx:t="hit_water_medium_effect"
+            penetrationFx:t="hit_water_medium_big_effect"
           }
 
           "glass:object"{

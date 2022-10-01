@@ -264,11 +264,17 @@ def turret_input_local_es(info : UpdateStageUpdateInput;
                                                      var turret_aim__shootFlag : bool&)
       let turretNo = turret__id
 
-      if !can_control_turret(vehicle__localControls, turretNo) || turret_input__isLocalControlLocked
+      if !can_control_turret(vehicle__localControls, turretNo)
         return
 
       let wasShooting = turret_aim__shootFlag
       let shootFlag = turret_input__shootFlag
+
+      if turret_input__isLocalControlLocked
+        turret_aim__shootFlag = false
+        if wasShooting && !shootFlag
+          sendEventImmediate(eid, [[EventOnTurretShooting isStart=false, turretNo=turretNo]])
+        return
 
       turret_aim__shootAngles = turret_calc_shoot_angles(net_phys__currentStatePosition, turret_input__aimPos)
       turret_aim__shootFlag = shootFlag

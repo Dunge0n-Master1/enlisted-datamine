@@ -704,7 +704,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-120.683, 9.64157, -224.847]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-119.353, 9.64157, -270.409]]
   battle_area_polygon_point__forBattleAreaId:t="3_area2"
   battle_area_polygon_point__id:t="point4"
   battle_area_polygon_point__nextId:t="point5"
@@ -712,7 +712,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [10.9113, 9.64157, -227.79]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [8.38177, 9.64157, -288.891]]
   battle_area_polygon_point__forBattleAreaId:t="3_area2"
   battle_area_polygon_point__id:t="point5"
   battle_area_polygon_point__nextId:t="point6"
@@ -2828,7 +2828,7 @@ entity{
   groupName:t="sector_1"
   capzone__capTime:r=45.0
   capzone__capTeam:i=-1
-  transform:m=[[-32.5501, 0.0, 32.9299] [0.0, 8.39327, 0.0] [-42.7928, 0.0, -42.2994] [-93.423, 8.26991, 49.2232]]
+  transform:m=[[-32.5501, 0.0, 32.9299] [0.0, 8.39327, 0.0] [-41.9408, 0.0, -41.4572] [-93.423, 8.18472, 49.2232]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
@@ -2839,7 +2839,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
   decal__thickness:r=0.4
-  decal__height:r=1.3
+  decal__height:r=0.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=11
 
@@ -2923,7 +2923,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.857603, 0.0, 0.514311] [0.0, 1.0, -0.0] [-0.514311, 0.0, 0.857603] [60.5016, 3.53278, -327.45]]
+  transform:m=[[-0.106945, 0.0, 0.994264] [0.0, 1.0, 0.0] [-0.994264, 0.0, -0.106945] [63.0518, 3.53278, -315.842]]
   groupName:t="sector_3"
   respawnBaseGroup:i=2
   active:b=no

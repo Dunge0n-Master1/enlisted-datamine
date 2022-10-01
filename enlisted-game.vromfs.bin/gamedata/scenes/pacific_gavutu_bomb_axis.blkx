@@ -749,8 +749,8 @@ entity{
 entity{
   _template:t="team_pacific_axis+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -813,7 +813,9 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=2
   groupName:t="sector_1"
-  capzone__timeToPlant:r=20.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=45.0
   active:b=no
   ui_order:i=1
   capzone__capReward:r=500.0
@@ -841,7 +843,9 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=2
   groupName:t="sector_1"
-  capzone__timeToPlant:r=20.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=45.0
   active:b=no
   ui_order:i=1
   capzone__capReward:r=500.0
@@ -867,7 +871,9 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[-0.00648558, 0.0, 0.733494] [0.0, 0.690404, 0.0] [-0.779431, 0.0, -0.00689176] [202.835, 3.41452, -367.518]]
   groupName:t="sector_2"
-  capzone__timeToPlant:r=20.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=45.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/barracks"
@@ -896,7 +902,9 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[0.787614, 0.0, 0.524749] [0.0, 0.650368, -0.0] [-0.466579, 0.0, 0.700306] [256.287, 2.28407, -284.116]]
   groupName:t="sector_2"
-  capzone__timeToPlant:r=20.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=45.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/barracks"
@@ -926,14 +934,16 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[0.403265, 0.0, 0.169954] [0.0, 0.575724, 0.0] [-0.230528, 0.0, 0.546997] [386.113, 0.867163, -344.929]]
   groupName:t="sector_3"
-  capzone__timeToPlant:r=20.0
+  capzone__timeToResetPlant:r=30.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=45.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=2
   capzone__caption:t="capzone/warehouse"
   active:b=no
   ui_order:i=1
   capzone__owningTeam:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -1080,7 +1090,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.409606, 0.0, 0.912262] [0.0, 1.0, 0.0] [-0.912262, 0.0, -0.409606] [264.822, 2.83528, -341.99]]
+  transform:m=[[-0.51048, 0.0, 0.859889] [0.0, 1.0, 0.0] [-0.859889, 0.0, -0.51048] [261.402, 2.83528, -336.234]]
   groupName:t="sector_1"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -1256,7 +1266,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.423002, 0.0, 0.906129] [0.0, 1.0, 0.0] [-0.906129, 0.0, -0.423002] [263.654, 2.83727, -342.55]]
+  transform:m=[[-0.523094, 0.0, 0.852275] [0.0, 1.0, 0.0] [-0.852275, 0.0, -0.523094] [261.266, 2.83727, -336.507]]
   groupName:t="sector_1"
   team:i=1
   active:b=no

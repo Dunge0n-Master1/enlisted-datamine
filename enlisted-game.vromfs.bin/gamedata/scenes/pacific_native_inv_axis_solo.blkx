@@ -4372,7 +4372,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-314.279, -2.48233, 155.22]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-316.695, -2.48233, 156.819]]
   capzone_area_polygon_point__id:t="point2"
   capzone_area_polygon_point__nextId:t="point3"
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_2_b"
@@ -4380,7 +4380,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-322.224, 0.94445, 144.954]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-325.158, 0.94445, 146.314]]
   capzone_area_polygon_point__id:t="point3"
   capzone_area_polygon_point__nextId:t="point4"
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_2_b"
@@ -4388,7 +4388,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-326.823, 0.94445, 138.559]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-329.698, 0.94445, 139.993]]
   capzone_area_polygon_point__id:t="point4"
   capzone_area_polygon_point__nextId:t="point5"
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_2_b"
@@ -4396,7 +4396,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-333.885, 0.94445, 129.261]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-337.47, 0.94445, 129.866]]
   capzone_area_polygon_point__id:t="point5"
   capzone_area_polygon_point__nextId:t="point6"
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_2_b"
@@ -4404,7 +4404,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-340.715, 0.94445, 118.519]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-342.966, 0.94445, 122.875]]
   capzone_area_polygon_point__id:t="point6"
   capzone_area_polygon_point__nextId:t="point7"
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_2_b"
@@ -5494,7 +5494,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.929561, 0.0, -0.368671] [0.0, 1.0, 0.0] [0.368671, 0.0, -0.929561] [83.7777, 1.61127, 127.627]]
+  transform:m=[[-0.929561, 0.0, -0.368671] [0.0, 1.0, 0.0] [0.368671, 0.0, -0.929561] [80.7614, 1.61127, 122.659]]
   groupName:t="sector_1_a"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -5516,7 +5516,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.929561, 0.0, -0.368671] [0.0, 1.0, 0.0] [0.368671, 0.0, -0.929561] [84.0758, 1.61127, 127.052]]
+  transform:m=[[-0.929561, 0.0, -0.368671] [0.0, 1.0, 0.0] [0.368671, 0.0, -0.929561] [80.8327, 1.61127, 122.471]]
   groupName:t="sector_1_a"
   respawnBaseGroup:i=1
   team:i=2
@@ -5550,7 +5550,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.843517, 0.0, 0.537102] [0.0, 1.0, -0.0] [-0.537102, 0.0, 0.843517] [-267.37, 6.21592, 61.2349]]
+  transform:m=[[0.938209, 0.0, 0.346067] [0.0, 1.0, -0.0] [-0.346067, 0.0, 0.938209] [-267.732, 6.21592, 61.4788]]
   groupName:t="sector_1_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5622,7 +5622,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.872372, 0.0, 0.488842] [0.0, 1.0, 0.0] [-0.488842, 0.0, -0.872372] [-144.508, 5.85259, 97.1152]]
+  transform:m=[[-0.872372, 0.0, 0.488842] [0.0, 1.0, 0.0] [-0.488842, 0.0, -0.872372] [-144.696, 5.85259, 97.1884]]
   groupName:t="sector_2_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -5718,7 +5718,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.554032, 0.0, -0.832496] [0.0, 1.0, 0.0] [0.832497, 0.0, -0.554032] [-287.337, 12.7229, 4.50711]]
+  transform:m=[[-0.554032, 0.0, -0.832496] [0.0, 1.0, 0.0] [0.832497, 0.0, -0.554032] [-287.867, 12.7229, 4.37516]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -5726,7 +5726,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.628906, 0.0, -0.777483] [0.0, 1.0, 0.0] [0.777483, 0.0, -0.628906] [-232.55, 15.9416, -40.8449]]
+  transform:m=[[-0.763529, 0.0, -0.645776] [0.0, 1.0, 0.0] [0.645776, 0.0, -0.763529] [-232.727, 15.9416, -43.0793]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5734,7 +5734,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.662135, 0.0, -0.749386] [0.0, 1.0, 0.0] [0.749386, 0.0, -0.662135] [-224.813, 11.1308, 21.0245]]
+  transform:m=[[-0.964687, 0.0, -0.263403] [0.0, 1.0, 0.0] [0.263403, 0.0, -0.964687] [-239.142, 13.9316, 2.16559]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   team:i=2
@@ -5743,7 +5743,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.662135, 0.0, -0.749386] [0.0, 1.0, 0.0] [0.749386, 0.0, -0.662135] [-224.926, 11.1308, 21.1128]]
+  transform:m=[[-0.964687, 0.0, -0.263403] [0.0, 1.0, 0.0] [0.263403, 0.0, -0.964687] [-239.144, 13.9316, 2.10683]]
   groupName:t="sector_3_a"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -5814,7 +5814,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.357665, 0.0, -0.93385] [0.0, 1.0, 0.0] [0.93385, 0.0, -0.357665] [-354.177, 25.0191, -125.854]]
+  transform:m=[[-0.869448, 0.0, -0.494024] [0.0, 1.0, 0.0] [0.494024, 0.0, -0.869448] [-351.72, 25.0191, -117.592]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -5866,7 +5866,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.653447, 0.0, 0.756974] [0.0, 1.0, -0.0] [-0.756974, 0.0, 0.653447] [-560.079, 50.4054, -310.915]]
+  transform:m=[[0.653447, 0.0, 0.756974] [0.0, 1.0, -0.0] [-0.756974, 0.0, 0.653447] [-561.869, 50.7553, -309.61]]
   groupName:t="sector_4_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -5978,7 +5978,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.851897, 0.0, 0.52371] [0.0, 1.0, -0.0] [-0.52371, 0.0, 0.851897] [-688.787, 64.9824, -391.783]]
+  transform:m=[[0.851897, 0.0, 0.52371] [0.0, 1.0, -0.0] [-0.52371, 0.0, 0.851897] [-688.919, 64.9824, -391.393]]
   groupName:t="sector_5_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -5986,7 +5986,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.0482534, 0.0, 0.998836] [0.0, 1.0, -0.0] [-0.998836, 0.0, 0.0482534] [-686.144, 65.1524, -393.934]]
+  transform:m=[[0.0482534, 0.0, 0.998836] [0.0, 1.0, -0.0] [-0.998836, 0.0, 0.0482534] [-685.993, 65.1524, -393.518]]
   groupName:t="sector_5_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -6046,7 +6046,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.775227, 0.0, -0.631685] [0.0, 1.0, 0.0] [0.631685, 0.0, -0.775227] [-223.372, 15.4357, -64.3056]]
+  transform:m=[[-0.775227, 0.0, -0.631685] [0.0, 1.0, 0.0] [0.631685, 0.0, -0.775227] [-223.372, 14.8119, -64.3056]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=1
   active:b=no
@@ -6054,7 +6054,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.998453, 0.0, 0.0556313] [0.0, 1.0, -0.0] [-0.0556313, 0.0, 0.998454] [-524.509, 24.6968, -119.21]]
+  transform:m=[[0.987478, 0.0, -0.157768] [0.0, 1.0, 0.0] [0.157768, -0.0, 0.987479] [-524.986, 26.0686, -122.396]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -6062,7 +6062,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.988251, 0.0, 0.152853] [0.0, 1.0, -0.0] [-0.152853, 0.0, 0.988251] [-523.649, 26.9275, -124.36]]
+  transform:m=[[0.993395, 0.0, -0.114762] [0.0, 1.0, 0.0] [0.114762, -0.0, 0.993395] [-525.95, 27.6254, -125.578]]
   groupName:t="sector_3_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -6114,7 +6114,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.622256, 0.0, -0.782815] [0.0, 1.0, 0.0] [0.782815, 0.0, -0.622256] [-502.137, 35.0049, -155.332]]
+  transform:m=[[-0.622256, 0.0, -0.782815] [0.0, 1.0, 0.0] [0.782815, 0.0, -0.622256] [-500.938, 35.0049, -154.1]]
   groupName:t="sector_5_a"
   respawnBaseGroup:i=2
   active:b=no
@@ -6286,7 +6286,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.534325, 0.0, -0.84528] [0.0, 1.0, 0.0] [0.84528, 0.0, -0.534325] [-312.448, 3.8383, 108.403]]
+  transform:m=[[-0.534325, 0.0, -0.84528] [0.0, 1.0, 0.0] [0.84528, 0.0, -0.534325] [-313.244, 3.8383, 107.414]]
   groupName:t="sector_3_c"
   respawnBaseGroup:i=1
   active:b=no
@@ -6466,7 +6466,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.416582, 0.0, -0.909099] [0.0, 1.0, 0.0] [0.909098, 0.0, -0.416582] [-410.587, 5.9401, 69.5069]]
+  transform:m=[[-0.36708, 0.0, -0.93019] [0.0, 1.0, 0.0] [0.930189, 0.0, -0.36708] [-409.235, 6.76684, 73.6081]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=2
   active:b=no
@@ -6490,7 +6490,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.386864, 0.0, -0.922137] [0.0, 1.0, 0.0] [0.922137, 0.0, -0.386864] [-508.726, 37.1579, -166.705]]
+  transform:m=[[-0.386864, 0.0, -0.922137] [0.0, 1.0, 0.0] [0.922137, 0.0, -0.386864] [-510.738, 38.3686, -165.565]]
   groupName:t="sector_5_b"
   respawnBaseGroup:i=2
   active:b=no
@@ -6686,7 +6686,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.054549, 0.0, 0.998513] [0.0, 1.0, 0.0] [-0.998513, 0.0, -0.0545489] [-416.549, 46.0806, -256.694]]
+  transform:m=[[-0.421434, 0.0, 0.906861] [0.0, 1.0, 0.0] [-0.906861, 0.0, -0.421434] [-414.018, 45.0583, -259.777]]
   groupName:t="sector_3_b"
   respawnBaseGroup:i=2
   active:b=no
@@ -6730,7 +6730,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.864048, 0.0, 0.503409] [0.0, 1.0, -0.0] [-0.503409, 0.0, 0.864048] [-149.747, 6.14798, 98.7943]]
+  transform:m=[[0.864048, 0.0, 0.503409] [0.0, 1.0, -0.0] [-0.503409, 0.0, 0.864048] [-149.747, 5.61636, 98.7943]]
   groupName:t="sector_1_a"
   active:b=no
   respawnBaseGroup:i=3
@@ -6786,7 +6786,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.847897, 0.0, 0.530162] [0.0, 1.0, -0.0] [-0.530162, 0.0, 0.847897] [-480.313, 43.8738, -238.031]]
+  transform:m=[[0.847897, 0.0, 0.530162] [0.0, 1.0, -0.0] [-0.530162, 0.0, 0.847897] [-480.313, 44.4643, -238.031]]
   groupName:t="sector_4_a"
   active:b=no
   respawnBaseGroup:i=9
@@ -6794,7 +6794,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.223802, 0.0, 0.974634] [0.0, 1.0, -0.0] [-0.974634, 0.0, 0.223802] [-584.839, 51.0611, -305.038]]
+  transform:m=[[0.223802, 0.0, 0.974634] [0.0, 1.0, -0.0] [-0.974634, 0.0, 0.223802] [-583.918, 51.0611, -300.698]]
   groupName:t="sector_5_a"
   active:b=no
   respawnBaseGroup:i=11
@@ -6802,7 +6802,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.544975, 0.0, 0.838452] [0.0, 1.0, -0.0] [-0.838452, 0.0, 0.544975] [-561.184, 50.5518, -311.534]]
+  transform:m=[[0.544975, 0.0, 0.838452] [0.0, 1.0, -0.0] [-0.838452, 0.0, 0.544975] [-562.164, 50.5518, -310.72]]
   groupName:t="sector_5_a"
   active:b=no
   respawnBaseGroup:i=11
@@ -6810,7 +6810,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.862449, 0.0, 0.506144] [0.0, 1.0, -0.0] [-0.506144, 0.0, 0.862449] [-323.157, 1.26546, 141.899]]
+  transform:m=[[0.862449, 0.0, 0.506144] [0.0, 1.0, -0.0] [-0.506144, 0.0, 0.862449] [-323.157, 1.97885, 141.899]]
   groupName:t="sector_2_b"
   active:b=no
   respawnBaseGroup:i=5
@@ -6834,7 +6834,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.4818, 0.0, 0.876282] [0.0, 1.0, -0.0] [-0.876282, 0.0, 0.4818] [-292.194, 31.1328, -156.074]]
+  transform:m=[[0.4818, 0.0, 0.876282] [0.0, 1.0, -0.0] [-0.876282, 0.0, 0.4818] [-292.194, 30.7671, -156.074]]
   groupName:t="sector_3_b"
   active:b=no
   respawnBaseGroup:i=7
@@ -6850,7 +6850,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.849335, 0.0, 0.527855] [0.0, 1.0, -0.0] [-0.527855, 0.0, 0.849335] [-448.817, 21.2759, -57.1948]]
+  transform:m=[[0.849335, 0.0, 0.527855] [0.0, 1.0, -0.0] [-0.527855, 0.0, 0.849335] [-448.817, 22.0859, -57.1948]]
   groupName:t="sector_3_c"
   active:b=no
   respawnBaseGroup:i=8

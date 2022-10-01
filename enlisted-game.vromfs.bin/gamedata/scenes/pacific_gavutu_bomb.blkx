@@ -749,8 +749,8 @@ entity{
 entity{
   _template:t="team_pacific_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2250.0
-  team__score:r=2250.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1095,7 +1095,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.409606, 0.0, 0.912262] [0.0, 1.0, 0.0] [-0.912262, 0.0, -0.409606] [264.822, 2.83528, -341.99]]
+  transform:m=[[-0.51048, 0.0, 0.859889] [0.0, 1.0, 0.0] [-0.859889, 0.0, -0.51048] [261.402, 2.83528, -336.234]]
   groupName:t="sector_1"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -1271,7 +1271,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.423002, 0.0, 0.906129] [0.0, 1.0, 0.0] [-0.906129, 0.0, -0.423002] [263.654, 2.83727, -342.55]]
+  transform:m=[[-0.523094, 0.0, 0.852275] [0.0, 1.0, 0.0] [-0.852275, 0.0, -0.523094] [261.266, 2.83727, -336.507]]
   groupName:t="sector_1"
   team:i=2
   active:b=no

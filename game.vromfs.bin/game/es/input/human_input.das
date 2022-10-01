@@ -257,6 +257,13 @@ def human_input_hero_changed_es(evt : Event; human_input__aim1 : int; var human_
   human_input__hasValidState = false
   reset_digital_action_sticky_toggle(uint16(human_input__aim1))
 
+
+[es(tag=input, on_appear, REQUIRE=deadEntity)]
+def human_input_hero_died_es(evt : Event; human_input__aim1 : int; var human_input__hasValidState : bool&)
+  human_input__hasValidState = false
+  reset_digital_action_sticky_toggle(uint16(human_input__aim1))
+
+
 [es(tag=input, REQUIRE=hero, track=human_weap__staminaCanAim)]
 def reset_aim_input_on_low_stamina(evt : Event;
                                    human_input__aim1 : int;

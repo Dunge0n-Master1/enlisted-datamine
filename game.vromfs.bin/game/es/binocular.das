@@ -257,8 +257,8 @@ def binocular_disable_on_die_client(evt : EventSoldierRecreateOnDie; eid : Entit
   sendEventImmediate(eid, [[CmdSwitchBinocularCockpit enabled=false]])
 
 
-[es(tag=server)]
-def binocular_disable_on_die_server(evt : EventSoldierRecreateOnDie;
+[es(tag=server, on_event=(EventSoldierRecreateOnDie, EventEntityDied), before=drop_held_weapon_on_death)]
+def binocular_disable_on_die_server(evt : Event;
                                     eid : EntityId;
                                     human_binocular__eid : EntityId;
                                     var human_binocular__mode : bool&;

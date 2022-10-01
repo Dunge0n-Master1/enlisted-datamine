@@ -7,9 +7,10 @@ require enlisted.events_enlisted
 
 [es(tag=server, after=human_inventory_fill_guns_custom_props_on_death)]
 def drop_held_weapon_on_death(evt : EventEntityDied;
-                              eid : EntityId)
+                              eid : EntityId;
+                              human_weap__gunEids : EidList)
   let isDropRestricted = is_teams_friendly(evt.victimTeam, evt.offenderTeam) && find_query() <| $ [es(REQUIRE=disableTeamkillWeaponDrops)] () => true
-  if !isDropRestricted
+  if !isDropRestricted && !has(human_weap__gunEids[int(HUWeaponSlots EWS_PRIMARY)], "disableItemDrop")
     drop_weap_from_slot(eid, int(HUWeaponSlots EWS_PRIMARY), /*reset_weap*/true, /*can_drop_from_dead*/true)
 
 

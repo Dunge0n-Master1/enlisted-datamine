@@ -607,9 +607,8 @@ DamageParts{
     napalmDamageMult:r=0.0
     sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
-    hp:r=10.0
-    armorThrough:r=3.0
-    armorThickness:r=1.0
+    hp:r=5.0
+    armorThickness:r=0.05
   }
 
   optic_body_01{

@@ -171,10 +171,15 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
                                                                       turret_input__isLocalControlLocked : bool = false;
                                                                       var turret_aim__shootAngles : float2&;
                                                                       var turret_aim__shootFlag : bool&)
+        let turretDir = angles_to_dir(turret_state.angles)
+        let dir = normalize(currentOrient * turretDir)
+        var tdirp = pack_unit_vec_uint(dir, 30u)
+
         if turret_input__isLocalControlLocked
+          turret_aim__shootFlag = false
           turretCount = uint8(int(turretCount) + 1)
-          bs |> Write(INVALID_ENTITY_ID)
-          bs |> Write(uint(0))
+          bs |> Write(eid)
+          bs |> Write(tdirp)
           return
 
         let aimPos = turret_input__aimPos
@@ -183,9 +188,6 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
         turret_aim__shootAngles = turret_calc_shoot_angles(net_phys__currentStatePosition, aimPos)
         turret_aim__shootFlag = shootFlag
 
-        let turretDir = angles_to_dir(turret_state.angles)
-        let dir = normalize(currentOrient * turretDir)
-        var tdirp = pack_unit_vec_uint(dir, 30u)
         // Note: 30th bit is free
         tdirp |= shootFlag ? (1u << 31u) : 0u
 
