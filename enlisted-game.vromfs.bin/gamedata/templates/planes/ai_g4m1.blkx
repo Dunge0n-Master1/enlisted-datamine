@@ -444,7 +444,6 @@ planegun_ai_g4m1_7_7mm_type92_turret_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_g4m1_7_7mm_type92_turret"
   _extends:t="gunsound_7_7mm_type92_turret_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret1"
@@ -458,7 +457,6 @@ planegun_ai_g4m1_7_7mm_type92_turret_02{
   _extends:t="base_plane_machinegun"
   _extends:t="base_g4m1_7_7mm_type92_turret"
   _extends:t="gunsound_7_7mm_type92_turret_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret2"
@@ -471,7 +469,6 @@ planegun_ai_g4m1_20mm_type99_turret_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_g4m1_20mm_type99_turret"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret3"

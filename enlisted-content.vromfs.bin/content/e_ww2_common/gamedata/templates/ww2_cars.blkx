@@ -19,6 +19,7 @@ civil_vehicle_templ{
   _tracked:t="isExploded"
   fire_damage__isBurn:b=no
   fire_damage__totalTime:r=0.0
+  timeToExplosion:r=35.0
   fire_damage__update_burn_interval:r=1.0
   fire_damage__innerRadiusMult:r=2.0
 
@@ -166,8 +167,27 @@ vehicle_seat_fire_ready{
   seat_anim__fireReadyLower:t="fireready_passenger"
 }
 
+civil_cars_steering_control_and_wheel_damage{
+  _extends:t="vehicle_steering_assist"
+  _extends:t="vehicle_maintenance"
+
+  meta_parts_state{
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_drive"
+  }
+}
+
 base_civil_fire_ready_vehicle{
   _extends:t="civil_vehicle_templ"
+  _extends:t="civil_cars_steering_control_and_wheel_damage"
 
   "vehicle_seats__seatTemplates:shared:object"{
     default:t="vehicle_seat_fire_ready"
@@ -998,6 +1018,18 @@ gmc_353_a{
     part:t="cls_body_07"
     part:t="cls_body_08"
   }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_02"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_02"
+    wheel:t="wheel_l_drive"
+  }
 }
 
 gmc_353_b{
@@ -1064,5 +1096,17 @@ gmc_353_b{
     part:t="cls_body_06"
     part:t="cls_body_07"
     part:t="cls_body_08"
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_02"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_02"
+    wheel:t="wheel_l_drive"
   }
 }

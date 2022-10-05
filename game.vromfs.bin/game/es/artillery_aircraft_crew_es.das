@@ -1,7 +1,10 @@
 require ecs
+require ecs.common
 require app
 require game.es.events
+require game.es.spawn_soldier_common
 require game.events_game
+require DagorSystem
 
 [es(tag=server, on_disappear, REQUIRE=requested_aircraft, before=vehicle_seats_kick_from_destroyed)]
 def aircraft_with_ai_crew_on_disappear(evt : Event;
@@ -24,7 +27,12 @@ def aircraft_with_ai_crew_on_appear(evt : Event;
       if seat__component == int(ecs_hash("isDriver"))
         soldierTemplate += "+ai_aircraft_crew_pilot"
 
+      let baseTemplateName = split_template(soldierTemplate)[0]
+      let tpl = getTemplateByName(baseTemplateName)
       let soldierEid = createEntity(soldierTemplate) <| $(var init : ComponentsInitializer)
+        if tpl == null || !init_soldier_tpl_deps(*tpl, /*out*/ init)
+          logerr("Can't create a list of entities for instantiation for '{soldierTemplate}' in aircraft")
+
         set(init, "team", team)
         set(init, "isAlive", true)
         set(init, "isInVehicle", true)

@@ -1,0 +1,15 @@
+plane_telesight{
+  gunmod__lensNode:t="tele"
+  gunmod__lensActive:b=yes
+  gunmod__distortionParams:p3=0.8, 0.1, 0.07
+  gunmod__reticleTex_res:t=""
+  gunmod__lensNorm:p3=-1.0, 0.0, 0.0
+  gunmod__scopeRadLen:p2=0.02, 0.4
+
+  "gunmod__reticleTex:SharedTex"{
+    _tags:t="render"
+  }
+
+  "attached_gun_scope__currentEid:eid"{
+  }
+}

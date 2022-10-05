@@ -171,7 +171,7 @@ PhysMats{
     }
 
     damageModel{
-      ricochetAngleMult:r=1.0
+      ricochetAngleMult:r=0.5
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=1.0

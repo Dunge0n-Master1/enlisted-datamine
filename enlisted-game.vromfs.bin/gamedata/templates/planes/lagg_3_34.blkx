@@ -172,7 +172,6 @@ planegun_lagg_3_34_12_7mm_ubs_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_lagg_3_34_12_7mm_ubs"
   _extends:t="gunsound_12_7mm_ubs_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=200
 }
@@ -182,7 +181,6 @@ planegun_lagg_3_34_37mm_ns37_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_lagg_3_34_37mm_ns37"
   _extends:t="gunsound_37mm_ns37_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=36
 }

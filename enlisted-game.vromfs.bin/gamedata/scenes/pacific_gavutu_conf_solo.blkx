@@ -2378,7 +2378,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[0.720642, 0.0, 0.693307] [0.0, 1.0, -0.0] [-0.693307, 0.0, 0.720642] [71.8544, 0.426854, -38.6459]]
+  transform:m=[[0.720642, 0.0, 0.693307] [0.0, 1.0, -0.0] [-0.693307, 0.0, 0.720642] [71.8544, 0.0676621, -38.6459]]
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_4_b"
   capzone_area_polygon_point__id:t="point2"
   capzone_area_polygon_point__nextId:t="point3"

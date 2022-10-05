@@ -108,8 +108,10 @@ let function reinitEquipment(eid, equipment) {
 }
 
 let function setEquipment(eid, equipment) {
-  let equipSlots = ecs.obsolete_dbg_get_comp_val(eid, "human_equipment__slots").getAll()
+  let sl = ecs.obsolete_dbg_get_comp_val(eid, "human_equipment__slots")
+  let equipSlots = sl.getAll()
   let animcharDisabledParams = calcFaceGenDisableParams(equipment)
+  local updateEquipmentSlots = false
   foreach (slot, eq in equipment) {
     if (equipSlots[slot].item != null && equipSlots[slot].item != INVALID_ENTITY_ID)
       ecs.g_entity_mgr.destroyEntity(equipSlots[slot].item)
@@ -117,24 +119,20 @@ let function setEquipment(eid, equipment) {
     if (!eq || !eq.template)
       continue
 
-    let eqSlot = slot
-    let function onCreateEquip(equipEid) {
-      let sl = ecs.obsolete_dbg_get_comp_val(eid, "human_equipment__slots")
-      if (sl?[eqSlot] != null) {
-        sl[eqSlot].item = equipEid
-        ecs.obsolete_dbg_set_comp_val(eid, "human_equipment__slots", sl)
-      }
-      else
-        ecs.g_entity_mgr.destroyEntity(equipEid)
-    }
     let comps = {
       ["slot_attach__attachedTo"] = [eid, ecs.TYPE_EID],
     }
-    if (slot == "face")
-      initFacegenParams(eq, animcharDisabledParams, comps)
-    if (eq.template && eq.template!="")
-      ecs.g_entity_mgr.createEntity(eq.template, comps, onCreateEquip)
+    if (eq.template && eq.template!="") {
+      if (sl?[slot] != null) {
+        if (slot == "face")
+          initFacegenParams(eq, animcharDisabledParams, comps)
+        sl[slot].item = ecs.g_entity_mgr.createEntity(eq.template, comps)
+        updateEquipmentSlots = true
+      }
+    }
   }
+  if (updateEquipmentSlots)
+    ecs.obsolete_dbg_set_comp_val(eid, "human_equipment__slots", sl)
 }
 
 let function getWearInfos(soldierGuid, scheme) {

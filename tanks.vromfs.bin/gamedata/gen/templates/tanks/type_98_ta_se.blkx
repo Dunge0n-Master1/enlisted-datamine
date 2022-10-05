@@ -15,6 +15,7 @@ base_type_98_ta_se{
   drowningHeight:r=1.752
   damage_model__blk:t="gamedata/gen/units/tanks/type_98_ta_se.blk"
   item__name:t="items/jp_type_98_ta_se"
+  destroyIfNoCrewLeft:b=no
   skin__template:t="type_98_ta_se_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{

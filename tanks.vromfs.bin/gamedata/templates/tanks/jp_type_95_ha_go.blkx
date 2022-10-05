@@ -1,5 +1,9 @@
 jp_type_95_ha_go_pacific{
   _extends:t="jp_type_95_ha_go_common"
+
+  "disableDMParts:list<t>"{
+    part:t="ex_smoke_01"
+  }
 }
 
 jp_type_95_ha_go_common{

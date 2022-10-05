@@ -1141,6 +1141,9 @@ dead_enlisted_base_soldier{
 
   "human_net_phys__locationPos:dp3"{
   }
+
+  "attached_gun_scope__currentEid:eid"{
+  }
 }
 
 enlisted_human_quickchat_requests{

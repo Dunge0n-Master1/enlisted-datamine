@@ -38,6 +38,9 @@ let wpPresentation = freeze({
   wallposter_battlepass_season_6_preview = {
     img = "agit_poster_enlisted_battlepass_d_tex_d*"
   }
+  wallposter_battlepass_season_7_preview = {
+    img = "agit_poster_enlisted_battlepass_e_tex_d*"
+  }
   agit_poster_ussr_a_preview = {
     img = "agit_poster_ussr_a_tex_d*"
   }

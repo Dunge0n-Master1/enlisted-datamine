@@ -1,6 +1,7 @@
 import:t="gen_aircraft_base.blk"
 import:t="gen_aircraft.blk"
 import:t="plane_cockpit.blk"
+import:t="plane_telesight.blk"
 
 aircraft_crew_replicated_components{
   aircraft_crew__stamina:r=1.0

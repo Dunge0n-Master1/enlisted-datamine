@@ -28525,5 +28525,6310 @@ return {
       ],
       "wallPosters" : [],
       "wallPostersCount" : 3
+   },
+   "pacific_allies" : {
+      "armyId" : "pacific_allies",
+      "boosters" : [],
+      "campaignId" : "pacific",
+      "classBonus" : {},
+      "country" : "usa",
+      "curSquadId" : "allies_pacific_rifle_1",
+      "exp" : 0,
+      "expLimits" : {
+         "minArmyExp" : 500,
+         "minSoldiersLvlUp" : 0
+      },
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {},
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 25468,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9875929951667786,
+                     "width" : 1.069338083267212
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19215",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903a1_springfield_usmc_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Glen",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 9,
+                     "weapon" : 7
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Williams",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 11272,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.005846738815308,
+                     "width" : 1.044071197509766
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19232",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Jorge",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 4,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Gonzalez",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 13290,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.003816604614258,
+                     "width" : 1.008325457572937
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19251",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Armando",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 5,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Wilson",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 5459,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9886806607246399,
+                     "width" : 1.019168019294739
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_08",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19271",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 3,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Kevin",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 4,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Murphy",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 9866,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.018308043479919,
+                     "width" : 1.027793765068054
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_04",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m43_khaki_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19290",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 4,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Marcus",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 4,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Wilson",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_rifle_1",
+            "squadType" : "rifle",
+            "toLevelExp" : 1380,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "us_halftrack_m13_pacific",
+               "guid" : "us_halftrack_m13_pacific_19362",
+               "mods" : [
+                  {
+                     "statKey" : "suspension_dampening",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "track_friction_frontal_sliding",
+                     "statValue" : 1.100000023841858
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_max_friction",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "engine_power",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "braking_force",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "turret_ver_speed",
+                     "statValue" : 0.8000000119209290
+                  },
+                  {
+                     "statKey" : "gun_spread__maxDeltaAngle",
+                     "statValue" : 1.149999976158142
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_max_speed",
+                     "statValue" : 1.100000023841858
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_min_speed",
+                     "statValue" : 1.100000023841858
+                  },
+                  {
+                     "statKey" : "turret_hor_speed",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_min_friction",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "track_friction_frontal_static",
+                     "statValue" : 1.049999952316284
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 2240,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.019667983055115,
+                     "width" : 1.076208353042603
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "tanker_helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_tanker_19310",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Roy",
+                  "perkPoints" : {
+                     "speed" : 9,
+                     "vitality" : 6,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.09959999471902847
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker",
+                  "sKind" : "tanker",
+                  "surname" : "Singleton",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 2723,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.016248703002930,
+                     "width" : 1.000644564628601
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_05",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "tanker_helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_tanker_19327",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Steven",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 1,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.09959999471902847
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker",
+                  "sKind" : "tanker",
+                  "surname" : "Smith",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 26952,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9861696362495422,
+                     "width" : 1.044051647186279
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_tanker_overall_cloth_green_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "tanker_helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_m1916_holster_tanker_coverall_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_overall_green_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_tanker_19345",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Steven",
+                  "perkPoints" : {
+                     "speed" : 7,
+                     "vitality" : 1,
+                     "weapon" : 6
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.09959999471902847
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker",
+                  "sKind" : "tanker",
+                  "surname" : "Alvarez",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_tank_1",
+            "squadType" : "tank",
+            "toLevelExp" : 1220,
+            "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 10056,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.006299614906311,
+                     "width" : 1.023303985595703
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_first_aid_backpack_medic_squad_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_04",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "m1_helmet_medic_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_us_m43_jacket_medic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_medic_19424",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "m50_reising_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m50_reising_gun",
+                     "secondary" : "medic_box_item",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "anm8_smoke_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "medic_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Charles",
+                  "perkPoints" : {
+                     "speed" : 9,
+                     "vitality" : 10,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_medic",
+                        "stats" : [
+                           {
+                              "statKey" : "run_speed",
+                              "statValue" : 0.03500000014901161
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "medic",
+                  "sKind" : "medic",
+                  "surname" : "Stevens",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 22353,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9931400418281555,
+                     "width" : 1.004465460777283
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_first_aid_backpack_medic_squad_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_08",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "m1_helmet_medic_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_us_m43_jacket_medic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_medic_19444",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "medic_box_item",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "anm8_smoke_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "medic_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Millard",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 6,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_medic",
+                        "stats" : [
+                           {
+                              "statKey" : "run_speed",
+                              "statValue" : 0.03500000014901161
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "medic",
+                  "sKind" : "medic",
+                  "surname" : "Jacobs",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 14990,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.001537561416626,
+                     "width" : 1.077421784400940
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_first_aid_backpack_medic_squad_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_jacket_m43_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "m1_helmet_medic_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_khaki_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_us_m43_jacket_medic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_medic_19467",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "medic_box_item",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "anm8_smoke_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "medic_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Paul",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 5,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_medic",
+                        "stats" : [
+                           {
+                              "statKey" : "run_speed",
+                              "statValue" : 0.03500000014901161
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "medic",
+                  "sKind" : "medic",
+                  "surname" : "Klein",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_medic_1",
+            "squadType" : "medic",
+            "toLevelExp" : 960,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 5995,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9863625168800354,
+                     "width" : 1.047760248184204
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_07",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_engineer_19489",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "enfield_p14_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "usa_shovel_weapon",
+                     "primary" : "enfield_p14_gun",
+                     "secondary" : "usa_building_tool_gun",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "ussr_molotov_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Sheldon",
+                  "perkPoints" : {
+                     "speed" : 7,
+                     "vitality" : 8,
+                     "weapon" : 6
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_engineer",
+                        "stats" : [
+                           {
+                              "statKey" : "crawl_crouch_speed",
+                              "statValue" : 0.2099999934434891
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "engineer",
+                  "sKind" : "engineer",
+                  "surname" : "Nelson",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 14864,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9990093708038330,
+                     "width" : 1.022332191467285
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_09",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19509",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Kristopher",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 5,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Austin",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 30471,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.008518934249878,
+                     "width" : 1.027469158172607
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19528",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Rodney",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 5,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Phelps",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 17112,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9982500672340393,
+                     "width" : 1.026646375656128
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19550",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 3,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Bradley",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 3,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Sanders",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_engineer_1",
+            "squadType" : "engineer",
+            "toLevelExp" : 940,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "soc_1",
+               "guid" : "soc_1_19586",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 4428,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9856239557266235,
+                     "width" : 1.048377990722656
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_parachute_a2_jacket_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_01",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "pilot_helmet_us_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pilot_pants_us_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_a2_jacket_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_pilot_assaulter_19570",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Richard",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 7,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Berry",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 1740,
+            "vehicleType" : "assault_aircraft"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 27333,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.001539945602417,
+                     "width" : 1.002861380577087
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_05",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "radio" : {
+                        "gametemplate" : "scr_300_gun",
+                        "slot" : "radio"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_radioman_19820",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1_carbine_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Wayne",
+                  "perkPoints" : {
+                     "speed" : 11,
+                     "vitality" : 7,
+                     "weapon" : 6
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_radioman",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_change_weapon",
+                              "statValue" : 0.1749999970197678
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "radioman",
+                  "sKind" : "radioman",
+                  "surname" : "Miller",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 19231,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9888564944267273,
+                     "width" : 1.003413200378418
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19842",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "George",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 3,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Malone",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 13756,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.002592206001282,
+                     "width" : 1.019268155097961
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_us_belt_m36_jacket_m41_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "head" : {
+                        "gametemplate" : "helmet_04_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_04_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "rear_belt_r" : {
+                        "gametemplate" : "attachable_wear_us_cutter_in_pouch_jacket_m41_item",
+                        "slot" : "rear_belt_r"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m41_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19865",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Joel",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 5,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Lambert",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_radioman_1",
+            "squadType" : "radioman",
+            "toLevelExp" : 3860,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "f2a3",
+               "guid" : "f2a3_19902",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 16834,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9845936298370361,
+                     "width" : 1.012297749519348
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_parachute_a2_jacket_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_08",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "pilot_helmet_us_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pilot_pants_us_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_pilot_a2_jacket_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_pilot_fighter_19888",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Clarence",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 8,
+                     "weapon" : 7
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_fighter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_stamina_regeneration",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_fighter",
+                  "sKind" : "pilot_fighter",
+                  "surname" : "Contreras",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_pilot_fighter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 7570,
+            "vehicleType" : "fighter_aircraft"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 28623,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.003653049468994,
+                     "width" : 1.027036905288696
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_shirt_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_02_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_br_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_shirt_camo_M44_green_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_assault_19904",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 4,
+                        "reserveAmmoTemplate" : "owen_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "owen_mk1_42_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "m_15_incendiary_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_antipersonnel_mine"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Alexis",
+                  "perkPoints" : {
+                     "speed" : 11,
+                     "vitality" : 9,
+                     "weapon" : 10
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_assault_2",
+                        "stats" : [
+                           {
+                              "statKey" : "stamina_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "assault_2",
+                  "sKind" : "assault",
+                  "surname" : "Wallace",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 12523,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 1.018466711044312,
+                     "width" : 1.073278546333313
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_shirt_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_08",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_02_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_br_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_shirt_camo_M44_green_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19923",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Ernest",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 3,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Brown",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 22752,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9808264374732971,
+                     "width" : 1.048451185226440
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_shirt_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_04",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_02_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_br_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_shirt_camo_M44_green_b_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19942",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Ryan",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 4,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Watson",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 29343,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9889370203018188,
+                     "width" : 1.027820706367493
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_ammo_belt_m43_shirt_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "usa_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_02_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_us_m1_helmet_w_br_cover_tunic_04_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_shirt_camo_M44_green_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "allies_pacific_soldier_rifle_19962",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "m1905_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "m1903_springfield_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "m1903_springfield_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 3,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "medkit_item"
+                     },
+                     {
+                        "gametemplate" : "mk2_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "usa_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Jacob",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 4,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Jackson",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_pacific_assault_2",
+            "squadType" : "assault",
+            "toLevelExp" : 6560,
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [],
+      "wallPostersCount" : 3
+   },
+   "pacific_axis" : {
+      "armyId" : "pacific_axis",
+      "boosters" : [],
+      "campaignId" : "pacific",
+      "classBonus" : {},
+      "country" : "japan",
+      "curSquadId" : "axis_pacific_rifle_1",
+      "exp" : 0,
+      "expLimits" : {
+         "minArmyExp" : 500,
+         "minSoldiersLvlUp" : 0
+      },
+      "expToLevel" : [ 0, 800, 1600, 3200, 6400, 12800 ],
+      "freemiumExpMult" : 1.0,
+      "globalData" : {
+         "globalGifts" : {},
+         "globalGiftsCfg" : [
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order",
+               "loopCount" : 1,
+               "loopExp" : 6000,
+               "startCount" : 1,
+               "startExp" : 3000
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order",
+               "loopCount" : 1,
+               "loopExp" : 3000,
+               "startCount" : 1,
+               "startExp" : 1500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "weapon_order_silver",
+               "loopCount" : 1,
+               "loopExp" : 25000,
+               "startCount" : 1,
+               "startExp" : 12500
+            },
+            {
+               "army" : "common_army",
+               "basetpl" : "soldier_order_silver",
+               "loopCount" : 1,
+               "loopExp" : 50000,
+               "startCount" : 1,
+               "startExp" : 25000
+            }
+         ]
+      },
+      "isArmyProgressLocked" : false,
+      "isFakeSquads" : false,
+      "level" : 1,
+      "squads" : [
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 5269,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9427188634872437,
+                     "width" : 0.9614114761352539
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_04",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_field_cap_w_cover_rifle_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21179",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "jap_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Ryuu",
+                  "perkPoints" : {
+                     "speed" : 9,
+                     "vitality" : 9,
+                     "weapon" : 9
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Hayashi",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 15355,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9476921558380127,
+                     "width" : 0.9656059145927429
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_09",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_field_cap_rifle_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21194",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Michi",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 5,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Takahashi",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 18832,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9428189992904663,
+                     "width" : 0.9948231577873230
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_field_cap_rifle_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21209",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Kichiro",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 4,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Ono",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 20064,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9565986990928650,
+                     "width" : 0.9966151714324951
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_field_cap_w_cover_rifle_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21223",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 3,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Aoi",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 5,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Nakano",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 430,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9557881355285645,
+                     "width" : 0.9618875384330750
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_tropic_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tropic_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_08",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_tropic_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_tropical_shorts_tabi_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_h_sleeve_shirt_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_field_cap_w_cover_rifle_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tropic_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21238",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 4,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Michi",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 5,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Shimizu",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_rifle_1",
+            "squadType" : "rifle",
+            "toLevelExp" : 1030,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "jp_type_98_ta_se_pacific",
+               "guid" : "jp_type_98_ta_se_pacific_21305",
+               "mods" : [
+                  {
+                     "statKey" : "suspension_dampening",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "track_friction_frontal_sliding",
+                     "statValue" : 1.100000023841858
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_max_friction",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "engine_power",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "braking_force",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "turret_ver_speed",
+                     "statValue" : 0.8000000119209290
+                  },
+                  {
+                     "statKey" : "gun_spread__maxDeltaAngle",
+                     "statValue" : 1.149999976158142
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_max_speed",
+                     "statValue" : 1.100000023841858
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_min_speed",
+                     "statValue" : 1.100000023841858
+                  },
+                  {
+                     "statKey" : "turret_hor_speed",
+                     "statValue" : 0.8500000238418579
+                  },
+                  {
+                     "statKey" : "track_friction_side_rot_min_friction",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "track_friction_frontal_static",
+                     "statValue" : 1.049999952316284
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 15319,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9537458419799805,
+                     "width" : 0.9654399156570435
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tanker_coverall_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_04",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_jap_gloves_tanker_coverall_item",
+                        "slot" : "gloves"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_tanker_coverall_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_tanker_helmet_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tanker_coverall_br_w_legings_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_tanker_21255",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "nambu_type_14_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nambu_type_14_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Goro",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 6,
+                     "weapon" : 9
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.09959999471902847
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker",
+                  "sKind" : "tanker",
+                  "surname" : "Suzuki",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 24488,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9417374134063721,
+                     "width" : 0.9911950826644897
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tanker_coverall_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_01",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_jap_gloves_tanker_coverall_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_tanker_coverall_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_tanker_helmet_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tanker_coverall_br_w_legings_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_tanker_21272",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "nambu_type_14_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nambu_type_14_gun"
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Yuuki",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 1,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.09959999471902847
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker",
+                  "sKind" : "tanker",
+                  "surname" : "Ono",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 13147,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9645933508872986,
+                     "width" : 1.009767413139343
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tanker_coverall_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_jap_gloves_tanker_coverall_item",
+                        "slot" : "gloves"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_tanker_coverall_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_tanker_helmet_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_tanker_coverall_br_w_legings_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_tanker_21289",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "nambu_type_14_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nambu_type_14_gun"
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Ryou",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 2,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker",
+                        "stats" : [
+                           {
+                              "statKey" : "seat_change_speed",
+                              "statValue" : 0.09959999471902847
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker",
+                  "sKind" : "tanker",
+                  "surname" : "Takaki",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_tank_1",
+            "squadType" : "tank",
+            "toLevelExp" : 1220,
+            "vehicleType" : "tank"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 6933,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9548323154449463,
+                     "width" : 0.9766048192977905
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_jap_medic_bag_t98_tunic_item",
+                        "slot" : "backpack"
+                     },
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_01",
+                        "slot" : "face"
+                     },
+                     "flask_r" : {
+                        "gametemplate" : "attachable_wear_jap_type94_canteen_t98_tunic_item",
+                        "slot" : "flask_r"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_medic_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_medic_squad_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_medic_21368",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "mp34o_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "mp_34_jp_gun",
+                     "secondary" : "medic_box_item",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_94_smoke_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "medic_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Hideki",
+                  "perkPoints" : {
+                     "speed" : 7,
+                     "vitality" : 8,
+                     "weapon" : 6
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_medic",
+                        "stats" : [
+                           {
+                              "statKey" : "run_speed",
+                              "statValue" : 0.03500000014901161
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "medic",
+                  "sKind" : "medic",
+                  "surname" : "Taniguchi",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 6926,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9437455534934998,
+                     "width" : 0.9801693558692932
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_jap_medic_bag_t98_tunic_item",
+                        "slot" : "backpack"
+                     },
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_05",
+                        "slot" : "face"
+                     },
+                     "flask_r" : {
+                        "gametemplate" : "attachable_wear_jap_type94_canteen_t98_tunic_item",
+                        "slot" : "flask_r"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_medic_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_medic_squad_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_medic_21398",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "medic_box_item",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_94_smoke_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "medic_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Hayato",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 4,
+                     "weapon" : 2
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_medic",
+                        "stats" : [
+                           {
+                              "statKey" : "run_speed",
+                              "statValue" : 0.03500000014901161
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "medic",
+                  "sKind" : "medic",
+                  "surname" : "Ueno",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 9899,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9396865367889404,
+                     "width" : 0.9537867307662964
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_jap_medic_bag_t98_tunic_item",
+                        "slot" : "backpack"
+                     },
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "flask_r" : {
+                        "gametemplate" : "attachable_wear_jap_type94_canteen_t98_tunic_item",
+                        "slot" : "flask_r"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type99_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_medic_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_medic_squad_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_medic_21428",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "medic_box_item",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_94_smoke_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "medic_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Haru",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 6,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_medic",
+                        "stats" : [
+                           {
+                              "statKey" : "run_speed",
+                              "statValue" : 0.03500000014901161
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "medic",
+                  "sKind" : "medic",
+                  "surname" : "Ishida",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_medic_1",
+            "squadType" : "medic",
+            "toLevelExp" : 960,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 22914,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9319238662719727,
+                     "width" : 1.000624060630798
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_08",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_engineer_21459",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "usa_shovel_weapon",
+                     "primary" : "japanese_type_i_carcano_gun",
+                     "secondary" : "jp_building_tool_gun",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "ussr_molotov_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Taro",
+                  "perkPoints" : {
+                     "speed" : 8,
+                     "vitality" : 10,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_engineer",
+                        "stats" : [
+                           {
+                              "statKey" : "crawl_crouch_speed",
+                              "statValue" : 0.2099999934434891
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "engineer",
+                  "sKind" : "engineer",
+                  "surname" : "Yamada",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 14403,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9616891741752625,
+                     "width" : 1.024560332298279
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_05",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21483",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Ichiro",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 5,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Tamura",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 7437,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9590597152709961,
+                     "width" : 1.026574611663818
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21505",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Kazuo",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 3,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Watabe",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 20663,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9562215209007263,
+                     "width" : 0.9633573293685913
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_09",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21528",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 3,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Kaoru",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 5,
+                     "weapon" : 4
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Ishida",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_engineer_1",
+            "squadType" : "engineer",
+            "toLevelExp" : 1150,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "e13a1",
+               "guid" : "e13a1_21566",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 7089,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9491118788719177,
+                     "width" : 0.9918054938316345
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_coverall_parachute_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_gloves_coverall_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_type30_helmet_goggles_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_sum_coverall_vest_gloves_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_pilot_assaulter_21552",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "nambu_type_14_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nambu_type_14_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Kaoru",
+                  "perkPoints" : {
+                     "speed" : 7,
+                     "vitality" : 9,
+                     "weapon" : 9
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_assaulter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_willpower",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_assaulter",
+                  "sKind" : "pilot_assaulter",
+                  "surname" : "Miyamoto",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_pilot_assaulter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 1740,
+            "vehicleType" : "assault_aircraft"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 905,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9456718564033508,
+                     "width" : 0.9984536170959473
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_jap_radio_device_engineer_squad_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_09",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_radioman_21882",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 10,
+                        "reserveAmmoTemplate" : "type_hei_rifle_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "type_hei_rifle_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Hayato",
+                  "perkPoints" : {
+                     "speed" : 13,
+                     "vitality" : 8,
+                     "weapon" : 6
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_radioman",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_change_weapon",
+                              "statValue" : 0.1749999970197678
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "radioman",
+                  "sKind" : "radioman",
+                  "surname" : "Fujita",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 25078,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9612362980842590,
+                     "width" : 0.9544141888618469
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21905",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Nobuyuki",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 5,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Takahashi",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 12864,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9317993521690369,
+                     "width" : 0.9576711058616638
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_01",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tropic_helmet_t98_tunic_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21928",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "jap_tnt_block"
+                     },
+                     {
+                        "gametemplate" : "tnt_block_exploder"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Katsuo",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 5,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Ishii",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_radioman_1",
+            "squadType" : "radioman",
+            "toLevelExp" : 3860,
+            "vehicleType" : ""
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
+               "gametemplate" : "a5m4",
+               "guid" : "a5m4_21966",
+               "mods" : [
+                  {
+                     "statKey" : "mulCdminFusel",
+                     "statValue" : 0.8333333134651184
+                  },
+                  {
+                     "statKey" : "mulCompressorMaxP",
+                     "statValue" : 0.9300000071525574
+                  },
+                  {
+                     "statKey" : "cutProbabilityMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "damageReceivedMult",
+                     "statValue" : 1.0
+                  },
+                  {
+                     "statKey" : "mulMass",
+                     "statValue" : 0.9478673338890076
+                  },
+                  {
+                     "statKey" : "mulCdminTail",
+                     "statValue" : 0.9345793724060059
+                  },
+                  {
+                     "statKey" : "radiatorEffMul",
+                     "statValue" : 0.9499999880790710
+                  },
+                  {
+                     "statKey" : "mulOswEffNumber",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulHorsePowers",
+                     "statValue" : 0.8999999761581421
+                  },
+                  {
+                     "statKey" : "mulCdmin",
+                     "statValue" : 0.875656783580780
+                  }
+               ]
+            },
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 2909,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9642478823661804,
+                     "width" : 0.9958094954490662
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_coverall_parachute_item",
+                        "slot" : "backpack"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_09",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_gloves_coverall_item",
+                        "slot" : "gloves"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_type30_helmet_goggles_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_pilot_sum_coverall_vest_gloves_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_pilot_fighter_21953",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "nambu_type_14_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "",
+                     "secondary" : "",
+                     "tertiary" : "nambu_type_14_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Yoshirou",
+                  "perkPoints" : {
+                     "speed" : 6,
+                     "vitality" : 9,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_pilot_fighter",
+                        "stats" : [
+                           {
+                              "statKey" : "pilot_stamina_regeneration",
+                              "statValue" : 0.05000000074505806
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "pilot_fighter",
+                  "sKind" : "pilot_fighter",
+                  "surname" : "Ishida",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_pilot_fighter_1",
+            "squadType" : "aircraft",
+            "toLevelExp" : 7570,
+            "vehicleType" : "fighter_aircraft"
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : null,
+            "engineerUnlocks" : [],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "squad" : [
+               {
+                  "appearance__rndSeed" : 26901,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9338880181312561,
+                     "width" : 1.023967027664185
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_03",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_sniper_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_assault_21968",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 3,
+                        "reserveAmmoTemplate" : "lanchester_50_round_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "mp_28_jp_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_91_incendiary_grenade_item"
+                     },
+                     {
+                        "gametemplate" : "jp_antipersonnel_mine"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Ryota",
+                  "perkPoints" : {
+                     "speed" : 10,
+                     "vitality" : 7,
+                     "weapon" : 8
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_assault_2",
+                        "stats" : [
+                           {
+                              "statKey" : "stamina_boost",
+                              "statValue" : 0.3499999940395355
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "assault_2",
+                  "sKind" : "assault",
+                  "surname" : "Yamamoto",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 28474,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9496795535087585,
+                     "width" : 0.9860557913780212
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_06",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_w_net_sniper_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_21995",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Haruki",
+                  "perkPoints" : {
+                     "speed" : 3,
+                     "vitality" : 4,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Sakurai",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 12618,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9684850573539734,
+                     "width" : 1.007545709609985
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_w_net_sniper_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_22021",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     },
+                     {
+                        "gametemplate" : "type_97_grenade_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Hachiro",
+                  "perkPoints" : {
+                     "speed" : 5,
+                     "vitality" : 4,
+                     "weapon" : 5
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Kato",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               },
+               {
+                  "appearance__rndSeed" : 6995,
+                  "availPerks" : 0,
+                  "bodyScale" : {
+                     "height" : 0.9669566750526428,
+                     "width" : 0.9707306027412415
+                  },
+                  "callname" : "",
+                  "equipment" : {
+                     "bag_l" : {
+                        "gametemplate" : "attachable_wear_jap_bread_bag_t98_tunic_item",
+                        "slot" : "bag_l"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_jap_belt_tool_pouch_t98_tunic_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "jap_gen_head_01",
+                        "slot" : "face"
+                     },
+                     "front_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_type96_99_lmg_ammo_pouch_l_t98_tunic_item",
+                        "slot" : "front_belt_l"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_jap_type98_trousers_w_boots_medic_squad_item",
+                        "slot" : "pants"
+                     },
+                     "side_belt_l" : {
+                        "gametemplate" : "attachable_wear_jap_sheath_t98_tunic_item",
+                        "slot" : "side_belt_l"
+                     },
+                     "side_belt_r" : {
+                        "gametemplate" : "attachable_wear_jap_type14_nambu_holster_t98_tunic_item",
+                        "slot" : "side_belt_r"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_jap_type90_helmet_sniper_squad_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jap_type98_tunic_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "jap_base_soldier",
+                  "guid" : "axis_pacific_soldier_rifle_22047",
+                  "heroTpl" : "",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {
+                           "bayonet" : "type_30_bayonet_item"
+                        },
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "arisaka_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "arisaka_type_38_carbine_gun",
+                     "secondary" : "",
+                     "tertiary" : ""
+                  },
+                  "id" : 3,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "jap_medkit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 2,
+                  "name" : "Hideyoshi",
+                  "perkPoints" : {
+                     "speed" : 4,
+                     "vitality" : 5,
+                     "weapon" : 3
+                  },
+                  "perks" : [
+                     {
+                        "name" : "starter_rifle",
+                        "stats" : [
+                           {
+                              "statKey" : "faster_decreasing_of_maximum_shot_spread",
+                              "statValue" : 0.1049999967217445
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "rifle",
+                  "sKind" : "rifle",
+                  "surname" : "Kimura",
+                  "tier" : 1,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_pacific_assault_2",
+            "squadType" : "assault",
+            "toLevelExp" : 6560,
+            "vehicleType" : ""
+         }
+      ],
+      "wallPosters" : [],
+      "wallPostersCount" : 3
    }
 }

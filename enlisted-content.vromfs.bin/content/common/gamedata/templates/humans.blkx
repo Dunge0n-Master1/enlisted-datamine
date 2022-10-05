@@ -2336,4 +2336,7 @@ base_human_weap{
   "human_weap__localProjectilePhysEid:eid"{
     _tags:t="netClient"
   }
+
+  "attached_gun_scope__currentEid:eid"{
+  }
 }

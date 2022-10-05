@@ -57,7 +57,7 @@ VehiclePhys{
     suspensionOffsets:p3=-0.11, -0.11, 0.1
     defaultGearRadius:r=0.33
     sinkableDist:r=0.07
-    defaultDampeningForce:p2=20000.0, 20000.0
+    defaultDampeningForce:p2=3480.0, 3480.0
     hasSuspensionOnDriveGear:b=yes
     dampeningRelaxationRatio:r=0.8
     dampeningCompressionRatio:r=0.8
@@ -96,6 +96,13 @@ VehiclePhys{
       wheel_l_drive:b=yes
       wheel_r_drive:b=yes
     }
+
+    wheelsDamageWeight{
+      wheel_l_01:r=0.25
+      wheel_r_01:r=0.25
+      wheel_l_drive:r=0.25
+      wheel_r_drive:r=0.25
+    }
   }
 }
 
@@ -114,13 +121,31 @@ DamageParts{
   }
 
   engine{
-    hp:r=10.0
+    hp:r=55.0
 
     engine{
-      createSecondaryShatters:b=no
-      armorThickness:r=0.3
-      armorThrough:r=10.0
-      fireProtectionHp:r=100.0
+      hitTestType:t="inner"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=0.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=5.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      napalmDamageMult:r=0.0
+      sonicDamageMult:r=0.0
+      vital:b=yes
+      movement:b=yes
+      fire:b=yes
+      armorClass:t="armor_tank_engine"
+      hp:r=90.0
+      armorThickness:r=50.0
+      restrainDamage:r=0.5
     }
   }
 
@@ -131,6 +156,102 @@ DamageParts{
       createSecondaryShatters:b=no
       armorThickness:r=0.3
       armorThrough:r=10.0
+    }
+  }
+
+  wheels{
+    hp:r=55.0
+
+    wheel_r_01{
+      hitTestType:t="exclude"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=1.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=-1.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      napalmDamageMult:r=0.0
+      sonicDamageMult:r=0.0
+      vital:b=yes
+      armorClass:t="car_wheels"
+      hp:r=55.0
+      armorThickness:r=10.0
+      restrainDamage:r=0.5
+    }
+
+    wheel_l_01{
+      hitTestType:t="exclude"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=1.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=-1.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      napalmDamageMult:r=0.0
+      sonicDamageMult:r=0.0
+      vital:b=yes
+      armorClass:t="car_wheels"
+      hp:r=55.0
+      armorThickness:r=10.0
+      restrainDamage:r=0.5
+    }
+
+    wheel_l_drive{
+      hitTestType:t="exclude"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=1.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=-1.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      napalmDamageMult:r=0.0
+      sonicDamageMult:r=0.0
+      vital:b=yes
+      armorClass:t="car_wheels"
+      hp:r=55.0
+      armorThickness:r=10.0
+      restrainDamage:r=0.5
+    }
+
+    wheel_r_drive{
+      hitTestType:t="exclude"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=1.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=-1.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      napalmDamageMult:r=0.0
+      sonicDamageMult:r=0.0
+      vital:b=yes
+      armorClass:t="car_wheels"
+      hp:r=55.0
+      armorThickness:r=10.0
+      restrainDamage:r=0.5
     }
   }
 }

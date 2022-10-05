@@ -538,331 +538,6 @@ dmg{
 }
 
 dmg{
-  name:t="tree_cocos_nucifera_medium_a"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_medium_b"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_medium_c"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_medium_d"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_small_a"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.25
-  canopyWidthPart:r=0.1
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_small_b"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.25
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_small_c"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.25
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_small_d"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.15
-  canopyTopOffset:r=0.25
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_tall_a"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.17
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_tall_b"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.17
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_tall_c"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.17
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_cocos_nucifera_tall_d"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.17
-  canopyWidthPart:r=0.15
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_musa_paradisiaca_smaller_a"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.7
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.1
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_musa_paradisiaca_smaller_b"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.7
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.1
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_musa_paradisiaca_small_a"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.27
-  canopyWidthPart:r=0.12
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_musa_paradisiaca_small_b"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.27
-  canopyWidthPart:r=0.12
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_musa_paradisiaca_tall_a"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.21
-  canopyWidthPart:r=0.12
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="tree_musa_paradisiaca_tall_b"
-  destructionImpulse:r=6000.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.2
-  canopyTopOffset:r=0.21
-  canopyWidthPart:r=0.12
-  canopyOpacity:r=0.5
-  fx:t="wood_mid_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="monstera_bush_a"
-  destructionImpulse:r=600.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.7
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.55
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="monstera_bush_b"
-  destructionImpulse:r=600.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.7
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.55
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="monstera_bush_c"
-  destructionImpulse:r=600.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.7
-  canopyTopOffset:r=0.2
-  canopyWidthPart:r=0.55
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="forest_fern_a"
-  destructionImpulse:r=100.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.4
-  canopyTopOffset:r=0.6
-  canopyWidthPart:r=0.2
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="forest_fern_b"
-  destructionImpulse:r=100.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.4
-  canopyTopOffset:r=0.6
-  canopyWidthPart:r=0.2
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="forest_lush_fern_a"
-  destructionImpulse:r=100.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.4
-  canopyTopOffset:r=0.6
-  canopyWidthPart:r=0.2
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
-  name:t="forest_lush_fern_b"
-  destructionImpulse:r=100.0
-  canopyTriangle:b=no
-  canopyTopPart:r=0.4
-  canopyTopOffset:r=0.6
-  canopyWidthPart:r=0.2
-  canopyOpacity:r=0.5
-  fx:t="wood_small_destr"
-  fxScale:r=1.0
-  material:t="wood"
-}
-
-dmg{
   name:t="wheat_bunch_1x1_a"
   material:t="bushes"
   bushBehaviour:b=yes
@@ -1058,34 +733,6 @@ dmg{
   material:t="bushes"
   bushBehaviour:b=yes
   canopyWidthPart:r=0.2
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_a"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.7
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_b"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.7
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_c"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.7
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_big_a"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.8
 }
 
 dmg{
@@ -2662,6 +2309,359 @@ dmg{
   name:t="tree_debris_spruce_fallen_a"
   destructionImpulse:r=5000000.0
   material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_c"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_d"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.1
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_c"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_d"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_c"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_d"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_smaller_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.1
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_smaller_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.1
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_small_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.27
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_small_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.27
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_tall_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.21
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_tall_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.21
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="monstera_bush_a"
+  destructionImpulse:r=600.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.55
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="monstera_bush_b"
+  destructionImpulse:r=600.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.55
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="monstera_bush_c"
+  destructionImpulse:r=600.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.55
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_fern_a"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_fern_b"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_lush_fern_a"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_lush_fern_b"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_a"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_b"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_c"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_big_a"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
 }
 
 riExtra{
@@ -44028,7 +44028,7 @@ riExtra{
     isParent:b=yes
     fx:t="metal_mid_destr"
     fxScale:r=3.0
-    nextRes:t="tractor_stz_1_abandoned_c_dmg"
+    nextRes:t="tractor_stz_1_abandoned_b_dmg"
     physRes:t="tractor_stz_1_abandoned_c_destr_phobj"
   }
 
@@ -44700,6 +44700,216 @@ riExtra{
   gaz_m1_destroyed_c_painted{
     nextRes:t="gaz_m1_destroyed_dmg"
     physRes:t="gaz_m1_destroyed_c_painted_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  gaz_24{
+    nextRes:t="gaz_24_dmg"
+    physRes:t="gaz_24_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  gaz_24_abandoned_a{
+    nextRes:t="gaz_24_dmg"
+    physRes:t="gaz_24_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  gaz_24_abandoned_b{
+    nextRes:t="gaz_24_dmg"
+    physRes:t="gaz_24_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  gzsa_3704{
+    nextRes:t="gzsa_3704_dmg"
+    physRes:t="gzsa_3704_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  liaz_677{
+    nextRes:t="liaz_677_dmg"
+    physRes:t="liaz_677_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  moskvich_408{
+    nextRes:t="moskvich_408_dmg"
+    physRes:t="moskvich_408_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  raf_2203_abandoned_a{
+    nextRes:t="raf_2203_dmg"
+    physRes:t="raf_2203_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  raf_2203{
+    nextRes:t="raf_2203_dmg"
+    physRes:t="raf_2203_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  raf_22031{
+    nextRes:t="raf_22031_dmg"
+    physRes:t="raf_2203_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  raf_22032{
+    nextRes:t="raf_22032_dmg"
+    physRes:t="raf_2203_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  uaz_452{
+    nextRes:t="uaz_452_dmg"
+    physRes:t="uaz_452_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  uaz_452_abandoned_a{
+    nextRes:t="uaz_452_dmg"
+    physRes:t="uaz_452_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  uaz_452_abandoned_b{
+    nextRes:t="uaz_452_dmg"
+    physRes:t="uaz_452_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  uaz_31514{
+    nextRes:t="uaz_31514_dmg"
+    physRes:t="uaz_31514_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  uaz_31514_abandoned_a{
+    nextRes:t="uaz_31514_dmg"
+    physRes:t="uaz_31514_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  uaz_31514_abandoned_b{
+    nextRes:t="uaz_31514_dmg"
+    physRes:t="uaz_31514_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  vaz_2101_a{
+    nextRes:t="vaz_2101_a_dmg"
+    physRes:t="vaz_2101_a_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  vaz_2101_b{
+    nextRes:t="vaz_2101_b_dmg"
+    physRes:t="vaz_2101_b_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  zaz_968{
+    nextRes:t="zaz_968_dmg"
+    physRes:t="zaz_968_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  zil_pm130{
+    nextRes:t="zil_pm130_dmg"
+    physRes:t="zil_pm130_destr_phobj"
+    destructionImpulse:r=40000.0
+    impulseThreshold:r=2000.0
+    fx:t="metal_mid_destr"
+    fxScale:r=0.6
+    isParent:b=yes
+  }
+
+  zil_130{
+    nextRes:t="zil_130_dmg"
+    physRes:t="zil_130_destr_phobj"
     destructionImpulse:r=40000.0
     impulseThreshold:r=2000.0
     fx:t="metal_mid_destr"
@@ -47047,6 +47257,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=yes
+    destructibleByParent:b=yes
     fx:t="sandbag_destr"
     fxScale:r=2.0
     physRes:t="food_bag_pile_a_destr_phobj"
@@ -47057,6 +47268,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=yes
+    destructibleByParent:b=yes
     fx:t="sandbag_destr"
     fxScale:r=2.0
     physRes:t="food_bag_pile_b_destr_phobj"
@@ -47067,6 +47279,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=yes
+    destructibleByParent:b=yes
     fx:t="sandbag_destr"
     fxScale:r=2.0
     physRes:t="food_bag_pile_c_destr_phobj"
@@ -47077,6 +47290,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=yes
+    destructibleByParent:b=yes
     fx:t="sandbag_destr"
     fxScale:r=2.0
     physRes:t="food_bag_pile_d_destr_phobj"
@@ -47087,6 +47301,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=yes
+    destructibleByParent:b=yes
     fx:t="sandbag_destr"
     fxScale:r=2.0
     physRes:t="food_bag_pile_e_destr_phobj"
@@ -47097,6 +47312,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=yes
+    destructibleByParent:b=yes
     fx:t="sandbag_destr"
     fxScale:r=2.0
     physRes:t="food_bag_pile_f_destr_phobj"
@@ -47545,6 +47761,13 @@ riExtra{
   }
 
   agit_poster_battlepass_d{
+    hp:r=20.0
+    material:t="small_decor"
+    fx:t="generic_dmg"
+    fxScale:r=1.0
+  }
+
+  agit_poster_battlepass_e{
     hp:r=20.0
     material:t="small_decor"
     fx:t="generic_dmg"

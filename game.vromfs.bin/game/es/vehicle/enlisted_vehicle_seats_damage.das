@@ -26,7 +26,7 @@ def cache_destroy_without_crew_damage_type_id(evt : Event; var destroy_without_c
   if destroy_without_crew__explosionDamageTypeId < 0
     logerr("damage type id 'explosion' not found")
 
-[es(tag=server, REQUIRE_NOT=deadEntity, REQUIRE=(destroyIfNoCrewLeft, destroyOnDamageWithoutCrew), after=vehicle_damage_part_last_offender_weapon)]
+[es(tag=server, REQUIRE_NOT=deadEntity, REQUIRE=destroyOnDamageWithoutCrew, after=vehicle_damage_part_last_offender_weapon)]
 def check_damaged_vehicle_without_crew(evt : EventOnPartDamaged;
                                        isExploded : bool;
                                        vehicle_seats__seatEids : EidList;
@@ -72,6 +72,7 @@ def vehicle_crew_dead_es(evtData : EventEntityDied; eid : EntityId; human_anim__
                                                      var lastOffender : EntityId&;
                                                      var last_offender__shellId : int&;
                                                      var last_offender__gunPropsId : int&;
+                                                     destroyIfNoCrewLeft : bool = false;
                                                      fire_damage__isFatal : bool = false)
     if fire_damage__isFatal
       return
@@ -83,7 +84,7 @@ def vehicle_crew_dead_es(evtData : EventEntityDied; eid : EntityId; human_anim__
         lastOffender = evtData.offender
         last_offender__shellId = -1
         last_offender__gunPropsId = -1
-      if !isExploded && has(eid, "destroyIfNoCrewLeft")
+      if !isExploded && destroyIfNoCrewLeft
         sendEvent(eid, [[CmdExplosionFatal offender=lastOffender]])
       if has(eid, "deadIfNoCrewLeft")
         isAlive = false

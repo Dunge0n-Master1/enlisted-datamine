@@ -306,7 +306,7 @@ land_explosion_plane{
 }
 
 water_explosion_plane{
-  fx:t="bigsplashexplosion_fx"
+  fx:t="explosion_air_crash_water_cmps_fx"
   lifeTime:r=10.0
   softnessDepth:r=8.0
   numInstances:i=20

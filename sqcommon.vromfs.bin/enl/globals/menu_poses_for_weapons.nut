@@ -11,7 +11,7 @@ local standardPistol = [i(3, ""), i(2, ""), i(19)]
 local weaponToAnimState = freeze({
   defaultPoses = [i(11)]
   unarmedPoses = [i(1, ""), i(2, ""), i(3, ""), i(4, "")]
-  sittingPoses = [i(20),i(21),i(23)]
+  sittingPoses = [i(20)]
   standardRifle
   specificRifle
   specificGun
@@ -94,6 +94,7 @@ local weaponToAnimState = freeze({
   turner_automatic_rifle_gun = [i(12), i(13), i(14), i(15), i(18)]
   beretta_m31_gun =            [i(11), i(13), i(14), i(15), i(18)]
   type_hei_rifle_gun =         [i(9), i(13), i(14), i(15), i(16), i(18)]
+  type_hei_rifle_extended_gun =         [i(9), i(13), i(14), i(15), i(16), i(18)]
   scotti_model_x_gun =         [i(9), i(12), i(14), i(16), i(18)]
   arisaka_type_99_early_short_gun =  [i(9), i(11), i(12),i(13), i(14), i(15), i(16), i(17)]
   nambu_type_96_lmg_gun =  [i(9), i(13), i(15), i(18)]
@@ -118,7 +119,7 @@ local weaponToAnimState = freeze({
   stl_kar98k_wartime_production_gun =    specificGun
   gewehr_33_40_gun =           specificGun
   m1903_springfield_gun =      specificGun
-  m1_garand_gun =              specificGun
+  m1_garand_gun =              [i(9), i(12), i(13), i(14), i(15), i(16), i(17), i(18)]
   m1_carbine_gun =             [i(9), i(11), i(12), i(14), i(16), i(18)]
   m1a2_carbine_gun =           [i(9), i(14), i(16), i(18)]
   m1941_johnson_gun =          [i(12), i(14), i(16), i(18)]
@@ -169,11 +170,12 @@ local weaponToAnimState = freeze({
   m1903a1_springfield_usmc_gun = [i(9), i(11), i(12), i(13), i(14), i(15), i(16), i(18)]
   mkb_42_w_gun =               [i(9), i(12), i(16), i(18)]
   type_100_smg_late_gun =      [i(9), i(14), i(15)]
-  type_100_smg_early_gun =      [i(13), i(14), i(15), i(18)]
+  type_100_smg_early_gun =     [i(9), i(14), i(15)]
   owen_mk1_42_gun =            [i(13), i(14), i(15), i(18)]
-  thompson_m1921_28_usmc_gun = [i(13)]
-  m55_reising_gun =            [i(11), i(15)]
+  thompson_m1921_28_usmc_gun = [i(10), i(24), i(23), i(21)]
+  m55_reising_gun =            [i(18)]
   type_100_paratrooper_smg_gun = [i(9), i(14), i(15)]
+  arisaka_type_99_late_gun =   [i(9), i(11), i(12), i(13), i(14), i(15), i(17), i(18)]
 
 
   beretta_m38_gun =            [i(9), i(11), i(12), i(15), i(16)]
@@ -272,6 +274,7 @@ local weaponToAnimState = freeze({
   flammenwerfer_41_gun =       [i(18), i(15)]
   m1_flamethrower_gun =        [i(11), i(13), i(15)]
   m2_flamethrower_gun =        [i(11), i(15), i(18)]
+  lanciafiamme_m35_gun =       [i(11), i(15)]
 
 //  ithaca_37_gun =              specificRifle  //wip asset
 //  winchester_model_1912_gun =  specificRifle  //wip asset

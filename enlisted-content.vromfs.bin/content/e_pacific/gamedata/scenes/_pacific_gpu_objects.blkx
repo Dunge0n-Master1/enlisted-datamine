@@ -86,6 +86,7 @@ entity{
   ri_gpu_object__rotate_range:p2=0.0, 960.0
   ri_gpu_object__seed:i=55113
   ri_gpu_object__is_using_normal:b=yes
+  ri_gpu_object__sparse_weight:r=0.4
 
   "ri_gpu_object__multiple_objects:array"{
 

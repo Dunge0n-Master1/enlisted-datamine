@@ -197,34 +197,6 @@ dmg{
 }
 
 dmg{
-  name:t="tree_eucalyptus_bush_a"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.7
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_b"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.7
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_c"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.7
-}
-
-dmg{
-  name:t="tree_eucalyptus_bush_big_a"
-  material:t="bushes"
-  bushBehaviour:b=yes
-  canopyWidthPart:r=0.8
-}
-
-dmg{
   name:t="hedge_griselinia_box_a"
   bushBehaviour:b=yes
   treeBehaviour:b=yes
@@ -1798,4 +1770,357 @@ dmg{
   name:t="tree_debris_spruce_fallen_a"
   destructionImpulse:r=5000000.0
   material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_c"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_medium_d"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.1
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_c"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_small_d"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.15
+  canopyTopOffset:r=0.25
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_c"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_cocos_nucifera_tall_d"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.17
+  canopyWidthPart:r=0.15
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_smaller_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.1
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_smaller_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.1
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_small_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.27
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_small_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.27
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_tall_a"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.21
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_musa_paradisiaca_tall_b"
+  destructionImpulse:r=6000.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.2
+  canopyTopOffset:r=0.21
+  canopyWidthPart:r=0.12
+  canopyOpacity:r=0.5
+  fx:t="wood_mid_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="monstera_bush_a"
+  destructionImpulse:r=600.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.55
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="monstera_bush_b"
+  destructionImpulse:r=600.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.55
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="monstera_bush_c"
+  destructionImpulse:r=600.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.7
+  canopyTopOffset:r=0.2
+  canopyWidthPart:r=0.55
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_fern_a"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_fern_b"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_lush_fern_a"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="forest_lush_fern_b"
+  destructionImpulse:r=100.0
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyTopOffset:r=0.6
+  canopyWidthPart:r=0.2
+  canopyOpacity:r=0.5
+  fx:t="wood_small_destr"
+  fxScale:r=1.0
+  material:t="wood"
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_a"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_b"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_c"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
+}
+
+dmg{
+  name:t="tree_eucalyptus_bush_big_a"
+  bushBehaviour:b=yes
+  material:t="bushes"
+  treeBehaviour:b=yes
 }

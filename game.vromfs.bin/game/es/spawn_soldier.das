@@ -4,6 +4,7 @@ require DagorSystem
 require game.es.events
 require game.es.player_events
 require enlisted.game.es.spawn_soldier_events
+require game.es.spawn_soldier_common
 require game.es.vehicle.vehicle_events
 
 def get_item_sub_template(itemTemplate; slot) : string
@@ -55,27 +56,11 @@ def init_item_container(eid)
         item__lastOwner = eid
         item__ownerEid = eid
 
-def gather_dependent_templates(soldierComponents : Object; depcb : block<(ptname : das_string const?) : void>)
-  let weapTemplatesPtr = get_ecs_object(soldierComponents, "human_weap__weapTemplates")
-  if weapTemplatesPtr != null
-    for kv in *weapTemplatesPtr
-      depcb |> invoke(get_ecs_string(kv.value))
-
-  let weapInfoPtr = get_ecs_array(soldierComponents, "human_weap__weapInfo")
-  if weapInfoPtr != null
-    for weapInfoSlot in *weapInfoPtr
-      depcb |> invoke(weapInfoSlot |> get_ecs_object() |> get_ecs_string("reserveAmmoTemplate"))
-
-  let itemRemapPtr = get_ecs_object(soldierComponents, "human_weap__itemRemap")
-  if itemRemapPtr != null
-    for kv in *itemRemapPtr
-      depcb |> invoke(get_ecs_string(kv.value))
-
-[es(tag=server, on_event=SoldierSpawnEquipmentCreated)]
+[es(tag=server, on_event=SoldierSpawnEquipmentCreated, REQUIRE=soldierComponents)]
 def spawn_soldier_done(evt : Event;
                        eid : EntityId;
                        soldierTemplate : string;
-                       soldierComponents : Object)
+                       soldierComponents : Object?) // a pointer but required, we need a pointer to call init_soldier_tpl_deps
   let spawnerEid = eid
   let finalizeCreation <- @ <| (soldierEid : EntityId)
     // The soldier is initialized as soon as possible so as many parameters are synchronized in the initial replication packet
@@ -98,19 +83,10 @@ def spawn_soldier_done(evt : Event;
   let baseTemplateName = split_template(soldierTemplate)[0]
   let tpl = getTemplateByName(baseTemplateName)
   let soldierEid : EntityId = createEntity(soldierTemplate, finalizeCreation) <| $(var init : ComponentsInitializer)
-    // Fill list of templates to instantiate, so we can safely call createInstantiatedEntitySync later for them
-    let depsCompKey = "human_weap__template_deps_list"
-    let depsCompHash = ecs_hash(depsCompKey)
-    if tpl != null && templateHasComponent(*tpl, depsCompKey, depsCompHash)
-      using() <| $(var depsList : StringList#)
-        gather_dependent_templates(soldierComponents) <| $(ptname : das_string const?) : void
-          if ptname != null && *ptname != ""
-            depsList |> push(*ptname)
-        set(init, depsCompKey, depsCompHash, depsList)
-    else
+    if tpl == null || !init_soldier_tpl_deps(*tpl, /*out*/ init, soldierComponents)
       logerr("Can't create a list of entities for instantiation for '{soldierTemplate}'")
 
-    for comp in soldierComponents
+    for comp in *soldierComponents
       let keyHash = ecs_hash(comp.key)
       if tpl != null && templateHasComponent(*tpl, comp.key, keyHash)
         set(init, comp.key, keyHash, comp.value)

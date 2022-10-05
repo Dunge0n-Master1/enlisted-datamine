@@ -44,7 +44,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-116.216, 6.87518, 110.434]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-116.216, 6.87518, 116.067]]
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point7"
   battle_area_polygon_point__forBattleAreaId:t="area1_1"
@@ -220,7 +220,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-122.981, 7.91827, 481.796]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-122.981, 7.91827, 535.953]]
   battle_area_polygon_point__forBattleAreaId:t="area1_2"
   battle_area_polygon_point__id:t="point2"
   battle_area_polygon_point__nextId:t="point3"
@@ -228,7 +228,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-122.981, 7.91827, 137.894]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-122.981, 7.91827, 95.3499]]
   battle_area_polygon_point__forBattleAreaId:t="area1_2"
   battle_area_polygon_point__id:t="point3"
   battle_area_polygon_point__nextId:t="point4"
@@ -348,7 +348,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [251.634, -3.96058, 467.874]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [251.634, -3.96058, 463.564]]
   battle_area_polygon_point__forBattleAreaId:t="area1_3b"
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point7"
@@ -356,7 +356,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [68.2988, -3.96058, 424.365]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [68.2988, -3.96058, 459.276]]
   battle_area_polygon_point__forBattleAreaId:t="area1_3b"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -364,7 +364,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [62.4344, -3.96058, 186.446]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [62.4344, -3.96058, 126.803]]
   battle_area_polygon_point__forBattleAreaId:t="area1_3b"
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point1"
@@ -596,7 +596,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [173.386, 1.42628, 177.326]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [173.386, 1.42628, 132.889]]
   battle_area_polygon_point__forBattleAreaId:t="area1_4_b"
   battle_area_polygon_point__id:t="point4"
   battle_area_polygon_point__nextId:t="point5"

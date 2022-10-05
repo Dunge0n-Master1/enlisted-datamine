@@ -5,6 +5,13 @@ attachable_wear_pants_01_us_summer_item{
   collres__res:t="pants_01_us_summer_collision"
 }
 
+attachable_wear_pants_01_w_gr_pouch_us_summer_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_pants_01_w_gr_pouch_us_summer_item"
+  animchar__res:t="pants_01_w_gr_pouch_us_summer_char"
+  collres__res:t="pants_01_w_gr_pouch_us_summer_collision"
+}
+
 attachable_wear_pants_m43_tankers_jacket_item{
   _extends:t="attachable_pants"
   _extends:t="attachable_wear_pants_01_us_summer_item"
@@ -47,6 +54,33 @@ attachable_wear_pants_04_us_summer_item{
   item__uniqueName:t="attachable_wear_pants_04_us_summer_item"
   animchar__res:t="pants_04_us_summer_char"
   collres__res:t="pants_04_us_summer_collision"
+}
+
+attachable_wear_pants_04_w_3gr_pouch_us_summer_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_pants_04_w_3gr_pouch_us_summer_item"
+  animchar__res:t="pants_04_w_3gr_pouch_us_summer_char"
+  collres__res:t="pants_04_w_3gr_pouch_us_summer_collision"
+}
+
+attachable_wear_pants_04_w_3gr_pouch_frog_br_us_summer_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_04_w_3gr_pouch_us_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "us_pants_M1939_long_2_tex_d*":t="us_pants_m39_long_frog_camo_brown_tex_d*"
+    "us_pants_M1939_long_2_tex_n*":t="us_pants_m39_long_frog_camo_tex_n*"
+  }
+}
+
+attachable_wear_pants_04_w_3gr_pouch_frog_gr_us_summer_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_04_w_3gr_pouch_us_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "us_pants_M1939_long_2_tex_d*":t="us_pants_m39_long_frog_camo_tex_d*"
+    "us_pants_M1939_long_2_tex_n*":t="us_pants_m39_long_frog_camo_tex_n*"
+  }
 }
 
 attachable_wear_pants_m39_frog_camo_item{
@@ -570,6 +604,13 @@ attachable_wear_gloves_airborne_us_summer_item{
   collres__res:t="gloves_airborne_us_summer_collision"
 }
 
+attachable_wear_m43_leather_palm_gloves_m44_jacket_item{
+  _extends:t="attachable_gloves"
+  item__uniqueName:t="attachable_wear_m43_leather_palm_gloves_m44_jacket_item"
+  animchar__res:t="m43_leather_palm_gloves_m44_jacket_char"
+  collres__res:t="m43_leather_palm_gloves_m44_jacket_collision"
+}
+
 hair_01_us_summer_item{
   _extends:t="attachable_hair"
   item__uniqueName:t="hair_01_us_summer_item"
@@ -1021,6 +1062,30 @@ attachable_wear_ammo_bag_01_us_summer_item{
   }
 }
 
+attachable_wear_ammo_bag_vest_01_us_summer_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_ammo_bag_vest_01_us_summer_item"
+  animchar__res:t="ammo_bag_vest_01_us_summer_char"
+  collres__res:t="ammo_bag_vest_01_us_summer_collision"
+  animchar_fast_phys__res:t="ammo_bag_vest_01_us_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ammo_bag_m44_jacket_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_ammo_bag_m44_jacket_item"
+  animchar__res:t="ammo_bag_m44_jacket_char"
+  collres__res:t="ammo_bag_m44_jacket_collision"
+  animchar_fast_phys__res:t="ammo_bag_m44_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_ammo_bag_03_us_summer_item{
   _extends:t="attachable_bag_l"
   item__uniqueName:t="attachable_wear_ammo_bag_03_us_summer_item"
@@ -1088,6 +1153,18 @@ attachable_wear_backpack_m28_jacket_m43_item{
   collres__res:t="backpack_m28_jacket_m43_collision"
   item__uniqueName:t="attachable_wear_backpack_m28_jacket_m43_item"
   animchar_fast_phys__res:t="backpack_m28_jacket_m43_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_m28_backpack_m43_jacket_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="m28_backpack_m43_jacket_char"
+  collres__res:t="m28_backpack_m43_jacket_collision"
+  item__uniqueName:t="attachable_wear_m28_backpack_m43_jacket_item"
+  animchar_fast_phys__res:t="m28_backpack_m43_jacket_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -1238,6 +1315,18 @@ attachable_wear_m43_entrenching_tool_m41_jacket_item{
   }
 }
 
+attachable_wear_m43_entrenching_tool_m43_jacket_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_m43_entrenching_tool_m43_jacket_item"
+  animchar__res:t="m43_entrenching_tool_m43_jacket_char"
+  collres__res:t="m43_entrenching_tool_m43_jacket_collision"
+  animchar_fast_phys__res:t="m43_entrenching_tool_m43_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_m43_entrenching_tool_m37_belt_m41_jacket_item{
   _extends:t="attachable_front_rear_belt_l"
   item__uniqueName:t="attachable_wear_m43_entrenching_tool_m37_belt_m41_jacket_item"
@@ -1268,6 +1357,18 @@ attachable_wear_us_cutter_in_pouch_jacket_m41_item{
   animchar__res:t="us_cutter_in_pouch_jacket_m41_char"
   collres__res:t="us_cutter_in_pouch_jacket_m41_collision"
   animchar_fast_phys__res:t="us_cutter_in_pouch_jacket_m41_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_us_cutter_in_pouch_jacket_m43_item{
+  _extends:t="attachable_rear_belt_r"
+  item__uniqueName:t="attachable_wear_us_cutter_in_pouch_jacket_m43_item"
+  animchar__res:t="us_cutter_in_pouch_jacket_m43_char"
+  collres__res:t="us_cutter_in_pouch_jacket_m43_collision"
+  animchar_fast_phys__res:t="us_cutter_in_pouch_jacket_m43_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -1323,7 +1424,7 @@ attachable_wear_pouch_m1924_shirt_m44_camo_item{
 }
 
 attachable_wear_pouch_m1924_jacket_m43_item{
-  _extends:t="attachable_front_belt_l"
+  _extends:t="attachable_front_rear_belt_l"
   item__uniqueName:t="attachable_wear_pouch_m1924_jacket_m43_item"
   animchar__res:t="pouch_m1924_jacket_m43_char"
   collres__res:t="pouch_m1924_jacket_m43_collision"
@@ -1468,12 +1569,55 @@ attachable_wear_us_m1916_holster_tanker_coverall_item{
   collres__res:t="us_m1916_holster_tanker_coverall_collision"
 }
 
+attachable_wear_us_m1_thompson_pouch_01_summer_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_us_m1_thompson_pouch_01_summer_item"
+  animchar__res:t="us_m1_thompson_pouch_01_summer_char"
+  collres__res:t="us_m1_thompson_pouch_01_summer_collision"
+}
+
+attachable_wear_us_m1_thompson_pouch_m41_jacket_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_us_m1_thompson_pouch_m41_jacket_item"
+  animchar__res:t="us_m1_thompson_pouch_m41_jacket_char"
+  collres__res:t="us_m1_thompson_pouch_m41_jacket_collision"
+  animchar_fast_phys__res:t="us_m1_thompson_pouch_m41_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_us_m1_thompson_pouch_l_m41_jacket_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_us_m1_thompson_pouch_l_m41_jacket_item"
+  animchar__res:t="us_m1_thompson_pouch_l_m41_jacket_char"
+  collres__res:t="us_m1_thompson_pouch_l_m41_jacket_collision"
+  animchar_fast_phys__res:t="us_m1_thompson_pouch_l_m41_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_us_m1916_holster_m44_shirt_item{
   _extends:t="attachable_side_belt_r"
   item__uniqueName:t="attachable_wear_us_m1916_holster_m44_shirt_item"
   animchar__res:t="us_m1916_holster_m44_shirt_char"
   collres__res:t="us_m1916_holster_m44_shirt_collision"
   animchar_fast_phys__res:t="us_m1916_holster_m44_shirt_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_us_m1916_holster_m43_jacket_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_us_m1916_holster_m43_jacket_item"
+  animchar__res:t="us_m1916_holster_m43_jacket_char"
+  collres__res:t="us_m1916_holster_m43_jacket_collision"
+  animchar_fast_phys__res:t="us_m1916_holster_m43_jacket_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -1560,11 +1704,37 @@ attachable_wear_us_six_pocket_bandoleer_m44_shirt_item{
   collres__res:t="us_six_pocket_bandoleer_m44_shirt_collision"
 }
 
+attachable_wear_us_six_pocket_bandoleer_x_m43_shirt_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_us_six_pocket_bandoleer_x_m43_shirt_item"
+  animchar__res:t="us_six_pocket_bandoleer_x_m43_shirt_char"
+  collres__res:t="us_six_pocket_bandoleer_x_m43_shirt_collision"
+}
+
 attachable_wear_us_six_pocket_bandoleer_m43_shirt_item{
   _extends:t="attachable_chest"
   item__uniqueName:t="attachable_wear_us_six_pocket_bandoleer_m43_shirt_item"
   animchar__res:t="us_six_pocket_bandoleer_m43_shirt_char"
   collres__res:t="us_six_pocket_bandoleer_m43_shirt_collision"
+}
+
+attachable_wear_us_six_pocket_bandoleer_01_summer_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_us_six_pocket_bandoleer_01_summer_item"
+  animchar__res:t="us_six_pocket_bandoleer_01_summer_char"
+  collres__res:t="us_six_pocket_bandoleer_01_summer_collision"
+}
+
+attachable_wear_m6_gasbag_m43_jacket_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_m6_gasbag_m43_jacket_item"
+  animchar__res:t="m6_gasbag_m43_jacket_char"
+  collres__res:t="m6_gasbag_m43_jacket_collision"
+  animchar_fast_phys__res:t="m6_gasbag_m43_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
 }
 
 attachable_wear_us_m23_cartridge_belt_up_jacket_m41_item{
@@ -1636,12 +1806,36 @@ attachable_wear_m1924_first_aid_kit_f_m43_jacket_item{
   }
 }
 
+attachable_wear_m1924_first_aid_kit_f_m36_belt_m43_jacket_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_m1924_first_aid_kit_f_m36_belt_m43_jacket_item"
+  animchar__res:t="m1924_first_aid_kit_f_m36_belt_m43_jacket_char"
+  collres__res:t="m1924_first_aid_kit_f_m36_belt_m43_jacket_collision"
+  animchar_fast_phys__res:t="m1924_first_aid_kit_f_m36_belt_m43_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_m1924_first_aid_kit_tanker_coverall_jacket_item{
   _extends:t="attachable_side_belt_l"
   item__uniqueName:t="attachable_wear_m1924_first_aid_kit_tanker_coverall_jacket_item"
   animchar__res:t="m1924_first_aid_kit_tanker_coverall_jacket_char"
   collres__res:t="m1924_first_aid_kit_tanker_coverall_jacket_collision"
   animchar_fast_phys__res:t="m1924_first_aid_kit_tanker_coverall_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_dispatch_case_m43_jacket_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_dispatch_case_m43_jacket_item"
+  animchar__res:t="dispatch_case_m43_jacket_char"
+  collres__res:t="dispatch_case_m43_jacket_collision"
+  animchar_fast_phys__res:t="dispatch_case_m43_jacket_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -1786,6 +1980,18 @@ attachable_wear_flask_m41_jacket_item{
   }
 }
 
+attachable_wear_flask_m36_belt_m43_jacket_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_flask_m36_belt_m43_jacket_item"
+  animchar__res:t="flask_m36_belt_m43_jacket_char"
+  collres__res:t="flask_m36_belt_m43_jacket_collision"
+  animchar_fast_phys__res:t="flask_m36_belt_m43_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_pouch_m1924_01_us_winter_item{
   _extends:t="attachable_pot"
   item__uniqueName:t="attachable_wear_pouch_m1924_01_us_winter_item"
@@ -1803,6 +2009,18 @@ attachable_wear_pouch_rigger_01_us_winter_item{
   item__uniqueName:t="attachable_wear_pouch_rigger_01_us_winter_item"
   animchar__res:t="pouch_rigger_01_us_winter_char"
   collres__res:t="pouch_rigger_01_us_winter_collision"
+}
+
+attachable_wear_us_m1_rigger_pouch_m43_jacket_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_us_m1_rigger_pouch_m43_jacket_item"
+  animchar__res:t="us_m1_rigger_pouch_m43_jacket_char"
+  collres__res:t="us_m1_rigger_pouch_m43_jacket_collision"
+  animchar_fast_phys__res:t="us_m1_rigger_pouch_m43_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
 }
 
 attachable_wear_pouch_m1_thompson_01_us_winter_item{

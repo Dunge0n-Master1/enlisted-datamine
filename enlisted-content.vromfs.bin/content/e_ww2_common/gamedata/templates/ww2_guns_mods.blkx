@@ -196,6 +196,26 @@ m1_bayonet{
   }
 }
 
+m1_bayonet_carbine{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="m1_bayonet_char"
+  item__template:t="m1_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/mosin_m1930_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="m1_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/m1_bayonet"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+  melee_weapon__attackTime:r=0.6
+  melee_weapon__attackAt:r=0.45
+
+  "gunAttachable:tag"{
+  }
+}
+
 m1905_bayonet{
   _extends:t="bayonet_gunmod"
   animchar__res:t="m1905_bayonet_char"
@@ -214,6 +234,26 @@ m1905_bayonet{
   }
 }
 
+m1905_bayonet_carbine{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="m1905_bayonet_char"
+  item__template:t="m1905_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/mosin_m1930_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="m1905_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/m1905_bayonet"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+  melee_weapon__attackTime:r=0.6
+  melee_weapon__attackAt:r=0.45
+
+  "gunAttachable:tag"{
+  }
+}
+
 m1917_bayonet{
   _extends:t="bayonet_gunmod"
   animchar__res:t="m1917_bayonet_char"
@@ -227,6 +267,26 @@ m1917_bayonet{
   item__volume:r=0.5
   item__name:t="items/m1917_bayonet"
   melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+
+  "gunAttachable:tag"{
+  }
+}
+
+m1917_bayonet_carbine{
+  _extends:t="bayonet_gunmod"
+  animchar__res:t="m1917_bayonet_char"
+  item__template:t="m1917_bayonet_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/mosin_m1930_bayonet.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="bayonet"
+  gunAttachable__gunSlotName:t="bayonet"
+  gunAttachable__slotTag:t="m1917_bayonet"
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/m1917_bayonet"
+  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/mosin_m1930_bayonet.blk"
+  melee_weapon__attackTime:r=0.6
+  melee_weapon__attackAt:r=0.45
 
   "gunAttachable:tag"{
   }

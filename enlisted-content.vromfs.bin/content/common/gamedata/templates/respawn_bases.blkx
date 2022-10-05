@@ -181,9 +181,6 @@ destroyOnDamageWithoutCrew{
   "destroyOnDamageWithoutCrew:tag"{
   }
 
-  "destroyIfNoCrewLeft:tag"{
-  }
-
   _group{
     _tags:t="server"
     destroy_without_crew__explosionDamageTypeId:i=-1
@@ -192,7 +189,7 @@ destroyOnDamageWithoutCrew{
   }
 
   _info{
-    desc:t="Added to spawned vehicle, causes vehicle destroy when no crew left"
+    desc:t="Added to spawned vehicle, causes empty vehicles to explode when hit with a big enough caliber"
     category:t="respawns_extra"
 
     insertTo{

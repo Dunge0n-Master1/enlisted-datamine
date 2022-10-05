@@ -53,6 +53,7 @@ let mapSize = Computed(@() needShowTasks.value
 let tasksList = @() {
   watch = [mapSize, battleUnlocks, unlockProgress, statsInGame]
   size = [hdpx(450), SIZE_TO_CONTENT]
+  key = "big_map_tasks"
   children = makeVertScroll({
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -268,7 +269,7 @@ let mapContent = @() {
     mapBlock
     needShowTasks.value
       ? @() {
-          watch = isReplay
+          watch = [isReplay, isMapInteractive]
           size = [SIZE_TO_CONTENT, flex()]
           disableInput = !isMapInteractive.value
           children = isReplay.value ? null : tasksList

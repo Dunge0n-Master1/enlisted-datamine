@@ -187,6 +187,16 @@ poster_ticket_6{
   }
 }
 
+poster_ticket_7{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/wallposter_battlepass_order"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="agit_poster_enlisted_battlepass_e_tex_d*"
+    "ammunition_supply_tex_n*":t="agit_poster_enlisted_battlepass_e_tex_n*"
+  }
+}
+
 event_ticket{
   _extends:t="item_supply_ticket"
 
@@ -376,6 +386,12 @@ ussr_shovel_item{
   _extends:t="item_melee"
   _extends:t="ussr_shovel"
   collres__res:t="ussr_m41_shovel_collision"
+}
+
+jp_shovel_item{
+  _extends:t="item_melee"
+  _extends:t="jp_shovel"
+  collres__res:t="jap_type_98_entrenching_tool_collision"
 }
 
 battlepass_buster_1_template{

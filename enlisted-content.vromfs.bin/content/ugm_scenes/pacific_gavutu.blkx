@@ -1,6 +1,37 @@
 import{
   scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_sounds.blk"
   scene:t="content/e_pacific/gamedata/scenes/_pacific_gpu_objects.blk"
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_biome_fx.blk"
+}
+
+entity{
+  _template:t="aircraft_box_battle_area"
+  transform:m=[[22821.8, 0.0, 20997.7] [0.0, 8000.03, -0.0] [-20997.7, 0.0, 22821.8] [103.719, 240.916, -196.341]]
+  battle_area__team:i=-1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2761.15, 16.1888, -2139.48]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2766.37, 16.1887, -2271.98]]
+  battle_area__team:i=1
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[226.446, 0.0, -83.1213] [0.0, 6.43649, 0.0] [10.7554, -0.0, 29.3007] [-2846.18, 17.5429, 963.788]]
+  battle_area__team:i=2
+}
+
+entity{
+  _template:t="human_hidden_ui_battle_area"
+  transform:m=[[227.212, 0.0, -81.0035] [0.0, 6.43649, 0.0] [10.4814, -0.0, 29.3999] [-2835.85, 17.543, 851.912]]
+  battle_area__team:i=2
 }
 
 entity{
@@ -77,6 +108,55 @@ entity{
 }
 
 entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[0.0214352, 7.23231e-09, 0.999771] [0.0105255, 0.999944, -0.000225675] [-0.999714, 0.0105279, 0.021434] [490.865, 5.86789, -394.648]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+}
+
+entity{
+  _template:t="team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team"
+  team__memberCount:r=0.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
+  team__squadSpawnCost:i=250
+  team__firstSpawnCostMul:r=0.0
+  team__zeroScoreFailTimer:r=60.0
+  team__id:i=1
+  team__briefing:t="invasion/attackers_goals"
+  team__winSubtitle:t="debriefing/won_invasion_subtitle"
+  team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
+  team__winTitle:t="debriefing/usa_won_invasion"
+  team__spawnBotArmy:t="pacific_allies"
+}
+
+entity{
+  _template:t="team_pacific_axis+team_narrator_invasion_defence+respawn_creators_team"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=5000.0
+  team__capturePenalty:r=1001.0
+  team__score:r=5000.0
+  team__id:i=2
+  team__briefing:t="invasion/defenders_goals"
+  team__winSubtitle:t="debriefing/won_defence_subtitle"
+  team__loseSubtitle:t="debriefing/lost_defence_subtitle"
+  team__winTitle:t="debriefing/jap_won_defence"
+  team__spawnBotArmy:t="pacific_axis"
+}
+
+entity{
   _template:t="group_switch_timer"
   group_switch_timer__time:r=0.0
   group_switch_timer__activateGroup:t="aircraft_spawn_on_carrier"
@@ -85,6 +165,13 @@ entity{
 entity{
   _template:t="group_switch_timer"
   group_switch_timer__time:r=300.0
+  group_switch_timer__deactivateGroup:t="aircraft_spawn_on_carrier"
+  group_switch_timer__activateGroup:t="aircraft_spawn_in_air"
+}
+
+entity{
+  _template:t="group_switch_timer"
+  group_switch_timer__time:r=7200.0
   group_switch_timer__deactivateGroup:t="aircraft_spawn_on_carrier"
   group_switch_timer__activateGroup:t="aircraft_spawn_in_air"
 }
@@ -113,7 +200,7 @@ entity{
   _template:t="respAircraftOnCarrier"
   respawnbaseType:t="aircraft_fighter"
   groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[-0.799494, 0.0, 0.600674] [0.0, 1.0, 0.0] [-0.600674, 0.0, -0.799494] [2849.04, 14.4224, -2207.55]]
+  transform:m=[[-0.793466, 0.0, 0.608614] [0.0, 1.0, 0.0] [-0.608614, 0.0, -0.793466] [2849.81, 14.4224, -2207.59]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -123,7 +210,7 @@ entity{
   _template:t="respAircraftOnCarrier"
   respawnbaseType:t="aircraft_assault"
   groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[-0.810838, 0.0, 0.585271] [0.0, 1.0, 0.0] [-0.585271, 0.0, -0.810838] [2852.31, 14.7101, -2336.67]]
+  transform:m=[[-0.798301, 0.0, 0.60226] [0.0, 1.0, 0.0] [-0.602259, 0.0, -0.798301] [2856.94, 14.7101, -2339.96]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -133,27 +220,18 @@ entity{
   _template:t="respAircraftOnWater"
   respawnbaseType:t="aircraft_assault"
   groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[-0.799658, 0.0, 0.600456] [0.0, 1.0, 0.0] [-0.600456, 0.0, -0.799657] [2989.72, 2.06175, -2143.61]]
+  transform:m=[[-0.805542, 0.0, 0.592538] [0.0, 1.0, 0.0] [-0.592538, 0.0, -0.805542] [2830.39, 0.710495, -2437.08]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
-}
-
-entity{
-  _template:t="respAircraftOnWater"
-  respawnbaseType:t="aircraft_assault"
-  groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[-0.805542, 0.0, 0.592538] [0.0, 1.0, 0.0] [-0.592538, 0.0, -0.805542] [2830.39, 2.06178, -2437.08]]
-  team:i=1
-  maxVehicleOnSpawn:i=1
-  respTime:i=120
+  sphere_zone__radius:r=500.0
 }
 
 entity{
   _template:t="respAircraftOnCarrier"
   respawnbaseType:t="aircraft_fighter"
   groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[0.949405, 0.0, -0.314056] [0.0, 1.0, 0.0] [0.314056, -0.0, 0.949405] [-2924.61, 15.391, 884.055]]
+  transform:m=[[0.94295, 0.0, -0.332936] [0.0, 1.0, 0.0] [0.332936, -0.0, 0.94295] [-2927.94, 15.391, 884.447]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -163,7 +241,7 @@ entity{
   _template:t="respAircraftOnCarrier"
   respawnbaseType:t="aircraft_assault"
   groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[0.932553, 0.0, -0.36103] [0.0, 1.0, 0.0] [0.36103, -0.0, 0.932554] [-2936.25, 16.458, 997.549]]
+  transform:m=[[0.936385, 0.0, -0.350972] [0.0, 1.0, 0.0] [0.350973, -0.0, 0.936385] [-2938.13, 16.1225, 997.533]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -173,20 +251,11 @@ entity{
   _template:t="respAircraftOnWater"
   respawnbaseType:t="aircraft_assault"
   groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[0.931216, -0.0228478, -0.36375] [0.014376, 0.999559, -0.025981] [0.364183, 0.0189647, 0.931135] [-2975.63, 1.68496, 800.535]]
+  transform:m=[[0.934841, -0.0228478, -0.354331] [0.0146375, 0.999559, -0.0258345] [0.354765, 0.0189647, 0.934764] [-2929.11, 0.317275, 1067.75]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
-}
-
-entity{
-  _template:t="respAircraftOnWater"
-  respawnbaseType:t="aircraft_assault"
-  groupName:t="aircraft_spawn_on_carrier"
-  transform:m=[[0.931216, -0.0228478, -0.36375] [0.014376, 0.999559, -0.025981] [0.364183, 0.0189647, 0.931135] [-2929.11, 0.859345, 1067.75]]
-  team:i=2
-  maxVehicleOnSpawn:i=1
-  respTime:i=120
+  sphere_zone__radius:r=500.0
 }
 
 entity{
@@ -270,54 +339,25 @@ entity{
 }
 
 entity{
-  _template:t="team_ussr_berlin+team_narrator_invasion_attack+respawn_creators_team"
-  team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
-  team__squadSpawnCost:i=250
-  team__firstSpawnCostMul:r=0.0
-  team__zeroScoreFailTimer:r=60.0
-  team__id:i=1
-  team__briefing:t="invasion/attackers_goals"
-  team__winSubtitle:t="debriefing/won_invasion_subtitle"
-  team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
-  team__winTitle:t="debriefing/ussr_won_invasion"
-  team__spawnBotArmy:t="berlin_allies"
+  _template:t="resupply_for_air_planes_only_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [2417.99, 649.743, -4726.38]]
+  resupply_zone__team:i=1
 }
 
 entity{
-  _template:t="team_germany_berlin+team_narrator_invasion_defence+respawn_creators_team"
-  team__countAdd:r=0.5
-  team__memberCount:r=0.5
-  team__scoreCap:r=3000.0
-  team__capturePenalty:r=1001.0
-  team__score:r=3000.0
-  team__id:i=2
-  team__briefing:t="invasion/defenders_goals"
-  team__winSubtitle:t="debriefing/won_defence_subtitle"
-  team__loseSubtitle:t="debriefing/lost_defence_subtitle"
-  team__winTitle:t="debriefing/ger_won_defence"
-  team__spawnBotArmy:t="berlin_axis"
+  _template:t="resupply_for_air_planes_only_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-3665.97, 675.322, 3070.82]]
+  resupply_zone__team:i=2
 }
 
 entity{
-  _template:t="static_cam"
-  camera__active:b=yes
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+  _template:t="resupply_for_seaplanes_zone"
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [759.666, 649.743, -3614.37]]
+  resupply_zone__team:i=1
 }
 
 entity{
-  _template:t="respawn_camera"
-  respawnCameraForTeam:i=1
-  moveCameraToHeight:r=170.0
-  respawnSelectorDistanceMult:r=1.0
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
-}
-
-entity{
-  _template:t="respawn_camera"
-  respawnCameraForTeam:i=2
-  moveCameraToHeight:r=170.0
-  respawnSelectorDistanceMult:r=1.0
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [340.0, 8.0, -480.0]]
+  _template:t="resupply_for_seaplanes_zone"
+  transform:m=[[-0.995385, 0.0, 0.0959728] [0.0, 1.0, 0.0] [-0.0959728, 0.0, -0.995385] [-2410.6, 675.322, 2135.3]]
+  resupply_zone__team:i=2
 }

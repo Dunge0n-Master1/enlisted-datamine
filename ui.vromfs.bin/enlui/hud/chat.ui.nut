@@ -8,7 +8,7 @@ let chatState = require("state/chat.nut")
 let {setInteractiveElement} = require("state/interactive_state.nut")
 let {localPlayerTeam, localPlayerName} = require("state/local_player.nut")
 let { DBGLEVEL } = require("dagor.system")
-let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let {sound_play_one_shot} = require("sound")
 let {UserNameColor} = require("%ui/style/colors.nut")
@@ -48,7 +48,7 @@ let function chatItem(item, params = {}) {
       {
         rendObj = ROBJ_TEXT,
         color = item.name == localPlayerName.value ? UserNameColor : color,
-        text = $"{remap_nick(item.name)}: "
+        text = $"{remap_others(item.name)}: "
       })
   rowChildren.append({
     size = [flex(), SIZE_TO_CONTENT]

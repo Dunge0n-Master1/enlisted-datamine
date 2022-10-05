@@ -180,7 +180,30 @@ cam_outdoor_factor{
   _singleton:b=yes
 }
 
+camera_aim_data{
+  aim_data__lensNodeId:i=-1
+  aim_data__crosshairNodeId:i=-1
+  aim_data__isAiming:b=no
+  aim_data__isAimingThroughScope:b=no
+  aim_data__nightVision:b=no
+  aim_data__nearDofEnabled:b=no
+  aim_data__farDofEnabled:b=no
+  aim_data__simplifiedAimDof:b=no
+  aim_data__lensRenderEnabled:b=no
+  aim_data__aimingTime:r=0.0
+
+  "aim_data__entityWithScopeLensEid:eid"{
+  }
+
+  "aim_data__gunEid:eid"{
+  }
+
+  "aim_data__scopeLensCockpitEntities:list<eid>"{
+  }
+}
+
 base_shooter_cam{
+  _extends:t="camera_aim_data"
   camera__active:b=no
   camera__fovHorPlus:b=no
   camera__fovHybrid:b=yes
@@ -490,6 +513,7 @@ plane_tps_cam{
   shooter_camera__forceStabilized:b=no
   shooter_cam__tau_on_change:r=0.0
   isCockpitCam:b=no
+  isPlaneCockpitCam:b=no
 }
 
 plane_fps_cam{
@@ -502,6 +526,7 @@ plane_fps_cam{
   shooter_camera__forceStabilized:b=no
   shooter_cam__tau_on_change:r=0.0
   isCockpitCam:b=yes
+  isPlaneCockpitCam:b=yes
 
   "plane_fps_cam__applyLookAroundOffset:tag"{
   }

@@ -2378,7 +2378,7 @@ entity{
 
 entity{
   _template:t="capzone_area_polygon_point"
-  transform:m=[[0.720642, 0.0, 0.693307] [0.0, 1.0, -0.0] [-0.693307, 0.0, 0.720642] [71.8544, 0.426854, -38.6459]]
+  transform:m=[[0.720642, 0.0, 0.693307] [0.0, 1.0, -0.0] [-0.693307, 0.0, 0.720642] [71.8544, 0.0676621, -38.6459]]
   capzone_area_polygon_point__forcapzone_areaId:t="caparea_4_b"
   capzone_area_polygon_point__id:t="point2"
   capzone_area_polygon_point__nextId:t="point3"
@@ -3071,7 +3071,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.697996, 0.0, 0.716099] [0.0, 1.0, 0.0] [-0.716099, 0.0, -0.697996] [49.0855, 2.65422, -73.6959]]
+  transform:m=[[-0.697996, 0.0, 0.716099] [0.0, 1.0, 0.0] [-0.716099, 0.0, -0.697996] [46.1566, 3.11228, -71.1289]]
   groupName:t="sector_1"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -3402,7 +3402,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[-0.995889, 0.0, 0.0905759] [0.0, 1.0, 0.0] [-0.0905759, 0.0, -0.995889] [81.876, 4.00437, -17.0513]]
+  transform:m=[[-0.751912, 0.0, -0.659263] [0.0, 1.0, 0.0] [0.659263, 0.0, -0.751912] [52.3439, 1.67257, 0.438068]]
   groupName:t="sector_2_b"
   team:i=2
   respawnBaseGroup:i=10
@@ -3411,7 +3411,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[-0.967449, 0.0, 0.253066] [0.0, 1.0, 0.0] [-0.253066, 0.0, -0.967449] [61.8444, 3.8211, -38.9679]]
+  transform:m=[[0.342482, 0.0, -0.939524] [0.0, 1.0, 0.0] [0.939524, -0.0, 0.342482] [34.7318, 1.44515, -31.083]]
   groupName:t="sector_2_b"
   team:i=2
   respawnBaseGroup:i=10
@@ -3555,7 +3555,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.703249, 0.0, 0.710944] [0.0, 1.0, 0.0] [-0.710944, 0.0, -0.703249] [49.4529, 2.65809, -73.0195]]
+  transform:m=[[-0.703249, 0.0, 0.710944] [0.0, 1.0, 0.0] [-0.710944, 0.0, -0.703249] [46.524, 3.11615, -70.4525]]
   groupName:t="sector_1"
   team:i=2
   active:b=no
@@ -3571,7 +3571,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.972687, 0.0, 0.23212] [0.0, 1.0, -0.0] [-0.23212, 0.0, 0.972687] [50.3373, 2.58721, -74.0022]]
+  transform:m=[[0.972687, 0.0, 0.23212] [0.0, 1.0, -0.0] [-0.23212, 0.0, 0.972687] [47.4084, 3.04527, -71.4352]]
   groupName:t="sector_1"
   resupply_zone__team:i=2
   active:b=no

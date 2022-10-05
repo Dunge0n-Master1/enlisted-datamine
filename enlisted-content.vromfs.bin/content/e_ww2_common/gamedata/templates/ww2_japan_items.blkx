@@ -390,6 +390,18 @@ attachable_wear_jap_type90_helmet_sniper_squad_item{
   }
 }
 
+attachable_wear_jap_type90_helmet_cover_m43_sniper_squad_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="jap_type90_helmet_cover_m43_sniper_squad_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_jap_type90_helmet_cover_m43_sniper_squad_item"
+  animchar_fast_phys__res:t="jap_type90_helmet_cover_m43_sniper_squad_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_jap_type90_helmet_w_cap_sniper_squad_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="jap_type90_helmet_w_cap_sniper_squad_char"
@@ -647,6 +659,30 @@ attachable_wear_jap_belt_tool_half_sleeve_shirt_item{
   item__uniqueName:t="attachable_wear_jap_belt_tool_half_sleeve_shirt_item"
   animchar__res:t="jap_belt_tool_half_sleeve_shirt_char"
   collres__res:t="jap_belt_tool_half_sleeve_shirt_collision"
+}
+
+attachable_wear_jap_wire_cutters_engineer_squad_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_jap_wire_cutters_engineer_squad_item"
+  animchar__res:t="jap_wire_cutters_engineer_squad_char"
+  collres__res:t="jap_wire_cutters_engineer_squad_collision"
+  animchar_fast_phys__res:t="jap_wire_cutters_engineer_squad_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_jap_type96_mg_scope_case_half_sleeve_shirt_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_jap_type96_mg_scope_case_half_sleeve_shirt_item"
+  animchar__res:t="jap_type96_mg_scope_case_half_sleeve_shirt_char"
+  collres__res:t="jap_type96_mg_scope_case_half_sleeve_shirt_collision"
+  animchar_fast_phys__res:t="jap_type96_mg_scope_case_half_sleeve_shirt_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
 }
 
 attachable_wear_jap_sheath_tanker_coverall_item{

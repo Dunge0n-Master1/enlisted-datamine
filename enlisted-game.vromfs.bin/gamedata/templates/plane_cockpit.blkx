@@ -55,4 +55,7 @@ base_plane_cockpit{
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
   }
+
+  "planeCockpit:tag"{
+  }
 }

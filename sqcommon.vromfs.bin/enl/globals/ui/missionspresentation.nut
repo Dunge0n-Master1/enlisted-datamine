@@ -1103,6 +1103,30 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  pacific_guadalcanal_inv_counter = {
+    image = "ui/pacific_guadalcanal_inv_09.jpg"
+    locId = "lobbies/pacific_guadalcanal_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  pacific_guadalcanal_inv_counter_axis = {
+    image = "ui/pacific_guadalcanal_inv_09.jpg"
+    locId = "lobbies/pacific_guadalcanal_inv_counter_axis"
+    army = MissionArmy.AXIS
+  }
+
+  pacific_guadalcanal_conf = {
+    image = "ui/pacific_guadalcanal_inv_01.jpg"
+    locId = "lobbies/pacific_guadalcanal_conf"
+    army = MissionArmy.ALLIES
+  }
+
+  pacific_guadalcanal_conf_axis = {
+    image = "ui/pacific_guadalcanal_inv_01.jpg"
+    locId = "lobbies/pacific_guadalcanal_conf_axis"
+    army = MissionArmy.AXIS
+  }
+
   pacific_vertical_inv = {
     image = "ui/pacific_guadalcanal_inv_07.jpg"
     locId = "lobbies/pacific_vertical_inv"

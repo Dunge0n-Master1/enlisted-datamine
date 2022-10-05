@@ -517,7 +517,6 @@ planegun_ai_a_20g_12_7mm_browning50_turret_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50_turret"
   _extends:t="gunsound_12_7mm_browning50_turret_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare7"
   gun__maxAmmo:i=400
   turret__aimNodeName:t="turret1"
@@ -537,7 +536,6 @@ planegun_ai_a_20g_12_7mm_browning50_turret_02{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50_turret"
   _extends:t="gunsound_12_7mm_browning50_turret_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare8"
   gun__maxAmmo:i=400
   turret__aimNodeName:t="turret1"
@@ -557,7 +555,6 @@ planegun_ai_a_20g_12_7mm_browning50_turret_03{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50_turret"
   _extends:t="gunsound_12_7mm_browning50_turret_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare9"
   gun__maxAmmo:i=400
   turret__aimNodeName:t="turret2"
@@ -571,7 +568,6 @@ planegun_ai_a_20g_12_7mm_browning50_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50"
   _extends:t="gunsound_12_7mm_browning50_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=350
 }
@@ -581,7 +577,6 @@ planegun_ai_a_20g_12_7mm_browning50_02{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50"
   _extends:t="gunsound_12_7mm_browning50_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=350
 }
@@ -591,7 +586,6 @@ planegun_ai_a_20g_12_7mm_browning50_03{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50"
   _extends:t="gunsound_12_7mm_browning50_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=350
 }
@@ -601,7 +595,6 @@ planegun_ai_a_20g_12_7mm_browning50_04{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50"
   _extends:t="gunsound_12_7mm_browning50_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=350
 }
@@ -611,7 +604,6 @@ planegun_ai_a_20g_12_7mm_browning50_05{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50"
   _extends:t="gunsound_12_7mm_browning50_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare5"
   gun__maxAmmo:i=350
 }
@@ -621,7 +613,6 @@ planegun_ai_a_20g_12_7mm_browning50_06{
   _extends:t="base_plane_machinegun"
   _extends:t="base_a_20g_12_7mm_browning50"
   _extends:t="gunsound_12_7mm_browning50_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare6"
   gun__maxAmmo:i=350
 }

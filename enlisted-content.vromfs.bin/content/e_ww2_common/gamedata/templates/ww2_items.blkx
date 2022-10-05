@@ -6274,6 +6274,12 @@ sniper_m1_garand_gun_item{
   collres__res:t="m1_garand_collision"
 }
 
+m1e5_garand_gun_item{
+  _extends:t="item_gun"
+  _extends:t="m1e5_garand"
+  collres__res:t="m1e5_garand_collision"
+}
+
 two_inch_mortar_gun_item{
   _extends:t="item_gun"
   _extends:t="two_inch_mortar_gun"
@@ -6776,6 +6782,26 @@ type_hei_rifle_magazine{
   item__volume:r=0.2
   item__name:t="items/type_hei_rifle_magazine"
   collres__res:t="zh_29_ammo_collision"
+}
+
+type_hei_rifle_extended_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_hei_rifle_extended"
+  collres__res:t="type_hei_rifle_extended_magazine_collision"
+}
+
+type_hei_rifle_extended_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="browning_m1918_ammo_char"
+  item__template:t="type_hei_rifle_extended_magazine"
+  item__proto:t="type_hei_rifle_extended_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="type_hei_rifle_extended_magazine"
+  ammo_holder__ammoCount:i=10
+  item__weight:r=0.35
+  item__volume:r=0.2
+  item__name:t="items/type_hei_rifle_extended_magazine"
+  collres__res:t="browning_m1918_ammo_collision"
 }
 
 type_100_smg_early_gun_item{

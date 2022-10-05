@@ -1,6 +1,7 @@
 import{
   scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_sounds.blk"
   scene:t="content/e_pacific/gamedata/scenes/_pacific_gpu_objects.blk"
+  scene:t="content/e_pacific/gamedata/scenes/_pacific_biome_fx.blk"
 }
 
 entity{

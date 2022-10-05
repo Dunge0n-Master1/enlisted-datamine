@@ -232,7 +232,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1044.01, 13.8151, 1310.34]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1046.28, 13.8151, 1308.12]]
   battle_area_polygon_point__forBattleAreaId:t="2a_area2"
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"

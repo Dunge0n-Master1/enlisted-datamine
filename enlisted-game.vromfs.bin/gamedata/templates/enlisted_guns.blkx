@@ -988,3 +988,15 @@ ussr_shovel_weapon{
   _extends:t="shovel_weapon"
   _extends:t="ussr_shovel"
 }
+
+jp_shovel{
+  _extends:t="shovel"
+  animchar__res:t="jap_type_98_entrenching_tool_char"
+  item__weapTemplate:t="jp_shovel_weapon"
+  item__template:t="jp_shovel_item"
+}
+
+jp_shovel_weapon{
+  _extends:t="shovel_weapon"
+  _extends:t="jp_shovel"
+}

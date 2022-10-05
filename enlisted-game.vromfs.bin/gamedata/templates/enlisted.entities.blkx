@@ -262,9 +262,6 @@ civil_vehicle_templ{
     }
   }
 
-  "nonLethalExplodeOnFire:tag"{
-  }
-
   "disableVehicleResupply:tag"{
   }
 
@@ -649,6 +646,7 @@ base_tank{
   _extends:t="vehicle_marker_ui"
   vehicle__mapIcon:t="map_icon_tank"
   user_point__icon:t="map_icon_tank"
+  destroyIfNoCrewLeft:b=yes
 
   "animchar_render__nodeVisibleStgFilters:list<u8>"{
     _tags:t="render"
@@ -666,9 +664,6 @@ base_tank{
   "isSimpleTurretCrosshair:b"{
     _tags:t="gameClient"
     value:b=yes
-  }
-
-  "destroyIfNoCrewLeft:tag"{
   }
 
   "ownedBySquad:eid"{

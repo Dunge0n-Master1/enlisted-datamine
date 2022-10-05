@@ -149,9 +149,44 @@ us_halftrack_m13_gunner_cockpit{
 halftrack_m13_turret_01_12_7mm_m2_hb{
   _override:b=yes
   turret__triggerGroup:i=0
+  _extends:t="12_7mm_m2_hb_custom_ammosetinfo"
 }
 
 halftrack_m13_turret_02_12_7mm_m2_hb{
   _override:b=yes
   turret__triggerGroup:i=0
+  _extends:t="12_7mm_m2_hb_custom_ammosetinfo"
+}
+
+12_7mm_m2_hb_custom_ammosetinfo{
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gameBase/content/tanks/gamedata/weapons/shells/12_7mm_m2_hb_custom_ap_bullet_1.blk"
+        name:t="ap_i_t_ball_M20"
+        type:t="ap_i_t_ball_M20"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_2.blk"
+        name:t="i_ball_M1"
+        type:t="i_ball_M1"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_2.blk"
+        name:t="i_ball_M1"
+        type:t="i_ball_M1"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/12_7mm_m2_hb_defaultset_bullet_2.blk"
+        name:t="i_ball_M1"
+        type:t="i_ball_M1"
+      }
+    }
+  }
 }

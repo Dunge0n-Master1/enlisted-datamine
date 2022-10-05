@@ -414,7 +414,6 @@ planegun_p_400_20mm_hispano404_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_20mm_hispano404"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=60
 }
@@ -424,7 +423,6 @@ planegun_p_400_12_7mm_browning50_early_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=270
 }
@@ -434,7 +432,6 @@ planegun_p_400_12_7mm_browning50_early_02{
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=270
 }
@@ -444,7 +441,6 @@ planegun_p_400_7_62mm_browning30_usaaf_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_7_62mm_browning30_usaaf"
   _extends:t="gunsound_7_62mm_browning30_usaaf_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=1000
 }
@@ -454,7 +450,6 @@ planegun_p_400_7_62mm_browning30_usaaf_02{
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_7_62mm_browning30_usaaf"
   _extends:t="gunsound_7_62mm_browning30_usaaf_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare5"
   gun__maxAmmo:i=1000
 }
@@ -464,7 +459,6 @@ planegun_p_400_7_62mm_browning30_usaaf_03{
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_7_62mm_browning30_usaaf"
   _extends:t="gunsound_7_62mm_browning30_usaaf_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare6"
   gun__maxAmmo:i=1000
 }
@@ -474,7 +468,6 @@ planegun_p_400_7_62mm_browning30_usaaf_04{
   _extends:t="base_plane_machinegun"
   _extends:t="base_p_400_7_62mm_browning30_usaaf"
   _extends:t="gunsound_7_62mm_browning30_usaaf_aircraft"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
   gun__shootNodeName:t="flare7"
   gun__maxAmmo:i=1000
 }
