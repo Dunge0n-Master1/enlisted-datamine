@@ -66,6 +66,7 @@ let playerStatQuery = ecs.SqQuery("playerStatQuery", {
     ["userstatsFilter", ecs.TYPE_SHARED_OBJECT, null],
     ["scoring_player__isGameFinished", ecs.TYPE_BOOL, true],
     ["scoring_player__kills", ecs.TYPE_INT, 0],
+    ["scoring_player__killsByPlayer", ecs.TYPE_INT, 0],
     ["scoring_player__tankKills", ecs.TYPE_INT, 0],
     ["scoring_player__planeKills", ecs.TYPE_INT, 0],
     ["scoring_player__battleTime", ecs.TYPE_FLOAT, 0.0],

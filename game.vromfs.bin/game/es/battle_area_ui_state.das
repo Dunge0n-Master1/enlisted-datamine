@@ -175,24 +175,24 @@ def build_battle_area_polygon(battle_areas : array<BattleAreaInfo>; var polygon 
 
   split_overlapping_segments(segments)
   mark_duplicates(segments)
-  for i in range(length(segments))
+  var i = 0
+  while i < length(segments)
     if segments[i].duplicate
+      i++
       continue
-    for j in range(i + 1, length(segments))
-      if segments[j].duplicate
+    var j = 0
+    while j < length(segments)
+      if segments[j].duplicate || j == i
+        j++
         continue
       var intersectionPoint : float2
       if intersection(segments[i].startPoint, segments[i].endPoint,
                       segments[j].startPoint, segments[j].endPoint,
                       intersectionPoint)
-        let segIExcludeEids := segments[i].excludeEids
-        let segJExcludeEids := segments[j].excludeEids
-        let line1 <- mk_segment(intersectionPoint, segments[i].endPoint, segIExcludeEids)
-        let line2 <- mk_segment(intersectionPoint, segments[j].endPoint, segJExcludeEids)
-        segments[i] <- mk_segment(segments[i].startPoint, intersectionPoint, segIExcludeEids)
-        segments[j] <- mk_segment(segments[j].startPoint, intersectionPoint, segJExcludeEids)
-        segments |> push_clone(line1)
-        segments |> push_clone(line2)
+        split_segment(segments, i, intersectionPoint)
+        split_segment(segments, j, intersectionPoint)
+      j++
+    i++
   var resultSegments : array<BattleAreaSegment>
   for segment in segments
     let checkingPoint = float3((segment.startPoint.x + segment.endPoint.x) * 0.5, 0.f, (segment.startPoint.y + segment.endPoint.y) * 0.5)

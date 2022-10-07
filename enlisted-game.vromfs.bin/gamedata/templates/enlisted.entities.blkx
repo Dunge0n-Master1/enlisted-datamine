@@ -1332,6 +1332,7 @@ enlisted_userstat_filter{
 
   "userstatsFilter:shared:object"{
     kills:b=yes
+    kills_by_player:b=yes
     deaths:b=yes
     squad_deaths:b=yes
     battles:b=yes
@@ -1657,6 +1658,20 @@ sequential_kills_awards{
   sequential_kills__currentCount:i=0
 }
 
+newbie_damage{
+  _tags:t="server"
+  player__damageToBotsScale:r=1.0
+  player__damageFromBotsScale:r=1.0
+  newbie__damageFromBots:r=0.25
+  newbie__damageToBots:r=2.0
+
+  _group{
+    _track:b=yes
+    newbie__baseKillCount:i=0
+    newbie__killCountMax:i=0
+  }
+}
+
 enlisted_player{
   _extends:t="player"
   _extends:t="enlisted_player_user_point_list"
@@ -1676,6 +1691,7 @@ enlisted_player{
   _extends:t="respawner"
   _extends:t="squad_members_ui"
   _extends:t="gun_game_mode_player_components"
+  _extends:t="newbie_damage"
   _replicated:t="userModsClientData"
   _replicated:t="userstatsInBattle"
   _replicated:t="userid"
@@ -1755,6 +1771,7 @@ enlisted_player{
   _group{
     _track:b=yes
     _replicate:b=yes
+    scoring_player__killsByPlayer:i=0
     scoring_player__tankKills:i=0
     scoring_player__planeKills:i=0
     scoring_player__captures:r=0.0

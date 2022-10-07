@@ -217,6 +217,8 @@ def hitpoints_apply_damage(evt : CmdApplyDamage;
                            var hitpoints__hp : float&;
                            var hitpoints__lastHitNodeId : int&;
                            var hitpoints__lastOffenderTime : float&;
+                           beh_tree__enabled aka victim_beh_tree__enabled : bool = false;
+                           possessedByPlr aka victim_possessedByPlr : EntityId = INVALID_ENTITY_ID;
                            hitpoints__clearOffenderTimer : float = 30.;
                            hitpoints__deathHpThreshold : float = 0.;
                            hitpoints__dmgMult : float = 1.;
@@ -230,7 +232,8 @@ def hitpoints_apply_damage(evt : CmdApplyDamage;
   let victim = eid
   var offender = evt.offender
 
-  var offenderPlayer = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
+  let offenderPossessedByPlayer = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
+  var offenderPlayer = offenderPossessedByPlayer
   var lastOffenderTeam = death_desc__offenderTeam
   let offenderTeam = get_int(offender, "team") ?? get_int(offenderPlayer, "team") ?? TEAM_UNASSIGNED
   if !offenderPlayer
@@ -251,6 +254,13 @@ def hitpoints_apply_damage(evt : CmdApplyDamage;
 
   if victim != offender // ignore spawn immunity in case of suicide
     deltaHp *= hitpoints__dmgMult
+    let isOffenderBehTreeEnabled = (get_bool(offender, "beh_tree__enabled") ?? false)
+    if !isOffenderBehTreeEnabled && victim_beh_tree__enabled
+      query(offenderPossessedByPlayer) <| $ [es] (player__damageToBotsScale : float)
+        deltaHp *= player__damageToBotsScale
+    if isOffenderBehTreeEnabled && !victim_beh_tree__enabled
+      query(victim_possessedByPlr) <| $ [es] (player__damageFromBotsScale : float)
+        deltaHp *= player__damageFromBotsScale
   let deathHp = hitpoints__deathHpThreshold
   let wasDowned = hitpoints__hp <= 0.f
   let wasDead = hitpoints__hp <= deathHp

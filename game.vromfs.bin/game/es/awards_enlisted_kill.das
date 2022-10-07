@@ -347,3 +347,10 @@ def count_squad_member_kills(evt : OnScoringKillBySquadMember;
     if possessedByPlr == player_eid && !human_anim__vehicleSelected
       squad_member__possessedInfantryKills += 1
       scoring_player__bestPossessedInfantryKillstreak = max(scoring_player__bestPossessedInfantryKillstreak, squad_member__possessedInfantryKills)
+
+[es(tag=server)]
+def count_kills_by_player(evt : OnScoringKillBySquadMember;
+                          possessed : EntityId;
+                          var scoring_player__killsByPlayer : int&)
+  if !!possessed && evt.offender == possessed
+    ++scoring_player__killsByPlayer

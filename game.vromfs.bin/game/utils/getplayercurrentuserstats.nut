@@ -57,6 +57,7 @@ let playerUserstatComps = [
   ["userstatsFilter", ecs.TYPE_SHARED_OBJECT, null],
   ["scoring_player__isGameFinished", ecs.TYPE_BOOL, true],
   ["scoring_player__kills", ecs.TYPE_INT, 0],
+  ["scoring_player__killsByPlayer", ecs.TYPE_INT, 0],
   ["scoring_player__bestPossessedInfantryKillstreak", ecs.TYPE_INT, 0],
   ["scoring_player__tankKills", ecs.TYPE_INT, 0],
   ["scoring_player__planeKills", ecs.TYPE_INT, 0],
@@ -111,6 +112,7 @@ let function getPlayerCurrentUserstats(comp, roundResult = null) {
   addStat(stats, comp, "scoring_player__attackKills", "kills_while_attacking_point")
   addStat(stats, comp, "scoring_player__defenseKills", "kills_while_defending_point")
   addStat(stats, comp, "scoring_player__kills", "kills")
+  addStat(stats, comp, "scoring_player__killsByPlayer", "kills_by_player")
   addStat(stats, comp, "scoring_player__bestPossessedInfantryKillstreak", "best_possessed_infantry_killstreak")
   if (comp.scoring_player__bestPossessedInfantryKillstreak >= 10)
     addStatValue(stats, 1, "best_possessed_infantry_killstreak_10")

@@ -143,6 +143,7 @@ daEditor4{
 
 sound{
   maxChannels:i=1024
+  commandQueueSize:i=65536
   maxSoftwareChannels:i=128
   maxVorbisCodecs:i=128
   streamBufferSizeKb:i=96
