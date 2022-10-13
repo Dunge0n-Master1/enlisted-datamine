@@ -168,6 +168,7 @@ let perksPointFactory = {
 let perksClassFactory = {
   flametrooper                  = [{ statValue = 0.6, statKey = "fire_damage_mult"}, { statValue = 6, statKey = "fire_damage_tick_resistance"}]
   flametrooper_2                = [{ statValue = 0.6, statKey = "fire_damage_mult"}, { statValue = 6, statKey = "fire_damage_tick_resistance"}]
+  flametrooper_2_premium_1      = [{ statValue = 0.6, statKey = "fire_damage_mult"}, { statValue = 6, statKey = "fire_damage_tick_resistance"}]
   tanker_premium_2_flametrooper = [{ statValue = 0.6, statKey = "fire_damage_mult"}, { statValue = 6, statKey = "fire_damage_tick_resistance"}]
 }
 

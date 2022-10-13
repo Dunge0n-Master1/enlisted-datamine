@@ -1227,7 +1227,7 @@ entity{
   activator__initialLength:i=5
 
   "activator__activateChoice:object"{
-    sector_1_b:r=0.0
+    sector_1_b:r=2.0
     sector_1_a:r=1.0
   }
 }
@@ -1298,7 +1298,7 @@ entity{
 
   "capzone__activateChoice:object"{
     sector_2_a:r=1.0
-    sector_2_b:r=0.0
+    sector_2_b:r=1.0
   }
 }
 
@@ -1325,7 +1325,7 @@ entity{
 
   "capzone__activateChoice:object"{
     sector_2_a:r=1.0
-    sector_2_b:r=0.0
+    sector_2_b:r=1.0
   }
 }
 
@@ -1406,7 +1406,7 @@ entity{
   capzone__iconOffsetY:r=1.5
 
   "capzone__activateChoice:object"{
-    sector_4_b:r=0.0
+    sector_4_b:r=1.0
     sector_4_a:r=1.0
   }
 }

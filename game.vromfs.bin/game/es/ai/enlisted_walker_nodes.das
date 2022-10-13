@@ -1236,7 +1236,7 @@ class FindPotentialEnemyDirectionEntryPoint : BehNodeAdapter
   minCoverHeight : float = 1.
 
   def override loadFromBlk(var data : DataBlock) : void
-    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "potentialEnemyPos"), 0)
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "potentialEnemyPos"), float3())
     minCoverHeight = owner.blackBoard |> datablock_getReal("minCoverHeight", 1.f)
 
     let agentEid = beh_tree_eid()
@@ -2427,4 +2427,45 @@ class FindCoverAroundPoint : BehNodeAdapter
 
           res = EBehResult ER_SUCCESS
 
+    return res
+
+[beh_node(name="startAim")]
+class StartAim : BehNodeAdapter
+
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid()) <| $ [es] (var human_net_phys : HumanActor&)
+      assume ct = human_net_phys.phys.producedCT
+      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, true)
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="stopAim")]
+class StopAim : BehNodeAdapter
+
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid()) <| $ [es] (var human_net_phys : HumanActor&)
+      assume ct = human_net_phys.phys.producedCT
+      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, false)
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="canHoldWeaponInVehicle")]
+class CanHoldWeaponInVehicle : BehNodeAdapter
+
+  def override update(dt : float) : EBehResult
+    return (get_bool(beh_tree_eid(), "human_vehicle__canHoldWeapon") ?? false) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+[beh_node(name="checkReloadWeapon")]
+class ReloadWeapon : BehNodeAdapter
+
+  def override update(dt : float) : EBehResult
+    var res = EBehResult ER_SUCCESS
+    let ownerEid = beh_tree_eid()
+    query(ownerEid) <| $ [es] (human_weap__reloadAtTime : float; human_weap__currentGunEid : EntityId)
+      let atTime = get_sync_time()
+      if atTime < human_weap__reloadAtTime
+        res = EBehResult ER_RUNNING
+      else
+        query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int)
+          if gun__totalAmmo > 0 && gun__ammo == 0
+            sendEventImmediate(ownerEid, [[CmdRequestReload atTime=atTime, gunEid=human_weap__currentGunEid]])
+            res = EBehResult ER_RUNNING
     return res

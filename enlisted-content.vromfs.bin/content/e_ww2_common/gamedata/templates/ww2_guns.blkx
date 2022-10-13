@@ -32320,16 +32320,20 @@ lunge_mine_shell_phys{
   _extends:t="projectile_phys"
   _extends:t="panzerfaust_60_shell"
   _extends:t="rocket_shell"
-  _extends:t="projectile_phys"
   phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/weapons/shells/lunge_mine_shell.blk"
   item__name:t="items/ni_05_lunge_mine"
   shell__vehicleKillStat:t="lunge_mine_vehicle_kills"
   shell__infantryKillStat:t="lunge_mine_kills"
+  shell__startPos:p3=0.0, 0.0, 0.0
+  shell__maxDistanceSq:r=0.36
   slot_attach__visible:b=no
 
   "shell__concussionMaxRadius:r"{
     value:r=2.6
     _tags:t="server"
+  }
+
+  "lungeMine:tag"{
   }
 }
 

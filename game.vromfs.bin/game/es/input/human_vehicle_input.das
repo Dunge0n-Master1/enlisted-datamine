@@ -8,8 +8,10 @@ require HumanPhys
 require EnlistedHuman
 require common_shooter.es.human_weap_common
 require game.es.vehicle.vehicle_seats_common
+require game.es.human.human_vehicle_common
 require enlisted.events_enlisted
 require net
+require vehicle
 
 
 def init(human_input__seatCount : int;
@@ -131,6 +133,7 @@ def human_vehicle_toggle_hatch_input_es(evt : EventDaInputActionTriggered;
 def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggered;
                                                 eid : EntityId;
                                                 isInVehicle : bool;
+                                                isInVehicleHidden : bool;
                                                 input__enabled : bool;
                                                 human_binocular__mode : bool;
                                                 human_weap__gunEids : EidList;
@@ -160,7 +163,25 @@ def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggere
 
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_HOLD_GUN_MODE, isEnablingHoldGunMode)
   else
-    sendEvent(eid, [[CmdHeroLogEvent event="hold_gun_mode_disallowed", text="hold_gun_mode/disallowed_on_this_vehicle"]])
+    var hasSuitableSeatForHoldGunMode = false
+    query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
+      for seatEid in vehicle_seats__seatEids
+        query(seatEid) <| $ [es] (seat__isInHatch : bool;
+                                  seat__isPassenger : bool;
+                                  seat__availableControls : VehicleControlsState;
+                                  seat__isHoldGunModeAllowed : bool;
+                                  seats_order__canPlaceManually : bool)
+          hasSuitableSeatForHoldGunMode ||= (seats_order__canPlaceManually
+                                          && is_hold_gun_mode_allowed(isInVehicle,
+                                                                      isInVehicleHidden,
+                                                                      seat__isPassenger,
+                                                                      seat__isHoldGunModeAllowed,
+                                                                      seat__isInHatch,
+                                                                      seat__availableControls.canControlTurrets))
+    if hasSuitableSeatForHoldGunMode
+      sendEvent(eid, [[CmdHeroLogEvent event="hold_gun_mode_disallowed_at_seat", text="hold_gun_mode/disallowed_at_seat"]])
+    else
+      sendEvent(eid, [[CmdHeroLogEvent event="hold_gun_mode_disallowed_in_vehicle", text="hold_gun_mode/disallowed_in_vehicle"]])
 
 [es(tag=input, track=(possessedByPlr, isInVehicle))]
 def human_vehicle_disable_hold_gun_mode_input_es(evt : Event;

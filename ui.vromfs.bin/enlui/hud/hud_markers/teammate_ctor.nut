@@ -110,7 +110,7 @@ let teammateIcon = mkIcon(HUD_COLOR_TEAMMATE_INNER, HUD_COLOR_TEAMMATE_OUTER, 1.
 let groupmateBotIcon = mkIcon(HUD_COLOR_GROUPMATE_BOT_INNER, HUD_COLOR_GROUPMATE_BOT_OUTER, 1.0)
 
 let displayMarkerOverHeadQuery = ecs.SqQuery("displayMarkerOverHeadQuery", {comps_rq=["vehicleDisplayMarkerOverHead"]})
-let zeroPoint = Point2(0,0)
+let maxRange = Point2(10,10) // Big enough to cover whole screen on different aspect ratio
 let opRangeX = Point2(0.25, 0.35)
 let opRangeY = Point2(0.25, 0.75)
 let opRangeX_hardcore = Point2(0.125, 0.135)
@@ -168,9 +168,9 @@ let unit = function(eid, showMed){
         yOffs = 0.25
         opacityRangeViewDistance = minHud ? 1.0 : 20.0
         opacityRangeX = showName && !minHud
-          ? zeroPoint
+          ? maxRange
           : minHud ? opRangeX_hardcore : opRangeX
-        opacityRangeY = showName ? zeroPoint : opRangeY
+        opacityRangeY = showName ? maxRange : opRangeY
       }
 
       key = {}

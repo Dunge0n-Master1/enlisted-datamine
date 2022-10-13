@@ -257,10 +257,45 @@ DamageEffects{
 
   part{
     name:t="engine"
+    name:t="transmission"
 
     onKill{
       fire:r=1.0
       fHitCritical:b=yes
+    }
+  }
+
+  part{
+    name:t="body"
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=1.0
+      damage:r=100.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=1.0
+      damage:r=100.0
+      fHitCritical:b=yes
+    }
+  }
+}
+
+MetaParts{
+
+  armor_body{
+    hp:r=400.0
+    part:t="engine"
+    part:t="transmission"
+    part:t="body"
+
+    effect{
+      conditionDead:b=yes
+      killEffect:t="expl"
+      kill:b=yes
     }
   }
 }

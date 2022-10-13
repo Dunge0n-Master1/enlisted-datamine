@@ -78,6 +78,71 @@ repeat{
   checkVehicleSeats{
   }
 
+  canHoldWeaponInVehicle{
+  }
+
+  exitHandler{
+
+    repeatUntilFail{
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyRadius"
+          minDanger:r=0.5
+          tag:t="human"
+        }
+
+        join{
+
+          success{
+
+            shootAtUnit{
+              targetUnitParam:t="shootEnemy"
+              shootTime:p2=0.2, 1.0
+              cooldownTime:p2=0.1, 0.9
+              minAimTime:p2=0.3, 0.4
+            }
+          }
+
+          startAim{
+          }
+        }
+
+        startAim{
+        }
+
+        checkReloadWeapon{
+        }
+
+        parallel{
+
+          cycle{
+
+            not{
+
+              findDanger{
+                paramName:t="shootEnemy"
+                radiusParamName:t="enemyRadius"
+                minDanger:r=0.5
+                tag:t="human"
+              }
+            }
+          }
+
+          wait{
+            range:p2=1.0, 3.0
+            resetable:b=yes
+          }
+        }
+      }
+    }
+
+    stopAim{
+    }
+  }
+
   orderedSelector{
 
     isInVehicle{

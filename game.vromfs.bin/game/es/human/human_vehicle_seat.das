@@ -8,6 +8,7 @@ require GeomNodeTree
 require AnimV20
 require CollRes
 require game.es.vehicle.vehicle_seats_common
+require game.es.human.human_vehicle_common
 require vehicle
 
 
@@ -153,6 +154,7 @@ def human_vehicle_seat_disable_hatch_state_on_exit_vehicle(evt : Event; isInVehi
 [es(on_appear, track=(isInVehicle, isPassenger, human_vehicle__isInHatch, human_vehicle__occupiedSeatEid))]
 def human_vehicle_update_can_hold_weapon(evt : Event;
                                          isInVehicle : bool;
+                                         isInVehicleHidden : bool;
                                          isPassenger : bool;
                                          human_vehicle__isInHatch : bool;
                                          human_vehicle__occupiedSeatEid : EntityId;
@@ -164,8 +166,7 @@ def human_vehicle_update_can_hold_weapon(evt : Event;
     canControlTurrets = seat__availableControls.canControlTurrets
     isHoldGunModeAllowed = seat__isHoldGunModeAllowed
 
-  human_vehicle__canHoldWeapon = (isInVehicle && isHoldGunModeAllowed
-                              && (human_vehicle__isInHatch || (isPassenger && !canControlTurrets)))
+  human_vehicle__canHoldWeapon = is_hold_gun_mode_allowed(isInVehicle, isInVehicleHidden, isPassenger, isHoldGunModeAllowed, human_vehicle__isInHatch, canControlTurrets)
 
 
 [es(track=(human_net_phys__isHctAim, human_weap__throwMode, human_weap__blockAiming, human_weap__currentGunSlot, human_vehicle__canHoldWeapon, human_vehicle__isHoldGunMode))]

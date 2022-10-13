@@ -8,7 +8,10 @@ require EnlistedHuman
 require HumanPhys
 require Action
 require game.es.inventory_common
+require game.es.events
 require DagorMath
+require common_shooter.events_common_shooter
+require EnlistedPhysObj
 
 let MINE_POSSIBLE_SLOTS = [[HUWeaponSlots HUWeaponSlots EWS_PRIMARY; HUWeaponSlots EWS_SECONDARY;
     HUWeaponSlots EWS_TERTIARY; HUWeaponSlots EWS_MELEE; HUWeaponSlots EWS_SPECIAL]]
@@ -134,3 +137,29 @@ def lunge_mine_remove_on_active_es(info : UpdateStageInfoAct;
     let slotId = find_index(each(human_weap__gunEids), eid)
     if slotId >= 0 && !is_anim_progress_valid_to_change_weapon(human_net_phys.phys, slotId)
       switch_from_lunge_mine(human_weap__gunEids, human_net_phys.phys)
+
+[es(tag=server, REQUIRE=lungeMine, before=explode_on_contact_shell_contact)]
+def lunge_mine_destroy_by_distance(evt : CmdPostPhysUpdate;
+                                   eid : EntityId;
+                                   shell__maxDistanceSq : float;
+                                   phys_obj_net_phys : PhysObjActor;
+                                   shell__startPos : float3;
+                                   var shell__active : bool&)
+  // A lunge mine is created with initial velocity so that it flies toward the target and explodes on contact.
+  // There is a chance that the lunge mine will miss a small target (human) and fly past it.
+  // So, we keep it from flying too far and make it explode.
+  if !shell__active
+    return
+  let curPos = float3(phys_obj_net_phys.phys.currentState.location.P)
+  let path = curPos - shell__startPos
+  let distance = length_sq(path)
+  if distance > shell__maxDistanceSq
+    let dir = normalize(path)
+    let posCapped = shell__startPos + sqrt(shell__maxDistanceSq) * dir
+    sendEvent(eid, [[CmdShellExplode position=posCapped, prevPos = posCapped, vel = float3()]])
+    shell__active = false
+
+[es(tag=server, REQUIRE=lungeMine, on_appear)]
+def init_lunge_mine_start_pos(evt : Event; phys_obj_net_phys : PhysObjActor; var shell__startPos : float3&)
+  let curPos = float3(phys_obj_net_phys.phys.currentState.location.P)
+  shell__startPos = curPos

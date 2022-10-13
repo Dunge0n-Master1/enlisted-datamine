@@ -1,6 +1,8 @@
 civil_vehicle_templ{
   _extends:t="vehicle"
   _extends:t="vehicle_effects_4x4"
+  _extends:t="base_damage_model"
+  _extends:t="base_damage_model_fx"
   zones_visitor__triggerTag:t="vehicleTriggerable"
   _replicated:t="killer"
   _replicated:t="dm_state"
@@ -16,8 +18,9 @@ civil_vehicle_templ{
   vehicle_seat_damage__minVelocity:r=5.0
   vehicle_seat_damage__velocityMult:r=0.5
   vehicle_seat_damage__maxDmgPercent:r=0.3
+  expl_fx:t="tank_explosion"
   _tracked:t="isExploded"
-  fire_damage__isBurn:b=no
+  fire_damage__isBurn:b=yes
   fire_damage__totalTime:r=0.0
   timeToExplosion:r=35.0
   fire_damage__update_burn_interval:r=1.0
@@ -123,6 +126,301 @@ civil_vehicle_templ{
         "fx:object"{
           name:t="pv_broken_exhaust_base_template"
           emitter:t="emtr_fire_engine_02"
+        }
+      }
+    }
+  }
+
+  "fatal_explosion_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_fire_big_template"
+          emitter:t="emtr_fire_engine"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_01"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_02"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_03"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_04"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_05"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_06"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_07"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_08"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_09"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_10"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_11"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_12"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_13"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_14"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_15"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_16"
+        }
+      }
+    }
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_small_template"
+          emitter:t="emtr_fire_ammo"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_small_template"
+          emitter:t="emtr_fire_ammo_01"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_small_template"
+          emitter:t="emtr_fire_ammo_02"
+        }
+      }
+    }
+  }
+
+  "fatal_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_01"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_02"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_03"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_04"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_05"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_06"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_07"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_08"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_09"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_10"
+        }
+      }
+    }
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_01"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_02"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_03"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_04"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_05"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_06"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_07"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_08"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_09"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_10"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_11"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_12"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_13"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_14"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_15"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_16"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_fire_ammo"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_fire_ammo_01"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_fire_ammo_02"
         }
       }
     }
@@ -955,7 +1253,6 @@ nissan_80{
 
 gmc_353_a{
   _extends:t="base_civil_fire_ready_vehicle"
-  _extends:t="ten_seats_vehicle"
   _extends:t="truck_vehicle_brakes_sound"
   _extends:t="truck_vehicle_tracks_sound"
   _extends:t="car_vehicle_seat_sound"
@@ -980,6 +1277,152 @@ gmc_353_a{
   push_object__energyScale:r=350.0
   camera__offset:p3=0.0, -1.0, -6.0
   car_painting__chance:r=0.9
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, 0.0, -0.05]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger9"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger9"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_09_pivot"
+      entranceNode:t="char_passenger_09_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger10"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger10"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_10_pivot"
+      entranceNode:t="char_passenger_10_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+  }
 
   _group{
     _tags:t="sound"
@@ -1034,7 +1477,6 @@ gmc_353_a{
 
 gmc_353_b{
   _extends:t="base_civil_fire_ready_vehicle"
-  _extends:t="ten_seats_vehicle"
   _extends:t="truck_vehicle_brakes_sound"
   _extends:t="truck_vehicle_tracks_sound"
   _extends:t="car_vehicle_seat_sound"
@@ -1059,6 +1501,152 @@ gmc_353_b{
   push_object__energyScale:r=350.0
   camera__offset:p3=0.0, -1.0, -6.0
   car_painting__chance:r=0.9
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, 0.0, -0.05]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger9"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger9"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_09_pivot"
+      entranceNode:t="char_passenger_09_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger10"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger10"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_10_pivot"
+      entranceNode:t="char_passenger_10_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+  }
 
   _group{
     _tags:t="sound"

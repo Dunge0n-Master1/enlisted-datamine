@@ -254,6 +254,9 @@ base_vehicle_seat{
   _tracked:t="seat__isLocked"
   _replicated:t="seats_switch_time__time"
   _replicated:t="seats_switch_time__newSeatNo"
+  _replicated:t="seat__isDriver"
+  _replicated:t="seat__isGunner"
+  _replicated:t="seat__isPassenger"
   _replicated:t="seat__isPlayer"
   _replicated:t="seat__ownerEid"
   _replicated:t="seat__squadEid"
@@ -266,6 +269,9 @@ base_vehicle_seat{
   seat__roomSpace:i=-1
   seat__entranceNodeId:i=-1
   seat__component:i=0
+  seat__isDriver:b=no
+  seat__isGunner:b=no
+  seat__isPassenger:b=no
   seat__isPlayer:b=no
   seat__orderNo:i=-1
   seat__nextSeatNo:i=-1
