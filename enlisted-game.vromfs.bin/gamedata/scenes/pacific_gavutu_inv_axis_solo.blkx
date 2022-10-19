@@ -1000,7 +1000,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [75.3912, 9.17901, -487.59]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [21.4543, 9.179, -444.141]]
   battle_area_polygon_point__forBattleAreaId:t="4_area1"
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point7"
@@ -1008,7 +1008,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [178.203, 9.17901, -464.24]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [123.596, 9.17889, -388.083]]
   battle_area_polygon_point__forBattleAreaId:t="4_area1"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -1016,7 +1016,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [227.54, 9.17901, -421.961]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [159.166, 9.17902, -340.873]]
   battle_area_polygon_point__forBattleAreaId:t="4_area1"
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
@@ -1024,7 +1024,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [249.108, 9.17901, -376.506]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [180.43, 9.17897, -297.571]]
   battle_area_polygon_point__forBattleAreaId:t="4_area1"
   battle_area_polygon_point__id:t="point9"
   battle_area_polygon_point__nextId:t="point10"
@@ -1032,7 +1032,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [301.017, 9.17901, -303.5]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [215.212, 9.17902, -259.404]]
   battle_area_polygon_point__forBattleAreaId:t="4_area1"
   battle_area_polygon_point__id:t="point10"
   battle_area_polygon_point__nextId:t="point11"
@@ -1040,7 +1040,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [332.096, 9.17901, -232.1]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [274.757, 9.17902, -217.529]]
   battle_area_polygon_point__forBattleAreaId:t="4_area1"
   battle_area_polygon_point__id:t="point11"
   battle_area_polygon_point__nextId:t="point12"
@@ -1368,7 +1368,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-115.442, 6.59864, -352.996]]
+  transform:m=[[0.713081, 0.0, -0.701082] [0.0, 1.0, 0.0] [0.701082, -0.0, 0.713081] [-102.579, 6.59864, -365.643]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point7"
@@ -1376,7 +1376,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [117.919, 6.59864, -422.732]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [72.2116, 6.59863, -253.695]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -1384,7 +1384,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [161.057, 6.59864, -311.336]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [88.9283, 6.59863, -169.145]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
@@ -1392,7 +1392,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [266.102, 6.59864, -161.312]]
+  transform:m=[[0.714347, 0.0, -0.699791] [0.0, 1.0, 0.0] [0.699791, -0.0, 0.714347] [200.809, 6.59863, -62.4146]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point9"
   battle_area_polygon_point__nextId:t="point10"
@@ -1848,7 +1848,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-27.8435, 6.59864, 132.755]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [25.8425, 6.59863, 204.122]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point11"
   battle_area_polygon_point__nextId:t="point12"
@@ -1856,7 +1856,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-73.0703, 6.59864, 112.038]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-66.8756, 6.59863, 131.893]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point12"
   battle_area_polygon_point__nextId:t="point1"
@@ -3068,7 +3068,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.68981, 0.0, 0.723989] [0.0, 1.0, 0.0] [-0.723989, 0.0, -0.68981] [227.887, 2.22153, -308.274]]
+  transform:m=[[-0.908323, 0.0, 0.418266] [0.0, 1.0, 0.0] [-0.418267, 0.0, -0.908323] [112.065, 2.06212, -328.503]]
   groupName:t="sector_4"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -3660,7 +3660,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [228.777, 2.65437, -309.615]]
+  transform:m=[[0.929393, 0.0, 0.369092] [0.0, 1.0, -0.0] [-0.369092, 0.0, 0.929393] [113.769, 2.8647, -328.428]]
   groupName:t="sector_4"
   resupply_zone__team:i=2
   active:b=no
@@ -3668,7 +3668,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.765573, 0.0, 0.643349] [0.0, 1.0, 0.0] [-0.643349, 0.0, -0.765573] [227.069, 1.92438, -309.273]]
+  transform:m=[[-0.948973, 0.0, 0.315357] [0.0, 1.0, 0.0] [-0.315357, 0.0, -0.948973] [112.321, 2.13471, -328.098]]
   groupName:t="sector_4"
   team:i=2
   active:b=no

@@ -1,5 +1,63 @@
 us_m8_greyhound_pacific_premium{
   _extends:t="us_m8_greyhound_common"
+
+  "animchar__objTexReplace:object"{
+    "us_camo_olive*":t="us_camo_dark_green_light_olive*"
+  }
+
+  "attach_decorators__entities:list<eid>"{
+  }
+
+  "attach_decorators__templates:array"{
+
+    "templates:object"{
+      relativeTm:m=[[-0.988562, 0.151197, 0.00274554] [-0.147675, -0.969309, 0.199736] [0.0328294, 0.196903, 0.979904] [0.281204, 0.985893, 1.26019]]
+      template:t="vgt_palm_c"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.998627, 0.0603508, -0.0134136] [0.0563934, -0.978354, -0.203244] [-0.0253702, 0.201965, -0.979509] [0.157501, 1.0178, -1.10763]]
+      template:t="vgt_palm_c"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.811366, 0.1239, -0.00730152] [-0.122864, -0.794505, 0.19809] [0.0187775, 0.161379, 0.98021] [-1.30023, 0.974678, 1.25214]]
+      template:t="vgt_palm_c"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.784439, 0.0552273, -0.0133983] [0.0547343, -0.747628, -0.144205] [-0.0263514, 0.151545, -0.979433] [-1.41017, 1.00683, -1.10706]]
+      template:t="vgt_palm_c"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.600057, 0.0161445, -0.0471587] [-0.0558219, -0.0824317, 0.521113] [0.00973052, 0.556313, 0.0784577] [0.568222, 1.46886, 0.978714]]
+      template:t="vgt_palm_c"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[0.590495, 0.00145817, 0.1057] [0.0768191, -0.0686556, -0.428185] [0.0140043, 0.551067, -0.0858371] [0.45195, 1.50826, -0.927356]]
+      template:t="vgt_palm_c"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.756409, -0.0773755, -0.100591] [-0.100637, -0.00509937, 0.760894] [-0.0773734, 0.763127, -0.00512042] [-1.45821, 1.53055, 0.0573502]]
+      template:t="vgt_palm_e"
+      nodeName:t="root"
+    }
+
+    "templates:object"{
+      relativeTm:m=[[-0.602647, 0.352934, -0.0104864] [-0.00640525, 0.00980408, 0.698068] [0.353322, 0.603159, -0.00522899] [2.00194, 1.28209, 0.118166]]
+      template:t="vgt_palm_e"
+      nodeName:t="root"
+    }
+  }
 }
 
 us_m8_greyhound_common{
@@ -39,6 +97,7 @@ us_m8_greyhound_common{
       cockpitTemplate:t="us_m8_greyhound_gunner_cockpit"
       maxPosWithOpenHatch:r=0.3
       hatchRotationAxis:p3=0.0, 0.0, 0.0
+      isHoldGunModeAllowed:b=no
 
       "turretNames:array"{
         turret:t="turret_01"
@@ -64,6 +123,7 @@ us_m8_greyhound_common{
       cameraNodeName:t="bone_turret"
       maxPosWithOpenHatch:r=0.3
       cockpitTemplate:t="us_m8_greyhound_commander_cockpit"
+      isHoldGunModeAllowed:b=no
       seatAnimUpper:t="drive_passenger"
       seatAnimLower:t="drive_passenger"
 

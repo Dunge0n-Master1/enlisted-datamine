@@ -28049,7 +28049,7 @@ grb_39_gun{
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
-    path:t="/weapon/antivehicle/pzb39"
+    path:t="/weapon/antivehicle/panzerschreck"
   }
 
   "sound_irqs:shared:object"{
@@ -30823,6 +30823,9 @@ nambu_type_14_gun{
   meleeSoundType:t="pistol"
   meleeSoundName:t="pistol/whoosh"
 
+  "gun_attach__holsterSlots:array"{
+  }
+
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/pistol/nambu_type_14"
@@ -30929,6 +30932,9 @@ hamada_type_1_gun{
   meleeSoundType:t="pistol"
   meleeSoundName:t="pistol/whoosh"
 
+  "gun_attach__holsterSlots:array"{
+  }
+
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/pistol/p08"
@@ -31014,6 +31020,9 @@ hamada_type_2_gun{
   meleeSoundType:t="pistol"
   meleeSoundName:t="pistol/whoosh"
 
+  "gun_attach__holsterSlots:array"{
+  }
+
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/pistol/p08"
@@ -31098,6 +31107,9 @@ nambu_type_94_gun{
   gun__visualRecoilMult:r=1.4
   meleeSoundType:t="pistol"
   meleeSoundName:t="pistol/whoosh"
+
+  "gun_attach__holsterSlots:array"{
+  }
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"

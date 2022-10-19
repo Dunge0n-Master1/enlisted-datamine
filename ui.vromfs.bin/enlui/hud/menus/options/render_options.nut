@@ -27,7 +27,7 @@ let { PERF_METRICS_BLK_PATH, PERF_METRICS_FPS,
   perfMetricsAvailable, perfMetricsValue, perfMetricsSetValue, perfMetricsToString
 } = require("performance_metrics_options.nut")
 let { is_inline_rt_supported, is_dx12, is_hdr_available,
-  is_hdr_enabled, change_paper_white_nits, change_gamma } = require("videomode")
+  is_hdr_enabled, change_paper_white_nits, change_gamma, get_default_static_resolution_scale = null } = require("videomode")
 let { availableMonitors, monitorValue, get_friendly_monitor_name } = require("monitor_state.nut")
 let { fpsList, UNLIMITED_FPS_LIMIT } = require("fps_list.nut")
 let {isBareMinimum} = require("quality_preset_common.nut")
@@ -427,7 +427,8 @@ let antiAliasingModeToString = {
 let antiAliasingModeChoosen = Watched(get_setting_by_blk_path("video/antiAliasingMode")
                                        ?? (platform.is_nswitch || isBareMinimum.value ? antiAliasingMode.FXAA : antiAliasingMode.TAA))
 let antiAliasingModeSetValue = @(v) antiAliasingModeChoosen(v)
-let antiAliasingModeValue = Computed(@() isBareMinimum.value ? antiAliasingMode.FXAA : antiAliasingModeChoosen.value)
+let antiAliasingModeValue = Computed(@() isBareMinimum.value ? antiAliasingMode.FXAA
+                                                             : max(antiAliasingModeChoosen.value, antiAliasingMode.TAA))
 
 let optAntiAliasingMode = optionCtor({
   name = loc("options/antiAliasingMode", "Anti-aliasing Mode")
@@ -522,12 +523,26 @@ let optStaticResolutionScale = optionCtor({
   isAvailableWatched = Computed(@() isOptAvailable() && isBareMinimum.value)
   widgetCtor = optionPercentTextSliderCtor
   blkPath = "video/staticResolutionScale"
-  defVal = 100.0
+  defVal = get_default_static_resolution_scale?() ?? 100.0
   min = 50.0
   max = 100.0
   unit = 5.0/50.0
   pageScroll = 5.0
   restart = false
+})
+
+let staticResolutionScaleWatched = optStaticResolutionScale.var
+
+let optStaticUplsamplingQuality = optionCtor({
+  name = loc("options/static_upsampling_quality", "Static Upsampling Quality")
+  tab = "Graphics"
+  widgetCtor = optionSpinner
+  isAvailableWatched = Computed(@() isOptAvailable() && isBareMinimum.value && staticResolutionScaleWatched.value < 100.0)
+  blkPath = "graphics/staticUpsampleQuality"
+  available = ["bilinear", "catmullrom", "sharpen"]
+  defVal = "catmullrom"
+  restart = false
+  valToString = loc_opt
 })
 
 let optGammaCorrection = optionCtor({
@@ -726,6 +741,7 @@ return {
   optXess
   optTemporalUpsamplingRatio
   optStaticResolutionScale
+  optStaticUplsamplingQuality
   optFSR
   optFFTWaterQuality
   optHQProbeReflections
@@ -756,6 +772,7 @@ return {
     optTaaMipBias,
     optTemporalUpsamplingRatio,
     optStaticResolutionScale,
+    optStaticUplsamplingQuality,
     optFXAAQuality,
     optFSR,
     optDlss,

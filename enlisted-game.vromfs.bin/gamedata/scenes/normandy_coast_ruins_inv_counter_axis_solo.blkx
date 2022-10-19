@@ -3738,7 +3738,7 @@ entity{
   _template:t="respawnChooser+respTeam2"
   transform:m=[[-0.736968, -0.00246574, 0.675921] [0.00474764, 0.99995, 0.0088242] [0.675908, -0.00971179, 0.73692] [301.469, 2.08333, -280.404]]
   groupName:t="sector_2"
-  respawnBaseGroup:i=1
+  respawnBaseGroup:i=2
   active:b=no
 }
 
@@ -5255,4 +5255,12 @@ entity{
 entity{
   _template:t="m4a2_sherman_1944_destroyed"
   transform:m=[[0.781405, -0.0186157, -0.623746] [-0.00170491, 0.999488, -0.0319655] [0.624021, 0.0260414, 0.780973] [157.51, 1.2409, -175.656]]
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[-0.458815, -0.00246574, 0.888527] [0.00749834, 0.99995, 0.00664692] [-0.888499, 0.00971218, -0.458773] [306.846, 2.08333, -276.985]]
+  groupName:t="sector_2"
+  respawnBaseGroup:i=2
+  active:b=no
 }

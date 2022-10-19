@@ -231,10 +231,10 @@ entity{
 
 entity{
   _template:t="domination_box_capzone"
-  transform:m=[[47.5338, 0.0, 17.0288] [0.0, 9.76297, 0.0] [-10.5571, 0.0, 29.419] [494.508, 6.53088, -345.553]]
+  transform:m=[[47.5338, 0.0, 17.0288] [0.0, 9.76297, 0.0] [-10.5571, 0.0, 29.419] [494.508, 7.50542, -345.553]]
   capzone__title:t="C"
   capzone__caption:t="capzone/headquarters"
-  decal__height:r=4.0
+  decal__height:r=1.0
 }
 
 entity{

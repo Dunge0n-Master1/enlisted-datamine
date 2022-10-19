@@ -2223,6 +2223,7 @@ attachable_wear_medic_squad_tornister_backpack_item{
   animchar__res:t="medic_squad_tornister_backpack_char"
   collres__res:t="medic_squad_tornister_backpack_collision"
   animchar_fast_phys__res:t="medic_squad_tornister_backpack_fastphys"
+  item__name:t="items/medpack"
 
   animchar_fast_phys{
     _tags:t="gameClient"

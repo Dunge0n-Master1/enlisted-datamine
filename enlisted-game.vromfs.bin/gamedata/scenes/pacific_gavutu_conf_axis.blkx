@@ -1376,7 +1376,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [117.919, 6.59864, -422.732]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-13.0502, 6.59863, -331.554]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -1384,7 +1384,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [161.057, 6.59864, -311.336]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [96.6567, 6.59863, -176.582]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
@@ -1392,7 +1392,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [266.102, 6.59864, -161.312]]
+  transform:m=[[0.478887, 0.0, -0.877877] [0.0, 1.0, 0.0] [0.877877, -0.0, 0.478887] [207.573, 6.59864, -54.0184]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point9"
   battle_area_polygon_point__nextId:t="point10"
@@ -1848,7 +1848,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-27.8435, 6.59864, 132.755]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [5.14817, 6.59863, 186.5]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point11"
   battle_area_polygon_point__nextId:t="point12"
@@ -1856,7 +1856,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-73.0703, 6.59864, 112.038]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-65.5526, 6.59863, 130.547]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point12"
   battle_area_polygon_point__nextId:t="point1"
@@ -2566,8 +2566,8 @@ entity{
 entity{
   _template:t="team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=1250.0
+  team__score:r=1250.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -2636,9 +2636,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=140.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[33.1129, 0.0, 13.9553] [0.0, 14.3889, 0.0] [-23.8469, 0.0, 56.5838] [392.691, 8.19372, -356.335]]
   active:b=no
@@ -2664,9 +2664,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=150.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[0.722563, 0.0, -0.126323] [0.0, 0.690404, 0.0] [0.134235, -0.0, 0.767816] [196.21, 1.82092, -381.487]]
   active:b=no
@@ -2698,9 +2698,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=150.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [241.403, 1.32586, -276.239]]
   active:b=no
@@ -2729,9 +2729,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=160.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [138.967, 3.35621, -169.0]]
   active:b=no
@@ -2761,9 +2761,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=150.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[-20.1348, 0.0, 31.1966] [0.0, 14.2917, 0.0] [-50.7388, 0.0, -32.7477] [-10.1575, 11.4899, -112.263]]
   active:b=no
@@ -2792,9 +2792,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=150.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [74.1938, 3.6147, -21.751]]
   active:b=no
@@ -2823,9 +2823,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=140.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=60.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[-32.5501, 0.0, 32.9299] [0.0, 8.39327, 0.0] [-41.9412, 0.0, -41.4576] [-93.423, 8.07245, 49.2232]]
   active:b=no

@@ -1,5 +1,9 @@
 jp_type_97_chi_ha_pacific_premium{
   _extends:t="jp_type_97_chi_ha_common"
+
+  "animchar__objTexReplace:object"{
+    "jp_camo_artillery_brown*":t="jp_camo_early_multicolor_curves*"
+  }
 }
 
 jp_type_97_chi_ha_common{
@@ -53,7 +57,7 @@ jp_type_97_chi_ha_common{
       maxPosWithOpenHatch:r=1.2
       hatchRotationAxis:p3=1.8, 0.0, 0.0
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.75, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -1.1, 0.0]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
@@ -66,6 +70,10 @@ jp_type_97_chi_ha_common{
 
       "hatchTurretNames:array"{
         turret:t="turret_03"
+      }
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
       }
     }
 
@@ -86,33 +94,30 @@ jp_type_97_chi_ha_common{
         turret:t="turret_02"
       }
     }
+  }
+}
 
-    "seats:object"{
-      attachNode:t="loader"
-      locName:t="vehicle_seats/loader"
-      ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
-      seatComponent:t="isPassenger"
-      shouldHideOwner:b=yes
-      receiveDamageFromDMPart:t="loader"
-      cameraNodeName:t="bone_camera_driver"
+base_57mm_type97{
+  _override:b=yes
 
-      "loaderTurretNames:array"{
-        turret:t="turret_01"
+  "gun__ammoSetsInfo:shared:array"{
+
+    "57mm_Type3_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type3_heat.blk"
+        name:t="57mm_type3"
+        type:t="heat_tank"
       }
     }
-  }
 
-  "turrets__initAmmoDistribution:array"{
+    "57mm_type90_HE:array"{
 
-    "ammo:object"{
-      slot:i=0
-      fill:b=yes
-    }
-
-    "ammo:object"{
-      slot:i=2
-      fill:b=yes
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type90_he.blk"
+        name:t="57mm_type90_he"
+        type:t="he_frag_tank"
+      }
     }
   }
 }
@@ -144,6 +149,12 @@ jp_type_97_chi_ha_gunner_cockpit{
   animchar__res:t="ba_11_gunner_char"
   cockpit__offset:p3=-0.578069, -0.0561157, 0.244711
 
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=0.0, 0.0, 0.0
+    slit:p3=-0.2, 0.84, 0.34
+    slit:p3=-0.13, 0.446, 0.35
+  }
+
   "cockpit__visibleVehicleNodeNames:list<t>"{
   }
 
@@ -152,7 +163,7 @@ jp_type_97_chi_ha_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.17
+    slit:r=0.18
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -168,49 +179,35 @@ jp_type_97_chi_ha_gunner_cockpit{
 }
 
 jp_type_97_chi_ha_commander_cockpit{
-  _extends:t="base_commander_tower_cockit_no_slits"
-  animchar__res:t="pzkpfw_iii_b_commander_char"
-  cockpit__offset:p3=0.0, 0.0, 0.0
-
-  "cockpit__visibleVehicleNodeNames:list<t>"{
-    node:t="bone_gun"
-    node:t="gun_barrel"
-  }
+  _extends:t="base_commander_cockpit_no_slits"
+  animchar__res:t="t_26_1940_commander_char"
+  cockpit__offset:p3=-0.390408, 0.839359, -0.106903
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    item:p3=-0.0921702, 0.249742, -0.134947
-    item:p3=0.0, 0.0, 0.0
-    item:p3=0.0, 0.0, 0.0
-    item:p3=0.0, 0.0, 0.0
-    item:p3=0.0, 0.0, 0.0
     item:p3=0.0, 0.0, 0.0
   }
 
-  "cockpit__slitForwardOffset:list<r>"{
-    slit:r=-0.05
-    slit:r=-0.05
-    slit:r=-0.05
-    slit:r=-0.05
-    slit:r=-0.05
-    slit:r=-0.05
-  }
-
-  "cockpit__slitIsGun:list<b>"{
-    slit:b=yes
-    slit:b=no
-    slit:b=no
-    slit:b=no
-    slit:b=no
-    slit:b=no
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
   }
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
-    slit:t="cam_front_left"
-    slit:t="cam_rear_left"
-    slit:t="cam_rear"
-    slit:t="cam_rear_right"
-    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.18
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_turret"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
   }
 }
 

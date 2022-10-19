@@ -26,7 +26,6 @@
 
 "@override:graphics"{
   staticShadowsResolution:i=8192
-  resolutionScaleUpsamplingQuality:i=0
 }
 
 "@override:network"{

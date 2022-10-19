@@ -29,6 +29,9 @@ def check_in_poly_zone(battle_areas : array<BattleAreaInfo>; checking_point : fl
   return false
 
 def intersection(start1 : float2; end1 : float2; start2 : float2; end2 : float2; var out_intersection : float2&)
+  if start1 == start2 || start1 == end2 || end1 == start2 || end1 == end2
+    return false
+
   let dir1 = end1 - start1
   let dir2 = end2 - start2
 

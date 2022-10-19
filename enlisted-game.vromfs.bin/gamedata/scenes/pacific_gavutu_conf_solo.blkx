@@ -1376,7 +1376,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [117.919, 6.59864, -422.732]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-13.0502, 6.59863, -331.554]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -1384,7 +1384,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [161.057, 6.59864, -311.336]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [96.6567, 6.59863, -176.582]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
@@ -1392,7 +1392,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [266.102, 6.59864, -161.312]]
+  transform:m=[[0.478887, 0.0, -0.877877] [0.0, 1.0, 0.0] [0.877877, -0.0, 0.478887] [207.573, 6.59864, -54.0184]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point9"
   battle_area_polygon_point__nextId:t="point10"
@@ -1848,7 +1848,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-27.8435, 6.59864, 132.755]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [5.14817, 6.59863, 186.5]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point11"
   battle_area_polygon_point__nextId:t="point12"
@@ -1856,7 +1856,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-73.0703, 6.59864, 112.038]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-65.5526, 6.59863, 130.547]]
   battle_area_polygon_point__forBattleAreaId:t="5_area1"
   battle_area_polygon_point__id:t="point12"
   battle_area_polygon_point__nextId:t="point1"

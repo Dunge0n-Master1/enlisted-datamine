@@ -742,6 +742,8 @@ rocket_type_list{
 }
 
 global_turret_hit_fx_info{
+  _tags:t="render"
+  _extends:t="replicating"
   _singleton:b=yes
 
   "global_turret_hit_fx__failedBulletTypeHashes:list<u32>"{

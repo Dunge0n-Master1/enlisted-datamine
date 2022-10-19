@@ -510,6 +510,7 @@ return freeze({
     allies_pacific_prem_medic_1 = genSquadUsa("allies_pacific_prem_medic_1")
     allies_pacific_prem_assault_1 = genSquadUsa("allies_pacific_prem_assault_1")
     allies_pacific_prem_tank_1 = genSquadUsa("allies_pacific_prem_tank_1")
+    allies_pacific_prem_tank_2 = genSquadUsa("allies_pacific_prem_tank_2")
   }
 
 
@@ -543,5 +544,6 @@ return freeze({
     axis_pacific_prem_medic_1 = genSquadJap("axis_pacific_prem_medic_1")
     axis_pacific_prem_assault_1 = genSquadJap("axis_pacific_prem_assault_1")
     axis_pacific_prem_tank_1 = genSquadJap("axis_pacific_prem_tank_1")
+    axis_pacific_prem_tank_2 = genSquadJap("axis_pacific_prem_tank_2")
   }
 })

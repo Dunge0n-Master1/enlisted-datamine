@@ -3039,7 +3039,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.976203, 0.0, -0.216854] [0.0, 1.0, 0.0] [0.216854, 0.0, 0.976203] [-593.357, 23.5836, -1431.74]]
+  transform:m=[[0.977321, 0.0, -0.211759] [0.0, 1.0, 0.0] [0.211759, -0.0, 0.977321] [-592.046, 21.9963, -1433.91]]
   groupName:t="sector_5"
   respawnBaseGroup:i=1
   active:b=no
@@ -3047,7 +3047,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.976203, 0.0, -0.216854] [0.0, 1.0, 0.0] [0.216854, 0.0, 0.976203] [-592.832, 22.1822, -1435.77]]
+  transform:m=[[0.640091, 0.0, 0.768297] [0.0, 1.0, -0.0] [-0.768297, 0.0, 0.640091] [-596.905, 20.9095, -1427.27]]
   groupName:t="sector_5"
   respawnBaseGroup:i=1
   active:b=no

@@ -35,7 +35,7 @@
     flowps2parts:i=190
     sw_occlusion:b=no
     sw_hmap_occlusion:b=no
-    resolutionScaleUpsamplingQuality:i=0
+    staticUpsampleQuality:t="bilinear"
     impostorMaxTexSize:i=32
     scopeImageQuality:i=2
     riSimplifiedRender:b=yes

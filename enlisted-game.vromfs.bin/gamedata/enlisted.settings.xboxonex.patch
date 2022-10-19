@@ -2,7 +2,6 @@
   "@override:graphics"{
     "@override:__exclude_allow"{
       staticShadowsResolution:i=4096
-      resolutionScaleUpsamplingQuality:i=0
       heightmapDimBits:i=4
       shadowsQuality:t="low"
       texquality:t="medium"
@@ -47,7 +46,6 @@
 
 "@override:graphics"{
   staticShadowsResolution:i=4096
-  resolutionScaleUpsamplingQuality:i=0
   heightmapDimBits:i=4
   shadowsQuality:t="low"
   texquality:t="medium"

@@ -2,6 +2,7 @@ import:t="tanks/jp_type_98_ta_se.blk"
 import:t="tanks/jp_type_98_ke_ni.blk"
 import:t="tanks/jp_type_95_ha_go.blk"
 import:t="tanks/jp_type_3_ka_chi.blk"
+import:t="tanks/jp_type_97_chi_ha.blk"
 
 tankgun_20mm_type98{
   _override:b=yes

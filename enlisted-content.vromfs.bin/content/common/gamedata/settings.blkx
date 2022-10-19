@@ -1,4 +1,3 @@
-samplingQuality:ip2=1, 1
 log_lut:b=yes
 physMapDecals:b=yes
 texStreamingFile:t="config/tex_streaming.settings.blk"
@@ -843,8 +842,6 @@ __allowedConfigOverrides{
       rendinstImpostorsFarDistAddMul:r=1.0
       rendinstImpostorsDistAddMul:r=1.0
       hmapSubdivCellSize:r=1.0
-      samplingQualityHandleMode:ip2=1, 1
-      samplingQualityTvMode:ip2=1, 1
       impostorMaxTexSize:i=256
       impostorMinTexSize:i=8
       impostorTexCount:i=2
