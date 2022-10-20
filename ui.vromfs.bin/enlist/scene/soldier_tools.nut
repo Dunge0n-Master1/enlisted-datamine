@@ -362,7 +362,11 @@ let function createSoldier(
     }
   }
 
-  let soldierTemplate = DB.getTemplateByName(soldier.gametemplate)
+  let { gametemplate = null } = soldier
+  if (gametemplate == null)
+    return INVALID_ENTITY_ID
+
+  let soldierTemplate = DB.getTemplateByName(gametemplate)
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
   let itemTemplates = getItemAnimationBlacklist(curCampSoldiers.value?[guid], guid, scheme, soldiersLook)
   let guid_hash = guid.hash()
