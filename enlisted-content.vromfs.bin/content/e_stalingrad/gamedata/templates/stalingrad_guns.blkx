@@ -1707,8 +1707,8 @@ sandbags_wall_ampulomet_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_a_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=25.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=4
   building_menu__text:t="building_tool/sandbags_wall_ampulomet"
   building_menu__image:t="building_ampulomet"
@@ -1730,7 +1730,7 @@ sandbags_wall_ampulomet{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_ampulomet"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=15.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_wall_ampulomet"
   building_menu__image:t="building_ampulomet"
 
@@ -1807,8 +1807,8 @@ sandbags_wall_maxim_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_a_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=45.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
@@ -1830,7 +1830,7 @@ sandbags_wall_maxim{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_mg"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=20.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
 

@@ -108,7 +108,8 @@ ps5{
 }
 
 phys{
-  numSubSteps:i=1
+  fixedTimeStepHz:i=30
+  maxSubSteps:i=1
 }
 
 clipmap{

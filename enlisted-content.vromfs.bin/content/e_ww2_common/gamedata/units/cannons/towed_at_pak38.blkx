@@ -352,6 +352,25 @@ DamageParts{
 DamageEffects{
 }
 
+DamageEffects{
+
+  part{
+    name:t="turret_top"
+    name:t="turret_side"
+    name:t="turret_front"
+    name:t="body_back"
+    name:t="body_front"
+    name:t="body_bottom"
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=1.0
+      damage:r=75.0
+      fHitCritical:b=yes
+    }
+  }
+}
+
 MetaParts{
 
   armor_body{

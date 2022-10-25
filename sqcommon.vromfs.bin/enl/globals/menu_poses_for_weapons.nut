@@ -131,6 +131,7 @@ local weaponToAnimState = freeze({
   mannlicher_m1895_gun =       [i(13), i(14), i(18)]
   stl_mannlicher_m1895_gun =   [i(13), i(14), i(18)]
   mauser_gewehr_98_with_scope_mount_gun = [i(9), i(13), i(16), i(18)]
+  mauser_gewehr_98_warmod_gun = [i(9), i(13), i(16), i(18)]
   mas_36_with_bayonet_gun =    [i(9), i(11), i(12), i(13), i(14), i(15), i(16), i(18)]
   smle_mk3_gun =               [i(9), i(11), i(14), i(15)]
   lee_enfield_no4_mk1_with_scope_gun = [i(9), i(14), i(16), i(18)]

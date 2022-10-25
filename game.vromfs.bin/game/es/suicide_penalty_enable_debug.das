@@ -10,7 +10,3 @@ def suicide_penalty_enable_cmd(disable : bool = true)
       removeSubTemplate(eid, "suicide_penalty")
     else
       addSubTemplate(eid, "suicide_penalty")
-
-[es(tag=server, on_appear, REQUIRE=player)]
-def suicide_penalty_enable(evt : Event; eid : EntityId)
-  addSubTemplate(eid, "suicide_penalty")

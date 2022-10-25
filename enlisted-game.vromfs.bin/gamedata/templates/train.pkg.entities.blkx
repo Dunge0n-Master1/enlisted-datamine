@@ -524,23 +524,30 @@ train_flak_ammo{
 }
 
 flak_wagen_flak38_gun_ul{
-  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_ul"
+  _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_ul"
   _extends:t="train_flak_ammo"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
+  turret__limit:p4=-180.0, 180.0, -5.0, 87.0
+  turret__yawSpeed:r=60.0
+  turret__pitchSpeed:r=20.0
 }
 
 flak_wagen_flak38_gun_ur{
-  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_ur"
+  _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_ur"
   _extends:t="train_flak_ammo"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
 }
 
 flak_wagen_flak38_gun_dl{
-  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_dl"
+  _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_dl"
   _extends:t="train_flak_ammo"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
 }
 
 flak_wagen_flak38_gun_dr{
-  _extends:t="tankgun_flak38_flakvierling_7_62mm_dt_dr"
+  _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_dr"
   _extends:t="train_flak_ammo"
+  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
 }
 
 moving_car_artillerie_flak_wagen_flak38_cannon{

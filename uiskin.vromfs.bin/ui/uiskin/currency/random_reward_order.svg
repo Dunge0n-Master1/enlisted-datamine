@@ -1,0 +1,47 @@
+<svg id="Group_1_copy_21" data-name="Group 1 copy 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3, .cls-4, .cls-5 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        opacity: 0.9;
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-5 {
+        fill: #234ac2;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="11.5" y1="1" x2="11.5" y2="30" gradientTransform="matrix(1, 0, 0, -1, 0, 30)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5a81ea"/>
+      <stop offset="1" stop-color="#90cff9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="21.933" y1="15.341" x2="1.133" y2="15.341" gradientTransform="matrix(1, 0, 0, -1, 0, 30)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aed6fc"/>
+      <stop offset="1" stop-color="#86c0f6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="11.5" y1="1.592" x2="11.5" y2="29.408" gradientTransform="matrix(1, 0, 0, -1, 0, 30)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#639eef"/>
+      <stop offset="1" stop-color="#cff1fb"/>
+    </linearGradient>
+  </defs>
+  <image id="Background" class="cls-1" width="23" height="29" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAdCAYAAABBsffGAAAACXBIWXMAAAsSAAALEgHS3X78AAAAMklEQVRIS+3MsQ0AMAjEwJD9d34WsESB6Hy15UqSd+RPwYZz5Bw5R86Rc+QcOUfOkXPULnkENpAHnucAAAAASUVORK5CYII="/>
+  <rect class="cls-2" width="23" height="29"/>
+  <path class="cls-3" d="M11.533,4.139l10.4,10.52-10.4,10.52-10.4-10.52Zm0,1.079,9.334,9.441L11.533,24.1,2.2,14.659Zm0,1.618,7.734,7.823-7.734,7.823L3.8,14.659Z"/>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-4" d="M.582,28.408V.592H22.418V28.408ZM18.161,1.48H4.839L1.456,4.9V24.1l3.383,3.42H18.161l3.383-3.42V4.9Z"/>
+  <path id="_" data-name=" " class="cls-5" d="M13.404,19.25693a5.76976,5.76976,0,0,1,.27855-1.76971,3.58859,3.58859,0,0,1,.90241-1.28028l1.52593-1.41972a6.77047,6.77047,0,0,0,1.40656-1.84428,4.52732,4.52732,0,0,0,.43866-2.00346A4.797,4.797,0,0,0,16.33088,7.052a6.92533,6.92533,0,0,0-4.58533-1.36676A6.66489,6.66489,0,0,0,7.12827,7.16444a5.70674,5.70674,0,0,0-1.67195,4.28985H9.94075a2.97039,2.97039,0,0,1,.51732-1.73556A1.60019,1.60019,0,0,1,11.74524,9.135q1.72334,0,1.72334,2.00346a2.45874,2.45874,0,0,1-.51074,1.50588,9.43469,9.43469,0,0,1-1.49272,1.50589,4.78332,4.78332,0,0,0-1.41972,1.94266,9.285,9.285,0,0,0-.43866,3.1628H13.404ZM9.598,20.83237h3.8092v3.102H9.598Z"/>
+</svg>

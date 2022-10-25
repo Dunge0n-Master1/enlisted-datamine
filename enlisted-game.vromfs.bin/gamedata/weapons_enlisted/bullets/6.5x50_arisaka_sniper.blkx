@@ -1,6 +1,6 @@
 mass:r=0.009
 cartridgeMass:r=0.0218
-caliber:r=0.0067
+caliber:r=0.0065
 speed:r=770.0
 maxDistance:r=2000.0
 bulletType:t="ball"

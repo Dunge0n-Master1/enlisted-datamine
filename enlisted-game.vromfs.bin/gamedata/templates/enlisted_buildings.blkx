@@ -51,8 +51,8 @@ cannon_germ_20mm_flak38_flakvierling_preview_common{
   preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
-  building_builder__maxTimeToBuild:r=22.0
-  buildingCost:r=8.0
+  building_builder__maxTimeToBuild:r=16.0
+  buildingCost:r=6.0
   building__requireUnlockId:i=1
   building_menu__text:t="building_tool/aaa_cannon_flak38_flakvierling"
   building_menu__image:t="building_aaa"
@@ -89,7 +89,7 @@ builded_cannon_germ_20mm_flak38_flakvierling_desert{
 
 builded_cannon_germ_20mm_flak38_flakvierling_common{
   _extends:t="base_building"
-  building_destroy__maxTimeToDestroy:r=22.0
+  building_destroy__maxTimeToDestroy:r=16.0
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_aaa"
   building_menu__text:t="building_tool/aaa_cannon_flak38_flakvierling"
@@ -132,7 +132,7 @@ cannon_germ_towed_at_pak38_preview_common{
   preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/towed_at_pak38.blk"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
-  building_builder__maxTimeToBuild:r=30.0
+  building_builder__maxTimeToBuild:r=20.0
   buildingCost:r=8.0
   building__requireUnlockId:i=2
   building_menu__text:t="building_tool/at_cannon_pak38"
@@ -155,7 +155,7 @@ cannon_germ_towed_at_pak38_preview_common{
 
 builded_germ_towed_at_pak38_common{
   _extends:t="base_building"
-  building_destroy__maxTimeToDestroy:r=30.0
+  building_destroy__maxTimeToDestroy:r=20.0
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_pak38"
@@ -197,7 +197,7 @@ cannon_towed_at_pak40_preview_common{
   preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/towed_at_pak40.blk"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
-  building_builder__maxTimeToBuild:r=30.0
+  building_builder__maxTimeToBuild:r=20.0
   buildingCost:r=8.0
   building__requireUnlockId:i=2
   building_menu__text:t="building_tool/at_cannon_pak40"
@@ -230,7 +230,7 @@ cannon_ussr_towed_at_pak40_preview{
 
 builded_towed_at_pak40_common{
   _extends:t="base_building"
-  building_destroy__maxTimeToDestroy:r=30.0
+  building_destroy__maxTimeToDestroy:r=20.0
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_pak40"
@@ -268,7 +268,7 @@ cannon_us_towed_at_m1_preview{
   instantiateTemplate:t="builded_us_towed_at_m1"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
-  building_builder__maxTimeToBuild:r=30.0
+  building_builder__maxTimeToBuild:r=20.0
   buildingCost:r=8.0
   building__requireUnlockId:i=2
   building_menu__text:t="building_tool/at_cannon_m1"
@@ -291,7 +291,7 @@ cannon_us_towed_at_m1_preview{
 
 builded_towed_m1_common{
   _extends:t="base_building"
-  building_destroy__maxTimeToDestroy:r=30.0
+  building_destroy__maxTimeToDestroy:r=20.0
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_m1"
@@ -330,7 +330,7 @@ cannon_ussr_towed_at_53k_preview{
   instantiateTemplate:t="builded_ussr_towed_at_53k"
   avaliableAngles:p2=-10.0, 10.0
   buildingSoundTag:t="cannon"
-  building_builder__maxTimeToBuild:r=30.0
+  building_builder__maxTimeToBuild:r=20.0
   buildingCost:r=8.0
   building__requireUnlockId:i=2
   building_menu__text:t="building_tool/at_cannon_53k"
@@ -364,7 +364,7 @@ builded_ussr_towed_at_53k{
 builded_ussr_towed_at_53k_common{
   _extends:t="base_building"
   fortification_repair__costPercent:r=0.5
-  building_destroy__maxTimeToDestroy:r=30.0
+  building_destroy__maxTimeToDestroy:r=20.0
   building_menu__image:t="building_at"
   building_menu__text:t="building_tool/at_cannon_53k"
   isTpsView:b=no
@@ -473,8 +473,8 @@ sandbags_wall_maxim_no_shield_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_c_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=45.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
@@ -496,7 +496,7 @@ sandbags_wall_maxim_no_shield{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_mg"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=20.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
 
@@ -574,8 +574,8 @@ sandbags_wall_mg_34_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_b_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=45.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
@@ -597,7 +597,7 @@ sandbags_wall_mg_34{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_mg"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=20.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
 
@@ -660,8 +660,8 @@ sandbags_wall_browning_m1919a4_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_d_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=45.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
@@ -683,7 +683,7 @@ sandbags_wall_browning_m1919a4{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_mg"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=20.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
 
@@ -747,8 +747,8 @@ sandbags_wall_type_92_hmg_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_d_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=45.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
@@ -770,7 +770,7 @@ sandbags_wall_type_92_hmg{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_mg"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=20.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
 
@@ -814,8 +814,8 @@ sandbags_wall_mg_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_a_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=45.0
-  buildingCost:r=12.0
+  building_builder__maxTimeToBuild:r=24.0
+  buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
@@ -846,7 +846,7 @@ sandbags_wall_mg{
   fortification_repair__costPercent:r=0.5
   fortification_repair__text:t="hud/repair_sandbags_wall_mg"
   team:i=-1
-  building_destroy__maxTimeToDestroy:r=20.0
+  building_destroy__maxTimeToDestroy:r=14.0
   building_menu__text:t="building_tool/sandbags_with_mg42"
   building_menu__image:t="building_mg_nest"
 
@@ -1611,7 +1611,7 @@ christmas_tree{
   _extends:t="base_ri_building"
   _extends:t="capzone_fortification"
   ri_extra__name:t="tree_spruce_christmas_c"
-  building_destroy__maxTimeToDestroy:r=6.0
+  building_destroy__maxTimeToDestroy:r=3.0
   team:i=-1
   building_menu__text:t="building_tool/christmas_tree"
   building_menu__image:t="building_christmas_tree"

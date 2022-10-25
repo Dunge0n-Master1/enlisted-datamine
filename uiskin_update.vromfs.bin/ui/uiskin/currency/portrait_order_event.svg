@@ -1,0 +1,50 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        isolation: isolate;
+      }
+
+      .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-5 {
+        fill: #234ac2;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="11.5" y1="1" x2="11.5" y2="30" gradientTransform="matrix(1, 0, 0, -1, 0, 30)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5a81ea"/>
+      <stop offset="1" stop-color="#90cff9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="22" y1="14.5" x2="1" y2="14.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aed6fc"/>
+      <stop offset="1" stop-color="#86c0f6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="11.5" y1="1109" x2="11.5" y2="1136" gradientTransform="translate(0 -1108)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cff1fb"/>
+      <stop offset="1" stop-color="#639eef"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-1" width="23" height="29"/>
+  <g class="cls-2">
+    <g>
+      <path class="cls-3" d="M11.5,7,19,14.5,11.5,22,4,14.5Z"/>
+      <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" class="cls-3" d="M11.5,4,22,14.5,11.5,25,1,14.5Zm0,1,9.42,9.46L11.5,24,2.08,14.5Z"/>
+    </g>
+  </g>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-4" d="M1,28V1H22V28ZM18,2H5L2,5V24l3,3H18l3-3V5Z"/>
+  <path class="cls-5" d="M19.24728,20.97c-.57-1.86-1.22-3.62994-1.64-3.86a18.64964,18.64964,0,0,0-3.31-1l-.5-1.93a3.209,3.209,0,0,0,.38-1.18,1.0894,1.0894,0,0,0,.26,0,2.61877,2.61877,0,0,0,.58-1s.91.15,1-.31c-.02-.18-.50006-1.93-.50006-1.93s-.8-4.24-3.34-4.24h-1.09c-2.55,0-3.41,3.95-3.41,3.95s-.46,2.04-.46,2.22c.09.46,1,.31,1,.31a2.37037,2.37037,0,0,0,.58,1,1.08527,1.08527,0,0,0,.22,0,3.21,3.21,0,0,0,.33,1.22L8.7424,16.11255,8.708,16.08978,8.70273,16.11c-.47638.09686-.94568.22253-1.4126.35614L7.28726,16.46l-.06885.02417a18.64247,18.64247,0,0,0-1.82568.6258c-.42.23-1.07,2-1.64,3.86.26348.90869,2.53326,1.72846,5.52533,1.99182a19.51887,19.51887,0,0,0,4.426.00134C16.70493,22.70148,18.98318,21.88049,19.24728,20.97Z"/>
+</svg>

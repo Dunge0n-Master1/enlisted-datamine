@@ -812,7 +812,7 @@ smle_mk3{
   item__weapTemplate:t="smle_mk3_gun"
   item__name:t="items/smle_mk3"
   item__weapType:t="rifle"
-  item__weight:r=5.0
+  item__weight:r=4.0
   gun__locName:t="Short Magazine Lee-Enfield No. 1 Mk III"
   gun__statName:t="rifle"
   gun__shotFreq:r=0.75
@@ -3643,10 +3643,10 @@ smle_mk3_grenade_launcher{
   item__weapTemplate:t="smle_mk3_grenade_launcher_gun"
   item__name:t="items/smle_mk3_grenade_launcher"
   item__weapType:t="rifle"
-  item__weight:r=5.0
+  item__weight:r=4.0
   gun__locName:t="SMLE Mk III with grenade launcher"
   gun__statName:t="rifle"
-  gun__shotFreq:r=0.93
+  gun__shotFreq:r=0.75
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.15
   gun_deviation__omegaRange:p2=30.0, 90.0
@@ -3659,6 +3659,7 @@ smle_mk3_grenade_launcher{
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=4.0
   gun__showChamberedAmmo:b=no
+  gun__kineticDamageMult:r=1.58
   animchar_fast_phys__res:t="mosin_1928_grenade_launcher_fastphys"
 
   "gun__ammoHolders:array"{
@@ -3696,7 +3697,7 @@ smle_mk3_grenade_launcher_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.098
+  gun__recoilAmount:r=0.127
   gun__recoilDirAmount:r=0.64
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
