@@ -24,6 +24,7 @@ d3a1{
         turret:t="turret_02"
         turret:t="turret_03"
         turret:t="turret_04"
+        turret:t="turret_05"
       }
 
       "effectors:object"{
@@ -46,7 +47,7 @@ d3a1{
       roomSpace:i=1
 
       "turretNames:array"{
-        turret:t="turret_05"
+        turret:t="turret_06"
       }
     }
   }

@@ -12,9 +12,7 @@ let taskColor = Color(220, 220, 220)
 
 let function debriefingTaskHeader(unlockDesc, progress){
   let { required = 0, current = 0 } = unlockDesc
-  let unlockTxt = getDescription({ unlockDesc, progress,
-    locParams = (unlockDesc?.locParams ?? {})
-  })
+  let unlockTxt = getDescription(unlockDesc, progress, unlockDesc?.locParams ?? {})
   return{
     flow = FLOW_VERTICAL
     size = [flex(), SIZE_TO_CONTENT]

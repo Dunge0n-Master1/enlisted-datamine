@@ -1,4 +1,4 @@
-stat_name:t="rifle"
+stat_name:t="semiauto"
 selWeaponVar:t="type_hei_rifle"
 
 ownerAnimVars{

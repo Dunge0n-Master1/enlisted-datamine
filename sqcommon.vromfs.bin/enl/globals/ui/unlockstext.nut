@@ -20,27 +20,33 @@ let customLocParams = {
 
 
 local function getProgressLoc(unlockDesc, progress) {
-  let {name} = unlockDesc
+  local { required = null, current = null } = progress
+  let { name, periodic = false } = unlockDesc
   let locKey = locKeyByName?[name] ?? name
 
-  if (unlockDesc?.meta?.descProgressDiv && progress?.required != null && progress?.current != null) {
-    progress = clone progress
-    progress.current = (progress.current / unlockDesc.meta.descProgressDiv.tointeger())
-    progress.required = (progress.required / unlockDesc.meta.descProgressDiv.tointeger())
+  if (periodic && required != null && current != null) {
+    let { stages, startStageLoop } = unlockDesc
+    local { stage } = progress
+    let loopIndex = startStageLoop - 1
+    if (stage > loopIndex)
+      stage = loopIndex + (stage - loopIndex) % (stages.len() - loopIndex)
+    let interval = stages[stage].progress
+    current = current + interval - required
+    required = interval
   }
-  if (locKey in customLocParams)
-    return customLocParams[locKey](progress)
-  return progress
+
+  let divider = unlockDesc?.meta.descProgressDiv.tointeger() ?? 0
+  if (divider > 0 && required != null && current != null) {
+    current = current / divider
+    required = required / divider
+  }
+
+  progress = progress.__merge({ current, required })
+  return locKey in customLocParams ? customLocParams[locKey](progress) : progress
 }
 
-let getDescription = kwarg(function(unlockDesc, progress, locId = null, locParams = null) {
+let getDescription = function(unlockDesc, progress, locParams) {
   let progressLoc = getProgressLoc(unlockDesc, progress)
-  if (locId != null) {
-    let localization = loc(locId, progressLoc)
-    if (localization != locId)
-      return localization
-  }
-
   local descLocId = $"unlock/{unlockDesc.name}/desc"
   if (progress.required == 1)
     descLocId = $"{descLocId}/single"
@@ -55,7 +61,7 @@ let getDescription = kwarg(function(unlockDesc, progress, locId = null, locParam
   return (unlockDesc?.localization?.name ?? "").len() > 0
     ? unlockDesc?.localization?.name
     : unlockDesc.name
-})
+}
 
 return {
   getDescription

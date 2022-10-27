@@ -76,6 +76,8 @@ let isDailyTask = @(task) task.table == "daily"
 let isWeeklyTask = @(task) task?.meta.weekly_unlock ?? false
 let isAchievementTask = @(task) task?.meta.achievement ?? false
 let isEventTask = @(task) task?.meta.event_unlock ?? false
+let getUnlockLimit = @(task) task?.meta.unlock_limit ?? 0
+let getProgressDiv = @(task) task?.meta.descProgressDiv.tointeger() ?? 0
 
 let statusBlock = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
   function() {
@@ -141,30 +143,44 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
     }
 
     local { required, current } = progress
-    let descProgressDiv = (unlockDesc?.meta.descProgressDiv ?? 0).tointeger()
+    let descProgressDiv = getProgressDiv(unlockDesc)
     if (descProgressDiv > 0 && required != null && current != null) {
       current = current / descProgressDiv
       required = required / descProgressDiv
     }
 
     let unlockWatch = mkCountdownTimerPerSec(Watched(unlockDesc?.completeAt ?? 0))
-    local unlockTxt = getDescription({ unlockDesc, progress,
-      locParams = (unlockDesc?.locParams ?? {}).__merge({
-        duration = secondsToStringLoc(unlockWatch.value)
-      })
-    })
+    local unlockTxt = getDescription(unlockDesc, progress, (unlockDesc?.locParams ?? {}).__merge({
+      duration = secondsToStringLoc(unlockWatch.value)
+    }))
 
-    let passedProgress = lastRewardedStage <= 0 ? 0
-      : stages?[lastRewardedStage - 1].progress ?? 0
-    let curStageCurrent = current - passedProgress
-    let curStageRequired = required - passedProgress
-
-    let curStage = min(lastRewardedStage + 1, stages.len())
     let addTexts = []
-    if (stages.len() > 1)
+    if (stages.len() > 1) {
+      let curStage = min(lastRewardedStage + 1, stages.len())
       addTexts.append($"{loc("stageText")} {curStage}/{stages.len()}")
-    if (!isCompleted && !hasReward && curStageRequired > 1)
-      addTexts.append($"{loc("progressText")} {curStageCurrent}/{curStageRequired}")
+    }
+
+    let unlockLimit = getUnlockLimit(unlockDesc)
+    local { stage = 0 } = progress
+    if (!isCompleted && !hasReward && (unlockLimit == 0 || stage < unlockLimit)) {
+      let { periodic = false } = unlockDesc
+      local curStageCurrent, curStageRequired
+      if (periodic) {
+        let loopIndex = unlockDesc.startStageLoop - 1
+        if (stage > loopIndex)
+          stage = loopIndex + (stage - loopIndex) % (stages.len() - loopIndex)
+        let interval = stages[stage].progress
+        curStageCurrent = current + interval - required
+        curStageRequired = interval
+      } else {
+        let passedProgress = stages?[lastRewardedStage - 1].progress ?? 0
+        curStageCurrent = current - passedProgress
+        curStageRequired = required - passedProgress
+      }
+      if (curStageRequired > 1)
+        addTexts.append($"{loc("progressText")} {curStageCurrent}/{curStageRequired}")
+    }
+
     if (addTexts.len() > 0)
       unlockTxt = "{0} ({1})".subst(unlockTxt, ", ".join(addTexts))
 
@@ -172,8 +188,8 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
       .__update({
         watch = unlockWatch
         color = isEventTask(unlockDesc) && isFinished ? defTxtColor
-        : sf & S_HOVER ? titleTxtColor
-        : defTxtColor
+          : sf & S_HOVER ? titleTxtColor
+          : defTxtColor
       }, textStyle)
   }
 

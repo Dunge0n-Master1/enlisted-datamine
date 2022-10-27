@@ -1325,6 +1325,11 @@ enlisted_base_soldier{
   "override__riextraDamage:tag"{
   }
 
+  "human_inventory__usefulBoxItemsCapacity:i"{
+    _tags:t="server"
+    value:i=2
+  }
+
   "human_use_object__selectedBuilding:eid"{
   }
 

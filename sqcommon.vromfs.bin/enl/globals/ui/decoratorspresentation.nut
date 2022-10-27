@@ -202,6 +202,13 @@ local portraits = {
     icon = "ui/portraits/pacific/pacific_allies_preorder_2022.png"
   }
 
+  armory_event_portrait_usa = {
+    icon = "ui/portraits/normandy/armory_event_portrait_usa.png"
+  }
+  armory_event_portrait_ger = {
+    icon = "ui/portraits/tunisia/armory_event_portrait_ger.png"
+  }
+
   common_china_portrait_1 = {
     icon = "ui/portraits/common/china_portrait_1.png"
     bgimg = "ui/portraits/back_t1.png"
