@@ -165,6 +165,14 @@ let showSwapImpossible = @(text) popupsState.addPopup({
   styleName = "error"
 })
 
+let function checkFixedItem(item) {
+  if (item?.isFixed ?? false) {
+    showSwapImpossible(loc($"equipDemand/deniedUnequipPremium"))
+    return true
+  }
+  return false
+}
+
 // targetDropData is the data of a slot, WHERE we drop an item
 // draggedDropData is the data of a slot, FROM where drag originated
 let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
@@ -172,18 +180,19 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
     return false
 
   local { slotId = null, slotType = null, item = {} } = targetDropData?.slotType == null ? targetDropData : draggedDropData
-  let toSlotType = targetDropData?.slotType == null ? draggedDropData.slotType : targetDropData.slotType
-  let toSlotId = targetDropData?.slotId == null ? draggedDropData.slotId : targetDropData.slotId
-  local itemGuid = item?.guid
+  if (checkFixedItem(item))
+    return false
+
+  let toSlotType = targetDropData?.slotType ?? draggedDropData.slotType
+  let toSlotId = targetDropData?.slotId ?? draggedDropData.slotId
+  let itemGuid = item?.guid
   if (!toOwnerGuid || !itemGuid)
     return false
 
   let equippedItems = getSoldierItemSlots(toOwnerGuid, campItemsByLink.value)
   let toItem = equippedItems.findvalue(@(d) d.slotType == toSlotType && d.slotId == toSlotId)?.item
-  if (toItem?.isFixed ?? false) {
-    showSwapImpossible(loc($"equipDemand/deniedUnequipPremium"))
+  if (checkFixedItem(toItem))
     return false
-  }
 
   // dropping item from the soldier's card into storage:
   if (targetDropData.scheme == null){

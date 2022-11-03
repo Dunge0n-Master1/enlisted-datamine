@@ -14628,7 +14628,7 @@ thompson_30_cal{
 
 thompson_30_cal_gun{
   _extends:t="base_equipable_gun"
-  _extends:t="mp_45acp_ww2_preset"
+  _extends:t="semiauto_ww2_preset"
   _extends:t="thompson_30_cal"
   _extends:t="smg_muzzle_break_preset"
   _extends:t="hit_effect_group_8_12mm"

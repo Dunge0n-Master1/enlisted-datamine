@@ -15,6 +15,7 @@ base_m8_greyhound{
   drowningHeight:r=1.868
   damage_model__blk:t="gamedata/gen/units/tanks/m8_greyhound.blk"
   item__name:t="items/us_m8_greyhound"
+  destroyIfNoCrewLeft:b=no
   skin__template:t="m8_greyhound_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{

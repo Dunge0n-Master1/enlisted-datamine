@@ -4,17 +4,13 @@ let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
 let { Flat } = require("%ui/components/textButton.nut")
-let {
-  smallPadding, bigPadding, soldierWndWidth, unitSize, msgHighlightedTxtColor, slotBaseSize
+let { smallPadding, bigPadding, soldierWndWidth, unitSize, msgHighlightedTxtColor, slotBaseSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
-let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-
 let { curArmy, objInfoByGuid, getSoldierItemSlots } = require("model/state.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
 let { equipGroups, slotTypeToEquipGroup } = require("model/config/equipGroups.nut")
-let {
-  openSelectItem, getPossibleUnequipList, getAlternativeEquipList, getBetterItem,
+let { openSelectItem, getPossibleUnequipList, getAlternativeEquipList, getBetterItem,
   getWorseItem, getPossibleEquipList
 } = require("model/selectItemState.nut")
 let { curUnseenAvailableUpgrades, isUpgradeUsed } = require("model/unseenUpgrades.nut")
@@ -95,14 +91,16 @@ let mkItemsBlock = kwarg(function(
   )
 })
 
-let function getWarningSlotTypes(slotsItems, groupSchemes) {
+let function getWarningSlotTypes(slotsItems, equipScheme) {
   let equipped = {}
   let slotTypeToGroup = {}
-  foreach (slot in groupSchemes)
-    if ((slot?.atLeastOne ?? "") != "") {
-      equipped[slot.atLeastOne] <- false
-      slotTypeToGroup[slot.slotType] <- slot.atLeastOne
+  foreach (slotType, slot in equipScheme) {
+    let { atLeastOne = "" } = slot
+    if (atLeastOne != "") {
+      equipped[atLeastOne] <- false
+      slotTypeToGroup[slotType] <- atLeastOne
     }
+  }
   foreach (slotData in slotsItems) {
     if (slotData.item == null)
       continue
@@ -111,14 +109,15 @@ let function getWarningSlotTypes(slotsItems, groupSchemes) {
       equipped[group] = true
   }
   return slotTypeToGroup.map(@(group) !equipped[group])
-    .filter(@(v) v == true)
+    .filter(@(v) v)
 }
 
 let mkItemsChapter = kwarg(function mkItemsChapterImpl(
   equipGroup, soldier, canManage, slotsCount, itemCtor = mkItem
 ) {
   let header = "locId" in equipGroup ? note(loc(equipGroup.locId)) : null
-  let groupSchemes = (soldier?.equipScheme ?? {})
+  let { equipScheme = {} } = soldier
+  let groupSchemes = equipScheme
     .filter(@(_, slotType) slotTypeToEquipGroup?[slotType] == equipGroup)
     .map(@(scheme, slotType) scheme.__merge({ slotType }))
     .values()
@@ -130,7 +129,7 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
 
   return function() {
     let slotsItems = getSoldierItemSlots(soldierGuid, campItemsByLink.value)
-    let warningSlotTypes = getWarningSlotTypes(slotsItems, groupSchemes)
+    let warningSlotTypes = getWarningSlotTypes(slotsItems, equipScheme)
 
     let rowsData = []
     local lastRow = null
@@ -168,7 +167,7 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
     }
 
     return {
-      watch = [slotsCount, objInfoByGuid, allItemTemplates]
+      watch = [slotsCount, objInfoByGuid, campItemsByLink]
       size = [soldierWndInnerWidth, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       gap = smallPadding
