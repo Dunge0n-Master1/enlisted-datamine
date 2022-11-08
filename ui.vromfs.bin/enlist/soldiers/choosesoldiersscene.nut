@@ -37,7 +37,6 @@ let squadHeader = require("components/squadHeader.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 let mkValueWithBonus = require("%enlist/components/valueWithBonus.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { curSoldierIdx } = require("model/squadInfoState.nut")
 let { unseenSoldiers, markSoldierSeen } = require("model/unseenSoldiers.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
@@ -48,6 +47,9 @@ let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { needFreemiumStatus, curUpgradeDiscount
 } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
+let openSoldiersPurchase = require("%enlist/shop/soldiersPurchaseWnd.nut")
+let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
+let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 
 
 const NO_SOLDIER_SLOT_IDX = -1
@@ -435,7 +437,8 @@ let squadList = bg.__merge({
   ]
 })
 
-let getSoldiersBlock = {
+let getSoldiersBlock = @() {
+  watch = unseenSoldierShopItems
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   hplace = ALIGN_CENTER
@@ -445,7 +448,12 @@ let getSoldiersBlock = {
     noteTextArea({
       text = loc("squad/getMoreSoldiers")
     }).__update(sub_txt, {halign = ALIGN_CENTER})
-    Flat(loc("menu/enlistedShop"), @() setCurSection("SHOP"))
+    Flat(loc("soldiers/purchaseSoldier"), openSoldiersPurchase,
+      unseenSoldierShopItems.value.len() <= 0 ? {} : {
+        fgChild = smallUnseenNoBlink
+        halign = ALIGN_RIGHT
+        valign = ALIGN_TOP
+      } )
   ]
 }
 

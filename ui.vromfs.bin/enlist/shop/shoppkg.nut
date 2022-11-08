@@ -14,7 +14,8 @@ let { scrollToCampaignLvl, curArmySquadsUnlocks
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
-let { defBgColor, bigPadding, smallPadding, defTxtColor, warningColor, idleBgColor
+let { defBgColor, bigPadding, smallPadding, defTxtColor, warningColor, idleBgColor,
+  soldierLvlColor, disabledTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { TextHover, TextNormal, textMargin
@@ -22,13 +23,14 @@ let { TextHover, TextNormal, textMargin
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { armySquadsById, lockedArmySquadsById } = require("%enlist/soldiers/model/state.nut")
 let allowedVehicles = require("%enlist/vehicles/allowedVehicles.nut")
-let { shopItems } = require("shopItems.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { mkCounter } = require("%enlist/shop/mkCounter.nut")
 let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let { curArmyReserve, curArmyReserveCapacity } = require("%enlist/soldiers/model/reserve.nut")
+let { mkIconBar } = require("%enlSqGlob/ui/itemTier.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 const MAX_CLASSES_USAGE = 4
 let PRICE_HEIGHT = hdpx(44)
@@ -64,7 +66,6 @@ let mkShopItemVideo = @(uri) {
 let shopBottomLine = {
   rendObj = ROBJ_SOLID
   size = [flex(), PRICE_HEIGHT]
-  padding = [0, fsh(2)]
   color = Color(40,40,40,255)
   valign = ALIGN_CENTER
 }
@@ -72,6 +73,7 @@ let shopBottomLine = {
 let lockIcon = faComp("lock", { fontSize = hdpx(20), color = defTxtColor })
 
 let mkLevelLockLine = @(level) shopBottomLine.__merge({
+  padding = [0, fsh(2)]
   children = [
     lockIcon
     {
@@ -131,18 +133,19 @@ let mkViewCrateBtn = @(crateContentWatch, onCrateViewCb)
       }
 
 let function extractItems(crateContent) {
-  let itemsList = crateContent?.value.content.items ?? {}
-  return itemsList.len() == 0 ? null : itemsList
-    .reduce(@(res, _, tmpl) res.__update({ [trimUpgradeSuffix(tmpl)] = true }), {})
-    .keys()
+  let { items = {} } = crateContent?.value.content
+  let res = {}
+  foreach (_, tmpl in items)
+    res[trimUpgradeSuffix(tmpl)] <- true
+  return res.keys()
 }
 
 let function extractClasses(crateContent) {
-  let classesList = crateContent?.value.content.soldierClasses ?? {}
-  return classesList.len() == 0 ? null : classesList
-    .map(@(sClass) getClassCfg(sClass).kind)
-    .reduce(@(res, sKind) res.__update({ [sKind] = true }), {})
-    .keys()
+  let { soldierClasses = [] } = crateContent?.value.content
+  let res = {}
+  foreach (sClass in soldierClasses)
+    res[getClassCfg(sClass).kind] <- true
+  return res.keys()
 }
 
 let mkItemUsageKind = @(sKind) {
@@ -208,16 +211,20 @@ let mkSquadUsageKind = function(squadId, armyId) {
   }
 }
 
-let function mkShopItemUsage(crateContent, itemTemplates) {
-  let itemsList = extractItems(crateContent) ?? []
-  if (itemsList.len() != 1)
-    return null
+let function getTierInterval(items, templates) {
+  local minTier = -1
+  local maxTier = -1
+  foreach (tpl, _ in items ?? {}) {
+    let { tier = 0 } = templates?[tpl]
+    if (minTier < 0 || tier < minTier)
+      minTier = tier
+    if (maxTier < tier)
+      maxTier = tier
+  }
+  return { minTier, maxTier }
+}
 
-  let { armyId = null } = crateContent?.value
-  let templates = itemTemplates?.value[armyId]
-  let itemtmpl = itemsList[0]
-  let { itemtype = null } = templates?[itemtmpl]
-
+let function mkClassCanUse(itemtype, armyId, itemtmpl) {
   if (itemtype == "vehicle"){
     let vehicleSquadIds = (allowedVehicles.value?[armyId] ?? {})
       .filter(@(squad) squad?[itemtmpl]).keys()
@@ -259,26 +266,48 @@ let function mkShopItemUsage(crateContent, itemTemplates) {
     }
 }
 
-let function mkTitle(text, itemAmount, idx, isBundle) {
-  let { minAmount = -1, maxAmount = -1} = itemAmount
-  return {
-    flow = FLOW_HORIZONTAL
-    size = [flex(), SIZE_TO_CONTENT]
-    valign = ALIGN_CENTER
-    gap = smallPadding
+let mkShopItemInfoBlock = @(crateContent) function() {
+  let res = { watch = [allItemTemplates, crateContent] }
+  let itemsList = extractItems(crateContent) ?? []
+  if (itemsList.len() != 1)
+    return res
+
+  let { armyId = null } = crateContent?.value
+  let templates = allItemTemplates.value?[armyId]
+  let itemtmpl = itemsList[0]
+  let { itemtype = null } = templates?[itemtmpl]
+  let { minTier, maxTier } = getTierInterval(crateContent?.value.content.items, templates)
+  return res.__update({
+    flow = FLOW_VERTICAL
     children = [
-      {
-        rendObj = ROBJ_TEXTAREA
-        size = [flex(), SIZE_TO_CONTENT]
-        behavior = Behaviors.TextArea
-        text
-      }.__update(idx == 0 ? body_txt : tiny_txt )
-      idx > 0 || minAmount <= 1 || isBundle ? null : {
-        rendObj = ROBJ_TEXT
-        text = minAmount == maxAmount ? $"×{minAmount}" : $"×{minAmount}-{maxAmount}"
-      }.__update(body_txt)
+      maxTier <= 0 ? null
+        : maxTier <= minTier ? null
+        : {
+            rendObj = ROBJ_TEXT
+            text = loc("shop/upgradeLevel", { maxUpgrade = maxTier, minUpgrade = minTier })
+          }
+      mkClassCanUse(itemtype, armyId, itemtmpl)
     ]
-  }
+  })
+}
+
+let mkTitle = @(text, minAmount, maxAmount, idx, isBundle) {
+  flow = FLOW_HORIZONTAL
+  size = [flex(), SIZE_TO_CONTENT]
+  valign = ALIGN_CENTER
+  gap = smallPadding
+  children = [
+    {
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
+      behavior = Behaviors.TextArea
+      text
+    }.__update(idx == 0 ? body_txt : tiny_txt )
+    idx > 0 || minAmount <= 1 || isBundle ? null : {
+      rendObj = ROBJ_TEXT
+      text = minAmount == maxAmount ? $"×{minAmount}" : $"×{minAmount}-{maxAmount}" // TODO use localization for multipliers
+    }.__update(body_txt)
+  ]
 }
 
 let function getMaxCount(shopItem) {
@@ -295,27 +324,22 @@ let function mkShopItemTitle(
   let { armyId = null, content = {} } = crateContent?.value
   local shopIcon
 
-  let itemsList = extractItems(crateContent)
-  if (itemsList != null && itemsList.len() == 1) {
-    let templates = itemTemplates?.value[armyId]
-    let item = templates?[itemsList[0]]
-    shopIcon = itemTypeIcon(item?.itemtype, item?.itemsubtype)
+  let itemsList = extractItems(crateContent) ?? []
+  if (itemsList.len() == 1) {
+    let { itemtype = null, itemsubtype = null } = itemTemplates.value?[armyId][itemsList[0]]
+    shopIcon = itemTypeIcon(itemtype, itemsubtype)
   }
 
-  let soldierClasses = extractClasses(crateContent)
-  if (soldierClasses != null && soldierClasses.len() == 1)
+  let soldierClasses = extractClasses(crateContent) ?? []
+  if (soldierClasses.len() == 1)
     shopIcon = kindIcon(soldierClasses[0], hdpx(22))
 
   let titleList = loc(shopItem?.nameLocId ?? "").split("\r\n")
   let itemMinAmount = content?.itemsAmount.x ?? 0
   let itemMaxAmount = content?.itemsAmount.y ?? 0
   let isBundle = (shopItem?.crates ?? []).len() > 1
-  let itemAmount = {
-    minAmount = itemMinAmount
-    maxAmount = itemMaxAmount
-  }
   let maxCount = getMaxCount(shopItem)
-  return  {
+  return {
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
     gap = bigPadding
@@ -338,7 +362,7 @@ let function mkShopItemTitle(
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
             children = titleList.map(@(text, idx)
-              mkTitle(text, itemAmount, idx, isBundle))
+              mkTitle(text, itemMinAmount, itemMaxAmount, idx, isBundle))
           }
           maxCount <= 1 || countWatched == null ? null : mkCounter(maxCount, countWatched)
         ]
@@ -431,31 +455,50 @@ let mkProductView = @(shopItem, itemTemplates, crateContent = null) {
   children = mkShopItemView({ shopItem, crateContent, itemTemplates })
 }
 
-let mkMsgBoxView = @(shopItem, itemTemplates, crateContent, countWatched, showDiscount = false) {
-  rendObj = ROBJ_SOLID
-  size = shopItem?.squads[0] != null ? cardSquadPreviewSize : cardPreviewSize
-  padding = hdpx(1)
-  color = idleBgColor
-  clipChildren = true
-  children = {
-    size = flex()
-    halign = ALIGN_RIGHT
-    children = [
-      mkShopItemImg(shopItem.image, {
-        keepAspect = KEEP_ASPECT_FILL
-        imageHalign = ALIGN_CENTER
-        imageValign = ALIGN_TOP
-        picSaturate = 1
-      })
-      mkShopItemTitle(shopItem, crateContent, itemTemplates, showDiscount, countWatched)
-      shopItem?.isShowDebugOnly ?? false ? debugTag : null
-      itemHighlight(shopItem.guid)
-    ]
-  }
+let tiersStars = @(minTier, maxTier) maxTier <= 0 ? null : {
+  hplace = ALIGN_RIGHT
+  vplace = ALIGN_TOP
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_CENTER
+  margin = fsh(1)
+  children = maxTier <= minTier
+    ? mkIconBar(minTier, soldierLvlColor, "star", { fontSize = hdpx(20) })
+    : [
+        mkIconBar(minTier, soldierLvlColor, "star", { fontSize = hdpx(20) })
+        faComp("ellipsis-h", {fontSize = hdpx(20), margin = [0, fsh(1)], color = disabledTxtColor})
+        mkIconBar(maxTier, soldierLvlColor, "star", { fontSize = hdpx(20) })
+      ]
 }
 
-let mkDynamicProductView = @(itemGuid, itemTemplates, countWatched, crateContent = null) @()
-  mkMsgBoxView(shopItems.value?[itemGuid], itemTemplates, crateContent, countWatched)
+let mkMsgBoxView = @(shopItem, crateContent, countWatched, showDiscount = false)
+  function() {
+    let { armyId = null } = crateContent?.value
+    let templates = allItemTemplates.value?[armyId]
+    let { minTier, maxTier } = getTierInterval(crateContent?.value.content.items, templates)
+    return {
+      watch = [crateContent, allItemTemplates]
+      rendObj = ROBJ_SOLID
+      size = shopItem?.squads[0] != null ? cardSquadPreviewSize : cardPreviewSize
+      padding = hdpx(1)
+      color = idleBgColor
+      clipChildren = true
+      children = {
+        size = flex()
+        halign = ALIGN_RIGHT
+        children = [
+          mkShopItemImg(shopItem.image, {
+            keepAspect = KEEP_ASPECT_FILL
+            imageHalign = ALIGN_CENTER
+            imageValign = ALIGN_TOP
+          })
+          mkShopItemTitle(shopItem, crateContent, allItemTemplates, showDiscount, countWatched)
+          shopItem?.isShowDebugOnly ?? false ? debugTag : null
+          itemHighlight(shopItem.guid)
+          tiersStars(minTier, maxTier)
+        ]
+      }
+    }
+  }
 
 let shopItemLockedMsgBox = @(level, cb = @() null)
   msgbox.show({
@@ -488,8 +531,8 @@ return {
   mkShopItemImg
   mkShopItemView
   mkProductView
-  mkDynamicProductView
-  mkShopItemUsage
+  mkMsgBoxView
+  mkShopItemInfoBlock
   shopItemLockedMsgBox
   viewShopInfoBtnStyle
   mkLevelLockLine

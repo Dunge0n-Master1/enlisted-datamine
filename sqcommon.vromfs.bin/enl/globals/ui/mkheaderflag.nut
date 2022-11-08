@@ -2,6 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 
 let FLAG_PARAMS = {
+  size = SIZE_TO_CONTENT
   flagImage = "!ui/gameImage/base_header_bar.svg"
   offset = hdpx(30)
   tail = 0
@@ -54,7 +55,7 @@ let mkFlagTail = @(p) p.offset <= 0 || p.tail <= 0 ? null
 local function mkHeaderFlag(content, p = FLAG_PARAMS) {
   p = FLAG_PARAMS.__merge(p)
   return {
-    size = SIZE_TO_CONTENT
+    size = p.size
     pos = [-p.offset, 0]
     children = [
       mkFlagTail(p)

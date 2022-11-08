@@ -516,6 +516,11 @@ plane_base{
   "deadIfNoCrewLeft:tag"{
   }
 
+  "kill_empty_vehicle__hadCrewBefore:b"{
+    _tags:t="server"
+    value:b=no
+  }
+
   "vehicle_seats__transferVehicleOffenderToSeats:tag"{
   }
 
@@ -1802,6 +1807,7 @@ enlisted_player{
     scoring_player__hostedOnSoldierSpawns:i=0
     scoring_player__vehicleRepairs:i=0
     scoring_player__vehicleExtinguishes:i=0
+    scoring_player__landings:i=0
     scoring_player__reviveAssists:i=0
     scoring_player__healAssists:i=0
     scoring_player__barrageBalloonDestructions:i=0

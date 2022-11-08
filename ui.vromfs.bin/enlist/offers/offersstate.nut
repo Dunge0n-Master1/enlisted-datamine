@@ -130,6 +130,13 @@ allActiveOffers.subscribe(function(offersList) {
   curOfferIdx(clamp(curIdx, 0, offersCount - 1))
 })
 
+let offersByShopItem = Computed(function() {
+  let res = {}
+  foreach (offer in allActiveOffers.value)
+    res[offer.shopItem.guid] <- offer
+  return res
+})
+
 local offersTimeStart = Computed(@() unlockOfferTime.value.start)
 local offersTimeEnd = Computed(@() unlockOfferTime.value.end)
 
@@ -268,6 +275,7 @@ return {
   headingAndDescription
 
   allActiveOffers
+  offersByShopItem
   curOfferIdx
   nextExpireData
 }

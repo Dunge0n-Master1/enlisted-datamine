@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { bigPadding, accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { addScene, removeScene } = require("%enlist/navState.nut")
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
@@ -9,7 +9,6 @@ let { mkFullScreenBack, mkBackWithImage, mkSquadBodyBig, primeDescBlock, mkPromo
   mkPromoBackBtn
 } = require("%enlist/soldiers/mkSquadPromo.nut")
 let { btnSizeBig } = require("%enlist/soldiers/components/campaignPromoPkg.nut")
-let colorize = require("%ui/components/colorize.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("buyShopItem.nut")
@@ -18,10 +17,8 @@ let { isTestDriveProfileInProgress, startSquadTestDrive } = require("%enlist/bat
 let { Bordered, Purchase } = require("%ui/components/textButton.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = btnSizeBig[1] })
 let { mkPrice } = require("%enlist/shop/mkShopItemPrice.nut")
-let { allActiveOffers, curOfferIdx, isSpecOffersOpened
-} = require("%enlist/offers/offersState.nut")
+let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
-let { showMsgbox } = require("%enlist/components/msgbox.nut")
 
 
 let buySquadParams = mkWatched(persist, "buySquadParams")
@@ -64,49 +61,14 @@ let topRightBlock = {
   ]
 }
 
-let hasOfferContainsSquad = @(offer, id, armyId) (offer?.shopItem.squads ?? [])
-  .findvalue(@(s) s.id == id && s.armyId == armyId) != null
-
 let function purchaseSquadCb(shopItem, productView) {
-  let offers = allActiveOffers.value ?? []
-  local alternativeOfferIdx = -1
-  foreach (squad in shopItem?.squads ?? []) {
-    foreach (idx, offer in offers)
-      if (hasOfferContainsSquad(offer, squad.id, squad.armyId)) {
-        alternativeOfferIdx = idx
-        break
-      }
-    if (alternativeOfferIdx >= 0)
-      break
-  }
-
-  let action = @() buyShopItem({
+  let offer = offersByShopItem.value?[shopItem.guid]
+  buyShopItem({
     shopItem
+    pOfferGuid = offer?.guid
     activatePremiumBttn
     productView
   })
-
-  if (alternativeOfferIdx < 0)
-    action()
-  else {
-    let offer = offers[alternativeOfferIdx]
-    let offerName = colorize(accentTitleTxtColor, offer.widgetTxt)
-    let discount = colorize(accentTitleTxtColor, offer.discountInPercent)
-    showMsgbox({
-      text = loc("alternativeOffer", { offerName, discount })
-      buttons = [
-        { text = loc("btn/buy"), action }
-        {
-          text = loc("btn/openOffer")
-          action = function() {
-            curOfferIdx(0)
-            isSpecOffersOpened(true)
-          }
-        }
-      ]
-    })
-  }
-
   close()
 }
 

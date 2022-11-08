@@ -30,6 +30,7 @@ let scoreSquads = {
   hostedOnSoldierSpawns = 15
   vehicleRepairs = 45
   vehicleExtinguishes = 45
+  landings = 100
   barrageBalloonDestructions = 15
   enemyBuiltFortificationDestructions = 5
   enemyBuiltGunDestructions = 45

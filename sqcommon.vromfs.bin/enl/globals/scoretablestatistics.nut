@@ -40,6 +40,7 @@ let scoringPlayerSoldiersStatsComps = [
   ["scoring_player__hostedOnSoldierSpawns", ecs.TYPE_INT],
   ["scoring_player__vehicleRepairs", ecs.TYPE_INT],
   ["scoring_player__vehicleExtinguishes", ecs.TYPE_INT],
+  ["scoring_player__landings", ecs.TYPE_INT],
   ["scoring_player__reviveAssists", ecs.TYPE_INT],
   ["scoring_player__healAssists", ecs.TYPE_INT],
   ["scoring_player__tankKillAssists", ecs.TYPE_INT],

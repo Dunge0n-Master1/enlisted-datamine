@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  bigPadding, bonusColor, defTxtColor, activeTxtColor
+  smallPadding, bigPadding, bonusColor, defTxtColor, activeTxtColor,
+  discountBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
@@ -12,6 +13,12 @@ let {
   mkCurrency, mkCurrencyCount, oldPriceLine
 } = require("%enlist/currency/currenciesComp.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
+let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
+let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
+let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
+
+
+let sidePadding = fsh(2)
 
 let function hasItemsToBarter(curItemCost, campItems) {
   if (curItemCost.len() == 0)
@@ -28,16 +35,16 @@ let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
   { price }, $"{price}{currencyId}")
 
 let mkItemPurchaseInfo = kwarg(
-  function(curItemCost, campItems, curShopItemPrice, currencies, discountInPercent,
+  function(shopItem, curItemCost, campItems, curShopItemPrice, currencies, discountInPercent,
     shop_price_curr = "", shop_price = 0, shop_price_full = 0
   ) {
 
     let hasBarter = hasItemsToBarter(curItemCost, campItems)
     let hasDiscount = curShopItemPrice.fullPrice > curShopItemPrice.price
-
+    let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
     if (hasBarter && !hasDiscount)
       return txt({
-        text = loc("mainmenu/receive")
+        text = isSoldier ? loc("mainmenu/enlist") : loc("mainmenu/receive")
         color = activeTxtColor
       }.__update(body_txt))
 
@@ -46,11 +53,12 @@ let mkItemPurchaseInfo = kwarg(
     if (currency != null && price > 0)
       return {
         flow = FLOW_HORIZONTAL
+        padding = [0,sidePadding,0,0]
         valign = ALIGN_CENTER
         gap = bigPadding
         children = [
           txt({
-            text = loc("mainmenu/buyFor")
+            text = isSoldier ? loc("mainmenu/enlistFor") : loc("mainmenu/buyFor")
             color = activeTxtColor
           }.__update(sub_txt))
           mkDiscountWidget(discountInPercent)
@@ -107,9 +115,9 @@ let mkItemBarterInfo = kwarg(function(guid, curItemCost, campItems) {
     }))
   }
   return {
-    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = bigPadding
+    padding = [0,0,0,sidePadding]
     children
   }
 })
@@ -161,13 +169,6 @@ local function mkShopItemPrice(shopItem, personalOffer = null) {
     guid, curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, shop_price_full = 0, discountInPercent = 0
   } = shopItem
-  let shopItemPrice = clone curShopItemPrice
-  if (personalOffer != null) {
-    let { fullPrice } = shopItemPrice
-    discountInPercent = personalOffer?.discountInPercent ?? 0
-    shopItemPrice.price = fullPrice - fullPrice * discountInPercent / 100
-  }
-
   return @() {
     watch = [curCampItemsCount, currenciesList]
     size = flex()
@@ -179,9 +180,30 @@ local function mkShopItemPrice(shopItem, personalOffer = null) {
         curItemCost
         campItems = curCampItemsCount.value
       })
+      personalOffer == null ? null
+        : mkHeaderFlag({
+            size = [SIZE_TO_CONTENT, flex()]
+            flow = FLOW_HORIZONTAL
+            gap = smallPadding
+            valign = ALIGN_CENTER
+            padding = [0, fsh(3), 0, bigPadding]
+            children = [
+              txt({
+                text = loc("specialOfferShort")
+                color = activeTxtColor
+              }.__update(sub_txt))
+              mkCountdownTimer({ timestamp = personalOffer.endTime })
+            ]
+          }, primeFlagStyle.__merge({
+            size = [SIZE_TO_CONTENT, flex()]
+            offset = hdpx(0)
+            flagColor = discountBgColor
+          }))
+      { size = flex() }
       mkItemPurchaseInfo({
+        shopItem
         curItemCost
-        curShopItemPrice = shopItemPrice
+        curShopItemPrice
         shop_price_curr
         shop_price
         shop_price_full

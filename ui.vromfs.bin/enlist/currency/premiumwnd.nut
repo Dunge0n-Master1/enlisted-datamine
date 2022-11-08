@@ -20,11 +20,11 @@ let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
 let {
   bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
   selectedTxtColor, activeTxtColor, smallPadding, bgPremiumColor,
-  basePremiumColor
+  basePremiumColor, discountBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let { mkHeaderFlag, primeFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
+let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { normal } = require("%ui/style/cursors.nut")
 let { premiumUrl = null } = require("app").get_circuit_conf()
@@ -169,47 +169,45 @@ let saveValueBlock = @(selected, percents) {
 
 let mkOffer = @(offer) offer == null ? null
   : {
-      pos = [-hdpx(10), -hdpx(38)]
-      children = mkHeaderFlag({
-        flow = FLOW_VERTICAL
-        gap = smallPadding
-        padding = [bigPadding, fsh(3), bigPadding, bigPadding]
-        children = [
-          {
-            rendObj = ROBJ_TEXT
-            text = utf8ToUpper(loc("specialOfferShort"))
-          }.__update(sub_txt)
-          mkCountdownTimer({ timestamp = offer.endTime })
-        ]
-      }, primeFlagStyle.__merge({ offset = hdpx(0) }))
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      gap = smallPadding
+      padding = bigPadding
+      pos = [0, -hdpx(36)]
+      rendObj = ROBJ_SOLID
+      color = discountBgColor
+      children = [
+        {
+          rendObj = ROBJ_TEXT
+          text = utf8ToUpper(loc("specialOfferShort"))
+        }.__update(sub_txt)
+        mkCountdownTimer({ timestamp = offer.endTime })
+      ]
     }
 
-let mkPremItemView = @(selected, size, days, saveVal, offer = null, sf = 0) {
+let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
   rendObj = ROBJ_BOX
   size
   borderWidth = hdpx(1)
   borderColor = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : basePremiumColor
-  children = [
-    {
-      flow = FLOW_VERTICAL
-      hplace = ALIGN_CENTER
-      halign = ALIGN_CENTER
-      vplace = ALIGN_CENTER
-      children = [
-        saveVal <= 0 ? null
-          : saveValueBlock(selected, saveVal)
-        txt({
-          text = days
-          color = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : activeTxtColor
-        }.__update(h0_txt))
-        txt({
-          text = loc("premiumDays", { days })
-          color = activeTxtColor
-        }.__update(h2_txt))
-      ]
-    }
-    mkOffer(offer)
-  ]
+  children = {
+    flow = FLOW_VERTICAL
+    hplace = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    children = [
+      saveVal <= 0 ? null
+        : saveValueBlock(selected, saveVal)
+      txt({
+        text = days
+        color = (selected || (sf & S_HOVER)) ? accentTitleTxtColor : activeTxtColor
+      }.__update(h0_txt))
+      txt({
+        text = loc("premiumDays", { days })
+        color = activeTxtColor
+      }.__update(h2_txt))
+    ]
+  }
 }
 
 
@@ -255,8 +253,15 @@ let mkPremItem = kwarg(
           size = [premSize + hdpx(20), SIZE_TO_CONTENT]
           padding = [hdpx(8), 0,0,0]
           children = [
-            mkPremItemView(isSelected, cellSize, premiumDays, saveVal, offer, sf)
-              .__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
+            {
+              size = [flex(), SIZE_TO_CONTENT]
+              halign = ALIGN_CENTER
+              children = [
+                mkPremItemView(isSelected, cellSize, premiumDays, saveVal, sf)
+                  .__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
+                mkOffer(offer)
+              ]
+            }
             {
               size =[premSize, hdpx(68)]
               valign = ALIGN_CENTER

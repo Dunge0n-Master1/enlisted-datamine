@@ -15,12 +15,15 @@ def update_revive_squads_points_on_squad_death(squad_eid : EntityId; player_eid 
 
     print("[SPAWN] Heal all squads by {squads__revivePointsPerSquad}. Player: {player_eid}")
 
-    let squadIdx = get_int(squad_eid, "squad__id") ?? -1
-    if squadIdx >= 0 && squadIdx < squadsCount
-      squads__revivePointsList[squadIdx] |> set(squads__revivePointsAfterDeath)
-      print("[SPAWN] Squad {squadIdx}({squad_eid}) is dead; Player: {player_eid}")
-    else
-      logerr("Squad {squadIdx} does not exist. There are only {squadsCount} squads.")
+    let squadFound = query(squad_eid) <| $ [es] (squad__id : int; squad__revivePointsAfterDeath : int = -1)
+      if squad__id >= 0 && squad__id < squadsCount
+        let revivePoints = squad__revivePointsAfterDeath >= 0 ? squad__revivePointsAfterDeath : squads__revivePointsAfterDeath
+        squads__revivePointsList[squad__id] |> set(revivePoints)
+        print("[SPAWN] Squad {squad__id}({squad_eid}) is dead; Player: {player_eid}")
+      else
+        logerr("Squad {squad__id} of player {player_eid} does not exist. There are only {squadsCount} squads.")
+    if !squadFound
+      logerr("Entity for squad {squad_eid} of player {player_eid} does not exist. Cannot apply revive points.")
 
     sendEvent(player_eid, [[RequestCheckTeamSpawnDefeat]])
 

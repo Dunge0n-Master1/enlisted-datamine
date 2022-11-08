@@ -610,8 +610,9 @@ local function getShopItemPath(shopItem, allShopItems){
   return path
 }
 
-let function getShopItemsCmp(basetpl){
+let function getShopItemsCmp(tpl){
   let allCratesListComp = getCratesListComp(allArmyCrates)
+  let basetpl = trimUpgradeSuffix(tpl)
   return Computed(function(){
     let allShopItems = curArmyShopItems.value
     let allCratesList = allCratesListComp.value

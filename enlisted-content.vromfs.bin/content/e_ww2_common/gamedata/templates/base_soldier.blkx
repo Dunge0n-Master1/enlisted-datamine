@@ -78,6 +78,7 @@ enlisted_human_cannon_resupply{
 _componentFilters{
   fortification_repair__active:t="filter_possessed_and_spectated"
   fortification_repair__timer:t="filter_possessed_and_spectated"
+  redeploy__hideBattleAreaWarning:t="filter_possessed_and_spectated"
 }
 
 moving_platform_visitor{
@@ -1163,17 +1164,42 @@ human_cover_grenade{
   human_cover_grenade__damageRadiusMult:r=0.5
 }
 
-enlisted_parachuter{
-  human_parachute_wind__speed:r=9.0
-  human_parachute_wind__deadZone:r=45.0
-  human_parachute_redeploy__redeployAtTime:r=-1.0
-  human_parachute_redeploy__redeployDelay:r=2.0
-  _tracked:t="human_parachute_redeploy__redeployAtTime"
-  _replicated:t="human_parachute_redeploy__redeployAtTime"
+soldier_redeploy{
+  redeploy__delay:r=2.0
+  redeploy__atTime:r=-1.0
+  redeploy__hideBattleAreaWarning:b=no
+  _tracked:t="redeploy__atTime"
+  _replicated:t="redeploy__atTime"
+  _replicated:t="redeploy__hideBattleAreaWarning"
 
   _group{
     _tags:t="server"
-    human_parachute_redeploy__insideAreaTag:t="humanTriggerable"
+    redeploy__insideAreaTag:t="humanTriggerable"
+  }
+}
+
+landing_outside_battle_area_redeploy{
+  _tags:t="server"
+  landing_redeploy__time:r=5.0
+  landing_redeploy__blackoutTime:r=2.0
+
+  "human__awaitsRedeploy:tag"{
+  }
+
+  "human__redeployable:tag"{
+  }
+
+  "landing_redeploy__vehicle:eid"{
+  }
+}
+
+enlisted_parachuter{
+  human_parachute_wind__speed:r=9.0
+  human_parachute_wind__deadZone:r=45.0
+  human_parachute_redeploy__redeployDelay:r=2.0
+
+  _group{
+    _tags:t="server"
     human_parachute_redeploy__shouldRedeployCheckInterval:r=1.0
     human_parachute_redeploy__altitude:r=60.0
     human_parachute_redeploy__maxVelocity:r=16.0
@@ -1268,6 +1294,7 @@ enlisted_base_soldier{
   _extends:t="enlisted_human_cannon_resupply"
   _extends:t="enlisted_human_quickchat_requests"
   _extends:t="human_cover_grenade"
+  _extends:t="soldier_redeploy"
   _extends:t="enlisted_parachuter"
   _extends:t="offenders_for_assist"
   _extends:t="human_freefall"

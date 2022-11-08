@@ -59,7 +59,7 @@ def on_aircraft_request_destroyed(evt : Event;
       ai_aircraft__state = int(AIAircraftState FLY_TO_END)
       ai_aircraft__flyPos = ai_aircraft__endPos
 
-[es(on_disappear, tag=server, REQUIRE=requested_aircraft)]
+[es(on_disappear, tag=server, REQUIRE=requested_aircraft, REQUIRE_NOT=deadEntity)]
 def aircraft_request_on_aircraft_destroyed(evt : Event;
                                            requested_aircraft__aircraftRequesterEid : EntityId)
   query(requested_aircraft__aircraftRequesterEid) <| $ [es] (var aircraft_request__spawnedAircraftsCount : int&;
@@ -239,7 +239,7 @@ def change_artillery_life_time(evt : EventRequestedAircraftShootAllBombs)
                                                                var artillery__deadTime : float&)
       artillery__deadTime = get_sync_time() + ai_aircraft__lastTimeToTarget + artilleryLifeTimeAfterBombing
 
-[es(tag=server, before=turret_weap_updater_es, after=turret_weap_reset_shoot, REQUIRE=requested_aircraft)]
+[es(tag=server, before=turret_weap_updater_es, after=turret_weap_reset_shoot, REQUIRE=requested_aircraft, REQUIRE_NOT=deadEntity)]
 def ai_aircraft_try_to_start_bombing_es(evt : CmdTurretsUpdate;
                                         requested_aircraft__aircraftRequesterEid : EntityId;
                                         ai_aircraft__shootOffset : float3;
@@ -274,7 +274,7 @@ def ai_aircraft_try_to_start_bombing_es(evt : CmdTurretsUpdate;
     if ai_aircraft__lastDstSqToTarget >= 0.
       ai_aircraft__state = int(AIAircraftState FLY_BOMBING)
 
-[es(tag=server, before=turret_weap_updater_es, after=turret_weap_reset_shoot, REQUIRE=requested_aircraft)]
+[es(tag=server, before=turret_weap_updater_es, after=turret_weap_reset_shoot, REQUIRE=requested_aircraft, REQUIRE_NOT=deadEntity)]
 def ai_aircraft_bombing_es(evt : CmdTurretsUpdate;
                            eid : EntityId;
                            net_phys__atTick : int;
@@ -363,7 +363,7 @@ def calculate_pid_value(input : float;
 
   return clamp(curError * pid.x + intError + deltaError * pid.z, minVal, maxVal)
 
-[es(tag=server, no_order, REQUIRE=ai_aircraft)]
+[es(tag=server, no_order, REQUIRE=ai_aircraft, REQUIRE_NOT=deadEntity)]
 def ai_aircraft_autopilot_es(info : CmdPostPhysUpdate;
                              ai_aircraft__speedPidK : float3;
                              ai_aircraft__rollPidK : float3;

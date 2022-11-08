@@ -134,6 +134,7 @@ let soldierStatsCfg = [
   { stat = "hostedOnSoldierSpawns", locId = "debriefing/awards/hostedOnSoldierSpawns" },
   { stat = "vehicleRepairs", locId = "debriefing/awards/vehicleRepairs" },
   { stat = "vehicleExtinguishes", locId = "debriefing/awards/vehicleExtinguishes" },
+  { stat = "landings", locId = "debriefing/awards/landings" },
   { stat = "barrageBalloonDestructions", locId = "debriefing/awards/barrageBalloonDestructions" },
   { stat = "enemyBuiltFortificationDestructions", locId = "debriefing/awards/enemyBuiltFortificationDestructions" },
   { stat = "enemyBuiltGunDestructions", locId = "debriefing/awards/enemyBuiltGunDestructions" },

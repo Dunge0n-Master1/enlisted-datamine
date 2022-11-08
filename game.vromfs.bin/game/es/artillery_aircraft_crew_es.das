@@ -5,6 +5,7 @@ require game.es.events
 require game.es.spawn_soldier_common
 require game.events_game
 require DagorSystem
+require EnlistedPlane
 
 [es(tag=server, on_disappear, REQUIRE=requested_aircraft, before=vehicle_seats_kick_from_destroyed)]
 def aircraft_with_ai_crew_on_disappear(evt : Event;
@@ -59,3 +60,10 @@ def on_ai_aircraft_crew_pilot_died(evt : EventEntityDied;
                                                 var lastOffender : EntityId&)
     isAlive = false
     lastOffender = evt.offender
+
+[es(tag=server, REQUIRE=ai_aircraft, REQUIRE_NOT=deadEntity)]
+def kill_ai_aircraft_that_cannot_fly_normally(evt : CmdPostPhysUpdate;
+                                              plane_net_phys : PlaneActor;
+                                              var isAlive : bool&)
+  if isAlive && plane_net_phys.phys.isReadyToDie
+    isAlive = false

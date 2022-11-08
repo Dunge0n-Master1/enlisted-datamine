@@ -141,10 +141,10 @@ def tutorial_squad_change()
                                    bindedCamera : EntityId;
                                    team : int;
                                    human_weap__currentGunEid : EntityId;
-                                   human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
                                    var squad_member__squad : EntityId&)
-    if !!human_anim__vehicleSelected
-      destroyEntity(human_anim__vehicleSelected)
+    query() <| $ [es] (eid : EntityId; ownedBySquad : EntityId)
+      if ownedBySquad == squad_member__squad
+        destroyEntity(eid)
     query(human_weap__currentGunEid) <| $ [es] (grenade_thrower__projectileEntity : EntityId)
       destroyEntity(grenade_thrower__projectileEntity)
     destroyEntity(human_weap__currentGunEid)

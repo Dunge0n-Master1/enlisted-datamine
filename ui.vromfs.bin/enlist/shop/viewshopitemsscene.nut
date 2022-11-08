@@ -10,7 +10,7 @@ let activatePremiumBttn = require("activatePremiumBtn.nut")
 let { PrimaryFlat, Flat } = require("%ui/components/textButton.nut")
 let {
   mkShopItemView, shopItemLockedMsgBox, mkShopItemImg, mkLevelLockLine, mkShopItemPriceLine,
-  mkShopItemUsage
+  mkShopItemInfoBlock
 } = require("shopPkg.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -135,7 +135,7 @@ let function purchaseBtnUi() {
                 itemView = mkShopItemImg(shopItemData.image, {
                   size = [fsh(40), fsh(24)]
                 })
-                description = mkShopItemUsage(crateContent, allItemTemplates)
+                description = mkShopItemInfoBlock(crateContent)
               },
               crateContent
             )

@@ -1,6 +1,7 @@
 require app
 require ecs
 require ecs.common
+require ecs.safe
 require DagorMath
 require math.base
 require math.linear
@@ -129,7 +130,6 @@ def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
                                    battle_areas_visitor__updateInterval : float;
                                    var battle_areas_visitor__nextUpdateAt : float&;
                                    var isOutsideBattleArea : bool&;
-                                   var isInDeactivatingBattleArea : bool&;
                                    zones_visitor__triggerTag : string;
                                    team : int = TEAM_UNASSIGNED;
                                    beh_tree__enabled : bool = false;
@@ -143,29 +143,27 @@ def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
   else // either initial update, huge dt or small interval
     battle_areas_visitor__nextUpdateAt = info.curTime + battle_areas_visitor__updateInterval * eid_frnd(eid)
 
-  var curAreas : array<EntityId>
-  reserve(curAreas, 1)
+  let anyZoneWasIn = battle_areas_visitor__zonesIn?[0] ?? INVALID_ENTITY_ID
+
+  clear(battle_areas_visitor__zonesIn)
   query_active_battle_areas(transform[3], team, zones_visitor__triggerTag) <| $(area_eid)
-    push(curAreas, area_eid)
+    push(battle_areas_visitor__zonesIn, area_eid)
   let zonesInLen = length(battle_areas_visitor__zonesIn)
-  let nCurAreas = length(curAreas)
-  if zonesInLen == nCurAreas
-    return // not changed
-  elif zonesInLen == 0 // return to battle area
+  if isOutsideBattleArea && zonesInLen > 0 // return to battle area
     isOutsideBattleArea = false
-    ecs::find_query() <| $ [es] (var battle_area__killList : ecs::Array) // remove from kill list
+    find_query() <| $ [es] (var battle_area__killList : Array) // remove from kill list
       let idx = find_index_in_kill_list(battle_area__killList, eid)
       if idx >= 0
         erase(battle_area__killList, idx)
         return true // found
       else
         return false
-  elif nCurAreas == 0 // go outside of battle areas
+  elif !!anyZoneWasIn && !isOutsideBattleArea && zonesInLen == 0 // go outside of battle areas
     print("Entity left the battle area eid={eid} pos={transform[3]} beh_tree={beh_tree__enabled}")
     isOutsideBattleArea = true
-    ecs::query(battle_areas_visitor__zonesIn[0]) <| $ [es] (var battle_area__killList : ecs::Array; // put to kill list
-                                                            battle_area__timeToDamage : float;
-                                                            battle_area__timeToDamageByType : ecs::Object?)
+    query(anyZoneWasIn) <| $ [es] (var battle_area__killList : Array; // put to kill list
+                                   battle_area__timeToDamage : float;
+                                   battle_area__timeToDamageByType : Object?)
       let defaultTime = battle_area__timeToDamage
       let timeByType  = battle_area__timeToDamageByType
       let visitorType = battle_area__timeToDamageType
@@ -175,10 +173,11 @@ def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
         set(obj, "eid", eid)
         set(obj, "timer", timeToDamage)
 
-  resize(battle_areas_visitor__zonesIn, nCurAreas)
-  for i in range(nCurAreas)
-    battle_areas_visitor__zonesIn[i] = curAreas[i]
-
+[es(tag=server, track=battle_areas_visitor__zonesIn)]
+def battle_areas_visitor_check_deactivating(evt : Event;
+                                            team : int;
+                                            battle_areas_visitor__zonesIn : EidList;
+                                            var isInDeactivatingBattleArea : bool&)
   isInDeactivatingBattleArea = !is_in_next_active_battle_area(battle_areas_visitor__zonesIn, team)
 
 [es(tag=server, no_order)]

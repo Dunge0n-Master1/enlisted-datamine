@@ -52,6 +52,7 @@ let mkOfferImage = @(img) {
   image = Picture(img)
   keepAspect = KEEP_ASPECT_FILL
   imageHalign = ALIGN_RIGHT
+  imageValign = ALIGN_TOP
   animations = [
     { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.6, play = true }
     { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.6, playFadeOut = true }

@@ -37,6 +37,8 @@ let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
+let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 
 
 let vehicleInfo = Computed(function() {
@@ -113,7 +115,9 @@ let function manageSoldiersBtn() {
   let { guid = null, squadId = null } = squad
   let armyId = getLinkedArmyName(squad)
   let needSoldiersManage = needSoldiersManageBySquad.value?[guid] ?? false
-  let res = { watch = [needSoldiersManageBySquad, curSquad, disabledSectionsData] }
+  let hasUnseesSoldiers = unseenSoldierShopItems.value.len() > 0
+  let res = { watch = [needSoldiersManageBySquad, curSquad,
+    disabledSectionsData, unseenSoldierShopItems] }
   return disabledSectionsData.value?.SOLDIERS_MANAGING ?? false ? res
     : res.__update({
       size = [flex(), SIZE_TO_CONTENT]
@@ -125,9 +129,18 @@ let function manageSoldiersBtn() {
           }
           openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
         }, {
-          bgChild = needSoldiersManage
-            ? mkAlertIcon(REQ_MANAGE_SIGN, Computed(@() true))
-            : null
+          fgChild = {
+            flow = FLOW_HORIZONTAL
+            hplace = ALIGN_RIGHT
+            vplace = ALIGN_TOP
+            gap = smallPadding
+            children = [
+              needSoldiersManage ? mkAlertIcon(REQ_MANAGE_SIGN, Computed(@() true)) : null
+              hasUnseesSoldiers
+                ? smallUnseenNoBlink.__merge({ size = [hdpxi(15), hdpxi(15)], fontSize = hdpxi(14) })
+                : null
+            ]
+          }
           onHover = @(on) setTooltip(on && needSoldiersManage ? loc("msg/canAddSoldierToSquad") : null)
           size = [flex(), SIZE_TO_CONTENT]
           fontSize = sub_txt.fontSize

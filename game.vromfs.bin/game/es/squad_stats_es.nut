@@ -44,6 +44,7 @@ let newStats = @() {
   hostedOnSoldierSpawns = 0
   vehicleRepairs = 0
   vehicleExtinguishes = 0
+  landings = 0
   reviveAssists = 0
   healAssists = 0
   barrageBalloonDestructions = 0
@@ -159,6 +160,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__hostedOnSoldierSpawns", ecs.TYPE_INT],
     ["scoring_player__vehicleRepairs", ecs.TYPE_INT],
     ["scoring_player__vehicleExtinguishes", ecs.TYPE_INT],
+    ["scoring_player__landings", ecs.TYPE_INT],
     ["scoring_player__reviveAssists", ecs.TYPE_INT],
     ["scoring_player__healAssists", ecs.TYPE_INT],
     ["scoring_player__crewKillAssists", ecs.TYPE_FLOAT],

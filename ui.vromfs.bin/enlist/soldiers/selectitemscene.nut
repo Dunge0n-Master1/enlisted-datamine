@@ -31,7 +31,7 @@ let defcomps= require("%enlSqGlob/ui/defcomps.nut")
 let mkItemWithMods = require("mkItemWithMods.nut")
 let mkSoldierInfo = require("mkSoldierInfo.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { getSoldierItemSlots, getEquippedItemGuid
+let { getSoldierItemSlots, getEquippedItemGuid, curArmyData
 } = require("%enlist/soldiers/model/state.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
@@ -53,8 +53,7 @@ let { scrollToCampaignLvl } = require("model/armyUnlocksState.nut")
 let { mkItemUpgradeData, mkItemDisposeData } = require("model/mkItemModifyData.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { justPurchasedItems } = require("model/newItemsToShow.nut")
-let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
-} = require("%enlist/shop/armyShopState.nut")
+let { getShopItemsCmp } = require("%enlist/shop/armyShopState.nut")
 let { mkOnlinePersistentFlag } = require("%enlist/options/mkOnlinePersistentFlag.nut")
 let openArmoryTutorial = require("%enlist/tutorial/armoryTutorial.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
@@ -65,6 +64,7 @@ let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfo
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
+let clickShopItem = require("%enlist/shop/clickShopItem.nut")
 
 local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
@@ -158,17 +158,18 @@ let function showMessage(item, checkInfo) {
       isCurrent = true })
 
   } else if (result == ItemCheckResult.IN_SHOP) {
-    text = loc("itemObtainInShop")
     let shopItemsCmp = getShopItemsCmp(item.basetpl)
-    buttons.append({
-      text = loc("GoToShop")
-      watch = [shopItemsCmp, curArmyShopItems]
-      action = function() {
-        openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value)
-      }
-      isCurrent = true })
+    if (shopItemsCmp.value.len() > 0){
+      text = loc("shop/dontHaveItem", {item = loc(shopItemsCmp.value[0].nameLocId)})
+      buttons.append({
+        text = loc("btn/buy")
+        action = function() {
+          clickShopItem(shopItemsCmp.value[0], curArmyData.value?.level ?? 0)
+        }
+        isCurrent = true })
+    }
   }
-  return msgbox.show({ text, buttons })
+  msgbox.show({ text, buttons })
 }
 
 let mkDropExceptionCb = @(currentItem) function(dropItem) {
@@ -352,29 +353,30 @@ let chooseButtonUi = function() {
   }
 }
 
-let function goShopBtn(item) {
-  let shopItemsCmp = getShopItemsCmp(item.basetpl)
-  return Flat(loc("GoToShop"),
-    @() openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value),
-    { margin = [0, bigPadding, 0, 0] })
-}
 
 let function mkObtainButton(item) {
+  if (item == null)
+    return null
+
   let demands = mkItemDemands(item).value
-  let { levelLimit = null, canObtainInShop = false } = demands
-  return demands == null ? null
-    : levelLimit != null ? Flat(loc("GoToArmyLeveling"),
-        function() {
-          scrollToCampaignLvl(item.unlocklevel)
-          setCurSection("SQUADS")
-        },
-        { margin = [0, bigPadding, 0, 0] })
-    : canObtainInShop ? goShopBtn(item)
+  let { levelLimit = null } = demands
+  let shopItemsCmp = getShopItemsCmp(item.basetpl)
+
+  return levelLimit != null ? Flat(loc("GoToArmyLeveling"),
+      function() {
+        scrollToCampaignLvl(item.unlocklevel)
+        setCurSection("SQUADS")
+      },
+      { margin = [0, bigPadding, 0, 0] })
+    : shopItemsCmp.value.len() > 0 ? Flat(loc("btn/buy"),
+      @() clickShopItem(shopItemsCmp.value[0], curArmyData.value?.level ?? 0),
+        { margin = [0, bigPadding, 0, 0], hotkeys = [["^J:X"]] })
     : null
 }
 
 let function obtainButtonUi() {
   let item = viewItem.value
+
   return {
     watch = [viewItem, viewSoldierInfo]
     children = mkObtainButton(item)

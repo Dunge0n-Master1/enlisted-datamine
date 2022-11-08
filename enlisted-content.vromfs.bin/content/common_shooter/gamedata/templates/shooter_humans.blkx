@@ -180,6 +180,10 @@ has_parachute{
 
   "hasParachute:tag"{
   }
+
+  "human__redeployable:tag"{
+    _tags:t="server"
+  }
 }
 
 human_parachute{

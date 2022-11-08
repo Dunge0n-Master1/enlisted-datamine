@@ -64,7 +64,7 @@ def squadmate_reset_personal_order_on_battlearea_deactivation_es(evt : Event; ei
       send_order_cancel_bq(eid, "battlearea_deactivation", "{SquadMateOrder ESMO_DEFEND_POINT}")
 
 [es(tag=server, REQUIRE=capzone, track=active)]
-def squadmate_reset_personal_order_on_capzone_deactivation_es(evt : Event; active : bool)
+def squadmate_reset_personal_order_on_capzone_deactivation_es(evt : Event; eid aka zone_eid : EntityId; active : bool)
   if active
     return
 
@@ -77,7 +77,7 @@ def squadmate_reset_personal_order_on_capzone_deactivation_es(evt : Event; activ
       return
     if squad_member__orderType != int(SquadMateOrder ESMO_DEFEND_POINT)
       return
-    if squad_member__orderUseEntity != INVALID_ENTITY_ID // ignore "control point" orders
+    if squad_member__orderUseEntity != zone_eid
       return
     send_order_cancel_bq(eid, "capzone_update", "{squad_member__orderType}")
     reset_squad_mate_order(squad_member__orderType, squad_member__orderPosition, squad_member__orderUseEntity, squad_member__isPersonalOrder)

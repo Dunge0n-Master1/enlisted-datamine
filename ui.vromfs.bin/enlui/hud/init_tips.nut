@@ -17,7 +17,7 @@ let low_stamina_use_flask_tip= require("%ui/hud/huds/tips/low_stamina_use_flask_
 let vehicle_under_water      = require("%ui/hud/huds/tips/vehicle_underwater.nut")
 let burning_tip              = require("%ui/hud/huds/tips/burning_tip.nut")
 let hold_breath_tip          = require("%ui/hud/huds/tips/hold_breath_tip.nut")
-let parachute_redeploy_tip   = require("%ui/hud/huds/tips/parachute_redeploy_tip.nut")
+let redeploy_tip             = require("%ui/hud/huds/tips/redeploy_tip.nut")
 let plane_redeploy_tip       = require("%ui/hud/huds/tips/plane_redeploy_tip.nut")
 let prevent_reloading_tip    = require("%ui/hud/huds/tips/prevent_reloading_tip.nut")
 let place_bipod_tip          = require("%ui/hud/huds/tips/place_bipod_tip.nut")
@@ -47,7 +47,7 @@ let fullTips = [
   { children = vehicle_under_water }
   {
     pos = [fsh(0), fsh(5)]
-    children = [downed_tip, burning_tip, parachute_redeploy_tip, plane_redeploy_tip]
+    children = [downed_tip, burning_tip, redeploy_tip, plane_redeploy_tip]
   }
   {
     pos = [fsh(-15), fsh(2)]

@@ -1,14 +1,11 @@
 require ecs
 require DagorSystem
 require AnimV20
-require DagorShaders
 require enlisted.events_enlisted
-require DagorMath
 
 let
   upperHash = ecs_hash("upper")
   lowerHash = ecs_hash("lower")
-  redout_blackout_colorVarId = get_shader_variable_id("redout_blackout_color", true)
 
 [es(tag=gameClient, on_appear)]
 def parachute_init_animation(evt : Event;
@@ -151,21 +148,3 @@ def human_parachute_animation_continuous(info : UpdateStageInfoAct;
 def human_parachute_block_aiming(info : ParallelUpdateFrameDelayed;
                                  var human_weap__blockAiming : bool&)
   human_weap__blockAiming = true
-
-
-[es(tag=gameClient, REQUIRE=hero, no_order)]
-def human_parachute_redeploy_effect(info : UpdateStageInfoAct;
-                                    human_parachute_redeploy__redeployAtTime : float;
-                                    human_parachute_redeploy__redeployDelay : float)
-  if human_parachute_redeploy__redeployAtTime > 0.0
-    let progress = cvt(info.curTime,
-      human_parachute_redeploy__redeployAtTime - human_parachute_redeploy__redeployDelay, human_parachute_redeploy__redeployAtTime,
-      0.0, 1.0)
-    DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.0, 0.0, 0.0, progress)))
-
-
-[es(tag=gameClient, REQUIRE=hero, track=human_parachute_redeploy__redeployAtTime)]
-def human_parachute_remove_redeploy_effect(evt : Event;
-                                           human_parachute_redeploy__redeployAtTime : float)
-  if human_parachute_redeploy__redeployAtTime < 0.0
-    DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.0, 0.0, 0.0, 0.0)))

@@ -7,14 +7,14 @@ let viewShopItemsScene = require("viewShopItemsScene.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { shopItemContentCtor, curArmyShopFolder, purchaseIsPossible, setCurArmyShopPath
 } = require("armyShopState.nut")
-let { shopItemLockedMsgBox, mkShopItemUsage, mkDynamicProductView, mkProductView
+let { shopItemLockedMsgBox, mkShopItemInfoBlock, mkMsgBoxView, mkProductView
 } = require("shopPkg.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 
-let function shopItemAction(shopItem, curLevel, personalOffer = null) {
+let function shopItemAction(shopItem, curLevel) {
   let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
   let { guid = "" } = curArmyData.value
   let { squads = [] } = shopItem
@@ -24,6 +24,7 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
   let crateContent = shopItemContentCtor(shopItem)
   let hasItemContent = crateContent == null ? false
     : (crateContent.value?.content.items ?? {}).len() > 0
+
   if ((shopItem?.offerContainer ?? "") != "")
     setCurArmyShopPath((clone curArmyShopFolder.value.path).append(shopItem))
   else if (campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value)
@@ -31,19 +32,14 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
   else if (armyLevel > curLevel)
     shopItemLockedMsgBox(armyLevel)
   else if (purchaseIsPossible.value) {
-    let description = mkShopItemUsage(crateContent, allItemTemplates)
-    let productView = mkDynamicProductView(
-      shopItem.guid,
-      allItemTemplates,
-      countWatched,
-      crateContent)
+    let description = mkShopItemInfoBlock(crateContent)
+    let productView = mkMsgBoxView(shopItem, crateContent, countWatched)
     if (squad != null && isBuyingWithGold)
       buySquadWindow({
         shopItem
         productView
         armyId = squad.armyId
         squadId = squad.id
-        pOfferGuid = personalOffer?.guid
       })
     else {
       let buyItemAction = @() buyShopItem({
@@ -52,17 +48,14 @@ let function shopItemAction(shopItem, curLevel, personalOffer = null) {
         productView
         description
         viewBtnCb = hasItemContent ? @() viewShopItemsScene(shopItem) : null
-        pOfferGuid = personalOffer?.guid
         countWatched
       })
-      checkLootRestriction(
-          buyItemAction,
-          {
-            itemView = mkProductView(shopItem, allItemTemplates, crateContent)
-            description
-          },
-          crateContent
-        )
+      checkLootRestriction(buyItemAction,
+        {
+          itemView = mkProductView(shopItem, allItemTemplates, crateContent)
+          description
+        },
+        crateContent)
     }
   }
 }

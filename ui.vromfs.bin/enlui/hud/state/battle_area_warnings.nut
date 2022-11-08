@@ -16,14 +16,15 @@ addWarnings({
 })
 
 let function trackComponents(_eid, comp) {
-  let outside = comp["isOutsideBattleArea"]
-  let isInOldArea = comp["isInDeactivatingBattleArea"]
-  warningUpdate(leftBattleArea, comp.isAlive && outside)
+  let outside = comp.isOutsideBattleArea
+  let showOutsideWarning = comp.isAlive && outside && !comp.redeploy__hideBattleAreaWarning
+  let isInOldArea = !outside && comp.isInDeactivatingBattleArea && !comp.redeploy__hideBattleAreaWarning
+  warningUpdate(leftBattleArea, showOutsideWarning)
   warningUpdate(taskPoint, comp.isAlive && isInOldArea)
   gui_scene.clearTimer(warningTimer)
-  if (outside)
+  if (showOutsideWarning)
     gui_scene.resetTimeout(WARNING_VISIBLE_TIME, warningTimer)
-  displayOutsideBattleAreaWarning(outside)
+  displayOutsideBattleAreaWarning(showOutsideWarning)
 }
 
 ecs.register_es("leaving_battle_area_ui_es",
@@ -35,6 +36,7 @@ ecs.register_es("leaving_battle_area_ui_es",
     comps_track = [
       ["isAlive", ecs.TYPE_BOOL],
       ["isOutsideBattleArea", ecs.TYPE_BOOL],
+      ["redeploy__hideBattleAreaWarning", ecs.TYPE_BOOL, false],
       ["isInDeactivatingBattleArea", ecs.TYPE_BOOL, false]
     ]
   }

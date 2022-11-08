@@ -5,6 +5,7 @@ battle_areas_visitor{
   _replicated:t="isInDeactivatingBattleArea"
   _tracked:t="isOutsideBattleArea"
   _tracked:t="isInDeactivatingBattleArea"
+  _tracked:t="battle_areas_visitor__zonesIn"
   battle_areas_visitor__updateInterval:r=0.5
   battle_areas_visitor__nextUpdateAt:r=0.0
 

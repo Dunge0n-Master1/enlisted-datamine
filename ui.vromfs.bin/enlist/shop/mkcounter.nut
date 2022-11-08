@@ -21,18 +21,15 @@ let tb = @(key, action) @() {
 }
 
 let function mkCounter(maxCount, countWatched) {
-  let isDecActive = Computed(@() countWatched.value > 1)
-  let isIncActive = Computed(@() countWatched.value < maxCount)
+  let decCount = @() countWatched.value > 1 ? countWatched(countWatched.value - 1) : null
+  let incCount = @() countWatched.value < maxCount ? countWatched(countWatched.value + 1) : null
 
   return {
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     children = [
-      tb("^J:LB", @() isDecActive.value ? countWatched(countWatched.value - 1) : null)
-      Bordered(fa["minus"], function() {
-        if (isDecActive.value)
-          countWatched(countWatched.value - 1)
-      }, changeButtonStyle)
+      tb("^J:LB", decCount)
+      Bordered(fa["minus"], decCount, changeButtonStyle)
       @() {
         rendObj = ROBJ_TEXT
         watch = countWatched
@@ -42,11 +39,8 @@ let function mkCounter(maxCount, countWatched) {
         vplace = ALIGN_CENTER
         text = countWatched.value
       }.__update(h2_txt)
-      Bordered(fa["plus"], function() {
-        if (isIncActive.value)
-          countWatched(countWatched.value + 1)
-      }, changeButtonStyle)
-      tb("^J:RB",  @() isIncActive.value ? countWatched(countWatched.value + 1) : null)
+      Bordered(fa["plus"], incCount, changeButtonStyle)
+      tb("^J:RB",  incCount)
     ]
   }
 }

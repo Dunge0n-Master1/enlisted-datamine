@@ -150,7 +150,9 @@ return {
   // Premium
 
   bgPremiumColor = Color(11, 11, 19)
-  basePremiumColor  = Color(112, 112, 112)
+  basePremiumColor = Color(112, 112, 112)
+
+  discountBgColor = Color(0, 120, 0)
 
   // Freemium
   freemiumColor = 0xFF584AA3

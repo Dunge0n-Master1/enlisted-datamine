@@ -6,14 +6,14 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 
-let mkIconBar = @(count, color, fName) count < 1 ? null : {
+let mkIconBar = @(count, color, fName, params = {}) count < 1 ? null : {
     rendObj = ROBJ_INSCRIPTION
     validateStaticText = false
     text = "".join(array(count, fa[fName]))
     font = fontawesome.font
     fontSize = hdpx(10)
     color
-  }
+  }.__update(params)
 
 let mkItemTier = @(item, itemLevelData = null, isFreemiumMode = false, mkBg = @(v) v) function() {
     let tier = item?.tier ?? 0
@@ -43,6 +43,7 @@ let mkItemTier = @(item, itemLevelData = null, isFreemiumMode = false, mkBg = @(
 }
 
 return {
-  mkTierStars = @(tier, style = {}) mkIconBar(tier, soldierLvlColor, "star")?.__merge(style)
+  mkTierStars = @(tier, params = {}) mkIconBar(tier, soldierLvlColor, "star", params)
   mkItemTier
+  mkIconBar
 }

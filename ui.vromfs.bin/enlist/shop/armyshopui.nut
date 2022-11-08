@@ -33,6 +33,7 @@ let { setTooltip } = require("%ui/style/cursors.nut")
 let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 
 
 const SHOP_CONTAINER_WIDTH = 120 // sh
@@ -98,10 +99,11 @@ let mkShopNotifier = @(locId)
 let shopGroupNotifier = mkShopNotifier(loc("hint/newShopItemsAvailable"))
 let shopItemNotifier = mkShopNotifier(loc("hint/newShopItemAvailable"))
 
-let function mkShopItemCard(shopItem, armyData) {
+let function mkShopItemCard(shopItem, offersByItem, armyData) {
   let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0 } = shopItem
   let squad = shopItem?.squads[0]
   let armyId = armyData?.guid ?? ""
+  let offer = offersByItem?[guid]
   let currentLevel = armyData?.level ?? 0
   let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
   let stateFlags = Watched(0)
@@ -166,7 +168,7 @@ let function mkShopItemCard(shopItem, armyData) {
             })
             isGroupContainer ? null
               : armyLevel > currentLevel ? mkLevelLockLine(armyLevel)
-              : mkShopItemPriceLine(shopItem)
+              : mkShopItemPriceLine(shopItem, offer)
           ]
         }
         hoverBox(sf, CARD_MAX_WIDTH)
@@ -175,7 +177,7 @@ let function mkShopItemCard(shopItem, armyData) {
   }
 }
 
-let function mkShopLine(line, config = {}) {
+let function mkShopLine(line, offersByItem, config = {}) {
   let count = (line ?? []).len()
   if (count == 0)
     return null
@@ -187,15 +189,16 @@ let function mkShopLine(line, config = {}) {
     flow = FLOW_HORIZONTAL
     gap = bigPadding
     halign = ALIGN_CENTER
-    children = line.map(@(shopItem) mkShopItemCard(shopItem, curArmyData.value))
+    children = line.map(@(shopItem) mkShopItemCard(shopItem, offersByItem, curArmyData.value))
   }
 }
 
 let function shopContentUi() {
   let sConfig = shopConfig.value
   let allLines = curArmyShopLines.value
+  let offersByItem = offersByShopItem.value
   let res = {
-    watch = [curGroup, curArmyShopLines, shopConfig, safeAreaSize]
+    watch = [curGroup, curArmyShopLines, shopConfig, offersByShopItem, safeAreaSize]
     valign = ALIGN_CENTER
   }
   if (allLines.len() == 0)
@@ -216,7 +219,7 @@ let function shopContentUi() {
       gap = bigPadding
       valign = ALIGN_CENTER
       halign = ALIGN_CENTER
-      children = allLines.map(@(line, idx) mkShopLine(line, curGroupV
+      children = allLines.map(@(line, idx) mkShopLine(line, offersByItem, curGroupV
         .__merge({ height = repeatLast(rowsHeight, idx) })))
       onAttach = @() gui_scene.resetTimeout(0.1, scrollToCurrentItems)
     }, scrollbarParams.__merge({ scrollHandler = shopScroll }))

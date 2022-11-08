@@ -62,6 +62,7 @@ jp_type_97_chi_ha_common{
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="jp_type_97_chi_ha_commander_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{
         node:t="hatch_04"

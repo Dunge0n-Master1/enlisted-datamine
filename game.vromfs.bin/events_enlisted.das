@@ -721,3 +721,6 @@ struct CmdSetFreeTpsCameraSpeed
 [event(broadcast)]
 struct CmdSetLenseFlareIntensity
   intensity : float
+
+[event(unicast)]
+struct EventEntityRedeployed {}

@@ -752,6 +752,29 @@ plane_carrier_assist{
   _tracked:t="plane_carrier_assist__isOnCarrier"
 }
 
+plane_take_off{
+  _tags:t="server"
+  plane__takeOffHeight:r=10.0
+
+  "plane__waitingTakeOff:tag"{
+  }
+}
+
+plane_landing{
+  _tags:t="server"
+  plane_landing__landedTime:r=0.0
+  plane_landing__awardSoldierGuid:t=""
+  plane_landing__awardStat:t="landings"
+  plane_landing__requiredTimeLanded:r=3.0
+  plane_landing__maxSpeed:r=5.0
+  plane_landing__squadRevivePointsIfLanded:i=1
+
+  "plane_landing__isLanded:b"{
+    value:b=no
+    _track:b=yes
+  }
+}
+
 plane_landing_hook{
   plane_landing__hookPosLocal:p3=-6.0, 0.0, 0.0
   plane_landing__hookHeight:r=3.0
@@ -818,6 +841,7 @@ plane_base{
   _extends:t="plane_inertial_cam"
   _extends:t="vehicle_enter_accessibility"
   _extends:t="plane_carrier_assist"
+  _extends:t="plane_landing"
   _extends:t="plane_landing_repair"
   _extends:t="plane_landing_hook"
   battle_area__timeToDamageType:t="aircraft"
@@ -923,6 +947,10 @@ plane_base{
   vehicle_kill__engineerStat:t="builtGunPlaneKills"
   pair_collision__tag:t="collidableToPlane"
 
+  "vehicle__redeployOutsideBattleArea:tag"{
+    _tags:t="server"
+  }
+
   grid_obj{
   }
 
@@ -953,6 +981,15 @@ plane_base{
     _tags:t="server"
 
     "kickCrewOnPlayerDeath:tag"{
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "aircraft__isCapableOfTakeOff:b"{
+      value:b=yes
+      _track:b=yes
     }
   }
 
