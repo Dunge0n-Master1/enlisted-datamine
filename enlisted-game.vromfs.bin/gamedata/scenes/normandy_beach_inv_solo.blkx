@@ -3961,3 +3961,8 @@ entity{
   respawnBaseGroup:i=4
   active:b=no
 }
+
+entity{
+  _template:t="german_officer_sword_item+item_in_world"
+  transform:m=[[0.129509, -0.0337535, -0.991003] [0.990821, 0.0434658, 0.128004] [0.0387541, -0.998485, 0.0390728] [7.27658, 10.5467, 147.463]]
+}

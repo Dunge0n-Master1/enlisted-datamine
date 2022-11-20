@@ -367,14 +367,14 @@ let rewardsPresentation = {
   },
   ["179"] = {
     name = loc("squad/allies_tunisia_event_mgun_1")
-    description = "squadannounce/allies_tunisia_event_mgun_1"
+    description = loc("squadannounce/allies_tunisia_event_mgun_1")
     icon = "ui/skin#/research/squad_points_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([120, 111], [-4, 28], "!ui/soldiers/usa/allies_tunisia_event_mgun_1_icon.svg") //600 * 555
   },
   ["180"] = {
     name = loc("items/tunisia_axis_hero_marathon_2021_autumn")
-    description = "items/tunisia_axis_hero_marathon_2021_autumn/desc"
+    description = loc("items/tunisia_axis_hero_marathon_2021_autumn/desc")
     icon = "ui/squads/germany/italy_hero_medal_1_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/germany/italy_hero_medal_1_icon.svg")
@@ -625,21 +625,21 @@ let rewardsPresentation = {
   },
   ["253"] = {
     name = loc("items/moscow_allies_hero_marathon_2022_summer")
-    description = "items/moscow_allies_hero_marathon_2022_summer/desc"
+    description = loc("items/moscow_allies_hero_marathon_2022_summer/desc")
     icon = "ui/squads/ussr/ussr_hero_medal_1_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/ussr/ussr_hero_medal_1_icon.svg")
   },
   ["254"] = {
     name = loc("items/normandy_axis_event_marathon_summer_2022_portrait")
-    description = "items/normandy_axis_event_marathon_summer_2022_portrait/desc"
+    description = loc("items/normandy_axis_event_marathon_summer_2022_portrait/desc")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
   },
   ["255"] = {
     name = loc("items/tunisia_allies_event_marathon_summer_2022_portrait")
-    description = "items/tunisia_allies_event_marathon_summer_2022_portrait/desc"
+    description = loc("items/tunisia_allies_event_marathon_summer_2022_portrait/desc")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
@@ -713,7 +713,7 @@ let rewardsPresentation = {
   },
   ["265"] = {
     name = loc("items/normandy_allies_hero_airborne_day_2022")
-    description = "items/normandy_allies_hero_airborne_day_2022/desc"
+    description = loc("items/normandy_allies_hero_airborne_day_2022/desc")
     icon = "ui/squads/usa/usa_hero_medal_1_icon.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/usa/usa_hero_medal_1_icon.svg")
@@ -743,19 +743,74 @@ let rewardsPresentation = {
   },
   ["360"] = {
     name = loc("items/armory_event_portrait_usa")
-    description = "decorator/armory_event_portrait_usa/tip"
+    description = loc("decorator/armory_event_portrait_usa/tip")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
   },
   ["361"] = {
     name = loc("items/armory_event_portrait_ger")
-    description = "decorator/armory_event_portrait_ger/tip"
+    description = loc("decorator/armory_event_portrait_ger/tip")
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
   },
-
+  ["368"] = {
+    name = loc("items/enlisted2years_portrait_ussr")
+    description = loc("decorator/enlisted2years_portrait/tip")
+    icon = "ui/uiskin/currency/portrait_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["369"] = {
+    name = loc("items/enlisted2years_portrait_britain")
+    description = loc("decorator/enlisted2years_portrait/tip")
+    icon = "ui/uiskin/currency/portrait_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["370"] = {
+    name = loc("items/enlisted2years_portrait_usa")
+    description = loc("decorator/enlisted2years_portrait/tip")
+    icon = "ui/uiskin/currency/portrait_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["371"] = {
+    name = loc("decals/su_ulan_ude_bear")
+    description = loc("decals/su_ulan_ude_bear/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.png")
+  },
+  ["372"] = {
+    name = loc("decals/uk_britannia_defiant")
+    description = loc("decals/uk_britannia_defiant/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.png")
+  },
+  ["373"] = {
+    name = loc("decals/su_guards_emblem")
+    description = loc("decals/su_guards_emblem/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.png")
+  },
+  ["374"] = {
+    name = loc("decals/us_836_bmb_sqn_liberty_belle")
+    description = loc("decals/us_836_bmb_sqn_liberty_belle/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.png")
+  },
+  ["375"] = {
+    name = loc("decals/de_jg26_sqn_4_who_tiger")
+    description = loc("decals/de_jg26_sqn_4_who_tiger/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.png")
+  },
 
 
   // boosters presentation

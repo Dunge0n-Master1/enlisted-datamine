@@ -33,7 +33,7 @@ let { mkIconBar } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 const MAX_CLASSES_USAGE = 4
-let PRICE_HEIGHT = hdpx(44)
+let PRICE_HEIGHT = hdpx(48)
 
 const DISCOUNT_WARN_TIME = 600
 
@@ -85,11 +85,10 @@ let mkLevelLockLine = @(level) shopBottomLine.__merge({
   ]
 })
 
-let mkShopItemPriceLine = @(shopItem, personalOffer = null)
-  shopItem?.isPriceHidden ?? false ? null
-    : shopBottomLine.__merge({
-        children = mkShopItemPrice(shopItem, personalOffer)
-      })
+let function mkShopItemPriceLine(shopItem, personalOffer = null) {
+  let children = mkShopItemPrice(shopItem, personalOffer)
+  return !children ? null : shopBottomLine.__merge({ children })
+}
 
 let itemHighlight = @(trigger){
   size = flex()

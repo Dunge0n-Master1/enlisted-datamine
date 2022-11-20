@@ -1,0 +1,47 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="29" viewBox="0 0 23 29">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-4 {
+        fill: #234ac2;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="11.5" y1="1079" x2="11.5" y2="1050" gradientTransform="translate(0 -1050)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5a81ea"/>
+      <stop offset="1" stop-color="#90cff9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="22" y1="15.5" x2="1" y2="15.5" gradientTransform="matrix(1, 0, 0, -1, 0, 30)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aed6fc"/>
+      <stop offset="1" stop-color="#86c0f6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="11.5" y1="-1079" x2="11.5" y2="-1106" gradientTransform="matrix(1, 0, 0, -1, 0, -1078)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cff1fb"/>
+      <stop offset="1" stop-color="#639eef"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-1" width="23" height="29"/>
+  <g>
+    <path class="cls-2" d="M11.5,7,19,14.5,11.5,22,4,14.5Z"/>
+    <path id="Rectangle_4_copy" data-name="Rectangle 4 copy" class="cls-2" d="M11.5,4,22,14.5,11.5,25,1,14.5Zm0,1,9.42,9.46L11.5,24,2.08,14.5Z"/>
+  </g>
+  <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-3" d="M1,28V1H22V28ZM18,2H5L2,5V24l3,3H18l3-3V5Z"/>
+  <g>
+    <path class="cls-4" d="M9.7956,13.891a1.58492,1.58492,0,0,1-.29247,1.39749L5.36457,20.49571a1.48553,1.48553,0,0,0,.243,1.98219l-.00766.01138.10662.07175.11623.07822.10662.07175.00766-.01138a1.48554,1.48554,0,0,0,1.92776-.52139l3.26529-5.79489a1.58476,1.58476,0,0,1,1.18442-.79726l3.70119-.33151.76022-1.12969L13.19035,11.712l-.13568-.0913L9.46911,9.20779l-.76022,1.12969Z"/>
+    <polygon class="cls-4" points="18.331 9.889 18.952 8.577 14.481 5.568 12.566 7.577 13.75 5.076 12.698 4.368 9.823 8.64 17.169 13.583 20.043 9.311 19.336 8.835 18.331 9.889"/>
+  </g>
+</svg>

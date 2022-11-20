@@ -1,17 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { utf8ToUpper } = require("%sqstd/string.nut")
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  smallPadding, bigPadding, bonusColor, defTxtColor, activeTxtColor,
-  discountBgColor
+let { bigPadding, bonusColor, defTxtColor, activeTxtColor, titleTxtColor, discountBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let { mkItemCurrency } = require("currencyComp.nut")
-let {
-  mkCurrency, mkCurrencyCount, oldPriceLine
-} = require("%enlist/currency/currenciesComp.nut")
+let { mkCurrency, mkCurrencyCount, oldPriceLine } = require("%enlist/currency/currenciesComp.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -19,6 +16,8 @@ let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 
 
 let sidePadding = fsh(2)
+let discountBannerHeight = hdpx(48) // equal to PRICE_HEIGHT!
+
 
 let function hasItemsToBarter(curItemCost, campItems) {
   if (curItemCost.len() == 0)
@@ -31,77 +30,84 @@ let function hasItemsToBarter(curItemCost, campItems) {
   return true
 }
 
-let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
-  { price }, $"{price}{currencyId}")
+let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}", { price })
 
-let mkItemPurchaseInfo = kwarg(
-  function(shopItem, curItemCost, campItems, curShopItemPrice, currencies, discountInPercent,
-    shop_price_curr = "", shop_price = 0, shop_price_full = 0
-  ) {
+let mkPurchaseText = @(isSoldier) isSoldier ? loc("mainmenu/enlistFor") : loc("mainmenu/buyFor")
 
-    let hasBarter = hasItemsToBarter(curItemCost, campItems)
-    let hasDiscount = curShopItemPrice.fullPrice > curShopItemPrice.price
-    let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
-    if (hasBarter && !hasDiscount)
-      return txt({
-        text = isSoldier ? loc("mainmenu/enlist") : loc("mainmenu/receive")
-        color = activeTxtColor
-      }.__update(body_txt))
+let function mkItemPurchaseInfo(shopItem, campItems, currencies) {
+  let { curItemCost, curShopItemPrice, shop_price_curr = "",
+    shop_price = 0, shop_price_full = 0, discountInPercent = 0,
+    isPriceHidden = false
+  } = shopItem
 
-    let { price, fullPrice, currencyId = null } = curShopItemPrice
-    let currency = currencies.findvalue(@(c) c.id == currencyId)
-    if (currency != null && price > 0)
-      return {
-        flow = FLOW_HORIZONTAL
-        padding = [0,sidePadding,0,0]
-        valign = ALIGN_CENTER
-        gap = bigPadding
-        children = [
-          txt({
-            text = isSoldier ? loc("mainmenu/enlistFor") : loc("mainmenu/buyFor")
-            color = activeTxtColor
-          }.__update(sub_txt))
-          mkDiscountWidget(discountInPercent)
-          mkCurrency({
-            currency
-            price
-            fullPrice
-          })
-        ]
-      }
+  let hasBarter = hasItemsToBarter(curItemCost, campItems)
+  let hasDiscount = curShopItemPrice.fullPrice > curShopItemPrice.price
+  let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
+  if (hasBarter && !hasDiscount)
+    return txt({
+      text = isSoldier ? loc("mainmenu/enlist") : loc("mainmenu/receive")
+      color = activeTxtColor
+      padding = [0, sidePadding, 0, 0]
+    }.__update(body_txt))
 
-    // this block for console platform specific prices:
-    if (shop_price_curr != "" && shop_price > 0) {
-      let hasConsoleDiscount = shop_price_full > shop_price
-      return {
-        flow = FLOW_HORIZONTAL
-        valign = ALIGN_CENTER
-        gap = bigPadding
-        children = [
-          txt({
-            text = loc("mainmenu/buyFor")
-            color = activeTxtColor
-          }.__update(sub_txt))
-          mkCurrencyCount(
-            mkPriceText(shop_price, shop_price_curr),
-            { color = hasConsoleDiscount ? bonusColor : activeTxtColor }
-          )
-          !hasConsoleDiscount ? null
-            : {
-                children = [
-                  mkCurrencyCount(mkPriceText(shop_price_full, shop_price_curr),
-                    { color = defTxtColor })
-                  oldPriceLine.__merge({ color = defTxtColor })
-                ]
-              }
-        ]
-      }
+  let { price, fullPrice, currencyId = null } = curShopItemPrice
+  let currency = currencies.findvalue(@(c) c.id == currencyId)
+  if ((currency != null && price > 0) || discountInPercent > 0)
+    return {
+      flow = FLOW_HORIZONTAL
+      padding = [0, sidePadding, 0, 0]
+      valign = ALIGN_CENTER
+      children = [
+        txt({
+          text = mkPurchaseText(isSoldier)
+          color = activeTxtColor
+        }.__update(sub_txt))
+        mkDiscountWidget(discountInPercent)
+        isPriceHidden ? null : mkCurrency({
+          currency
+          price
+          fullPrice
+        })
+      ]
     }
 
-    return null
-  })
+  // this block for console platform specific prices:
+  if (shop_price_curr != "" && shop_price > 0 && !isPriceHidden) {
+    let hasConsoleDiscount = shop_price_full > shop_price
+    return {
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
+      gap = bigPadding
+      padding = [0, sidePadding, 0, 0]
+      children = [
+        txt({
+          text = mkPurchaseText(isSoldier)
+          color = activeTxtColor
+        }.__update(sub_txt))
+        mkCurrencyCount(
+          mkPriceText(shop_price, shop_price_curr),
+          { color = hasConsoleDiscount ? bonusColor : activeTxtColor }
+        )
+        !hasConsoleDiscount ? null
+          : {
+              children = [
+                mkCurrencyCount(mkPriceText(shop_price_full, shop_price_curr),
+                  { color = defTxtColor })
+                oldPriceLine.__merge({ color = defTxtColor })
+              ]
+            }
+      ]
+    }
+  }
 
-let mkItemBarterInfo = kwarg(function(guid, curItemCost, campItems) {
+  return null
+}
+
+let function mkItemBarterInfo(shopItem, campItems) {
+  let { guid, curItemCost } = shopItem
+  if (curItemCost.len() == 0)
+    return null
+
   let children = []
   foreach (itemTpl, reqCount in curItemCost) {
     let inStock = campItems?[itemTpl] ?? 0
@@ -120,7 +126,7 @@ let mkItemBarterInfo = kwarg(function(guid, curItemCost, campItems) {
     padding = [0,0,0,sidePadding]
     children
   }
-})
+}
 
 let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
   showGoldPrice = true, styleOverride = {}
@@ -148,7 +154,7 @@ let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
     if (children.len() == 0) {
       let { shop_price_curr = "", shop_price = 0 } = shopItem
       children.append(txt({
-        text = loc($"priceText/{shop_price_curr}", { price = shop_price }, $"{shop_price}{shop_price_curr}")
+        text = loc($"priceText/{shop_price_curr}", { price = shop_price })
       }.__update(body_txt)))
     }
 
@@ -160,57 +166,72 @@ let mkPrice = @(shopItem, bgParams = {}, needPriceText = true,
       gap = bigPadding
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
-      children = children
+      children
     }.__update(bgParams)
   }
 
+let function mkDiscountInfo(discountData) {
+  if (discountData == null)
+    return null
+
+  let { locId, endTime } = discountData
+  return {
+    size = flex()
+    valign = ALIGN_BOTTOM
+    children = mkHeaderFlag({
+      size = [SIZE_TO_CONTENT, discountBannerHeight]
+      flow = FLOW_VERTICAL
+      valign = ALIGN_CENTER
+      padding = [0, fsh(5), 0, fsh(1)]
+      children = [
+        txt({
+          text = utf8ToUpper(loc(locId))
+          color = titleTxtColor
+        }.__update(sub_txt))
+        endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
+      ]
+    }, primeFlagStyle.__merge({
+      size = SIZE_TO_CONTENT
+      offset = 0
+      flagColor = discountBgColor
+    }))
+  }
+}
+
 local function mkShopItemPrice(shopItem, personalOffer = null) {
   local {
-    guid, curItemCost, curShopItemPrice, shop_price_curr = "",
-    shop_price = 0, shop_price_full = 0, discountInPercent = 0
+    curItemCost, curShopItemPrice, shop_price_curr = "",
+    shop_price = 0, discountInPercent = 0,
+    discountIntervalTs = [], isPriceHidden = false
   } = shopItem
+  let { price } = curShopItemPrice
+  let discountData = personalOffer != null ? {
+        endTime = personalOffer.endTime
+        locId = "specialOfferShort"
+      }
+    : discountInPercent > 0 ? {
+        endTime = discountIntervalTs?[1] ?? 0
+        locId = "shop/discountNotify"
+      }
+    : null
+
+  if (discountData == null
+    && curItemCost.len() == 0
+    && price == 0
+    && discountInPercent == 0
+    && (shop_price_curr == "" || shop_price == 0 || isPriceHidden))
+      return null
+
   return @() {
     watch = [curCampItemsCount, currenciesList]
     size = flex()
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     children = [
-      mkItemBarterInfo({
-        guid
-        curItemCost
-        campItems = curCampItemsCount.value
-      })
-      personalOffer == null ? null
-        : mkHeaderFlag({
-            size = [SIZE_TO_CONTENT, flex()]
-            flow = FLOW_HORIZONTAL
-            gap = smallPadding
-            valign = ALIGN_CENTER
-            padding = [0, fsh(3), 0, bigPadding]
-            children = [
-              txt({
-                text = loc("specialOfferShort")
-                color = activeTxtColor
-              }.__update(sub_txt))
-              mkCountdownTimer({ timestamp = personalOffer.endTime })
-            ]
-          }, primeFlagStyle.__merge({
-            size = [SIZE_TO_CONTENT, flex()]
-            offset = hdpx(0)
-            flagColor = discountBgColor
-          }))
+      mkItemBarterInfo(shopItem, curCampItemsCount.value)
+      mkDiscountInfo(discountData)
       { size = flex() }
-      mkItemPurchaseInfo({
-        shopItem
-        curItemCost
-        curShopItemPrice
-        shop_price_curr
-        shop_price
-        shop_price_full
-        campItems = curCampItemsCount.value
-        currencies = currenciesList.value
-        discountInPercent
-      })
+      mkItemPurchaseInfo(shopItem, curCampItemsCount.value, currenciesList.value)
     ]
   }
 }

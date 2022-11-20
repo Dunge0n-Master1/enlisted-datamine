@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { soldiersLook } = require("%enlist/meta/servProfile.nut")
 let { outfitSchemes, outfitShopTypes, curArmyOutfit, allOutfitByArmy
 } = require("%enlist/soldiers/model/config/outfitConfig.nut")
@@ -30,6 +31,8 @@ let isMultiplePurchasing = mkWatched(persist, "isMultiplePurchasing", false)
 const APPEARANCE_ORDER_TPL = "appearance_change_order"
 const PURCHASE_WND_UID = "PURCHASE_WND"
 
+let customizedSoldierInfo = Computed(@() isInBattleState.value ? null : curSoldierInfo.value)
+
 currentItemPart.subscribe(@(v)
   curCustomizationItem(customizationToApply.value?[v]))
 
@@ -44,7 +47,7 @@ let closePurchaseWnd = function(){
 isPurchasing.subscribe(@(v) v ? null : closePurchaseWnd())
 
 customizationToApply.subscribe(function(v){
-  if (curSoldierInfo.value == null || v.len() <= 0){
+  if (customizedSoldierInfo.value == null || v.len() <= 0) {
     gui_scene.setTimeout(0.1, @() appearanceToRender(null))
     return
   }
@@ -52,7 +55,7 @@ customizationToApply.subscribe(function(v){
 })
 
 let freeItemsBySquad = Computed(function(){
-  let { armyId = null } = curSoldierInfo.value
+  let { armyId = null } = customizedSoldierInfo.value
   local result = {}
   if (armyId == null)
     return result
@@ -76,14 +79,15 @@ let freeItemsBySquad = Computed(function(){
 })
 
 let curSoldierItemsPrice = Computed(function(){
-  let { armyId = null, squadId = null, guid = null } = curSoldierInfo.value
+  let { armyId = null, squadId = null, guid = null } = customizedSoldierInfo.value
   let res = {}
   if (armyId == null || squadId == null || guid == null)
     return res
+
   let itemTypes = outfitShopTypes.value
   let allItems = outfitSchemes.value?[armyId][squadId] ?? {}
   allItems.each(@(val) val.each(function(item){
-    if (item in freeItemsBySquad.value[guid])
+    if (item in freeItemsBySquad.value?[guid])
       return
     let { itemsubtype = null } = findItemTemplate(allItemTemplates, armyId, item)
     let curItemPrice = itemTypes?[itemsubtype]
@@ -98,7 +102,7 @@ let curSoldierItemsPrice = Computed(function(){
 
 let premiumItemsCount = Computed(function(){
   let res = {}
-  let { armyId = null, guid = null} = curSoldierInfo.value
+  let { armyId = null, guid = null} = customizedSoldierInfo.value
   if (armyId == null || guid == null)
     return res
 
@@ -112,7 +116,7 @@ let premiumItemsCount = Computed(function(){
 
 
 let function checkIfCanBuy(item){
-  let { armyId = null, guid = null } = curSoldierInfo.value
+  let { armyId = null, guid = null } = customizedSoldierInfo.value
   let curItemPart = currentItemPart.value
   if (armyId == null || guid == null || curItemPart == null)
     return
@@ -132,7 +136,7 @@ let function checkIfCanBuy(item){
 }
 
 let multipleItemsToApply = Computed(function(){
-  let { armyId = null } = curSoldierInfo.value
+  let { armyId = null } = customizedSoldierInfo.value
   let curItemPart = currentItemPart.value
   let outfitToApply = {}
   if (armyId == null || curItemPart == "")
@@ -169,12 +173,13 @@ let multipleItemsToBuy = Computed(function(){
 let totalItemsCost = Computed(function(){
   let itemsToCheckPrice = customizationToApply.value
   local totalPrice = {}
-
   if (itemsToCheckPrice.len() <= 0)
     return totalPrice
-  let { armyId = null, guid = null} = curSoldierInfo.value
+
+  let { armyId = null, guid = null} = customizedSoldierInfo.value
   if (armyId == null || guid == null)
     return totalPrice
+
   foreach (item in itemsToCheckPrice){
     if (itemsToBuy.value.findindex(@(val) val == item) == null)
       continue
@@ -228,10 +233,10 @@ let lookCustomizationParts = [
 
 let availableCItem = Computed(function(){
   let res = []
-  if (curSoldierInfo.value == null)
+  let { armyId = null, squadId = null, guid = null } = customizedSoldierInfo.value
+  if (armyId == null || squadId == null || guid == null)
     return res
 
-  let {armyId, squadId, guid} = curSoldierInfo.value
   let itemScheme = outfitSchemes.value?[armyId][squadId]
   local curSoldierItems = clone soldiersLook.value?[guid].items
   let premiumToOverride = allOutfitByArmy.value?[armyId] ?? []
@@ -285,12 +290,9 @@ let availableCItem = Computed(function(){
 
 
 let itemsPerSlot = Computed(function(){
-  if (curSoldierInfo.value == null)
-    return []
-
-  let { armyId, squadId, guid } = curSoldierInfo.value
+  let { armyId = null, squadId = null, guid = null } = customizedSoldierInfo.value
   let defaultItems = soldiersLook.value?[guid].items
-  if (defaultItems == null)
+  if (defaultItems == null || armyId == null || squadId == null || guid == null)
     return []
 
   let itemTypes = outfitShopTypes.value
@@ -313,7 +315,7 @@ let itemsPerSlot = Computed(function(){
 })
 
 let itemsInfo = Computed(function(){
-  let { armyId = null, squadId = null } = curSoldierInfo.value
+  let { armyId = null, squadId = null } = customizedSoldierInfo.value
   local result = {}
   if (armyId == null || squadId == null)
     return result
@@ -357,16 +359,14 @@ let function getItemsToBuy(){
 }
 
 let function buyItemsWithCurrency(){
-  let { armyId = null } = curSoldierInfo.value
+  let { armyId = null } = customizedSoldierInfo.value
   if (armyId == null || isPurchasing.value)
     return
 
   let price = isMultiplePurchasing.value
     ? multipleItemsCost.value.EnlistedGold
     : totalItemsCost.value.EnlistedGold
-
-    let items = getItemsToBuy()
-
+  let items = getItemsToBuy()
   return purchaseMsgBox({
     price
     currencyId = "EnlistedGold"
@@ -379,7 +379,7 @@ let function buyItemsWithCurrency(){
 }
 
 let function buyItemsWithTickets() {
-  let { armyId = null } = curSoldierInfo.value
+  let { armyId = null } = customizedSoldierInfo.value
   if (armyId == null || isPurchasing.value)
     return
 
@@ -408,8 +408,10 @@ let function closeCustomizationWnd(){
 }
 
 let function saveOutfit(){
-  if (customizationToApply.value.len() <= 0)
-    return closeCustomizationWnd()
+  if (customizationToApply.value.len() <= 0) {
+    closeCustomizationWnd()
+    return
+  }
 
   local hasChanges = false
   foreach (item in customizationToApply.value){
@@ -418,10 +420,12 @@ let function saveOutfit(){
       break
     }}
 
-  if (!hasChanges)
-    return closeCustomizationWnd()
+  let { guid = null } = customizedSoldierInfo.value
+  if (!hasChanges || guid == null) {
+    closeCustomizationWnd()
+    return
+  }
 
-  let { guid } = curSoldierInfo.value
   let free = {}
   let prem = {}
   if (itemsToBuy.value.len() > 0){
@@ -480,22 +484,24 @@ let function multipleApplyOutfit(){
 }
 
 isCustomizationWndOpened.subscribe(function(v){
-  if (v){
-    let { armyId, guid } = curSoldierInfo.value
-    if (armyId == null || guid == null)
-      return
-    let res = {}
-    foreach (item in availableCItem.value)
-      res.__update({ [item.slotName] = item.item} )
+  if (!v)
+    return
 
-    let premiumToOverride = allOutfitByArmy.value?[armyId] ?? []
-    foreach (item in premiumToOverride)
-      if (guid in item.links)
-        res.__update({ [item.links[guid]] = item.basetpl })
-    oldSoldiersLook(res)
-    curCustomizationItem(oldSoldiersLook.value?[currentItemPart.value])
-    customizationToApply.mutate(@(v) v[currentItemPart.value] <- curCustomizationItem.value)
-  }
+  let { armyId = null, guid = null } = customizedSoldierInfo.value
+  if (armyId == null || guid == null)
+    return
+
+  let res = {}
+  foreach (item in availableCItem.value)
+    res.__update({ [item.slotName] = item.item} )
+
+  let premiumToOverride = allOutfitByArmy.value?[armyId] ?? []
+  foreach (item in premiumToOverride)
+    if (guid in item.links)
+      res.__update({ [item.links[guid]] = item.basetpl })
+  oldSoldiersLook(res)
+  curCustomizationItem(oldSoldiersLook.value?[currentItemPart.value])
+  customizationToApply.mutate(@(v) v[currentItemPart.value] <- curCustomizationItem.value)
 })
 
 curArmyOutfit.subscribe(function(v){
@@ -536,12 +542,12 @@ local function itemBlockOnClick(item){
 }
 
 console_register_command(function() {
-  if (curSoldierInfo.value == null) {
+  if (customizedSoldierInfo.value == null) {
     console_print("Please select soldier for customization")
     return
   }
 
-  let { guid, armyId, squadId } = curSoldierInfo.value
+  let { guid, armyId, squadId } = customizedSoldierInfo.value
   let premList = curArmyOutfit.value ?? []
   let outfitTypes = outfitShopTypes.value
   let scheme = outfitSchemes.value?[armyId][squadId] ?? {}

@@ -202,6 +202,16 @@ local portraits = {
     icon = "ui/portraits/pacific/pacific_allies_preorder_2022.png"
   }
 
+  enlisted2years_portrait_ussr = {
+    icon = "ui/portraits/event/enlisted2years_portrait_ussr.png"
+  }
+  enlisted2years_portrait_britain = {
+    icon = "ui/portraits/event/enlisted2years_portrait_britain.png"
+  }
+  enlisted2years_portrait_usa = {
+    icon = "ui/portraits/event/enlisted2years_portrait_usa.png"
+  }
+
   armory_event_portrait_usa = {
     icon = "ui/portraits/normandy/armory_event_portrait_usa.png"
   }

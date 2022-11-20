@@ -32500,13 +32500,11 @@ nambu_type_2a_smg_gun{
 }
 
 ni_05_lunge_mine{
-  _extends:t="main_weap_slots"
   _extends:t="gun_anim_offset_always_in_aim"
   animchar__res:t="ni_05_lunge_mine_char"
   item__template:t="ni_05_lunge_mine_item"
   item__locDetails:t=""
   item__id:i=0
-  item__weapTemplate:t="ni_05_lunge_mine_weapon"
   item__name:t="items/ni_05_lunge_mine"
   item__weapType:t="melee"
   item__grenadeLikeType:t="lunge_mine"
@@ -32545,6 +32543,9 @@ ni_05_lunge_mine{
   "specialItem__attachToHolster:tag"{
   }
 
+  "fastPickup:tag"{
+  }
+
   "item__weapSlots:array"{
     slot:t="special"
   }
@@ -32571,7 +32572,6 @@ ni_05_lunge_mine{
 
 ni_05_lunge_mine_weapon{
   _extends:t="melee_weapon"
-  _extends:t="main_weap_slots"
   _extends:t="ni_05_lunge_mine"
   lunge_mine__activator:t="lunge_mine_activator"
   lunge_mine__active:b=no

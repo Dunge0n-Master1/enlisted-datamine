@@ -38,9 +38,9 @@ visual{
 }
 
 splashDamage{
-  radius:p2=1.0, 2.4
+  radius:p2=1.0, 2.7
   penetration:p2=10.0, 10.0
-  damage:r=21.0
+  damage:r=27.0
   dmgOffset:p3=0.0, 0.25, 0.0
 }
 

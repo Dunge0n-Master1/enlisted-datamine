@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let httpRequest = require("httpRequest.nut")
+let { requestData, createGuidsRequestParams } = require("httpRequest.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let purchases = require("purchases.nut")
 
@@ -13,17 +13,20 @@ let guidsList = Computed(@() marketIds.value.map(@(val) val.guid))
 let function requestGoodsInfo() {
   if (!userInfo.value)
     return
-  let guids = guidsList.value.filter(@(guid) !(guid in goodsInfo.value))
-  if (!guids.len())
+
+  let guids = guidsList.value.filter(@(guid) guid not in goodsInfo.value)
+  if (guids.len() == 0)
     return
 
-  foreach (guid in guids)
-    goodsInfo.value[guid] <- null
+  goodsInfo.mutate(function(v) {
+    foreach (guid in guids)
+      v[guid] <- null
+  })
 
   isGoodsRequested(true)
-  httpRequest.requestData(
+  requestData(
     "https://api.gaijinent.com/item_info.php",
-    httpRequest.createGuidsRequestParams(guids),
+    createGuidsRequestParams(guids),
     function(data) {
       isGoodsRequested(false)
       let list = data?.items

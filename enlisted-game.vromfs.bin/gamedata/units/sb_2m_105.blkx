@@ -1,5 +1,5 @@
 model:t="sb_2m_105"
-fmFile:t="fm/sb_2m_100.blk"
+fmFile:t="fm/sb_2m_105.blk"
 damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
 damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
 damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"

@@ -7018,7 +7018,7 @@ type_100_flamethrower_gun_item{
 
 ni_05_lunge_mine_item{
   _extends:t="item_melee"
-  _extends:t="ni_05_lunge_mine"
+  _extends:t="ni_05_lunge_mine_weapon"
   collres__res:t="ni_05_lunge_mine_collision"
 }
 
