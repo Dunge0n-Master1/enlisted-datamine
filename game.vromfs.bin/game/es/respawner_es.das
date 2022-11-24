@@ -1,5 +1,6 @@
 require ecs
 require ecs.common
+require ecs.safe
 require app
 require math
 require math.base
@@ -16,6 +17,7 @@ require enlisted.game.es.enlisted_squad_common
 require game.es.ai.walker_common
 require enlisted.events_enlisted
 require game.events_game
+require DagorRandom
 
 def calc_enemy_score(leaderTeam; walker_agent)
   var enemyScore = 0.f
@@ -425,3 +427,13 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
   respawner__respRequestedSquadId = respRequestedSquadId
   respawner__respRequestedMemberId = respRequestedMemberId
   respawner__respawnGroupId = respawnGroupId
+
+[es(tag=server, track=squad__isAlive, REQUIRE=squad__isAlive)]
+def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)
+  query(squad__ownerPlayer) <| $ [es(REQUIRE=respawner__randomNextSquad)] (squads__revivePointsList : Array; var respawner__respRequestedSquadId : int&)
+    var readySquads : array<int>
+    for squad, points in iter_range(squads__revivePointsList), squads__revivePointsList
+      if (points ?? 0) >= 100
+        readySquads |> push(squad)
+
+    respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads) - 1)] ?? 0

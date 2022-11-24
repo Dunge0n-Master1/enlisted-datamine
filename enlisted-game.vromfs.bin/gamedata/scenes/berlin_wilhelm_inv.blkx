@@ -1170,7 +1170,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/headquarters"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1196,7 +1196,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/cafe"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1222,7 +1222,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/old_reich_chancellery"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=50.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1246,7 +1246,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartments"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1270,7 +1270,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/banquet_hall"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=55.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1294,7 +1294,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/honor_courtyard"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=55.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1317,7 +1317,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/honor_courtyard"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=55.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1340,7 +1340,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/rotunda"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=55.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0

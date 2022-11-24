@@ -117,6 +117,7 @@ let function onTimer(_evt, _eid, comp) {
     "isFirstSpawn" : [false, ecs.TYPE_BOOL],
     "army" : armyId,
     "armies" : armies,
+    "isArmiesReceived" : [true, ecs.TYPE_BOOL],
     "armiesReceivedTime" : get_sync_time(),
     "team": [team, ecs.TYPE_INT]
     "armiesReceivedTeam": [team, ecs.TYPE_INT]
@@ -132,7 +133,7 @@ let function onTimer(_evt, _eid, comp) {
       function(plr_eid) {
         ecs.obsolete_dbg_set_comp_val(plr_eid, "name", genName(plr_eid + time.sec + time.min * 60))
         ecs.g_entity_mgr.broadcastEvent(EventTeamMemberJoined({eid=plr_eid, team=team}));
-        let squadId = rand.rint(0, squadsCount)
+        let squadId = rand.rint(0, squadsCount-1)
         ecs.g_entity_mgr.sendEvent(plr_eid,
           CmdSpawnSquad({
             team

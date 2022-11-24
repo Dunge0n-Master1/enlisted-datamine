@@ -24,7 +24,7 @@ def on_personal_squadmate_defend_order(evt : RequestPersonalSquadMateOrder;
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
       beh_tree__refs__behaviour := beh_tree__data__personalOrder
 
-      EnlistedBehTree::load_beh_tree_from_ecs(eid)
+      reload_squad_mate_beh_tree(eid)
 
       squad_member__orderType = int(SquadMateOrder ESMO_DEFEND_POINT)
       squad_member__orderPosition = evt.orderPosition

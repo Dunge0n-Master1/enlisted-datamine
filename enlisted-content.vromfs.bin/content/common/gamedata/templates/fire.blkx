@@ -16,7 +16,7 @@ fire_source_no_fx{
   destroy_underwater__checkPeriod:r=1.0
   _replicated:t="fire_source__startTime"
   fire_source__startTime:r=0.0
-  fire_source__scale:r=0.8
+  fire_source__scale:r=1.45
   fire_source__effectScale:r=1.0
   fire_source__effectMinScale:r=0.2
   dmgzone__gunPropsId:i=-1

@@ -61,6 +61,8 @@ entity{
   water__level:r=0.0
   water__strength:r=2.3
   water__wind_dir:r=120.0
+  water__smallWaterAIWalkHeight:r=0.5
+  water__deepWaterAIAreaCost:r=2.0
 }
 
 entity{

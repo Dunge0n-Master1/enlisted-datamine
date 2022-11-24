@@ -48,7 +48,7 @@ def order_attack(squadmate_eid, squad__leader, attack_target : EntityId)
     beh_tree__refs__behaviour := beh_tree__data__orderReq
     beh_tree__refs__orderType := beh_tree__data__attackReq
 
-    EnlistedBehTree::load_beh_tree_from_ecs(squadmate_eid)
+    reload_squad_mate_beh_tree(squadmate_eid)
 
     beh_tree.blackBoard |> set("attackTarget", int(uint(attack_target)))
     if beh_tree__latencyLoadBlackBoard != null

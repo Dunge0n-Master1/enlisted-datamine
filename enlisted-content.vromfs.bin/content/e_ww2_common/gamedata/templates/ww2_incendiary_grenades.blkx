@@ -28,6 +28,7 @@ incendiary_grenade_shell_base{
 }
 
 incendiary_grenade_phys_base{
+  _extends:t="awared_danger"
   _extends:t="projectile_phys_with_shell"
   _extends:t="incendiary_grenade_base"
   _extends:t="projectile_phys"
@@ -83,7 +84,7 @@ white_phosphorus_damage_zone{
 incendiary_grenade_fire{
   _extends:t="fire_source"
   sphere_zone__radius:r=0.3
-  fire_source__scale:r=0.5
+  fire_source__scale:r=0.67
   fire_source__spreadTime:r=0.5
   fire_source__fullForceTime:r=2.0
   fire_source__maxFullForceTime:r=2.0

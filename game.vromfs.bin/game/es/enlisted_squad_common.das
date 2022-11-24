@@ -3,6 +3,7 @@ require ecs
 require DagorRandom
 require EnlistedDm
 require EnlistedWalkerai
+require game.es.ai.walker_common
 require DagorDataBlock
 require game.es.events
 require BehNodes
@@ -41,13 +42,42 @@ def reset_squad_mate_ai_components(squadMemberEid : EntityId)
 
   reset_covers(squadMemberEid)
 
+def reload_squad_mate_beh_tree(squadMemberEid : EntityId)
+  var was_maxStance = STANCE_STAND
+  var was_maxStanceOrder = STANCE_STAND
+  var was_maxStanceOrderForce = false
+  var was_maxStanceOrderEndTime = 0.0
+  var was_maxStanceAtLeast = STANCE_CRAWL
+  query(squadMemberEid) <| $ [es] (beh_tree : BehaviourTree)
+    was_maxStance             = beh_tree.blackBoard |> datablock_getInt("maxStance", STANCE_STAND)
+    was_maxStanceOrder        = beh_tree.blackBoard |> datablock_getInt("maxStanceOrder", STANCE_STAND)
+    was_maxStanceOrderForce   = beh_tree.blackBoard |> datablock_getBool("maxStanceOrderForce", false)
+    was_maxStanceOrderEndTime = beh_tree.blackBoard |> datablock_getReal("maxStanceOrderEndTime", 0.0)
+    was_maxStanceAtLeast      = beh_tree.blackBoard |> datablock_getInt("maxStanceAtLeast", STANCE_CRAWL)
+
+  EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+
+  query(squadMemberEid) <| $ [es] (var beh_tree : BehaviourTree&;
+                                   var beh_tree__latencyLoadBlackBoard : Object?)
+    if beh_tree__latencyLoadBlackBoard != null
+      *beh_tree__latencyLoadBlackBoard |> set("maxStance", was_maxStance)
+      *beh_tree__latencyLoadBlackBoard |> set("maxStanceOrder", was_maxStanceOrder)
+      *beh_tree__latencyLoadBlackBoard |> set("maxStanceOrderForce", was_maxStanceOrderForce)
+      *beh_tree__latencyLoadBlackBoard |> set("maxStanceOrderEndTime", was_maxStanceOrderEndTime)
+      *beh_tree__latencyLoadBlackBoard |> set("maxStanceAtLeast", was_maxStanceAtLeast)
+    beh_tree.blackBoard |> set("maxStance", was_maxStance)
+    beh_tree.blackBoard |> set("maxStanceOrder", was_maxStanceOrder)
+    beh_tree.blackBoard |> set("maxStanceOrderForce", was_maxStanceOrderForce)
+    beh_tree.blackBoard |> set("maxStanceOrderEndTime", was_maxStanceOrderEndTime)
+    beh_tree.blackBoard |> set("maxStanceAtLeast", was_maxStanceAtLeast)
+
 def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                newBehaviour : string;
                                var behaviour : das_string&)
   reset_squad_mate_ai_components(squadMemberEid)
 
   behaviour := newBehaviour
-  EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+  reload_squad_mate_beh_tree(squadMemberEid)
 
 def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                resetIfOnTrain : bool = false)
@@ -55,6 +85,8 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                    beh_tree__isInTrainBeh : bool;
                                    beh_tree__data__findCoverBeh : string;
                                    beh_tree__data__checkCoverBeh : string;
+                                   beh_tree__data__findCoverAroundLeaderBeh : string;
+                                   beh_tree__data__findCoverAroundLeaderAwayBeh : string;
                                    beh_tree__data__findCoverAroundPointBeh : string;
                                    beh_tree__data__checkCoverAroundPointBeh : string;
                                    beh_tree__data__agressiveBeh : string;
@@ -67,10 +99,23 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
       return
 
     query(squad_member__squad) <| $ [es] (squad__squadBehaviour : int;
+                                          squad__ownerPlayer : EntityId;
                                           squad__orderType : int)
+      var formationSpread = int(SquadFormationSpread ESFN_CLOSEST)
+      ecs::query(squad__ownerPlayer) <| $ [es] (squadFormationSpread : int)
+        formationSpread = squadFormationSpread
+
       if squad__orderType == int(SquadOrder ESO_FOLLOW_ME)
-        beh_tree__refs__findCoverRef := beh_tree__data__findCoverBeh
-        beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverBeh
+        if formationSpread == int(SquadFormationSpread ESFN_CLOSEST)
+          beh_tree__refs__findCoverRef := beh_tree__data__findCoverAroundLeaderBeh
+          beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverAroundPointBeh
+        elif formationSpread == int(SquadFormationSpread ESFN_STANDARD)
+          beh_tree__refs__findCoverRef := beh_tree__data__findCoverAroundLeaderAwayBeh
+          beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverAroundPointBeh
+        else
+          beh_tree__refs__findCoverRef := beh_tree__data__findCoverBeh
+          beh_tree__refs__checkCoverRef := beh_tree__data__checkCoverBeh
+
         if squad__squadBehaviour == int(SquadBehaviour ESB_AGRESSIVE)
           reset_squad_mate_behaviour(squadMemberEid,
                                      beh_tree__data__agressiveBeh,

@@ -160,8 +160,8 @@ def add_vehicle_kill_assist(var award_list : Array#; vehicle_eid : EntityId; kil
           if engineerAssist.isValid && !empty(vehicle_kill_assist__engineerStat)
             award_list |> push_soldier_stat(engineerAssist.player, engineerAssist.guid, vehicle_kill_assist__engineerStat)
 
-def zone_radius(tm : float3x4; sphere_zone__radius : float?)
-  return sphere_zone__radius ?? sqrt(length_sq(tm[0]) + length_sq(tm[2])) * 0.5
+def zone_radius(tm : float3x4; sphere_zone__radius : float?; capzone__approximateRadius : float?)
+  return sphere_zone__radius ?? capzone__approximateRadius ?? sqrt(length_sq(tm[0]) + length_sq(tm[2])) * 0.5
 
 def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3; offender : CachedSoldier; offender_team : int)
   var isNearFriendlyZone = false
@@ -173,7 +173,8 @@ def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3;
                           capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
                           capzoneTwoChains : Tag?;
                           active : bool = true;
-                          sphere_zone__radius : float?)
+                          sphere_zone__radius : float?;
+                          capzone__approximateRadius : float?)
     assume onlyTeamCanCapture = capzone__onlyTeamCanCapture
     let isUncapturedOneTeamZone = onlyTeamCanCapture != TEAM_UNASSIGNED && capzone__owningTeam != onlyTeamCanCapture
     let isCapturedFriendlyZone = is_teams_friendly(capzone__owningTeam, offender_team)
@@ -184,7 +185,7 @@ def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3;
     if active && (isDefenseZone || isAttackZone)
       let zonePos = transform[3]
       let defenseRadius = isDefenseZone ? capzone__defenseRadiusAdd : capzone__attackRadiusAdd
-      let zoneIncreasedRadius = zone_radius(transform, sphere_zone__radius) + defenseRadius
+      let zoneIncreasedRadius = zone_radius(transform, sphere_zone__radius, capzone__approximateRadius) + defenseRadius
       if length_sq(victim_pos - zonePos) < square(zoneIncreasedRadius)
         isNearFriendlyZone = isDefenseZone
         isNearEnemyZone = isAttackZone

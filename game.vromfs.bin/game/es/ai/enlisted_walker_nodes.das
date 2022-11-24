@@ -8,6 +8,7 @@ require enlisted.game.es.squad_behaviour_command_common
 require math.base
 require game.es.ai.walker_common
 require Covers
+require enlisted.game.es.enlisted_covers_common
 require CollRes
 require DagorSystem
 require DagorDataBlock
@@ -31,16 +32,18 @@ require zones
 require game.utils.team
 require game.es.vehicle.vehicle_events
 require game.es.events
+require game.es.level_common
 require common_shooter.es.concussion_common
 require danetlibs.pathfinder.main.pathfinder_common
 require common_shooter.es.ai.common_shooter_walker_nodes_common
 require common_shooter.es.squad_common
 require common_shooter.events_common_shooter
-require common_shooter.events_common_shooter
 require enlisted.game.es.bomb_site_common
+require enlisted.game.es.enlisted_squad_common
 require walkerai
 require game.es.squad_order_common
 require math.linear
+
 
 [beh_node(name="isInConcussion")]
 class IsInConcussion : BehNodeAdapter
@@ -100,6 +103,28 @@ class ChooseMaxStanceNode : BehNodeAdapter
 
     owner.blackBoard |> set("maxStance", max(maxStanceAtLeast, maxStanceOrder))
     return EBehResult ER_SUCCESS
+
+
+[beh_node(name="isSwimming")]
+class IsSwmmingNode : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    let eid = beh_tree_eid()
+    var isSwimming = false
+    ecs::query(eid) <| $ [es] (human_net_phys : HumanActor)
+      isSwimming = human_phys_state_get_is_swimming(human_net_phys.phys.currentState)
+    if !isSwimming
+      return EBehResult ER_FAILED
+    return EBehResult ER_SUCCESS
+
+
+[beh_node(name="isIndoor")]
+class isIndoorNode : BehNodeAdapter
+  offset = float3(0.0, 0.3, 0.0)
+  def override update(dt : float) : EBehResult
+    var isIndoor = false
+    query(beh_tree_eid()) <| $ [es] (transform : float3x4)
+      isIndoor = is_pos_indoor(transform[3] + offset)
+    return isIndoor ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 
 def determinate_radius(phys_state : HumanPhysState)
@@ -229,11 +254,39 @@ class GetRegroupPos : BehNodeAdapter
 
     return EBehResult ER_SUCCESS
 
-[beh_node(name="isPersonalOrder")]
-class IsPersonalOrder : BehNodeAdapter
+[beh_node(name="setSquadFormation")]
+class SetSquadFormation : BehNodeAdapter
+  spread : SquadFormationSpread = SquadFormationSpread ESFN_STANDARD
+
   def override loadFromBlk(var data : DataBlock) : void
+    let formationName = data |> datablock_getStr("formation", "")
+    if formationName == "closest"
+      spread = SquadFormationSpread ESFN_CLOSEST
+    elif formationName == "standard"
+      spread = SquadFormationSpread ESFN_STANDARD
+    elif formationName == "wide"
+      spread = SquadFormationSpread ESFN_WIDE
     return
 
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    if agent == null
+      return EBehResult ER_FAILED
+
+    var ok = false
+    query(agent.eid) <| $ [es] (squad_member__squad : EntityId)
+      query(squad_member__squad) <| $ [es] (squad__ownerPlayer : EntityId)
+        query(squad__ownerPlayer) <| $ [es] (var squadFormationSpread : int&)
+          ok = true
+          if squadFormationSpread != int(spread)
+            squadFormationSpread = int(spread)
+            reset_squad_behaviour(squad_member__squad)
+
+    return ok ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+
+[beh_node(name="isPersonalOrder")]
+class IsPersonalOrder : BehNodeAdapter
   def override update(dt : float) : EBehResult
     let agent = beh_tree_entity_agent(*owner)
     if agent == null
@@ -983,63 +1036,6 @@ class GetOrderPosition : BehNodeAdapter
     return EBehResult ER_SUCCESS
 
 
-[beh_node(name="prepareArtillery")]
-class PrepareArtillery : BehNodeAdapter
-  requesterEidParam : int = -1
-  shouldSendParam : int = -1
-  typeIndexParam : int = -1
-  posEndParam : int = -1
-
-  def override loadFromBlk(var data : DataBlock) : void
-    requesterEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetUnitParam", "artilleryRequester"), 0)
-    shouldSendParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "shouldSendParamName", "artilleryShouldSend"), false)
-    typeIndexParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "typeIndexParamName", "artilleryTypeIndex"), 0)
-    posEndParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posEndParamName", "artilleryPosEnd"), float3())
-
-  def override exit()
-    let agent = beh_tree_entity_agent(*owner)
-    var phys = agent.phys
-    if phys != null
-      phys.producedCT |> human_control_state_set_device_state(false)
-
-  def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
-    if agent == null
-      return EBehResult ER_FAILED
-
-    let requesterEid = EntityId(uint(owner.blackBoard |> datablock_getInt(requesterEidParam)))
-    var playerRequester = INVALID_ENTITY_ID
-    query(requesterEid) <| $ [es(REQUIRE_NOT=deadEntity)] (possessedByPlr : EntityId)
-      playerRequester = possessedByPlr
-    if !playerRequester
-      return EBehResult ER_FAILED
-
-    var res = EBehResult ER_FAILED
-    query(agent.eid) <| $ [es] (human_weap__radioMode : bool;
-                                squad_member__orderPosition : float3;
-                                human_weap__radioEid : EntityId = INVALID_ENTITY_ID)
-      if !human_weap__radioEid
-        res = EBehResult ER_FAILED
-        return
-      if human_weap__radioMode && owner.blackBoard |> datablock_getBool(shouldSendParam)
-        let typeIndex = owner.blackBoard |> datablock_getInt(typeIndexParam)
-        let posEnd = owner.blackBoard |> datablock_getPoint3(posEndParam)
-        sendEvent(playerRequester, [[CmdStartArtilleryStrikeAtPos owner=requesterEid, pos=squad_member__orderPosition, typeIndex=typeIndex, posEnd=posEnd]])
-        res = EBehResult ER_SUCCESS
-        return
-      res = EBehResult ER_RUNNING
-
-    var phys = agent.phys
-    if phys != null
-      assume ct = phys.producedCT
-      ct |> human_control_state_set_neutral_ctrl()
-      ct |> human_control_state_set_walk_speed(0.f)
-      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_CRAWL, false)
-      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_CROUCH, true)
-      ct |> human_control_state_set_device_state(true)
-
-    return res
-
 [beh_node(name="findNearestActiveBombSiteForPlanting")]
 class FindNearestActiveBombSiteForPlanting : BehNodeAdapter
   bombSitePosParam : int = -1
@@ -1350,6 +1346,91 @@ class GetRandomPointNearTarget : BehNodeAdapter
     owner.blackBoard |> set(posParam, pos)
 
     return EBehResult ER_SUCCESS
+
+[beh_node(name="getRandomPointAroundTarget")]
+class GetRandomPointAroundTarget : BehNodeAdapter
+  posParam : int = -1
+  targetUnitId : int = -1
+  targetUnitParam : int = -1
+  radiusRange : float2 = float2(1.0)
+  awayMinRadius : float = 5.0
+  minDistanceFromAllies : float = 0.0
+  minDistanceFromAlliesSq : float = 0.0
+  maxTries : int = 10
+
+  def override loadFromBlk(var data : DataBlock) : void
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3(0., 0., 0.))
+    targetUnitParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetUnitParam", ""), 0);
+    radiusRange = data |> datablock_getPoint2("radiusRange", radiusRange)
+    awayMinRadius = data |> datablock_getReal("awayMinRadius", awayMinRadius)
+    minDistanceFromAllies = data |> datablock_getReal("minDistanceFromAllies", minDistanceFromAllies)
+    minDistanceFromAlliesSq = square(minDistanceFromAllies)
+    maxTries = data |> datablock_getInt("maxTries", maxTries)
+
+  def override init()
+    targetUnitId = owner.blackBoard |> datablock_getInt(targetUnitParam)
+
+  def override update(dt : float) : EBehResult
+    if targetUnitId == 0
+      return EBehResult ER_FAILED
+
+    var targetPos = float3()
+    var hasTargetPos = false
+    query(EntityId(uint(targetUnitId))) <| $ [es] (ai_target : Target)
+      targetPos = ai_target.targetPos
+      hasTargetPos = true
+    if !hasTargetPos
+      return EBehResult ER_FAILED
+
+    var agentShootPos = float3()
+    var hasAgentPos = false
+    query(beh_tree_eid()) <| $ [es] (agent_dangers__standShootPos : float3)
+      agentShootPos = agent_dangers__standShootPos
+      hasAgentPos = true
+    if !hasAgentPos
+      return EBehResult ER_FAILED
+
+    var agentTeam = TEAM_UNASSIGNED
+    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+      query(squad_member__playerEid) <| $ [es] (team : int)
+        agentTeam = team
+
+    for _i in range(maxTries)
+      var pos = targetPos
+      let angle = rnd_float(0.0, TWOPI)
+      let dist = rnd_float(radiusRange.x, radiusRange.y)
+      pos.x += cos(angle) * dist
+      pos.z += sin(angle) * dist
+
+      let deltaFromAgent = pos.xz - agentShootPos.xz
+      let distToAgentSq = dot(deltaFromAgent, deltaFromAgent)
+      if distToAgentSq < square(awayMinRadius)
+        let dirFromAgent = normalize(deltaFromAgent)
+        pos.x = agentShootPos.x + dirFromAgent.x * awayMinRadius
+        pos.z = agentShootPos.z + dirFromAgent.y * awayMinRadius
+
+      if minDistanceFromAllies > 0.0
+        var numAllies = 0
+        for_each_entity_in_grid(ecs_hash("humans"), BSphere3(pos, minDistanceFromAllies), GridEntCheck BOUNDING) <| $(human_eid : EntityId)
+          query(human_eid) <| $ [es(REQUIRE_NOT=deadEntity)] (isAlive : bool;
+                                                              transform : float3x4;
+                                                              squad_member__playerEid : EntityId;
+                                                              isInVehicleHidden : bool = false)
+            if !isAlive || isInVehicleHidden
+              return
+            if distance_sq(transform[3], pos) > minDistanceFromAlliesSq
+              return
+            var human_team = TEAM_UNASSIGNED
+            query(squad_member__playerEid) <| $ [es] (team : int)
+              human_team = team
+            if human_team == agentTeam
+              ++numAllies
+        if numAllies > 0
+          continue
+
+      owner.blackBoard |> set(posParam, pos)
+      return EBehResult ER_SUCCESS
+    return EBehResult ER_FAILED
 
 [beh_node(name="rotateToPoint")]
 class RotateToPoint : BehNodeAdapter
@@ -2349,85 +2430,249 @@ class ResetUseBombTrigger : BehNodeAdapter
 
     return EBehResult ER_SUCCESS
 
+
+[beh_node(name="getAgentAIPos")]
+class GetAgentAIPos : BehNodeAdapter
+  outPosParam : int = -1
+
+  def override loadFromBlk(data : DataBlock) : void
+    outPosParam  = owner.blackBoard |> get_or_create(datablock_getStr(data, "outPosParam", ""), float3(0.0))
+
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    if outPosParam >= 0
+      owner.blackBoard |> set(outPosParam, agent.pos)
+    return EBehResult ER_SUCCESS
+
+def x0z(f : float3)
+  return float3(f.x, 0., f.z)
+
+// 105, -105, -120, 120, 90, -90 degrees table
+let GetPointAroundAIPos_cosMxSide = [[float[6]- 0.2588190451; -0.2588190451; -0.50000000000; -0.50000000000;  0.;  0.]]
+let GetPointAroundAIPos_sinMxSide = [[float[6] + 0.9659258262; -0.9659258262; -0.86602540378; +0.86602540378;  1.; -1.]]
+let GetPointAroundAIPos_cosMxForw = [[float[6] + 0.9659258262; +0.9659258262; +0.86602540378; +0.86602540378;  1.;  1.]]
+let GetPointAroundAIPos_sinMxForw = [[float[6] + 0.2588190451; -0.2588190451; -0.50000000000; +0.50000000000;  0.;  0.]]
+
+[beh_node(name="getPointAroundAIPos")]
+class GetPointAroundAIPos : BehNodeAdapter
+  dirParam     : int = -1
+  outPosParam  : int = -1
+  forwPosParam : int = -1
+  resetParam   : int = -1
+  fromPosParam : int = -1
+  toPosParam   : int = -1
+
+  counter    : int = 0
+  radius     : float = 1.5
+
+  initPos  : float3
+  initDir  : float3
+  stepDist : float
+  sideCoef : float
+
+  def override loadFromBlk(data : DataBlock) : void
+    dirParam     = owner.blackBoard |> get_or_create(datablock_getStr(data, "dirParam", ""), float3(0.0))
+    outPosParam  = owner.blackBoard |> get_or_create(datablock_getStr(data, "outPosParam", ""), float3(0.0))
+    forwPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "forwPosParam", ""), float3(0.0))
+    resetParam   = owner.blackBoard |> get_or_create(datablock_getStr(data, "resetAIPointsGeneratorParam", ""), 0)
+    fromPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "fromPosParam", ""), float3(0.0))
+    toPosParam   = owner.blackBoard |> get_or_create(datablock_getStr(data, "toPosParam", ""), float3(0.0))
+    radius       = datablock_getReal(data, "radius", 1.5)
+
+  def override init()
+    if counter == 0 || owner.blackBoard |> datablock_getInt(resetParam) != 0
+      owner.blackBoard |> set(resetParam, 0)
+      let agent = beh_tree_entity_agent(*owner)
+      initDir = normalize(x0z(owner.blackBoard |> datablock_getPoint3(dirParam)))
+      initPos = agent.pos
+      counter = 0
+
+      let fromPos = owner.blackBoard |> datablock_getPoint3(fromPosParam)
+      let wishPos = owner.blackBoard |> datablock_getPoint3(toPosParam)
+
+      let dist = length(wishPos - initPos)
+      stepDist = min(dist, radius)
+
+      let dir = normalize(wishPos - fromPos)
+      let norm = float2(dir.z, -dir.x)
+      let offs = dot(norm, initPos.xz) - dot(norm, fromPos.xz)
+      sideCoef = offs < 0.0 ? 1.0 : -1.0
+
+  def override update(dt : float) : EBehResult
+    if length_sq(initDir) < 1e-3
+      counter = 0
+      return EBehResult ER_FAILED
+
+    let count = length(GetPointAroundAIPos_cosMxSide)
+    if counter >= count
+      counter = 0
+      return EBehResult ER_FAILED
+
+    let id = counter
+
+    let ndx = initDir.x * GetPointAroundAIPos_cosMxSide[id] - initDir.z * GetPointAroundAIPos_sinMxSide[id] * sideCoef
+    let ndz = initDir.x * GetPointAroundAIPos_sinMxSide[id] * sideCoef + initDir.z * GetPointAroundAIPos_cosMxSide[id]
+    let newPos = initPos + float3(ndx, 0.0, ndz) * stepDist
+    if outPosParam >= 0
+      owner.blackBoard |> set(outPosParam, newPos)
+
+    if forwPosParam >= 0
+      let fdx = initDir.x * GetPointAroundAIPos_cosMxForw[id] - initDir.z * GetPointAroundAIPos_sinMxForw[id] * sideCoef
+      let fdz = initDir.x * GetPointAroundAIPos_sinMxForw[id] * sideCoef + initDir.z * GetPointAroundAIPos_cosMxForw[id]
+      let forwPos = newPos + float3(fdx, 0.0, fdz) * stepDist
+      owner.blackBoard |> set(forwPosParam, forwPos)
+
+    ++counter
+    return EBehResult ER_SUCCESS
+
 [beh_node(name="findCoverAroundPoint")]
 class FindCoverAroundPoint : BehNodeAdapter
   centerParam   : int = -1
   coverPosParam : int = -1
+  maxDistParam  : int = -1
 
-  radius      : float = 25.
-  wallOffset  : float = 0.5
-  possibleCosAngle : float = 0.5
+  radius     : float = 5.0
+  minDist    : float = 0.0
+  wallOffset : float = 0.25
+
+  possibleCosAngle   : float = 0.5
   coverSideThreshold : float = 0.1
+  keepOldCoverChance : float = 0.6
+
+  traceVisible : bool = false
 
   def override loadFromBlk(var data : DataBlock) : void
-    let agent = beh_tree_entity_agent(*owner)
-    centerParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "centerParam", ""), agent.pos)
-    coverPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "coverPosParam", ""), agent.pos)
-
     coverSideThreshold = datablock_getReal(data, "coverSideThreshold", 0.1)
     radius = datablock_getReal(data, "radius", 5.)
+    minDist = datablock_getReal(data, "minDist", 0.0)
     wallOffset = datablock_getReal(data, "wallOffset", 0.5)
     let possibleAngle = datablock_getReal(data, "possibleAngle", 90.)
     possibleCosAngle  = cos(deg_to_rad(possibleAngle))
+
+    let agent = beh_tree_entity_agent(*owner)
+    centerParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "centerParam", ""), agent.pos)
+    coverPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "coverPosParam", ""), agent.pos)
+    let maxDistParamName = datablock_getStr(data, "radiusParam", "")
+    if maxDistParamName != ""
+      maxDistParam = owner.blackBoard |> get_or_create(maxDistParamName, radius)
+
+    traceVisible = datablock_getBool(data, "traceVisible", false)
+    keepOldCoverChance = datablock_getReal(data, "keepOldCoverChance", 0.6)
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
     query() <| $ [es] (var covers : CoversComponent&)
       query(beh_tree_eid()) <| $ [es] (walker_agent : EntityAgent;
                                        var cover_updater__heldCovers : ecs::IPoint2List&)
-        let pos = owner.blackBoard |> datablock_getPoint3(centerParam)
-        let shootHeightOffset = entity_agent_getShootFromPos(walker_agent, STANCE_STAND).y
+        var prevCoverId = int2(-1, 0)
+        if length(cover_updater__heldCovers) > 0
+          prevCoverId = cover_updater__heldCovers[0]
+
+        reset_covers(covers, cover_updater__heldCovers)
+
+        let centerPos = owner.blackBoard |> datablock_getPoint3(centerParam)
+
+        let maxDist = maxDistParam >= 0 ? (owner.blackBoard |> datablock_getReal(maxDistParam)) : radius
+        let maxDistSq = square(maxDist)
+        let minDistSq = square(minDist)
 
         var box : bbox3f
+        box.bmax.xyz = centerPos + float3(maxDist, 2.5f, maxDist)
+        box.bmin.xyz = centerPos - float3(maxDist, 0.5f, maxDist)
 
-        box.bmin.xyz = pos - float3(radius, shootHeightOffset, radius)
-        box.bmax.xyz = pos + float3(radius, shootHeightOffset, radius)
+        let heightUp1 = float3(0.0, 1.5, 0.0)
+        let heightUp2 = float3(0.0, 1.0, 0.0)
 
-        var minDistSq = FLT_MAX
-        var minCoverId = int2(-1, 0)
+        let midPos = walker_agent.pos * 0.3 + centerPos * 0.7
+        let likelyChangeCover = rnd_float(0.0, 1.0) < keepOldCoverChance
+
+        var bestDistSq = FLT_MAX
+        var bestCoverId = int2(-1, 0)
+        var bestZeroUsed = false
         covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
                                                                  tm : mat44f#)
-
           assume cover     = covers.list[id]
           assume coverDesc = covers.coverDescs[id]
 
           if coverDesc.numUsedSlots >= length(coverDesc.slots)
             return
 
-          if abs(cover.groundLeft.y - cover.groundRight.y) > coverSideThreshold
+          let heightDiff = abs(cover.groundLeft.y - cover.groundRight.y)
+          let groundLen = max(1.0, length_sq(cover.groundLeft - cover.groundRight))
+          if heightDiff / groundLen > coverSideThreshold
             return
 
-          var coverId = int2(id, 0)
+          let minH = min(cover.groundLeft.y, cover.groundRight.y)
+          if minH > box.bmax.xyz.y
+            return
+          let maxH = max(cover.groundLeft.y + cover.hLeft, cover.groundRight.y + cover.hRight)
+          if maxH < box.bmin.xyz.y
+            return
 
-          for i in range(0, length(coverDesc.slots))
-            if coverDesc.slots[i].numUsed == 0
-              coverId.y = i
-              break
+          let numSlots = length(coverDesc.slots)
 
-          let coverPos = (cover.groundLeft + cover.groundRight) * 0.5
-          let angle    = dot(cover.dir, normalize(coverPos - pos))
+          let isPrevCover = prevCoverId.x == id && likelyChangeCover
+          var totalUsed = 0
+          if !isPrevCover
+            for i in range(0, numSlots)
+              totalUsed += coverDesc.slots[i].numUsed
+          let zeroUsed = totalUsed == 0
 
-          let distSq = distance_sq_to_seg(pos, cover.groundLeft, cover.groundRight)
+          for i in range(0, numSlots)
+            if coverDesc.slots[i].numUsed > 0 && !(isPrevCover && i == prevCoverId.y)
+              continue
+            let zeroUsedForSlot = zeroUsed || (numSlots >= 5 && (i == 0 || i == numSlots - 1))
+            let coverId = int2(id, i)
+            if !bestZeroUsed || zeroUsedForSlot
+              let coverCheckPos = coverDesc.slots[i].pos
+              let coverOffset = coverCheckPos - centerPos
+              let cosAngle = dot(cover.dir, normalize(float3(coverOffset.x, 0.0, coverOffset.z)))
+              if cosAngle > possibleCosAngle
+                let distToCenterSq = length_sq(coverOffset)
+                let distFromAgentSq = distance_sq(midPos, coverCheckPos)
+                if distToCenterSq >= minDistSq && distToCenterSq <= maxDistSq && (distFromAgentSq < bestDistSq || (!bestZeroUsed && zeroUsedForSlot) || isPrevCover)
+                  if traceVisible && !isPrevCover
+                    let dir = normalize(coverOffset)
+                    var t1 = length(coverOffset)
+                    var t2 = t1
+                    var norm : float3
+                    if (traceray_normalized(centerPos + heightUp1, dir, t1, norm, ETF_ALL)
+                     && traceray_normalized(centerPos + heightUp2, dir, t2, norm, ETF_ALL))
+                      continue
+                  bestDistSq = distFromAgentSq
+                  bestCoverId = coverId
+                  bestZeroUsed = zeroUsedForSlot
+                  if isPrevCover
+                    return
 
-          if possibleCosAngle < angle && distSq < minDistSq
-            minDistSq = distSq
-            minCoverId = coverId
+        if bestCoverId.x != -1
+          assume cover     = covers.list[bestCoverId.x]
+          assume coverDesc = covers.coverDescs[bestCoverId.x]
 
-        if minCoverId.x != -1
-          assume cover     = covers.list[minCoverId.x]
-          assume coverDesc = covers.coverDescs[minCoverId.x]
-
-          push(cover_updater__heldCovers, minCoverId)
-          coverDesc.slots[minCoverId.y].numUsed += 1
-          if coverDesc.slots[minCoverId.y].numUsed == 1
+          push(cover_updater__heldCovers, bestCoverId)
+          coverDesc.slots[bestCoverId.y].numUsed += 1
+          if coverDesc.slots[bestCoverId.y].numUsed == 1
             coverDesc.numUsedSlots += 1
 
-          let coverAIPos = coverDesc.slots[minCoverId.y].pos - cover.dir * wallOffset
+          let coverAIPos = coverDesc.slots[bestCoverId.y].pos - cover.dir * wallOffset
           owner.blackBoard |> set(coverPosParam, coverAIPos)
 
           res = EBehResult ER_SUCCESS
 
     return res
+
+[beh_node(name="onceUntilReset")]
+class OnceUntilResetNode : BehNodeAdapter
+  isDone : bool = false
+
+  def override reset() : void
+    isDone = false
+
+  def override update(dt : float) : EBehResult
+    if isDone
+      return EBehResult ER_FAILED
+    isDone = true
+    return EBehResult ER_SUCCESS
 
 [beh_node(name="startAim")]
 class StartAim : BehNodeAdapter

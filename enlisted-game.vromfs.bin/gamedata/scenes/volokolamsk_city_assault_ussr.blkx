@@ -472,7 +472,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=40.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
@@ -504,7 +504,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=40.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
@@ -536,7 +536,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=40.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2

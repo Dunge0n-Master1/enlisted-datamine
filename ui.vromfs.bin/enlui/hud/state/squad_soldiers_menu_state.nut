@@ -19,7 +19,6 @@ let mkSoldierItem = @(member, isCurrent) {
   action = @() selectSoldier(member.eid)
   disabledAction = @() showMsg(loc("msg/squadMemberNotAvailable") )
   available = member.isAlive && member.canBeLeader
-  closeOnClick = true
   text = member?.name ?? ""
   ctor = mkPieItemCtor(member, isCurrent, radius.value)
 }

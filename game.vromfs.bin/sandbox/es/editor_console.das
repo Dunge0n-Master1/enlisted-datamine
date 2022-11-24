@@ -1,3 +1,4 @@
+options no_aot
 require ecs
 require EnlistedCamera
 require DagorConsole

@@ -1,38 +1,23 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let pieMenuItems = mkWatched(persist, "items", [], FRP_DONT_CHECK_NESTED)
+// currently main pie menu has three "layers" 0 - posters, 1 - default; bot commands, 3 - quick chat
+// we can switch between them using shortcuts without menu closing
+let DEFAULT_LAYER = 1
+let pieMenuAllLayersItems = mkWatched(persist, "items", [], FRP_DONT_CHECK_NESTED)
+let pieMenuLayer = Watched(DEFAULT_LAYER)
+let showPieMenu = mkWatched(persist, "showPieMenu", false)
 let radius = hdpx(390)
 
-let showPieMenu = mkWatched(persist, "showPieMenu", false)
-let openPath = mkWatched(persist, "openPath", [])
-let path = mkWatched(persist, "path", [])
+let curPieMenuItems = Computed(@() pieMenuAllLayersItems.value?[pieMenuLayer.value] ?? [], FRP_DONT_CHECK_NESTED)
 
-let mkNextPathItem = @(item) {
-  text = loc(item?.id ?? "")
-  closeOnClick = false
-  action = @() path.mutate(@(p) p.append(item?.id ?? ""))
-  available = Watched(true)
-}.__update(item)
-
-let curPieMenuItems = Computed(function() {
-  local list = pieMenuItems.value
-  foreach (id in path.value) {
-    list = list.findvalue(@(p) p?.id == id)?.items
-    if (type(list) != "array")
-      return [] //no items by path
-  }
-  return list.map(@(item) type(item?.items) == "array" ? mkNextPathItem(item) : item)
-}, FRP_DONT_CHECK_NESTED)
-
-openPath.subscribe(@(v) path(clone v))
-showPieMenu.subscribe(@(v) v ? null : openPath([]))
+// reset to default layer on pie menu close
+showPieMenu.subscribe(@(_val) pieMenuLayer(DEFAULT_LAYER))
 
 return {
-  pieMenuItems
-  openPieMenuPath = openPath
-  pieMenuPath = path
+  pieMenuItems = pieMenuAllLayersItems
+  pieMenuLayer
+  curPieMenuItems
   radius = Watched(radius)
   elemSize = Watched([(radius*0.35).tointeger(),(radius*0.35).tointeger()])
   showPieMenu
-  curPieMenuItems
 }

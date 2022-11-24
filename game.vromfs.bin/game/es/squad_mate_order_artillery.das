@@ -49,7 +49,7 @@ def prepare_artillery_strike(squad_eid, squad__leader : EntityId; squad__numAliv
     beh_tree__refs__behaviour := beh_tree__data__orderReq
     beh_tree__refs__orderType := beh_tree__data__artilleryReq
 
-    EnlistedBehTree::load_beh_tree_from_ecs(radioMan.eid)
+    reload_squad_mate_beh_tree(radioMan.eid)
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("artilleryShouldSend", false)

@@ -47,11 +47,18 @@ def find_danger(var agent_dangers : AgentDangers; eid : EntityId)
 [es(tag=server, no_order)]
 def ai_danger_update_alertness(act : UpdateStageInfoAct)
   var targets : table<uint; TargetData>
-  query() <| $ [es(REQUIRE_NOT=ai_target__autoGunTarget)] (eid : EntityId; ai_target : Target; team : int; human_net_phys : HumanActor?)
+  query() <| $ [es(REQUIRE_NOT=ai_target__autoGunTarget)] (eid : EntityId; ai_target : Target; team : int;
+                                                           human_net_phys : HumanActor?; vehicle_seats__seatEids : EidList?)
     var stance = STANCE_STAND
+    var targetTeam = team
     if human_net_phys != null
       stance = determinate_stance(human_net_phys.phys.currentState)
-    var targetData = TargetData(eid, team, ai_target, stance)
+    if vehicle_seats__seatEids != null && team == TEAM_UNASSIGNED
+      for seatEid in *vehicle_seats__seatEids
+        query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
+          query(seat__ownerEid) <| $ [es] (team aka passenger_team : int)
+            targetTeam = passenger_team
+    var targetData = TargetData(eid, targetTeam, ai_target, stance)
     targets[uint(eid)] <- targetData
 
   query() <| $ [es] (eid : EntityId;

@@ -47,6 +47,11 @@ repeat{
     treeName:t="sub.moveFindDangerCheck"
   }
 
+  subTree{
+    name:t=""
+    treeName:t="sub.agressiveCheckBuildAndHeal"
+  }
+
   sequencer{
     name:t="regroup"
 
@@ -206,6 +211,11 @@ repeat{
     treeName:t="sub.changeStanceWhenInTheSquadLeaderAim"
   }
 
+  subTree{
+    name:t=""
+    treeName:t="sub.agressiveCheckBuildAndHeal"
+  }
+
   sequencer{
     name:t="regroup"
 
@@ -327,7 +337,7 @@ repeat{
 
   subTree{
     name:t=""
-    refId:t="getRegroupPos"
+    refId:t="updateRegroupPos"
   }
 
   subTree{
@@ -370,12 +380,53 @@ repeat{
     treeName:t="sub.grenadeEscape"
   }
 
+  setIntVar{
+    to:t="grenadeAttackFailed"
+    value:i=0
+  }
+
   orderedSelector{
     name:t="attack"
 
     subTree{
       name:t=""
       treeName:t="sub.enemyMelee"
+    }
+
+    sequencer{
+
+      isAgentPlayerBot{
+      }
+
+      not{
+
+        isSwimming{
+        }
+      }
+
+      hasGrenade{
+      }
+
+      findDanger{
+        paramName:t="shootEnemy"
+        radiusParamName:t="enemyVehicleRadius"
+        minDanger:r=0.0
+        tag:t="vehicle"
+      }
+
+      setIntVar{
+        to:t="grenadeAttackFailed"
+        value:i=1
+      }
+
+      setIntVar{
+        to:t="grenadeAttackFailed"
+        value:i=0
+      }
+
+      subTree{
+        treeName:t="sub.attackVehicle"
+      }
     }
 
     sequencer{
@@ -389,6 +440,10 @@ repeat{
 
       subTree{
         treeName:t="sub.oneShootAttack"
+      }
+
+      getTime{
+        to:t="enemyNearTime"
       }
     }
 
@@ -405,11 +460,6 @@ repeat{
         treeName:t="sub.oneShootAttack"
       }
 
-      setPosFromEntity{
-        to:t="potentialEnemyPos"
-        from:t="shootEnemy"
-      }
-
       parallel{
 
         wait{
@@ -417,22 +467,63 @@ repeat{
           resetable:b=yes
         }
 
-        wanderLook{
-          posParam:t="potentialEnemyPos"
-          range:p2=0.2, 0.1
-          maxStanceParam:t="coverStance"
+        sequencer{
+
+          checkAtTime{
+            timeParam:t="rememberEnemyTime"
+            range:p2=0.0, 10.0
+          }
+
+          checkTarget{
+            targetUnitParam:t="rememberEnemy"
+          }
+
+          wanderLook{
+            posParam:t="rememberEnemyPos"
+            range:p2=0.2, 0.1
+            maxStanceParam:t="coverStance"
+          }
         }
       }
     }
   }
 
-  getRegroupPos{
-    posParam:t="regroupPosition"
+  sequencer{
+
+    isVarsIntEqual{
+      lhs:t="grenadeAttackFailed"
+      rhs_value:i=1
+    }
+
+    setIntVar{
+      to:t="grenadeAttackFailed"
+      value:i=0
+    }
+
+    ignoreChance{
+      chance:r=0.3
+    }
+
+    recalculateTree{
+    }
   }
 
-  copyPoint3Var{
-    from:t="regroupPosition"
-    to:t="storedRegroupPosition"
+  sequencer{
+
+    isVarsIntEqual{
+      lhs:t="tryBuild"
+      rhs_value:i=1
+    }
+
+    setIntVar{
+      to:t="tryBuild"
+      value:i=0
+    }
+
+    subTree{
+      name:t=""
+      treeName:t="sub.tryBuildAndPlace"
+    }
   }
 
   sequencer{
@@ -480,6 +571,15 @@ repeat{
       name:t=""
       treeName:t="sub.stay"
     }
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  copyPoint3Var{
+    from:t="regroupPosition"
+    to:t="storedRegroupPosition"
   }
 }
 
@@ -548,6 +648,40 @@ orderedSelector{
 }
 
 orderedSelector{
+  name:t="sub.agressiveCheckBuildAndHeal"
+
+  sequencer{
+
+    isAgentPlayerBot{
+    }
+
+    orderedSelector{
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBuildAndPlace"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkHealTeammatesAround"
+      }
+
+      continue{
+      }
+    }
+  }
+
+  sequencer{
+
+    subTree{
+      name:t=""
+      treeName:t="sub.checkHealSquadmatesAround"
+    }
+  }
+}
+
+orderedSelector{
   name:t="sub.stay"
 
   reaction{
@@ -593,6 +727,16 @@ orderedSelector{
       name:t=""
       refId:t="agressiveStayReaction"
     }
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.tryCallArtillery"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.tryHealTeammateAround"
   }
 
   subTree{

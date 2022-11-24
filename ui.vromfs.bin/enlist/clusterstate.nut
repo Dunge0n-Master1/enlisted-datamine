@@ -1,23 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {clusterByRegionMap, getClusterByCode} = require("geo.nut")
+let { getClusterByCode } = require("geo.nut")
 let platform = require("platform")
 let dagor_sys = require("dagor.system")
-
 let matching_api = require("matching.api")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let connectHolder = require("%enlist/connectHolderR.nut")
+let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
 
-let onlineSettings = require("%enlist/options/onlineSettings.nut")
-let {onlineSettingUpdated} = onlineSettings
-let onlineSettingsSettings = onlineSettings.settings
-
+const CLUSTERS_KEY = "selectedClusters"
+const AUTO_CLUSTER_KEY = "autoCluster"
 let availableClustersDef = ["EU", "RU", "US", "JP"]
 let debugClusters = dagor_sys.DBGLEVEL != 0 ? ["debug"] : []
 
 let notify = @(...) log.acall([null].extend(vargv))
 let eventbus = require("eventbus")
-
 
 let clustersViewMap = { RU = "EEU" }
 let clusterLoc = @(cluster) loc(clustersViewMap?[cluster] ?? cluster)
@@ -55,6 +52,7 @@ matching_api.listen_notify("hmanager.notify_clusters_changed")
 eventbus.subscribe("hmanager.notify_clusters_changed", function(...) { fetchClustersFromMatching() })
 //set clusters from Matching
 matchingClusters.subscribe(@(v) console_print("matchingClusters:", v) )
+
 let availableClusters = Computed(function() {
   local available = matchingClusters.value.filter(@(v) v!="debug")
   if (available.len()==0)
@@ -62,55 +60,75 @@ let availableClusters = Computed(function() {
   return available.extend(debugClusters)
 })
 
-local function validateClusters(clusters, available){
+let function getOwnCluster() {
+  let country_code = platform.get_locale_country().toupper()
+  log("Country code:", country_code)
+  let localData = getClusterByCode({ code = country_code })
+  let cluster = localData.cluster
+  log("own cluster:", cluster, "localData:", localData)
+  return cluster
+}
+
+let ownCluster = getOwnCluster()
+
+let function validateClusters(clusters, available) {
   notify("validate clusters. clusters:", clusters, "available:", available)
   clusters = clusters.filter(@(has, cluster) has && available.indexof(cluster)!=null)
-  if (clusters.len()==0){
-    let country_code = platform.get_locale_country().toupper()
-    log("Country code:", country_code)
-    let localData = getClusterByCode({code=country_code, clusterByRegionMap=clusterByRegionMap})
-    let cluster = localData.cluster
-    log("tryselectCluster:", cluster, "localData:", localData, "available:", available)
-    if (available.indexof(cluster) != null)
-      clusters[cluster] <- true
-  }
-  if (clusters.len()==0 && available.len()>0)
+  if (clusters.len() == 0 && available.indexof(ownCluster) != null)
+      clusters[ownCluster] <- true
+  if (clusters.len() == 0 && available.len() > 0)
     clusters[available[0]] <- true
   notify("result valid clusters:", clusters)
   return clusters
 }
+
 let clusters = mkWatched(persist, "clusters", validateClusters({}, availableClusters.value))
+let isAutoCluster = mkWatched(persist, "autocluster", true)
 
 onlineSettingUpdated.subscribe(function(v) {
   if (!v)
     return
-  console_print("online selectedClusters:", onlineSettingsSettings.value?["selectedClusters"])
-  clusters(validateClusters(onlineSettingsSettings.value?["selectedClusters"] ?? {}, availableClusters.value))
+  console_print("online selectedClusters:", settings.value?[CLUSTERS_KEY])
+  clusters(validateClusters(settings.value?[CLUSTERS_KEY] ?? {}, availableClusters.value))
+  isAutoCluster(settings.value?[AUTO_CLUSTER_KEY] ?? (clusters.value.len() <= 1))
 })
 
 availableClusters.subscribe(function(available) {
   clusters(validateClusters(clusters.value, available))
 })
 
+let selectedClusters = Computed(@() isAutoCluster.value
+  ? { [ownCluster] = true }
+  : clone clusters.value)
+
 let oneOfSelectedClusters = Computed(function() {
-  foreach (c, has in clusters.value)
+  foreach (c, has in selectedClusters.value)
     if (has)
       return c
   return matchingClusters.value?[0] ?? availableClustersDef[0]
 })
 
 clusters.subscribe(function(clustersVal) {
-  let needSave = isEqual(onlineSettingsSettings.value?["selectedClusters"], clustersVal)
+  let needSave = isEqual(settings.value?[CLUSTERS_KEY], clustersVal)
   log("onlineSettingsUpdated:", onlineSettingUpdated.value, "isEqual to current:", needSave, "toSave:", clustersVal)
   if (!onlineSettingUpdated.value || needSave)
     return
-  onlineSettingsSettings.mutate(@(s) s["selectedClusters"] <- clustersVal.filter(@(has) has))
+  settings.mutate(@(s) s[CLUSTERS_KEY] <- clustersVal.filter(@(has) has))
 })
 
+isAutoCluster.subscribe(function(isAuto) {
+  if (!onlineSettingUpdated.value
+      || isAuto == settings.value?[CLUSTERS_KEY]
+      || clusters.value.len() > 1)
+    return
+  settings.mutate(@(s) s[AUTO_CLUSTER_KEY] <- isAuto)
+})
 
 return {
   availableClusters
   clusters
+  selectedClusters
+  isAutoCluster
   oneOfSelectedClusters
   clusterLoc
 }

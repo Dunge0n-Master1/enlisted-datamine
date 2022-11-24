@@ -29,7 +29,7 @@ def order_build(squad_mate_eid, squad__leader, target_eid : EntityId; squad__num
     beh_tree__refs__behaviour := beh_tree__data__orderReq
     beh_tree__refs__orderType := beh_tree__data__buildReq
 
-    EnlistedBehTree::load_beh_tree_from_ecs(squad_mate_eid)
+    reload_squad_mate_beh_tree(squad_mate_eid)
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("buildTarget", int(uint(target_eid)))

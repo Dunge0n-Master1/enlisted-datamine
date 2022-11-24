@@ -210,7 +210,7 @@ let codes_by_countries = {
 }
 let clusterByRegionMap = {EU="EU", NORTHAMERICA="US", SOUTHAMERICA="US", OCEANIA="US", ASIA="RU", EAST_ASIA="JP", RU="RU"}
 
-let function getClusterByCode(params={code=null,clusterByRegionMap=clusterByRegionMap,codes_by_countries=codes_by_countries}){
+let function getClusterByCode(params = { code = null }){
   let clusterByRegion = params?.clusterByRegionMap ?? clusterByRegionMap
   let codesByCountries = params?.codes_by_countries ?? codes_by_countries
   let curcode = params.code
@@ -233,7 +233,7 @@ let function getClusterByCode(params={code=null,clusterByRegionMap=clusterByRegi
 }
 
 return {
-  getClusterByCode = getClusterByCode
-  clusterByRegionMap = clusterByRegionMap
-  codes_by_countries = codes_by_countries
+  getClusterByCode
+  clusterByRegionMap
+  codes_by_countries
 }

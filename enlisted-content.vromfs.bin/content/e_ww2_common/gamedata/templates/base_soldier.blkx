@@ -1339,6 +1339,9 @@ enlisted_base_soldier{
   dmgzone_fire_resistance__decayInterval:r=1.0
   dmgzone_fire_resistance__lastTickAt:r=0.0
   dmgzone_fire_resistance__currentTicks:i=0
+  walker_agent__aimSpeed:r=500.0
+  walker_agent__aimSpeedCrouch:r=350.0
+  walker_agent__aimSpeedCrawl:r=200.0
 
   "copy_skeleton_nodes__idxFrom:list<i>"{
   }

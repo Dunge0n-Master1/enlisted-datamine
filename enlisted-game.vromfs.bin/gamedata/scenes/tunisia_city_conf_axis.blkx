@@ -1204,9 +1204,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
   capzone__capTimeTeam2:r=110.0
-  capzone__capTimeTeam1:r=110.0
+  capzone__capTimeTeam1:r=100.0
   capzone__decapTimeTeam2:r=40.0
-  capzone__decapTimeTeam1:r=40.0
+  capzone__decapTimeTeam1:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   ui_order:i=1
@@ -1231,9 +1231,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
   capzone__capTimeTeam2:r=110.0
-  capzone__capTimeTeam1:r=110.0
+  capzone__capTimeTeam1:r=100.0
   capzone__decapTimeTeam2:r=55.0
-  capzone__decapTimeTeam1:r=55.0
+  capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   active:b=no
   ui_order:i=1
@@ -1290,9 +1290,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam2:r=100.0
-  capzone__capTimeTeam1:r=100.0
+  capzone__capTimeTeam1:r=90.0
   capzone__decapTimeTeam2:r=50.0
-  capzone__decapTimeTeam1:r=50.0
+  capzone__decapTimeTeam1:r=40.0
   capzone__capTeam:i=-1
   active:b=no
   ui_order:i=1

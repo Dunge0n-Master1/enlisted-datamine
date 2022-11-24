@@ -1,5 +1,20 @@
+artillery_ai_dmgzone{
+  _extends:t="awared_danger"
+  dmgzone__dangerWarning:b=yes
+  dmgzone__damage:r=0.0
+  dmgzone__fireAffect:r=0.0
+  sphere_zone__radius:r=30.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="server"
+    danger__awareRadiusCoef:r=2.7
+  }
+}
+
 artillery_he{
   _extends:t="artillery"
+  _extends:t="artillery_ai_dmgzone"
   artillery__name:t="artillery_he"
 
   "artillery_he:tag"{
@@ -8,6 +23,7 @@ artillery_he{
 
 aircraft_request_target_mark{
   _extends:t="replicating"
+  _extends:t="artillery_ai_dmgzone"
   artillery__targetPos:p3=0.0, 0.0, 0.0
   artillery_zone__radius:r=24.0
 }

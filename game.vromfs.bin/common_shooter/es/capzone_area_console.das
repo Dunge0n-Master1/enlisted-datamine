@@ -1,3 +1,4 @@
+options no_aot
 require ecs
 require common_shooter.events_common_shooter
 require DagorMath

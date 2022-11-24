@@ -531,6 +531,11 @@ repeat{
     chooseRandomStance{
       stanceParam:t="trainStance"
     }
+
+    subTree{
+      name:t=""
+      treeName:t="sub.tryCallArtillery"
+    }
   }
 }
 

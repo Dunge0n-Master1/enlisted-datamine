@@ -1002,6 +1002,19 @@ background_menu_item{
   }
 }
 
+delayed_artillery_strike{
+  delayed_artillery__typeIndex:i=0
+  delayed_artillery__pos:p3=0.0, 0.0, 0.0
+  delayed_artillery__posEnd:p3=0.0, 0.0, 0.0
+  delayed_artillery__delayTime:r=0.0
+
+  "delayed_artillery__playerEid:eid"{
+  }
+
+  "delayed_artillery__ownerEid:eid"{
+  }
+}
+
 artillery_owner{
   _tracked:t="artillery__available"
   _tracked:t="artillery__availableAtTime"
@@ -1016,6 +1029,15 @@ artillery_owner{
   artillery__spawnDelay:r=-1.0
   artillery__baseSpawnDelay:r=10.0
   artillery__missionStartDelay:r=30.0
+
+  _group{
+    _tags:t="server"
+    artillery__hasRadioInArmySquads:b=no
+    artillery__nextTimeAICallArtillery:r=0.0
+    artillery__setupAIArtilleryAngle:r=30.0
+    artillery__setupAIArtilleryDelayTime:p2=10.0, 15.0
+    artillery__setupAIArtilleryDistance:p2=30.0, 90.0
+  }
 
   "artillery__available:b"{
     _tags:t="gameClient"
@@ -1667,7 +1689,7 @@ newbie_damage{
   _tags:t="server"
   player__damageToBotsScale:r=1.0
   player__damageFromBotsScale:r=1.0
-  newbie__damageFromBots:r=0.25
+  newbie__damageFromBots:r=1.0
   newbie__damageToBots:r=2.0
 
   _group{
@@ -1889,6 +1911,11 @@ enlisted_player{
     engieer__buildingToolAvailable:b=yes
   }
 
+  _group{
+    _tags:t="server"
+    player_bots__nextHealWaitTime:r=0.0
+  }
+
   "userModsServerData:object"{
   }
 
@@ -1949,6 +1976,33 @@ enlisted_bot_player{
   _extends:t="enlisted_player"
   _extends:t="bot_player"
   respawner__allowForceRespawn:b=yes
+
+  "respawner__randomNextSquad:tag"{
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="server"
+    botPlayer__nextAllowedThrowGrenadeTime:r=0.0
+    botPlayer__saveGrenadesForEnemyTanksDistance:r=100.0
+    botPlayer__saveGrenadesForEnemyTanksChance:r=0.95
+    botPlayer__throwGrenadeDelay:p2=7.0, 12.0
+    botPlayer__throwGrenadeDist:p2=11.0, 21.0
+    botPlayer__nextAllowedThrowAntiTankGrenadeTime:r=0.0
+    botPlayer__throwAntiTankGrenadeCounter:i=2
+    botPlayer__throwAntiTankGrenadeCounterReset:ip2=2, 3
+    botPlayer__throwAntiTankGrenadeDelay:p2=10.0, 15.0
+    botPlayer__throwAntiTankGrenadeDist:p2=11.0, 21.0
+    botPlayer__customSpawnMinDistanceAround:r=0.3
+    botPlayer__customSpawnsBetterDistance:r=20.0
+    botPlayer__customSpawnSearchAroundDistance:r=15.0
+    botPlayer__customSpawnSightCheckHeight:r=1.6
+    botPlayer__customSpawnSightCheckDistance:r=10.0
+    botPlayer__customSpawnSightMaxDistance:r=100.0
+
+    "botPlayerDebug:tag"{
+    }
+  }
 
   "botAiEnabler:tag"{
   }

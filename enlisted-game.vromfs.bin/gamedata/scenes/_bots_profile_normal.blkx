@@ -1,0 +1,4 @@
+entity{
+  _template:t="custom_bot_profile"
+  customBotProfile:t="%enlSqGlob/data/bots_profile_normal.json"
+}

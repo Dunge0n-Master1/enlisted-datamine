@@ -510,9 +510,7 @@ return {
 
   inventory_add_item = @(itemdef) request({
     method = "inventory_add_item"
-    params = {
-      items = [{ itemdef, quantity = 1 }]
-    }
+    params = { itemdef, quantity = 1 }
   })
 
   gen_testdrive_squad_profile_jwt = @(armyId, squadId, cb) request({

@@ -137,6 +137,28 @@ def private load_sandbox() : bool
   var ok = true
   if get_app_offline_mode() || app::get_game_name() == "aot"
     ok = load_folder("%scripts/sandbox/es") && ok
+
+    if ecs_has_tag("dev") || app::get_game_name() == "aot"
+      return ok
+
+    ok = load_das_with_debugcode("%scripts/sandbox/es/editor_console.das") && ok
+    ok = load_das_with_debugcode("%scripts/sandbox/es/navmesh_rebuild_console.das") && ok
+
+    ok = load_das_with_debugcode("%scripts/game/es/devmode_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/capzone_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/common_shooter/es/capzone_area_console.das") && ok
+    ok = load_das_with_debugcode("%scripts/common_shooter/es/poly_battle_area_console.das") && ok
+    ok = load_das_with_debugcode("%danetlibs/render_debug/render/collision_debug.das") && ok
+    ok = load_das_with_debugcode("%danetlibs/render_debug/render/draw_scene_collision_debug.das") && ok
+
+    ok = load_das_with_debugcode("%scripts/game/es/aircraft_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/client/camera_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/engineer_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/enlisted_teleport_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/hitpoints_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/squad_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/teleport_debug.das") && ok
+    ok = load_das_with_debugcode("%scripts/game/es/weapon_spread_debug.das") && ok
   return ok
 
 

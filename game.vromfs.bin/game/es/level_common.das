@@ -22,26 +22,10 @@ def is_pos_indoor(pos : float3; search_threshold = 0.5f) : bool
 def is_pos_indoor(game_objects : GameObjects; pos : float3; search_threshold = 0.5f) : bool
   let box = BBox3(pos, search_threshold)
   var indoor = false
-  var wasUsedCache = false
-  find_query() <| $ [es] (indoorBoxes__transforms : TMatrixList)
-    wasUsedCache = length(indoorBoxes__transforms) > 0
-    for tm in indoorBoxes__transforms // FIX: very slow for production, currently works only in dev
-      indoor = IDENT_BBOX & (inverse(tm) * pos)
-      if indoor
-        break
-    return true
-  if wasUsedCache
-    return indoor
-
-  game_objects |> get_scene_game_objects_by_name("indoor_walls") |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
-    indoor ||= IDENT_BBOX & (inverse(tm) * pos)
-
-  if indoor
-    return indoor
-
-  game_objects |> get_scene_game_objects_by_name("envi_probe_box") |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
+  game_objects |> get_scene_game_objects_indoors() |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
     indoor ||= IDENT_BBOX & (inverse(tm) * pos)
   return indoor
+
 
 // NB: works correct only on server
 def get_nearest_indoor_pos(pos : float3; radius : float) : MaybePos
@@ -57,7 +41,7 @@ def get_nearest_indoor_pos(game_objects : GameObjects; pos : float3; radius : fl
   let box = BBox3(pos, radius * 2f)
   var result = [[MaybePos invalid=null]]
   var maxDistanceSq = square(radius)
-  game_objects |> get_scene_game_objects_by_name("indoor_walls") |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
+  game_objects |> get_scene_game_objects_indoors() |> for_scene_game_objects(box) <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
     let distSq = distance_sq(pos, tm[3])
     if distSq < maxDistanceSq
       maxDistanceSq = distSq

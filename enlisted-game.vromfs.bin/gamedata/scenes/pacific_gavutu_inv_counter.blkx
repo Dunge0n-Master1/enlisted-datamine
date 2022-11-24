@@ -2714,7 +2714,7 @@ entity{
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2771,7 +2771,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   transform:m=[[-20.1348, 0.0, 31.1966] [0.0, 14.2917, 0.0] [-50.7388, 0.0, -32.7477] [-10.1575, 11.4899, -112.263]]
   active:b=no
@@ -2826,7 +2826,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[-32.5501, 0.0, 32.9299] [0.0, 8.39327, 0.0] [-41.9408, 0.0, -41.4572] [-93.423, 8.18472, 49.2232]]
   active:b=no

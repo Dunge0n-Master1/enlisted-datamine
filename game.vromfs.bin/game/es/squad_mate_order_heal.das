@@ -37,8 +37,8 @@ def order_heal(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int
     beh_tree__refs__behaviour := beh_tree__data__orderReq
     beh_tree__refs__orderType := beh_tree__data__healReq
 
+    // NOTE: not using reload_squad_mate_beh_tree() here intentionally
     EnlistedBehTree::load_beh_tree_from_ecs(nearestTeammate.eid)
-
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("healRequester", int(uint(squad__leader)))

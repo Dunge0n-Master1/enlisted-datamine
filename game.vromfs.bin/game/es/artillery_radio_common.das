@@ -2,6 +2,8 @@ module artillery_radio_common shared
 require ecs
 require app
 require HumanPhys
+require math.base
+require game.es.battle_area_common
 require DagorSystem
 
 def has_radioman_squadmate_for_order(squad_eid : EntityId; leader_eid : EntityId)
@@ -11,6 +13,13 @@ def has_radioman_squadmate_for_order(squad_eid : EntityId; leader_eid : EntityId
                                  isAlive : bool;
                                  isDowned : bool = false)
     return squad_eid == squad_member__squad && eid != leader_eid && isAlive && !isDowned && !!human_weap__radioEid
+
+def test_artillery_in_battle_area(pos_start, pos_end : float3; team : int) : bool
+  let dist2 = distance_sq(pos_start, pos_end)
+  if dist2 < VERY_SMALL_NUMBER
+    return has_active_human_battle_area_at(pos_start, team)
+  else
+    return dist2 < 1e10 && is_segment_in_active_human_battle_area(pos_start, pos_end, team)
 
 def is_artillery_on_cooldown(playerEid : EntityId)
   return get_sync_time() < get_float(playerEid, "artillery__availableAtTime") ?? 0.0

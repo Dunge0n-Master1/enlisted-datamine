@@ -83,6 +83,7 @@ squad_member_ai{
   _extends:t="human_stat_tracking"
   _extends:t="human_stat_tracking_ext"
   _extends:t="walker_agent_danger_calc"
+  _extends:t="aware_of_dangers"
   _extends:t="beh_tree_regular_check"
   _extends:t="beh_tree_enemy_player_in_radius"
   _extends:t="beh_tree_bomb_site_in_radius"
@@ -115,6 +116,7 @@ squad_member_ai{
   beh_tree__blackboard__enemyNearRadius:r=16.0
   beh_tree__blackboard__enemyDefendRadius:r=32.0
   beh_tree__blackboard__enemyMeleeRadius:r=2.0
+  beh_tree__blackboard__enemyVehicleRadius:r=20.0
   beh_tree__data__defendPoint:t="sub.defendPoint"
   beh_tree__data__personalOrder:t="sub.personalOrder"
   beh_tree__data__agressiveBeh:t="sub.agressiveBeh"
@@ -126,7 +128,7 @@ squad_member_ai{
   beh_tree__data__passiveMoveReactionTrain:t="sub.passiveMoveReactionTrain"
   beh_tree__data__agressiveStayReactionTrain:t="sub.agressiveStayReactionTrain"
   beh_tree__data__agressiveMoveReactionTrain:t="sub.agressiveMoveReactionTrain"
-  beh_tree__data__getRegroupPosTrain:t="sub.getRegroupPosTrain"
+  beh_tree__data__updateRegroupPosTrain:t="sub.updateRegroupPosTrain"
   beh_tree__data__orderReq:t="sub.orderReq"
   beh_tree__data__plantBombReq:t="sub.plantBombReq"
   beh_tree__data__defuseBombReq:t="sub.defuseBombReq"
@@ -139,6 +141,8 @@ squad_member_ai{
   beh_tree__data__vehicleBeh:t="sub.vehicleBeh"
   beh_tree__data__findCoverBeh:t="sub.findCover"
   beh_tree__data__checkCoverBeh:t="sub.checkCover"
+  beh_tree__data__findCoverAroundLeaderBeh:t="sub.findCoverAroundLeader"
+  beh_tree__data__findCoverAroundLeaderAwayBeh:t="sub.findCoverAroundLeaderAway"
   beh_tree__data__findCoverAroundPointBeh:t="sub.findCoverAroundPoint"
   beh_tree__data__checkCoverAroundPointBeh:t="sub.checkCoverAroundPoint"
   beh_tree__refs__behaviour:t="sub.agressiveBeh"
@@ -149,7 +153,7 @@ squad_member_ai{
   beh_tree__refs__passiveMoveReaction:t="sub.passiveMoveReactionDefault"
   beh_tree__refs__agressiveStayReaction:t="sub.agressiveStayReactionDefault"
   beh_tree__refs__agressiveMoveReaction:t="sub.agressiveMoveReactionDefault"
-  beh_tree__refs__getRegroupPos:t="sub.getRegroupPosDefault"
+  beh_tree__refs__updateRegroupPos:t="sub.updateRegroupPosDefault"
   agent_dangers__maxDangerDist:r=90.0
   agent_dangers__frustumAngle:r=45.0
   agent_dangers__projectileDist:r=4.0
@@ -216,6 +220,34 @@ walker_agent_danger_calc{
   danger_calc__lastShootCoef:p2=1.0, 1.0
   danger_calc__noiseCoef:p2=0.2, 1.0
   danger_calc__lastBulletNearbyCoef:p2=10.0, 10.0
+}
+
+awared_danger{
+
+  _group{
+    _tags:t="server"
+    danger__awareRadiusCoef:r=2.0
+    danger__awareUpdateDistSq:r=10000.0
+    danger__awareLastPos:p3=0.0, 0.0, 0.0
+    danger__awareSize:p2=0.0, 0.0
+
+    "danger__awareEids:list<eid>"{
+    }
+  }
+}
+
+aware_of_dangers{
+
+  _group{
+    _tags:t="server"
+    aware__maxDangers:i=3
+
+    "aware__dangersEids:list<eid>"{
+    }
+
+    "aware__dangersData:list<i>"{
+    }
+  }
 }
 
 crawler_ai{

@@ -14,16 +14,35 @@ require game.es.ai.walker_common
 require debug.logerr_once
 
 
+def make_log_msg(owner; eid : EntityId; msg : string; paramName : string)
+  if empty(paramName)
+    return "{eid}: {msg}"
+  let paramId = owner.blackBoard |> datablock_find_param(paramName)
+  if paramId < 0
+    return "{eid}: {msg} = <not found '{paramName}>"
+  let paramType = owner.blackBoard |> datablock_getParamType(uint(paramId))
+  if paramType == int(DataBlockParamType TYPE_STRING)
+    return "{eid}: {msg} = {owner.blackBoard |> datablock_getStr(paramId)}"
+  elif paramType == int(DataBlockParamType TYPE_INT)
+    return "{eid}: {msg} = {owner.blackBoard |> datablock_getInt(paramId)}"
+  elif paramType == int(DataBlockParamType TYPE_REAL)
+    return "{eid}: {msg} = {owner.blackBoard |> datablock_getReal(paramId)}"
+  elif paramType == int(DataBlockParamType TYPE_POINT3)
+    return "{eid}: {msg} = {owner.blackBoard |> datablock_getPoint3(paramId)}"
+  return "{eid}: {msg} = <unsuppoted type '{paramType}' of param '{paramName}'>"
+
 [beh_node(name="log")]
 class Log : BehNodeAdapter
   msg : string = "msg"
+  paramName : string
 
   def override loadFromBlk(var data : DataBlock) : void
     msg = datablock_getStr(data, "msg", msg)
+    paramName = datablock_getStr(data, "paramName", "")
 
   def override update(dt : float) : EBehResult
     let eid = beh_tree_eid()
-    print("{eid}: {msg}")
+    print(make_log_msg(owner, eid, msg, paramName))
     return EBehResult ER_SUCCESS
 
 [beh_node(name="visualLog")]
@@ -31,8 +50,7 @@ class VisualLog : Log
 
   def override update(dt : float) : EBehResult
     let eid = beh_tree_eid()
-    print("{eid}: {msg}")
-    visual_log("{eid}: {msg}")
+    visual_log(make_log_msg(owner, eid, msg, paramName))
     return EBehResult ER_SUCCESS
 
 [beh_node(name="setTime")]
@@ -52,6 +70,33 @@ class SetTime : BehNodeAdapter
     else
       logerr_once("{beh_tree_eid()}: SetTime node cannot find '{to}' field in <{getEntityTemplateName(beh_tree_eid())}>")
       return EBehResult ER_FAILED
+
+[beh_node(name="getTime")]
+class GetTime : BehNodeAdapter
+  toParam : int = -1
+  addRange : float2 = float2(0.0)
+
+  def override loadFromBlk(var data : DataBlock) : void
+    toParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "to", ""), 0.0)
+    addRange = datablock_getPoint2(data, "addRange", float2(0.0))
+
+  def override update(dt : float) : EBehResult
+    owner.blackBoard |> set(toParam, float(get_sync_time() + rnd_float(addRange.x, addRange.y)))
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="checkAtTime")]
+class CheckAtTime : BehNodeAdapter
+  timeParam : int = -1
+  timeRange : float2 = float2(0.0, 1.0)
+
+  def override loadFromBlk(var data : DataBlock) : void
+    timeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "timeParam", ""), 0.0)
+    timeRange = datablock_getPoint2(data, "range", float2(0.0, 1.0))
+
+  def override update(dt : float) : EBehResult
+    let curTime = float(get_sync_time())
+    let atTime = owner.blackBoard |> datablock_getReal(timeParam)
+    return (curTime >= atTime + timeRange.x && curTime <= atTime + timeRange.y) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 [beh_node(name="destroyEntity")]
 class DestroyEntity : BehNodeAdapter
@@ -148,4 +193,22 @@ class IsDoor : BehNodeAdapter
     query(EntityId(uint(eid))) <| $ [es] (isDoor : bool)
       if isDoor
         result = EBehResult ER_SUCCESS
+    return result
+
+
+[beh_node(name="setTransformPosFromEntity")]
+class SetTransformPosFromEntityNode : BehNodeAdapter
+  posParam : int = -1
+  eidParam : int = -1
+
+  def override loadFromBlk(var data : DataBlock) : void
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "to", ""), float3(0))
+    eidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "from", ""), 0)
+
+  def override update(dt : float) : EBehResult
+    let eid = owner.blackBoard |> datablock_getInt(eidParam)
+    var result = EBehResult ER_FAILED
+    query(EntityId(uint(eid))) <| $ [es] (transform : float3x4)
+      owner.blackBoard |> set(posParam, transform[3])
+      result = EBehResult ER_SUCCESS
     return result

@@ -1,3 +1,4 @@
+options no_aot
 require ecs
 require sandbox.es.navmesh_rebuild_events
 require DagorConsole

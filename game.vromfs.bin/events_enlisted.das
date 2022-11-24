@@ -324,6 +324,14 @@ struct CmdStartArtilleryStrikeAtPos
   posEnd : float3
 
 [event(unicast)]
+struct CmdStartDelayedArtilleryStrikeAtPos
+  owner : EntityId
+  pos : float3
+  typeIndex : int
+  posEnd : float3
+  delayTime : float
+
+[event(unicast)]
 struct CmdStartArtilleryOverOrder
   targetPos : float3
   typeIndex : int

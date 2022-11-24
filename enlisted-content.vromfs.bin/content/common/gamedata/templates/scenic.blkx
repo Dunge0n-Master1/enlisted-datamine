@@ -108,6 +108,8 @@ water{
     water__strength:r=4.0
     water__wind_dir:r=40.0
     water__level:r=0.0
+    water__smallWaterAIWalkHeight:r=0.3
+    water__deepWaterAIAreaCost:r=-1.0
     water__fft_resolution:i=7
     water__max_tessellation:i=4
     water__flowmap:b=no

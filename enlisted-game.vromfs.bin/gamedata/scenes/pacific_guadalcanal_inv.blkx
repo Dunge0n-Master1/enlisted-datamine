@@ -4565,7 +4565,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   transform:m=[[0.743602, 0.0, 1.06457] [0.0, 1.0, -0.0] [-0.81981, 0.0, 0.572635] [-464.361, 10.0611, 88.2051]]
   active:b=no
@@ -4596,7 +4596,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no

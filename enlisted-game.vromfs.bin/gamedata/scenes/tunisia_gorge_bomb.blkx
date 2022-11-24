@@ -557,7 +557,7 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_1"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=20.0
   active:b=no
   ui_order:i=1
   capzone__capReward:r=300.0
@@ -584,7 +584,7 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_2"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=20.0
   active:b=no
   ui_order:i=2
   capzone__capReward:r=500.0
@@ -609,7 +609,7 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-114.078, 11.5146, -776.396]]
   groupName:t="sector_2"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=20.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__caption:t="capzone/artillery_emplacement"
@@ -638,7 +638,7 @@ entity{
   _template:t="bomb_site_zone_chained_sphere+defend_zone_respawnbase"
   transform:m=[[0.405624, 0.0, 0.91404] [0.0, 1.0, 0.0] [-0.91404, 0.0, 0.405624] [115.727, 28.0247, -739.142]]
   groupName:t="sector_3"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=20.0
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   capzone__caption:t="capzone/farm_house"
@@ -665,7 +665,7 @@ entity{
   capzone__capRewardPartCap:r=1.8
   capzone__mustBeCapturedByTeam:i=1
   groupName:t="sector_3"
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=20.0
   active:b=no
   ui_order:i=3
   capzone__capReward:r=300.0

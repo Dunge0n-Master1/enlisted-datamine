@@ -99,10 +99,9 @@ let function mkPieMenu(params=defParams){
     return back
   let sangle = 360.0 / objsnum/2
 
-  let internalIdx = Watched(null)
   let curIdx = params?.curIdx ?? Watched(null)
+  let curHoveredIdx = params?.curHoveredIdx ?? curIdx
   let curAngle = Watched(null)
-  internalIdx.subscribe(function(v) { if (v != null) curIdx(v)})
   let children = place_by_circle({
     radius=radius, objects=objs.map(@(v, i) v?.ctor?(curIdx, i) ?? mDefCtor(v?.text)(curIdx, i) ), offset=3.0/4
   })
@@ -158,16 +157,17 @@ let function mkPieMenu(params=defParams){
   let function pieMenu() {
     return {
       size
-      watch = curIdx
+      watch = curHoveredIdx
       behavior = Behaviors.PieMenu
       skipDirPadNav = true
       devId = params?.devId ?? defParams.devId
       stickNo = params?.stickNo ?? defParams.stickNo
-      curSector = internalIdx
+      curSector = curHoveredIdx
       curAngle
       sectorsCount = objsnum
       onClick = @(idx) params?.onClick?(idx)
       onDetach = params?.onDetach
+      onAttach = params?.onAttach
       children = [back, activeSector, angle].extend(params?.children ?? []).extend(children)
     }
   }

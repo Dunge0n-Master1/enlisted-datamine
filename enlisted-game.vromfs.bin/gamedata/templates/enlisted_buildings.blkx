@@ -1298,6 +1298,7 @@ jp_rallypoint{
 ammunition_box_a_preview{
   _extends:t="base_animchar_builder_preview"
   instantiateTemplate:t="ammunition_box_a"
+  ai_ri_preview_name:t="ammunition_box_a"
   animchar__res:t="ammunition_supply_a_char"
   collres__res:t="ammunition_supply_a_dynmodel_collision"
   buildingSoundTag:t="fortification"
@@ -1308,6 +1309,9 @@ ammunition_box_a_preview{
   building_menu__image:t="building_ammo_box"
 
   "destroySimilarBuilding:tag"{
+  }
+
+  "ammunitionBoxPreview:tag"{
   }
 }
 

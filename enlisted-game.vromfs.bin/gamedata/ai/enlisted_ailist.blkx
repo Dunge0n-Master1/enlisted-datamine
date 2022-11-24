@@ -1,6 +1,44 @@
-selector{
+repeat{
   name:t="squad_member"
-  selectStrategy:t="ordered"
+
+  sequencer{
+
+    onceUntilReset{
+    }
+
+    setIntVar{
+      to:t="isUnreachable"
+      value:i=0
+    }
+
+    setIntVar{
+      to:t="minStance"
+      value:i=0
+    }
+
+    stopAim{
+    }
+
+    success{
+
+      sequencer{
+
+        isAgentPlayerBot{
+        }
+
+        not{
+
+          isBipodWeaponSelected{
+          }
+        }
+
+        setIntVar{
+          to:t="minStance"
+          value:i=1
+        }
+      }
+    }
+  }
 
   subTree{
     name:t=""

@@ -20,10 +20,10 @@ def calc_aircraft_request_dir(ownerTeam : int)
 
     if ownerTeam == team
       countFriendlyTeam = countFriendlyTeam + 1
-      spawnFriendlyTeam = transform[3]
+      spawnFriendlyTeam += transform[3]
     else
       countEnemyTeam = countEnemyTeam + 1
-      spawnEnemyTeam = transform[3]
+      spawnEnemyTeam += transform[3]
       return
 
   var dir = float2(1., 0.)

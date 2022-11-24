@@ -4134,7 +4134,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-21.9831, 5.50829, 166.822]]
   active:b=no
@@ -4164,7 +4164,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[-2.46655, 0.0, -18.6909] [0.0, 6.8964, 0.0] [32.2703, 0.0, -4.25858] [100.982, 10.0291, 282.346]]
   active:b=no
@@ -4194,7 +4194,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-3.11903, 0.0, -23.6294] [0.0, 4.97835, 0.0] [30.8985, 0.0, -4.07856] [-25.9909, 9.02631, 277.281]]
   active:b=no
@@ -4224,7 +4224,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.77263, 0.0, -0.255246] [0.0, 1.0, 0.0] [0.199953, 0.0, 1.38863] [47.0533, 5.08667, 146.706]]
   active:b=no
@@ -4255,7 +4255,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_c"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-1.79459, 0.0, -14.1693] [0.0, 6.8964, 0.0] [32.6307, 0.0, -4.13281] [-28.7546, 9.49177, 258.481]]
   active:b=no
@@ -4285,7 +4285,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-21.9831, 5.50829, 166.822]]
   active:b=no
@@ -4314,7 +4314,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[41.1665, 0.0, -5.60759] [0.0, 4.70133, 0.0] [2.78877, 0.0, 20.4728] [-56.645, 7.45294, 168.715]]
   active:b=no
@@ -4343,7 +4343,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-32.2988, 0.0, 4.11572] [0.0, 9.08888, 0.0] [-3.33342, 0.0, -26.1597] [-108.199, 8.7228, 236.531]]
   active:b=no
@@ -4372,7 +4372,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_d"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-32.2988, 0.0, 4.11572] [0.0, 11.3661, 0.0] [-3.33342, 0.0, -26.1597] [-140.308, 7.82801, 240.622]]
   active:b=no
@@ -4400,7 +4400,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-2.60111, 0.0, -65.4699] [0.0, 6.65669, 0.0] [26.039, 0.0, -1.03455] [-201.151, 9.31195, 90.3614]]
   active:b=no
@@ -4428,7 +4428,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-2.21245, 0.0, -25.2205] [0.0, 5.70147, 0.0] [26.0962, 0.0, -2.28922] [-197.903, 9.77044, 182.961]]
   active:b=no

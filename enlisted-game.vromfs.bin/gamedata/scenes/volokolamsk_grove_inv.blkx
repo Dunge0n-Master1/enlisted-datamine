@@ -3166,6 +3166,7 @@ entity{
 entity{
   _template:t="bonfire_effect_big"
   transform:m=[[-0.830539, 0.105122, 0.546951] [-0.00416435, 0.980827, -0.194835] [-0.556945, -0.164096, -0.814177] [654.625, 10.4259, 1793.04]]
+  obstacle__padding:r=-0.3
 }
 
 entity{

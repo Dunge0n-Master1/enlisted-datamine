@@ -37,7 +37,7 @@ def on_squad_leader_use_bomb_es(act : UpdateStageInfoAct)
             beh_tree__refs__behaviour := beh_tree__data__orderReq
             beh_tree__refs__orderType := beh_tree__data__plantBombReq
 
-            EnlistedBehTree::load_beh_tree_from_ecs(squad__leader)
+            reload_squad_mate_beh_tree(squad__leader)
 
             if beh_tree__latencyLoadBlackBoard != null
               *beh_tree__latencyLoadBlackBoard |> set("bombSiteEid", int(uint(eid)))
@@ -51,7 +51,7 @@ def on_squad_leader_use_bomb_es(act : UpdateStageInfoAct)
             beh_tree__refs__behaviour := beh_tree__data__orderReq
             beh_tree__refs__orderType := beh_tree__data__defuseBombReq
 
-            EnlistedBehTree::load_beh_tree_from_ecs(squad__leader)
+            reload_squad_mate_beh_tree(squad__leader)
 
             if beh_tree__latencyLoadBlackBoard != null
               *beh_tree__latencyLoadBlackBoard |> set("bombSiteEid", int(uint(eid)))

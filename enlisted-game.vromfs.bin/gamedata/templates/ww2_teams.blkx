@@ -85,6 +85,21 @@ team_generic_capture{
   "team__spawnPending:object"{
     _tags:t="server"
   }
+
+  _group{
+    _tags:t="server"
+    team_bots__maxCustomSpawns:i=1
+    team_bots__customSpawnsDestroyedAvoidRadius:r=20.0
+    team_bots__customSpawnsDestroyedMaxAmount:i=2
+    team_bots__buildWaitForTime:r=0.0
+    team_bots__placeMedBoxWaitForTime:r=0.0
+
+    "team_bots__customSpawnsBuildingEids:list<eid>"{
+    }
+
+    "team_bots__customSpawnsDestroyed:list<p3>"{
+    }
+  }
 }
 
 respawn_creators_team{

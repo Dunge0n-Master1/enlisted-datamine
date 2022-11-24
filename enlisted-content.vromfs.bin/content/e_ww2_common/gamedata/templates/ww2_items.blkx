@@ -4123,6 +4123,9 @@ medic_medkit_item{
 
   "item__targetUseOnly:tag"{
   }
+
+  "itemAIHeal:tag"{
+  }
 }
 
 placed_medic_box_item{
@@ -4394,7 +4397,7 @@ uk_mills_grenade_item{
   _extends:t="item_grenade"
   animchar__res:t="uk_mills_grenade_char"
   collres__res:t="uk_mills_grenade_collision"
-  item__template:t="mk2_grenade_item"
+  item__template:t="uk_mills_grenade_item"
   item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/uk_mills_grenade.blk"
   item__locDetails:t=""
   item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/uk_mills_grenade.blk"

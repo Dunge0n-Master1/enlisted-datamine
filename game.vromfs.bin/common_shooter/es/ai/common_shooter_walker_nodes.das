@@ -1,12 +1,19 @@
 options always_export_initializer = true
 
 require ecs
+require ecs.common
 require EnlistedNet
 require DagorDataBlock
 require BehNodes
 require EnlistedWalkerai
 require app
+require strings
+require math.base
+require inventory
+require walkerai
 require HumanPhys
+require DagorRandom
+require EnlistedHuman
 require common_shooter.es.squad_common
 require common_shooter.es.ai.common_shooter_walker_nodes_common
 require common_shooter.events_common_shooter
@@ -126,3 +133,239 @@ class Reviving : BehNodeAdapter
         return
 
     return res
+
+
+[beh_node(name="isAgentPlayerBot")]
+class IsAgentPlayerBot : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    var isBot = false
+    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+      query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] ()
+        isBot = true
+    return isBot ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+
+def find_best_grenade_ammo_item_id(item_container : EidList; grenade_types_list : StringList;
+                                   use_exclude_list : bool; exclude_grenade_types_list : StringList) : int
+  var bestItemId = INVALID_ITEM_ID
+  var bestItemIdPriority = -1
+  if empty(grenade_types_list)
+    return bestItemId
+  var found = false
+  for itemEid in item_container
+    query(itemEid) <| $ [es] (item__grenadeType : string; item__id : int)
+      let idx = find_index(grenade_types_list, item__grenadeType)
+      if idx != -1 && (!use_exclude_list || find_index(exclude_grenade_types_list, item__grenadeType) < 0)
+        let foundItemIdPriority = idx
+        if bestItemIdPriority == -1 || foundItemIdPriority < bestItemIdPriority
+          bestItemIdPriority = foundItemIdPriority
+          bestItemId = item__id
+          if foundItemIdPriority == 0
+            found = true
+            return
+    if found
+      break
+  return bestItemId
+
+[beh_node(name="chooseBestWeapon")]
+class ChooseBestWeapon : BehNodeAdapter
+  targetParam : int = -1
+  selectWeapon : bool = true
+  defaultCombatDist : float = 20.0
+
+  changeWeaponTimeParam : int = -1
+  changeWeaponDelay : float = 15.0
+  switchRadiusCoef : float = 1.0
+
+  allowGrenades : bool = false
+
+  def override loadFromBlk(var data : DataBlock) : void
+    let targetParamName = data |> datablock_getStr("targetParam", "")
+    if !empty(targetParamName)
+      targetParam = owner.blackBoard |> get_or_create(targetParamName, 0)
+    selectWeapon = data |> datablock_getBool("selectWeapon", selectWeapon)
+    defaultCombatDist = data |> datablock_getReal("defaultCombatDist", defaultCombatDist)
+
+    let changeWeaponTimeParamName = data |> datablock_getStr("changeWeaponTimeParam", "changedWeaponTime")
+    if !empty(changeWeaponTimeParamName)
+      changeWeaponTimeParam = owner.blackBoard |> get_or_create(changeWeaponTimeParamName, 0.0)
+    changeWeaponDelay = data |> datablock_getReal("changeWeaponDelay", changeWeaponDelay)
+    switchRadiusCoef = data |> datablock_getReal("switchRadiusCoef", switchRadiusCoef)
+
+    allowGrenades = data |> datablock_getBool("allowGrenades", allowGrenades)
+
+  def override update(dt : float) : EBehResult
+    var agent = beh_tree_entity_agent(*owner)
+    if agent == null
+      return EBehResult ER_FAILED
+    if agent.phys == null
+      return EBehResult ER_FAILED
+
+    var unarmed = false
+    query(agent.eid) <| $ [es] (human_unarmed__active : bool)
+      unarmed = human_unarmed__active
+    if unarmed
+      return EBehResult ER_FAILED
+
+    var agentPlayerEid = INVALID_ENTITY_ID
+    query(agent.eid) <| $ [es] (squad_member__playerEid : EntityId)
+      agentPlayerEid = squad_member__playerEid
+
+    var vehicleTarget = false
+    var distToTargetSq = square(defaultCombatDist)
+    var targetInVehicle = false
+    let targetUnitId = targetParam >= 0 ? owner.blackBoard |> datablock_getInt(targetParam) : 0
+    query(EntityId(uint(targetUnitId))) <| $ [es] (ai_target : Target;
+                                                   agent_dangers__tag : string = "";
+                                                   isInVehicle : bool = false)
+      vehicleTarget = agent_dangers__tag == "vehicle"
+      distToTargetSq = length_sq(ai_target.targetPos - agent.pos)
+      targetInVehicle = isInVehicle
+
+    if vehicleTarget
+      let curTime = get_sync_time()
+      var allowedToThrowGrenade = true
+      query(agentPlayerEid) <| $ [es(REQUIRE=playerIsBot)] (botPlayer__nextAllowedThrowAntiTankGrenadeTime : float;
+                                                            botPlayer__throwAntiTankGrenadeCounter : int;
+                                                            botPlayer__throwAntiTankGrenadeDist : float2)
+        allowedToThrowGrenade = false
+        if botPlayer__throwAntiTankGrenadeCounter > 0 || curTime >= botPlayer__nextAllowedThrowAntiTankGrenadeTime
+          if distToTargetSq >= square(botPlayer__throwAntiTankGrenadeDist.x) && distToTargetSq <= square(botPlayer__throwAntiTankGrenadeDist.y)
+            allowedToThrowGrenade = true
+      if !allowedToThrowGrenade
+        return EBehResult ER_FAILED
+      var foundGrenade = false
+      query(agent.eid) <| $ [es] (itemContainer : EidList; [[shared_comp]] beh_tree__antitankGrenades : StringList)
+        let grenadeItemId = find_best_grenade_ammo_item_id(itemContainer, beh_tree__antitankGrenades, false, beh_tree__antitankGrenades);
+        if grenadeItemId != INVALID_ITEM_ID
+          foundGrenade = true
+          if selectWeapon
+            sendEvent(agent.eid, [[CmdSetWishAmmoItemType slot_id=int(HUWeaponSlots EWS_GRENADE), item_id=grenadeItemId]])
+            query(agentPlayerEid) <| $ [es(REQUIRE=playerIsBot)] (var botPlayer__nextAllowedThrowAntiTankGrenadeTime : float&;
+                                                                  var botPlayer__throwAntiTankGrenadeCounter : int&;
+                                                                  botPlayer__throwAntiTankGrenadeCounterReset : int2;
+                                                                  botPlayer__throwAntiTankGrenadeDelay : float2)
+              if botPlayer__throwAntiTankGrenadeCounter > 0
+                --botPlayer__throwAntiTankGrenadeCounter
+              else
+                botPlayer__nextAllowedThrowAntiTankGrenadeTime = curTime + rnd_float(botPlayer__throwAntiTankGrenadeDelay.x, botPlayer__throwAntiTankGrenadeDelay.y)
+                botPlayer__throwAntiTankGrenadeCounter = rnd_int(botPlayer__throwAntiTankGrenadeCounterReset.x, botPlayer__throwAntiTankGrenadeCounterReset.y)
+      return foundGrenade ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+    if allowGrenades && !targetInVehicle
+      let curTime = get_sync_time()
+      var allowedToThrowGrenade = false
+      var agentTeam = -1
+      var tanksNearDistanceSq = 0.0
+      var tanksNearChance = 1.0
+      query(agentPlayerEid) <| $ [es(REQUIRE=playerIsBot)] (team aka player_team : int;
+                                                            botPlayer__saveGrenadesForEnemyTanksDistance : float;
+                                                            botPlayer__saveGrenadesForEnemyTanksChance : float;
+                                                            botPlayer__nextAllowedThrowGrenadeTime : float;
+                                                            botPlayer__throwGrenadeDist : float2)
+        if curTime >= botPlayer__nextAllowedThrowGrenadeTime
+          if distToTargetSq >= square(botPlayer__throwGrenadeDist.x) && distToTargetSq <= square(botPlayer__throwGrenadeDist.y)
+            allowedToThrowGrenade = true
+            agentTeam = player_team
+            tanksNearDistanceSq = square(botPlayer__saveGrenadesForEnemyTanksDistance)
+            tanksNearChance = botPlayer__saveGrenadesForEnemyTanksChance
+      if allowedToThrowGrenade
+        var foundGrenade = false
+        query(agent.eid) <| $ [es] (itemContainer : EidList; [[shared_comp]] beh_tree__antibotGrenades : StringList; [[shared_comp]] beh_tree__antitankGrenades : StringList)
+          var grenadeItemId = find_best_grenade_ammo_item_id(itemContainer, beh_tree__antibotGrenades, true, beh_tree__antitankGrenades)
+          if grenadeItemId == INVALID_ITEM_ID
+            grenadeItemId = find_best_grenade_ammo_item_id(itemContainer, beh_tree__antibotGrenades, false, beh_tree__antitankGrenades)
+            if grenadeItemId != INVALID_ITEM_ID && agentTeam >= 1
+              let enemyTanksAround = find_query() <| $ [es(REQUIRE=isTank, REQUIRE_NOT=deadEntity)] (team aka tank_team : int; transform aka tank_transform : float3x4)
+                return tank_team >= 1 && tank_team != agentTeam && distance_sq(tank_transform[3], agent.pos) < tanksNearDistanceSq
+              if enemyTanksAround && (tanksNearChance >= 1.0 || rnd_float(0.0, 1.0) < tanksNearChance)
+                grenadeItemId = INVALID_ITEM_ID
+          if grenadeItemId != INVALID_ITEM_ID
+            foundGrenade = true
+            if selectWeapon
+              sendEvent(agent.eid, [[CmdSetWishAmmoItemType slot_id=int(HUWeaponSlots EWS_GRENADE), item_id=grenadeItemId]])
+              query(agentPlayerEid) <| $ [es(REQUIRE=playerIsBot)] (var botPlayer__nextAllowedThrowGrenadeTime : float&; botPlayer__throwGrenadeDelay : float2)
+                botPlayer__nextAllowedThrowGrenadeTime = curTime + rnd_float(botPlayer__throwGrenadeDelay.x, botPlayer__throwGrenadeDelay.y)
+        if foundGrenade
+          return EBehResult ER_SUCCESS
+
+    let currWeapon = int(agent.phys.producedCT.chosenWeapon)
+    var bestWeapons : array<int>
+    var goodWeapon = -1
+    query(agent.eid) <| $ [es] (human_weap__gunEids : EidList)
+      var closestStartFireRange = 0.0
+      for i, gunEid in range(int(HUWeaponSlots EWS_NUM)), human_weap__gunEids
+        if gunEid == INVALID_ENTITY_ID || i == int(HUWeaponSlots EWS_GRENADE)
+          continue
+        var firingRange = float2()
+        var gunAmmo = 0
+        var overHeated = false
+        query(gunEid) <| $ [es(REQUIRE_NOT=specialAIWeapon)] (combatFiringRange : float2; gun__totalAmmo : int = 0; gun__ammo : int = 0; gun__isOverheat : bool = false)
+          let rangeCoef = (i == currWeapon) ? 1.0 : switchRadiusCoef
+          firingRange = float2(combatFiringRange.x, combatFiringRange.y * rangeCoef)
+          gunAmmo = gun__totalAmmo + gun__ammo
+          overHeated = gun__isOverheat
+        if gunAmmo <= 0 || overHeated
+          continue
+        if square(firingRange.y) < distToTargetSq
+          continue
+        if square(firingRange.x) < distToTargetSq
+          bestWeapons |> push(i)
+        elif goodWeapon == -1 || firingRange.x < closestStartFireRange
+          closestStartFireRange = firingRange.x
+          goodWeapon = i
+
+    var bestWeapon = -1
+    if empty(bestWeapons)
+      bestWeapon = goodWeapon
+    elif find_index(bestWeapons, currWeapon) != -1 && changeWeaponTimeParam >= 0 && get_sync_time() < (owner.blackBoard |> datablock_getReal(changeWeaponTimeParam) + changeWeaponDelay)
+      bestWeapon = currWeapon
+    else
+      bestWeapon = bestWeapons[rnd_int(0, length(bestWeapons) - 1)]
+
+    if bestWeapon >= 0
+      if selectWeapon && bestWeapon != currWeapon
+        set_chosen_weapon(agent.phys.producedCT, HUWeaponSlots(bestWeapon))
+        if changeWeaponTimeParam >= 0
+          owner.blackBoard |> set(changeWeaponTimeParam, get_sync_time())
+      return EBehResult ER_SUCCESS
+    return EBehResult ER_FAILED
+
+[beh_node(name="resetGrenadeThrowTime")]
+class ResetGrenadeThrowTime : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+      query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] (var botPlayer__nextAllowedThrowGrenadeTime : float&)
+        botPlayer__nextAllowedThrowGrenadeTime = get_sync_time()
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="resetAntiTankGrenadeThrowLimiter")]
+class ResetAntiTankGrenadeThrowLimiter : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+      query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] (var botPlayer__throwAntiTankGrenadeCounter : int&)
+        ++botPlayer__throwAntiTankGrenadeCounter
+    return EBehResult ER_SUCCESS
+
+[beh_node(name="isGrenadeSelected")]
+class IsGrenadeSelected : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    return agent.phys.producedCT.chosenWeapon == HUWeaponSlots EWS_GRENADE ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+[beh_node(name="isBipodWeaponSelected")]
+class IsBipodWeaponSelected : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    let chosenWeapon = int(agent.phys.appliedCT.chosenWeapon)
+    var hasBipodWeaponSelected = false
+    query(agent.eid) <| $ [es] (human_weap__gunEids : EidList)
+      if chosenWeapon >= 0 && chosenWeapon < length(human_weap__gunEids)
+        query(human_weap__gunEids[chosenWeapon]) <| $ [es] ([[shared_comp]] gun__mountPoints : Array)
+          for i in iter_range(gun__mountPoints)
+            let obj = get_ecs_object(gun__mountPoints[i])
+            var pttype = get_ecs_string(obj, "type")
+            if pttype != null && string(*pttype) == "bipod"
+              hasBipodWeaponSelected = true
+              break
+    return hasBipodWeaponSelected ? EBehResult ER_SUCCESS : EBehResult ER_FAILED

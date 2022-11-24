@@ -42,7 +42,7 @@ def order_ammo(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int
     beh_tree__refs__behaviour := beh_tree__data__orderReq
     beh_tree__refs__orderType := beh_tree__data__ammoReq
 
-    EnlistedBehTree::load_beh_tree_from_ecs(nearestTeammate.eid)
+    reload_squad_mate_beh_tree(nearestTeammate.eid)
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("ammoRequester", int(uint(squad__leader)))

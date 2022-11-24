@@ -1,22 +1,34 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {ControlBgOpaque, BtnBgDisabled, BtnBdDisabled, BtnTextVisualDisabled} = require("%ui/style/colors.nut")
-let {canChangeQueueParams, queueClusters, isInQueue} = require("%enlist/state/queueState.nut")
-let {availableClusters, clusters, clusterLoc} = require("clusterState.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { ControlBgOpaque, BtnBgDisabled, BtnBdDisabled, BtnTextVisualDisabled, comboboxBorderColor
+} = require("%ui/style/colors.nut")
+let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
+let { availableClusters, clusters, clusterLoc, isAutoCluster } = require("clusterState.nut")
+let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
+let squadClusters = squadSharedData.clusters
+let squadAutoCluster = squadSharedData.isAutoCluster
+let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
 let textButton = require("%ui/components/textButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
-let multiselect = require("%enlist/components/multiselect.nut")
+let { multiselect, styleCommon, styleDisabled } = require("%enlist/components/multiselect.nut")
+let checkbox = require("%ui/components/checkbox.nut")
 
-let borderColor = Color(60,60,60,255)
+
+const CLUSTER_PANEL_UID = "clustersSelector"
+const SELECTION_ERROR_UID = "groupSizePopup"
+
+let isLocalClusters = Computed(@() !isInSquad.value || isSquadLeader.value)
+
 let btnParams = {
-  size = [flex(), hdpx(50)],
-  halign = ALIGN_LEFT,
-  margin = 0,
-  textMargin = [0, 0, 0, fsh(1.5)],
+  size = [flex(), hdpx(50)]
+  halign = ALIGN_LEFT
+  margin = 0
+  textMargin = [0, 0, 0, fsh(1.5)]
   clipChildren = true
-  textParams = { behavior = Behaviors.Marquee}
+  textParams = { behavior = Behaviors.Marquee }
 }
+
 let visualDisabledBtnParams = btnParams.__merge({
   style = {
     BgNormal = BtnBgDisabled
@@ -26,52 +38,88 @@ let visualDisabledBtnParams = btnParams.__merge({
 })
 
 let clusterSelector = @() {
+  watch = [availableClusters, isAutoCluster, clusters]
   size = [flex(), SIZE_TO_CONTENT]
-  watch = availableClusters
-  children = multiselect({
-    selected = clusters
-    minOptions = 1
-    options = availableClusters.value.map(@(c) { key = c, text = clusterLoc(c) })
+  flow = FLOW_VERTICAL
+  gap = {
+    size = [flex(), hdpx(1)]
+    rendObj = ROBJ_SOLID
+    color = comboboxBorderColor
+  }
+  children = [
+    checkbox(isAutoCluster, { text = loc("quickMatch/Server/Optimal") }.__update(body_txt))
+    multiselect({
+      selected = isAutoCluster.value ? Watched({}) : clusters
+      minOptions = 1
+      options = availableClusters.value.map(@(key) { key, text = clusterLoc(key) })
+      style = isAutoCluster.value ? styleDisabled : styleCommon
+    })
+  ]
+}
+
+let showCantChangeInQueue = @() addPopup({
+  id = SELECTION_ERROR_UID
+  text = loc("Can't change params while in queue") // TODO simplify localization keys
+  styleName = "error"
+})
+
+let function showCantChangeMessage() {
+  if (isInQueue.value) {
+    showCantChangeInQueue()
+    return
+  }
+  addPopup({
+    id = SELECTION_ERROR_UID
+    text = loc("Only squad leader can change params")
+    styleName = "error"
   })
 }
 
-let function showCantChangeMessage() {
-  let text = isInQueue.value ? loc("Can't change params while in queue") : loc("Only squad leader can change params")
-  popupsState.addPopup({ id = "groupSizePopup", text = text, styleName = "error" })
+let function openClustersMenu(event) {
+  if (isInQueue.value) {
+    showCantChangeInQueue()
+    return
+  }
+  removePopup(SELECTION_ERROR_UID)
+  modalPopupWnd.add(event.targetRect, {
+    uid = CLUSTER_PANEL_UID
+    size = [hdpx(500), SIZE_TO_CONTENT]
+    children = clusterSelector
+    popupOffset = hdpx(5)
+    popupHalign = ALIGN_LEFT
+    fillColor = ControlBgOpaque
+    borderColor = comboboxBorderColor
+    borderWidth = hdpx(1)
+  })
 }
 
-let mkClustersUi = kwarg(function(style = {}){
-  let size = style?.size ?? [hdpx(250), SIZE_TO_CONTENT]
-  let popupWidth = size?[0] ?? SIZE_TO_CONTENT
-  let function openClustersMenu(event) {
-    modalPopupWnd.add(event.targetRect, {
-      uid = "clusters_selector"
-      size = [popupWidth, SIZE_TO_CONTENT]
-      children = clusterSelector
-      popupOffset = hdpx(5)
-      popupHalign = ALIGN_LEFT
-      fillColor = ControlBgOpaque
-      borderColor = borderColor
-      borderWidth = hdpx(1)
-    })
-  }
-  return function clustersUi() {
-    let clustersArr = queueClusters.value
-      .filter(@(has, cluster) has && availableClusters.value.indexof(cluster) != null)
-      .keys()
-    let chosenText = availableClusters.value.len() == clustersArr.len() ? loc("quickMatch/Server/Any")
-      : ", ".join(clustersArr.map(clusterLoc))
-    let text = "{0}: {1}".subst(loc("quickMatch/Server"), chosenText)
+isInQueue.subscribe(@(_) modalPopupWnd.remove(CLUSTER_PANEL_UID))
+
+let function mkClustersText(availClusters, curClusters, isAuto) {
+  let clustersArr = availClusters.filter(@(id) curClusters?[id])
+  let chosenText = isAuto ? loc("quickMatch/Server/Optimal")
+    : availClusters.len() == clustersArr.len() ? loc("quickMatch/Server/Any")
+    : ", ".join(clustersArr.map(clusterLoc))
+  return "{0}: {1}".subst(loc("quickMatch/Server"), chosenText)
+}
+
+let function clustersUi() {
+  if (isLocalClusters.value) {
+    let text = mkClustersText(availableClusters.value, clusters.value, isAutoCluster.value)
     return {
-      watch = [queueClusters, canChangeQueueParams, availableClusters]
-      size = size
-      children = canChangeQueueParams.value
-        ? textButton(text, openClustersMenu, btnParams)
-        : textButton(text, showCantChangeMessage, visualDisabledBtnParams)
+      watch = [isLocalClusters, canChangeQueueParams, availableClusters, clusters, isAutoCluster]
+      size = [flex(), SIZE_TO_CONTENT]
+      children = textButton(text, openClustersMenu,
+        canChangeQueueParams.value ? btnParams : visualDisabledBtnParams)
     }
   }
-})
 
-return {
-  mkClustersUi
+  let text = mkClustersText(availableClusters.value, squadClusters.value, squadAutoCluster.value)
+  return {
+    watch = [isLocalClusters, availableClusters, squadClusters, squadAutoCluster]
+    size = [flex(), SIZE_TO_CONTENT]
+    children = textButton(text, showCantChangeMessage, visualDisabledBtnParams)
+  }
 }
+
+return clustersUi

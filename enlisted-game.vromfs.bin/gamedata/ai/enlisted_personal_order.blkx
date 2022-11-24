@@ -303,11 +303,6 @@ repeat{
             treeName:t="sub.oneShootAttack"
           }
 
-          setPosFromEntity{
-            to:t="potentialEnemyPos"
-            from:t="shootEnemy"
-          }
-
           parallel{
 
             wait{
@@ -315,10 +310,22 @@ repeat{
               resetable:b=yes
             }
 
-            wanderLook{
-              posParam:t="potentialEnemyPos"
-              range:p2=0.2, 0.1
-              maxStanceParam:t="coverStance"
+            sequencer{
+
+              checkAtTime{
+                timeParam:t="rememberEnemyTime"
+                range:p2=0.0, 10.0
+              }
+
+              checkTarget{
+                targetUnitParam:t="rememberEnemy"
+              }
+
+              wanderLook{
+                posParam:t="rememberEnemyPos"
+                range:p2=0.2, 0.1
+                maxStanceParam:t="coverStance"
+              }
             }
           }
         }

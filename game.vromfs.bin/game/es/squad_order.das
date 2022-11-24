@@ -70,6 +70,7 @@ def squad_formation_es(evt : RequestSquadFormation;
   ecs::query(squad__ownerPlayer) <| $ [es] (var squadFormationSpread : int&)
     squadFormationSpread = int(evt.spread)
     squad_formation_order_speech(eid, squad__leader, evt.spread)
+    reset_squad_behaviour(eid)
 
 def squad_behaviour_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; squad_behaviour : int)
   if squad_behaviour == int(SquadBehaviour ESB_AGRESSIVE)

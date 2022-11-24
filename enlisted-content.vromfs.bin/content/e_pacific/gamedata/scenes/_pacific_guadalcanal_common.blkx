@@ -61,6 +61,8 @@ entity{
   water__level:r=0.0
   water__strength:r=1.0
   water__wind_dir:r=270.0
+  water__smallWaterAIWalkHeight:r=0.5
+  water__deepWaterAIAreaCost:r=2.0
   water__flowmap:b=yes
   water__flowmap_tex:t="pacific_guadalcanal_water_det_flowmap"
   water__flowmap_area:p4=-2048.0, 2048.0, 2048.0, -2048.0

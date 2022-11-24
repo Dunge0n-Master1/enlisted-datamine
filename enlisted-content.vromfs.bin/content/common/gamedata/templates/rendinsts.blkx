@@ -70,6 +70,7 @@ game_rendinst_decor{
   _extends:t="rendinst"
   _extends:t="replicating"
   ri_shadow__prevBSphere:p4=0.0, 0.0, 0.0, 0.0
+  ri_extra__hasCollision:b=yes
 
   "gameRendInstTag:tag"{
   }

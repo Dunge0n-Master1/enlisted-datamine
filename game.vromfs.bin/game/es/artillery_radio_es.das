@@ -1,10 +1,9 @@
 require ecs
+require ecs.safe
 require app
 require EnlistedNet
-require math.base
 require game.es.events
 require enlisted.events_enlisted
-require game.es.battle_area_common
 require HumanPhys
 require EnlistedHuman
 require enlisted.game.es.artillery_radio_common
@@ -13,6 +12,27 @@ require EnlistedWalkerai
 require DagorSystem
 require game.utils.team
 require game.es.squad_order_common
+
+[es(tag=server, on_appear, on_event=EventPlayerProfileChanged)]
+def artillery_init_squads_have_radio(evt : Event; armies : Object; army : string; var artillery__hasRadioInArmySquads : bool&)
+  artillery__hasRadioInArmySquads = false
+  assume armyData = armies[army] ?as Object
+  assume squads = armyData?.squads ?as Array
+  if squads == null
+    return
+  for it in *squads
+    assume squad = it as Object
+    assume soldiers = squad?.squad ?as Array
+    if soldiers == null
+      continue
+    for it2 in *soldiers
+      assume soldier = it2 as Object
+      assume equipment = soldier?.equipment ?as Object
+      if equipment == null
+        continue
+      assume radio = (*equipment)["radio"] ?as Object
+      if radio != null
+        artillery__hasRadioInArmySquads = true
 
 [es(tag=server, on_appear, track=human_equipment__slots)]
 def artillery_radio_track_equipment(evt : Event; human_equipment__slots : Object; var human_weap__radioEid : EntityId&)
@@ -87,13 +107,6 @@ def radio_mode_change_pose_on_client(evt : Event;
     human_input__standState = int(HumanPhysControlType HCT_CROUCH)
   elif radioMode__prevPose >= 0
     human_input__standState = radioMode__prevPose
-
-def test_artillery_in_battle_area(pos_start, pos_end : float3; team : int) : bool
-  let dist2 = distance_sq(pos_start, pos_end)
-  if dist2 < VERY_SMALL_NUMBER
-    return has_active_human_battle_area_at(pos_start, team)
-  else
-    return dist2 < 1e10 && is_segment_in_active_human_battle_area(pos_start, pos_end, team)
 
 [es(tag=server)]
 def request_artillery_strike(evt : RequestArtilleryStrikeAtPos;

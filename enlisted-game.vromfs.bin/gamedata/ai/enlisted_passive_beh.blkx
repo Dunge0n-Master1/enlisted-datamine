@@ -191,6 +191,11 @@ repeat{
     treeName:t="sub.changeStanceWhenInTheSquadLeaderAim"
   }
 
+  subTree{
+    name:t=""
+    treeName:t="sub.checkHealTeammatesAround"
+  }
+
   sequencer{
     name:t="regroup"
 
@@ -307,7 +312,7 @@ repeat{
 
   subTree{
     name:t=""
-    refId:t="getRegroupPos"
+    refId:t="updateRegroupPos"
   }
 
   subTree{
@@ -378,6 +383,10 @@ repeat{
           subTree{
             treeName:t="sub.oneShootAttack"
           }
+
+          getTime{
+            to:t="enemyNearTime"
+          }
         }
 
         sequencer{
@@ -393,11 +402,6 @@ repeat{
             treeName:t="sub.oneShootAttack"
           }
 
-          setPosFromEntity{
-            to:t="potentialEnemyPos"
-            from:t="shootEnemy"
-          }
-
           parallel{
 
             wait{
@@ -405,10 +409,22 @@ repeat{
               resetable:b=yes
             }
 
-            wanderLook{
-              posParam:t="potentialEnemyPos"
-              range:p2=0.2, 0.1
-              maxStanceParam:t="coverStance"
+            sequencer{
+
+              checkAtTime{
+                timeParam:t="rememberEnemyTime"
+                range:p2=0.0, 10.0
+              }
+
+              checkTarget{
+                targetUnitParam:t="rememberEnemy"
+              }
+
+              wanderLook{
+                posParam:t="rememberEnemyPos"
+                range:p2=0.2, 0.1
+                maxStanceParam:t="coverStance"
+              }
             }
           }
         }
@@ -416,13 +432,22 @@ repeat{
     }
   }
 
-  getRegroupPos{
-    posParam:t="regroupPosition"
-  }
+  sequencer{
 
-  copyPoint3Var{
-    from:t="regroupPosition"
-    to:t="storedRegroupPosition"
+    isVarsIntEqual{
+      lhs:t="tryBuild"
+      rhs_value:i=1
+    }
+
+    setIntVar{
+      to:t="tryBuild"
+      value:i=0
+    }
+
+    subTree{
+      name:t=""
+      treeName:t="sub.tryBuildAndPlace"
+    }
   }
 
   sequencer{
@@ -470,6 +495,15 @@ repeat{
       name:t=""
       treeName:t="sub.passiveStay"
     }
+  }
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  copyPoint3Var{
+    from:t="regroupPosition"
+    to:t="storedRegroupPosition"
   }
 }
 
@@ -565,6 +599,16 @@ orderedSelector{
       name:t=""
       refId:t="passiveStayReaction"
     }
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.tryCallArtillery"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.tryHealTeammateAround"
   }
 
   subTree{

@@ -17,7 +17,7 @@ def obstacle_fire_created_es(evt : Event;
     return
   var radius = sphere_zone__radius
   if fire_source__scale > 0.0f
-    radius = fire_source__scale
+    radius *= fire_source__scale
   let ext = float3(radius + obstacle__padding, radius, radius + obstacle__padding)
   var tm : float3x4
   rotyTM(rnd_float(0.0f, PI * 2.0f), tm)

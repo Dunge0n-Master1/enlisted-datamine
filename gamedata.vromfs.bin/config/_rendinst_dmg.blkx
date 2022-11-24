@@ -23745,6 +23745,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_m_a_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_m_b{
@@ -23755,6 +23756,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_m_b_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_m_c{
@@ -23765,6 +23767,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_m_c_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_m_d{
@@ -23775,6 +23778,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_m_d_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_m_e{
@@ -23785,6 +23789,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_m_e_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_m_f{
@@ -23795,6 +23800,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_m_f_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_m_post_a{
@@ -23836,6 +23842,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=0.6
     physRes:t="wooden_fence_n_a_destr_phobj"
+    isObstacle:b=no
   }
 
   wooden_fence_n_post_a{
@@ -25306,6 +25313,7 @@ riExtra{
     fx:t="concrete_small_destr"
     fxScale:r=0.9
     physRes:t="tunisia_brick_fence_c_destr_phobj"
+    isObstacle:b=no
   }
 
   tunisia_brick_fence_c_column{
@@ -38759,6 +38767,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=2.0
     physRes:t="african_scaffold_a_destr_phobj"
+    isObstacle:b=no
   }
 
   african_scaffold_b{
@@ -38768,6 +38777,7 @@ riExtra{
     fx:t="wood_small_destr"
     fxScale:r=2.0
     physRes:t="african_scaffold_b_destr_phobj"
+    isObstacle:b=no
   }
 
   african_scaffold_c{

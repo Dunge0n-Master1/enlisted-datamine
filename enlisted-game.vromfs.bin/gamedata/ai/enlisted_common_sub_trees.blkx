@@ -72,6 +72,83 @@ sequencer{
 }
 
 sequencer{
+  name:t="sub.findCoverAroundLeader"
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  orderedSelector{
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=3.0
+      coverPosParam:t="coverPos"
+      minDist:r=2.0
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=4.0
+      coverPosParam:t="coverPos"
+      minDist:r=3.0
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=2.0
+      coverPosParam:t="coverPos"
+      minDist:r=1.0
+    }
+  }
+
+  copyPoint3Var{
+    from:t="coverPos"
+    to:t="wishPosition"
+  }
+}
+
+sequencer{
+  name:t="sub.findCoverAroundLeaderAway"
+
+  getRegroupPos{
+    posParam:t="regroupPosition"
+  }
+
+  orderedSelector{
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=9.0
+      coverPosParam:t="coverPos"
+      minDist:r=5.0
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=5.0
+      coverPosParam:t="coverPos"
+      minDist:r=3.0
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=3.0
+      coverPosParam:t="coverPos"
+      minDist:r=1.0
+    }
+  }
+
+  copyPoint3Var{
+    from:t="coverPos"
+    to:t="wishPosition"
+  }
+}
+
+sequencer{
   name:t="sub.findCoverAroundPoint"
 
   getRegroupPos{
@@ -83,10 +160,30 @@ sequencer{
     distParam:t="regroupDistance"
   }
 
-  findCoverAroundPoint{
-    centerParam:t="regroupPosition"
-    radius:r=8.0
-    coverPosParam:t="coverPos"
+  orderedSelector{
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=8.0
+      coverPosParam:t="coverPos"
+      minDist:r=2.0
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=4.0
+      coverPosParam:t="coverPos"
+      minDist:r=0.0
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="regroupPosition"
+      radius:r=4.0
+      coverPosParam:t="coverPos"
+      minDist:r=0.0
+    }
   }
 
   checkDistance{
@@ -179,9 +276,6 @@ sequencer{
 
 sequencer{
   name:t="sub.regroupCheck"
-
-  resetCover{
-  }
 
   getRegroupPos{
     posParam:t="regroupPosition"
@@ -297,6 +391,19 @@ sequencer{
 }
 
 sequencer{
+  name:t="sub.findDangerGrenadeNearby"
+
+  findDangerGrenade{
+    grenTargetParam:t="dangerLookAt"
+    radius:r=10.0
+    grenExplTime:t="grenExplTime"
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
   name:t="sub.grenadeEscape"
 
   reaction{
@@ -348,6 +455,16 @@ sequencer{
     state:t="hide"
   }
 
+  wait{
+    range:p2=0.1, 0.3
+    resetable:b=yes
+  }
+
+  wait{
+    range:p2=0.2, 0.4
+    resetable:b=yes
+  }
+
   moveToPos{
     posParam:t="grenadeSafePos"
     sprintTimerRange:p2=10.0, 20.0
@@ -356,23 +473,23 @@ sequencer{
     maxStanceParam:t="maxStance"
     avoidAiObstacles:b=no
   }
-
-  waitTo{
-    timeParam:t="grenExplTime"
-  }
-
-  wait{
-    range:p2=0.2, 0.4
-    resetable:b=yes
-  }
 }
 
 sequencer{
   name:t="sub.rethrowGrenade"
 
+  not{
+
+    isSwimming{
+    }
+  }
+
   findDangerGrenade{
     grenTargetParam:t="dangerLookAt"
     radius:r=2.5
+    yRadius:r=1.0
+    allowUnderWater:b=no
+    maxWaterDepth:r=0.1
     grenExplTime:t="grenExplTime"
   }
 
@@ -440,8 +557,46 @@ sequencer{
 sequencer{
   name:t="sub.findDangerZone"
 
-  findActiveDamageZone{
-    safePosParam:t="dmgZoneEscapePos"
+  isVarsIntEqual{
+    lhs:t="dmgZoneEscaping"
+    rhs_value:i=0
+  }
+
+  periodicTimer{
+    timeParam:t="onDmgZoneDetectTimer"
+    timePeriod:p2=2.0, 4.0
+  }
+
+  periodicTimer{
+    timeParam:t="onDmgZoneAlarmTimer"
+    timePeriod:p2=5.0, 8.0
+  }
+
+  orderedSelector{
+
+    findActiveDamageZone{
+      safePosParam:t="dmgZoneEscapePos"
+    }
+
+    sequencer{
+
+      isLeader{
+      }
+
+      isAgentPlayerBot{
+      }
+
+      findActiveDamageZone{
+        safePosParam:t="dmgZoneEscapePos"
+        findWarning:b=yes
+      }
+
+      not{
+
+        isIndoor{
+        }
+      }
+    }
   }
 
   recalculateTree{
@@ -463,22 +618,43 @@ sequencer{
 
     sequencer{
 
+      isVarsIntEqual{
+        lhs:t="dmgZoneEscaping"
+        rhs_value:i=0
+      }
+
       findActiveDamageZone{
         safePosParam:t="dmgZoneEscapePos"
       }
 
-      parallel{
+      exitHandler{
 
-        moveToPos{
-          posParam:t="dmgZoneEscapePos"
-          sprintTimerRange:p2=10.0, 20.0
-          minDistToSprint:r=0.5
-          tryClimbing:b=no
-          distThreshold:r=1.0
-          avoidAiObstacles:b=no
+        sequencer{
+
+          setIntVar{
+            to:t="dmgZoneEscaping"
+            value:i=1
+          }
+
+          parallel{
+
+            moveToPos{
+              posParam:t="dmgZoneEscapePos"
+              sprintTimerRange:p2=10.0, 20.0
+              minDistToSprint:r=0.5
+              tryClimbing:b=no
+              distThreshold:r=1.0
+              avoidAiObstacles:b=no
+            }
+
+            extinguish{
+            }
+          }
         }
 
-        extinguish{
+        setIntVar{
+          to:t="dmgZoneEscaping"
+          value:i=0
         }
       }
     }
@@ -503,21 +679,98 @@ sequencer{
 sequencer{
   name:t="sub.dmgZoneEscape"
 
-  findActiveDamageZone{
-    safePosParam:t="dmgZoneEscapePos"
+  orderedSelector{
+
+    findActiveDamageZone{
+      safePosParam:t="dmgZoneEscapePos"
+    }
+
+    sequencer{
+
+      isLeader{
+      }
+
+      isAgentPlayerBot{
+      }
+
+      findActiveDamageZone{
+        safePosParam:t="dmgZoneEscapePos"
+        findWarning:b=yes
+      }
+
+      not{
+
+        isIndoor{
+        }
+      }
+
+      copyPoint3Var{
+        from:t="regroupPosition"
+        to:t="storedRegroupPosition"
+      }
+
+      copyPoint3Var{
+        from:t="dmgZoneEscapePos"
+        to:t="regroupPosition"
+      }
+    }
   }
 
-  setCurrentAiAction{
-    state:t="move"
+  periodicTimer{
+    timeParam:t="onDmgZoneEscapeTimer"
+    timePeriod:p2=3.0, 5.0
   }
 
-  moveToPos{
-    posParam:t="dmgZoneEscapePos"
-    sprintTimerRange:p2=10.0, 20.0
-    minDistToSprint:r=0.5
-    tryClimbing:b=no
-    distThreshold:r=1.0
-    avoidAiObstacles:b=no
+  exitHandler{
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        repeat{
+          count:i=1
+
+          subTree{
+            name:t=""
+            treeName:t="sub.swimUpCheck"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.tryToOpenDoors"
+          }
+        }
+      }
+
+      setIntVar{
+        to:t="dmgZoneEscaping"
+        value:i=1
+      }
+
+      setCurrentAiAction{
+        state:t="move"
+      }
+
+      wait{
+        range:p2=0.2, 0.3
+        resetable:b=yes
+      }
+
+      moveToPos{
+        posParam:t="dmgZoneEscapePos"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=0.5
+        tryClimbing:b=yes
+        distThreshold:r=1.0
+        avoidAiObstacles:b=no
+      }
+    }
+
+    setIntVar{
+      to:t="dmgZoneEscaping"
+      value:i=0
+    }
   }
 }
 
@@ -603,6 +856,10 @@ sequencer{
     radiusParamName:t="enemyMeleeRadius"
     minDanger:r=0.1
     tag:t="human"
+  }
+
+  getTime{
+    to:t="enemyNearTime"
   }
 
   setCurrentAiAction{
@@ -717,45 +974,293 @@ sequencer{
 
   chooseBestWeapon{
     targetParam:t="shootEnemy"
+    allowGrenades:b=yes
+    switchRadiusCoef:r=0.85
   }
 
   setCurrentAiAction{
     state:t="attack"
   }
 
-  getRandomPointNearTarget{
+  orderedSelector{
+
+    sequencer{
+
+      isGrenadeSelected{
+      }
+
+      repeat{
+        count:i=1
+
+        sequencer{
+
+          getRandomPointAroundTarget{
+            targetUnitParam:t="shootEnemy"
+            posParam:t="posNearTarget"
+            radiusRange:p2=3.0, 6.0
+            awayMinRadius:r=7.0
+            minDistanceFromAllies:r=7.0
+          }
+
+          rotateToPoint{
+            posParam:t="posNearTarget"
+          }
+
+          orderedSelector{
+
+            sequencer{
+
+              setIntVar{
+                to:t="isInShootState"
+                value:i=1
+              }
+
+              copyIntVar{
+                to:t="prevShootEnemy"
+                from:t="shootEnemy"
+              }
+
+              copyIntVar{
+                to:t="rememberEnemy"
+                from:t="shootEnemy"
+              }
+
+              throwGrenade{
+                targetPosParam:t="posNearTarget"
+                targetUnitParam:t="shootEnemy"
+                grenadeThrowDelay:r=2.5
+              }
+
+              wait{
+                range:p2=0.5, 1.0
+                resetable:b=yes
+              }
+
+              getTime{
+                to:t="rememberEnemyTime"
+              }
+
+              setPosFromEntity{
+                to:t="rememberEnemyPos"
+                from:t="shootEnemy"
+              }
+            }
+
+            resetGrenadeThrowTime{
+            }
+          }
+        }
+      }
+    }
+
+    sequencer{
+
+      not{
+
+        isGrenadeSelected{
+        }
+      }
+
+      repeat{
+        count:i=1
+
+        sequencer{
+
+          getRandomPointNearTarget{
+            targetUnitParam:t="shootEnemy"
+            posParam:t="posNearTarget"
+            useGenerationByY:b=no
+          }
+
+          rotateToPoint{
+            posParam:t="posNearTarget"
+          }
+
+          setIntVar{
+            to:t="isInShootState"
+            value:i=1
+          }
+
+          copyIntVar{
+            to:t="prevShootEnemy"
+            from:t="shootEnemy"
+          }
+
+          copyIntVar{
+            to:t="rememberEnemy"
+            from:t="shootEnemy"
+          }
+
+          shootAtUnit{
+            targetUnitParam:t="shootEnemy"
+            minStanceParam:t="minStance"
+            shootCycles:i=1
+            tryToSaveCurrentStance:b=no
+            minStanceChance:r=1.5
+            shootTime:p2=0.2, 1.0
+            cooldownTime:p2=0.2, 0.9
+            minAimTime:p2=0.1, 0.4
+            maxStanceParam:t="maxStance"
+            alwaysAiming:b=yes
+          }
+
+          getTime{
+            to:t="rememberEnemyTime"
+          }
+
+          setPosFromEntity{
+            to:t="rememberEnemyPos"
+            from:t="shootEnemy"
+          }
+        }
+      }
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.attackVehicle"
+
+  initPeriodicTimer{
+    timeParam:t="onAttackVehicleTimer"
+    timePeriod:p2=5.0, 8.0
+  }
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.deactivateWeapMod"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerGrenade"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.findDangerZone"
+      }
+    }
+  }
+
+  reaction{
+    event:t="onEnemyPlayerNear"
+
+    sequencer{
+
+      periodicTimer{
+        timeParam:t="onAttackVehicleTimer"
+        timePeriod:p2=5.0, 8.0
+      }
+
+      orderedSelector{
+
+        sequencer{
+
+          findDanger{
+            paramName:t="meleeEnemy"
+            radiusParamName:t="enemyMeleeRadius"
+            minDanger:r=0.5
+            tag:t="human"
+          }
+
+          recalculateTree{
+          }
+        }
+
+        sequencer{
+
+          findDanger{
+            paramName:t="shootEnemy"
+            radiusParamName:t="enemyNearRadius"
+            minDanger:r=0.5
+            tag:t="human"
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+    }
+  }
+
+  setIntVar{
+    to:t="isInShootState"
+    value:i=0
+  }
+
+  chooseBestWeapon{
+    targetParam:t="shootEnemy"
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
+  }
+
+  isGrenadeSelected{
+  }
+
+  getRandomPointAroundTarget{
     targetUnitParam:t="shootEnemy"
     posParam:t="posNearTarget"
-    useGenerationByY:b=no
+    radiusRange:p2=0.0, 2.0
+    awayMinRadius:r=7.0
+    minDistanceFromAllies:r=7.0
   }
 
   rotateToPoint{
     posParam:t="posNearTarget"
   }
 
-  repeat{
-    count:i=1
+  orderedSelector{
 
-    setIntVar{
-      to:t="isInShootState"
-      value:i=1
+    sequencer{
+
+      setIntVar{
+        to:t="isInShootState"
+        value:i=1
+      }
+
+      throwGrenade{
+        targetPosParam:t="posNearTarget"
+        targetUnitParam:t="shootEnemy"
+        minThrowDistance:r=5.0
+      }
+
+      wait{
+        range:p2=0.5, 1.0
+        resetable:b=yes
+      }
     }
 
-    copyIntVar{
-      to:t="prevShootEnemy"
-      from:t="shootEnemy"
-    }
+    sequencer{
 
-    shootAtUnit{
-      targetUnitParam:t="shootEnemy"
-      minStance:i=0
-      shootCycles:i=1
-      tryToSaveCurrentStance:b=no
-      minStanceChance:r=1.5
-      shootTime:p2=0.2, 1.0
-      cooldownTime:p2=0.1, 0.9
-      minAimTime:p2=0.1, 0.4
-      maxStanceParam:t="maxStance"
+      resetAntiTankGrenadeThrowLimiter{
+      }
+
+      break{
+      }
     }
   }
 }
@@ -813,10 +1318,576 @@ sequencer{
 }
 
 sequencer{
-  name:t="sub.moveToPosition"
+  name:t="sub.tryCallArtillery"
 
-  resetCover{
+  isAgentPlayerBot{
   }
+
+  checkAtTime{
+    timeParam:t="enemyNearTime"
+    range:p2=10.0, 1000000.0
+  }
+
+  not{
+
+    isSwimming{
+    }
+  }
+
+  sequencer{
+
+    reaction{
+      event:t="onBulletNearby"
+
+      sequencer{
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="onTraceableDanger"
+
+      continue{
+      }
+    }
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      sequencer{
+
+        findDanger{
+          paramName:t="shootEnemy"
+          radiusParamName:t="enemyNearRadius"
+          minDanger:r=0.1
+          tag:t="human"
+        }
+
+        recalculateTree{
+        }
+      }
+    }
+
+    reaction{
+      event:t="regularCheck"
+
+      repeat{
+        count:i=1
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkDowned"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.checkBurning"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.swimUpCheck"
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.findDangerGrenadeNearby"
+        }
+      }
+    }
+
+    tryCallArtillery{
+      initRange:p2=30.0, 90.0
+      repeatRange:p2=240.0, 360.0
+    }
+
+    wait{
+      range:p2=0.5, 1.5
+      resetable:b=yes
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.checkBuildAndPlace"
+
+  checkAtTime{
+    timeParam:t="enemyNearTime"
+    range:p2=5.0, 1000000.0
+  }
+
+  not{
+
+    isSwimming{
+    }
+  }
+
+  isVarsIntEqual{
+    lhs:t="tryBuild"
+    rhs_value:i=0
+  }
+
+  periodicTimer{
+    timeParam:t="onCheckBuildTimer"
+    timePeriod:p2=3.0, 7.0
+  }
+
+  ignoreChance{
+    chance:r=0.1
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      isEngineer{
+      }
+
+      orderedSelector{
+
+        sequencer{
+
+          checkBuildCustomRespawnPoint{
+            buildPosParam:t="buildPos"
+          }
+
+          setIntVar{
+            to:t="tryBuild"
+            value:i=1
+          }
+
+          setIntVar{
+            to:t="buildWhat"
+            value:i=1
+          }
+
+          initPeriodicTimer{
+            timeParam:t="onForceBuildTimer"
+            timePeriod:p2=5.0, 7.0
+          }
+
+          recalculateTree{
+          }
+        }
+
+        sequencer{
+
+          checkBuildAmmoBox{
+            buildPosParam:t="buildPos"
+          }
+
+          setIntVar{
+            to:t="tryBuild"
+            value:i=1
+          }
+
+          setIntVar{
+            to:t="buildWhat"
+            value:i=2
+          }
+
+          initPeriodicTimer{
+            timeParam:t="onForceBuildTimer"
+            timePeriod:p2=5.0, 7.0
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+    }
+
+    sequencer{
+
+      findWeaponSlotWithTag{
+        tag:t="medBox"
+        toParam:t="buildToolSlot"
+      }
+
+      orderedSelector{
+
+        sequencer{
+
+          checkPlaceMedBox{
+            buildPosParam:t="buildPos"
+          }
+
+          setIntVar{
+            to:t="tryBuild"
+            value:i=1
+          }
+
+          setIntVar{
+            to:t="buildWhat"
+            value:i=3
+          }
+
+          initPeriodicTimer{
+            timeParam:t="onForceBuildTimer"
+            timePeriod:p2=5.0, 7.0
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.tryBuildAndPlace"
+
+  checkAtTime{
+    timeParam:t="enemyNearTime"
+    range:p2=5.0, 1000000.0
+  }
+
+  not{
+
+    isSwimming{
+    }
+  }
+
+  exitHandler{
+
+    sequencer{
+
+      reaction{
+        event:t="onBulletNearby"
+
+        sequencer{
+
+          periodicTimer{
+            timeParam:t="onForceBuildTimer"
+            timePeriod:p2=3.0, 5.0
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+
+      reaction{
+        event:t="onTraceableDanger"
+
+        continue{
+        }
+      }
+
+      reaction{
+        event:t="onEnemyPlayerNear"
+
+        sequencer{
+
+          periodicTimer{
+            timeParam:t="onForceBuildTimer"
+            timePeriod:p2=3.0, 5.0
+          }
+
+          findDanger{
+            paramName:t="shootEnemy"
+            radiusParamName:t="enemyNearRadius"
+            minDanger:r=0.1
+            tag:t="human"
+          }
+
+          recalculateTree{
+          }
+        }
+      }
+
+      reaction{
+        event:t="regularCheck"
+
+        repeat{
+          count:i=1
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkDowned"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.checkBurning"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.swimUpCheck"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.tryToOpenDoors"
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.findDangerGrenadeNearby"
+          }
+        }
+      }
+
+      setCurrentAiAction{
+        state:t="move"
+      }
+
+      orderedSelector{
+
+        sequencer{
+
+          isVarsIntEqual{
+            lhs:t="buildWhat"
+            rhs_value:i=1
+          }
+
+          isEngineer{
+          }
+
+          findWeaponSlotWithTag{
+            tag:t="buildingTool"
+            toParam:t="buildToolSlot"
+          }
+
+          changeWeapon{
+            param:t="buildToolSlot"
+          }
+
+          wait{
+            range:p2=0.5, 1.5
+            resetable:b=yes
+          }
+
+          moveToPos{
+            posParam:t="buildPos"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=4.0
+            distThreshold:r=1.1
+            avoidAiObstacles:b=no
+            timeToStuck:r=5.0
+          }
+
+          startBuildCustomRespawnPoint{
+            buildPosParam:t="buildPos"
+            buildTargetEidParam:t="buildTarget"
+            waitStartBuildMaxTime:r=2.0
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.finishBuildTarget"
+          }
+        }
+
+        sequencer{
+
+          isVarsIntEqual{
+            lhs:t="buildWhat"
+            rhs_value:i=2
+          }
+
+          isEngineer{
+          }
+
+          findWeaponSlotWithTag{
+            tag:t="buildingTool"
+            toParam:t="buildToolSlot"
+          }
+
+          changeWeapon{
+            param:t="buildToolSlot"
+          }
+
+          wait{
+            range:p2=0.5, 1.5
+            resetable:b=yes
+          }
+
+          moveToPos{
+            posParam:t="buildPos"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=4.0
+            distThreshold:r=1.1
+            avoidAiObstacles:b=no
+            timeToStuck:r=5.0
+          }
+
+          startBuildAmmoBox{
+            buildPosParam:t="buildPos"
+            buildTargetEidParam:t="buildTarget"
+            waitStartBuildMaxTime:r=2.0
+          }
+
+          subTree{
+            name:t=""
+            treeName:t="sub.finishBuildTarget"
+          }
+        }
+
+        sequencer{
+
+          isVarsIntEqual{
+            lhs:t="buildWhat"
+            rhs_value:i=3
+          }
+
+          findWeaponSlotWithTag{
+            tag:t="medBox"
+            toParam:t="buildToolSlot"
+          }
+
+          changeWeapon{
+            param:t="buildToolSlot"
+          }
+
+          wait{
+            range:p2=0.5, 1.5
+            resetable:b=yes
+          }
+
+          moveToPos{
+            posParam:t="buildPos"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=4.0
+            distThreshold:r=1.1
+            avoidAiObstacles:b=no
+            timeToStuck:r=5.0
+          }
+
+          placeMedBox{
+            buildPosParam:t="buildPos"
+          }
+        }
+      }
+
+      wait{
+        range:p2=0.5, 1.5
+        resetable:b=yes
+      }
+
+      wait{
+        range:p2=1.0, 2.0
+        resetable:b=yes
+      }
+
+      chooseBestWeapon{
+        targetParam:t="shootEnemy"
+      }
+    }
+
+    chooseBestWeapon{
+      targetParam:t="shootEnemy"
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.checkHealTeammatesAround"
+
+  not{
+
+    isSwimming{
+    }
+  }
+
+  checkAtTime{
+    timeParam:t="enemyNearTime"
+    range:p2=5.0, 1000000.0
+  }
+
+  periodicTimer{
+    timeParam:t="onCheckHealMatesTimer"
+    timePeriod:p2=2.0, 3.0
+  }
+
+  checkHealTeammatesAround{
+    healMateEidParam:t="healMateEid"
+    checkAroundDistance:r=20.0
+  }
+
+  setIntVar{
+    to:t="tryHealMate"
+    value:i=1
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.checkHealSquadmatesAround"
+
+  not{
+
+    isSwimming{
+    }
+  }
+
+  checkAtTime{
+    timeParam:t="enemyNearTime"
+    range:p2=5.0, 1000000.0
+  }
+
+  periodicTimer{
+    timeParam:t="onCheckHealMatesTimer"
+    timePeriod:p2=2.0, 3.0
+  }
+
+  checkHealTeammatesAround{
+    healMateEidParam:t="healMateEid"
+    checkAroundDistance:r=20.0
+    selfSquadOnly:b=yes
+  }
+
+  setIntVar{
+    to:t="tryHealMate"
+    value:i=1
+  }
+
+  recalculateTree{
+  }
+}
+
+sequencer{
+  name:t="sub.tryHealTeammateAround"
+
+  not{
+
+    isSwimming{
+    }
+  }
+
+  isVarsIntEqual{
+    lhs:t="tryHealMate"
+    rhs_value:i=1
+  }
+
+  setIntVar{
+    to:t="tryHealMate"
+    value:i=0
+  }
+
+  checkTarget{
+    targetUnitParam:t="healMateEid"
+  }
+
+  copyIntVar{
+    to:t="healRequester"
+    from:t="healMateEid"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.healReq"
+  }
+}
+
+sequencer{
+  name:t="sub.moveToPosition"
 
   getRegroupPos{
     posParam:t="regroupPosition"
@@ -827,73 +1898,137 @@ sequencer{
     orderPosParam:t="wishPosition"
   }
 
+  wait{
+    range:p2=0.1, 0.3
+    resetable:b=yes
+  }
+
   orderedSelector{
 
-    moveToPos{
-      posParam:t="wishPosition"
-      sprintTimerRange:p2=10.0, 20.0
-      minDistToSprint:r=1.5
-      lookVisc:r=0.1
-      tryClimbing:b=yes
-      maxStanceParam:t="maxStance"
-      stuckDirParam:t="stuckDir"
-      timeToStuck:r=2.5
-      avoidAiObstacles:b=no
-      distToTarget:r=8.0
-      distThreshold:r=1.0
+    isVarsIntEqual{
+      lhs:t="isUnreachable"
+      rhs_value:i=0
     }
 
-    moveToPos{
-      posParam:t="wishPosition"
-      sprintTimerRange:p2=10.0, 20.0
-      minDistToSprint:r=1.5
-      lookVisc:r=0.1
-      tryClimbing:b=yes
-      maxStanceParam:t="maxStance"
-      stuckDirParam:t="stuckDir"
-      timeToStuck:r=2.5
-      incObstacles:b=no
-      avoidAiObstacles:b=no
-      distToTarget:r=8.0
-      distThreshold:r=1.0
+    not{
+
+      checkDistance{
+        posParam:t="wishPosition"
+        otherPosParam:t="unreachablePos"
+        radius:r=2.0
+        yRadius:r=1.0
+      }
+    }
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      moveToPos{
+        posParam:t="wishPosition"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=1.5
+        lookVisc:r=0.1
+        tryClimbing:b=yes
+        maxStanceParam:t="maxStance"
+        stuckDirParam:t="stuckDir"
+        timeToStuck:r=0.9
+        incObstacles:b=yes
+        avoidAiObstacles:b=no
+        distThreshold:r=1.0
+      }
+
+      setIntVar{
+        to:t="isUnreachable"
+        value:i=0
+      }
+    }
+
+    sequencer{
+
+      moveToPos{
+        posParam:t="wishPosition"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=1.5
+        lookVisc:r=0.1
+        tryClimbing:b=yes
+        maxStanceParam:t="maxStance"
+        stuckDirParam:t="stuckDir"
+        timeToStuck:r=0.9
+        incObstacles:b=no
+        avoidAiObstacles:b=no
+        distThreshold:r=1.0
+      }
+
+      setIntVar{
+        to:t="isUnreachable"
+        value:i=0
+      }
     }
 
     exitHandler{
 
-      repeatUntilFail{
+      sequencer{
 
-        getPointAroundAIPos{
-          dirParam:t="stuckDir"
-          outPosParam:t="outStuckPos"
-          resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
+        setIntVar{
+          to:t="isUnreachable"
+          value:i=1
+        }
+
+        copyPoint3Var{
+          from:t="wishPosition"
+          to:t="unreachablePos"
         }
 
         not{
 
-          sequencer{
+          repeatUntilFail{
 
-            moveToPos{
-              posParam:t="outStuckPos"
-              sprintTimerRange:p2=10.0, 20.0
-              minDistToSprint:r=1.5
-              lookVisc:r=0.1
-              tryClimbing:b=yes
-              maxStanceParam:t="maxStance"
-              distThreshold:r=1.0
-              timeToStuck:r=2.5
-              avoidAiObstacles:b=no
+            getPointAroundAIPos{
+              dirParam:t="stuckDir"
+              outPosParam:t="outStuckPos"
+              forwPosParam:t="outStuckForwPos"
+              fromPosParam:t="moveFromPos"
+              toPosParam:t="wishPosition"
+              resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
             }
 
-            moveToPos{
-              posParam:t="wishPosition"
-              sprintTimerRange:p2=10.0, 20.0
-              minDistToSprint:r=1.5
-              lookVisc:r=0.1
-              tryClimbing:b=yes
-              maxStanceParam:t="maxStance"
-              distThreshold:r=1.0
-              timeToStuck:r=2.5
-              avoidAiObstacles:b=no
+            not{
+
+              sequencer{
+
+                wait{
+                  range:p2=0.1, 0.2
+                  resetable:b=yes
+                }
+
+                success{
+
+                  moveByDir{
+                    endPos:t="outStuckPos"
+                    duration:r=0.7
+                    distThresholsd:r=0.1
+                  }
+                }
+
+                moveToPos{
+                  posParam:t="wishPosition"
+                  sprintTimerRange:p2=10.0, 20.0
+                  minDistToSprint:r=1.5
+                  lookVisc:r=0.1
+                  tryClimbing:b=yes
+                  maxStanceParam:t="maxStance"
+                  distThreshold:r=1.0
+                  timeToStuck:r=0.9
+                  avoidAiObstacles:b=no
+                }
+
+                setIntVar{
+                  to:t="isUnreachable"
+                  value:i=0
+                }
+              }
             }
           }
         }
@@ -904,6 +2039,161 @@ sequencer{
         value:i=1
       }
     }
+  }
+
+  getAgentAIPos{
+    outPosParam:t="moveFromPos"
+  }
+}
+
+sequencer{
+  name:t="sub.moveToCoverNearPosition"
+
+  wait{
+    range:p2=0.1, 0.3
+    resetable:b=yes
+  }
+
+  orderedSelector{
+
+    isVarsIntEqual{
+      lhs:t="isUnreachable"
+      rhs_value:i=0
+    }
+
+    not{
+
+      checkDistance{
+        posParam:t="wishPosition"
+        otherPosParam:t="unreachablePos"
+        radius:r=2.0
+        yRadius:r=1.0
+      }
+    }
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      moveToPos{
+        posParam:t="wishPosition"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=1.5
+        lookVisc:r=0.1
+        tryClimbing:b=yes
+        maxStanceParam:t="maxStance"
+        stuckDirParam:t="stuckDir"
+        timeToStuck:r=0.9
+        incObstacles:b=yes
+        avoidAiObstacles:b=no
+        distThreshold:r=1.0
+      }
+
+      setIntVar{
+        to:t="isUnreachable"
+        value:i=0
+      }
+    }
+
+    sequencer{
+
+      moveToPos{
+        posParam:t="wishPosition"
+        sprintTimerRange:p2=10.0, 20.0
+        minDistToSprint:r=1.5
+        lookVisc:r=0.1
+        tryClimbing:b=yes
+        maxStanceParam:t="maxStance"
+        stuckDirParam:t="stuckDir"
+        timeToStuck:r=0.9
+        incObstacles:b=no
+        avoidAiObstacles:b=no
+        distThreshold:r=1.0
+      }
+
+      setIntVar{
+        to:t="isUnreachable"
+        value:i=0
+      }
+    }
+
+    exitHandler{
+
+      sequencer{
+
+        setIntVar{
+          to:t="isUnreachable"
+          value:i=1
+        }
+
+        copyPoint3Var{
+          from:t="wishPosition"
+          to:t="unreachablePos"
+        }
+
+        not{
+
+          repeatUntilFail{
+
+            getPointAroundAIPos{
+              dirParam:t="stuckDir"
+              outPosParam:t="outStuckPos"
+              forwPosParam:t="outStuckForwPos"
+              fromPosParam:t="moveFromPos"
+              toPosParam:t="wishPosition"
+              resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
+            }
+
+            not{
+
+              sequencer{
+
+                wait{
+                  range:p2=0.1, 0.2
+                  resetable:b=yes
+                }
+
+                success{
+
+                  moveByDir{
+                    endPos:t="outStuckPos"
+                    duration:r=0.7
+                    distThresholsd:r=0.1
+                  }
+                }
+
+                moveToPos{
+                  posParam:t="wishPosition"
+                  sprintTimerRange:p2=10.0, 20.0
+                  minDistToSprint:r=1.5
+                  lookVisc:r=0.1
+                  tryClimbing:b=yes
+                  maxStanceParam:t="maxStance"
+                  distThreshold:r=1.0
+                  timeToStuck:r=0.9
+                  avoidAiObstacles:b=no
+                }
+
+                setIntVar{
+                  to:t="isUnreachable"
+                  value:i=0
+                }
+              }
+            }
+          }
+        }
+      }
+
+      setIntVar{
+        to:t="resetAIPointsGenerator"
+        value:i=1
+      }
+    }
+  }
+
+  getAgentAIPos{
+    outPosParam:t="moveFromPos"
   }
 }
 
@@ -936,6 +2226,7 @@ sequencer{
       }
 
       selectStanceInCover{
+        minStanceParam:t="minStance"
         maxStanceParam:t="maxStance"
         stanceParam:t="coverStance"
         safe:b=yes
@@ -987,21 +2278,62 @@ sequencer{
     }
   }
 
-  findPotentialEnemyDirectionEntryPoint{
-    posParam:t="potentialEnemyPos"
-  }
+  orderedSelector{
 
-  parallel{
+    sequencer{
 
-    wait{
-      range:p2=5.0, 15.0
-      resetable:b=yes
+      ignoreChance{
+        chance:r=0.1
+      }
+
+      checkAtTime{
+        timeParam:t="rememberEnemyTime"
+        range:p2=0.0, 25.0
+      }
+
+      checkTarget{
+        targetUnitParam:t="rememberEnemy"
+      }
+
+      copyPoint3Var{
+        to:t="potentialEnemyPos"
+        from:t="rememberEnemyPos"
+      }
+
+      parallel{
+
+        wait{
+          range:p2=5.0, 10.0
+          resetable:b=yes
+        }
+
+        wanderLook{
+          posParam:t="rememberEnemyPos"
+          range:p2=0.2, 0.1
+          maxStanceParam:t="coverStance"
+        }
+      }
     }
 
-    wanderLook{
-      posParam:t="potentialEnemyPos"
-      range:p2=0.2, 0.1
-      maxStanceParam:t="coverStance"
+    sequencer{
+
+      findPotentialEnemyDirectionEntryPoint{
+        posParam:t="potentialEnemyPos"
+      }
+
+      parallel{
+
+        wait{
+          range:p2=5.0, 15.0
+          resetable:b=yes
+        }
+
+        wanderLook{
+          posParam:t="potentialEnemyPos"
+          range:p2=0.2, 0.1
+          maxStanceParam:t="coverStance"
+        }
+      }
     }
   }
 }
@@ -1016,20 +2348,6 @@ sequencer{
   parallel{
 
     validateStandPosition{
-    }
-
-    wanderLook{
-      posParam:t="potentialEnemyPos"
-      range:p2=0.2, 0.1
-      maxStanceParam:t="maxStance"
-    }
-  }
-
-  parallel{
-
-    wait{
-      range:p2=5.0, 15.0
-      resetable:b=yes
     }
 
     wanderLook{
@@ -1132,6 +2450,58 @@ sequencer{
     }
   }
 
+  orderedSelector{
+
+    sequencer{
+
+      ignoreChance{
+        chance:r=0.2
+      }
+
+      checkAtTime{
+        timeParam:t="rememberEnemyTime"
+        range:p2=0.0, 20.0
+      }
+
+      checkTarget{
+        targetUnitParam:t="rememberEnemy"
+      }
+
+      copyPoint3Var{
+        to:t="potentialEnemyPos"
+        from:t="rememberEnemyPos"
+      }
+
+      parallel{
+
+        wait{
+          range:p2=5.0, 10.0
+          resetable:b=yes
+        }
+
+        wanderLook{
+          posParam:t="rememberEnemyPos"
+          range:p2=0.2, 0.1
+          maxStanceParam:t="coverStance"
+        }
+      }
+    }
+
+    parallel{
+
+      wait{
+        range:p2=5.0, 15.0
+        resetable:b=yes
+      }
+
+      wanderLook{
+        posParam:t="potentialEnemyPos"
+        range:p2=0.2, 0.1
+        maxStanceParam:t="maxStance"
+      }
+    }
+  }
+
   findPotentialEnemyDirectionEntryPoint{
     posParam:t="potentialEnemyPos"
   }
@@ -1188,7 +2558,47 @@ sequencer{
 }
 
 sequencer{
-  name:t="sub.getRegroupPosDefault"
+  name:t="sub.updateRegroupPosDefault"
+
+  isLeader{
+  }
+
+  checkAtTime{
+    timeParam:t="underArtilleryTime"
+    range:p2=10.0, 1000000.0
+  }
+
+  not{
+
+    sequencer{
+
+      findActiveDamageZone{
+        safePosParam:t="dmgZoneEscapePos"
+        findWarning:b=yes
+      }
+
+      isIndoor{
+      }
+
+      getTime{
+        to:t="underArtilleryTime"
+      }
+
+      success{
+
+        setSquadFormation{
+          formation:t="closest"
+        }
+      }
+    }
+  }
+
+  success{
+
+    setSquadFormation{
+      formation:t="standard"
+    }
+  }
 
   orderedSelector{
 
@@ -1231,17 +2641,21 @@ sequencer{
   }
 }
 
+sequencer{
+  name:t="sub.updateRegroupPosTrain"
+
+  isLeader{
+  }
+
+  getPointInTrainCapzone{
+    posParam:t="regroupPosition"
+  }
+}
+
 orderedSelector{
   name:t="sub.tryToOpenDoors"
 
   findObstaclesAlongsidePath{
-  }
-
-  findDangerAttractionPos{
-    posParam:t="enemyPos"
-    validPosParamName:t="enemyPosValid"
-    radius:r=0.0
-    minNoiseLevel:r=3.0
   }
 }
 
@@ -1259,85 +2673,46 @@ orderedSelector{
   }
 }
 
-orderedSelector{
-  name:t="sub.moveToCoverNearPosition"
+repeatUntilFail{
+  name:t="sub.finishBuildTarget"
+  count:i=1
 
-  moveToPos{
-    posParam:t="wishPosition"
-    sprintTimerRange:p2=10.0, 20.0
-    minDistToSprint:r=1.5
-    lookVisc:r=0.1
-    tryClimbing:b=yes
-    maxStanceParam:t="maxStance"
-    distThreshold:r=1.0
-    timeToStuck:r=2.5
-    stuckDirParam:t="stuckDir"
-    avoidAiObstacles:b=no
+  checkTarget{
+    targetUnitParam:t="buildTarget"
+    ignoreDead:b=no
+  }
+
+  findPointNearTarget{
+    posParam:t="buildPosition"
+    dist:p2=2.0, 2.5
+    targetParam:t="buildTarget"
+    traceTarget:b=no
+    reusePrevPos:b=no
   }
 
   moveToPos{
-    posParam:t="wishPosition"
+    posParam:t="buildPosition"
     sprintTimerRange:p2=10.0, 20.0
-    minDistToSprint:r=1.5
-    lookVisc:r=0.1
-    tryClimbing:b=yes
-    maxStanceParam:t="maxStance"
-    stuckDirParam:t="stuckDir"
-    timeToStuck:r=2.5
-    incObstacles:b=no
+    minDistToSprint:r=4.0
+    distThreshold:r=0.5
     avoidAiObstacles:b=no
-    distThreshold:r=1.0
   }
 
-  exitHandler{
+  changeStance{
+    stanceName:t="crouch"
+    maxStanceParam:t="maxStance"
+  }
 
-    repeatUntilFail{
+  parallel{
 
-      getPointAroundAIPos{
-        dirParam:t="stuckDir"
-        outPosParam:t="outStuckPos"
-        resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
-      }
-
-      not{
-
-        sequencer{
-
-          moveToPos{
-            posParam:t="outStuckPos"
-            sprintTimerRange:p2=10.0, 20.0
-            minDistToSprint:r=1.5
-            lookVisc:r=0.1
-            tryClimbing:b=yes
-            maxStanceParam:t="maxStance"
-            timeToStuck:r=2.5
-            avoidAiObstacles:b=no
-            distThreshold:r=1.0
-          }
-
-          moveToPos{
-            posParam:t="wishPosition"
-            sprintTimerRange:p2=10.0, 20.0
-            minDistToSprint:r=1.5
-            lookVisc:r=0.1
-            tryClimbing:b=yes
-            maxStanceParam:t="maxStance"
-            distThreshold:r=1.0
-            timeToStuck:r=2.5
-            avoidAiObstacles:b=no
-          }
-        }
-      }
+    lookAtTarget{
+      targetUnitParam:t="buildTarget"
+      rotateBody:b=yes
+      allowDead:b=yes
     }
 
-    setIntVar{
-      to:t="resetAIPointsGenerator"
-      value:i=1
+    interactWithBuildingTarget{
+      targetUnitParam:t="buildTarget"
     }
   }
-}
-
-getPointInTrainCapzone{
-  name:t="sub.getRegroupPosTrain"
-  posParam:t="regroupPosition"
 }

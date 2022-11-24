@@ -13,7 +13,7 @@ let campaignTitle = require("%enlist/campaigns/campaign_title.ui.nut")
 let { startBtn, startBtnWidth } = require("%enlist/startBtn.nut")
 let { changeGameModeWidget, selectedGameMode
 } = require("%enlist/gameModes/changeGameModeBtn.nut")
-let { mkClustersUi } = require("%enlist/clusters.nut")
+let clustersUi = require("%enlist/clusters.nut")
 let { randTeamAvailable, randTeamCheckbox } = require("%enlist/quickMatch.nut")
 let { dailyTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
 let { weeklyTasksUi } = isNewDesign
@@ -65,8 +65,6 @@ let mainContent = {
     }
   ]
 }
-
-let clustersUi = mkClustersUi({style = {size = [startBtnWidth, SIZE_TO_CONTENT]}})
 
 let startPlay = {
   halign = ALIGN_RIGHT

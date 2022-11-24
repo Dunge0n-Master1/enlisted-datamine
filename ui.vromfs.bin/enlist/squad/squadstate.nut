@@ -31,7 +31,7 @@ let myExtSquadData = {}
 
 let function makeSharedData(persistId) {
   let res = {}
-  foreach (key in ["clusters", "squadChat"])
+  foreach (key in ["clusters", "isAutoCluster", "squadChat"])
     res[key] <- mkWatched(persist, $"{persistId}{key}", null)
   return res
 }

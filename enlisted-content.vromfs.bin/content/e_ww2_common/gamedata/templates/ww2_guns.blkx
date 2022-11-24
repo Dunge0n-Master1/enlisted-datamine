@@ -197,6 +197,9 @@ ptr_ww2_preset{
 
   "gun__canPierceHPEntity:tag"{
   }
+
+  "specialAIWeapon:tag"{
+  }
 }
 
 mg_ww2_preset{
@@ -264,6 +267,9 @@ launchers_ww2_preset{
   gun__inertialMass:r=12.0
   rumble__isHighBand:b=no
   rumble__maxShellImpulse:r=200.0
+
+  "specialAIWeapon:tag"{
+  }
 }
 
 launcher_grb_39_preset{
@@ -792,6 +798,7 @@ explosion_pack{
 }
 
 explosion_pack_phys{
+  _extends:t="awared_danger"
   _extends:t="m24_grenade_phys"
   _extends:t="explosion_pack_shell"
   _extends:t="explosion_pack_throw_sound"
@@ -4543,6 +4550,7 @@ avs_36_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.85
   meleeSoundType:t="rifle"
+  gun__kineticDamageMult:r=1.1
 
   _group{
     _tags:t="sound"
@@ -4599,7 +4607,6 @@ sniper_avs_36_gun{
   gun__recoilDir:r=0.35
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__kineticDamageMult:r=1.1
 
   "gun_mods__slots:object"{
 
@@ -4750,7 +4757,7 @@ svt_40{
   gun__reloadTime:r=2.5
   gun__altReloadTime:r=2.5
   gun__boltFreq:r=7.0
-  gun__kineticDamageMult:r=1.1
+  gun__kineticDamageMult:r=1.06
 
   "gun__ammoHolders:array"{
     ammoHolders:t="svt_40_magazine"
@@ -5144,7 +5151,7 @@ avt_40{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=2.5
   gun__altReloadTime:r=2.0
-  gun__kineticDamageMult:r=1.1
+  gun__kineticDamageMult:r=1.06
 
   "gun__ammoHolders:array"{
     ammoHolders:t="avt_40_magazine"
@@ -5984,7 +5991,7 @@ ppd_3438{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=4.0
   gun__altReloadTime:r=3.6
-  gun__kineticDamageMult:r=0.95
+  gun__kineticDamageMult:r=0.964
 
   "gun__ammoHolders:array"{
     ammoHolders:t="ppsh_drum"
@@ -6091,7 +6098,7 @@ ppd_3438_box{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.1
-  gun__kineticDamageMult:r=0.95
+  gun__kineticDamageMult:r=0.964
 
   "gun__ammoHolders:array"{
     ammoHolders:t="ppd_3438_box_magazine"
@@ -6390,7 +6397,7 @@ ppd_bramit{
   item__template:t="ppd_bramit_gun_item"
   item__weapTemplate:t="ppd_bramit_gun"
   item__name:t="items/ppd_bramit"
-  gun__kineticDamageMult:r=0.93
+  gun__kineticDamageMult:r=0.964
   gun__statName:t="submachine_gun"
 }
 
@@ -6672,7 +6679,7 @@ pps_42{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.7
   gun__altReloadTime:r=2.1
-  gun__kineticDamageMult:r=1.05
+  gun__kineticDamageMult:r=1.02
 
   "gun__ammoHolders:array"{
     ammoHolders:t="pps_magazine"
@@ -6790,6 +6797,7 @@ pps_43{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.4
   gun__altReloadTime:r=1.9
+  gun__kineticDamageMult:r=1.02
 
   "gun__ammoHolders:array"{
     ammoHolders:t="pps_magazine"
@@ -8871,6 +8879,7 @@ f1_grenade{
 }
 
 f1_grenade_phys{
+  _extends:t="awared_danger"
   _extends:t="m24_grenade_phys"
   _extends:t="f1_shell"
   collres__res:t="grenade_f1_collision"
@@ -11072,6 +11081,7 @@ m1_garand{
   gun__reloadTime:r=2.9
   gun__altReloadTime:r=3.4
   gun__boltFreq:r=7.0
+  gun__kineticDamageMult:r=1.06
 
   "gun__ammoHolders:array"{
     ammoHolders:t="m1_garand_magazine"
@@ -12170,6 +12180,7 @@ m1_garand_grenade_launcher_m7{
   gun__altReloadTime:r=3.4
   gun__showChamberedAmmo:b=no
   gun__boltFreq:r=7.0
+  gun__kineticDamageMult:r=1.06
 
   "gun__ammoHolders:array"{
     ammoHolders:t="m1_garand_magazine"
@@ -12358,6 +12369,7 @@ m1941_johnson{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=4.3
   gun__boltFreq:r=7.0
+  gun__kineticDamageMult:r=1.06
 
   "gun__ammoHolders:array"{
     ammoHolders:t="m1941_johnson_magazine"
@@ -13713,7 +13725,7 @@ m3_greasegun_supressed_oss{
   item__weapTemplate:t="m3_greasegun_supressed_oss_gun"
   item__name:t="items/m3_greasegun_supressed_oss"
   item__weapType:t="submachine_gun"
-  gun__kineticDamageMult:r=0.8
+  gun__kineticDamageMult:r=0.97
   gun__statName:t="submachine_gun"
 }
 
@@ -17238,6 +17250,7 @@ mk2_grenade{
 }
 
 mk2_grenade_phys{
+  _extends:t="awared_danger"
   _extends:t="m24_grenade_phys"
   _extends:t="mk2_shell"
   _extends:t="grenade_throw_sound"
@@ -17265,6 +17278,7 @@ uk_mills_grenade{
 }
 
 uk_mills_grenade_phys{
+  _extends:t="awared_danger"
   _extends:t="m24_grenade_phys"
   _extends:t="uk_mills_grenade_shell"
   _extends:t="grenade_throw_sound"
@@ -17317,6 +17331,7 @@ type_97_grenade{
 }
 
 type_97_grenade_phys{
+  _extends:t="awared_danger"
   _extends:t="m24_grenade_phys"
   _extends:t="type_97_grenade_shell"
   _extends:t="grenade_throw_sound"
@@ -20961,7 +20976,7 @@ arisaka_type_99_early_short{
   gun_deviation__extraDeviationTau:r=0.15
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=3.2
-  gun__kineticDamageMult:r=1.493
+  gun__kineticDamageMult:r=1.55
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -20994,8 +21009,8 @@ arisaka_type_99_early_short_gun{
   _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
-  gun__recoilAmount:r=0.14
-  gun__recoilDirAmount:r=0.8
+  gun__recoilAmount:r=0.1
+  gun__recoilDirAmount:r=0.7
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
   gun__standOffset:p3=0.2, 0.05, 0.15
@@ -21079,7 +21094,7 @@ arisaka_type_99_late{
   gun_deviation__extraDeviationTau:r=0.15
   gun_deviation__maxDeviation:r=15.0
   gun__reloadTime:r=3.2
-  gun__kineticDamageMult:r=1.541
+  gun__kineticDamageMult:r=1.6
 
   "gun_shell_ejection__onShootRelease:tag"{
   }
@@ -21112,10 +21127,10 @@ arisaka_type_99_late_gun{
   _extends:t="hit_effect_group_12_14mm"
   _extends:t="riffle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
-  gun__recoilAmount:r=0.135
-  gun__recoilDirAmount:r=0.8
+  gun__recoilAmount:r=0.09
+  gun__recoilDirAmount:r=0.68
   gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.0
+  gun__visualRecoilMult:r=0.9
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
@@ -21458,6 +21473,7 @@ gewehr_43{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=2.3
   gun__boltFreq:r=7.0
+  gun__kineticDamageMult:r=1.06
 
   "gun__ammoHolders:array"{
     ammoHolders:t="gewehr_43_magazine"
@@ -21903,7 +21919,7 @@ zh_29_jp{
   gun__shotFreq:r=6.333
   gun__boltFreq:r=7.0
   gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.32
+  gun_spread__maxDeltaAngle:r=0.26
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.1, 0.6
   gun_deviation__movementRange:p2=2.1, 4.0
@@ -21911,7 +21927,7 @@ zh_29_jp{
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
+  gun_deviation__maxDeviation:r=25.0
   gun__reloadTime:r=2.3
   gun__altReloadTime:r=2.2
   gun__kineticDamageMult:r=1.0667
@@ -21948,10 +21964,11 @@ zh_29_jp_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.105
-  gun__recoilDirAmount:r=0.76
+  gun__recoilAmount:r=0.1
+  gun__recoilDirAmount:r=0.66
+  gun__recoilControlMult:r=0.0
   gun__recoilDir:r=-0.25
-  gun__visualRecoilMult:r=0.7
+  gun__visualRecoilMult:r=0.75
   gun__adsSpeedMult:r=0.75
   gun_attach__slot:t="weapon"
   meleeSoundType:t="rifle"
@@ -22842,7 +22859,7 @@ mp40{
   gun_deviation__maxDeviation:r=20.0
   gun__reloadTime:r=2.3
   gun__altReloadTime:r=1.9
-  gun__kineticDamageMult:r=1.05
+  gun__kineticDamageMult:r=1.02
 
   "gun__ammoHolders:array"{
     ammoHolders:t="mp40_magazine"
@@ -22922,6 +22939,7 @@ mp_40_silenced{
   item__weapTemplate:t="mp_40_silenced_gun"
   item__name:t="items/mp_40_silenced"
   gun__statName:t="submachine_gun"
+  gun__kineticDamageMult:r=0.987
 }
 
 mp_40_silenced_gun{
@@ -23739,7 +23757,7 @@ silenced_erma_emp{
   item__template:t="silenced_erma_emp_gun_item"
   item__weapTemplate:t="silenced_erma_emp_gun"
   item__name:t="items/silenced_erma_emp"
-  gun__kineticDamageMult:r=0.8
+  gun__kineticDamageMult:r=0.97
   gun__statName:t="submachine_gun"
   gun__shotFreq:r=9.2
 }
@@ -25003,13 +25021,14 @@ mp_34_jp{
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.07, 0.5
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 10.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
+  gun_deviation__maxDeviation:r=18.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.1
+  gun__kineticDamageMult:r=1.0667
 
   "gun__ammoHolders:array"{
     ammoHolders:t="mp34o_magazine"
@@ -31640,16 +31659,16 @@ japanese_type_i_carcano{
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.12
   gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.5
+  gun_deviation__omegaDevInc:p2=0.1, 0.3
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 8.0
+  gun_deviation__movementDevInc:p2=0.0, 6.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.15
-  gun_deviation__maxDeviation:r=15.0
+  gun_deviation__extraDeviationTau:r=0.1
+  gun_deviation__maxDeviation:r=10.0
   gun__reloadTime:r=3.0
   gun__altReloadTime:r=3.8
-  gun__kineticDamageMult:r=1.544
+  gun__kineticDamageMult:r=1.7
   reload__singleReloadMaxAmmo:i=4
   single_reload__prepareTime:r=0.9
   single_reload__loopTime:r=0.6
@@ -31689,7 +31708,7 @@ japanese_type_i_carcano_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.12
+  gun__recoilAmount:r=0.075
   gun__recoilDirAmount:r=0.8
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
@@ -31763,7 +31782,7 @@ type_hei_rifle{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=3.2
   gun__altReloadTime:r=2.6
-  gun__kineticDamageMult:r=1.0667
+  gun__kineticDamageMult:r=1.1
 
   "gun__ammoHolders:array"{
     ammoHolders:t="type_hei_rifle_magazine"
@@ -31797,10 +31816,10 @@ type_hei_rifle_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.12
-  gun__recoilDirAmount:r=0.71
+  gun__recoilAmount:r=0.06
+  gun__recoilDirAmount:r=0.6
   gun__recoilDir:r=0.37
-  gun__visualRecoilMult:r=0.7
+  gun__visualRecoilMult:r=0.6
   gun__adsSpeedMult:r=0.75
   gun_attach__slot:t="weapon"
   meleeSoundType:t="rifle"
@@ -31869,7 +31888,7 @@ type_hei_rifle_extended{
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=3.6
   gun__altReloadTime:r=3.0
-  gun__kineticDamageMult:r=1.0667
+  gun__kineticDamageMult:r=1.1
 
   "gun__ammoHolders:array"{
     ammoHolders:t="type_hei_rifle_extended_magazine"
@@ -31903,10 +31922,10 @@ type_hei_rifle_extended_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.12
-  gun__recoilDirAmount:r=0.71
+  gun__recoilAmount:r=0.06
+  gun__recoilDirAmount:r=0.6
   gun__recoilDir:r=0.37
-  gun__visualRecoilMult:r=0.7
+  gun__visualRecoilMult:r=0.6
   gun__adsSpeedMult:r=0.75
   gun_attach__slot:t="weapon"
   meleeSoundType:t="rifle"
@@ -31971,15 +31990,15 @@ type_100_paratrooper_smg{
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.05
   gun__shotFreq:r=7.5
-  gun_spread__maxDeltaAngle:r=0.72
+  gun_spread__maxDeltaAngle:r=0.7
   gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__omegaDevInc:p2=0.06, 0.45
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 13.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
+  gun_deviation__maxDeviation:r=18.0
   gun__reloadTime:r=2.4
   gun__altReloadTime:r=1.9
 
@@ -32016,11 +32035,12 @@ type_100_paratrooper_smg_gun{
   gun__recoilAmount:r=0.039
   gun__recoilDirAmount:r=0.69
   gun__recoilDir:r=0.34
-  gun__recoilControlMult:r=0.45
+  gun__recoilControlMult:r=0.35
   gun__visualRecoilMult:r=1.0
   gun__adsSpeedMult:r=0.75
   gun__crawlRecoilMult:r=0.65
   meleeSoundType:t="mgun"
+  gun__kineticDamageMult:r=1.0667
 
   _group{
     _tags:t="render"
@@ -32080,15 +32100,15 @@ type_100_smg_early{
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.05
   gun__shotFreq:r=7.5
-  gun_spread__maxDeltaAngle:r=0.72
+  gun_spread__maxDeltaAngle:r=0.7
   gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__omegaDevInc:p2=0.06, 0.45
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 13.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
+  gun_deviation__maxDeviation:r=18.0
   gun__reloadTime:r=2.4
   gun__altReloadTime:r=1.9
 
@@ -32125,11 +32145,12 @@ type_100_smg_early_gun{
   gun__recoilAmount:r=0.036
   gun__recoilDirAmount:r=0.71
   gun__recoilDir:r=0.34
-  gun__recoilControlMult:r=0.35
+  gun__recoilControlMult:r=0.25
   gun__visualRecoilMult:r=1.0
   gun__adsSpeedMult:r=0.75
   gun__crawlRecoilMult:r=0.65
   meleeSoundType:t="mgun"
+  gun__kineticDamageMult:r=1.0667
 
   _group{
     _tags:t="render"
@@ -32189,17 +32210,17 @@ type_100_smg_late{
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.05
   gun__shotFreq:r=13.333
-  gun_spread__maxDeltaAngle:r=0.75
+  gun_spread__maxDeltaAngle:r=0.7
   gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.07, 0.5
+  gun_deviation__omegaDevInc:p2=0.06, 0.45
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 13.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
-  gun__reloadTime:r=2.6
-  gun__altReloadTime:r=2.1
+  gun_deviation__maxDeviation:r=18.0
+  gun__reloadTime:r=2.4
+  gun__altReloadTime:r=1.9
 
   "gun__ammoHolders:array"{
     ammoHolders:t="type_100_smg_magazine"
@@ -32234,11 +32255,12 @@ type_100_smg_late_gun{
   gun__recoilAmount:r=0.032
   gun__recoilDirAmount:r=0.71
   gun__recoilDir:r=0.34
-  gun__recoilControlMult:r=0.35
+  gun__recoilControlMult:r=0.25
   gun__visualRecoilMult:r=1.0
   gun__adsSpeedMult:r=0.75
   gun__crawlRecoilMult:r=0.65
   meleeSoundType:t="mgun"
+  gun__kineticDamageMult:r=1.0667
 
   "gun_mods__slots:object"{
 
@@ -32406,11 +32428,11 @@ nambu_type_2a_smg{
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.07, 0.5
   gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__movementDevInc:p2=0.0, 10.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
+  gun_deviation__maxDeviation:r=12.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.3
 
@@ -32456,8 +32478,8 @@ nambu_type_2a_smg_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.037
-  gun__recoilDirAmount:r=0.67
+  gun__recoilAmount:r=0.02
+  gun__recoilDirAmount:r=0.5
   gun__recoilDir:r=0.4
   gun__recoilControlMult:r=0.68
   gun__visualRecoilMult:r=1.0
@@ -32627,7 +32649,7 @@ type_11_lmg{
   gun__statName:t="machine_gun"
   gun__sightsDistance:r=0.3
   gun__shotFreq:r=8.33
-  gun_spread__maxDeltaAngle:r=0.55
+  gun_spread__maxDeltaAngle:r=0.45
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__movementDevInc:p2=14.0, 35.0
   gun_deviation__movementRange:p2=0.1, 4.0
@@ -32635,8 +32657,8 @@ type_11_lmg{
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
   gun_deviation__maxDeviation:r=20.0
-  gun__reloadTime:r=4.6
-  gun__altReloadTime:r=4.1
+  gun__reloadTime:r=3.8
+  gun__altReloadTime:r=3.4
 
   "gun__ammoHolders:array"{
     ammoHolders:t="type_11_lmg_magazine"
@@ -32736,7 +32758,7 @@ nambu_type_96_lmg{
   gun__statName:t="machine_gun"
   gun__sightsDistance:r=0.3
   gun__shotFreq:r=9.167
-  gun_spread__maxDeltaAngle:r=0.45
+  gun_spread__maxDeltaAngle:r=0.34
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.07, 0.5
   gun_deviation__movementRange:p2=0.1, 4.0
@@ -32744,9 +32766,9 @@ nambu_type_96_lmg{
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
-  gun__reloadTime:r=3.5
-  gun__altReloadTime:r=3.0
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.1
+  gun__altReloadTime:r=2.6
 
   "gun__ammoHolders:array"{
     ammoHolders:t="nambu_type_96_lmg_magazine"
@@ -32780,16 +32802,17 @@ nambu_type_96_lmg_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.064
-  gun__recoilDirAmount:r=0.63
+  gun__recoilAmount:r=0.058
+  gun__recoilDirAmount:r=0.71
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=0.4
-  gun__recoilControlMult:r=0.65
+  gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.1
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.65
   meleeSoundType:t="rifle"
-  gun__rotInertia:p3=1.0, 0.3, 0.5
+  gun__rotationSpringMult:p3=1.0, 4.1, 4.1
+  gun__rotInertia:p3=0.1, 2.05, 2.05
 
   "gun_mods__slots:object"{
 
@@ -32878,7 +32901,7 @@ nambu_type_97_lmg{
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
+  gun_deviation__maxDeviation:r=15.0
   gun__integratedScope:b=yes
   gunmod__camNode:t="scope_view"
   gunmod__lensNode:t="lens_close"
@@ -32894,8 +32917,8 @@ nambu_type_97_lmg{
   gunmod__dofNearAmountPercent:r=50.0
   gunmod__dofFarAmountPercent:r=0.02
   gunmod__distortionParams:p3=0.8, 0.1, 0.07
-  gun__reloadTime:r=3.2
-  gun__altReloadTime:r=3.1
+  gun__reloadTime:r=2.8
+  gun__altReloadTime:r=2.4
 
   "gun__ammoHolders:array"{
     ammoHolders:t="nambu_type_97_lmg_magazine"
@@ -32929,7 +32952,7 @@ nambu_type_97_lmg_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.062
+  gun__recoilAmount:r=0.054
   gun__recoilDirAmount:r=0.69
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=0.4
@@ -33053,7 +33076,7 @@ type_97_antitank_canon_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.6
+  gun__recoilAmount:r=0.3
   gun__recoilDirAmount:r=0.7
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0

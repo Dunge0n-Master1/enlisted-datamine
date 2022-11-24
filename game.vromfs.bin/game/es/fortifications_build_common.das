@@ -128,29 +128,32 @@ def is_human_respawn_selector_in_radius_for_team(pos; radius; for_team)
     return respawnIconType == "human" && respawn_icon__active && team == for_team && length_sq(respawn_icon__position - pos) < radiusSq
   return isRespawnSelectorFound
 
-def is_distance_to_capture_points_valid(pos; min_distance)
+def is_pos_inside_capture_point(pos; margin_distance; transform; capzone__approximateRadius; sphere_zone__radius)
+  let distanceSq = length_sq(transform[3] - pos)
+  if capzone__approximateRadius >= 0.f
+    return distanceSq < square(margin_distance + capzone__approximateRadius)
+  if sphere_zone__radius > 0.0
+    let zoneToPoint = pos - transform[3]
+    if length_sq(zoneToPoint) < square(margin_distance)
+      return true
+    // move the build point closer to the zone by margin_distance, check that position against a scaled sphere zone
+    // we can't just add margin_distance to sphere_zone_radius as this way margin_distance will be affected by zone's scale
+    let reducedZoneToPoint = zoneToPoint - normalize(zoneToPoint) * margin_distance
+    let scaledDistanceSq = length_sq(rotate(inverse(transform), reducedZoneToPoint))
+    return scaledDistanceSq < square(sphere_zone__radius)
+  let halfDiag = length(transform[0] + transform[2]) * 0.5
+  return distanceSq < square(margin_distance + halfDiag)
+
+def is_distance_to_capture_points_valid(pos; min_distance; include_not_active = false)
   if min_distance < 0.0
     return true
-  return !find_query() <| $ [es(REQUIRE=capzone)] (transform : float3x4;
-                                                   active : bool;
+  return !find_query() <| $ [es(REQUIRE=capzone)] (active : bool;
+                                                   transform : float3x4;
                                                    capzone__approximateRadius = -1.0;
                                                    sphere_zone__radius = 0.0)
-    if !active
+    if !active && !include_not_active
       return false
-    let distanceSq = length_sq(transform[3] - pos)
-    if capzone__approximateRadius >= 0.f
-      return distanceSq < square(min_distance + capzone__approximateRadius)
-    if sphere_zone__radius > 0.0
-      let zoneToPoint = pos - transform[3]
-      if length_sq(zoneToPoint) < square(min_distance)
-        return true
-      // move the build point closer to the zone by min_distance, check that position against a scaled sphere zone
-      // we can't just add min_distance to sphere_zone_radius as this way min_distance will be affected by zone's scale
-      let reducedZoneToPoint = zoneToPoint - normalize(zoneToPoint) * min_distance
-      let scaledDistanceSq = length_sq(rotate(inverse(transform), reducedZoneToPoint))
-      return scaledDistanceSq < square(sphere_zone__radius)
-    let halfDiag = length(transform[0] + transform[2]) * 0.5
-    return distanceSq < square(min_distance + halfDiag)
+    return is_pos_inside_capture_point(pos, min_distance, transform, capzone__approximateRadius, sphere_zone__radius)
 
 def is_in_building_restricted_zone_sector(pos : float3;
                                           zone_transform : float3x4;

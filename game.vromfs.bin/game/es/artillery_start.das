@@ -89,3 +89,28 @@ def artillery_strike_start_at_pos_es(evt : CmdStartArtilleryStrikeAtPos; eid : E
     sendEvent(evt.owner, [[CmdRequestHumanSpeech phrase="artStrikeStart", importance=1.]])
   artillery_change_limit(team, 1, group)
   artillery_start(artilleryTemplateName, evt.owner, eid, calc_artillery_source_pos(evt.owner, evt.pos), evt.pos, evt.posEnd)
+
+
+[es(tag=server)]
+def artillery_strike_start_delayed_es(evt : CmdStartDelayedArtilleryStrikeAtPos; eid : EntityId)
+  createEntity("delayed_artillery_strike") <| $(var init)
+    init |> set("delayed_artillery__playerEid", eid)
+    init |> set("delayed_artillery__ownerEid", evt.owner)
+    init |> set("delayed_artillery__typeIndex", evt.typeIndex)
+    init |> set("delayed_artillery__pos", evt.pos)
+    init |> set("delayed_artillery__posEnd", evt.posEnd)
+    init |> set("delayed_artillery__delayTime", evt.delayTime)
+
+[es(tag=server, no_order)]
+def artillery_strike_update_delayed_es(info : UpdateStageInfoAct;
+                                       eid : EntityId;
+                                       delayed_artillery__playerEid : EntityId;
+                                       delayed_artillery__ownerEid : EntityId;
+                                       delayed_artillery__typeIndex : int;
+                                       delayed_artillery__pos : float3;
+                                       delayed_artillery__posEnd : float3;
+                                       var delayed_artillery__delayTime : float&)
+  delayed_artillery__delayTime -= info.dt
+  if delayed_artillery__delayTime <= 0.0
+    sendEvent(delayed_artillery__playerEid, [[CmdStartArtilleryStrikeAtPos owner=delayed_artillery__ownerEid, pos=delayed_artillery__pos, typeIndex=delayed_artillery__typeIndex, posEnd=delayed_artillery__posEnd]])
+    destroyEntity(eid)

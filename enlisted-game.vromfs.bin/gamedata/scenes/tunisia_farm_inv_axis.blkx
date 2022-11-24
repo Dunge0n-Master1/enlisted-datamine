@@ -927,7 +927,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1"
-  capzone__capTime:r=85.0
+  capzone__capTime:r=95.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1071,7 +1071,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/mill"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1096,7 +1096,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_5"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0

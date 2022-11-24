@@ -1,3 +1,4 @@
+options no_aot
 require ecs
 require game.es.events
 require DagorMath

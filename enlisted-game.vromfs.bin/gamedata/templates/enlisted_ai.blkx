@@ -6,10 +6,10 @@ squad_sight_avoid{
 
   _group{
     _tags:t="server"
-    squad_sight_avoid__forwardDist:r=10.0
+    squad_sight_avoid__forwardDist:r=6.0
     squad_sight_avoid__downDist:r=2.0
     squad_sight_avoid__sideDist:r=3.0
-    squad_sight_avoid__weight:p2=3.0, 2.0
+    squad_sight_avoid__weight:p2=2.0, 1.0
     squad_sight_avoid__lastUpdateTime:r=-1.0
     squad_sight_avoid__updateDelta:r=0.3
   }

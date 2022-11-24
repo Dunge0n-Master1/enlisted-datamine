@@ -35,7 +35,7 @@ let { showSquadMembersCrossPlayRestrictionMsgBox,
 let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { selectedGameMode } = require("%enlist/gameModes/changeGameModeBtn.nut")
-let { mkClustersUi } = require("%enlist/clusters.nut")
+let clustersUi = require("%enlist/clusters.nut")
 let { curArmyData, selectArmy } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let shortLbUi = require("%enlist/leaderboard/shortLb.ui.nut")
@@ -280,8 +280,6 @@ let events = @(){
     }.__update(body_txt)
   ]
 }
-
-let clustersUi = mkClustersUi({style = {size = [startBtnWidth, commonBtnHeight]}})
 
 let mkRandTeamBlock = @(ctor) {
   halign = ALIGN_RIGHT

@@ -1,13 +1,13 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  wallposterMenuItems, showWallposterMenu, elemSize
-} = require("%ui/hud/state/wallposter_menu.nut")
+let { pieMenuItems } = require("%ui/hud/state/pie_menu_state.nut")
 let { wallPosters } = require("%ui/hud/state/wallposter.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { CmdWallposterPreview } = require("dasevents")
 let mkPieItemCtor = require("%ui/hud/components/wallposter_menu_item_ctor.nut")
+
+let elemSize = Computed(@() array(2, (hdpx(390) * 0.35).tointeger()))
 
 let svg = memoize(function(img) {
   return "!ui/uiskin/{0}.svg:{1}:{1}:K".subst(img, elemSize.value[1])
@@ -16,7 +16,7 @@ let wallPosterPreview = @(index)
   ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdWallposterPreview({enable=true, wallPosterId=index}))
 
 wallPosters.subscribe(function(posters) {
-  wallposterMenuItems(posters.map(function(poster, index) {
+  pieMenuItems.value[0] = posters.map(function(poster, index) {
     let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(poster)
     let text = template?.getCompValNullable?("wallposter_menu__text") ?? ""
     let imageName = template?.getCompValNullable?("wallposter_menu__image")
@@ -25,10 +25,7 @@ wallPosters.subscribe(function(posters) {
     return {
       action = @() wallPosterPreview(index)
       text = hintText
-      closeOnClick = true
       ctor = mkPieItemCtor(index, image, hintText)
     }
-  }))
-  if (posters.len() == 0)
-    showWallposterMenu(false)
+  })
 })
