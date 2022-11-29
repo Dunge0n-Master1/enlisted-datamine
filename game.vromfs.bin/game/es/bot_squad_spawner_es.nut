@@ -12,11 +12,13 @@ let {date} = require("datetime")
 let {INVALID_USER_ID} = require("matching.errors")
 let {CmdSpawnSquad, EventTeamMemberJoined} = require("dasevents")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")
+let { applyModsToArmies } = require("%scripts/game/utils/profile_init.nut")
 
-let botsArmies = require("%enlSqGlob/data/bots_profile.nut")
-let customProfile = persist("bots_profile", @() {armies = null})
+let botsProfile = persist("bots_profile", @() {armies = require("%enlSqGlob/data/bots_profile.nut")})
+let customProfile = persist("custom_bots_profile", @() {armies = null})
 
 let function onInit(_evt, spawn_eid, comp) {
+  botsProfile.armies = applyModsToArmies(botsProfile.armies)
   ecs.clear_timer({eid=spawn_eid, id="bot_squad_spawner"})
   ecs.set_timer({eid=spawn_eid, id="bot_squad_spawner", interval=comp.spawnPeriod, repeat=true})
 }
@@ -99,7 +101,7 @@ let function onTimer(_evt, _eid, comp) {
 
   let teamEid = get_team_eid(team)
   let teamArmies = ecs.obsolete_dbg_get_comp_val(teamEid, "team__armies")?.getAll() ?? []
-  let armies = customProfile.armies ?? botsArmies
+  let armies = customProfile.armies ?? botsProfile.armies
   let armyId = teamArmies.findvalue(@(a) a in armies)
   if (armyId == null) {
     logerr($"[BOT_SPAWNER] Unable to spawn bots because of not found army in botArmies. team armies: {", ".join(teamArmies)}")
@@ -168,7 +170,7 @@ ecs.register_es(
 ecs.register_es(
   "bots_custom_profile_init",
   {
-    onInit = @(_eid, comp) customProfile.armies <- loadJson(comp["customBotProfile"])
+    onInit = @(_eid, comp) customProfile.armies <- applyModsToArmies(loadJson(comp["customBotProfile"]))
   },
   { comps_ro = [["customBotProfile", ecs.TYPE_STRING]] },
   {tags="server"}

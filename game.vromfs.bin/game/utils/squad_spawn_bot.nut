@@ -3,16 +3,18 @@ let {kwarg} = require("%sqstd/functools.nut")
 let {chooseRandom} = require("%sqstd/rand.nut")
 let {defaultSpawn, setCustomSpawn} = require("%scripts/game/utils/spawn_bot.nut")
 let {mkComps} = require("squad_spawn.nut")
+let { applyModsToArmies } = require("%scripts/game/utils/profile_init.nut")
 let defaultProfile = require("%enlSqGlob/data/bots_profile.nut")
 let logerr = require("dagor.debug").logerr
 
 let squadSpawn = kwarg(function(teamEid, team, template, transform, potentialPosition, onBotSpawned) {
   let teamArmies = ecs.obsolete_dbg_get_comp_val(teamEid, "team__armies")?.getAll() ?? []
   let teamSpawnBotArmy = ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnBotArmy")
-  local squad = defaultProfile?[teamSpawnBotArmy].squads[0].squad
+  let profile = applyModsToArmies(defaultProfile)
+  local squad = profile?[teamSpawnBotArmy].squads[0].squad
   if (!squad)
     foreach (armyId in teamArmies) {
-      squad = defaultProfile?[armyId].squads[0].squad
+      squad = profile?[armyId].squads[0].squad
       if (squad)
         break
     }

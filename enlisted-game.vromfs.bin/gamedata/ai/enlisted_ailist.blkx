@@ -26,12 +26,6 @@ repeat{
         isAgentPlayerBot{
         }
 
-        not{
-
-          isBipodWeaponSelected{
-          }
-        }
-
         setIntVar{
           to:t="minStance"
           value:i=1

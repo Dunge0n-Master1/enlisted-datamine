@@ -212,9 +212,8 @@ def close_map_when_hero_changed(evt : Event)
   sendEvent(get_controlled_hero(), [[CmdCloseArtilleryMap]])
 
 [es(tag=server, on_event=EventEntityDestroyed, REQUIRE=artillery__targetPos)]
-def artillery_strike_finish_es(evt : Event; artillery__callerEid : EntityId; artillery__group : int = 0)
-  query(artillery__callerEid) <| $ [es] (team : int)
-    artillery_change_limit(team, -1, artillery__group)
+def artillery_strike_finish_es(evt : Event; artillery__calledByTeam : int; artillery__group : int = 0)
+  artillery_change_limit(artillery__calledByTeam, -1, artillery__group)
 
 // Before artillery_limit_ui for client, if we run local server
 [es(tag=server, on_appear, before=artillery_limit_ui)]

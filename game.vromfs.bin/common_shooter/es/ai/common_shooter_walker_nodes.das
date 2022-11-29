@@ -292,20 +292,34 @@ class ChooseBestWeapon : BehNodeAdapter
     let currWeapon = int(agent.phys.producedCT.chosenWeapon)
     var bestWeapons : array<int>
     var goodWeapon = -1
-    query(agent.eid) <| $ [es] (human_weap__gunEids : EidList)
+    var otherWeapon = -1
+    query(agent.eid) <| $ [es] (human_weap__gunEids : EidList; human_weap__currentGunEid : EntityId)
       var closestStartFireRange = 0.0
       for i, gunEid in range(int(HUWeaponSlots EWS_NUM)), human_weap__gunEids
         if gunEid == INVALID_ENTITY_ID || i == int(HUWeaponSlots EWS_GRENADE)
           continue
+        var allowedGun = false
         var firingRange = float2()
-        var gunAmmo = 0
-        var overHeated = false
-        query(gunEid) <| $ [es(REQUIRE_NOT=specialAIWeapon)] (combatFiringRange : float2; gun__totalAmmo : int = 0; gun__ammo : int = 0; gun__isOverheat : bool = false)
-          let rangeCoef = (i == currWeapon) ? 1.0 : switchRadiusCoef
+        query(gunEid) <| $ [es] (specialAIWeaponType : int const?; combatFiringRange : float2;
+                                 gun__totalAmmo : int = 0; gun__ammo : int = 0; gun__isOverheat : bool = false)
+          let isCurrent = i == currWeapon
+          allowedGun = (gun__totalAmmo + gun__ammo) > 0 && !gun__isOverheat
+          if allowedGun && specialAIWeaponType != null
+            if *specialAIWeaponType == 1 // rocket launchers (not implemented yet)
+              allowedGun = false
+            elif * specialAIWeaponType == 2// pistols
+              otherWeapon = i
+              if !isCurrent
+                allowedGun = false
+                var hasRifleInHands = false
+                query(human_weap__currentGunEid) <| $ [es] (specialAIWeaponType aka sub_specialAIWeaponType : int const?; item__weapType : string)
+                  if item__weapType == "rifle" || (sub_specialAIWeaponType != null && *sub_specialAIWeaponType == 3) // antitank rifles
+                    hasRifleInHands = true
+                if hasRifleInHands && rnd_float(0.0, 1.0) <= 0.75
+                  allowedGun = true
+          let rangeCoef = isCurrent ? 1.0 : switchRadiusCoef
           firingRange = float2(combatFiringRange.x, combatFiringRange.y * rangeCoef)
-          gunAmmo = gun__totalAmmo + gun__ammo
-          overHeated = gun__isOverheat
-        if gunAmmo <= 0 || overHeated
+        if !allowedGun
           continue
         if square(firingRange.y) < distToTargetSq
           continue
@@ -317,7 +331,7 @@ class ChooseBestWeapon : BehNodeAdapter
 
     var bestWeapon = -1
     if empty(bestWeapons)
-      bestWeapon = goodWeapon
+      bestWeapon = goodWeapon >= 0 ? goodWeapon : otherWeapon
     elif find_index(bestWeapons, currWeapon) != -1 && changeWeaponTimeParam >= 0 && get_sync_time() < (owner.blackBoard |> datablock_getReal(changeWeaponTimeParam) + changeWeaponDelay)
       bestWeapon = currWeapon
     else

@@ -118,8 +118,7 @@ clusters.subscribe(function(clustersVal) {
 
 isAutoCluster.subscribe(function(isAuto) {
   if (!onlineSettingUpdated.value
-      || isAuto == settings.value?[CLUSTERS_KEY]
-      || clusters.value.len() > 1)
+      || isAuto == settings.value?[AUTO_CLUSTER_KEY])
     return
   settings.mutate(@(s) s[AUTO_CLUSTER_KEY] <- isAuto)
 })
@@ -127,8 +126,8 @@ isAutoCluster.subscribe(function(isAuto) {
 return {
   availableClusters
   clusters
-  selectedClusters
-  isAutoCluster
+  selectedClusters = Computed(@() clone clusters.value) // Remove to enable autocluster feature
+  isAutoCluster = Computed(@() false) // Remove to enable autocluster feature
   oneOfSelectedClusters
   clusterLoc
 }

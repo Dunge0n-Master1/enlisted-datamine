@@ -1475,6 +1475,7 @@ enlisted_userstat_filter{
     kills_by_engineer_buildings:b=yes
     tank_kills_by_engineer_buildings:b=yes
     plane_kills_by_engineer_buildings:b=yes
+    game_with_developers:b=yes
   }
 }
 

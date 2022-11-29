@@ -16,20 +16,20 @@ let askCommands = [
   { text = "quickchat/needCoordinates", sound = "qm_mark_enemy_vehicle" },
   // { text = "quickchat/followMe", sound = "qm_follow_me", action = @() sendNetEvent(watchedHeroEid.value, CmdBlinkMarker()) },
   // { text = "quickchat/coverMe", sound = "qm_cover_me" },
-  { text = "quickchat/requestAmmoBox", sound = "qm_request_ammo_box", action = @() sendNetEvent(watchedHeroEid.value, CmdRequestAmmoBoxMarker()) },
-  { text = "quickchat/requestRallyPoint", sound = "qm_request_rally_point", action = @() sendNetEvent(watchedHeroEid.value, CmdRequestRallyPointMarker()) }
+  { text = "quickchat/requestRallyPoint", sound = "qm_request_rally_point", action = @() sendNetEvent(watchedHeroEid.value, CmdRequestRallyPointMarker()) },
+  { text = "quickchat/requestAmmoBox", sound = "qm_request_ammo_box", action = @() sendNetEvent(watchedHeroEid.value, CmdRequestAmmoBoxMarker()) }
 ].map(getPieElementByCmd)
 
 let baseCommands = [
   // { text = "quickchat/yes", sound = "qm_accept" },
   // { text = "quickchat/no", sound = "qm_decline" },
-  { text = "quickchat/attack", sound = "qm_decline" },
-  { text = "quickchat/defend", sound = "qm_decline" },
-  { text = "quickchat/sorry", sound = "qm_sorry" },
   { text = "quickchat/thanks", sound = "qm_thanks" },
-  { text = "quickchat/goodJob", sound = "qm_well_done" }
+  { text = "quickchat/goodJob", sound = "qm_well_done" },
+  { text = "quickchat/sorry", sound = "qm_sorry" },
+  { text = "quickchat/defend", sound = "qm_decline" },
+  { text = "quickchat/attack", sound = "qm_decline" }
 ].map(getPieElementByCmd)
 
 return {
-  quickChatCommands = [].extend(baseCommands, askCommands)
+  quickChatCommands = [].extend(askCommands, baseCommands)
 }

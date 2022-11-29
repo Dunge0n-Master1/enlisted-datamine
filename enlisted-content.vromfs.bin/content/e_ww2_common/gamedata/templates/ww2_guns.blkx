@@ -194,11 +194,9 @@ ptr_ww2_preset{
   gun__zeroingAngle:r=-1.0
   gun__adsSpeedMult:r=0.25
   gun__inertialMass:r=12.0
+  specialAIWeaponType:i=3
 
   "gun__canPierceHPEntity:tag"{
-  }
-
-  "specialAIWeapon:tag"{
   }
 }
 
@@ -228,7 +226,7 @@ pistol_ww2_preset{
   _extends:t="pistol_ww2_fireready_deviation"
   _extends:t="frontside_gun_node"
   _extends:t="pistol_gun_shot_dry_sound"
-  combatFiringRange:p2=25.0, 50.0
+  combatFiringRange:p2=0.0, 18.0
   combatShootTime:p2=0.2, 1.0
   combatCooldownTime:p2=0.1, 0.3
   weap__sprintLerpFactor:r=1.0
@@ -245,6 +243,7 @@ pistol_ww2_preset{
   gun_tps_anim_var__gunOffsetAlong:r=0.2
   gun_tps_anim_var__gunOffsetAcross:r=0.0
   gun_tps_anim_var__gunOffsetUp:r=-0.09
+  specialAIWeaponType:i=2
 }
 
 launchers_ww2_preset{
@@ -267,9 +266,7 @@ launchers_ww2_preset{
   gun__inertialMass:r=12.0
   rumble__isHighBand:b=no
   rumble__maxShellImpulse:r=200.0
-
-  "specialAIWeapon:tag"{
-  }
+  specialAIWeaponType:i=1
 }
 
 launcher_grb_39_preset{

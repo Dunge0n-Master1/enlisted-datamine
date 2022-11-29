@@ -39,6 +39,8 @@ let function getGroupStats(groupId) {
 let function isTeamWon(roundResult, team) {
   return team != TEAM_UNASSIGNED && (roundResult.team == team) == roundResult.isWon
 }
+let isGameWithDeveloperQuery = ecs.SqQuery("isGameWithDeveloperQuery", { comps_rq = ["gameWithDeveloper"] })
+let isGameWithDeveloper = @() isGameWithDeveloperQuery(@(...) true) ?? false
 
 let function addStatValue(stats, value, addName) {
   if (value > 0)
@@ -136,6 +138,8 @@ let function getPlayerCurrentUserstats(comp, roundResult = null) {
       addStatValue(stats, 1, isVictory ? "victories" : "defeats")
       if (comp.scoring_player__isBattleHero)
         addStatValue(stats, 1, isVictory ? "hero_wins" : "hero_loses")
+      if (isGameWithDeveloper())
+        addStatValue(stats, 1, "game_with_developers")
     } else {
       addStatValue(stats, 1, "early_quits")
       addStatValue(stats, 1, isVictory ? "victories_early_quit" : "defeats_early_quit")

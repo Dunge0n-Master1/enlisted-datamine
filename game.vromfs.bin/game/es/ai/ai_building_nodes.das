@@ -724,15 +724,6 @@ class StartBuildBaseNode : BehNodeAdapter
     if empty(ri_preview_name)
       return EBehResult ER_FAILED
 
-    var resIndex = get_rigen_extra_res_idx(ri_preview_name)
-    if resIndex < 0
-      resIndex = rendinst_addRIGenExtraResIdx(ri_preview_name)
-      if resIndex < 0
-        return EBehResult ER_FAILED
-    let resBox = riex_get_lbb(resIndex)
-    let buildingBoxMin = resBox.bmin.xyz
-    let buildingBoxMax = resBox.bmax.xyz
-
     // NOTE: directly force AI engineer to have "unlimited" builder stock
     query(agent.eid) <| $ [es] (var stockOfBuilderCapabilities : float&)
       stockOfBuilderCapabilities = 1000.0
@@ -758,7 +749,7 @@ class StartBuildBaseNode : BehNodeAdapter
       buildTM[2] = normalize(cross(buildTM[0], buildTM[1]))
       buildTM[0] = normalize(cross(buildTM[1], buildTM[2]))
 
-    send_net_event(agent.eid, [[CmdBuildFortification builderGunEid=build.toolEid, tm=buildTM, boxMin=buildingBoxMin, boxMax=buildingBoxMax]])
+    send_net_event(agent.eid, [[CmdBuildFortification builderGunEid=build.toolEid, tm=buildTM, boxMin=float3(), boxMax=float3()]])
 
     build_node_build_began(build, buildPos)
 

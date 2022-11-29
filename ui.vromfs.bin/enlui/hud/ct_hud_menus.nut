@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {hudIsInteractive} = require("state/interactive_state.nut")
-let dainput = require("dainput2")
 
 let hudMenusContainer = {value = null}
 
@@ -92,11 +91,6 @@ let function mkMenuEventHandlers(menu) {
     if ((event?.dur ?? 0) > holdToToggleDurMsec || event?.appActive==false)
       closeMenu_int(menu)
   }
-  if (eventName)
-    menu.show.subscribe(function(val) {
-      if (!val)
-        dainput.reset_digital_action_sticky_toggle(dainput.get_action_handle(eventName, 0xFFFF))
-    })
   return {
     [eventName] = @(_event) switchMenu(menu.id),
     [$"{eventName}:end"] = endEvent

@@ -1289,7 +1289,7 @@ entity{
 }
 
 entity{
-  _template:t="briefing_invasion"
+  _template:t="briefing_destruction"
   mission_name:t="stalingrad_communist_bomb"
 
   "loading_images:list<t>"{

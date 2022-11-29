@@ -718,6 +718,14 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/squads/usa/usa_hero_medal_1_icon.svg")
   },
+  ["324"] = {
+    name = loc("items/nickFrame")
+    description = loc("items/nickFrame/desc")
+    icon = "ui/skin#/currency/nickframe_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_other.png"
+    cardImage = "ui/skin#/battlepass/nickframe_bp.png"
+    cardImageParams = mkImageParams([160, 178])
+  },
   ["344"] = {
     name = loc("items/pacific_event_2022_order")
     description = loc("items/pacific_event_2022_order/desc")

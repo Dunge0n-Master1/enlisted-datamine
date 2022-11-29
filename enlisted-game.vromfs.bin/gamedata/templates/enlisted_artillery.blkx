@@ -60,6 +60,7 @@ aircraft_request{
   artillery__lifeTime:r=160.0
   artillery__deadTime:r=0.0
   artilleryLifeTimeAfterBombing:r=5.0
+  artillery__calledByTeam:i=0
 
   "artillery__callerEid:eid"{
   }
@@ -245,6 +246,7 @@ artillery_fireworks{
   artillery__timeBetweenShots:r=10.0
   artillery__nextShotTime:r=-1.0
   artillery__group:i=1
+  artillery__calledByTeam:i=0
 
   "artillery__callerEid:eid"{
   }

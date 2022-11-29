@@ -48,10 +48,11 @@ def calc_artillery_target_pos(eid : EntityId; var result : float3&) : bool
   return false
 
 
-def artillery_start(tpl_name : string; offender, owner_player : EntityId; source_pos, target_pos, target_pos_end : float3)
+def artillery_start(tpl_name : string; offender, owner_player : EntityId; by_team : int; source_pos, target_pos, target_pos_end : float3)
   createEntity(tpl_name) <| $(var init : ComponentsInitializer)
     set(init, "artillery__offender", offender)
     set(init, "artillery__callerEid", owner_player)
+    set(init, "artillery__calledByTeam", by_team)
     set(init, "artillery__sourcePos", source_pos)
     set(init, "artillery__targetPos", target_pos)
     set(init, "artillery__targetPosEnd", target_pos_end)
@@ -88,7 +89,7 @@ def artillery_strike_start_at_pos_es(evt : CmdStartArtilleryStrikeAtPos; eid : E
   if !!evt.owner
     sendEvent(evt.owner, [[CmdRequestHumanSpeech phrase="artStrikeStart", importance=1.]])
   artillery_change_limit(team, 1, group)
-  artillery_start(artilleryTemplateName, evt.owner, eid, calc_artillery_source_pos(evt.owner, evt.pos), evt.pos, evt.posEnd)
+  artillery_start(artilleryTemplateName, evt.owner, eid, team, calc_artillery_source_pos(evt.owner, evt.pos), evt.pos, evt.posEnd)
 
 
 [es(tag=server)]

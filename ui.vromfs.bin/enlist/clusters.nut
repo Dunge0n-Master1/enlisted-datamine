@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+//let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut") // Kept for autocluster feature ui
 let { ControlBgOpaque, BtnBgDisabled, BtnBdDisabled, BtnTextVisualDisabled, comboboxBorderColor
 } = require("%ui/style/colors.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
@@ -12,7 +12,7 @@ let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
 let textButton = require("%ui/components/textButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { multiselect, styleCommon, styleDisabled } = require("%enlist/components/multiselect.nut")
-let checkbox = require("%ui/components/checkbox.nut")
+//let checkbox = require("%ui/components/checkbox.nut") // Kept for autocluster feature ui
 
 
 const CLUSTER_PANEL_UID = "clustersSelector"
@@ -47,7 +47,8 @@ let clusterSelector = @() {
     color = comboboxBorderColor
   }
   children = [
-    checkbox(isAutoCluster, { text = loc("quickMatch/Server/Optimal") }.__update(body_txt))
+    // Uncomment to enable autocluster feature
+    //checkbox(isAutoCluster, { text = loc("quickMatch/Server/Optimal") }.__update(body_txt))
     multiselect({
       selected = isAutoCluster.value ? Watched({}) : clusters
       minOptions = 1

@@ -35,6 +35,7 @@ artillery{
   artillery__adjustmentGunTempl:t="adjustment_artillery_gun"
   artillery__sourcePos:p3=0.0, 0.0, 0.0
   artillery__targetPos:p3=0.0, 0.0, 0.0
+  artillery__calledByTeam:i=0
 
   "artillery__callerEid:eid"{
   }
@@ -52,6 +53,7 @@ artillery_gun{
   gun__blk:t="content/tanks/gamedata/weapons/artillery.blk"
   gun__locName:t="Artillery"
   gun__shotFreq:r=0.1
+  artillery__calledByTeam:i=0
 
   "gun__shellsAmmo:array"{
     ammo:i=111
