@@ -20,7 +20,7 @@ let {
 } = require("armyShopState.nut")
 let { shopItems } = require("shopItems.nut")
 let openUrl = require("%ui/components/openUrl.nut")
-let { byId, balance } = require("%enlist/currency/currencies.nut")
+let { currenciesById, currenciesBalance } = require("%enlist/currency/currencies.nut")
 let { purchaseButtonStyle, primaryFlatButtonStyle
 } = require("%enlSqGlob/ui/buttonsStyle.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -51,7 +51,7 @@ let mkDescription = @(descLocId) descLocId == null ? null
       halign = ALIGN_CENTER
     }.__update(sub_txt))
 
-let function mkResourcesLackInfo(reqResources, viewCurrs) {
+let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId) {
   let lackResources = []
   foreach (currencyTpl, required in reqResources) {
     let count = required - (viewCurrs?[currencyTpl] ?? 0)
@@ -85,7 +85,7 @@ let function mkResourcesLackInfo(reqResources, viewCurrs) {
           }
         ]
       }
-      noteTextArea(loc("shop/noItemsToPay")).__update({
+      noteTextArea(loc(costLocId)).__update({
         halign = ALIGN_CENTER
         color = TextActive
       }, sub_txt)
@@ -180,10 +180,10 @@ let notEnoughMoneyInfo = @(price, currencyId) {
       rendObj = ROBJ_TEXT
       color = HighlightFailure
       text = loc("shop/notEnoughCurrency", {
-        priceDiff = price - (balance.value?[currencyId] ?? 0)
+        priceDiff = price - (currenciesBalance.value?[currencyId] ?? 0)
       })
     }.__update(body_txt)
-    currencyImage(byId.value?[currencyId])
+    currencyImage(currenciesById.value?[currencyId])
   ]
 }
 
@@ -255,7 +255,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
   let barterInfo = Computed(@() getPayItemsData(curItemCost, curCampItems.value))
 
   local { price = 0, fullPrice = 0, currencyId = ""} = shopItem?.curShopItemPrice
-  let currency = byId.value?[currencyId]
+  let currency = currenciesById.value?[currencyId]
   if (!(price instanceof Watched))
       price = Watched(price)
   if (!(fullPrice instanceof Watched))
@@ -297,10 +297,24 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
 
   let hasSquads = (shopItem?.squads.len() ?? 0) > 0
   let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
-  let title = isSoldier ? titleLocalization("shop/wantPurchaseSoldier", shopItem)
+  local title = isSoldier ? titleLocalization("shop/wantPurchaseSoldier", shopItem)
     : !hasSquads ? titleLocalization("shop/wantPurchaseMsg", shopItem)
     : shopItem?.nameLocId ? loc(shopItem.nameLocId)
     : ", ".join(shopItem.squads.map(@(sq) loc(squadsPresentation?[sq.armyId][sq.id].titleLocId)))
+
+  local costLocId = "shop/noItemsToPay"
+
+  if (hasBarter)
+    foreach (cur, _ in curItemCost) {
+      let curLocId = $"items/{cur}/acquire"
+      let locId = $"shop/noItemsToPay/{cur}"
+
+      if (doesLocTextExist(curLocId))
+        title = $"{title}\n{loc(curLocId)}"
+
+      if (doesLocTextExist(locId))
+        costLocId = locId
+    }
 
   let srcComponent = hasSquads ? "buy_squad_window" : "buy_shop_item"
 
@@ -321,7 +335,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     // barter area
     if (hasBarter){
       if (!barterInfo.value){
-        msgBody.append(mkResourcesLackInfo(curItemCost, viewCurrencies.value))
+        msgBody.append(mkResourcesLackInfo(curItemCost, viewCurrencies.value, costLocId))
         if (currencyId == "EnlistedGold" && price.value > 0) {
           msgBody.append({
             size = [fsh(50), SIZE_TO_CONTENT]
@@ -354,7 +368,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
         fullPrice = fullPrice.value
         iconSize = hdpx(20)
       })
-      if ((balance.value?[currencyId] ?? 0) < price.value)
+      if ((currenciesBalance.value?[currencyId] ?? 0) < price.value)
         notEnoughCurrencyInfo = notEnoughMoneyInfo(price.value, currencyId)
     }
 
@@ -362,7 +376,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
       mkDiscountInfo(discountState.value))
 
     return {
-      watch = [ price, fullPrice, balance, barterInfo, hasBuy, discountState ]
+      watch = [ price, fullPrice, currenciesBalance, barterInfo, hasBuy, discountState ]
       size = [fsh(80), SIZE_TO_CONTENT]
       margin = [defGap, 0, 0, 0]
       flow = FLOW_VERTICAL
@@ -381,9 +395,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
       allResources.extend(allBarterCurrencies)
     }
 
-    if (hasBuy.value && currencyId in byId.value){
+    if (hasBuy.value && currencyId in currenciesById.value){
       let buyResource =
-        priceWidget(balance.value?[currencyId] ?? loc("currency/notAvailable"), currencyId)
+        priceWidget(currenciesBalance.value?[currencyId] ?? loc("currency/notAvailable"), currencyId)
           .__update({
             size = [SIZE_TO_CONTENT, flex()]
             gap = hdpx(10)
@@ -392,7 +406,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     }
 
     return {
-      watch = [hasBuy, byId, balance]
+      watch = [hasBuy, currenciesById, currenciesBalance]
       flow = FLOW_HORIZONTAL
       size = [SIZE_TO_CONTENT, flex()]
       gap = hdpx(20)
@@ -442,7 +456,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
         })
       }
     if (hasBuy.value && !hasOfferExpired.value) {
-      let currencyBalance = balance.value?[currencyId] ?? 0
+      let currencyBalance = currenciesBalance.value?[currencyId] ?? 0
       if (currencyBalance >= priceVal * countVal)
         btns.append({
           text = loc("btn/buy")
@@ -536,21 +550,11 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     return
   }
 
-  local costLocId = "shop/noItemsToPay"
-
   // buy on website, no msg window ingame:
   let { purchaseGuid = "", pcLinkGuid = "" } = shopItem
   if (purchaseGuid != "")
     if (buyItemByGuid(pcLinkGuid != "" ? pcLinkGuid : purchaseGuid))
       return
-
-  foreach (costId, _ in curItemCost) {
-    let locId = $"shop/noItemsToPay/{costId}"
-    if (doesLocTextExist(locId)) {
-      costLocId = locId
-      break
-    }
-  }
 
   // no tickets, nor price in gold, simple "not enough tickets" msg box
   msgbox.showMsgbox({ text = loc(costLocId) })

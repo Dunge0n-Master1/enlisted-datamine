@@ -129,7 +129,7 @@ let lbHeaderFlag = {
 let lbHeaderImg = {
   size = [flex(), headerImgHeight]
   rendObj = ROBJ_IMAGE
-  image = Picture("ui/burning_sky_loading_screen.jpg")
+  image = Picture("ui/pacific_usa_login_screen.jpg")
   keepAspect = KEEP_ASPECT_FILL
 }
 

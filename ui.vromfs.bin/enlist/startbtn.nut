@@ -23,8 +23,10 @@ let colorize = require("%ui/components/colorize.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
-let { showSquadMembersCrossPlayRestrictionMsgBox,
-  showSquadVersionRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
+let { showSquadMembersCrossPlayRestrictionMsgBox, showSquadVersionRestrictionMsgBox,
+  showNegativeBalanceRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
+
+let { hasValidBalance } = require("%enlist/currency/currencies.nut")
 
 let skip_descr = {description = {skip=true}}
 
@@ -64,6 +66,11 @@ let mkJoinQuickMatchButton = @(cb = null)
       let unsuitableByVersion = getUnsuitableVersionConditionMembers(currentGameMode.value)
       if (unsuitableByVersion.len() != 0) {
         showSquadVersionRestrictionMsgBox(unsuitableByVersion.values())
+        return
+      }
+
+      if (!hasValidBalance.value) {
+        showNegativeBalanceRestrictionMsgBox()
         return
       }
 

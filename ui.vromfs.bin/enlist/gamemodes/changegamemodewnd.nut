@@ -39,6 +39,8 @@ let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { isInSquad, isLeavingWillDisbandSquad, leaveSquad, leaveSquadSilent
 } = require("%enlist/squad/squadManager.nut")
 
+let { hasValidBalance } = require("%enlist/currency/currencies.nut")
+
 let isTutorialsWndOpened = Watched(false)
 
 let hoverColor = Color(240, 200, 100, 190)
@@ -62,6 +64,7 @@ let defTutorialParams = Computed(@() {
   title = loc("tutorials")
   description = loc("tutorials/desc")
   isAvailable = !isInSquad.value
+  isLocal = true
   needShowCrossplayIcon = false
   isVersionCompatible = true
 })
@@ -88,7 +91,8 @@ let customGameMode = Computed(function() {
     image = armiesPresentation?[armyId].customGameImage ?? defCustomGameImage
     title = loc("custom_matches")
     description = loc("custom_matches/desc")
-    isAvailable = true
+    isAvailable = hasValidBalance.value
+    isLocal = false
     needShowCrossplayIcon = true
     isVersionCompatible = true
     onClick = function() {
@@ -103,7 +107,8 @@ let mkEventGameMode = @(event) {
   image = event?.extraParams.image ?? defCustomGameImage
   title = loc("events")
   description = loc(event?.descLocId) ?? loc("events")
-  isAvailable = true
+  isAvailable = hasValidBalance.value
+  isLocal = false
   needShowCrossplayIcon = true
   isVersionCompatible = true
   onClick = function() {
@@ -200,7 +205,7 @@ let modeFrameParams = {
 }
 
 let function mkCustomGameButton(modeCfg, hasSeen, animations) {
-  let { image, title, id, onClick } = modeCfg
+  let { image, title, id, onClick, isAvailable } = modeCfg
   return watchElemState(@(sf) {
     size = cardSize
     xmbNode = XmbNode()
@@ -213,7 +218,7 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
     }
     onClick
     children = [
-      mkImage(image, defCustomGameImage, true, sf)
+      mkImage(image, defCustomGameImage, isAvailable, sf)
       {
         size = nameBlockSize
         padding
@@ -365,8 +370,7 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
   let xmbNode = XmbNode()
 
   let {
-    id, image, fbImage, isAvailable, needShowCrossplayIcon,
-    isLocked, lockLevel
+    id, image, fbImage, isAvailable, isLocal, needShowCrossplayIcon, isLocked, lockLevel
   } = gameMode
 
   return watchElemState(function(sf) {
@@ -379,7 +383,7 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
     return {
       size = cardSize
       watch = [isSelectedW, defaultFbImage, crossnetworkPlay, isTutorialsWndOpened,
-        tutorialModes, mainModes]
+        tutorialModes, mainModes, hasValidBalance]
       borderColor = sf & S_HOVER ? hoverColor : Color(80,80,80,80)
       borderWidth = (sf & S_HOVER) != 0 || isSelected ? hdpx(2) : 0
 
@@ -402,7 +406,8 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
       group,
 
       children = [
-        mkImage(image ?? defaultFbImage.value, fbImage ?? defaultFbImage.value, isAvailable && !isLocked, sf)
+        mkImage(image ?? defaultFbImage.value, fbImage ?? defaultFbImage.value,
+          isAvailable && !isLocked && (isLocal || hasValidBalance.value), sf)
         nameBlock(
           gameMode.title,
           cardSize[0],
@@ -520,7 +525,7 @@ let getVersionDescInfo =  @(gm) gm.isVersionCompatible ? null
   : infoText({ text = loc("msg/gameMode/unsupportedVersion"), color = Alert, halign = ALIGN_CENTER })
 
 let mkInfo = @(gm) @() {
-  watch = crossnetworkPlay
+  watch = [crossnetworkPlay, hasValidBalance]
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -528,8 +533,8 @@ let mkInfo = @(gm) @() {
 
   children = [
     infoText({ text = utf8ToUpper(gm.title), color = titleTxtColor })
-    gm.isAvailable
-      ? infoText({ text = gm.description })
+    !(hasValidBalance.value || gm.isLocal) ? infoText({ text = loc("gameMode/negativeBalance") })
+      : gm.isAvailable ? infoText({ text = gm.description })
       : infoText({ text = loc("gameMode/onlineDenied") })
     getVersionDescInfo(gm)
     gm.isAvailable

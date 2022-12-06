@@ -5,7 +5,8 @@ let { statusIconBg } = require("%ui/style/colors.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 let { isSquadLeader, squadMembers, isInvitedToSquad, squadSelfMember,
-  enabledSquad, canInviteToSquad, myExtSquadData, leaveSquad } = require("%enlist/squad/squadManager.nut")
+  enabledSquad, canInviteToSquad, myExtSquadData, leaveSquad
+} = require("%enlist/squad/squadManager.nut")
 let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
 let mkContactBlock = require("%enlist/contacts/mkContactBlock.nut")
@@ -20,7 +21,8 @@ let { roomIsLobby } = require("%enlist/state/roomState.nut")
 let { showCurNotReadySquadsMsg } = require("%enlist/soldiers/model/notReadySquadsState.nut")
 
 
-let contextMenuActions = [INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, REMOVE_FROM_SQUAD, PROMOTE_TO_LEADER, REVOKE_INVITE, SHOW_USER_LIVE_PROFILE]
+let contextMenuActions = [INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, REMOVE_FROM_SQUAD,
+  PROMOTE_TO_LEADER, REVOKE_INVITE, SHOW_USER_LIVE_PROFILE]
 let maxMembers = Computed(@() currentGameMode.value?.queue.maxGroupSize ?? 1)
 
 let mkAddUserButton = @() squareIconButton({
@@ -70,7 +72,7 @@ let function squadMembersUi() {
     squadList.append(horizontalContact(Contact(uid.tostring()), hasStatusBlock))
 
   if (maxMembers.value > 1 && canInviteToSquad.value)
-    for(local i = squadList.len(); i < maxMembers.value-1; i++)
+    for(local i = squadList.len(); i < maxMembers.value; i++)
       squadList.append(mkAddUserButton())
 
   return {

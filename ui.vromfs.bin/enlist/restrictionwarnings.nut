@@ -26,6 +26,13 @@ return {
       ", ".join(getMembersNames(members))
     )})
 
-  showVersionRestrictionMsgBox = @() msgbox.show({ text = loc("msg/gameMode/unsupportedVersion", {color = Alert})})
+  showNegativeBalanceRestrictionMsgBox = @() msgbox.show({
+    text = loc("gameMode/negativeBalance", {color = Alert})
+  })
+
+  showVersionRestrictionMsgBox = @() msgbox.show({
+    text = loc("msg/gameMode/unsupportedVersion", {color = Alert})
+  })
+
   showCrossnetworkChatRestrictionMsgBox
 }

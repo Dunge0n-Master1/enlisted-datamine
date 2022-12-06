@@ -32,6 +32,7 @@ let { crossnetworkPlay, CrossPlayStateWeight, crossnetworkChat } = require("%enl
 let { consoleCompare, canInterractCrossPlatform } = require("%enlSqGlob/platformUtils.nut")
 let { availableSquadMaxMembers } = require("%enlist/state/queueState.nut")
 let { check_version } = require("%sqstd/version_compare.nut")
+let { hasValidBalance } = require("%enlist/currency/currencies.nut")
 
 const INVITE_ACTION_ID = "squad_invite_action"
 const SQUAD_OVERDRAFT = 0
@@ -640,6 +641,11 @@ let function inviteToSquad(user_id, needConsoleInvite = true) {
     }
   }
 
+  if (!hasValidBalance.value) {
+    logSq($"Invite: member {user_id}: negative balance")
+    return showSizePopup(loc("gameMode/negativeBalance"))
+  }
+
   let _doInvite = function() {
     MSquadAPI.invitePlayer(user_id, {
       onFailure = function(resp) {
@@ -706,7 +712,7 @@ foreach (w in squadSharedData)
   w.subscribe(syncSharedData)
 
 subscribeGroup(INVITE_ACTION_ID, {
-  onShow = @(notify) msgbox.show({
+  onShow = @(notify) msgbox.show(hasValidBalance.value ? {
     text = loc("squad/acceptInviteQst")
     buttons = [
       { text = loc("Yes"), isCurrent = true,
@@ -716,6 +722,16 @@ subscribeGroup(INVITE_ACTION_ID, {
         }
       }
       { text = loc("No"), isCancel = true,
+        function action() {
+          removeNotify(notify)
+          MSquadAPI.rejectInvite(notify.inviterUid)
+        }
+      }
+    ]
+  } : {
+    text = loc("gameMode/negativeBalance")
+    buttons = [
+      { text = loc("Ok"), isCurrent = true,
         function action() {
           removeNotify(notify)
           MSquadAPI.rejectInvite(notify.inviterUid)

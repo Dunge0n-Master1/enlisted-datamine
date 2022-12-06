@@ -1,0 +1,4 @@
+entity{
+  _template:t="custom_profile"
+  customProfile:t="%enlSqGlob/data/sea_predator_profile.json"
+}

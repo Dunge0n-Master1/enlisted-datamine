@@ -1690,8 +1690,8 @@ newbie_damage{
   _tags:t="server"
   player__damageToBotsScale:r=1.0
   player__damageFromBotsScale:r=1.0
-  newbie__damageFromBots:r=1.0
-  newbie__damageToBots:r=2.0
+  newbie__damageFromBots:r=0.25
+  newbie__damageToBots:r=1.0
 
   _group{
     _track:b=yes

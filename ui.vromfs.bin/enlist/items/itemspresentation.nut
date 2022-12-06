@@ -742,6 +742,41 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/posters.png"
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
+  ["353"] = {
+    name = loc("wp/agit_poster_china_g_preview/name")
+    description = loc("wp/agit_poster_china_g_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["354"] = {
+    name = loc("wp/agit_poster_china_h_preview/name")
+    description = loc("wp/agit_poster_china_h_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["356"] = {
+    name = loc("items/sea_predator_reward_order")
+    description = loc("items/sea_predator_reward_order/desc")
+    icon = "ui/skin#/currency/random_reward_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_other.png"
+    cardImage = "ui/skin#/battlepass/random_reward.png"
+    cardImageParams = mkImageParams([102, 146], [0, -10])
+  },
+  ["357"] = {
+    name = loc("items/sea_predator_decal_order")
+    description = loc("items/sea_predator_decal_order/desc")
+    icon = "ui/skin#/currency/decal_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/decal_order_event.svg")
+  },
   ["359"] = {
     name = loc("items/armory_event_crate")
     description = loc("items/armory_event_crate/desc")
@@ -762,6 +797,26 @@ let rewardsPresentation = {
     icon = "ui/portraits/default_portrait.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["364"] = {
+    name = loc("wp/agit_poster_china_i_preview/name")
+    description = loc("wp/agit_poster_china_i_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["365"] = {
+    name = loc("wp/agit_poster_china_j_preview/name")
+    description = loc("wp/agit_poster_china_j_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["368"] = {
     name = loc("items/enlisted2years_portrait_ussr")
@@ -818,6 +873,16 @@ let rewardsPresentation = {
     icon = "ui/uiskin/currency/decal_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([144, 170], [0, 17], "!ui/skin#/battlepass/silver_weapons.png")
+  },
+  ["377"] = {
+    name = loc("wp/agit_poster_china_k_preview/name")
+    description = loc("wp/agit_poster_china_k_preview/desc")
+    gametemplate = "poster_ticket_4"
+    worth = 2
+    icon = "ui/skin#/currency/poster_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
   },
 
 

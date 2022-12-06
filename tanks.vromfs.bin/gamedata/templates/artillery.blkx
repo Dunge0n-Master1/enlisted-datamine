@@ -79,9 +79,6 @@ artillery_gun{
     enemy:t="enemy/weapon/cannon/artillery"
   }
 
-  "allowFriendlyFire:tag"{
-  }
-
   "artillery__callerEid:eid"{
   }
 }

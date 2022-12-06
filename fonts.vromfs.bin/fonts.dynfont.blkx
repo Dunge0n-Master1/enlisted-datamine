@@ -13,7 +13,8 @@ baseFontData{
     range:ip2=8992, 8995
     range:ip2=9216, 9228
     range:ip2=9230, 9252
-    range:ip2=9472, 9476
+    range:ip2=9472, 9485
+    range:ip2=9487, 9487
   }
 
   addFont{
@@ -58,7 +59,8 @@ baseFontData{
     range:ip2=8992, 8995
     range:ip2=9216, 9228
     range:ip2=9230, 9252
-    range:ip2=9472, 9476
+    range:ip2=9472, 9485
+    range:ip2=9487, 9487
   }
 
   addFont{

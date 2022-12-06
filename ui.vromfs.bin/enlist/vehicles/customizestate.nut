@@ -8,7 +8,6 @@ let { hasVehicleCustomization } = require("%enlist/featureFlags.nut")
 let { endswith } = require("string")
 let { configs } = require("%enlist/meta/configs.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
-let { viewVehicle } = require("vehiclesListState.nut")
 let { add_veh_decorators, apply_decorator, buy_veh_decorator
 } = require("%enlist/meta/clientApi.nut")
 let { setDecalSlot, setDecalMirrored, setDecalTwoSide,
@@ -22,6 +21,7 @@ let { accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let {
   allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { vehicleInVehiclesScene } = require("%enlist/showState.nut")
 
 
 let customizationParams = Watched(null)
@@ -37,11 +37,11 @@ let viewVehCustSchemes = Computed(function() {
   if (!hasVehicleCustomization.value)
     return null
 
-  let vehicle = viewVehicle.value
+  let vehicle = vehicleInVehiclesScene.value
   if (vehicle == null)
     return null
 
-  let { itemsubtype } = vehicle
+  let { itemsubtype = null } = vehicle
   let armyId = getLinkedArmyName(vehicle)
   let {
     vehDecal = null, vehDecorator = null, reqArmies = []
@@ -139,7 +139,7 @@ let function getDecorBelongText(belongId) {
 }
 
 let curDecorCfgByType = Computed(function() {
-  let vehicle = viewVehicle.value
+  let vehicle = vehicleInVehiclesScene.value
   if (vehicle == null)
     return null
 
@@ -166,7 +166,7 @@ let curDecorCfgByType = Computed(function() {
 })
 
 let viewVehDecorByType = Computed(function() {
-  let { guid = "" } = viewVehicle.value
+  let { guid = "" } = vehicleInVehiclesScene.value
   let decoratorsCfg = vehCustomizationCfg.value
   return availVehDecorByTypeId.value
     .map(function(cTypeData) {
@@ -186,7 +186,7 @@ let viewVehCamouflage = Computed(@()
 
 let viewVehDecorators = Computed(function() {
   let res = { vehCamouflage = null }
-  let { gametemplate = "" } = viewVehicle.value
+  let { gametemplate = "" } = vehicleInVehiclesScene.value
   if (gametemplate == "")
     return res
 
@@ -245,7 +245,7 @@ let function buyDecorator(cType, id, cost, cb = null) {
 let closeDecoratorsList = @() customizationParams(null)
 
 let viewVehDecorData = keepref(Computed(function() {
-  let vehicleGuid = viewVehicle.value?.guid ?? ""
+  let vehicleGuid = vehicleInVehiclesScene.value?.guid ?? ""
   let targetEid = vehTargetEid.value ?? INVALID_ENTITY_ID
   if (vehicleGuid == "" || targetEid == INVALID_ENTITY_ID)
     return null
@@ -271,7 +271,7 @@ let viewVehDecorData = keepref(Computed(function() {
 }))
 
 let viewVehDecalData = keepref(Computed(function() {
-  let vehicleGuid = viewVehicle.value?.guid ?? ""
+  let vehicleGuid = vehicleInVehiclesScene.value?.guid ?? ""
   let targetEid = vehTargetEid.value ?? -1
   if (vehicleGuid == "" || targetEid < 0)
     return null
@@ -299,7 +299,7 @@ let viewVehDecalData = keepref(Computed(function() {
 }))
 
 let viewVehCustLimits = Computed(function() {
-  let viewVehGuid = viewVehicle.value?.guid
+  let viewVehGuid = vehicleInVehiclesScene.value?.guid
   if (viewVehGuid == null)
     return null
 

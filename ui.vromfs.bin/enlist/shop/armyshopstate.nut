@@ -182,12 +182,15 @@ let curArmyItemsPrefiltered = Computed(function() {
   let squadsById = armySquadsById.value
   let purchases = purchasesCount.value
   let debugPermission = isDebugShowPermission.value
-  return shopItems.value.filter(@(i, id) i?.armies.contains(armyId)
-    && (!(i?.isHidden ?? false) || isTemporaryVisible(id, i, itemCount, itemsByTime))
-    && !(isChineseVersion && (i?.isHiddenOnChinese ?? false))
-    && isAvailableBySquads(i, squadsById)
-    && isAvailableByLimit(i, purchases)
-    && isAvailableByPermission(i, debugPermission))
+  return shopItems.value.filter(function(item, id) {
+    let { armies = [], isHidden = false, isHiddenOnChinese = false } = item
+    return (armies.contains(armyId) || armies.len() == 0)
+      && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
+      && !(isChineseVersion && isHiddenOnChinese)
+      && isAvailableBySquads(item, squadsById)
+      && isAvailableByLimit(item, purchases)
+      && isAvailableByPermission(item, debugPermission)
+  })
 })
 
 let curArmyShopInfo = Computed(function() {
@@ -459,7 +462,9 @@ curAvailableShopItems.subscribe(function(items) {
 })
 
 let premiumProducts = Computed(@()
-  shopItems.value.filter(@(i) !i?.isHidden
+  shopItems.value.filter(@(i) (i?.squads.len() ?? 0) == 0 // keep clean premium items only
+    && (i?.armies.len() ?? 0) == 0
+    && (i?.crates.len() ?? 0) == 0
     && (i?.premiumDays ?? 0) > 0
     && (i?.curShopItemPrice.price ?? 0) > 0
     && (i?.curShopItemPrice.currencyId ?? "") != ""

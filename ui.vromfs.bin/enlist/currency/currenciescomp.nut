@@ -7,7 +7,7 @@ let { Purchase } = require("%ui/components/textButton.nut")
 let {
   gap, bonusColor, defTxtColor, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { expiring, byId } = require("%enlist/currency/currencies.nut")
+let { currenciesExpiring, currenciesById } = require("%enlist/currency/currencies.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
@@ -17,7 +17,7 @@ let {
 } = require("%enlist/shop/currencyComp.nut")
 
 
-let curencyById = @(currencyId) byId.value?[currencyId]
+let curencyById = @(currencyId) currenciesById.value?[currencyId]
 
 let oldPriceLine = {
   size = flex()
@@ -137,14 +137,14 @@ let function mkExpireRow(expData, currency) {
 }
 
 let mkCurrencyTooltip = @(currency) function() {
-  let exp = expiring.value?[currency.id]
+  let exp = currenciesExpiring.value?[currency.id]
   if (exp == null)
     return mkCurrencyTooltipContainer(
       loc(currency?.locId),
       loc(currency?.descLocId)
     )
 
-  let res = { watch = expiring }
+  let res = { watch = currenciesExpiring }
   return res.__update(tooltipBox({
     flow = FLOW_VERTICAL
     children = exp.sort(@(a, b) a.expireAt <=> b.expireAt)

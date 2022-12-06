@@ -78,7 +78,7 @@ let function shortEventLb() {
         .slice(0, MAX_LB_ROWS)
         .map(@(rowData) mkLbRow(rowData, lbCategories)))
     valign = ALIGN_TOP
-    if (curLbSelfRow.value && curLbData.value.findvalue(@(r) r?.self ?? false) != null){
+    if (curLbSelfRow.value) {
       let selfRow = mkLbRow(curLbSelfRow.value, lbCategories)
       let { idx = -1 } = curLbSelfRow.value
       if (idx < 0 || idx > MAX_LB_ROWS){
@@ -89,13 +89,13 @@ let function shortEventLb() {
   }
 
   return {
-    watch = [lbCategoriesByGroup, curLbData, curLbErrName]
+    watch = [lbCategoriesByGroup, curLbData, curLbErrName, curLbSelfRow]
     size = [flex(), fullHeight]
-    function onAttach() {
+    onAttach = function() {
       isRefreshLbEnabled(true)
       curLbRequestData.subscribe(refreshLbOnChange)
     }
-    onDetach = function(){
+    onDetach = function() {
       isRefreshLbEnabled(false)
       curLbRequestData.unsubscribe(refreshLbOnChange)
     }

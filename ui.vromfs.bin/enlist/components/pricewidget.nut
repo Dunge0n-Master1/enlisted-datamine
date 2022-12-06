@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { byId } = require("%enlist/currency/currencies.nut")
+let { currenciesById } = require("%enlist/currency/currencies.nut")
 
 let priceWidget = function(price, currencyId) {
-  let currency = byId.value?[currencyId]
+  let currency = currenciesById.value?[currencyId]
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER

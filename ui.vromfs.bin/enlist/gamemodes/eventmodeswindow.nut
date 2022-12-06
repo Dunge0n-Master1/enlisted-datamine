@@ -30,8 +30,9 @@ let { showCurNotReadySquadsMsg } = require("%enlist/soldiers/model/notReadySquad
 let { isInSquad, isSquadLeader, myExtSquadData, unsuitableCrossplayConditionMembers,
   getUnsuitableVersionConditionMembers
 } = require("%enlist/squad/squadManager.nut")
-let { showSquadMembersCrossPlayRestrictionMsgBox,
-  showSquadVersionRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
+let { showSquadMembersCrossPlayRestrictionMsgBox, showSquadVersionRestrictionMsgBox,
+  showNegativeBalanceRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
+let { hasValidBalance } = require("%enlist/currency/currencies.nut")
 let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { selectedGameMode } = require("%enlist/gameModes/changeGameModeBtn.nut")
@@ -412,6 +413,12 @@ let function joinEventQueue() {
     showSquadVersionRestrictionMsgBox(unsuitableByVersion.values())
     return
   }
+
+  if (!hasValidBalance.value) {
+    showNegativeBalanceRestrictionMsgBox()
+    return
+  }
+
   if (eventsArmiesList.value.len() > 0 && isEventModesOpened.value){
     let specialParams = clone selEvent.value
     specialParams.eventCurArmy <- eventCurArmyIdx.value
@@ -464,14 +471,21 @@ let toEventBattleButton = @() {
   ]
 }
 
+let actionIfValidBalance = function(action) {
+  if (hasValidBalance.value)
+    action()
+  else
+    showNegativeBalanceRestrictionMsgBox()
+}
+
 let createRoomBtn =  Bordered(utf8ToUpper(loc("createRoom")),
-  @() isEditEventRoomOpened(true), {
+  @() actionIfValidBalance(@() isEditEventRoomOpened(true)), {
     margin = 0,
     hotkeys = [ ["^J:X", { description = { skip = true } }] ]
   }
 )
 
-let activeCustomRoomButton = mkBattleButton(loc("Join"), joinSelEventRoom)
+let activeCustomRoomButton = mkBattleButton(loc("Join"), @() actionIfValidBalance(joinSelEventRoom))
 let inactiveCustomRoomButton = mkDisabledBattleButton(loc("noRoomSelected"), @() showMsgbox({ text = loc("noRoomSelected") }))
 let noSlotsToJoinRoom = mkDisabledBattleButton(loc("noSlotsInRoom"), @() null)
 
@@ -491,7 +505,7 @@ let function ClusterAndRandTeamButtons() {
   return {
     watch = [selEvent, randTeamAvailable]
     flow = FLOW_VERTICAL
-    halign = ALIGN_RIGHT
+    hplace = ALIGN_RIGHT
     vplace = ALIGN_BOTTOM
     gap = bigPadding
     children = [

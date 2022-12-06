@@ -174,9 +174,9 @@ local portraits = {
     icon = "ui/portraits/tunisia/allies_tunisia_2.png"
     bgimg = "ui/portraits/back_t1.png"
   }
-  tunisia_allies_t2_1 = {
+  tunisia_allies_t1_2 = {
     icon = "ui/portraits/tunisia/allies_tunisia_1.png"
-    bgimg = "ui/portraits/back_t2.png"
+    bgimg = "ui/portraits/back_t1.png"
   }
   tunisia_allies_t2_2 = {
     icon = "ui/portraits/tunisia/allies_tunisia_4.png"
@@ -198,10 +198,15 @@ local portraits = {
     icon = "ui/portraits/tunisia/allies_tunisia_7.png"
   }
 
+
+
+//EVENT AND PREORDER PORTRAITS
+  preorder_dec_2022 = {
+    icon = "ui/portraits/moscow/preorder_dec_2022.png"
+  }
   pacific_allies_preorder_2022 = {
     icon = "ui/portraits/pacific/pacific_allies_preorder_2022.png"
   }
-
   enlisted2years_portrait_ussr = {
     icon = "ui/portraits/event/enlisted2years_portrait_ussr.png"
   }
@@ -211,13 +216,14 @@ local portraits = {
   enlisted2years_portrait_usa = {
     icon = "ui/portraits/event/enlisted2years_portrait_usa.png"
   }
-
   armory_event_portrait_usa = {
     icon = "ui/portraits/normandy/armory_event_portrait_usa.png"
   }
   armory_event_portrait_ger = {
     icon = "ui/portraits/tunisia/armory_event_portrait_ger.png"
   }
+
+
 
   common_china_portrait_1 = {
     icon = "ui/portraits/common/china_portrait_1.png"
@@ -338,6 +344,8 @@ local nickFrames = {
   nickFrame_lines_8 = @(n) $"␗{n}␘"
   nickFrame_lines_9 = @(n) $"␙{n}␚"
   nickFrame_samurai = @(n) $"┄{n}┄"
+  nickFrame_mgun = @(n) $"┏{n}┏"
+  nickFrame_preorder_mgun = @(n) $"┏{n}┏"
 }
 
 local decoratorsPresentation = {

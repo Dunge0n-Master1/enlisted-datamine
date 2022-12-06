@@ -1,18 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let currenciesList = mkWatched(persist, "currenciesList", [])
 let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
 
-let balance = mkWatched(persist, "currencyBalance", {})
-let expiring = mkWatched(persist, "expiring", {})
-let purchases = mkWatched(persist, "purchases", {})
+let currenciesList = mkWatched(persist, "currenciesList", [])
+
+let { currenciesBalance, currenciesBalanceUpdate } = globalWatched("currenciesBalance", @() {})
+let { currenciesExpiring, currenciesExpiringUpdate } = globalWatched("currenciesExpiring", @() {})
+let { currenciesPurchases, currenciesPurchasesUpdate } = globalWatched("currenciesPurchases", @() {})
 
 userInfo.subscribe(function(v) {
   if (v)
     return
-  balance({})
-  purchases({})
+  currenciesBalanceUpdate({})
+  currenciesPurchasesUpdate({})
 })
 
 let function mkCurrency(config){
@@ -23,10 +25,10 @@ let function mkCurrency(config){
     locId = $"currency/code/{id}"
   }.__update(config)
 }
-let sorted = Computed(function(){
-  return currenciesList.value.map(mkCurrency)
-})
-let byId = Computed(function(){
+
+let currenciesSorted = Computed(@() currenciesList.value.map(mkCurrency))
+
+let currenciesById = Computed(function(){
   let res = {}
   foreach (config in currenciesList.value){
     let currency = mkCurrency(config)
@@ -43,22 +45,22 @@ let notifications = {
       log("Got currency notification without balance table")
       return
     }
-    let newBalance = clone balance.value
-    let newExpiring = clone expiring.value
+    let newBalance = clone currenciesBalance.value
+    let newExpiring = clone currenciesExpiring.value
     foreach (k, v in ev.balance) {
       newBalance[k] <- v?.value
       newExpiring[k] <- v?.expiring
     }
-    if (!isEqual(newBalance, balance.value))
-      balance(newBalance)
-    if (!isEqual(newExpiring, expiring.value))
-      expiring(newExpiring)
+    if (!isEqual(newBalance, currenciesBalance.value))
+      currenciesBalanceUpdate(newBalance)
+    if (!isEqual(newExpiring, currenciesExpiring.value))
+      currenciesExpiringUpdate(newExpiring)
   }
 
-  function update_purchasable_list(ev) {
+  update_purchasable_list = function(ev) {
     let newPurch = ev?.purchases ?? {}
-    if (!isEqual(newPurch, purchases.value))
-      purchases(newPurch)
+    if (!isEqual(newPurch, currenciesPurchases.value))
+      currenciesPurchasesUpdate(newPurch)
   }
 }
 
@@ -73,18 +75,23 @@ let function processNotification(ev) {
 matchingNotifications.subscribe("currency", processNotification)
 
 
-console_register_command(@() console_print(balance.value), "currencies.balance")
-console_register_command(@(key, val) balance.mutate(@(data) data[key] <- val), "currencies.set")
+console_register_command(@() console_print(currenciesBalance.value), "currencies.balance")
+console_register_command(function(key, val) {
+  let balance = clone currenciesBalance.value
+  balance[key] <- val
+  currenciesBalanceUpdate(balance)
+}, "currencies.set")
 
-let showRealCurrencyPrices = mkWatched(persist, "showRealCurrencyPrices", true)
+let hasValidBalance = Computed(@() currenciesBalance.value.findindex(@(val) val < 0) == null)
 
 return {
-  byId = byId
-  sorted = sorted
-  balance = balance
-  expiring = expiring
-  purchases = purchases
-  currenciesList = currenciesList
-  processNotification = processNotification
-  showRealCurrencyPrices = showRealCurrencyPrices
+  currenciesById
+  currenciesSorted
+
+  currenciesBalance
+  currenciesExpiring
+  currenciesPurchases
+  hasValidBalance
+
+  currenciesList
 }

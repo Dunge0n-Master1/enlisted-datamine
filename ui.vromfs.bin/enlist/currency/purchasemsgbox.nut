@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let checkbox = require("%ui/components/checkbox.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { byId, balance } = require("%enlist/currency/currencies.nut")
+let { currenciesById, currenciesBalance } = require("%enlist/currency/currencies.nut")
 let { dontShowToday, setDontShowTodayByKey } = require("%enlist/options/dontShowAgain.nut")
 let colorize = require("%ui/components/colorize.nut")
 let colors = require("%ui/style/colors.nut")
@@ -42,7 +42,7 @@ let currencyImage = @(currency) currency
   : null
 
 let function mkItemCostInfo(price, fullPrice, currencyId) {
-  let currency = byId.value?[currencyId]
+  let currency = currenciesById.value?[currencyId]
   return {
     flow = FLOW_HORIZONTAL
     gap = smallPadding
@@ -84,10 +84,10 @@ let notEnoughMoneyInfo = @(price, currencyId) {
       rendObj = ROBJ_TEXT
       color = colors.HighlightFailure
       text = loc("shop/notEnoughCurrency", {
-        priceDiff = price - (balance.value?[currencyId] ?? 0)
+        priceDiff = price - (currenciesBalance.value?[currencyId] ?? 0)
       })
     }.__update(body_txt)
-    currencyImage(byId.value?[currencyId])
+    currencyImage(currenciesById.value?[currencyId])
   ]
 }
 
@@ -97,7 +97,7 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
   gap = defGap, additionalButtons = []
 ) {
   let bqBuyCurrency = @() sendBigQueryUIEvent("action_buy_currency", srcWindow, srcComponent)
-  let currency = byId.value?[currencyId]
+  let currency = currenciesById.value?[currencyId]
   purchaseCurrency = purchaseCurrency ?? openShopByCurrencyId?[currencyId]
 
   if (!(price instanceof Watched))
@@ -107,7 +107,7 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
 
   let notEnoughMoney = currency == null
     ? Watched(false)
-    : Computed(@() (balance.value?[currencyId] ?? 0) < price.value)
+    : Computed(@() (currenciesBalance.value?[currencyId] ?? 0) < price.value)
 
   if (showOnlyWhenNotEnoughMoney && !notEnoughMoney.value) {
     purchase()
@@ -189,8 +189,8 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
         }
       ]
     }
-    topPanel = currencyId in byId.value
-      ? priceWidget(balance.value?[currencyId] ?? loc("currency/notAvailable"), currencyId)
+    topPanel = currencyId in currenciesById.value
+      ? priceWidget(currenciesBalance.value?[currencyId] ?? loc("currency/notAvailable"), currencyId)
           .__update({
             size = [SIZE_TO_CONTENT, flex()]
             gap = hdpx(10)

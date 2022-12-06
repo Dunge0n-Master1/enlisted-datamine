@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
+let { abs } = require("math")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let {
-  giant_txt, h0_txt, h1_txt, h2_txt, body_txt, sub_txt
+let { giant_txt, h0_txt, h1_txt, h2_txt, body_txt, sub_txt
 } = require("%enlSqGlob/ui/fonts_style.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
@@ -17,8 +17,7 @@ let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
-let {
-  bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
+let { bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
   selectedTxtColor, activeTxtColor, smallPadding, bgPremiumColor,
   basePremiumColor, discountBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -38,9 +37,14 @@ let ANIM_TIME = 0.3
 let BLINK_DELAY = 0.2
 let BONUSES_TEXT_DELAY = 2.0
 
-let defaultPremiumDays = 30
-let curSelectedDays = Watched(defaultPremiumDays)
+const DEFAULT_PREMIUM_DAYS = 30
+let curSelectedId = Watched(null)
 let showAnimation = Watched(true)
+
+let defaultSelectedItem = keepref(Computed(@() premiumProducts.value.reduce(@(res, item)
+    abs(res.premiumDays - DEFAULT_PREMIUM_DAYS) <= abs(item.premiumDays - DEFAULT_PREMIUM_DAYS)
+      ? res : item)?.id))
+defaultSelectedItem.subscribe(@(defItem) defItem ? curSelectedId(defItem) : null)
 
 let mkImage = @(path, customStyle = {}) {
   rendObj = ROBJ_IMAGE
@@ -224,8 +228,8 @@ let backgroundImageBlock = {
 }
 
 let mkPremItem = kwarg(
-  function(shopItem, idx, premSize, maxDayPrice, offer, currencies, curSelectedDaysWatch) {
-    let { premiumDays = 0, discountInPercent = 0, curShopItemPrice = {} } = shopItem
+  function(shopItem, idx, premSize, maxDayPrice, offer, currencies, curSelectedIdWatch) {
+    let { id, premiumDays = 0, discountInPercent = 0, curShopItemPrice = {} } = shopItem
     local { currencyId = "", price = 0, fullPrice = 0 } = curShopItemPrice
 
     if (premiumDays == 0 || price == 0 || currencyId == "")
@@ -235,7 +239,7 @@ let mkPremItem = kwarg(
     if (currency == null)
       return null
 
-    let isSelected = curSelectedDaysWatch.value == premiumDays
+    let isSelected = curSelectedIdWatch.value == id
     let saveVal = premiumDays <= 0 || maxDayPrice <= 0 ? 0
       : 100 - 100 * (price / premiumDays) / maxDayPrice
     let cellSize = [premSize, premSize]
@@ -244,7 +248,7 @@ let mkPremItem = kwarg(
       behavior = Behaviors.Button
       onClick = @() isSelected
         ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal), offer)
-        : curSelectedDaysWatch(premiumDays)
+        : curSelectedIdWatch(id)
       children = [
         isSelected ? backgroundImageBlock : null
         {
@@ -304,7 +308,7 @@ let offersByPremItem = Computed(function() {
 
 let function premiumBuyBlockUi() {
   let res = {
-    watch = [premiumProducts, currenciesList, curSelectedDays, offersByPremItem]
+    watch = [premiumProducts, currenciesList, curSelectedId, offersByPremItem]
   }
   let premiumShopItems = premiumProducts.value
   if (premiumShopItems.len() == 0)
@@ -326,7 +330,7 @@ let function premiumBuyBlockUi() {
       return mkPremItem({
         shopItem, idx, premSize, maxDayPrice, offer,
         currencies = currenciesList.value,
-        curSelectedDaysWatch = curSelectedDays
+        curSelectedIdWatch = curSelectedId
       })
     })
   })
@@ -409,7 +413,7 @@ let premiumInfoBlock = {
 }
 
 let function open() {
-  curSelectedDays(defaultPremiumDays)
+  curSelectedId(defaultSelectedItem.value)
   showAnimation(true)
   addModalWindow({
     key = WND_UID

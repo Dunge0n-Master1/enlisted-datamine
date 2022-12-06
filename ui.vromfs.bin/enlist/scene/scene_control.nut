@@ -5,7 +5,8 @@ let { DBGLEVEL } = require("dagor.system")
 let { Point2, Point3, TMatrix } = require("dagor.math")
 let {
   vehTplInVehiclesScene, vehDataInVehiclesScene,
-  itemInArmory, soldierInSoldiers, currentNewItem, scene
+  itemInArmory, soldierInSoldiers, currentNewItem, scene,
+  isVehicleSceneVisible
 } = require("%enlist/showState.nut")
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { curSquadSoldiersReady } = require("%enlist/soldiers/model/readySoldiers.nut")
@@ -240,7 +241,6 @@ let function makeShowScene(sceneDesc, name){
         if (newSoldierEid != INVALID_ENTITY_ID)
           comp[compName] = newSoldierEid
       }
-
       cameraTarget(comp[compName])
       if (shouldResetCameraDirection.value)
         resetCameraDirection()
@@ -494,11 +494,15 @@ let replaceSoldiers = mkReplaceObjectsFunc(squadPlacesQuery,
 let replaceVehicles = mkReplaceObjectsFunc(
   vehiclesPlacesQuery,
   menuBackgroundVehiclesQuery,
-  @(object, place) createVehicle({
-    template = object
-    transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
-    customazation = vehDataInVehiclesScene.value
-  }),
+  function(object, place) {
+    let entityId = createVehicle({
+      template = object
+      transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
+      customazation = vehDataInVehiclesScene.value
+    })
+    setDecalTargetInScene(composedScene.value, entityId)
+    return entityId
+  },
   createdVehicles
 )
 
@@ -524,7 +528,7 @@ let itemsToPlaceReplace = @(...)
 foreach(v in [currentSquadToPlace, cameraOffset])
   v.subscribe(currentSquadToPlaceReplace)
 
-foreach(v in [vehicleToPlace, cameraOffset])
+foreach(v in [vehicleToPlace, cameraOffset, isVehicleSceneVisible])
   v.subscribe(vehicleToPlaceReplace)
 
 viewTemplates.subscribe(itemsToPlaceReplace)

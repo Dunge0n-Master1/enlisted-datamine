@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let currenciesPurchases = require("%enlist/currency/currencies.nut").purchases //!!FIX ME: Why it included here?
+let { currenciesPurchases } = require("%enlist/currency/currencies.nut") //!!FIX ME: Why it included here?
 let { sound_play } = require("sound")
 let msgbox = require("%enlist/components/msgbox.nut")
 let {deep_clone} = require("%sqstd/underscore.nut")
