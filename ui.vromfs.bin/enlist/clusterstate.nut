@@ -1,12 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { getClusterByCode } = require("geo.nut")
-let platform = require("platform")
+let { get_country_code } = require("auth")
 let dagor_sys = require("dagor.system")
 let matching_api = require("matching.api")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let connectHolder = require("%enlist/connectHolderR.nut")
 let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 const CLUSTERS_KEY = "selectedClusters"
 const AUTO_CLUSTER_KEY = "autoCluster"
@@ -19,8 +20,10 @@ let eventbus = require("eventbus")
 let clustersViewMap = { RU = "EEU" }
 let clusterLoc = @(cluster) loc(clustersViewMap?[cluster] ?? cluster)
 
+let ownCluster = nestWatched("ownCluster", null)
+
 //set clusters from Matching
-let matchingClusters = mkWatched(persist, "matchingClusters", [])
+let matchingClusters = nestWatched("matchingClusters", [])
 let function fetchClustersFromMatching() {
   let self = callee()
   if (!connectHolder.is_logged_in()) {
@@ -34,7 +37,7 @@ let function fetchClustersFromMatching() {
       }
       else {
         log("clusters from matching server", response)
-        matchingClusters.update(response.clusters)
+        matchingClusters(response.clusters)
       }
     }
   )
@@ -56,50 +59,46 @@ matchingClusters.subscribe(@(v) console_print("matchingClusters:", v) )
 let availableClusters = Computed(function() {
   local available = matchingClusters.value.filter(@(v) v!="debug")
   if (available.len()==0)
-    available = (clone availableClustersDef)
+    available = clone availableClustersDef
   return available.extend(debugClusters)
 })
 
-let function getOwnCluster() {
-  let country_code = platform.get_locale_country().toupper()
+let function setOwnCluster() {
+  let country_code = get_country_code().toupper()
   log("Country code:", country_code)
   let localData = getClusterByCode({ code = country_code })
   let cluster = localData.cluster
   log("own cluster:", cluster, "localData:", localData)
-  return cluster
+  ownCluster(cluster)
 }
-
-let ownCluster = getOwnCluster()
 
 let function validateClusters(clusters, available) {
   notify("validate clusters. clusters:", clusters, "available:", available)
   clusters = clusters.filter(@(has, cluster) has && available.indexof(cluster)!=null)
-  if (clusters.len() == 0 && available.indexof(ownCluster) != null)
-      clusters[ownCluster] <- true
+  if (clusters.len() == 0 && available.indexof(ownCluster.value) != null)
+    clusters[ownCluster.value] <- true
   if (clusters.len() == 0 && available.len() > 0)
     clusters[available[0]] <- true
   notify("result valid clusters:", clusters)
   return clusters
 }
 
-let clusters = mkWatched(persist, "clusters", validateClusters({}, availableClusters.value))
-let isAutoCluster = mkWatched(persist, "autocluster", true)
+let clusters = nestWatched("clusters", validateClusters({}, availableClusters.value))
+let isAutoCluster = nestWatched("autocluster", false)
 
 onlineSettingUpdated.subscribe(function(v) {
   if (!v)
     return
+  setOwnCluster()
   console_print("online selectedClusters:", settings.value?[CLUSTERS_KEY])
   clusters(validateClusters(settings.value?[CLUSTERS_KEY] ?? {}, availableClusters.value))
-  isAutoCluster(settings.value?[AUTO_CLUSTER_KEY] ?? (clusters.value.len() <= 1))
 })
 
 availableClusters.subscribe(function(available) {
   clusters(validateClusters(clusters.value, available))
 })
 
-let selectedClusters = Computed(@() isAutoCluster.value
-  ? { [ownCluster] = true }
-  : clone clusters.value)
+let selectedClusters = Computed(@() clone clusters.value)
 
 let oneOfSelectedClusters = Computed(function() {
   foreach (c, has in selectedClusters.value)
@@ -117,17 +116,17 @@ clusters.subscribe(function(clustersVal) {
 })
 
 isAutoCluster.subscribe(function(isAuto) {
-  if (!onlineSettingUpdated.value
-      || isAuto == settings.value?[AUTO_CLUSTER_KEY])
+  if (!onlineSettingUpdated.value || isAuto == settings.value?[AUTO_CLUSTER_KEY])
     return
   settings.mutate(@(s) s[AUTO_CLUSTER_KEY] <- isAuto)
 })
 
 return {
+  ownCluster
   availableClusters
   clusters
-  selectedClusters = Computed(@() clone clusters.value) // Remove to enable autocluster feature
-  isAutoCluster = Computed(@() false) // Remove to enable autocluster feature
+  selectedClusters
+  isAutoCluster
   oneOfSelectedClusters
   clusterLoc
 }

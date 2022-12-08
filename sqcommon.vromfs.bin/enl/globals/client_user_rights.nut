@@ -94,8 +94,11 @@ let getPenaltyExpiredTime = @(category, penalty, details) Computed(function() {
 
 console_register_command(@() updateUserRights(console_print), "user_rights.update")
 console_register_command(@(category, penalty, details)
-    console_print(getPenaltyExpiredTime(category, penalty, details)), "user_rights.get_penalty_expired_time")
+  console_print(getPenaltyExpiredTime(category, penalty, details)),
+  "user_rights.getPenaltyExpiredTime")
 console_register_command(@(permission)
-    console_print(hasClientPermission(permission)), "user_rights.has_client_permission")
+  console_print(hasClientPermission(permission)), "user_rights.hasClientPermission")
+console_register_command(@()
+  console_print(userInfo.value?.permissions.value), "user_rights.allPermissions")
 
 return {updateUserRights, hasClientPermission, getPenaltyExpiredTime}

@@ -33,7 +33,7 @@ let currentNewSoldierGuid = Computed(@() curSelectedItem.value?.itemtype == "sol
 let soldierInSoldiers = Computed(@() curCamera.value == "new_items" ? currentNewSoldierGuid.value : curSoldierGuid.value)
 
 let vehicleInVehiclesScene = Computed(@()
-  (curSelectedItem.value?.itemsubtype == "vehicle" ? curSelectedItem.value : null)
+  (curSelectedItem.value?.itemtype == "vehicle" ? curSelectedItem.value : null)
   ?? viewVehicle.value
   ?? objInfoByGuid.value?[curVehicle.value])
 

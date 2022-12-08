@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-//let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut") // Kept for autocluster feature ui
 let { ControlBgOpaque, BtnBgDisabled, BtnBdDisabled, BtnTextVisualDisabled, comboboxBorderColor
 } = require("%ui/style/colors.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
-let { availableClusters, clusters, clusterLoc, isAutoCluster } = require("clusterState.nut")
+let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCluster, selectedClusters
+} = require("clusterState.nut")
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
 let squadClusters = squadSharedData.clusters
 let squadAutoCluster = squadSharedData.isAutoCluster
@@ -12,7 +12,8 @@ let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
 let textButton = require("%ui/components/textButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { multiselect, styleCommon, styleDisabled } = require("%enlist/components/multiselect.nut")
-//let checkbox = require("%ui/components/checkbox.nut") // Kept for autocluster feature ui
+let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let serverDataPermission = hasClientPermission("debug_server_data")
 
 
 const CLUSTER_PANEL_UID = "clustersSelector"
@@ -38,7 +39,7 @@ let visualDisabledBtnParams = btnParams.__merge({
 })
 
 let clusterSelector = @() {
-  watch = [availableClusters, isAutoCluster, clusters]
+  watch = [availableClusters, isAutoCluster, clusters, selectedClusters, serverDataPermission]
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = {
@@ -47,8 +48,6 @@ let clusterSelector = @() {
     color = comboboxBorderColor
   }
   children = [
-    // Uncomment to enable autocluster feature
-    //checkbox(isAutoCluster, { text = loc("quickMatch/Server/Optimal") }.__update(body_txt))
     multiselect({
       selected = isAutoCluster.value ? Watched({}) : clusters
       minOptions = 1
@@ -96,9 +95,9 @@ let function openClustersMenu(event) {
 
 isInQueue.subscribe(@(_) modalPopupWnd.remove(CLUSTER_PANEL_UID))
 
-let function mkClustersText(availClusters, curClusters, isAuto) {
+let function mkClustersText(availClusters, curClusters, isAuto, code) {
   let clustersArr = availClusters.filter(@(id) curClusters?[id])
-  let chosenText = isAuto ? loc("quickMatch/Server/Optimal")
+  let chosenText = isAuto ? loc("quickMatch/Server/Optimal", { code })
     : availClusters.len() == clustersArr.len() ? loc("quickMatch/Server/Any")
     : ", ".join(clustersArr.map(clusterLoc))
   return "{0}: {1}".subst(loc("quickMatch/Server"), chosenText)
@@ -106,18 +105,21 @@ let function mkClustersText(availClusters, curClusters, isAuto) {
 
 let function clustersUi() {
   if (isLocalClusters.value) {
-    let text = mkClustersText(availableClusters.value, clusters.value, isAutoCluster.value)
+    let text = mkClustersText(availableClusters.value, clusters.value,
+      isAutoCluster.value, ownCluster.value)
     return {
-      watch = [isLocalClusters, canChangeQueueParams, availableClusters, clusters, isAutoCluster]
+      watch = [isLocalClusters, canChangeQueueParams, availableClusters,
+        clusters, isAutoCluster, ownCluster]
       size = [flex(), SIZE_TO_CONTENT]
       children = textButton(text, openClustersMenu,
         canChangeQueueParams.value ? btnParams : visualDisabledBtnParams)
     }
   }
 
-  let text = mkClustersText(availableClusters.value, squadClusters.value, squadAutoCluster.value)
+  let text = mkClustersText(availableClusters.value, squadClusters.value,
+    squadAutoCluster.value, ownCluster.value)
   return {
-    watch = [isLocalClusters, availableClusters, squadClusters, squadAutoCluster]
+    watch = [isLocalClusters, availableClusters, squadClusters, squadAutoCluster, ownCluster]
     size = [flex(), SIZE_TO_CONTENT]
     children = textButton(text, showCantChangeMessage, visualDisabledBtnParams)
   }
